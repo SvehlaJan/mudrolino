@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Spline+Sans:wght@400;500;600;700;900&display=swap');
+
+@theme {
+  --font-fredoka: "Fredoka", sans-serif;
+  --font-spline: "Spline Sans", sans-serif;
+  
+  --color-primary: #f53d4c;
+  --color-bg-light: #F4F1EA;
+  --color-bg-dark: #221011;
+  --color-surface: #FFFFFF;
+  --color-text-main: #5D453E;
+  --color-shadow: #D5CABD;
+  --color-success: #B5EAD7;
+  --color-accent-blue: #C7CEEA;
+  --color-soft-watermelon: #FF9AA2;
+}
+
+body {
+  background-color: var(--color-bg-light);
+  font-family: var(--font-fredoka);
+  color: var(--color-text-main);
+  user-select: none;
+  overflow-x: hidden;
+}
+
+.shadow-block {
+  box-shadow: 0px 8px 0px var(--color-shadow), 0px 16px 24px rgba(93, 69, 62, 0.08);
+}
+
+.shadow-block-pressed {
+  box-shadow: inset 0px 6px 12px var(--color-shadow);
+}
+
+.shadow-block-correct {
+  box-shadow: 0px 8px 0px #92CBB5, 0px 16px 24px rgba(93, 69, 62, 0.15);
+}
+
