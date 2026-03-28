@@ -25,10 +25,9 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
     if (type === 'letter' && letter) {
       audioManager.playLetter(letter);
     } else if (type === 'success') {
-      audioManager.playSfx('success');
       audioManager.playPraise();
     } else if (type === 'wrong' && letter) {
-      audioManager.playSfx('error');
+      audioManager.playWord(`Toto je písmenko ${letter}. Skús to znova.`);
       audioManager.playFeedback(letter);
     }
   }, []);
@@ -52,7 +51,11 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
 
   useEffect(() => {
     if (gameState === 'PLAYING' && targetLetter) {
-      playAudio('letter', targetLetter);
+      // Small delay to ensure browser speech engine is ready after user interaction
+      const timer = setTimeout(() => {
+        playAudio('letter', targetLetter);
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [gameState, targetLetter, playAudio]);
 

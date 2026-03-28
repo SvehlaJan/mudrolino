@@ -9,7 +9,8 @@ import {
   Settings, 
   Play, 
   Gamepad2,
-  Type
+  Type,
+  Apple
 } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { Screen, GameSettings, GameId, GameMetadata } from './shared/types';
@@ -17,6 +18,8 @@ import { COLORS, BG_COLORS } from './shared/constants';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { AlphabetGame } from './games/alphabet/AlphabetGame';
+import { NumbersGame } from './games/numbers/NumbersGame';
+import { CountingItemsGame } from './games/counting/CountingItemsGame';
 
 const GAMES: GameMetadata[] = [
   {
@@ -39,6 +42,13 @@ const GAMES: GameMetadata[] = [
     description: 'Počítaj s kamarátmi',
     icon: 'Play',
     color: 'bg-accent-blue'
+  },
+  {
+    id: 'COUNTING_ITEMS',
+    title: 'Spočítaj',
+    description: 'Koľko jabĺčok vidíš?',
+    icon: 'Apple',
+    color: 'bg-soft-watermelon'
   }
 ];
 
@@ -46,15 +56,40 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>('HOME');
   const [activeGame, setActiveGame] = useState<GameId | null>(null);
   const [settings, setSettings] = useState<GameSettings>({
-    voice: true,
-    sfx: true,
     music: false,
+    numbersRange: {
+      start: 1,
+      end: 10,
+    },
+    countingRange: {
+      start: 1,
+      end: 5,
+    },
   });
 
   // Sync settings with AudioManager
   useEffect(() => {
     audioManager.updateSettings(settings);
   }, [settings]);
+
+  // Audio unlocker for browsers that require a user gesture
+  useEffect(() => {
+    const unlockAudio = () => {
+      const utterance = new SpeechSynthesisUtterance('');
+      window.speechSynthesis.speak(utterance);
+      console.log('[App] Audio unlocked via user gesture');
+      window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+    };
+
+    window.addEventListener('click', unlockAudio);
+    window.addEventListener('touchstart', unlockAudio);
+
+    return () => {
+      window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+    };
+  }, []);
 
   const handleGameSelect = useCallback((gameId: GameId) => {
     setActiveGame(gameId);
@@ -116,6 +151,7 @@ export default function App() {
                   {game.id === 'ALPHABET' && <Type size={48} className="sm:w-16 sm:h-16" />}
                   {game.id === 'SYLLABLES' && <Gamepad2 size={48} className="sm:w-16 sm:h-16" />}
                   {game.id === 'NUMBERS' && <Play size={48} className="sm:w-16 sm:h-16 ml-2" fill="currentColor" />}
+                  {game.id === 'COUNTING_ITEMS' && <Apple size={48} className="sm:w-16 sm:h-16" />}
                 </div>
                 
                 <div className="text-left">
@@ -167,7 +203,39 @@ export default function App() {
           </motion.div>
         )}
 
-        {screen === 'GAME' && activeGame !== 'ALPHABET' && (
+        {screen === 'GAME' && activeGame === 'NUMBERS' && (
+          <motion.div 
+            key="numbers" 
+            initial={{ opacity: 0, x: 100 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            exit={{ opacity: 0, x: -100 }}
+            className="w-full min-h-screen"
+          >
+            <NumbersGame 
+              onExit={handleExitGame} 
+              onOpenSettings={handleOpenSettings}
+              range={settings.numbersRange}
+            />
+          </motion.div>
+        )}
+
+        {screen === 'GAME' && activeGame === 'COUNTING_ITEMS' && (
+          <motion.div 
+            key="counting" 
+            initial={{ opacity: 0, x: 100 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            exit={{ opacity: 0, x: -100 }}
+            className="w-full min-h-screen"
+          >
+            <CountingItemsGame 
+              onExit={handleExitGame} 
+              onOpenSettings={handleOpenSettings}
+              range={settings.countingRange}
+            />
+          </motion.div>
+        )}
+
+        {screen === 'GAME' && activeGame !== 'ALPHABET' && activeGame !== 'NUMBERS' && activeGame !== 'COUNTING_ITEMS' && (
           <motion.div 
             key="coming-soon" 
             initial={{ opacity: 0, scale: 0.9 }} 

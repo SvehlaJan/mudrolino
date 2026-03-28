@@ -1,27 +1,19 @@
 /**
  * AudioManager handles all auditory feedback in the application.
- * Uses Web Speech API (window.speechSynthesis) for low-latency fallback
- * until real audio assets are provided.
+ * Uses Web Speech API (window.speechSynthesis) for voice feedback.
  */
 export class AudioManager {
-  private voiceEnabled: boolean = true;
-  private sfxEnabled: boolean = true;
-  private audioContext: AudioContext | null = null;
   private synth: SpeechSynthesis = window.speechSynthesis;
+  private currentUtterance: SpeechSynthesisUtterance | null = null;
 
-  constructor() {}
-
-  /**
-   * Initializes or resumes the AudioContext for SFX.
-   */
-  private async getAudioContext() {
-    if (!this.audioContext) {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
+  constructor() {
+    // Some browsers load voices asynchronously
+    if (this.synth.onvoiceschanged !== undefined) {
+      this.synth.onvoiceschanged = () => {
+        const voices = this.synth.getVoices();
+        console.log(`[AudioManager] Voices loaded: ${voices.length}`);
+      };
     }
-    if (this.audioContext.state === 'suspended') {
-      await this.audioContext.resume();
-    }
-    return this.audioContext;
   }
 
   /**
@@ -34,94 +26,110 @@ export class AudioManager {
   /**
    * Updates the manager's settings.
    */
-  updateSettings(settings: { voice: boolean; sfx: boolean }) {
-    this.voiceEnabled = settings.voice;
-    this.sfxEnabled = settings.sfx;
+  updateSettings(_settings: any) {
+    // Voice is now always enabled by default
   }
 
   /**
    * Uses Web Speech API to generate and play speech.
    */
   private speak(text: string) {
-    if (!this.voiceEnabled) return;
+    console.log(`[AudioManager] Attempting to speak: "${text}"`);
+    
+    if (!this.synth) {
+      console.error('[AudioManager] SpeechSynthesis not supported in this browser.');
+      return;
+    }
 
-    this.stopCurrent();
+    // Cancel any ongoing speech
+    this.synth.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'sk-SK'; // Slovak
-    utterance.rate = 1.0;
-    utterance.pitch = 1.1; // Slightly higher pitch for kids' app feel
+    // Small delay to allow the browser to process the cancellation
+    setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      this.currentUtterance = utterance;
+      
+      // Get voices - they might not be ready immediately
+      const voices = this.synth.getVoices();
+      const skVoice = voices.find(v => v.lang === 'sk-SK' || v.lang.startsWith('sk'));
+      
+      if (skVoice) {
+        console.log(`[AudioManager] Using Slovak voice: ${skVoice.name}`);
+        utterance.voice = skVoice;
+      } else {
+        console.warn('[AudioManager] Slovak voice not found. Using default.');
+      }
 
-    this.synth.speak(utterance);
+      utterance.lang = 'sk-SK';
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+
+      utterance.onstart = () => console.log(`[AudioManager] Speech started: "${text}"`);
+      utterance.onend = () => console.log(`[AudioManager] Speech ended: "${text}"`);
+      utterance.onerror = (event) => {
+        // 'interrupted' or 'canceled' are often expected when we call cancel()
+        if (event.error === 'interrupted' || event.error === 'canceled') {
+          console.log(`[AudioManager] Speech ${event.error}: "${text}"`);
+        } else {
+          console.error(`[AudioManager] Speech error (${event.error}): "${text}"`, event);
+        }
+      };
+
+      try {
+        // Some browsers (Chrome) need a resume() if it gets stuck
+        if (this.synth.paused) {
+          this.synth.resume();
+        }
+        this.synth.speak(utterance);
+        console.log(`[AudioManager] synth.speak() executed for: "${text}"`);
+      } catch (err) {
+        console.error('[AudioManager] Error in synth.speak():', err);
+      }
+    }, 50);
+  }
+
+  /**
+   * Plays a specific number.
+   */
+  playNumber(number: number) {
+    this.speak(`Číslo ${number}`);
   }
 
   /**
    * Plays a specific letter.
    */
-  async playLetter(letter: string) {
+  playLetter(letter: string) {
     this.speak(`Písmenko ${letter}`);
   }
 
   /**
    * Plays a specific syllable.
    */
-  async playSyllable(syllable: string) {
+  playSyllable(syllable: string) {
     this.speak(`Slabika ${syllable}`);
   }
 
   /**
    * Plays a specific word.
    */
-  async playWord(word: string) {
+  playWord(word: string) {
     this.speak(word);
   }
 
   /**
    * Plays a random praising phrase.
    */
-  async playPraise() {
+  playPraise() {
     const phrases = ["Výborne!", "Skvelá práca!", "Si šikovný!", "To je ono!", "Úžasné!", "Paráda!"];
     const phrase = phrases[Math.floor(Math.random() * phrases.length)];
     this.speak(phrase);
   }
 
   /**
-   * Plays feedback when a wrong item is selected.
+   * Plays synthesized sound effects (no-op as requested).
    */
-  async playFeedback(selected: string) {
-    this.speak(`Vybral si písmenko ${selected}. Skús to znova.`);
-  }
-
-  /**
-   * Plays synthesized sound effects.
-   */
-  async playSfx(type: 'success' | 'error') {
-    if (!this.sfxEnabled) return;
-    
-    const ctx = await this.getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    if (type === 'success') {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-      osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.1); // C6
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.3);
-    } else {
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
-      osc.frequency.exponentialRampToValueAtTime(110, ctx.currentTime + 0.2); // A2
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.3);
-    }
+  playSfx(_type: 'success' | 'error') {
+    // SFX effects removed as per user request
   }
 }
 
