@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
@@ -32,11 +32,17 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
     [range]
   );
 
+  const targetItemRef = useRef<ContentItem | null>(null);
+  useEffect(() => {
+    targetItemRef.current = targetItem;
+  }, [targetItem]);
+
   const startNewRound = useCallback(() => {
     if (availableItems.length === 0) return;
     let target = availableItems[Math.floor(Math.random() * availableItems.length)];
-    if (targetItem && availableItems.length > 1) {
-      while (target.symbol === targetItem.symbol) {
+    const current = targetItemRef.current;
+    if (current && availableItems.length > 1) {
+      while (target.symbol === current.symbol) {
         target = availableItems[Math.floor(Math.random() * availableItems.length)];
       }
     }
@@ -48,7 +54,7 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
     setGridItems(grid);
     setFeedback({});
     setShowSuccess(false);
-  }, [targetItem, availableItems]);
+  }, [availableItems]);
 
   useEffect(() => {
     if (gameState === 'PLAYING' && targetItem) {
