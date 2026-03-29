@@ -13,6 +13,7 @@ import {
   Apple
 } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
+import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { Screen, GameSettings, GameId, GameMetadata } from './shared/types';
 import { COLORS, BG_COLORS } from './shared/contentRegistry';
 import { ParentsGate } from './shared/components/ParentsGate';
@@ -56,21 +57,12 @@ const GAMES: GameMetadata[] = [
 export default function App() {
   const [screen, setScreen] = useState<Screen>('HOME');
   const [activeGame, setActiveGame] = useState<GameId | null>(null);
-  const [settings, setSettings] = useState<GameSettings>({
-    music: false,
-    numbersRange: {
-      start: 1,
-      end: 10,
-    },
-    countingRange: {
-      start: 1,
-      end: 5,
-    },
-  });
+  const [settings, setSettings] = useState<GameSettings>(loadSettings);
 
   // Sync settings with AudioManager
   useEffect(() => {
     audioManager.updateSettings(settings);
+    saveSettings(settings);
   }, [settings]);
 
   // Audio unlocker for browsers that require a user gesture
