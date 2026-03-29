@@ -49,7 +49,7 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
               key={i}
               initial={{ y: -500, x: Math.random() * window.innerWidth - window.innerWidth / 2, rotate: 0 }}
               animate={{ y: window.innerHeight + 500, rotate: 360 }}
-              transition={{ duration: 3 + Math.random() * 3, repeat: Infinity, ease: 'linear', delay: Math.random() * 2 }}
+              transition={{ duration: 3 + Math.random() * 3, ease: 'linear', delay: Math.random() * 2 }}
               className={`absolute ${i % 3 === 0 ? 'w-16 h-16 rounded-full' : i % 3 === 1 ? 'w-24 h-12 rounded-full' : 'w-12 h-24 rounded-full'} ${COLORS[i % COLORS.length].replace('text-', 'bg-')} opacity-60 blur-[2px]`}
             />
           ))}
