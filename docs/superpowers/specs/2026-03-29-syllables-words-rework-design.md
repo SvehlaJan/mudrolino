@@ -66,12 +66,12 @@ Display symbol is lowercase. AudioKey is lowercase word. Syllabification uses `-
 ### Food (8)
 | symbol  | emoji | audioKey | syllables   |
 |---------|-------|----------|-------------|
-| jablko  | 🍎    | jablko   | JAB-LKO     |
+| melón   | 🍈    | melon    | ME-LÓN      |
 | banán   | 🍌    | banan    | BA-NÁN      |
 | jahoda  | 🍓    | jahoda   | JA-HO-DA   |
 | malina  | 🫐    | malina   | MA-LI-NA   |
-| chlieb  | 🍞    | chlieb   | CHLIEB      |
-| mlieko  | 🥛    | mlieko   | MLIE-KO    |
+| koláč   | 🎂    | kolac    | KO-LÁČ     |
+| kakao   | ☕    | kakao    | KA-KA-O    |
 | vajce   | 🥚    | vajce    | VAJ-CE      |
 | med     | 🍯    | med      | MED         |
 
@@ -82,8 +82,8 @@ Display symbol is lowercase. AudioKey is lowercase word. Syllabification uses `-
 | hora    | ⛰️   | hora     | HO-RA     |
 | more    | 🌊    | more     | MO-RE     |
 | kvety   | 🌸    | kvety    | KVE-TY   |
-| strom   | 🌳    | strom    | STROM     |
-| mesiac  | 🌙    | mesiac   | ME-SIAC   |
+| dúha    | 🌈    | duha     | DÚ-HA    |
+| les     | 🌲    | les      | LES       |
 | noc     | 🌑    | noc      | NOC       |
 | deň     | ☀️   | den      | DEŇ       |
 
@@ -144,15 +144,13 @@ Deduped from all 50 words. AudioKey = lowercase symbol. No emoji (syllables are 
 | CHO    | cho      | ucho                              |
 | NOS    | nos      | nos                               |
 | ÚS     | ús       | ústa                              |
-| JAB    | jab      | jablko                            |
-| LKO    | lko      | jablko (syllabic L — included for completeness; unpronounceable for preschoolers, so record it as a TTS-only entry and consider filtering from game grids in a future ACTIVE_SYLLABLE_ITEMS pass) |
+| LÓN    | lón      | melón                             |
 | NÁN    | nán      | banán                             |
 | JA     | ja       | jahoda                            |
 | HO     | ho       | jahoda, hora                      |
 | DA     | da       | voda                              |
 | LI     | li       | malina                            |
-| CHLIEB | chlieb   | chlieb                            |
-| MLIE   | mlie     | mlieko                            |
+| LÁČ    | láč      | koláč                             |
 | VAJ    | vaj      | vajce                             |
 | CE     | ce       | vajce                             |
 | MED    | med      | med                               |
@@ -161,9 +159,9 @@ Deduped from all 50 words. AudioKey = lowercase symbol. No emoji (syllables are 
 | RE     | re       | more, dvere                       |
 | KVE    | kve      | kvety                             |
 | TY     | ty       | kvety                             |
-| STROM  | strom    | strom                             |
-| ME     | me       | mesiac                            |
-| SIAC   | siac     | mesiac (diphthong ia)             |
+| DÚ     | dú       | dúha                              |
+| LES    | les      | les                               |
+| ME     | me       | melón                             |
 | NOC    | noc      | noc                               |
 | DEŇ    | deň      | deň                               |
 | DOM    | dom      | dom                               |
@@ -189,8 +187,8 @@ Total: ~70 unique syllables (vs. 60 generated previously).
 
 - **Words**: ASCII-safe slug (strip all diacritics) — `macka` for mačka, `liska` for líška, `zaba` for žaba, `stolichka` for stolička, etc. Maps to `/audio/words/<key>.mp3`.
 - **Syllables**: Lowercase symbol as audioKey, **preserving diacritics** — `ža`, `ša`, `ško`, `čík`, `líš`, `ťa`. These are valid UTF-8 filenames. **Do not strip diacritics from syllable audioKeys** — this differs intentionally from the word convention because syllables encode the exact sound being taught.
-- **MLIE-KO**: The onset cluster ML is treated as indivisible (pedagogical simplification). MLIE is one syllable with the nucleus being the diphthong IE.
-- Complex syllables (LKO, SIAC, MYŠ, STROM, etc.) are included but will use TTS until recordings are made.
+- All syllables are ≤ 3 characters. No diphthongs or syllabic consonant clusters appear as standalone syllables.
+- Complex-looking syllables (MYŠ, NÁN, LÓN, LÁČ, etc.) are 3 characters and pronounceable. TTS fallback handles missing recordings.
 
 ---
 
