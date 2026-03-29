@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
@@ -23,11 +23,17 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const targetItemRef = useRef<ContentItem | null>(null);
+  useEffect(() => {
+    targetItemRef.current = targetItem;
+  }, [targetItem]);
+
   const startNewRound = useCallback(() => {
     const pool = ACTIVE_LETTER_ITEMS;
     let target = pool[Math.floor(Math.random() * pool.length)];
-    if (targetItem && pool.length > 1) {
-      while (target.symbol === targetItem.symbol) {
+    const current = targetItemRef.current;
+    if (current && pool.length > 1) {
+      while (target.symbol === current.symbol) {
         target = pool[Math.floor(Math.random() * pool.length)];
       }
     }
@@ -39,7 +45,7 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
     setGridItems(grid);
     setFeedback({});
     setShowSuccess(false);
-  }, [targetItem]);
+  }, []);
 
   useEffect(() => {
     if (gameState === 'PLAYING' && targetItem) {
