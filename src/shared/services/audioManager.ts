@@ -46,6 +46,8 @@ const FALLBACK_TEXT: Record<
 export class AudioManager {
   private synth: SpeechSynthesis = window.speechSynthesis;
   private currentAudio: HTMLAudioElement | null = null;
+  private musicAudio: HTMLAudioElement | null = null;
+  private musicEnabled = false;
 
   constructor() {
     if (this.synth.onvoiceschanged !== undefined) {
@@ -53,8 +55,22 @@ export class AudioManager {
     }
   }
 
-  updateSettings(_settings: unknown) {
-    // Voice is always enabled
+  updateSettings(settings: { music: boolean }): void {
+    this.musicEnabled = settings.music;
+    if (this.musicEnabled) {
+      if (!this.musicAudio) {
+        this.musicAudio = new Audio('/audio/music/background.mp3');
+        this.musicAudio.loop = true;
+        this.musicAudio.volume = 0.4;
+      }
+      this.musicAudio.play().catch(() => {
+        // Autoplay blocked or file missing — silently do nothing
+      });
+    } else {
+      if (this.musicAudio) {
+        this.musicAudio.pause();
+      }
+    }
   }
 
   // ---------------------------------------------------------------------------
