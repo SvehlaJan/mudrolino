@@ -13,7 +13,7 @@ Replace the 60 generated abstract syllables (consonant × vowel) with syllables 
 
 | Action | File | Change |
 |--------|------|--------|
-| Modify | `src/shared/contentRegistry.ts` | Remove generated SYLLABLE_CONSONANTS/SYLLABLE_VOWELS/SYLLABLE_ITEMS; add WORD_ITEMS (50 entries); add SYLLABLE_ITEMS (~65 extracted, deduped entries) |
+| Modify | `src/shared/contentRegistry.ts` | Remove generated SYLLABLE_CONSONANTS/SYLLABLE_VOWELS/SYLLABLE_ITEMS; add `export const WORD_ITEMS` (50 entries); add `export const SYLLABLE_ITEMS` (~70 extracted, deduped entries) |
 
 No other files change.
 
@@ -31,7 +31,7 @@ Display symbol is lowercase. AudioKey is lowercase word. Syllabification uses `-
 | baba   | 👵    | baba     | BA-BA     |
 | dedo   | 👴    | dedo     | DE-DO     |
 
-### Animals (14)
+### Animals (13)
 | symbol  | emoji | audioKey | syllables  |
 |---------|-------|----------|------------|
 | pes     | 🐕    | pes      | PES        |
@@ -46,8 +46,12 @@ Display symbol is lowercase. AudioKey is lowercase word. Syllabification uses `-
 | had     | 🐍    | had      | HAD        |
 | žirafa  | 🦒    | zirafa   | ŽI-RA-FA  |
 | ťava    | 🐪    | tava     | ŤA-VA      |
-| šašo    | 🤡    | saso     | ŠA-ŠO     |
-| vrana   | 🐦   | vrana    | VRA-NA     |
+| vrana   | 🐦    | vrana    | VRA-NA     |
+
+### Characters (1)
+| symbol | emoji | audioKey | syllables |
+|--------|-------|----------|-----------|
+| šašo   | 🤡    | saso     | ŠA-ŠO    |
 
 ### Body (6)
 | symbol | emoji | audioKey | syllables |
@@ -91,7 +95,7 @@ Display symbol is lowercase. AudioKey is lowercase word. Syllabification uses `-
 | lopta     | ⚽    | lopta     | LOP-TA      |
 | kniha     | 📚    | kniha     | KNI-HA      |
 | škola     | 🏫    | skola     | ŠKO-LA     |
-| stolička  | 🪑    | stoličkа  | STO-LIČ-KA |
+| stolička  | 🪑    | stolichka | STO-LIČ-KA |
 | okno      | 🪟    | okno      | OK-NO       |
 | dvere     | 🚪    | dvere     | DVE-RE      |
 | kočík     | 🛒    | kocik     | KO-ČÍK     |
@@ -114,7 +118,6 @@ Deduped from all 50 words. AudioKey = lowercase symbol. No emoji (syllables are 
 | MAČ    | mač      | mačka                             |
 | KA     | ka       | mačka, ruka, líška, stolička      |
 | RY     | ry       | ryba                              |
-| BA     | ba       | (dedup)                           |
 | ŽA     | ža       | žaba                              |
 | KO     | ko       | koza, oko, kočík                  |
 | ZA     | za       | koza                              |
@@ -142,7 +145,7 @@ Deduped from all 50 words. AudioKey = lowercase symbol. No emoji (syllables are 
 | NOS    | nos      | nos                               |
 | ÚS     | ús       | ústa                              |
 | JAB    | jab      | jablko                            |
-| LKO    | lko      | jablko (syllabic L)               |
+| LKO    | lko      | jablko (syllabic L — included for completeness; unpronounceable for preschoolers, so record it as a TTS-only entry and consider filtering from game grids in a future ACTIVE_SYLLABLE_ITEMS pass) |
 | NÁN    | nán      | banán                             |
 | JA     | ja       | jahoda                            |
 | HO     | ho       | jahoda, hora                      |
@@ -184,8 +187,9 @@ Total: ~70 unique syllables (vs. 60 generated previously).
 
 ## AudioKey Notes
 
-- **Words**: ASCII-safe slug where needed (`macka` for mačka, `liska` for líška, `zaba` for žaba, etc.) since word audioKeys map to `/audio/words/<key>.mp3`
-- **Syllables**: Lowercase symbol as audioKey (`ža`, `ša`, `ško`, `čík`) — valid UTF-8 filenames, consistent with existing syllable convention. TTS fallback handles missing files.
+- **Words**: ASCII-safe slug (strip all diacritics) — `macka` for mačka, `liska` for líška, `zaba` for žaba, `stolichka` for stolička, etc. Maps to `/audio/words/<key>.mp3`.
+- **Syllables**: Lowercase symbol as audioKey, **preserving diacritics** — `ža`, `ša`, `ško`, `čík`, `líš`, `ťa`. These are valid UTF-8 filenames. **Do not strip diacritics from syllable audioKeys** — this differs intentionally from the word convention because syllables encode the exact sound being taught.
+- **MLIE-KO**: The onset cluster ML is treated as indivisible (pedagogical simplification). MLIE is one syllable with the nucleus being the diphthong IE.
 - Complex syllables (LKO, SIAC, MYŠ, STROM, etc.) are included but will use TTS until recordings are made.
 
 ---
