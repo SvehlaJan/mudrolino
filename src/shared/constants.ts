@@ -1,25 +1,12 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ *
+ * Backward-compat re-exports — this file is deleted after all games are migrated.
  */
+export { COLORS, BG_COLORS, LETTER_ITEMS, ACTIVE_LETTER_ITEMS, SYLLABLE_ITEMS, NUMBER_ITEMS, WORD_ITEMS, PRAISE_ENTRIES } from './contentRegistry';
 
-export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
-
-export const BG_COLORS = ['bg-primary', 'bg-success', 'bg-accent-blue'];
-
-export const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-export const SYLLABLES = [
-  'MA', 'ME', 'MI', 'MO', 'MU',
-  'TA', 'TE', 'TI', 'TO', 'TU',
-  'LA', 'LE', 'LI', 'LO', 'LU',
-  'SA', 'SE', 'SI', 'SO', 'SU',
-  'PA', 'PE', 'PI', 'PO', 'PU',
-  'BA', 'BE', 'BI', 'BO', 'BU',
-  'VA', 'VE', 'VI', 'VO', 'VU',
-  'DA', 'DE', 'DI', 'DO', 'DU',
-  'NA', 'NE', 'NI', 'NO', 'NU',
-  'RA', 'RE', 'RI', 'RO', 'RU',
-  'KA', 'KE', 'KI', 'KO', 'KU',
-  'JA', 'JE', 'JI', 'JO', 'JU'
-];
+// Legacy flat arrays — kept only until game components are migrated
+import { LETTER_ITEMS, SYLLABLE_ITEMS } from './contentRegistry';
+export const ALPHABET = LETTER_ITEMS.map(item => item.symbol);
+export const SYLLABLES = SYLLABLE_ITEMS.map(item => item.symbol);
