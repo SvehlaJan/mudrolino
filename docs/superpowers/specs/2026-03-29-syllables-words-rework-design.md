@@ -95,7 +95,7 @@ Display symbol is lowercase. AudioKey is lowercase word. Syllabification uses `-
 | lopta     | ⚽    | lopta     | LOP-TA      |
 | kniha     | 📚    | kniha     | KNI-HA      |
 | škola     | 🏫    | skola     | ŠKO-LA     |
-| stolička  | 🪑    | stolichka | STO-LIČ-KA |
+| stolička  | 🪑    | stolicka  | STO-LIČ-KA |
 | okno      | 🪟    | okno      | OK-NO       |
 | dvere     | 🚪    | dvere     | DVE-RE      |
 | kočík     | 🛒    | kocik     | KO-ČÍK     |
@@ -138,7 +138,7 @@ Deduped from all 50 words. AudioKey = lowercase symbol. No emoji (syllables are 
 | NA     | na       | vrana, malina                     |
 | RU     | ru       | ruka                              |
 | NO     | no       | noha, okno                        |
-| HA     | ha       | noha, hora, kniha                 |
+| HA     | ha       | noha, kniha, dúha                 |
 | O      | o        | oko                               |
 | U      | u        | ucho                              |
 | CHO    | cho      | ucho                              |
@@ -185,7 +185,7 @@ Total: ~70 unique syllables (vs. 60 generated previously).
 
 ## AudioKey Notes
 
-- **Words**: ASCII-safe slug (strip all diacritics) — `macka` for mačka, `liska` for líška, `zaba` for žaba, `stolichka` for stolička, etc. Maps to `/audio/words/<key>.mp3`.
+- **Words**: ASCII-safe slug (strip all diacritics) — `macka` for mačka, `liska` for líška, `zaba` for žaba, `stolicka` for stolička, etc. Maps to `/audio/words/<key>.mp3`.
 - **Syllables**: Lowercase symbol as audioKey, **preserving diacritics** — `ža`, `ša`, `ško`, `čík`, `líš`, `ťa`. These are valid UTF-8 filenames. **Do not strip diacritics from syllable audioKeys** — this differs intentionally from the word convention because syllables encode the exact sound being taught.
 - All syllables are ≤ 3 characters. No diphthongs or syllabic consonant clusters appear as standalone syllables.
 - Complex-looking syllables (MYŠ, NÁN, LÓN, LÁČ, etc.) are 3 characters and pronounceable. TTS fallback handles missing recordings.
