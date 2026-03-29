@@ -26,3 +26,28 @@ export interface GameMetadata {
   icon: string;
   color: string;
 }
+
+export interface ContentItem {
+  symbol: string;        // Display character: "A", "Š", "MA", "3"
+  label?: string;        // Human-readable word, e.g. "Ananás" for A
+  emoji?: string;        // Optional emoji, e.g. "🍎" — undefined = TBD, excluded from games
+  audioKey: string;      // ASCII slug for audio path: "a", "s-caron", "ma", "3"
+  category: 'letter' | 'syllable' | 'number' | 'word';
+}
+
+export interface PraiseEntry {
+  emoji: string;         // "🌟"
+  text: string;          // "Výborne!"
+  audioKey: string;      // "vyborne" → praise/vyborne.mp3
+}
+
+export type PhraseTemplate =
+  | 'find-letter'
+  | 'wrong-letter'
+  | 'find-number'
+  | 'wrong-number'
+  | 'find-syllable'
+  | 'wrong-syllable'
+  | 'count-items'
+  | 'correct-count'
+  | 'wrong-count';
