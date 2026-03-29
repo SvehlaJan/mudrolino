@@ -18,6 +18,7 @@ import { COLORS, BG_COLORS } from './shared/constants';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { AlphabetGame } from './games/alphabet/AlphabetGame';
+import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 
@@ -203,6 +204,21 @@ export default function App() {
           </motion.div>
         )}
 
+        {screen === 'GAME' && activeGame === 'SYLLABLES' && (
+          <motion.div 
+            key="syllables" 
+            initial={{ opacity: 0, x: 100 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            exit={{ opacity: 0, x: -100 }}
+            className="w-full min-h-screen"
+          >
+            <SyllablesGame 
+              onExit={handleExitGame} 
+              onOpenSettings={handleOpenSettings}
+            />
+          </motion.div>
+        )}
+
         {screen === 'GAME' && activeGame === 'NUMBERS' && (
           <motion.div 
             key="numbers" 
@@ -235,7 +251,7 @@ export default function App() {
           </motion.div>
         )}
 
-        {screen === 'GAME' && activeGame !== 'ALPHABET' && activeGame !== 'NUMBERS' && activeGame !== 'COUNTING_ITEMS' && (
+        {screen === 'GAME' && !['ALPHABET', 'SYLLABLES', 'NUMBERS', 'COUNTING_ITEMS'].includes(activeGame as string) && (
           <motion.div 
             key="coming-soon" 
             initial={{ opacity: 0, scale: 0.9 }} 

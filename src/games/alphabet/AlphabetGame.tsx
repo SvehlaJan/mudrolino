@@ -28,7 +28,6 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
       audioManager.playPraise();
     } else if (type === 'wrong' && letter) {
       audioManager.playWord(`Toto je písmenko ${letter}. Skús to znova.`);
-      audioManager.playFeedback(letter);
     }
   }, []);
 
