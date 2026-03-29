@@ -24,9 +24,11 @@
 - **Infinite Loop**: The game continues indefinitely, randomly selecting from a predefined list of common Slovak syllables (MA, TA, SE, LI, DO, etc.).
 
 ### 4.2 Audio System
-- **Voiceovers**: High-quality Slovak pronunciations for all included syllables.
-- **Praise Audio**: Positive reinforcement sounds for correct answers.
-- **Music**: Gentle background music (can be toggled in settings).
+- **Voiceovers**: Each syllable has a corresponding audio file in `public/audio/syllables/`. Files are named by `audioKey` (e.g. `ma.mp3`, `se.mp3`). When a file is missing, the Web Speech API (`sk-SK`) is used as fallback.
+- **Phrase announcements**: Composed from fragment clips in `public/audio/phrases/` (e.g. `slabika.mp3` + syllable clip = "Slabika MA", `slabika.mp3` + target + `skus-to-znova.mp3` for wrong answers).
+- **Praise Audio**: 6 praise variants in `public/audio/praise/`.
+- **SFX**: Removed (not in scope).
+- **Music**: Not yet implemented.
 
 ### 4.3 Parents' Gate (Security)
 - **Access Control**: Access to the settings menu is protected by a 3-second long-press on the settings icon.

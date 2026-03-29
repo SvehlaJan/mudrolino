@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { Screen, GameSettings, GameId, GameMetadata } from './shared/types';
-import { COLORS, BG_COLORS } from './shared/constants';
+import { COLORS, BG_COLORS } from './shared/contentRegistry';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { AlphabetGame } from './games/alphabet/AlphabetGame';

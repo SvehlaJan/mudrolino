@@ -24,10 +24,11 @@
 - **Infinite Loop**: The game continues indefinitely, cycling through the alphabet randomly to maintain engagement.
 
 ### 4.2 Audio System
-- **Voiceovers**: Every letter must have a corresponding high-quality audio file for pronunciation.
-- **Praise Audio**: Success states must trigger positive reinforcement sounds.
-- **SFX**: Interface interactions (taps, transitions) must have distinct sound effects.
-- **Music**: Gentle, non-intrusive background music to create a pleasant atmosphere.
+- **Voiceovers**: Each letter has a corresponding audio file in `public/audio/letters/`. Files are named by `audioKey` (e.g. `a.mp3`, `s-caron.mp3` for Š). When a file is missing, the Web Speech API (`sk-SK`) is used as fallback.
+- **Phrase announcements**: Composed from fragment clips in `public/audio/phrases/` (e.g. `najdi-pismeno.mp3` + letter clip = "Nájdi písmenko A", `toto-je-pismeno.mp3` + letter + `skus-to-znova.mp3` for wrong answers).
+- **Praise Audio**: 6 praise variants in `public/audio/praise/` (e.g. `vyborne.mp3`, `skvela-praca.mp3`).
+- **SFX**: Removed (not in scope).
+- **Music**: Not yet implemented.
 
 ### 4.3 Parents' Gate (Security)
 - **Access Control**: Access to the settings menu must be protected by a "Parents' Gate."

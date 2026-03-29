@@ -24,9 +24,11 @@
 - **Dynamic Range**: The numbers shown in the grid are randomly selected from the range defined in the settings.
 
 ### 4.2 Audio System
-- **Voiceovers**: High-quality audio files for numbers (initially 0-20, expandable to 100).
-- **Praise Audio**: Consistent with the Alphabet game for a unified experience.
-- **SFX & Music**: Shared assets with the main application to maintain brand identity.
+- **Voiceovers**: Each number has a corresponding audio file in `public/audio/numbers/`. Files are named by `audioKey` (e.g. `1.mp3`, `10.mp3`). When a file is missing, the Web Speech API (`sk-SK`) is used as fallback.
+- **Phrase announcements**: Composed from fragment clips in `public/audio/phrases/` (e.g. `cislo.mp3` + number clip = "Číslo 3"; wrong answers play `skus-to-znova.mp3` only).
+- **Praise Audio**: 6 praise variants in `public/audio/praise/`.
+- **SFX**: Removed (not in scope).
+- **Music**: Not yet implemented.
 
 ### 4.3 Numbers Game Settings
 - **Range Selection**: A dedicated interface for parents to set the active number range:

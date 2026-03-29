@@ -25,7 +25,14 @@
   - Tapping an **incorrect** number triggers a "try again" audio cue and visual feedback.
 - **Auditory Reinforcement**: Upon a correct selection, the game should announce the number (e.g., "Tri!") to reinforce the link between the quantity and the name.
 
-### 4.2 Counting Items Settings
+### 4.2 Audio System
+- **Voiceovers**: Number clips from `public/audio/numbers/` are used in correct/wrong feedback (e.g. `ano-je-ich.mp3` + `3.mp3` = "Áno, je ich 3"). When a file is missing, the Web Speech API (`sk-SK`) is used as fallback.
+- **Phrase announcements**: `spocitaj-predmety.mp3` prompts the child to count; `ano-je-ich.mp3` + number for correct; `nie-je-ich.mp3` + number + `skus-to-znova.mp3` for wrong.
+- **Praise Audio**: 6 praise variants in `public/audio/praise/`.
+- **SFX**: Removed (not in scope).
+- **Music**: Not yet implemented.
+
+### 4.3 Counting Items Settings
 - **Range Selection**: Shared or dedicated settings for the counting range:
   - **Presets**: 1-5, 1-10.
 - **Item Variety**: Option to toggle between single item types (e.g., only apples) or mixed items.
