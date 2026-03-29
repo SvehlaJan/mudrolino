@@ -14,6 +14,11 @@ npm run clean     # Remove dist/
 
 No test runner is configured.
 
+## Gotchas
+
+- `npm run lint` requires `node_modules` to be present (`npm install` first); `typescript` is a local dep, not global.
+- `npm run dev` binds to `0.0.0.0` — the dev server is accessible on the local network, not just localhost.
+
 ## Architecture
 
 This is a Slovak-language educational web app ("Hravé Učenie") for preschoolers with 4 mini-games: alphabet, syllables, numbers, and counting.
@@ -29,6 +34,8 @@ This is a Slovak-language educational web app ("Hravé Učenie") for preschooler
 **SuccessOverlay** (`src/shared/components/SuccessOverlay.tsx`): Shared success screen used by all 4 games. Shows a random emoji mascot + praise text + echo line derived from `ContentItem` (e.g. "A ako Ananás 🍎"). Fires `onComplete()` after 3 seconds.
 
 **ParentsGate** (`src/shared/components/ParentsGate.tsx`): 3-second hold-to-enter mechanism guarding the settings screen.
+
+**SettingsOverlay** (`src/shared/components/SettingsOverlay.tsx`): Settings panel (music toggle, number/counting range sliders). Rendered by `App.tsx` on top of the current screen.
 
 **Adding a new game**: Create a component in `src/games/<name>/`, import the relevant `ContentItem[]` from `contentRegistry`, use `<SuccessOverlay>` for success state, add the game entry to `App.tsx` and the home screen grid.
 
@@ -51,4 +58,4 @@ TTS fallback is automatic — missing files cause no errors during development.
 
 ## Environment
 
-`GEMINI_API_KEY` is available via env (see `.env.example`). The `@google/genai` package is installed but not yet used in any game component.
+`GEMINI_API_KEY` is available via env (see `.env.example`).
