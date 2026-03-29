@@ -4,10 +4,12 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { SYLLABLES, COLORS } from '../../shared/constants';
+import { SYLLABLE_ITEMS, COLORS } from '../../shared/contentRegistry';
+import { ContentItem } from '../../shared/types';
+import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 
 interface SyllablesGameProps {
   onExit: () => void;
@@ -16,71 +18,49 @@ interface SyllablesGameProps {
 
 export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const [targetSyllable, setTargetSyllable] = useState('');
-  const [gridSyllables, setGridSyllables] = useState<string[]>([]);
+  const [targetItem, setTargetItem] = useState<ContentItem | null>(null);
+  const [gridItems, setGridItems] = useState<ContentItem[]>([]);
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const playAudio = useCallback((type: 'syllable' | 'success' | 'wrong', syllable?: string) => {
-    if (type === 'syllable' && syllable) {
-      audioManager.playSyllable(syllable);
-    } else if (type === 'success') {
-      audioManager.playPraise();
-    } else if (type === 'wrong' && syllable) {
-      audioManager.playWord(`Toto je slabika ${syllable}. Skús to znova.`);
-    }
-  }, []);
-
   const startNewRound = useCallback(() => {
-    let target = SYLLABLES[Math.floor(Math.random() * SYLLABLES.length)];
-    if (targetSyllable && SYLLABLES.length > 1) {
-      while (target === targetSyllable) {
-        target = SYLLABLES[Math.floor(Math.random() * SYLLABLES.length)];
+    const pool = SYLLABLE_ITEMS;
+    let target = pool[Math.floor(Math.random() * pool.length)];
+    if (targetItem && pool.length > 1) {
+      while (target.symbol === targetItem.symbol) {
+        target = pool[Math.floor(Math.random() * pool.length)];
       }
     }
-    
-    // Pick 5 other random syllables
-    const others = SYLLABLES.filter(s => s !== target).sort(() => 0.5 - Math.random()).slice(0, 5);
+    const others = pool.filter(s => s.symbol !== target.symbol)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 5);
     const grid = [...others, target].sort(() => 0.5 - Math.random());
-    
-    setTargetSyllable(target);
-    setGridSyllables(grid);
+    setTargetItem(target);
+    setGridItems(grid);
     setFeedback({});
     setShowSuccess(false);
-  }, [targetSyllable]);
+  }, [targetItem]);
 
   useEffect(() => {
-    if (gameState === 'PLAYING' && targetSyllable) {
-      // Small delay to ensure browser speech engine is ready after user interaction
-      const timer = setTimeout(() => {
-        playAudio('syllable', targetSyllable);
-      }, 100);
+    if (gameState === 'PLAYING' && targetItem) {
+      const timer = setTimeout(() => audioManager.playSyllable(targetItem), 100);
       return () => clearTimeout(timer);
     }
-  }, [gameState, targetSyllable, playAudio]);
+  }, [gameState, targetItem]);
 
   useEffect(() => {
-    if (gameState === 'PLAYING' && !targetSyllable) {
-      startNewRound();
-    }
-  }, [gameState, targetSyllable, startNewRound]);
+    if (gameState === 'PLAYING' && !targetItem) startNewRound();
+  }, [gameState, targetItem, startNewRound]);
 
-  const handleSyllableClick = (syllable: string, index: number) => {
-    if (showSuccess) return;
-    
-    if (syllable === targetSyllable) {
+  const handleSyllableClick = (item: ContentItem, index: number) => {
+    if (showSuccess || !targetItem) return;
+    if (item.symbol === targetItem.symbol) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      playAudio('success');
       setTimeout(() => setShowSuccess(true), 500);
-      setTimeout(() => {
-        startNewRound();
-      }, 3000);
     } else {
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
-      playAudio('wrong', syllable);
-      setTimeout(() => {
-        setFeedback(prev => ({ ...prev, [index]: null }));
-      }, 500);
+      audioManager.playAnnouncement('wrong-syllable', targetItem);
+      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), 500);
     }
   };
 
@@ -88,31 +68,29 @@ export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
     return (
       <div className="min-h-screen relative bg-bg-light flex flex-col">
         <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex gap-4 z-20">
-          <button 
+          <button
             onClick={onExit}
             className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
           >
             <ArrowLeft size={24} className="sm:w-8 sm:h-8" />
           </button>
         </div>
-
-        <button 
+        <button
           onClick={onOpenSettings}
           className="absolute top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
         >
           <Settings size={24} className="sm:w-8 sm:h-8" />
         </button>
-
         <div className="flex-1 flex flex-col items-center justify-center p-4 py-8 sm:py-12">
           <div className="mb-8 sm:mb-12 md:mb-20 text-center w-full px-4 py-4 shrink-0">
             <h1 className="text-5xl sm:text-7xl md:text-[120px] font-black flex flex-wrap justify-center gap-2 sm:gap-4 select-none leading-tight">
-              {"SLABIKY".split('').map((char, i) => (
-                <span 
-                  key={i} 
+              {'SLABIKY'.split('').map((char, i) => (
+                <span
+                  key={i}
                   className={`${COLORS[i % COLORS.length]} inline-block py-2`}
-                  style={{ 
+                  style={{
                     transform: `rotate(${Math.sin(i) * 10}deg) translateY(${Math.cos(i) * 10}px)`,
-                    textShadow: '0px 4px 0px white, 0px 8px 0px var(--color-shadow)'
+                    textShadow: '0px 4px 0px white, 0px 8px 0px var(--color-shadow)',
                   }}
                 >
                   {char}
@@ -120,8 +98,7 @@ export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
               ))}
             </h1>
           </div>
-
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.05, y: -5 }}
             whileTap={{ scale: 0.95, y: 5 }}
             onClick={() => setGameState('PLAYING')}
@@ -130,7 +107,6 @@ export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
             <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
           </motion.button>
         </div>
-        
         <div className="absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-success opacity-30 -rotate-12 blur-sm pointer-events-none" />
         <div className="absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-accent-blue opacity-20 translate-y-10 blur-md pointer-events-none" />
       </div>
@@ -139,31 +115,29 @@ export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
-      <button 
+      <button
         onClick={() => setGameState('HOME')}
         className="fixed top-4 left-4 sm:top-8 sm:left-8 w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
       >
         <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
       </button>
-
       <div className="flex flex-col items-center gap-4 sm:gap-8 mb-8 sm:mb-12">
-        <motion.button 
+        <motion.button
           whileTap={{ scale: 0.9 }}
-          onClick={() => playAudio('syllable', targetSyllable)}
+          onClick={() => targetItem && audioManager.playSyllable(targetItem)}
           className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
         >
           <Volume2 size={32} className="sm:w-10 sm:h-10" />
         </motion.button>
         <h2 className="text-4xl sm:text-6xl font-black text-shadow">
-          Nájdi <span className="text-primary">{targetSyllable}</span>
+          Nájdi <span className="text-primary">{targetItem?.symbol}</span>
         </h2>
       </div>
-
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8 w-full max-w-4xl px-4">
-        {gridSyllables.map((syllable, i) => (
+        {gridItems.map((item, i) => (
           <motion.button
             key={i}
-            onClick={() => handleSyllableClick(syllable, i)}
+            onClick={() => handleSyllableClick(item, i)}
             animate={feedback[i] === 'wrong' ? { x: [-10, 10, -10, 10, 0] } : {}}
             className={`
               w-full aspect-square rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-4xl sm:text-7xl font-bold font-spline transition-all
@@ -171,39 +145,13 @@ export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
               ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
             `}
           >
-            {syllable}
+            {item.symbol}
           </motion.button>
         ))}
       </div>
-
-      <AnimatePresence>
-        {showSuccess && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
-          >
-            {[...Array(30)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ y: -500, x: Math.random() * window.innerWidth - window.innerWidth/2, rotate: 0 }}
-                animate={{ y: window.innerHeight + 500, rotate: 360 }}
-                transition={{ duration: 3 + Math.random() * 3, repeat: Infinity, ease: "linear", delay: Math.random() * 2 }}
-                className={`absolute ${i % 3 === 0 ? 'w-16 h-16 rounded-full' : i % 3 === 1 ? 'w-24 h-12 rounded-full' : 'w-12 h-24 rounded-full'} ${COLORS[i % COLORS.length].replace('text-', 'bg-')} opacity-60 blur-[2px]`}
-              />
-            ))}
-            
-            <motion.div 
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="bg-shadow px-8 py-12 sm:px-24 sm:py-20 rounded-[40px] sm:rounded-[80px] relative z-10 border-8 border-white shadow-2xl mx-6 max-w-[90vw] w-auto"
-            >
-              <h3 className="text-primary text-6xl sm:text-[140px] font-black tracking-tighter leading-none text-center whitespace-nowrap">Výborne!</h3>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {targetItem && (
+        <SuccessOverlay show={showSuccess} item={targetItem} onComplete={startNewRound} />
+      )}
     </div>
   );
 }
