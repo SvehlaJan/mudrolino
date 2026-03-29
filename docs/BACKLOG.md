@@ -20,7 +20,7 @@ Generated 2026-03-29 from codebase analysis.
 
 | # | Issue | Location |
 |---|-------|----------|
-| H1 | **No settings persistence** — number range, counting range, music toggle reset on every page reload | `App.tsx` |
+| ~~H1~~ | ~~No settings persistence~~ — persisted to `localStorage` via `settingsService`, merge-with-defaults on load | ✅ |
 | H2 | **No error boundaries** — any JS error crashes entire app with no recovery | Entire app |
 | H3 | **Alphabet game allows too few distractors** — if pool shrinks below 8, `slice(0, 7)` silently returns fewer; no guard | `AlphabetGame.tsx:37` |
 | ~~H4~~ | ~~`@google/genai` installed but unused~~ — uninstalled, 37 packages removed | ✅ |
@@ -71,4 +71,4 @@ Generated 2026-03-29 from codebase analysis.
 ~~B2, B5, H4, H6, F2, F6, A3~~ — all done ✅
 
 ## Highest Impact
-H1 (settings persistence), B1 (music toggle fix), H5 (more Slovak syllables), F1 (progress counter), A1 (deduplicate games)
+~~H1~~ ✅, ~~B1~~ ✅, H5 (more Slovak syllables), F1 (progress counter), A1 (deduplicate games)
