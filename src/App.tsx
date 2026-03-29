@@ -78,8 +78,7 @@ export default function App() {
     const unlockAudio = () => {
       const utterance = new SpeechSynthesisUtterance('');
       window.speechSynthesis.speak(utterance);
-      console.log('[App] Audio unlocked via user gesture');
-      window.removeEventListener('click', unlockAudio);
+window.removeEventListener('click', unlockAudio);
       window.removeEventListener('touchstart', unlockAudio);
     };
 

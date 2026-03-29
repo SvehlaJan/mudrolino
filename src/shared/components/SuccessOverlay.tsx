@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ContentItem, PraiseEntry } from '../types';
-import { PRAISE_ENTRIES, COLORS } from '../contentRegistry';
+import { PRAISE_ENTRIES, COLORS, TIMING } from '../contentRegistry';
 import { audioManager } from '../services/audioManager';
 
 interface SuccessOverlayProps {
@@ -31,7 +31,7 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
     const entry = PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
     setPraise(entry);
     audioManager.playPraise(entry);
-    const timer = setTimeout(onComplete, 3000);
+    const timer = setTimeout(onComplete, TIMING.SUCCESS_OVERLAY_DURATION_MS);
     return () => clearTimeout(timer);
   }, [show]); // eslint-disable-line react-hooks/exhaustive-deps
 

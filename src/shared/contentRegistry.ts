@@ -8,6 +8,14 @@ import { ContentItem, PraiseEntry } from './types';
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
 export const BG_COLORS = ['bg-primary', 'bg-success', 'bg-accent-blue'];
 
+// Shared timing constants (ms)
+export const TIMING = {
+  AUDIO_DELAY_MS: 100,
+  FEEDBACK_RESET_MS: 500,
+  SUCCESS_SHOW_DELAY_MS: 500,
+  SUCCESS_OVERLAY_DURATION_MS: 3000,
+};
+
 // ---------------------------------------------------------------------------
 // Letters — full Slovak alphabet (46 entries).
 // Items with emoji: undefined are TBD and filtered out of game grids at runtime.
@@ -89,11 +97,6 @@ export const NUMBER_ITEMS: ContentItem[] = Array.from({ length: 20 }, (_, i) => 
   audioKey: String(i + 1),
   category: 'number' as const,
 }));
-
-// ---------------------------------------------------------------------------
-// Words — scaffold for future word games
-// ---------------------------------------------------------------------------
-export const WORD_ITEMS: ContentItem[] = [];
 
 // ---------------------------------------------------------------------------
 // Praise entries — one per audio file in public/audio/praise/

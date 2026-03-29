@@ -5,9 +5,9 @@
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
+import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { NUMBER_ITEMS } from '../../shared/contentRegistry';
+import { NUMBER_ITEMS, COLORS, TIMING } from '../../shared/contentRegistry';
 import { ContentItem } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 
@@ -95,7 +95,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     if (gameState === 'PLAYING') {
       const timer = setTimeout(
         () => audioManager.playAnnouncement('count-items', NUMBER_ITEMS[0]),
-        100
+        TIMING.AUDIO_DELAY_MS
       );
       return () => clearTimeout(timer);
     }
@@ -106,11 +106,11 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     if (item.symbol === targetItem.symbol) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
       audioManager.playAnnouncement('correct-count', targetItem);
-      setTimeout(() => setShowSuccess(true), 500);
+      setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
     } else {
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
       audioManager.playAnnouncement('wrong-count', targetItem);
-      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), 500);
+      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
     }
   };
 
@@ -137,7 +137,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
               {'SPOČÍTAJ'.split('').map((char, i) => (
                 <span
                   key={i}
-                  className={`${'text-primary text-success text-accent-blue'.split(' ')[i % 3]} inline-block py-2`}
+                  className={`${COLORS[i % COLORS.length]} inline-block py-2`}
                   style={{
                     transform: `rotate(${Math.sin(i) * 10}deg) translateY(${Math.cos(i) * 10}px)`,
                     textShadow: '0px 4px 0px white, 0px 8px 0px var(--color-shadow)',
@@ -172,6 +172,14 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       >
         <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
       </button>
+
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        onClick={() => audioManager.playAnnouncement('count-items', NUMBER_ITEMS[0])}
+        className="fixed top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
+      >
+        <Volume2 size={24} className="sm:w-7 sm:h-7" />
+      </motion.button>
 
       <div className="flex-1 w-full max-w-4xl flex flex-col gap-8 sm:gap-12 mt-16 sm:mt-20">
         <div

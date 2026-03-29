@@ -49,9 +49,7 @@ export class AudioManager {
 
   constructor() {
     if (this.synth.onvoiceschanged !== undefined) {
-      this.synth.onvoiceschanged = () => {
-        console.log(`[AudioManager] Voices loaded: ${this.synth.getVoices().length}`);
-      };
+      this.synth.onvoiceschanged = () => {};
     }
   }
 

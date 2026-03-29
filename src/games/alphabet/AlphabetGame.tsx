@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { ACTIVE_LETTER_ITEMS, COLORS } from '../../shared/contentRegistry';
+import { ACTIVE_LETTER_ITEMS, COLORS, TIMING } from '../../shared/contentRegistry';
 import { ContentItem } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 
@@ -43,7 +43,7 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
 
   useEffect(() => {
     if (gameState === 'PLAYING' && targetItem) {
-      const timer = setTimeout(() => audioManager.playLetter(targetItem), 100);
+      const timer = setTimeout(() => audioManager.playLetter(targetItem), TIMING.AUDIO_DELAY_MS);
       return () => clearTimeout(timer);
     }
   }, [gameState, targetItem]);
@@ -56,11 +56,11 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
     if (showSuccess || !targetItem) return;
     if (item.symbol === targetItem.symbol) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      setTimeout(() => setShowSuccess(true), 500);
+      setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
     } else {
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
       audioManager.playAnnouncement('wrong-letter', targetItem, item);
-      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), 500);
+      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
     }
   };
 
