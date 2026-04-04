@@ -40,7 +40,7 @@ OUTPUT_BASE = os.path.join(SCRIPT_DIR, "_new")
 # ── Gemini API ────────────────────────────────────────────────────────────────
 
 GEMINI_API_KEY   = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL     = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
+GEMINI_MODEL     = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 GEMINI_URL       = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
     "{model}:generateContent?key={key}"
@@ -477,7 +477,7 @@ if __name__ == "__main__":
     parser.add_argument("--overwrite", action="store_true",
                         help="overwrite existing output files (default: skip)")
     parser.add_argument("--model", default=None,
-                        help=f"Gemini model ID (default: {GEMINI_MODEL}, or $GEMINI_MODEL)")
+                        help="Gemini model ID (default: gemini-2.5-flash, or $GEMINI_MODEL)")
     args = parser.parse_args()
 
     if args.model:
