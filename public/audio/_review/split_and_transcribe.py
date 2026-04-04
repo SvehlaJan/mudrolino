@@ -481,7 +481,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.model:
-        global GEMINI_MODEL
         GEMINI_MODEL = args.model
 
     numbers_files = [resolve_path(p) for p in args.numbers]
