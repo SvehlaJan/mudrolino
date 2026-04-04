@@ -298,7 +298,7 @@ def map_phrase(text):
 
 # ── Main processing ────────────────────────────────────────────────────────────
 
-def process_numbers(src):
+def process_numbers(src, overwrite=False):
     print("\n" + "═" * 60)
     print(f"ČÍSLA (numbers 1–20)  ←  {os.path.basename(src)}")
     print("═" * 60)
@@ -320,10 +320,14 @@ def process_numbers(src):
             text = transcribe(tmp, prompt)
             key  = map_number(text)
             marker = "✓" if key else "✗"
+            dest = os.path.join(out_dir, f"{key}.mp3") if key else None
             print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → {key}.mp3")
 
             if key:
-                shutil.copy2(tmp, os.path.join(out_dir, f"{key}.mp3"))
+                if not overwrite and os.path.exists(dest):
+                    print(f"      – skipping {dest} (exists, use --overwrite)")
+                else:
+                    shutil.copy2(tmp, dest)
             else:
                 unmatched.append((tmp, text, dur))
     finally:
@@ -331,7 +335,7 @@ def process_numbers(src):
     _report_unmatched(unmatched, "numbers")
 
 
-def process_letters(src):
+def process_letters(src, overwrite=False):
     print("\n" + "═" * 60)
     print(f"PÍSMENKÁ (letters)  ←  {os.path.basename(src)}")
     print("═" * 60)
@@ -354,10 +358,14 @@ def process_letters(src):
             text = transcribe(tmp, prompt)
             key  = map_letter(text)
             marker = "✓" if key else "✗"
+            dest = os.path.join(out_dir, f"{key}.mp3") if key else None
             print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → {key}.mp3")
 
             if key:
-                shutil.copy2(tmp, os.path.join(out_dir, f"{key}.mp3"))
+                if not overwrite and os.path.exists(dest):
+                    print(f"      – skipping {dest} (exists, use --overwrite)")
+                else:
+                    shutil.copy2(tmp, dest)
             else:
                 unmatched.append((tmp, text, dur))
     finally:
@@ -365,7 +373,7 @@ def process_letters(src):
     _report_unmatched(unmatched, "letters")
 
 
-def process_phrases(src):
+def process_phrases(src, overwrite=False):
     print("\n" + "═" * 60)
     print(f"VETY (phrases + praise)  ←  {os.path.basename(src)}")
     print("═" * 60)
@@ -394,8 +402,11 @@ def process_phrases(src):
             if match:
                 folder, key = match
                 out_path = os.path.join(OUTPUT_BASE, folder, f"{key}.mp3")
-                shutil.copy2(tmp, out_path)
-                print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → {folder}/{key}.mp3")
+                if not overwrite and os.path.exists(out_path):
+                    print(f"  –  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → skipping {folder}/{key}.mp3 (exists, use --overwrite)")
+                else:
+                    shutil.copy2(tmp, out_path)
+                    print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → {folder}/{key}.mp3")
             else:
                 print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → ??? (unmatched)")
                 unmatched.append((tmp, text, dur))
@@ -447,6 +458,8 @@ if __name__ == "__main__":
                         help="audio file(s) containing spoken letters / digraphs")
     parser.add_argument("--phrases", metavar="FILE", nargs="+", default=[],
                         help="audio file(s) containing instruction phrases and praise")
+    parser.add_argument("--overwrite", action="store_true",
+                        help="overwrite existing output files (default: skip)")
     args = parser.parse_args()
 
     numbers_files = [resolve_path(p) for p in args.numbers]
@@ -461,10 +474,10 @@ if __name__ == "__main__":
     check_deps(all_files)
 
     for src in numbers_files:
-        process_numbers(src)
+        process_numbers(src, args.overwrite)
     for src in letters_files:
-        process_letters(src)
+        process_letters(src, args.overwrite)
     for src in phrases_files:
-        process_phrases(src)
+        process_phrases(src, args.overwrite)
 
     print("\n✅  All done. Files are in:", OUTPUT_BASE)
