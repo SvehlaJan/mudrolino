@@ -222,10 +222,15 @@ def transcribe(audio_path, prompt, retries=3):
     for attempt in range(retries):
         try:
             resp = requests.post(url, json=payload, timeout=30)
+            if resp.status_code == 429:
+                wait = int(resp.headers.get("Retry-After", 30))
+                print(f"      ↩ rate-limited — sleeping {wait}s…")
+                time.sleep(wait)
+                continue
             resp.raise_for_status()
             data = resp.json()
             return data["candidates"][0]["content"]["parts"][0]["text"].strip()
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             if attempt == retries - 1:
                 raise
             print(f"      ↩ retry ({e})…")
