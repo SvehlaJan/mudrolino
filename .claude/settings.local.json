@@ -9,7 +9,10 @@
       "Bash(npm run:*)",
       "Bash(npx tsc:*)",
       "Bash(/Users/svehla/playground/teo-learn/node_modules/.bin/tsc --noEmit 2>&1)",
-      "Skill(claude-reflect:reflect)"
+      "Skill(claude-reflect:reflect)",
+      "Bash(python3 test_mappings.py)",
+      "Bash(.venv/bin/python test_mappings.py)",
+      "WebSearch"
     ]
   }
 }

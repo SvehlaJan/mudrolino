@@ -17,6 +17,9 @@ Arguments:
     --letters FILE [FILE ...]   audio files containing spoken letters/digraphs
     --phrases FILE [FILE ...]   audio files containing phrases + praise
 
+Each matched clip is always saved as <key>_01.mp3, <key>_02.mp3, … so
+duplicate takes are never discarded. Unmatched clips go to _new/unmatched/.
+
 Requirements:
     pip install requests
     ffmpeg  (brew install ffmpeg on Mac)
@@ -264,7 +267,9 @@ def map_number(text):
 def map_letter(text):
     """'č' or 'Č' → 'c-caron'"""
     _SK_CHARS = r"[^a-záäčďdždzéfghiíjkľĺlmnňoóôpqrŕsšťtuúvwxyýzž]"
-    t = text.strip().lower()
+    # NFC-normalise first so that decomposed diacritics (NFD from Gemini)
+    # are converted to precomposed chars before the regex runs.
+    t = unicodedata.normalize('NFC', text.strip().lower())
     t_stripped = re.sub(_SK_CHARS, "", t)
     by_len = sorted(LETTER_MAP.items(), key=lambda x: -len(x[0]))
 
@@ -280,10 +285,13 @@ def map_letter(text):
             if tok == letter:
                 return key
 
-    # pass 3: substring fallback (last resort)
-    for letter, key in by_len:
-        if letter in t_stripped:
-            return key
+    # pass 3: substring fallback (last resort) — only when stripped text is short
+    # enough to plausibly be a letter/digraph with minor noise (≤3 chars).
+    # A longer string means Gemini returned unexpected prose; send to unmatched.
+    if len(t_stripped) <= 3:
+        for letter, key in by_len:
+            if letter in t_stripped:
+                return key
 
     return None
 
@@ -305,7 +313,7 @@ def map_phrase(text):
 
 # ── Main processing ────────────────────────────────────────────────────────────
 
-def process_numbers(src, overwrite=False):
+def process_numbers(src):
     print("\n" + "═" * 60)
     print(f"ČÍSLA (numbers 1–20)  ←  {os.path.basename(src)}")
     print("═" * 60)
@@ -321,31 +329,38 @@ def process_numbers(src, overwrite=False):
     )
 
     unmatched = []
+    key_count = {}
     try:
         with ThreadPoolExecutor(max_workers=8) as pool:
             futures = {pool.submit(transcribe, tmp, prompt): (start, end, tmp) for start, end, tmp in segs}
-            results = [(start, end, tmp, fut.result()) for fut, (start, end, tmp) in
-                       ((fut, futures[fut]) for fut in as_completed(futures))]
+            results = []
+            for fut in as_completed(futures):
+                start, end, tmp = futures[fut]
+                try:
+                    results.append((start, end, tmp, fut.result()))
+                except Exception as exc:
+                    dur = end - start
+                    print(f"  ✗  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcription error: {exc}")
+                    unmatched.append((tmp, f"[ERROR: {exc}]", dur))
         for start, end, tmp, text in sorted(results, key=lambda x: x[0]):
             dur  = end - start
             key  = map_number(text)
             marker = "✓" if key else "✗"
-            dest = os.path.join(out_dir, f"{key}.mp3") if key else None
-            print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → {key}.mp3")
-
             if key:
-                if not overwrite and os.path.exists(dest):
-                    print(f"      – skipping {dest} (exists, use --overwrite)")
-                else:
-                    shutil.copy2(tmp, dest)
+                n = key_count.get(key, 0) + 1
+                key_count[key] = n
+                fname = f"{key}.mp3" if n == 1 else f"{key}_{n:02d}.mp3"
+                shutil.copy2(tmp, os.path.join(out_dir, fname))
+                print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → {fname}")
             else:
+                print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → ???")
                 unmatched.append((tmp, text, dur))
+        _report_unmatched(unmatched, "numbers")
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    _report_unmatched(unmatched, "numbers")
 
 
-def process_letters(src, overwrite=False):
+def process_letters(src):
     print("\n" + "═" * 60)
     print(f"PÍSMENKÁ (letters)  ←  {os.path.basename(src)}")
     print("═" * 60)
@@ -362,31 +377,38 @@ def process_letters(src, overwrite=False):
     )
 
     unmatched = []
+    key_count = {}
     try:
         with ThreadPoolExecutor(max_workers=8) as pool:
             futures = {pool.submit(transcribe, tmp, prompt): (start, end, tmp) for start, end, tmp in segs}
-            results = [(start, end, tmp, fut.result()) for fut, (start, end, tmp) in
-                       ((fut, futures[fut]) for fut in as_completed(futures))]
+            results = []
+            for fut in as_completed(futures):
+                start, end, tmp = futures[fut]
+                try:
+                    results.append((start, end, tmp, fut.result()))
+                except Exception as exc:
+                    dur = end - start
+                    print(f"  ✗  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcription error: {exc}")
+                    unmatched.append((tmp, f"[ERROR: {exc}]", dur))
         for start, end, tmp, text in sorted(results, key=lambda x: x[0]):
             dur  = end - start
             key  = map_letter(text)
             marker = "✓" if key else "✗"
-            dest = os.path.join(out_dir, f"{key}.mp3") if key else None
-            print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → {key}.mp3")
-
             if key:
-                if not overwrite and os.path.exists(dest):
-                    print(f"      – skipping {dest} (exists, use --overwrite)")
-                else:
-                    shutil.copy2(tmp, dest)
+                n = key_count.get(key, 0) + 1
+                key_count[key] = n
+                fname = f"{key}.mp3" if n == 1 else f"{key}_{n:02d}.mp3"
+                shutil.copy2(tmp, os.path.join(out_dir, fname))
+                print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → {fname}")
             else:
+                print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcribed: {text!r}  → ???")
                 unmatched.append((tmp, text, dur))
+        _report_unmatched(unmatched, "letters")
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    _report_unmatched(unmatched, "letters")
 
 
-def process_phrases(src, overwrite=False):
+def process_phrases(src):
     print("\n" + "═" * 60)
     print(f"VETY (phrases + praise)  ←  {os.path.basename(src)}")
     print("═" * 60)
@@ -405,11 +427,19 @@ def process_phrases(src, overwrite=False):
     )
 
     unmatched = []
+    key_count = {}
     try:
         with ThreadPoolExecutor(max_workers=8) as pool:
             futures = {pool.submit(transcribe, tmp, prompt): (start, end, tmp) for start, end, tmp in segs}
-            results = [(start, end, tmp, fut.result()) for fut, (start, end, tmp) in
-                       ((fut, futures[fut]) for fut in as_completed(futures))]
+            results = []
+            for fut in as_completed(futures):
+                start, end, tmp = futures[fut]
+                try:
+                    results.append((start, end, tmp, fut.result()))
+                except Exception as exc:
+                    dur = end - start
+                    print(f"  ✗  {start:.2f}-{end:.2f}s ({dur:.2f}s)  transcription error: {exc}")
+                    unmatched.append((tmp, f"[ERROR: {exc}]", dur))
         for start, end, tmp, text in sorted(results, key=lambda x: x[0]):
             dur   = end - start
             match = map_phrase(text)
@@ -417,18 +447,17 @@ def process_phrases(src, overwrite=False):
 
             if match:
                 folder, key = match
-                out_path = os.path.join(OUTPUT_BASE, folder, f"{key}.mp3")
-                if not overwrite and os.path.exists(out_path):
-                    print(f"  –  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → skipping {folder}/{key}.mp3 (exists, use --overwrite)")
-                else:
-                    shutil.copy2(tmp, out_path)
-                    print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → {folder}/{key}.mp3")
+                n = key_count.get(key, 0) + 1
+                key_count[key] = n
+                fname = f"{key}.mp3" if n == 1 else f"{key}_{n:02d}.mp3"
+                shutil.copy2(tmp, os.path.join(OUTPUT_BASE, folder, fname))
+                print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → {folder}/{fname}")
             else:
                 print(f"  {marker}  {start:.2f}-{end:.2f}s ({dur:.2f}s)  {text!r}  → ??? (unmatched)")
                 unmatched.append((tmp, text, dur))
+        _report_unmatched(unmatched, "phrases")
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    _report_unmatched(unmatched, "phrases")
 
 
 def _report_unmatched(items, kind):
@@ -474,8 +503,6 @@ if __name__ == "__main__":
                         help="audio file(s) containing spoken letters / digraphs")
     parser.add_argument("--phrases", metavar="FILE", nargs="+", default=[],
                         help="audio file(s) containing instruction phrases and praise")
-    parser.add_argument("--overwrite", action="store_true",
-                        help="overwrite existing output files (default: skip)")
     parser.add_argument("--model", default=None,
                         help="Gemini model ID (default: gemini-2.5-flash, or $GEMINI_MODEL)")
     args = parser.parse_args()
@@ -495,10 +522,10 @@ if __name__ == "__main__":
     check_deps(all_files)
 
     for src in numbers_files:
-        process_numbers(src, args.overwrite)
+        process_numbers(src)
     for src in letters_files:
-        process_letters(src, args.overwrite)
+        process_letters(src)
     for src in phrases_files:
-        process_phrases(src, args.overwrite)
+        process_phrases(src)
 
     print("\n✅  All done. Files are in:", OUTPUT_BASE)

@@ -105,7 +105,6 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     if (showSuccess || !targetItem) return;
     if (item.symbol === targetItem.symbol) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      audioManager.playAnnouncement('correct-count', targetItem);
       setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
     } else {
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));

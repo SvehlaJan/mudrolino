@@ -24,7 +24,7 @@ const PHRASE_TEMPLATES: Record<PhraseTemplate, Array<string | '{target}' | '{sel
   'wrong-syllable':['phrases/slabika', '{target}', 'phrases/skus-to-znova'],
   'count-items':   ['phrases/spocitaj-predmety'],
   'correct-count': ['phrases/ano-je-ich', '{target}'],
-  'wrong-count':   ['phrases/nie-je-ich', '{target}', 'phrases/skus-to-znova'],
+  'wrong-count':   ['phrases/skus-to-znova'],
 };
 
 // TTS fallback text for each template

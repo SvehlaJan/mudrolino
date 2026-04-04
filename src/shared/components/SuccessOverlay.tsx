@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Pause, X } from 'lucide-react';
 import { ContentItem, PraiseEntry } from '../types';
 import { PRAISE_ENTRIES, COLORS, TIMING } from '../contentRegistry';
 import { audioManager } from '../services/audioManager';
@@ -25,15 +26,23 @@ function getEchoLine(item: ContentItem): string {
 
 export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) {
   const [praise, setPraise] = useState<PraiseEntry>(PRAISE_ENTRIES[0]);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!show) return;
+    if (!show) { setPaused(false); return; }
     const entry = PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
     setPraise(entry);
+    setPaused(false);
     audioManager.playPraise(entry);
-    const timer = setTimeout(onComplete, TIMING.SUCCESS_OVERLAY_DURATION_MS);
-    return () => clearTimeout(timer);
+    timerRef.current = setTimeout(onComplete, TIMING.SUCCESS_OVERLAY_DURATION_MS);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [show]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handlePause = () => {
+    if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; }
+    setPaused(true);
+  };
 
   return (
     <AnimatePresence>
@@ -42,6 +51,7 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onClick={onComplete}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
         >
           {[...Array(30)].map((_, i) => (
@@ -56,13 +66,25 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-shadow px-8 py-12 sm:px-24 sm:py-20 rounded-[40px] sm:rounded-[80px] relative z-10 border-8 border-white shadow-2xl mx-6 max-w-[90vw] w-auto text-center"
+            onClick={e => e.stopPropagation()}
+            className="relative z-10 border-[6px] border-white rounded-[48px] px-12 py-12 sm:px-20 sm:py-16 mx-6 max-w-[90vw] w-auto text-center"
+            style={{
+              background: 'linear-gradient(150deg, #fff8f0 0%, #ffecd2 100%)',
+              boxShadow: '0 8px 0 #f0c99a, 0 20px 60px rgba(0,0,0,.10)',
+            }}
           >
-            <div className="text-8xl sm:text-[120px] leading-none mb-2">{praise.emoji}</div>
-            <h3 className="text-primary text-5xl sm:text-[100px] font-black tracking-tighter leading-none whitespace-nowrap">
+            <button
+              onClick={paused ? onComplete : handlePause}
+              className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#aaa] transition-colors hover:text-[#666]"
+              style={{ boxShadow: '0 2px 8px rgba(0,0,0,.10)' }}
+            >
+              {paused ? <X size={20} /> : <Pause size={20} />}
+            </button>
+            <div className="text-[100px] sm:text-[140px] leading-none mb-2">{praise.emoji}</div>
+            <h3 className="text-primary text-5xl sm:text-[80px] font-black tracking-tighter leading-none">
               {praise.text}
             </h3>
-            <p className="text-shadow text-2xl sm:text-4xl font-bold mt-4 opacity-70">
+            <p className="text-2xl sm:text-4xl font-extrabold mt-5" style={{ color: '#c06a00' }}>
               {getEchoLine(item)}
             </p>
           </motion.div>
