@@ -33,8 +33,11 @@ assert map_number("sedem")          == "7",   "sedem"
 
 # ── map_phrase ────────────────────────────────────────────────────────────────
 assert map_phrase("Výborne!")              == ("praise",  "vyborne"),       "praise with diacritics"
+assert map_phrase("vyborne")               == ("praise",  "vyborne"),       "praise no diacritics"
 assert map_phrase("Skvelá práca")          == ("praise",  "skvela-praca"),  "skvelá práca"
+assert map_phrase("skvela praca")          == ("praise",  "skvela-praca"),  "no diacritics variant"
 assert map_phrase("Nájdi písmenko")        == ("phrases", "najdi-pismeno"), "phrase with diacritics"
+assert map_phrase("najdi pismenko")        == ("phrases", "najdi-pismeno"), "phrase no diacritics"
 assert map_phrase("Toto je písmenko")      == ("phrases", "toto-je-pismeno")
 assert map_phrase("Skús to znova")         == ("phrases", "skus-to-znova")
 assert map_phrase("Spočítaj predmety")     == ("phrases", "spocitaj-predmety")

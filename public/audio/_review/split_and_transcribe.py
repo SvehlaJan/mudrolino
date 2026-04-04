@@ -28,7 +28,7 @@ Output is written to _new/ next to this script:
     _new/praise/      ← praise clips
 """
 
-import argparse, os, sys, re, base64, time, shutil, subprocess, tempfile
+import argparse, os, sys, re, base64, time, shutil, subprocess, tempfile, unicodedata
 import requests
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
@@ -113,34 +113,24 @@ LETTER_MAP = {
     "z":   "z",            "ž":  "z-caron",
 }
 
-# Slovak phrase text (lowercase, stripped) → (subfolder, audioKey)
+# Slovak phrase text (lowercase, with diacritics) → (subfolder, audioKey)
+# Lookup is done via _normalise() so no-diacritics variants need not be listed.
 PHRASE_MAP = {
-    "nájdi písmenko":        ("phrases", "najdi-pismeno"),
-    "nájdi pismenko":        ("phrases", "najdi-pismeno"),
-    "toto je písmenko":      ("phrases", "toto-je-pismeno"),
-    "toto je pismenko":      ("phrases", "toto-je-pismeno"),
-    "skús to znova":         ("phrases", "skus-to-znova"),
-    "skus to znova":         ("phrases", "skus-to-znova"),
-    "číslo":                 ("phrases", "cislo"),
-    "cislo":                 ("phrases", "cislo"),
-    "slabika":               ("phrases", "slabika"),
-    "spočítaj predmety":     ("phrases", "spocitaj-predmety"),
-    "spocitaj predmety":     ("phrases", "spocitaj-predmety"),
-    "áno je ich":            ("phrases", "ano-je-ich"),
-    "ano je ich":            ("phrases", "ano-je-ich"),
-    "nie je ich":            ("phrases", "nie-je-ich"),
-    "výborne":               ("praise",  "vyborne"),
-    "vyborne":               ("praise",  "vyborne"),
-    "skvelá práca":          ("praise",  "skvela-praca"),
-    "skvela praca":          ("praise",  "skvela-praca"),
-    "si šikovný":            ("praise",  "si-sikovny"),
-    "si šikovná":            ("praise",  "si-sikovny"),
-    "si sikovny":            ("praise",  "si-sikovny"),
-    "to je ono":             ("praise",  "to-je-ono"),
-    "úžasné":                ("praise",  "uzasne"),
-    "uzasne":                ("praise",  "uzasne"),
-    "paráda":                ("praise",  "parada"),
-    "parada":                ("praise",  "parada"),
+    "nájdi písmenko":    ("phrases", "najdi-pismeno"),
+    "toto je písmenko":  ("phrases", "toto-je-pismeno"),
+    "skús to znova":     ("phrases", "skus-to-znova"),
+    "číslo":             ("phrases", "cislo"),
+    "slabika":           ("phrases", "slabika"),
+    "spočítaj predmety": ("phrases", "spocitaj-predmety"),
+    "áno je ich":        ("phrases", "ano-je-ich"),
+    "nie je ich":        ("phrases", "nie-je-ich"),
+    "výborne":           ("praise",  "vyborne"),
+    "skvelá práca":      ("praise",  "skvela-praca"),
+    "si šikovný":        ("praise",  "si-sikovny"),
+    "si šikovná":        ("praise",  "si-sikovny"),
+    "to je ono":         ("praise",  "to-je-ono"),
+    "úžasné":            ("praise",  "uzasne"),
+    "paráda":            ("praise",  "parada"),
 }
 
 
@@ -244,6 +234,13 @@ def transcribe(audio_path, prompt, retries=3):
 
 # ── Mapping helpers ────────────────────────────────────────────────────────────
 
+def _normalise(s):
+    """Lowercase + strip diacritics for map lookup."""
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', s.lower())
+        if unicodedata.category(c) != 'Mn'
+    )
+
 def map_number(text):
     """'dva' → '2'"""
     t = text.strip().lower()
@@ -286,13 +283,15 @@ def map_letter(text):
 
 def map_phrase(text):
     """'Výborne!' → ('praise', 'vyborne')"""
-    t = re.sub(r"[!?.,]", "", text.strip().lower())
+    t = re.sub(r"[!?.,]", "", _normalise(text.strip()))
     # exact match
-    if t in PHRASE_MAP:
-        return PHRASE_MAP[t]
+    for key, val in PHRASE_MAP.items():
+        if _normalise(key) == t:
+            return val
     # partial / fuzzy match
     for key, val in PHRASE_MAP.items():
-        if key in t or t in key:
+        nk = _normalise(key)
+        if nk in t or t in nk:
             return val
     return None
 
