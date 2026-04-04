@@ -39,10 +39,11 @@ OUTPUT_BASE = os.path.join(SCRIPT_DIR, "_new")
 
 # ── Gemini API ────────────────────────────────────────────────────────────────
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_URL = (
+GEMINI_API_KEY   = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_MODEL     = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
+GEMINI_URL       = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-2.0-flash:generateContent?key={key}"
+    "{model}:generateContent?key={key}"
 )
 
 # ── Audio split parameters ────────────────────────────────────────────────────
@@ -219,7 +220,7 @@ def transcribe(audio_path, prompt, retries=3):
         "generationConfig": {"temperature": 0.0},
     }
 
-    url = GEMINI_URL.format(key=GEMINI_API_KEY)
+    url = GEMINI_URL.format(model=GEMINI_MODEL, key=GEMINI_API_KEY)
     for attempt in range(retries):
         try:
             resp = requests.post(url, json=payload, timeout=30)
@@ -475,7 +476,13 @@ if __name__ == "__main__":
                         help="audio file(s) containing instruction phrases and praise")
     parser.add_argument("--overwrite", action="store_true",
                         help="overwrite existing output files (default: skip)")
+    parser.add_argument("--model", default=None,
+                        help=f"Gemini model ID (default: {GEMINI_MODEL}, or $GEMINI_MODEL)")
     args = parser.parse_args()
+
+    if args.model:
+        global GEMINI_MODEL
+        GEMINI_MODEL = args.model
 
     numbers_files = [resolve_path(p) for p in args.numbers]
     letters_files = [resolve_path(p) for p in args.letters]
