@@ -29,6 +29,7 @@ Output is written to _new/ next to this script:
 """
 
 import argparse, os, sys, re, base64, time, shutil, subprocess, tempfile, unicodedata
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
@@ -320,9 +321,12 @@ def process_numbers(src, overwrite=False):
 
     unmatched = []
     try:
-        for start, end, tmp in segs:
-            dur = end - start
-            text = transcribe(tmp, prompt)
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            futures = {pool.submit(transcribe, tmp, prompt): (start, end, tmp) for start, end, tmp in segs}
+            results = [(start, end, tmp, fut.result()) for fut, (start, end, tmp) in
+                       ((fut, futures[fut]) for fut in as_completed(futures))]
+        for start, end, tmp, text in sorted(results, key=lambda x: x[0]):
+            dur  = end - start
             key  = map_number(text)
             marker = "✓" if key else "✗"
             dest = os.path.join(out_dir, f"{key}.mp3") if key else None
@@ -358,9 +362,12 @@ def process_letters(src, overwrite=False):
 
     unmatched = []
     try:
-        for start, end, tmp in segs:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            futures = {pool.submit(transcribe, tmp, prompt): (start, end, tmp) for start, end, tmp in segs}
+            results = [(start, end, tmp, fut.result()) for fut, (start, end, tmp) in
+                       ((fut, futures[fut]) for fut in as_completed(futures))]
+        for start, end, tmp, text in sorted(results, key=lambda x: x[0]):
             dur  = end - start
-            text = transcribe(tmp, prompt)
             key  = map_letter(text)
             marker = "✓" if key else "✗"
             dest = os.path.join(out_dir, f"{key}.mp3") if key else None
@@ -398,9 +405,12 @@ def process_phrases(src, overwrite=False):
 
     unmatched = []
     try:
-        for start, end, tmp in segs:
-            dur  = end - start
-            text = transcribe(tmp, prompt)
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            futures = {pool.submit(transcribe, tmp, prompt): (start, end, tmp) for start, end, tmp in segs}
+            results = [(start, end, tmp, fut.result()) for fut, (start, end, tmp) in
+                       ((fut, futures[fut]) for fut in as_completed(futures))]
+        for start, end, tmp, text in sorted(results, key=lambda x: x[0]):
+            dur   = end - start
             match = map_phrase(text)
             marker = "✓" if match else "✗"
 
