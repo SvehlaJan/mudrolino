@@ -84,7 +84,6 @@ export const WORD_ITEMS: WordItem[] = [
   { word: 'Mama',     syllables: 'ma-ma',        emoji: '👩' },
   { word: 'Malina',   syllables: 'ma-li-na',     emoji: '🫐' },
   { word: 'Tata',     syllables: 'ta-ta',        emoji: '👨' },
-  { word: 'Tulipán',  syllables: 'tu-li-pán',    emoji: '🌷' },
   { word: 'Lipa',     syllables: 'li-pa',        emoji: '🌳' },
   { word: 'Lano',     syllables: 'la-no',        emoji: '🪢' },
   { word: 'Luna',     syllables: 'lu-na',        emoji: '🌙' },
@@ -94,10 +93,7 @@ export const WORD_ITEMS: WordItem[] = [
   { word: 'Seno',     syllables: 'se-no',        emoji: '🌾' },
   { word: 'Pero',     syllables: 'pe-ro',        emoji: '✏️' },
   { word: 'Baba',     syllables: 'ba-ba',        emoji: '👵' },
-  { word: 'Banán',    syllables: 'ba-nán',       emoji: '🍌' },
-  { word: 'Bicykel',  syllables: 'bi-cy-kel',    emoji: '🚲' },
   { word: 'Bota',     syllables: 'bo-ta',        emoji: '👟' },
-  { word: 'Bubon',    syllables: 'bu-bon',       emoji: '🥁' },
   { word: 'Voda',     syllables: 'vo-da',        emoji: '💧' },
   { word: 'Vila',     syllables: 'vi-la',        emoji: '🏡' },
   { word: 'Vata',     syllables: 'va-ta',        emoji: '🧶' },
@@ -117,7 +113,6 @@ export const WORD_ITEMS: WordItem[] = [
   { word: 'Kino',     syllables: 'ki-no',        emoji: '🎬' },
   { word: 'Koleso',   syllables: 'ko-le-so',     emoji: '🎡' },
   { word: 'Kukurica', syllables: 'ku-ku-ri-ca',  emoji: '🌽' },
-  { word: 'Jelen',    syllables: 'je-len',       emoji: '🦌' },
   { word: 'Meno',     syllables: 'me-no',        emoji: '📛' },
   { word: 'Muha',     syllables: 'mu-ha',        emoji: '🪰' },
   { word: 'Misa',     syllables: 'mi-sa',        emoji: '🥣' },
@@ -133,7 +128,8 @@ for (const wordItem of WORD_ITEMS) {
   for (const syl of wordItem.syllables.split('-')) {
     const key = syl.toUpperCase();
     if (!_syllableWordMap.has(key)) _syllableWordMap.set(key, []);
-    _syllableWordMap.get(key)!.push(wordItem);
+    const existing = _syllableWordMap.get(key)!;
+    if (!existing.includes(wordItem)) existing.push(wordItem);
   }
 }
 
