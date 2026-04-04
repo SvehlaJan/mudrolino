@@ -2,7 +2,7 @@
  * Central content registry — single source of truth for all game content.
  * Replaces constants.ts.
  */
-import { ContentItem, PraiseEntry } from './types';
+import { ContentItem, PraiseEntry, WordItem } from './types';
 
 // UI colour helpers (moved from constants.ts)
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
@@ -76,17 +76,74 @@ export const ACTIVE_LETTER_ITEMS = LETTER_ITEMS.filter(
 );
 
 // ---------------------------------------------------------------------------
-// Syllables — 60 simple consonant+vowel pairs (no diacritical syllables)
+// Words — curated Slovak words with syllable breakdowns.
+// Syllables are derived from this list; extend it to add more game content.
 // ---------------------------------------------------------------------------
-const SYLLABLE_CONSONANTS = ['M','T','L','S','P','B','V','D','N','R','K','J'];
-const SYLLABLE_VOWELS = ['A','E','I','O','U'];
+export const WORD_ITEMS: WordItem[] = [
+  { word: 'Jahoda',   syllables: 'ja-ho-da',    emoji: '🍓' },
+  { word: 'Mama',     syllables: 'ma-ma',        emoji: '👩' },
+  { word: 'Malina',   syllables: 'ma-li-na',     emoji: '🫐' },
+  { word: 'Tata',     syllables: 'ta-ta',        emoji: '👨' },
+  { word: 'Tulipán',  syllables: 'tu-li-pán',    emoji: '🌷' },
+  { word: 'Lipa',     syllables: 'li-pa',        emoji: '🌳' },
+  { word: 'Lano',     syllables: 'la-no',        emoji: '🪢' },
+  { word: 'Luna',     syllables: 'lu-na',        emoji: '🌙' },
+  { word: 'Lopata',   syllables: 'lo-pa-ta',     emoji: '🪣' },
+  { word: 'Sova',     syllables: 'so-va',        emoji: '🦉' },
+  { word: 'Sito',     syllables: 'si-to',        emoji: '🫙' },
+  { word: 'Seno',     syllables: 'se-no',        emoji: '🌾' },
+  { word: 'Pero',     syllables: 'pe-ro',        emoji: '✏️' },
+  { word: 'Baba',     syllables: 'ba-ba',        emoji: '👵' },
+  { word: 'Banán',    syllables: 'ba-nán',       emoji: '🍌' },
+  { word: 'Bicykel',  syllables: 'bi-cy-kel',    emoji: '🚲' },
+  { word: 'Bota',     syllables: 'bo-ta',        emoji: '👟' },
+  { word: 'Bubon',    syllables: 'bu-bon',       emoji: '🥁' },
+  { word: 'Voda',     syllables: 'vo-da',        emoji: '💧' },
+  { word: 'Vila',     syllables: 'vi-la',        emoji: '🏡' },
+  { word: 'Vata',     syllables: 'va-ta',        emoji: '🧶' },
+  { word: 'Veda',     syllables: 've-da',        emoji: '🔬' },
+  { word: 'Deti',     syllables: 'de-ti',        emoji: '👦' },
+  { word: 'Dino',     syllables: 'di-no',        emoji: '🦕' },
+  { word: 'Doma',     syllables: 'do-ma',        emoji: '🏠' },
+  { word: 'Dúha',     syllables: 'dú-ha',        emoji: '🌈' },
+  { word: 'Dolina',   syllables: 'do-li-na',     emoji: '🏔️' },
+  { word: 'Noha',     syllables: 'no-ha',        emoji: '🦵' },
+  { word: 'Nebo',     syllables: 'ne-bo',        emoji: '☁️' },
+  { word: 'Nuda',     syllables: 'nu-da',        emoji: '😴' },
+  { word: 'Ryba',     syllables: 'ry-ba',        emoji: '🐟' },
+  { word: 'Ruka',     syllables: 'ru-ka',        emoji: '🤚' },
+  { word: 'Ruža',     syllables: 'ru-ža',        emoji: '🌹' },
+  { word: 'Koza',     syllables: 'ko-za',        emoji: '🐐' },
+  { word: 'Kino',     syllables: 'ki-no',        emoji: '🎬' },
+  { word: 'Koleso',   syllables: 'ko-le-so',     emoji: '🎡' },
+  { word: 'Kukurica', syllables: 'ku-ku-ri-ca',  emoji: '🌽' },
+  { word: 'Jelen',    syllables: 'je-len',       emoji: '🦌' },
+  { word: 'Meno',     syllables: 'me-no',        emoji: '📛' },
+  { word: 'Muha',     syllables: 'mu-ha',        emoji: '🪰' },
+  { word: 'Misa',     syllables: 'mi-sa',        emoji: '🥣' },
+  { word: 'Roboti',   syllables: 'ro-bo-ti',     emoji: '🤖' },
+  { word: 'Kačica',   syllables: 'ka-či-ca',     emoji: '🦆' },
+];
 
-export const SYLLABLE_ITEMS: ContentItem[] = SYLLABLE_CONSONANTS.flatMap(c =>
-  SYLLABLE_VOWELS.map(v => ({
-    symbol: `${c}${v}`,
-    audioKey: `${c}${v}`.toLowerCase(),
+// Derive SYLLABLE_ITEMS from WORD_ITEMS.
+// Each unique uppercase syllable becomes one ContentItem; all source words
+// that contain it are collected into sourceWords for the success echo line.
+const _syllableWordMap = new Map<string, WordItem[]>();
+for (const wordItem of WORD_ITEMS) {
+  for (const syl of wordItem.syllables.split('-')) {
+    const key = syl.toUpperCase();
+    if (!_syllableWordMap.has(key)) _syllableWordMap.set(key, []);
+    _syllableWordMap.get(key)!.push(wordItem);
+  }
+}
+
+export const SYLLABLE_ITEMS: ContentItem[] = Array.from(_syllableWordMap.entries()).map(
+  ([symbol, words]) => ({
+    symbol,
+    audioKey: symbol.toLowerCase(),
     category: 'syllable' as const,
-  }))
+    sourceWords: words,
+  })
 );
 
 // ---------------------------------------------------------------------------
