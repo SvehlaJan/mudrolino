@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Pause, X } from 'lucide-react';
-import { ContentItem, PraiseEntry } from '../types';
+import { ContentItem, PraiseEntry, WordItem } from '../types';
 import { PRAISE_ENTRIES, COLORS, TIMING } from '../contentRegistry';
 import { audioManager } from '../services/audioManager';
 
@@ -11,7 +11,7 @@ interface SuccessOverlayProps {
   onComplete: () => void;
 }
 
-function getEchoLine(item: ContentItem): string {
+function getEchoLine(item: ContentItem, echoWord?: WordItem): string {
   if (item.category === 'letter' && item.label) {
     return `${item.symbol} ako ${item.label} ${item.emoji ?? ''}`.trim();
   }
@@ -19,7 +19,8 @@ function getEchoLine(item: ContentItem): string {
     return `Správne, je ich ${item.symbol} ${item.emoji ?? '⭐'}`.trim();
   }
   if (item.category === 'syllable') {
-    return `${item.symbol} ${item.emoji ?? '🗣️'}`.trim();
+    if (echoWord) return `${item.symbol} ako ${echoWord.word} ${echoWord.emoji}`.trim();
+    return `${item.symbol} 🗣️`;
   }
   return `${item.symbol} ${item.emoji ?? ''}`.trim();
 }
@@ -27,6 +28,7 @@ function getEchoLine(item: ContentItem): string {
 export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) {
   const [praise, setPraise] = useState<PraiseEntry>(PRAISE_ENTRIES[0]);
   const [paused, setPaused] = useState(false);
+  const [echoWord, setEchoWord] = useState<WordItem | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -34,6 +36,11 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
     const entry = PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
     setPraise(entry);
     setPaused(false);
+    if (item.sourceWords && item.sourceWords.length > 0) {
+      setEchoWord(item.sourceWords[Math.floor(Math.random() * item.sourceWords.length)]);
+    } else {
+      setEchoWord(null);
+    }
     audioManager.playPraise(entry);
     timerRef.current = setTimeout(onComplete, TIMING.SUCCESS_OVERLAY_DURATION_MS);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
@@ -85,7 +92,7 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
               {praise.text}
             </h3>
             <p className="text-2xl sm:text-4xl font-extrabold mt-5" style={{ color: '#c06a00' }}>
-              {getEchoLine(item)}
+              {getEchoLine(item, echoWord ?? undefined)}
             </p>
           </motion.div>
         </motion.div>
