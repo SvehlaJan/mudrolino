@@ -259,17 +259,28 @@ def map_number(text):
 
 def map_letter(text):
     """'č' or 'Č' → 'c-caron'"""
+    _SK_CHARS = r"[^a-záäčďdždzéfghiíjkľĺlmnňoóôpqrŕsšťtuúvwxyýzž]"
     t = text.strip().lower()
-    # strip punctuation / spaces
-    t = re.sub(r"[^a-záäčďdždzéfghiíjkľĺlmnňoóôpqrŕsšťtuúvwxyýzž]", "", t)
-    # try longest match first (catches 'dž' before 'd')
-    for letter, key in sorted(LETTER_MAP.items(), key=lambda x: -len(x[0])):
-        if t == letter:
+    t_stripped = re.sub(_SK_CHARS, "", t)
+    by_len = sorted(LETTER_MAP.items(), key=lambda x: -len(x[0]))
+
+    # pass 1: exact match on full stripped string
+    for letter, key in by_len:
+        if t_stripped == letter:
             return key
-    # sometimes Gemini says "písmeno X" — grab just the letter part
-    for letter, key in sorted(LETTER_MAP.items(), key=lambda x: -len(x[0])):
-        if letter in t:
+
+    # pass 2: exact match per whitespace token (handles "písmeno DŽ")
+    for token in t.split():
+        tok = re.sub(_SK_CHARS, "", token)
+        for letter, key in by_len:
+            if tok == letter:
+                return key
+
+    # pass 3: substring fallback (last resort)
+    for letter, key in by_len:
+        if letter in t_stripped:
             return key
+
     return None
 
 
