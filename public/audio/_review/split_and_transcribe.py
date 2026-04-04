@@ -328,7 +328,7 @@ def process_numbers(src):
                 unmatched.append((tmp, text, dur))
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    _report_unmatched(unmatched)
+    _report_unmatched(unmatched, "numbers")
 
 
 def process_letters(src):
@@ -362,7 +362,7 @@ def process_letters(src):
                 unmatched.append((tmp, text, dur))
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    _report_unmatched(unmatched)
+    _report_unmatched(unmatched, "letters")
 
 
 def process_phrases(src):
@@ -401,15 +401,19 @@ def process_phrases(src):
                 unmatched.append((tmp, text, dur))
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    _report_unmatched(unmatched)
+    _report_unmatched(unmatched, "phrases")
 
 
-def _report_unmatched(items):
+def _report_unmatched(items, kind):
     if not items:
         return
-    print(f"\n  ⚠  {len(items)} unmatched segment(s) — check manually:")
-    for tmp, text, dur in items:
-        print(f"      {dur:.2f}s  transcribed as: {text!r}")
+    unmatched_dir = os.path.join(OUTPUT_BASE, "unmatched")
+    os.makedirs(unmatched_dir, exist_ok=True)
+    print(f"\n  ⚠  {len(items)} unmatched segment(s) saved to {unmatched_dir}/")
+    for i, (tmp, text, dur) in enumerate(items, 1):
+        dest = os.path.join(unmatched_dir, f"{kind}_{i:02d}.mp3")
+        shutil.copy2(tmp, dest)
+        print(f"      {dest}  ({dur:.2f}s)  transcribed as: {text!r}")
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────
