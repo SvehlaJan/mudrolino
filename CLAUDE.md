@@ -59,3 +59,11 @@ TTS fallback is automatic — missing files cause no errors during development.
 ## Environment
 
 `GEMINI_API_KEY` is available via env (see `.env.example`).
+
+## Roadmap
+
+`ROADMAP.md` is the living product roadmap. Keep it up-to-date:
+- Mark tasks `[x]` as soon as they are completed.
+- Add new tasks as they are identified.
+- Record decisions in the Decisions Log table at the bottom when a significant choice is made.
+- Move completed phases to a "Done" section if they become noisy.
