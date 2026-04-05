@@ -12,7 +12,8 @@
       "Skill(claude-reflect:reflect)",
       "Bash(python3 test_mappings.py)",
       "Bash(.venv/bin/python test_mappings.py)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(git:*)"
     ]
   }
 }
