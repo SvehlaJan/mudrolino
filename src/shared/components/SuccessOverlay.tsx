@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Pause, X } from 'lucide-react';
 import { ContentItem, PraiseEntry, WordItem } from '../types';
@@ -19,7 +19,7 @@ function getEchoLine(item: ContentItem, echoWord?: WordItem): string {
     return `Správne, je ich ${item.symbol} ${item.emoji ?? '⭐'}`.trim();
   }
   if (item.category === 'syllable') {
-    if (echoWord) return `${item.symbol} ako ${echoWord.word} ${echoWord.emoji}`.trim();
+    if (echoWord) return `${item.symbol} ako ${echoWord.syllables} ${echoWord.emoji}`.trim();
     return `${item.symbol} 🗣️`;
   }
   return `${item.symbol} ${item.emoji ?? ''}`.trim();
@@ -30,6 +30,15 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
   const [paused, setPaused] = useState(false);
   const [echoWord, setEchoWord] = useState<WordItem | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const confetti = useMemo(() =>
+    [...Array(30)].map((_, i) => ({
+      x: Math.random() * window.innerWidth - window.innerWidth / 2,
+      duration: 3 + Math.random() * 3,
+      delay: Math.random() * 2,
+      shape: i % 3,
+    })),
+    [show] // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   useEffect(() => {
     if (!show) { setPaused(false); return; }
@@ -61,13 +70,13 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
           onClick={onComplete}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
         >
-          {[...Array(30)].map((_, i) => (
+          {confetti.map((p, i) => (
             <motion.div
               key={i}
-              initial={{ y: -500, x: Math.random() * window.innerWidth - window.innerWidth / 2, rotate: 0 }}
+              initial={{ y: -500, x: p.x, rotate: 0 }}
               animate={{ y: window.innerHeight + 500, rotate: 360 }}
-              transition={{ duration: 3 + Math.random() * 3, ease: 'linear', delay: Math.random() * 2 }}
-              className={`absolute ${i % 3 === 0 ? 'w-16 h-16 rounded-full' : i % 3 === 1 ? 'w-24 h-12 rounded-full' : 'w-12 h-24 rounded-full'} ${COLORS[i % COLORS.length].replace('text-', 'bg-')} opacity-60 blur-[2px]`}
+              transition={{ duration: p.duration, ease: 'linear', delay: p.delay }}
+              className={`absolute ${p.shape === 0 ? 'w-16 h-16 rounded-full' : p.shape === 1 ? 'w-24 h-12 rounded-full' : 'w-12 h-24 rounded-full'} ${COLORS[i % COLORS.length].replace('text-', 'bg-')} opacity-60 blur-[2px]`}
             />
           ))}
           <motion.div

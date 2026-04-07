@@ -34,6 +34,8 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [optionItems, setOptionItems] = useState<ContentItem[]>([]);
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
+  const optionsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const availableItems = useMemo(
@@ -85,6 +87,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     setOptionItems(options);
     setFeedback({});
     setShowSuccess(false);
+    setShowOptions(false);
+    if (optionsTimerRef.current) clearTimeout(optionsTimerRef.current);
+    optionsTimerRef.current = setTimeout(() => setShowOptions(true), TIMING.COUNTING_OPTIONS_DELAY_MS);
   }, [availableItems, range.end, generatePositions]);
 
   useEffect(() => {
@@ -206,7 +211,12 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           </button>
         </div>
 
-        <div className="grid grid-cols-4 gap-4 sm:gap-8 w-full shrink-0 mb-8 sm:mb-12">
+        <motion.div
+          animate={{ opacity: showOptions ? 1 : 0, y: showOptions ? 0 : 20 }}
+          transition={{ duration: 0.4 }}
+          className="grid grid-cols-4 gap-4 sm:gap-8 w-full shrink-0 mb-8 sm:mb-12"
+          style={{ pointerEvents: showOptions ? 'auto' : 'none' }}
+        >
           {optionItems.map((item, i) => (
             <motion.button
               key={i}
@@ -221,7 +231,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
               {item.symbol}
             </motion.button>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {targetItem && (

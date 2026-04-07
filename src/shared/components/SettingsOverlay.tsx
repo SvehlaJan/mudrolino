@@ -29,12 +29,16 @@ export function SettingsOverlay({ settings, onUpdate, onClose }: SettingsOverlay
         </div>
 
         <div className="p-4 sm:p-10 space-y-4 sm:space-y-8 overflow-y-auto flex-1">
-          <SettingToggle 
-            label="Hudba" 
-            icon={<Music size={24} className="sm:w-8 sm:h-8" />} 
-            active={settings.music} 
+          <SettingToggle
+            label="Hudba"
+            icon={<Music size={24} className="sm:w-8 sm:h-8" />}
+            active={settings.music}
             color="bg-shadow"
-            onToggle={() => updateSetting('music', !settings.music)} 
+            onToggle={() => {
+              const newMusic = !settings.music;
+              audioManager.updateSettings({ music: newMusic });
+              updateSetting('music', newMusic);
+            }}
           />
 
           <div className="pt-4 pb-8 border-b-2 border-shadow/10">

@@ -14,6 +14,7 @@ export const TIMING = {
   FEEDBACK_RESET_MS: 500,
   SUCCESS_SHOW_DELAY_MS: 500,
   SUCCESS_OVERLAY_DURATION_MS: 3000,
+  COUNTING_OPTIONS_DELAY_MS: 2000,
 };
 
 // ---------------------------------------------------------------------------
@@ -118,6 +119,13 @@ export const WORD_ITEMS: WordItem[] = [
   { word: 'Misa',     syllables: 'mi-sa',        emoji: '🥣' },
   { word: 'Roboti',   syllables: 'ro-bo-ti',     emoji: '🤖' },
   { word: 'Kačica',   syllables: 'ka-či-ca',     emoji: '🦆' },
+  // Diacritical consonants: ž, š, ň, ľ
+  { word: 'Žirafa',   syllables: 'ži-ra-fa',     emoji: '🦒' },
+  { word: 'Žena',     syllables: 'že-na',        emoji: '👩' },
+  { word: 'Šaty',     syllables: 'ša-ty',        emoji: '👗' },
+  { word: 'Šoféri',   syllables: 'šo-fé-ri',     emoji: '🚗' },
+  { word: 'Baňa',     syllables: 'ba-ňa',        emoji: '⛏️' },
+  { word: 'Poľana',   syllables: 'po-ľa-na',     emoji: '🌿' },
 ];
 
 // Derive SYLLABLE_ITEMS from WORD_ITEMS.

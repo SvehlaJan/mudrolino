@@ -39,13 +39,11 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
 
   const startNewRound = useCallback(() => {
     if (availableItems.length === 0) return;
-    let target = availableItems[Math.floor(Math.random() * availableItems.length)];
     const current = targetItemRef.current;
-    if (current && availableItems.length > 1) {
-      while (target.symbol === current.symbol) {
-        target = availableItems[Math.floor(Math.random() * availableItems.length)];
-      }
-    }
+    const eligible = current ? availableItems.filter(item => item.symbol !== current.symbol) : availableItems;
+    const target = eligible.length > 0
+      ? eligible[Math.floor(Math.random() * eligible.length)]
+      : availableItems[Math.floor(Math.random() * availableItems.length)];
     const others = availableItems.filter(n => n.symbol !== target.symbol)
       .sort(() => 0.5 - Math.random())
       .slice(0, 3);
