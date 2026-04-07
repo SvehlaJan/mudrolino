@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, Play, Settings } from 'lucide-react';
 import { COLORS } from '../../shared/contentRegistry';
 import { FindItGame } from '../../shared/components/FindItGame';
-import { alphabetDescriptor } from './alphabetDescriptor.tsx';
+import { alphabetDescriptor } from './alphabetDescriptor';
 
 interface AlphabetGameProps {
   onExit: () => void;
