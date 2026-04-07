@@ -1,34 +1,24 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Pause, X } from 'lucide-react';
-import { ContentItem, PraiseEntry, WordItem } from '../types';
+import { SuccessSpec, PraiseEntry } from '../types';
 import { PRAISE_ENTRIES, COLORS, TIMING } from '../contentRegistry';
 import { audioManager } from '../services/audioManager';
 
 interface SuccessOverlayProps {
   show: boolean;
-  item: ContentItem;
+  spec: SuccessSpec;
   onComplete: () => void;
 }
 
-function getEchoLine(item: ContentItem, echoWord?: WordItem): string {
-  if (item.category === 'letter' && item.label) {
-    return `${item.symbol} ako ${item.label} ${item.emoji ?? ''}`.trim();
-  }
-  if (item.category === 'number') {
-    return `Správne, je ich ${item.symbol} ${item.emoji ?? '⭐'}`.trim();
-  }
-  if (item.category === 'syllable') {
-    if (echoWord) return `${item.symbol} ako ${echoWord.syllables} ${echoWord.emoji}`.trim();
-    return `${item.symbol} 🗣️`;
-  }
-  return `${item.symbol} ${item.emoji ?? ''}`.trim();
-}
-
-export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) {
+export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) {
   const [praise, setPraise] = useState<PraiseEntry>(PRAISE_ENTRIES[0]);
   const [paused, setPaused] = useState(false);
-  const [echoWord, setEchoWord] = useState<WordItem | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const confetti = useMemo(() =>
     [...Array(30)].map((_, i) => ({
@@ -45,11 +35,6 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
     const entry = PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
     setPraise(entry);
     setPaused(false);
-    if (item.sourceWords && item.sourceWords.length > 0) {
-      setEchoWord(item.sourceWords[Math.floor(Math.random() * item.sourceWords.length)]);
-    } else {
-      setEchoWord(null);
-    }
     audioManager.playPraise(entry);
     timerRef.current = setTimeout(onComplete, TIMING.SUCCESS_OVERLAY_DURATION_MS);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
@@ -101,7 +86,7 @@ export function SuccessOverlay({ show, item, onComplete }: SuccessOverlayProps) 
               {praise.text}
             </h3>
             <p className="text-2xl sm:text-4xl font-extrabold mt-5" style={{ color: '#c06a00' }}>
-              {getEchoLine(item, echoWord ?? undefined)}
+              {spec.echoLine}
             </p>
           </motion.div>
         </motion.div>
