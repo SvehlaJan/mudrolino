@@ -6,11 +6,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Settings, 
-  Play, 
+  Settings,
+  Play,
   Gamepad2,
   Type,
-  Apple
+  Apple,
+  BookOpen
 } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
@@ -23,6 +24,7 @@ import { AlphabetGame } from './games/alphabet/AlphabetGame';
 import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
+import { WordsGame } from './games/words/WordsGame';
 
 const GAMES: GameMetadata[] = [
   {
@@ -51,6 +53,13 @@ const GAMES: GameMetadata[] = [
     title: 'Spočítaj',
     description: 'Koľko jabĺčok vidíš?',
     icon: 'Apple',
+    color: 'bg-soft-watermelon'
+  },
+  {
+    id: 'WORDS',
+    title: 'Slová',
+    description: 'Prečítaj slovo a nájdi obrázok',
+    icon: 'BookOpen',
     color: 'bg-soft-watermelon'
   }
 ];
@@ -145,6 +154,7 @@ window.removeEventListener('click', unlockAudio);
                   {game.id === 'SYLLABLES' && <Gamepad2 size={48} className="sm:w-16 sm:h-16" />}
                   {game.id === 'NUMBERS' && <Play size={48} className="sm:w-16 sm:h-16 ml-2" fill="currentColor" />}
                   {game.id === 'COUNTING_ITEMS' && <Apple size={48} className="sm:w-16 sm:h-16" />}
+                  {game.id === 'WORDS' && <BookOpen size={48} className="sm:w-16 sm:h-16" />}
                 </div>
                 
                 <div className="text-left">
@@ -251,7 +261,24 @@ window.removeEventListener('click', unlockAudio);
           </motion.div>
         )}
 
-        {screen === 'GAME' && !['ALPHABET', 'SYLLABLES', 'NUMBERS', 'COUNTING_ITEMS'].includes(activeGame as string) && (
+        {screen === 'GAME' && activeGame === 'WORDS' && (
+          <motion.div
+            key="words"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            className="w-full min-h-screen"
+          >
+            <ErrorBoundary>
+              <WordsGame
+                onExit={handleExitGame}
+                onOpenSettings={handleOpenSettings}
+              />
+            </ErrorBoundary>
+          </motion.div>
+        )}
+
+        {screen === 'GAME' && !['ALPHABET', 'SYLLABLES', 'NUMBERS', 'COUNTING_ITEMS', 'WORDS'].includes(activeGame as string) && (
           <motion.div 
             key="coming-soon" 
             initial={{ opacity: 0, scale: 0.9 }} 
