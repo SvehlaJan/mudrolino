@@ -1,47 +1,10 @@
 /**
- * AudioManager handles all auditory feedback.
- * Primary: file-based playback from public/audio/.
- * Fallback: Web Speech API (TTS) when a file is missing or unavailable.
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
  */
-import { ContentItem, PraiseEntry, PhraseTemplate } from '../types';
+
+import { AudioSpec, PraiseEntry } from '../types';
 import { PRAISE_ENTRIES } from '../contentRegistry';
-
-const CATEGORY_DIR: Record<ContentItem['category'], string> = {
-  letter: 'letters',
-  syllable: 'syllables',
-  number: 'numbers',
-  word: 'words',
-};
-
-// Internal phrase template map.
-// '{target}' = correct ContentItem; '{selected}' = what the player tapped (wrong-letter only).
-const PHRASE_TEMPLATES: Record<PhraseTemplate, Array<string | '{target}' | '{selected}'>> = {
-  'find-letter':   ['phrases/najdi-pismeno', '{target}'],
-  'wrong-letter':  ['phrases/toto-je-pismeno', '{selected}', 'phrases/skus-to-znova'],
-  'find-number':   ['phrases/cislo', '{target}'],
-  'wrong-number':  ['phrases/skus-to-znova'],
-  'find-syllable': ['phrases/slabika', '{target}'],
-  'wrong-syllable':['phrases/slabika', '{target}', 'phrases/skus-to-znova'],
-  'count-items':   ['phrases/spocitaj-predmety'],
-  'correct-count': ['phrases/ano-je-ich', '{target}'],
-  'wrong-count':   ['phrases/skus-to-znova'],
-};
-
-// TTS fallback text for each template
-const FALLBACK_TEXT: Record<
-  PhraseTemplate,
-  (target: ContentItem, selected?: ContentItem) => string
-> = {
-  'find-letter':   (t)    => `Nájdi písmenko ${t.symbol}`,
-  'wrong-letter':  (t, s) => `Toto je písmenko ${s?.symbol ?? t.symbol}. Skús to znova.`,
-  'find-number':   (t)    => `Číslo ${t.symbol}`,
-  'wrong-number':  ()     => 'Skús to znova.',
-  'find-syllable': (t)    => `Slabika ${t.symbol}`,
-  'wrong-syllable':(t)    => `Slabika ${t.symbol}. Skús to znova.`,
-  'count-items':   ()     => 'Spočítaj predmety',
-  'correct-count': (t)    => `Áno, je ich ${t.symbol}.`,
-  'wrong-count':   (t)    => `Nie, je ich ${t.symbol}. Skús to znova.`,
-};
 
 export class AudioManager {
   private synth: SpeechSynthesis = window.speechSynthesis;
@@ -63,9 +26,7 @@ export class AudioManager {
         this.musicAudio.loop = true;
         this.musicAudio.volume = 0.4;
       }
-      this.musicAudio.play().catch(() => {
-        // Autoplay blocked or file missing — silently do nothing
-      });
+      this.musicAudio.play().catch(() => {});
     } else {
       if (this.musicAudio) {
         this.musicAudio.pause();
@@ -73,44 +34,18 @@ export class AudioManager {
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Public API
-  // ---------------------------------------------------------------------------
-
-  playAnnouncement(template: PhraseTemplate, target: ContentItem, selected?: ContentItem): void {
-    const rawParts = PHRASE_TEMPLATES[template];
-    const resolved = rawParts.map(part => {
-      if (part === '{target}') return target;
-      if (part === '{selected}') return selected ?? target;
-      return part; // static path like 'phrases/najdi-pismeno'
-    });
-    const fallback = FALLBACK_TEXT[template](target, selected);
-    this.playSequence(resolved, fallback);
-  }
-
-  playLetter(target: ContentItem): void {
-    this.playAnnouncement('find-letter', target);
-  }
-
-  playNumber(target: ContentItem): void {
-    this.playAnnouncement('find-number', target);
-  }
-
-  playSyllable(target: ContentItem): void {
-    this.playAnnouncement('find-syllable', target);
+  /** Play a sequence of audio clips described by an AudioSpec. Falls back to TTS on any failure. */
+  play(spec: AudioSpec): void {
+    this.playSequenceAsync(
+      spec.sequence.map(path => `/audio/${path}.mp3`),
+      spec.fallbackText
+    ).catch(() => this.speak(spec.fallbackText));
   }
 
   playPraise(entry?: PraiseEntry): void {
     const chosen = entry ?? PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
-    this.playSequence([`praise/${chosen.audioKey}`], chosen.text);
-  }
-
-  // ---------------------------------------------------------------------------
-  // Internal: file-based playback with TTS fallback
-  // ---------------------------------------------------------------------------
-
-  private getItemAudioPath(item: ContentItem): string {
-    return `/audio/${CATEGORY_DIR[item.category]}/${item.audioKey}.mp3`;
+    this.playSequenceAsync([`/audio/praise/${chosen.audioKey}.mp3`], chosen.text)
+      .catch(() => this.speak(chosen.text));
   }
 
   private stopCurrent(): void {
@@ -132,26 +67,16 @@ export class AudioManager {
     });
   }
 
-  private async playSequenceAsync(
-    parts: Array<string | ContentItem>,
-    fallbackText: string
-  ): Promise<void> {
+  private async playSequenceAsync(paths: string[], fallbackText: string): Promise<void> {
     this.stopCurrent();
     try {
-      for (const part of parts) {
-        const path = typeof part === 'string'
-          ? `/audio/${part}.mp3`
-          : this.getItemAudioPath(part);
+      for (const path of paths) {
         await this.playSingleClip(path);
       }
     } catch {
       console.warn('[AudioManager] Audio file failed, falling back to TTS:', fallbackText);
       this.speak(fallbackText);
     }
-  }
-
-  private playSequence(parts: Array<string | ContentItem>, fallbackText: string): void {
-    this.playSequenceAsync(parts, fallbackText).catch(() => this.speak(fallbackText));
   }
 
   private speak(text: string): void {
