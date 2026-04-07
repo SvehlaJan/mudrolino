@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
 import { NUMBER_ITEMS, COLORS, TIMING } from '../../shared/contentRegistry';
-import { SlovakNumber, SuccessSpec } from '../../shared/types';
+import { SlovakNumber } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 
 interface CountingItemsGameProps {
