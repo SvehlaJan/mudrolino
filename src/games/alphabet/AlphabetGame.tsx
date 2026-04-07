@@ -30,13 +30,12 @@ export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
 
   const startNewRound = useCallback(() => {
     const pool = ACTIVE_LETTER_ITEMS;
-    let target = pool[Math.floor(Math.random() * pool.length)];
+    if (pool.length === 0) return;
     const current = targetItemRef.current;
-    if (current && pool.length > 1) {
-      while (target.symbol === current.symbol) {
-        target = pool[Math.floor(Math.random() * pool.length)];
-      }
-    }
+    const eligible = current ? pool.filter(item => item.symbol !== current.symbol) : pool;
+    const target = eligible.length > 0
+      ? eligible[Math.floor(Math.random() * eligible.length)]
+      : pool[Math.floor(Math.random() * pool.length)];
     const others = pool.filter(l => l.symbol !== target.symbol)
       .sort(() => 0.5 - Math.random())
       .slice(0, 7);

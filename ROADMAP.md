@@ -18,7 +18,7 @@
 **Goal:** Feature-complete for personal (family) use. No new architecture — content, games, and bug fixes only.
 
 ### Syllables game polish
-- [ ] Success echo shows source word with hyphens between syllables (e.g. "ja-ho-da 🍓") instead of plain word — small change to `SuccessOverlay.tsx`
+- [x] Success echo shows source word with hyphens between syllables (e.g. "ja-ho-da 🍓") instead of plain word — small change to `SuccessOverlay.tsx`
 
 ### Words game (new)
 > Needs its own spec before implementation. Open design questions:
@@ -32,18 +32,18 @@
 - [ ] Add words game to `App.tsx` game registry and home screen grid
 
 ### Bug fixes (from `docs/BACKLOG.md`)
-- [ ] **B1** — Music toggle has no effect (`audioManager.ts:58`, `App.tsx:73`)
-- [ ] **B3** — Confetti animates infinitely after SuccessOverlay hides (`SuccessOverlay.tsx:47-55`)
-- [ ] **B4** — `startNewRound` infinite loop edge case when pool size = 1 (all game files)
-- [ ] **H2** — No error boundaries — any JS error crashes the whole app
-- [ ] **H3** — Alphabet game distractors guard: `slice(0, 7)` returns fewer than 7 if pool is small (`AlphabetGame.tsx:37`)
-- [ ] **H5** — Missing diacritical syllables: ň, š, ž, etc. not in syllables game (`contentRegistry.ts:73`)
+- [x] **B1** — Music toggle has no effect (`audioManager.ts:58`, `App.tsx:73`)
+- [x] **B3** — Confetti animates infinitely after SuccessOverlay hides (`SuccessOverlay.tsx:47-55`)
+- [x] **B4** — `startNewRound` infinite loop edge case when pool size = 1 (all game files)
+- [x] **H2** — No error boundaries — any JS error crashes the whole app
+- [x] **H3** — Alphabet game distractors guard: `slice(0, 7)` returns fewer than 7 if pool is small (`AlphabetGame.tsx:37`)
+- [x] **H5** — Missing diacritical syllables: ň, š, ž, etc. not in syllables game (`contentRegistry.ts:73`)
 
 ### UX polish (from `docs/BACKLOG.md`)
 - [ ] **F1** — Progress/round counter visible to child and parent during a session
 - [ ] **F3** — Difficulty setting for Alphabet and Syllables games (grid size)
-- [ ] **F4** — Counting game: short delay before answer options appear (let child count first)
-- [ ] **F7** — Mobile safe-area padding (notch/home-indicator overlap on phones)
+- [x] **F4** — Counting game: short delay before answer options appear (let child count first)
+- [x] **F7** — Mobile safe-area padding (notch/home-indicator overlap on phones)
 
 ---
 

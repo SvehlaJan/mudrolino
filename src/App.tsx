@@ -18,6 +18,7 @@ import { Screen, GameSettings, GameId, GameMetadata } from './shared/types';
 import { COLORS, BG_COLORS } from './shared/contentRegistry';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
+import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { AlphabetGame } from './games/alphabet/AlphabetGame';
 import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
@@ -188,10 +189,12 @@ window.removeEventListener('click', unlockAudio);
             exit={{ opacity: 0, x: -100 }}
             className="w-full min-h-screen"
           >
-            <AlphabetGame 
-              onExit={handleExitGame} 
-              onOpenSettings={handleOpenSettings}
-            />
+            <ErrorBoundary>
+              <AlphabetGame
+                onExit={handleExitGame}
+                onOpenSettings={handleOpenSettings}
+              />
+            </ErrorBoundary>
           </motion.div>
         )}
 
@@ -203,10 +206,12 @@ window.removeEventListener('click', unlockAudio);
             exit={{ opacity: 0, x: -100 }}
             className="w-full min-h-screen"
           >
-            <SyllablesGame 
-              onExit={handleExitGame} 
-              onOpenSettings={handleOpenSettings}
-            />
+            <ErrorBoundary>
+              <SyllablesGame
+                onExit={handleExitGame}
+                onOpenSettings={handleOpenSettings}
+              />
+            </ErrorBoundary>
           </motion.div>
         )}
 
@@ -218,11 +223,13 @@ window.removeEventListener('click', unlockAudio);
             exit={{ opacity: 0, x: -100 }}
             className="w-full min-h-screen"
           >
-            <NumbersGame 
-              onExit={handleExitGame} 
-              onOpenSettings={handleOpenSettings}
-              range={settings.numbersRange}
-            />
+            <ErrorBoundary>
+              <NumbersGame
+                onExit={handleExitGame}
+                onOpenSettings={handleOpenSettings}
+                range={settings.numbersRange}
+              />
+            </ErrorBoundary>
           </motion.div>
         )}
 
@@ -234,11 +241,13 @@ window.removeEventListener('click', unlockAudio);
             exit={{ opacity: 0, x: -100 }}
             className="w-full min-h-screen"
           >
-            <CountingItemsGame 
-              onExit={handleExitGame} 
-              onOpenSettings={handleOpenSettings}
-              range={settings.countingRange}
-            />
+            <ErrorBoundary>
+              <CountingItemsGame
+                onExit={handleExitGame}
+                onOpenSettings={handleOpenSettings}
+                range={settings.countingRange}
+              />
+            </ErrorBoundary>
           </motion.div>
         )}
 
