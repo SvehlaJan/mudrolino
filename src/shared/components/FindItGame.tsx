@@ -25,6 +25,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
 
   const targetItemRef = useRef<T | null>(null);
+  const pendingSuccessRef = useRef(false);
   useEffect(() => { targetItemRef.current = targetItem; }, [targetItem]);
 
   const startNewRound = useCallback(() => {
@@ -46,6 +47,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     setGridItems(grid);
     setFeedback({});
     setShowSuccess(false);
+    pendingSuccessRef.current = false;
   }, [descriptor]);
 
   useEffect(() => {
@@ -62,8 +64,9 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   }, [targetItem, descriptor]);
 
   const handleCardClick = (item: T, index: number) => {
-    if (showSuccess || !targetItem) return;
+    if (showSuccess || pendingSuccessRef.current || !targetItem) return;
     if (descriptor.getItemId(item) === descriptor.getItemId(targetItem)) {
+      pendingSuccessRef.current = true;
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
       setSuccessSpec(descriptor.getSuccessSpec(targetItem));
       setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
