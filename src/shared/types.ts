@@ -1,3 +1,8 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { ReactNode } from 'react';
 
 export type Screen = 'HOME' | 'GAME' | 'PARENTS_GATE' | 'SETTINGS';
