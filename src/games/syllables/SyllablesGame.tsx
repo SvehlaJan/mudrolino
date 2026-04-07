@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Volume2, ArrowLeft, Play, Settings } from 'lucide-react';
-import { audioManager } from '../../shared/services/audioManager';
-import { SYLLABLE_ITEMS, COLORS, TIMING } from '../../shared/contentRegistry';
-import { ContentItem } from '../../shared/types';
-import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
+import { ArrowLeft, Play, Settings } from 'lucide-react';
+import { COLORS } from '../../shared/contentRegistry';
+import { FindItGame } from '../../shared/components/FindItGame';
+import { syllablesDescriptor } from './syllablesDescriptor';
 
 interface SyllablesGameProps {
   onExit: () => void;
@@ -18,145 +17,55 @@ interface SyllablesGameProps {
 
 export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const [targetItem, setTargetItem] = useState<ContentItem | null>(null);
-  const [gridItems, setGridItems] = useState<ContentItem[]>([]);
-  const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
-  const [showSuccess, setShowSuccess] = useState(false);
 
-  const targetItemRef = useRef<ContentItem | null>(null);
-  useEffect(() => {
-    targetItemRef.current = targetItem;
-  }, [targetItem]);
-
-  const startNewRound = useCallback(() => {
-    const pool = SYLLABLE_ITEMS;
-    if (pool.length === 0) return;
-    const current = targetItemRef.current;
-    const eligible = current ? pool.filter(item => item.symbol !== current.symbol) : pool;
-    const target = eligible.length > 0
-      ? eligible[Math.floor(Math.random() * eligible.length)]
-      : pool[Math.floor(Math.random() * pool.length)];
-    const others = pool.filter(s => s.symbol !== target.symbol)
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 5);
-    const grid = [...others, target].sort(() => 0.5 - Math.random());
-    setTargetItem(target);
-    setGridItems(grid);
-    setFeedback({});
-    setShowSuccess(false);
-  }, []); // no targetItem dependency — reads via ref
-
-  useEffect(() => {
-    if (gameState === 'PLAYING' && targetItem) {
-      const timer = setTimeout(() => audioManager.playSyllable(targetItem), TIMING.AUDIO_DELAY_MS);
-      return () => clearTimeout(timer);
-    }
-  }, [gameState, targetItem]);
-
-  useEffect(() => {
-    if (gameState === 'PLAYING' && !targetItem) startNewRound();
-  }, [gameState, targetItem, startNewRound]);
-
-  const handleSyllableClick = (item: ContentItem, index: number) => {
-    if (showSuccess || !targetItem) return;
-    if (item.symbol === targetItem.symbol) {
-      setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-    } else {
-      setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
-      audioManager.playAnnouncement('wrong-syllable', targetItem);
-      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
-    }
-  };
-
-  if (gameState === 'HOME') {
-    return (
-      <div className="min-h-screen relative bg-bg-light flex flex-col">
-        <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex gap-4 z-20">
-          <button
-            onClick={onExit}
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
-          >
-            <ArrowLeft size={24} className="sm:w-8 sm:h-8" />
-          </button>
-        </div>
-        <button
-          onClick={onOpenSettings}
-          className="absolute top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
-        >
-          <Settings size={24} className="sm:w-8 sm:h-8" />
-        </button>
-        <div className="flex-1 flex flex-col items-center justify-center p-4 py-8 sm:py-12">
-          <div className="mb-8 sm:mb-12 md:mb-20 text-center w-full px-4 py-4 shrink-0">
-            <h1 className="text-5xl sm:text-7xl md:text-[120px] font-black flex flex-wrap justify-center gap-2 sm:gap-4 select-none leading-tight">
-              {'SLABIKY'.split('').map((char, i) => (
-                <span
-                  key={i}
-                  className={`${COLORS[i % COLORS.length]} inline-block py-2`}
-                  style={{
-                    transform: `rotate(${Math.sin(i) * 10}deg) translateY(${Math.cos(i) * 10}px)`,
-                    textShadow: '0px 4px 0px white, 0px 8px 0px var(--color-shadow)',
-                  }}
-                >
-                  {char}
-                </span>
-              ))}
-            </h1>
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95, y: 5 }}
-            onClick={() => setGameState('PLAYING')}
-            className="w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 bg-primary rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0"
-          >
-            <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
-          </motion.button>
-        </div>
-        <div className="absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-success opacity-30 -rotate-12 blur-sm pointer-events-none" />
-        <div className="absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-accent-blue opacity-20 translate-y-10 blur-md pointer-events-none" />
-      </div>
-    );
+  if (gameState === 'PLAYING') {
+    return <FindItGame descriptor={syllablesDescriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
-      <button
-        onClick={() => setGameState('HOME')}
-        className="fixed top-4 left-4 sm:top-8 sm:left-8 w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
-      >
-        <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-      </button>
-      <div className="flex flex-col items-center gap-4 sm:gap-8 mb-8 sm:mb-12">
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          onClick={() => targetItem && audioManager.playSyllable(targetItem)}
-          className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
+    <div className="min-h-screen relative bg-bg-light flex flex-col">
+      <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex gap-4 z-20">
+        <button
+          onClick={onExit}
+          className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
         >
-          <Volume2 size={32} className="sm:w-10 sm:h-10" />
+          <ArrowLeft size={24} className="sm:w-8 sm:h-8" />
+        </button>
+      </div>
+      <button
+        onClick={onOpenSettings}
+        className="absolute top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
+      >
+        <Settings size={24} className="sm:w-8 sm:h-8" />
+      </button>
+      <div className="flex-1 flex flex-col items-center justify-center p-4 py-8 sm:py-12">
+        <div className="mb-8 sm:mb-12 md:mb-20 text-center w-full px-4 py-4 shrink-0">
+          <h1 className="text-5xl sm:text-7xl md:text-[120px] font-black flex flex-wrap justify-center gap-2 sm:gap-4 select-none leading-tight">
+            {'SLABIKY'.split('').map((char, i) => (
+              <span
+                key={i}
+                className={`${COLORS[i % COLORS.length]} inline-block py-2`}
+                style={{
+                  transform: `rotate(${Math.sin(i) * 10}deg) translateY(${Math.cos(i) * 10}px)`,
+                  textShadow: '0px 4px 0px white, 0px 8px 0px var(--color-shadow)',
+                }}
+              >
+                {char}
+              </span>
+            ))}
+          </h1>
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.95, y: 5 }}
+          onClick={() => setGameState('PLAYING')}
+          className="w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 bg-primary rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0"
+        >
+          <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
         </motion.button>
-        <h2 className="text-4xl sm:text-6xl font-black text-shadow">
-          Nájdi <span className="text-primary">{targetItem?.symbol}</span>
-        </h2>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8 w-full max-w-4xl px-4">
-        {gridItems.map((item, i) => (
-          <motion.button
-            key={i}
-            onClick={() => handleSyllableClick(item, i)}
-            animate={feedback[i] === 'wrong' ? { x: [-10, 10, -10, 10, 0] } : {}}
-            className={`
-              w-full aspect-square rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-4xl sm:text-7xl font-bold font-spline transition-all
-              ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
-              ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
-            `}
-          >
-            {item.symbol}
-          </motion.button>
-        ))}
-      </div>
-      {targetItem && (
-        <SuccessOverlay show={showSuccess} item={targetItem} onComplete={startNewRound} />
-      )}
+      <div className="absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-success opacity-30 -rotate-12 blur-sm pointer-events-none" />
+      <div className="absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-accent-blue opacity-20 translate-y-10 blur-md pointer-events-none" />
     </div>
   );
 }
