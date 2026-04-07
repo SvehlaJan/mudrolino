@@ -21,15 +21,18 @@
 - [x] Success echo shows source word with hyphens between syllables (e.g. "ja-ho-da 🍓") instead of plain word — small change to `SuccessOverlay.tsx`
 
 ### Words game (new)
-> Needs its own spec before implementation. Open design questions:
-> - Card display: syllabified word only, or word + emoji?
-> - Audio prompt: word name only, or "Nájdi slovo [X]"?
-> - Content source: reuse `WORD_ITEMS` from syllables dictionary, or separate set?
 
-- [ ] Spec for words game (`docs/superpowers/specs/`)
-- [ ] Words game component (`src/games/words/WordsGame.tsx`)
-- [ ] Words game content entries in `contentRegistry.ts`
-- [ ] Add words game to `App.tsx` game registry and home screen grid
+- [x] Spec for words game (`docs/superpowers/specs/`)
+- [x] Words game component (`src/games/words/WordsGame.tsx`)
+- [x] Words game content entries in `contentRegistry.ts`
+- [x] Add words game to `App.tsx` game registry and home screen grid
+
+### Syllable assembly game (new)
+> Drag-and-drop mechanic: child sees shuffled syllable tiles and drags them into the correct order to form the word. Needs its own spec before implementation.
+
+- [ ] Spec for syllable assembly game (`docs/superpowers/specs/`)
+- [ ] Syllable assembly game component (`src/games/assembly/AssemblyGame.tsx`)
+- [ ] Add assembly game to `App.tsx` game registry and home screen grid
 
 ### Bug fixes (from `docs/BACKLOG.md`)
 - [x] **B1** — Music toggle has no effect (`audioManager.ts:58`, `App.tsx:73`)
@@ -280,3 +283,5 @@
 | 2026-04-05 | French is last language | Lower priority vs. Czech and English |
 | 2026-04-05 | Freemium model | Custom audio and multi-language as natural premium upsell |
 | 2026-04-05 | Placeholder UI for unbuilt features in Phase 1 | Validate demand before building; track clicks via analytics |
+| 2026-04-07 | GameDescriptor<T> pattern replaces ContentItem god object | ContentItem accumulated optional cross-game fields; descriptor pattern makes each game self-contained |
+| 2026-04-07 | Words game mechanic: see syllabified word, tap emoji | Reading-focused; distinct from syllables game which shows the syllable and has child recognize it |
