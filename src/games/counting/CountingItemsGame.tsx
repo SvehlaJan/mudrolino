@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
 import { NUMBER_ITEMS, COLORS, TIMING } from '../../shared/contentRegistry';
-import { ContentItem } from '../../shared/types';
+import { SlovakNumber, SuccessSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 
 interface CountingItemsGameProps {
@@ -29,9 +29,9 @@ interface ItemPosition {
 
 export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const [targetItem, setTargetItem] = useState<ContentItem | null>(null);
+  const [targetItem, setTargetItem] = useState<SlovakNumber | null>(null);
   const [itemPositions, setItemPositions] = useState<ItemPosition[]>([]);
-  const [optionItems, setOptionItems] = useState<ContentItem[]>([]);
+  const [optionItems, setOptionItems] = useState<SlovakNumber[]>([]);
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -39,10 +39,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const containerRef = useRef<HTMLDivElement>(null);
 
   const availableItems = useMemo(
-    () => NUMBER_ITEMS.filter(item => {
-      const n = parseInt(item.symbol, 10);
-      return n >= range.start && n <= range.end;
-    }),
+    () => NUMBER_ITEMS.filter(n => n.value >= range.start && n.value <= range.end),
     [range]
   );
 
@@ -72,12 +69,11 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const startNewRound = useCallback(() => {
     if (availableItems.length === 0) return;
     const target = availableItems[Math.floor(Math.random() * availableItems.length)];
-    const count = parseInt(target.symbol, 10);
-    const positions = generatePositions(count);
+    const positions = generatePositions(target.value);
 
     // Build 4 options (target + 3 others from full NUMBER_ITEMS range up to max)
-    const allNumbers = NUMBER_ITEMS.filter(item => parseInt(item.symbol, 10) <= Math.max(range.end, 10));
-    const others = allNumbers.filter(n => n.symbol !== target.symbol)
+    const allNumbers = NUMBER_ITEMS.filter(n => n.value <= Math.max(range.end, 10));
+    const others = allNumbers.filter(n => n.value !== target.value)
       .sort(() => 0.5 - Math.random())
       .slice(0, 3);
     const options = [...others, target].sort(() => 0.5 - Math.random());
@@ -99,21 +95,21 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   useEffect(() => {
     if (gameState === 'PLAYING') {
       const timer = setTimeout(
-        () => audioManager.playAnnouncement('count-items', NUMBER_ITEMS[0]),
+        () => audioManager.play({ sequence: ['phrases/spocitaj-predmety'], fallbackText: 'Spočítaj predmety' }),
         TIMING.AUDIO_DELAY_MS
       );
       return () => clearTimeout(timer);
     }
   }, [gameState]);
 
-  const handleOptionClick = (item: ContentItem, index: number) => {
+  const handleOptionClick = (item: SlovakNumber, index: number) => {
     if (showSuccess || !targetItem) return;
-    if (item.symbol === targetItem.symbol) {
+    if (item.value === targetItem.value) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
       setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
     } else {
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
-      audioManager.playAnnouncement('wrong-count', targetItem);
+      audioManager.play({ sequence: ['phrases/skus-to-znova'], fallbackText: 'Skús to znova.' });
       setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
     }
   };
@@ -179,7 +175,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
 
       <motion.button
         whileTap={{ scale: 0.9 }}
-        onClick={() => audioManager.playAnnouncement('count-items', NUMBER_ITEMS[0])}
+        onClick={() => audioManager.play({ sequence: ['phrases/spocitaj-predmety'], fallbackText: 'Spočítaj predmety' })}
         className="fixed top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
       >
         <Volume2 size={24} className="sm:w-7 sm:h-7" />
@@ -192,7 +188,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         >
           {itemPositions.map((pos, i) => (
             <motion.div
-              key={`${targetItem?.symbol}-${i}`}
+              key={`${targetItem?.value}-${i}`}
               initial={{ scale: 0, opacity: 0, rotate: -180 }}
               animate={{ scale: pos.scale, opacity: 1, rotate: pos.rotation }}
               exit={{ scale: 0, opacity: 0, rotate: 180 }}
@@ -228,14 +224,18 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
                 ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
               `}
             >
-              {item.symbol}
+              {item.value}
             </motion.button>
           ))}
         </motion.div>
       </div>
 
       {targetItem && (
-        <SuccessOverlay show={showSuccess} item={targetItem} onComplete={startNewRound} />
+        <SuccessOverlay
+          show={showSuccess}
+          spec={{ echoLine: `Správne, je ich ${targetItem.value} ⭐` }}
+          onComplete={startNewRound}
+        />
       )}
     </div>
   );
