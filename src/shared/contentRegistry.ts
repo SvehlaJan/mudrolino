@@ -1,14 +1,12 @@
 /**
- * Central content registry — single source of truth for all game content.
- * Replaces constants.ts.
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
  */
-import { ContentItem, PraiseEntry, WordItem } from './types';
+import { Letter, Syllable, Word, SlovakNumber, PraiseEntry } from './types';
 
-// UI colour helpers (moved from constants.ts)
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
 export const BG_COLORS = ['bg-primary', 'bg-success', 'bg-accent-blue'];
 
-// Shared timing constants (ms)
 export const TIMING = {
   AUDIO_DELAY_MS: 100,
   FEEDBACK_RESET_MS: 500,
@@ -18,120 +16,101 @@ export const TIMING = {
 };
 
 // ---------------------------------------------------------------------------
-// Letters — full Slovak alphabet (46 entries).
-// Items with emoji: undefined are TBD and filtered out of game grids at runtime.
+// Letters — active Slovak alphabet (entries with complete emoji + label only).
+// Phase 1 settings UI will introduce ALL_LETTER_SYMBOLS for the full 46.
 // ---------------------------------------------------------------------------
-export const LETTER_ITEMS: ContentItem[] = [
-  { symbol: 'A',  label: 'Auto',     emoji: '🚗', audioKey: 'a',            category: 'letter' },
-  { symbol: 'Á',  label: 'Áno',      emoji: '👍', audioKey: 'a-acute',      category: 'letter' },
-  { symbol: 'Ä',  label: undefined,  emoji: undefined, audioKey: 'a-umlaut',category: 'letter' },
-  { symbol: 'B',  label: 'Baran',    emoji: '🐏', audioKey: 'b',            category: 'letter' },
-  { symbol: 'C',  label: 'Citrón',   emoji: '🍋', audioKey: 'c',            category: 'letter' },
-  { symbol: 'Č',  label: 'Čajík',    emoji: '🫖', audioKey: 'c-caron',      category: 'letter' },
-  { symbol: 'D',  label: 'Dúha',     emoji: '🌈', audioKey: 'd',            category: 'letter' },
-  { symbol: 'Ď',  label: 'Ďakujem',  emoji: '🫶', audioKey: 'd-caron',      category: 'letter' },
-  { symbol: 'DZ', label: 'Dzúra',    emoji: '🕳️', audioKey: 'dz',           category: 'letter' },
-  { symbol: 'DŽ', label: 'Džungľa',  emoji: '🌴', audioKey: 'dz-caron',     category: 'letter' },
-  { symbol: 'E',  label: 'Euro',     emoji: '💶', audioKey: 'e',            category: 'letter' },
-  { symbol: 'É',  label: undefined,  emoji: undefined, audioKey: 'e-acute', category: 'letter' },
-  { symbol: 'F',  label: 'Farba',    emoji: '🎨', audioKey: 'f',            category: 'letter' },
-  { symbol: 'G',  label: 'Gitara',   emoji: '🎸', audioKey: 'g',            category: 'letter' },
-  { symbol: 'H',  label: 'Hrad',     emoji: '🏰', audioKey: 'h',            category: 'letter' },
-  { symbol: 'CH', label: 'Chlieb',   emoji: '🍞', audioKey: 'ch',           category: 'letter' },
-  { symbol: 'I',  label: 'Iskra',    emoji: '⚡', audioKey: 'i',            category: 'letter' },
-  { symbol: 'Í',  label: 'Írsko',    emoji: '🇮🇪', audioKey: 'i-acute',      category: 'letter' },
-  { symbol: 'J',  label: 'Jahoda',   emoji: '🍓', audioKey: 'j',            category: 'letter' },
-  { symbol: 'K',  label: 'Kľúč',     emoji: '🗝️', audioKey: 'k',            category: 'letter' },
-  { symbol: 'L',  label: 'Líška',    emoji: '🦊', audioKey: 'l',            category: 'letter' },
-  { symbol: 'Ľ',  label: 'Ľad',      emoji: '🧊', audioKey: 'l-caron',      category: 'letter' },
-  { symbol: 'Ĺ',  label: undefined,  emoji: undefined, audioKey: 'l-acute',  category: 'letter' },
-  { symbol: 'M',  label: 'Mesiac',   emoji: '🌙', audioKey: 'm',            category: 'letter' },
-  { symbol: 'N',  label: 'Nos',      emoji: '👃', audioKey: 'n',            category: 'letter' },
-  { symbol: 'Ň',  label: 'Ňufák',    emoji: '👃', audioKey: 'n-caron',  category: 'letter' },
-  { symbol: 'O',  label: 'Ovca',     emoji: '🐑', audioKey: 'o',            category: 'letter' },
-  { symbol: 'Ó',  label: undefined,  emoji: undefined, audioKey: 'o-acute',  category: 'letter' },
-  { symbol: 'Ô',  label: undefined,  emoji: undefined, audioKey: 'o-circumflex', category: 'letter' },
-  { symbol: 'P',  label: 'Pes',      emoji: '🐕', audioKey: 'p',            category: 'letter' },
-  { symbol: 'Q',  label: undefined,  emoji: undefined, audioKey: 'q',        category: 'letter' },
-  { symbol: 'R',  label: 'Ryba',     emoji: '🐟', audioKey: 'r',            category: 'letter' },
-  { symbol: 'Ŕ',  label: undefined,  emoji: undefined, audioKey: 'r-acute',  category: 'letter' },
-  { symbol: 'S',  label: 'Slnko',    emoji: '☀️', audioKey: 's',            category: 'letter' },
-  { symbol: 'Š',  label: 'Šašo',     emoji: '🤡', audioKey: 's-caron',      category: 'letter' },
-  { symbol: 'T',  label: 'Tiger',    emoji: '🐯', audioKey: 't',            category: 'letter' },
-  { symbol: 'Ť',  label: 'Ťava',     emoji: '🐪', audioKey: 't-caron',      category: 'letter' },
-  { symbol: 'U',  label: 'Ucho',     emoji: '👂', audioKey: 'u',            category: 'letter' },
-  { symbol: 'Ú',  label: 'Úľ',       emoji: '🛖🐝', audioKey: 'u-acute',      category: 'letter' },
-  { symbol: 'V',  label: 'Vlk',      emoji: '🐺', audioKey: 'v',            category: 'letter' },
-  { symbol: 'W',  label: undefined,  emoji: undefined, audioKey: 'w',        category: 'letter' },
-  { symbol: 'X',  label: 'Xylofón',  emoji: '🎹', audioKey: 'x',            category: 'letter' },
-  { symbol: 'Y',  label: undefined,  emoji: undefined, audioKey: 'y',        category: 'letter' },
-  { symbol: 'Ý',  label: undefined,  emoji: undefined, audioKey: 'y-acute',  category: 'letter' },
-  { symbol: 'Z',  label: 'Zebra',    emoji: '🦓', audioKey: 'z',            category: 'letter' },
-  { symbol: 'Ž',  label: 'Žaba',     emoji: '🐸', audioKey: 'z-caron',      category: 'letter' },
+export const LETTER_ITEMS: Letter[] = [
+  { symbol: 'A',  label: 'Auto',     emoji: '🚗',   audioKey: 'a' },
+  { symbol: 'Á',  label: 'Áno',      emoji: '👍',   audioKey: 'a-acute' },
+  { symbol: 'B',  label: 'Baran',    emoji: '🐏',   audioKey: 'b' },
+  { symbol: 'C',  label: 'Citrón',   emoji: '🍋',   audioKey: 'c' },
+  { symbol: 'Č',  label: 'Čajík',    emoji: '🫖',   audioKey: 'c-caron' },
+  { symbol: 'D',  label: 'Dúha',     emoji: '🌈',   audioKey: 'd' },
+  { symbol: 'Ď',  label: 'Ďakujem',  emoji: '🫶',   audioKey: 'd-caron' },
+  { symbol: 'DZ', label: 'Dzúra',    emoji: '🕳️',   audioKey: 'dz' },
+  { symbol: 'DŽ', label: 'Džungľa',  emoji: '🌴',   audioKey: 'dz-caron' },
+  { symbol: 'E',  label: 'Euro',     emoji: '💶',   audioKey: 'e' },
+  { symbol: 'F',  label: 'Farba',    emoji: '🎨',   audioKey: 'f' },
+  { symbol: 'G',  label: 'Gitara',   emoji: '🎸',   audioKey: 'g' },
+  { symbol: 'H',  label: 'Hrad',     emoji: '🏰',   audioKey: 'h' },
+  { symbol: 'CH', label: 'Chlieb',   emoji: '🍞',   audioKey: 'ch' },
+  { symbol: 'I',  label: 'Iskra',    emoji: '⚡',   audioKey: 'i' },
+  { symbol: 'Í',  label: 'Írsko',    emoji: '🇮🇪',   audioKey: 'i-acute' },
+  { symbol: 'J',  label: 'Jahoda',   emoji: '🍓',   audioKey: 'j' },
+  { symbol: 'K',  label: 'Kľúč',     emoji: '🗝️',   audioKey: 'k' },
+  { symbol: 'L',  label: 'Líška',    emoji: '🦊',   audioKey: 'l' },
+  { symbol: 'Ľ',  label: 'Ľad',      emoji: '🧊',   audioKey: 'l-caron' },
+  { symbol: 'M',  label: 'Mesiac',   emoji: '🌙',   audioKey: 'm' },
+  { symbol: 'N',  label: 'Nos',      emoji: '👃',   audioKey: 'n' },
+  { symbol: 'Ň',  label: 'Ňufák',    emoji: '👃',   audioKey: 'n-caron' },
+  { symbol: 'O',  label: 'Ovca',     emoji: '🐑',   audioKey: 'o' },
+  { symbol: 'P',  label: 'Pes',      emoji: '🐕',   audioKey: 'p' },
+  { symbol: 'R',  label: 'Ryba',     emoji: '🐟',   audioKey: 'r' },
+  { symbol: 'S',  label: 'Slnko',    emoji: '☀️',   audioKey: 's' },
+  { symbol: 'Š',  label: 'Šašo',     emoji: '🤡',   audioKey: 's-caron' },
+  { symbol: 'T',  label: 'Tiger',    emoji: '🐯',   audioKey: 't' },
+  { symbol: 'Ť',  label: 'Ťava',     emoji: '🐪',   audioKey: 't-caron' },
+  { symbol: 'U',  label: 'Ucho',     emoji: '👂',   audioKey: 'u' },
+  { symbol: 'Ú',  label: 'Úľ',       emoji: '🛖🐝', audioKey: 'u-acute' },
+  { symbol: 'V',  label: 'Vlk',      emoji: '🐺',   audioKey: 'v' },
+  { symbol: 'X',  label: 'Xylofón',  emoji: '🎹',   audioKey: 'x' },
+  { symbol: 'Z',  label: 'Zebra',    emoji: '🦓',   audioKey: 'z' },
+  { symbol: 'Ž',  label: 'Žaba',     emoji: '🐸',   audioKey: 'z-caron' },
 ];
 
-/** Letters that have emoji/label defined — safe to use in game grids */
-export const ACTIVE_LETTER_ITEMS = LETTER_ITEMS.filter(
-  (item): item is ContentItem & { emoji: string; label: string } =>
-    item.emoji !== undefined && item.label !== undefined
-);
-
 // ---------------------------------------------------------------------------
-// Words — curated Slovak words with syllable breakdowns.
-// Syllables are derived from this list; extend it to add more game content.
+// Words — Slovak words with syllable breakdowns.
+// audioKey = lowercase ASCII transliteration (ž→z, š→s, č→c, ň→n, ľ→l, ú→u, etc.)
 // ---------------------------------------------------------------------------
-export const WORD_ITEMS: WordItem[] = [
-  { word: 'Jahoda',   syllables: 'ja-ho-da',    emoji: '🍓' },
-  { word: 'Mama',     syllables: 'ma-ma',        emoji: '👩' },
-  { word: 'Malina',   syllables: 'ma-li-na',     emoji: '🫐' },
-  { word: 'Tata',     syllables: 'ta-ta',        emoji: '👨' },
-  { word: 'Lipa',     syllables: 'li-pa',        emoji: '🌳' },
-  { word: 'Lano',     syllables: 'la-no',        emoji: '🪢' },
-  { word: 'Luna',     syllables: 'lu-na',        emoji: '🌙' },
-  { word: 'Lopata',   syllables: 'lo-pa-ta',     emoji: '🪣' },
-  { word: 'Sova',     syllables: 'so-va',        emoji: '🦉' },
-  { word: 'Sito',     syllables: 'si-to',        emoji: '🫙' },
-  { word: 'Seno',     syllables: 'se-no',        emoji: '🌾' },
-  { word: 'Pero',     syllables: 'pe-ro',        emoji: '✏️' },
-  { word: 'Baba',     syllables: 'ba-ba',        emoji: '👵' },
-  { word: 'Bota',     syllables: 'bo-ta',        emoji: '👟' },
-  { word: 'Voda',     syllables: 'vo-da',        emoji: '💧' },
-  { word: 'Vila',     syllables: 'vi-la',        emoji: '🏡' },
-  { word: 'Vata',     syllables: 'va-ta',        emoji: '🧶' },
-  { word: 'Veda',     syllables: 've-da',        emoji: '🔬' },
-  { word: 'Deti',     syllables: 'de-ti',        emoji: '👦' },
-  { word: 'Dino',     syllables: 'di-no',        emoji: '🦕' },
-  { word: 'Doma',     syllables: 'do-ma',        emoji: '🏠' },
-  { word: 'Dúha',     syllables: 'dú-ha',        emoji: '🌈' },
-  { word: 'Dolina',   syllables: 'do-li-na',     emoji: '🏔️' },
-  { word: 'Noha',     syllables: 'no-ha',        emoji: '🦵' },
-  { word: 'Nebo',     syllables: 'ne-bo',        emoji: '☁️' },
-  { word: 'Nuda',     syllables: 'nu-da',        emoji: '😴' },
-  { word: 'Ryba',     syllables: 'ry-ba',        emoji: '🐟' },
-  { word: 'Ruka',     syllables: 'ru-ka',        emoji: '🤚' },
-  { word: 'Ruža',     syllables: 'ru-ža',        emoji: '🌹' },
-  { word: 'Koza',     syllables: 'ko-za',        emoji: '🐐' },
-  { word: 'Kino',     syllables: 'ki-no',        emoji: '🎬' },
-  { word: 'Koleso',   syllables: 'ko-le-so',     emoji: '🎡' },
-  { word: 'Kukurica', syllables: 'ku-ku-ri-ca',  emoji: '🌽' },
-  { word: 'Meno',     syllables: 'me-no',        emoji: '📛' },
-  { word: 'Muha',     syllables: 'mu-ha',        emoji: '🪰' },
-  { word: 'Misa',     syllables: 'mi-sa',        emoji: '🥣' },
-  { word: 'Roboti',   syllables: 'ro-bo-ti',     emoji: '🤖' },
-  { word: 'Kačica',   syllables: 'ka-či-ca',     emoji: '🦆' },
-  // Diacritical consonants: ž, š, ň, ľ
-  { word: 'Žirafa',   syllables: 'ži-ra-fa',     emoji: '🦒' },
-  { word: 'Žena',     syllables: 'že-na',        emoji: '👩' },
-  { word: 'Šaty',     syllables: 'ša-ty',        emoji: '👗' },
-  { word: 'Šoféri',   syllables: 'šo-fé-ri',     emoji: '🚗' },
-  { word: 'Baňa',     syllables: 'ba-ňa',        emoji: '⛏️' },
-  { word: 'Poľana',   syllables: 'po-ľa-na',     emoji: '🌿' },
+export const WORD_ITEMS: Word[] = [
+  { word: 'Jahoda',   syllables: 'ja-ho-da',    emoji: '🍓', audioKey: 'jahoda' },
+  { word: 'Mama',     syllables: 'ma-ma',        emoji: '👩', audioKey: 'mama' },
+  { word: 'Malina',   syllables: 'ma-li-na',     emoji: '🫐', audioKey: 'malina' },
+  { word: 'Tata',     syllables: 'ta-ta',        emoji: '👨', audioKey: 'tata' },
+  { word: 'Lipa',     syllables: 'li-pa',        emoji: '🌳', audioKey: 'lipa' },
+  { word: 'Lano',     syllables: 'la-no',        emoji: '🪢', audioKey: 'lano' },
+  { word: 'Luna',     syllables: 'lu-na',        emoji: '🌙', audioKey: 'luna' },
+  { word: 'Lopata',   syllables: 'lo-pa-ta',     emoji: '🪣', audioKey: 'lopata' },
+  { word: 'Sova',     syllables: 'so-va',        emoji: '🦉', audioKey: 'sova' },
+  { word: 'Sito',     syllables: 'si-to',        emoji: '🫙', audioKey: 'sito' },
+  { word: 'Seno',     syllables: 'se-no',        emoji: '🌾', audioKey: 'seno' },
+  { word: 'Pero',     syllables: 'pe-ro',        emoji: '✏️', audioKey: 'pero' },
+  { word: 'Baba',     syllables: 'ba-ba',        emoji: '👵', audioKey: 'baba' },
+  { word: 'Bota',     syllables: 'bo-ta',        emoji: '👟', audioKey: 'bota' },
+  { word: 'Voda',     syllables: 'vo-da',        emoji: '💧', audioKey: 'voda' },
+  { word: 'Vila',     syllables: 'vi-la',        emoji: '🏡', audioKey: 'vila' },
+  { word: 'Vata',     syllables: 'va-ta',        emoji: '🧶', audioKey: 'vata' },
+  { word: 'Veda',     syllables: 've-da',        emoji: '🔬', audioKey: 'veda' },
+  { word: 'Deti',     syllables: 'de-ti',        emoji: '👦', audioKey: 'deti' },
+  { word: 'Dino',     syllables: 'di-no',        emoji: '🦕', audioKey: 'dino' },
+  { word: 'Doma',     syllables: 'do-ma',        emoji: '🏠', audioKey: 'doma' },
+  { word: 'Dúha',     syllables: 'dú-ha',        emoji: '🌈', audioKey: 'duha' },
+  { word: 'Dolina',   syllables: 'do-li-na',     emoji: '🏔️', audioKey: 'dolina' },
+  { word: 'Noha',     syllables: 'no-ha',        emoji: '🦵', audioKey: 'noha' },
+  { word: 'Nebo',     syllables: 'ne-bo',        emoji: '☁️', audioKey: 'nebo' },
+  { word: 'Nuda',     syllables: 'nu-da',        emoji: '😴', audioKey: 'nuda' },
+  { word: 'Ryba',     syllables: 'ry-ba',        emoji: '🐟', audioKey: 'ryba' },
+  { word: 'Ruka',     syllables: 'ru-ka',        emoji: '🤚', audioKey: 'ruka' },
+  { word: 'Ruža',     syllables: 'ru-ža',        emoji: '🌹', audioKey: 'ruza' },
+  { word: 'Koza',     syllables: 'ko-za',        emoji: '🐐', audioKey: 'koza' },
+  { word: 'Kino',     syllables: 'ki-no',        emoji: '🎬', audioKey: 'kino' },
+  { word: 'Koleso',   syllables: 'ko-le-so',     emoji: '🎡', audioKey: 'koleso' },
+  { word: 'Kukurica', syllables: 'ku-ku-ri-ca',  emoji: '🌽', audioKey: 'kukurica' },
+  { word: 'Meno',     syllables: 'me-no',        emoji: '📛', audioKey: 'meno' },
+  { word: 'Muha',     syllables: 'mu-ha',        emoji: '🪰', audioKey: 'muha' },
+  { word: 'Misa',     syllables: 'mi-sa',        emoji: '🥣', audioKey: 'misa' },
+  { word: 'Roboti',   syllables: 'ro-bo-ti',     emoji: '🤖', audioKey: 'roboti' },
+  { word: 'Kačica',   syllables: 'ka-či-ca',     emoji: '🦆', audioKey: 'kacica' },
+  { word: 'Žirafa',   syllables: 'ži-ra-fa',     emoji: '🦒', audioKey: 'zirafa' },
+  { word: 'Žena',     syllables: 'že-na',        emoji: '👩', audioKey: 'zena' },
+  { word: 'Šaty',     syllables: 'ša-ty',        emoji: '👗', audioKey: 'saty' },
+  { word: 'Šoféri',   syllables: 'šo-fé-ri',     emoji: '🚗', audioKey: 'soferi' },
+  { word: 'Baňa',     syllables: 'ba-ňa',        emoji: '⛏️', audioKey: 'bana' },
+  { word: 'Poľana',   syllables: 'po-ľa-na',     emoji: '🌿', audioKey: 'polana' },
 ];
 
 // Derive SYLLABLE_ITEMS from WORD_ITEMS.
-// Each unique uppercase syllable becomes one ContentItem; all source words
-// that contain it are collected into sourceWords for the success echo line.
-const _syllableWordMap = new Map<string, WordItem[]>();
+const _syllableWordMap = new Map<string, Word[]>();
 for (const wordItem of WORD_ITEMS) {
   for (const syl of wordItem.syllables.split('-')) {
     const key = syl.toUpperCase();
@@ -141,11 +120,10 @@ for (const wordItem of WORD_ITEMS) {
   }
 }
 
-export const SYLLABLE_ITEMS: ContentItem[] = Array.from(_syllableWordMap.entries()).map(
+export const SYLLABLE_ITEMS: Syllable[] = Array.from(_syllableWordMap.entries()).map(
   ([symbol, words]) => ({
     symbol,
     audioKey: symbol.toLowerCase(),
-    category: 'syllable' as const,
     sourceWords: words,
   })
 );
@@ -153,20 +131,19 @@ export const SYLLABLE_ITEMS: ContentItem[] = Array.from(_syllableWordMap.entries
 // ---------------------------------------------------------------------------
 // Numbers 1–20
 // ---------------------------------------------------------------------------
-export const NUMBER_ITEMS: ContentItem[] = Array.from({ length: 20 }, (_, i) => ({
-  symbol: String(i + 1),
+export const NUMBER_ITEMS: SlovakNumber[] = Array.from({ length: 20 }, (_, i) => ({
+  value: i + 1,
   audioKey: String(i + 1),
-  category: 'number' as const,
 }));
 
 // ---------------------------------------------------------------------------
-// Praise entries — one per audio file in public/audio/praise/
+// Praise entries
 // ---------------------------------------------------------------------------
 export const PRAISE_ENTRIES: PraiseEntry[] = [
-  { emoji: '🌟', text: 'Výborne!',     audioKey: 'vyborne' },
+  { emoji: '🌟', text: 'Výborne!',      audioKey: 'vyborne' },
   { emoji: '🎉', text: 'Skvelá práca!', audioKey: 'skvela-praca' },
-  { emoji: '⭐', text: 'Si šikovný!',  audioKey: 'si-sikovny' },
-  { emoji: '🏆', text: 'To je ono!',   audioKey: 'to-je-ono' },
-  { emoji: '🌈', text: 'Úžasné!',      audioKey: 'uzasne' },
-  { emoji: '🎊', text: 'Paráda!',      audioKey: 'parada' },
+  { emoji: '⭐', text: 'Si šikovný!',   audioKey: 'si-sikovny' },
+  { emoji: '🏆', text: 'To je ono!',    audioKey: 'to-je-ono' },
+  { emoji: '🌈', text: 'Úžasné!',       audioKey: 'uzasne' },
+  { emoji: '🎊', text: 'Paráda!',       audioKey: 'parada' },
 ];
