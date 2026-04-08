@@ -154,7 +154,7 @@ export default function App() {
           </div>
 
           <button
-            onClick={handleOpenSettings}
+            onClick={() => handleOpenSettings()}
             className="w-16 h-16 sm:w-24 sm:h-24 bg-shadow/20 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 shrink-0"
           >
             <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 rounded-full blur-sm absolute" />
