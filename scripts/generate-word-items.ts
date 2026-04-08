@@ -34,8 +34,10 @@ for (let i = 0; i < dataLines.length; i++) {
   rows.push({ word, syllables, emoji, audioKey });
 }
 
+const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
 const itemLines = rows.map(r =>
-  `  { word: '${r.word}', syllables: '${r.syllables}', emoji: '${r.emoji}', audioKey: '${r.audioKey}' },`
+  `  { word: '${esc(r.word)}', syllables: '${esc(r.syllables)}', emoji: '${esc(r.emoji)}', audioKey: '${esc(r.audioKey)}' },`
 );
 
 const output = [
