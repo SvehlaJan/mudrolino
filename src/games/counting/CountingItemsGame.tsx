@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS } from '../../shared/contentRegistry';
+import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange } from '../../shared/contentRegistry';
 import { SlovakNumber } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -41,10 +41,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const optionsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const availableItems = useMemo(
-    () => NUMBER_ITEMS.filter(n => n.value >= range.start && n.value <= range.end),
-    [range]
-  );
+  const availableItems = useMemo(() => getNumberItemsInRange(range), [range]);
 
   const generatePositions = useCallback((count: number): ItemPosition[] => {
     const emoji = COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)];

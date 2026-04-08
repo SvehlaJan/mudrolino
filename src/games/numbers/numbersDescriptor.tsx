@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, SlovakNumber } from '../../shared/types';
-import { NUMBER_ITEMS } from '../../shared/contentRegistry';
+import { getNumberItemsInRange } from '../../shared/contentRegistry';
 
 export function createNumbersDescriptor(
   range: { start: number; end: number }
@@ -13,7 +13,7 @@ export function createNumbersDescriptor(
   return {
     gridSize: 4,
     gridColsClass: 'grid-cols-2',
-    getItems: () => NUMBER_ITEMS.filter(n => n.value >= range.start && n.value <= range.end),
+    getItems: () => getNumberItemsInRange(range),
     getItemId: (n) => String(n.value),
     renderCard: (n) => (
       <span className="text-6xl sm:text-[100px] font-bold font-spline">{n.value}</span>

@@ -136,6 +136,10 @@ export const NUMBER_ITEMS: SlovakNumber[] = Array.from({ length: 20 }, (_, i) =>
   audioKey: String(i + 1),
 }));
 
+export function getNumberItemsInRange(range: { start: number; end: number }) {
+  return NUMBER_ITEMS.filter(n => n.value >= range.start && n.value <= range.end);
+}
+
 // ---------------------------------------------------------------------------
 // Counting game emojis
 // ---------------------------------------------------------------------------
