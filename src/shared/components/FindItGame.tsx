@@ -31,6 +31,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const startNewRound = useCallback(() => {
     const pool = descriptor.getItems();
     if (pool.length === 0) return;
+    const effectiveGridSize = Math.min(descriptor.gridSize, pool.length);
     const current = targetItemRef.current;
     const currentId = current ? descriptor.getItemId(current) : null;
     const eligible = currentId
@@ -41,7 +42,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     const others = pool
       .filter(item => descriptor.getItemId(item) !== descriptor.getItemId(target))
       .sort(() => 0.5 - Math.random())
-      .slice(0, descriptor.gridSize - 1);
+      .slice(0, effectiveGridSize - 1);
     const grid = [...others, target].sort(() => 0.5 - Math.random());
     setTargetItem(target);
     setGridItems(grid);
