@@ -53,7 +53,7 @@ Generated 2026-03-29 from codebase analysis.
 | ~~A2~~ | ~~Game registry must be manually synced~~ — `GAME_RENDERERS: Record<GameId, ...>` added; render switch replaced with single lookup; `GameMetadata.icon` is now `ReactNode` | ✅ |
 | ~~A3~~ | ~~Magic numbers throughout~~ — extracted to `TIMING` constants in `contentRegistry.ts`, applied across all 5 files | ✅ |
 | ~~A4~~ | ~~Range filtering duplicated~~ — `getNumberItemsInRange(range)` extracted to `contentRegistry.ts` | ✅ |
-| A5 | **`AudioManager` has 3 responsibilities** — file playback, TTS fallback, template resolution; should be split | `audioManager.ts` |
+| ~~A5~~ | ~~`AudioManager` has 3 responsibilities~~ — won't fix: the three concerns are tightly coupled by design (TTS fallback is a direct consequence of file failure); splitting adds complexity without benefit | 🚫 |
 
 ---
 
