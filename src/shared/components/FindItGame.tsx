@@ -6,9 +6,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Volume2, ArrowLeft } from 'lucide-react';
-import { GameDescriptor, SuccessSpec } from '../types';
+import { GameDescriptor, SuccessSpec, FailureSpec } from '../types';
 import { audioManager } from '../services/audioManager';
 import { SuccessOverlay } from './SuccessOverlay';
+import { FailureOverlay } from './FailureOverlay';
 import { SessionCompleteOverlay } from './SessionCompleteOverlay';
 import { TIMING } from '../contentRegistry';
 
@@ -26,6 +27,10 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
 
   const maxRounds = descriptor.maxRounds ?? 5;
+  const maxAttempts = descriptor.maxAttempts ?? 3;
+  const [wrongAttemptsThisRound, setWrongAttemptsThisRound] = useState(0);
+  const [showFailure, setShowFailure] = useState(false);
+  const [failureSpec, setFailureSpec] = useState<FailureSpec | null>(null);
   const [roundsCompleted, setRoundsCompleted] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
@@ -54,6 +59,8 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     setGridItems(grid);
     setFeedback({});
     setShowSuccess(false);
+    setShowFailure(false);
+    setWrongAttemptsThisRound(0);
     pendingSuccessRef.current = false;
   }, [descriptor]);
 
@@ -71,7 +78,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   }, [targetItem, descriptor]);
 
   const handleCardClick = (item: T, index: number) => {
-    if (showSuccess || pendingSuccessRef.current || !targetItem || showSessionComplete) return;
+    if (showSuccess || showFailure || pendingSuccessRef.current || !targetItem || showSessionComplete) return;
     setTotalTaps(prev => prev + 1);
     if (descriptor.getItemId(item) === descriptor.getItemId(targetItem)) {
       pendingSuccessRef.current = true;
@@ -85,9 +92,17 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
         setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
       }
     } else {
+      const nextWrong = wrongAttemptsThisRound + 1;
+      setWrongAttemptsThisRound(nextWrong);
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
-      audioManager.play(descriptor.getWrongAudio(targetItem, item));
-      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
+      if (nextWrong >= maxAttempts) {
+        pendingSuccessRef.current = true;
+        setFailureSpec(descriptor.getFailureSpec(targetItem));
+        setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      } else {
+        audioManager.play(descriptor.getWrongAudio(targetItem, item));
+        setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
+      }
     }
   };
 
@@ -138,6 +153,9 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
 
       {successSpec && (
         <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} />
+      )}
+      {failureSpec && (
+        <FailureOverlay show={showFailure} spec={failureSpec} onComplete={startNewRound} />
       )}
       <SessionCompleteOverlay
         show={showSessionComplete}

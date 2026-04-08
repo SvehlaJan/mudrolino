@@ -70,6 +70,12 @@ export interface SuccessSpec {
   echoLine: string; // e.g. "ja-ho-da 🍓" or "A ako Auto 🚗"
 }
 
+/** Describes what the FailureOverlay shows when a child exhausts their attempts. */
+export interface FailureSpec {
+  echoLine: string;   // e.g. "A ako Auto 🚗" — the correct answer announcement
+  audioSpec: AudioSpec; // audio to play in the overlay
+}
+
 // ---------------------------------------------------------------------------
 // GameDescriptor — registered per "find it in a grid" game type
 // ---------------------------------------------------------------------------
@@ -79,8 +85,10 @@ export interface GameDescriptor<T> {
   gridSize: number;
   /** Tailwind grid-cols classes, e.g. "grid-cols-2 sm:grid-cols-3" */
   gridColsClass: string;
-  /** Maximum correct answers before session ends. Defaults to 10 if omitted. */
+  /** Maximum correct answers before session ends. Defaults to 5 if omitted. */
   maxRounds?: number;
+  /** Maximum wrong attempts per round before the failure overlay shows. Defaults to 3 if omitted. */
+  maxAttempts?: number;
   /** Returns all items in the pool for this game. */
   getItems(): T[];
   /** Returns a stable unique string id for an item — used for dedup and comparison. */
@@ -98,6 +106,8 @@ export interface GameDescriptor<T> {
   getWrongAudio(target: T, selected: T): AudioSpec;
   /** Success overlay content for the correct answer. */
   getSuccessSpec(target: T): SuccessSpec;
+  /** Failure overlay content — announces the correct answer the child missed. */
+  getFailureSpec(target: T): FailureSpec;
 }
 
 // ---------------------------------------------------------------------------

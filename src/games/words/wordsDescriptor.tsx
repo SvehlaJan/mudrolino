@@ -29,4 +29,11 @@ export const wordsDescriptor: GameDescriptor<Word> = {
     fallbackText: 'Skús to znova.',
   }),
   getSuccessSpec: (w) => ({ echoLine: `${w.syllables} ${w.emoji}` }),
+  getFailureSpec: (w) => ({
+    echoLine: `${w.syllables} ${w.emoji}`,
+    audioSpec: {
+      sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `words/${w.audioKey}`],
+      fallbackText: `Nevadí! Správna odpoveď je ${w.word}.`,
+    },
+  }),
 };

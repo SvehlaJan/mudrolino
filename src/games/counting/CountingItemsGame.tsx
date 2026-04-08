@@ -8,8 +8,9 @@ import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
 import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange } from '../../shared/contentRegistry';
-import { SlovakNumber } from '../../shared/types';
+import { SlovakNumber, FailureSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
+import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 
 interface CountingItemsGameProps {
@@ -34,10 +35,15 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const MAX_ROUNDS = 5;
+  const MAX_ATTEMPTS = 3;
+  const [wrongAttemptsThisRound, setWrongAttemptsThisRound] = useState(0);
+  const [showFailure, setShowFailure] = useState(false);
+  const [failureSpec, setFailureSpec] = useState<FailureSpec | null>(null);
   const [roundsCompleted, setRoundsCompleted] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const pendingFailureRef = useRef(false);
 
   const availableItems = useMemo(() => getNumberItemsInRange(range), [range]);
 
@@ -81,6 +87,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     setOptionItems(options);
     setFeedback({});
     setShowSuccess(false);
+    setShowFailure(false);
+    pendingFailureRef.current = false;
+    setWrongAttemptsThisRound(0);
   }, [availableItems, range.end, generatePositions]);
 
   useEffect(() => {
@@ -98,7 +107,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   }, [gameState]);
 
   const handleOptionClick = (item: SlovakNumber, index: number) => {
-    if (showSuccess || showSessionComplete || !targetItem) return;
+    if (showSuccess || showFailure || pendingFailureRef.current || showSessionComplete || !targetItem) return;
     setTotalTaps(prev => prev + 1);
     if (item.value === targetItem.value) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
@@ -110,9 +119,23 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
       }
     } else {
+      const nextWrong = wrongAttemptsThisRound + 1;
+      setWrongAttemptsThisRound(nextWrong);
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
-      audioManager.play({ sequence: ['phrases/skus-to-znova'], fallbackText: 'Skús to znova.' });
-      setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
+      if (nextWrong >= MAX_ATTEMPTS) {
+        pendingFailureRef.current = true;
+        setFailureSpec({
+          echoLine: `Správne je ${targetItem.value} ⭐`,
+          audioSpec: {
+            sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `numbers/${targetItem.audioKey}`],
+            fallbackText: `Nevadí! Správna odpoveď je ${targetItem.value}.`,
+          },
+        });
+        setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      } else {
+        audioManager.play({ sequence: ['phrases/skus-to-znova'], fallbackText: 'Skús to znova.' });
+        setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
+      }
     }
   };
 
@@ -247,6 +270,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           spec={{ echoLine: `Správne, je ich ${targetItem.value} ⭐` }}
           onComplete={startNewRound}
         />
+      )}
+      {failureSpec && (
+        <FailureOverlay show={showFailure} spec={failureSpec} onComplete={startNewRound} />
       )}
       <SessionCompleteOverlay
         show={showSessionComplete}
