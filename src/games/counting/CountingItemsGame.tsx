@@ -10,6 +10,7 @@ import { audioManager } from '../../shared/services/audioManager';
 import { NUMBER_ITEMS, COLORS, TIMING } from '../../shared/contentRegistry';
 import { SlovakNumber } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
+import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 
 interface CountingItemsGameProps {
   onExit: () => void;
@@ -35,6 +36,10 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const MAX_ROUNDS = 10;
+  const [roundsCompleted, setRoundsCompleted] = useState(0);
+  const [totalTaps, setTotalTaps] = useState(0);
+  const [showSessionComplete, setShowSessionComplete] = useState(false);
   const optionsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -103,10 +108,17 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   }, [gameState]);
 
   const handleOptionClick = (item: SlovakNumber, index: number) => {
-    if (showSuccess || !targetItem) return;
+    if (showSuccess || showSessionComplete || !targetItem) return;
+    setTotalTaps(prev => prev + 1);
     if (item.value === targetItem.value) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      const nextRoundsCompleted = roundsCompleted + 1;
+      setRoundsCompleted(nextRoundsCompleted);
+      if (nextRoundsCompleted >= MAX_ROUNDS) {
+        setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      } else {
+        setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      }
     } else {
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
       audioManager.play({ sequence: ['phrases/skus-to-znova'], fallbackText: 'Skús to znova.' });
@@ -182,6 +194,11 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       </motion.button>
 
       <div className="flex-1 w-full max-w-4xl flex flex-col gap-8 sm:gap-12 mt-16 sm:mt-20">
+        <div className="flex justify-center">
+          <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
+            ✓ {roundsCompleted} / {MAX_ROUNDS}
+          </div>
+        </div>
         <div
           ref={containerRef}
           className="relative flex-1 bg-white/50 rounded-[40px] sm:rounded-[60px] border-4 border-dashed border-shadow/20 overflow-hidden min-h-[300px]"
@@ -237,6 +254,13 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           onComplete={startNewRound}
         />
       )}
+      <SessionCompleteOverlay
+        show={showSessionComplete}
+        roundsCompleted={roundsCompleted}
+        totalTaps={totalTaps}
+        maxRounds={MAX_ROUNDS}
+        onComplete={() => setGameState('HOME')}
+      />
     </div>
   );
 }
