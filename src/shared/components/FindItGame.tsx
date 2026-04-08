@@ -9,6 +9,7 @@ import { Volume2, ArrowLeft } from 'lucide-react';
 import { GameDescriptor, SuccessSpec } from '../types';
 import { audioManager } from '../services/audioManager';
 import { SuccessOverlay } from './SuccessOverlay';
+import { SessionCompleteOverlay } from './SessionCompleteOverlay';
 import { TIMING } from '../contentRegistry';
 
 interface FindItGameProps<T> {
@@ -23,6 +24,11 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
+
+  const maxRounds = descriptor.maxRounds ?? 10;
+  const [roundsCompleted, setRoundsCompleted] = useState(0);
+  const [totalTaps, setTotalTaps] = useState(0);
+  const [showSessionComplete, setShowSessionComplete] = useState(false);
 
   const targetItemRef = useRef<T | null>(null);
   const pendingSuccessRef = useRef(false);
@@ -65,12 +71,19 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   }, [targetItem, descriptor]);
 
   const handleCardClick = (item: T, index: number) => {
-    if (showSuccess || pendingSuccessRef.current || !targetItem) return;
+    if (showSuccess || pendingSuccessRef.current || !targetItem || showSessionComplete) return;
+    setTotalTaps(prev => prev + 1);
     if (descriptor.getItemId(item) === descriptor.getItemId(targetItem)) {
       pendingSuccessRef.current = true;
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
       setSuccessSpec(descriptor.getSuccessSpec(targetItem));
-      setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      const nextRoundsCompleted = roundsCompleted + 1;
+      setRoundsCompleted(nextRoundsCompleted);
+      if (nextRoundsCompleted >= maxRounds) {
+        setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      } else {
+        setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      }
     } else {
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
       audioManager.play(descriptor.getWrongAudio(targetItem, item));
@@ -90,6 +103,9 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       </button>
 
       <div className="flex flex-col items-center gap-4 sm:gap-8 mb-8 sm:mb-12">
+        <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
+          ✓ {roundsCompleted} / {maxRounds}
+        </div>
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => targetItem && audioManager.play(descriptor.getPromptAudio(targetItem))}
@@ -120,6 +136,13 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       {successSpec && (
         <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} />
       )}
+      <SessionCompleteOverlay
+        show={showSessionComplete}
+        roundsCompleted={roundsCompleted}
+        totalTaps={totalTaps}
+        maxRounds={maxRounds}
+        onComplete={onExit}
+      />
     </div>
   );
 }
