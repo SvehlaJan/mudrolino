@@ -18,7 +18,6 @@ import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { Screen, GameSettings, GameId, GameMetadata } from './shared/types';
 
 type SettingsSource = 'home' | 'alphabet' | 'syllables';
-import { COLORS, BG_COLORS } from './shared/contentRegistry';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { AlphabetSettingsOverlay } from './games/alphabet/AlphabetSettingsOverlay';

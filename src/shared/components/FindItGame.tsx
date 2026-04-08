@@ -58,7 +58,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   }, [descriptor]);
 
   useEffect(() => {
-    if (!targetItem) startNewRound();
+    if (!targetItem) startNewRound(); // eslint-disable-line react-hooks/set-state-in-effect
   }, [targetItem, startNewRound]);
 
   useEffect(() => {

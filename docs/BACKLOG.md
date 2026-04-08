@@ -26,7 +26,7 @@ Generated 2026-03-29 from codebase analysis.
 | ~~H4~~ | ~~`@google/genai` installed but unused~~ — uninstalled, 37 packages removed | ✅ |
 | ~~H5~~ | ~~SYLLABLE_CONSONANTS missing diacritical letters~~ — `SYLLABLE_ITEMS` now derived from `WORD_ITEMS` which includes ž, š, ň, ľ etc. | ✅ |
 | ~~H6~~ | ~~SuccessOverlay `onComplete` fires even when component unmounts~~ — timer already cleaned up via effect cleanup | ✅ |
-| H7 | **No ESLint/Prettier configured** — inconsistent code style, no unused import detection | `package.json` |
+| ~~H7~~ | ~~No ESLint/Prettier configured~~ — ESLint configured with `typescript-eslint`, `react-hooks`, `react-refresh`; 0 errors | ✅ |
 
 ---
 

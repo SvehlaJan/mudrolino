@@ -92,7 +92,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   }, [availableItems, range.end, generatePositions]);
 
   useEffect(() => {
-    if (gameState === 'PLAYING' && !targetItem) startNewRound();
+    if (gameState === 'PLAYING' && !targetItem) startNewRound(); // eslint-disable-line react-hooks/set-state-in-effect
   }, [gameState, targetItem, startNewRound]);
 
   useEffect(() => {

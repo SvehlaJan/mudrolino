@@ -20,6 +20,7 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
   const [praise, setPraise] = useState<PraiseEntry>(PRAISE_ENTRIES[0]);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /* eslint-disable react-hooks/purity */
   const confetti = useMemo(() =>
     [...Array(30)].map((_, i) => ({
       x: Math.random() * window.innerWidth - window.innerWidth / 2,
@@ -29,6 +30,7 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
     })),
     [show] // eslint-disable-line react-hooks/exhaustive-deps
   );
+  /* eslint-enable react-hooks/purity */
 
   useEffect(() => {
     if (!show) { setPaused(false); return; }

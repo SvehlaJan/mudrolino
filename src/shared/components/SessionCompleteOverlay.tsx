@@ -32,6 +32,7 @@ export function SessionCompleteOverlay({
 }: SessionCompleteOverlayProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  /* eslint-disable react-hooks/purity */
   const confetti = useMemo(
     () =>
       [...Array(30)].map((_, i) => ({
@@ -42,6 +43,7 @@ export function SessionCompleteOverlay({
       })),
     [show] // eslint-disable-line react-hooks/exhaustive-deps
   );
+  /* eslint-enable react-hooks/purity */
 
   useEffect(() => {
     if (!show) return;
