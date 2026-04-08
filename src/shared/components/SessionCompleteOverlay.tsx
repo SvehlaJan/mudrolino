@@ -71,6 +71,7 @@ export function SessionCompleteOverlay({
           {confetti.map((p, i) => (
             <motion.div
               key={i}
+              aria-hidden="true"
               initial={{ y: -500, x: p.x, rotate: 0 }}
               animate={{ y: window.innerHeight + 500, rotate: 360 }}
               transition={{ duration: p.duration, ease: 'linear', delay: p.delay }}
@@ -93,11 +94,11 @@ export function SessionCompleteOverlay({
               boxShadow: '0 8px 0 #f0c99a, 0 20px 60px rgba(0,0,0,.10)',
             }}
           >
-            <div className="text-[120px] sm:text-[160px] leading-none mb-2">🎉</div>
+            <div role="img" aria-label="Hotovo!" className="text-[120px] sm:text-[160px] leading-none mb-2">🎉</div>
             <h3 className="text-primary text-5xl sm:text-7xl font-black tracking-tighter leading-none">
               Hotovo!
             </h3>
-            <p className="text-5xl mt-4 tracking-widest">{starDisplay}</p>
+            <p aria-label={`${stars} z 3 hviezd`} className="text-5xl mt-4 tracking-widest">{starDisplay}</p>
             <p
               className="text-2xl sm:text-3xl font-extrabold mt-4"
               style={{ color: '#c06a00' }}

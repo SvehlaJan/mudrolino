@@ -60,6 +60,7 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
           {confetti.map((p, i) => (
             <motion.div
               key={i}
+              aria-hidden="true"
               initial={{ y: -500, x: p.x, rotate: 0 }}
               animate={{ y: window.innerHeight + 500, rotate: 360 }}
               transition={{ duration: p.duration, ease: 'linear', delay: p.delay }}
@@ -78,12 +79,13 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
           >
             <button
               onClick={paused ? onComplete : handlePause}
+              aria-label={paused ? 'Zavrieť' : 'Pauza'}
               className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#aaa] transition-colors hover:text-[#666]"
               style={{ boxShadow: '0 2px 8px rgba(0,0,0,.10)' }}
             >
               {paused ? <X size={20} /> : <Pause size={20} />}
             </button>
-            <div className="text-[100px] sm:text-[140px] leading-none mb-2">{praise.emoji}</div>
+            <div role="img" aria-label={praise.text} className="text-[100px] sm:text-[140px] leading-none mb-2">{praise.emoji}</div>
             <h3 className="text-primary text-5xl sm:text-[80px] font-black tracking-tighter leading-none">
               {praise.text}
             </h3>

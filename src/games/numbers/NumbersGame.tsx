@@ -29,6 +29,7 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
       <div className="absolute safe-top sm:safe-top-lg safe-left sm:safe-left-lg flex gap-4 z-20">
         <button
           onClick={onExit}
+          aria-label="Späť"
           className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
         >
           <ArrowLeft size={24} className="sm:w-8 sm:h-8" />
@@ -36,6 +37,7 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
       </div>
       <button
         onClick={onOpenSettings}
+        aria-label="Nastavenia"
         className="absolute safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
       >
         <Settings size={24} className="sm:w-8 sm:h-8" />
@@ -64,13 +66,14 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.95, y: 5 }}
           onClick={() => setGameState('PLAYING')}
+          aria-label="Hrať"
           className="w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 bg-accent-blue rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0"
         >
           <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
         </motion.button>
       </div>
-      <div className="absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-primary opacity-30 -rotate-12 blur-sm pointer-events-none" />
-      <div className="absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-success opacity-20 translate-y-10 blur-md pointer-events-none" />
+      <div aria-hidden="true" className="absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-primary opacity-30 -rotate-12 blur-sm pointer-events-none" />
+      <div aria-hidden="true" className="absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-success opacity-20 translate-y-10 blur-md pointer-events-none" />
     </div>
   );
 }

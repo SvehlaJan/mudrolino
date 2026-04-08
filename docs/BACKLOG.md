@@ -61,9 +61,9 @@ Generated 2026-03-29 from codebase analysis.
 
 | # | Issue | Location |
 |---|-------|----------|
-| AC1 | **No keyboard navigation** — no arrow key / Enter / Space support on game grids | All games |
-| AC2 | **No ARIA labels** on any game buttons — screen readers get no context | All games |
-| AC3 | **Emoji in SuccessOverlay has no text alternative** | `SuccessOverlay.tsx` |
+| AC1 | **No keyboard navigation** — no arrow key / Enter / Space support on game grids (deferred — low value for preschool touchscreen app) | All games |
+| ~~AC2~~ | ~~No ARIA labels on any game buttons~~ — all icon-only buttons now have `aria-label`; decorative elements have `aria-hidden="true"` | ✅ |
+| ~~AC3~~ | ~~Emoji in SuccessOverlay has no text alternative~~ — praise emoji has `role="img" aria-label`; star display has `aria-label`; confetti is `aria-hidden` | ✅ |
 
 ---
 

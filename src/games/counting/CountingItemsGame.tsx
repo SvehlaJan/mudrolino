@@ -127,6 +127,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         <div className="absolute safe-top sm:safe-top-lg safe-left sm:safe-left-lg flex gap-4 z-20">
           <button
             onClick={onExit}
+            aria-label="Späť"
             className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
           >
             <ArrowLeft size={24} className="sm:w-8 sm:h-8" />
@@ -134,6 +135,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         </div>
         <button
           onClick={onOpenSettings}
+          aria-label="Nastavenia"
           className="absolute safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
         >
           <Settings size={24} className="sm:w-8 sm:h-8" />
@@ -162,6 +164,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
             whileHover={{ scale: 1.05, y: -5 }}
             whileTap={{ scale: 0.95, y: 5 }}
             onClick={() => setGameState('PLAYING')}
+            aria-label="Hrať"
             className="w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 bg-soft-watermelon rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0"
           >
             <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
@@ -175,6 +178,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     <div className="min-h-screen flex flex-col items-center p-4 sm:p-8 relative overflow-hidden">
       <button
         onClick={() => setGameState('HOME')}
+        aria-label="Späť"
         className="fixed safe-top sm:safe-top-lg safe-left sm:safe-left-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
       >
         <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
@@ -183,6 +187,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={() => audioManager.play({ sequence: ['phrases/spocitaj-predmety'], fallbackText: 'Spočítaj predmety' })}
+        aria-label="Prehrať zvuk"
         className="fixed safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
       >
         <Volume2 size={24} className="sm:w-7 sm:h-7" />
@@ -201,6 +206,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           {itemPositions.map((pos, i) => (
             <motion.div
               key={`${targetItem?.value}-${i}`}
+              aria-hidden="true"
               initial={{ scale: 0, opacity: 0, rotate: -180 }}
               animate={{ scale: pos.scale, opacity: 1, rotate: pos.rotation }}
               exit={{ scale: 0, opacity: 0, rotate: 180 }}
@@ -213,6 +219,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           ))}
           <button
             onClick={startNewRound}
+            aria-label="Nové kolo"
             className="absolute bottom-4 right-4 w-12 h-12 bg-white/50 rounded-full flex items-center justify-center text-shadow/40 hover:text-shadow transition-colors"
           >
             <RefreshCw size={24} />

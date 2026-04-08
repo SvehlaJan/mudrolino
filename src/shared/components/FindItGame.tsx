@@ -97,6 +97,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
       <button
         onClick={onExit}
+        aria-label="Späť"
         className="fixed safe-top sm:safe-top-lg safe-left sm:safe-left-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
       >
         <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
@@ -109,6 +110,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => targetItem && audioManager.play(descriptor.getPromptAudio(targetItem))}
+          aria-label="Prehrať zvuk"
           className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
         >
           <Volume2 size={32} className="sm:w-10 sm:h-10" />
@@ -122,6 +124,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
             key={descriptor.getItemId(item)}
             onClick={() => handleCardClick(item, i)}
             animate={feedback[i] === 'wrong' ? { x: [-10, 10, -10, 10, 0] } : {}}
+            aria-label={descriptor.getItemId(item)}
             className={`
               w-full aspect-square rounded-[24px] sm:rounded-[32px] flex items-center justify-center transition-all
               ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
