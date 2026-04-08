@@ -79,6 +79,8 @@ export interface GameDescriptor<T> {
   gridSize: number;
   /** Tailwind grid-cols classes, e.g. "grid-cols-2 sm:grid-cols-3" */
   gridColsClass: string;
+  /** Maximum correct answers before session ends. Defaults to 10 if omitted. */
+  maxRounds?: number;
   /** Returns all items in the pool for this game. */
   getItems(): T[];
   /** Returns a stable unique string id for an item — used for dedup and comparison. */
