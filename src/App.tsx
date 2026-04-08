@@ -27,7 +27,7 @@ import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 
-type SettingsSource = 'home' | 'alphabet' | 'syllables';
+type SettingsSource = 'home' | 'game' | 'alphabet' | 'syllables';
 
 type GameRenderProps = {
   settings: GameSettings;
@@ -43,13 +43,13 @@ const GAME_RENDERERS: Record<GameId, (props: GameRenderProps) => ReactNode> = {
     <SyllablesGame settings={settings} onExit={onExit} onOpenSettings={() => onOpenSettings('syllables')} />
   ),
   NUMBERS: ({ settings, onExit, onOpenSettings }) => (
-    <NumbersGame range={settings.numbersRange} onExit={onExit} onOpenSettings={onOpenSettings} />
+    <NumbersGame range={settings.numbersRange} onExit={onExit} onOpenSettings={() => onOpenSettings('game')} />
   ),
   COUNTING_ITEMS: ({ settings, onExit, onOpenSettings }) => (
-    <CountingItemsGame range={settings.countingRange} onExit={onExit} onOpenSettings={onOpenSettings} />
+    <CountingItemsGame range={settings.countingRange} onExit={onExit} onOpenSettings={() => onOpenSettings('game')} />
   ),
   WORDS: ({ onExit, onOpenSettings }) => (
-    <WordsGame onExit={onExit} onOpenSettings={onOpenSettings} />
+    <WordsGame onExit={onExit} onOpenSettings={() => onOpenSettings('game')} />
   ),
 };
 
@@ -226,11 +226,11 @@ export default function App() {
         {screen === 'PARENTS_GATE' && (
           <ParentsGate
             onSuccess={handleGateSuccess}
-            onCancel={handleExitGame}
+            onCancel={() => setScreen(settingsSource === 'home' ? 'HOME' : 'GAME')}
           />
         )}
 
-        {screen === 'SETTINGS' && settingsSource === 'home' && (
+        {screen === 'SETTINGS' && (settingsSource === 'home' || settingsSource === 'game') && (
           <SettingsOverlay
             settings={settings}
             onUpdate={setSettings}
