@@ -34,9 +34,9 @@ Generated 2026-03-29 from codebase analysis.
 
 | # | Issue | Location |
 |---|-------|----------|
-| F1 | **No progress/round counter** — child and parent have no visibility into session progress | All games |
+| ~~F1~~ | ~~No progress/round counter~~ — `✓ X / Y` pill in all games; `SessionCompleteOverlay` with star rating after last round | ✅ |
 | ~~F2~~ | ~~No replay button for audio in Numbers/Counting games~~ — added `Volume2` button to `CountingItemsGame` (Numbers already had one) | ✅ |
-| F3 | **No difficulty setting for Alphabet/Syllables** — grid size fixed at 8 and 6 respectively; no way to make easier for younger children | `alphabetDescriptor.tsx`, `syllablesDescriptor.tsx` |
+| ~~F3~~ | ~~No difficulty setting for Alphabet/Syllables~~ — per-game settings overlays with grid size selector (4/6/8 for Alphabet, 4/6 for Syllables) | ✅ |
 | ~~F4~~ | ~~Counting game shows answer options immediately~~ — `TIMING.COUNTING_OPTIONS_DELAY_MS = 2000` used; `showOptions` state controls display | ✅ |
 | F5 | **EMOJIS array in CountingItemsGame hardcoded** — should live in `contentRegistry.ts` | `CountingItemsGame.tsx:20` |
 | ~~F6~~ | ~~`WORD_ITEMS` exported but empty~~ — populated with 44 Slovak words | ✅ |
@@ -71,4 +71,4 @@ Generated 2026-03-29 from codebase analysis.
 ~~B2, B5, H4, H6, F2, F6, A3, B1, B3, B4, H2, H5, F4, F8, A1~~ — all done ✅
 
 ## Highest Impact
-~~H1, B1, H5, A1~~ ✅ — remaining: **H3** (distractor guard), **F1** (progress counter), **H7** (ESLint), **A2** (game registry unification)
+~~H1, B1, H5, A1, H3, F1, F3~~ ✅ — remaining: **H7** (ESLint), **A2** (game registry unification), **F5** (emoji list in contentRegistry)
