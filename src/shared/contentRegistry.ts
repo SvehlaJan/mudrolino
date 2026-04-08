@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { Letter, Syllable, Word, SlovakNumber, PraiseEntry } from './types';
+import { WORD_ITEMS } from './wordItems.generated';
 
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
 export const BG_COLORS = ['bg-primary', 'bg-success', 'bg-accent-blue'];
@@ -59,55 +60,9 @@ export const LETTER_ITEMS: Letter[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Words — Slovak words with syllable breakdowns.
-// audioKey = lowercase ASCII transliteration (ž→z, š→s, č→c, ň→n, ľ→l, ú→u, etc.)
+// Words — source of truth: data/words.csv  (run `npm run codegen` to update)
 // ---------------------------------------------------------------------------
-export const WORD_ITEMS: Word[] = [
-  { word: 'Jahoda',   syllables: 'ja-ho-da',    emoji: '🍓', audioKey: 'jahoda' },
-  { word: 'Mama',     syllables: 'ma-ma',        emoji: '👩', audioKey: 'mama' },
-  { word: 'Malina',   syllables: 'ma-li-na',     emoji: '🫐', audioKey: 'malina' },
-  { word: 'Tata',     syllables: 'ta-ta',        emoji: '👨', audioKey: 'tata' },
-  { word: 'Lipa',     syllables: 'li-pa',        emoji: '🌳', audioKey: 'lipa' },
-  { word: 'Lano',     syllables: 'la-no',        emoji: '🪢', audioKey: 'lano' },
-  { word: 'Luna',     syllables: 'lu-na',        emoji: '🌙', audioKey: 'luna' },
-  { word: 'Lopata',   syllables: 'lo-pa-ta',     emoji: '🪣', audioKey: 'lopata' },
-  { word: 'Sova',     syllables: 'so-va',        emoji: '🦉', audioKey: 'sova' },
-  { word: 'Sito',     syllables: 'si-to',        emoji: '🫙', audioKey: 'sito' },
-  { word: 'Seno',     syllables: 'se-no',        emoji: '🌾', audioKey: 'seno' },
-  { word: 'Pero',     syllables: 'pe-ro',        emoji: '✏️', audioKey: 'pero' },
-  { word: 'Baba',     syllables: 'ba-ba',        emoji: '👵', audioKey: 'baba' },
-  { word: 'Bota',     syllables: 'bo-ta',        emoji: '👟', audioKey: 'bota' },
-  { word: 'Voda',     syllables: 'vo-da',        emoji: '💧', audioKey: 'voda' },
-  { word: 'Vila',     syllables: 'vi-la',        emoji: '🏡', audioKey: 'vila' },
-  { word: 'Vata',     syllables: 'va-ta',        emoji: '🧶', audioKey: 'vata' },
-  { word: 'Veda',     syllables: 've-da',        emoji: '🔬', audioKey: 'veda' },
-  { word: 'Deti',     syllables: 'de-ti',        emoji: '👦', audioKey: 'deti' },
-  { word: 'Dino',     syllables: 'di-no',        emoji: '🦕', audioKey: 'dino' },
-  { word: 'Doma',     syllables: 'do-ma',        emoji: '🏠', audioKey: 'doma' },
-  { word: 'Dúha',     syllables: 'dú-ha',        emoji: '🌈', audioKey: 'duha' },
-  { word: 'Dolina',   syllables: 'do-li-na',     emoji: '🏔️', audioKey: 'dolina' },
-  { word: 'Noha',     syllables: 'no-ha',        emoji: '🦵', audioKey: 'noha' },
-  { word: 'Nebo',     syllables: 'ne-bo',        emoji: '☁️', audioKey: 'nebo' },
-  { word: 'Nuda',     syllables: 'nu-da',        emoji: '😴', audioKey: 'nuda' },
-  { word: 'Ryba',     syllables: 'ry-ba',        emoji: '🐟', audioKey: 'ryba' },
-  { word: 'Ruka',     syllables: 'ru-ka',        emoji: '🤚', audioKey: 'ruka' },
-  { word: 'Ruža',     syllables: 'ru-ža',        emoji: '🌹', audioKey: 'ruza' },
-  { word: 'Koza',     syllables: 'ko-za',        emoji: '🐐', audioKey: 'koza' },
-  { word: 'Kino',     syllables: 'ki-no',        emoji: '🎬', audioKey: 'kino' },
-  { word: 'Koleso',   syllables: 'ko-le-so',     emoji: '🎡', audioKey: 'koleso' },
-  { word: 'Kukurica', syllables: 'ku-ku-ri-ca',  emoji: '🌽', audioKey: 'kukurica' },
-  { word: 'Meno',     syllables: 'me-no',        emoji: '📛', audioKey: 'meno' },
-  { word: 'Muha',     syllables: 'mu-ha',        emoji: '🪰', audioKey: 'muha' },
-  { word: 'Misa',     syllables: 'mi-sa',        emoji: '🥣', audioKey: 'misa' },
-  { word: 'Roboti',   syllables: 'ro-bo-ti',     emoji: '🤖', audioKey: 'roboti' },
-  { word: 'Kačica',   syllables: 'ka-či-ca',     emoji: '🦆', audioKey: 'kacica' },
-  { word: 'Žirafa',   syllables: 'ži-ra-fa',     emoji: '🦒', audioKey: 'zirafa' },
-  { word: 'Žena',     syllables: 'že-na',        emoji: '👩', audioKey: 'zena' },
-  { word: 'Šaty',     syllables: 'ša-ty',        emoji: '👗', audioKey: 'saty' },
-  { word: 'Šoféri',   syllables: 'šo-fé-ri',     emoji: '🚗', audioKey: 'soferi' },
-  { word: 'Baňa',     syllables: 'ba-ňa',        emoji: '⛏️', audioKey: 'bana' },
-  { word: 'Poľana',   syllables: 'po-ľa-na',     emoji: '🌿', audioKey: 'polana' },
-];
+export { WORD_ITEMS };
 
 // Derive SYLLABLE_ITEMS from WORD_ITEMS.
 const _syllableWordMap = new Map<string, Word[]>();
