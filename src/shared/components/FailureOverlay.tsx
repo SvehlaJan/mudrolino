@@ -33,7 +33,7 @@ export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={onComplete}
+          onClick={() => { if (timerRef.current) clearTimeout(timerRef.current); onComplete(); }}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1e2a4a]/70 backdrop-blur-sm"
         >
           <motion.div

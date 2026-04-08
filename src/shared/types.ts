@@ -85,7 +85,7 @@ export interface GameDescriptor<T> {
   gridSize: number;
   /** Tailwind grid-cols classes, e.g. "grid-cols-2 sm:grid-cols-3" */
   gridColsClass: string;
-  /** Maximum correct answers before session ends. Defaults to 10 if omitted. */
+  /** Maximum correct answers before session ends. Defaults to 5 if omitted. */
   maxRounds?: number;
   /** Maximum wrong attempts per round before the failure overlay shows. Defaults to 3 if omitted. */
   maxAttempts?: number;

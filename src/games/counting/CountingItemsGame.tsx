@@ -8,10 +8,9 @@ import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
 import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange } from '../../shared/contentRegistry';
-import { SlovakNumber } from '../../shared/types';
+import { SlovakNumber, FailureSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
-import { FailureSpec } from '../../shared/types';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 
 interface CountingItemsGameProps {
@@ -46,6 +45,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [showSessionComplete, setShowSessionComplete] = useState(false);
   const optionsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const pendingFailureRef = useRef(false);
 
   const availableItems = useMemo(() => getNumberItemsInRange(range), [range]);
 
@@ -90,6 +90,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     setFeedback({});
     setShowSuccess(false);
     setShowFailure(false);
+    pendingFailureRef.current = false;
     setWrongAttemptsThisRound(0);
     setShowOptions(false);
     if (optionsTimerRef.current) clearTimeout(optionsTimerRef.current);
@@ -111,7 +112,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   }, [gameState]);
 
   const handleOptionClick = (item: SlovakNumber, index: number) => {
-    if (showSuccess || showFailure || showSessionComplete || !targetItem) return;
+    if (showSuccess || showFailure || pendingFailureRef.current || showSessionComplete || !targetItem) return;
     setTotalTaps(prev => prev + 1);
     if (item.value === targetItem.value) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
@@ -127,6 +128,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       setWrongAttemptsThisRound(nextWrong);
       setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
       if (nextWrong >= MAX_ATTEMPTS) {
+        pendingFailureRef.current = true;
         setFailureSpec({
           echoLine: `Správne je ${targetItem.value} ⭐`,
           audioSpec: {
