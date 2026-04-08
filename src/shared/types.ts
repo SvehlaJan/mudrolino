@@ -11,6 +11,8 @@ export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | '
 
 export interface GameSettings {
   music: boolean;
+  alphabetGridSize: 4 | 6 | 8;
+  syllablesGridSize: 4 | 6;
   numbersRange: { start: number; end: number };
   countingRange: { start: number; end: number };
 }

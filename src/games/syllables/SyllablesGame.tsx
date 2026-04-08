@@ -7,19 +7,22 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Play, Settings } from 'lucide-react';
 import { COLORS } from '../../shared/contentRegistry';
+import { GameSettings } from '../../shared/types';
 import { FindItGame } from '../../shared/components/FindItGame';
-import { syllablesDescriptor } from './syllablesDescriptor';
+import { createSyllablesDescriptor } from './syllablesDescriptor';
 
 interface SyllablesGameProps {
+  settings: GameSettings;
   onExit: () => void;
   onOpenSettings: () => void;
 }
 
-export function SyllablesGame({ onExit, onOpenSettings }: SyllablesGameProps) {
+export function SyllablesGame({ settings, onExit, onOpenSettings }: SyllablesGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
+  const descriptor = createSyllablesDescriptor(settings.syllablesGridSize);
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={syllablesDescriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (

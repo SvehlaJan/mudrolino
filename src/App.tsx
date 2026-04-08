@@ -16,9 +16,13 @@ import {
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { Screen, GameSettings, GameId, GameMetadata } from './shared/types';
+
+type SettingsSource = 'home' | 'alphabet' | 'syllables';
 import { COLORS, BG_COLORS } from './shared/contentRegistry';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
+import { AlphabetSettingsOverlay } from './games/alphabet/AlphabetSettingsOverlay';
+import { SyllablesSettingsOverlay } from './games/syllables/SyllablesSettingsOverlay';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { AlphabetGame } from './games/alphabet/AlphabetGame';
 import { SyllablesGame } from './games/syllables/SyllablesGame';
@@ -68,6 +72,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>('HOME');
   const [activeGame, setActiveGame] = useState<GameId | null>(null);
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
+  const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
 
   // Sync settings with AudioManager
   useEffect(() => {
@@ -98,7 +103,8 @@ window.removeEventListener('click', unlockAudio);
     setScreen('GAME');
   }, []);
 
-  const handleOpenSettings = useCallback(() => {
+  const handleOpenSettings = useCallback((source: SettingsSource = 'home') => {
+    setSettingsSource(source);
     setScreen('PARENTS_GATE');
   }, []);
 
@@ -111,8 +117,8 @@ window.removeEventListener('click', unlockAudio);
   }, []);
 
   const handleCloseSettings = useCallback(() => {
-    setScreen('HOME');
-  }, []);
+    setScreen(settingsSource === 'home' ? 'HOME' : 'GAME');
+  }, [settingsSource]);
 
   const renderLauncher = () => (
     <div className="min-h-screen relative bg-bg-light flex flex-col p-6 sm:p-12">
@@ -201,8 +207,9 @@ window.removeEventListener('click', unlockAudio);
           >
             <ErrorBoundary>
               <AlphabetGame
+                settings={settings}
                 onExit={handleExitGame}
-                onOpenSettings={handleOpenSettings}
+                onOpenSettings={() => handleOpenSettings('alphabet')}
               />
             </ErrorBoundary>
           </motion.div>
@@ -218,8 +225,9 @@ window.removeEventListener('click', unlockAudio);
           >
             <ErrorBoundary>
               <SyllablesGame
+                settings={settings}
                 onExit={handleExitGame}
-                onOpenSettings={handleOpenSettings}
+                onOpenSettings={() => handleOpenSettings('syllables')}
               />
             </ErrorBoundary>
           </motion.div>
@@ -307,11 +315,25 @@ window.removeEventListener('click', unlockAudio);
           />
         )}
 
-        {screen === 'SETTINGS' && (
-          <SettingsOverlay 
-            settings={settings} 
-            onUpdate={setSettings} 
-            onClose={handleCloseSettings} 
+        {screen === 'SETTINGS' && settingsSource === 'home' && (
+          <SettingsOverlay
+            settings={settings}
+            onUpdate={setSettings}
+            onClose={handleCloseSettings}
+          />
+        )}
+        {screen === 'SETTINGS' && settingsSource === 'alphabet' && (
+          <AlphabetSettingsOverlay
+            settings={settings}
+            onUpdate={setSettings}
+            onClose={handleCloseSettings}
+          />
+        )}
+        {screen === 'SETTINGS' && settingsSource === 'syllables' && (
+          <SyllablesSettingsOverlay
+            settings={settings}
+            onUpdate={setSettings}
+            onClose={handleCloseSettings}
           />
         )}
       </AnimatePresence>

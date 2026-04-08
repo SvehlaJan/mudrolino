@@ -7,19 +7,22 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Play, Settings } from 'lucide-react';
 import { COLORS } from '../../shared/contentRegistry';
+import { GameSettings } from '../../shared/types';
 import { FindItGame } from '../../shared/components/FindItGame';
-import { alphabetDescriptor } from './alphabetDescriptor';
+import { createAlphabetDescriptor } from './alphabetDescriptor';
 
 interface AlphabetGameProps {
+  settings: GameSettings;
   onExit: () => void;
   onOpenSettings: () => void;
 }
 
-export function AlphabetGame({ onExit, onOpenSettings }: AlphabetGameProps) {
+export function AlphabetGame({ settings, onExit, onOpenSettings }: AlphabetGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
+  const descriptor = createAlphabetDescriptor(settings.alphabetGridSize);
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={alphabetDescriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (
