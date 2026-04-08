@@ -32,5 +32,12 @@ export function createAlphabetDescriptor(gridSize: 4 | 6 | 8): GameDescriptor<Le
       fallbackText: `Toto je písmenko ${s.symbol}. Skús to znova.`,
     }),
     getSuccessSpec: (l) => ({ echoLine: `${l.symbol} ako ${l.label} ${l.emoji}` }),
+    getFailureSpec: (l) => ({
+      echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
+      audioSpec: {
+        sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `letters/${l.audioKey}`],
+        fallbackText: `Nevadí! Správna odpoveď je ${l.symbol} ako ${l.label}.`,
+      },
+    }),
   };
 }

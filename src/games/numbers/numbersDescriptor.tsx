@@ -28,5 +28,12 @@ export function createNumbersDescriptor(
       fallbackText: 'Skús to znova.',
     }),
     getSuccessSpec: (n) => ({ echoLine: `Číslo ${n.value} 🎉` }),
+    getFailureSpec: (n) => ({
+      echoLine: `Číslo ${n.value} 🎉`,
+      audioSpec: {
+        sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `numbers/${n.audioKey}`],
+        fallbackText: `Nevadí! Správna odpoveď je číslo ${n.value}.`,
+      },
+    }),
   };
 }

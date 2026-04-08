@@ -34,5 +34,15 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
       const w = s.sourceWords[Math.floor(Math.random() * s.sourceWords.length)];
       return { echoLine: `${s.symbol} ako ${w.syllables} ${w.emoji}` };
     },
+    getFailureSpec: (s) => {
+      const w = s.sourceWords[Math.floor(Math.random() * s.sourceWords.length)];
+      return {
+        echoLine: `${s.symbol} ako ${w.syllables} ${w.emoji}`,
+        audioSpec: {
+          sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `syllables/${s.audioKey}`],
+          fallbackText: `Nevadí! Správna odpoveď je slabika ${s.symbol}.`,
+        },
+      };
+    },
   };
 }
