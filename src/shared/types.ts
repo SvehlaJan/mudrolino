@@ -21,7 +21,7 @@ export interface GameMetadata {
   id: GameId;
   title: string;
   description: string;
-  icon: string;
+  icon: ReactNode;
   color: string;
 }
 

@@ -50,7 +50,7 @@ Generated 2026-03-29 from codebase analysis.
 | # | Issue | Location |
 |---|-------|----------|
 | ~~A1~~ | ~~~70% code duplication across game components~~ — Alphabet, Syllables, Numbers all delegate to shared `FindItGame` via descriptors; CountingItems intentionally different | ✅ |
-| A2 | **Game registry must be manually synced** — `GAMES` array in `App.tsx` and the `activeGame` render switch are separate and can diverge | `App.tsx:29-65, 194-281` |
+| ~~A2~~ | ~~Game registry must be manually synced~~ — `GAME_RENDERERS: Record<GameId, ...>` added; render switch replaced with single lookup; `GameMetadata.icon` is now `ReactNode` | ✅ |
 | ~~A3~~ | ~~Magic numbers throughout~~ — extracted to `TIMING` constants in `contentRegistry.ts`, applied across all 5 files | ✅ |
 | A4 | **Range filtering duplicated** between NumbersGame and CountingItemsGame | Both files |
 | A5 | **`AudioManager` has 3 responsibilities** — file playback, TTS fallback, template resolution; should be split | `audioManager.ts` |
