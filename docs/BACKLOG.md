@@ -22,7 +22,7 @@ Generated 2026-03-29 from codebase analysis.
 |---|-------|----------|
 | ~~H1~~ | ~~No settings persistence~~ — persisted to `localStorage` via `settingsService`, merge-with-defaults on load | ✅ |
 | ~~H2~~ | ~~No error boundaries~~ — `ErrorBoundary` component exists and wraps all games in `App.tsx` | ✅ |
-| H3 | **`FindItGame` allows too few distractors** — if pool < `gridSize`, `slice(0, gridSize-1)` silently returns fewer; no guard | `FindItGame.tsx:44` |
+| ~~H3~~ | ~~`FindItGame` allows too few distractors~~ — `effectiveGridSize = Math.min(gridSize, pool.length)` applied | ✅ |
 | ~~H4~~ | ~~`@google/genai` installed but unused~~ — uninstalled, 37 packages removed | ✅ |
 | ~~H5~~ | ~~SYLLABLE_CONSONANTS missing diacritical letters~~ — `SYLLABLE_ITEMS` now derived from `WORD_ITEMS` which includes ž, š, ň, ľ etc. | ✅ |
 | ~~H6~~ | ~~SuccessOverlay `onComplete` fires even when component unmounts~~ — timer already cleaned up via effect cleanup | ✅ |

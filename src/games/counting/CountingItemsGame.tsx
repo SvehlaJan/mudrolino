@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { NUMBER_ITEMS, COLORS, TIMING } from '../../shared/contentRegistry';
+import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS } from '../../shared/contentRegistry';
 import { SlovakNumber } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -17,8 +17,6 @@ interface CountingItemsGameProps {
   onOpenSettings: () => void;
   range: { start: number; end: number };
 }
-
-const EMOJIS = ['🍎', '⭐️', '🚗', '🐶', '🍦', '🎈', '🍭', '⚽️', '🦋', '🌈'];
 
 interface ItemPosition {
   x: number;
@@ -49,7 +47,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   );
 
   const generatePositions = useCallback((count: number): ItemPosition[] => {
-    const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    const emoji = COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)];
     const slots = Array.from({ length: 16 }, (_, i) => i)
       .sort(() => Math.random() - 0.5)
       .slice(0, count);
