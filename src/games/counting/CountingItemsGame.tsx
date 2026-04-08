@@ -36,7 +36,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-  const MAX_ROUNDS = 10;
+  const MAX_ROUNDS = 5;
   const [roundsCompleted, setRoundsCompleted] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);

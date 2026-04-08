@@ -25,7 +25,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
 
-  const maxRounds = descriptor.maxRounds ?? 10;
+  const maxRounds = descriptor.maxRounds ?? 5;
   const [roundsCompleted, setRoundsCompleted] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
