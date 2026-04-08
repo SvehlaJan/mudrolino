@@ -40,3 +40,11 @@ body {
   box-shadow: 0px 8px 0px #92CBB5, 0px 16px 24px rgba(93, 69, 62, 0.15);
 }
 
+/* Safe-area-aware positioning for fixed corner buttons */
+.safe-top { top: max(1rem, calc(env(safe-area-inset-top) + 0.5rem)); }
+.safe-top-lg { top: max(2rem, calc(env(safe-area-inset-top) + 0.5rem)); }
+.safe-left { left: max(1rem, calc(env(safe-area-inset-left) + 0.5rem)); }
+.safe-left-lg { left: max(2rem, calc(env(safe-area-inset-left) + 0.5rem)); }
+.safe-right { right: max(1rem, calc(env(safe-area-inset-right) + 0.5rem)); }
+.safe-right-lg { right: max(2rem, calc(env(safe-area-inset-right) + 0.5rem)); }
+

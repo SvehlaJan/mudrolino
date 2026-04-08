@@ -127,7 +127,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   if (gameState === 'HOME') {
     return (
       <div className="min-h-screen relative bg-bg-light flex flex-col">
-        <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex gap-4 z-20">
+        <div className="absolute safe-top sm:safe-top-lg safe-left sm:safe-left-lg flex gap-4 z-20">
           <button
             onClick={onExit}
             className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
@@ -137,7 +137,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         </div>
         <button
           onClick={onOpenSettings}
-          className="absolute top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
+          className="absolute safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
         >
           <Settings size={24} className="sm:w-8 sm:h-8" />
         </button>
@@ -178,7 +178,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     <div className="min-h-screen flex flex-col items-center p-4 sm:p-8 relative overflow-hidden">
       <button
         onClick={() => setGameState('HOME')}
-        className="fixed top-4 left-4 sm:top-8 sm:left-8 w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
+        className="fixed safe-top sm:safe-top-lg safe-left sm:safe-left-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
       >
         <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
       </button>
@@ -186,7 +186,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={() => audioManager.play({ sequence: ['phrases/spocitaj-predmety'], fallbackText: 'Spočítaj predmety' })}
-        className="fixed top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
+        className="fixed safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
       >
         <Volume2 size={24} className="sm:w-7 sm:h-7" />
       </motion.button>

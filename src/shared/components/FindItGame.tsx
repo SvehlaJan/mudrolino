@@ -97,7 +97,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
       <button
         onClick={onExit}
-        className="fixed top-4 left-4 sm:top-8 sm:left-8 w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
+        className="fixed safe-top sm:safe-top-lg safe-left sm:safe-left-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
       >
         <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
       </button>

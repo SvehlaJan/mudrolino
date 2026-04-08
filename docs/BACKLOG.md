@@ -38,9 +38,9 @@ Generated 2026-03-29 from codebase analysis.
 | ~~F2~~ | ~~No replay button for audio in Numbers/Counting games~~ — added `Volume2` button to `CountingItemsGame` (Numbers already had one) | ✅ |
 | ~~F3~~ | ~~No difficulty setting for Alphabet/Syllables~~ — per-game settings overlays with grid size selector (4/6/8 for Alphabet, 4/6 for Syllables) | ✅ |
 | ~~F4~~ | ~~Counting game shows answer options immediately~~ — `TIMING.COUNTING_OPTIONS_DELAY_MS = 2000` used; `showOptions` state controls display | ✅ |
-| F5 | **EMOJIS array in CountingItemsGame hardcoded** — should live in `contentRegistry.ts` | `CountingItemsGame.tsx:20` |
+| ~~F5~~ | ~~EMOJIS array in CountingItemsGame hardcoded~~ — exported as `COUNTING_EMOJIS` from `contentRegistry.ts` | ✅ |
 | ~~F6~~ | ~~`WORD_ITEMS` exported but empty~~ — populated with 44 Slovak words | ✅ |
-| F7 | **Mobile safe-area padding missing** — buttons at screen edge hidden by browser chrome on phones with notches | All games |
+| ~~F7~~ | ~~Mobile safe-area padding missing~~ — `safe-top/left/right` CSS utilities added; all corner buttons updated across all games | ✅ |
 | ~~F8~~ | ~~No audio files — TTS-only mode not documented~~ — audio files present in `public/audio/` (letters, numbers, phrases, praise) | ✅ |
 
 ---

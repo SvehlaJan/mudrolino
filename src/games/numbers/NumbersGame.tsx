@@ -26,7 +26,7 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
 
   return (
     <div className="min-h-screen relative bg-bg-light flex flex-col">
-      <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex gap-4 z-20">
+      <div className="absolute safe-top sm:safe-top-lg safe-left sm:safe-left-lg flex gap-4 z-20">
         <button
           onClick={onExit}
           className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
@@ -36,7 +36,7 @@ export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps)
       </div>
       <button
         onClick={onOpenSettings}
-        className="absolute top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
+        className="absolute safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
       >
         <Settings size={24} className="sm:w-8 sm:h-8" />
       </button>
