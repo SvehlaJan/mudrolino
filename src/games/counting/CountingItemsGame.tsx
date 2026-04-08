@@ -33,12 +33,10 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [optionItems, setOptionItems] = useState<SlovakNumber[]>([]);
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
-  const [showOptions, setShowOptions] = useState(false);
   const MAX_ROUNDS = 5;
   const [roundsCompleted, setRoundsCompleted] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
-  const optionsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const availableItems = useMemo(() => getNumberItemsInRange(range), [range]);
@@ -83,9 +81,6 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     setOptionItems(options);
     setFeedback({});
     setShowSuccess(false);
-    setShowOptions(false);
-    if (optionsTimerRef.current) clearTimeout(optionsTimerRef.current);
-    optionsTimerRef.current = setTimeout(() => setShowOptions(true), TIMING.COUNTING_OPTIONS_DELAY_MS);
   }, [availableItems, range.end, generatePositions]);
 
   useEffect(() => {
@@ -226,11 +221,8 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           </button>
         </div>
 
-        <motion.div
-          animate={{ opacity: showOptions ? 1 : 0, y: showOptions ? 0 : 20 }}
-          transition={{ duration: 0.4 }}
+        <div
           className="grid grid-cols-4 gap-4 sm:gap-8 w-full shrink-0 mb-8 sm:mb-12"
-          style={{ pointerEvents: showOptions ? 'auto' : 'none' }}
         >
           {optionItems.map((item, i) => (
             <motion.button
@@ -246,7 +238,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
               {item.value}
             </motion.button>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {targetItem && (
