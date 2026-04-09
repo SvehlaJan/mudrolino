@@ -31,9 +31,10 @@ export const wordsDescriptor: GameDescriptor<Word> = {
     ],
   }),
   speakerButtonPosition: 'inline',
-  getWrongAudio: () => ({
+  getWrongAudio: (_t, s) => ({
     clips: [
-      { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+      { path: 'phrases/toto-je-slovo', fallbackText: 'Toto je slovo' },
+      { path: `words/${s.audioKey}`, fallbackText: s.word },
     ],
   }),
   getSuccessSpec: (w) => ({ echoLine: `${w.syllables} ${w.emoji}` }),
