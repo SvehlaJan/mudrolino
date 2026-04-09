@@ -47,6 +47,10 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
 
   const availableItems = useMemo(() => getNumberItemsInRange(range), [range]);
 
+  useEffect(() => {
+    return () => audioManager.stop();
+  }, []);
+
   const generatePositions = useCallback((count: number): ItemPosition[] => {
     const emoji = COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)];
     const slots = Array.from({ length: 16 }, (_, i) => i)
