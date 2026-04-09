@@ -99,7 +99,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   useEffect(() => {
     if (gameState === 'PLAYING') {
       const timer = setTimeout(
-        () => audioManager.play({ sequence: ['phrases/spocitaj-predmety'], fallbackText: 'Spočítaj predmety' }),
+        () => audioManager.play({ clips: [{ path: 'phrases/spocitaj-predmety', fallbackText: 'Spočítaj predmety' }] }),
         TIMING.AUDIO_DELAY_MS
       );
       return () => clearTimeout(timer);
@@ -127,13 +127,16 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         setFailureSpec({
           echoLine: `Správne je ${targetItem.value} ⭐`,
           audioSpec: {
-            sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `numbers/${targetItem.audioKey}`],
-            fallbackText: `Nevadí! Správna odpoveď je ${targetItem.value}.`,
+            clips: [
+              { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
+              { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+              { path: `numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
+            ],
           },
         });
         setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
       } else {
-        audioManager.play({ sequence: ['phrases/skus-to-znova'], fallbackText: 'Skús to znova.' });
+        audioManager.play({ clips: [{ path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' }] });
         setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
       }
     }
@@ -204,7 +207,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
 
       <motion.button
         whileTap={{ scale: 0.9 }}
-        onClick={() => audioManager.play({ sequence: ['phrases/spocitaj-predmety'], fallbackText: 'Spočítaj predmety' })}
+        onClick={() => audioManager.play({ clips: [{ path: 'phrases/spocitaj-predmety', fallbackText: 'Spočítaj predmety' }] })}
         aria-label="Prehrať zvuk"
         className="fixed safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
       >
