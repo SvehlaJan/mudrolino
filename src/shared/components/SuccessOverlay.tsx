@@ -43,7 +43,9 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
     const minTimer = new Promise<void>(resolve =>
       setTimeout(resolve, TIMING.SUCCESS_OVERLAY_DURATION_MS)
     );
-    const audio = audioManager.playPraise(entry);
+    const audio = spec.audioSpec
+      ? audioManager.playPraise(entry).then(() => audioManager.play(spec.audioSpec!))
+      : audioManager.playPraise(entry);
 
     Promise.all([minTimer, audio]).then(() => {
       if (!cancelledRef.current) onComplete();

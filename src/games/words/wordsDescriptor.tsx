@@ -37,7 +37,10 @@ export const wordsDescriptor: GameDescriptor<Word> = {
       { path: `words/${s.audioKey}`, fallbackText: s.word },
     ],
   }),
-  getSuccessSpec: (w) => ({ echoLine: `${w.syllables} ${w.emoji}` }),
+  getSuccessSpec: (w) => ({
+    echoLine: `${w.syllables} ${w.emoji}`,
+    audioSpec: { clips: [{ path: `words/${w.audioKey}`, fallbackText: w.word }] },
+  }),
   getFailureSpec: (w) => ({
     echoLine: `${w.syllables} ${w.emoji}`,
     audioSpec: {

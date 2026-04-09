@@ -75,6 +75,8 @@ export interface AudioSpec {
 /** Describes what the SuccessOverlay shows. */
 export interface SuccessSpec {
   echoLine: string; // e.g. "ja-ho-da 🍓" or "A ako Auto 🚗"
+  /** Optional extra audio played after praise (e.g. the target word). */
+  audioSpec?: AudioSpec;
 }
 
 /** Describes what the FailureOverlay shows when a child exhausts their attempts. */
