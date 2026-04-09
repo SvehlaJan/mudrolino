@@ -17,13 +17,25 @@ interface FailureOverlayProps {
 }
 
 export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) {
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
     if (!show) return;
-    audioManager.play(spec.audioSpec);
-    timerRef.current = setTimeout(onComplete, FAILURE_DURATION_MS);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+    cancelledRef.current = false;
+
+    const minTimer = new Promise<void>(resolve =>
+      setTimeout(resolve, FAILURE_DURATION_MS)
+    );
+    const audio = audioManager.play(spec.audioSpec);
+
+    Promise.all([minTimer, audio]).then(() => {
+      if (!cancelledRef.current) onComplete();
+    });
+
+    return () => {
+      cancelledRef.current = true;
+      audioManager.stop();
+    };
   }, [show]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -33,7 +45,11 @@ export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={() => { if (timerRef.current) clearTimeout(timerRef.current); onComplete(); }}
+          onClick={() => {
+            cancelledRef.current = true;
+            audioManager.stop();
+            onComplete();
+          }}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1e2a4a]/70 backdrop-blur-sm"
         >
           <motion.div
