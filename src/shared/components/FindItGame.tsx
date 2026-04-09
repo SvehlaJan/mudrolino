@@ -102,7 +102,13 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       if (nextWrong >= maxAttempts) {
         pendingSuccessRef.current = true;
         setFailureSpec(descriptor.getFailureSpec(targetItem));
-        setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        const nextRoundsCompleted = roundsCompleted + 1;
+        setRoundsCompleted(nextRoundsCompleted);
+        if (nextRoundsCompleted >= maxRounds) {
+          setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        } else {
+          setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        }
       } else {
         audioManager.play(descriptor.getWrongAudio(targetItem, item));
         setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);

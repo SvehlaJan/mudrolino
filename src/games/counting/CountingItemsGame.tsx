@@ -138,7 +138,13 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
             ],
           },
         });
-        setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        const nextRoundsCompleted = roundsCompleted + 1;
+        setRoundsCompleted(nextRoundsCompleted);
+        if (nextRoundsCompleted >= MAX_ROUNDS) {
+          setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        } else {
+          setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        }
       } else {
         audioManager.play({ clips: [{ path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' }] });
         setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
