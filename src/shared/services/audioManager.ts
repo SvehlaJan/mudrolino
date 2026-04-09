@@ -71,7 +71,7 @@ export class AudioManager {
     return new Promise((resolve, reject) => {
       const audio = new Audio(path);
       this.currentAudio = audio;
-      audio.onended = () => resolve();
+      audio.onended = () => { this.currentAudio = null; resolve(); };
       audio.onerror = () => reject(new Error(`Failed to load: ${path}`));
       audio.play().catch(reject);
     });
