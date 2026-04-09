@@ -33,7 +33,6 @@ export function createAlphabetDescriptor(gridSize: 4 | 6 | 8): GameDescriptor<Le
       clips: [
         { path: 'phrases/toto-je-pismeno', fallbackText: 'Toto je písmenko' },
         { path: `letters/${s.audioKey}`, fallbackText: s.symbol },
-        { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
       ],
     }),
     getSuccessSpec: (l) => ({ echoLine: `${l.symbol} ako ${l.label} ${l.emoji}` }),

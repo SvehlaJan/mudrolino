@@ -28,11 +28,10 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
         { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
-    getWrongAudio: (t, _s) => ({
+    getWrongAudio: (_t, s) => ({
       clips: [
-        { path: 'phrases/slabika', fallbackText: 'Slabika' },
-        { path: `syllables/${t.audioKey}`, fallbackText: t.symbol },
-        { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+        { path: 'phrases/toto-je-slabika', fallbackText: 'Toto je slabika' },
+        { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
     getSuccessSpec: (s) => {
