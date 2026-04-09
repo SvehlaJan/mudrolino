@@ -58,11 +58,18 @@ export interface SlovakNumber {
 // Shared spec types — describe behavior, not domain
 // ---------------------------------------------------------------------------
 
-/** Describes a sequence of audio clips to play, with a TTS fallback. */
-export interface AudioSpec {
-  /** Paths relative to /audio/, without .mp3 — e.g. "phrases/najdi-pismeno", "letters/a" */
-  sequence: string[];
+/** A single audio clip with its own TTS fallback if the file is missing. */
+export interface AudioClip {
+  /** Path relative to /audio/, without .mp3 — e.g. "phrases/najdi-pismeno", "letters/a" */
+  path: string;
+  /** Spoken by TTS if this specific file fails to load or play. */
   fallbackText: string;
+}
+
+/** Describes a sequence of audio clips to play. */
+export interface AudioSpec {
+  clips: AudioClip[];
+  // Extendable: add global fields here (volume, rate, etc.) without touching call sites
 }
 
 /** Describes what the SuccessOverlay shows. */

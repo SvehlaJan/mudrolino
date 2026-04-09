@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AudioSpec, PraiseEntry } from '../types';
+import { AudioSpec, AudioClip, PraiseEntry } from '../types';
 import { PRAISE_ENTRIES } from '../contentRegistry';
 
 export class AudioManager {
@@ -34,21 +34,8 @@ export class AudioManager {
     }
   }
 
-  /** Play a sequence of audio clips described by an AudioSpec. Falls back to TTS on any failure. */
-  play(spec: AudioSpec): void {
-    this.playSequenceAsync(
-      spec.sequence.map(path => `/audio/${path}.mp3`),
-      spec.fallbackText
-    ).catch(() => this.speak(spec.fallbackText));
-  }
-
-  playPraise(entry?: PraiseEntry): void {
-    const chosen = entry ?? PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
-    this.playSequenceAsync([`/audio/praise/${chosen.audioKey}.mp3`], chosen.text)
-      .catch(() => this.speak(chosen.text));
-  }
-
-  private stopCurrent(): void {
+  /** Stop any in-progress audio or TTS immediately. */
+  stop(): void {
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
@@ -57,7 +44,30 @@ export class AudioManager {
     this.synth.cancel();
   }
 
-  private async playSingleClip(path: string): Promise<void> {
+  /** Play a sequence of AudioClips. Each clip falls back to its own TTS if the file fails.
+   *  Returns a Promise that resolves when the full sequence completes. */
+  play(spec: AudioSpec): Promise<void> {
+    return this.playClipsAsync(spec.clips);
+  }
+
+  playPraise(entry?: PraiseEntry): Promise<void> {
+    const chosen = entry ?? PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
+    return this.playClipsAsync([{ path: `praise/${chosen.audioKey}`, fallbackText: chosen.text }]);
+  }
+
+  private async playClipsAsync(clips: AudioClip[]): Promise<void> {
+    this.stop();
+    for (const clip of clips) {
+      try {
+        await this.playSingleClip(`/audio/${clip.path}.mp3`);
+      } catch {
+        console.warn('[AudioManager] Audio file failed, falling back to TTS:', clip.fallbackText);
+        await this.speakAsync(clip.fallbackText);
+      }
+    }
+  }
+
+  private playSingleClip(path: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const audio = new Audio(path);
       this.currentAudio = audio;
@@ -67,32 +77,24 @@ export class AudioManager {
     });
   }
 
-  private async playSequenceAsync(paths: string[], fallbackText: string): Promise<void> {
-    this.stopCurrent();
-    try {
-      for (const path of paths) {
-        await this.playSingleClip(path);
-      }
-    } catch {
-      console.warn('[AudioManager] Audio file failed, falling back to TTS:', fallbackText);
-      this.speak(fallbackText);
-    }
-  }
-
-  private speak(text: string): void {
-    if (!this.synth) return;
-    this.synth.cancel();
-    setTimeout(() => {
-      const utterance = new SpeechSynthesisUtterance(text);
-      const voices = this.synth.getVoices();
-      const skVoice = voices.find(v => v.lang === 'sk-SK' || v.lang.startsWith('sk'));
-      if (skVoice) utterance.voice = skVoice;
-      utterance.lang = 'sk-SK';
-      utterance.rate = 0.9;
-      utterance.pitch = 1.0;
-      if (this.synth.paused) this.synth.resume();
-      this.synth.speak(utterance);
-    }, 50);
+  private speakAsync(text: string): Promise<void> {
+    return new Promise((resolve) => {
+      if (!this.synth) { resolve(); return; }
+      this.synth.cancel();
+      setTimeout(() => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        const voices = this.synth.getVoices();
+        const skVoice = voices.find(v => v.lang === 'sk-SK' || v.lang.startsWith('sk'));
+        if (skVoice) utterance.voice = skVoice;
+        utterance.lang = 'sk-SK';
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+        utterance.onend = () => resolve();
+        utterance.onerror = () => resolve();
+        if (this.synth.paused) this.synth.resume();
+        this.synth.speak(utterance);
+      }, 50);
+    });
   }
 }
 
