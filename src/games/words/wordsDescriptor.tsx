@@ -20,10 +20,15 @@ export const wordsDescriptor: GameDescriptor<Word> = {
       {w.syllables.toUpperCase()}
     </h2>
   ),
-  getPromptAudio: (w) => ({
-    sequence: ['phrases/co-tu-je-napisane', `words/${w.audioKey}`],
-    fallbackText: `Čo tu je napísané? ${w.word}`,
+  getPromptAudio: (_w) => ({
+    sequence: ['phrases/co-tu-je-napisane'],
+    fallbackText: 'Čo tu je napísané?',
   }),
+  getReplayAudio: (w) => ({
+    sequence: [`words/${w.audioKey}`],
+    fallbackText: w.word,
+  }),
+  speakerButtonPosition: 'inline',
   getWrongAudio: () => ({
     sequence: ['phrases/skus-to-znova'],
     fallbackText: 'Skús to znova.',

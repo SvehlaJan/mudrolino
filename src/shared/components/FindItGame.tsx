@@ -122,15 +122,39 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
         <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
           ✓ {roundsCompleted} / {maxRounds}
         </div>
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          onClick={() => targetItem && audioManager.play(descriptor.getPromptAudio(targetItem))}
-          aria-label="Prehrať zvuk"
-          className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
-        >
-          <Volume2 size={32} className="sm:w-10 sm:h-10" />
-        </motion.button>
-        {prompt && <div className="text-center">{prompt}</div>}
+        {descriptor.speakerButtonPosition === 'inline' ? (
+          <div className="flex flex-row items-center gap-4">
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => targetItem && audioManager.play(
+                descriptor.getReplayAudio
+                  ? descriptor.getReplayAudio(targetItem)
+                  : descriptor.getPromptAudio(targetItem)
+              )}
+              aria-label="Prehrať zvuk"
+              className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main shrink-0"
+            >
+              <Volume2 size={32} className="sm:w-10 sm:h-10" />
+            </motion.button>
+            {prompt && <div className="text-center">{prompt}</div>}
+          </div>
+        ) : (
+          <>
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => targetItem && audioManager.play(
+                descriptor.getReplayAudio
+                  ? descriptor.getReplayAudio(targetItem)
+                  : descriptor.getPromptAudio(targetItem)
+              )}
+              aria-label="Prehrať zvuk"
+              className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
+            >
+              <Volume2 size={32} className="sm:w-10 sm:h-10" />
+            </motion.button>
+            {prompt && <div className="text-center">{prompt}</div>}
+          </>
+        )}
       </div>
 
       <div className={`grid ${descriptor.gridColsClass} gap-4 sm:gap-8 w-full max-w-4xl px-4`}>

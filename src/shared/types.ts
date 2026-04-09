@@ -102,6 +102,17 @@ export interface GameDescriptor<T> {
   renderPrompt(target: T): ReactNode;
   /** Audio to play at round start and when the replay button is tapped. */
   getPromptAudio(target: T): AudioSpec;
+  /**
+   * Audio played when the speaker button is tapped.
+   * If omitted, falls back to getPromptAudio (existing behavior).
+   */
+  getReplayAudio?: (target: T) => AudioSpec;
+  /**
+   * Controls speaker button placement relative to the prompt.
+   * 'above' (default): button stacked above prompt — existing layout.
+   * 'inline': button and prompt rendered side-by-side in a flex row.
+   */
+  speakerButtonPosition?: 'above' | 'inline';
   /** Audio to play when the child taps a wrong card. */
   getWrongAudio(target: T, selected: T): AudioSpec;
   /** Success overlay content for the correct answer. */
