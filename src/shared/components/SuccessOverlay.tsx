@@ -19,7 +19,6 @@ interface SuccessOverlayProps {
 export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) {
   const [praise, setPraise] = useState<PraiseEntry>(PRAISE_ENTRIES[0]);
   const [paused, setPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   /* eslint-disable react-hooks/purity */
   const confetti = useMemo(() =>
     [...Array(30)].map((_, i) => ({
@@ -32,18 +31,33 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
   );
   /* eslint-enable react-hooks/purity */
 
+  const cancelledRef = useRef(false);
+
   useEffect(() => {
     if (!show) { setPaused(false); return; }
     const entry = PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
     setPraise(entry);
     setPaused(false);
-    audioManager.playPraise(entry);
-    timerRef.current = setTimeout(onComplete, TIMING.SUCCESS_OVERLAY_DURATION_MS);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+    cancelledRef.current = false;
+
+    const minTimer = new Promise<void>(resolve =>
+      setTimeout(resolve, TIMING.SUCCESS_OVERLAY_DURATION_MS)
+    );
+    const audio = audioManager.playPraise(entry);
+
+    Promise.all([minTimer, audio]).then(() => {
+      if (!cancelledRef.current) onComplete();
+    });
+
+    return () => {
+      cancelledRef.current = true;
+      audioManager.stop();
+    };
   }, [show]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePause = () => {
-    if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; }
+    cancelledRef.current = true;
+    audioManager.stop();
     setPaused(true);
   };
 
