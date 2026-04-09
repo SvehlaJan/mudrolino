@@ -68,7 +68,11 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={onComplete}
+          onClick={() => {
+            cancelledRef.current = true;
+            audioManager.stop();
+            onComplete();
+          }}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
         >
           {confetti.map((p, i) => (
