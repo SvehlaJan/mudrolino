@@ -39,6 +39,10 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const pendingSuccessRef = useRef(false);
   useEffect(() => { targetItemRef.current = targetItem; }, [targetItem]);
 
+  useEffect(() => {
+    return () => audioManager.stop();
+  }, []);
+
   const startNewRound = useCallback(() => {
     const pool = descriptor.getItems();
     if (pool.length === 0) return;
