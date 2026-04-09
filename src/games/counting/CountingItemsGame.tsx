@@ -39,7 +39,8 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [wrongAttemptsThisRound, setWrongAttemptsThisRound] = useState(0);
   const [showFailure, setShowFailure] = useState(false);
   const [failureSpec, setFailureSpec] = useState<FailureSpec | null>(null);
-  const [roundsCompleted, setRoundsCompleted] = useState(0);
+  const [roundsPlayed, setRoundsPlayed] = useState(0);
+  const [correctRounds, setCorrectRounds] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -115,9 +116,10 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     setTotalTaps(prev => prev + 1);
     if (item.value === targetItem.value) {
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      const nextRoundsCompleted = roundsCompleted + 1;
-      setRoundsCompleted(nextRoundsCompleted);
-      if (nextRoundsCompleted >= MAX_ROUNDS) {
+      const nextRoundsPlayed = roundsPlayed + 1;
+      setRoundsPlayed(nextRoundsPlayed);
+      setCorrectRounds(prev => prev + 1);
+      if (nextRoundsPlayed >= MAX_ROUNDS) {
         setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
       } else {
         setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
@@ -138,9 +140,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
             ],
           },
         });
-        const nextRoundsCompleted = roundsCompleted + 1;
-        setRoundsCompleted(nextRoundsCompleted);
-        if (nextRoundsCompleted >= MAX_ROUNDS) {
+        const nextRoundsPlayed = roundsPlayed + 1;
+        setRoundsPlayed(nextRoundsPlayed);
+        if (nextRoundsPlayed >= MAX_ROUNDS) {
           setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
         } else {
           setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
@@ -227,7 +229,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       <div className="flex-1 w-full max-w-4xl flex flex-col gap-8 sm:gap-12 mt-16 sm:mt-20">
         <div className="flex justify-center">
           <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
-            ✓ {roundsCompleted} / {MAX_ROUNDS}
+            ✓ {roundsPlayed} / {MAX_ROUNDS}
           </div>
         </div>
         <div
@@ -289,7 +291,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       )}
       <SessionCompleteOverlay
         show={showSessionComplete}
-        roundsCompleted={roundsCompleted}
+        roundsCompleted={correctRounds}
         totalTaps={totalTaps}
         maxRounds={MAX_ROUNDS}
         onComplete={() => setGameState('HOME')}

@@ -31,7 +31,8 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [wrongAttemptsThisRound, setWrongAttemptsThisRound] = useState(0);
   const [showFailure, setShowFailure] = useState(false);
   const [failureSpec, setFailureSpec] = useState<FailureSpec | null>(null);
-  const [roundsCompleted, setRoundsCompleted] = useState(0);
+  const [roundsPlayed, setRoundsPlayed] = useState(0);
+  const [correctRounds, setCorrectRounds] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
 
@@ -88,9 +89,10 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       pendingSuccessRef.current = true;
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
       setSuccessSpec(descriptor.getSuccessSpec(targetItem));
-      const nextRoundsCompleted = roundsCompleted + 1;
-      setRoundsCompleted(nextRoundsCompleted);
-      if (nextRoundsCompleted >= maxRounds) {
+      const nextRoundsPlayed = roundsPlayed + 1;
+      setRoundsPlayed(nextRoundsPlayed);
+      setCorrectRounds(prev => prev + 1);
+      if (nextRoundsPlayed >= maxRounds) {
         setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
       } else {
         setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
@@ -102,9 +104,9 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       if (nextWrong >= maxAttempts) {
         pendingSuccessRef.current = true;
         setFailureSpec(descriptor.getFailureSpec(targetItem));
-        const nextRoundsCompleted = roundsCompleted + 1;
-        setRoundsCompleted(nextRoundsCompleted);
-        if (nextRoundsCompleted >= maxRounds) {
+        const nextRoundsPlayed = roundsPlayed + 1;
+        setRoundsPlayed(nextRoundsPlayed);
+        if (nextRoundsPlayed >= maxRounds) {
           setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
         } else {
           setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
@@ -130,7 +132,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
 
       <div className="flex flex-col items-center gap-4 sm:gap-8 mb-8 sm:mb-12">
         <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
-          ✓ {roundsCompleted} / {maxRounds}
+          ✓ {roundsPlayed} / {maxRounds}
         </div>
         {descriptor.speakerButtonPosition === 'inline' ? (
           <div className="flex flex-row items-center gap-4">
@@ -193,7 +195,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       )}
       <SessionCompleteOverlay
         show={showSessionComplete}
-        roundsCompleted={roundsCompleted}
+        roundsCompleted={correctRounds}
         totalTaps={totalTaps}
         maxRounds={maxRounds}
         onComplete={onExit}
