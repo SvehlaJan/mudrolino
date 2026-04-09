@@ -23,12 +23,17 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
     ),
     renderPrompt: () => null,
     getPromptAudio: (s) => ({
-      sequence: ['phrases/slabika', `syllables/${s.audioKey}`],
-      fallbackText: `Slabika ${s.symbol}`,
+      clips: [
+        { path: 'phrases/slabika', fallbackText: 'Slabika' },
+        { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
+      ],
     }),
     getWrongAudio: (t, _s) => ({
-      sequence: ['phrases/slabika', `syllables/${t.audioKey}`, 'phrases/skus-to-znova'],
-      fallbackText: `Slabika ${t.symbol}. Skús to znova.`,
+      clips: [
+        { path: 'phrases/slabika', fallbackText: 'Slabika' },
+        { path: `syllables/${t.audioKey}`, fallbackText: t.symbol },
+        { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+      ],
     }),
     getSuccessSpec: (s) => {
       const w = s.sourceWords[Math.floor(Math.random() * s.sourceWords.length)];
@@ -39,8 +44,11 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
       return {
         echoLine: `${s.symbol} ako ${w.syllables} ${w.emoji}`,
         audioSpec: {
-          sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `syllables/${s.audioKey}`],
-          fallbackText: `Nevadí! Správna odpoveď je slabika ${s.symbol}.`,
+          clips: [
+            { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
+            { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+            { path: `syllables/${s.audioKey}`, fallbackText: `slabika ${s.symbol}` },
+          ],
         },
       };
     },

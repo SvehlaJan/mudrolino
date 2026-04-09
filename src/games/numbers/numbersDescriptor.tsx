@@ -20,19 +20,25 @@ export function createNumbersDescriptor(
     ),
     renderPrompt: () => null,
     getPromptAudio: (n) => ({
-      sequence: ['phrases/cislo', `numbers/${n.audioKey}`],
-      fallbackText: `Číslo ${n.value}`,
+      clips: [
+        { path: 'phrases/cislo', fallbackText: 'Číslo' },
+        { path: `numbers/${n.audioKey}`, fallbackText: String(n.value) },
+      ],
     }),
     getWrongAudio: () => ({
-      sequence: ['phrases/skus-to-znova'],
-      fallbackText: 'Skús to znova.',
+      clips: [
+        { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+      ],
     }),
     getSuccessSpec: (n) => ({ echoLine: `Číslo ${n.value} 🎉` }),
     getFailureSpec: (n) => ({
       echoLine: `Číslo ${n.value} 🎉`,
       audioSpec: {
-        sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `numbers/${n.audioKey}`],
-        fallbackText: `Nevadí! Správna odpoveď je číslo ${n.value}.`,
+        clips: [
+          { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
+          { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+          { path: `numbers/${n.audioKey}`, fallbackText: `číslo ${n.value}` },
+        ],
       },
     }),
   };

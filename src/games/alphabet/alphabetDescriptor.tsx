@@ -24,19 +24,27 @@ export function createAlphabetDescriptor(gridSize: 4 | 6 | 8): GameDescriptor<Le
     ),
     renderPrompt: () => null,
     getPromptAudio: (l) => ({
-      sequence: ['phrases/najdi-pismeno', `letters/${l.audioKey}`],
-      fallbackText: `Nájdi písmenko ${l.symbol}`,
+      clips: [
+        { path: 'phrases/najdi-pismeno', fallbackText: 'Nájdi písmenko' },
+        { path: `letters/${l.audioKey}`, fallbackText: l.symbol },
+      ],
     }),
     getWrongAudio: (_t, s) => ({
-      sequence: ['phrases/toto-je-pismeno', `letters/${s.audioKey}`, 'phrases/skus-to-znova'],
-      fallbackText: `Toto je písmenko ${s.symbol}. Skús to znova.`,
+      clips: [
+        { path: 'phrases/toto-je-pismeno', fallbackText: 'Toto je písmenko' },
+        { path: `letters/${s.audioKey}`, fallbackText: s.symbol },
+        { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+      ],
     }),
     getSuccessSpec: (l) => ({ echoLine: `${l.symbol} ako ${l.label} ${l.emoji}` }),
     getFailureSpec: (l) => ({
       echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
       audioSpec: {
-        sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `letters/${l.audioKey}`],
-        fallbackText: `Nevadí! Správna odpoveď je ${l.symbol} ako ${l.label}.`,
+        clips: [
+          { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
+          { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+          { path: `letters/${l.audioKey}`, fallbackText: `${l.symbol} ako ${l.label}` },
+        ],
       },
     }),
   };

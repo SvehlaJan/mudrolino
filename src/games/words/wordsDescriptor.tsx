@@ -21,24 +21,30 @@ export const wordsDescriptor: GameDescriptor<Word> = {
     </h2>
   ),
   getPromptAudio: (_w) => ({
-    sequence: ['phrases/co-tu-je-napisane'],
-    fallbackText: 'Čo tu je napísané?',
+    clips: [
+      { path: 'phrases/co-tu-je-napisane', fallbackText: 'Čo tu je napísané?' },
+    ],
   }),
   getReplayAudio: (w) => ({
-    sequence: [`words/${w.audioKey}`],
-    fallbackText: w.word,
+    clips: [
+      { path: `words/${w.audioKey}`, fallbackText: w.word },
+    ],
   }),
   speakerButtonPosition: 'inline',
   getWrongAudio: () => ({
-    sequence: ['phrases/skus-to-znova'],
-    fallbackText: 'Skús to znova.',
+    clips: [
+      { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+    ],
   }),
   getSuccessSpec: (w) => ({ echoLine: `${w.syllables} ${w.emoji}` }),
   getFailureSpec: (w) => ({
     echoLine: `${w.syllables} ${w.emoji}`,
     audioSpec: {
-      sequence: ['phrases/nevadi', 'phrases/spravna-odpoved', `words/${w.audioKey}`],
-      fallbackText: `Nevadí! Správna odpoveď je ${w.word}.`,
+      clips: [
+        { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
+        { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+        { path: `words/${w.audioKey}`, fallbackText: w.word },
+      ],
     },
   }),
 };
