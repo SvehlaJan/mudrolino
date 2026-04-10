@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useLayoutEffect, ReactNode } from 'react';
+import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Settings,
@@ -15,7 +16,7 @@ import {
 } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
-import { Screen, GameSettings, GameId, GameMetadata } from './shared/types';
+import { GameSettings, GameId, GameMetadata } from './shared/types';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { AlphabetSettingsOverlay } from './games/alphabet/AlphabetSettingsOverlay';
@@ -28,30 +29,7 @@ import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 
 type SettingsSource = 'home' | 'game' | 'alphabet' | 'syllables';
-
-type GameRenderProps = {
-  settings: GameSettings;
-  onExit: () => void;
-  onOpenSettings: (source?: SettingsSource) => void;
-};
-
-const GAME_RENDERERS: Record<GameId, (props: GameRenderProps) => ReactNode> = {
-  ALPHABET: ({ settings, onExit, onOpenSettings }) => (
-    <AlphabetGame settings={settings} onExit={onExit} onOpenSettings={() => onOpenSettings('alphabet')} />
-  ),
-  SYLLABLES: ({ settings, onExit, onOpenSettings }) => (
-    <SyllablesGame settings={settings} onExit={onExit} onOpenSettings={() => onOpenSettings('syllables')} />
-  ),
-  NUMBERS: ({ settings, onExit, onOpenSettings }) => (
-    <NumbersGame range={settings.numbersRange} onExit={onExit} onOpenSettings={() => onOpenSettings('game')} />
-  ),
-  COUNTING_ITEMS: ({ settings, onExit, onOpenSettings }) => (
-    <CountingItemsGame range={settings.countingRange} onExit={onExit} onOpenSettings={() => onOpenSettings('game')} />
-  ),
-  WORDS: ({ onExit, onOpenSettings }) => (
-    <WordsGame onExit={onExit} onOpenSettings={() => onOpenSettings('game')} />
-  ),
-};
+type SettingsScreen = 'none' | 'gate' | 'settings';
 
 const GAMES: GameMetadata[] = [
   {
@@ -91,66 +69,29 @@ const GAMES: GameMetadata[] = [
   },
 ];
 
-function ScrollRestorer({ scrollY }: { scrollY: number }) {
-  useLayoutEffect(() => { window.scrollTo(0, scrollY); }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return null;
-}
+const GAME_PATH: Record<GameId, string> = {
+  ALPHABET: '/alphabet',
+  SYLLABLES: '/syllables',
+  NUMBERS: '/numbers',
+  COUNTING_ITEMS: '/counting',
+  WORDS: '/words',
+};
 
-export default function App() {
-  const [screen, setScreen] = useState<Screen>('HOME');
-  const [activeGame, setActiveGame] = useState<GameId | null>(null);
-  const [settings, setSettings] = useState<GameSettings>(loadSettings);
-  const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
-  const [homeScroll, setHomeScroll] = useState(0);
-
-  // Sync settings with AudioManager
-  useEffect(() => {
-    audioManager.updateSettings(settings);
-    saveSettings(settings);
-  }, [settings]);
-
-  // Audio unlocker for browsers that require a user gesture
-  useEffect(() => {
-    const unlockAudio = () => {
-      const utterance = new SpeechSynthesisUtterance('');
-      window.speechSynthesis.speak(utterance);
-      window.removeEventListener('click', unlockAudio);
-      window.removeEventListener('touchstart', unlockAudio);
-    };
-
-    window.addEventListener('click', unlockAudio);
-    window.addEventListener('touchstart', unlockAudio);
-
-    return () => {
-      window.removeEventListener('click', unlockAudio);
-      window.removeEventListener('touchstart', unlockAudio);
-    };
-  }, []);
+function HomeLauncher({
+  onOpenSettings,
+  scrollRef,
+}: {
+  onOpenSettings: () => void;
+  scrollRef: React.RefObject<number>;
+}) {
+  const navigate = useNavigate();
 
   const handleGameSelect = useCallback((gameId: GameId) => {
-    setHomeScroll(window.scrollY);
-    setActiveGame(gameId);
-    setScreen('GAME');
-  }, []);
+    scrollRef.current = window.scrollY;
+    navigate(GAME_PATH[gameId]);
+  }, [navigate, scrollRef]);
 
-  const handleOpenSettings = useCallback((source: SettingsSource = 'home') => {
-    setSettingsSource(source);
-    setScreen('PARENTS_GATE');
-  }, []);
-
-  const handleExitGame = useCallback(() => {
-    setScreen('HOME');
-  }, []);
-
-  const handleGateSuccess = useCallback(() => {
-    setScreen('SETTINGS');
-  }, []);
-
-  const handleCloseSettings = useCallback(() => {
-    setScreen(settingsSource === 'home' ? 'HOME' : 'GAME');
-  }, [settingsSource]);
-
-  const renderLauncher = () => (
+  return (
     <div className="min-h-screen relative bg-bg-light flex flex-col p-6 sm:p-12">
       <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col">
         {/* Header */}
@@ -161,7 +102,7 @@ export default function App() {
           </div>
 
           <button
-            onClick={() => handleOpenSettings()}
+            onClick={onOpenSettings}
             className="w-16 h-16 sm:w-24 sm:h-24 bg-shadow/20 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 shrink-0"
           >
             <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 rounded-full blur-sm absolute" />
@@ -200,66 +141,156 @@ export default function App() {
       <div aria-hidden="true" className="fixed bottom-0 -right-32 w-[500px] h-[500px] rounded-full bg-primary opacity-[0.03] blur-[100px] pointer-events-none" />
     </div>
   );
+}
+
+export default function App() {
+  const [settings, setSettings] = useState<GameSettings>(loadSettings);
+  const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
+  const [settingsScreen, setSettingsScreen] = useState<SettingsScreen>('none');
+  const location = useLocation();
+  const homeScrollRef = useRef<number>(0);
+
+  // Restore scroll when returning to home
+  useLayoutEffect(() => {
+    if (location.pathname === '/') {
+      window.scrollTo(0, homeScrollRef.current);
+    }
+  }, [location.pathname]);
+
+  // Sync settings with AudioManager
+  useEffect(() => {
+    audioManager.updateSettings(settings);
+    saveSettings(settings);
+  }, [settings]);
+
+  // Audio unlocker for browsers that require a user gesture
+  useEffect(() => {
+    const unlockAudio = () => {
+      const utterance = new SpeechSynthesisUtterance('');
+      window.speechSynthesis.speak(utterance);
+      window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+    };
+
+    window.addEventListener('click', unlockAudio);
+    window.addEventListener('touchstart', unlockAudio);
+
+    return () => {
+      window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+    };
+  }, []);
+
+  const handleOpenSettings = useCallback((source: SettingsSource = 'home') => {
+    setSettingsSource(source);
+    setSettingsScreen('gate');
+  }, []);
+
+  const handleGateSuccess = useCallback(() => {
+    setSettingsScreen('settings');
+  }, []);
+
+  const handleCloseSettings = useCallback(() => {
+    setSettingsScreen('none');
+  }, []);
+
+  const navigate = useNavigate();
+  const handleExitGame = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-bg-light font-fredoka text-text-main relative">
       <AnimatePresence mode="wait">
-        {screen === 'HOME' && (
-          <motion.div
-            key="home"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="w-full min-h-screen"
-          >
-            <ScrollRestorer scrollY={homeScroll} />
-            {renderLauncher()}
-          </motion.div>
-        )}
-
-        {screen === 'GAME' && activeGame && (
-          <motion.div
-            key={activeGame}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            className="w-full min-h-screen"
-          >
-            <ErrorBoundary>
-              {GAME_RENDERERS[activeGame]({ settings, onExit: handleExitGame, onOpenSettings: handleOpenSettings })}
-            </ErrorBoundary>
-          </motion.div>
-        )}
-
-        {screen === 'PARENTS_GATE' && (
-          <ParentsGate
-            onSuccess={handleGateSuccess}
-            onCancel={() => setScreen(settingsSource === 'home' ? 'HOME' : 'GAME')}
-          />
-        )}
-
-        {screen === 'SETTINGS' && (settingsSource === 'home' || settingsSource === 'game') && (
-          <SettingsOverlay
-            settings={settings}
-            onUpdate={setSettings}
-            onClose={handleCloseSettings}
-          />
-        )}
-        {screen === 'SETTINGS' && settingsSource === 'alphabet' && (
-          <AlphabetSettingsOverlay
-            settings={settings}
-            onUpdate={setSettings}
-            onClose={handleCloseSettings}
-          />
-        )}
-        {screen === 'SETTINGS' && settingsSource === 'syllables' && (
-          <SyllablesSettingsOverlay
-            settings={settings}
-            onUpdate={setSettings}
-            onClose={handleCloseSettings}
-          />
-        )}
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, x: location.pathname === '/' ? -100 : 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: location.pathname === '/' ? 100 : -100 }}
+          className="w-full min-h-screen"
+        >
+          <Routes location={location}>
+            <Route
+              path="/"
+              element={
+                <HomeLauncher
+                  onOpenSettings={() => handleOpenSettings('home')}
+                  scrollRef={homeScrollRef}
+                />
+              }
+            />
+            <Route
+              path="/alphabet"
+              element={
+                <ErrorBoundary>
+                  <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('alphabet')} />
+                </ErrorBoundary>
+              }
+            />
+            <Route
+              path="/syllables"
+              element={
+                <ErrorBoundary>
+                  <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('syllables')} />
+                </ErrorBoundary>
+              }
+            />
+            <Route
+              path="/numbers"
+              element={
+                <ErrorBoundary>
+                  <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                </ErrorBoundary>
+              }
+            />
+            <Route
+              path="/counting"
+              element={
+                <ErrorBoundary>
+                  <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                </ErrorBoundary>
+              }
+            />
+            <Route
+              path="/words"
+              element={
+                <ErrorBoundary>
+                  <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                </ErrorBoundary>
+              }
+            />
+          </Routes>
+        </motion.div>
       </AnimatePresence>
+
+      {settingsScreen === 'gate' && (
+        <ParentsGate
+          onSuccess={handleGateSuccess}
+          onCancel={() => setSettingsScreen('none')}
+        />
+      )}
+
+      {settingsScreen === 'settings' && (settingsSource === 'home' || settingsSource === 'game') && (
+        <SettingsOverlay
+          settings={settings}
+          onUpdate={setSettings}
+          onClose={handleCloseSettings}
+        />
+      )}
+      {settingsScreen === 'settings' && settingsSource === 'alphabet' && (
+        <AlphabetSettingsOverlay
+          settings={settings}
+          onUpdate={setSettings}
+          onClose={handleCloseSettings}
+        />
+      )}
+      {settingsScreen === 'settings' && settingsSource === 'syllables' && (
+        <SyllablesSettingsOverlay
+          settings={settings}
+          onUpdate={setSettings}
+          onClose={handleCloseSettings}
+        />
+      )}
     </div>
   );
 }

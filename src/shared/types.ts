@@ -5,8 +5,6 @@
 
 import type { ReactNode } from 'react';
 
-export type Screen = 'HOME' | 'GAME' | 'PARENTS_GATE' | 'SETTINGS';
-
 export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS';
 
 export interface GameSettings {
