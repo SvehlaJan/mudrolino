@@ -151,11 +151,15 @@ export default function App() {
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
   const [prevPathname, setPrevPathname] = useState(location.pathname);
+  const pathnameRef = useRef(location.pathname);
+  useEffect(() => {
+    pathnameRef.current = location.pathname;
+  }, [location.pathname]);
 
   const navigate = useCallback((to: string) => {
-    setPrevPathname(location.pathname);
+    setPrevPathname(pathnameRef.current);
     rawNavigate(to);
-  }, [rawNavigate, location.pathname]);
+  }, [rawNavigate]);
 
   // Restore scroll when returning to home
   useLayoutEffect(() => {
@@ -210,8 +214,10 @@ export default function App() {
       <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}
+          // initial: uses current (new) pathname — correct, this div is just mounting
           initial={{ opacity: 0, x: location.pathname === '/' ? -100 : 100 }}
           animate={{ opacity: 1, x: 0 }}
+          // exit: must use prevPathname because location has already advanced to the next route
           exit={{ opacity: 0, x: prevPathname === '/' ? 100 : -100 }}
           className="w-full min-h-screen"
         >
