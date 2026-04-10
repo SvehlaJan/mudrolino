@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Settings,
@@ -80,12 +80,12 @@ const GAME_PATH: Record<GameId, string> = {
 function HomeLauncher({
   onOpenSettings,
   scrollRef,
+  navigate,
 }: {
   onOpenSettings: () => void;
   scrollRef: React.RefObject<number>;
+  navigate: (to: string) => void;
 }) {
-  const navigate = useNavigate();
-
   const handleGameSelect = useCallback((gameId: GameId) => {
     scrollRef.current = window.scrollY;
     navigate(GAME_PATH[gameId]);
@@ -148,7 +148,14 @@ export default function App() {
   const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
   const [settingsScreen, setSettingsScreen] = useState<SettingsScreen>('none');
   const location = useLocation();
+  const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+
+  const navigate = useCallback((to: string) => {
+    setPrevPathname(location.pathname);
+    rawNavigate(to);
+  }, [rawNavigate, location.pathname]);
 
   // Restore scroll when returning to home
   useLayoutEffect(() => {
@@ -194,7 +201,6 @@ export default function App() {
     setSettingsScreen('none');
   }, []);
 
-  const navigate = useNavigate();
   const handleExitGame = useCallback(() => {
     navigate('/');
   }, [navigate]);
@@ -206,7 +212,7 @@ export default function App() {
           key={location.pathname}
           initial={{ opacity: 0, x: location.pathname === '/' ? -100 : 100 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: location.pathname === '/' ? 100 : -100 }}
+          exit={{ opacity: 0, x: prevPathname === '/' ? 100 : -100 }}
           className="w-full min-h-screen"
         >
           <Routes location={location}>
@@ -216,6 +222,7 @@ export default function App() {
                 <HomeLauncher
                   onOpenSettings={() => handleOpenSettings('home')}
                   scrollRef={homeScrollRef}
+                  navigate={navigate}
                 />
               }
             />
@@ -259,6 +266,7 @@ export default function App() {
                 </ErrorBoundary>
               }
             />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </motion.div>
       </AnimatePresence>
