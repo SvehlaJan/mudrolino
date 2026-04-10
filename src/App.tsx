@@ -151,13 +151,13 @@ export default function App() {
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
   const [prevPathname, setPrevPathname] = useState(location.pathname);
-  const pathnameRef = useRef(location.pathname);
+  const committedPathnameRef = useRef(location.pathname);
   useEffect(() => {
-    pathnameRef.current = location.pathname;
+    setPrevPathname(committedPathnameRef.current);
+    committedPathnameRef.current = location.pathname;
   }, [location.pathname]);
 
   const navigate = useCallback((to: string) => {
-    setPrevPathname(pathnameRef.current);
     rawNavigate(to);
   }, [rawNavigate]);
 
