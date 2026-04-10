@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useRef, ReactNode } from 'react';
+import React, { useState, useEffect, useCallback, useLayoutEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Settings,
@@ -91,12 +91,17 @@ const GAMES: GameMetadata[] = [
   },
 ];
 
+function ScrollRestorer({ scrollY }: { scrollY: number }) {
+  useLayoutEffect(() => { window.scrollTo(0, scrollY); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>('HOME');
   const [activeGame, setActiveGame] = useState<GameId | null>(null);
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
   const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
-  const homeScrollRef = useRef(0);
+  const [homeScroll, setHomeScroll] = useState(0);
 
   // Sync settings with AudioManager
   useEffect(() => {
@@ -123,7 +128,7 @@ export default function App() {
   }, []);
 
   const handleGameSelect = useCallback((gameId: GameId) => {
-    homeScrollRef.current = window.scrollY;
+    setHomeScroll(window.scrollY);
     setActiveGame(gameId);
     setScreen('GAME');
   }, []);
@@ -205,9 +210,9 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onAnimationComplete={() => window.scrollTo(0, homeScrollRef.current)}
             className="w-full min-h-screen"
           >
+            <ScrollRestorer scrollY={homeScroll} />
             {renderLauncher()}
           </motion.div>
         )}
