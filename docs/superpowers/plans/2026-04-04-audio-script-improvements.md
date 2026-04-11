@@ -1,8 +1,8 @@
 # Audio Script Improvements Plan
 
-**Goal:** Improve `public/audio/_review/split_and_transcribe.py` with 7 targeted fixes.
+**Goal:** Improve `public/audio/_review/split_audio.py` with 7 targeted fixes.
 
-**File modified:** `public/audio/_review/split_and_transcribe.py`  
+**File modified:** `public/audio/_review/split_audio.py`  
 **New test file:** `public/audio/_review/test_mappings.py`
 
 ---
