@@ -14,6 +14,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
+  AUDIO_PHRASE_LIST,
   LETTER_ITEMS,
   SYLLABLE_ITEMS,
   WORD_ITEMS,
@@ -23,18 +24,6 @@ import {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const AUDIO_DIR = join(__dirname, '..');
-
-// Phrase keys are not stored in contentRegistry — keep them here.
-const PHRASE_KEYS = [
-  'najdi-pismeno',
-  'toto-je-pismeno',
-  'skus-to-znova',
-  'cislo',
-  'slabika',
-  'spocitaj-predmety',
-  'ano-je-ich',
-  'nie-je-ich',
-];
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -123,7 +112,7 @@ test(
 test(
   'phrases',
   'phrases',
-  PHRASE_KEYS
+  AUDIO_PHRASE_LIST.map(phrase => phrase.audioKey)
 );
 
 // ---------------------------------------------------------------------------

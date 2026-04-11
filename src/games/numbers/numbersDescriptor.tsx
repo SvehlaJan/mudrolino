@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, SlovakNumber } from '../../shared/types';
-import { getNumberItemsInRange } from '../../shared/contentRegistry';
+import { getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
 
 export function createNumbersDescriptor(
   range: { start: number; end: number }
@@ -21,13 +21,13 @@ export function createNumbersDescriptor(
     renderPrompt: () => null,
     getPromptAudio: (n) => ({
       clips: [
-        { path: 'phrases/cislo', fallbackText: 'Číslo' },
+        getPhraseClip('number'),
         { path: `numbers/${n.audioKey}`, fallbackText: String(n.value) },
       ],
     }),
     getWrongAudio: () => ({
       clips: [
-        { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+        getPhraseClip('retry'),
       ],
     }),
     getSuccessSpec: (n) => ({ echoLine: `Číslo ${n.value} 🎉` }),
@@ -35,8 +35,8 @@ export function createNumbersDescriptor(
       echoLine: `Číslo ${n.value} 🎉`,
       audioSpec: {
         clips: [
-          { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
-          { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+          getPhraseClip('neverMind'),
+          getPhraseClip('correctAnswerIs'),
           { path: `numbers/${n.audioKey}`, fallbackText: `číslo ${n.value}` },
         ],
       },

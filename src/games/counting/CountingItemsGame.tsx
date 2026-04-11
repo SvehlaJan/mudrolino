@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange } from '../../shared/contentRegistry';
+import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
 import { SlovakNumber, FailureSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -104,7 +104,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   useEffect(() => {
     if (gameState === 'PLAYING') {
       const timer = setTimeout(
-        () => audioManager.play({ clips: [{ path: 'phrases/spocitaj-predmety', fallbackText: 'Spočítaj predmety' }] }),
+        () => audioManager.play({ clips: [getPhraseClip('countItems')] }),
         TIMING.AUDIO_DELAY_MS
       );
       return () => clearTimeout(timer);
@@ -134,8 +134,8 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           echoLine: `Správne je ${targetItem.value} ⭐`,
           audioSpec: {
             clips: [
-              { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
-              { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+              getPhraseClip('neverMind'),
+              getPhraseClip('correctAnswerIs'),
               { path: `numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
             ],
           },
@@ -148,7 +148,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
         }
       } else {
-        audioManager.play({ clips: [{ path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' }] });
+        audioManager.play({ clips: [getPhraseClip('retry')] });
         setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
       }
     }
@@ -219,7 +219,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
 
       <motion.button
         whileTap={{ scale: 0.9 }}
-        onClick={() => audioManager.play({ clips: [{ path: 'phrases/spocitaj-predmety', fallbackText: 'Spočítaj predmety' }] })}
+        onClick={() => audioManager.play({ clips: [getPhraseClip('countItems')] })}
         aria-label="Prehrať zvuk"
         className="fixed safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
       >

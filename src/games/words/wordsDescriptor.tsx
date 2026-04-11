@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, Word } from '../../shared/types';
-import { WORD_ITEMS } from '../../shared/contentRegistry';
+import { getPhraseClip, WORD_ITEMS } from '../../shared/contentRegistry';
 
 export const wordsDescriptor: GameDescriptor<Word> = {
   gridSize: 6,
@@ -22,7 +22,7 @@ export const wordsDescriptor: GameDescriptor<Word> = {
   ),
   getPromptAudio: (_w) => ({
     clips: [
-      { path: 'phrases/co-tu-je-napisane', fallbackText: 'Čo tu je napísané?' },
+      getPhraseClip('whatIsWrittenHere'),
     ],
   }),
   getReplayAudio: (w) => ({
@@ -33,7 +33,7 @@ export const wordsDescriptor: GameDescriptor<Word> = {
   speakerButtonPosition: 'inline',
   getWrongAudio: (_t, s) => ({
     clips: [
-      { path: 'phrases/toto-je-slovo', fallbackText: 'Toto je slovo' },
+      getPhraseClip('thisIsWord'),
       { path: `words/${s.audioKey}`, fallbackText: s.word },
     ],
   }),
@@ -45,8 +45,8 @@ export const wordsDescriptor: GameDescriptor<Word> = {
     echoLine: `${w.syllables} ${w.emoji}`,
     audioSpec: {
       clips: [
-        { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
-        { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+        getPhraseClip('neverMind'),
+        getPhraseClip('correctAnswerIs'),
         { path: `words/${w.audioKey}`, fallbackText: w.word },
       ],
     },

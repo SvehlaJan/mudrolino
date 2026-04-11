@@ -34,7 +34,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `src/shared/types.ts` defines the domain models (`Letter`, `Syllable`, `Word`, `SlovakNumber`) and the generic `GameDescriptor<T>` contract.
 - `src/shared/components/FindItGame.tsx` implements the shared round loop for the alphabet, syllables, numbers, and words games.
 - `src/games/counting/CountingItemsGame.tsx` is a bespoke mechanic and does not use `FindItGame`.
-- `src/shared/contentRegistry.ts` is the main content registry for letters, derived syllables, numbers, timing constants, and praise entries.
+- `src/shared/contentRegistry.ts` is the main content registry for letters, derived syllables, numbers, shared phrase audio metadata, timing constants, and praise entries.
 - `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
 
 ## Content Pipeline

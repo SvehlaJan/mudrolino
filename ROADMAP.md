@@ -285,3 +285,4 @@
 | 2026-04-05 | Placeholder UI for unbuilt features in Phase 1 | Validate demand before building; track clicks via analytics |
 | 2026-04-07 | GameDescriptor<T> pattern replaces ContentItem god object | ContentItem accumulated optional cross-game fields; descriptor pattern makes each game self-contained |
 | 2026-04-07 | Words game mechanic: see syllabified word, tap emoji | Reading-focused; distinct from syllables game which shows the syllable and has child recognize it |
+| 2026-04-11 | Shared phrase audio metadata lives in `contentRegistry.ts` under English keys | Makes phrase clips manageable from one place and prepares the app for future translation/i18n work |

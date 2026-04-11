@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, Syllable } from '../../shared/types';
-import { SYLLABLE_ITEMS } from '../../shared/contentRegistry';
+import { getPhraseClip, SYLLABLE_ITEMS } from '../../shared/contentRegistry';
 
 const GRID_COLS: Record<number, string> = {
   4: 'grid-cols-2',
@@ -24,13 +24,13 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
     renderPrompt: () => null,
     getPromptAudio: (s) => ({
       clips: [
-        { path: 'phrases/slabika', fallbackText: 'Slabika' },
+        getPhraseClip('syllable'),
         { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
     getWrongAudio: (_t, s) => ({
       clips: [
-        { path: 'phrases/toto-je-slabika', fallbackText: 'Toto je slabika' },
+        getPhraseClip('thisIsSyllable'),
         { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
@@ -44,8 +44,8 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
         echoLine: `${s.symbol} ako ${w.syllables} ${w.emoji}`,
         audioSpec: {
           clips: [
-            { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
-            { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+            getPhraseClip('neverMind'),
+            getPhraseClip('correctAnswerIs'),
             { path: `syllables/${s.audioKey}`, fallbackText: `slabika ${s.symbol}` },
           ],
         },

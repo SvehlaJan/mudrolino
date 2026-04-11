@@ -50,6 +50,7 @@ Each game provides a `GameDescriptor<T>` that defines item identity, rendering, 
 - `WORD_ITEMS` (re-exported from generated code)
 - derived `SYLLABLE_ITEMS`
 - `NUMBER_ITEMS`
+- `AUDIO_PHRASES`
 - praise entries and shared timing constants
 
 **Word content pipeline**:
@@ -82,7 +83,7 @@ These power the end-of-round and end-of-session feedback used across the games.
 
 ## Audio files
 
-Drop recorded `.mp3` files into `public/audio/` subdirectories. File naming follows `audioKey` values from `contentRegistry.ts` and the hardcoded phrase keys used in game descriptors:
+Drop recorded `.mp3` files into `public/audio/` subdirectories. File naming follows `audioKey` values from `contentRegistry.ts`:
 
 - `public/audio/letters/a.mp3`, `s-caron.mp3`, `c-caron.mp3` … (bare letter sound)
 - `public/audio/syllables/ma.mp3`, `me.mp3` … (bare syllable sound, derived from words)

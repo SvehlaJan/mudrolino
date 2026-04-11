@@ -2,7 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import { Letter, Syllable, Word, SlovakNumber, PraiseEntry } from './types';
+import { AudioClip, AudioPhrase, Letter, Syllable, Word, SlovakNumber, PraiseEntry } from './types';
 import { WORD_ITEMS } from './wordItems.generated';
 
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
@@ -15,6 +15,37 @@ export const TIMING = {
   SUCCESS_OVERLAY_DURATION_MS: 3000,
   COUNTING_OPTIONS_DELAY_MS: 2000,
 };
+
+// ---------------------------------------------------------------------------
+// Shared audio phrases
+// ---------------------------------------------------------------------------
+export const AUDIO_PHRASES = {
+  findLetter: { text: 'Nájdi písmenko', audioKey: 'najdi-pismeno' },
+  thisIsLetter: { text: 'Toto je písmenko', audioKey: 'toto-je-pismeno' },
+  retry: { text: 'Skús to znova.', audioKey: 'skus-to-znova' },
+  number: { text: 'Číslo', audioKey: 'cislo' },
+  syllable: { text: 'Slabika', audioKey: 'slabika' },
+  thisIsSyllable: { text: 'Toto je slabika', audioKey: 'toto-je-slabika' },
+  countItems: { text: 'Spočítaj predmety', audioKey: 'spocitaj-predmety' },
+  yesThereAre: { text: 'Áno, je ich', audioKey: 'ano-je-ich' },
+  noThereAre: { text: 'Nie, je ich', audioKey: 'nie-je-ich' },
+  whatIsWrittenHere: { text: 'Čo tu je napísané?', audioKey: 'co-tu-je-napisane' },
+  thisIsWord: { text: 'Toto je slovo', audioKey: 'toto-je-slovo' },
+  neverMind: { text: 'Nevadí!', audioKey: 'nevadi' },
+  correctAnswerIs: { text: 'Správna odpoveď je', audioKey: 'spravna-odpoved' },
+} as const satisfies Record<string, AudioPhrase>;
+
+export type AudioPhraseKey = keyof typeof AUDIO_PHRASES;
+
+export const AUDIO_PHRASE_LIST = Object.values(AUDIO_PHRASES);
+
+export function getPhraseClip(phraseKey: AudioPhraseKey): AudioClip {
+  const phrase = AUDIO_PHRASES[phraseKey];
+  return {
+    path: `phrases/${phrase.audioKey}`,
+    fallbackText: phrase.text,
+  };
+}
 
 // ---------------------------------------------------------------------------
 // Letters — active Slovak alphabet (entries with complete emoji + label only).

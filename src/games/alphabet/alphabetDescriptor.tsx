@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, Letter } from '../../shared/types';
-import { LETTER_ITEMS } from '../../shared/contentRegistry';
+import { getPhraseClip, LETTER_ITEMS } from '../../shared/contentRegistry';
 
 const GRID_COLS: Record<number, string> = {
   4: 'grid-cols-2',
@@ -25,13 +25,13 @@ export function createAlphabetDescriptor(gridSize: 4 | 6 | 8): GameDescriptor<Le
     renderPrompt: () => null,
     getPromptAudio: (l) => ({
       clips: [
-        { path: 'phrases/najdi-pismeno', fallbackText: 'Nájdi písmenko' },
+        getPhraseClip('findLetter'),
         { path: `letters/${l.audioKey}`, fallbackText: l.symbol },
       ],
     }),
     getWrongAudio: (_t, s) => ({
       clips: [
-        { path: 'phrases/toto-je-pismeno', fallbackText: 'Toto je písmenko' },
+        getPhraseClip('thisIsLetter'),
         { path: `letters/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
@@ -40,8 +40,8 @@ export function createAlphabetDescriptor(gridSize: 4 | 6 | 8): GameDescriptor<Le
       echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
       audioSpec: {
         clips: [
-          { path: 'phrases/nevadi', fallbackText: 'Nevadí!' },
-          { path: 'phrases/spravna-odpoved', fallbackText: 'Správna odpoveď je' },
+          getPhraseClip('neverMind'),
+          getPhraseClip('correctAnswerIs'),
           { path: `letters/${l.audioKey}`, fallbackText: `${l.symbol} ako ${l.label}` },
         ],
       },

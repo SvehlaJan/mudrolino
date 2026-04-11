@@ -137,3 +137,8 @@ export interface PraiseEntry {
   text: string;     // "Výborne!"
   audioKey: string; // "vyborne" → praise/vyborne.mp3
 }
+
+export interface AudioPhrase {
+  text: string;     // "Nájdi písmenko"
+  audioKey: string; // "najdi-pismeno" → phrases/najdi-pismeno.mp3
+}
