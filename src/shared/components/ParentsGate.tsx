@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'motion/react';
 import { ArrowLeft, Lock } from 'lucide-react';
 
 interface ParentsGateProps {
@@ -70,7 +69,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
             strokeWidth="12"
             className="text-shadow opacity-20"
           />
-          <motion.circle
+          <circle
             cx="128"
             cy="128"
             r="120"

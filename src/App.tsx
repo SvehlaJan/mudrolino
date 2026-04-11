@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   Settings,
   Play,
@@ -113,10 +112,8 @@ function HomeLauncher({
         {/* Game Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-12">
           {GAMES.map((game) => (
-            <motion.button
+            <button
               key={game.id}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
               onClick={() => handleGameSelect(game.id)}
               className="group relative flex flex-col"
             >
@@ -131,7 +128,7 @@ function HomeLauncher({
                 </div>
               </div>
               <div className={`absolute -bottom-2 -right-2 w-32 h-32 ${game.color} opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity`} />
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
@@ -150,12 +147,6 @@ export default function App() {
   const location = useLocation();
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
-  const [prevPathname, setPrevPathname] = useState(location.pathname);
-  const committedPathnameRef = useRef(location.pathname);
-  useEffect(() => {
-    setPrevPathname(committedPathnameRef.current);
-    committedPathnameRef.current = location.pathname;
-  }, [location.pathname]);
 
   const navigate = useCallback((to: string) => {
     rawNavigate(to);
@@ -211,71 +202,61 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg-light font-fredoka text-text-main relative">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={location.pathname}
-          // initial: uses current (new) pathname — correct, this div is just mounting
-          initial={{ opacity: 0, x: location.pathname === '/' ? -100 : 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          // exit: must use prevPathname because location has already advanced to the next route
-          exit={{ opacity: 0, x: prevPathname === '/' ? 100 : -100 }}
-          className="w-full min-h-screen"
-        >
-          <Routes location={location}>
-            <Route
-              path="/"
-              element={
-                <HomeLauncher
-                  onOpenSettings={() => handleOpenSettings('home')}
-                  scrollRef={homeScrollRef}
-                  navigate={navigate}
-                />
-              }
-            />
-            <Route
-              path="/alphabet"
-              element={
-                <ErrorBoundary>
-                  <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('alphabet')} />
-                </ErrorBoundary>
-              }
-            />
-            <Route
-              path="/syllables"
-              element={
-                <ErrorBoundary>
-                  <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('syllables')} />
-                </ErrorBoundary>
-              }
-            />
-            <Route
-              path="/numbers"
-              element={
-                <ErrorBoundary>
-                  <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
-                </ErrorBoundary>
-              }
-            />
-            <Route
-              path="/counting"
-              element={
-                <ErrorBoundary>
-                  <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
-                </ErrorBoundary>
-              }
-            />
-            <Route
-              path="/words"
-              element={
-                <ErrorBoundary>
-                  <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
-                </ErrorBoundary>
-              }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </motion.div>
-      </AnimatePresence>
+      <div className="w-full min-h-screen">
+        <Routes location={location}>
+          <Route
+            path="/"
+            element={
+              <HomeLauncher
+                onOpenSettings={() => handleOpenSettings('home')}
+                scrollRef={homeScrollRef}
+                navigate={navigate}
+              />
+            }
+          />
+          <Route
+            path="/alphabet"
+            element={
+              <ErrorBoundary>
+                <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('alphabet')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/syllables"
+            element={
+              <ErrorBoundary>
+                <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('syllables')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/numbers"
+            element={
+              <ErrorBoundary>
+                <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/counting"
+            element={
+              <ErrorBoundary>
+                <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/words"
+            element={
+              <ErrorBoundary>
+                <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
 
       {settingsScreen === 'gate' && (
         <ParentsGate

@@ -4,7 +4,6 @@
  */
 
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
 import { ArrowLeft, Play, Settings } from 'lucide-react';
 import { COLORS } from '../../shared/contentRegistry';
 import { FindItGame } from '../../shared/components/FindItGame';
@@ -57,15 +56,13 @@ export function WordsGame({ onExit, onOpenSettings }: WordsGameProps) {
             ))}
           </h1>
         </div>
-        <motion.button
-          whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.95, y: 5 }}
+        <button
           onClick={() => setGameState('PLAYING')}
           aria-label="Hrať"
           className="w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 bg-soft-watermelon rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0"
         >
           <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
-        </motion.button>
+        </button>
       </div>
       <div aria-hidden="true" className="absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-primary opacity-30 -rotate-12 blur-sm pointer-events-none" />
       <div aria-hidden="true" className="absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-success opacity-20 translate-y-10 blur-md pointer-events-none" />

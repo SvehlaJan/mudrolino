@@ -4,7 +4,6 @@
  */
 
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { Pause, X } from 'lucide-react';
 import { SuccessSpec, PraiseEntry } from '../types';
 import { PRAISE_ENTRIES, COLORS, TIMING } from '../contentRegistry';
@@ -64,32 +63,24 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
   };
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => {
-            cancelledRef.current = true;
-            audioManager.stop();
-            onComplete();
-          }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
-        >
+    show ? (
+      <div
+        onClick={() => {
+          cancelledRef.current = true;
+          audioManager.stop();
+          onComplete();
+        }}
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
+      >
           {confetti.map((p, i) => (
-            <motion.div
+            <div
               key={i}
               aria-hidden="true"
-              initial={{ y: -500, x: p.x, rotate: 0 }}
-              animate={{ y: window.innerHeight + 500, rotate: 360 }}
-              transition={{ duration: p.duration, ease: 'linear', delay: p.delay }}
               className={`absolute ${p.shape === 0 ? 'w-16 h-16 rounded-full' : p.shape === 1 ? 'w-24 h-12 rounded-full' : 'w-12 h-24 rounded-full'} ${COLORS[i % COLORS.length].replace('text-', 'bg-')} opacity-60 blur-[2px]`}
+              style={{ transform: `translateX(${p.x}px)` }}
             />
           ))}
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+          <div
             onClick={e => e.stopPropagation()}
             className="relative z-10 border-[6px] border-white rounded-[48px] px-12 py-12 sm:px-20 sm:py-16 mx-6 max-w-[90vw] w-auto text-center"
             style={{
@@ -112,9 +103,8 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
             <p className="text-2xl sm:text-4xl font-extrabold mt-5" style={{ color: '#c06a00' }}>
               {spec.echoLine}
             </p>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </div>
+      </div>
+    ) : null
   );
 }

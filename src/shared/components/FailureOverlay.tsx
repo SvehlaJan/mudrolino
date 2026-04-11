@@ -4,7 +4,6 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { FailureSpec } from '../types';
 import { audioManager } from '../services/audioManager';
 
@@ -39,22 +38,16 @@ export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) 
   }, [show]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => {
-            cancelledRef.current = true;
-            audioManager.stop();
-            onComplete();
-          }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1e2a4a]/70 backdrop-blur-sm"
-        >
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+    show ? (
+      <div
+        onClick={() => {
+          cancelledRef.current = true;
+          audioManager.stop();
+          onComplete();
+        }}
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1e2a4a]/70 backdrop-blur-sm"
+      >
+          <div
             onClick={e => e.stopPropagation()}
             className="relative z-10 border-[6px] border-white rounded-[48px] px-12 py-12 sm:px-20 sm:py-16 mx-6 max-w-[90vw] w-auto text-center"
             style={{
@@ -74,9 +67,8 @@ export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) 
             <p className="text-2xl sm:text-4xl font-extrabold mt-2" style={{ color: '#3a4a8a' }}>
               {spec.echoLine}
             </p>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </div>
+      </div>
+    ) : null
   );
 }

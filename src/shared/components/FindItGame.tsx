@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion } from 'motion/react';
 import { Volume2, ArrowLeft } from 'lucide-react';
 import { GameDescriptor, SuccessSpec, FailureSpec } from '../types';
 import { audioManager } from '../services/audioManager';
@@ -136,8 +135,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
         </div>
         {descriptor.speakerButtonPosition === 'inline' ? (
           <div className="flex flex-row items-center gap-4">
-            <motion.button
-              whileTap={{ scale: 0.9 }}
+            <button
               onClick={() => targetItem && audioManager.play(
                 descriptor.getReplayAudio
                   ? descriptor.getReplayAudio(targetItem)
@@ -147,13 +145,12 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
               className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main shrink-0"
             >
               <Volume2 size={32} className="sm:w-10 sm:h-10" />
-            </motion.button>
+            </button>
             {prompt && <div className="text-center">{prompt}</div>}
           </div>
         ) : (
           <>
-            <motion.button
-              whileTap={{ scale: 0.9 }}
+            <button
               onClick={() => targetItem && audioManager.play(
                 descriptor.getReplayAudio
                   ? descriptor.getReplayAudio(targetItem)
@@ -163,7 +160,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
               className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
             >
               <Volume2 size={32} className="sm:w-10 sm:h-10" />
-            </motion.button>
+            </button>
             {prompt && <div className="text-center">{prompt}</div>}
           </>
         )}
@@ -171,10 +168,9 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
 
       <div className={`grid ${descriptor.gridColsClass} gap-4 sm:gap-8 w-full max-w-4xl px-4`}>
         {gridItems.map((item, i) => (
-          <motion.button
+          <button
             key={descriptor.getItemId(item)}
             onClick={() => handleCardClick(item, i)}
-            animate={feedback[i] === 'wrong' ? { x: [-10, 10, -10, 10, 0] } : {}}
             aria-label={descriptor.getItemId(item)}
             className={`
               w-full aspect-square rounded-[24px] sm:rounded-[32px] flex items-center justify-center transition-all
@@ -183,7 +179,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
             `}
           >
             {descriptor.renderCard(item)}
-          </motion.button>
+          </button>
         ))}
       </div>
 

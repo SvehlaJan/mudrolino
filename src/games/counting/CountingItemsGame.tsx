@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { motion } from 'motion/react';
 import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
 import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
@@ -193,15 +192,13 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
               Rozsah: {range.start} - {range.end}
             </p>
           </div>
-          <motion.button
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95, y: 5 }}
+          <button
             onClick={() => setGameState('PLAYING')}
             aria-label="Hrať"
             className="w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 bg-soft-watermelon rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0"
           >
             <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
-          </motion.button>
+          </button>
         </div>
       </div>
     );
@@ -217,14 +214,13 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
       </button>
 
-      <motion.button
-        whileTap={{ scale: 0.9 }}
+      <button
         onClick={() => audioManager.play({ clips: [getPhraseClip('countItems')] })}
         aria-label="Prehrať zvuk"
         className="fixed safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
       >
         <Volume2 size={24} className="sm:w-7 sm:h-7" />
-      </motion.button>
+      </button>
 
       <div className="flex-1 w-full max-w-4xl flex flex-col gap-8 sm:gap-12 mt-16 sm:mt-20">
         <div className="flex justify-center">
@@ -237,18 +233,18 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           className="relative flex-1 bg-white/50 rounded-[40px] sm:rounded-[60px] border-4 border-dashed border-shadow/20 overflow-hidden min-h-[300px]"
         >
           {itemPositions.map((pos, i) => (
-            <motion.div
+            <div
               key={`${targetItem?.value}-${i}`}
               aria-hidden="true"
-              initial={{ scale: 0, opacity: 0, rotate: -180 }}
-              animate={{ scale: pos.scale, opacity: 1, rotate: pos.rotation }}
-              exit={{ scale: 0, opacity: 0, rotate: 180 }}
-              transition={{ type: 'spring', damping: 12, stiffness: 100, delay: i * 0.05 }}
               className="absolute text-6xl sm:text-8xl select-none"
-              style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: 'translate(-50%, -50%)' }}
+              style={{
+                left: `${pos.x}%`,
+                top: `${pos.y}%`,
+                transform: `translate(-50%, -50%) rotate(${pos.rotation}deg) scale(${pos.scale})`,
+              }}
             >
               {pos.emoji}
-            </motion.div>
+            </div>
           ))}
           <button
             onClick={startNewRound}
@@ -263,10 +259,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           className="grid grid-cols-4 gap-4 sm:gap-8 w-full shrink-0 mb-8 sm:mb-12"
         >
           {optionItems.map((item, i) => (
-            <motion.button
+            <button
               key={i}
               onClick={() => handleOptionClick(item, i)}
-              animate={feedback[i] === 'wrong' ? { x: [-10, 10, -10, 10, 0] } : {}}
               className={`
                 w-full aspect-square rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-5xl sm:text-8xl font-bold font-spline transition-all
                 ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
@@ -274,7 +269,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
               `}
             >
               {item.value}
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>

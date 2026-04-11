@@ -4,7 +4,6 @@
  */
 
 import React, { useEffect, useRef, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { COLORS } from '../contentRegistry';
 
 interface SessionCompleteOverlayProps {
@@ -59,22 +58,15 @@ export function SessionCompleteOverlay({
     .join(' ');
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onComplete}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
-        >
+    show ? (
+      <div
+        onClick={onComplete}
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/80 backdrop-blur-sm"
+      >
           {confetti.map((p, i) => (
-            <motion.div
+            <div
               key={i}
               aria-hidden="true"
-              initial={{ y: -500, x: p.x, rotate: 0 }}
-              animate={{ y: window.innerHeight + 500, rotate: 360 }}
-              transition={{ duration: p.duration, ease: 'linear', delay: p.delay }}
               className={`absolute ${
                 p.shape === 0
                   ? 'w-16 h-16 rounded-full'
@@ -82,11 +74,10 @@ export function SessionCompleteOverlay({
                   ? 'w-24 h-12 rounded-full'
                   : 'w-12 h-24 rounded-full'
               } ${COLORS[i % COLORS.length].replace('text-', 'bg-')} opacity-60 blur-[2px]`}
+              style={{ transform: `translateX(${p.x}px)` }}
             />
           ))}
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+          <div
             onClick={e => e.stopPropagation()}
             className="relative z-10 border-[6px] border-white rounded-[48px] px-12 py-12 sm:px-20 sm:py-16 mx-6 max-w-[90vw] w-auto text-center"
             style={{
@@ -105,9 +96,8 @@ export function SessionCompleteOverlay({
             >
               {roundsCompleted} z {maxRounds} správne
             </p>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </div>
+      </div>
+    ) : null
   );
 }
