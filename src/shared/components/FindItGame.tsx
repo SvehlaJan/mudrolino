@@ -18,9 +18,37 @@ interface FindItGameProps<T> {
   onExit: () => void;
 }
 
+interface RoundState<T> {
+  targetItem: T | null;
+  gridItems: T[];
+}
+
+function createRoundState<T>(descriptor: GameDescriptor<T>, currentItem: T | null = null): RoundState<T> {
+  const pool = descriptor.getItems();
+  if (pool.length === 0) {
+    return { targetItem: null, gridItems: [] };
+  }
+
+  const effectiveGridSize = Math.min(descriptor.gridSize, pool.length);
+  const currentId = currentItem ? descriptor.getItemId(currentItem) : null;
+  const eligible = currentId
+    ? pool.filter(item => descriptor.getItemId(item) !== currentId)
+    : pool;
+  const candidates = eligible.length > 0 ? eligible : pool;
+  const target = candidates[Math.floor(Math.random() * candidates.length)];
+  const others = pool
+    .filter(item => descriptor.getItemId(item) !== descriptor.getItemId(target))
+    .sort(() => 0.5 - Math.random())
+    .slice(0, effectiveGridSize - 1);
+
+  return {
+    targetItem: target,
+    gridItems: [...others, target].sort(() => 0.5 - Math.random()),
+  };
+}
+
 export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
-  const [targetItem, setTargetItem] = useState<T | null>(null);
-  const [gridItems, setGridItems] = useState<T[]>([]);
+  const [roundState, setRoundState] = useState<RoundState<T>>(() => createRoundState(descriptor));
   const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
@@ -35,6 +63,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
 
+  const { targetItem, gridItems } = roundState;
   const targetItemRef = useRef<T | null>(null);
   const pendingSuccessRef = useRef(false);
   useEffect(() => { targetItemRef.current = targetItem; }, [targetItem]);
@@ -44,23 +73,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   }, []);
 
   const startNewRound = useCallback(() => {
-    const pool = descriptor.getItems();
-    if (pool.length === 0) return;
-    const effectiveGridSize = Math.min(descriptor.gridSize, pool.length);
-    const current = targetItemRef.current;
-    const currentId = current ? descriptor.getItemId(current) : null;
-    const eligible = currentId
-      ? pool.filter(item => descriptor.getItemId(item) !== currentId)
-      : pool;
-    const candidates = eligible.length > 0 ? eligible : pool;
-    const target = candidates[Math.floor(Math.random() * candidates.length)];
-    const others = pool
-      .filter(item => descriptor.getItemId(item) !== descriptor.getItemId(target))
-      .sort(() => 0.5 - Math.random())
-      .slice(0, effectiveGridSize - 1);
-    const grid = [...others, target].sort(() => 0.5 - Math.random());
-    setTargetItem(target);
-    setGridItems(grid);
+    setRoundState(createRoundState(descriptor, targetItemRef.current));
     setFeedback({});
     setShowSuccess(false);
     setShowFailure(false);
@@ -69,8 +82,8 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   }, [descriptor]);
 
   useEffect(() => {
-    if (!targetItem) startNewRound(); // eslint-disable-line react-hooks/set-state-in-effect
-  }, [targetItem, startNewRound]);
+    if (!targetItem && gridItems.length === 0) startNewRound();
+  }, [targetItem, gridItems.length, startNewRound]);
 
   useEffect(() => {
     if (!targetItem) return;
