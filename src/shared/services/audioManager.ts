@@ -11,6 +11,7 @@ export class AudioManager {
   private currentAudio: HTMLAudioElement | null = null;
   private musicAudio: HTMLAudioElement | null = null;
   private musicEnabled = false;
+  private playbackToken = 0;
 
   constructor() {
     if (this.synth.onvoiceschanged !== undefined) {
@@ -36,6 +37,7 @@ export class AudioManager {
 
   /** Stop any in-progress audio or TTS immediately. */
   stop(): void {
+    this.playbackToken += 1;
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
@@ -57,23 +59,54 @@ export class AudioManager {
 
   private async playClipsAsync(clips: AudioClip[]): Promise<void> {
     this.stop();
+    const playbackToken = this.playbackToken;
     for (const clip of clips) {
       try {
-        await this.playSingleClip(`/audio/${clip.path}.mp3`);
+        await this.playSingleClip(`/audio/${clip.path}.mp3`, playbackToken);
       } catch {
+        if (playbackToken !== this.playbackToken) {
+          return;
+        }
         console.warn('[AudioManager] Audio file failed, falling back to TTS:', clip.fallbackText);
         await this.speakAsync(clip.fallbackText);
       }
     }
   }
 
-  private playSingleClip(path: string): Promise<void> {
+  private playSingleClip(path: string, playbackToken: number): Promise<void> {
     return new Promise((resolve, reject) => {
       const audio = new Audio(path);
       this.currentAudio = audio;
-      audio.onended = () => { this.currentAudio = null; resolve(); };
-      audio.onerror = () => reject(new Error(`Failed to load: ${path}`));
-      audio.play().catch(reject);
+      let settled = false;
+
+      const cleanup = () => {
+        audio.onended = null;
+        audio.onerror = null;
+      };
+
+      const resolveOnce = () => {
+        if (settled) return;
+        settled = true;
+        this.currentAudio = null;
+        cleanup();
+        resolve();
+      };
+
+      const rejectOnce = () => {
+        if (settled) return;
+        settled = true;
+        this.currentAudio = null;
+        cleanup();
+        if (playbackToken !== this.playbackToken) {
+          resolve();
+          return;
+        }
+        reject(new Error(`Failed to load: ${path}`));
+      };
+
+      audio.onended = resolveOnce;
+      audio.onerror = rejectOnce;
+      audio.play().catch(() => rejectOnce());
     });
   }
 

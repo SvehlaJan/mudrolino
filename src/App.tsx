@@ -19,6 +19,7 @@ import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
+import { AssemblyGame } from './games/assembly/AssemblyGame';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 
 type SettingsScreen = 'none' | 'gate' | 'settings';
@@ -198,6 +199,14 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/assembly"
+            element={
+              <ErrorBoundary>
+                <AssemblyGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
               </ErrorBoundary>
             }
           />

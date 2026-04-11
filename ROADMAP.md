@@ -30,9 +30,9 @@
 ### Syllable assembly game (new)
 > Drag-and-drop mechanic: child sees shuffled syllable tiles and drags them into the correct order to form the word. Needs its own spec before implementation.
 
-- [ ] Spec for syllable assembly game (`docs/superpowers/specs/`)
-- [ ] Syllable assembly game component (`src/games/assembly/AssemblyGame.tsx`)
-- [ ] Add assembly game to `App.tsx` game registry and home screen grid
+- [x] Spec for syllable assembly game (`docs/superpowers/specs/`)
+- [x] Syllable assembly game component (`src/games/assembly/AssemblyGame.tsx`)
+- [x] Add assembly game to `App.tsx` game registry and home screen grid
 
 ### Bug fixes (from `docs/BACKLOG.md`)
 - [x] **B1** — Music toggle has no effect (`audioManager.ts:58`, `App.tsx:73`)
@@ -227,6 +227,7 @@
 
 | Date | Decision | Why |
 | --- | --- | --- |
+| 2026-04-11 | Syllable assembly game will use fixed slots with tap-to-place as the primary interaction and drag-and-drop as an optional secondary path. | Preschool touch interactions are more reliable with tap placement, while optional dragging preserves the assembly play pattern. |
 | 2026-04-11 | Extracted a shared `GameLobby` component while keeping per-game `HOME`/`PLAYING` state local. | Reduces repeated pre-screen markup without coupling the bespoke counting game to the shared `FindItGame` engine. |
 | 2026-04-11 | Centralized game identity and lobby styling in a shared game catalog. | Keeps routes, home cards, and lobby presentation aligned from one source of truth. |
 > Payment provider: Stripe (leading candidate — strong SDK, EU subscriptions, handles VAT).
