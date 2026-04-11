@@ -4,13 +4,14 @@
  */
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { Volume2, ArrowLeft, Play, Settings, RefreshCw } from 'lucide-react';
+import { Volume2, ArrowLeft, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { NUMBER_ITEMS, COLORS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
+import { NUMBER_ITEMS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
 import { SlovakNumber, FailureSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
+import { GameLobby } from '../../shared/components/GameLobby';
 
 interface CountingItemsGameProps {
   onExit: () => void;
@@ -155,52 +156,14 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
 
   if (gameState === 'HOME') {
     return (
-      <div className="min-h-screen relative bg-bg-light flex flex-col">
-        <div className="absolute safe-top sm:safe-top-lg safe-left sm:safe-left-lg flex gap-4 z-20">
-          <button
-            onClick={onExit}
-            aria-label="Späť"
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
-          >
-            <ArrowLeft size={24} className="sm:w-8 sm:h-8" />
-          </button>
-        </div>
-        <button
-          onClick={onOpenSettings}
-          aria-label="Nastavenia"
-          className="absolute safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
-        >
-          <Settings size={24} className="sm:w-8 sm:h-8" />
-        </button>
-        <div className="flex-1 flex flex-col items-center justify-center p-4 py-8 sm:py-12">
-          <div className="mb-8 sm:mb-12 md:mb-20 text-center w-full px-4 py-4 shrink-0">
-            <h1 className="text-5xl sm:text-7xl md:text-[120px] font-black flex flex-wrap justify-center gap-2 sm:gap-4 select-none leading-tight">
-              {'SPOČÍTAJ'.split('').map((char, i) => (
-                <span
-                  key={i}
-                  className={`${COLORS[i % COLORS.length]} inline-block py-2`}
-                  style={{
-                    transform: `rotate(${Math.sin(i) * 10}deg) translateY(${Math.cos(i) * 10}px)`,
-                    textShadow: '0px 4px 0px white, 0px 8px 0px var(--color-shadow)',
-                  }}
-                >
-                  {char}
-                </span>
-              ))}
-            </h1>
-            <p className="text-2xl sm:text-3xl font-bold opacity-50 mt-4">
-              Rozsah: {range.start} - {range.end}
-            </p>
-          </div>
-          <button
-            onClick={() => setGameState('PLAYING')}
-            aria-label="Hrať"
-            className="w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 bg-soft-watermelon rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0"
-          >
-            <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
-          </button>
-        </div>
-      </div>
+      <GameLobby
+        title="SPOČÍTAJ"
+        playButtonColorClassName="bg-soft-watermelon"
+        subtitle={<>Rozsah: {range.start} - {range.end}</>}
+        onPlay={() => setGameState('PLAYING')}
+        onBack={onExit}
+        onOpenSettings={onOpenSettings}
+      />
     );
   }
 
