@@ -9,3 +9,4 @@ coverage/
 .superpowers/brainstorm
 .claude/worktrees/
 .worktrees/
+.playwright-cli/
