@@ -43,8 +43,8 @@
 - [x] **H5** — Missing diacritical syllables: ň, š, ž, etc. not in syllables game (`contentRegistry.ts:73`)
 
 ### UX polish (from `docs/BACKLOG.md`)
-- [ ] **F1** — Progress/round counter visible to child and parent during a session
-- [ ] **F3** — Difficulty setting for Alphabet and Syllables games (grid size)
+- [x] **F1** — Progress/round counter visible to child and parent during a session
+- [x] **F3** — Difficulty setting for Alphabet and Syllables games (grid size)
 - [x] **F4** — Counting game: short delay before answer options appear (let child count first)
 - [x] **F7** — Mobile safe-area padding (notch/home-indicator overlap on phones)
 

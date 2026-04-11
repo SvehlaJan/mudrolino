@@ -10,6 +10,8 @@ npm run build     # Production build to dist/
 npm run preview   # Preview production build
 npm run lint      # TypeScript type checking (no emit)
 npm run clean     # Remove dist/
+npm run codegen   # Regenerate src/shared/wordItems.generated.ts from data/words.csv
+npm run test:audio # Validate expected audio files vs. content/audio keys
 ```
 
 No test runner is configured.
@@ -21,44 +23,87 @@ No test runner is configured.
 
 ## Architecture
 
-This is a Slovak-language educational web app ("Hravé Učenie") for preschoolers with 4 mini-games: alphabet, syllables, numbers, and counting.
+This is a Slovak-language educational web app ("Hravé Učenie") for preschoolers with 5 mini-games: alphabet, syllables, numbers, counting, and words.
 
-**Screen state machine** (managed in `App.tsx`): HOME → GAME → PARENTS_GATE → SETTINGS
+**Routing shell**: `src/App.tsx` uses `react-router-dom` for the main app shell and routes (`/`, `/alphabet`, `/syllables`, `/numbers`, `/counting`, `/words`). It also owns the home screen, parent gate flow, settings overlays, and route transition animations.
 
-**Content registry**: `src/shared/contentRegistry.ts` is the single source of truth for all game content — letters (full Slovak alphabet, 46 entries), syllables (60), numbers (1–20). Each item is a typed `ContentItem` with `symbol`, `emoji`, `label`, `audioKey`, and `category`. Letters with TBD emoji/label are scaffolded but excluded from game grids at runtime via `ACTIVE_LETTER_ITEMS`.
+**Domain types**: `src/shared/types.ts` defines the current domain models:
+- `Letter`
+- `Syllable`
+- `Word`
+- `SlovakNumber`
 
-**Game pattern**: Each game imports a `ContentItem[]` slice from `contentRegistry`, picks a random target, builds a distractor grid, compares by `item.symbol`, and passes `targetItem` to `<SuccessOverlay>`. Games no longer contain hardcoded strings or inline success overlays.
+It also defines the reusable `GameDescriptor<T>` interface, plus `AudioSpec`, `SuccessSpec`, and `FailureSpec`.
 
-**Audio**: All audio goes through the `audioManager` singleton (`src/shared/services/audioManager.ts`). It plays clip sequences from `public/audio/` (e.g. `letters/a.mp3`, `phrases/najdi-pismeno.mp3`) and falls back to Web Speech API (Slovak `sk-SK`) if a file is missing. The `public/audio/` tree is pre-created; you drop `.mp3` files in to replace TTS.
+**Shared game loop**: `src/shared/components/FindItGame.tsx` is the generic engine for the 4 grid-based "find it" games:
+- alphabet
+- syllables
+- numbers
+- words
 
-**SuccessOverlay** (`src/shared/components/SuccessOverlay.tsx`): Shared success screen used by all 4 games. Shows a random emoji mascot + praise text + echo line derived from `ContentItem` (e.g. "A ako Ananás 🍎"). Fires `onComplete()` after 3 seconds.
+Each game provides a `GameDescriptor<T>` that defines item identity, rendering, prompts, wrong-answer audio, and overlay content.
+
+**Counting game**: `src/games/counting/CountingItemsGame.tsx` is intentionally bespoke. It manages its own round loop because its mechanic differs from the shared grid-based games.
+
+**Content registry**: `src/shared/contentRegistry.ts` is the main content registry for:
+- `LETTER_ITEMS`
+- `WORD_ITEMS` (re-exported from generated code)
+- derived `SYLLABLE_ITEMS`
+- `NUMBER_ITEMS`
+- praise entries and shared timing constants
+
+**Word content pipeline**:
+- Source of truth: `data/words.csv`
+- Generated file: `src/shared/wordItems.generated.ts`
+- Regenerate with: `npm run codegen`
+
+**Audio**: All audio goes through `src/shared/services/audioManager.ts`. It plays clip sequences from `public/audio/` and falls back per clip to Web Speech API (`sk-SK`) when a file is missing or fails to play.
+
+**Shared overlays**:
+- `SuccessOverlay.tsx`
+- `FailureOverlay.tsx`
+- `SessionCompleteOverlay.tsx`
+
+These power the end-of-round and end-of-session feedback used across the games.
 
 **ParentsGate** (`src/shared/components/ParentsGate.tsx`): 3-second hold-to-enter mechanism guarding the settings screen.
 
-**SettingsOverlay** (`src/shared/components/SettingsOverlay.tsx`): Settings panel (music toggle, number/counting range sliders). Rendered by `App.tsx` on top of the current screen.
+**Settings**:
+- `src/shared/components/SettingsOverlay.tsx` handles shared settings like music and number/counting ranges.
+- `src/games/alphabet/AlphabetSettingsOverlay.tsx` handles alphabet card-count settings.
+- `src/games/syllables/SyllablesSettingsOverlay.tsx` handles syllable card-count settings.
 
-**Adding a new game**: Create a component in `src/games/<name>/`, import the relevant `ContentItem[]` from `contentRegistry`, use `<SuccessOverlay>` for success state, add the game entry to `App.tsx` and the home screen grid.
+**Adding a new grid-based game**:
+1. Create a component in `src/games/<name>/`.
+2. Define a `GameDescriptor<T>` for the game.
+3. Reuse `FindItGame<T>` if the mechanic fits the shared pattern.
+4. Add the route and home-screen card in `App.tsx`.
+5. Update `ROADMAP.md` if the new game changes scope or delivery status.
 
 ## Audio files
 
-Drop recorded `.mp3` files into `public/audio/` subdirectories. File naming follows `audioKey` values from `contentRegistry.ts`:
+Drop recorded `.mp3` files into `public/audio/` subdirectories. File naming follows `audioKey` values from `contentRegistry.ts` and the hardcoded phrase keys used in game descriptors:
 
 - `public/audio/letters/a.mp3`, `s-caron.mp3`, `c-caron.mp3` … (bare letter sound)
-- `public/audio/syllables/ma.mp3`, `me.mp3` … (bare syllable sound)
+- `public/audio/syllables/ma.mp3`, `me.mp3` … (bare syllable sound, derived from words)
+- `public/audio/words/jahoda.mp3`, `mama.mp3` … (full spoken word clips)
 - `public/audio/numbers/1.mp3`, `2.mp3` … (number word)
-- `public/audio/phrases/najdi-pismeno.mp3`, `toto-je-pismeno.mp3`, `skus-to-znova.mp3` …
+- `public/audio/phrases/najdi-pismeno.mp3`, `toto-je-pismeno.mp3`, `co-tu-je-napisane.mp3`, `toto-je-slovo.mp3`, `nevadi.mp3`, `spravna-odpoved.mp3` …
 - `public/audio/praise/vyborne.mp3`, `skvela-praca.mp3` …
+- `public/audio/music/background.mp3` (optional background music)
 
 TTS fallback is automatic — missing files cause no errors during development.
 
 ## Key Data
 
-- `src/shared/contentRegistry.ts` — all game content (letters, syllables, numbers) as typed `ContentItem` objects
-- `src/shared/types.ts` — TypeScript interfaces shared across components
+- `src/shared/contentRegistry.ts` — registry for letters, words, derived syllables, numbers, praise, and timing
+- `src/shared/types.ts` — domain types plus `GameDescriptor<T>`, `AudioSpec`, `SuccessSpec`, and `FailureSpec`
+- `data/words.csv` — editable word list used by the words game and syllable derivation
+- `src/shared/wordItems.generated.ts` — generated word data; do not edit by hand
 
 ## Environment
 
-`GEMINI_API_KEY` is available via env (see `.env.example`).
+`GEMINI_API_KEY` is exposed in `vite.config.ts` (see `.env.example`). `APP_URL` is still present in `.env.example` from the starter template but is not part of the current app flow.
 
 ## Roadmap
 
