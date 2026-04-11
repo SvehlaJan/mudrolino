@@ -5,17 +5,10 @@
 
 import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import {
-  Settings,
-  Play,
-  Gamepad2,
-  Type,
-  Apple,
-  BookOpen
-} from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
-import { GameSettings, GameId, GameMetadata } from './shared/types';
+import { GameSettings, GameId, SettingsSource } from './shared/types';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { AlphabetSettingsOverlay } from './games/alphabet/AlphabetSettingsOverlay';
@@ -26,55 +19,9 @@ import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
+import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 
-type SettingsSource = 'home' | 'game' | 'alphabet' | 'syllables';
 type SettingsScreen = 'none' | 'gate' | 'settings';
-
-const GAMES: GameMetadata[] = [
-  {
-    id: 'ALPHABET',
-    title: 'Abeceda',
-    description: 'Spoznávaj písmenká hravou formou',
-    icon: <Type size={48} className="sm:w-16 sm:h-16" />,
-    color: 'bg-primary',
-  },
-  {
-    id: 'SYLLABLES',
-    title: 'Slabiky',
-    description: 'Spájaj písmenká do slabík',
-    icon: <Gamepad2 size={48} className="sm:w-16 sm:h-16" />,
-    color: 'bg-success',
-  },
-  {
-    id: 'NUMBERS',
-    title: 'Čísla',
-    description: 'Počítaj s kamarátmi',
-    icon: <Play size={48} className="sm:w-16 sm:h-16 ml-2" fill="currentColor" />,
-    color: 'bg-accent-blue',
-  },
-  {
-    id: 'COUNTING_ITEMS',
-    title: 'Spočítaj',
-    description: 'Koľko jabĺčok vidíš?',
-    icon: <Apple size={48} className="sm:w-16 sm:h-16" />,
-    color: 'bg-soft-watermelon',
-  },
-  {
-    id: 'WORDS',
-    title: 'Slová',
-    description: 'Prečítaj slovo a nájdi obrázok',
-    icon: <BookOpen size={48} className="sm:w-16 sm:h-16" />,
-    color: 'bg-soft-watermelon',
-  },
-];
-
-const GAME_PATH: Record<GameId, string> = {
-  ALPHABET: '/alphabet',
-  SYLLABLES: '/syllables',
-  NUMBERS: '/numbers',
-  COUNTING_ITEMS: '/counting',
-  WORDS: '/words',
-};
 
 function HomeLauncher({
   onOpenSettings,
@@ -111,7 +58,7 @@ function HomeLauncher({
 
         {/* Game Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-12">
-          {GAMES.map((game) => (
+          {GAME_METADATA.map((game) => (
             <button
               key={game.id}
               onClick={() => handleGameSelect(game.id)}

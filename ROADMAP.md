@@ -48,6 +48,7 @@
 - [x] **F4** — Counting game: short delay before answer options appear (let child count first)
 - [x] **F7** — Mobile safe-area padding (notch/home-indicator overlap on phones)
 - [x] Shared `GameLobby` component extracted for all game pre-screens
+- [x] Shared game catalog now drives home-screen cards and per-game lobby metadata
 
 ---
 
@@ -227,6 +228,7 @@
 | Date | Decision | Why |
 | --- | --- | --- |
 | 2026-04-11 | Extracted a shared `GameLobby` component while keeping per-game `HOME`/`PLAYING` state local. | Reduces repeated pre-screen markup without coupling the bespoke counting game to the shared `FindItGame` engine. |
+| 2026-04-11 | Centralized game identity and lobby styling in a shared game catalog. | Keeps routes, home cards, and lobby presentation aligned from one source of truth. |
 > Payment provider: Stripe (leading candidate — strong SDK, EU subscriptions, handles VAT).
 > Subscription model: monthly / annual / lifetime — annual + lifetime are common in children's education apps.
 > App store consideration: iOS App Store / Google Play require in-app purchase (30% cut) — web-only avoids this.

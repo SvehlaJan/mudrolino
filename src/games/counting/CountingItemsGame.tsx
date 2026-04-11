@@ -12,6 +12,7 @@ import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
+import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
 interface CountingItemsGameProps {
   onExit: () => void;
@@ -29,6 +30,7 @@ interface ItemPosition {
 
 export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
+  const lobby = GAME_DEFINITIONS_BY_ID.COUNTING_ITEMS.lobby;
   const [targetItem, setTargetItem] = useState<SlovakNumber | null>(null);
   const [itemPositions, setItemPositions] = useState<ItemPosition[]>([]);
   const [optionItems, setOptionItems] = useState<SlovakNumber[]>([]);
@@ -157,8 +159,8 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   if (gameState === 'HOME') {
     return (
       <GameLobby
-        title="SPOČÍTAJ"
-        playButtonColorClassName="bg-soft-watermelon"
+        title={lobby.title}
+        playButtonColorClassName={lobby.playButtonColorClassName}
         subtitle={<>Rozsah: {range.start} - {range.end}</>}
         onPlay={() => setGameState('PLAYING')}
         onBack={onExit}
