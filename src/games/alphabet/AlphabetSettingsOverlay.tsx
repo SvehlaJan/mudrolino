@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { ArrowLeft, Music } from 'lucide-react';
+import { ArrowLeft, Languages, Music } from 'lucide-react';
 import { SettingToggle } from '../../shared/components/SettingToggle';
 import { GameSettings } from '../../shared/types';
 import { audioManager } from '../../shared/services/audioManager';
@@ -35,6 +35,14 @@ export function AlphabetSettingsOverlay({ settings, onUpdate, onClose }: Alphabe
               audioManager.updateSettings({ music: newMusic });
               onUpdate({ ...settings, music: newMusic });
             }}
+          />
+
+          <SettingToggle
+            label="Písmená s dĺžňami a mäkčeňmi"
+            icon={<Languages size={24} className="sm:w-8 sm:h-8" />}
+            active={settings.alphabetAccents}
+            color="bg-accent-blue"
+            onToggle={() => onUpdate({ ...settings, alphabetAccents: !settings.alphabetAccents })}
           />
 
           <div className="pt-8 border-t-2 border-shadow/10">

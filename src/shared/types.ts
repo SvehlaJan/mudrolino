@@ -11,6 +11,7 @@ export type SettingsSource = 'home' | 'game' | 'alphabet' | 'syllables';
 export interface GameSettings {
   music: boolean;
   alphabetGridSize: 4 | 6 | 8;
+  alphabetAccents: boolean;
   syllablesGridSize: 4 | 6;
   numbersRange: { start: number; end: number };
   countingRange: { start: number; end: number };

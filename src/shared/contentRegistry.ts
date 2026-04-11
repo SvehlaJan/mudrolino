@@ -96,6 +96,18 @@ export const LETTER_ITEMS: Letter[] = [
   { symbol: 'Ž',  label: 'Žaba',     emoji: '🐸',   audioKey: 'z-caron' },
 ];
 
+function containsDiacritics(value: string): boolean {
+  return value.normalize('NFD') !== value;
+}
+
+export function getAlphabetItems(includeAccentedLetters: boolean): Letter[] {
+  if (includeAccentedLetters) {
+    return LETTER_ITEMS;
+  }
+
+  return LETTER_ITEMS.filter((letter) => !containsDiacritics(letter.symbol));
+}
+
 // ---------------------------------------------------------------------------
 // Words — source of truth: data/words.csv  (run `npm run codegen` to update)
 // ---------------------------------------------------------------------------

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, Letter } from '../../shared/types';
-import { getPhraseClip, LETTER_ITEMS } from '../../shared/contentRegistry';
+import { getAlphabetItems, getPhraseClip } from '../../shared/contentRegistry';
 
 const GRID_COLS: Record<number, string> = {
   4: 'grid-cols-2',
@@ -13,11 +13,14 @@ const GRID_COLS: Record<number, string> = {
   8: 'grid-cols-2 sm:grid-cols-4',
 };
 
-export function createAlphabetDescriptor(gridSize: 4 | 6 | 8): GameDescriptor<Letter> {
+export function createAlphabetDescriptor(
+  gridSize: 4 | 6 | 8,
+  includeAccentedLetters: boolean,
+): GameDescriptor<Letter> {
   return {
     gridSize,
     gridColsClass: GRID_COLS[gridSize],
-    getItems: () => LETTER_ITEMS,
+    getItems: () => getAlphabetItems(includeAccentedLetters),
     getItemId: (l) => l.symbol,
     renderCard: (l) => (
       <span className="text-6xl sm:text-[100px] font-bold font-spline">{l.symbol}</span>

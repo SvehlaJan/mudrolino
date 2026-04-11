@@ -18,7 +18,7 @@ interface AlphabetGameProps {
 
 export function AlphabetGame({ settings, onExit, onOpenSettings }: AlphabetGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const descriptor = createAlphabetDescriptor(settings.alphabetGridSize);
+  const descriptor = createAlphabetDescriptor(settings.alphabetGridSize, settings.alphabetAccents);
   const lobby = GAME_DEFINITIONS_BY_ID.ALPHABET.lobby;
 
   if (gameState === 'PLAYING') {

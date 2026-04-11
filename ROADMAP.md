@@ -73,8 +73,8 @@
 > Open decisions: UX for adding a custom word (text input + syllable breakdown + emoji picker?), validation/guidance for syllable entry.
 
 - [ ] Spec for content configurability (`docs/superpowers/specs/`)
-- [ ] Modularize and expand `SettingsOverlay` into sections
-- [ ] Alphabet game: letter enable/disable per-letter toggle (all 46, including accented)
+- [x] Modularize and expand `SettingsOverlay` into sections
+- [x] Alphabet game: accent-letter enable/disable toggle
 - [ ] Word dictionary management: add/remove words with syllable breakdown and emoji
 - [ ] Ensure `localStorage` schema is migration-ready for Phase 3 cloud sync
 - [ ] Number/counting range sliders already implemented — integrate into new settings layout
@@ -230,6 +230,7 @@
 | 2026-04-11 | Syllable assembly game will use fixed slots with tap-to-place as the primary interaction and drag-and-drop as an optional secondary path. | Preschool touch interactions are more reliable with tap placement, while optional dragging preserves the assembly play pattern. |
 | 2026-04-11 | Extracted a shared `GameLobby` component while keeping per-game `HOME`/`PLAYING` state local. | Reduces repeated pre-screen markup without coupling the bespoke counting game to the shared `FindItGame` engine. |
 | 2026-04-11 | Centralized game identity and lobby styling in a shared game catalog. | Keeps routes, home cards, and lobby presentation aligned from one source of truth. |
+| 2026-04-11 | Alphabet settings will use a single accented-letter toggle instead of per-letter enablement. | This keeps parent controls simple and maps better to the real learning choice: basic letters first, accented Slovak letters later. |
 > Payment provider: Stripe (leading candidate — strong SDK, EU subscriptions, handles VAT).
 > Subscription model: monthly / annual / lifetime — annual + lifetime are common in children's education apps.
 > App store consideration: iOS App Store / Google Play require in-app purchase (30% cut) — web-only avoids this.
