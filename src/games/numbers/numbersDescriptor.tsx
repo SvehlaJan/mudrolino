@@ -12,11 +12,14 @@ export function createNumbersDescriptor(
 ): GameDescriptor<SlovakNumber> {
   return {
     gridSize: 4,
-    gridColsClass: 'grid-cols-2 sm:grid-cols-4',
+    gridCols: {
+      base: 2,
+      sm: 4,
+    },
     getItems: () => getNumberItemsInRange(range),
     getItemId: (n) => String(n.value),
     renderCard: (n) => (
-      <span className="text-6xl sm:text-[100px] font-bold font-spline">{n.value}</span>
+      <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{n.value}</span>
     ),
     renderPrompt: () => null,
     getPromptAudio: (n) => ({

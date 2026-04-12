@@ -9,14 +9,17 @@ import { getPhraseClip, WORD_ITEMS } from '../../shared/contentRegistry';
 
 export const wordsDescriptor: GameDescriptor<Word> = {
   gridSize: 6,
-  gridColsClass: 'grid-cols-2 sm:grid-cols-3',
+  gridCols: {
+    base: 2,
+    sm: 3,
+  },
   getItems: () => WORD_ITEMS,
   getItemId: (w) => w.word,
   renderCard: (w) => (
-    <span className="text-5xl sm:text-7xl">{w.emoji}</span>
+    <span className="text-[clamp(2.25rem,7vw,5rem)] leading-none">{w.emoji}</span>
   ),
   renderPrompt: (w) => (
-    <h2 className="text-5xl sm:text-7xl font-black tracking-widest text-text-main">
+    <h2 className="text-[clamp(1.9rem,5.5vw,4rem)] font-black tracking-[0.12em] text-text-main leading-none">
       {w.syllables.toUpperCase()}
     </h2>
   ),
@@ -31,7 +34,6 @@ export const wordsDescriptor: GameDescriptor<Word> = {
       { path: `words/${w.audioKey}`, fallbackText: w.word },
     ],
   }),
-  speakerButtonPosition: 'inline',
   getWrongAudio: (_t, s) => ({
     clips: [
       getPhraseClip('thisIs'),

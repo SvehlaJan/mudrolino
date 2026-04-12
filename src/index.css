@@ -86,3 +86,26 @@ body {
 .safe-left-lg { left: max(2rem, calc(env(safe-area-inset-left) + 0.5rem)); }
 .safe-right { right: max(1rem, calc(env(safe-area-inset-right) + 0.5rem)); }
 .safe-right-lg { right: max(2rem, calc(env(safe-area-inset-right) + 0.5rem)); }
+
+@keyframes overlay-confetti-fall {
+  0% {
+    transform: translate(-50%, -65%) rotate(var(--confetti-rotation, 0deg)) scale(var(--confetti-scale, 1));
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--confetti-opacity, 0.45);
+  }
+  100% {
+    transform: translate(calc(-50% + var(--confetti-drift, 0px)), 65vh) rotate(calc(var(--confetti-rotation, 0deg) + var(--confetti-spin, 45deg))) scale(var(--confetti-scale, 1));
+    opacity: 0;
+  }
+}
+
+.overlay-confetti {
+  animation-name: overlay-confetti-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+  pointer-events: none;
+}

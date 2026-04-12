@@ -94,8 +94,11 @@ export interface FailureSpec {
 export interface GameDescriptor<T> {
   /** Total cards in the grid including the target. */
   gridSize: number;
-  /** Tailwind grid-cols classes, e.g. "grid-cols-2 sm:grid-cols-3" */
-  gridColsClass: string;
+  /** Responsive column counts used to size the square grid from viewport width and height. */
+  gridCols: {
+    base: number;
+    sm?: number;
+  };
   /** Maximum correct answers before session ends. Defaults to 5 if omitted. */
   maxRounds?: number;
   /** Maximum wrong attempts per round before the failure overlay shows. Defaults to 3 if omitted. */
@@ -118,12 +121,6 @@ export interface GameDescriptor<T> {
    * If omitted, falls back to getPromptAudio (existing behavior).
    */
   getReplayAudio?: (target: T) => AudioSpec;
-  /**
-   * Controls speaker button placement relative to the prompt.
-   * 'above' (default): button stacked above prompt — existing layout.
-   * 'inline': button and prompt rendered side-by-side in a flex row.
-   */
-  speakerButtonPosition?: 'above' | 'inline';
   /** Audio to play when the child taps a wrong card. */
   getWrongAudio(target: T, selected: T): AudioSpec;
   /** Success overlay content for the correct answer. */

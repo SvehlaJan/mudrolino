@@ -44,46 +44,50 @@ export function GameLobby({
   bottomDecorationClassName,
 }: GameLobbyProps) {
   return (
-    <div className="min-h-screen relative bg-bg-light flex flex-col">
-      <div className="absolute safe-top sm:safe-top-lg safe-left sm:safe-left-lg flex gap-4 z-20">
-        <button
-          onClick={onBack}
-          aria-label="Späť"
-          className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95"
-        >
-          <ArrowLeft size={24} className="sm:w-8 sm:h-8" />
-        </button>
-      </div>
-
-      {onOpenSettings && (
-        <button
-          onClick={onOpenSettings}
-          aria-label="Nastavenia"
-          className="absolute safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full shadow-block flex items-center justify-center text-shadow transition-transform active:scale-95 z-20"
-        >
-          <Settings size={24} className="sm:w-8 sm:h-8" />
-        </button>
-      )}
-
-      <div className="flex-1 flex flex-col items-center justify-center p-4 py-8 sm:py-12">
-        <div className="mb-8 sm:mb-12 md:mb-20 text-center w-full px-4 py-4 shrink-0">
-          <h1 className="text-5xl sm:text-7xl md:text-[120px] font-black flex flex-wrap justify-center gap-2 sm:gap-4 select-none leading-tight">
-            {renderTitle(title)}
-          </h1>
-          {subtitle && (
-            <p className="text-2xl sm:text-3xl font-bold opacity-50 mt-4">
-              {subtitle}
-            </p>
+    <div className="min-h-[100svh] h-[100svh] overflow-hidden relative bg-bg-light flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+      <div className="w-full max-w-5xl flex-1 min-h-0 flex flex-col">
+        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
+          <button
+            onClick={onBack}
+            aria-label="Späť"
+            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main transition-all active:translate-y-2 active:shadow-block-pressed"
+          >
+            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
+          </button>
+          <div />
+          {onOpenSettings ? (
+            <button
+              onClick={onOpenSettings}
+              aria-label="Nastavenia"
+              className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main transition-all active:translate-y-2 active:shadow-block-pressed justify-self-end"
+            >
+              <Settings size={24} className="sm:w-7 sm:h-7" />
+            </button>
+          ) : (
+            <div className="w-12 sm:w-14" />
           )}
         </div>
 
-        <button
-          onClick={onPlay}
-          aria-label="Hrať"
-          className={`w-32 h-32 sm:w-48 md:w-60 sm:h-48 md:h-60 ${playButtonColorClassName} rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0`}
-        >
-          <Play size={48} className="sm:w-20 sm:h-20 md:w-[100px] md:h-[100px] ml-2 sm:ml-4" fill="currentColor" />
-        </button>
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-8 px-4 pt-4 sm:pt-6 pb-5 sm:pb-6">
+          <div className="text-center w-full max-w-5xl px-4 py-2 shrink-0">
+            <h1 className="text-[clamp(3rem,10vw,6.5rem)] font-black flex flex-wrap justify-center gap-1 sm:gap-3 select-none leading-[0.95]">
+              {renderTitle(title)}
+            </h1>
+            {subtitle && (
+              <p className="text-[clamp(1.1rem,2.7vw,1.7rem)] font-bold opacity-55 mt-3">
+                {subtitle}
+              </p>
+            )}
+          </div>
+
+          <button
+            onClick={onPlay}
+            aria-label="Hrať"
+            className={`w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 ${playButtonColorClassName} rounded-full shadow-block flex items-center justify-center text-white transition-all shrink-0`}
+          >
+            <Play size={42} className="sm:w-16 sm:h-16 md:w-20 md:h-20 ml-1.5 sm:ml-3" fill="currentColor" />
+          </button>
+        </div>
       </div>
 
       {topDecorationClassName && (

@@ -39,43 +39,43 @@ function HomeLauncher({
   }, [navigate, scrollRef]);
 
   return (
-    <div className="min-h-screen relative bg-bg-light flex flex-col p-6 sm:p-12">
-      <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col">
+    <div className="min-h-[100svh] h-[100svh] overflow-hidden relative bg-bg-light flex flex-col p-4 sm:p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto w-full flex-1 min-h-0 flex flex-col">
         {/* Header */}
-        <div className="flex justify-between items-start mb-16 sm:mb-24">
+        <div className="flex justify-between items-start gap-4 mb-4 sm:mb-6 lg:mb-8 shrink-0">
           <div className="flex flex-col gap-2">
-            <h1 className="text-5xl sm:text-7xl font-black text-text-main tracking-tight leading-none">Hravé Učenie</h1>
-            <p className="text-xl sm:text-3xl font-medium opacity-50">Vyber si hru a poďme na to!</p>
+            <h1 className="text-[clamp(2.6rem,6vw,5.25rem)] font-black text-text-main tracking-tight leading-none">Hravé Učenie</h1>
+            <p className="text-[clamp(1.05rem,2.2vw,1.7rem)] font-medium opacity-60 leading-tight">Vyber si hru a poďme na to!</p>
           </div>
 
           <button
             onClick={onOpenSettings}
-            className="w-16 h-16 sm:w-24 sm:h-24 bg-shadow/20 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 shrink-0"
+            className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 bg-shadow/20 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 shrink-0 relative"
           >
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 rounded-full blur-sm absolute" />
-            <Settings size={32} className="sm:w-12 sm:h-12 text-text-main opacity-80" />
+            <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 rounded-full blur-sm absolute" />
+            <Settings size={28} className="sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-text-main opacity-80" />
           </button>
         </div>
 
         {/* Game Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 flex-1 min-h-0 auto-rows-fr content-stretch">
           {GAME_METADATA.map((game) => (
             <button
               key={game.id}
               onClick={() => handleGameSelect(game.id)}
-              className="group relative flex flex-col"
+              className="group relative flex min-h-0 flex-col"
             >
-              <div className="absolute inset-0 bg-shadow/10 rounded-[48px] sm:rounded-[60px] -m-2 sm:-m-4 transition-colors group-hover:bg-shadow/20" />
-              <div className="relative bg-white rounded-[40px] sm:rounded-[48px] p-8 sm:p-12 flex flex-col gap-8 shadow-sm">
-                <div className={`w-24 h-24 sm:w-32 sm:h-32 rounded-[32px] sm:rounded-[40px] ${game.color} flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110`}>
+              <div className="absolute inset-0 bg-shadow/10 rounded-[28px] sm:rounded-[36px] -m-1.5 sm:-m-2 transition-colors group-hover:bg-shadow/20" />
+              <div className="relative h-full bg-white rounded-[24px] sm:rounded-[30px] p-4 sm:p-5 lg:p-6 flex flex-col justify-between gap-3 shadow-sm text-left overflow-hidden">
+                <div className={`w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 rounded-[18px] sm:rounded-[24px] ${game.color} flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-105`}>
                   {game.icon}
                 </div>
-                <div className="text-left">
-                  <h3 className="text-4xl sm:text-5xl font-black mb-3 text-text-main">{game.title}</h3>
-                  <p className="text-xl sm:text-2xl font-medium opacity-50 leading-tight">{game.description}</p>
+                <div className="min-h-0">
+                  <h3 className="text-[clamp(1.45rem,3.1vw,2.4rem)] font-black mb-1 sm:mb-2 text-text-main leading-[0.95]">{game.title}</h3>
+                  <p className="text-[clamp(0.92rem,1.65vw,1.2rem)] font-medium opacity-60 leading-snug">{game.description}</p>
                 </div>
               </div>
-              <div className={`absolute -bottom-2 -right-2 w-32 h-32 ${game.color} opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity`} />
+              <div className={`absolute -bottom-2 -right-2 w-20 h-20 sm:w-24 sm:h-24 ${game.color} opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity`} />
             </button>
           ))}
         </div>

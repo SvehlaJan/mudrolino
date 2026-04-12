@@ -33,6 +33,11 @@ interface BoardState {
   placedTiles: (AssemblyTile | null)[];
 }
 
+interface PreparedRound {
+  word: Word;
+  board: BoardState;
+}
+
 interface TileButtonProps {
   tile: AssemblyTile;
   disabled?: boolean;
@@ -102,6 +107,14 @@ function getWrongAudio(word: Word, selectedSyllable?: string) {
 
 function renderTileLabel(text: string) {
   return text.toUpperCase();
+}
+
+function pickNextWord(previousWordKey: string | null) {
+  const candidates =
+    ELIGIBLE_WORDS.length > 1
+      ? ELIGIBLE_WORDS.filter(word => word.audioKey !== previousWordKey)
+      : ELIGIBLE_WORDS;
+  return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
 function clearTimer(timerRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>) {
@@ -201,6 +214,21 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     }))
   ), []);
 
+  const prepareRound = useCallback((): PreparedRound | null => {
+    if (ELIGIBLE_WORDS.length === 0) return null;
+
+    const word = pickNextWord(previousWordKeyRef.current);
+    const trayTiles = createTiles(word.syllables.split('-'));
+
+    return {
+      word,
+      board: {
+        trayTiles,
+        placedTiles: Array.from({ length: trayTiles.length }, () => null),
+      },
+    };
+  }, [createTiles]);
+
   const cleanupFloatingTile = useCallback((tileId: string) => {
     activeTweensRef.current.get(tileId)?.kill();
     activeTweensRef.current.delete(tileId);
@@ -243,22 +271,15 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
   }, []);
 
   const startNewRound = useCallback(() => {
-    if (ELIGIBLE_WORDS.length === 0) return;
+    const nextRound = prepareRound();
+    if (!nextRound) return;
 
     resetTransientTimers();
-    const candidates =
-      ELIGIBLE_WORDS.length > 1
-        ? ELIGIBLE_WORDS.filter(word => word.audioKey !== previousWordKeyRef.current)
-        : ELIGIBLE_WORDS;
-    const nextWord = candidates[Math.floor(Math.random() * candidates.length)];
-    const nextTiles = createTiles(nextWord.syllables.split('-'));
+    const { word: nextWord, board: nextBoard } = nextRound;
 
     previousWordKeyRef.current = nextWord.audioKey;
     setTargetWord(nextWord);
-    setBoard({
-      trayTiles: nextTiles,
-      placedTiles: Array.from({ length: nextTiles.length }, () => null),
-    });
+    setBoard(nextBoard);
     setShowSuccess(false);
     setShowSessionComplete(false);
     setWrongPulse(false);
@@ -269,7 +290,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
       audioManager.play(getPromptAudio(nextWord));
       promptTimerRef.current = null;
     }, TIMING.AUDIO_DELAY_MS);
-  }, [createTiles, resetTransientTimers]);
+  }, [prepareRound, resetTransientTimers]);
 
   useEffect(() => {
     return () => {
@@ -444,8 +465,24 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
   }, [animateBoardMove, isResettingBoard, placedTiles, showSessionComplete, showSuccess]);
 
   const handlePlay = useCallback(() => {
+    const nextRound = prepareRound();
+    if (!nextRound) return;
+
+    resetTransientTimers();
+    previousWordKeyRef.current = nextRound.word.audioKey;
+    setTargetWord(nextRound.word);
+    setBoard(nextRound.board);
+    setShowSuccess(false);
+    setShowSessionComplete(false);
+    setWrongPulse(false);
+    setIsResettingBoard(false);
+    setAnimatingTileIds([]);
     setGameState('PLAYING');
-  }, []);
+    promptTimerRef.current = setTimeout(() => {
+      audioManager.play(getPromptAudio(nextRound.word));
+      promptTimerRef.current = null;
+    }, TIMING.AUDIO_DELAY_MS);
+  }, [prepareRound, resetTransientTimers]);
 
   const handleBackToLobby = useCallback(() => {
     audioManager.stop();
@@ -479,28 +516,28 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-4 sm:p-8 relative overflow-hidden">
-      <button
-        onClick={handleBackToLobby}
-        aria-label="Späť"
-        className="fixed safe-top sm:safe-top-lg safe-left sm:safe-left-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
-      >
-        <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-      </button>
-
-      <button
-        onClick={() => playPromptAudio(targetWord)}
-        aria-label="Prehrať slovo"
-        className="fixed safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
-      >
-        <Volume2 size={24} className="sm:w-7 sm:h-7" />
-      </button>
-
-      <div ref={boardRootRef} className="flex-1 w-full max-w-4xl xl:max-w-5xl flex flex-col gap-4 sm:gap-6 md:gap-8 mt-14 sm:mt-16 md:mt-20 pb-4 sm:pb-6">
-        <div className="flex justify-center">
-          <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
-            ✓ {roundsPlayed} / {MAX_ROUNDS}
+    <div className="min-h-[100svh] h-[100svh] flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5 relative overflow-hidden">
+      <div ref={boardRootRef} className="flex-1 min-h-0 w-full max-w-4xl xl:max-w-5xl flex flex-col gap-4 sm:gap-5 md:gap-6">
+        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0">
+          <button
+            onClick={handleBackToLobby}
+            aria-label="Späť"
+            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed"
+          >
+            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
+          </button>
+          <div className="pt-1 sm:pt-1.5 flex justify-center">
+            <div className="bg-white rounded-full px-5 py-2 shadow-block font-bold text-base sm:text-lg text-text-main">
+              ✓ {roundsPlayed} / {MAX_ROUNDS}
+            </div>
           </div>
+          <button
+            onClick={() => playPromptAudio(targetWord)}
+            aria-label="Prehrať slovo"
+            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block justify-self-end"
+          >
+            <Volume2 size={24} className="sm:w-7 sm:h-7" />
+          </button>
         </div>
 
         <div className="flex justify-center">

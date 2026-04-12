@@ -176,38 +176,38 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-4 sm:p-8 relative overflow-hidden">
-      <button
-        onClick={() => setGameState('HOME')}
-        aria-label="Späť"
-        className="fixed safe-top sm:safe-top-lg safe-left sm:safe-left-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
-      >
-        <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-      </button>
-
-      <button
-        onClick={() => audioManager.play({ clips: [getPhraseClip('countItems')] })}
-        aria-label="Prehrať zvuk"
-        className="fixed safe-top sm:safe-top-lg safe-right sm:safe-right-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block z-20"
-      >
-        <Volume2 size={24} className="sm:w-7 sm:h-7" />
-      </button>
-
-      <div className="flex-1 w-full max-w-4xl flex flex-col gap-8 sm:gap-12 mt-16 sm:mt-20">
-        <div className="flex justify-center">
-          <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
-            ✓ {roundsPlayed} / {MAX_ROUNDS}
+    <div className="min-h-[100svh] h-[100svh] flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5 relative overflow-hidden">
+      <div className="flex-1 min-h-0 w-full max-w-5xl flex flex-col gap-3 sm:gap-4 md:gap-5">
+        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0">
+          <button
+            onClick={() => setGameState('HOME')}
+            aria-label="Späť"
+            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed"
+          >
+            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
+          </button>
+          <div className="pt-1 sm:pt-1.5 flex justify-center">
+            <div className="bg-white rounded-full px-5 py-2 shadow-block font-bold text-base sm:text-lg text-text-main">
+              ✓ {roundsPlayed} / {MAX_ROUNDS}
+            </div>
           </div>
+          <button
+            onClick={() => audioManager.play({ clips: [getPhraseClip('countItems')] })}
+            aria-label="Prehrať zvuk"
+            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block justify-self-end"
+          >
+            <Volume2 size={24} className="sm:w-7 sm:h-7" />
+          </button>
         </div>
         <div
           ref={containerRef}
-          className="relative flex-1 bg-white/50 rounded-[40px] sm:rounded-[60px] border-4 border-dashed border-shadow/20 overflow-hidden min-h-[300px]"
+          className="relative flex-1 min-h-[220px] bg-white/50 rounded-[30px] sm:rounded-[44px] border-4 border-dashed border-shadow/20 overflow-hidden"
         >
           {itemPositions.map((pos, i) => (
             <div
               key={`${targetItem?.value}-${i}`}
               aria-hidden="true"
-              className="absolute text-6xl sm:text-8xl select-none"
+              className="absolute text-5xl sm:text-7xl md:text-8xl select-none"
               style={{
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
@@ -227,14 +227,14 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
         </div>
 
         <div
-          className="grid grid-cols-4 gap-4 sm:gap-8 w-full shrink-0 mb-8 sm:mb-12"
+          className="grid grid-cols-4 auto-rows-fr gap-3 sm:gap-4 md:gap-5 w-full shrink-0 pb-1 sm:pb-2"
         >
           {optionItems.map((item, i) => (
             <button
               key={i}
               onClick={() => handleOptionClick(item, i)}
               className={`
-                w-full aspect-square rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-5xl sm:text-8xl font-bold font-spline transition-all
+                w-full aspect-[4/5] sm:aspect-square rounded-[22px] sm:rounded-[28px] flex items-center justify-center text-4xl sm:text-6xl md:text-7xl font-bold font-spline transition-all
                 ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
                 ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
               `}

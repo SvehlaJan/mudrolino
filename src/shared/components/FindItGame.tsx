@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
 import { Volume2, ArrowLeft } from 'lucide-react';
 import { GameDescriptor, SuccessSpec, FailureSpec } from '../types';
 import { audioManager } from '../services/audioManager';
@@ -21,6 +21,19 @@ interface FindItGameProps<T> {
 interface RoundState<T> {
   targetItem: T | null;
   gridItems: T[];
+}
+
+function getGridColsClass(gridCols: GameDescriptor<unknown>['gridCols']) {
+  return gridCols.sm
+    ? `grid-cols-${gridCols.base} sm:grid-cols-${gridCols.sm}`
+    : `grid-cols-${gridCols.base}`;
+}
+
+function getGridMaxWidthClass(gridCols: GameDescriptor<unknown>['gridCols']) {
+  const desktopCols = gridCols.sm ?? gridCols.base;
+  if (desktopCols >= 4) return 'max-w-4xl';
+  if (desktopCols === 3) return 'max-w-3xl';
+  return 'max-w-2xl';
 }
 
 function createRoundState<T>(descriptor: GameDescriptor<T>, currentItem: T | null = null): RoundState<T> {
@@ -65,11 +78,38 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
 
   const { targetItem, gridItems } = roundState;
   const targetItemRef = useRef<T | null>(null);
+  const gridAreaRef = useRef<HTMLDivElement | null>(null);
   const pendingSuccessRef = useRef(false);
+  const [viewportWidth, setViewportWidth] = useState(() => window.innerWidth);
+  const [gridAreaSize, setGridAreaSize] = useState({ width: 0, height: 0 });
   useEffect(() => { targetItemRef.current = targetItem; }, [targetItem]);
 
   useEffect(() => {
     return () => audioManager.stop();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useLayoutEffect(() => {
+    const node = gridAreaRef.current;
+    if (!node) return;
+
+    const updateSize = () => {
+      setGridAreaSize({
+        width: node.clientWidth,
+        height: node.clientHeight,
+      });
+    };
+
+    updateSize();
+
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
   const startNewRound = useCallback(() => {
@@ -131,69 +171,81 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   };
 
   const prompt = targetItem ? descriptor.renderPrompt(targetItem) : null;
+  const gridColsClass = getGridColsClass(descriptor.gridCols);
+  const gridMaxWidthClass = getGridMaxWidthClass(descriptor.gridCols);
+  const activeCols = viewportWidth >= 640 ? (descriptor.gridCols.sm ?? descriptor.gridCols.base) : descriptor.gridCols.base;
+  const activeRows = Math.max(1, Math.ceil(gridItems.length / activeCols));
+  const gridGap = viewportWidth >= 768 ? 20 : viewportWidth >= 640 ? 16 : 12;
+  const tileSize = gridAreaSize.width > 0 && gridAreaSize.height > 0
+    ? Math.max(
+        0,
+        Math.floor(
+          Math.min(
+            (gridAreaSize.width - gridGap * (activeCols - 1)) / activeCols,
+            (gridAreaSize.height - gridGap * (activeRows - 1)) / activeRows,
+          ),
+        ),
+      )
+    : null;
+  const gridWidth = tileSize ? tileSize * activeCols + gridGap * (activeCols - 1) : undefined;
+  const replayButton = (
+    <button
+      onClick={() => targetItem && audioManager.play(
+        descriptor.getReplayAudio
+          ? descriptor.getReplayAudio(targetItem)
+          : descriptor.getPromptAudio(targetItem)
+      )}
+      aria-label="Prehrať zvuk"
+      className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main shrink-0 justify-self-end"
+    >
+      <Volume2 size={24} className="sm:w-7 sm:h-7" />
+    </button>
+  );
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
-      <button
-        onClick={onExit}
-        aria-label="Späť"
-        className="fixed safe-top sm:safe-top-lg safe-left sm:safe-left-lg w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed z-20"
-      >
-        <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-      </button>
-
-      <div className="flex flex-col items-center gap-4 sm:gap-8 mb-8 sm:mb-12">
-        <div className="bg-white rounded-full px-6 py-2 shadow-block font-bold text-lg sm:text-xl text-text-main">
-          ✓ {roundsPlayed} / {maxRounds}
-        </div>
-        {descriptor.speakerButtonPosition === 'inline' ? (
-          <div className="flex flex-row items-center gap-4">
-            <button
-              onClick={() => targetItem && audioManager.play(
-                descriptor.getReplayAudio
-                  ? descriptor.getReplayAudio(targetItem)
-                  : descriptor.getPromptAudio(targetItem)
-              )}
-              aria-label="Prehrať zvuk"
-              className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main shrink-0"
-            >
-              <Volume2 size={32} className="sm:w-10 sm:h-10" />
-            </button>
-            {prompt && <div className="text-center">{prompt}</div>}
-          </div>
-        ) : (
-          <>
-            <button
-              onClick={() => targetItem && audioManager.play(
-                descriptor.getReplayAudio
-                  ? descriptor.getReplayAudio(targetItem)
-                  : descriptor.getPromptAudio(targetItem)
-              )}
-              aria-label="Prehrať zvuk"
-              className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
-            >
-              <Volume2 size={32} className="sm:w-10 sm:h-10" />
-            </button>
-            {prompt && <div className="text-center">{prompt}</div>}
-          </>
-        )}
-      </div>
-
-      <div className={`grid ${descriptor.gridColsClass} gap-4 sm:gap-8 w-full max-w-4xl px-4`}>
-        {gridItems.map((item, i) => (
+    <div className="min-h-[100svh] h-[100svh] overflow-hidden flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+      <div className="w-full max-w-5xl flex-1 min-h-0 flex flex-col">
+        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
           <button
-            key={descriptor.getItemId(item)}
-            onClick={() => handleCardClick(item, i)}
-            aria-label={descriptor.getItemId(item)}
-            className={`
-              w-full aspect-square rounded-[24px] sm:rounded-[32px] flex items-center justify-center transition-all
-              ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
-              ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
-            `}
+            onClick={onExit}
+            aria-label="Späť"
+            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed"
           >
-            {descriptor.renderCard(item)}
+            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
           </button>
-        ))}
+          <div className="pt-1 sm:pt-1.5 flex justify-center">
+            <div className="bg-white rounded-full px-5 py-2 shadow-block font-bold text-base sm:text-lg text-text-main">
+              ✓ {roundsPlayed} / {maxRounds}
+            </div>
+          </div>
+          {replayButton}
+        </div>
+
+        <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
+          {prompt && <div className="text-center max-w-full">{prompt}</div>}
+        </div>
+
+        <div ref={gridAreaRef} className="flex-1 min-h-0 flex items-center justify-center">
+          <div
+            className={`grid ${gridColsClass} gap-3 sm:gap-4 md:gap-5 w-full ${gridMaxWidthClass} mx-auto px-1 sm:px-2 place-content-center`}
+            style={gridWidth ? { width: `${gridWidth}px` } : undefined}
+          >
+            {gridItems.map((item, i) => (
+              <button
+                key={descriptor.getItemId(item)}
+                onClick={() => handleCardClick(item, i)}
+                aria-label={descriptor.getItemId(item)}
+                className={`
+                  w-full aspect-square rounded-[22px] sm:rounded-[28px] flex items-center justify-center transition-all p-2 sm:p-3 overflow-hidden
+                  ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
+                  ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
+                `}
+              >
+                {descriptor.renderCard(item)}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {successSpec && (

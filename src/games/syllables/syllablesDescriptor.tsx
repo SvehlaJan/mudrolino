@@ -7,19 +7,17 @@ import React from 'react';
 import { GameDescriptor, Syllable } from '../../shared/types';
 import { getPhraseClip, SYLLABLE_ITEMS } from '../../shared/contentRegistry';
 
-const GRID_COLS: Record<number, string> = {
-  4: 'grid-cols-2',
-  6: 'grid-cols-2 sm:grid-cols-3',
-};
-
 export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Syllable> {
   return {
     gridSize,
-    gridColsClass: GRID_COLS[gridSize],
+    gridCols: {
+      base: 2,
+      sm: gridSize === 6 ? 3 : 2,
+    },
     getItems: () => SYLLABLE_ITEMS,
     getItemId: (s) => s.symbol,
     renderCard: (s) => (
-      <span className="text-4xl sm:text-7xl font-bold font-spline">{s.symbol}</span>
+      <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{s.symbol}</span>
     ),
     renderPrompt: () => null,
     getPromptAudio: (s) => ({
