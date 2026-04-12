@@ -20,18 +20,26 @@ export const TIMING = {
 // Shared audio phrases
 // ---------------------------------------------------------------------------
 export const AUDIO_PHRASES = {
-  findLetter: { text: 'Nájdi písmenko', audioKey: 'najdi-pismeno' },
-  thisIsLetter: { text: 'Toto je písmenko', audioKey: 'toto-je-pismeno' },
-  retry: { text: 'Skús to znova.', audioKey: 'skus-to-znova' },
+  find: { text: 'Nájdi', audioKey: 'najdi' },
+  thisIs: { text: 'Toto je', audioKey: 'toto-je' },
   number: { text: 'Číslo', audioKey: 'cislo' },
+  letter: { text: 'Písmenko', audioKey: 'pismenko' },
   syllable: { text: 'Slabika', audioKey: 'slabika' },
+  word: { text: 'Slovo', audioKey: 'slovo' },
+
+  findLetter: { text: 'Nájdi písmenko', audioKey: 'najdi-pismenko' },
+  thisIsLetter: { text: 'Toto je písmenko', audioKey: 'toto-je-pismenko' },
   thisIsSyllable: { text: 'Toto je slabika', audioKey: 'toto-je-slabika' },
+  thisIsWord: { text: 'Toto je slovo', audioKey: 'toto-je-slovo' },
   countItems: { text: 'Spočítaj predmety', audioKey: 'spocitaj-predmety' },
+  whatIsWrittenHere: { text: 'Čo tu je napísané?', audioKey: 'co-tu-je-napisane' },
+  orderSyllables: { text: 'Usporiadaj slabiky', audioKey: 'usporiadaj-slabiky' },
+
+  retry: { text: 'Skús to znova.', audioKey: 'skus-to-znova' },
+  neverMind: { text: 'Nevadí!', audioKey: 'nevadi' },
+  itIs: { text: 'Je to', audioKey: 'je-to' },
   yesThereAre: { text: 'Áno, je ich', audioKey: 'ano-je-ich' },
   noThereAre: { text: 'Nie, je ich', audioKey: 'nie-je-ich' },
-  whatIsWrittenHere: { text: 'Čo tu je napísané?', audioKey: 'co-tu-je-napisane' },
-  thisIsWord: { text: 'Toto je slovo', audioKey: 'toto-je-slovo' },
-  neverMind: { text: 'Nevadí!', audioKey: 'nevadi' },
   correctAnswerIs: { text: 'Správna odpoveď je', audioKey: 'spravna-odpoved' },
 } as const satisfies Record<string, AudioPhrase>;
 
