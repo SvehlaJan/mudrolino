@@ -28,23 +28,31 @@ export function createAlphabetDescriptor(
     renderPrompt: () => null,
     getPromptAudio: (l) => ({
       clips: [
-        getPhraseClip('findLetter'),
+        getPhraseClip('find'),
         { path: `letters/${l.audioKey}`, fallbackText: l.symbol },
       ],
     }),
     getWrongAudio: (_t, s) => ({
       clips: [
-        getPhraseClip('thisIsLetter'),
+        getPhraseClip('thisIs'),
         { path: `letters/${s.audioKey}`, fallbackText: s.symbol },
+        getPhraseClip('retry'),
       ],
     }),
-    getSuccessSpec: (l) => ({ echoLine: `${l.symbol} ako ${l.label} ${l.emoji}` }),
+    getSuccessSpec: (l) => ({
+      echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
+      audioSpec: {
+        clips: [
+          { path: `letters/${l.audioKey}`, fallbackText: `${l.symbol} ako ${l.label}` },
+        ],
+      },
+    }),
     getFailureSpec: (l) => ({
       echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
       audioSpec: {
         clips: [
           getPhraseClip('neverMind'),
-          getPhraseClip('correctAnswerIs'),
+          getPhraseClip('itIs'),
           { path: `letters/${l.audioKey}`, fallbackText: `${l.symbol} ako ${l.label}` },
         ],
       },

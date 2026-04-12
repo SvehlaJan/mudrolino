@@ -8,7 +8,7 @@ import { flushSync } from 'react-dom';
 import { ArrowLeft, Volume2 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, WORD_ITEMS } from '../../shared/contentRegistry';
+import { PRAISE_ENTRIES, TIMING, WORD_ITEMS } from '../../shared/contentRegistry';
 import { Word } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -69,7 +69,34 @@ function shuffleItems<T>(items: T[]) {
 
 function getPromptAudio(word: Word) {
   return {
+    clips: [
+      { path: 'phrases/usporiadaj-slabiky', fallbackText: 'Usporiadaj slabiky' },
+      { path: `words/${word.audioKey}`, fallbackText: word.word },
+    ],
+  };
+}
+
+function getReplayAudio(word: Word) {
+  return {
     clips: [{ path: `words/${word.audioKey}`, fallbackText: word.word }],
+  };
+}
+
+function getSuccessAudio(word: Word) {
+  return {
+    clips: [{ path: `words/${word.audioKey}`, fallbackText: word.word }],
+  };
+}
+
+function getWrongAudio(word: Word, selectedSyllable?: string) {
+  return {
+    clips: [
+      ...(selectedSyllable
+        ? [{ path: `syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable }]
+        : []),
+      { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
+      { path: `words/${word.audioKey}`, fallbackText: word.word },
+    ],
   };
 }
 
@@ -203,7 +230,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
 
   const playPromptAudio = useCallback((word: Word | null) => {
     if (!word) return;
-    audioManager.play(getPromptAudio(word));
+    audioManager.play(getReplayAudio(word));
   }, []);
 
   const triggerWrongPulse = useCallback(() => {
@@ -312,7 +339,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     activeTweensRef.current.set(tileId, tween);
   }, [cleanupFloatingTile]);
 
-  const validateBoard = useCallback((nextPlaced: (AssemblyTile | null)[]) => {
+  const validateBoard = useCallback((nextPlaced: (AssemblyTile | null)[], finalSelectedSyllable?: string) => {
     if (!targetWord || nextPlaced.some(slot => slot === null)) return;
 
     const isCorrect = nextPlaced.every((tile, index) => tile?.text === correctSyllables[index]);
@@ -335,7 +362,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     }
 
     triggerWrongPulse();
-    audioManager.play({ clips: [{ path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' }] });
+    audioManager.play(getWrongAudio(targetWord, finalSelectedSyllable));
     const resetTiles = nextPlaced.filter((tile): tile is AssemblyTile => tile !== null);
 
     clearTimer(resetRevealTimerRef);
@@ -359,10 +386,12 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     if (showSuccess || showSessionComplete || isResettingBoard) return;
 
     let nextPlacedSnapshot: (AssemblyTile | null)[] | null = null;
+    let selectedTileText: string | null = null;
     animateBoardMove(tileId, () => {
       setBoard(prevBoard => {
         const tile = prevBoard.trayTiles.find(candidate => candidate.id === tileId);
         if (!tile) return prevBoard;
+        selectedTileText = tile.text;
 
         const targetSlotIndex = prevBoard.placedTiles.findIndex(slot => slot === null);
         if (targetSlotIndex < 0) return prevBoard;
@@ -378,8 +407,17 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
       });
     });
 
+    if (typeof selectedTileText === 'string') {
+      const selectedSyllable = selectedTileText as string;
+      audioManager.play({
+        clips: [
+          { path: `syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable },
+        ],
+      });
+    }
+
     if (nextPlacedSnapshot) {
-      validateBoard(nextPlacedSnapshot);
+      validateBoard(nextPlacedSnapshot, selectedTileText ?? undefined);
     }
   }, [animateBoardMove, isResettingBoard, showSessionComplete, showSuccess, validateBoard]);
 
@@ -524,7 +562,8 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
           show={showSuccess}
           spec={{
             echoLine: `${targetWord.syllables} ${targetWord.emoji}`,
-            audioSpec: getPromptAudio(targetWord),
+            audioSpec: getSuccessAudio(targetWord),
+            praiseEntry: PRAISE_ENTRIES.find((entry) => entry.audioKey === 'vyborne'),
           }}
           onComplete={startNewRound}
         />

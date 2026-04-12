@@ -133,11 +133,11 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       if (nextWrong >= MAX_ATTEMPTS) {
         pendingFailureRef.current = true;
         setFailureSpec({
-          echoLine: `Správne je ${targetItem.value} ⭐`,
+          echoLine: `${targetItem.value} ⭐`,
           audioSpec: {
             clips: [
               getPhraseClip('neverMind'),
-              getPhraseClip('correctAnswerIs'),
+              getPhraseClip('itIs'),
               { path: `numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
             ],
           },
@@ -150,7 +150,13 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
         }
       } else {
-        audioManager.play({ clips: [getPhraseClip('retry')] });
+        audioManager.play({
+          clips: [
+            getPhraseClip('thisIs'),
+            { path: `numbers/${item.audioKey}`, fallbackText: String(item.value) },
+            getPhraseClip('retry'),
+          ],
+        });
         setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
       }
     }

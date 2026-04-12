@@ -24,14 +24,15 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
     renderPrompt: () => null,
     getPromptAudio: (s) => ({
       clips: [
-        getPhraseClip('syllable'),
+        getPhraseClip('find'),
         { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
     getWrongAudio: (_t, s) => ({
       clips: [
-        getPhraseClip('thisIsSyllable'),
+        getPhraseClip('thisIs'),
         { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
+        getPhraseClip('retry'),
       ],
     }),
     getSuccessSpec: (s) => {
@@ -45,7 +46,7 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
         audioSpec: {
           clips: [
             getPhraseClip('neverMind'),
-            getPhraseClip('correctAnswerIs'),
+            getPhraseClip('itIs'),
             { path: `syllables/${s.audioKey}`, fallbackText: `slabika ${s.symbol}` },
           ],
         },

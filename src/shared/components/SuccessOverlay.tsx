@@ -34,7 +34,7 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
 
   useEffect(() => {
     if (!show) { setPaused(false); return; }
-    const entry = PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
+    const entry = spec.praiseEntry ?? PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
     setPraise(entry);
     setPaused(false);
     cancelledRef.current = false;
@@ -54,7 +54,7 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
       cancelledRef.current = true;
       audioManager.stop();
     };
-  }, [show]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [show, spec]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePause = () => {
     cancelledRef.current = true;

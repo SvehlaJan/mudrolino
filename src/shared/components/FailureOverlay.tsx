@@ -62,7 +62,7 @@ export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) 
               Nevadí!
             </h3>
             <p className="text-xl sm:text-2xl font-bold mt-3 text-[#5566aa]">
-              Správna odpoveď je:
+              Je to:
             </p>
             <p className="text-2xl sm:text-4xl font-extrabold mt-2" style={{ color: '#3a4a8a' }}>
               {spec.echoLine}

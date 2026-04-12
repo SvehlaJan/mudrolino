@@ -77,6 +77,8 @@ export interface SuccessSpec {
   echoLine: string; // e.g. "ja-ho-da 🍓" or "A ako Auto 🚗"
   /** Optional extra audio played after praise (e.g. the target word). */
   audioSpec?: AudioSpec;
+  /** Optional specific praise to use instead of a random praise clip. */
+  praiseEntry?: PraiseEntry;
 }
 
 /** Describes what the FailureOverlay shows when a child exhausts their attempts. */

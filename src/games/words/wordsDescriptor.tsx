@@ -20,9 +20,10 @@ export const wordsDescriptor: GameDescriptor<Word> = {
       {w.syllables.toUpperCase()}
     </h2>
   ),
-  getPromptAudio: (_w) => ({
+  getPromptAudio: (w) => ({
     clips: [
-      getPhraseClip('whatIsWrittenHere'),
+      getPhraseClip('find'),
+      { path: `words/${w.audioKey}`, fallbackText: w.word },
     ],
   }),
   getReplayAudio: (w) => ({
@@ -33,8 +34,9 @@ export const wordsDescriptor: GameDescriptor<Word> = {
   speakerButtonPosition: 'inline',
   getWrongAudio: (_t, s) => ({
     clips: [
-      getPhraseClip('thisIsWord'),
+      getPhraseClip('thisIs'),
       { path: `words/${s.audioKey}`, fallbackText: s.word },
+      getPhraseClip('retry'),
     ],
   }),
   getSuccessSpec: (w) => ({
@@ -46,7 +48,7 @@ export const wordsDescriptor: GameDescriptor<Word> = {
     audioSpec: {
       clips: [
         getPhraseClip('neverMind'),
-        getPhraseClip('correctAnswerIs'),
+        getPhraseClip('itIs'),
         { path: `words/${w.audioKey}`, fallbackText: w.word },
       ],
     },

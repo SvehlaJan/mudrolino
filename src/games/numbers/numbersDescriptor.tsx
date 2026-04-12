@@ -21,12 +21,14 @@ export function createNumbersDescriptor(
     renderPrompt: () => null,
     getPromptAudio: (n) => ({
       clips: [
-        getPhraseClip('number'),
+        getPhraseClip('find'),
         { path: `numbers/${n.audioKey}`, fallbackText: String(n.value) },
       ],
     }),
-    getWrongAudio: () => ({
+    getWrongAudio: (_t, s) => ({
       clips: [
+        getPhraseClip('thisIs'),
+        { path: `numbers/${s.audioKey}`, fallbackText: String(s.value) },
         getPhraseClip('retry'),
       ],
     }),
@@ -36,7 +38,7 @@ export function createNumbersDescriptor(
       audioSpec: {
         clips: [
           getPhraseClip('neverMind'),
-          getPhraseClip('correctAnswerIs'),
+          getPhraseClip('itIs'),
           { path: `numbers/${n.audioKey}`, fallbackText: `číslo ${n.value}` },
         ],
       },
