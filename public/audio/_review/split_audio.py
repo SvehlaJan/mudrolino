@@ -43,7 +43,7 @@ OUTPUT_BASE = os.path.join(SCRIPT_DIR, "_new")
 
 # ── Audio split parameters ────────────────────────────────────────────────────
 
-MIN_SPEECH_DURATION = 0.20
+MIN_SPEECH_DURATION = 0.10
 SILENCE_NOISE_DB = "-35dB"
 PADDING = 0.05
 DEFAULT_SILENCE_DUR = 0.5
