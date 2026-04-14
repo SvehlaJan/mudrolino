@@ -23,10 +23,9 @@ export const wordsDescriptor: GameDescriptor<Word> = {
       {w.syllables.toUpperCase()}
     </h2>
   ),
-  getPromptAudio: (w) => ({
+  getPromptAudio: (_w) => ({
     clips: [
       getPhraseClip('find'),
-      { path: `words/${w.audioKey}`, fallbackText: w.word },
     ],
   }),
   getReplayAudio: (w) => ({
