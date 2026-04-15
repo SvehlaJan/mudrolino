@@ -3,6 +3,8 @@
 **Date:** 2026-04-15
 **Status:** Approved
 
+**Prerequisite:** `2026-04-15-i18n-prep-design.md` must land first — audio override storage keys are locale-prefixed (`sk/letters/a`), which requires the audio path restructure to be in place.
+
 ## Overview
 
 Allow parents to record their own voice clips that override the default audio files for any audio key in the app. Recordings are stored locally in the browser (IndexedDB) for MVP, with a clean abstraction layer that enables migration to Firebase or another backend later.
