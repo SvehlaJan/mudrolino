@@ -9,6 +9,8 @@
 
 Allow parents to record their own voice clips that override the default audio files for any audio key in the app. Recordings are stored locally in the browser (IndexedDB) for MVP, with a clean abstraction layer that enables migration to Firebase or another backend later.
 
+Overrides are **locale-scoped** — a custom recording for `sk/letters/a` does not affect `cs/letters/a`. This falls out of the i18n path format for free.
+
 ---
 
 ## 1. Storage Layer
@@ -26,7 +28,8 @@ interface AudioOverrideStore {
 }
 ```
 
-- Keys match `AudioClip.path` exactly (e.g. `letters/a`, `words/jahoda`, `phrases/najdi-pismenko`)
+- Keys match `AudioClip.path` exactly — which, after the i18n prep, is always locale-prefixed (e.g. `sk/letters/a`, `sk/words/jahoda`, `sk/phrases/najdi-pismenko`)
+- Locale scoping is free: different locales use different keys, no extra logic needed
 - No translation layer needed anywhere in the app
 - `IndexedDBOverrideStore` is the concrete MVP implementation — one IndexedDB object store named `audio-overrides`, keyed by path string, value is a raw `Blob`
 - The file exports a singleton `audioOverrideStore` of type `AudioOverrideStore`
@@ -45,6 +48,8 @@ private async playClipsAsync(clips: AudioClip[]): Promise<void> {
   this.stop();
   const playbackToken = this.playbackToken;
   for (const clip of clips) {
+    // clip.path is locale-prefixed by the content registry, e.g. 'sk/letters/a'
+    // The override store key and the /audio/ URL both use this same path.
     const override = await audioOverrideStore.get(clip.path);
     const url = override
       ? URL.createObjectURL(override)
@@ -61,7 +66,7 @@ private async playClipsAsync(clips: AudioClip[]): Promise<void> {
 }
 ```
 
-TTS fallback still applies if the override blob fails to play. The rest of `AudioManager` is untouched.
+`audioManager` remains locale-unaware — locale is already encoded in `clip.path` by the content registry. TTS fallback still applies if the override blob fails to play. The rest of `AudioManager` is untouched.
 
 ---
 
@@ -119,8 +124,9 @@ The recording sub-screen (per-item view) is **not a separate route** — it is l
 ```
 
 - Category tabs scroll horizontally: Letters, Words, Syllables, Numbers, Phrases, Praise
+- The item list is populated by `getLocaleContent(locale)` for the active locale — the screen only shows and records content for the current locale
 - When search is active, tabs are hidden and results span all categories. When search is cleared, tabs reappear.
-- Items with a custom recording show a mic badge indicator
+- Items with a custom recording show a mic badge indicator (checked against `audioOverrideStore.listKeys()` on mount and after each save/delete)
 
 ### AudioRecordingScreen — recording sub-screen
 
