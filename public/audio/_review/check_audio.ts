@@ -15,12 +15,12 @@ import { fileURLToPath } from 'node:url';
 
 import {
   AUDIO_PHRASE_LIST,
-  LETTER_ITEMS,
-  SYLLABLE_ITEMS,
   WORD_ITEMS,
-  NUMBER_ITEMS,
   PRAISE_ENTRIES,
+  getLocaleContent,
 } from '../../../src/shared/contentRegistry.ts';
+
+const { letterItems: LETTER_ITEMS, syllableItems: SYLLABLE_ITEMS, numberItems: NUMBER_ITEMS } = getLocaleContent('sk');
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const AUDIO_DIR = join(__dirname, '..');

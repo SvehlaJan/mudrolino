@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Volume2, ArrowLeft, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { NUMBER_ITEMS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
+import { TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getLocaleContent, getPhraseClip } from '../../shared/contentRegistry';
 import { NumberItem, FailureSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -48,7 +48,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const containerRef = useRef<HTMLDivElement>(null);
   const pendingFailureRef = useRef(false);
 
-  const availableItems = useMemo(() => getNumberItemsInRange(range), [range]);
+  const availableItems = useMemo(() => getNumberItemsInRange('sk', range), [range]);
 
   useEffect(() => {
     return () => audioManager.stop();
@@ -82,8 +82,8 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     const target = availableItems[Math.floor(Math.random() * availableItems.length)];
     const positions = generatePositions(target.value);
 
-    // Build 4 options (target + 3 others from full NUMBER_ITEMS range up to max)
-    const allNumbers = NUMBER_ITEMS.filter(n => n.value <= Math.max(range.end, 10));
+    // Build 4 options (target + 3 others from full number items range up to max)
+    const allNumbers = getLocaleContent('sk').numberItems.filter((n) => n.value <= Math.max(range.end, 10));
     const others = allNumbers.filter(n => n.value !== target.value)
       .sort(() => 0.5 - Math.random())
       .slice(0, 3);
@@ -106,7 +106,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   useEffect(() => {
     if (gameState === 'PLAYING') {
       const timer = setTimeout(
-        () => audioManager.play({ clips: [getPhraseClip('countItems')] }),
+        () => audioManager.play({ clips: [getPhraseClip('sk', 'countItems')] }),
         TIMING.AUDIO_DELAY_MS
       );
       return () => clearTimeout(timer);
@@ -136,9 +136,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           echoLine: `${targetItem.value} ⭐`,
           audioSpec: {
             clips: [
-              getPhraseClip('neverMind'),
-              getPhraseClip('itIs'),
-              { path: `numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
+              getPhraseClip('sk', 'neverMind'),
+              getPhraseClip('sk', 'itIs'),
+              { path: `sk/numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
             ],
           },
         });
@@ -152,9 +152,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       } else {
         audioManager.play({
           clips: [
-            getPhraseClip('thisIs'),
-            { path: `numbers/${item.audioKey}`, fallbackText: String(item.value) },
-            getPhraseClip('retry'),
+            getPhraseClip('sk', 'thisIs'),
+            { path: `sk/numbers/${item.audioKey}`, fallbackText: String(item.value) },
+            getPhraseClip('sk', 'retry'),
           ],
         });
         setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
@@ -192,7 +192,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
             </div>
           </div>
           <button
-            onClick={() => audioManager.play({ clips: [getPhraseClip('countItems')] })}
+            onClick={() => audioManager.play({ clips: [getPhraseClip('sk', 'countItems')] })}
             aria-label="Prehrať zvuk"
             className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block justify-self-end"
           >

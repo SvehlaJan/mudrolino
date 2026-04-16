@@ -143,3 +143,18 @@ export interface AudioPhrase {
   text: string;     // "Nájdi písmenko"
   audioKey: string; // "najdi-pismeno" → phrases/najdi-pismeno.mp3
 }
+
+export type AudioPhraseKey =
+  | 'find' | 'thisIs' | 'number' | 'letter' | 'syllable' | 'word'
+  | 'findLetter' | 'thisIsLetter' | 'thisIsSyllable' | 'thisIsWord'
+  | 'countItems' | 'whatIsWrittenHere' | 'orderSyllables'
+  | 'retry' | 'neverMind' | 'itIs' | 'yesThereAre' | 'noThereAre' | 'correctAnswerIs';
+
+export interface LocaleContent {
+  letterItems: Letter[];
+  wordItems: Word[];
+  syllableItems: Syllable[];  // derived from wordItems
+  numberItems: NumberItem[];
+  audioPhrases: Record<AudioPhraseKey, AudioPhrase>;
+  praiseEntries: PraiseEntry[];
+}
