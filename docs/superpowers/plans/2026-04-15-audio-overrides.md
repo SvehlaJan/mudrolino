@@ -31,20 +31,33 @@
 
 ```bash
 cd /home/skclaw/teo-learn && npm install lamejs
-npm install --save-dev @types/lamejs
 ```
 
-- [ ] **Step 2: Verify install**
+`@types/lamejs` is not published to npm. Instead, add a local declaration file:
+
+- [ ] **Step 2: Create `src/typings/lamejs.d.ts`**
+
+```ts
+declare module 'lamejs' {
+  export class Mp3Encoder {
+    constructor(channels: number, sampleRate: number, kbps: number);
+    encodeBuffer(left: Int16Array): Int8Array;
+    flush(): Int8Array;
+  }
+}
+```
+
+- [ ] **Step 3: Verify install**
 
 ```bash
 node -e "require('lamejs'); console.log('lamejs ok')"
 ```
 Expected: `lamejs ok`
 
-- [ ] **Step 3: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
-git add package.json package-lock.json
+git add package.json package-lock.json src/typings/lamejs.d.ts
 git commit -m "chore: add lamejs for browser MP3 encoding"
 ```
 
@@ -447,7 +460,7 @@ This component has two views rendered as local state: the item list and the per-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Mic, Trash2, Search, X } from 'lucide-react';
-import { getLocaleContent, getPhraseClip } from '../shared/contentRegistry';
+import { getLocaleContent } from '../shared/contentRegistry';
 import { audioOverrideStore } from '../shared/services/audioOverrideStore';
 import { useRecorder } from '../shared/hooks/useRecorder';
 
@@ -507,7 +520,10 @@ interface RecordingSubScreenProps {
   batchMode: boolean;
   onBatchToggle: () => void;
   onBack: () => void;
+  /** Called after blob is saved — refreshes badge state only, does NOT advance. */
   onSaved: () => void;
+  /** Called after the 1s countdown completes in batch mode — advances to next item. */
+  onAdvance: () => void;
 }
 
 function RecordingSubScreen({
@@ -517,6 +533,7 @@ function RecordingSubScreen({
   onBatchToggle,
   onBack,
   onSaved,
+  onAdvance,
 }: RecordingSubScreenProps) {
   const { state, level, start, stop, blobPromise } = useRecorder();
   const [countdown, setCountdown] = useState<number | null>(null);
@@ -528,14 +545,14 @@ function RecordingSubScreen({
     onSaved(); // refresh badge state in parent
   };
 
-  // When processing finishes and blob is ready, save it
+  // When processing finishes and blob is ready, save it and optionally start countdown
   useEffect(() => {
     if (!blobPromise) return;
     blobPromise.then(async (blob) => {
       await audioOverrideStore.set(item.key, blob);
-      onSaved();
+      onSaved(); // refresh badge state only — does NOT advance to next item
       if (batchMode && !cancelledRef.current) {
-        // Start countdown before auto-advancing
+        // Start 1s countdown; onAdvance() is called only when the countdown completes
         let t = 10; // 10 × 100ms = 1s
         setCountdown(t);
         countdownRef.current = setInterval(() => {
@@ -544,7 +561,7 @@ function RecordingSubScreen({
           if (t <= 0) {
             clearInterval(countdownRef.current!);
             setCountdown(null);
-            // Parent advances to next item via onSaved callback chain
+            if (!cancelledRef.current) onAdvance(); // advance AFTER countdown
           }
         }, 100);
       }
@@ -677,18 +694,22 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
       )
     : allItems.filter((item) => item.category === activeCategory);
 
+  // Refreshes badge state only — called immediately after each recording is saved.
   const handleSaved = useCallback(() => {
     refreshOverrides();
-    if (batchMode && selectedItem) {
-      const idx = filteredItems.findIndex((i) => i.key === selectedItem.key);
-      if (idx >= 0 && idx < filteredItems.length - 1) {
-        setSelectedItem(filteredItems[idx + 1]);
-      } else {
-        // Reached end of list
-        setSelectedItem(null);
-      }
+  }, [refreshOverrides]);
+
+  // Advances to the next item in the current list — called by RecordingSubScreen
+  // after the 1s countdown completes in batch mode.
+  const handleAdvance = useCallback(() => {
+    if (!selectedItem) return;
+    const idx = filteredItems.findIndex((i) => i.key === selectedItem.key);
+    if (idx >= 0 && idx < filteredItems.length - 1) {
+      setSelectedItem(filteredItems[idx + 1]);
+    } else {
+      setSelectedItem(null); // Reached end of list
     }
-  }, [batchMode, filteredItems, refreshOverrides, selectedItem]);
+  }, [filteredItems, selectedItem]);
 
   if (selectedItem) {
     return (
@@ -700,6 +721,7 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
           onBatchToggle={() => setBatchMode((b) => !b)}
           onBack={() => setSelectedItem(null)}
           onSaved={handleSaved}
+          onAdvance={handleAdvance}
         />
       </div>
     );
