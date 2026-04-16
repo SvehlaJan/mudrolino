@@ -14,13 +14,18 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
-  AUDIO_PHRASE_LIST,
-  WORD_ITEMS,
-  PRAISE_ENTRIES,
   getLocaleContent,
 } from '../../../src/shared/contentRegistry.ts';
 
-const { letterItems: LETTER_ITEMS, syllableItems: SYLLABLE_ITEMS, numberItems: NUMBER_ITEMS } = getLocaleContent('sk');
+const {
+  letterItems: LETTER_ITEMS,
+  syllableItems: SYLLABLE_ITEMS,
+  wordItems: WORD_ITEMS,
+  numberItems: NUMBER_ITEMS,
+  praiseEntries: PRAISE_ENTRIES,
+  audioPhrases,
+} = getLocaleContent('sk');
+const AUDIO_PHRASE_LIST = Object.values(audioPhrases);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const AUDIO_DIR = join(__dirname, '..');

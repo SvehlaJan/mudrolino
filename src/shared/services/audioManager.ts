@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AudioSpec, AudioClip, PraiseEntry } from '../types';
-import { PRAISE_ENTRIES } from '../contentRegistry';
+import { AudioSpec, AudioClip } from '../types';
+import { getLocaleContent } from '../contentRegistry';
+import { loadAppSettings } from './appSettingsStore';
 
 export class AudioManager {
   private synth: SpeechSynthesis = window.speechSynthesis;
@@ -12,8 +13,10 @@ export class AudioManager {
   private musicAudio: HTMLAudioElement | null = null;
   private musicEnabled = false;
   private playbackToken = 0;
+  private locale = 'sk';
 
   constructor() {
+    this.locale = loadAppSettings().locale;
     if (this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged = () => {};
     }
@@ -35,6 +38,10 @@ export class AudioManager {
     }
   }
 
+  updateLocale(locale: string): void {
+    this.locale = locale;
+  }
+
   /** Stop any in-progress audio or TTS immediately. */
   stop(): void {
     this.playbackToken += 1;
@@ -46,15 +53,17 @@ export class AudioManager {
     this.synth.cancel();
   }
 
-  /** Play a sequence of AudioClips. Each clip falls back to its own TTS if the file fails.
-   *  Returns a Promise that resolves when the full sequence completes. */
+  /** Play a sequence of AudioClips. Each clip falls back to its own TTS if the file fails. */
   play(spec: AudioSpec): Promise<void> {
     return this.playClipsAsync(spec.clips);
   }
 
-  playPraise(entry?: PraiseEntry): Promise<void> {
-    const chosen = entry ?? PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
-    return this.playClipsAsync([{ path: `praise/${chosen.audioKey}`, fallbackText: chosen.text }]);
+  playPraise(): Promise<void> {
+    const entries = getLocaleContent(this.locale).praiseEntries;
+    const chosen = entries[Math.floor(Math.random() * entries.length)];
+    return this.playClipsAsync([
+      { path: `${this.locale}/praise/${chosen.audioKey}`, fallbackText: chosen.text },
+    ]);
   }
 
   private async playClipsAsync(clips: AudioClip[]): Promise<void> {
@@ -117,9 +126,14 @@ export class AudioManager {
       setTimeout(() => {
         const utterance = new SpeechSynthesisUtterance(text);
         const voices = this.synth.getVoices();
-        const skVoice = voices.find(v => v.lang === 'sk-SK' || v.lang.startsWith('sk'));
-        if (skVoice) utterance.voice = skVoice;
-        utterance.lang = 'sk-SK';
+        const langMap: Record<string, string> = {
+          sk: 'sk-SK', cs: 'cs-CZ', en: 'en-US',
+          fr: 'fr-FR', de: 'de-DE', es: 'es-ES', it: 'it-IT',
+        };
+        const lang = langMap[this.locale] ?? 'sk-SK';
+        const voice = voices.find(v => v.lang === lang || v.lang.startsWith(this.locale + '-'));
+        if (voice) utterance.voice = voice;
+        utterance.lang = lang;
         utterance.rate = 0.9;
         utterance.pitch = 1.0;
         utterance.onend = () => resolve();

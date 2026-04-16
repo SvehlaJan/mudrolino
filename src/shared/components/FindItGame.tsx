@@ -16,6 +16,7 @@ interface FindItGameProps<T> {
   descriptor: GameDescriptor<T>;
   /** Called when the child taps the back button — typically sets parent gameState back to 'HOME'. */
   onExit: () => void;
+  locale?: string;
 }
 
 interface RoundState<T> {
@@ -60,7 +61,7 @@ function createRoundState<T>(descriptor: GameDescriptor<T>, currentItem: T | nul
   };
 }
 
-export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
+export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameProps<T>) {
   const [roundState, setRoundState] = useState<RoundState<T>>(() => createRoundState(descriptor));
   const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
   const [showSuccess, setShowSuccess] = useState(false);
@@ -249,7 +250,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       </div>
 
       {successSpec && (
-        <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} />
+        <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} locale={locale} />
       )}
       {failureSpec && (
         <FailureOverlay show={showFailure} spec={failureSpec} onComplete={startNewRound} />

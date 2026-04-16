@@ -251,6 +251,7 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
           show={showSuccess}
           spec={{ echoLine: `Správne, je ich ${targetItem.value} ⭐` }}
           onComplete={startNewRound}
+          locale={locale}
         />
       )}
       {failureSpec && (

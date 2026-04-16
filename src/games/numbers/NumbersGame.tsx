@@ -22,7 +22,7 @@ export function NumbersGame({ locale, onExit, onOpenSettings, range }: NumbersGa
   const lobby = GAME_DEFINITIONS_BY_ID.NUMBERS.lobby;
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} locale={locale} />;
   }
 
   return (

@@ -2,12 +2,11 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import { AudioClip, Letter, Syllable, Word, LocaleContent, AudioPhraseKey, PraiseEntry } from './types';
+import { AudioClip, Letter, Syllable, Word, LocaleContent, AudioPhraseKey } from './types';
 import * as sk from './locales/sk';
 import * as cs from './locales/cs';
 
 export type { AudioPhraseKey } from './types';
-export { WORD_ITEMS } from './locales/sk'; // convenience re-export for existing callers
 
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
 export const BG_COLORS = ['bg-primary', 'bg-success', 'bg-accent-blue'];
@@ -94,14 +93,3 @@ export function getNumberItemsInRange(locale: string, range: { start: number; en
   );
 }
 
-// ---------------------------------------------------------------------------
-// PRAISE_ENTRIES convenience export (used by audioManager — remove when
-// audioManager is updated to use getLocaleContent directly in Task 6)
-// ---------------------------------------------------------------------------
-export const PRAISE_ENTRIES: PraiseEntry[] = sk.PRAISE_ENTRIES;
-
-// ---------------------------------------------------------------------------
-// AUDIO_PHRASES convenience export (kept for audioManager pre-Task-6)
-// ---------------------------------------------------------------------------
-export const AUDIO_PHRASES = sk.AUDIO_PHRASES;
-export const AUDIO_PHRASE_LIST = Object.values(sk.AUDIO_PHRASES);

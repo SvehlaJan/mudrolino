@@ -6,17 +6,18 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Pause, X } from 'lucide-react';
 import { SuccessSpec, PraiseEntry } from '../types';
-import { PRAISE_ENTRIES, COLORS, TIMING } from '../contentRegistry';
+import { getLocaleContent, COLORS, TIMING } from '../contentRegistry';
 import { audioManager } from '../services/audioManager';
 
 interface SuccessOverlayProps {
   show: boolean;
   spec: SuccessSpec;
   onComplete: () => void;
+  locale?: string;
 }
 
-export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) {
-  const [praise, setPraise] = useState<PraiseEntry>(PRAISE_ENTRIES[0]);
+export function SuccessOverlay({ show, spec, onComplete, locale = 'sk' }: SuccessOverlayProps) {
+  const [praise, setPraise] = useState<PraiseEntry>(getLocaleContent(locale).praiseEntries[0]);
   const [paused, setPaused] = useState(false);
   /* eslint-disable react-hooks/purity */
   const confetti = useMemo(() =>
@@ -40,7 +41,8 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
 
   useEffect(() => {
     if (!show) { setPaused(false); return; }
-    const entry = spec.praiseEntry ?? PRAISE_ENTRIES[Math.floor(Math.random() * PRAISE_ENTRIES.length)];
+    const praiseEntries = getLocaleContent(locale).praiseEntries;
+    const entry = spec.praiseEntry ?? praiseEntries[Math.floor(Math.random() * praiseEntries.length)];
     setPraise(entry);
     setPaused(false);
     cancelledRef.current = false;
@@ -49,8 +51,8 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
       setTimeout(resolve, TIMING.SUCCESS_OVERLAY_DURATION_MS)
     );
     const audio = spec.audioSpec
-      ? audioManager.playPraise(entry).then(() => audioManager.play(spec.audioSpec!))
-      : audioManager.playPraise(entry);
+      ? audioManager.playPraise().then(() => audioManager.play(spec.audioSpec!))
+      : audioManager.playPraise();
 
     Promise.all([minTimer, audio]).then(() => {
       if (!cancelledRef.current) onComplete();

@@ -23,7 +23,7 @@ export function SyllablesGame({ locale, settings, onExit, onOpenSettings }: Syll
   const lobby = GAME_DEFINITIONS_BY_ID.SYLLABLES.lobby;
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} locale={locale} />;
   }
 
   return (

@@ -609,6 +609,7 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
             praiseEntry: getLocaleContent(locale).praiseEntries.find((entry) => entry.audioKey === 'vyborne'),
           }}
           onComplete={startNewRound}
+          locale={locale}
         />
       )}
 

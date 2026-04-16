@@ -23,7 +23,7 @@ export function AlphabetGame({ locale, settings, onExit, onOpenSettings }: Alpha
   const lobby = GAME_DEFINITIONS_BY_ID.ALPHABET.lobby;
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} locale={locale} />;
   }
 
   return (

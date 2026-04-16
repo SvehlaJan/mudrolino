@@ -121,6 +121,11 @@ export default function App() {
     saveAppSettings(appSettings);
   }, [appSettings]);
 
+  // Sync locale with AudioManager
+  useEffect(() => {
+    audioManager.updateLocale(appSettings.locale);
+  }, [appSettings.locale]);
+
   // Audio unlocker for browsers that require a user gesture
   useEffect(() => {
     const unlockAudio = () => {
