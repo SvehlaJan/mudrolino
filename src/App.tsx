@@ -92,6 +92,7 @@ function HomeLauncher({
 export default function App() {
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
   const [appSettings, _setAppSettings] = useState<AppSettings>(loadAppSettings);
+  const locale = appSettings.locale;
   const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
   const [settingsScreen, setSettingsScreen] = useState<SettingsScreen>('none');
   const location = useLocation();
@@ -173,7 +174,7 @@ export default function App() {
             path="/alphabet"
             element={
               <ErrorBoundary>
-                <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('alphabet')} />
+                <AlphabetGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('alphabet')} />
               </ErrorBoundary>
             }
           />
@@ -181,7 +182,7 @@ export default function App() {
             path="/syllables"
             element={
               <ErrorBoundary>
-                <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('syllables')} />
+                <SyllablesGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('syllables')} />
               </ErrorBoundary>
             }
           />
@@ -189,7 +190,7 @@ export default function App() {
             path="/numbers"
             element={
               <ErrorBoundary>
-                <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <NumbersGame locale={locale} range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
               </ErrorBoundary>
             }
           />
@@ -197,7 +198,7 @@ export default function App() {
             path="/counting"
             element={
               <ErrorBoundary>
-                <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <CountingItemsGame locale={locale} range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
               </ErrorBoundary>
             }
           />
@@ -205,7 +206,7 @@ export default function App() {
             path="/words"
             element={
               <ErrorBoundary>
-                <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <WordsGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
               </ErrorBoundary>
             }
           />
@@ -213,7 +214,7 @@ export default function App() {
             path="/assembly"
             element={
               <ErrorBoundary>
-                <AssemblyGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <AssemblyGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
               </ErrorBoundary>
             }
           />

@@ -5,16 +5,16 @@
 
 import React from 'react';
 import { GameDescriptor, Syllable } from '../../shared/types';
-import { getPhraseClip, SYLLABLE_ITEMS } from '../../shared/contentRegistry';
+import { getPhraseClip, getLocaleContent } from '../../shared/contentRegistry';
 
-export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Syllable> {
+export function createSyllablesDescriptor(gridSize: 4 | 6, locale: string): GameDescriptor<Syllable> {
   return {
     gridSize,
     gridCols: {
       base: 2,
       sm: gridSize === 6 ? 3 : 2,
     },
-    getItems: () => SYLLABLE_ITEMS,
+    getItems: () => getLocaleContent(locale).syllableItems,
     getItemId: (s) => s.symbol,
     renderCard: (s) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{s.symbol}</span>
@@ -22,15 +22,15 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
     renderPrompt: () => null,
     getPromptAudio: (s) => ({
       clips: [
-        getPhraseClip('find'),
-        { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
+        getPhraseClip(locale, 'find'),
+        { path: `${locale}/syllables/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
     getWrongAudio: (_t, s) => ({
       clips: [
-        getPhraseClip('thisIs'),
-        { path: `syllables/${s.audioKey}`, fallbackText: s.symbol },
-        getPhraseClip('retry'),
+        getPhraseClip(locale, 'thisIs'),
+        { path: `${locale}/syllables/${s.audioKey}`, fallbackText: s.symbol },
+        getPhraseClip(locale, 'retry'),
       ],
     }),
     getSuccessSpec: (s) => {
@@ -43,9 +43,9 @@ export function createSyllablesDescriptor(gridSize: 4 | 6): GameDescriptor<Sylla
         echoLine: `${s.symbol} ako ${w.syllables} ${w.emoji}`,
         audioSpec: {
           clips: [
-            getPhraseClip('neverMind'),
-            getPhraseClip('itIs'),
-            { path: `syllables/${s.audioKey}`, fallbackText: `slabika ${s.symbol}` },
+            getPhraseClip(locale, 'neverMind'),
+            getPhraseClip(locale, 'itIs'),
+            { path: `${locale}/syllables/${s.audioKey}`, fallbackText: `slabika ${s.symbol}` },
           ],
         },
       };

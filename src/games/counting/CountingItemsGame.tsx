@@ -15,6 +15,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
 interface CountingItemsGameProps {
+  locale: string;
   onExit: () => void;
   onOpenSettings: () => void;
   range: { start: number; end: number };
@@ -28,7 +29,7 @@ interface ItemPosition {
   scale: number;
 }
 
-export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
+export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: CountingItemsGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.COUNTING_ITEMS.lobby;
   const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
@@ -48,7 +49,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const containerRef = useRef<HTMLDivElement>(null);
   const pendingFailureRef = useRef(false);
 
-  const availableItems = useMemo(() => getNumberItemsInRange('sk', range), [range]);
+  const availableItems = useMemo(() => getNumberItemsInRange(locale, range), [locale, range]);
 
   useEffect(() => {
     return () => audioManager.stop();
@@ -83,7 +84,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     const positions = generatePositions(target.value);
 
     // Build 4 options (target + 3 others from full number items range up to max)
-    const allNumbers = getLocaleContent('sk').numberItems.filter((n) => n.value <= Math.max(range.end, 10));
+    const allNumbers = getLocaleContent(locale).numberItems.filter((n) => n.value <= Math.max(range.end, 10));
     const others = allNumbers.filter(n => n.value !== target.value)
       .sort(() => 0.5 - Math.random())
       .slice(0, 3);
@@ -97,7 +98,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     setShowFailure(false);
     pendingFailureRef.current = false;
     setWrongAttemptsThisRound(0);
-  }, [availableItems, range.end, generatePositions]);
+  }, [availableItems, locale, range.end, generatePositions]);
 
   useEffect(() => {
     if (gameState === 'PLAYING' && !targetItem) startNewRound(); // eslint-disable-line react-hooks/set-state-in-effect
@@ -106,12 +107,12 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   useEffect(() => {
     if (gameState === 'PLAYING') {
       const timer = setTimeout(
-        () => audioManager.play({ clips: [getPhraseClip('sk', 'countItems')] }),
+        () => audioManager.play({ clips: [getPhraseClip(locale, 'countItems')] }),
         TIMING.AUDIO_DELAY_MS
       );
       return () => clearTimeout(timer);
     }
-  }, [gameState]);
+  }, [gameState, locale]);
 
   const handleOptionClick = (item: NumberItem, index: number) => {
     if (showSuccess || showFailure || pendingFailureRef.current || showSessionComplete || !targetItem) return;
@@ -136,9 +137,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
           echoLine: `${targetItem.value} ⭐`,
           audioSpec: {
             clips: [
-              getPhraseClip('sk', 'neverMind'),
-              getPhraseClip('sk', 'itIs'),
-              { path: `sk/numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
+              getPhraseClip(locale, 'neverMind'),
+              getPhraseClip(locale, 'itIs'),
+              { path: `${locale}/numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
             ],
           },
         });
@@ -152,9 +153,9 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       } else {
         audioManager.play({
           clips: [
-            getPhraseClip('sk', 'thisIs'),
-            { path: `sk/numbers/${item.audioKey}`, fallbackText: String(item.value) },
-            getPhraseClip('sk', 'retry'),
+            getPhraseClip(locale, 'thisIs'),
+            { path: `${locale}/numbers/${item.audioKey}`, fallbackText: String(item.value) },
+            getPhraseClip(locale, 'retry'),
           ],
         });
         setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
@@ -192,7 +193,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
             </div>
           </div>
           <button
-            onClick={() => audioManager.play({ clips: [getPhraseClip('sk', 'countItems')] })}
+            onClick={() => audioManager.play({ clips: [getPhraseClip(locale, 'countItems')] })}
             aria-label="Prehrať zvuk"
             className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block justify-self-end"
           >

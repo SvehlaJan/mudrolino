@@ -8,7 +8,7 @@ import { flushSync } from 'react-dom';
 import { ArrowLeft, Volume2 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { audioManager } from '../../shared/services/audioManager';
-import { PRAISE_ENTRIES, TIMING, WORD_ITEMS } from '../../shared/contentRegistry';
+import { TIMING, getLocaleContent } from '../../shared/contentRegistry';
 import { Word } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -16,6 +16,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
 interface AssemblyGameProps {
+  locale: string;
   onExit: () => void;
   onOpenSettings: () => void;
 }
@@ -58,10 +59,6 @@ const TILE_FLIGHT_DURATION_S = 0.62;
 const BOARD_SETTLE_DELAY_MS = 500;
 const WRONG_REVEAL_DELAY_MS = 180;
 const WRONG_RESET_DELAY_MS = 320;
-const ELIGIBLE_WORDS = WORD_ITEMS.filter(({ syllables }) => {
-  const syllableCount = syllables.split('-').length;
-  return syllableCount >= 2 && syllableCount <= 3;
-});
 
 function shuffleItems<T>(items: T[]) {
   const shuffled = [...items];
@@ -72,35 +69,35 @@ function shuffleItems<T>(items: T[]) {
   return shuffled;
 }
 
-function getPromptAudio(word: Word) {
+function getPromptAudio(locale: string, word: Word) {
   return {
     clips: [
-      { path: 'phrases/usporiadaj-slabiky', fallbackText: 'Usporiadaj slabiky' },
-      { path: `words/${word.audioKey}`, fallbackText: word.word },
+      { path: `${locale}/phrases/usporiadaj-slabiky`, fallbackText: 'Usporiadaj slabiky' },
+      { path: `${locale}/words/${word.audioKey}`, fallbackText: word.word },
     ],
   };
 }
 
-function getReplayAudio(word: Word) {
+function getReplayAudio(locale: string, word: Word) {
   return {
-    clips: [{ path: `words/${word.audioKey}`, fallbackText: word.word }],
+    clips: [{ path: `${locale}/words/${word.audioKey}`, fallbackText: word.word }],
   };
 }
 
-function getSuccessAudio(word: Word) {
+function getSuccessAudio(locale: string, word: Word) {
   return {
-    clips: [{ path: `words/${word.audioKey}`, fallbackText: word.word }],
+    clips: [{ path: `${locale}/words/${word.audioKey}`, fallbackText: word.word }],
   };
 }
 
-function getWrongAudio(word: Word, selectedSyllable?: string) {
+function getWrongAudio(locale: string, word: Word, selectedSyllable?: string) {
   return {
     clips: [
       ...(selectedSyllable
-        ? [{ path: `syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable }]
+        ? [{ path: `${locale}/syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable }]
         : []),
-      { path: 'phrases/skus-to-znova', fallbackText: 'Skús to znova.' },
-      { path: `words/${word.audioKey}`, fallbackText: word.word },
+      { path: `${locale}/phrases/skus-to-znova`, fallbackText: 'Skús to znova.' },
+      { path: `${locale}/words/${word.audioKey}`, fallbackText: word.word },
     ],
   };
 }
@@ -109,11 +106,11 @@ function renderTileLabel(text: string) {
   return text.toUpperCase();
 }
 
-function pickNextWord(previousWordKey: string | null) {
+function pickNextWord(eligibleWords: Word[], previousWordKey: string | null) {
   const candidates =
-    ELIGIBLE_WORDS.length > 1
-      ? ELIGIBLE_WORDS.filter(word => word.audioKey !== previousWordKey)
-      : ELIGIBLE_WORDS;
+    eligibleWords.length > 1
+      ? eligibleWords.filter(word => word.audioKey !== previousWordKey)
+      : eligibleWords;
   return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
@@ -175,7 +172,7 @@ function AnswerSlot({
   );
 }
 
-export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
+export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGameProps) {
   const [gameState, setGameState] = useState<GameState>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.ASSEMBLY.lobby;
   const [targetWord, setTargetWord] = useState<Word | null>(null);
@@ -199,6 +196,15 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
   const activeTweensRef = useRef(new Map<string, gsap.core.Tween>());
   const floatingTilesRef = useRef(new Map<string, HTMLElement>());
 
+  const eligibleWords = useMemo(
+    () =>
+      getLocaleContent(locale).wordItems.filter(({ syllables }) => {
+        const syllableCount = syllables.split('-').length;
+        return syllableCount >= 2 && syllableCount <= 3;
+      }),
+    [locale],
+  );
+
   const correctSyllables = useMemo(
     () => targetWord?.syllables.split('-') ?? [],
     [targetWord]
@@ -215,9 +221,9 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
   ), []);
 
   const prepareRound = useCallback((): PreparedRound | null => {
-    if (ELIGIBLE_WORDS.length === 0) return null;
+    if (eligibleWords.length === 0) return null;
 
-    const word = pickNextWord(previousWordKeyRef.current);
+    const word = pickNextWord(eligibleWords, previousWordKeyRef.current);
     const trayTiles = createTiles(word.syllables.split('-'));
 
     return {
@@ -227,7 +233,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
         placedTiles: Array.from({ length: trayTiles.length }, () => null),
       },
     };
-  }, [createTiles]);
+  }, [createTiles, eligibleWords]);
 
   const cleanupFloatingTile = useCallback((tileId: string) => {
     activeTweensRef.current.get(tileId)?.kill();
@@ -258,8 +264,8 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
 
   const playPromptAudio = useCallback((word: Word | null) => {
     if (!word) return;
-    audioManager.play(getReplayAudio(word));
-  }, []);
+    audioManager.play(getReplayAudio(locale, word));
+  }, [locale]);
 
   const triggerWrongPulse = useCallback(() => {
     clearTimer(wrongPulseTimerRef);
@@ -287,10 +293,10 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     setAnimatingTileIds([]);
 
     promptTimerRef.current = setTimeout(() => {
-      audioManager.play(getPromptAudio(nextWord));
+      audioManager.play(getPromptAudio(locale, nextWord));
       promptTimerRef.current = null;
     }, TIMING.AUDIO_DELAY_MS);
-  }, [prepareRound, resetTransientTimers]);
+  }, [locale, prepareRound, resetTransientTimers]);
 
   useEffect(() => {
     return () => {
@@ -383,7 +389,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     }
 
     triggerWrongPulse();
-    audioManager.play(getWrongAudio(targetWord, finalSelectedSyllable));
+    audioManager.play(getWrongAudio(locale, targetWord, finalSelectedSyllable));
     const resetTiles = nextPlaced.filter((tile): tile is AssemblyTile => tile !== null);
 
     clearTimer(resetRevealTimerRef);
@@ -401,7 +407,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
         resetBoardTimerRef.current = null;
       }, WRONG_RESET_DELAY_MS);
     }, BOARD_SETTLE_DELAY_MS + WRONG_REVEAL_DELAY_MS);
-  }, [cleanupAllFloatingTiles, correctSyllables, roundsPlayed, targetWord, triggerWrongPulse]);
+  }, [cleanupAllFloatingTiles, correctSyllables, locale, roundsPlayed, targetWord, triggerWrongPulse]);
 
   const handleTrayTileTap = useCallback((tileId: string) => {
     if (showSuccess || showSessionComplete || isResettingBoard) return;
@@ -432,7 +438,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
       const selectedSyllable = selectedTileText as string;
       audioManager.play({
         clips: [
-          { path: `syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable },
+          { path: `${locale}/syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable },
         ],
       });
     }
@@ -440,7 +446,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     if (nextPlacedSnapshot) {
       validateBoard(nextPlacedSnapshot, selectedTileText ?? undefined);
     }
-  }, [animateBoardMove, isResettingBoard, showSessionComplete, showSuccess, validateBoard]);
+  }, [animateBoardMove, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
 
   const handlePlacedTileTap = useCallback((slotIndex: number) => {
     if (showSuccess || showSessionComplete || isResettingBoard) return;
@@ -479,10 +485,10 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     setAnimatingTileIds([]);
     setGameState('PLAYING');
     promptTimerRef.current = setTimeout(() => {
-      audioManager.play(getPromptAudio(nextRound.word));
+      audioManager.play(getPromptAudio(locale, nextRound.word));
       promptTimerRef.current = null;
     }, TIMING.AUDIO_DELAY_MS);
-  }, [prepareRound, resetTransientTimers]);
+  }, [locale, prepareRound, resetTransientTimers]);
 
   const handleBackToLobby = useCallback(() => {
     audioManager.stop();
@@ -599,8 +605,8 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
           show={showSuccess}
           spec={{
             echoLine: `${targetWord.syllables} ${targetWord.emoji}`,
-            audioSpec: getSuccessAudio(targetWord),
-            praiseEntry: PRAISE_ENTRIES.find((entry) => entry.audioKey === 'vyborne'),
+            audioSpec: getSuccessAudio(locale, targetWord),
+            praiseEntry: getLocaleContent(locale).praiseEntries.find((entry) => entry.audioKey === 'vyborne'),
           }}
           onComplete={startNewRound}
         />

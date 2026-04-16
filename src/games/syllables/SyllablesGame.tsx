@@ -11,14 +11,15 @@ import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 import { createSyllablesDescriptor } from './syllablesDescriptor';
 
 interface SyllablesGameProps {
+  locale: string;
   settings: GameSettings;
   onExit: () => void;
   onOpenSettings: () => void;
 }
 
-export function SyllablesGame({ settings, onExit, onOpenSettings }: SyllablesGameProps) {
+export function SyllablesGame({ locale, settings, onExit, onOpenSettings }: SyllablesGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const descriptor = createSyllablesDescriptor(settings.syllablesGridSize);
+  const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, locale);
   const lobby = GAME_DEFINITIONS_BY_ID.SYLLABLES.lobby;
 
   if (gameState === 'PLAYING') {

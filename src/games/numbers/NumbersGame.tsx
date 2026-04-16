@@ -10,14 +10,15 @@ import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 import { createNumbersDescriptor } from './numbersDescriptor';
 
 interface NumbersGameProps {
+  locale: string;
   onExit: () => void;
   onOpenSettings: () => void;
   range: { start: number; end: number };
 }
 
-export function NumbersGame({ onExit, onOpenSettings, range }: NumbersGameProps) {
+export function NumbersGame({ locale, onExit, onOpenSettings, range }: NumbersGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const descriptor = useMemo(() => createNumbersDescriptor(range), [range]);
+  const descriptor = useMemo(() => createNumbersDescriptor(range, locale), [range, locale]);
   const lobby = GAME_DEFINITIONS_BY_ID.NUMBERS.lobby;
 
   if (gameState === 'PLAYING') {
