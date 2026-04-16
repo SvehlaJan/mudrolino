@@ -49,7 +49,7 @@ export interface Word {
   audioKey: string;   // "jahoda" (lowercase ASCII, no diacritics)
 }
 
-export interface SlovakNumber {
+export interface NumberItem {
   value: number;    // 3
   audioKey: string; // "3"
 }

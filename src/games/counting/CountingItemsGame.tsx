@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Volume2, ArrowLeft, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
 import { NUMBER_ITEMS, TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
-import { SlovakNumber, FailureSpec } from '../../shared/types';
+import { NumberItem, FailureSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -31,9 +31,9 @@ interface ItemPosition {
 export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.COUNTING_ITEMS.lobby;
-  const [targetItem, setTargetItem] = useState<SlovakNumber | null>(null);
+  const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
   const [itemPositions, setItemPositions] = useState<ItemPosition[]>([]);
-  const [optionItems, setOptionItems] = useState<SlovakNumber[]>([]);
+  const [optionItems, setOptionItems] = useState<NumberItem[]>([]);
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const MAX_ROUNDS = 5;
@@ -113,7 +113,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     }
   }, [gameState]);
 
-  const handleOptionClick = (item: SlovakNumber, index: number) => {
+  const handleOptionClick = (item: NumberItem, index: number) => {
     if (showSuccess || showFailure || pendingFailureRef.current || showSessionComplete || !targetItem) return;
     setTotalTaps(prev => prev + 1);
     if (item.value === targetItem.value) {

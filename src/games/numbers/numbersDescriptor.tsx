@@ -4,12 +4,12 @@
  */
 
 import React from 'react';
-import { GameDescriptor, SlovakNumber } from '../../shared/types';
+import { GameDescriptor, NumberItem } from '../../shared/types';
 import { getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
 
 export function createNumbersDescriptor(
   range: { start: number; end: number }
-): GameDescriptor<SlovakNumber> {
+): GameDescriptor<NumberItem> {
   return {
     gridSize: 4,
     gridCols: {

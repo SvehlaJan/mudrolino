@@ -2,7 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import { AudioClip, AudioPhrase, Letter, Syllable, Word, SlovakNumber, PraiseEntry } from './types';
+import { AudioClip, AudioPhrase, Letter, Syllable, Word, NumberItem, PraiseEntry } from './types';
 import { WORD_ITEMS } from './wordItems.generated';
 
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
@@ -143,7 +143,7 @@ export const SYLLABLE_ITEMS: Syllable[] = Array.from(_syllableWordMap.entries())
 // ---------------------------------------------------------------------------
 // Numbers 1–20
 // ---------------------------------------------------------------------------
-export const NUMBER_ITEMS: SlovakNumber[] = Array.from({ length: 20 }, (_, i) => ({
+export const NUMBER_ITEMS: NumberItem[] = Array.from({ length: 20 }, (_, i) => ({
   value: i + 1,
   audioKey: String(i + 1),
 }));
