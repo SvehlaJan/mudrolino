@@ -8,6 +8,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import { Settings } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
+import { loadAppSettings, saveAppSettings, AppSettings } from './shared/services/appSettingsStore';
 import { GameSettings, GameId, SettingsSource } from './shared/types';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
@@ -90,6 +91,7 @@ function HomeLauncher({
 
 export default function App() {
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
+  const [appSettings, _setAppSettings] = useState<AppSettings>(loadAppSettings);
   const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
   const [settingsScreen, setSettingsScreen] = useState<SettingsScreen>('none');
   const location = useLocation();
@@ -112,6 +114,11 @@ export default function App() {
     audioManager.updateSettings(settings);
     saveSettings(settings);
   }, [settings]);
+
+  // Sync app settings
+  useEffect(() => {
+    saveAppSettings(appSettings);
+  }, [appSettings]);
 
   // Audio unlocker for browsers that require a user gesture
   useEffect(() => {
