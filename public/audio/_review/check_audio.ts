@@ -81,37 +81,37 @@ console.log('\nAudio file coverage\n');
 
 test(
   'letters',
-  'letters',
+  'sk/letters',
   LETTER_ITEMS.map(l => l.audioKey)
 );
 
 test(
   'syllables',
-  'syllables',
+  'sk/syllables',
   SYLLABLE_ITEMS.map(s => s.audioKey)
 );
 
 test(
   'words',
-  'words',
+  'sk/words',
   WORD_ITEMS.map(w => w.audioKey)
 );
 
 test(
   'numbers',
-  'numbers',
+  'sk/numbers',
   NUMBER_ITEMS.map(n => n.audioKey)
 );
 
 test(
   'praise',
-  'praise',
+  'sk/praise',
   PRAISE_ENTRIES.map(p => p.audioKey)
 );
 
 test(
   'phrases',
-  'phrases',
+  'sk/phrases',
   AUDIO_PHRASE_LIST.map(phrase => phrase.audioKey)
 );
 
