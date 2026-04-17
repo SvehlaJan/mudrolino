@@ -4,7 +4,8 @@
  */
 
 import React from 'react';
-import { ArrowLeft, Music } from 'lucide-react';
+import { ArrowLeft, Mic, Music } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { SettingToggle } from './SettingToggle';
 import { GameSettings } from '../types';
 import { audioManager } from '../services/audioManager';
@@ -16,6 +17,7 @@ interface SettingsOverlayProps {
 }
 
 export function SettingsOverlay({ settings, onUpdate, onClose }: SettingsOverlayProps) {
+  const navigate = useNavigate();
   const updateSetting = (key: keyof GameSettings, value: boolean) => {
     onUpdate({ ...settings, [key]: value });
   };
@@ -50,6 +52,18 @@ export function SettingsOverlay({ settings, onUpdate, onClose }: SettingsOverlay
               Vyskúšať zvuk 🔊
             </button>
             <p className="text-center mt-4 text-lg opacity-50 font-medium">Klikni pre test hlasu</p>
+          </div>
+
+          <div className="pt-4 pb-8 border-b-2 border-shadow/10">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Vlastné nahrávky</h3>
+            <button
+              onClick={() => { onClose(); navigate('/recordings'); }}
+              className="w-full py-4 bg-accent-blue text-white rounded-2xl font-bold text-xl shadow-block active:translate-y-2 active:shadow-block-pressed flex items-center justify-center gap-3"
+            >
+              <Mic size={24} />
+              Spravovať nahrávky
+            </button>
+            <p className="text-center mt-4 text-lg opacity-50 font-medium">Nahraj vlastný hlas pre každý zvuk</p>
           </div>
 
           <div className="pt-8 border-t-2 border-shadow/10">

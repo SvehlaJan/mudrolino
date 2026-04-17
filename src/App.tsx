@@ -21,6 +21,7 @@ import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
+import { AudioRecordingScreen } from './recordings/AudioRecordingScreen';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 
 type SettingsScreen = 'none' | 'gate' | 'settings';
@@ -220,6 +221,14 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <AssemblyGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/recordings"
+            element={
+              <ErrorBoundary>
+                <AudioRecordingScreen locale={appSettings.locale} />
               </ErrorBoundary>
             }
           />
