@@ -6,6 +6,7 @@
 import { AudioSpec, AudioClip } from '../types';
 import { getLocaleContent } from '../contentRegistry';
 import { loadAppSettings } from './appSettingsStore';
+import { audioOverrideStore } from './audioOverrideStore';
 
 export class AudioManager {
   private synth: SpeechSynthesis = window.speechSynthesis;
@@ -70,14 +71,20 @@ export class AudioManager {
     this.stop();
     const playbackToken = this.playbackToken;
     for (const clip of clips) {
+      // clip.path is locale-prefixed, e.g. 'sk/letters/a'
+      // The override store key and the /audio/ URL both use this same path.
+      const override = await audioOverrideStore.get(clip.path);
+      const url = override
+        ? URL.createObjectURL(override)
+        : `/audio/${clip.path}.mp3`;
       try {
-        await this.playSingleClip(`/audio/${clip.path}.mp3`, playbackToken);
+        await this.playSingleClip(url, playbackToken);
       } catch {
-        if (playbackToken !== this.playbackToken) {
-          return;
-        }
+        if (playbackToken !== this.playbackToken) return;
         console.warn('[AudioManager] Audio file failed, falling back to TTS:', clip.fallbackText);
         await this.speakAsync(clip.fallbackText);
+      } finally {
+        if (override) URL.revokeObjectURL(url);
       }
     }
   }
