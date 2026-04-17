@@ -81,7 +81,7 @@ function RecordingSubScreen({
   onSaved,
   onAdvance,
 }: RecordingSubScreenProps) {
-  const { state, level, start, stop, blobPromise } = useRecorder();
+  const { state, level, speaking, start, stop, blobPromise } = useRecorder();
   const [countdown, setCountdown] = useState<number | null>(null);
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const cancelledRef = useRef(false);
@@ -152,30 +152,37 @@ function RecordingSubScreen({
             <p className="text-base opacity-60">Klepni pre zrušenie</p>
           </div>
         ) : (
-          <button
-            onClick={state === 'idle' ? start : stop}
-            disabled={state === 'processing'}
-            className={`w-24 h-24 rounded-full flex items-center justify-center shadow-block active:translate-y-1 active:shadow-block-pressed transition-all ${
-              state === 'recording'
-                ? 'bg-soft-watermelon'
-                : state === 'processing'
-                ? 'bg-shadow/20'
-                : 'bg-accent-blue'
-            }`}
-          >
-            {state === 'recording' ? (
-              <span className="w-8 h-8 bg-white rounded-sm" />
-            ) : state === 'processing' ? (
-              <span className="text-2xl animate-spin">⏳</span>
-            ) : (
-              <Mic size={36} className="text-white" />
+          <div className="relative flex items-center justify-center">
+            {/* Voice-active ring — pulses when voice is detected */}
+            {state === 'recording' && speaking && (
+              <span className="absolute w-32 h-32 rounded-full bg-soft-watermelon/30 animate-ping" />
             )}
-          </button>
+            <button
+              onClick={state === 'idle' ? start : stop}
+              disabled={state === 'processing'}
+              className={`relative w-24 h-24 rounded-full flex items-center justify-center shadow-block active:translate-y-1 active:shadow-block-pressed transition-all ${
+                state === 'recording'
+                  ? 'bg-soft-watermelon'
+                  : state === 'processing'
+                  ? 'bg-shadow/20'
+                  : 'bg-accent-blue'
+              }`}
+            >
+              {state === 'recording' ? (
+                <span className="w-8 h-8 bg-white rounded-sm" />
+              ) : state === 'processing' ? (
+                <span className="text-2xl animate-spin">⏳</span>
+              ) : (
+                <Mic size={36} className="text-white" />
+              )}
+            </button>
+          </div>
         )}
 
         <p className="text-lg opacity-60 font-medium">
           {state === 'idle' && countdown === null && 'Klepni pre nahrávanie'}
-          {state === 'recording' && 'Nahrávam… (auto-stop na ticho)'}
+          {state === 'recording' && !speaking && 'Hovor…'}
+          {state === 'recording' && speaking && 'Počúvam…'}
           {state === 'processing' && 'Spracovávam…'}
         </p>
 

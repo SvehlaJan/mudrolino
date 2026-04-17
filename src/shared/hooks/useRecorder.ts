@@ -12,6 +12,8 @@ export interface UseRecorderResult {
   state: RecorderState;
   /** 0–1 float representing current input level (for VU meter) */
   level: number;
+  /** True when the current frame is above the silence threshold (voice detected) */
+  speaking: boolean;
   start: () => Promise<void>;
   stop: () => void;
   /** Resolves with the encoded MP3 Blob after recording + processing finishes */
@@ -70,6 +72,7 @@ function encodeMp3(samples: Float32Array): Blob {
 export function useRecorder(): UseRecorderResult {
   const [state, setState] = useState<RecorderState>('idle');
   const [level, setLevel] = useState(0);
+  const [speaking, setSpeaking] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -100,6 +103,7 @@ export function useRecorder(): UseRecorderResult {
     analyserRef.current = null;
     mediaRecorderRef.current = null;
     setLevel(0);
+    setSpeaking(false);
   }, []);
 
   const stop = useCallback(() => {
@@ -142,26 +146,37 @@ export function useRecorder(): UseRecorderResult {
       setState('processing');
       cleanup();
 
-      const rawBlob = new Blob(chunks, { type: mediaRecorder.mimeType });
-      const arrayBuffer = await rawBlob.arrayBuffer();
+      try {
+        const rawBlob = new Blob(chunks, { type: mediaRecorder.mimeType });
+        if (rawBlob.size === 0) throw new Error('No audio data recorded');
 
-      // Decode to PCM for trimming
-      const decodeCtx = new AudioContext({ sampleRate: SAMPLE_RATE });
-      const audioBuffer = await decodeCtx.decodeAudioData(arrayBuffer);
-      decodeCtx.close();
+        const arrayBuffer = await rawBlob.arrayBuffer();
 
-      const samples = audioBuffer.getChannelData(0);
-      const trimmed = trimSilence(samples, SILENCE_THRESHOLD_DB);
-      const mp3Blob = encodeMp3(trimmed);
+        // Decode to PCM for trimming
+        const decodeCtx = new AudioContext({ sampleRate: SAMPLE_RATE });
+        const audioBuffer = await decodeCtx.decodeAudioData(arrayBuffer);
+        decodeCtx.close();
 
-      blobResolveRef.current?.(mp3Blob);
-      setState('idle');
+        const samples = audioBuffer.getChannelData(0);
+        const trimmed = trimSilence(samples, SILENCE_THRESHOLD_DB);
+        const mp3Blob = encodeMp3(trimmed);
+
+        blobResolveRef.current?.(mp3Blob);
+      } catch (err) {
+        console.warn('[useRecorder] Processing failed:', err);
+        // Reject the promise so callers don't hang
+        blobResolveRef.current?.(new Blob([], { type: 'audio/mpeg' }));
+      } finally {
+        setState('idle');
+      }
     };
 
     // Level polling + silence detection
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Float32Array(bufferLength);
     let silenceStart: number | null = null;
+    // Silence detection only activates after voice is first detected
+    let hasSpoken = false;
 
     const pollLevel = () => {
       if (!analyserRef.current) return;
@@ -174,19 +189,25 @@ export function useRecorder(): UseRecorderResult {
       setLevel(Math.min(1, rms * 10)); // scale for VU meter
 
       const isSilent = db < SILENCE_THRESHOLD_DB;
-      const now = performance.now();
+      setSpeaking(!isSilent);
 
-      if (isSilent) {
-        if (silenceStart === null) silenceStart = now;
-        else if (now - silenceStart >= SILENCE_DURATION_MS) {
-          // Auto-stop on sustained silence
-          if (mediaRecorderRef.current?.state === 'recording') {
-            mediaRecorderRef.current.stop();
-            return; // stop polling
+      if (!isSilent) hasSpoken = true;
+
+      // Only start watching for silence after voice has been detected at least once
+      if (hasSpoken) {
+        const now = performance.now();
+        if (isSilent) {
+          if (silenceStart === null) silenceStart = now;
+          else if (now - silenceStart >= SILENCE_DURATION_MS) {
+            // Auto-stop on sustained silence after speaking
+            if (mediaRecorderRef.current?.state === 'recording') {
+              mediaRecorderRef.current.stop();
+              return; // stop polling
+            }
           }
+        } else {
+          silenceStart = null;
         }
-      } else {
-        silenceStart = null;
       }
 
       levelRafRef.current = requestAnimationFrame(pollLevel);
@@ -197,5 +218,5 @@ export function useRecorder(): UseRecorderResult {
     levelRafRef.current = requestAnimationFrame(pollLevel);
   }, [state, cleanup]);
 
-  return { state, level, start, stop, blobPromise };
+  return { state, level, speaking, start, stop, blobPromise };
 }
