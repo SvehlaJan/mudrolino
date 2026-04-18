@@ -84,7 +84,7 @@ export function RecordingListItem({
   else if (isSavedFlash) statusText = 'Uložené';
 
   // ── Label colour ──────────────────────────────────────────────────────────
-  let labelClass = 'text-lg font-medium flex-1 text-left truncate ';
+  let labelClass = 'text-lg font-medium flex-1 text-left truncate text-text-main ';
   if (isSavedFlash) labelClass += 'text-green-300';
   else if (isProcessing) labelClass += 'text-amber-300';
   else if (isRecording) labelClass += speaking ? 'text-pink-200' : 'text-blue-200';
