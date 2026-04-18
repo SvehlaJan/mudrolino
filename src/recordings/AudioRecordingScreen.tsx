@@ -34,7 +34,11 @@ function buildAudioItems(locale: string): AudioItem[] {
   const items: AudioItem[] = [];
 
   for (const l of content.letterItems) {
-    items.push({ key: `${locale}/letters/${l.audioKey}`, label: `${l.symbol} — ${l.label}`, category: 'letters' });
+    items.push({
+      key: `${locale}/letters/${l.audioKey}`,
+      label: l.label ? `${l.symbol} — ${l.label} ${l.emoji}` : `${l.symbol} ${l.emoji}`,
+      category: 'letters',
+    });
   }
   for (const w of content.wordItems) {
     items.push({ key: `${locale}/words/${w.audioKey}`, label: `${w.word} ${w.emoji}`, category: 'words' });
