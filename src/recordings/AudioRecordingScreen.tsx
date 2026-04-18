@@ -76,6 +76,8 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   const filteredAtStartRef = useRef<AudioItem[]>([]);
   const autoProgressRef = useRef(autoProgress);
   useEffect(() => { autoProgressRef.current = autoProgress; }, [autoProgress]);
+  const activeKeyRef = useRef(activeKey);
+  useEffect(() => { activeKeyRef.current = activeKey; }, [activeKey]);
 
   const allItems = buildAudioItems(locale);
 
@@ -99,8 +101,8 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   useEffect(() => {
     if (!recorder.blobPromise) return;
     recorder.blobPromise.then(async (blob) => {
-      if (!activeKey) return;
-      await audioOverrideStore.set(activeKey, blob);
+      if (!activeKeyRef.current) return;
+      await audioOverrideStore.set(activeKeyRef.current, blob);
       await refreshOverrides();
 
       setSavedFlash(true);
@@ -108,7 +110,7 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
         setSavedFlash(false);
         if (autoProgressRef.current) {
           const list = filteredAtStartRef.current;
-          const idx = list.findIndex((i) => i.key === activeKey);
+          const idx = list.findIndex((i) => i.key === activeKeyRef.current);
           const next = idx >= 0 && idx < list.length - 1 ? list[idx + 1] : null;
           if (next) {
             setActiveKey(next.key);
