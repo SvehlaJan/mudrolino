@@ -74,6 +74,8 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
 
   const savedFlashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const filteredAtStartRef = useRef<AudioItem[]>([]);
+  const autoProgressRef = useRef(autoProgress);
+  useEffect(() => { autoProgressRef.current = autoProgress; }, [autoProgress]);
 
   const allItems = buildAudioItems(locale);
 
@@ -104,13 +106,13 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
       setSavedFlash(true);
       savedFlashTimerRef.current = setTimeout(() => {
         setSavedFlash(false);
-        if (autoProgress) {
+        if (autoProgressRef.current) {
           const list = filteredAtStartRef.current;
           const idx = list.findIndex((i) => i.key === activeKey);
           const next = idx >= 0 && idx < list.length - 1 ? list[idx + 1] : null;
           if (next) {
             setActiveKey(next.key);
-            audioManager.stop();
+            void audioManager.stop();
             void recorder.start();
             filteredAtStartRef.current = list;
           } else {
