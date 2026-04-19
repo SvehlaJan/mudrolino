@@ -21,7 +21,8 @@
       "Bash(echo *)",
       "Bash(npm ls *)",
       "Bash(git commit *)",
-      "Bash(git pull *)"
+      "Bash(git pull *)",
+      "Bash(npx eslint *)"
     ]
   }
 }
