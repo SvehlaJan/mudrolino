@@ -104,6 +104,16 @@
 - [ ] Instrument settings events: music_toggled, range_changed, letter_toggled
 - [ ] Verify event stream working in staging before launch
 
+### 1.5 Avatar Companion
+> Needs its own spec. The POC is a simple local-first 3D companion for home/results/reward screens only, with no parent likeness, no photo processing, and no personal data storage. Later work can explore MediaPipe-based fake-3D face customization and unlockable outfit slots.
+
+- [ ] Avatar companion design spec (`docs/superpowers/specs/`)
+- [ ] Validate selected stylized character asset for front-facing mobile presentation
+- [ ] Add local-first avatar renderer for home/results/reward screens
+- [ ] Ship POC with one avatar, one outfit, and idle animation
+- [ ] Architect avatar state for later unlockable clothing slots
+- [ ] Evaluate optional wave/dance animations if retarget quality is acceptable
+
 ---
 
 ## Phase 2 — Public Launch
@@ -231,6 +241,7 @@
 | 2026-04-11 | Extracted a shared `GameLobby` component while keeping per-game `HOME`/`PLAYING` state local. | Reduces repeated pre-screen markup without coupling the bespoke counting game to the shared `FindItGame` engine. |
 | 2026-04-11 | Centralized game identity and lobby styling in a shared game catalog. | Keeps routes, home cards, and lobby presentation aligned from one source of truth. |
 | 2026-04-11 | Alphabet settings will use a single accented-letter toggle instead of per-letter enablement. | This keeps parent controls simple and maps better to the real learning choice: basic letters first, accented Slovak letters later. |
+| 2026-04-19 | Avatar companion POC will use a simple local-first stylized 3D character with one outfit and no parent likeness or photo processing. | This preserves the preschool-friendly look, avoids personal data handling, and keeps the initial implementation small while leaving room for later fake-3D face customization and cosmetic unlocks. |
 > Payment provider: Stripe (leading candidate — strong SDK, EU subscriptions, handles VAT).
 > Subscription model: monthly / annual / lifetime — annual + lifetime are common in children's education apps.
 > App store consideration: iOS App Store / Google Play require in-app purchase (30% cut) — web-only avoids this.
