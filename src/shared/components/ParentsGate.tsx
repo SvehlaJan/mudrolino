@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 
 interface ParentsGateProps {
   onSuccess: () => void;
   onCancel: () => void;
 }
+
+const DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 function generateQuestion(): { a: number; b: number; op: '+' | '-'; answer: number } {
   if (Math.random() > 0.5) {
@@ -28,6 +30,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   const [question, setQuestion] = useState(generateQuestion);
   const [input, setInput] = useState('');
   const [shaking, setShaking] = useState(false);
+  const shakeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleDigit = useCallback((digit: string) => {
     setInput(prev => prev.length < 2 ? prev + digit : prev);
@@ -37,21 +40,25 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
     setInput(prev => prev.slice(0, -1));
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (shakeTimerRef.current) clearTimeout(shakeTimerRef.current);
+    };
+  }, []);
+
   const handleConfirm = useCallback(() => {
-    if (!input) return;
+    if (!input || shaking) return;
     if (parseInt(input, 10) === question.answer) {
       onSuccess();
     } else {
       setShaking(true);
-      setTimeout(() => {
+      shakeTimerRef.current = setTimeout(() => {
         setShaking(false);
         setQuestion(generateQuestion());
         setInput('');
       }, 500);
     }
-  }, [input, question.answer, onSuccess]);
-
-  const DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  }, [input, shaking, question.answer, onSuccess]);
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/95 backdrop-blur-md">
