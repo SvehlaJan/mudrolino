@@ -22,9 +22,10 @@ import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
 import { AudioRecordingScreen } from './recordings/AudioRecordingScreen';
+import { SettingsScreen } from './shared/components/SettingsScreen';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 
-type SettingsScreen = 'none' | 'gate' | 'settings';
+type SettingsFlowState = 'none' | 'gate' | 'settings';
 
 function HomeLauncher({
   onOpenSettings,
@@ -95,7 +96,7 @@ export default function App() {
   const [appSettings, _setAppSettings] = useState<AppSettings>(loadAppSettings);
   const locale = appSettings.locale;
   const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
-  const [settingsScreen, setSettingsScreen] = useState<SettingsScreen>('none');
+  const [settingsScreen, setSettingsScreen] = useState<SettingsFlowState>('none');
   const location = useLocation();
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
@@ -151,8 +152,13 @@ export default function App() {
   }, []);
 
   const handleGateSuccess = useCallback(() => {
-    setSettingsScreen('settings');
-  }, []);
+    if (settingsSource === 'home') {
+      setSettingsScreen('none');
+      navigate('/settings');
+    } else {
+      setSettingsScreen('settings');
+    }
+  }, [settingsSource, navigate]);
 
   const handleCloseSettings = useCallback(() => {
     setSettingsScreen('none');
@@ -232,6 +238,12 @@ export default function App() {
               </ErrorBoundary>
             }
           />
+          <Route
+            path="/settings"
+            element={
+              <SettingsScreen settings={settings} onUpdate={setSettings} />
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
@@ -243,7 +255,7 @@ export default function App() {
         />
       )}
 
-      {settingsScreen === 'settings' && (settingsSource === 'home' || settingsSource === 'game') && (
+      {settingsScreen === 'settings' && settingsSource === 'game' && (
         <SettingsOverlay
           settings={settings}
           onUpdate={setSettings}
