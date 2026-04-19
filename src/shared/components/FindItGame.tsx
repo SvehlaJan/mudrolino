@@ -4,7 +4,8 @@
  */
 
 import React, { useState, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
-import { Volume2, ArrowLeft } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
+import { TopBar, BackButton } from './TopBar';
 import { GameDescriptor, SuccessSpec, FailureSpec } from '../types';
 import { audioManager } from '../services/audioManager';
 import { SuccessOverlay } from './SuccessOverlay';
@@ -197,7 +198,7 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
           : descriptor.getPromptAudio(targetItem)
       )}
       aria-label="Prehrať zvuk"
-      className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main shrink-0 justify-self-end"
+      className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
     >
       <Volume2 size={24} className="sm:w-7 sm:h-7" />
     </button>
@@ -206,21 +207,15 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
   return (
     <div className="min-h-[100svh] h-[100svh] overflow-hidden flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
       <div className="w-full max-w-5xl flex-1 min-h-0 flex flex-col">
-        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
-          <button
-            onClick={onExit}
-            aria-label="Späť"
-            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed"
-          >
-            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-          </button>
-          <div className="pt-1 sm:pt-1.5 flex justify-center">
+        <TopBar
+          left={<BackButton onClick={onExit} />}
+          center={
             <div className="bg-white rounded-full px-5 py-2 shadow-block font-bold text-base sm:text-lg text-text-main">
               ✓ {roundsPlayed} / {maxRounds}
             </div>
-          </div>
-          {replayButton}
-        </div>
+          }
+          right={replayButton}
+        />
 
         <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
           {prompt && <div className="text-center max-w-full">{prompt}</div>}

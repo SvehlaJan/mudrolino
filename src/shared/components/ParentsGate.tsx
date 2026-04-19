@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { TopBar, BackButton } from './TopBar';
 
 interface ParentsGateProps {
   onSuccess: () => void;
@@ -61,59 +61,56 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   }, [input, shaking, question.answer, onSuccess]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-light/95 backdrop-blur-md">
-      <button
-        onClick={onCancel}
-        className="absolute safe-top-lg safe-left-lg w-16 h-16 bg-white rounded-full shadow-block flex items-center justify-center"
-      >
-        <ArrowLeft size={32} />
-      </button>
+    <div className="fixed inset-0 z-50 flex flex-col bg-bg-light/95 backdrop-blur-md px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+      <TopBar left={<BackButton onClick={onCancel} />} />
 
-      <div className="w-full max-w-sm px-6 flex flex-col items-center gap-6">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold text-text-main">Pre rodičov</h2>
-          <p className="text-lg opacity-60 font-medium mt-1">Vyriešte príklad pre vstup</p>
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="w-full max-w-sm px-6 flex flex-col items-center gap-6">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-text-main">Pre rodičov</h2>
+            <p className="text-lg opacity-60 font-medium mt-1">Vyriešte príklad pre vstup</p>
+          </div>
 
-        <div
-          className={`w-full bg-white rounded-[28px] shadow-block py-6 text-center text-5xl font-bold text-text-main ${shaking ? 'animate-shake' : ''}`}
-        >
-          {question.a} {question.op} {question.b} = ?
-        </div>
+          <div
+            className={`w-full bg-white rounded-[28px] shadow-block py-6 text-center text-5xl font-bold text-text-main ${shaking ? 'animate-shake' : ''}`}
+          >
+            {question.a} {question.op} {question.b} = ?
+          </div>
 
-        <div className="w-full bg-white rounded-2xl shadow-block py-4 min-h-[72px] flex items-center justify-center text-4xl font-bold text-text-main">
-          {input || <span className="opacity-30">—</span>}
-        </div>
+          <div className="w-full bg-white rounded-2xl shadow-block py-4 min-h-[72px] flex items-center justify-center text-4xl font-bold text-text-main">
+            {input || <span className="opacity-30">—</span>}
+          </div>
 
-        <div className="grid grid-cols-3 gap-3 w-full">
-          {DIGITS.map(d => (
+          <div className="grid grid-cols-3 gap-3 w-full">
+            {DIGITS.map(d => (
+              <button
+                key={d}
+                onClick={() => handleDigit(d)}
+                className="bg-white rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed"
+              >
+                {d}
+              </button>
+            ))}
             <button
-              key={d}
-              onClick={() => handleDigit(d)}
+              onClick={handleBackspace}
+              className="bg-bg-light rounded-2xl py-5 text-xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed opacity-70"
+            >
+              ⌫
+            </button>
+            <button
+              onClick={() => handleDigit('0')}
               className="bg-white rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed"
             >
-              {d}
+              0
             </button>
-          ))}
-          <button
-            onClick={handleBackspace}
-            className="bg-bg-light rounded-2xl py-5 text-xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed opacity-70"
-          >
-            ⌫
-          </button>
-          <button
-            onClick={() => handleDigit('0')}
-            className="bg-white rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed"
-          >
-            0
-          </button>
-          <button
-            onClick={handleConfirm}
-            disabled={!input || shaking}
-            className="bg-success rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block-correct active:translate-y-2 active:shadow-block-pressed disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            ✓
-          </button>
+            <button
+              onClick={handleConfirm}
+              disabled={!input || shaking}
+              className="bg-success rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block-correct active:translate-y-2 active:shadow-block-pressed disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              ✓
+            </button>
+          </div>
         </div>
       </div>
     </div>

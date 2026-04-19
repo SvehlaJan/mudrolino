@@ -4,7 +4,8 @@
  */
 
 import React from 'react';
-import { ArrowLeft, Play, Settings } from 'lucide-react';
+import { Play, Settings } from 'lucide-react';
+import { TopBar, BackButton } from './TopBar';
 import { COLORS } from '../contentRegistry';
 
 interface GameLobbyProps {
@@ -43,30 +44,23 @@ export function GameLobby({
   topDecorationClassName,
   bottomDecorationClassName,
 }: GameLobbyProps) {
+  const settingsButton = onOpenSettings ? (
+    <button
+      onClick={onOpenSettings}
+      aria-label="Nastavenia"
+      className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main transition-all active:translate-y-2 active:shadow-block-pressed"
+    >
+      <Settings size={24} className="sm:w-7 sm:h-7" />
+    </button>
+  ) : undefined;
+
   return (
     <div className="min-h-[100svh] h-[100svh] overflow-hidden relative bg-bg-light flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
       <div className="w-full max-w-5xl flex-1 min-h-0 flex flex-col">
-        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
-          <button
-            onClick={onBack}
-            aria-label="Späť"
-            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main transition-all active:translate-y-2 active:shadow-block-pressed"
-          >
-            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-          </button>
-          <div />
-          {onOpenSettings ? (
-            <button
-              onClick={onOpenSettings}
-              aria-label="Nastavenia"
-              className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main transition-all active:translate-y-2 active:shadow-block-pressed justify-self-end"
-            >
-              <Settings size={24} className="sm:w-7 sm:h-7" />
-            </button>
-          ) : (
-            <div className="w-12 sm:w-14" />
-          )}
-        </div>
+        <TopBar
+          left={<BackButton onClick={onBack} />}
+          right={settingsButton}
+        />
 
         <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-8 px-4 pt-4 sm:pt-6 pb-5 sm:pb-6">
           <div className="text-center w-full max-w-5xl px-4 py-2 shrink-0">
