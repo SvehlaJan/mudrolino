@@ -5,7 +5,8 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
+import { TopBar, BackButton } from '../shared/components/TopBar';
 import { getLocaleContent } from '../shared/contentRegistry';
 import { audioOverrideStore } from '../shared/services/audioOverrideStore';
 import { audioManager } from '../shared/services/audioManager';
@@ -164,90 +165,88 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   );
 
   return (
-    <div className="fixed inset-0 z-50 bg-bg-light flex flex-col">
-      <div className="p-6 border-b-2 border-shadow/30 bg-bg-light/50 shrink-0">
-        <div className="flex items-center gap-4 mb-4">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm"
-          >
-            <ArrowLeft size={20} />
-          </button>
-          <h2 className="text-3xl font-bold flex-1">Vlastné nahrávky</h2>
+    <div className="min-h-[100svh] h-[100svh] overflow-hidden bg-bg-light flex flex-col px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+      <div className="w-full max-w-2xl mx-auto flex flex-col flex-1 min-h-0">
+        <TopBar left={<BackButton onClick={() => navigate(-1)} />} />
 
-          <span className="text-base font-medium opacity-60 shrink-0">Auto</span>
-          <button
-            onClick={() => setAutoProgress((v) => !v)}
-            className={`w-14 h-8 rounded-full transition-colors shrink-0 ${
-              autoProgress ? 'bg-accent-blue' : 'bg-shadow/20'
-            }`}
-            aria-label="Auto-pokračovať"
-          >
-            <span
-              className={`block w-6 h-6 rounded-full bg-white shadow transition-transform mx-1 ${
-                autoProgress ? 'translate-x-6' : ''
-              }`}
-            />
-          </button>
-        </div>
+        <div className="border-b-2 border-shadow/30 pb-4 mb-2 shrink-0">
+          <div className="flex items-center gap-4 mb-4">
+            <h2 className="text-3xl font-bold flex-1">Vlastné nahrávky</h2>
 
-        <div className="relative">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 opacity-40" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Hľadať…"
-            className="w-full pl-11 pr-10 py-3 bg-white rounded-2xl border-2 border-shadow/10 text-lg font-medium focus:outline-none focus:border-accent-blue/50"
-          />
-          {search && (
+            <span className="text-base font-medium opacity-60 shrink-0">Auto</span>
             <button
-              onClick={() => setSearch('')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-40"
+              onClick={() => setAutoProgress((v) => !v)}
+              className={`w-14 h-8 rounded-full transition-colors shrink-0 ${
+                autoProgress ? 'bg-accent-blue' : 'bg-shadow/20'
+              }`}
+              aria-label="Auto-pokračovať"
             >
-              <X size={18} />
+              <span
+                className={`block w-6 h-6 rounded-full bg-white shadow transition-transform mx-1 ${
+                  autoProgress ? 'translate-x-6' : ''
+                }`}
+              />
             </button>
+          </div>
+
+          <div className="relative">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 opacity-40" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Hľadať…"
+              className="w-full pl-11 pr-10 py-3 bg-white rounded-2xl border-2 border-shadow/10 text-lg font-medium focus:outline-none focus:border-accent-blue/50"
+            />
+            {search && (
+              <button
+                onClick={() => setSearch('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 opacity-40"
+              >
+                <X size={18} />
+              </button>
+            )}
+          </div>
+
+          {!search && (
+            <div className="flex gap-2 mt-4 overflow-x-auto pb-1 scrollbar-none">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-full text-base font-semibold whitespace-nowrap transition-all ${
+                    activeCategory === cat
+                      ? 'bg-accent-blue text-white'
+                      : 'bg-white text-text-main opacity-60'
+                  }`}
+                >
+                  {CATEGORY_LABELS[cat]}
+                </button>
+              ))}
+            </div>
           )}
         </div>
 
-        {!search && (
-          <div className="flex gap-2 mt-4 overflow-x-auto pb-1 scrollbar-none">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-base font-semibold whitespace-nowrap transition-all ${
-                  activeCategory === cat
-                    ? 'bg-accent-blue text-white'
-                    : 'bg-white text-text-main opacity-60'
-                }`}
-              >
-                {CATEGORY_LABELS[cat]}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
-        {filteredItems.length === 0 && (
-          <p className="text-center text-lg opacity-40 mt-8">Žiadne položky</p>
-        )}
-        {filteredItems.map((item) => (
-          <RecordingListItem
-            key={item.key}
-            item={item}
-            hasCustom={overrideKeys.has(item.key)}
-            isActive={item.key === activeKey}
-            recorderState={recorder.state}
-            speaking={recorder.speaking}
-            savedFlash={item.key === activeKey && savedFlash}
-            onRecord={() => handleRecord(item.key)}
-            onStop={handleStop}
-            onPlay={() => handlePlay(item)}
-            onDelete={() => void handleDelete(item.key)}
-          />
-        ))}
+        <div className="flex-1 overflow-y-auto min-h-0 space-y-2 py-2">
+          {filteredItems.length === 0 && (
+            <p className="text-center text-lg opacity-40 mt-8">Žiadne položky</p>
+          )}
+          {filteredItems.map((item) => (
+            <RecordingListItem
+              key={item.key}
+              item={item}
+              hasCustom={overrideKeys.has(item.key)}
+              isActive={item.key === activeKey}
+              recorderState={recorder.state}
+              speaking={recorder.speaking}
+              savedFlash={item.key === activeKey && savedFlash}
+              onRecord={() => handleRecord(item.key)}
+              onStop={handleStop}
+              onPlay={() => handlePlay(item)}
+              onDelete={() => void handleDelete(item.key)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

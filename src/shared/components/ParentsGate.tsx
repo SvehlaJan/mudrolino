@@ -61,11 +61,12 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   }, [input, shaking, question.answer, onSuccess]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-bg-light/95 backdrop-blur-md px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+    <div className="fixed inset-0 z-50 flex flex-col items-center bg-bg-light/95 backdrop-blur-md px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+      <div className="w-full max-w-sm flex flex-col flex-1">
       <TopBar left={<BackButton onClick={onCancel} />} />
 
       <div className="flex-1 flex flex-col items-center justify-center">
-        <div className="w-full max-w-sm px-6 flex flex-col items-center gap-6">
+        <div className="w-full px-6 flex flex-col items-center gap-6">
           <div className="text-center">
             <h2 className="text-4xl font-bold text-text-main">Pre rodičov</h2>
             <p className="text-lg opacity-60 font-medium mt-1">Vyriešte príklad pre vstup</p>
@@ -112,6 +113,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
