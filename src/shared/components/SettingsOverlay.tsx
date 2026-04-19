@@ -44,17 +44,6 @@ export function SettingsOverlay({ settings, onUpdate, onClose }: SettingsOverlay
           />
 
           <div className="pt-4 pb-8 border-b-2 border-shadow/10">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Test zvuku</h3>
-            <button 
-              onClick={() => audioManager.playPraise()}
-              className="w-full py-4 bg-accent-blue text-white rounded-2xl font-bold text-xl shadow-block active:translate-y-2 active:shadow-block-pressed"
-            >
-              Vyskúšať zvuk 🔊
-            </button>
-            <p className="text-center mt-4 text-lg opacity-50 font-medium">Klikni pre test hlasu</p>
-          </div>
-
-          <div className="pt-4 pb-8 border-b-2 border-shadow/10">
             <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Vlastné nahrávky</h3>
             <button
               onClick={() => { onClose(); navigate('/recordings'); }}
