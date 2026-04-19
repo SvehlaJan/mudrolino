@@ -109,7 +109,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
           </button>
           <button
             onClick={handleConfirm}
-            disabled={!input}
+            disabled={!input || shaking}
             className="bg-success rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block-correct active:translate-y-2 active:shadow-block-pressed disabled:opacity-40 disabled:cursor-not-allowed"
           >
             ✓
