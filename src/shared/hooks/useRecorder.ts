@@ -4,7 +4,6 @@
  */
 
 import { useState, useRef, useCallback } from 'react';
-import * as lamejs from 'lamejs';
 
 export type RecorderState = 'idle' | 'recording' | 'processing';
 
@@ -16,7 +15,7 @@ export interface UseRecorderResult {
   speaking: boolean;
   start: () => Promise<void>;
   stop: () => void;
-  /** Resolves with the encoded MP3 Blob after recording + processing finishes */
+  /** Resolves with the encoded WAV Blob after recording + processing finishes */
   blobPromise: Promise<Blob> | null;
 }
 
@@ -24,7 +23,6 @@ export interface UseRecorderResult {
 const SILENCE_THRESHOLD_DB = -35;
 const SILENCE_DURATION_MS = 800;
 const SAMPLE_RATE = 44100;
-const MP3_BITRATE = 128;
 
 function rmsToDb(rms: number): number {
   if (rms === 0) return -Infinity;
@@ -47,26 +45,39 @@ function trimSilence(samples: Float32Array, thresholdDb: number): Float32Array {
   return samples.slice(start, end + 1);
 }
 
-function encodeMp3(samples: Float32Array): Blob {
-  const encoder = new lamejs.Mp3Encoder(1, SAMPLE_RATE, MP3_BITRATE);
-  const pcm = new Int16Array(samples.length);
+function encodeWav(samples: Float32Array): Blob {
+  const numChannels = 1;
+  const bitsPerSample = 16;
+  const byteRate = (SAMPLE_RATE * numChannels * bitsPerSample) / 8;
+  const blockAlign = (numChannels * bitsPerSample) / 8;
+  const dataSize = samples.length * blockAlign;
+  const buffer = new ArrayBuffer(44 + dataSize);
+  const view = new DataView(buffer);
+
+  const write = (off: number, str: string) => {
+    for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i));
+  };
+
+  write(0, 'RIFF');
+  view.setUint32(4, 36 + dataSize, true);
+  write(8, 'WAVE');
+  write(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, numChannels, true);
+  view.setUint32(24, SAMPLE_RATE, true);
+  view.setUint32(28, byteRate, true);
+  view.setUint16(32, blockAlign, true);
+  view.setUint16(34, bitsPerSample, true);
+  write(36, 'data');
+  view.setUint32(40, dataSize, true);
+
   for (let i = 0; i < samples.length; i++) {
-    pcm[i] = Math.max(-32768, Math.min(32767, samples[i] * 32768));
+    const s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(44 + i * 2, s < 0 ? s * 0x8000 : s * 0x7fff, true);
   }
 
-  const blockSize = 1152;
-  const chunks: BlobPart[] = [];
-
-  for (let i = 0; i < pcm.length; i += blockSize) {
-    const block = pcm.subarray(i, i + blockSize);
-    const encoded = encoder.encodeBuffer(block);
-    if (encoded.length > 0) chunks.push(new Uint8Array(encoded));
-  }
-
-  const flushed = encoder.flush();
-  if (flushed.length > 0) chunks.push(new Uint8Array(flushed));
-
-  return new Blob(chunks, { type: 'audio/mpeg' });
+  return new Blob([buffer], { type: 'audio/wav' });
 }
 
 export function useRecorder(): UseRecorderResult {
@@ -159,13 +170,13 @@ export function useRecorder(): UseRecorderResult {
 
         const samples = audioBuffer.getChannelData(0);
         const trimmed = trimSilence(samples, SILENCE_THRESHOLD_DB);
-        const mp3Blob = encodeMp3(trimmed);
+        const wavBlob = encodeWav(trimmed);
 
-        blobResolveRef.current?.(mp3Blob);
+        blobResolveRef.current?.(wavBlob);
       } catch (err) {
         console.warn('[useRecorder] Processing failed:', err);
         // Reject the promise so callers don't hang
-        blobResolveRef.current?.(new Blob([], { type: 'audio/mpeg' }));
+        blobResolveRef.current?.(new Blob([], { type: 'audio/wav' }));
       } finally {
         setState('idle');
       }

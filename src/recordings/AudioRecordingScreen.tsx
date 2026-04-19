@@ -79,6 +79,9 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   useEffect(() => { autoProgressRef.current = autoProgress; }, [autoProgress]);
   const activeKeyRef = useRef(activeKey);
   useEffect(() => { activeKeyRef.current = activeKey; }, [activeKey]);
+  const recorderStartRef = useRef(recorder.start);
+  useEffect(() => { recorderStartRef.current = recorder.start; }, [recorder.start]);
+  const discardRef = useRef(false);
 
   const allItems = buildAudioItems(locale);
 
@@ -102,6 +105,10 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   useEffect(() => {
     if (!recorder.blobPromise) return;
     recorder.blobPromise.then(async (blob) => {
+      if (discardRef.current) {
+        discardRef.current = false;
+        return;
+      }
       if (!activeKeyRef.current) return;
       await audioOverrideStore.set(activeKeyRef.current, blob);
       await refreshOverrides();
@@ -116,7 +123,7 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
           if (next) {
             setActiveKey(next.key);
             void audioManager.stop();
-            void recorder.start();
+            void recorderStartRef.current();
             filteredAtStartRef.current = list;
           } else {
             setActiveKey(null);
@@ -136,6 +143,7 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   const handleRecord = useCallback(
     (key: string) => {
       if (activeKey !== null && recorder.state !== 'idle') return;
+      discardRef.current = false;
       audioManager.stop();
       setActiveKey(key);
       setSavedFlash(false);
@@ -146,6 +154,10 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   );
 
   const handleStop = useCallback(() => {
+    discardRef.current = true;
+    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
+    setActiveKey(null);
+    setSavedFlash(false);
     recorder.stop();
   }, [recorder]);
 
