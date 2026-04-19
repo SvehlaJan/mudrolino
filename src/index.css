@@ -124,3 +124,14 @@ body {
   animation: shake 0.5s ease-in-out;
   animation-fill-mode: both;
 }
+
+@keyframes toggle-pop {
+  0% { scale: 1; }
+  55% { scale: 1.08; }
+  100% { scale: 1; }
+}
+
+.animate-toggle-pop {
+  animation: toggle-pop 0.22s ease-out;
+  animation-fill-mode: both;
+}

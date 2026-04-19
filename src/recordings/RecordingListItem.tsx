@@ -89,6 +89,12 @@ export function RecordingListItem({
   else if (isProcessing) labelClass += 'text-amber-300';
   else if (isRecording) labelClass += speaking ? 'text-pink-200' : 'text-blue-200';
 
+  const idleActionClass =
+    'w-9 h-9 shrink-0 rounded-full flex items-center justify-center shadow-sm active:opacity-60';
+  const deleteActionClass = `${idleActionClass} bg-shadow/20 text-text-main/70`;
+  const playActionClass = `${idleActionClass} bg-accent-blue/45 text-text-main`;
+  const recordActionClass = `${idleActionClass} bg-soft-watermelon/45 text-text-main`;
+
   return (
     <div className={rowClass}>
       {/* Left indicator — fixed 22px slot */}
@@ -104,11 +110,11 @@ export function RecordingListItem({
         <span className="text-xs italic opacity-80 shrink-0 mr-1">{statusText}</span>
       )}
 
-      {/* Right buttons — each slot is fixed 32px */}
+      {/* Right buttons — each slot is sized to the circular button */}
       {isEngaged ? (
         <>
           {/* Stop button (recording only; hidden during processing/saved) */}
-          <div className="w-8 flex items-center justify-center shrink-0">
+          <div className="w-9 flex items-center justify-center shrink-0">
             {isRecording && (
               <button
                 onClick={onStop}
@@ -123,11 +129,11 @@ export function RecordingListItem({
       ) : (
         <>
           {/* Delete — only when idle and has custom recording */}
-          <div className="w-8 flex items-center justify-center shrink-0">
+          <div className="w-9 flex items-center justify-center shrink-0">
             {hasCustom && (
               <button
                 onClick={onDelete}
-                className="text-red-400 active:opacity-60"
+                className={deleteActionClass}
                 aria-label="Zmazať nahrávku"
               >
                 <Trash2 size={16} />
@@ -136,10 +142,10 @@ export function RecordingListItem({
           </div>
 
           {/* Play */}
-          <div className="w-8 flex items-center justify-center shrink-0">
+          <div className="w-9 flex items-center justify-center shrink-0">
             <button
               onClick={onPlay}
-              className="text-shadow/50 active:opacity-60"
+              className={playActionClass}
               aria-label="Prehrať"
             >
               <Play size={16} />
@@ -147,10 +153,10 @@ export function RecordingListItem({
           </div>
 
           {/* Record */}
-          <div className="w-8 flex items-center justify-center shrink-0">
+          <div className="w-9 flex items-center justify-center shrink-0">
             <button
               onClick={onRecord}
-              className="text-shadow/50 active:opacity-60"
+              className={recordActionClass}
               aria-label="Nahrať"
             >
               <Mic size={16} />

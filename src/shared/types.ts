@@ -6,7 +6,7 @@
 import type { ReactNode } from 'react';
 
 export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'ASSEMBLY';
-export type SettingsSource = 'home' | 'game' | 'alphabet' | 'syllables';
+export type SettingsTarget = 'home' | GameId;
 
 export interface GameSettings {
   music: boolean;

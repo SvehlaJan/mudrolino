@@ -4,40 +4,63 @@
  */
 
 import React from 'react';
-import { Check } from 'lucide-react';
 
 interface SettingToggleProps {
   label: string;
   icon: React.ReactNode;
-  active: boolean;
+  description?: string;
+  checked: boolean;
   onToggle: () => void;
-  color: string;
+  iconBackgroundClassName: string;
+  activeColorClassName?: string;
+  className?: string;
 }
 
-export function SettingToggle({ label, icon, active, onToggle, color }: SettingToggleProps) {
-  const knobOffset = active
-    ? (typeof window !== 'undefined' && window.innerWidth < 640 ? 36 : 52)
-    : 4;
-
+export function SettingToggle({
+  label,
+  icon,
+  description,
+  checked,
+  onToggle,
+  iconBackgroundClassName,
+  activeColorClassName = 'bg-soft-watermelon',
+  className = '',
+}: SettingToggleProps) {
   return (
-    <div className="flex items-center justify-between gap-4 p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] hover:bg-bg-light/40 transition-colors">
-      <div className="flex items-center gap-4 sm:gap-8 min-w-0">
-        <div className={`w-12 h-12 sm:w-20 sm:h-20 rounded-full ${color} flex items-center justify-center text-text-main bg-opacity-30 shrink-0`}>
+    <div className={`flex items-center justify-between gap-4 ${className}`.trim()}>
+      <div className="flex min-w-0 items-center gap-4">
+        <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] ${iconBackgroundClassName} text-text-main sm:h-16 sm:w-16`}>
           {icon}
         </div>
-        <span className="text-xl sm:text-4xl font-bold text-text-main leading-tight">{label}</span>
-      </div>
-      
-      <button 
-        onClick={onToggle}
-        className={`w-16 h-8 sm:w-24 sm:h-12 rounded-full relative transition-colors duration-300 shrink-0 ${active ? 'bg-soft-watermelon' : 'bg-shadow'}`}
-      >
-        <div
-          className="absolute top-1 w-6 h-6 sm:w-10 sm:h-10 bg-white rounded-full shadow-md flex items-center justify-center"
-          style={{ transform: `translateX(${knobOffset}px)` }}
-        >
-          {active && <Check size={16} className="text-soft-watermelon sm:w-5 sm:h-5" />}
+        <div className="min-w-0">
+          <h3 className="text-xl font-bold leading-tight sm:text-2xl">{label}</h3>
+          {description && (
+            <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
+              {description}
+            </p>
+          )}
         </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-label={checked ? `Vypnúť ${label}` : `Zapnúť ${label}`}
+        aria-pressed={checked}
+        className={`relative h-10 w-[4.5rem] shrink-0 rounded-full px-1 transition-colors duration-300 sm:h-12 sm:w-24 ${
+          checked ? activeColorClassName : 'bg-shadow'
+        }`}
+      >
+        <span
+          className={`absolute left-1 top-1 h-8 w-8 rounded-full bg-white shadow-md transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-10 sm:w-10 ${
+            checked ? 'translate-x-8 sm:translate-x-12' : 'translate-x-0'
+          }`}
+        >
+          <span
+            key={checked ? 'on' : 'off'}
+            className="block h-full w-full rounded-full bg-white animate-toggle-pop"
+          />
+        </span>
       </button>
     </div>
   );

@@ -9,11 +9,9 @@ import { Settings } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { loadAppSettings, saveAppSettings, AppSettings } from './shared/services/appSettingsStore';
-import { GameSettings, GameId, SettingsSource } from './shared/types';
+import { GameSettings, GameId, SettingsTarget } from './shared/types';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
-import { AlphabetSettingsOverlay } from './games/alphabet/AlphabetSettingsOverlay';
-import { SyllablesSettingsOverlay } from './games/syllables/SyllablesSettingsOverlay';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { AlphabetGame } from './games/alphabet/AlphabetGame';
 import { SyllablesGame } from './games/syllables/SyllablesGame';
@@ -95,8 +93,9 @@ export default function App() {
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
   const [appSettings, _setAppSettings] = useState<AppSettings>(loadAppSettings);
   const locale = appSettings.locale;
-  const [settingsSource, setSettingsSource] = useState<SettingsSource>('home');
+  const [settingsTarget, setSettingsTarget] = useState<SettingsTarget>('home');
   const [settingsScreen, setSettingsScreen] = useState<SettingsFlowState>('none');
+  const [awaitingHomeSettingsReveal, setAwaitingHomeSettingsReveal] = useState(false);
   const location = useLocation();
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
@@ -146,19 +145,25 @@ export default function App() {
     };
   }, []);
 
-  const handleOpenSettings = useCallback((source: SettingsSource = 'home') => {
-    setSettingsSource(source);
+  const handleOpenSettings = useCallback((target: SettingsTarget = 'home') => {
+    setSettingsTarget(target);
     setSettingsScreen('gate');
   }, []);
 
   const handleGateSuccess = useCallback(() => {
-    if (settingsSource === 'home') {
-      setSettingsScreen('none');
+    if (settingsTarget === 'home') {
+      setAwaitingHomeSettingsReveal(true);
       navigate('/settings');
     } else {
       setSettingsScreen('settings');
     }
-  }, [settingsSource, navigate]);
+  }, [settingsTarget, navigate]);
+
+  const handleHomeSettingsReady = useCallback(() => {
+    if (!awaitingHomeSettingsReveal) return;
+    setSettingsScreen('none');
+    setAwaitingHomeSettingsReveal(false);
+  }, [awaitingHomeSettingsReveal]);
 
   const handleCloseSettings = useCallback(() => {
     setSettingsScreen('none');
@@ -186,7 +191,7 @@ export default function App() {
             path="/alphabet"
             element={
               <ErrorBoundary>
-                <AlphabetGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('alphabet')} />
+                <AlphabetGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
               </ErrorBoundary>
             }
           />
@@ -194,7 +199,7 @@ export default function App() {
             path="/syllables"
             element={
               <ErrorBoundary>
-                <SyllablesGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('syllables')} />
+                <SyllablesGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
               </ErrorBoundary>
             }
           />
@@ -202,7 +207,7 @@ export default function App() {
             path="/numbers"
             element={
               <ErrorBoundary>
-                <NumbersGame locale={locale} range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <NumbersGame locale={locale} range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
               </ErrorBoundary>
             }
           />
@@ -210,7 +215,7 @@ export default function App() {
             path="/counting"
             element={
               <ErrorBoundary>
-                <CountingItemsGame locale={locale} range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <CountingItemsGame locale={locale} range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
               </ErrorBoundary>
             }
           />
@@ -218,7 +223,7 @@ export default function App() {
             path="/words"
             element={
               <ErrorBoundary>
-                <WordsGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <WordsGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
               </ErrorBoundary>
             }
           />
@@ -226,7 +231,7 @@ export default function App() {
             path="/assembly"
             element={
               <ErrorBoundary>
-                <AssemblyGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('game')} />
+                <AssemblyGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
               </ErrorBoundary>
             }
           />
@@ -241,7 +246,11 @@ export default function App() {
           <Route
             path="/settings"
             element={
-              <SettingsScreen settings={settings} onUpdate={setSettings} />
+              <SettingsScreen
+                settings={settings}
+                onUpdate={setSettings}
+                onReady={awaitingHomeSettingsReveal ? handleHomeSettingsReady : undefined}
+              />
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -255,22 +264,9 @@ export default function App() {
         />
       )}
 
-      {settingsScreen === 'settings' && settingsSource === 'game' && (
+      {settingsScreen === 'settings' && settingsTarget !== 'home' && (
         <SettingsOverlay
-          settings={settings}
-          onUpdate={setSettings}
-          onClose={handleCloseSettings}
-        />
-      )}
-      {settingsScreen === 'settings' && settingsSource === 'alphabet' && (
-        <AlphabetSettingsOverlay
-          settings={settings}
-          onUpdate={setSettings}
-          onClose={handleCloseSettings}
-        />
-      )}
-      {settingsScreen === 'settings' && settingsSource === 'syllables' && (
-        <SyllablesSettingsOverlay
+          gameId={settingsTarget}
           settings={settings}
           onUpdate={setSettings}
           onClose={handleCloseSettings}

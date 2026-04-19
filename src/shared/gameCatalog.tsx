@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { Apple, BookOpen, Gamepad2, Play, Puzzle, Type } from 'lucide-react';
-import type { GameId, GameMetadata, SettingsSource } from './types';
+import type { GameId, GameMetadata } from './types';
 
 interface GameLobbyMetadata {
   title: string;
@@ -16,7 +16,6 @@ interface GameLobbyMetadata {
 
 export interface GameDefinition extends GameMetadata {
   path: string;
-  settingsSource: SettingsSource;
   lobby: GameLobbyMetadata;
 }
 
@@ -24,7 +23,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   {
     id: 'ALPHABET',
     path: '/alphabet',
-    settingsSource: 'alphabet',
     title: 'Abeceda',
     description: 'Spoznávaj písmenká hravou formou',
     icon: <Type size={48} className="sm:w-16 sm:h-16" />,
@@ -39,7 +37,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   {
     id: 'SYLLABLES',
     path: '/syllables',
-    settingsSource: 'syllables',
     title: 'Slabiky',
     description: 'Spájaj písmenká do slabík',
     icon: <Gamepad2 size={48} className="sm:w-16 sm:h-16" />,
@@ -54,7 +51,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   {
     id: 'NUMBERS',
     path: '/numbers',
-    settingsSource: 'game',
     title: 'Čísla',
     description: 'Počítaj s kamarátmi',
     icon: <Play size={48} className="sm:w-16 sm:h-16 ml-2" fill="currentColor" />,
@@ -69,7 +65,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   {
     id: 'COUNTING_ITEMS',
     path: '/counting',
-    settingsSource: 'game',
     title: 'Spočítaj',
     description: 'Koľko jabĺčok vidíš?',
     icon: <Apple size={48} className="sm:w-16 sm:h-16" />,
@@ -82,7 +77,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   {
     id: 'WORDS',
     path: '/words',
-    settingsSource: 'game',
     title: 'Slová',
     description: 'Prečítaj slovo a nájdi obrázok',
     icon: <BookOpen size={48} className="sm:w-16 sm:h-16" />,
@@ -97,7 +91,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   {
     id: 'ASSEMBLY',
     path: '/assembly',
-    settingsSource: 'game',
     title: 'Skladaj',
     description: 'Poskladaj slovo zo slabík',
     icon: <Puzzle size={48} className="sm:w-16 sm:h-16" />,
@@ -111,7 +104,7 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   },
 ];
 
-export const GAME_METADATA: GameMetadata[] = GAME_DEFINITIONS.map(({ lobby: _lobby, path: _path, settingsSource: _settingsSource, ...metadata }) => metadata);
+export const GAME_METADATA: GameMetadata[] = GAME_DEFINITIONS.map(({ lobby: _lobby, path: _path, ...metadata }) => metadata);
 
 export const GAME_PATH: Record<GameId, string> = Object.fromEntries(
   GAME_DEFINITIONS.map(game => [game.id, game.path])
