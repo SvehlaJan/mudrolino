@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { Group } from 'three';
+import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 
 interface AvatarModelProps {
@@ -10,6 +11,7 @@ interface AvatarModelProps {
 export function AvatarModel({ url = AVATAR_MODEL_URL }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
   const gltf = useGLTF(url);
+  const scene = useMemo(() => clone(gltf.scene), [gltf.scene]);
   const { actions, names } = useAnimations(gltf.animations, groupRef);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export function AvatarModel({ url = AVATAR_MODEL_URL }: AvatarModelProps) {
 
   return (
     <group ref={groupRef} position={[0, -1.65, 0]} rotation={[0, 0, 0]} scale={1.45}>
-      <primitive object={gltf.scene} />
+      <primitive object={scene} />
     </group>
   );
 }

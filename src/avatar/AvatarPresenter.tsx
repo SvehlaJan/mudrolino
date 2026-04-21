@@ -17,10 +17,10 @@ export function AvatarPresenter({
   if (assetStatus !== 'available') return null;
 
   return (
-    <div className={className} role="img" aria-label={label}>
-      <AvatarRuntimeBoundary>
+    <AvatarRuntimeBoundary>
+      <div className={className} role="img" aria-label={label}>
         <AvatarScene className="h-full w-full" />
-      </AvatarRuntimeBoundary>
-    </div>
+      </div>
+    </AvatarRuntimeBoundary>
   );
 }
