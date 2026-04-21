@@ -9,7 +9,7 @@ export function AvatarPreviewScreen() {
   const assetStatus = useAvatarAssetAvailability(AVATAR_MODEL_URL);
 
   return (
-    <div className="h-[100svh] overflow-hidden bg-bg-light p-4 sm:p-6 lg:p-8">
+    <div className="h-[100svh] overflow-y-auto bg-bg-light p-4 sm:p-6 lg:p-8">
       <button
         onClick={() => navigate('/')}
         className="safe-top safe-left fixed z-20 flex h-14 w-14 items-center justify-center rounded-full bg-white text-text-main shadow-chip transition-transform hover:scale-105 active:scale-95"
@@ -19,7 +19,7 @@ export function AvatarPreviewScreen() {
       </button>
 
       <main className="mx-auto flex h-full min-h-0 max-w-5xl flex-col items-center justify-center gap-6 text-center">
-        <div className="h-[min(72svh,680px)] w-[min(82vw,520px)]">
+        <div className="h-[clamp(180px,52svh,560px)] w-[min(82vw,520px)]">
           <AvatarPresenter className="h-full w-full" />
         </div>
         <div>
