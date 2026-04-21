@@ -22,6 +22,7 @@ import { AssemblyGame } from './games/assembly/AssemblyGame';
 import { AudioRecordingScreen } from './recordings/AudioRecordingScreen';
 import { SettingsScreen } from './shared/components/SettingsScreen';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
+import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
 
@@ -240,6 +241,14 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <AudioRecordingScreen locale={appSettings.locale} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/avatar-preview"
+            element={
+              <ErrorBoundary>
+                <AvatarPreviewScreen />
               </ErrorBoundary>
             }
           />
