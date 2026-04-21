@@ -1,17 +1,21 @@
 import { AVATAR_STATE_VERSION, AVATAR_STORAGE_KEY } from './avatarConstants';
 import { StoredAvatarState } from './avatarTypes';
 
-export const DEFAULT_AVATAR_STATE: StoredAvatarState = {
-  version: AVATAR_STATE_VERSION,
-  config: {
-    modelId: 'base',
-    outfitId: 'default',
-    animation: 'idle',
-  },
-  progress: {
-    unlockedItemIds: [],
-  },
-};
+export function createDefaultAvatarState(): StoredAvatarState {
+  return {
+    version: AVATAR_STATE_VERSION,
+    config: {
+      modelId: 'base',
+      outfitId: 'default',
+      animation: 'idle',
+    },
+    progress: {
+      unlockedItemIds: [],
+    },
+  };
+}
+
+export const DEFAULT_AVATAR_STATE: StoredAvatarState = createDefaultAvatarState();
 
 function isStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every((item) => typeof item === 'string');
@@ -20,14 +24,14 @@ function isStringArray(value: unknown): value is string[] {
 export function loadAvatarState(): StoredAvatarState {
   try {
     const raw = localStorage.getItem(AVATAR_STORAGE_KEY);
-    if (!raw) return DEFAULT_AVATAR_STATE;
+    if (!raw) return createDefaultAvatarState();
 
     const stored = JSON.parse(raw) as Record<string, unknown>;
     const config = stored.config as Record<string, unknown> | undefined;
     const progress = stored.progress as Record<string, unknown> | undefined;
 
     if (stored.version !== AVATAR_STATE_VERSION || !config || !progress) {
-      return DEFAULT_AVATAR_STATE;
+      return createDefaultAvatarState();
     }
 
     return {
@@ -39,12 +43,12 @@ export function loadAvatarState(): StoredAvatarState {
       },
       progress: {
         unlockedItemIds: isStringArray(progress.unlockedItemIds)
-          ? progress.unlockedItemIds
-          : DEFAULT_AVATAR_STATE.progress.unlockedItemIds,
+          ? [...progress.unlockedItemIds]
+          : [],
       },
     };
   } catch {
-    return DEFAULT_AVATAR_STATE;
+    return createDefaultAvatarState();
   }
 }
 
