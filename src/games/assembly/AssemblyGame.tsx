@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom';
 import { ArrowLeft, Volume2 } from 'lucide-react';
 import { gsap } from 'gsap';
+import { fisherYatesShuffle } from '../../shared/utils';
 import { audioManager } from '../../shared/services/audioManager';
 import { TIMING, getLocaleContent } from '../../shared/contentRegistry';
 import { Word } from '../../shared/types';
@@ -60,15 +61,6 @@ const BOARD_SETTLE_DELAY_MS = 500;
 const WRONG_REVEAL_DELAY_MS = 180;
 const WRONG_RESET_DELAY_MS = 320;
 
-function shuffleItems<T>(items: T[]) {
-  const shuffled = [...items];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
-  }
-  return shuffled;
-}
-
 function getPromptAudio(locale: string, word: Word) {
   return {
     clips: [
@@ -104,14 +96,6 @@ function getWrongAudio(locale: string, word: Word, selectedSyllable?: string) {
 
 function renderTileLabel(text: string) {
   return text.toUpperCase();
-}
-
-function pickNextWord(eligibleWords: Word[], previousWordKey: string | null) {
-  const candidates =
-    eligibleWords.length > 1
-      ? eligibleWords.filter(word => word.audioKey !== previousWordKey)
-      : eligibleWords;
-  return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
 function clearTimer(timerRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>) {
@@ -185,7 +169,6 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
   const [isResettingBoard, setIsResettingBoard] = useState(false);
   const [wrongPulse, setWrongPulse] = useState(false);
   const [animatingTileIds, setAnimatingTileIds] = useState<string[]>([]);
-  const previousWordKeyRef = useRef<string | null>(null);
   const tileIdRef = useRef(0);
   const boardRootRef = useRef<HTMLDivElement | null>(null);
   const promptTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -205,6 +188,12 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
     [locale],
   );
 
+  const wordQueueRef = useRef<Word[]>([]);
+
+  useEffect(() => {
+    wordQueueRef.current = [];
+  }, [eligibleWords]);
+
   const correctSyllables = useMemo(
     () => targetWord?.syllables.split('-') ?? [],
     [targetWord]
@@ -213,7 +202,7 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
   const placedTiles = board.placedTiles;
 
   const createTiles = useCallback((syllables: string[]) => (
-    shuffleItems(syllables).map((text, trayIndex) => ({
+    fisherYatesShuffle(syllables).map((text, trayIndex) => ({
       id: `assembly-tile-${tileIdRef.current++}`,
       text,
       trayIndex,
@@ -223,7 +212,10 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
   const prepareRound = useCallback((): PreparedRound | null => {
     if (eligibleWords.length === 0) return null;
 
-    const word = pickNextWord(eligibleWords, previousWordKeyRef.current);
+    if (wordQueueRef.current.length === 0) {
+      wordQueueRef.current = fisherYatesShuffle(eligibleWords);
+    }
+    const word = wordQueueRef.current.shift()!;
     const trayTiles = createTiles(word.syllables.split('-'));
 
     return {
@@ -283,7 +275,6 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
     resetTransientTimers();
     const { word: nextWord, board: nextBoard } = nextRound;
 
-    previousWordKeyRef.current = nextWord.audioKey;
     setTargetWord(nextWord);
     setBoard(nextBoard);
     setShowSuccess(false);
@@ -475,7 +466,6 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
     if (!nextRound) return;
 
     resetTransientTimers();
-    previousWordKeyRef.current = nextRound.word.audioKey;
     setTargetWord(nextRound.word);
     setBoard(nextRound.board);
     setShowSuccess(false);
