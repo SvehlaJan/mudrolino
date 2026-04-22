@@ -109,7 +109,7 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
   }, [availableItems, locale, range.end, generatePositions]);
 
   useEffect(() => {
-    if (gameState === 'PLAYING' && !targetItem) startNewRound(); // eslint-disable-line react-hooks/set-state-in-effect
+    if (gameState === 'PLAYING' && !targetItem) startNewRound();
   }, [gameState, targetItem, startNewRound]);
 
   useEffect(() => {
