@@ -403,6 +403,9 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
   const handleTrayTileTap = useCallback((tileId: string) => {
     if (showSuccess || showSessionComplete || isResettingBoard) return;
 
+    const emptySlots = board.placedTiles.filter(s => s === null).length;
+    const placingLastTile = emptySlots === 1;
+
     let nextPlacedSnapshot: (AssemblyTile | null)[] | null = null;
     let selectedTileText: string | null = null;
     animateBoardMove(tileId, () => {
@@ -425,7 +428,7 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
       });
     });
 
-    if (typeof selectedTileText === 'string') {
+    if (typeof selectedTileText === 'string' && !placingLastTile) {
       const selectedSyllable = selectedTileText as string;
       audioManager.play({
         clips: [
@@ -437,7 +440,7 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
     if (nextPlacedSnapshot) {
       validateBoard(nextPlacedSnapshot, selectedTileText ?? undefined);
     }
-  }, [animateBoardMove, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
+  }, [animateBoardMove, board.placedTiles, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
 
   const handlePlacedTileTap = useCallback((slotIndex: number) => {
     if (showSuccess || showSessionComplete || isResettingBoard) return;
