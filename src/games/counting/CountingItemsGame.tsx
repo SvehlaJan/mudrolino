@@ -7,6 +7,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Volume2, ArrowLeft, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
 import { TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getLocaleContent, getPhraseClip } from '../../shared/contentRegistry';
+import { fisherYatesShuffle } from '../../shared/utils';
 import { NumberItem, FailureSpec } from '../../shared/types';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -51,15 +52,19 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
 
   const availableItems = useMemo(() => getNumberItemsInRange(locale, range), [locale, range]);
 
+  const queueRef = useRef<NumberItem[]>([]);
+
+  useEffect(() => {
+    queueRef.current = [];
+  }, [availableItems]);
+
   useEffect(() => {
     return () => audioManager.stop();
   }, []);
 
   const generatePositions = useCallback((count: number): ItemPosition[] => {
     const emoji = COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)];
-    const slots = Array.from({ length: 16 }, (_, i) => i)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, count);
+    const slots = fisherYatesShuffle(Array.from({ length: 16 }, (_, i) => i)).slice(0, count);
     const padding = 15;
     const usableSize = 100 - 2 * padding;
     const cellSize = usableSize / 4;
@@ -80,15 +85,18 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
 
   const startNewRound = useCallback(() => {
     if (availableItems.length === 0) return;
-    const target = availableItems[Math.floor(Math.random() * availableItems.length)];
+    if (queueRef.current.length === 0) {
+      queueRef.current = fisherYatesShuffle(availableItems);
+    }
+    const target = queueRef.current.shift()!;
     const positions = generatePositions(target.value);
 
     // Build 4 options (target + 3 others from full number items range up to max)
     const allNumbers = getLocaleContent(locale).numberItems.filter((n) => n.value <= Math.max(range.end, 10));
-    const others = allNumbers.filter(n => n.value !== target.value)
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 3);
-    const options = [...others, target].sort(() => 0.5 - Math.random());
+    const others = fisherYatesShuffle(
+      allNumbers.filter(n => n.value !== target.value)
+    ).slice(0, 3);
+    const options = fisherYatesShuffle([...others, target]);
 
     setTargetItem(target);
     setItemPositions(positions);
