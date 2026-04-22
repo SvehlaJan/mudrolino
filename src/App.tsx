@@ -24,6 +24,7 @@ import { SettingsScreen } from './shared/components/SettingsScreen';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 import { HomeAvatarOverlay } from './avatar/HomeAvatarOverlay';
+import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
 
@@ -87,7 +88,7 @@ function HomeLauncher({
       {/* Background Decorations */}
       <div aria-hidden="true" className="fixed top-1/3 -left-32 w-96 h-96 rounded-full bg-accent-blue opacity-[0.03] blur-[100px] pointer-events-none" />
       <div aria-hidden="true" className="fixed bottom-0 -right-32 w-[500px] h-[500px] rounded-full bg-primary opacity-[0.03] blur-[100px] pointer-events-none" />
-      <HomeAvatarOverlay />
+      {AVATAR_POC_ENABLED && <HomeAvatarOverlay />}
     </div>
   );
 }
@@ -250,7 +251,7 @@ export default function App() {
             path="/avatar-preview"
             element={
               <ErrorBoundary>
-                <AvatarPreviewScreen />
+                {AVATAR_POC_ENABLED ? <AvatarPreviewScreen /> : <Navigate to="/" replace />}
               </ErrorBoundary>
             }
           />
