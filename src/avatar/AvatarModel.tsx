@@ -27,7 +27,7 @@ export function AvatarModel({ url = AVATAR_MODEL_URL }: AvatarModelProps) {
   }, [actions, names]);
 
   return (
-    <group ref={groupRef} position={[0, -1.65, 0]} rotation={[0, 0, 0]} scale={1.45}>
+    <group ref={groupRef} position={[0, -1.05, 0]} rotation={[0, 0, 0]} scale={0.58}>
       <primitive object={scene} />
     </group>
   );
