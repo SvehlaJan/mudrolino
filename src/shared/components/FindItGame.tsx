@@ -52,11 +52,10 @@ function buildGrid<T>(descriptor: GameDescriptor<T>, target: T): RoundState<T> {
 }
 
 export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameProps<T>) {
-  const queueRef = useRef<T[]>([]);
-  const [roundState, setRoundState] = useState<RoundState<T>>(() => {
-    queueRef.current = fisherYatesShuffle(descriptor.getItems());
-    const target = queueRef.current.shift()!;
-    return buildGrid(descriptor, target);
+  const [{ roundState }, setSession] = useState(() => {
+    const pool = fisherYatesShuffle(descriptor.getItems());
+    const [first, ...rest] = pool;
+    return { roundState: buildGrid(descriptor, first), roundQueue: rest };
   });
   const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
   const [showSuccess, setShowSuccess] = useState(false);
@@ -107,22 +106,18 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
   }, []);
 
   const startNewRound = useCallback(() => {
-    const pool = descriptor.getItems();
-    if (queueRef.current.length === 0) {
-      queueRef.current = fisherYatesShuffle(pool);
-    }
-    const target = queueRef.current.shift()!;
-    setRoundState(buildGrid(descriptor, target));
+    setSession(prev => {
+      const pool = descriptor.getItems();
+      const currentQueue = prev.roundQueue.length > 0 ? prev.roundQueue : fisherYatesShuffle(pool);
+      const [target, ...rest] = currentQueue;
+      return { roundState: buildGrid(descriptor, target), roundQueue: rest };
+    });
     setFeedback({});
     setShowSuccess(false);
     setShowFailure(false);
     setWrongAttemptsThisRound(0);
     pendingSuccessRef.current = false;
   }, [descriptor]);
-
-  useEffect(() => {
-    if (!targetItem && gridItems.length === 0) startNewRound();
-  }, [targetItem, gridItems.length, startNewRound]);
 
   useEffect(() => {
     if (!targetItem) return;
