@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Loader2, Send, X } from 'lucide-react';
+import { Loader2, Send } from 'lucide-react';
 import {
   FeedbackCategory,
   FeedbackPayload,
   submitFeedback,
 } from '../services/feedbackService';
+import { TopBar, BackButton } from './TopBar';
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -68,15 +69,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
     <div className="fixed inset-0 z-50 flex flex-col bg-bg-light px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
       <div className="mx-auto flex w-full max-w-2xl flex-1 min-h-0 flex-col">
 
-        {/* Top bar */}
-        <div className="mb-4 flex items-center">
-          <button
-            onClick={resetAndClose}
-            className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/90 shadow-sm active:scale-95"
-          >
-            <X size={20} />
-          </button>
-        </div>
+        <TopBar left={<BackButton onClick={resetAndClose} />} />
 
         {/* Title */}
         <div className="mb-6 text-center">
@@ -96,7 +89,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
             </p>
             <button
               onClick={resetAndClose}
-              className="mt-2 rounded-2xl bg-[#8b5cf6] px-8 py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
+              className="mt-2 rounded-2xl bg-accent-blue px-8 py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
             >
               Zavrieť
             </button>
@@ -116,7 +109,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
                     disabled={formState === 'submitting'}
                     className={`rounded-2xl py-4 text-base font-bold transition-all sm:text-lg ${
                       category === value
-                        ? 'scale-105 bg-[#8b5cf6] text-white shadow-block'
+                        ? 'scale-105 bg-accent-blue text-text-main shadow-block'
                         : 'bg-bg-light text-text-main opacity-70'
                     }`}
                   >
@@ -136,12 +129,12 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
                 disabled={formState === 'submitting'}
                 placeholder="Opíšte čo sa stalo, čo vám chýba, alebo čo by ste chceli vylepšiť…"
                 rows={4}
-                className="mt-4 w-full resize-none rounded-2xl border border-shadow/15 bg-bg-light/35 p-4 text-base font-medium placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-[#8b5cf6]/40"
+                className="mt-4 w-full resize-none rounded-2xl border border-shadow/15 bg-bg-light/35 p-4 text-base font-medium placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-blue"
               />
               <div className="mt-2 flex items-center justify-between text-sm font-medium opacity-55">
                 <span>
                   Pre snímku obrazovky napíšte na{' '}
-                  <span className="text-[#8b5cf6]">jan.svehla@pm.me</span>
+                  <span className="text-text-main">jan.svehla@pm.me</span>
                 </span>
                 {remaining < COUNTER_THRESHOLD && (
                   <span className={remaining <= 20 ? 'text-red-500 opacity-100' : ''}>
@@ -157,8 +150,8 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
               disabled={!canSubmit}
               className={`flex w-full items-center justify-center gap-3 rounded-2xl py-4 text-xl font-bold text-white transition-all ${
                 canSubmit
-                  ? 'bg-[#8b5cf6] shadow-block active:translate-y-2 active:shadow-block-pressed'
-                  : 'bg-[#8b5cf6]/40'
+                  ? 'bg-accent-blue shadow-block active:translate-y-2 active:shadow-block-pressed'
+                  : 'bg-accent-blue/40'
               }`}
             >
               {formState === 'submitting' ? (

@@ -281,7 +281,7 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
       {hasFeedbackKey() && (
         <SettingsCard>
           <div className="flex items-start gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-[#8b5cf6]/20 text-text-main sm:h-16 sm:w-16">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
               <MessageSquare size={24} className="sm:h-7 sm:w-7" />
             </div>
             <div className="min-w-0 flex-1">
@@ -293,7 +293,7 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
           </div>
           <button
             onClick={() => setIsFeedbackOpen(true)}
-            className="mt-5 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#8b5cf6] py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
+            className="mt-5 flex w-full items-center justify-center gap-3 rounded-2xl bg-accent-blue py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
           >
             <MessageSquare size={24} />
             Odoslať spätnú väzbu
