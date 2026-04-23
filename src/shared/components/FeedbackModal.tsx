@@ -141,7 +141,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
                   Pre snímku obrazovky napíšte na{' '}
                   <span className="text-[#8b5cf6]">jan.svehla@pm.me</span>
                 </span>
-                {remaining <= COUNTER_THRESHOLD && (
+                {remaining < COUNTER_THRESHOLD && (
                   <span className={remaining <= 20 ? 'text-red-500 opacity-100' : ''}>
                     {remaining}
                   </span>
