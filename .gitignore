@@ -10,3 +10,4 @@ coverage/
 .claude/worktrees/
 .worktrees/
 .playwright-cli/
+tools/meshy/__pycache__/
