@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Languages, MessageSquare, Mic, Music } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { audioManager } from '../services/audioManager';
@@ -278,7 +279,7 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
       )}
 
       {hasFeedbackKey() && (
-        <section className="rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_12px_28px_rgba(93,69,62,0.06)] sm:rounded-[32px] sm:p-6">
+        <SettingsCard>
           <div className="flex items-start gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-[#8b5cf6]/20 text-text-main sm:h-16 sm:w-16">
               <MessageSquare size={24} className="sm:h-7 sm:w-7" />
@@ -297,14 +298,17 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
             <MessageSquare size={24} />
             Odoslať spätnú väzbu
           </button>
-        </section>
+        </SettingsCard>
       )}
 
-      <FeedbackModal
-        isOpen={isFeedbackOpen}
-        onClose={() => setIsFeedbackOpen(false)}
-        screen={target}
-      />
+      {createPortal(
+        <FeedbackModal
+          isOpen={isFeedbackOpen}
+          onClose={() => setIsFeedbackOpen(false)}
+          screen={target}
+        />,
+        document.body
+      )}
     </div>
   );
 }
