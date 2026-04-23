@@ -106,6 +106,31 @@ TTS fallback is automatic — missing files cause no errors during development.
 
 `GEMINI_API_KEY` is exposed in `vite.config.ts` (see `.env.example`). `APP_URL` is still present in `.env.example` from the starter template but is not part of the current app flow.
 
+## Local Meshy Helper
+
+This repo includes a project-local Meshy helper for 3D generation flows:
+- Helper CLI: `tools/meshy/meshy_ops.py`
+- Operator reference: `tools/meshy/README.md`
+
+Use it when the user asks for Meshy operations such as:
+- text-to-3d
+- image-to-3d
+- multi-image-to-3d
+- retexture
+- remesh
+- auto-rigging
+- animation
+- Meshy balance checks
+- downloading `.glb` outputs
+
+Rules:
+- Load `MESHY_API_KEY` only from the current shell environment or repo-local `.env`.
+- Never read or write `~/.zshrc`, `~/.bashrc`, or other shell profile files.
+- Keep downloads inside `meshy_output/`.
+- Before any credit-spending Meshy command, summarize expected cost and wait for user approval.
+- Only pass `--confirm-spend` to the helper after the user approves.
+- Do not use the 3D printing workflow in this repo.
+
 ## Roadmap
 
 `ROADMAP.md` is the living product roadmap. Keep it up-to-date:
