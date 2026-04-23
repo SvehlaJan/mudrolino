@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Send, X } from 'lucide-react';
+import { Loader2, Send, X } from 'lucide-react';
 import {
   FeedbackCategory,
   FeedbackPayload,
@@ -32,11 +32,13 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   useEffect(() => {
     if (formState !== 'success') return;
     const id = setTimeout(() => {
-      resetAndClose();
+      setCategory(null);
+      setMessage('');
+      setFormState('idle');
+      onClose();
     }, 3000);
     return () => clearTimeout(id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formState]);
+  }, [formState, onClose]);
 
   if (!isOpen) return null;
 
@@ -60,7 +62,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   }
 
   const remaining = MAX_LENGTH - message.length;
-  const canSubmit = category !== null && formState === 'idle';
+  const canSubmit = category !== null && (formState === 'idle' || formState === 'error');
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-bg-light px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
@@ -160,7 +162,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
               }`}
             >
               {formState === 'submitting' ? (
-                <span className="animate-spin inline-block">⏳</span>
+                <Loader2 size={20} className="animate-spin" />
               ) : (
                 <>
                   <Send size={20} />
