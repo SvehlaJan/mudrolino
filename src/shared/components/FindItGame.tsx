@@ -12,6 +12,7 @@ import { SuccessOverlay } from './SuccessOverlay';
 import { FailureOverlay } from './FailureOverlay';
 import { SessionCompleteOverlay } from './SessionCompleteOverlay';
 import { TIMING } from '../contentRegistry';
+import { fisherYatesShuffle } from '../utils';
 
 interface FindItGameProps<T> {
   descriptor: GameDescriptor<T>;
@@ -38,32 +39,24 @@ function getGridMaxWidthClass(gridCols: GameDescriptor<unknown>['gridCols']) {
   return 'max-w-2xl';
 }
 
-function createRoundState<T>(descriptor: GameDescriptor<T>, currentItem: T | null = null): RoundState<T> {
+function buildGrid<T>(descriptor: GameDescriptor<T>, target: T): RoundState<T> {
   const pool = descriptor.getItems();
-  if (pool.length === 0) {
-    return { targetItem: null, gridItems: [] };
-  }
-
   const effectiveGridSize = Math.min(descriptor.gridSize, pool.length);
-  const currentId = currentItem ? descriptor.getItemId(currentItem) : null;
-  const eligible = currentId
-    ? pool.filter(item => descriptor.getItemId(item) !== currentId)
-    : pool;
-  const candidates = eligible.length > 0 ? eligible : pool;
-  const target = candidates[Math.floor(Math.random() * candidates.length)];
-  const others = pool
-    .filter(item => descriptor.getItemId(item) !== descriptor.getItemId(target))
-    .sort(() => 0.5 - Math.random())
-    .slice(0, effectiveGridSize - 1);
-
+  const others = fisherYatesShuffle(
+    pool.filter(item => descriptor.getItemId(item) !== descriptor.getItemId(target))
+  ).slice(0, effectiveGridSize - 1);
   return {
     targetItem: target,
-    gridItems: [...others, target].sort(() => 0.5 - Math.random()),
+    gridItems: fisherYatesShuffle([...others, target]),
   };
 }
 
 export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameProps<T>) {
-  const [roundState, setRoundState] = useState<RoundState<T>>(() => createRoundState(descriptor));
+  const [{ roundState }, setSession] = useState(() => {
+    const pool = fisherYatesShuffle(descriptor.getItems());
+    const [first, ...rest] = pool;
+    return { roundState: buildGrid(descriptor, first), roundQueue: rest };
+  });
   const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
@@ -79,12 +72,10 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
   const [showSessionComplete, setShowSessionComplete] = useState(false);
 
   const { targetItem, gridItems } = roundState;
-  const targetItemRef = useRef<T | null>(null);
   const gridAreaRef = useRef<HTMLDivElement | null>(null);
   const pendingSuccessRef = useRef(false);
   const [viewportWidth, setViewportWidth] = useState(() => window.innerWidth);
   const [gridAreaSize, setGridAreaSize] = useState({ width: 0, height: 0 });
-  useEffect(() => { targetItemRef.current = targetItem; }, [targetItem]);
 
   useEffect(() => {
     return () => audioManager.stop();
@@ -115,17 +106,18 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
   }, []);
 
   const startNewRound = useCallback(() => {
-    setRoundState(createRoundState(descriptor, targetItemRef.current));
+    setSession(prev => {
+      const pool = descriptor.getItems();
+      const currentQueue = prev.roundQueue.length > 0 ? prev.roundQueue : fisherYatesShuffle(pool);
+      const [target, ...rest] = currentQueue;
+      return { roundState: buildGrid(descriptor, target), roundQueue: rest };
+    });
     setFeedback({});
     setShowSuccess(false);
     setShowFailure(false);
     setWrongAttemptsThisRound(0);
     pendingSuccessRef.current = false;
   }, [descriptor]);
-
-  useEffect(() => {
-    if (!targetItem && gridItems.length === 0) startNewRound();
-  }, [targetItem, gridItems.length, startNewRound]);
 
   useEffect(() => {
     if (!targetItem) return;
