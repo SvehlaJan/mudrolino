@@ -13,7 +13,7 @@ Expected volume: < 100 submissions/month. Web3Forms free tier covers 250/month.
 
 ## Entry Point
 
-A new card is added at the **bottom of `SettingsContent`**, shown only when `target === 'home'` (the main Rodičovská zóna screen, not game-specific settings overlays). The card contains a brief description and a primary action button: **"Odoslať spätnú väzbu"**.
+A new card is added at the **bottom of `SettingsContent`**, visible in all `target` contexts — both the main Rodičovská zóna screen and all game-specific settings overlays. The card contains a brief description and a primary action button: **"Odoslať spätnú väzbu"**.
 
 Tapping the button opens `FeedbackModal` as a full-screen overlay, consistent with the existing overlay pattern in the app.
 
@@ -105,7 +105,7 @@ Two exports:
 
 **`src/shared/components/SettingsContent.tsx`**  
 - Add feedback card at the bottom of the scrollable content
-- Add `isFeedbackOpen` state + `<FeedbackModal isOpen={isFeedbackOpen} onClose={…} screen="/settings" />`
+- Add `isFeedbackOpen` state + `<FeedbackModal isOpen={isFeedbackOpen} onClose={…} screen={target} />` — passes the `target` string (e.g. `"home"`, `"alphabet"`, `"syllables"`) so metadata reflects which settings screen the feedback came from
 
 **`.env.example`**  
 - Add `VITE_WEB3FORMS_KEY=your_key_here`
