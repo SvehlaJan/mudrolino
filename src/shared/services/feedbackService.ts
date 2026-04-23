@@ -14,7 +14,10 @@ const CATEGORY_LABELS: Record<FeedbackCategory, string> = {
 };
 
 function parseBrowser(ua: string): string {
-  const browser = ua.match(/(Chrome|Firefox|Safari|Edge|OPR)\/[\d.]+/)?.[0] ?? 'Unknown browser';
+  const browser =
+    ua.match(/Edg\/[\d.]+/)?.[0] ??
+    ua.match(/(Chrome|Firefox|Safari|OPR)\/[\d.]+/)?.[0] ??
+    'Unknown browser';
   const os = ua.match(/\(([^)]+)\)/)?.[1].split(';')[0].trim() ?? 'Unknown OS';
   return `${browser} / ${os}`;
 }
@@ -34,7 +37,8 @@ export function hasFeedbackKey(): boolean {
 }
 
 export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
-  const key = import.meta.env.VITE_WEB3FORMS_KEY as string;
+  const key = import.meta.env.VITE_WEB3FORMS_KEY;
+  if (!key) throw new Error('VITE_WEB3FORMS_KEY is not configured');
   const metadata = collectMetadata(payload.screen);
 
   const res = await fetch('https://api.web3forms.com/submit', {
