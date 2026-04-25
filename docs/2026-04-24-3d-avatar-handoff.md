@@ -545,3 +545,45 @@ Current next step:
 1. visually validate `/avatar-preview` on desktop and mobile viewport sizes
 2. if the cleaned cheer is materially better than the raw Meshy cheer, use the same Blender workflow for `sad_react`
 3. if the motion is still poor, move from direct quaternion-copy cleanup to a stronger Blender retarget/bake workflow
+
+## 2026-04-25 Continuation Progress
+
+The cleaned cheer candidate was re-verified in `/avatar-preview` with Playwright:
+
+- desktop canvas: `720 x 648`
+- mobile canvas: about `318 x 607`
+- selected asset reported `Status: available`
+- selected asset reported `Clips: Animation`
+- canvas data URLs were nonzero
+- only the known Three.js clock deprecation warning appeared
+
+Raw Meshy cheer and Blender-cleaned cheer rendered in a similar visible pose after runtime sanitization, but the cleaned cheer remains the better asset shape because it is a standalone rotation-only export.
+
+A first negative reaction candidate was generated with Meshy:
+
+- action: `Shrug`
+- action id: `317`
+- animation task id: `019dc2fd-df42-7bef-854f-9cb8f6d547dc`
+- project dir:
+  - [meshy_output/20260425_065551_neutral-parent-sad-react-shrug-v1_019dc2fd](/Users/svehla/playground/teo-learn/meshy_output/20260425_065551_neutral-parent-sad-react-shrug-v1_019dc2fd)
+- raw copied preview asset:
+  - [public/avatar/meshy/neutral-parent-shrug.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-shrug.glb)
+- cleaned export:
+  - [public/avatar/meshy/neutral-parent-sad-react-clean.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-sad-react-clean.glb)
+
+The Blender clean export copied `96` quaternion curves and skipped the baked non-rotation curves, matching the previous cheer cleanup approach.
+
+The cleaned sad reaction candidate was verified in `/avatar-preview` with Playwright:
+
+- desktop canvas: `720 x 648`
+- mobile canvas: about `318 x 607`
+- selected asset reported `Status: available`
+- selected asset reported `Clips: Animation`
+- canvas data URLs were nonzero
+- only the known Three.js clock deprecation warning appeared
+
+Current next step:
+
+1. visually decide whether the shrug reads as a gentle wrong-answer reaction
+2. add a neutral idle candidate or decide whether the rigged base's existing idle-like action is enough for the POC
+3. decide whether the POC should keep separate cleaned GLBs or combine cleaned clips into one multi-action runtime GLB

@@ -8,6 +8,14 @@
       "created_at": "2026-04-23T23:16:09.735638",
       "updated_at": "2026-04-23T23:22:37.039146",
       "task_count": 3
+    },
+    {
+      "folder": "20260425_065551_neutral-parent-sad-react-shrug-v1_019dc2fd",
+      "project_name": "neutral-parent-sad-react-shrug-v1",
+      "root_task_id": "019dc2fd-df42-7bef-854f-9cb8f6d547dc",
+      "created_at": "2026-04-25T06:55:52.950352",
+      "updated_at": "2026-04-25T06:55:52.950422",
+      "task_count": 1
     }
   ]
 }

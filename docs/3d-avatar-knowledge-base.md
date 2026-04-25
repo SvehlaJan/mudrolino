@@ -250,6 +250,8 @@ Recent verified screenshot artifacts:
 
 - `/tmp/avatar-preview-playwright-final-desktop-2.png`
 - `/tmp/avatar-preview-playwright-final-mobile.png`
+- `/tmp/avatar-sad-clean-desktop.png`
+- `/tmp/avatar-sad-clean-mobile.png`
 
 ## Current Roadmap
 
@@ -258,18 +260,21 @@ Recent verified screenshot artifacts:
 - Generated neutral parent base via Meshy image-to-3D.
 - Auto-rigged the base in Meshy.
 - Generated first Meshy victory cheer animation.
+- Generated first Meshy shrug animation as a negative reaction candidate.
 - Published Meshy outputs under `public/avatar/meshy/`.
 - Added `/avatar-preview` route for asset comparison.
 - Replaced old placeholder default URL with the Meshy rigged asset.
 - Added Blender inspection and clean-export scripts.
 - Exported first rotation-only cleaned cheer candidate.
+- Exported first rotation-only cleaned `sad_react` candidate.
+- Verified cleaned `sad_react` candidate renders in `/avatar-preview` on desktop and mobile.
 - Fixed preview rendering for skinned mesh visibility and responsive canvas height.
 - Installed Playwright for browser verification.
 
 ### Next
 
 - Visually evaluate whether `neutral-parent-success-cheer-clean.glb` is acceptable as a correct-answer reaction.
-- If acceptable, generate or clean a negative reaction candidate for `sad_react`.
+- Visually evaluate whether `neutral-parent-sad-react-clean.glb` is acceptable as a wrong-answer reaction.
 - Add a neutral idle candidate or clean base idle export.
 - Decide whether cleaned clips should be combined into one multi-action runtime GLB or kept as separate GLBs during POC.
 - Add a small scripted GLB validation check for expected action/channel counts.
@@ -292,6 +297,7 @@ Recent verified screenshot artifacts:
 | 2026-04-24 | Blender is the correct cleanup layer for avatar animation. | React-side fixes could not reliably repair baked transform clips. |
 | 2026-04-24 | First cleaned cheer candidate uses base rig plus copied quaternion curves only. | Produces a standard glTF animation with no location/scale channels. |
 | 2026-04-24 | Runtime disables frustum culling for avatar meshes. | Meshy skinned mesh bounds made loaded avatars render invisibly. |
+| 2026-04-25 | First negative reaction candidate uses Meshy `Shrug` action `317`. | It is a gentle wrong-answer reaction and avoids angry, scary, or falling motions for preschool feedback. |
 
 ## Related Context
 

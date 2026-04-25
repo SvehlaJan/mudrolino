@@ -52,6 +52,19 @@ const PREVIEW_ASSETS: PreviewAsset[] = [
     description: 'Base rig exported from Blender with rotation-only cheer action',
     modelUrl: '/avatar/meshy/neutral-parent-success-cheer-clean.glb',
   },
+  {
+    id: 'meshy-shrug',
+    label: 'Meshy shrug',
+    description: 'Rigged base using Meshy shrug animation clip',
+    modelUrl: '/avatar/meshy/neutral-parent-rigged.glb',
+    animationUrl: '/avatar/meshy/neutral-parent-shrug.glb',
+  },
+  {
+    id: 'clean-sad-react',
+    label: 'Blender-cleaned sad react',
+    description: 'Base rig exported from Blender with rotation-only shrug action',
+    modelUrl: '/avatar/meshy/neutral-parent-sad-react-clean.glb',
+  },
 ];
 
 export function AvatarPreviewScreen() {
