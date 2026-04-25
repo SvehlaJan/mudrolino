@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Loader2, Mic, Play, Settings, Trash2, Volume2 } from 'lucide-react';
+import { Loader2, Mic, Play, RefreshCw, Settings, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
 import { TopBar } from './TopBar';
@@ -107,6 +107,78 @@ export function UiKitScreen() {
             formatLabel={(value) => `${value} kariet`}
           />
         </Card>
+      </Section>
+
+      <Section title="Game Surfaces">
+        <div className="grid gap-5 lg:grid-cols-2">
+          <div className="space-y-4">
+            <TopBar
+              left={<BackButton onClick={() => undefined} />}
+              center={<RoundCounter completed={3} total={5} />}
+              right={<IconButton label="Prehrať zvuk"><Volume2 size={24} /></IconButton>}
+              className="pb-0"
+            />
+            <Card className="relative min-h-[220px] overflow-hidden !rounded-[30px] !border-4 !border-dashed !border-shadow/20 !bg-white/50 !p-0 !shadow-none sm:!rounded-[44px]">
+              {['🍓', '🍓', '🍓', '🍓', '🍓'].map((emoji, index) => (
+                <span
+                  key={`${emoji}-${index}`}
+                  className="absolute select-none text-5xl sm:text-7xl"
+                  style={{
+                    left: `${20 + (index % 3) * 28}%`,
+                    top: `${28 + Math.floor(index / 3) * 34}%`,
+                    transform: `translate(-50%, -50%) rotate(${index % 2 === 0 ? -12 : 14}deg)`,
+                  }}
+                >
+                  {emoji}
+                </span>
+              ))}
+              <IconButton label="Nové kolo" className="absolute bottom-4 right-4 !bg-white/50 text-shadow/40">
+                <RefreshCw size={24} />
+              </IconButton>
+            </Card>
+            <div className="grid grid-cols-4 gap-3">
+              {[4, 5, 6, 7].map((value) => (
+                <ChoiceTile key={value} state={value === 5 ? 'correct' : 'neutral'} className="!aspect-[4/5] text-4xl font-spline sm:!aspect-square sm:text-6xl">
+                  {value}
+                </ChoiceTile>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex justify-center">
+              <Card className="min-w-[180px] !rounded-[32px] !px-8 !py-6 text-center !shadow-block sm:min-w-[220px] sm:!rounded-[48px]">
+                <div className="text-[72px] leading-none sm:text-[112px]">🍓</div>
+              </Card>
+            </div>
+            <Card className="mx-auto w-full !rounded-[36px] !bg-white/70 !p-4 !shadow-block sm:!rounded-[48px]">
+              <div className="grid grid-cols-3 gap-3">
+                {['JA', '?', 'DA'].map((text, index) => (
+                  <div key={`${text}-${index}`} className="min-h-[88px] rounded-[28px] border-[3px] border-dashed border-shadow/15 bg-bg-light/55 flex items-center justify-center">
+                    {text === '?' ? (
+                      <span className="text-xl font-black text-shadow/25">?</span>
+                    ) : (
+                      <span className="flex h-[72px] min-w-[112px] items-center justify-center rounded-[24px] border-2 border-white/30 bg-accent-blue px-6 text-3xl font-black uppercase tracking-wide text-white">
+                        {text}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Card>
+            <Card className="mx-auto w-full !rounded-[36px] !p-4 !shadow-block sm:!rounded-[48px]">
+              <div className="grid min-h-[112px] grid-cols-3 gap-3">
+                {['HO', 'JA', 'DA'].map((text) => (
+                  <div key={text} className="min-h-[88px] flex items-center justify-center">
+                    <span className="flex h-[72px] min-w-[112px] items-center justify-center rounded-[24px] border-2 border-white/30 bg-accent-blue px-6 text-3xl font-black uppercase tracking-wide text-white">
+                      {text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+        </div>
       </Section>
 
       <Section title="Forms">
