@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Loader2, Mic, Play, Settings, Volume2 } from 'lucide-react';
+import { Loader2, Mic, Play, Settings, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
 import { TopBar } from './TopBar';
@@ -69,6 +69,20 @@ export function UiKitScreen() {
             <p className="mt-2 font-medium opacity-60">Používa sa v nastaveniach.</p>
           </Card>
         </div>
+        <Card variant="row" className="flex items-center gap-2 transition-colors">
+          <Mic size={18} className="shrink-0 text-accent-blue" />
+          <span className="flex-1 truncate text-lg font-medium">mama 👩</span>
+          <span className="mr-1 shrink-0 text-xs italic opacity-80">Vlastné</span>
+          <IconButton label="Zmazať nahrávku" className="h-9 w-9 !bg-shadow/20 !shadow-sm text-text-main/70 sm:h-9 sm:w-9">
+            <Trash2 size={16} />
+          </IconButton>
+          <IconButton label="Prehrať" className="h-9 w-9 !bg-accent-blue/45 !shadow-sm text-text-main sm:h-9 sm:w-9">
+            <Play size={16} />
+          </IconButton>
+          <IconButton label="Nahrať" className="h-9 w-9 !bg-soft-watermelon/45 !shadow-sm text-text-main sm:h-9 sm:w-9">
+            <Mic size={16} />
+          </IconButton>
+        </Card>
       </Section>
 
       <Section title="Choices">

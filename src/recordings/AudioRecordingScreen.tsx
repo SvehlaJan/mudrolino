@@ -5,14 +5,13 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X } from 'lucide-react';
-import { TopBar, BackButton } from '../shared/components/TopBar';
 import { getLocaleContent } from '../shared/contentRegistry';
 import { audioOverrideStore } from '../shared/services/audioOverrideStore';
 import { audioManager } from '../shared/services/audioManager';
 import { useRecorder } from '../shared/hooks/useRecorder';
 import { RecordingListItem } from './RecordingListItem';
 import type { AudioItem } from './RecordingListItem';
+import { AppScreen, BackButton, ChoiceTile, SearchInput, ToggleControl, TopBar } from '../shared/ui';
 
 type Category = 'letters' | 'words' | 'syllables' | 'numbers' | 'phrases' | 'praise';
 
@@ -177,89 +176,67 @@ export function AudioRecordingScreen({ locale }: AudioRecordingScreenProps) {
   );
 
   return (
-    <div className="min-h-[100svh] h-[100svh] overflow-hidden bg-bg-light flex flex-col px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
-      <div className="w-full max-w-2xl mx-auto flex flex-col flex-1 min-h-0">
-        <TopBar left={<BackButton onClick={() => navigate(-1)} />} />
+    <AppScreen maxWidth="narrow">
+      <TopBar left={<BackButton onClick={() => navigate(-1)} />} />
 
-        <div className="border-b-2 border-shadow/30 pb-4 mb-2 shrink-0">
-          <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-3xl font-bold flex-1">Vlastné nahrávky</h2>
+      <div className="mb-2 shrink-0 border-b-2 border-shadow/30 pb-4">
+        <div className="mb-4 flex items-center gap-4">
+          <h2 className="flex-1 text-3xl font-bold">Vlastné nahrávky</h2>
 
-            <span className="text-base font-medium opacity-60 shrink-0">Auto</span>
-            <button
-              onClick={() => setAutoProgress((v) => !v)}
-              className={`w-14 h-8 rounded-full transition-colors shrink-0 ${
-                autoProgress ? 'bg-accent-blue' : 'bg-shadow/20'
-              }`}
-              aria-label="Auto-pokračovať"
-            >
-              <span
-                className={`block w-6 h-6 rounded-full bg-white shadow transition-transform mx-1 ${
-                  autoProgress ? 'translate-x-6' : ''
-                }`}
-              />
-            </button>
-          </div>
+          <ToggleControl
+            label="Auto"
+            checked={autoProgress}
+            onToggle={() => setAutoProgress((value) => !value)}
+            iconBackgroundClassName="bg-accent-blue/35"
+            activeColorClassName="bg-accent-blue"
+            className="shrink-0"
+          />
+        </div>
 
-          <div className="relative">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 opacity-40" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Hľadať…"
-              className="w-full pl-11 pr-10 py-3 bg-white rounded-2xl border-2 border-shadow/10 text-lg font-medium focus:outline-none focus:border-accent-blue/50"
-            />
-            {search && (
-              <button
-                onClick={() => setSearch('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 opacity-40"
+        <SearchInput
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onClear={() => setSearch('')}
+          placeholder="Hľadať…"
+        />
+
+        {!search && (
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {CATEGORIES.map((cat) => (
+              <ChoiceTile
+                key={cat}
+                shape="pill"
+                state={activeCategory === cat ? 'selected' : 'neutral'}
+                className="whitespace-nowrap text-base font-semibold"
+                onClick={() => setActiveCategory(cat)}
               >
-                <X size={18} />
-              </button>
-            )}
+                {CATEGORY_LABELS[cat]}
+              </ChoiceTile>
+            ))}
           </div>
-
-          {!search && (
-            <div className="flex gap-2 mt-4 overflow-x-auto pb-1 scrollbar-none">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-base font-semibold whitespace-nowrap transition-all ${
-                    activeCategory === cat
-                      ? 'bg-accent-blue text-white'
-                      : 'bg-white text-text-main opacity-60'
-                  }`}
-                >
-                  {CATEGORY_LABELS[cat]}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="flex-1 overflow-y-auto min-h-0 space-y-2 py-2">
-          {filteredItems.length === 0 && (
-            <p className="text-center text-lg opacity-40 mt-8">Žiadne položky</p>
-          )}
-          {filteredItems.map((item) => (
-            <RecordingListItem
-              key={item.key}
-              item={item}
-              hasCustom={overrideKeys.has(item.key)}
-              isActive={item.key === activeKey}
-              recorderState={recorder.state}
-              speaking={recorder.speaking}
-              savedFlash={item.key === activeKey && savedFlash}
-              onRecord={() => handleRecord(item.key)}
-              onStop={handleStop}
-              onPlay={() => handlePlay(item)}
-              onDelete={() => void handleDelete(item.key)}
-            />
-          ))}
-        </div>
+        )}
       </div>
-    </div>
+
+      <div className="min-h-0 flex-1 space-y-2 overflow-y-auto py-2">
+        {filteredItems.length === 0 && (
+          <p className="mt-8 text-center text-lg opacity-40">Žiadne položky</p>
+        )}
+        {filteredItems.map((item) => (
+          <RecordingListItem
+            key={item.key}
+            item={item}
+            hasCustom={overrideKeys.has(item.key)}
+            isActive={item.key === activeKey}
+            recorderState={recorder.state}
+            speaking={recorder.speaking}
+            savedFlash={item.key === activeKey && savedFlash}
+            onRecord={() => handleRecord(item.key)}
+            onStop={handleStop}
+            onPlay={() => handlePlay(item)}
+            onDelete={() => void handleDelete(item.key)}
+          />
+        ))}
+      </div>
+    </AppScreen>
   );
 }

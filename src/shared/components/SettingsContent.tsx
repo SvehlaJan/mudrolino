@@ -8,10 +8,10 @@ import { createPortal } from 'react-dom';
 import { Languages, MessageSquare, Mic, Music } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { audioManager } from '../services/audioManager';
-import { SettingToggle } from './SettingToggle';
 import { FeedbackModal } from './FeedbackModal';
 import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
+import { Button, Card, SegmentedChoice, ToggleControl } from '../ui';
 
 interface SettingsContentProps {
   target: SettingsTarget;
@@ -44,11 +44,7 @@ interface SettingsRangeCardProps {
 }
 
 function SettingsCard({ children }: SettingsCardProps) {
-  return (
-    <section className="rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_12px_28px_rgba(93,69,62,0.06)] sm:rounded-[32px] sm:p-6">
-      {children}
-    </section>
-  );
+  return <Card>{children}</Card>;
 }
 
 function GameSettingsGroupCard({ title, children }: GameSettingsGroupCardProps) {
@@ -63,11 +59,7 @@ function GameSettingsGroupCard({ title, children }: GameSettingsGroupCardProps) 
 }
 
 function SettingsSection({ children }: SettingsSectionProps) {
-  return (
-    <div className="rounded-[24px] border border-shadow/15 bg-bg-light/35 p-4 sm:rounded-[28px] sm:p-5">
-      {children}
-    </div>
-  );
+  return <Card variant="inset">{children}</Card>;
 }
 
 function SettingsRangeCard({
@@ -85,20 +77,15 @@ function SettingsRangeCard({
       <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
         {description}
       </p>
-      <div className={`mt-5 grid gap-3 ${options.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
-        {options.map((option) => (
-          <button
-            key={option}
-            onClick={() => onSelect(option)}
-            className={`rounded-2xl py-4 text-lg font-bold transition-all sm:text-xl ${
-              selected === option
-                ? `${activeClassName} scale-105 text-white shadow-block`
-                : 'bg-bg-light text-text-main opacity-70'
-            }`}
-          >
-            {formatLabel(option)}
-          </button>
-        ))}
+      <div className="mt-5">
+        <SegmentedChoice
+          options={options}
+          selected={selected}
+          activeClassName={activeClassName}
+          formatLabel={formatLabel}
+          onSelect={onSelect}
+          columns={options.length === 2 ? 2 : 3}
+        />
       </div>
     </SettingsSection>
   );
@@ -113,7 +100,7 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
     <div className="flex-1 space-y-4 overflow-y-auto p-4 sm:space-y-5 sm:p-8">
       {visibility.music && (
         <SettingsCard>
-          <SettingToggle
+          <ToggleControl
             label="Hudba"
             description="Hudba na pozadí počas hrania"
             icon={<Music size={24} className="sm:h-7 sm:w-7" />}
@@ -141,19 +128,15 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
               </p>
             </div>
           </div>
-          <button
-            onClick={onManageRecordings}
-            className="mt-5 flex w-full items-center justify-center gap-3 rounded-2xl bg-accent-blue py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
-          >
-            <Mic size={24} />
+          <Button onClick={onManageRecordings} fullWidth className="mt-5" icon={<Mic size={24} />}>
             Spravovať nahrávky
-          </button>
+          </Button>
         </SettingsCard>
       )}
 
       {visibility.alphabetAccents && isHome && (
         <GameSettingsGroupCard title="Abeceda">
-          <SettingToggle
+          <ToggleControl
             label="Písmená s dĺžňami a mäkčeňmi"
             description="Rozšíriť hru o slovenské znaky."
             icon={<Languages size={24} className="sm:h-7 sm:w-7" />}
@@ -176,7 +159,7 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
 
       {visibility.alphabetAccents && !isHome && (
         <SettingsCard>
-          <SettingToggle
+          <ToggleControl
             label="Písmená s dĺžňami a mäkčeňmi"
             description="Rozšíriť hru o slovenské znaky."
             icon={<Languages size={24} className="sm:h-7 sm:w-7" />}
@@ -291,13 +274,9 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
               </p>
             </div>
           </div>
-          <button
-            onClick={() => setIsFeedbackOpen(true)}
-            className="mt-5 flex w-full items-center justify-center gap-3 rounded-2xl bg-accent-blue py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
-          >
-            <MessageSquare size={24} />
+          <Button onClick={() => setIsFeedbackOpen(true)} fullWidth className="mt-5" icon={<MessageSquare size={24} />}>
             Odoslať spätnú väzbu
-          </button>
+          </Button>
         </SettingsCard>
       )}
 
