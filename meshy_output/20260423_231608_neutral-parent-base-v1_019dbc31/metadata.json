@@ -1,0 +1,63 @@
+{
+  "project_name": "neutral-parent-base-v1",
+  "folder": "20260423_231608_neutral-parent-base-v1_019dbc31",
+  "root_task_id": "019dbc31-8f0c-7978-abc6-83ee4c9adabe",
+  "created_at": "2026-04-23T23:16:09.735638",
+  "updated_at": "2026-04-23T23:22:37.039146",
+  "tasks": [
+    {
+      "task_id": "019dbc31-8f0c-7978-abc6-83ee4c9adabe",
+      "task_type": "image-to-3d",
+      "stage": "complete",
+      "files": [
+        "model.glb"
+      ],
+      "created_at": "2026-04-23T23:16:09.735748",
+      "extra": {
+        "endpoint": "/openapi/v1/image-to-3d",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "fbx",
+          "glb",
+          "mtl",
+          "obj",
+          "stl",
+          "usdz"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20260423_231608_neutral-parent-base-v1_019dbc31/thumbnail.png"
+      }
+    },
+    {
+      "task_id": "019dbc35-a1cb-746d-910c-f8a564fd13ec",
+      "task_type": "rigging",
+      "stage": "complete",
+      "files": [
+        "rigged.glb",
+        "walking.glb",
+        "running.glb"
+      ],
+      "created_at": "2026-04-23T23:19:55.339464",
+      "extra": {
+        "endpoint": "/openapi/v1/rigging",
+        "status": "SUCCEEDED",
+        "available_formats": [],
+        "thumbnail": null
+      }
+    },
+    {
+      "task_id": "019dbc37-bb1a-74f7-92f5-b7f45ef47ca6",
+      "task_type": "animation",
+      "stage": "complete",
+      "files": [
+        "animated.glb"
+      ],
+      "created_at": "2026-04-23T23:22:37.039151",
+      "extra": {
+        "endpoint": "/openapi/v1/animations",
+        "status": "SUCCEEDED",
+        "available_formats": [],
+        "thumbnail": null
+      }
+    }
+  ]
+}

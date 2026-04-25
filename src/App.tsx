@@ -251,7 +251,7 @@ export default function App() {
             path="/avatar-preview"
             element={
               <ErrorBoundary>
-                {AVATAR_POC_ENABLED ? <AvatarPreviewScreen /> : <Navigate to="/" replace />}
+                {AVATAR_POC_ENABLED || import.meta.env.DEV ? <AvatarPreviewScreen /> : <Navigate to="/" replace />}
               </ErrorBoundary>
             }
           />

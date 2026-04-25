@@ -6,20 +6,34 @@ import { useAvatarAssetAvailability } from './useAvatarAssetAvailability';
 interface AvatarPresenterProps {
   className?: string;
   label?: string;
+  modelUrl?: string;
+  animationUrl?: string;
+  animationName?: string | null;
+  onAnimationsChange?: (names: string[]) => void;
 }
 
 export function AvatarPresenter({
   className,
   label = 'Animovaný sprievodca',
+  modelUrl = AVATAR_MODEL_URL,
+  animationUrl,
+  animationName,
+  onAnimationsChange,
 }: AvatarPresenterProps) {
-  const assetStatus = useAvatarAssetAvailability(AVATAR_MODEL_URL);
+  const assetStatus = useAvatarAssetAvailability(modelUrl);
 
   if (assetStatus !== 'available') return null;
 
   return (
     <AvatarRuntimeBoundary>
       <div className={className} role="img" aria-label={label}>
-        <AvatarScene className="h-full w-full" />
+        <AvatarScene
+          className="h-full w-full"
+          modelUrl={modelUrl}
+          animationUrl={animationUrl}
+          animationName={animationName}
+          onAnimationsChange={onAnimationsChange}
+        />
       </div>
     </AvatarRuntimeBoundary>
   );
