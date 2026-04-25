@@ -196,11 +196,18 @@ export function UiKitScreen() {
       </Section>
 
       <Section title="Overlay Frame">
-        <OverlayFrame show inline tone="success" confetti panelClassName="bg-white shadow-block">
-          <div className="text-6xl">🎉</div>
-          <h3 className="mt-2 text-4xl font-black text-primary">Výborne!</h3>
-          <p className="mt-3 text-2xl font-extrabold text-text-main">Ukážka panelu</p>
-        </OverlayFrame>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <OverlayFrame show inline tone="success" confetti panelClassName="bg-white shadow-block">
+            <div className="text-6xl">🎉</div>
+            <h3 className="mt-2 text-4xl font-black text-primary">Výborne!</h3>
+            <p className="mt-3 text-2xl font-extrabold text-text-main">Ukážka panelu</p>
+          </OverlayFrame>
+          <OverlayFrame show inline tone="failure" panelClassName="bg-white shadow-block">
+            <div className="text-6xl">🤗</div>
+            <h3 className="mt-2 text-4xl font-black text-[#3a4a8a]">Nevadí!</h3>
+            <p className="mt-3 text-2xl font-extrabold text-[#5566aa]">Ukážka panelu</p>
+          </OverlayFrame>
+        </div>
       </Section>
     </AppScreen>
   );
