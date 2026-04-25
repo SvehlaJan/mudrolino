@@ -227,7 +227,7 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
       </div>
 
       {successSpec && (
-        <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} locale={locale} />
+        <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} />
       )}
       {failureSpec && (
         <FailureOverlay show={showFailure} spec={failureSpec} onComplete={startNewRound} />
