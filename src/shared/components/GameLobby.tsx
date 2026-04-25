@@ -34,6 +34,13 @@ function renderTitle(title: string) {
   ));
 }
 
+const playButtonColorOverrides: Record<string, string> = {
+  'bg-success': '!bg-success',
+  'bg-primary': '!bg-primary',
+  'bg-accent-blue': '!bg-accent-blue',
+  'bg-soft-watermelon': '!bg-soft-watermelon',
+};
+
 export function GameLobby({
   title,
   playButtonColorClassName,
@@ -52,6 +59,7 @@ export function GameLobby({
       <Settings size={24} className="sm:w-7 sm:h-7" />
     </IconButton>
   ) : undefined;
+  const playButtonColorOverride = playButtonColorOverrides[playButtonColorClassName] ?? playButtonColorClassName;
 
   return (
     <AppScreen>
@@ -76,7 +84,7 @@ export function GameLobby({
           variant="play"
           onClick={onPlay}
           aria-label="Hrať"
-          className={`${playButtonColorClassName} shrink-0`}
+          className={`${playButtonColorOverride} shrink-0`}
         >
           <Play size={42} className="sm:w-16 sm:h-16 md:w-20 md:h-20 ml-1.5 sm:ml-3" fill="currentColor" />
         </Button>

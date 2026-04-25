@@ -52,7 +52,7 @@ function HomeLauncher({
           <IconButton
             label="Nastavenia"
             onClick={onOpenSettings}
-            className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 bg-shadow/20 shadow-none hover:scale-105 active:scale-95 shrink-0 relative"
+            className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 !bg-shadow/20 !shadow-none hover:scale-105 active:scale-95 shrink-0 relative"
           >
             <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 rounded-full blur-sm absolute" />
             <Settings size={28} className="sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-text-main opacity-80" />

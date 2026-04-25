@@ -99,7 +99,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
             <Button
               variant="quiet"
               onClick={handleBackspace}
-              className="bg-bg-light py-5 text-xl opacity-70"
+              className="!bg-bg-light py-5 text-xl opacity-70"
             >
               ⌫
             </Button>
