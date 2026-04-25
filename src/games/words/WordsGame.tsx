@@ -21,7 +21,7 @@ export function WordsGame({ locale, onExit, onOpenSettings }: WordsGameProps) {
   const lobby = GAME_DEFINITIONS_BY_ID.WORDS.lobby;
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} locale={locale} />;
+    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (
