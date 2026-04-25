@@ -37,6 +37,18 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `src/shared/contentRegistry.ts` is the main content registry for letters, derived syllables, numbers, shared phrase audio metadata, timing constants, and praise entries.
 - `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
 
+## UI Component Library
+
+Reusable UI primitives live in `src/shared/ui/`. They standardize the current app shell, top bars, buttons, cards, selectable tiles, form controls, overlays, and game counters.
+
+The hidden `/ui-kit` route shows the component inventory with real app labels and representative states for UX review. It is not linked from the child-facing home screen.
+
+When changing shared UI, keep three things aligned:
+
+- the primitive implementation in `src/shared/ui/`
+- the matching example or state on `/ui-kit`
+- this README and agent instructions if the usage contract changes
+
 ## Content Pipeline
 
 - Words are authored in `data/words.csv`.
