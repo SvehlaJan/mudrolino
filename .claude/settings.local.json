@@ -22,7 +22,10 @@
       "Bash(npm ls *)",
       "Bash(git commit *)",
       "Bash(git pull *)",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Bash(grep -v \"^$\")",
+      "mcp__brave-search__brave_web_search",
+      "Bash(bash /home/skclaw/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh --project-dir /home/skclaw/teo-learn --host 0.0.0.0 --url-host localhost)"
     ]
   }
 }

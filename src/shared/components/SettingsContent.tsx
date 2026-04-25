@@ -3,11 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Languages, Mic, Music } from 'lucide-react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Languages, MessageSquare, Mic, Music } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { audioManager } from '../services/audioManager';
 import { SettingToggle } from './SettingToggle';
+import { FeedbackModal } from './FeedbackModal';
+import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
 
 interface SettingsContentProps {
@@ -104,6 +107,7 @@ function SettingsRangeCard({
 export function SettingsContent({ target, settings, onUpdate, onManageRecordings }: SettingsContentProps) {
   const visibility = SETTINGS_VISIBILITY[target];
   const isHome = target === 'home';
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   return (
     <div className="flex-1 space-y-4 overflow-y-auto p-4 sm:space-y-5 sm:p-8">
@@ -272,6 +276,38 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, countingRange: { start: 1, end: value as 5 | 10 } })}
         />
+      )}
+
+      {hasFeedbackKey() && (
+        <SettingsCard>
+          <div className="flex items-start gap-4">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+              <MessageSquare size={24} className="sm:h-7 sm:w-7" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-xl font-bold leading-tight sm:text-2xl">Spätná väzba</h3>
+              <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
+                Pomôžte nám zlepšiť aplikáciu
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsFeedbackOpen(true)}
+            className="mt-5 flex w-full items-center justify-center gap-3 rounded-2xl bg-accent-blue py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
+          >
+            <MessageSquare size={24} />
+            Odoslať spätnú väzbu
+          </button>
+        </SettingsCard>
+      )}
+
+      {createPortal(
+        <FeedbackModal
+          isOpen={isFeedbackOpen}
+          onClose={() => setIsFeedbackOpen(false)}
+          screen={target}
+        />,
+        document.body
       )}
     </div>
   );
