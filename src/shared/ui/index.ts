@@ -12,5 +12,6 @@ export * from './IconButton';
 export * from './OverlayFrame';
 export * from './RoundCounter';
 export * from './TopBar';
+export * from './UiKitScreen';
 export * from './tokens';
 export * from './utils';

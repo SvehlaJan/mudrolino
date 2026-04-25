@@ -22,6 +22,7 @@ import { AssemblyGame } from './games/assembly/AssemblyGame';
 import { AudioRecordingScreen } from './recordings/AudioRecordingScreen';
 import { SettingsScreen } from './shared/components/SettingsScreen';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
+import { UiKitScreen } from './shared/ui';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
 
@@ -251,6 +252,14 @@ export default function App() {
                 onUpdate={setSettings}
                 onReady={awaitingHomeSettingsReveal ? handleHomeSettingsReady : undefined}
               />
+            }
+          />
+          <Route
+            path="/ui-kit"
+            element={
+              <ErrorBoundary>
+                <UiKitScreen />
+              </ErrorBoundary>
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />
