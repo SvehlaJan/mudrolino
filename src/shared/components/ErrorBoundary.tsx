@@ -1,4 +1,5 @@
 import { Component, ReactNode } from 'react';
+import { Button } from '../ui';
 
 interface Props {
   children: ReactNode;
@@ -30,12 +31,14 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className="text-8xl mb-6">🙈</div>
           <h2 className="text-4xl font-black mb-4 text-text-main">Niečo sa pokazilo</h2>
           <p className="text-xl opacity-60 mb-8">Skús to znova.</p>
-          <button
+          <Button
+            variant="danger"
+            size="lg"
             onClick={() => self.setState({ hasError: false })}
-            className="px-12 py-6 bg-primary text-white text-2xl font-bold rounded-full shadow-block active:translate-y-2 active:shadow-block-pressed"
+            className="rounded-full px-12 py-6 text-2xl"
           >
             Skúsiť znova
-          </button>
+          </Button>
         </div>
       );
     }

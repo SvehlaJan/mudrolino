@@ -94,6 +94,12 @@ export function UiKitScreen() {
             <ChoiceTile state="wrong"><span className="text-5xl">D</span></ChoiceTile>
             <ChoiceTile disabled><span className="text-5xl">E</span></ChoiceTile>
           </div>
+          <div className="grid max-w-md grid-cols-2 gap-4">
+            <ChoiceTile><span className="text-6xl">M</span></ChoiceTile>
+            <ChoiceTile state="correct"><span className="text-6xl">A</span></ChoiceTile>
+            <ChoiceTile state="wrong"><span className="text-6xl">S</span></ChoiceTile>
+            <ChoiceTile><span className="text-6xl">O</span></ChoiceTile>
+          </div>
           <SegmentedChoice
             options={[4, 6, 8]}
             selected={6}

@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
 import { Volume2 } from 'lucide-react';
-import { TopBar, BackButton } from './TopBar';
 import { GameDescriptor, SuccessSpec, FailureSpec } from '../types';
 import { audioManager } from '../services/audioManager';
 import { SuccessOverlay } from './SuccessOverlay';
@@ -13,6 +12,7 @@ import { FailureOverlay } from './FailureOverlay';
 import { SessionCompleteOverlay } from './SessionCompleteOverlay';
 import { TIMING } from '../contentRegistry';
 import { fisherYatesShuffle } from '../utils';
+import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../ui';
 
 interface FindItGameProps<T> {
   descriptor: GameDescriptor<T>;
@@ -183,56 +183,46 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
     : null;
   const gridWidth = tileSize ? tileSize * activeCols + gridGap * (activeCols - 1) : undefined;
   const replayButton = (
-    <button
+    <IconButton
       onClick={() => targetItem && audioManager.play(
         descriptor.getReplayAudio
           ? descriptor.getReplayAudio(targetItem)
           : descriptor.getPromptAudio(targetItem)
       )}
-      aria-label="Prehrať zvuk"
-      className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-block flex items-center justify-center text-text-main"
+      label="Prehrať zvuk"
     >
       <Volume2 size={24} className="sm:w-7 sm:h-7" />
-    </button>
+    </IconButton>
   );
 
   return (
-    <div className="min-h-[100svh] h-[100svh] overflow-hidden flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
-      <div className="w-full max-w-5xl flex-1 min-h-0 flex flex-col">
-        <TopBar
-          left={<BackButton onClick={onExit} />}
-          center={
-            <div className="bg-white rounded-full px-5 py-2 shadow-block font-bold text-base sm:text-lg text-text-main">
-              ✓ {roundsPlayed} / {maxRounds}
-            </div>
-          }
-          right={replayButton}
-        />
+    <AppScreen>
+      <TopBar
+        left={<BackButton onClick={onExit} />}
+        center={<RoundCounter completed={roundsPlayed} total={maxRounds} />}
+        right={replayButton}
+      />
 
-        <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
-          {prompt && <div className="text-center max-w-full">{prompt}</div>}
-        </div>
+      <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
+        {prompt && <div className="text-center max-w-full">{prompt}</div>}
+      </div>
 
-        <div ref={gridAreaRef} className="flex-1 min-h-0 flex items-center justify-center">
-          <div
-            className={`grid ${gridColsClass} gap-3 sm:gap-4 md:gap-5 w-full ${gridMaxWidthClass} mx-auto px-1 sm:px-2 place-content-center`}
-            style={gridWidth ? { width: `${gridWidth}px` } : undefined}
-          >
-            {gridItems.map((item, i) => (
-              <button
-                key={descriptor.getItemId(item)}
-                onClick={() => handleCardClick(item, i)}
-                aria-label={descriptor.getItemId(item)}
-                className={`
-                  w-full aspect-square rounded-[22px] sm:rounded-[28px] flex items-center justify-center transition-all p-2 sm:p-3 overflow-hidden
-                  ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
-                  ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
-                `}
-              >
-                {descriptor.renderCard(item)}
-              </button>
-            ))}
-          </div>
+      <div ref={gridAreaRef} className="flex-1 min-h-0 flex items-center justify-center">
+        <div
+          className={`grid ${gridColsClass} gap-3 sm:gap-4 md:gap-5 w-full ${gridMaxWidthClass} mx-auto px-1 sm:px-2 place-content-center`}
+          style={gridWidth ? { width: `${gridWidth}px` } : undefined}
+        >
+          {gridItems.map((item, i) => (
+            <ChoiceTile
+              key={descriptor.getItemId(item)}
+              onClick={() => handleCardClick(item, i)}
+              aria-label={descriptor.getItemId(item)}
+              state={feedback[i] ?? 'neutral'}
+              className="w-full overflow-hidden"
+            >
+              {descriptor.renderCard(item)}
+            </ChoiceTile>
+          ))}
         </div>
       </div>
 
@@ -249,6 +239,6 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
         maxRounds={maxRounds}
         onComplete={onExit}
       />
-    </div>
+    </AppScreen>
   );
 }
