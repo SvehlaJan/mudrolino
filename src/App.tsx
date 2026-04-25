@@ -19,8 +19,8 @@ import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
-import { AudioRecordingScreen } from './recordings/AudioRecordingScreen';
 import { SettingsScreen } from './shared/components/SettingsScreen';
+import { ContentProvider } from './shared/contexts/ContentContext';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 import { AppScreen, IconButton, UiKitScreen } from './shared/ui';
 
@@ -173,6 +173,7 @@ export default function App() {
   }, [navigate]);
 
   return (
+    <ContentProvider locale={locale}>
     <div className="min-h-screen bg-bg-light font-fredoka text-text-main relative">
       <div className="w-full min-h-screen">
         <Routes location={location}>
@@ -235,13 +236,15 @@ export default function App() {
             }
           />
           <Route
-            path="/recordings"
+            path="/content"
             element={
               <ErrorBoundary>
-                <AudioRecordingScreen locale={appSettings.locale} />
+                {/* CustomContentScreen added in Task 15 */}
+                <div className="p-8 text-center text-xl">Custom Content — coming in Task 15</div>
               </ErrorBoundary>
             }
           />
+          <Route path="/recordings" element={<Navigate to="/content" replace />} />
           <Route
             path="/settings"
             element={
@@ -280,5 +283,6 @@ export default function App() {
         />
       )}
     </div>
+    </ContentProvider>
   );
 }
