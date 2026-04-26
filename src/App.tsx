@@ -23,6 +23,7 @@ import { SettingsScreen } from './shared/components/SettingsScreen';
 import { ContentProvider } from './shared/contexts/ContentContext';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 import { AppScreen, IconButton, UiKitScreen } from './shared/ui';
+import { CustomContentScreen } from './content/CustomContentScreen';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
 
@@ -239,8 +240,7 @@ export default function App() {
             path="/content"
             element={
               <ErrorBoundary>
-                {/* CustomContentScreen added in Task 15 */}
-                <div className="p-8 text-center text-xl">Custom Content — coming in Task 15</div>
+                <CustomContentScreen />
               </ErrorBoundary>
             }
           />
