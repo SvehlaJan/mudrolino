@@ -199,7 +199,7 @@ export default function App() {
             path="/syllables"
             element={
               <ErrorBoundary>
-                <SyllablesGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
+                <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
               </ErrorBoundary>
             }
           />
