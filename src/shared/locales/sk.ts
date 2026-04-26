@@ -1,7 +1,4 @@
-import { Letter, NumberItem, AudioPhrase, AudioPhraseKey, PraiseEntry } from '../types';
-import { WORD_ITEMS } from '../wordItems.generated';
-
-export { WORD_ITEMS };
+import { Letter, NumberItem, AudioPhrase, AudioPhraseKey, PraiseEntry, Word } from '../types';
 
 export const LETTER_ITEMS: Letter[] = [
   { symbol: 'A',  label: 'Auto',     emoji: '🚗',   audioKey: 'a' },
@@ -46,6 +43,35 @@ export const LETTER_ITEMS: Letter[] = [
   { symbol: 'Ý',  label: '',         emoji: '🤩',   audioKey: 'y-acute' },
   { symbol: 'Z',  label: 'Zebra',    emoji: '🦓',   audioKey: 'z' },
   { symbol: 'Ž',  label: 'Žaba',     emoji: '🐸',   audioKey: 'z-caron' },
+];
+
+export const WORD_ITEMS: Word[] = [
+  { word: 'Mama',    syllables: 'ma-ma',      emoji: '👩',  audioKey: 'mama' },
+  { word: 'Tata',    syllables: 'ta-ta',      emoji: '👨',  audioKey: 'tata' },
+  { word: 'Baba',    syllables: 'ba-ba',      emoji: '👵',  audioKey: 'baba' },
+  { word: 'Dede',    syllables: 'de-de',      emoji: '👴',  audioKey: 'dede' },
+  { word: 'Pero',    syllables: 'pe-ro',      emoji: '✏️',  audioKey: 'pero' },
+  { word: 'Voda',    syllables: 'vo-da',      emoji: '💧',  audioKey: 'voda' },
+  { word: 'Dúha',    syllables: 'dú-ha',      emoji: '🌈',  audioKey: 'duha' },
+  { word: 'Oko',     syllables: 'o-ko',       emoji: '👁️',  audioKey: 'oko' },
+  { word: 'Noha',    syllables: 'no-ha',      emoji: '🦵',  audioKey: 'noha' },
+  { word: 'Ruka',    syllables: 'ru-ka',      emoji: '🤚',  audioKey: 'ruka' },
+  { word: 'Kako',    syllables: 'ka-ko',      emoji: '💩',  audioKey: 'kako' },
+  { word: 'Vajko',   syllables: 'vaj-ko',     emoji: '🥚',  audioKey: 'vajko' },
+  { word: 'Ryba',    syllables: 'ry-ba',      emoji: '🐟',  audioKey: 'ryba' },
+  { word: 'Auto',    syllables: 'au-to',      emoji: '🚗',  audioKey: 'auto' },
+  { word: 'Koza',    syllables: 'ko-za',      emoji: '🐐',  audioKey: 'koza' },
+  { word: 'Sova',    syllables: 'so-va',      emoji: '🦉',  audioKey: 'sova' },
+  { word: 'Žaba',    syllables: 'ža-ba',      emoji: '🐸',  audioKey: 'zaba' },
+  { word: 'Dino',    syllables: 'di-no',      emoji: '🦕',  audioKey: 'dino' },
+  { word: 'Kura',    syllables: 'ku-ra',      emoji: '🐔',  audioKey: 'kura' },
+  { word: 'Maco',    syllables: 'ma-co',      emoji: '🧸',  audioKey: 'maco' },
+  { word: 'Zebra',   syllables: 'ze-bra',     emoji: '🦓',  audioKey: 'zebra' },
+  { word: 'Tiger',   syllables: 'ti-ger',     emoji: '🐯',  audioKey: 'tiger' },
+  { word: 'Krava',   syllables: 'kra-va',     emoji: '🐄',  audioKey: 'krava' },
+  { word: 'Kačica',  syllables: 'ka-či-ca',   emoji: '🦆',  audioKey: 'kacica' },
+  { word: 'Žirafa',  syllables: 'ži-ra-fa',   emoji: '🦒',  audioKey: 'zirafa' },
+  { word: 'Jahoda',  syllables: 'ja-ho-da',   emoji: '🍓',  audioKey: 'jahoda' },
 ];
 
 export const NUMBER_ITEMS: NumberItem[] = Array.from({ length: 20 }, (_, i) => ({
