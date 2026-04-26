@@ -13,6 +13,7 @@ interface AppScreenProps {
   contentClassName?: string;
   maxWidth?: keyof typeof uiTokens.maxWidth;
   fixedHeight?: boolean;
+  position?: 'relative' | 'fixed';
   scrollable?: boolean;
 }
 
@@ -22,6 +23,7 @@ export function AppScreen({
   contentClassName,
   maxWidth = 'game',
   fixedHeight = true,
+  position = 'relative',
   scrollable = false,
 }: AppScreenProps) {
   return (
@@ -29,7 +31,8 @@ export function AppScreen({
       className={cx(
         fixedHeight ? 'min-h-[100svh] h-[100svh]' : 'min-h-screen',
         scrollable ? 'overflow-y-auto overflow-x-hidden' : 'overflow-hidden',
-        'relative flex flex-col',
+        position,
+        'flex flex-col',
         uiTokens.screenBg,
         uiTokens.screenPadding,
         className,

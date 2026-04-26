@@ -62,6 +62,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
 
   return (
     <AppScreen
+      position="fixed"
       className="fixed inset-0 z-50 bg-bg-light/95 backdrop-blur-md"
       contentClassName="max-w-sm"
     >
