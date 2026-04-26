@@ -9,7 +9,8 @@ import { Volume2 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, getLocaleContent } from '../../shared/contentRegistry';
+import { TIMING } from '../../shared/contentRegistry';
+import { useContent } from '../../shared/contexts/ContentContext';
 import { Word } from '../../shared/types';
 import { AppScreen, BackButton, Card, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
@@ -18,7 +19,6 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
 interface AssemblyGameProps {
-  locale: string;
   onExit: () => void;
   onOpenSettings: () => void;
 }
@@ -157,7 +157,8 @@ function AnswerSlot({
   );
 }
 
-export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGameProps) {
+export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
+  const { wordItems, locale, praiseEntries } = useContent();
   const [gameState, setGameState] = useState<GameState>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.ASSEMBLY.lobby;
   const [targetWord, setTargetWord] = useState<Word | null>(null);
@@ -182,11 +183,11 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
 
   const eligibleWords = useMemo(
     () =>
-      getLocaleContent(locale).wordItems.filter(({ syllables }) => {
+      wordItems.filter(({ syllables }) => {
         const syllableCount = syllables.split('-').length;
         return syllableCount >= 2 && syllableCount <= 3;
       }),
-    [locale],
+    [wordItems],
   );
 
   const wordQueueRef = useRef<Word[]>([]);
@@ -505,8 +506,15 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
       <GameLobby
         title={lobby.title}
         playButtonColorClassName={lobby.playButtonColorClassName}
-        subtitle={<>Poskladaj slovo zo slabík</>}
-        onPlay={handlePlay}
+        subtitle={
+          eligibleWords.length === 0
+            ? <>Pridajte slová so slabikami v sekcii Obsah</>
+            : <>Poskladaj slovo zo slabík</>
+        }
+        onPlay={() => {
+          if (eligibleWords.length === 0) return;
+          handlePlay();
+        }}
         onBack={onExit}
         onOpenSettings={onOpenSettings}
         topDecorationClassName={lobby.topDecorationClassName}
@@ -588,10 +596,9 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
           spec={{
             echoLine: `${targetWord.syllables} ${targetWord.emoji}`,
             audioSpec: getSuccessAudio(locale, targetWord),
-            praiseEntry: getLocaleContent(locale).praiseEntries.find((entry) => entry.audioKey === 'vyborne'),
+            praiseEntry: praiseEntries.find((entry) => entry.audioKey === 'vyborne'),
           }}
           onComplete={startNewRound}
-          locale={locale}
         />
       )}
 

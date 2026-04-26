@@ -122,14 +122,14 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
               <Mic size={24} className="sm:h-7 sm:w-7" />
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="text-xl font-bold leading-tight sm:text-2xl">Vlastné nahrávky</h3>
+              <h3 className="text-xl font-bold leading-tight sm:text-2xl">Vlastný obsah</h3>
               <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
                 Nahraj vlastný hlas pre písmená, slová a frázy.
               </p>
             </div>
           </div>
           <Button onClick={onManageRecordings} fullWidth className="mt-5" icon={<Mic size={24} />}>
-            Spravovať nahrávky
+            Vlastný obsah
           </Button>
         </SettingsCard>
       )}

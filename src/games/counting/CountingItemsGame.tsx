@@ -6,7 +6,8 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Volume2, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getLocaleContent, getPhraseClip } from '../../shared/contentRegistry';
+import { TIMING, COUNTING_EMOJIS, getPhraseClip } from '../../shared/contentRegistry';
+import { useContent } from '../../shared/contexts/ContentContext';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { NumberItem, FailureSpec } from '../../shared/types';
 import { AppScreen, BackButton, Card, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
@@ -17,7 +18,6 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
 interface CountingItemsGameProps {
-  locale: string;
   onExit: () => void;
   onOpenSettings: () => void;
   range: { start: number; end: number };
@@ -31,7 +31,8 @@ interface ItemPosition {
   scale: number;
 }
 
-export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: CountingItemsGameProps) {
+export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
+  const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.COUNTING_ITEMS.lobby;
   const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
@@ -51,7 +52,10 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
   const containerRef = useRef<HTMLDivElement>(null);
   const pendingFailureRef = useRef(false);
 
-  const availableItems = useMemo(() => getNumberItemsInRange(locale, range), [locale, range]);
+  const availableItems = useMemo(
+    () => numberItems.filter((n) => n.value >= range.start && n.value <= range.end),
+    [numberItems, range],
+  );
 
   const queueRef = useRef<NumberItem[]>([]);
 
@@ -93,7 +97,7 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
     const positions = generatePositions(target.value);
 
     // Build 4 options (target + 3 others from full number items range up to max)
-    const allNumbers = getLocaleContent(locale).numberItems.filter((n) => n.value <= Math.max(range.end, 10));
+    const allNumbers = numberItems.filter((n) => n.value <= Math.max(range.end, 10));
     const others = fisherYatesShuffle(
       allNumbers.filter(n => n.value !== target.value)
     ).slice(0, 3);
@@ -107,7 +111,7 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
     setShowFailure(false);
     pendingFailureRef.current = false;
     setWrongAttemptsThisRound(0);
-  }, [availableItems, locale, range.end, generatePositions]);
+  }, [availableItems, numberItems, range.end, generatePositions]);
 
   useEffect(() => {
     if (gameState === 'PLAYING' && !targetItem) startNewRound();
@@ -242,7 +246,6 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
           show={showSuccess}
           spec={{ echoLine: `Správne, je ich ${targetItem.value} ⭐` }}
           onComplete={startNewRound}
-          locale={locale}
         />
       )}
       {failureSpec && (

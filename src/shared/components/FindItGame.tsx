@@ -18,7 +18,6 @@ interface FindItGameProps<T> {
   descriptor: GameDescriptor<T>;
   /** Called when the child taps the back button — typically sets parent gameState back to 'HOME'. */
   onExit: () => void;
-  locale?: string;
 }
 
 interface RoundState<T> {
@@ -51,7 +50,7 @@ function buildGrid<T>(descriptor: GameDescriptor<T>, target: T): RoundState<T> {
   };
 }
 
-export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameProps<T>) {
+export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [{ roundState }, setSession] = useState(() => {
     const pool = fisherYatesShuffle(descriptor.getItems());
     const [first, ...rest] = pool;
@@ -164,6 +163,18 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
     }
   };
 
+  if (descriptor.getItems().length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full gap-4 p-8 text-center">
+        <p className="text-2xl font-bold text-text-main">Žiadne položky</p>
+        <p className="text-lg opacity-60">Pridajte obsah v sekcii pre rodičov.</p>
+        <button onClick={onExit} className="mt-4 px-6 py-3 bg-primary text-white rounded-2xl font-bold text-lg">
+          Späť
+        </button>
+      </div>
+    );
+  }
+
   const prompt = targetItem ? descriptor.renderPrompt(targetItem) : null;
   const gridColsClass = getGridColsClass(descriptor.gridCols);
   const gridMaxWidthClass = getGridMaxWidthClass(descriptor.gridCols);
@@ -227,7 +238,7 @@ export function FindItGame<T>({ descriptor, onExit, locale = 'sk' }: FindItGameP
       </div>
 
       {successSpec && (
-        <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} locale={locale} />
+        <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} />
       )}
       {failureSpec && (
         <FailureOverlay show={showFailure} spec={failureSpec} onComplete={startNewRound} />

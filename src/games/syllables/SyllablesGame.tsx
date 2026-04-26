@@ -8,22 +8,23 @@ import { GameSettings } from '../../shared/types';
 import { FindItGame } from '../../shared/components/FindItGame';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { useContent } from '../../shared/contexts/ContentContext';
 import { createSyllablesDescriptor } from './syllablesDescriptor';
 
 interface SyllablesGameProps {
-  locale: string;
   settings: GameSettings;
   onExit: () => void;
   onOpenSettings: () => void;
 }
 
-export function SyllablesGame({ locale, settings, onExit, onOpenSettings }: SyllablesGameProps) {
+export function SyllablesGame({ settings, onExit, onOpenSettings }: SyllablesGameProps) {
+  const { syllableItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, locale);
+  const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, syllableItems, locale);
   const lobby = GAME_DEFINITIONS_BY_ID.SYLLABLES.lobby;
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} locale={locale} />;
+    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (

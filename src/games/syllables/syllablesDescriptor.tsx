@@ -5,16 +5,20 @@
 
 import React from 'react';
 import { GameDescriptor, Syllable } from '../../shared/types';
-import { getPhraseClip, getLocaleContent } from '../../shared/contentRegistry';
+import { getPhraseClip } from '../../shared/contentRegistry';
 
-export function createSyllablesDescriptor(gridSize: 4 | 6, locale: string): GameDescriptor<Syllable> {
+export function createSyllablesDescriptor(
+  gridSize: 4 | 6,
+  syllableItems: Syllable[],
+  locale: string,
+): GameDescriptor<Syllable> {
   return {
     gridSize,
     gridCols: {
       base: 2,
       sm: gridSize === 6 ? 3 : 2,
     },
-    getItems: () => getLocaleContent(locale).syllableItems,
+    getItems: () => syllableItems,
     getItemId: (s) => s.symbol,
     renderCard: (s) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{s.symbol}</span>

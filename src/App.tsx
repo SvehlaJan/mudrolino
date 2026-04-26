@@ -19,10 +19,11 @@ import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
-import { AudioRecordingScreen } from './recordings/AudioRecordingScreen';
 import { SettingsScreen } from './shared/components/SettingsScreen';
+import { ContentProvider } from './shared/contexts/ContentContext';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 import { AppScreen, IconButton, UiKitScreen } from './shared/ui';
+import { CustomContentScreen } from './content/CustomContentScreen';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
 
@@ -173,6 +174,7 @@ export default function App() {
   }, [navigate]);
 
   return (
+    <ContentProvider locale={locale}>
     <div className="min-h-screen bg-bg-light font-fredoka text-text-main relative">
       <div className="w-full min-h-screen">
         <Routes location={location}>
@@ -190,7 +192,7 @@ export default function App() {
             path="/alphabet"
             element={
               <ErrorBoundary>
-                <AlphabetGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
+                <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
               </ErrorBoundary>
             }
           />
@@ -198,7 +200,7 @@ export default function App() {
             path="/syllables"
             element={
               <ErrorBoundary>
-                <SyllablesGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
+                <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
               </ErrorBoundary>
             }
           />
@@ -206,7 +208,7 @@ export default function App() {
             path="/numbers"
             element={
               <ErrorBoundary>
-                <NumbersGame locale={locale} range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
+                <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
               </ErrorBoundary>
             }
           />
@@ -214,7 +216,7 @@ export default function App() {
             path="/counting"
             element={
               <ErrorBoundary>
-                <CountingItemsGame locale={locale} range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
+                <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
               </ErrorBoundary>
             }
           />
@@ -222,7 +224,7 @@ export default function App() {
             path="/words"
             element={
               <ErrorBoundary>
-                <WordsGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
+                <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
               </ErrorBoundary>
             }
           />
@@ -230,18 +232,19 @@ export default function App() {
             path="/assembly"
             element={
               <ErrorBoundary>
-                <AssemblyGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
+                <AssemblyGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
               </ErrorBoundary>
             }
           />
           <Route
-            path="/recordings"
+            path="/content"
             element={
               <ErrorBoundary>
-                <AudioRecordingScreen locale={appSettings.locale} />
+                <CustomContentScreen />
               </ErrorBoundary>
             }
           />
+          <Route path="/recordings" element={<Navigate to="/content" replace />} />
           <Route
             path="/settings"
             element={
@@ -280,5 +283,6 @@ export default function App() {
         />
       )}
     </div>
+    </ContentProvider>
   );
 }

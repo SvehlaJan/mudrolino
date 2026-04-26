@@ -6,7 +6,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Pause, X } from 'lucide-react';
 import { SuccessSpec, PraiseEntry } from '../types';
-import { getLocaleContent, TIMING } from '../contentRegistry';
+import { TIMING } from '../contentRegistry';
+import { useContent } from '../contexts/ContentContext';
 import { audioManager } from '../services/audioManager';
 import { IconButton, OverlayFrame } from '../ui';
 
@@ -14,18 +15,17 @@ interface SuccessOverlayProps {
   show: boolean;
   spec: SuccessSpec;
   onComplete: () => void;
-  locale?: string;
 }
 
-export function SuccessOverlay({ show, spec, onComplete, locale = 'sk' }: SuccessOverlayProps) {
-  const [praise, setPraise] = useState<PraiseEntry>(getLocaleContent(locale).praiseEntries[0]);
+export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) {
+  const { praiseEntries } = useContent();
+  const [praise, setPraise] = useState<PraiseEntry>(praiseEntries[0] ?? { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' });
   const [paused, setPaused] = useState(false);
   const cancelledRef = useRef(false);
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!show) { setPaused(false); return; }
-    const praiseEntries = getLocaleContent(locale).praiseEntries;
     const entry = spec.praiseEntry ?? praiseEntries[Math.floor(Math.random() * praiseEntries.length)];
     setPraise(entry);
     setPaused(false);

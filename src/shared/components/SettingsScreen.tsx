@@ -40,7 +40,7 @@ export function SettingsScreen({ settings, onUpdate, onReady }: SettingsScreenPr
         target="home"
         settings={settings}
         onUpdate={onUpdate}
-        onManageRecordings={() => navigate('/recordings')}
+        onManageRecordings={() => navigate('/content')}
       />
     </AppScreen>
   );
