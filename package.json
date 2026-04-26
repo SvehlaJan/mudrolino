@@ -9,8 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && node_modules/.bin/eslint src --ext ts,tsx",
-    "test:audio": "npx tsx public/audio/_review/check_audio.ts",
-    "codegen": "tsx scripts/generate-word-items.ts"
+    "test:audio": "npx tsx public/audio/_review/check_audio.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
