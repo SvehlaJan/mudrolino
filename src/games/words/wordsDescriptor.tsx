@@ -5,16 +5,16 @@
 
 import React from 'react';
 import { GameDescriptor, Word } from '../../shared/types';
-import { getPhraseClip, getLocaleContent } from '../../shared/contentRegistry';
+import { getPhraseClip } from '../../shared/contentRegistry';
 
-export function createWordsDescriptor(locale: string): GameDescriptor<Word> {
+export function createWordsDescriptor(wordItems: Word[], locale: string): GameDescriptor<Word> {
   return {
     gridSize: 6,
     gridCols: {
       base: 2,
       sm: 3,
     },
-    getItems: () => getLocaleContent(locale).wordItems,
+    getItems: () => wordItems,
     getItemId: (w) => w.word,
     renderCard: (w) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] leading-none">{w.emoji}</span>

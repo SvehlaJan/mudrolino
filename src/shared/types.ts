@@ -150,6 +150,35 @@ export type AudioPhraseKey =
   | 'countItems' | 'whatIsWrittenHere' | 'orderSyllables'
   | 'retry' | 'neverMind' | 'itIs' | 'yesThereAre' | 'noThereAre' | 'correctAnswerIs';
 
+// ---------------------------------------------------------------------------
+// User-managed content — stored in LocalContentRepository, seeded from defaults
+// ---------------------------------------------------------------------------
+
+export interface UserWord {
+  id: string;
+  word: string;       // "Jahoda"
+  syllables: string;  // "ja-ho-da"
+  emoji: string;      // required
+  imageUrl?: string;  // reserved — future photo support
+  audioKey: string;   // defaults keep original key; custom words use "custom-{id}"
+  status: 'draft' | 'ready'; // ready = audio exists; only ready words appear in games
+  isDefault: boolean;
+  locale: string;
+  order: number;
+}
+
+export interface UserPraise {
+  id: string;
+  text: string;       // "Výborne!"
+  emoji: string;      // required
+  imageUrl?: string;  // reserved — future photo support
+  audioKey: string;
+  status: 'draft' | 'ready';
+  isDefault: boolean;
+  locale: string;
+  order: number;
+}
+
 export interface LocaleContent {
   letterItems: Letter[];
   wordItems: Word[];

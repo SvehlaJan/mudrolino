@@ -5,10 +5,11 @@
 
 import React from 'react';
 import { GameDescriptor, NumberItem } from '../../shared/types';
-import { getNumberItemsInRange, getPhraseClip } from '../../shared/contentRegistry';
+import { getPhraseClip } from '../../shared/contentRegistry';
 
 export function createNumbersDescriptor(
   range: { start: number; end: number },
+  numberItems: NumberItem[],
   locale: string,
 ): GameDescriptor<NumberItem> {
   return {
@@ -17,7 +18,7 @@ export function createNumbersDescriptor(
       base: 2,
       sm: 4,
     },
-    getItems: () => getNumberItemsInRange(locale, range),
+    getItems: () => numberItems,
     getItemId: (n) => String(n.value),
     renderCard: (n) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{n.value}</span>

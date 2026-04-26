@@ -4,11 +4,13 @@
  */
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { Volume2, ArrowLeft, RefreshCw } from 'lucide-react';
+import { Volume2, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, COUNTING_EMOJIS, getNumberItemsInRange, getLocaleContent, getPhraseClip } from '../../shared/contentRegistry';
+import { TIMING, COUNTING_EMOJIS, getPhraseClip } from '../../shared/contentRegistry';
+import { useContent } from '../../shared/contexts/ContentContext';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { NumberItem, FailureSpec } from '../../shared/types';
+import { AppScreen, BackButton, Card, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -16,7 +18,6 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
 interface CountingItemsGameProps {
-  locale: string;
   onExit: () => void;
   onOpenSettings: () => void;
   range: { start: number; end: number };
@@ -30,7 +31,8 @@ interface ItemPosition {
   scale: number;
 }
 
-export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: CountingItemsGameProps) {
+export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
+  const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.COUNTING_ITEMS.lobby;
   const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
@@ -50,7 +52,10 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
   const containerRef = useRef<HTMLDivElement>(null);
   const pendingFailureRef = useRef(false);
 
-  const availableItems = useMemo(() => getNumberItemsInRange(locale, range), [locale, range]);
+  const availableItems = useMemo(
+    () => numberItems.filter((n) => n.value >= range.start && n.value <= range.end),
+    [numberItems, range],
+  );
 
   const queueRef = useRef<NumberItem[]>([]);
 
@@ -92,7 +97,7 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
     const positions = generatePositions(target.value);
 
     // Build 4 options (target + 3 others from full number items range up to max)
-    const allNumbers = getLocaleContent(locale).numberItems.filter((n) => n.value <= Math.max(range.end, 10));
+    const allNumbers = numberItems.filter((n) => n.value <= Math.max(range.end, 10));
     const others = fisherYatesShuffle(
       allNumbers.filter(n => n.value !== target.value)
     ).slice(0, 3);
@@ -106,7 +111,7 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
     setShowFailure(false);
     pendingFailureRef.current = false;
     setWrongAttemptsThisRound(0);
-  }, [availableItems, locale, range.end, generatePositions]);
+  }, [availableItems, numberItems, range.end, generatePositions]);
 
   useEffect(() => {
     if (gameState === 'PLAYING' && !targetItem) startNewRound();
@@ -185,73 +190,55 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
   }
 
   return (
-    <div className="min-h-[100svh] h-[100svh] flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5 relative overflow-hidden">
-      <div className="flex-1 min-h-0 w-full max-w-5xl flex flex-col gap-3 sm:gap-4 md:gap-5">
-        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0">
-          <button
-            onClick={() => setGameState('HOME')}
-            aria-label="Späť"
-            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed"
-          >
-            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-          </button>
-          <div className="pt-1 sm:pt-1.5 flex justify-center">
-            <div className="bg-white rounded-full px-5 py-2 shadow-block font-bold text-base sm:text-lg text-text-main">
-              ✓ {roundsPlayed} / {MAX_ROUNDS}
-            </div>
-          </div>
-          <button
-            onClick={() => audioManager.play({ clips: [getPhraseClip(locale, 'countItems')] })}
-            aria-label="Prehrať zvuk"
-            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block justify-self-end"
-          >
+    <AppScreen contentClassName="gap-3 sm:gap-4 md:gap-5">
+      <TopBar
+        left={<BackButton onClick={() => setGameState('HOME')} />}
+        center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
+        right={(
+          <IconButton label="Prehrať zvuk" onClick={() => audioManager.play({ clips: [getPhraseClip(locale, 'countItems')] })}>
             <Volume2 size={24} className="sm:w-7 sm:h-7" />
-          </button>
-        </div>
-        <div
-          ref={containerRef}
-          className="relative flex-1 min-h-[220px] bg-white/50 rounded-[30px] sm:rounded-[44px] border-4 border-dashed border-shadow/20 overflow-hidden"
-        >
-          {itemPositions.map((pos, i) => (
-            <div
-              key={`${targetItem?.value}-${i}`}
-              aria-hidden="true"
-              className="absolute text-5xl sm:text-7xl md:text-8xl select-none"
-              style={{
-                left: `${pos.x}%`,
-                top: `${pos.y}%`,
-                transform: `translate(-50%, -50%) rotate(${pos.rotation}deg) scale(${pos.scale})`,
-              }}
-            >
-              {pos.emoji}
-            </div>
-          ))}
-          <button
-            onClick={startNewRound}
-            aria-label="Nové kolo"
-            className="absolute bottom-4 right-4 w-12 h-12 bg-white/50 rounded-full flex items-center justify-center text-shadow/40 hover:text-shadow transition-colors"
-          >
-            <RefreshCw size={24} />
-          </button>
-        </div>
+          </IconButton>
+        )}
+      />
 
-        <div
-          className="grid grid-cols-4 auto-rows-fr gap-3 sm:gap-4 md:gap-5 w-full shrink-0 pb-1 sm:pb-2"
+      <Card
+        ref={containerRef}
+        className="relative flex-1 min-h-[220px] overflow-hidden !rounded-[30px] !border-4 !border-dashed !border-shadow/20 !bg-white/50 !p-0 !shadow-none sm:!rounded-[44px]"
+      >
+        {itemPositions.map((pos, i) => (
+          <div
+            key={`${targetItem?.value}-${i}`}
+            aria-hidden="true"
+            className="absolute text-5xl sm:text-7xl md:text-8xl select-none"
+            style={{
+              left: `${pos.x}%`,
+              top: `${pos.y}%`,
+              transform: `translate(-50%, -50%) rotate(${pos.rotation}deg) scale(${pos.scale})`,
+            }}
+          >
+            {pos.emoji}
+          </div>
+        ))}
+        <IconButton
+          onClick={startNewRound}
+          label="Nové kolo"
+          className="absolute bottom-4 right-4 !bg-white/50 text-shadow/40 hover:text-shadow"
         >
-          {optionItems.map((item, i) => (
-            <button
-              key={i}
-              onClick={() => handleOptionClick(item, i)}
-              className={`
-                w-full aspect-[4/5] sm:aspect-square rounded-[22px] sm:rounded-[28px] flex items-center justify-center text-4xl sm:text-6xl md:text-7xl font-bold font-spline transition-all
-                ${feedback[i] === 'correct' ? 'bg-success text-primary shadow-block-correct -translate-y-1' : 'bg-white text-text-main shadow-block'}
-                ${feedback[i] === 'wrong' ? 'opacity-50 shadow-block-pressed scale-95' : 'active:translate-y-2 active:shadow-block-pressed'}
-              `}
-            >
-              {item.value}
-            </button>
-          ))}
-        </div>
+          <RefreshCw size={24} />
+        </IconButton>
+      </Card>
+
+      <div className="grid grid-cols-4 auto-rows-fr gap-3 sm:gap-4 md:gap-5 w-full shrink-0 pb-1 sm:pb-2">
+        {optionItems.map((item, i) => (
+          <ChoiceTile
+            key={i}
+            onClick={() => handleOptionClick(item, i)}
+            state={feedback[i] ?? 'neutral'}
+            className="w-full !aspect-[4/5] text-4xl font-spline sm:!aspect-square sm:text-6xl md:text-7xl"
+          >
+            {item.value}
+          </ChoiceTile>
+        ))}
       </div>
 
       {targetItem && (
@@ -259,7 +246,6 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
           show={showSuccess}
           spec={{ echoLine: `Správne, je ich ${targetItem.value} ⭐` }}
           onComplete={startNewRound}
-          locale={locale}
         />
       )}
       {failureSpec && (
@@ -272,6 +258,6 @@ export function CountingItemsGame({ locale, onExit, onOpenSettings, range }: Cou
         maxRounds={MAX_ROUNDS}
         onComplete={() => setGameState('HOME')}
       />
-    </div>
+    </AppScreen>
   );
 }

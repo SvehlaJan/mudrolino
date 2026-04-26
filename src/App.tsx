@@ -19,12 +19,14 @@ import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
-import { AudioRecordingScreen } from './recordings/AudioRecordingScreen';
 import { SettingsScreen } from './shared/components/SettingsScreen';
+import { ContentProvider } from './shared/contexts/ContentContext';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 import { HomeAvatarOverlay } from './avatar/HomeAvatarOverlay';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
+import { AppScreen, IconButton, UiKitScreen } from './shared/ui';
+import { CustomContentScreen } from './content/CustomContentScreen';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
 
@@ -43,8 +45,7 @@ function HomeLauncher({
   }, [navigate, scrollRef]);
 
   return (
-    <div className="min-h-[100svh] h-[100svh] overflow-hidden relative bg-bg-light flex flex-col p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto w-full flex-1 min-h-0 flex flex-col">
+    <AppScreen maxWidth="wide" className="p-4 sm:p-6 lg:p-8">
         {/* Header */}
         <div className="flex justify-between items-start gap-4 mb-4 sm:mb-6 lg:mb-8 shrink-0">
           <div className="flex flex-col gap-2">
@@ -52,13 +53,14 @@ function HomeLauncher({
             <p className="text-[clamp(1.05rem,2.2vw,1.7rem)] font-medium opacity-60 leading-tight">Vyber si hru a poďme na to!</p>
           </div>
 
-          <button
+          <IconButton
+            label="Nastavenia"
             onClick={onOpenSettings}
-            className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 bg-shadow/20 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 shrink-0 relative"
+            className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 !bg-shadow/20 !shadow-none hover:scale-105 active:scale-95 shrink-0 relative"
           >
             <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 rounded-full blur-sm absolute" />
             <Settings size={28} className="sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-text-main opacity-80" />
-          </button>
+          </IconButton>
         </div>
 
         {/* Game Grid */}
@@ -83,13 +85,11 @@ function HomeLauncher({
             </button>
           ))}
         </div>
-      </div>
-
       {/* Background Decorations */}
       <div aria-hidden="true" className="fixed top-1/3 -left-32 w-96 h-96 rounded-full bg-accent-blue opacity-[0.03] blur-[100px] pointer-events-none" />
       <div aria-hidden="true" className="fixed bottom-0 -right-32 w-[500px] h-[500px] rounded-full bg-primary opacity-[0.03] blur-[100px] pointer-events-none" />
       {AVATAR_POC_ENABLED && <HomeAvatarOverlay />}
-    </div>
+    </AppScreen>
   );
 }
 
@@ -178,6 +178,7 @@ export default function App() {
   }, [navigate]);
 
   return (
+    <ContentProvider locale={locale}>
     <div className="min-h-screen bg-bg-light font-fredoka text-text-main relative">
       <div className="w-full min-h-screen">
         <Routes location={location}>
@@ -195,7 +196,7 @@ export default function App() {
             path="/alphabet"
             element={
               <ErrorBoundary>
-                <AlphabetGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
+                <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
               </ErrorBoundary>
             }
           />
@@ -203,7 +204,7 @@ export default function App() {
             path="/syllables"
             element={
               <ErrorBoundary>
-                <SyllablesGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
+                <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
               </ErrorBoundary>
             }
           />
@@ -211,7 +212,7 @@ export default function App() {
             path="/numbers"
             element={
               <ErrorBoundary>
-                <NumbersGame locale={locale} range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
+                <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
               </ErrorBoundary>
             }
           />
@@ -219,7 +220,7 @@ export default function App() {
             path="/counting"
             element={
               <ErrorBoundary>
-                <CountingItemsGame locale={locale} range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
+                <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
               </ErrorBoundary>
             }
           />
@@ -227,7 +228,7 @@ export default function App() {
             path="/words"
             element={
               <ErrorBoundary>
-                <WordsGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
+                <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
               </ErrorBoundary>
             }
           />
@@ -235,18 +236,19 @@ export default function App() {
             path="/assembly"
             element={
               <ErrorBoundary>
-                <AssemblyGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
+                <AssemblyGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
               </ErrorBoundary>
             }
           />
           <Route
-            path="/recordings"
+            path="/content"
             element={
               <ErrorBoundary>
-                <AudioRecordingScreen locale={appSettings.locale} />
+                <CustomContentScreen />
               </ErrorBoundary>
             }
           />
+          <Route path="/recordings" element={<Navigate to="/content" replace />} />
           <Route
             path="/avatar-preview"
             element={
@@ -263,6 +265,14 @@ export default function App() {
                 onUpdate={setSettings}
                 onReady={awaitingHomeSettingsReveal ? handleHomeSettingsReady : undefined}
               />
+            }
+          />
+          <Route
+            path="/ui-kit"
+            element={
+              <ErrorBoundary>
+                <UiKitScreen />
+              </ErrorBoundary>
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -285,5 +295,6 @@ export default function App() {
         />
       )}
     </div>
+    </ContentProvider>
   );
 }

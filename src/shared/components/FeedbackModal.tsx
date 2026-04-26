@@ -5,7 +5,7 @@ import {
   FeedbackPayload,
   submitFeedback,
 } from '../services/feedbackService';
-import { TopBar, BackButton } from './TopBar';
+import { AppScreen, BackButton, Button, Card, ChoiceTile, TextAreaControl, TopBar } from '../ui';
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -66,12 +66,10 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   const canSubmit = category !== null && (formState === 'idle' || formState === 'error');
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-bg-light px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
-      <div className="mx-auto flex w-full max-w-2xl flex-1 min-h-0 flex-col">
-
+    <div className="fixed inset-0 z-50">
+      <AppScreen maxWidth="narrow">
         <TopBar left={<BackButton onClick={resetAndClose} />} />
 
-        {/* Title */}
         <div className="mb-6 text-center">
           <h2 className="text-3xl font-bold sm:text-5xl">Spätná väzba</h2>
           <p className="mt-2 text-base font-medium opacity-60 sm:text-xl">
@@ -80,56 +78,46 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
         </div>
 
         {formState === 'success' ? (
-          /* ── Success state ── */
           <div className="flex flex-1 flex-col items-center justify-center gap-5 text-center">
             <span className="text-6xl">🎉</span>
             <h3 className="text-2xl font-bold sm:text-3xl">Ďakujeme!</h3>
             <p className="max-w-xs text-base font-medium opacity-60 sm:text-lg">
               Vaša správa bola odoslaná. Snažíme sa odpovedať do 48 hodín.
             </p>
-            <button
-              onClick={resetAndClose}
-              className="mt-2 rounded-2xl bg-accent-blue px-8 py-4 text-xl font-bold text-white shadow-block active:translate-y-2 active:shadow-block-pressed"
-            >
+            <Button onClick={resetAndClose} className="mt-2">
               Zavrieť
-            </button>
+            </Button>
           </div>
         ) : (
-          /* ── Form state ── */
           <div className="flex-1 space-y-4 overflow-y-auto">
-
-            {/* Category selector */}
-            <section className="rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_12px_28px_rgba(93,69,62,0.06)] sm:rounded-[32px] sm:p-6">
+            <Card>
               <h3 className="text-xl font-bold sm:text-2xl">Typ správy</h3>
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {CATEGORIES.map(({ value, label, emoji }) => (
-                  <button
+                  <ChoiceTile
                     key={value}
-                    onClick={() => setCategory(value)}
+                    shape="option"
+                    state={category === value ? 'selected' : 'neutral'}
                     disabled={formState === 'submitting'}
-                    className={`rounded-2xl py-4 text-base font-bold transition-all sm:text-lg ${
-                      category === value
-                        ? 'scale-105 bg-accent-blue text-text-main shadow-block'
-                        : 'bg-bg-light text-text-main opacity-70'
-                    }`}
+                    className="text-base sm:text-lg"
+                    onClick={() => setCategory(value)}
                   >
                     {emoji} {label}
-                  </button>
+                  </ChoiceTile>
                 ))}
               </div>
-            </section>
+            </Card>
 
-            {/* Message textarea */}
-            <section className="rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_12px_28px_rgba(93,69,62,0.06)] sm:rounded-[32px] sm:p-6">
+            <Card>
               <h3 className="text-xl font-bold sm:text-2xl">Vaša správa</h3>
               <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">Voliteľné</p>
-              <textarea
+              <TextAreaControl
                 value={message}
                 onChange={(e) => setMessage(e.target.value.slice(0, MAX_LENGTH))}
                 disabled={formState === 'submitting'}
                 placeholder="Opíšte čo sa stalo, čo vám chýba, alebo čo by ste chceli vylepšiť…"
                 rows={4}
-                className="mt-4 w-full resize-none rounded-2xl border border-shadow/15 bg-bg-light/35 p-4 text-base font-medium placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-blue"
+                className="mt-4"
               />
               <div className="mt-2 flex items-center justify-between text-sm font-medium opacity-55">
                 <span>
@@ -142,27 +130,16 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
                   </span>
                 )}
               </div>
-            </section>
+            </Card>
 
-            {/* Submit button */}
-            <button
+            <Button
               onClick={handleSubmit}
               disabled={!canSubmit}
-              className={`flex w-full items-center justify-center gap-3 rounded-2xl py-4 text-xl font-bold text-white transition-all ${
-                canSubmit
-                  ? 'bg-accent-blue shadow-block active:translate-y-2 active:shadow-block-pressed'
-                  : 'bg-accent-blue/40'
-              }`}
+              fullWidth
+              icon={formState === 'submitting' ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
             >
-              {formState === 'submitting' ? (
-                <Loader2 size={20} className="animate-spin" />
-              ) : (
-                <>
-                  <Send size={20} />
-                  Odoslať
-                </>
-              )}
-            </button>
+              {formState === 'submitting' ? 'Odosielam' : 'Odoslať'}
+            </Button>
 
             {formState === 'error' && (
               <p className="text-center text-sm font-medium text-red-500">
@@ -171,7 +148,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
             )}
           </div>
         )}
-      </div>
+      </AppScreen>
     </div>
   );
 }

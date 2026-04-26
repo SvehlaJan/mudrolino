@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { TopBar, BackButton } from './TopBar';
+import { AppScreen, BackButton, Button, Card, TopBar } from '../ui';
 
 interface ParentsGateProps {
   onSuccess: () => void;
@@ -61,8 +61,10 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   }, [input, shaking, question.answer, onSuccess]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center bg-bg-light/95 backdrop-blur-md px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
-      <div className="w-full max-w-sm flex flex-col flex-1">
+    <AppScreen
+      className="fixed inset-0 z-50 bg-bg-light/95 backdrop-blur-md"
+      contentClassName="max-w-sm"
+    >
       <TopBar left={<BackButton onClick={onCancel} />} />
 
       <div className="flex-1 flex flex-col items-center justify-center">
@@ -72,49 +74,53 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
             <p className="text-lg opacity-60 font-medium mt-1">Vyriešte príklad pre vstup</p>
           </div>
 
-          <div
-            className={`w-full bg-white rounded-[28px] shadow-block py-6 text-center text-5xl font-bold text-text-main ${shaking ? 'animate-shake' : ''}`}
+          <Card
+            variant="panel"
+            className={`w-full py-6 text-center text-5xl font-bold text-text-main ${shaking ? 'animate-shake' : ''}`}
           >
             {question.a} {question.op} {question.b} = ?
-          </div>
+          </Card>
 
-          <div className="w-full bg-white rounded-2xl shadow-block py-4 min-h-[72px] flex items-center justify-center text-4xl font-bold text-text-main">
+          <Card className="w-full rounded-2xl py-4 min-h-[72px] flex items-center justify-center text-4xl font-bold text-text-main">
             {input || <span className="opacity-30">—</span>}
-          </div>
+          </Card>
 
           <div className="grid grid-cols-3 gap-3 w-full">
             {DIGITS.map(d => (
-              <button
+              <Button
                 key={d}
+                variant="quiet"
                 onClick={() => handleDigit(d)}
-                className="bg-white rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed"
+                className="py-5 text-2xl"
               >
                 {d}
-              </button>
+              </Button>
             ))}
-            <button
+            <Button
+              variant="quiet"
               onClick={handleBackspace}
-              className="bg-bg-light rounded-2xl py-5 text-xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed opacity-70"
+              className="!bg-bg-light py-5 text-xl opacity-70"
             >
               ⌫
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="quiet"
               onClick={() => handleDigit('0')}
-              className="bg-white rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block active:translate-y-2 active:shadow-block-pressed"
+              className="py-5 text-2xl"
             >
               0
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="primary"
               onClick={handleConfirm}
               disabled={!input || shaking}
-              className="bg-success rounded-2xl py-5 text-2xl font-bold text-text-main shadow-block-correct active:translate-y-2 active:shadow-block-pressed disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-success py-5 text-2xl text-text-main shadow-block-correct"
             >
               ✓
-            </button>
+            </Button>
           </div>
         </div>
       </div>
-      </div>
-    </div>
+    </AppScreen>
   );
 }

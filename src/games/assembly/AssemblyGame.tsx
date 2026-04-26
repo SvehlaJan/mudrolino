@@ -5,19 +5,20 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { ArrowLeft, Volume2 } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, getLocaleContent } from '../../shared/contentRegistry';
+import { TIMING } from '../../shared/contentRegistry';
+import { useContent } from '../../shared/contexts/ContentContext';
 import { Word } from '../../shared/types';
+import { AppScreen, BackButton, Card, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
 interface AssemblyGameProps {
-  locale: string;
   onExit: () => void;
   onOpenSettings: () => void;
 }
@@ -156,7 +157,8 @@ function AnswerSlot({
   );
 }
 
-export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGameProps) {
+export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
+  const { wordItems, locale, praiseEntries } = useContent();
   const [gameState, setGameState] = useState<GameState>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.ASSEMBLY.lobby;
   const [targetWord, setTargetWord] = useState<Word | null>(null);
@@ -181,11 +183,11 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
 
   const eligibleWords = useMemo(
     () =>
-      getLocaleContent(locale).wordItems.filter(({ syllables }) => {
+      wordItems.filter(({ syllables }) => {
         const syllableCount = syllables.split('-').length;
         return syllableCount >= 2 && syllableCount <= 3;
       }),
-    [locale],
+    [wordItems],
   );
 
   const wordQueueRef = useRef<Word[]>([]);
@@ -504,8 +506,15 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
       <GameLobby
         title={lobby.title}
         playButtonColorClassName={lobby.playButtonColorClassName}
-        subtitle={<>Poskladaj slovo zo slabík</>}
-        onPlay={handlePlay}
+        subtitle={
+          eligibleWords.length === 0
+            ? <>Pridajte slová so slabikami v sekcii Obsah</>
+            : <>Poskladaj slovo zo slabík</>
+        }
+        onPlay={() => {
+          if (eligibleWords.length === 0) return;
+          handlePlay();
+        }}
         onBack={onExit}
         onOpenSettings={onOpenSettings}
         topDecorationClassName={lobby.topDecorationClassName}
@@ -515,40 +524,28 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
   }
 
   return (
-    <div className="min-h-[100svh] h-[100svh] flex flex-col items-center px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5 relative overflow-hidden">
-      <div ref={boardRootRef} className="flex-1 min-h-0 w-full max-w-4xl xl:max-w-5xl flex flex-col gap-4 sm:gap-5 md:gap-6">
-        <div className="grid grid-cols-[auto_1fr_auto] items-start gap-3 sm:gap-4 shrink-0">
-          <button
-            onClick={handleBackToLobby}
-            aria-label="Späť"
-            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block transition-all active:translate-y-2 active:shadow-block-pressed"
-          >
-            <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
-          </button>
-          <div className="pt-1 sm:pt-1.5 flex justify-center">
-            <div className="bg-white rounded-full px-5 py-2 shadow-block font-bold text-base sm:text-lg text-text-main">
-              ✓ {roundsPlayed} / {MAX_ROUNDS}
-            </div>
-          </div>
-          <button
-            onClick={() => playPromptAudio(targetWord)}
-            aria-label="Prehrať slovo"
-            className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-text-main shadow-block justify-self-end"
-          >
-            <Volume2 size={24} className="sm:w-7 sm:h-7" />
-          </button>
-        </div>
+    <AppScreen maxWidth="game" contentClassName="gap-4 sm:gap-5 md:gap-6 xl:max-w-5xl">
+      <div ref={boardRootRef} className="flex flex-1 min-h-0 flex-col gap-4 sm:gap-5 md:gap-6">
+        <TopBar
+          left={<BackButton onClick={handleBackToLobby} />}
+          center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
+          right={(
+            <IconButton label="Prehrať slovo" onClick={() => playPromptAudio(targetWord)}>
+              <Volume2 size={24} className="sm:w-7 sm:h-7" />
+            </IconButton>
+          )}
+        />
 
         <div className="flex justify-center">
-          <div className="bg-white rounded-[32px] sm:rounded-[48px] px-8 py-6 sm:px-12 sm:py-8 shadow-block min-w-[180px] sm:min-w-[220px] text-center">
+          <Card className="min-w-[180px] !rounded-[32px] !px-8 !py-6 text-center !shadow-block sm:min-w-[220px] sm:!rounded-[48px] sm:!px-12 sm:!py-8">
             <div className="text-[72px] sm:text-[112px] lg:text-[132px] leading-none" aria-label={targetWord?.word}>
               {targetWord?.emoji}
             </div>
-          </div>
+          </Card>
         </div>
 
-        <div
-          className={`w-full max-w-3xl mx-auto bg-white/70 rounded-[36px] sm:rounded-[48px] p-4 sm:p-6 shadow-block transition-all ${
+        <Card
+          className={`mx-auto w-full max-w-3xl !rounded-[36px] !bg-white/70 !p-4 !shadow-block transition-all sm:!rounded-[48px] sm:!p-6 ${
             wrongPulse ? 'ring-4 ring-soft-watermelon scale-[1.01]' : ''
           }`}
         >
@@ -564,9 +561,9 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
               />
             ))}
           </div>
-        </div>
+        </Card>
 
-        <div className="w-full max-w-3xl mx-auto bg-white rounded-[36px] sm:rounded-[48px] p-4 sm:p-6 shadow-block">
+        <Card className="mx-auto w-full max-w-3xl !rounded-[36px] !p-4 !shadow-block sm:!rounded-[48px] sm:!p-6">
           <div className={`grid gap-3 sm:gap-5 min-h-[112px] ${correctSyllables.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
             {Array.from({ length: correctSyllables.length }, (_, index) => {
               const tile = trayTiles.find(candidate => candidate.trayIndex === index) ?? null;
@@ -590,7 +587,7 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
               );
             })}
           </div>
-        </div>
+        </Card>
       </div>
 
       {targetWord && (
@@ -599,10 +596,9 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
           spec={{
             echoLine: `${targetWord.syllables} ${targetWord.emoji}`,
             audioSpec: getSuccessAudio(locale, targetWord),
-            praiseEntry: getLocaleContent(locale).praiseEntries.find((entry) => entry.audioKey === 'vyborne'),
+            praiseEntry: praiseEntries.find((entry) => entry.audioKey === 'vyborne'),
           }}
           onComplete={startNewRound}
-          locale={locale}
         />
       )}
 
@@ -613,6 +609,6 @@ export function AssemblyGame({ locale, onExit, onOpenSettings }: AssemblyGamePro
         maxRounds={MAX_ROUNDS}
         onComplete={handleBackToLobby}
       />
-    </div>
+    </AppScreen>
   );
 }

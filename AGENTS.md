@@ -81,6 +81,19 @@ These power the end-of-round and end-of-session feedback used across the games.
 4. Add the route and home-screen card in `App.tsx`.
 5. Update `ROADMAP.md` if the new game changes scope or delivery status.
 
+## UI Component Library
+
+Shared UI primitives live in `src/shared/ui/`. New UI should use these primitives before adding one-off Tailwind class strings:
+
+- `AppScreen` for full-screen shells and standard responsive padding.
+- `TopBar`, `BackButton`, `IconButton`, and `RoundCounter` for game and parent-screen navigation.
+- `Button`, `Card`, `ChoiceTile`, and form controls for repeated actions, surfaces, selectable tiles, and settings/feedback inputs.
+- `OverlayFrame` for modal feedback shells.
+
+The hidden `/ui-kit` route is the designer-review surface for shared UI components and states. When adding or changing a shared component, update its `/ui-kit` example in the same change. If the component API or usage contract changes, update this file and `README.md`.
+
+This consolidation phase standardizes the current playful UI. Do not introduce a broad redesign unless the task explicitly asks for one, but prefer shared component consistency over preserving old one-off spacing, colors, typography, or radii.
+
 ## Audio files
 
 Drop recorded `.mp3` files into `public/audio/` subdirectories. File naming follows `audioKey` values from `contentRegistry.ts`:

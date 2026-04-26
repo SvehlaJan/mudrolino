@@ -6,6 +6,7 @@
 import React from 'react';
 import { Mic, Trash2, Play, Square } from 'lucide-react';
 import type { RecorderState } from '../shared/hooks/useRecorder';
+import { Card, IconButton } from '../shared/ui';
 
 export interface AudioItem {
   key: string;
@@ -63,17 +64,15 @@ export function RecordingListItem({
   }
 
   // ── Row background / border ───────────────────────────────────────────────
-  let rowClass = 'flex items-center gap-2 px-4 py-3 rounded-2xl transition-colors ';
+  let rowClass = 'flex items-center gap-2 transition-colors ';
   if (isSavedFlash) {
-    rowClass += 'bg-green-950/40 border-2 border-green-600/50';
+    rowClass += '!bg-green-950/40 !border-green-600/50';
   } else if (isProcessing) {
-    rowClass += 'bg-amber-950/30 border-2 border-amber-500/40';
+    rowClass += '!bg-amber-950/30 !border-amber-500/40';
   } else if (isRecording && speaking) {
-    rowClass += 'bg-pink-950/30 border-2 border-pink-500/50';
+    rowClass += '!bg-pink-950/30 !border-pink-500/50';
   } else if (isRecording) {
-    rowClass += 'bg-blue-950/30 border-2 border-accent-blue/50';
-  } else {
-    rowClass += 'bg-white border-2 border-transparent';
+    rowClass += '!bg-blue-950/30 !border-accent-blue/50';
   }
 
   // ── Status text ───────────────────────────────────────────────────────────
@@ -89,14 +88,10 @@ export function RecordingListItem({
   else if (isProcessing) labelClass += 'text-amber-300';
   else if (isRecording) labelClass += speaking ? 'text-pink-200' : 'text-blue-200';
 
-  const idleActionClass =
-    'w-9 h-9 shrink-0 rounded-full flex items-center justify-center shadow-sm active:opacity-60';
-  const deleteActionClass = `${idleActionClass} bg-shadow/20 text-text-main/70`;
-  const playActionClass = `${idleActionClass} bg-accent-blue/45 text-text-main`;
-  const recordActionClass = `${idleActionClass} bg-soft-watermelon/45 text-text-main`;
+  const compactActionClass = 'h-9 w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:h-9 sm:w-9';
 
   return (
-    <div className={rowClass}>
+    <Card variant="row" className={rowClass}>
       {/* Left indicator — fixed 22px slot */}
       <div className="w-[22px] flex items-center justify-center shrink-0">
         {indicator}
@@ -131,39 +126,39 @@ export function RecordingListItem({
           {/* Delete — only when idle and has custom recording */}
           <div className="w-9 flex items-center justify-center shrink-0">
             {hasCustom && (
-              <button
+              <IconButton
                 onClick={onDelete}
-                className={deleteActionClass}
-                aria-label="Zmazať nahrávku"
+                className={`${compactActionClass} !bg-shadow/20 text-text-main/70`}
+                label="Zmazať nahrávku"
               >
                 <Trash2 size={16} />
-              </button>
+              </IconButton>
             )}
           </div>
 
           {/* Play */}
           <div className="w-9 flex items-center justify-center shrink-0">
-            <button
+            <IconButton
               onClick={onPlay}
-              className={playActionClass}
-              aria-label="Prehrať"
+              className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
+              label="Prehrať"
             >
               <Play size={16} />
-            </button>
+            </IconButton>
           </div>
 
           {/* Record */}
           <div className="w-9 flex items-center justify-center shrink-0">
-            <button
+            <IconButton
               onClick={onRecord}
-              className={recordActionClass}
-              aria-label="Nahrať"
+              className={`${compactActionClass} !bg-soft-watermelon/45 text-text-main`}
+              label="Nahrať"
             >
               <Mic size={16} />
-            </button>
+            </IconButton>
           </div>
         </>
       )}
-    </div>
+    </Card>
   );
 }

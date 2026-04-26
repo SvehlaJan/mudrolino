@@ -27,7 +27,7 @@ export const COUNTING_EMOJIS: string[] = [
 // Locale registry
 // ---------------------------------------------------------------------------
 
-function _deriveSyllableItems(wordItems: Word[]): Syllable[] {
+export function deriveSyllableItems(wordItems: Word[]): Syllable[] {
   const syllableWordMap = new Map<string, Word[]>();
   for (const wordItem of wordItems) {
     for (const syl of wordItem.syllables.split('-')) {
@@ -60,7 +60,7 @@ export function getLocaleContent(locale: string): LocaleContent {
   const content: LocaleContent = {
     letterItems: effective.LETTER_ITEMS,
     wordItems: effective.WORD_ITEMS,
-    syllableItems: _deriveSyllableItems(effective.WORD_ITEMS),
+    syllableItems: deriveSyllableItems(effective.WORD_ITEMS),
     numberItems: effective.NUMBER_ITEMS,
     audioPhrases: effective.AUDIO_PHRASES,
     praiseEntries: effective.PRAISE_ENTRIES,

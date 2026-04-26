@@ -5,11 +5,11 @@
 
 import React from 'react';
 import { GameDescriptor, Letter } from '../../shared/types';
-import { getAlphabetItems, getPhraseClip } from '../../shared/contentRegistry';
+import { getPhraseClip } from '../../shared/contentRegistry';
 
 export function createAlphabetDescriptor(
   gridSize: 4 | 6 | 8,
-  includeAccentedLetters: boolean,
+  letterItems: Letter[],
   locale: string,
 ): GameDescriptor<Letter> {
   return {
@@ -18,7 +18,7 @@ export function createAlphabetDescriptor(
       base: 2,
       sm: gridSize === 8 ? 4 : gridSize === 6 ? 3 : 2,
     },
-    getItems: () => getAlphabetItems(locale, includeAccentedLetters),
+    getItems: () => letterItems,
     getItemId: (l) => l.symbol,
     renderCard: (l) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{l.symbol}</span>
