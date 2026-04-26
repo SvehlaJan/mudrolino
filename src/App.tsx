@@ -215,7 +215,7 @@ export default function App() {
             path="/counting"
             element={
               <ErrorBoundary>
-                <CountingItemsGame locale={locale} range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
+                <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
               </ErrorBoundary>
             }
           />
