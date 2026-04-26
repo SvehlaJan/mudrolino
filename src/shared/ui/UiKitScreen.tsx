@@ -7,6 +7,7 @@ import React from 'react';
 import { Loader2, Mic, Play, RefreshCw, Settings, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
+import { IconMenuButton } from './IconMenuButton';
 import { TopBar } from './TopBar';
 import { RoundCounter } from './RoundCounter';
 import { Button } from './Button';
@@ -51,6 +52,17 @@ export function UiKitScreen() {
           <Button variant="play" aria-label="Hrať"><Play size={56} fill="currentColor" /></Button>
           <IconButton label="Prehrať"><Volume2 size={24} /></IconButton>
           <IconButton label="Nahrať"><Mic size={24} /></IconButton>
+          <IconMenuButton
+            label="Viac možností"
+            actions={[
+              {
+                label: 'Zmazať slovo',
+                icon: <Trash2 size={16} />,
+                tone: 'danger',
+                onSelect: () => undefined,
+              },
+            ]}
+          />
         </Card>
       </Section>
 
