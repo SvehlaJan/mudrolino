@@ -207,7 +207,7 @@ export default function App() {
             path="/numbers"
             element={
               <ErrorBoundary>
-                <NumbersGame locale={locale} range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
+                <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
               </ErrorBoundary>
             }
           />
