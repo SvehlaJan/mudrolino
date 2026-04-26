@@ -86,7 +86,7 @@ function SystemAudioSection({ items }: SystemAudioSectionProps) {
         setActiveKey(null);
       }, SAVED_FLASH_MS);
     });
-  }, [recorder.blobPromise]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [recorder.blobPromise]);
 
   useEffect(() => () => {
     if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);

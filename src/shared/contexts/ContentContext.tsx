@@ -66,12 +66,12 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
   const repoRef = useRef<ContentRepository>(new LocalContentRepository(locale));
   const [allUserWords, setAllUserWords] = useState<UserWord[]>([]);
   const [allUserPraises, setAllUserPraises] = useState<UserPraise[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadedLocale, setLoadedLocale] = useState<string | null>(null);
+  const isLoading = loadedLocale !== locale;
 
   useEffect(() => {
     const repo = new LocalContentRepository(locale);
     repoRef.current = repo;
-    setIsLoading(true);
 
     const localeData = getLocaleContent(locale);
 
@@ -104,7 +104,7 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
       .then(([words, praises]) => {
         setAllUserWords(words);
         setAllUserPraises(praises);
-        setIsLoading(false);
+        setLoadedLocale(locale);
       });
   }, [locale]);
 
