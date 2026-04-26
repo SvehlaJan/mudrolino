@@ -223,7 +223,7 @@ export default function App() {
             path="/words"
             element={
               <ErrorBoundary>
-                <WordsGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
+                <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
               </ErrorBoundary>
             }
           />
