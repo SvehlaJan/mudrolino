@@ -191,7 +191,7 @@ export default function App() {
             path="/alphabet"
             element={
               <ErrorBoundary>
-                <AlphabetGame locale={locale} settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
+                <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
               </ErrorBoundary>
             }
           />
