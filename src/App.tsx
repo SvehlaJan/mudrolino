@@ -231,7 +231,7 @@ export default function App() {
             path="/assembly"
             element={
               <ErrorBoundary>
-                <AssemblyGame locale={locale} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
+                <AssemblyGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
               </ErrorBoundary>
             }
           />
