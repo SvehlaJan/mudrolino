@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Loader2, Mic, Play, RefreshCw, Settings, Trash2, Volume2 } from 'lucide-react';
+import { Loader2, Mic, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
 import { IconMenuButton } from './IconMenuButton';
@@ -15,6 +15,7 @@ import { Card } from './Card';
 import { ChoiceTile } from './ChoiceTile';
 import { SearchInput, SegmentedChoice, TextAreaControl, ToggleControl } from './FormControls';
 import { OverlayFrame } from './OverlayFrame';
+import { cx } from './utils';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -22,6 +23,104 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="text-2xl font-black sm:text-3xl">{title}</h2>
       {children}
     </section>
+  );
+}
+
+const compactActionClass = 'h-9 w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:h-9 sm:w-9';
+
+interface RecordingRowExampleProps {
+  label: string;
+  secondaryLabel?: string;
+  indicator: React.ReactNode;
+  statusText?: string;
+  hasCustom?: boolean;
+  engaged?: boolean;
+  menuActions?: React.ComponentProps<typeof IconMenuButton>['actions'];
+  className?: string;
+}
+
+function RecordingRowExample({
+  label,
+  secondaryLabel,
+  indicator,
+  statusText,
+  hasCustom = false,
+  engaged = false,
+  menuActions,
+  className,
+}: RecordingRowExampleProps) {
+  return (
+    <Card variant="row" className={cx('flex items-center gap-2 transition-colors', className)}>
+      <div className="w-[22px] flex items-center justify-center shrink-0">
+        {indicator}
+      </div>
+
+      <span className="min-w-0 flex-1 text-left">
+        <span className="block truncate text-lg font-medium text-text-main">{label}</span>
+        {secondaryLabel && (
+          <span className="mt-0.5 block truncate text-xs font-bold uppercase tracking-normal text-text-main/55">
+            {secondaryLabel}
+          </span>
+        )}
+      </span>
+
+      {statusText && (
+        <span className="text-xs italic opacity-80 shrink-0 mr-1">{statusText}</span>
+      )}
+
+      {engaged ? (
+        <div className="w-9 flex items-center justify-center shrink-0">
+          <button
+            type="button"
+            aria-label="Zastaviť"
+            className="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center active:opacity-70"
+          >
+            <Square size={12} className="text-white fill-white" />
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="w-9 flex items-center justify-center shrink-0">
+            {hasCustom && (
+              <IconButton
+                label="Zmazať nahrávku"
+                className={`${compactActionClass} !bg-shadow/20 text-text-main/70`}
+              >
+                <Trash2 size={16} />
+              </IconButton>
+            )}
+          </div>
+
+          <div className="w-9 flex items-center justify-center shrink-0">
+            <IconButton
+              label="Prehrať"
+              className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
+            >
+              <Play size={16} />
+            </IconButton>
+          </div>
+
+          <div className="w-9 flex items-center justify-center shrink-0">
+            <IconButton
+              label="Nahrať"
+              className={`${compactActionClass} !bg-soft-watermelon/45 text-text-main`}
+            >
+              <Mic size={16} />
+            </IconButton>
+          </div>
+
+          {menuActions && menuActions.length > 0 && (
+            <div className="w-9 flex items-center justify-center shrink-0">
+              <IconMenuButton
+                label="Ďalšie možnosti"
+                actions={menuActions}
+                className={`${compactActionClass} !bg-transparent !shadow-none text-text-main/70`}
+              />
+            </div>
+          )}
+        </>
+      )}
+    </Card>
   );
 }
 
@@ -52,17 +151,6 @@ export function UiKitScreen() {
           <Button variant="play" aria-label="Hrať"><Play size={56} fill="currentColor" /></Button>
           <IconButton label="Prehrať"><Volume2 size={24} /></IconButton>
           <IconButton label="Nahrať"><Mic size={24} /></IconButton>
-          <IconMenuButton
-            label="Viac možností"
-            actions={[
-              {
-                label: 'Zmazať slovo',
-                icon: <Trash2 size={16} />,
-                tone: 'danger',
-                onSelect: () => undefined,
-              },
-            ]}
-          />
         </Card>
       </Section>
 
@@ -81,20 +169,46 @@ export function UiKitScreen() {
             <p className="mt-2 font-medium opacity-60">Používa sa v nastaveniach.</p>
           </Card>
         </div>
-        <Card variant="row" className="flex items-center gap-2 transition-colors">
-          <Mic size={18} className="shrink-0 text-accent-blue" />
-          <span className="flex-1 truncate text-lg font-medium">mama 👩</span>
-          <span className="mr-1 shrink-0 text-xs italic opacity-80">Vlastné</span>
-          <IconButton label="Zmazať nahrávku" className="h-9 w-9 !bg-shadow/20 !shadow-sm text-text-main/70 sm:h-9 sm:w-9">
-            <Trash2 size={16} />
-          </IconButton>
-          <IconButton label="Prehrať" className="h-9 w-9 !bg-accent-blue/45 !shadow-sm text-text-main sm:h-9 sm:w-9">
-            <Play size={16} />
-          </IconButton>
-          <IconButton label="Nahrať" className="h-9 w-9 !bg-soft-watermelon/45 !shadow-sm text-text-main sm:h-9 sm:w-9">
-            <Mic size={16} />
-          </IconButton>
-        </Card>
+        <div className="grid gap-3 lg:grid-cols-2">
+          <RecordingRowExample
+            label="mama 👩"
+            indicator={<span className="inline-block h-3 w-3 rounded-full border-2 border-shadow/20" />}
+          />
+
+          <RecordingRowExample
+            label="jahoda 🍓"
+            secondaryLabel="JA-HO-DA"
+            indicator={<span className="inline-block h-3 w-3 rounded-full border-2 border-shadow/20" />}
+          />
+
+          <RecordingRowExample
+            label="auto 🚗"
+            indicator={<Mic size={14} className="text-accent-blue" />}
+            statusText="Vlastné"
+            hasCustom
+          />
+
+          <RecordingRowExample
+            label="pes 🐶"
+            secondaryLabel="PES"
+            indicator={<span className="text-sm text-red-400">●</span>}
+            statusText="Počujem…"
+            engaged
+          />
+
+          <RecordingRowExample
+            label="vlak 🚂"
+            indicator={<span className="inline-block h-3 w-3 rounded-full border-2 border-shadow/20" />}
+            menuActions={[
+              {
+                label: 'Zmazať slovo',
+                icon: <Trash2 size={16} />,
+                tone: 'danger',
+                onSelect: () => undefined,
+              },
+            ]}
+          />
+        </div>
       </Section>
 
       <Section title="Choices">
