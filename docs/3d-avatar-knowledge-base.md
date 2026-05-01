@@ -94,6 +94,7 @@ Meshy tasks:
   - decision: rejected visually; text-to-3D did not produce a usable modest underlayer base
 - male modular image reference:
   - generated image copy: [meshy_output/reference_images/male-parent-underlayer-reference-v1.png](/Users/svehla/playground/teo-learn/meshy_output/reference_images/male-parent-underlayer-reference-v1.png)
+  - featureless v2 image copy: [meshy_output/reference_images/male-parent-underlayer-reference-v2-featureless.png](/Users/svehla/playground/teo-learn/meshy_output/reference_images/male-parent-underlayer-reference-v2-featureless.png)
 - male modular image-to-3D task: `019de4fe-8076-729e-bf73-e5a0ea09078e`
   - project dir: [meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe](/Users/svehla/playground/teo-learn/meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe)
   - downloaded GLB: [meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe/model.glb](/Users/svehla/playground/teo-learn/meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe/model.glb)
@@ -101,6 +102,26 @@ Meshy tasks:
   - validation: `0` errors, `0` warnings, `1` info (`NODE_MATRIX_DEFAULT`)
   - inspect summary: one unrigged triangle mesh, `68,489` vertices, one 2048x2048 base-color texture, no animations
   - decision: rejected visually; thumbnail still shows torso/groin anatomical shading and is not modest enough for the underlayer contract
+- male modular textured v2 image-to-3D task: `019de508-335c-74c0-8b12-f5952406b6a0`
+  - project dir: [meshy_output/20260501_213540_male-parent-underlayer-image-base-v2-tex_019de508](/Users/svehla/playground/teo-learn/meshy_output/20260501_213540_male-parent-underlayer-image-base-v2-tex_019de508)
+  - downloaded GLB: [meshy_output/20260501_213540_male-parent-underlayer-image-base-v2-tex_019de508/model.glb](/Users/svehla/playground/teo-learn/meshy_output/20260501_213540_male-parent-underlayer-image-base-v2-tex_019de508/model.glb)
+  - cost: `30` credits
+  - decision: rejected visually; stricter reference helped the shape but texture still introduced unacceptable dark body shading
+- male modular no-texture v2 image-to-3D task: `019de50b-07c9-77ca-be26-0a30c8fb67fd`
+  - project dir: [meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b](/Users/svehla/playground/teo-learn/meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b)
+  - downloaded GLB: [meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/model.glb](/Users/svehla/playground/teo-learn/meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/model.glb)
+  - cost: `20` credits
+  - decision: accepted as the rigging source; no texture avoids anatomical texture shading, and Blender assigns final materials
+- male modular no-texture v2 rig task: `019de50e-13bf-764b-8fbc-2bee7c4bc4e4`
+  - rigged GLB: [meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/rigged.glb](/Users/svehla/playground/teo-learn/meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/rigged.glb)
+  - cost: `5` credits
+  - armature summary: `24` bones: `Hips`, legs/feet/toes, spine, shoulders/arms/hands, `neck`, `Head`, `head_end`, `headfront`
+- male modular MVP asset:
+  - exported GLB: [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
+  - export script: [tools/blender/export_male_modular_avatar.py](/Users/svehla/playground/teo-learn/tools/blender/export_male_modular_avatar.py)
+  - working blend: [meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/male-base-modular-working.blend](/Users/svehla/playground/teo-learn/meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/male-base-modular-working.blend)
+  - object contract: `Armature`, `body_underlayer_male`, `head`, `face_anchor`, `top_blue_tshirt`, `top_green_hoodie`
+  - validation: `0` errors; warnings are expected `TEXCOORD_0` unused attributes and `NODE_SKINNED_MESH_NON_ROOT`
 - image-to-3D base task: `019dbc31-8f0c-7978-abc6-83ee4c9adabe`
 - rig task: `019dbc35-a1cb-746d-910c-f8a564fd13ec`
 - victory cheer animation task: `019dbc37-bb1a-74f7-92f5-b7f45ef47ca6`
@@ -114,7 +135,10 @@ Credits spent so far:
 - `3` shrug animation
 - `20` male modular base preview
 - `30` male modular image-to-3D base
-- `91` total
+- `30` male modular textured v2 image-to-3D base
+- `20` male modular no-texture v2 image-to-3D base
+- `5` male modular no-texture v2 rig
+- `146` total
 
 ## Technical Architecture
 
@@ -459,15 +483,11 @@ Recent verified screenshot artifacts:
 - Verified cleaned `sad_react` candidate renders in `/avatar-preview` on desktop and mobile.
 - Fixed preview rendering for skinned mesh visibility and responsive canvas height.
 - Installed Playwright for browser verification.
+- Generated, rigged, and exported the first male modular MVP GLB at `public/avatar/modular/male-base-modular.glb`.
 
 ### Next
 
 - Review and execute [docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md](/Users/svehla/playground/teo-learn/docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md).
-- Generate a new male-coded parent/caregiver underlayer base from scratch with Meshy.
-- Inspect the generated GLB before spending credits on rigging.
-- Rig the base only if the generated asset is worth continuing.
-- Fit `top_blue_tshirt` and `top_green_hoodie` in Blender after the base exists.
-- Export `male-base-modular.glb` with stable mesh names.
 - Update runtime state/catalog from `outfitId` to slot selections.
 - Update `AvatarModel` to toggle `top_*` mesh visibility.
 - Add parent-facing top selection in Settings.
@@ -505,6 +525,7 @@ Recent verified screenshot artifacts:
 | 2026-05-01 | Persist `face` and `bodyShape` config now, but render only placeholder face and average body for MVP. | This avoids repeated storage migrations while not exposing controls before assets support them. |
 | 2026-05-01 | Prefer Meshy image-to-3D over text-to-3D for avatar base generation. | The first text-to-3D male base was rejected visually; generated image references give stronger control over silhouette, pose, and modest underlayer styling. |
 | 2026-05-01 | Reject the first textured image-to-3D male base for rigging. | It validates technically, but still contains torso/groin anatomical shading that violates the modest underlayer requirement. |
+| 2026-05-01 | Use the no-texture Meshy image-to-3D male base for MVP rigging and modular export. | The no-texture output avoids texture-driven anatomical shading; Blender owns skin/clothing materials and exports the first modular GLB. |
 
 ## Related Context
 

@@ -18,6 +18,7 @@ from urllib import error, request
 
 
 BASE_URL = "https://api.meshy.ai"
+REQUEST_TIMEOUT_SECONDS = 180
 
 
 class MeshyCliError(RuntimeError):
@@ -178,7 +179,7 @@ class MeshyClient:
             headers["Content-Type"] = "application/json"
         req = request.Request(f"{BASE_URL}{path}", data=body, headers=headers, method=method.upper())
         try:
-            with request.urlopen(req, timeout=60) as response:
+            with request.urlopen(req, timeout=REQUEST_TIMEOUT_SECONDS) as response:
                 return json.loads(response.read().decode("utf-8"))
         except error.HTTPError as exc:
             raw_body = exc.read().decode("utf-8", errors="replace")

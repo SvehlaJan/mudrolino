@@ -108,14 +108,14 @@
 - [x] MVP Meshy character asset available in `public/avatar/meshy/`
 - [x] Cleaned success and failure/reaction animation candidates available
 - [x] Spec: male-coded avatar base, modular clothing, and face-decal readiness (`docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md`)
-- [?] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character — first text-to-3D and first textured image-to-3D attempts were rejected; next attempt should prefer image-to-3D with an even more featureless reference and likely no texture
-- [ ] Keep or retarget to a stable armature with reusable named bones so idle/success/failure animations can drive the base and clothing meshes
-- [ ] Export one MVP modular GLB for the male base containing the base body plus named top-slot mesh variants
+- [x] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character
+- [x] Keep or retarget to a stable armature with reusable named bones so idle/success/failure animations can drive the base and clothing meshes
+- [x] Export one MVP modular GLB for the male base containing the base body plus named top-slot mesh variants
 - [ ] Map idle/success/failure avatar states into runtime-facing names
 - [ ] Add avatar to session-complete/reward screens first
 - [ ] Decide whether per-round success/failure overlays should use the avatar or keep the current lightweight treatment
 - [ ] Define the slot-ready avatar state/catalog with multiple future slots but implement only `top` for the MVP
-- [ ] Create 2-3 top variants in the male modular GLB, with stable mesh names suitable for visibility toggles
+- [x] Create 2 top variants in the male modular GLB, with stable mesh names suitable for visibility toggles
 - [ ] Persist selected top locally in versioned avatar state, migrating from the current `outfitId: "default"` shape
 - [ ] Add a simple parent-facing customization screen or section
 - [ ] Prepare the new head asset for future selfie-based face customization with a named face patch/anchor such as `FaceAnchor`
