@@ -9,6 +9,7 @@ export * from './Card';
 export * from './ChoiceTile';
 export * from './FormControls';
 export * from './IconButton';
+export * from './IconMenuButton';
 export * from './OverlayFrame';
 export * from './RoundCounter';
 export * from './TopBar';

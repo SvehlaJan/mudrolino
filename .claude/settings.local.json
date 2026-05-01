@@ -25,7 +25,14 @@
       "Bash(npx eslint *)",
       "Bash(grep -v \"^$\")",
       "mcp__brave-search__brave_web_search",
-      "Bash(bash /home/skclaw/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh --project-dir /home/skclaw/teo-learn --host 0.0.0.0 --url-host localhost)"
+      "Bash(bash /home/skclaw/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh --project-dir /home/skclaw/teo-learn --host 0.0.0.0 --url-host localhost)",
+      "WebFetch(domain:api-docs.deepseek.com)",
+      "Bash(node -e \"require\\('./lib/helpers'\\).detectDevServers\\(\\).then\\(s => console.log\\(JSON.stringify\\(s\\)\\)\\)\")",
+      "Bash(node run.js /tmp/playwright-test-content.js)",
+      "Bash(node run.js /tmp/playwright-dump-content.js)",
+      "Bash(node /home/skclaw/.claude/plugins/cache/playwright-skill/playwright-skill/4.1.0/skills/playwright-skill/run.js /tmp/playwright-dump-content.js)",
+      "Bash(node /home/skclaw/.claude/plugins/cache/playwright-skill/playwright-skill/4.1.0/skills/playwright-skill/run.js /tmp/playwright-dump-tabs.js)",
+      "Bash(awk '{print $0}')"
     ]
   }
 }

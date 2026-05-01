@@ -6,7 +6,8 @@
 import React from 'react';
 import { Mic, Trash2, Play, Square } from 'lucide-react';
 import type { RecorderState } from '../shared/hooks/useRecorder';
-import { Card, IconButton } from '../shared/ui';
+import type { IconMenuAction } from '../shared/ui';
+import { Card, IconButton, IconMenuButton } from '../shared/ui';
 
 export interface AudioItem {
   key: string;
@@ -16,6 +17,8 @@ export interface AudioItem {
 
 export interface RecordingListItemProps {
   item: AudioItem;
+  secondaryLabel?: string;
+  menuActions?: IconMenuAction[];
   hasCustom: boolean;
   /** True when this row owns the active recorder. */
   isActive: boolean;
@@ -33,6 +36,8 @@ export interface RecordingListItemProps {
 
 export function RecordingListItem({
   item,
+  secondaryLabel,
+  menuActions,
   hasCustom,
   isActive,
   recorderState,
@@ -83,10 +88,15 @@ export function RecordingListItem({
   else if (isSavedFlash) statusText = 'Uložené';
 
   // ── Label colour ──────────────────────────────────────────────────────────
-  let labelClass = 'text-lg font-medium flex-1 text-left truncate text-text-main ';
+  let labelClass = 'text-lg font-medium text-left truncate text-text-main ';
   if (isSavedFlash) labelClass += 'text-green-300';
   else if (isProcessing) labelClass += 'text-amber-300';
   else if (isRecording) labelClass += speaking ? 'text-pink-200' : 'text-blue-200';
+
+  let secondaryClass = 'mt-0.5 text-xs font-bold uppercase tracking-normal text-text-main/55 truncate ';
+  if (isSavedFlash) secondaryClass += 'text-green-300/80';
+  else if (isProcessing) secondaryClass += 'text-amber-300/80';
+  else if (isRecording) secondaryClass += speaking ? 'text-pink-200/80' : 'text-blue-200/80';
 
   const compactActionClass = 'h-9 w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:h-9 sm:w-9';
 
@@ -98,7 +108,12 @@ export function RecordingListItem({
       </div>
 
       {/* Label */}
-      <span className={labelClass}>{item.label}</span>
+      <span className="min-w-0 flex-1 text-left">
+        <span className={`block ${labelClass}`}>{item.label}</span>
+        {secondaryLabel && (
+          <span className={`block ${secondaryClass}`}>{secondaryLabel}</span>
+        )}
+      </span>
 
       {/* Status text — flush against right buttons */}
       {statusText && (
@@ -157,6 +172,16 @@ export function RecordingListItem({
               <Mic size={16} />
             </IconButton>
           </div>
+
+          {menuActions && menuActions.length > 0 && (
+            <div className="w-9 flex items-center justify-center shrink-0">
+              <IconMenuButton
+                label="Ďalšie možnosti"
+                actions={menuActions}
+                className={`${compactActionClass} !bg-transparent !shadow-none text-text-main/70`}
+              />
+            </div>
+          )}
         </>
       )}
     </Card>

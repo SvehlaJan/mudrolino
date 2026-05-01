@@ -241,29 +241,28 @@ function EditableWordList({ locale }: EditableWordListProps) {
           category: 'words',
         };
         return (
-          <div key={word.id} className="flex items-center gap-2">
-            <div className="flex-1">
-              <RecordingListItem
-                item={item}
-                hasCustom={overrideKeys.has(storeKey)}
-                isActive={word.id === activeId}
-                recorderState={recorder.state}
-                speaking={recorder.speaking}
-                savedFlash={word.id === activeId && savedFlash}
-                onRecord={() => handleRecord(word.id)}
-                onStop={handleStop}
-                onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: word.word }] })}
-                onDelete={() => void handleDeleteAudio(word)}
-              />
-            </div>
-            <button
-              onClick={() => void deleteWord(word.id)}
-              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-xl bg-red-100 text-red-500 active:opacity-60"
-              aria-label="Zmazať slovo"
-            >
-              <Trash2 size={16} />
-            </button>
-          </div>
+          <RecordingListItem
+            key={word.id}
+            item={item}
+            secondaryLabel={word.syllables.toUpperCase()}
+            menuActions={[
+              {
+                label: 'Zmazať slovo',
+                icon: <Trash2 size={16} />,
+                tone: 'danger',
+                onSelect: () => void deleteWord(word.id),
+              },
+            ]}
+            hasCustom={overrideKeys.has(storeKey)}
+            isActive={word.id === activeId}
+            recorderState={recorder.state}
+            speaking={recorder.speaking}
+            savedFlash={word.id === activeId && savedFlash}
+            onRecord={() => handleRecord(word.id)}
+            onStop={handleStop}
+            onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: word.word }] })}
+            onDelete={() => void handleDeleteAudio(word)}
+          />
         );
       })}
 
@@ -417,29 +416,27 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
           category: 'praise',
         };
         return (
-          <div key={praise.id} className="flex items-center gap-2">
-            <div className="flex-1">
-              <RecordingListItem
-                item={item}
-                hasCustom={overrideKeys.has(storeKey)}
-                isActive={praise.id === activeId}
-                recorderState={recorder.state}
-                speaking={recorder.speaking}
-                savedFlash={praise.id === activeId && savedFlash}
-                onRecord={() => handleRecord(praise.id)}
-                onStop={handleStop}
-                onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: praise.text }] })}
-                onDelete={() => void handleDeleteAudio(praise)}
-              />
-            </div>
-            <button
-              onClick={() => void deletePraise(praise.id)}
-              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-xl bg-red-100 text-red-500 active:opacity-60"
-              aria-label="Zmazať pochvalu"
-            >
-              <Trash2 size={16} />
-            </button>
-          </div>
+          <RecordingListItem
+            key={praise.id}
+            item={item}
+            menuActions={[
+              {
+                label: 'Zmazať pochvalu',
+                icon: <Trash2 size={16} />,
+                tone: 'danger',
+                onSelect: () => void deletePraise(praise.id),
+              },
+            ]}
+            hasCustom={overrideKeys.has(storeKey)}
+            isActive={praise.id === activeId}
+            recorderState={recorder.state}
+            speaking={recorder.speaking}
+            savedFlash={praise.id === activeId && savedFlash}
+            onRecord={() => handleRecord(praise.id)}
+            onStop={handleStop}
+            onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: praise.text }] })}
+            onDelete={() => void handleDeleteAudio(praise)}
+          />
         );
       })}
 
