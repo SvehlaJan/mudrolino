@@ -2,6 +2,9 @@ import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { AvatarPresenter } from './AvatarPresenter';
+import { AVATAR_TOP_ITEMS, DEFAULT_AVATAR_TOP } from './avatarCatalog';
+import { AVATAR_MODULAR_MALE_MODEL_URL } from './avatarConstants';
+import { AvatarTopItemId } from './avatarTypes';
 import { useAvatarAssetAvailability } from './useAvatarAssetAvailability';
 
 interface PreviewAsset {
@@ -10,6 +13,7 @@ interface PreviewAsset {
   description: string;
   modelUrl: string;
   animationUrl?: string;
+  supportsTopSelection?: boolean;
 }
 
 const PREVIEW_ASSETS: PreviewAsset[] = [
@@ -65,6 +69,13 @@ const PREVIEW_ASSETS: PreviewAsset[] = [
     description: 'Base rig exported from Blender with rotation-only shrug action',
     modelUrl: '/avatar/meshy/neutral-parent-sad-react-clean.glb',
   },
+  {
+    id: 'male-modular',
+    label: 'Male modular base',
+    description: 'Scratch-built male parent/caregiver base with top-slot variants',
+    modelUrl: AVATAR_MODULAR_MALE_MODEL_URL,
+    supportsTopSelection: true,
+  },
 ];
 
 export function AvatarPreviewScreen() {
@@ -75,6 +86,7 @@ export function AvatarPreviewScreen() {
     names: [],
   });
   const [requestedAnimation, setRequestedAnimation] = useState<string | null>(null);
+  const [selectedTop, setSelectedTop] = useState<AvatarTopItemId>(DEFAULT_AVATAR_TOP);
 
   const selectedAsset = useMemo(
     () => PREVIEW_ASSETS.find((asset) => asset.id === selectedAssetId) ?? PREVIEW_ASSETS[0],
@@ -184,6 +196,31 @@ export function AvatarPreviewScreen() {
               </div>
             </div>
           )}
+
+          {selectedAsset.supportsTopSelection && (
+            <div className="mt-6">
+              <p className="text-sm font-black uppercase tracking-[0.2em] opacity-50">Top</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {AVATAR_TOP_ITEMS.map((item) => {
+                  const isSelected = item.id === selectedTop;
+
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => setSelectedTop(item.id)}
+                      className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${
+                        isSelected
+                          ? 'bg-accent-blue text-white'
+                          : 'bg-white text-text-main shadow-chip hover:bg-accent-blue/10'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </section>
 
         <section className="min-h-[520px] flex-1 rounded-[32px] bg-white p-5 shadow-chip sm:p-6">
@@ -193,6 +230,7 @@ export function AvatarPreviewScreen() {
               modelUrl={selectedAsset.modelUrl}
               animationUrl={selectedAsset.animationUrl}
               animationName={selectedAnimation}
+              slotSelections={selectedAsset.supportsTopSelection ? { top: selectedTop } : undefined}
               onAnimationsChange={handleAnimationsChange}
               label={selectedAsset.label}
             />
