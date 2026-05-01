@@ -24,11 +24,11 @@
 
 - [x] Spec for words game (`docs/superpowers/specs/`)
 - [x] Words game component (`src/games/words/WordsGame.tsx`)
-- [x] Words game content entries in `contentRegistry.ts`
+- [x] Words game content entries in Slovak locale content
 - [x] Add words game to `App.tsx` game registry and home screen grid
 
 ### Syllable assembly game (new)
-> Drag-and-drop mechanic: child sees shuffled syllable tiles and drags them into the correct order to form the word. Needs its own spec before implementation.
+> Tap-to-place mechanic with optional drag-and-drop: child sees shuffled syllable tiles and places them in the correct order to form the word.
 
 - [x] Spec for syllable assembly game (`docs/superpowers/specs/`)
 - [x] Syllable assembly game component (`src/games/assembly/AssemblyGame.tsx`)
@@ -52,223 +52,191 @@
 
 ---
 
-## Phase 1 — Pre-launch
+## Phase 1 — Friends-first Share
 
-**Goal:** App is polished, instrumented, and ready to share publicly with other families. Slovak only, no accounts.
+**Goal:** Share a useful, local-first Slovak app with trusted friends quickly. No accounts, no payments, no public marketing launch. UX review continues in parallel and only release-blocks if it finds child-flow or parent-settings problems.
 
-### 1.1 Mascot and Redesign
-> Needs its own spec. Hard requirement before public launch.
-> Open decisions: mascot artist (commissioned / AI-generated / self), art style (flat vector / hand-drawn / pixel), mascot prominence (home only vs. in-game reactions), redesign scope (full overhaul vs. targeted polish), new app name/branding?
+### 1.1 Release Readiness
+> Focus on confidence for a small private audience, not full public-launch polish.
 
-- [ ] Decide on mascot art source and style
-- [ ] Mascot design spec (`docs/superpowers/specs/`)
-- [ ] Create / commission mascot assets
-- [ ] Redesign home screen with mascot
-- [ ] Redesign game screens (typography, colors, layout)
-- [ ] Redesign Settings and ParentsGate screens
-- [ ] Accessibility pass (BACKLOG AC1–AC3): keyboard nav, ARIA labels, emoji alt text
+- [~] UX review in progress in parallel
+- [ ] Apply critical UX findings from review
+- [ ] Run a full smoke test on phone and desktop/tablet: home, all games, settings, custom content, recording, feedback, avatar flag on/off
+- [ ] Verify production build and deploy target
+- [ ] Configure `VITE_WEB3FORMS_KEY` for private feedback collection
+- [ ] Share private URL with first friend group
+- [ ] Collect and triage first feedback before public launch planning
 
-### 1.2 Content Configurability
-> Needs its own spec. Stored in `localStorage` for now; must be designed for easy cloud migration in Phase 3.
-> Open decisions: UX for adding a custom word (text input + syllable breakdown + emoji picker?), validation/guidance for syllable entry.
+### 1.2 Content and Custom Audio
+> Local-first MVP is implemented. This is no longer a future premium-only feature; it is part of the friend-share build.
 
-- [ ] Spec for content configurability (`docs/superpowers/specs/`)
-- [x] Modularize and expand `SettingsOverlay` into sections
+- [x] Spec for user-customisable content (`docs/superpowers/specs/2026-04-25-user-customisable-content-design.md`)
+- [x] Local content repository with locale-partitioned words and praise
+- [x] `/content` management screen replaces `/recordings`
+- [x] Add/delete custom words with syllable breakdown and emoji
+- [x] Add/delete custom praise entries
+- [x] Record local audio overrides for letters, numbers, phrases, words, and praise
+- [x] `audioManager` plays custom audio before bundled MP3/TTS fallback
+- [ ] Harden custom content validation and empty states for Words/Syllables/Assembly
+- [ ] Decide whether friend-share build needs export/import or reset-to-defaults controls
+
+### 1.3 Settings and Locale Foundation
+
+- [x] Modularize and expand settings content into sections
 - [x] Alphabet game: accent-letter enable/disable toggle
-- [ ] Word dictionary management: add/remove words with syllable breakdown and emoji
-- [ ] Ensure `localStorage` schema is migration-ready for Phase 3 cloud sync
-- [ ] Number/counting range sliders already implemented — integrate into new settings layout
+- [x] Number/counting range controls in settings
+- [x] Locale-aware content/audio path architecture
+- [x] Slovak content moved into locale module
+- [x] Czech locale stub exists
+- [ ] Add language selection UX only after Czech content is actually populated
 
-### 1.3 Placeholder UI for Future Features
-> Every placeholder tap fires an analytics event (requires 1.4 to be in place first).
-> Open decision: "Notify me" email capture — yes/no? (Could use Tally/Typeform, no backend needed.)
+### 1.4 Feedback
+> Web3Forms feedback is enough for friends-first. A larger feedback platform can wait until public launch.
 
-- [ ] Design placeholder entry points (placement + copy) during redesign (1.1)
-- [ ] Placeholder: Custom audio recording (in Settings, behind ParentsGate)
-- [ ] Placeholder: Language selection (in Settings or onboarding)
-- [ ] Placeholder: User account / sign in (in Settings or home screen)
-- [ ] Each placeholder shows a "coming soon" or interest-capture screen on tap
-- [ ] Each placeholder tap fires a named analytics event
+- [x] Feedback form spec (`docs/superpowers/specs/2026-04-23-feedback-form-design.md`)
+- [x] Parent-facing feedback form in settings
+- [x] Submit feedback through Web3Forms when `VITE_WEB3FORMS_KEY` is configured
+- [ ] Verify feedback submissions from deployed private build
 
-### 1.4 Analytics
-> Needs its own spec: platform choice + event taxonomy.
-> Platform candidates: PostHog (self-hosted, strong product analytics), Plausible (privacy-first, no cookie banner, paid), Umami (self-hosted, simple), GA4 (free but GDPR overhead + cookie consent required).
-> Recommendation: PostHog self-hosted on VPS, or Plausible — both GDPR-friendly without a cookie banner.
-> GDPR note: app targets EU families with children — avoid platforms requiring cookie consent if possible.
+### 1.5 Avatar Companion and Customization
+> Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The current Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but clothing customization needs a new base asset. Next avatar work should create a scratch-built male-coded modest underlayer base, export one modular GLB for that base, and implement the first customizable clothing slot.
 
+- [x] Avatar companion design spec (`docs/superpowers/specs/`)
+- [x] Local avatar runtime under `src/avatar/`
+- [x] `/avatar-preview` route for asset inspection
+- [x] Home overlay behind `VITE_AVATAR_POC_ENABLED`
+- [x] MVP Meshy character asset available in `public/avatar/meshy/`
+- [x] Cleaned success and failure/reaction animation candidates available
+- [x] Spec: male-coded avatar base, modular clothing, and face-decal readiness (`docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md`)
+- [ ] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character
+- [ ] Keep or retarget to a stable armature with reusable named bones so idle/success/failure animations can drive the base and clothing meshes
+- [ ] Export one MVP modular GLB for the male base containing the base body plus named top-slot mesh variants
+- [ ] Map idle/success/failure avatar states into runtime-facing names
+- [ ] Add avatar to session-complete/reward screens first
+- [ ] Decide whether per-round success/failure overlays should use the avatar or keep the current lightweight treatment
+- [ ] Define the slot-ready avatar state/catalog with multiple future slots but implement only `top` for the MVP
+- [ ] Create 2-3 top variants in the male modular GLB, with stable mesh names suitable for visibility toggles
+- [ ] Persist selected top locally in versioned avatar state, migrating from the current `outfitId: "default"` shape
+- [ ] Add a simple parent-facing customization screen or section
+- [ ] Prepare the new head asset for future selfie-based face customization with a named face patch/anchor such as `FaceAnchor`
+- [ ] Verify customized avatar on desktop and mobile with Playwright screenshots
+
+### 1.6 Analytics
+> Not required for friends-first sharing. Revisit before public launch if usage telemetry is still desired.
+
+- [?] Decide whether private friend testing needs analytics at all
 - [ ] Spec: analytics platform decision + event taxonomy (`docs/superpowers/specs/`)
-- [ ] Decide and set up analytics platform (PostHog / Plausible / Umami)
-- [ ] Instrument screen views: HOME, GAME, SETTINGS, PARENTS_GATE
-- [ ] Instrument game events: game_started, game_completed, answer_correct, answer_wrong (per game type)
-- [ ] Instrument placeholder taps: feature_interest_tapped (custom_audio / language / account)
-- [ ] Instrument settings events: music_toggled, range_changed, letter_toggled
-- [ ] Verify event stream working in staging before launch
-
-### 1.5 Avatar Companion
-> Needs its own spec. The POC is a simple local-first 3D companion for home/results/reward screens only, with no parent likeness, no photo processing, and no personal data storage. Later work can explore MediaPipe-based fake-3D face customization and unlockable outfit slots.
-
-- [ ] Avatar companion design spec (`docs/superpowers/specs/`)
-- [ ] Validate selected stylized character asset for front-facing mobile presentation
-- [ ] Add local-first avatar renderer for home/results/reward screens
-- [ ] Ship POC with one avatar, one outfit, and idle animation
-- [ ] Architect avatar state for later unlockable clothing slots
-- [ ] Evaluate optional wave/dance animations if retarget quality is acceptable
+- [ ] Decide and set up analytics platform if needed
+- [ ] Instrument screen views and game events if analytics is adopted
 
 ---
 
 ## Phase 2 — Public Launch
 
-**Goal:** App live and accessible to other Slovak-speaking families. No accounts, localStorage settings only.
+**Goal:** Move from trusted-friend sharing to a public Slovak web launch after feedback and privacy basics are handled. Still no accounts or payments.
 
-> Open decisions: domain (existing or new?), PWA (add-to-home-screen + offline — high value for tablet use), landing page vs. app-at-root, app store submission (out of scope for initial launch but worth noting).
-> GDPR: privacy policy required before launch. Needs legal/compliance review — not purely an engineering task.
+> Open decisions: domain, PWA, landing page vs. app-at-root, analytics, and how much of the UX review must be applied before public sharing.
 
+- [ ] Synthesize friend feedback into launch blockers vs. later improvements
 - [ ] Decide on domain and configure DNS
-- [ ] Configure production static hosting (Vercel / Netlify — no backend needed yet)
-- [ ] Write and publish privacy policy (GDPR-compliant, covers children's data)
-- [ ] Evaluate and optionally implement PWA (service worker, offline caching, web app manifest)
+- [ ] Configure production static hosting if the friends-first deployment is not the final host
+- [ ] Write and publish privacy policy (GDPR-compliant, covers children and local microphone/audio storage)
+- [ ] Decide whether to use analytics for public launch
+- [ ] If analytics is adopted, choose privacy-friendly platform and verify no cookie banner is needed
+- [ ] Evaluate and optionally implement PWA: manifest, installability, offline caching for app shell/audio/avatar assets
 - [ ] SEO: meta tags, Open Graph, page title/description for discoverability
 - [ ] Landing page or app-at-root decision
-- [ ] Smoke-test analytics in production
-- [ ] Announce / share with first families
+- [ ] Public smoke test on production URL
+- [ ] Announce/share beyond the first friend group
 
 ---
 
-## Phase 3 — Post-launch Engagement
+## Phase 3 — Cloud and Accounts
 
-**Goal:** Hear from real users and build the account layer that unlocks cloud features.
+**Goal:** Add optional accounts only after local-first usage proves there is value in sync, backup, or multi-device use.
 
-### 3.1 Feedback Platform
-> Needs research. Candidates: Canny (feature voting), Tally/Typeform (simple forms), Hotjar (session replay + surveys), Intercom (in-app messaging).
-> Placement: behind ParentsGate only — feedback is for parents, not children.
+> Needs its own spec. Firebase remains a candidate, but backend work should not block friends-first or public Slovak launch.
 
-- [ ] Evaluate and choose feedback platform
-- [ ] Integrate feedback entry point in Settings (behind ParentsGate)
-- [ ] Instrument feedback_opened event in analytics
-
-### 3.2 Backend and Auth
-> Needs its own spec. Firebase is leading candidate (Auth + Firestore + Storage + Functions, generous free tier). Alternatives: Supabase (open-source, Postgres), PocketBase (self-hosted), AWS Amplify.
-> Auth providers: Google Sign-In (minimum), email+password; Apple Sign-In needed if iOS App Store ever targeted; anonymous/guest accounts TBD.
-> Freemium gating mechanism: Firestore field + Firebase Functions server-side enforcement (client-side check alone is insufficient).
-> Data model must account for: selected language, enabled letters, custom word dictionary, custom audio file refs, subscription status, (future) child profiles.
-
-- [ ] Spec: backend platform choice, auth providers, data model, freemium gating (`docs/superpowers/specs/`)
-- [ ] Set up Firebase project (or chosen alternative)
-- [ ] Implement authentication (Google Sign-In + email/password as minimum)
-- [ ] Implement user profile document in Firestore
-- [ ] Migrate `localStorage` settings to cloud on first sign-in
-- [ ] Implement freemium gating infrastructure (server-side subscription status check)
-- [ ] Settings screen: sign in / sign out / account management UI (behind ParentsGate)
-- [ ] Data deletion: users can delete account and all associated data (GDPR requirement)
+- [ ] Decide whether accounts are needed based on friend/public feedback
+- [ ] Spec: backend platform choice, auth providers, data model, and cloud migration (`docs/superpowers/specs/`)
+- [ ] Define migration model for local settings, custom words, custom praise, custom audio, and avatar clothing state
+- [ ] Set up Firebase/Supabase/PocketBase or chosen alternative
+- [ ] Implement authentication if needed
+- [ ] Implement user profile document/schema
+- [ ] Migrate local data to cloud on first sign-in
+- [ ] Data deletion: users can delete account and all associated data
 
 ---
 
-## Phase 4 — Custom Audio (Premium Feature)
+## Phase 4 — Multi-language
 
-**Goal:** Parents record their own voice for any audio in the app — alphabet, syllables, words, phrases, praise.
+**Goal:** Add real additional language support after the Slovak friend/public release is stable. Czech first, then English, French later.
 
-> Needs its own spec (significant research required).
-> Key research items:
-> - Browser recording: Web Audio API + `MediaRecorder` — validate UX on iOS Safari (historically quirky)
-> - Auto-trim: silence detection at start/end. Candidates: `Recorder.js`, `WebAudioRecorder`, custom `AnalyserNode`
-> - File format: `.webm` (native) vs. `.mp3` (requires in-browser encoding via `lamejs` or server transcode)
-> - Storage estimate: ~50–150 recordings × ~50 KB = 5–7 MB per user (well within Firebase free tier)
-> - Premium boundary: recording custom audio = premium; basic configurability = free
-
-- [ ] Spike: validate `MediaRecorder` + auto-trim on iOS Safari and Android Chrome
-- [ ] Spec: custom audio recording UX, file format, storage, premium gating (`docs/superpowers/specs/`)
-- [ ] Expand Settings into audio management sections (letters, syllables, words, phrases, praise)
-- [ ] Per-entry UI: play current (custom or default), record new, delete custom
-- [ ] Implement in-browser recording with auto-trim
-- [ ] Upload to Firebase Storage; reference in user Firestore profile
-- [ ] Update `audioManager` to check for custom recording first, then default file, then TTS
-- [ ] Custom word audio: allow recording for user-added dictionary words
-- [ ] Gate entire feature behind premium subscription check
-
----
-
-## Phase 5 — Multi-language
-
-**Goal:** Parents select a language for game content. Czech first, then English, French last.
-
-> Needs its own spec: shared i18n architecture + per-language spec.
-> Content curation is a significant non-engineering effort — needs a plan for who creates/validates Czech, English, and French content.
-> English syllabification is more complex than Slovak CV-patterns — language-specific syllable strategy needed.
-> UI language (game instructions, settings labels) should also be translated, not just game content.
-> Default audio per language: TTS covers development; production quality requires recording or generation per language.
-> Per-language custom audio must be accounted for in Phase 4 data model.
+> Architecture is partially done: locale-aware content modules, locale-aware audio paths, app locale storage, Slovak content, and a Czech stub exist. The missing work is content, UI language, validation, and language selection UX.
 
 ### Architecture
-- [ ] Spec: i18n content architecture (`docs/superpowers/specs/`)
-- [ ] Refactor `contentRegistry.ts` into per-language modules under `src/shared/content/sk/`, `cs/`, `en/`, `fr/`
-- [ ] Define shared typed interface all language libraries must implement
-- [ ] Implement `useLanguage()` context/hook for runtime language selection
-- [ ] Restructure audio paths: `public/audio/{lang}/letters/`, `syllables/`, etc.
-- [ ] Language selection UX: Settings screen or first-run onboarding flow (needs design decision)
+- [x] i18n preparation spec (`docs/superpowers/specs/2026-04-15-i18n-prep-design.md`)
+- [x] Locale-aware `contentRegistry.ts`
+- [x] Slovak locale module
+- [x] Czech locale stub
+- [x] Locale-prefixed audio paths
+- [x] Locale-aware app settings storage
+- [ ] UI string translation architecture
+- [ ] Language selection UX in Settings or onboarding
+- [ ] Validate custom content/audio storage across language switches
 
 ### Czech (`cs`)
-- [ ] Curate Czech alphabet, syllable word dictionary, number labels
+- [ ] Curate Czech alphabet, word dictionary, syllables, praise, and number labels
 - [ ] Record or generate default Czech audio files
 - [ ] Validate content with a native Czech speaker
 
 ### English (`en`)
-- [ ] Define English syllabification strategy (more complex than Slovak)
-- [ ] Curate English alphabet, word dictionary, number labels
+- [ ] Define English syllabification strategy
+- [ ] Curate English alphabet, word dictionary, number labels, and UI strings
 - [ ] Record or generate default English audio files
 - [ ] Validate content with a native English speaker
 
 ### French (`fr`)
 - [ ] Define French syllabification strategy
-- [ ] Curate French alphabet, word dictionary, number labels
+- [ ] Curate French alphabet, word dictionary, number labels, and UI strings
 - [ ] Record or generate default French audio files
 - [ ] Validate content with a native French speaker
 
 ---
 
-## Phase 6 — Monetization
+## Phase 5 — Avatar Expansion
 
-**Goal:** Sustainable revenue to fund continued development. Freemium model.
+**Goal:** Turn the MVP avatar into a small customizable companion system without taking a dependency on accounts or cloud storage.
 
-> Needs its own spec (begin when Phase 4 is underway).
+- [ ] Expand the MVP top-slot model into practical slots: `top`, `bottom`, `shoes`, `hair`, and `accessory`
+- [ ] Add a female-coded underlayer base as a separate `baseVariant`, not as a clothing preset
+- [ ] Decide whether male and female bases can share one animation set directly or need per-base Blender retarget/export steps
+- [ ] Move from "one modular GLB per base" toward separate clothing GLBs once the MVP is stable
+- [ ] Design clothing catalog items so one item ID can map to per-base fitted assets, e.g. male and female GLBs for the same shirt
+- [ ] Add compatibility metadata for clothing assets by `baseVariant`, slot, and supported body-shape range
+- [ ] Add parent-facing customization UI for base variant and all unlocked slots
+- [ ] Persist avatar base, slot selections, generated face metadata, and future body-shape settings with versioned migrations
+- [ ] Implement the easy face-customization path: user selfie behind parent gate, backend Gemini image transform, generated stylized face PNG, and runtime face decal applied to the prepared face anchor
+- [ ] Do not expose Gemini API keys in the browser; route selfie processing through a backend/serverless endpoint
+- [ ] Do not store raw selfies by default; store only the generated stylized face asset unless a parent explicitly opts into cloud/account sync later
+- [ ] Provide reset/delete controls for generated face customization
+- [ ] Evaluate a higher-quality UV-based head texture workflow after the decal approach is proven
+- [ ] Explore body-shape customization with explicit levels: uniform scale first, then optional morph targets for slim/sturdy/tall/short variants
+- [ ] Re-run desktop/mobile avatar preview verification after each base, clothing, face, or body-shape runtime change
 
 ---
 
-## Decisions Log
+## Phase 6 — Monetization
 
-| Date | Decision | Why |
-| --- | --- | --- |
-| 2026-04-11 | Syllable assembly game will use fixed slots with tap-to-place as the primary interaction and drag-and-drop as an optional secondary path. | Preschool touch interactions are more reliable with tap placement, while optional dragging preserves the assembly play pattern. |
-| 2026-04-11 | Extracted a shared `GameLobby` component while keeping per-game `HOME`/`PLAYING` state local. | Reduces repeated pre-screen markup without coupling the bespoke counting game to the shared `FindItGame` engine. |
-| 2026-04-11 | Centralized game identity and lobby styling in a shared game catalog. | Keeps routes, home cards, and lobby presentation aligned from one source of truth. |
-| 2026-04-11 | Alphabet settings will use a single accented-letter toggle instead of per-letter enablement. | This keeps parent controls simple and maps better to the real learning choice: basic letters first, accented Slovak letters later. |
-| 2026-04-19 | Avatar companion POC will use a simple local-first stylized 3D character with one outfit and no parent likeness or photo processing. | This preserves the preschool-friendly look, avoids personal data handling, and keeps the initial implementation small while leaving room for later fake-3D face customization and cosmetic unlocks. |
-> Payment provider: Stripe (leading candidate — strong SDK, EU subscriptions, handles VAT).
-> Subscription model: monthly / annual / lifetime — annual + lifetime are common in children's education apps.
-> App store consideration: iOS App Store / Google Play require in-app purchase (30% cut) — web-only avoids this.
-> Pricing research needed: compare Duolingo for Kids, Lingokids, Khan Academy Kids.
+**Goal:** Decide whether monetization is needed after real usage data and feedback exist.
 
-**Proposed free tier:**
-- All 5 games (alphabet, syllables, numbers, counting, words)
-- Slovak language
-- Basic configurability (letter enable/disable, number ranges)
-- Default audio (files + TTS fallback)
+> Do not gate current local-first custom content/audio or friends-first sharing behind premium. Revisit subscriptions only after public launch feedback clarifies demand.
 
-**Proposed premium tier** (validate demand via Phase 1 placeholder analytics before finalizing):
-- Custom audio recording
-- Additional languages (Czech, English, French)
-- Advanced word dictionary (add custom words + optional custom audio)
-- Potentially: additional games, difficulty levels
-
-### Deliverables
-- [ ] Spec: subscription model, pricing, family plan, gating (`docs/superpowers/specs/`)
-- [ ] Research pricing: comparable children's education app benchmarks
-- [ ] Decide subscription tiers (monthly / annual / lifetime)
-- [ ] Decide family plan structure (one sub per family vs. per-child)
-- [ ] Set up Stripe account and products
-- [ ] Implement checkout flow (web-based, avoids app store cut)
-- [ ] Implement free trial if decided
-- [ ] Store subscription status in Firestore, enforce server-side via Firebase Functions
-- [ ] Graceful degradation: premium features locked but visible/discoverable when unsubscribed
+- [ ] Research comparable children's education app pricing
+- [ ] Decide whether paid features are appropriate
+- [ ] Spec: subscription model, pricing, family plan, and gating if monetization proceeds (`docs/superpowers/specs/`)
+- [ ] Decide whether premium should focus on cloud backup, multi-language packs, advanced avatar customization, or future content packs
+- [ ] Evaluate Stripe only after backend/account decisions are made
 
 ---
 
@@ -277,22 +245,23 @@
 ### Privacy and GDPR
 > Legal/compliance review needed — not purely engineering. Must be resolved before Phase 2 (public launch).
 
-- [ ] Privacy policy written and published (GDPR-compliant, covers children's data under 13)
+- [ ] Privacy policy written and published (GDPR-compliant, covers children's data, microphone permission, local custom audio, and feedback form submissions)
 - [ ] Determine if analytics platform requires cookie consent banner (Plausible/Umami: no; GA4: yes)
 - [ ] Parental consent mechanism for account creation on behalf of a child (Phase 3)
 - [ ] GDPR data deletion: account + all associated data removable on request (Phase 3)
-- [ ] COPPA compliance review if English-speaking market is targeted (Phase 5)
+- [ ] COPPA compliance review if English-speaking market is targeted (Phase 4)
 
 ### Performance and PWA
 - [ ] Evaluate PWA: service worker, offline caching, web app manifest (Phase 2 decision)
-- [ ] Audio preloading strategy as content library grows with multiple languages (Phase 5)
+- [ ] Audio/avatar preloading strategy as content library and 3D assets grow
+- [ ] Avatar bundle-size and mobile performance audit
 - [ ] Image/emoji asset optimization audit
 
 ### Accessibility
 - [ ] **AC1** — Keyboard navigation (arrow keys, Enter, Space on game grids)
-- [ ] **AC2** — ARIA labels on all game buttons
-- [ ] **AC3** — Emoji text alternatives in SuccessOverlay
-> Address during Phase 1 redesign.
+- [x] **AC2** — ARIA labels on icon-only/game buttons
+- [x] **AC3** — Emoji text alternatives in SuccessOverlay/session feedback
+> Re-check during UX review; AC1 remains deferred because the primary target is preschool touch use.
 
 ---
 
@@ -302,11 +271,16 @@
 |------|----------|-----------|
 | 2026-04-05 | Option B roadmap: MVP launch first, then platform | Get real users before investing in backend; freemium upsell works better after free-tier discovery |
 | 2026-04-05 | Content configurability moved to pre-launch (Phase 1) | App feels incomplete without it even at launch |
-| 2026-04-05 | Analytics before public launch | Need baseline data from day one |
-| 2026-04-05 | Feedback platform post-launch (Phase 3) | Needs real users to be meaningful |
+| 2026-04-05 | Analytics before public launch | Superseded by 2026-05-01 friends-first decision; analytics is optional before public launch. |
+| 2026-04-05 | Feedback platform post-launch (Phase 3) | Superseded by Web3Forms parent feedback form for friends-first testing. |
 | 2026-04-05 | French is last language | Lower priority vs. Czech and English |
-| 2026-04-05 | Freemium model | Custom audio and multi-language as natural premium upsell |
-| 2026-04-05 | Placeholder UI for unbuilt features in Phase 1 | Validate demand before building; track clicks via analytics |
+| 2026-04-05 | Freemium model | Superseded for now; do not gate local-first custom content/audio before real usage feedback. |
+| 2026-04-05 | Placeholder UI for unbuilt features in Phase 1 | Superseded for friends-first sharing; avoid placeholder clutter until analytics/product launch decisions are made. |
 | 2026-04-07 | GameDescriptor<T> pattern replaces ContentItem god object | ContentItem accumulated optional cross-game fields; descriptor pattern makes each game self-contained |
 | 2026-04-07 | Words game mechanic: see syllabified word, tap emoji | Reading-focused; distinct from syllables game which shows the syllable and has child recognize it |
 | 2026-04-11 | Shared phrase audio metadata lives in `contentRegistry.ts` under English keys | Makes phrase clips manageable from one place and prepares the app for future translation/i18n work |
+| 2026-05-01 | Next release target is friends-first sharing, not public launch. | The app is useful enough for trusted testers, while UX review, avatar polish, privacy, and launch packaging continue in parallel. |
+| 2026-05-01 | Custom content and custom audio are part of the local-first MVP, not a premium-only future feature. | The code already supports local recording and content editing; charging decisions should wait for real feedback. |
+| 2026-05-01 | Avatar customization should move to a scratch-built male-coded underlayer base before clothing work. | The current clothed Meshy character proved the runtime and animation cleanup path, but it is one fused mesh with one material, so real clothing slots need a new modular base asset. |
+| 2026-05-01 | Avatar MVP will use one modular GLB per base and implement only the `top` slot first. | This keeps the renderer simpler while preserving a slot-ready state/catalog design; separate clothing GLBs remain a backlog goal after the first base works. |
+| 2026-05-01 | Face customization starts with an easier generated face decal, not full head replacement. | A selfie can be transformed server-side into a stylized face PNG and applied to a prepared face anchor; UV-based head texture replacement can wait until the decal approach is validated. |
