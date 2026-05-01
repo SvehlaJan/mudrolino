@@ -12,6 +12,7 @@ import { FeedbackModal } from './FeedbackModal';
 import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
 import { Button, Card, SegmentedChoice, ToggleControl } from '../ui';
+import { AvatarCustomizationSettings } from '../../avatar/AvatarCustomizationSettings';
 
 interface SettingsContentProps {
   target: SettingsTarget;
@@ -114,6 +115,8 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
           />
         </SettingsCard>
       )}
+
+      {visibility.avatar && <AvatarCustomizationSettings />}
 
       {visibility.recordings && onManageRecordings && (
         <SettingsCard>
