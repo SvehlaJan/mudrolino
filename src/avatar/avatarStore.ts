@@ -1,13 +1,27 @@
 import { AVATAR_STATE_VERSION, AVATAR_STORAGE_KEY } from './avatarConstants';
-import { StoredAvatarState } from './avatarTypes';
+import { DEFAULT_AVATAR_TOP, isAvatarTopItemId } from './avatarCatalog';
+import { AvatarAnimationName, AvatarBodyShapeConfig, StoredAvatarState } from './avatarTypes';
+
+const DEFAULT_BODY_SHAPE: AvatarBodyShapeConfig = {
+  scale: 1,
+  build: 'average',
+  height: 'average',
+};
 
 export function createDefaultAvatarState(): StoredAvatarState {
   return {
     version: AVATAR_STATE_VERSION,
     config: {
-      modelId: 'base',
-      outfitId: 'default',
+      baseVariant: 'male',
       animation: 'idle',
+      slotSelections: {
+        top: DEFAULT_AVATAR_TOP,
+      },
+      face: {
+        mode: 'placeholder',
+        assetUrl: null,
+      },
+      bodyShape: DEFAULT_BODY_SHAPE,
     },
     progress: {
       unlockedItemIds: [],
@@ -21,6 +35,10 @@ function isStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every((item) => typeof item === 'string');
 }
 
+function coerceAnimation(value: unknown): AvatarAnimationName {
+  return value === 'success' || value === 'failure' || value === 'idle' ? value : 'idle';
+}
+
 export function loadAvatarState(): StoredAvatarState {
   try {
     const raw = localStorage.getItem(AVATAR_STORAGE_KEY);
@@ -30,16 +48,35 @@ export function loadAvatarState(): StoredAvatarState {
     const config = stored.config as Record<string, unknown> | undefined;
     const progress = stored.progress as Record<string, unknown> | undefined;
 
-    if (stored.version !== AVATAR_STATE_VERSION || !config || !progress) {
-      return createDefaultAvatarState();
-    }
+    if (!config || !progress) return createDefaultAvatarState();
+
+    const slotSelections = config.slotSelections as Record<string, unknown> | undefined;
+    const face = config.face as Record<string, unknown> | undefined;
+    const bodyShape = config.bodyShape as Record<string, unknown> | undefined;
 
     return {
       version: AVATAR_STATE_VERSION,
       config: {
-        modelId: config.modelId === 'base' ? 'base' : DEFAULT_AVATAR_STATE.config.modelId,
-        outfitId: config.outfitId === 'default' ? 'default' : DEFAULT_AVATAR_STATE.config.outfitId,
-        animation: config.animation === 'idle' ? 'idle' : DEFAULT_AVATAR_STATE.config.animation,
+        baseVariant: 'male',
+        animation: coerceAnimation(config.animation),
+        slotSelections: {
+          top: isAvatarTopItemId(slotSelections?.top) ? slotSelections.top : DEFAULT_AVATAR_TOP,
+        },
+        face: {
+          mode: face?.mode === 'generated_decal' ? 'generated_decal' : 'placeholder',
+          assetUrl: typeof face?.assetUrl === 'string' ? face.assetUrl : null,
+        },
+        bodyShape: {
+          scale: typeof bodyShape?.scale === 'number' ? bodyShape.scale : DEFAULT_BODY_SHAPE.scale,
+          build:
+            bodyShape?.build === 'slim' || bodyShape?.build === 'sturdy'
+              ? bodyShape.build
+              : DEFAULT_BODY_SHAPE.build,
+          height:
+            bodyShape?.height === 'short' || bodyShape?.height === 'tall'
+              ? bodyShape.height
+              : DEFAULT_BODY_SHAPE.height,
+        },
       },
       progress: {
         unlockedItemIds: isStringArray(progress.unlockedItemIds)
