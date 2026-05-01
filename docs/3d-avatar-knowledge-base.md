@@ -91,6 +91,16 @@ Meshy tasks:
   - project dir: [meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3](/Users/svehla/playground/teo-learn/meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3)
   - downloaded preview GLB: [meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3/preview.glb](/Users/svehla/playground/teo-learn/meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3/preview.glb)
   - cost: `20` credits
+  - decision: rejected visually; text-to-3D did not produce a usable modest underlayer base
+- male modular image reference:
+  - generated image copy: [meshy_output/reference_images/male-parent-underlayer-reference-v1.png](/Users/svehla/playground/teo-learn/meshy_output/reference_images/male-parent-underlayer-reference-v1.png)
+- male modular image-to-3D task: `019de4fe-8076-729e-bf73-e5a0ea09078e`
+  - project dir: [meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe](/Users/svehla/playground/teo-learn/meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe)
+  - downloaded GLB: [meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe/model.glb](/Users/svehla/playground/teo-learn/meshy_output/20260501_212434_male-parent-underlayer-image-base-v1_019de4fe/model.glb)
+  - cost: `30` credits
+  - validation: `0` errors, `0` warnings, `1` info (`NODE_MATRIX_DEFAULT`)
+  - inspect summary: one unrigged triangle mesh, `68,489` vertices, one 2048x2048 base-color texture, no animations
+  - decision: rejected visually; thumbnail still shows torso/groin anatomical shading and is not modest enough for the underlayer contract
 - image-to-3D base task: `019dbc31-8f0c-7978-abc6-83ee4c9adabe`
 - rig task: `019dbc35-a1cb-746d-910c-f8a564fd13ec`
 - victory cheer animation task: `019dbc37-bb1a-74f7-92f5-b7f45ef47ca6`
@@ -103,7 +113,8 @@ Credits spent so far:
 - `3` victory cheer animation
 - `3` shrug animation
 - `20` male modular base preview
-- `61` total
+- `30` male modular image-to-3D base
+- `91` total
 
 ## Technical Architecture
 
@@ -282,7 +293,7 @@ Planned male-base sequence:
 
 1. Check balance with `python3 tools/meshy/meshy_ops.py balance`.
 2. Summarize intended operation and expected credits.
-3. Generate the male-coded underlayer base from scratch.
+3. Prefer Meshy image-to-3D over text-to-3D for character base generation. Use a clean generated reference image so Meshy has an explicit silhouette, pose, and modest underlayer target.
 4. Inspect the downloaded GLB before spending on rigging.
 5. Rig only if the base is worth continuing.
 6. Bring the rigged base into Blender for inspection, cleanup, top fitting, and modular export.
@@ -492,6 +503,8 @@ Recent verified screenshot artifacts:
 | 2026-05-01 | Top meshes should be created/fitted in Blender after the base exists. | Blender gives better control over mesh names, fit, skinning, and modular export than asking Meshy for final clothing in the base prompt. |
 | 2026-05-01 | Face customization starts later with a generated face decal on `face_anchor`. | It is easier and safer than full head replacement or UV texture replacement, and it keeps selfie processing behind a backend. |
 | 2026-05-01 | Persist `face` and `bodyShape` config now, but render only placeholder face and average body for MVP. | This avoids repeated storage migrations while not exposing controls before assets support them. |
+| 2026-05-01 | Prefer Meshy image-to-3D over text-to-3D for avatar base generation. | The first text-to-3D male base was rejected visually; generated image references give stronger control over silhouette, pose, and modest underlayer styling. |
+| 2026-05-01 | Reject the first textured image-to-3D male base for rigging. | It validates technically, but still contains torso/groin anatomical shading that violates the modest underlayer requirement. |
 
 ## Related Context
 

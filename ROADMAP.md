@@ -108,7 +108,7 @@
 - [x] MVP Meshy character asset available in `public/avatar/meshy/`
 - [x] Cleaned success and failure/reaction animation candidates available
 - [x] Spec: male-coded avatar base, modular clothing, and face-decal readiness (`docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md`)
-- [ ] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character
+- [?] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character — first text-to-3D and first textured image-to-3D attempts were rejected; next attempt should prefer image-to-3D with an even more featureless reference and likely no texture
 - [ ] Keep or retarget to a stable armature with reusable named bones so idle/success/failure animations can drive the base and clothing meshes
 - [ ] Export one MVP modular GLB for the male base containing the base body plus named top-slot mesh variants
 - [ ] Map idle/success/failure avatar states into runtime-facing names

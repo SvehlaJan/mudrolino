@@ -100,7 +100,7 @@ Use the repo-local Meshy helper for Meshy work. Follow the `meshy-3d-generation`
 
 Proposed sequence:
 
-1. Use Meshy to generate the male-coded parent/caregiver underlayer base from scratch.
+1. Prefer Meshy image-to-3D over text-to-3D for the male-coded parent/caregiver underlayer base. Generate or curate a clean reference image first so the silhouette, A-pose, and modest underlayer are explicit.
 2. Inspect the downloaded GLB for mesh/material count, visual quality, and suitability as a base.
 3. Rig the base through Meshy if the generated asset is worth continuing.
 4. Inspect the rigged GLB in Blender with `tools/blender/inspect_avatar_glb.py`.
@@ -110,6 +110,12 @@ Proposed sequence:
 8. Verify it in `/avatar-preview` on desktop and mobile.
 
 The top meshes should not be generated as part of the first Meshy base prompt. They should be created/fitted in Blender after the base exists so mesh names, fit, and slot behavior are controlled.
+
+Generation lesson from the first male-base attempts:
+
+- A text-to-3D base preview was rejected visually.
+- A textured image-to-3D run from a generated reference validated technically, but was rejected because torso/groin shading still looked too anatomical.
+- The next base attempt should use an even more featureless mannequin reference and consider image-to-3D without texture, because Blender can assign a clean skin-toned material later.
 
 ## Runtime Data Model
 

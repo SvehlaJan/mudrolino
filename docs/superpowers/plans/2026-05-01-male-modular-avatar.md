@@ -6,6 +6,8 @@
 
 **Architecture:** Generate and rig the male underlayer base with Meshy, then use Blender to create one modular GLB containing the base body, head, face patch, and two named top meshes. Runtime code migrates from `outfitId` to a slot-selection catalog, toggles `top_*` mesh visibility in `AvatarModel`, and exposes top selection in the parent Settings flow.
 
+**Generation update:** Prefer Meshy image-to-3D over text-to-3D for the base avatar. The first text-to-3D male base and first textured image-to-3D male base were rejected visually. The next generation attempt should use a more featureless generated reference image and consider `image-to-3d --no-texture --disable-pbr` so Blender can provide the final skin-toned material.
+
 **Tech Stack:** Meshy local helper (`tools/meshy/meshy_ops.py`), Blender CLI/Python, glTF Validator, glTF Transform CLI, React 19, React Three Fiber, Drei, Three.js, TypeScript, Vite.
 
 ---
