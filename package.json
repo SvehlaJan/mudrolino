@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && node_modules/.bin/eslint src --ext ts,tsx",
-    "test:audio": "npx tsx public/audio/_review/check_audio.ts"
+    "test:audio": "npx tsx public/audio/_review/check_audio.ts",
+    "avatar:gltf:inspect": "gltf-transform inspect",
+    "avatar:gltf:validate": "node tools/avatar/validate_gltf.js"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@gltf-transform/cli": "^4.3.0",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
@@ -36,6 +39,7 @@
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
+    "gltf-validator": "^2.0.0-dev.3.10",
     "playwright": "^1.59.1",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
