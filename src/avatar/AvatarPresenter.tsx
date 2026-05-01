@@ -1,6 +1,7 @@
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import { AvatarScene } from './AvatarScene';
 import { AVATAR_MODEL_URL } from './avatarConstants';
+import { AvatarSlotSelections } from './avatarTypes';
 import { useAvatarAssetAvailability } from './useAvatarAssetAvailability';
 
 interface AvatarPresenterProps {
@@ -9,6 +10,7 @@ interface AvatarPresenterProps {
   modelUrl?: string;
   animationUrl?: string;
   animationName?: string | null;
+  slotSelections?: AvatarSlotSelections;
   onAnimationsChange?: (names: string[]) => void;
 }
 
@@ -18,6 +20,7 @@ export function AvatarPresenter({
   modelUrl = AVATAR_MODEL_URL,
   animationUrl,
   animationName,
+  slotSelections,
   onAnimationsChange,
 }: AvatarPresenterProps) {
   const assetStatus = useAvatarAssetAvailability(modelUrl);
@@ -32,6 +35,7 @@ export function AvatarPresenter({
           modelUrl={modelUrl}
           animationUrl={animationUrl}
           animationName={animationName}
+          slotSelections={slotSelections}
           onAnimationsChange={onAnimationsChange}
         />
       </div>

@@ -1,12 +1,14 @@
 import { Suspense, useEffect } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { AvatarModel } from './AvatarModel';
+import { AvatarSlotSelections } from './avatarTypes';
 
 interface AvatarSceneProps {
   className?: string;
   modelUrl?: string;
   animationUrl?: string;
   animationName?: string | null;
+  slotSelections?: AvatarSlotSelections;
   onAnimationsChange?: (names: string[]) => void;
 }
 
@@ -27,6 +29,7 @@ export function AvatarScene({
   modelUrl,
   animationUrl,
   animationName,
+  slotSelections,
   onAnimationsChange,
 }: AvatarSceneProps) {
   return (
@@ -46,6 +49,7 @@ export function AvatarScene({
             url={modelUrl}
             animationUrl={animationUrl}
             animationName={animationName}
+            slotSelections={slotSelections}
             onAnimationsChange={onAnimationsChange}
           />
         </Suspense>

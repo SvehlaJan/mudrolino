@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { AnimationClip } from 'three';
-import { Box3, Group, Vector3 } from 'three';
+import { Box3, Group, Object3D, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { AVATAR_MODEL_URL } from './avatarConstants';
+import { AvatarSlotSelections } from './avatarTypes';
 
 interface AvatarModelProps {
   url?: string;
   animationUrl?: string;
   animationName?: string | null;
+  slotSelections?: AvatarSlotSelections;
   onAnimationsChange?: (names: string[]) => void;
 }
 
@@ -41,10 +43,20 @@ function sanitizeAnimationClips(clips: AnimationClip[], hipsAnchor: Vector3) {
   });
 }
 
+function applySlotVisibility(scene: Object3D, slotSelections?: AvatarSlotSelections) {
+  const selectedTop = slotSelections?.top;
+
+  scene.traverse((object) => {
+    if (!object.name.startsWith('top_')) return;
+    object.visible = selectedTop ? object.name === selectedTop : true;
+  });
+}
+
 export function AvatarModel({
   url = AVATAR_MODEL_URL,
   animationUrl,
   animationName,
+  slotSelections,
   onAnimationsChange,
 }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
@@ -59,6 +71,7 @@ export function AvatarModel({
         object.frustumCulled = false;
       }
     });
+    applySlotVisibility(clonedScene, slotSelections);
     const bounds = new Box3().setFromObject(clonedScene);
     const size = new Vector3();
     const center = new Vector3();
@@ -79,7 +92,7 @@ export function AvatarModel({
       scene: clonedScene,
       hipsAnchor: hips?.position.clone() ?? new Vector3(),
     };
-  }, [gltf.scene]);
+  }, [gltf.scene, slotSelections]);
   const animationClips = useMemo(
     () => sanitizeAnimationClips(animationSource.animations, hipsAnchor),
     [animationSource.animations, hipsAnchor],
