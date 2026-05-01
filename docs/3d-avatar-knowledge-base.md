@@ -87,6 +87,10 @@ Published app assets:
 
 Meshy tasks:
 
+- male modular base preview task: `019de4f3-7e65-7215-a071-0c7f18973e36`
+  - project dir: [meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3](/Users/svehla/playground/teo-learn/meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3)
+  - downloaded preview GLB: [meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3/preview.glb](/Users/svehla/playground/teo-learn/meshy_output/20260501_211310_male-parent-underlayer-base-v1_019de4f3/preview.glb)
+  - cost: `20` credits
 - image-to-3D base task: `019dbc31-8f0c-7978-abc6-83ee4c9adabe`
 - rig task: `019dbc35-a1cb-746d-910c-f8a564fd13ec`
 - victory cheer animation task: `019dbc37-bb1a-74f7-92f5-b7f45ef47ca6`
@@ -98,7 +102,8 @@ Credits spent so far:
 - `5` rig
 - `3` victory cheer animation
 - `3` shrug animation
-- `41` total
+- `20` male modular base preview
+- `61` total
 
 ## Technical Architecture
 
