@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { AvatarModel } from './AvatarModel';
-import { AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
 
 interface AvatarSceneProps {
   className?: string;
@@ -9,6 +9,7 @@ interface AvatarSceneProps {
   animationUrl?: string;
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
+  bodyShape?: AvatarBodyShapeConfig;
   onAnimationsChange?: (names: string[]) => void;
 }
 
@@ -30,6 +31,7 @@ export function AvatarScene({
   animationUrl,
   animationName,
   slotSelections,
+  bodyShape,
   onAnimationsChange,
 }: AvatarSceneProps) {
   return (
@@ -50,6 +52,7 @@ export function AvatarScene({
             animationUrl={animationUrl}
             animationName={animationName}
             slotSelections={slotSelections}
+            bodyShape={bodyShape}
             onAnimationsChange={onAnimationsChange}
           />
         </Suspense>

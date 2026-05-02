@@ -4,13 +4,14 @@ import { AnimationClip } from 'three';
 import { Box3, Group, Object3D, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
 
 interface AvatarModelProps {
   url?: string;
   animationUrl?: string;
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
+  bodyShape?: AvatarBodyShapeConfig;
   onAnimationsChange?: (names: string[]) => void;
 }
 
@@ -52,11 +53,17 @@ function applySlotVisibility(scene: Object3D, slotSelections?: AvatarSlotSelecti
   });
 }
 
+function getPreviewScale(bodyShape?: AvatarBodyShapeConfig) {
+  const scale = bodyShape?.scale ?? 1;
+  return Math.min(1.2, Math.max(0.8, scale));
+}
+
 export function AvatarModel({
   url = AVATAR_MODEL_URL,
   animationUrl,
   animationName,
   slotSelections,
+  bodyShape,
   onAnimationsChange,
 }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
@@ -79,7 +86,7 @@ export function AvatarModel({
     bounds.getSize(size);
     bounds.getCenter(center);
 
-    const scale = size.y > 0 ? TARGET_MODEL_HEIGHT / size.y : 1;
+    const scale = (size.y > 0 ? TARGET_MODEL_HEIGHT / size.y : 1) * getPreviewScale(bodyShape);
 
     clonedScene.scale.setScalar(scale);
     clonedScene.position.set(
@@ -92,7 +99,7 @@ export function AvatarModel({
       scene: clonedScene,
       hipsAnchor: hips?.position.clone() ?? new Vector3(),
     };
-  }, [gltf.scene, slotSelections]);
+  }, [bodyShape, gltf.scene, slotSelections]);
   const animationClips = useMemo(
     () => sanitizeAnimationClips(animationSource.animations, hipsAnchor),
     [animationSource.animations, hipsAnchor],
