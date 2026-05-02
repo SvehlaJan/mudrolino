@@ -1,239 +1,452 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import {
+  ArrowLeft,
+  BadgeInfo,
+  Check,
+  Database,
+  RotateCcw,
+  Save,
+  Shirt,
+  SlidersHorizontal,
+  Sparkles,
+  UserRound,
+} from 'lucide-react';
 import { AvatarPresenter } from './AvatarPresenter';
 import { AVATAR_TOP_ITEMS, DEFAULT_AVATAR_TOP } from './avatarCatalog';
-import { AVATAR_MODULAR_MALE_MODEL_URL } from './avatarConstants';
-import { AvatarTopItemId } from './avatarTypes';
+import { AVATAR_MODULAR_MALE_MODEL_URL, AVATAR_STORAGE_KEY } from './avatarConstants';
+import {
+  AvatarAnimationName,
+  AvatarBodyShapeConfig,
+  AvatarConfig,
+  AvatarTopItemId,
+  StoredAvatarState,
+} from './avatarTypes';
+import {
+  createDefaultAvatarState,
+  loadAvatarState,
+  saveAvatarState,
+} from './avatarStore';
 import { useAvatarAssetAvailability } from './useAvatarAssetAvailability';
 
-interface PreviewAsset {
-  id: string;
-  label: string;
-  description: string;
-  modelUrl: string;
-  animationUrl?: string;
-  supportsTopSelection?: boolean;
+type FutureSlot = 'bottom' | 'shoes' | 'hair' | 'accessory';
+
+const ANIMATION_OPTIONS: AvatarAnimationName[] = ['idle', 'success', 'failure'];
+const BUILD_OPTIONS: AvatarBodyShapeConfig['build'][] = ['average', 'slim', 'sturdy'];
+const HEIGHT_OPTIONS: AvatarBodyShapeConfig['height'][] = ['average', 'short', 'tall'];
+
+const FUTURE_SLOTS: Array<{ id: FutureSlot; label: string }> = [
+  { id: 'bottom', label: 'Bottom' },
+  { id: 'shoes', label: 'Shoes' },
+  { id: 'hair', label: 'Hair' },
+  { id: 'accessory', label: 'Accessory' },
+];
+
+const animationLabels: Record<AvatarAnimationName, string> = {
+  idle: 'Idle',
+  success: 'Success',
+  failure: 'Failure',
+};
+
+const buildLabels: Record<AvatarBodyShapeConfig['build'], string> = {
+  average: 'Average',
+  slim: 'Slim',
+  sturdy: 'Sturdy',
+};
+
+const heightLabels: Record<AvatarBodyShapeConfig['height'], string> = {
+  average: 'Average',
+  short: 'Short',
+  tall: 'Tall',
+};
+
+const topSwatches: Record<AvatarTopItemId, string> = {
+  top_blue_tshirt: 'bg-accent-blue',
+  top_green_hoodie: 'bg-success',
+};
+
+function readStorageSnapshot() {
+  try {
+    return localStorage.getItem(AVATAR_STORAGE_KEY);
+  } catch {
+    return null;
+  }
 }
 
-const PREVIEW_ASSETS: PreviewAsset[] = [
-  {
-    id: 'meshy-model',
-    label: 'Meshy base model',
-    description: 'Generated mesh before rigging',
-    modelUrl: '/avatar/meshy/neutral-parent-model.glb',
-  },
-  {
-    id: 'meshy-rigged',
-    label: 'Meshy rigged',
-    description: 'Auto-rigged character without extra motion',
-    modelUrl: '/avatar/meshy/neutral-parent-rigged.glb',
-  },
-  {
-    id: 'meshy-walk',
-    label: 'Meshy walking',
-    description: 'Rigged base using Meshy walk animation clip',
-    modelUrl: '/avatar/meshy/neutral-parent-rigged.glb',
-    animationUrl: '/avatar/meshy/neutral-parent-walking.glb',
-  },
-  {
-    id: 'meshy-run',
-    label: 'Meshy running',
-    description: 'Rigged base using Meshy run animation clip',
-    modelUrl: '/avatar/meshy/neutral-parent-rigged.glb',
-    animationUrl: '/avatar/meshy/neutral-parent-running.glb',
-  },
-  {
-    id: 'meshy-cheer',
-    label: 'Meshy victory cheer',
-    description: 'Rigged base using Meshy victory cheer animation clip',
-    modelUrl: '/avatar/meshy/neutral-parent-rigged.glb',
-    animationUrl: '/avatar/meshy/neutral-parent-victory-cheer.glb',
-  },
-  {
-    id: 'clean-cheer',
-    label: 'Blender-cleaned cheer',
-    description: 'Base rig exported from Blender with rotation-only cheer action',
-    modelUrl: '/avatar/meshy/neutral-parent-success-cheer-clean.glb',
-  },
-  {
-    id: 'meshy-shrug',
-    label: 'Meshy shrug',
-    description: 'Rigged base using Meshy shrug animation clip',
-    modelUrl: '/avatar/meshy/neutral-parent-rigged.glb',
-    animationUrl: '/avatar/meshy/neutral-parent-shrug.glb',
-  },
-  {
-    id: 'clean-sad-react',
-    label: 'Blender-cleaned sad react',
-    description: 'Base rig exported from Blender with rotation-only shrug action',
-    modelUrl: '/avatar/meshy/neutral-parent-sad-react-clean.glb',
-  },
-  {
-    id: 'male-modular',
-    label: 'Male modular base',
-    description: 'Scratch-built male parent/caregiver base with top-slot variants',
-    modelUrl: AVATAR_MODULAR_MALE_MODEL_URL,
-    supportsTopSelection: true,
-  },
-];
+function formatJson(value: unknown) {
+  return JSON.stringify(value, null, 2);
+}
+
+function updateStoredConfig(
+  state: StoredAvatarState,
+  updater: (config: AvatarConfig) => AvatarConfig,
+): StoredAvatarState {
+  return {
+    ...state,
+    config: updater(state.config),
+  };
+}
+
+interface WorkbenchSectionProps {
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}
+
+function WorkbenchSection({ title, icon, children }: WorkbenchSectionProps) {
+  return (
+    <section className="border-b border-shadow/10 py-5 first:pt-0 last:border-b-0 last:pb-0">
+      <div className="mb-3 flex items-center gap-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bg-light text-text-main">
+          {icon}
+        </span>
+        <h2 className="text-lg font-black leading-tight text-text-main">{title}</h2>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+interface OptionButtonProps {
+  label: string;
+  selected?: boolean;
+  disabled?: boolean;
+  detail?: string;
+  swatchClassName?: string;
+  onClick?: () => void;
+}
+
+function OptionButton({
+  label,
+  selected = false,
+  disabled = false,
+  detail,
+  swatchClassName,
+  onClick,
+}: OptionButtonProps) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      aria-pressed={selected}
+      className={`flex min-h-14 items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left font-bold transition-colors ${
+        selected
+          ? 'border-accent-blue bg-accent-blue text-white'
+          : disabled
+            ? 'border-shadow/10 bg-bg-light text-text-main/45'
+            : 'border-shadow/10 bg-white text-text-main hover:border-accent-blue/50'
+      }`}
+    >
+      <span className="flex min-w-0 items-center gap-3">
+        {swatchClassName && (
+          <span
+            aria-hidden="true"
+            className={`h-4 w-4 shrink-0 rounded-full border border-white/80 ${swatchClassName}`}
+          />
+        )}
+        <span className="min-w-0">
+          <span className="block truncate">{label}</span>
+          {detail && <span className="block text-xs font-black uppercase opacity-55">{detail}</span>}
+        </span>
+      </span>
+      {selected && <Check size={18} className="shrink-0" />}
+    </button>
+  );
+}
 
 export function AvatarPreviewScreen() {
   const navigate = useNavigate();
-  const [selectedAssetId, setSelectedAssetId] = useState<string>('clean-cheer');
-  const [animationState, setAnimationState] = useState<{ assetId: string; names: string[] }>({
-    assetId: selectedAssetId,
-    names: [],
-  });
-  const [requestedAnimation, setRequestedAnimation] = useState<string | null>(null);
-  const [selectedTop, setSelectedTop] = useState<AvatarTopItemId>(DEFAULT_AVATAR_TOP);
+  const [previewState, setPreviewState] = useState<StoredAvatarState>(() => loadAvatarState());
+  const [storageSnapshot, setStorageSnapshot] = useState<string | null>(() => readStorageSnapshot());
+  const [animationNames, setAnimationNames] = useState<string[]>([]);
+  const assetStatus = useAvatarAssetAvailability(AVATAR_MODULAR_MALE_MODEL_URL);
 
-  const selectedAsset = useMemo(
-    () => PREVIEW_ASSETS.find((asset) => asset.id === selectedAssetId) ?? PREVIEW_ASSETS[0],
-    [selectedAssetId],
+  const selectedTopItem = useMemo(
+    () =>
+      AVATAR_TOP_ITEMS.find((item) => item.id === previewState.config.slotSelections.top) ??
+      AVATAR_TOP_ITEMS.find((item) => item.id === DEFAULT_AVATAR_TOP) ??
+      AVATAR_TOP_ITEMS[0],
+    [previewState.config.slotSelections.top],
   );
-  const modelStatus = useAvatarAssetAvailability(selectedAsset.modelUrl);
-  const animationStatus = useAvatarAssetAvailability(selectedAsset.animationUrl ?? selectedAsset.modelUrl);
-  const assetStatus =
-    modelStatus === 'missing' || animationStatus === 'missing'
-      ? 'missing'
-      : modelStatus === 'available' && animationStatus === 'available'
-        ? 'available'
-        : 'checking';
-  const availableAnimations = animationState.assetId === selectedAssetId ? animationState.names : [];
-  const selectedAnimation =
-    requestedAnimation && availableAnimations.includes(requestedAnimation)
-      ? requestedAnimation
-      : availableAnimations.find((name) => name.toLowerCase().includes('idle')) ?? availableAnimations[0] ?? null;
-  const handleAnimationsChange = useCallback(
-    (names: string[]) => {
-      setAnimationState({ assetId: selectedAssetId, names });
-    },
-    [selectedAssetId],
+
+  const selectedMeshNames = useMemo(
+    () => [
+      'body_underlayer_male',
+      'head',
+      'face_anchor',
+      selectedTopItem?.meshName ?? previewState.config.slotSelections.top,
+    ],
+    [previewState.config.slotSelections.top, selectedTopItem?.meshName],
   );
+
+  const setConfig = useCallback((updater: (config: AvatarConfig) => AvatarConfig) => {
+    setPreviewState((state) => updateStoredConfig(state, updater));
+  }, []);
+
+  const handlePersist = useCallback(() => {
+    saveAvatarState(previewState);
+    setStorageSnapshot(readStorageSnapshot());
+  }, [previewState]);
+
+  const handleResetPreview = useCallback(() => {
+    setPreviewState(createDefaultAvatarState());
+  }, []);
+
+  const handleResetPersisted = useCallback(() => {
+    const nextState = createDefaultAvatarState();
+    saveAvatarState(nextState);
+    setPreviewState(nextState);
+    setStorageSnapshot(readStorageSnapshot());
+  }, []);
 
   return (
-    <div className="h-[100svh] overflow-y-auto bg-bg-light p-4 sm:p-6 lg:p-8">
+    <div className="min-h-[100svh] overflow-y-auto bg-bg-light p-4 text-text-main sm:p-6 lg:p-8">
       <button
         onClick={() => navigate('/')}
-        className="safe-top safe-left fixed z-20 flex h-14 w-14 items-center justify-center rounded-full bg-white text-text-main shadow-chip transition-transform hover:scale-105 active:scale-95"
+        className="safe-top safe-left fixed z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white text-text-main shadow-chip transition-transform hover:scale-105 active:scale-95 sm:h-14 sm:w-14"
         aria-label="Späť"
       >
-        <ArrowLeft size={30} />
+        <ArrowLeft size={28} />
       </button>
 
-      <main className="mx-auto flex min-h-full max-w-6xl flex-col gap-6 pt-16 lg:flex-row lg:items-stretch lg:pt-8">
-        <section className="rounded-[32px] bg-white p-5 shadow-chip sm:p-6 lg:w-[360px] lg:shrink-0">
-          <h1 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-none text-text-main">
-            Avatar Preview
-          </h1>
-          <p className="mt-3 text-base font-semibold opacity-70 sm:text-lg">
-            Switch between the Meshy outputs and pick the best base for cleanup and app integration.
-          </p>
+      <main className="mx-auto grid min-h-[calc(100svh-2rem)] max-w-7xl gap-5 pt-16 lg:grid-cols-[380px_minmax(0,1fr)] lg:pt-0">
+        <aside className="rounded-[24px] bg-white p-5 shadow-chip lg:max-h-[calc(100svh-4rem)] lg:overflow-y-auto">
+          <div className="pb-5">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
+              Avatar workbench
+            </p>
+            <h1 className="mt-2 text-3xl font-black leading-none text-text-main sm:text-4xl">
+              Modular preview
+            </h1>
+            <p className="mt-3 text-sm font-semibold leading-snug text-text-main/60">
+              Develop the current male base and planned customization slots through the real app renderer.
+            </p>
+          </div>
 
-          <div className="mt-6 flex flex-col gap-3">
-            {PREVIEW_ASSETS.map((asset) => {
-              const isSelected = asset.id === selectedAsset.id;
+          <WorkbenchSection title="Base" icon={<UserRound size={19} />}>
+            <div className="grid grid-cols-2 gap-2">
+              <OptionButton label="Male" detail="active" selected />
+              <OptionButton label="Female" detail="planned" disabled />
+            </div>
+          </WorkbenchSection>
 
-              return (
-                <button
-                  key={asset.id}
+          <WorkbenchSection title="Animation State" icon={<Sparkles size={19} />}>
+            <div className="grid grid-cols-3 gap-2">
+              {ANIMATION_OPTIONS.map((animation) => (
+                <OptionButton
+                  key={animation}
+                  label={animationLabels[animation]}
+                  selected={previewState.config.animation === animation}
                   onClick={() => {
-                    setSelectedAssetId(asset.id);
-                    setRequestedAnimation(null);
+                    setConfig((config) => ({ ...config, animation }));
                   }}
-                  className={`rounded-[24px] border px-4 py-4 text-left transition-colors ${
-                    isSelected
-                      ? 'border-primary bg-primary/10'
-                      : 'border-shadow/10 bg-bg-light hover:border-primary/40'
-                  }`}
+                />
+              ))}
+            </div>
+          </WorkbenchSection>
+
+          <WorkbenchSection title="Clothing Slots" icon={<Shirt size={19} />}>
+            <p className="mb-3 text-sm font-bold text-text-main/55">Top</p>
+            <div className="grid gap-2">
+              {AVATAR_TOP_ITEMS.map((item) => (
+                <OptionButton
+                  key={item.id}
+                  label={item.label}
+                  detail={item.meshName}
+                  selected={previewState.config.slotSelections.top === item.id}
+                  swatchClassName={topSwatches[item.id]}
+                  onClick={() => {
+                    setConfig((config) => ({
+                      ...config,
+                      slotSelections: {
+                        ...config.slotSelections,
+                        top: item.id,
+                      },
+                    }));
+                  }}
+                />
+              ))}
+            </div>
+
+            <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Future slots</p>
+            <div className="grid grid-cols-2 gap-2">
+              {FUTURE_SLOTS.map((slot) => (
+                <OptionButton key={slot.id} label={slot.label} detail="planned" disabled />
+              ))}
+            </div>
+          </WorkbenchSection>
+
+          <WorkbenchSection title="Face" icon={<BadgeInfo size={19} />}>
+            <div className="grid grid-cols-2 gap-2">
+              <OptionButton label="Placeholder" detail="active" selected />
+              <OptionButton label="Generated decal" detail="planned" disabled />
+            </div>
+            <p className="mt-3 text-sm font-semibold leading-snug text-text-main/55">
+              The GLB includes `face_anchor`; selfie processing and decal rendering stay behind the backend backlog.
+            </p>
+          </WorkbenchSection>
+
+          <WorkbenchSection title="Body Shape" icon={<SlidersHorizontal size={19} />}>
+            <label className="block">
+              <span className="flex items-center justify-between text-sm font-black text-text-main/65">
+                <span>Uniform scale</span>
+                <span>{previewState.config.bodyShape.scale.toFixed(2)}x</span>
+              </span>
+              <input
+                type="range"
+                min="0.8"
+                max="1.2"
+                step="0.05"
+                value={previewState.config.bodyShape.scale}
+                onChange={(event) => {
+                  const scale = Number(event.currentTarget.value);
+                  setConfig((config) => ({
+                    ...config,
+                    bodyShape: {
+                      ...config.bodyShape,
+                      scale,
+                    },
+                  }));
+                }}
+                className="mt-3 w-full accent-accent-blue"
+              />
+            </label>
+
+            <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Build</p>
+            <div className="grid grid-cols-3 gap-2">
+              {BUILD_OPTIONS.map((build) => (
+                <OptionButton
+                  key={build}
+                  label={buildLabels[build]}
+                  selected={previewState.config.bodyShape.build === build}
+                  onClick={() => {
+                    setConfig((config) => ({
+                      ...config,
+                      bodyShape: {
+                        ...config.bodyShape,
+                        build,
+                      },
+                    }));
+                  }}
+                />
+              ))}
+            </div>
+
+            <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Height</p>
+            <div className="grid grid-cols-3 gap-2">
+              {HEIGHT_OPTIONS.map((height) => (
+                <OptionButton
+                  key={height}
+                  label={heightLabels[height]}
+                  selected={previewState.config.bodyShape.height === height}
+                  onClick={() => {
+                    setConfig((config) => ({
+                      ...config,
+                      bodyShape: {
+                        ...config.bodyShape,
+                        height,
+                      },
+                    }));
+                  }}
+                />
+              ))}
+            </div>
+          </WorkbenchSection>
+
+          <WorkbenchSection title="State" icon={<Database size={19} />}>
+            <div className="grid gap-2">
+              <button
+                type="button"
+                onClick={handlePersist}
+                className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-success px-4 py-3 font-black text-white shadow-chip transition-transform hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <Save size={18} />
+                Persist current config
+              </button>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={handleResetPreview}
+                  className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 font-black text-text-main shadow-chip transition-transform hover:scale-[1.01] active:scale-[0.99]"
                 >
-                  <div className="text-lg font-black leading-tight text-text-main">{asset.label}</div>
-                  <div className="mt-1 text-sm font-semibold opacity-65">{asset.description}</div>
+                  <RotateCcw size={17} />
+                  Reset preview
                 </button>
-              );
-            })}
-          </div>
-
-          <div className="mt-6 rounded-[24px] bg-bg-light px-4 py-4">
-            <p className="text-sm font-black uppercase tracking-[0.2em] opacity-50">Asset</p>
-            <p className="mt-2 text-lg font-black text-text-main">{selectedAsset.label}</p>
-            <p className="mt-1 break-all text-sm font-semibold opacity-65">
-              Model: {selectedAsset.modelUrl}
-            </p>
-            {selectedAsset.animationUrl && (
-              <p className="mt-1 break-all text-sm font-semibold opacity-65">
-                Clip: {selectedAsset.animationUrl}
-              </p>
-            )}
-            <p className="mt-3 text-sm font-semibold opacity-70">Status: {assetStatus}</p>
-            <p className="mt-1 text-sm font-semibold opacity-70">
-              Clips: {availableAnimations.length > 0 ? availableAnimations.join(', ') : 'none found yet'}
-            </p>
-          </div>
-
-          {availableAnimations.length > 0 && (
-            <div className="mt-6">
-              <p className="text-sm font-black uppercase tracking-[0.2em] opacity-50">Animation</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {availableAnimations.map((name) => {
-                  const isSelected = name === selectedAnimation;
-
-                  return (
-                    <button
-                      key={name}
-                      onClick={() => setRequestedAnimation(name)}
-                      className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${
-                        isSelected
-                          ? 'bg-accent-blue text-white'
-                          : 'bg-white text-text-main shadow-chip hover:bg-accent-blue/10'
-                      }`}
-                    >
-                      {name}
-                    </button>
-                  );
-                })}
+                <button
+                  type="button"
+                  onClick={handleResetPersisted}
+                  className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 font-black text-white shadow-chip transition-transform hover:scale-[1.01] active:scale-[0.99]"
+                >
+                  <RotateCcw size={17} />
+                  Reset saved
+                </button>
               </div>
             </div>
-          )}
+          </WorkbenchSection>
+        </aside>
 
-          {selectedAsset.supportsTopSelection && (
-            <div className="mt-6">
-              <p className="text-sm font-black uppercase tracking-[0.2em] opacity-50">Top</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {AVATAR_TOP_ITEMS.map((item) => {
-                  const isSelected = item.id === selectedTop;
+        <section className="grid min-h-[680px] gap-5 lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_auto]">
+          <div className="min-h-[520px] rounded-[24px] bg-white p-4 shadow-chip sm:p-5">
+            <div className="h-[min(72svh,760px)] min-h-[500px] overflow-hidden rounded-[20px] bg-[radial-gradient(circle_at_top,rgba(108,196,255,0.18),transparent_42%),linear-gradient(180deg,rgba(250,251,255,1),rgba(237,243,248,1))]">
+              <AvatarPresenter
+                className="h-full w-full"
+                modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
+                animationName={previewState.config.animation}
+                slotSelections={previewState.config.slotSelections}
+                bodyShape={previewState.config.bodyShape}
+                onAnimationsChange={setAnimationNames}
+                label="Modular avatar preview"
+              />
+            </div>
+          </div>
 
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => setSelectedTop(item.id)}
-                      className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${
-                        isSelected
-                          ? 'bg-accent-blue text-white'
-                          : 'bg-white text-text-main shadow-chip hover:bg-accent-blue/10'
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  );
-                })}
+          <div className="rounded-[24px] bg-white p-5 shadow-chip">
+            <div className="grid gap-4 lg:grid-cols-3">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
+                  Asset
+                </p>
+                <dl className="mt-3 space-y-2 text-sm font-bold text-text-main/70">
+                  <div>
+                    <dt className="text-text-main/45">Model URL</dt>
+                    <dd className="break-all text-text-main">{AVATAR_MODULAR_MALE_MODEL_URL}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-text-main/45">Status</dt>
+                    <dd className="text-text-main">{assetStatus}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-text-main/45">Animation clips</dt>
+                    <dd className="break-words text-text-main">
+                      {animationNames.length > 0 ? animationNames.join(', ') : 'none in current GLB'}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-text-main/45">Visible meshes</dt>
+                    <dd className="break-words text-text-main">{selectedMeshNames.join(', ')}</dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
+                  Preview config
+                </p>
+                <pre className="mt-3 max-h-56 overflow-auto rounded-2xl bg-bg-light p-3 text-xs font-bold leading-relaxed text-text-main/75">
+                  {formatJson(previewState)}
+                </pre>
+              </div>
+
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
+                  Persisted storage
+                </p>
+                <pre className="mt-3 max-h-56 overflow-auto rounded-2xl bg-bg-light p-3 text-xs font-bold leading-relaxed text-text-main/75">
+                  {storageSnapshot ?? 'null'}
+                </pre>
               </div>
             </div>
-          )}
-        </section>
-
-        <section className="min-h-[520px] flex-1 rounded-[32px] bg-white p-5 shadow-chip sm:p-6">
-          <div className="h-[min(72svh,680px)] min-h-[460px] rounded-[28px] bg-[radial-gradient(circle_at_top,rgba(108,196,255,0.18),transparent_42%),linear-gradient(180deg,rgba(250,251,255,1),rgba(237,243,248,1))]">
-            <AvatarPresenter
-              className="h-full w-full"
-              modelUrl={selectedAsset.modelUrl}
-              animationUrl={selectedAsset.animationUrl}
-              animationName={selectedAnimation}
-              slotSelections={selectedAsset.supportsTopSelection ? { top: selectedTop } : undefined}
-              onAnimationsChange={handleAnimationsChange}
-              label={selectedAsset.label}
-            />
           </div>
         </section>
       </main>
