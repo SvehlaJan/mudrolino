@@ -1,6 +1,6 @@
 # 3D Avatar Knowledge Base
 
-Date: 2026-05-01
+Date: 2026-05-02
 
 This document is the durable project overview for the `teo-learn` 3D avatar work. Use it before changing avatar assets, runtime code, Blender tooling, or the product roadmap.
 
@@ -53,6 +53,10 @@ Preview route:
 Current default avatar URL:
 
 - `/avatar/meshy/neutral-parent-rigged.glb`
+
+Current modular male avatar URL:
+
+- `/avatar/modular/male-base-modular.glb`
 
 Current cleaned animation candidates:
 
@@ -168,6 +172,16 @@ Runtime responsibilities:
 - `AvatarPreviewScreen`: developer inspection route for comparing assets and clips
 - `avatarConstants.ts`: default asset URL and feature flag constants
 
+Current runtime implementation status:
+
+- `avatarConstants.ts` includes `AVATAR_MODULAR_MALE_MODEL_URL`.
+- Avatar storage version is `2`.
+- Avatar state now persists `baseVariant`, `slotSelections`, `face`, and `bodyShape`.
+- `AvatarModel` toggles `top_*` mesh visibility from `slotSelections.top`.
+- `/avatar-preview` includes the modular male asset and top selector controls.
+- Home avatar overlay loads the modular male GLB and saved top selection.
+- Home settings include a parent-facing avatar top selector.
+
 ## Male Modular Avatar Design
 
 Authoritative design spec:
@@ -207,6 +221,72 @@ Visual generation direction:
 - prepared face patch/anchor for later generated face decal
 
 The top meshes should be created and fitted in Blender after the base exists. Do not ask Meshy to generate final modular clothing in the initial base prompt.
+
+## Male Base Generation Lessons
+
+Use these lessons before spending more Meshy credits on avatar bases.
+
+### Meshy input strategy
+
+- Prefer Meshy image-to-3D over text-to-3D for avatar base generation.
+- The image reference should be generated or curated first, then copied into `meshy_output/reference_images/` so the Meshy input is durable.
+- Text-to-3D produced a visually unusable male underlayer despite a detailed prompt. Do not repeat text-to-3D for this base style unless there is a new reason.
+- Textured image-to-3D can reintroduce unwanted torso/groin shadows even when the reference image is mostly featureless.
+- For modest mannequin underlayers, prefer `image-to-3d --no-texture --disable-pbr`, then assign clean skin/clothing materials in Blender.
+- The no-texture image-to-3D output is gray and unmaterialed by design. That is acceptable and preferable for this base because Blender owns final material color.
+- If the no-texture request appears to hang at task creation, check balance/history before retrying. In this session, Meshy had not charged or recorded a project when the request timed out before returning a task id.
+- The local Meshy helper now uses a `180` second API request timeout because the previous `60` second timeout was too short for no-texture image-to-3D task creation.
+- Current standing approval from the user: Meshy spends are pre-approved while the balance is above `1000`, as long as the spend matches the agreed avatar-base plan. Continue reporting each spend and resulting balance.
+
+### Reference image guidance
+
+The successful reference direction was:
+
+- full-body, centered, front-facing A-pose
+- smooth toy/clay mannequin
+- male-coded but non-anatomical
+- no clothing, no underwear lines, no nipples, no navel, no chest definition, no groin definition
+- simplified hands/feet
+- plain white background
+- no dramatic lighting or shadows
+
+The first generated reference still led to anatomical texture shading after Meshy. The better v2 reference was more featureless, but texture still added dark body shading. The accepted path used that v2 reference with texture disabled.
+
+### Accepted generation path
+
+The accepted source path for the MVP male modular asset is:
+
+1. Generate featureless reference image:
+   - [meshy_output/reference_images/male-parent-underlayer-reference-v2-featureless.png](/Users/svehla/playground/teo-learn/meshy_output/reference_images/male-parent-underlayer-reference-v2-featureless.png)
+2. Meshy image-to-3D with no texture:
+   - task `019de50b-07c9-77ca-be26-0a30c8fb67fd`
+   - command shape: `image-to-3d --ai-model latest --no-texture --disable-pbr --wait --download-glb`
+   - cost: `20` credits
+3. Meshy rigging:
+   - task `019de50e-13bf-764b-8fbc-2bee7c4bc4e4`
+   - cost: `5` credits
+4. Blender modular export:
+   - [tools/blender/export_male_modular_avatar.py](/Users/svehla/playground/teo-learn/tools/blender/export_male_modular_avatar.py)
+   - output [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
+
+### Blender export lessons
+
+- Meshy rigged imports can have tiny object transforms with large local mesh coordinates. Do not assume local mesh coordinates are the final GLB coordinate space.
+- Creating new unskinned meshes from imported local coordinates can blow up exported bounds. This happened with `face_anchor`.
+- For the current automated `face_anchor`, use explicit tiny final GLB-space coordinates near the face instead of deriving size from the imported mesh local coordinates.
+- Blender `Solidify` on copied Meshy body shells created oversized bounds because thickness was interpreted in the wrong scale context. Avoid Solidify for automated MVP top shells unless transforms are normalized first.
+- The current `top_blue_tshirt` and `top_green_hoodie` are automated skinned shell proofs made from cropped duplicate body meshes. They are good enough to prove runtime slot selection, but final clothing quality should still be hand-fitted or generated as separate clothing assets later.
+- The exported modular GLB intentionally has no animations. It relies on compatible external animation files or future animation integration.
+- Expected glTF validator warnings for the modular asset:
+  - `UNUSED_OBJECT` on `TEXCOORD_0`
+  - `NODE_SKINNED_MESH_NON_ROOT`
+  These are acceptable for now because validation reports `0` errors and runtime rendering works.
+
+### Meshy helper and asset hygiene
+
+- Keep accepted generated source assets under `meshy_output/` and publish only runtime assets under `public/avatar/`.
+- Commit rejected task metadata and lessons, but do not commit every rejected heavy GLB unless it is needed for reproducibility.
+- Blender may create `.blend1` backup files. Do not stage those backups.
 
 ## Runtime State and Catalog
 
@@ -413,6 +493,7 @@ Fixes now in `AvatarModel`:
 - normalize cloned scene to a target height
 - support separate `modelUrl` and `animationUrl`
 - expose animation names back to the preview screen
+- apply `top_*` slot visibility after cloning and before measuring bounds
 
 Preview framing fixes:
 
@@ -465,6 +546,14 @@ Recent verified screenshot artifacts:
 - `/tmp/avatar-preview-playwright-final-mobile.png`
 - `/tmp/avatar-sad-clean-desktop.png`
 - `/tmp/avatar-sad-clean-mobile.png`
+- `/tmp/avatar-preview-male-modular-desktop.png`
+
+Recent modular avatar browser verification:
+
+- `/avatar-preview` desktop check passed outside the sandbox on 2026-05-01.
+- Selected `Male modular base`, clicked `Zelená mikina`, and verified a nonblank `720 x 648` canvas with `toDataURL("image/png").length === 15658`.
+- No page errors were reported in that preview check.
+- A follow-up home/settings mobile check had not yet been completed at the time of this note; the first attempt did not open settings, so it only proved home loaded without page errors.
 
 ## Current Roadmap
 
@@ -484,14 +573,18 @@ Recent verified screenshot artifacts:
 - Fixed preview rendering for skinned mesh visibility and responsive canvas height.
 - Installed Playwright for browser verification.
 - Generated, rigged, and exported the first male modular MVP GLB at `public/avatar/modular/male-base-modular.glb`.
+- Added slot-ready avatar state/catalog migration.
+- Added runtime top-slot mesh visibility toggling.
+- Added `/avatar-preview` controls for modular male top selection.
+- Added parent-facing avatar top selector in home settings.
 
 ### Next
 
 - Review and execute [docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md](/Users/svehla/playground/teo-learn/docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md).
-- Update runtime state/catalog from `outfitId` to slot selections.
-- Update `AvatarModel` to toggle `top_*` mesh visibility.
-- Add parent-facing top selection in Settings.
-- Verify `/avatar-preview` on desktop and mobile.
+- Complete home/settings browser verification, including the parent gate and top selection persistence.
+- Verify `/avatar-preview` on mobile.
+- Decide whether to visually polish the automated top shells now or keep them as an MVP slot-toggle proof before hand-fitted clothing.
+- Update the implementation plan/roadmap after final verification.
 
 ### Later
 
@@ -526,6 +619,9 @@ Recent verified screenshot artifacts:
 | 2026-05-01 | Prefer Meshy image-to-3D over text-to-3D for avatar base generation. | The first text-to-3D male base was rejected visually; generated image references give stronger control over silhouette, pose, and modest underlayer styling. |
 | 2026-05-01 | Reject the first textured image-to-3D male base for rigging. | It validates technically, but still contains torso/groin anatomical shading that violates the modest underlayer requirement. |
 | 2026-05-01 | Use the no-texture Meshy image-to-3D male base for MVP rigging and modular export. | The no-texture output avoids texture-driven anatomical shading; Blender owns skin/clothing materials and exports the first modular GLB. |
+| 2026-05-01 | Automated top shells are acceptable for proving slot toggling but not final clothing quality. | Cropped skinned body duplicates preserve rig compatibility quickly; polished clothing should be hand-fitted in Blender or delivered later as separate clothing GLBs. |
+| 2026-05-01 | Increase Meshy helper API request timeout from 60 seconds to 180 seconds. | No-texture image-to-3D task creation exceeded 60 seconds twice without charging; the longer timeout let the request return a task id and complete normally. |
+| 2026-05-02 | Meshy spends are pre-approved while balance stays above 1000 credits. | The user explicitly approved continued avatar-base plan spends under that threshold, but each spend and resulting balance should still be reported. |
 
 ## Related Context
 
