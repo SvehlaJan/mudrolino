@@ -542,11 +542,13 @@ When that happens, rerun Playwright browser verification outside the sandbox wit
 Minimum avatar preview assertions:
 
 - `/avatar-preview` loads
-- selected asset says `Status: available`
-- selected asset says `Clips: Animation` or another real clip name
+- diagnostics say `Status: available`
 - canvas dimensions are nonzero
 - `canvas.toDataURL("image/png").length` is nonzero and materially larger than a blank shell
 - desktop and mobile screenshots show the avatar, not just the background panel
+- old Meshy asset choices are absent
+- planned future slot controls are visible and disabled
+- top selection, body scale persistence, and reset behavior work through local storage
 
 Recent verified screenshot artifacts:
 
@@ -557,6 +559,8 @@ Recent verified screenshot artifacts:
 - `/tmp/avatar-preview-male-modular-desktop.png`
 - `/tmp/avatar-preview-male-modular-mobile.png`
 - `/tmp/avatar-home-settings-mobile.png`
+- `/tmp/avatar-workbench-desktop.png`
+- `/tmp/avatar-workbench-mobile.png`
 
 Recent modular avatar browser verification:
 
@@ -566,6 +570,10 @@ Recent modular avatar browser verification:
 - Selected `Male modular base`, clicked `Modré tričko`, and verified a nonblank `318 x 607` canvas with `toDataURL("image/png").length === 8334`.
 - Home settings mobile check passed outside the sandbox on 2026-05-02.
 - The parent gate opened `/settings`, the `Avatar` section rendered, `Zelená mikina` could be selected, and local storage persisted `version: 2` with `config.slotSelections.top === "top_green_hoodie"`.
+- `/avatar-preview` workbench desktop check passed outside the sandbox on 2026-05-02.
+- Verified old Meshy choices were absent, selected `Zelená mikina`, found `6` disabled planned controls, persisted `top_green_hoodie` and body scale `1.15`, reset saved state to default `top_blue_tshirt`, and verified a nonblank `776 x 648` canvas with `toDataURL("image/png").length === 16582`.
+- `/avatar-preview` workbench mobile check passed outside the sandbox on 2026-05-02.
+- Verified the same workbench flow and a nonblank `326 x 607` canvas with `toDataURL("image/png").length === 8414`.
 - No page errors were reported in these checks.
 
 ## Current Roadmap
@@ -592,6 +600,7 @@ Recent modular avatar browser verification:
 - Completed `/avatar-preview` as the modular avatar workbench for base, top slot, future slots, face state, body shape, diagnostics, persistence, and reset.
 - Added parent-facing avatar top selector in home settings.
 - Verified `/avatar-preview` on desktop and mobile with top switching.
+- Verified `/avatar-preview` workbench on desktop and mobile with top switching, body scale persistence, disabled planned controls, old Meshy choices removed, and reset behavior.
 - Verified home settings mobile parent-gate flow and persisted top selection.
 
 ### Next
