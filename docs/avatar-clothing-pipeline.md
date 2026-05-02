@@ -1,6 +1,6 @@
 # Avatar Clothing Pipeline
 
-_Last updated: 2026-05-02. Update this file every time you add a new clothing piece, discover a new technique, or hit a significant error. Treat it as a living recipe book._
+_Last updated: 2026-05-02 (v9 garments). Update this file every time you add a new clothing piece, discover a new technique, or hit a significant error. Treat it as a living recipe book._
 
 ---
 
@@ -64,36 +64,45 @@ Sleeve tubes **must** be perpendicular to the arm direction vector `(sleeve_end 
 
 ### Step 1 — Define torso + sleeve geometry
 
-Use `create_shirt_v6` (or later version) from `tools/blender/`:
+Use `create_shirt` (v9+) inline in a Blender MCP code block. The function lives in the MCP session — redefine it each session.
 
+**v9 t-shirt (blue)**:
 ```python
-create_shirt_v6(
-    name, material,
-    waist_z=0.96,         # bottom hem (metres, world space)
-    collar_z=1.45,        # neckline height
-    shoulder_z=1.27,      # where taper begins
-    torso_rx=0.215,       # torso half-width X at waist
-    torso_ry=0.145,       # torso half-depth Y at waist
-    collar_rx=0.082,      # neck opening half-width
-    collar_ry=0.068,      # neck opening half-depth
-    n_segs=24, n_rings=16,
-    sleeve_root_x=0.175,  # sleeve attach X (inset from torso edge to avoid gap)
-    sleeve_root_z=1.27,
-    sleeve_end_x=0.30, sleeve_end_z=1.07,   # t-shirt sleeve end
-    sleeve_ra=0.068, sleeve_rb=0.056,
-    n_sleeve_segs=16, n_sleeve_rings=5,
-)
+create_shirt('top_blue_tshirt', tshirt_mat,
+    waist_z=0.96, collar_z=1.41, shoulder_z=1.27,  # collar_z=1.41 → crew neck, not turtleneck
+    torso_rx=0.215, torso_ry=0.145,
+    collar_rx=0.098, collar_ry=0.082,               # wider neck opening
+    n_segs=28, n_rings=20,
+    sleeve_root_x=0.185, sleeve_root_z=1.27,
+    sleeve_end_x=0.34, sleeve_end_z=0.98,           # longer sleeves (was 1.07)
+    sleeve_ra=0.070, sleeve_rb=0.057,
+    n_sleeve_segs=18, n_sleeve_rings=7)
+```
+
+**v9 hoodie (green)**:
+```python
+create_shirt('top_green_hoodie', hoodie_mat,
+    waist_z=0.93, collar_z=1.42, shoulder_z=1.27,
+    torso_rx=0.230, torso_ry=0.155,
+    collar_rx=0.104, collar_ry=0.088,
+    n_segs=28, n_rings=20,
+    sleeve_root_x=0.200, sleeve_root_z=1.27,
+    sleeve_end_x=0.43, sleeve_end_z=0.85,           # long sleeves to wrist
+    sleeve_ra=0.082, sleeve_rb=0.066,
+    n_sleeve_segs=18, n_sleeve_rings=8)
 ```
 
 Taper logic: torso stays at `torso_rx/ry` from waist to `shoulder_z`, then linearly tapers to `collar_rx/ry` at `collar_z`. This prevents the collar from looking off-the-shoulder.
 
+**Key lesson (v9):** `collar_z=1.45` (v8) creates a mock-turtleneck. Use `collar_z=1.41` for a crew neck. Wider `collar_rx/ry` (0.098/0.082 vs 0.082/0.068) gives a more open neckline.
+
 ### Step 2 — Finalize: subdivide + BVH project + weight transfer
 
-Call `finalize_clothing(shirt_obj, body_obj, armature_obj, offset_m)`:
+Call `finalize_clothing(shirt_obj, body_obj, head_obj, armature_obj, offset_m)` — note `head_obj` is required for combined BVH:
 
 1. **Smooth shading** — `poly.use_smooth = True` on all polygons
 2. **Subdivision** — `SUBSURF` levels=2, then apply (expands ~500 base verts to ~8 k)
-3. **BVH projection** — build `BVHTree.FromBMesh()` from the body in world space, then for every clothing vertex call `bvh.find_nearest(v.co)` and set `v.co = location + normal.normalized() * offset_m`. This is the only reliable way to get a real surface gap; `Shrinkwrap` modifier offset mode does not work as expected.
+3. **BVH projection** — build `BVHTree.FromBMesh()` from **both body AND head** merged in world space (see `build_combined_bvh(body_obj, head_obj)`), then for every clothing vertex call `bvh.find_nearest(v.co)` and set `v.co = location + normal.normalized() * offset_m`. Using only the body mesh causes collar verts (z > 1.32) to snap to the body crop edge (off-shoulder effect). The combined body+head BVH covers the full neck surface.
 4. **KD-tree weight transfer** — for every clothing vertex, find the nearest body vertex via `mathutils.kdtree.KDTree`, then copy all its vertex group weights with `'REPLACE'`.
 5. **Armature modifier** — add `ARMATURE` modifier pointing to `Armature` object.
 
@@ -186,3 +195,7 @@ Open this in Blender to inspect or iterate on the current scene. All 6 required 
 | `triangle_fan_fill` not found | Blender 5.1 op removed | Use `bmesh.ops.holes_fill` |
 | `NEAREST_SURFACE_POINT` enum error | Missing underscore | Correct: `NEAREST_SURFACEPOINT` |
 | Off-the-shoulder collar | Torso taper starts at waist | Delay taper: hold torso width to `shoulder_z`, taper only above |
+| Collar projects to shoulder surface | `body_underlayer_male` is cropped at z=1.32; collar verts at z=1.44 snap to crop edge | Build combined BVH from body+head — neck surface covers full collar range |
+| Mock-turtleneck look | `collar_z=1.45` is too high | Use `collar_z=1.41` for crew neck; `collar_rx/ry` of 0.098/0.082 for proper opening |
+| Cloth sim collapses sleeves | Sleeve tubes are free to fall; only collar was pinned | Must pin BOTH collar AND sleeve cuffs when using cloth modifier. Even then, cloth sim produces bunchy results for A-pose sleeves; BVH projection is better for fitted shirts |
+| Cloth sim drapes like cape | Starting mesh too far from body (5cm+) with low stiffness | Either start from near-body BVH mesh (1cm expand), or accept BVH projection as the approach for fitted garments |
