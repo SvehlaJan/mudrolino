@@ -3,6 +3,7 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { AnimationClip } from 'three';
 import { Box3, Group, Object3D, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
+import { DEFAULT_AVATAR_TOP, getAvatarTopMeshName } from './avatarCatalog';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
 
@@ -45,11 +46,12 @@ function sanitizeAnimationClips(clips: AnimationClip[], hipsAnchor: Vector3) {
 }
 
 function applySlotVisibility(scene: Object3D, slotSelections?: AvatarSlotSelections) {
-  const selectedTop = slotSelections?.top;
+  const selectedTop = slotSelections?.top ?? DEFAULT_AVATAR_TOP;
+  const selectedTopMeshName = getAvatarTopMeshName(selectedTop);
 
   scene.traverse((object) => {
     if (!object.name.startsWith('top_')) return;
-    object.visible = selectedTop ? object.name === selectedTop : true;
+    object.visible = object.name === selectedTopMeshName;
   });
 }
 

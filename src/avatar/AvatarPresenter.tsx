@@ -2,7 +2,7 @@ import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import { AvatarScene } from './AvatarScene';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
-import { useAvatarAssetAvailability } from './useAvatarAssetAvailability';
+import { AssetStatus, useAvatarAssetAvailability } from './useAvatarAssetAvailability';
 
 interface AvatarPresenterProps {
   className?: string;
@@ -12,6 +12,7 @@ interface AvatarPresenterProps {
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
   bodyShape?: AvatarBodyShapeConfig;
+  assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
 }
 
@@ -23,10 +24,60 @@ export function AvatarPresenter({
   animationName,
   slotSelections,
   bodyShape,
+  assetStatusOverride,
   onAnimationsChange,
 }: AvatarPresenterProps) {
-  const assetStatus = useAvatarAssetAvailability(modelUrl);
+  if (assetStatusOverride) {
+    return (
+      <AvatarPresenterContent
+        assetStatus={assetStatusOverride}
+        className={className}
+        label={label}
+        modelUrl={modelUrl}
+        animationUrl={animationUrl}
+        animationName={animationName}
+        slotSelections={slotSelections}
+        bodyShape={bodyShape}
+        onAnimationsChange={onAnimationsChange}
+      />
+    );
+  }
 
+  return (
+    <CheckedAvatarPresenter
+      className={className}
+      label={label}
+      modelUrl={modelUrl}
+      animationUrl={animationUrl}
+      animationName={animationName}
+      slotSelections={slotSelections}
+      bodyShape={bodyShape}
+      onAnimationsChange={onAnimationsChange}
+    />
+  );
+}
+
+function CheckedAvatarPresenter(props: Omit<AvatarPresenterProps, 'assetStatusOverride'>) {
+  const assetStatus = useAvatarAssetAvailability(props.modelUrl);
+
+  return <AvatarPresenterContent {...props} assetStatus={assetStatus} />;
+}
+
+interface AvatarPresenterContentProps extends Omit<AvatarPresenterProps, 'assetStatusOverride'> {
+  assetStatus: AssetStatus;
+}
+
+function AvatarPresenterContent({
+  assetStatus,
+  className,
+  label = 'Animovaný sprievodca',
+  modelUrl = AVATAR_MODEL_URL,
+  animationUrl,
+  animationName,
+  slotSelections,
+  bodyShape,
+  onAnimationsChange,
+}: AvatarPresenterContentProps) {
   if (assetStatus !== 'available') return null;
 
   return (

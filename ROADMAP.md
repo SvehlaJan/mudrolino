@@ -99,18 +99,19 @@
 - [ ] Verify feedback submissions from deployed private build
 
 ### 1.5 Avatar Companion and Customization
-> Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The current Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but clothing customization needs a new base asset. Next avatar work should create a scratch-built male-coded modest underlayer base, export one modular GLB for that base, and implement the first customizable clothing slot.
+> Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The historical Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but the app-facing runtime has moved to the modular male base at `public/avatar/modular/male-base-modular.glb`. Old `public/avatar/meshy` POC GLBs are no longer current published assets; related source/provenance remains under `meshy_output/`.
 
 - [x] Avatar companion design spec (`docs/superpowers/specs/`)
 - [x] Local avatar runtime under `src/avatar/`
 - [x] `/avatar-preview` route for asset inspection
 - [x] Home overlay behind `VITE_AVATAR_POC_ENABLED`
-- [x] MVP Meshy character asset available in `public/avatar/meshy/`
-- [x] Cleaned success and failure/reaction animation candidates available
+- [x] Historical Meshy POC character and animation provenance captured under `meshy_output/`
+- [x] Historical cleaned success and failure/reaction animation candidates evaluated and replaced as current app-facing preview choices
 - [x] Spec: male-coded avatar base, modular clothing, and face-decal readiness (`docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md`)
 - [x] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character
 - [x] Keep or retarget to a stable armature with reusable named bones so idle/success/failure animations can drive the base and clothing meshes
 - [x] Export one MVP modular GLB for the male base containing the base body plus named top-slot mesh variants
+- [x] Publish the current app-facing avatar asset at `public/avatar/modular/male-base-modular.glb`
 - [ ] Map idle/success/failure avatar states into runtime-facing names
 - [ ] Add avatar to session-complete/reward screens first
 - [ ] Decide whether per-round success/failure overlays should use the avatar or keep the current lightweight treatment
@@ -119,6 +120,7 @@
 - [x] Persist selected top locally in versioned avatar state, migrating from the current `outfitId: "default"` shape
 - [x] Add a simple parent-facing customization screen or section
 - [x] Prepare the new head asset for future selfie-based face customization with a named face patch/anchor such as `face_anchor`
+- [x] Complete `/avatar-preview` as the modular avatar workbench for base, top slot, future slots, face state, body shape, diagnostics, persistence, and reset
 - [x] Verify customized avatar on desktop and mobile with Playwright screenshots
 
 ### 1.6 Analytics

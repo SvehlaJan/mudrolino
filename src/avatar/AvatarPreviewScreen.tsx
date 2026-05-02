@@ -389,15 +389,29 @@ export function AvatarPreviewScreen() {
         <section className="grid min-h-[680px] gap-5 lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_auto]">
           <div className="min-h-[520px] rounded-[24px] bg-white p-4 shadow-chip sm:p-5">
             <div className="h-[min(72svh,760px)] min-h-[500px] overflow-hidden rounded-[20px] bg-[radial-gradient(circle_at_top,rgba(108,196,255,0.18),transparent_42%),linear-gradient(180deg,rgba(250,251,255,1),rgba(237,243,248,1))]">
-              <AvatarPresenter
-                className="h-full w-full"
-                modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
-                animationName={previewState.config.animation}
-                slotSelections={previewState.config.slotSelections}
-                bodyShape={previewState.config.bodyShape}
-                onAnimationsChange={setAnimationNames}
-                label="Modular avatar preview"
-              />
+              {assetStatus === 'available' ? (
+                <AvatarPresenter
+                  className="h-full w-full"
+                  modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
+                  assetStatusOverride={assetStatus}
+                  animationName={previewState.config.animation}
+                  slotSelections={previewState.config.slotSelections}
+                  bodyShape={previewState.config.bodyShape}
+                  onAnimationsChange={setAnimationNames}
+                  label="Modular avatar preview"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center p-6 text-center">
+                  <div className="max-w-sm rounded-2xl bg-white/80 p-5 shadow-chip">
+                    <p className="text-lg font-black text-text-main">
+                      {assetStatus === 'missing' ? 'Modular avatar asset missing' : 'Checking avatar asset'}
+                    </p>
+                    <p className="mt-2 break-all text-sm font-bold text-text-main/60">
+                      {AVATAR_MODULAR_MALE_MODEL_URL}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

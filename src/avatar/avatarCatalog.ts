@@ -30,3 +30,7 @@ export const AVATAR_TOP_ITEMS: AvatarCatalogItem[] = [
 export function isAvatarTopItemId(value: unknown): value is AvatarTopItemId {
   return AVATAR_TOP_ITEMS.some((item) => item.id === value);
 }
+
+export function getAvatarTopMeshName(itemId: AvatarTopItemId): string {
+  return AVATAR_TOP_ITEMS.find((item) => item.id === itemId)?.meshName ?? DEFAULT_AVATAR_TOP;
+}

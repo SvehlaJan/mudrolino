@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 
-type AssetStatus = 'checking' | 'available' | 'missing';
+export type AssetStatus = 'checking' | 'available' | 'missing';
 
 interface AssetAvailabilityState {
   url: string;

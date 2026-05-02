@@ -49,23 +49,28 @@ Runtime entrypoints:
 Preview route:
 
 - `/avatar-preview`
+- Purpose: modular avatar workbench for base selection, top-slot selection, future slot scaffolding, face state, body-shape state, diagnostics, persistence, and reset behavior.
 
 Current default avatar URL:
 
-- `/avatar/meshy/neutral-parent-rigged.glb`
+- `/avatar/modular/male-base-modular.glb`
 
 Current modular male avatar URL:
 
 - `/avatar/modular/male-base-modular.glb`
 
-Current cleaned animation candidates:
+Current app-facing published asset:
 
-- [public/avatar/meshy/neutral-parent-success-cheer-clean.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-success-cheer-clean.glb)
-- [public/avatar/meshy/neutral-parent-sad-react-clean.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-sad-react-clean.glb)
+- [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
+
+Historical cleaned animation candidates:
+
+- The old `public/avatar/meshy/neutral-parent-*` POC GLBs were removed from app-facing runtime/public assets.
+- Keep the related Meshy and Blender provenance in `meshy_output/` as historical source material and lessons, not as current published app assets.
 
 The old placeholder asset `public/avatar/base-idle.glb` was intentionally removed.
 
-The current Meshy character is not the long-term clothing-customization base. Inspection showed it is one fused skinned mesh named `char1` with one material, so there are no separate clothing parts to toggle. Keep it as runtime/animation proof and visual reference; build the customizable avatar on a new modular male-coded base.
+The historical Meshy character was not the long-term clothing-customization base. Inspection showed it was one fused skinned mesh named `char1` with one material, so there were no separate clothing parts to toggle. Keep its `meshy_output/` source artifacts as runtime/animation proof and visual reference only; the current customizable avatar is the modular male-coded base.
 
 ## Asset Inventory
 
@@ -80,14 +85,13 @@ Raw Meshy project output:
 
 Published app assets:
 
-- [public/avatar/meshy/neutral-parent-model.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-model.glb)
-- [public/avatar/meshy/neutral-parent-rigged.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-rigged.glb)
-- [public/avatar/meshy/neutral-parent-walking.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-walking.glb)
-- [public/avatar/meshy/neutral-parent-running.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-running.glb)
-- [public/avatar/meshy/neutral-parent-victory-cheer.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-victory-cheer.glb)
-- [public/avatar/meshy/neutral-parent-shrug.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-shrug.glb)
-- [public/avatar/meshy/neutral-parent-success-cheer-clean.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-success-cheer-clean.glb)
-- [public/avatar/meshy/neutral-parent-sad-react-clean.glb](/Users/svehla/playground/teo-learn/public/avatar/meshy/neutral-parent-sad-react-clean.glb)
+- [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
+
+Removed app-facing POC assets:
+
+- The old `public/avatar/meshy/neutral-parent-*` GLBs were previously published for the runtime POC and animation cleanup comparison.
+- They are no longer app-facing runtime assets and should not be referenced by default URLs, preview gallery choices, or current published-asset lists.
+- Historical source/provenance artifacts remain under `meshy_output/`.
 
 Meshy tasks:
 
@@ -169,7 +173,7 @@ Runtime responsibilities:
 - `AvatarPresenter`: guards asset availability and runtime error boundary
 - `AvatarScene`: owns Canvas, camera, lights, and scene framing
 - `AvatarModel`: loads GLBs, clones scenes, normalizes bounds, applies animations
-- `AvatarPreviewScreen`: developer inspection route for comparing assets and clips
+- `AvatarPreviewScreen`: modular avatar workbench for base/top selection, future slot scaffolding, face/body-shape state, diagnostics, persistence, and reset
 - `avatarConstants.ts`: default asset URL and feature flag constants
 
 Current runtime implementation status:
@@ -178,7 +182,7 @@ Current runtime implementation status:
 - Avatar storage version is `2`.
 - Avatar state now persists `baseVariant`, `slotSelections`, `face`, and `bodyShape`.
 - `AvatarModel` toggles `top_*` mesh visibility from `slotSelections.top`.
-- `/avatar-preview` includes the modular male asset and top selector controls.
+- `/avatar-preview` is the app-facing modular avatar workbench around the modular male asset, with top selector controls, face/body-shape state, diagnostics, persistence, and reset.
 - Home avatar overlay loads the modular male GLB and saved top selection.
 - Home settings include a parent-facing avatar top selector.
 
@@ -415,7 +419,9 @@ Project-local tooling:
 - [tools/blender/inspect_avatar_glb.py](/Users/svehla/playground/teo-learn/tools/blender/inspect_avatar_glb.py)
 - [tools/blender/export_clean_avatar_clip.py](/Users/svehla/playground/teo-learn/tools/blender/export_clean_avatar_clip.py)
 
-Inspect a GLB:
+Historical POC inspection command shape:
+
+This command records how the old public Meshy POC asset was inspected before those files were removed from app-facing runtime assets.
 
 ```bash
 '/Applications/Blender.app/Contents/MacOS/Blender' \
@@ -426,7 +432,9 @@ Inspect a GLB:
   -- public/avatar/meshy/neutral-parent-rigged.glb
 ```
 
-Export the current cleaned cheer candidate:
+Historical cleaned cheer export command shape:
+
+This command records the old POC cleanup flow. The referenced `public/avatar/meshy/*` files are no longer current app-facing assets.
 
 ```bash
 '/Applications/Blender.app/Contents/MacOS/Blender' \
@@ -468,7 +476,7 @@ Observed raw action structure:
 
 This means the animation is a baked full-transform clip, not a clean rotation-only humanoid action. Runtime attempts to anchor hips, discard position/scale tracks, or normalize bounds in React were not enough by themselves.
 
-Current cleaned cheer candidate:
+Historical cleaned cheer candidate:
 
 - one 24-bone armature
 - one action named `Animation` after glTF export
@@ -568,9 +576,9 @@ Recent modular avatar browser verification:
 - Auto-rigged the base in Meshy.
 - Generated first Meshy victory cheer animation.
 - Generated first Meshy shrug animation as a negative reaction candidate.
-- Published Meshy outputs under `public/avatar/meshy/`.
-- Added `/avatar-preview` route for asset comparison.
-- Replaced old placeholder default URL with the Meshy rigged asset.
+- Previously published Meshy POC outputs under `public/avatar/meshy/`; those public POC GLBs have since been removed from app-facing runtime assets.
+- Added `/avatar-preview` route, now evolved into the modular avatar workbench.
+- Replaced old placeholder default URL with the historical Meshy rigged asset, then replaced it again with `/avatar/modular/male-base-modular.glb`.
 - Added Blender inspection and clean-export scripts.
 - Exported first rotation-only cleaned cheer candidate.
 - Exported first rotation-only cleaned `sad_react` candidate.
@@ -581,6 +589,7 @@ Recent modular avatar browser verification:
 - Added slot-ready avatar state/catalog migration.
 - Added runtime top-slot mesh visibility toggling.
 - Added `/avatar-preview` controls for modular male top selection.
+- Completed `/avatar-preview` as the modular avatar workbench for base, top slot, future slots, face state, body shape, diagnostics, persistence, and reset.
 - Added parent-facing avatar top selector in home settings.
 - Verified `/avatar-preview` on desktop and mobile with top switching.
 - Verified home settings mobile parent-gate flow and persisted top selection.
