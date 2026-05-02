@@ -279,12 +279,66 @@ The accepted source path for the MVP male modular asset is:
 - Creating new unskinned meshes from imported local coordinates can blow up exported bounds. This happened with `face_anchor`.
 - For the current automated `face_anchor`, use explicit tiny final GLB-space coordinates near the face instead of deriving size from the imported mesh local coordinates.
 - Blender `Solidify` on copied Meshy body shells created oversized bounds because thickness was interpreted in the wrong scale context. Avoid Solidify for automated MVP top shells unless transforms are normalized first.
-- The current `top_blue_tshirt` and `top_green_hoodie` are automated skinned shell proofs made from cropped duplicate body meshes. They are good enough to prove runtime slot selection, but final clothing quality should still be hand-fitted or generated as separate clothing assets later.
+- The original `top_blue_tshirt` and `top_green_hoodie` were automated skinned shell proofs made from cropped duplicate body meshes. They were good enough to prove runtime slot selection, but not final clothing quality.
+- Important clothing crop correction from 2026-05-02: the exporter originally cropped body parts by local `y`, but after Blender/glTF import the avatar's visual height is on final `y` while source mesh crop height in the Meshy import should be selected from source local `z`. Cropping by the wrong axis made the top slot color arms/legs or front/back slices while leaving the torso skin-toned.
+- Use `tools/blender/inspect_avatar_glb.py` per-object bounds after export. The corrected top bounds should sit in torso-height ranges, not full-body ranges:
+  - `top_blue_tshirt`: roughly `y 0.78-1.34` after import
+  - `top_green_hoodie`: roughly `y 0.65-1.39` after import
+- Copied-body clothing can z-fight with the underlayer because the garment and body share nearly identical surfaces. The current experimental exporter offsets tops along normals and removes covered torso faces from `body_underlayer_male` to reduce skin-colored speckles. This is a workaround, not final garment modeling.
+- Short-sleeve trimming is fragile when based only on `abs(x)` and vertical threshold. One attempt cut away too much of the blue torso and created holes/speckles. A safer MVP is a clean long-sleeve/upper-body shell; proper short sleeves should be hand-modeled or use more precise region/vertex-group logic.
+- As of the latest WIP, the blue/green tops are visibly on the torso in Blender previews, but still read more like bodysuit shells than real clothing. Treat this as partial improvement, not finished asset polish.
 - The exported modular GLB intentionally has no animations. It relies on compatible external animation files or future animation integration.
 - Expected glTF validator warnings for the modular asset:
   - `UNUSED_OBJECT` on `TEXCOORD_0`
   - `NODE_SKINNED_MESH_NON_ROOT`
   These are acceptable for now because validation reports `0` errors and runtime rendering works.
+
+### Blender preview workflow
+
+For asset iteration, prefer Blender preview renders before Playwright. This is much faster and avoids waiting on Vite/React unless the renderer integration itself changed.
+
+Use:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/render_avatar_preview.py \
+  -- \
+  --input public/avatar/modular/male-base-modular.glb \
+  --output-dir /tmp/avatar-blender-preview
+```
+
+This renders:
+
+- `/tmp/avatar-blender-preview/top_blue_tshirt.png`
+- `/tmp/avatar-blender-preview/top_green_hoodie.png`
+
+Blender may crash inside the Codex macOS sandbox before Python runs. If that happens, rerun the same command outside the sandbox with escalation.
+
+Use Playwright only after Blender previews look acceptable or after runtime code changed. Current `/avatar-preview` now has a `Model ready` diagnostic; browser automation should wait for `Status available` and `Model ready yes` before screenshotting. `Status available` only means the GLB URL responded, not that React Three Fiber has mounted and framed the scene.
+
+### Current clothing WIP state
+
+There is uncommitted WIP from the 2026-05-02 clothing-polish pass:
+
+- [tools/blender/export_male_modular_avatar.py](/Users/svehla/playground/teo-learn/tools/blender/export_male_modular_avatar.py)
+  - changed crop logic to use source local `z`
+  - added normal offsets for top meshes
+  - added body torso occlusion under clothing
+- [tools/blender/inspect_avatar_glb.py](/Users/svehla/playground/teo-learn/tools/blender/inspect_avatar_glb.py)
+  - added per-object world bounds output
+- [tools/blender/render_avatar_preview.py](/Users/svehla/playground/teo-learn/tools/blender/render_avatar_preview.py)
+  - new quick Blender PNG preview helper
+- [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
+  - rebuilt from the WIP exporter
+- [meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/male-base-modular-working.blend](/Users/svehla/playground/teo-learn/meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/male-base-modular-working.blend)
+  - updated working Blender file
+- `src/avatar/AvatarModel.tsx`, `AvatarScene.tsx`, `AvatarPresenter.tsx`, and `AvatarPreviewScreen.tsx`
+  - WIP runtime readiness signal so preview can show/wait for `Model ready yes`
+
+Do not assume this WIP should be committed as-is. First inspect the Blender preview PNGs and decide whether to continue automated shell cleanup or switch to manual/fitted garment creation.
 
 ### Meshy helper and asset hygiene
 
@@ -605,7 +659,7 @@ Recent modular avatar browser verification:
 
 ### Next
 
-- Decide whether to visually polish the automated top shells now or keep them as an MVP slot-toggle proof before hand-fitted clothing.
+- Continue clothing polish from the current WIP. First inspect `/tmp/avatar-blender-preview/top_blue_tshirt.png` and `/tmp/avatar-blender-preview/top_green_hoodie.png`; if automated cropped shells still look like bodysuits, switch to hand-fitted Blender garments instead of more crop-threshold tuning.
 - Decide where the avatar should appear next in the child flow, starting with session-complete/reward screens.
 
 ### Later
