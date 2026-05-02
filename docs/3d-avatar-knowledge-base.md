@@ -547,13 +547,18 @@ Recent verified screenshot artifacts:
 - `/tmp/avatar-sad-clean-desktop.png`
 - `/tmp/avatar-sad-clean-mobile.png`
 - `/tmp/avatar-preview-male-modular-desktop.png`
+- `/tmp/avatar-preview-male-modular-mobile.png`
+- `/tmp/avatar-home-settings-mobile.png`
 
 Recent modular avatar browser verification:
 
 - `/avatar-preview` desktop check passed outside the sandbox on 2026-05-01.
 - Selected `Male modular base`, clicked `Zelená mikina`, and verified a nonblank `720 x 648` canvas with `toDataURL("image/png").length === 15658`.
-- No page errors were reported in that preview check.
-- A follow-up home/settings mobile check had not yet been completed at the time of this note; the first attempt did not open settings, so it only proved home loaded without page errors.
+- `/avatar-preview` mobile check passed outside the sandbox on 2026-05-02.
+- Selected `Male modular base`, clicked `Modré tričko`, and verified a nonblank `318 x 607` canvas with `toDataURL("image/png").length === 8334`.
+- Home settings mobile check passed outside the sandbox on 2026-05-02.
+- The parent gate opened `/settings`, the `Avatar` section rendered, `Zelená mikina` could be selected, and local storage persisted `version: 2` with `config.slotSelections.top === "top_green_hoodie"`.
+- No page errors were reported in these checks.
 
 ## Current Roadmap
 
@@ -577,14 +582,13 @@ Recent modular avatar browser verification:
 - Added runtime top-slot mesh visibility toggling.
 - Added `/avatar-preview` controls for modular male top selection.
 - Added parent-facing avatar top selector in home settings.
+- Verified `/avatar-preview` on desktop and mobile with top switching.
+- Verified home settings mobile parent-gate flow and persisted top selection.
 
 ### Next
 
-- Review and execute [docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md](/Users/svehla/playground/teo-learn/docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md).
-- Complete home/settings browser verification, including the parent gate and top selection persistence.
-- Verify `/avatar-preview` on mobile.
 - Decide whether to visually polish the automated top shells now or keep them as an MVP slot-toggle proof before hand-fitted clothing.
-- Update the implementation plan/roadmap after final verification.
+- Decide where the avatar should appear next in the child flow, starting with session-complete/reward screens.
 
 ### Later
 

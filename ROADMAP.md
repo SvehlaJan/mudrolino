@@ -114,12 +114,12 @@
 - [ ] Map idle/success/failure avatar states into runtime-facing names
 - [ ] Add avatar to session-complete/reward screens first
 - [ ] Decide whether per-round success/failure overlays should use the avatar or keep the current lightweight treatment
-- [ ] Define the slot-ready avatar state/catalog with multiple future slots but implement only `top` for the MVP
+- [x] Define the slot-ready avatar state/catalog with multiple future slots but implement only `top` for the MVP
 - [x] Create 2 top variants in the male modular GLB, with stable mesh names suitable for visibility toggles
-- [ ] Persist selected top locally in versioned avatar state, migrating from the current `outfitId: "default"` shape
-- [ ] Add a simple parent-facing customization screen or section
-- [ ] Prepare the new head asset for future selfie-based face customization with a named face patch/anchor such as `FaceAnchor`
-- [ ] Verify customized avatar on desktop and mobile with Playwright screenshots
+- [x] Persist selected top locally in versioned avatar state, migrating from the current `outfitId: "default"` shape
+- [x] Add a simple parent-facing customization screen or section
+- [x] Prepare the new head asset for future selfie-based face customization with a named face patch/anchor such as `face_anchor`
+- [x] Verify customized avatar on desktop and mobile with Playwright screenshots
 
 ### 1.6 Analytics
 > Not required for friends-first sharing. Revisit before public launch if usage telemetry is still desired.
