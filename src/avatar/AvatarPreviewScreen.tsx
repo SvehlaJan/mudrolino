@@ -160,7 +160,14 @@ export function AvatarPreviewScreen() {
   const [previewState, setPreviewState] = useState<StoredAvatarState>(() => loadAvatarState());
   const [storageSnapshot, setStorageSnapshot] = useState<string | null>(() => readStorageSnapshot());
   const [animationNames, setAnimationNames] = useState<string[]>([]);
+  const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
   const assetStatus = useAvatarAssetAvailability(AVATAR_MODULAR_MALE_MODEL_URL);
+  const modelReadyKey = [
+    previewState.config.animation,
+    previewState.config.bodyShape.scale,
+    previewState.config.slotSelections.top,
+  ].join(':');
+  const isModelReady = readyModelKey === modelReadyKey;
 
   const selectedTopItem = useMemo(
     () =>
@@ -390,16 +397,33 @@ export function AvatarPreviewScreen() {
           <div className="min-h-[520px] rounded-[24px] bg-white p-4 shadow-chip sm:p-5">
             <div className="h-[min(72svh,760px)] min-h-[500px] overflow-hidden rounded-[20px] bg-[radial-gradient(circle_at_top,rgba(108,196,255,0.18),transparent_42%),linear-gradient(180deg,rgba(250,251,255,1),rgba(237,243,248,1))]">
               {assetStatus === 'available' ? (
-                <AvatarPresenter
-                  className="h-full w-full"
-                  modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
-                  assetStatusOverride={assetStatus}
-                  animationName={previewState.config.animation}
-                  slotSelections={previewState.config.slotSelections}
-                  bodyShape={previewState.config.bodyShape}
-                  onAnimationsChange={setAnimationNames}
-                  label="Modular avatar preview"
-                />
+                <div className="relative h-full w-full">
+                  <AvatarPresenter
+                    className="h-full w-full"
+                    modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
+                    assetStatusOverride={assetStatus}
+                    animationName={previewState.config.animation}
+                    slotSelections={previewState.config.slotSelections}
+                    bodyShape={previewState.config.bodyShape}
+                    onAnimationsChange={setAnimationNames}
+                    onModelReady={() => setReadyModelKey(modelReadyKey)}
+                    label="Modular avatar preview"
+                  />
+                  {!isModelReady && (
+                    <div
+                      className="absolute inset-0 flex items-center justify-center bg-bg-light/70 p-6 text-center"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      <div className="max-w-sm rounded-2xl bg-white/85 p-5 shadow-chip">
+                        <p className="text-lg font-black text-text-main">Loading modular avatar</p>
+                        <p className="mt-2 text-sm font-bold text-text-main/60">
+                          Waiting for the GLB scene to mount.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div className="flex h-full w-full items-center justify-center p-6 text-center">
                   <div className="max-w-sm rounded-2xl bg-white/80 p-5 shadow-chip">
@@ -429,6 +453,10 @@ export function AvatarPreviewScreen() {
                   <div>
                     <dt className="text-text-main/45">Status</dt>
                     <dd className="text-text-main">{assetStatus}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-text-main/45">Model ready</dt>
+                    <dd className="text-text-main">{isModelReady ? 'yes' : 'no'}</dd>
                   </div>
                   <div>
                     <dt className="text-text-main/45">Animation clips</dt>

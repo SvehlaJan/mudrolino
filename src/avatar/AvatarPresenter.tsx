@@ -14,6 +14,7 @@ interface AvatarPresenterProps {
   bodyShape?: AvatarBodyShapeConfig;
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
+  onModelReady?: () => void;
 }
 
 export function AvatarPresenter({
@@ -26,6 +27,7 @@ export function AvatarPresenter({
   bodyShape,
   assetStatusOverride,
   onAnimationsChange,
+  onModelReady,
 }: AvatarPresenterProps) {
   if (assetStatusOverride) {
     return (
@@ -39,6 +41,7 @@ export function AvatarPresenter({
         slotSelections={slotSelections}
         bodyShape={bodyShape}
         onAnimationsChange={onAnimationsChange}
+        onModelReady={onModelReady}
       />
     );
   }
@@ -53,6 +56,7 @@ export function AvatarPresenter({
       slotSelections={slotSelections}
       bodyShape={bodyShape}
       onAnimationsChange={onAnimationsChange}
+      onModelReady={onModelReady}
     />
   );
 }
@@ -77,6 +81,7 @@ function AvatarPresenterContent({
   slotSelections,
   bodyShape,
   onAnimationsChange,
+  onModelReady,
 }: AvatarPresenterContentProps) {
   if (assetStatus !== 'available') return null;
 
@@ -91,6 +96,7 @@ function AvatarPresenterContent({
           slotSelections={slotSelections}
           bodyShape={bodyShape}
           onAnimationsChange={onAnimationsChange}
+          onModelReady={onModelReady}
         />
       </div>
     </AvatarRuntimeBoundary>

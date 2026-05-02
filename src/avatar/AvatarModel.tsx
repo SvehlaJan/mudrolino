@@ -14,6 +14,7 @@ interface AvatarModelProps {
   slotSelections?: AvatarSlotSelections;
   bodyShape?: AvatarBodyShapeConfig;
   onAnimationsChange?: (names: string[]) => void;
+  onModelReady?: () => void;
 }
 
 const TARGET_MODEL_HEIGHT = 2.7;
@@ -67,6 +68,7 @@ export function AvatarModel({
   slotSelections,
   bodyShape,
   onAnimationsChange,
+  onModelReady,
 }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
   const gltf = useGLTF(url);
@@ -107,6 +109,10 @@ export function AvatarModel({
     [animationSource.animations, hipsAnchor],
   );
   const { actions, names } = useAnimations(animationClips, groupRef);
+
+  useEffect(() => {
+    onModelReady?.();
+  }, [onModelReady, scene]);
 
   useEffect(() => {
     onAnimationsChange?.(names);

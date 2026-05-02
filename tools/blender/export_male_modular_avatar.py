@@ -1,8 +1,9 @@
 """Build and export the MVP male modular avatar GLB.
 
 This imports a rigged Meshy underlayer, splits the head from the body, creates
-two skinned top-slot shells by cropping duplicated body meshes, adds a face
-anchor plane, and exports the required runtime object contract.
+two skinned top-slot shells by cropping duplicated body meshes on the vertical
+axis, adds a face anchor plane, and exports the required runtime object
+contract.
 """
 
 from __future__ import annotations
@@ -76,21 +77,24 @@ def duplicate_mesh(source: bpy.types.Object, name: str, material: bpy.types.Mate
     return duplicate
 
 
-def normalized_bounds(obj: bpy.types.Object) -> tuple[float, float]:
-    y_values = [vertex.co.y for vertex in obj.data.vertices]
-    return min(y_values), max(y_values)
+def normalized_bounds(obj: bpy.types.Object, axis: str) -> tuple[float, float]:
+    values = [getattr(vertex.co, axis) for vertex in obj.data.vertices]
+    return min(values), max(values)
 
 
 def crop_mesh(
     obj: bpy.types.Object,
-    source_min_y: float,
-    source_max_y: float,
+    source_min_axis: float,
+    source_max_axis: float,
     *,
-    min_y: float,
-    max_y: float,
+    axis: str,
+    min_value: float,
+    max_value: float,
     min_abs_x: float | None = None,
+    sleeve_min_value: float | None = None,
+    sleeve_min_abs_x: float | None = None,
 ) -> None:
-    height = source_max_y - source_min_y
+    height = source_max_axis - source_min_axis
     mesh = obj.data
     bm = bmesh.new()
     bm.from_mesh(mesh)
@@ -98,14 +102,67 @@ def crop_mesh(
     bm.faces.ensure_lookup_table()
 
     def keep_vertex(vertex: bmesh.types.BMVert) -> bool:
-        normalized_y = (vertex.co.y - source_min_y) / height if height else 0
-        if normalized_y < min_y or normalized_y > max_y:
+        coordinate = getattr(vertex.co, axis)
+        normalized_value = (coordinate - source_min_axis) / height if height else 0
+        if normalized_value < min_value or normalized_value > max_value:
             return False
         if min_abs_x is not None and abs(vertex.co.x) < min_abs_x:
+            return False
+        if (
+            sleeve_min_value is not None
+            and sleeve_min_abs_x is not None
+            and abs(vertex.co.x) > sleeve_min_abs_x
+            and normalized_value < sleeve_min_value
+        ):
             return False
         return True
 
     faces_to_delete = [face for face in bm.faces if not all(keep_vertex(vertex) for vertex in face.verts)]
+    bmesh.ops.delete(bm, geom=faces_to_delete, context="FACES")
+    loose_verts = [vertex for vertex in bm.verts if not vertex.link_faces]
+    bmesh.ops.delete(bm, geom=loose_verts, context="VERTS")
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+
+def offset_mesh_along_normals(obj: bpy.types.Object, distance: float) -> None:
+    mesh = obj.data
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+    bm.normal_update()
+
+    for vertex in bm.verts:
+        vertex.co += vertex.normal.normalized() * distance
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+
+def remove_covered_torso(
+    obj: bpy.types.Object,
+    source_min_axis: float,
+    source_max_axis: float,
+    *,
+    axis: str,
+    min_value: float,
+    max_value: float,
+    max_abs_x: float,
+) -> None:
+    height = source_max_axis - source_min_axis
+    mesh = obj.data
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+    bm.verts.ensure_lookup_table()
+    bm.faces.ensure_lookup_table()
+
+    def is_covered(vertex: bmesh.types.BMVert) -> bool:
+        coordinate = getattr(vertex.co, axis)
+        normalized_value = (coordinate - source_min_axis) / height if height else 0
+        return min_value <= normalized_value <= max_value and abs(vertex.co.x) <= max_abs_x
+
+    faces_to_delete = [face for face in bm.faces if all(is_covered(vertex) for vertex in face.verts)]
     bmesh.ops.delete(bm, geom=faces_to_delete, context="FACES")
     loose_verts = [vertex for vertex in bm.verts if not vertex.link_faces]
     bmesh.ops.delete(bm, geom=loose_verts, context="VERTS")
@@ -193,7 +250,7 @@ def main() -> None:
 
     source_body = find_body_mesh()
     source_body.name = "source_body_for_slots"
-    source_min_y, source_max_y = normalized_bounds(source_body)
+    source_min_z, source_max_z = normalized_bounds(source_body, "z")
 
     skin = make_material("skin_tone_underlayer", (0.82, 0.58, 0.39, 1.0))
     face = make_material("placeholder_face_anchor", (0.93, 0.74, 0.58, 1.0))
@@ -201,16 +258,34 @@ def main() -> None:
     green = make_material("top_green_hoodie_material", (0.12, 0.52, 0.32, 1.0))
 
     body = duplicate_mesh(source_body, "body_underlayer_male", skin)
-    crop_mesh(body, source_min_y, source_max_y, min_y=0.0, max_y=0.79)
+    crop_mesh(body, source_min_z, source_max_z, axis="z", min_value=0.0, max_value=0.82)
+    remove_covered_torso(
+        body,
+        source_min_z,
+        source_max_z,
+        axis="z",
+        min_value=0.38,
+        max_value=0.82,
+        max_abs_x=0.34,
+    )
 
     head = duplicate_mesh(source_body, "head", skin)
-    crop_mesh(head, source_min_y, source_max_y, min_y=0.75, max_y=1.0)
+    crop_mesh(head, source_min_z, source_max_z, axis="z", min_value=0.70, max_value=1.0)
 
     tshirt = duplicate_mesh(source_body, "top_blue_tshirt", blue)
-    crop_mesh(tshirt, source_min_y, source_max_y, min_y=0.39, max_y=0.73)
+    crop_mesh(
+        tshirt,
+        source_min_z,
+        source_max_z,
+        axis="z",
+        min_value=0.42,
+        max_value=0.79,
+    )
+    offset_mesh_along_normals(tshirt, 0.018)
 
     hoodie = duplicate_mesh(source_body, "top_green_hoodie", green)
-    crop_mesh(hoodie, source_min_y, source_max_y, min_y=0.36, max_y=0.76)
+    crop_mesh(hoodie, source_min_z, source_max_z, axis="z", min_value=0.38, max_value=0.82)
+    offset_mesh_along_normals(hoodie, 0.022)
 
     create_face_anchor(source_body, face)
     remove_unwanted_objects(set(REQUIRED_OBJECTS))

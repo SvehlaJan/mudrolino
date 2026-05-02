@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 
 import bpy
+from mathutils import Vector
 
 
 def iter_action_fcurves(action: bpy.types.Action):
@@ -25,8 +26,9 @@ def iter_action_fcurves(action: bpy.types.Action):
 
 
 def clear_scene() -> None:
-    bpy.ops.object.select_all(action="SELECT")
-    bpy.ops.object.delete()
+    # Remove all objects directly via bpy.data to avoid context issues in background mode
+    for obj in list(bpy.data.objects):
+        bpy.data.objects.remove(obj, do_unlink=True)
 
 
 def import_glb(path: Path) -> None:
@@ -45,6 +47,16 @@ def track_kind(data_path: str) -> str:
     return data_path.rsplit(".", 1)[-1]
 
 
+def object_world_bounds(obj: bpy.types.Object) -> tuple[Vector, Vector] | None:
+    if not obj.bound_box:
+        return None
+
+    corners = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
+    min_corner = Vector((min(corner.x for corner in corners), min(corner.y for corner in corners), min(corner.z for corner in corners)))
+    max_corner = Vector((max(corner.x for corner in corners), max(corner.y for corner in corners), max(corner.z for corner in corners)))
+    return min_corner, max_corner
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("glb", type=Path)
@@ -57,7 +69,17 @@ def main() -> None:
     print(f"GLB: {args.glb}")
     print("Objects:")
     for obj in sorted(bpy.context.scene.objects, key=lambda item: item.name):
-        print(f"  - {obj.name} ({obj.type})")
+        bounds = object_world_bounds(obj)
+        if bounds is None:
+            print(f"  - {obj.name} ({obj.type})")
+            continue
+
+        min_corner, max_corner = bounds
+        print(
+            f"  - {obj.name} ({obj.type}) "
+            f"bbox=({min_corner.x:.5f}, {min_corner.y:.5f}, {min_corner.z:.5f})"
+            f"-({max_corner.x:.5f}, {max_corner.y:.5f}, {max_corner.z:.5f})"
+        )
 
     armatures = [obj for obj in bpy.context.scene.objects if obj.type == "ARMATURE"]
     print(f"Armatures: {len(armatures)}")

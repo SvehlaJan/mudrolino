@@ -11,6 +11,7 @@ interface AvatarSceneProps {
   slotSelections?: AvatarSlotSelections;
   bodyShape?: AvatarBodyShapeConfig;
   onAnimationsChange?: (names: string[]) => void;
+  onModelReady?: () => void;
 }
 
 function AvatarCameraRig() {
@@ -33,6 +34,7 @@ export function AvatarScene({
   slotSelections,
   bodyShape,
   onAnimationsChange,
+  onModelReady,
 }: AvatarSceneProps) {
   return (
     <div className={className}>
@@ -54,6 +56,7 @@ export function AvatarScene({
             slotSelections={slotSelections}
             bodyShape={bodyShape}
             onAnimationsChange={onAnimationsChange}
+            onModelReady={onModelReady}
           />
         </Suspense>
       </Canvas>

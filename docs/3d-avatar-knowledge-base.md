@@ -319,26 +319,23 @@ Blender may crash inside the Codex macOS sandbox before Python runs. If that hap
 
 Use Playwright only after Blender previews look acceptable or after runtime code changed. Current `/avatar-preview` now has a `Model ready` diagnostic; browser automation should wait for `Status available` and `Model ready yes` before screenshotting. `Status available` only means the GLB URL responded, not that React Three Fiber has mounted and framed the scene.
 
-### Current clothing WIP state
+### Current clothing state (2026-05-02 Blender MCP hand-fit pass)
 
-There is uncommitted WIP from the 2026-05-02 clothing-polish pass:
+The automated crop-based shells from `export_male_modular_avatar.py` were replaced with hand-fitted procedural garments created entirely inside Blender MCP. The new clothing is **not** driven by `export_male_modular_avatar.py` — it lives in the saved `.blend` working file and the exported GLB. See the detailed recipe in:
 
-- [tools/blender/export_male_modular_avatar.py](/Users/svehla/playground/teo-learn/tools/blender/export_male_modular_avatar.py)
-  - changed crop logic to use source local `z`
-  - added normal offsets for top meshes
-  - added body torso occlusion under clothing
-- [tools/blender/inspect_avatar_glb.py](/Users/svehla/playground/teo-learn/tools/blender/inspect_avatar_glb.py)
-  - added per-object world bounds output
-- [tools/blender/render_avatar_preview.py](/Users/svehla/playground/teo-learn/tools/blender/render_avatar_preview.py)
-  - new quick Blender PNG preview helper
-- [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
-  - rebuilt from the WIP exporter
-- [meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/male-base-modular-working.blend](/Users/svehla/playground/teo-learn/meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/male-base-modular-working.blend)
-  - updated working Blender file
-- `src/avatar/AvatarModel.tsx`, `AvatarScene.tsx`, `AvatarPresenter.tsx`, and `AvatarPreviewScreen.tsx`
-  - WIP runtime readiness signal so preview can show/wait for `Model ready yes`
+- [docs/avatar-clothing-pipeline.md](/Users/svehla/playground/teo-learn/docs/avatar-clothing-pipeline.md)
 
-Do not assume this WIP should be committed as-is. First inspect the Blender preview PNGs and decide whether to continue automated shell cleanup or switch to manual/fitted garment creation.
+New clothing approach summary:
+
+- Garments are created as tube-based meshes (torso ellipse + sleeve tubes) in world-space metres
+- Subdivided (levels=2), then BVH-projected onto the body surface with a per-garment offset
+- Vertex weights transferred from body via KD-tree nearest-vertex lookup
+- Armature modifier added pointing at the scene Armature
+- Exported into the same GLB as the body using `export_scene.gltf` with `use_selection=True, export_apply=True`
+
+Known limitation: the sleeve tubes are geometrically separate from the torso tube. A small shoulder gap (deltoid area) is visible where neither tube covers the body. This is an acceptable MVP trade-off. The proper fix is a T-shaped single-mesh garment — documented in the clothing pipeline guide.
+
+Current GLB size: ~4.3 MB (larger than the old crop-based shells due to higher vertex count from subdivision + BVH projection).
 
 ### Meshy helper and asset hygiene
 
