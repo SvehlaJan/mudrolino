@@ -166,4 +166,3 @@ Record verification date, checks, screenshots, and any residual limitations.
 git add docs/3d-avatar-knowledge-base.md
 git commit -m "docs: record avatar workbench verification"
 ```
-

@@ -108,4 +108,3 @@ Browser checks should confirm:
 - planned future slots are visible but disabled
 - body scale control changes the rendered model without breaking framing
 - persist/reset controls update local storage correctly
-
