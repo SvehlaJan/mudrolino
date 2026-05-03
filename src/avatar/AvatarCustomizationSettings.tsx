@@ -1,7 +1,13 @@
 import { Shirt } from 'lucide-react';
 import { AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
+import { AvatarShoesItemId } from './avatarTypes';
 import { useAvatarState } from './useAvatarState';
 import { Card, ChoiceTile } from '../shared/ui';
+
+const shoesLabelById: Record<AvatarShoesItemId, string> = {
+  shoes_none: 'Bez topánok',
+  shoes_blue_sneakers_v1: 'Modré tenisky',
+};
 
 export function AvatarCustomizationSettings() {
   const { avatarState, updateAvatarState } = useAvatarState();
@@ -24,7 +30,9 @@ export function AvatarCustomizationSettings() {
 
       <div className="mt-5 space-y-5">
         <section>
-          <h4 className="mb-2 text-sm font-bold uppercase tracking-wide opacity-55">Top</h4>
+          <h4 className="mb-2 text-sm font-bold uppercase tracking-wide opacity-55">
+            Vrchné oblečenie
+          </h4>
           <div className="grid grid-cols-2 gap-3">
             {AVATAR_TOP_ITEMS.map((item) => {
               const isSelected = item.id === selectedTop;
@@ -35,6 +43,7 @@ export function AvatarCustomizationSettings() {
                   shape="option"
                   state={isSelected ? 'selected' : 'neutral'}
                   unstyledState={!isSelected}
+                  aria-pressed={isSelected}
                   className={
                     isSelected
                       ? 'bg-success text-white'
@@ -69,7 +78,7 @@ export function AvatarCustomizationSettings() {
         </section>
 
         <section>
-          <h4 className="mb-2 text-sm font-bold uppercase tracking-wide opacity-55">Shoes</h4>
+          <h4 className="mb-2 text-sm font-bold uppercase tracking-wide opacity-55">Topánky</h4>
           <div className="grid grid-cols-2 gap-3">
             {AVATAR_SHOES_ITEMS.map((item) => {
               const isSelected = item.id === selectedShoes;
@@ -80,6 +89,7 @@ export function AvatarCustomizationSettings() {
                   shape="option"
                   state={isSelected ? 'selected' : 'neutral'}
                   unstyledState={!isSelected}
+                  aria-pressed={isSelected}
                   className={
                     isSelected
                       ? 'bg-success text-white'
@@ -105,7 +115,7 @@ export function AvatarCustomizationSettings() {
                         className={`h-5 w-5 shrink-0 rounded-full border-2 border-white/80 ${item.swatchClassName}`}
                       />
                     )}
-                    <span className="truncate">{item.label}</span>
+                    <span className="truncate">{shoesLabelById[item.id]}</span>
                   </span>
                 </ChoiceTile>
               );
