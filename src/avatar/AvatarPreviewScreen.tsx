@@ -15,12 +15,11 @@ import {
 import { AvatarPresenter } from './AvatarPresenter';
 import { resolveAvatarAssets } from './avatarAssetResolver';
 import { AVATAR_BLUE_SNEAKERS_MODEL_URL, AVATAR_STORAGE_KEY } from './avatarConstants';
-import { AVATAR_SHOES_ITEMS } from './avatarCatalog';
+import { AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
 import {
   AvatarAnimationName,
   AvatarBodyShapeConfig,
   AvatarConfig,
-  AvatarShoesItemId,
   StoredAvatarState,
 } from './avatarTypes';
 import {
@@ -249,8 +248,24 @@ export function AvatarPreviewScreen() {
           <WorkbenchSection title="Clothing Slots" icon={<Shirt size={19} />}>
             <p className="mb-3 text-sm font-bold text-text-main/55">Top</p>
             <div className="grid gap-2">
-              <OptionButton label="Plain base" detail="active" selected />
-              <OptionButton label="Legacy shirts" detail="removed from preview" disabled />
+              {AVATAR_TOP_ITEMS.map((item) => (
+                <OptionButton
+                  key={item.id}
+                  label={item.label}
+                  detail="embedded mesh"
+                  selected={previewState.config.slotSelections.top === item.id}
+                  swatchClassName={item.swatchClassName}
+                  onClick={() => {
+                    setConfig((config) => ({
+                      ...config,
+                      slotSelections: {
+                        ...config.slotSelections,
+                        top: item.id,
+                      },
+                    }));
+                  }}
+                />
+              ))}
             </div>
 
             <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Shoes</p>
@@ -273,7 +288,7 @@ export function AvatarPreviewScreen() {
                       ...config,
                       slotSelections: {
                         ...config.slotSelections,
-                        shoes: item.id as AvatarShoesItemId,
+                        shoes: item.id,
                       },
                     }));
                   }}
