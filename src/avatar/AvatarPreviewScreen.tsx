@@ -13,20 +13,14 @@ import {
   UserRound,
 } from 'lucide-react';
 import { AvatarPresenter } from './AvatarPresenter';
-import {
-  AVATAR_BLUE_SNEAKERS_MODEL_URL,
-  AVATAR_BLUE_SNEAKERS_RIGGED_PREVIEW_MODEL_URL,
-  AVATAR_BLUE_SNEAKERS_RUNNING_PREVIEW_MODEL_URL,
-  AVATAR_BLUE_SNEAKERS_WALKING_PREVIEW_MODEL_URL,
-  AVATAR_MODULAR_MALE_RUNNING_MODEL_URL,
-  AVATAR_MODULAR_MALE_MODEL_URL,
-  AVATAR_MODULAR_MALE_WALKING_MODEL_URL,
-  AVATAR_STORAGE_KEY,
-} from './avatarConstants';
+import { resolveAvatarAssets } from './avatarAssetResolver';
+import { AVATAR_BLUE_SNEAKERS_MODEL_URL, AVATAR_STORAGE_KEY } from './avatarConstants';
+import { AVATAR_SHOES_ITEMS } from './avatarCatalog';
 import {
   AvatarAnimationName,
   AvatarBodyShapeConfig,
   AvatarConfig,
+  AvatarShoesItemId,
   StoredAvatarState,
 } from './avatarTypes';
 import {
@@ -34,7 +28,7 @@ import {
   loadAvatarState,
   saveAvatarState,
 } from './avatarStore';
-import { useAvatarAssetAvailability } from './useAvatarAssetAvailability';
+import { useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
 type FutureSlot = 'bottom' | 'hair' | 'accessory';
 
@@ -161,55 +155,29 @@ function OptionButton({
 export function AvatarPreviewScreen() {
   const navigate = useNavigate();
   const [previewState, setPreviewState] = useState<StoredAvatarState>(() => loadAvatarState());
-  const [shoePreviewEnabled, setShoePreviewEnabled] = useState(true);
   const [storageSnapshot, setStorageSnapshot] = useState<string | null>(() => readStorageSnapshot());
   const [animationNames, setAnimationNames] = useState<string[]>([]);
   const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
-  const activeModelUrl = shoePreviewEnabled
-    ? AVATAR_BLUE_SNEAKERS_RIGGED_PREVIEW_MODEL_URL
-    : AVATAR_MODULAR_MALE_MODEL_URL;
-  const animationSourceUrl = (() => {
-    if (previewState.config.animation === 'walk') {
-      return shoePreviewEnabled
-        ? AVATAR_BLUE_SNEAKERS_WALKING_PREVIEW_MODEL_URL
-        : AVATAR_MODULAR_MALE_WALKING_MODEL_URL;
-    }
-
-    if (previewState.config.animation === 'run') {
-      return shoePreviewEnabled
-        ? AVATAR_BLUE_SNEAKERS_RUNNING_PREVIEW_MODEL_URL
-        : AVATAR_MODULAR_MALE_RUNNING_MODEL_URL;
-    }
-
-    return undefined;
-  })();
-  const assetStatus = useAvatarAssetAvailability(activeModelUrl);
-  const animationAssetStatus = useAvatarAssetAvailability(animationSourceUrl ?? activeModelUrl);
-  const previewAssetStatus =
-    assetStatus === 'missing' || animationAssetStatus === 'missing'
-      ? 'missing'
-      : assetStatus === 'available' && animationAssetStatus === 'available'
-        ? 'available'
-        : 'checking';
+  const resolvedAssets = useMemo(
+    () => resolveAvatarAssets(previewState.config),
+    [previewState.config],
+  );
+  const previewAssetStatus = useAvatarAssetsAvailability(resolvedAssets.requiredUrls);
   const modelReadyKey = [
-    activeModelUrl,
-    animationSourceUrl ?? 'embedded',
+    JSON.stringify(resolvedAssets.requiredUrls),
+    resolvedAssets.animationName ?? 'embedded',
     previewState.config.animation,
     previewState.config.bodyShape.scale,
-    shoePreviewEnabled ? 'shoes_blue_sneakers_v1' : 'plain',
+    JSON.stringify(previewState.config.slotSelections),
   ].join(':');
   const isModelReady = readyModelKey === modelReadyKey;
 
   const selectedMeshNames = useMemo(
     () => [
-      'body_underlayer_male',
-      'head',
-      'face_anchor',
-      ...(shoePreviewEnabled
-        ? ['shoes_blue_sneaker_left_Mesh_0', 'shoes_blue_sneaker_right_Mesh_0']
-        : []),
+      ...resolvedAssets.embeddedMeshNames,
+      ...resolvedAssets.externalAssets.map((asset) => asset.id),
     ],
-    [shoePreviewEnabled],
+    [resolvedAssets.embeddedMeshNames, resolvedAssets.externalAssets],
   );
 
   const setConfig = useCallback((updater: (config: AvatarConfig) => AvatarConfig) => {
@@ -287,19 +255,30 @@ export function AvatarPreviewScreen() {
 
             <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Shoes</p>
             <div className="grid gap-2">
-              <OptionButton
-                label="Blue sneakers"
-                detail="Meshy multi-view"
-                selected={shoePreviewEnabled}
-                swatchClassName="bg-accent-blue"
-                onClick={() => setShoePreviewEnabled(true)}
-              />
-              <OptionButton
-                label="Bare feet"
-                detail="plain base"
-                selected={!shoePreviewEnabled}
-                onClick={() => setShoePreviewEnabled(false)}
-              />
+              {AVATAR_SHOES_ITEMS.map((item) => (
+                <OptionButton
+                  key={item.id}
+                  label={item.label}
+                  detail={
+                    item.source.kind === 'externalGltf' && !item.source.animationReady
+                      ? 'runtime GLB, debug animation'
+                      : item.source.kind === 'none'
+                        ? 'plain base'
+                        : undefined
+                  }
+                  selected={previewState.config.slotSelections.shoes === item.id}
+                  swatchClassName={item.swatchClassName}
+                  onClick={() => {
+                    setConfig((config) => ({
+                      ...config,
+                      slotSelections: {
+                        ...config.slotSelections,
+                        shoes: item.id as AvatarShoesItemId,
+                      },
+                    }));
+                  }}
+                />
+              ))}
               <p className="break-all text-xs font-bold leading-snug text-text-main/45">
                 Source shoe GLB: {AVATAR_BLUE_SNEAKERS_MODEL_URL}
               </p>
@@ -429,21 +408,14 @@ export function AvatarPreviewScreen() {
                 <div className="relative h-full w-full">
                   <AvatarPresenter
                     className="h-full w-full"
-                    modelUrl={activeModelUrl}
+                    modelUrl={resolvedAssets.baseUrl}
                     assetStatusOverride={previewAssetStatus}
-                    animationUrl={animationSourceUrl}
-                    animationName={
-                      previewState.config.animation === 'walk'
-                        ? 'walk_test'
-                        : previewState.config.animation === 'run'
-                          ? 'run_test'
-                          : previewState.config.animation
-                    }
-                    preserveHipsPosition={
-                      previewState.config.animation === 'walk' ||
-                      previewState.config.animation === 'run'
-                    }
-                    slotSelections={previewState.config.slotSelections}
+                    animationUrl={resolvedAssets.animationUrl}
+                    animationName={resolvedAssets.animationName}
+                    preserveHipsPosition={resolvedAssets.preserveHipsPosition}
+                    embeddedMeshNames={resolvedAssets.embeddedMeshNames}
+                    externalAssets={resolvedAssets.externalAssets}
+                    requiredUrls={resolvedAssets.requiredUrls}
                     bodyShape={previewState.config.bodyShape}
                     onAnimationsChange={setAnimationNames}
                     onModelReady={() => setReadyModelKey(modelReadyKey)}
@@ -473,7 +445,10 @@ export function AvatarPreviewScreen() {
                         : 'Checking avatar asset'}
                     </p>
                     <p className="mt-2 break-all text-sm font-bold text-text-main/60">
-                      {activeModelUrl}
+                      {resolvedAssets.baseUrl}
+                    </p>
+                    <p className="mt-2 break-all text-xs font-bold text-text-main/45">
+                      {resolvedAssets.requiredUrls.join(', ')}
                     </p>
                   </div>
                 </div>
@@ -490,7 +465,15 @@ export function AvatarPreviewScreen() {
                 <dl className="mt-3 space-y-2 text-sm font-bold text-text-main/70">
                   <div>
                     <dt className="text-text-main/45">Model URL</dt>
-                    <dd className="break-all text-text-main">{activeModelUrl}</dd>
+                    <dd className="break-all text-text-main">{resolvedAssets.baseUrl}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-text-main/45">External assets</dt>
+                    <dd className="break-all text-text-main">
+                      {resolvedAssets.externalAssets.length > 0
+                        ? resolvedAssets.externalAssets.map((asset) => asset.url).join(', ')
+                        : 'none'}
+                    </dd>
                   </div>
                   <div>
                     <dt className="text-text-main/45">Status</dt>
@@ -498,7 +481,17 @@ export function AvatarPreviewScreen() {
                   </div>
                   <div>
                     <dt className="text-text-main/45">Animation source</dt>
-                    <dd className="break-all text-text-main">{animationSourceUrl ?? 'embedded / idle'}</dd>
+                    <dd className="break-all text-text-main">
+                      {resolvedAssets.animationUrl ?? 'embedded / idle'}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-text-main/45">Animation warning</dt>
+                    <dd className="break-words text-text-main">
+                      {resolvedAssets.animationWarnings.length > 0
+                        ? resolvedAssets.animationWarnings.join(' ')
+                        : 'ready'}
+                    </dd>
                   </div>
                   <div>
                     <dt className="text-text-main/45">Model ready</dt>
