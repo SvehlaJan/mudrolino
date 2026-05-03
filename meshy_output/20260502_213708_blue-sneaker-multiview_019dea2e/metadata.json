@@ -1,0 +1,31 @@
+{
+  "project_name": "blue-sneaker-multiview",
+  "folder": "20260502_213708_blue-sneaker-multiview_019dea2e",
+  "root_task_id": "019dea2e-cebe-76ab-9f40-c34b1ec608c3",
+  "created_at": "2026-05-02T21:37:13.036637",
+  "updated_at": "2026-05-02T21:37:13.036777",
+  "tasks": [
+    {
+      "task_id": "019dea2e-cebe-76ab-9f40-c34b1ec608c3",
+      "task_type": "multi-image-to-3d",
+      "stage": "complete",
+      "files": [
+        "model.glb"
+      ],
+      "created_at": "2026-05-02T21:37:13.036782",
+      "extra": {
+        "endpoint": "/openapi/v1/multi-image-to-3d",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "fbx",
+          "glb",
+          "mtl",
+          "obj",
+          "stl",
+          "usdz"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20260502_213708_blue-sneaker-multiview_019dea2e/thumbnail.png"
+      }
+    }
+  ]
+}

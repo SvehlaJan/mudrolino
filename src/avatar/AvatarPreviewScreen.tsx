@@ -13,13 +13,20 @@ import {
   UserRound,
 } from 'lucide-react';
 import { AvatarPresenter } from './AvatarPresenter';
-import { AVATAR_TOP_ITEMS, DEFAULT_AVATAR_TOP } from './avatarCatalog';
-import { AVATAR_MODULAR_MALE_MODEL_URL, AVATAR_STORAGE_KEY } from './avatarConstants';
+import {
+  AVATAR_BLUE_SNEAKERS_MODEL_URL,
+  AVATAR_BLUE_SNEAKERS_RIGGED_PREVIEW_MODEL_URL,
+  AVATAR_BLUE_SNEAKERS_RUNNING_PREVIEW_MODEL_URL,
+  AVATAR_BLUE_SNEAKERS_WALKING_PREVIEW_MODEL_URL,
+  AVATAR_MODULAR_MALE_RUNNING_MODEL_URL,
+  AVATAR_MODULAR_MALE_MODEL_URL,
+  AVATAR_MODULAR_MALE_WALKING_MODEL_URL,
+  AVATAR_STORAGE_KEY,
+} from './avatarConstants';
 import {
   AvatarAnimationName,
   AvatarBodyShapeConfig,
   AvatarConfig,
-  AvatarTopItemId,
   StoredAvatarState,
 } from './avatarTypes';
 import {
@@ -29,21 +36,22 @@ import {
 } from './avatarStore';
 import { useAvatarAssetAvailability } from './useAvatarAssetAvailability';
 
-type FutureSlot = 'bottom' | 'shoes' | 'hair' | 'accessory';
+type FutureSlot = 'bottom' | 'hair' | 'accessory';
 
-const ANIMATION_OPTIONS: AvatarAnimationName[] = ['idle', 'success', 'failure'];
+const ANIMATION_OPTIONS: AvatarAnimationName[] = ['idle', 'walk', 'run', 'success', 'failure'];
 const BUILD_OPTIONS: AvatarBodyShapeConfig['build'][] = ['average', 'slim', 'sturdy'];
 const HEIGHT_OPTIONS: AvatarBodyShapeConfig['height'][] = ['average', 'short', 'tall'];
 
 const FUTURE_SLOTS: Array<{ id: FutureSlot; label: string }> = [
   { id: 'bottom', label: 'Bottom' },
-  { id: 'shoes', label: 'Shoes' },
   { id: 'hair', label: 'Hair' },
   { id: 'accessory', label: 'Accessory' },
 ];
 
 const animationLabels: Record<AvatarAnimationName, string> = {
   idle: 'Idle',
+  walk: 'Walk',
+  run: 'Run',
   success: 'Success',
   failure: 'Failure',
 };
@@ -58,11 +66,6 @@ const heightLabels: Record<AvatarBodyShapeConfig['height'], string> = {
   average: 'Average',
   short: 'Short',
   tall: 'Tall',
-};
-
-const topSwatches: Record<AvatarTopItemId, string> = {
-  top_blue_tshirt: 'bg-accent-blue',
-  top_green_hoodie: 'bg-success',
 };
 
 function readStorageSnapshot() {
@@ -158,33 +161,55 @@ function OptionButton({
 export function AvatarPreviewScreen() {
   const navigate = useNavigate();
   const [previewState, setPreviewState] = useState<StoredAvatarState>(() => loadAvatarState());
+  const [shoePreviewEnabled, setShoePreviewEnabled] = useState(true);
   const [storageSnapshot, setStorageSnapshot] = useState<string | null>(() => readStorageSnapshot());
   const [animationNames, setAnimationNames] = useState<string[]>([]);
   const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
-  const assetStatus = useAvatarAssetAvailability(AVATAR_MODULAR_MALE_MODEL_URL);
+  const activeModelUrl = shoePreviewEnabled
+    ? AVATAR_BLUE_SNEAKERS_RIGGED_PREVIEW_MODEL_URL
+    : AVATAR_MODULAR_MALE_MODEL_URL;
+  const animationSourceUrl = (() => {
+    if (previewState.config.animation === 'walk') {
+      return shoePreviewEnabled
+        ? AVATAR_BLUE_SNEAKERS_WALKING_PREVIEW_MODEL_URL
+        : AVATAR_MODULAR_MALE_WALKING_MODEL_URL;
+    }
+
+    if (previewState.config.animation === 'run') {
+      return shoePreviewEnabled
+        ? AVATAR_BLUE_SNEAKERS_RUNNING_PREVIEW_MODEL_URL
+        : AVATAR_MODULAR_MALE_RUNNING_MODEL_URL;
+    }
+
+    return undefined;
+  })();
+  const assetStatus = useAvatarAssetAvailability(activeModelUrl);
+  const animationAssetStatus = useAvatarAssetAvailability(animationSourceUrl ?? activeModelUrl);
+  const previewAssetStatus =
+    assetStatus === 'missing' || animationAssetStatus === 'missing'
+      ? 'missing'
+      : assetStatus === 'available' && animationAssetStatus === 'available'
+        ? 'available'
+        : 'checking';
   const modelReadyKey = [
+    activeModelUrl,
+    animationSourceUrl ?? 'embedded',
     previewState.config.animation,
     previewState.config.bodyShape.scale,
-    previewState.config.slotSelections.top,
+    shoePreviewEnabled ? 'shoes_blue_sneakers_v1' : 'plain',
   ].join(':');
   const isModelReady = readyModelKey === modelReadyKey;
-
-  const selectedTopItem = useMemo(
-    () =>
-      AVATAR_TOP_ITEMS.find((item) => item.id === previewState.config.slotSelections.top) ??
-      AVATAR_TOP_ITEMS.find((item) => item.id === DEFAULT_AVATAR_TOP) ??
-      AVATAR_TOP_ITEMS[0],
-    [previewState.config.slotSelections.top],
-  );
 
   const selectedMeshNames = useMemo(
     () => [
       'body_underlayer_male',
       'head',
       'face_anchor',
-      selectedTopItem?.meshName ?? previewState.config.slotSelections.top,
+      ...(shoePreviewEnabled
+        ? ['shoes_blue_sneaker_left_Mesh_0', 'shoes_blue_sneaker_right_Mesh_0']
+        : []),
     ],
-    [previewState.config.slotSelections.top, selectedTopItem?.meshName],
+    [shoePreviewEnabled],
   );
 
   const setConfig = useCallback((updater: (config: AvatarConfig) => AvatarConfig) => {
@@ -256,24 +281,28 @@ export function AvatarPreviewScreen() {
           <WorkbenchSection title="Clothing Slots" icon={<Shirt size={19} />}>
             <p className="mb-3 text-sm font-bold text-text-main/55">Top</p>
             <div className="grid gap-2">
-              {AVATAR_TOP_ITEMS.map((item) => (
-                <OptionButton
-                  key={item.id}
-                  label={item.label}
-                  detail={item.meshName}
-                  selected={previewState.config.slotSelections.top === item.id}
-                  swatchClassName={topSwatches[item.id]}
-                  onClick={() => {
-                    setConfig((config) => ({
-                      ...config,
-                      slotSelections: {
-                        ...config.slotSelections,
-                        top: item.id,
-                      },
-                    }));
-                  }}
-                />
-              ))}
+              <OptionButton label="Plain base" detail="active" selected />
+              <OptionButton label="Legacy shirts" detail="removed from preview" disabled />
+            </div>
+
+            <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Shoes</p>
+            <div className="grid gap-2">
+              <OptionButton
+                label="Blue sneakers"
+                detail="Meshy multi-view"
+                selected={shoePreviewEnabled}
+                swatchClassName="bg-accent-blue"
+                onClick={() => setShoePreviewEnabled(true)}
+              />
+              <OptionButton
+                label="Bare feet"
+                detail="plain base"
+                selected={!shoePreviewEnabled}
+                onClick={() => setShoePreviewEnabled(false)}
+              />
+              <p className="break-all text-xs font-bold leading-snug text-text-main/45">
+                Source shoe GLB: {AVATAR_BLUE_SNEAKERS_MODEL_URL}
+              </p>
             </div>
 
             <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Future slots</p>
@@ -396,13 +425,24 @@ export function AvatarPreviewScreen() {
         <section className="grid min-h-[680px] gap-5 lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_auto]">
           <div className="min-h-[520px] rounded-[24px] bg-white p-4 shadow-chip sm:p-5">
             <div className="h-[min(72svh,760px)] min-h-[500px] overflow-hidden rounded-[20px] bg-[radial-gradient(circle_at_top,rgba(108,196,255,0.18),transparent_42%),linear-gradient(180deg,rgba(250,251,255,1),rgba(237,243,248,1))]">
-              {assetStatus === 'available' ? (
+              {previewAssetStatus === 'available' ? (
                 <div className="relative h-full w-full">
                   <AvatarPresenter
                     className="h-full w-full"
-                    modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
-                    assetStatusOverride={assetStatus}
-                    animationName={previewState.config.animation}
+                    modelUrl={activeModelUrl}
+                    assetStatusOverride={previewAssetStatus}
+                    animationUrl={animationSourceUrl}
+                    animationName={
+                      previewState.config.animation === 'walk'
+                        ? 'walk_test'
+                        : previewState.config.animation === 'run'
+                          ? 'run_test'
+                          : previewState.config.animation
+                    }
+                    preserveHipsPosition={
+                      previewState.config.animation === 'walk' ||
+                      previewState.config.animation === 'run'
+                    }
                     slotSelections={previewState.config.slotSelections}
                     bodyShape={previewState.config.bodyShape}
                     onAnimationsChange={setAnimationNames}
@@ -428,10 +468,12 @@ export function AvatarPreviewScreen() {
                 <div className="flex h-full w-full items-center justify-center p-6 text-center">
                   <div className="max-w-sm rounded-2xl bg-white/80 p-5 shadow-chip">
                     <p className="text-lg font-black text-text-main">
-                      {assetStatus === 'missing' ? 'Modular avatar asset missing' : 'Checking avatar asset'}
+                      {previewAssetStatus === 'missing'
+                        ? 'Modular avatar asset missing'
+                        : 'Checking avatar asset'}
                     </p>
                     <p className="mt-2 break-all text-sm font-bold text-text-main/60">
-                      {AVATAR_MODULAR_MALE_MODEL_URL}
+                      {activeModelUrl}
                     </p>
                   </div>
                 </div>
@@ -448,11 +490,15 @@ export function AvatarPreviewScreen() {
                 <dl className="mt-3 space-y-2 text-sm font-bold text-text-main/70">
                   <div>
                     <dt className="text-text-main/45">Model URL</dt>
-                    <dd className="break-all text-text-main">{AVATAR_MODULAR_MALE_MODEL_URL}</dd>
+                    <dd className="break-all text-text-main">{activeModelUrl}</dd>
                   </div>
                   <div>
                     <dt className="text-text-main/45">Status</dt>
-                    <dd className="text-text-main">{assetStatus}</dd>
+                    <dd className="text-text-main">{previewAssetStatus}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-text-main/45">Animation source</dt>
+                    <dd className="break-all text-text-main">{animationSourceUrl ?? 'embedded / idle'}</dd>
                   </div>
                   <div>
                     <dt className="text-text-main/45">Model ready</dt>

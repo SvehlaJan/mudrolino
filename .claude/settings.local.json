@@ -32,7 +32,13 @@
       "Bash(node run.js /tmp/playwright-dump-content.js)",
       "Bash(node /home/skclaw/.claude/plugins/cache/playwright-skill/playwright-skill/4.1.0/skills/playwright-skill/run.js /tmp/playwright-dump-content.js)",
       "Bash(node /home/skclaw/.claude/plugins/cache/playwright-skill/playwright-skill/4.1.0/skills/playwright-skill/run.js /tmp/playwright-dump-tabs.js)",
-      "Bash(awk '{print $0}')"
+      "Bash(awk '{print $0}')",
+      "WebFetch(domain:github.com)",
+      "mcp__blender__get_scene_info",
+      "mcp__blender__execute_blender_code",
+      "mcp__blender__get_viewport_screenshot",
+      "Bash(/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --enable-autoexec --python /Users/svehla/playground/teo-learn/tools/blender/inspect_avatar_glb.py -- --input /Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)",
+      "Bash(/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --enable-autoexec --python /Users/svehla/playground/teo-learn/tools/blender/inspect_avatar_glb.py -- /Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)"
     ]
   }
 }

@@ -1,201 +1,507 @@
-# Avatar Clothing Pipeline
+# Avatar Clothing Pipeline Notes
 
-_Last updated: 2026-05-02 (v9 garments). Update this file every time you add a new clothing piece, discover a new technique, or hit a significant error. Treat it as a living recipe book._
+Date: 2026-05-02
 
----
+This document captures the current modular clothing experiment workflow so later
+sessions do not repeat avoidable mistakes.
 
-## Overview
+## Current Direction
 
-Clothing for the modular avatar is created procedurally via Blender MCP Python, projected onto the body surface using a BVH tree, and exported as separate skinned meshes in the same GLB as the body and armature. Each garment is a swap-in mesh controlled by the same armature via a KD-tree-transferred vertex weight map.
+Use separate source and runtime files for clothing and accessories:
 
----
+- source `.blend` under `assets/avatar/garments/<item-id>/`
+- runtime `.glb` under `public/avatar/garments/`
+- stable object names per catalog item
+- canonical app base now points at the plain underlayer:
+  `public/avatar/modular/male-base-plain.glb`
+- the original modular base with prototype tops remains available at
+  `public/avatar/modular/male-base-modular.glb`
 
-## Runtime Object Contract
+Do not try to solve all clothing with one universal builder script. Shoes,
+trousers, shirts, hoodies, hair, and accessories need different authoring
+approaches. Automation should handle pipeline chores:
 
-The GLB at `public/avatar/modular/male-base-modular.glb` must contain exactly these named objects:
+- loading the consistent base workbench
+- enforcing scale, rest pose, names, and export paths
+- binding or transferring weights
+- exporting separate `.glb` files
+- rendering QA views
+- inspecting GLB structure
 
-| Name | Type | Notes |
-|------|------|-------|
-| `Armature` | ARMATURE | 24 bones; drives all meshes |
-| `body_underlayer_male` | MESH | Skin-tone body, cropped below head |
-| `head` | MESH | Head only (z > 1.32 m world) |
-| `face_anchor` | MESH | Small quad for future face decal |
-| `top_blue_tshirt` | MESH | Toggle visibility at runtime |
-| `top_green_hoodie` | MESH | Toggle visibility at runtime |
+## Blender MCP Access From Codex
 
-Adding a new slot (e.g. `bottom_jeans`) means adding one more MESH to this list and updating `AvatarModel.tsx`.
+The Blender add-on server is reachable at `localhost:9876`. Codex does not
+currently expose the ad-hoc Blender MCP server as a native tool in this session,
+so use:
 
----
-
-## Blender Scale Fact — Read This First
-
-Meshy exports the character with `object.scale = (1,1,1)` but local vertex coordinates are in **centimetre-scale** (0–170 cm). The `matrix_world` diagonal is ~0.01, putting the character in metre-scale world space (0–1.7 m).
-
-**Always work in world-space metres** when creating clothing geometry. Do not multiply by 100 or 0.01.
-
-Key world-space z landmarks for this body (approximate):
-
-| Body region | World z (m) |
-|-------------|------------|
-| Foot sole | 0.00 |
-| Waist | 0.96 |
-| Hem of shirt | 0.94–0.96 |
-| Shoulder height | 1.27 |
-| Collar / neckline | 1.44–1.45 |
-| Top of head | ~1.75 |
-
----
-
-## Body Arm Direction (Critical for Sleeves)
-
-The Meshy A-pose arms go **diagonally down and outward**, not horizontal. Confirmed from vertex group analysis:
-
-| Bone | x range | z range |
-|------|---------|---------|
-| LeftArm | 0.12–0.32 | 1.05–1.32 |
-| LeftForeArm | 0.23–0.40 | 0.85–1.10 |
-| LeftHand | 0.34–0.43 | 0.72–0.89 |
-
-Sleeve tubes **must** be perpendicular to the arm direction vector `(sleeve_end - sleeve_root)`, not to the world X axis. Use `make_ring_verts()` which derives a perpendicular basis from the direction vector via cross product. Horizontal sleeves produce flat discs that look wrong.
-
----
-
-## Clothing Creation Recipe
-
-### Step 1 — Define torso + sleeve geometry
-
-Use `create_shirt` (v9+) inline in a Blender MCP code block. The function lives in the MCP session — redefine it each session.
-
-**v9 t-shirt (blue)**:
-```python
-create_shirt('top_blue_tshirt', tshirt_mat,
-    waist_z=0.96, collar_z=1.41, shoulder_z=1.27,  # collar_z=1.41 → crew neck, not turtleneck
-    torso_rx=0.215, torso_ry=0.145,
-    collar_rx=0.098, collar_ry=0.082,               # wider neck opening
-    n_segs=28, n_rings=20,
-    sleeve_root_x=0.185, sleeve_root_z=1.27,
-    sleeve_end_x=0.34, sleeve_end_z=0.98,           # longer sleeves (was 1.07)
-    sleeve_ra=0.070, sleeve_rb=0.057,
-    n_sleeve_segs=18, n_sleeve_rings=7)
+```bash
+python3 tools/blender/blender_mcp_client.py list-tools
+python3 tools/blender/blender_mcp_client.py call-tool get_scene_info --arguments '{"user_prompt":"..."}'
+python3 tools/blender/blender_mcp_client.py call-tool execute_blender_code --arguments-file tools/blender/<args>.json
 ```
 
-**v9 hoodie (green)**:
-```python
-create_shirt('top_green_hoodie', hoodie_mat,
-    waist_z=0.93, collar_z=1.42, shoulder_z=1.27,
-    torso_rx=0.230, torso_ry=0.155,
-    collar_rx=0.104, collar_ry=0.088,
-    n_segs=28, n_rings=20,
-    sleeve_root_x=0.200, sleeve_root_z=1.27,
-    sleeve_end_x=0.43, sleeve_end_z=0.85,           # long sleeves to wrist
-    sleeve_ra=0.082, sleeve_rb=0.066,
-    n_sleeve_segs=18, n_sleeve_rings=8)
+The installed `blender-mcp` package uses newline-delimited JSON-RPC over stdio,
+not `Content-Length` framing.
+
+## Current Validated Shoe Pipeline
+
+Status: validated once for `shoes_blue_sneakers_v1` on 2026-05-02.
+
+Current files:
+
+- Meshy source task output:
+  `meshy_output/20260502_213708_blue-sneaker-multiview_019dea2e/model.glb`
+- Multi-view reference images:
+  `meshy_output/reference_images/blue_sneaker_multiview_20260502/`
+- Runtime separate shoe pair:
+  `public/avatar/garments/shoes_blue_sneakers_v1.glb`
+- Runtime plain base:
+  `public/avatar/modular/male-base-plain.glb`
+- Temporary combined preview asset for `/avatar-preview`:
+  `public/avatar/modular/male-base-plain-blue-sneakers.glb`
+- Export/fitting helper:
+  `tools/blender/export_plain_avatar_shoes.py`
+- Foot-fit measurement helper:
+  `tools/blender/inspect_avatar_foot_fit.py`
+
+The working sequence:
+
+1. Generate one clean multi-view reference sheet for a single shoe, not a pair.
+   The successful sheet had four views of the same rounded blue velcro sneaker:
+   three-quarter, side, top, and back.
+2. Crop the reference sheet into four separate square PNGs before passing it to
+   Meshy. Do not pass a 2x2 sheet as one image.
+3. Run Meshy `multi-image-to-3d` with texture and PBR enabled, then download GLB.
+   This run consumed 30 credits and produced a visually usable shoe.
+4. Treat Meshy output as a source asset, not a fitted runtime asset.
+5. In Blender, normalize the single shoe, bake transforms into mesh data,
+   rotate it into avatar foot-forward orientation, duplicate/mirror it, and fit
+   the pair against measured avatar foot bounds.
+6. Export both a separate shoe GLB and a combined plain-base preview GLB.
+7. Validate GLBs, render Blender QA, and verify `/avatar-preview` with a real
+   browser canvas check.
+
+The exact fit values that worked for the first blue sneaker:
+
+```text
+Meshy source long axis: X
+Avatar foot forward axis: Y
+Required mesh-space rotation: +90 degrees around Z
+Initial normalized shoe length: 0.26 m
+Final visual scale after rotation: X 1.40, Y 1.08, Z 1.45
+Left/right foot center X: +/-0.158
+Foot center Y: -0.002
+Foot ground Z: 0.0
 ```
 
-Taper logic: torso stays at `torso_rx/ry` from waist to `shoulder_z`, then linearly tapers to `collar_rx/ry` at `collar_z`. This prevents the collar from looking off-the-shoulder.
+These values are not universal. Re-measure against the base avatar for each
+shoe style. Chunky generated shoes need a small margin beyond the measured foot
+bounds because the toe shape narrows; matching bounding boxes exactly still
+left skin visible at the front/side edges.
 
-**Key lesson (v9):** `collar_z=1.45` (v8) creates a mock-turtleneck. Use `collar_z=1.41` for a crew neck. Wider `collar_rx/ry` (0.098/0.082 vs 0.082/0.068) gives a more open neckline.
+The measured final bounds for this asset:
 
-### Step 2 — Finalize: subdivide + BVH project + weight transfer
+```text
+left foot z<=0.18:
+  min=(-0.22457, -0.12886, 0.00004)
+  max=(-0.09124, 0.12403, 0.17996)
+  size=(0.13333, 0.25289, 0.17992)
 
-Call `finalize_clothing(shirt_obj, body_obj, head_obj, armature_obj, offset_m)` — note `head_obj` is required for combined BVH:
+left shoe:
+  min=(-0.23338, -0.14111, 0.00000)
+  max=(-0.08033, 0.13969, 0.18561)
+  size=(0.15305, 0.28080, 0.18561)
 
-1. **Smooth shading** — `poly.use_smooth = True` on all polygons
-2. **Subdivision** — `SUBSURF` levels=2, then apply (expands ~500 base verts to ~8 k)
-3. **BVH projection** — build `BVHTree.FromBMesh()` from **both body AND head** merged in world space (see `build_combined_bvh(body_obj, head_obj)`), then for every clothing vertex call `bvh.find_nearest(v.co)` and set `v.co = location + normal.normalized() * offset_m`. Using only the body mesh causes collar verts (z > 1.32) to snap to the body crop edge (off-shoulder effect). The combined body+head BVH covers the full neck surface.
-4. **KD-tree weight transfer** — for every clothing vertex, find the nearest body vertex via `mathutils.kdtree.KDTree`, then copy all its vertex group weights with `'REPLACE'`.
-5. **Armature modifier** — add `ARMATURE` modifier pointing to `Armature` object.
+right foot z<=0.18:
+  min=(0.09049, -0.12892, -0.00000)
+  max=(0.22391, 0.12410, 0.17991)
+  size=(0.13341, 0.25302, 0.17992)
 
-### Offset values that work
-
-| Garment type | `offset_m` |
-|-------------|-----------|
-| Thin t-shirt | 0.010–0.012 |
-| Hoodie / thick top | 0.016–0.020 |
-| Jacket / coat | 0.022–0.030 |
-
-Too small → z-fighting with body. Too large → floaty puffed look.
-
----
-
-## Known Limitations of the Tube Approach
-
-### Shoulder seam gap
-The torso tube and sleeve tubes are separate geometry. After BVH projection both sit on the body surface, but the area between them (deltoid/shoulder cap) is not covered by either tube, so skin shows through.
-
-**Current mitigation**: inset `sleeve_root_x` by ~4 cm from the torso edge so the sleeve overlaps the torso region. This reduces but does not fully eliminate the gap.
-
-**Proper fix**: model a single T-shaped mesh where the sleeve holes are cut into the torso body and the sleeve tubes are continuous extensions. This requires `bmesh.ops.holes_fill` on the torso opening and bridging it to the sleeve tube rim — significantly more complex to generate procedurally.
-
-### Separate mesh collar seam
-The torso collar cap is a flat poly fan at `collar_z`. It does not blend into the neck — there is a visible top edge. For cartoony/stylized avatars this is usually not noticeable.
-
----
-
-## Exported GLB Parameters
-
-```python
-bpy.ops.export_scene.gltf(
-    filepath=str(output),
-    export_format='GLB',
-    use_selection=True,
-    export_apply=True,      # apply modifiers (armature applied as shape)
-    export_animations=False,
-)
+right shoe:
+  min=(0.08033, -0.14111, 0.00000)
+  max=(0.23338, 0.13969, 0.18561)
+  size=(0.15305, 0.28080, 0.18561)
 ```
 
-Set armature to `pose_position = 'REST'` before export so the GLB contains the bind pose.
+## Meshy Reference Image Lessons
 
----
+The successful prompt style was product-concept, not avatar/clothing-slot
+language. Important constraints:
 
-## Adding a New Clothing Piece
+- exactly one shoe per image/reference, not a pair
+- no foot, leg, character, logo, laces, text, or brand mark
+- plain white background
+- rounded stylized preschool-safe shape
+- broad velcro straps and chunky sole
+- simple blue panels with enough contrast for geometry
+- four views of the same shoe, kept visually consistent
 
-1. Decide slot name (e.g. `top_red_jacket`) and add to `REQUIRED_OBJECTS` in the export script.
-2. Call `create_shirt_v6` (or a variant) with new parameters; adjust:
-   - `waist_z` / `collar_z` for garment length
-   - `torso_rx/ry` for fit tightness
-   - `collar_rx/ry` for neckline width
-   - `sleeve_end_x/z` and `sleeve_ra/rb` for sleeve length and girth
-   - `offset_m` per the table above
-3. Call `finalize_clothing` with the appropriate `offset_m`.
-4. Add an Armature modifier pointing to `Armature`.
-5. Export GLB and verify in the `/avatar-preview` route.
-6. Update `AvatarModel.tsx` to expose the new mesh name for visibility toggling.
-7. **Update this file** with parameters used and any new findings.
+Meshy produced a good enough standalone shoe from the multi-view images. The
+texture and overall form were much better than the local procedural shoe. The
+remaining work was all coordinate, scale, duplication, and fit cleanup in
+Blender.
 
----
+Current repo helper limitation: `tools/meshy/meshy_ops.py multi-image-to-3d`
+supports local image paths, texture toggles, PBR toggles, wait, and GLB
+download, but it does not expose every newer Meshy option from the docs, such as
+explicit topology, target polycount, target formats, image enhancement, or
+remove-lighting flags. If those become necessary, update the helper rather than
+calling Meshy ad hoc.
 
-## Blender MCP Workflow Notes
+## Animation Findings
 
-- Run Blender headless for automated export, but use **Blender MCP** for iterative clothing fitting — it lets you inspect renders without restarting the session.
-- Render with `BLENDER_EEVEE` (not `BLENDER_EEVEE_NEXT` — throws enum error in Blender 5.1).
-- Set `arm.data.pose_position = 'REST'` before rendering to see the bind pose.
-- Blender 5.1 can crash inside Codex sandbox during Metal backend init — run outside sandbox if that happens.
-- `BVHTree.FromBMesh()` requires the bmesh to be in **world space** (`bm.transform(obj.matrix_world)`) before building the tree — otherwise projection will be in the wrong coordinate frame.
+Status: body animation validated, animated shoe fit not solved yet.
 
----
+Existing Meshy rig task for the accepted male base already produced walking and
+running references:
 
-## Working .blend File
+- rig task: `019de50e-13bf-764b-8fbc-2bee7c4bc4e4`
+- walking reference:
+  `meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/walking.glb`
+- running reference:
+  `meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/running.glb`
 
-`meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/male-base-modular-working.blend`
+Do not spend Meshy credits on another basic body walk/run test until these
+references are exhausted. They already share the same 24-bone armature names as
+the modular male base.
 
-Open this in Blender to inspect or iterate on the current scene. All 6 required objects are present with materials, vertex weights, and Armature modifiers.
+The usable body-only walking output is:
 
----
+- `public/avatar/modular/male-base-plain-walking.glb`
 
-## Errors Encountered and Fixed
+It was exported with:
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| `BLENDER_EEVEE_NEXT` enum error | Wrong engine string in Blender 5.1 | Use `'BLENDER_EEVEE'` |
-| Shrinkwrap offset not applied | `ABOVE_SURFACE` / `OUTSIDE` modes ignore offset | Use manual BVH projection instead |
-| Leotard effect from vertex crop | Body geometry includes groin area | Switch to primitive tube garments, not body crops |
-| Sleeve tubes at 96 m height | Multiplied world coords by scale factor 100 | Create geometry directly in metres, no scale |
-| Horizontal sleeves look wrong | Used world-X axis for sleeve direction | Use arm direction vector; cross-product basis rings |
-| `triangle_fan_fill` not found | Blender 5.1 op removed | Use `bmesh.ops.holes_fill` |
-| `NEAREST_SURFACE_POINT` enum error | Missing underscore | Correct: `NEAREST_SURFACEPOINT` |
-| Off-the-shoulder collar | Torso taper starts at waist | Delay taper: hold torso width to `shoulder_z`, taper only above |
-| Collar projects to shoulder surface | `body_underlayer_male` is cropped at z=1.32; collar verts at z=1.44 snap to crop edge | Build combined BVH from body+head — neck surface covers full collar range |
-| Mock-turtleneck look | `collar_z=1.45` is too high | Use `collar_z=1.41` for crew neck; `collar_rx/ry` of 0.098/0.082 for proper opening |
-| Cloth sim collapses sleeves | Sleeve tubes are free to fall; only collar was pinned | Must pin BOTH collar AND sleeve cuffs when using cloth modifier. Even then, cloth sim produces bunchy results for A-pose sleeves; BVH projection is better for fitted shirts |
-| Cloth sim drapes like cape | Starting mesh too far from body (5cm+) with low stiffness | Either start from near-body BVH mesh (1cm expand), or accept BVH projection as the approach for fitted garments |
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/export_clean_avatar_clip.py \
+  -- \
+  --base public/avatar/modular/male-base-plain.glb \
+  --reference meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/walking.glb \
+  --output public/avatar/modular/male-base-plain-walking.glb \
+  --action-name walk_test
+```
+
+Validation result:
+
+- `npm run avatar:gltf:validate -- public/avatar/modular/male-base-plain-walking.glb`
+  returned `0` errors.
+- Blender inspection found one action, frame `0-25`, with `96`
+  `rotation_quaternion` f-curves and no copied location/scale curves.
+- Rendered frames showed the base body walking correctly enough for a first
+  animation baseline.
+
+### Shoe Animation Tests
+
+The current `shoes_blue_sneakers_v1` asset is good for static preview but not
+yet production-ready for animated feet.
+
+Tested approaches:
+
+1. Static combined preview GLB:
+   - Result: stable for `/avatar-preview`.
+   - Limitation: shoes are independent static meshes and will not follow foot
+     bones during animation.
+
+2. Bone-parented shoes:
+   - Attempted to parent each shoe mesh to `LeftFoot`/`RightFoot`.
+   - Result: exported transforms were wrong; inspection showed shoe meshes far
+     from the avatar, around `y=-9`, `z=-8`.
+   - Lesson: avoid naive glTF bone parenting for these imported shoe meshes.
+
+3. Rigid single-bone armature weights:
+   - Bound the left shoe `100%` to `LeftFoot` and the right shoe `100%` to
+     `RightFoot`.
+   - Result: shoes moved with the feet, but the avatar foot poked through during
+     the walk cycle because the foot/toe bends while the shoe remains rigid.
+   - Lesson: rigid foot binding is not enough for this generated shoe shape.
+
+4. Nearest body vertex weight transfer:
+   - Copied nearby body/foot weights from `body_underlayer_male` onto the shoe
+     mesh.
+   - Result: the sneaker deformed badly during walking, especially around the
+     toe and sidewalls.
+   - Lesson: naive nearest-weight transfer is suitable for body-shell tops, but
+     it is wrong for rigid/semi-rigid shoes.
+
+Failed animated shoe preview artifact:
+
+- `public/avatar/modular/male-base-plain-blue-sneakers-walking.glb`
+
+Keep it only as a diagnostic artifact unless replaced by a better export. Do not
+ship it as-is.
+
+### Animation-Ready Shoe Direction
+
+For shoes, the next likely path is not full smooth skinning. Use a shoe-specific
+rigging strategy:
+
+- keep each shoe mostly rigid
+- split each shoe into at least sole/heel and toe-cap sections if toe bending is
+  needed
+- weight the heel/ankle portion to `LeftFoot`/`RightFoot`
+- weight the toe portion partly or fully to `LeftToeBase`/`RightToeBase`
+- hide or crop the base foot mesh inside the shoe when a shoe slot is active,
+  because even a well-bound shoe can reveal skin during extreme foot bends
+- validate on the actual target action, not only bind pose
+
+Do not assume an asset that fits the rest pose will survive animation. For every
+future footwear asset, render at least frames `1`, `13`, and `25` of the current
+walking test before calling it animation-ready.
+
+## Failed Local Modeling Experiments
+
+The first MCP-driven local modeling attempts were removed from the workspace on
+2026-05-02. Keep the lessons below, but do not look for these assets or reuse
+the one-off generator scripts.
+
+Deleted files:
+
+- `tools/blender/create_mcp_tshirt_experiment.py`
+- `tools/blender/mcp_create_tshirt_args.json`
+- `assets/avatar/garments/top_blue_tshirt_v1/top_blue_tshirt_v1.blend`
+- `public/avatar/garments/top_blue_tshirt_v1.glb`
+- `tools/blender/create_mcp_shoes_experiment.py`
+- `tools/blender/mcp_create_shoes_args.json`
+- `assets/avatar/garments/shoes_blue_v1/shoes_blue_v1.blend`
+- `public/avatar/garments/shoes_blue_v1.glb`
+
+Findings:
+
+- Separate garment/accessory GLB export works mechanically.
+- The T-shirt remained a body-shell derivative and did not solve real garment
+  authoring.
+- The hand-built shoes fit the feet, but looked too primitive to justify
+  continuing local procedural modeling for wardrobe art.
+- The retained value is the MCP bridge and verification workflow, not the
+  generated assets.
+
+## Verification Commands
+
+Inspect a garment GLB:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/inspect_avatar_glb.py \
+  -- public/avatar/garments/<item-id>.glb
+```
+
+Render standalone garment QA:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/render_garment_preview.py \
+  -- \
+  --input public/avatar/garments/<item-id>.glb \
+  --output-dir /tmp/<item-id>-preview
+```
+
+Render a saved source workbench with the base avatar:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/render_workbench_blend_preview.py \
+  -- \
+  --input assets/avatar/garments/<item-id>/<item-id>.blend \
+  --output-dir /tmp/<item-id>-workbench-preview \
+  --focus-z 0.45
+```
+
+On this machine, Blender 5.1 can crash inside Codex's default sandbox during
+startup. Rerun Blender commands outside the sandbox when the crash occurs before
+Python script output.
+
+Measure avatar foot and shoe bounds:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/inspect_avatar_foot_fit.py \
+  -- \
+  --input public/avatar/modular/male-base-plain-blue-sneakers.glb
+```
+
+Regenerate the current plain base, separate shoe pair, and combined preview:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/export_plain_avatar_shoes.py \
+  -- \
+  --base public/avatar/modular/male-base-modular.glb \
+  --shoe meshy_output/20260502_213708_blue-sneaker-multiview_019dea2e/model.glb \
+  --plain-output public/avatar/modular/male-base-plain.glb \
+  --shoes-output public/avatar/garments/shoes_blue_sneakers_v1.glb \
+  --combined-output public/avatar/modular/male-base-plain-blue-sneakers.glb
+```
+
+Inspect animated shoe/body bounds across frames:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/inspect_avatar_animation_fit.py \
+  -- \
+  --input public/avatar/modular/male-base-plain-blue-sneakers-walking.glb \
+  --frames 1 13 25
+```
+
+Render selected animation frames:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background \
+  --factory-startup \
+  --enable-autoexec \
+  --python tools/blender/render_avatar_animation_frames.py \
+  -- \
+  --input public/avatar/modular/male-base-plain-walking.glb \
+  --output-dir /tmp/avatar-plain-walking-frames \
+  --frames 1 13 25
+```
+
+## Known Traps
+
+- MCP works, but in this Codex session it must be called through the local
+  `blender_mcp_client.py` helper.
+- Do not save a garment source `.blend` from a contaminated active scene.
+  Remove unrelated experiment objects before saving. This happened once with
+  T-shirt trim objects leaking into the shoe source workbench.
+- Selecting an armature during GLB export can import back with an extra
+  `Icosphere` mesh. It appears in inspection output even when no source object
+  named `Icosphere` exists in the live scene. Treat this as a warning until the
+  export path is tightened.
+- Detail meshes parented directly to the armature exported at unexpected scale
+  in the T-shirt experiment. Keeping them in world coordinates with an Armature
+  modifier avoided that scale issue.
+- The Blender exporter warns `Armature must be the parent of skinned mesh` for
+  these prototype assets. The exported meshes still inspect and render, but the
+  warning should be eliminated before runtime integration.
+- Meshy shoe orientation is not avatar orientation. In the successful sneaker
+  output, the shoe's long axis imported as X while avatar feet point along Y.
+  If the shoe appears sideways or stretched across both feet, rotate mesh data
+  around Z before duplicating/mirroring.
+- Bake transforms into mesh data before duplicating. Parent/root transforms made
+  earlier previews float around shin height even when object origins looked
+  plausible.
+- Exact bounding-box matching is not enough for shoes. Generated toe boxes taper,
+  so give the shoe a small width/length/height margin beyond the measured foot
+  bounds.
+- Rendered QA matters more than Meshy thumbnail quality. Meshy thumbnail looked
+  good immediately, but Blender revealed the first pair was sideways and later
+  too narrow.
+- `/avatar-preview` currently uses a combined preview GLB for shoes rather than
+  runtime-loading separate garment GLBs alongside the base. Treat this as a
+  workbench shortcut until the renderer has a real multi-asset slot system.
+- Static shoe fit does not prove animation readiness. The blue sneakers fit the
+  rest pose, but the first walking tests showed foot poke-through or bad sneaker
+  deformation depending on the binding strategy.
+- Naive nearest-weight transfer from the base foot deforms rigid shoes. Use it
+  only as a diagnostic experiment unless the asset is intentionally soft.
+- Meshy walking/running GLBs contain location, rotation, and scale tracks. Use
+  them as references and export cleaned rotation-only clips with
+  `export_clean_avatar_clip.py`.
+
+## Suggested Next Steps
+
+1. Promote the shoe preview shortcut into a real runtime slot system that can
+   load separate garment GLBs alongside the base.
+2. Add a shoe-specific animation export path that splits or weights heel and toe
+   regions to `Foot` and `ToeBase`, then test against `walk_test`.
+3. Hide or crop the avatar foot mesh when shoes are active so foot skin cannot
+   poke through during animation.
+4. Tighten the GLB export contract so separate garment files import without the
+   extra `Icosphere` and without tangent-space/runtime warnings where possible.
+5. Add a proper `shoes` catalog type and persisted selection only after the
+   renderer supports separate GLB loading cleanly.
+6. Try one more rigid accessory, such as glasses or a hat, before spending
+   credits on deforming garments like hoodies or trousers.
+7. Do not spend credits on another T-shirt until the team decides whether tops
+   should be authored manually, generated as isolated garments, or replaced by a
+   better base/avatar generation pass.
+
+## Meshy Clothing Asset Research
+
+Research date: 2026-05-02
+
+Meshy may be worth trying again, but not as "generate a fitted rigged clothing
+slot directly." The strongest official guidance points to using Image to 3D or
+Multi-Image to 3D for clearly defined single objects, then cleaning and fitting
+the generated mesh in Blender.
+
+Relevant findings:
+
+- Meshy says Image to 3D is the strongest workflow when shape and visual detail
+  control matter. Text to 3D is better for fast brainstorming.
+- Recommended Image to 3D inputs are a single clear object, plain/simple
+  background, high resolution, strong lighting, and clear contrast.
+- Meshy warns against multiple objects, busy backgrounds, low resolution,
+  blurry subjects, long hair/fine details, and obscured shapes.
+- Multi-Image to 3D accepts 1-4 images of the same object from different angles.
+  This is likely better than single-image generation for shoes, accessories,
+  trousers, T-shirts, and hoodies because it gives Meshy front/side/back shape
+  information.
+- Meshy 6 supports `should_remesh`, `topology: "quad"`, target polycount,
+  `target_formats: ["glb"]`, PBR texture maps, and `remove_lighting`.
+- Meshy rigging is not the right tool for garment-only assets. Official rigging
+  docs say programmatic rigging currently works well for standard humanoid
+  biped assets with clearly defined limbs/body structure.
+
+Recommended Meshy experiment:
+
+1. Start with rigid or mostly rigid items first: shoes, hair cap, glasses,
+   backpack, hat.
+2. Generate 3 or 4 orthographic reference images for one item on a plain
+   background: front, side, back, optional top/three-quarter.
+3. Use Multi-Image to 3D with GLB output, low/controlled target polycount, and
+   quad topology if available.
+4. Import the result into Blender, scale/align to the base avatar, delete
+   unwanted backing or fused artifacts, then bind/weight it locally.
+5. Save a source `.blend`, export a runtime `.glb`, render QA, and only then
+   decide whether the Meshy result is good enough.
+
+Prompt/input guidance for clothing references:
+
+- Focus on one item only, not a dressed character.
+- Use product-view language: "single pair of stylized child-friendly sneakers,
+  front view, white background, symmetrical, no feet, no legs, clean rounded
+  shape, simple blue upper, dark sole, game asset style."
+- For trousers/shirts/hoodies, use mannequin-compatible but isolated garment
+  language: "empty garment, no body, no person, front view, clean silhouette."
+- Avoid asking Meshy to solve exact fit, rigging, or animation. Treat generated
+  clothing as a rough mesh asset to fit in Blender.
+
+Current recommendation:
+
+- Meshy Multi-Image to 3D is viable for rigid accessories when the reference
+  images are clean and the result is treated as a Blender source asset.
+- Shoes are the first validated case. Continue with rigid accessories before
+  deforming clothes.
+- Do not ask Meshy to generate fitted avatar clothing directly.
+
+Sources:
+
+- https://help.meshy.ai/en/articles/9996860-how-to-use-the-image-to-3d-feature
+- https://help.meshy.ai/en/articles/9996858-how-to-use-the-text-to-3d-feature
+- https://help.meshy.ai/en/articles/11972484-best-practices-for-creating-a-text-prompt
+- https://docs.meshy.ai/en/api/image-to-3d
+- https://docs.meshy.ai/en/api/multi-image-to-3d
+- https://docs.meshy.ai/en/api/remesh
+- https://docs.meshy.ai/en/api/rigging-and-animation

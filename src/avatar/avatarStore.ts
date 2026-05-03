@@ -1,5 +1,10 @@
 import { AVATAR_STATE_VERSION, AVATAR_STORAGE_KEY } from './avatarConstants';
-import { DEFAULT_AVATAR_TOP, isAvatarTopItemId } from './avatarCatalog';
+import {
+  DEFAULT_AVATAR_SHOES,
+  DEFAULT_AVATAR_TOP,
+  isAvatarShoesItemId,
+  isAvatarTopItemId,
+} from './avatarCatalog';
 import { AvatarAnimationName, AvatarBodyShapeConfig, StoredAvatarState } from './avatarTypes';
 
 const DEFAULT_BODY_SHAPE: AvatarBodyShapeConfig = {
@@ -16,6 +21,7 @@ export function createDefaultAvatarState(): StoredAvatarState {
       animation: 'idle',
       slotSelections: {
         top: DEFAULT_AVATAR_TOP,
+        shoes: DEFAULT_AVATAR_SHOES,
       },
       face: {
         mode: 'placeholder',
@@ -36,7 +42,13 @@ function isStringArray(value: unknown): value is string[] {
 }
 
 function coerceAnimation(value: unknown): AvatarAnimationName {
-  return value === 'success' || value === 'failure' || value === 'idle' ? value : 'idle';
+  return value === 'success' ||
+    value === 'failure' ||
+    value === 'walk' ||
+    value === 'run' ||
+    value === 'idle'
+    ? value
+    : 'idle';
 }
 
 export function loadAvatarState(): StoredAvatarState {
@@ -61,6 +73,9 @@ export function loadAvatarState(): StoredAvatarState {
         animation: coerceAnimation(config.animation),
         slotSelections: {
           top: isAvatarTopItemId(slotSelections?.top) ? slotSelections.top : DEFAULT_AVATAR_TOP,
+          shoes: isAvatarShoesItemId(slotSelections?.shoes)
+            ? slotSelections.shoes
+            : DEFAULT_AVATAR_SHOES,
         },
         face: {
           mode: face?.mode === 'generated_decal' ? 'generated_decal' : 'placeholder',

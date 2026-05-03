@@ -107,7 +107,8 @@ For GLB automation scripts:
 - export with `bpy.ops.export_scene.gltf(filepath=..., export_format='GLB')`
 - parse script args after Blender's `--` separator; Blender leaves its own CLI flags in `sys.argv`
 - select objects explicitly; do not rely on UI state
-- clear the default scene before importing unless keeping it is intentional
+- clear the default scene before importing unless keeping it is intentional — in background mode use `bpy.data.objects.remove(obj, do_unlink=True)` for each object rather than `bpy.ops.object.delete()`, which requires active context and silently fails headlessly
+- before exporting a GLB, call `bpy.ops.outliner.orphans_purge(do_recursive=True)` to remove stale mesh data blocks from previous iterations; orphan data blocks (old mesh versions left over from multiple `obj.data = ...` reassignments) can be silently included in the exported GLB even when not linked to any scene object
 - bake final actions before export when retargeting is involved
 
 Blender 5.1 action API notes:

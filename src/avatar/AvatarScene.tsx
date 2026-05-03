@@ -11,6 +11,7 @@ interface AvatarSceneProps {
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
   bodyShape?: AvatarBodyShapeConfig;
+  preserveHipsPosition?: boolean;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
 }
@@ -34,6 +35,7 @@ export function AvatarScene({
   animationName,
   slotSelections,
   bodyShape,
+  preserveHipsPosition,
   onAnimationsChange,
   onModelReady,
 }: AvatarSceneProps) {
@@ -64,6 +66,7 @@ export function AvatarScene({
             animationName={animationName}
             slotSelections={slotSelections}
             bodyShape={bodyShape}
+            preserveHipsPosition={preserveHipsPosition}
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
           />

@@ -66,6 +66,7 @@ def copy_rotation_action(
     source_action: bpy.types.Action,
     target_armature: bpy.types.Object,
     action_name: str,
+    copy_hips_location: bool = False,
 ) -> bpy.types.Action:
     target_bones = {bone.name for bone in target_armature.data.bones}
     clean_action = bpy.data.actions.new(action_name)
@@ -76,18 +77,51 @@ def copy_rotation_action(
     target_armature.animation_data.action = clean_action
 
     copied = 0
+    copied_hips_location = 0
     skipped = 0
+    hips_location_first_values: dict[int, float] = {}
+    target_hips_location = target_armature.pose.bones["Hips"].location.copy()
+
     for source_curve in iter_action_fcurves(source_action):
         match = BONE_PATH_RE.fullmatch(source_curve.data_path)
         if not match:
             skipped += 1
             continue
 
-        if match.group("property") != "rotation_quaternion":
+        bone_name = match.group("bone")
+        property_name = match.group("property")
+
+        if property_name == "location" and bone_name == "Hips" and copy_hips_location:
+            target_curve = clean_action.fcurve_ensure_for_datablock(
+                target_armature,
+                source_curve.data_path,
+                index=source_curve.array_index,
+                group_name=source_curve.group.name if source_curve.group else "",
+            )
+            first_value = source_curve.keyframe_points[0].co.y
+            hips_location_first_values[source_curve.array_index] = first_value
+            target_curve.keyframe_points.add(len(source_curve.keyframe_points) - 1)
+            for target_point, source_point in zip(target_curve.keyframe_points, source_curve.keyframe_points):
+                target_point.co.x = source_point.co.x
+                target_point.co.y = (
+                    source_point.co.y
+                    - first_value
+                    + target_hips_location[source_curve.array_index]
+                )
+                target_point.interpolation = source_point.interpolation
+                target_point.easing = source_point.easing
+                target_point.handle_left_type = source_point.handle_left_type
+                target_point.handle_right_type = source_point.handle_right_type
+                target_point.handle_left = source_point.handle_left
+                target_point.handle_right = source_point.handle_right
+            copied_hips_location += 1
+            continue
+
+        if property_name != "rotation_quaternion":
             skipped += 1
             continue
 
-        if match.group("bone") not in target_bones:
+        if bone_name not in target_bones:
             skipped += 1
             continue
 
@@ -113,7 +147,8 @@ def copy_rotation_action(
 
     print(
         f"Created action {clean_action.name}: copied {copied} quaternion curves, "
-        f"skipped {skipped} non-matching or non-rotation curves"
+        f"copied {copied_hips_location} hips location curves, "
+        f"skipped {skipped} non-matching or unsupported curves"
     )
     return clean_action
 
@@ -152,6 +187,7 @@ def main() -> None:
     parser.add_argument("--reference", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--action-name", default="success_cheer")
+    parser.add_argument("--copy-hips-location", action="store_true")
     argv = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[1:]
     args = parser.parse_args(argv)
 
@@ -162,7 +198,12 @@ def main() -> None:
     reference_armature = find_armature(reference_objects, "reference GLB")
     reference_action = find_best_action(reference_armature)
 
-    clean_action = copy_rotation_action(reference_action, base_armature, args.action_name)
+    clean_action = copy_rotation_action(
+        reference_action,
+        base_armature,
+        args.action_name,
+        copy_hips_location=args.copy_hips_location,
+    )
     keep_only_base_objects(base_objects)
     keep_only_action(clean_action)
     export_glb(args.output)

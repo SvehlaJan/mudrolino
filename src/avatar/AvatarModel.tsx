@@ -13,13 +13,18 @@ interface AvatarModelProps {
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
   bodyShape?: AvatarBodyShapeConfig;
+  preserveHipsPosition?: boolean;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
 }
 
 const TARGET_MODEL_HEIGHT = 2.7;
 
-function sanitizeAnimationClips(clips: AnimationClip[], hipsAnchor: Vector3) {
+function sanitizeAnimationClips(
+  clips: AnimationClip[],
+  hipsAnchor: Vector3,
+  preserveHipsPosition = false,
+) {
   return clips.map((clip) => {
     const sanitizedClip = clip.clone();
 
@@ -29,7 +34,7 @@ function sanitizeAnimationClips(clips: AnimationClip[], hipsAnchor: Vector3) {
         return suffix === 'quaternion' || track.name === 'Hips.position';
       })
       .map((track) => {
-        if (track.name !== 'Hips.position') return track;
+        if (track.name !== 'Hips.position' || preserveHipsPosition) return track;
 
         const sanitizedTrack = track.clone();
 
@@ -67,6 +72,7 @@ export function AvatarModel({
   animationName,
   slotSelections,
   bodyShape,
+  preserveHipsPosition,
   onAnimationsChange,
   onModelReady,
 }: AvatarModelProps) {
@@ -105,8 +111,8 @@ export function AvatarModel({
     };
   }, [bodyShape, gltf.scene, slotSelections]);
   const animationClips = useMemo(
-    () => sanitizeAnimationClips(animationSource.animations, hipsAnchor),
-    [animationSource.animations, hipsAnchor],
+    () => sanitizeAnimationClips(animationSource.animations, hipsAnchor, preserveHipsPosition),
+    [animationSource.animations, hipsAnchor, preserveHipsPosition],
   );
   const { actions, names } = useAnimations(animationClips, groupRef);
 

@@ -12,6 +12,7 @@ interface AvatarPresenterProps {
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
   bodyShape?: AvatarBodyShapeConfig;
+  preserveHipsPosition?: boolean;
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
@@ -25,6 +26,7 @@ export function AvatarPresenter({
   animationName,
   slotSelections,
   bodyShape,
+  preserveHipsPosition,
   assetStatusOverride,
   onAnimationsChange,
   onModelReady,
@@ -40,6 +42,7 @@ export function AvatarPresenter({
         animationName={animationName}
         slotSelections={slotSelections}
         bodyShape={bodyShape}
+        preserveHipsPosition={preserveHipsPosition}
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
       />
@@ -55,6 +58,7 @@ export function AvatarPresenter({
       animationName={animationName}
       slotSelections={slotSelections}
       bodyShape={bodyShape}
+      preserveHipsPosition={preserveHipsPosition}
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
     />
@@ -80,6 +84,7 @@ function AvatarPresenterContent({
   animationName,
   slotSelections,
   bodyShape,
+  preserveHipsPosition,
   onAnimationsChange,
   onModelReady,
 }: AvatarPresenterContentProps) {
@@ -95,6 +100,7 @@ function AvatarPresenterContent({
           animationName={animationName}
           slotSelections={slotSelections}
           bodyShape={bodyShape}
+          preserveHipsPosition={preserveHipsPosition}
           onAnimationsChange={onAnimationsChange}
           onModelReady={onModelReady}
         />
