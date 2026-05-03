@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 
 export type AssetStatus = 'checking' | 'available' | 'missing';
 
+interface AssetAvailabilityRequest {
+  key: string;
+  urls: string[];
+}
+
 interface AssetAvailabilityState {
-  url: string;
+  request: AssetAvailabilityRequest;
   status: AssetStatus;
 }
 
@@ -30,19 +35,37 @@ async function checkAsset(url: string, signal: AbortSignal): Promise<boolean> {
 }
 
 export function useAvatarAssetAvailability(url = AVATAR_MODEL_URL): AssetStatus {
-  const [state, setState] = useState<AssetAvailabilityState>({ url, status: 'checking' });
+  return useAvatarAssetsAvailability([url]);
+}
+
+export function useAvatarAssetsAvailability(urls: string[]): AssetStatus {
+  const key = urls.join('|');
+  const request = useMemo<AssetAvailabilityRequest>(
+    () => ({
+      key,
+      urls: key.length > 0 ? key.split('|') : [],
+    }),
+    [key],
+  );
+  const [state, setState] = useState<AssetAvailabilityState>({
+    request,
+    status: request.urls.length === 0 ? 'missing' : 'checking',
+  });
 
   useEffect(() => {
+    if (request.urls.length === 0) return;
+
     const controller = new AbortController();
 
-    checkAsset(url, controller.signal).then((available) => {
+    Promise.all(request.urls.map((url) => checkAsset(url, controller.signal))).then((availability) => {
       if (!controller.signal.aborted) {
-        setState({ url, status: available ? 'available' : 'missing' });
+        setState({ request, status: availability.every(Boolean) ? 'available' : 'missing' });
       }
     });
 
     return () => controller.abort();
-  }, [url]);
+  }, [request]);
 
-  return state.url === url ? state.status : 'checking';
+  if (request.urls.length === 0) return 'missing';
+  return state.request === request ? state.status : 'checking';
 }

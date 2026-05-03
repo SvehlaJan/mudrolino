@@ -1,8 +1,9 @@
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import { AvatarScene } from './AvatarScene';
+import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
-import { AssetStatus, useAvatarAssetAvailability } from './useAvatarAssetAvailability';
+import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
 interface AvatarPresenterProps {
   className?: string;
@@ -11,6 +12,9 @@ interface AvatarPresenterProps {
   animationUrl?: string;
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
+  embeddedMeshNames?: string[];
+  externalAssets?: AvatarExternalAsset[];
+  requiredUrls?: string[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
   assetStatusOverride?: AssetStatus;
@@ -25,6 +29,9 @@ export function AvatarPresenter({
   animationUrl,
   animationName,
   slotSelections,
+  embeddedMeshNames,
+  externalAssets,
+  requiredUrls,
   bodyShape,
   preserveHipsPosition,
   assetStatusOverride,
@@ -41,6 +48,9 @@ export function AvatarPresenter({
         animationUrl={animationUrl}
         animationName={animationName}
         slotSelections={slotSelections}
+        embeddedMeshNames={embeddedMeshNames}
+        externalAssets={externalAssets}
+        requiredUrls={requiredUrls}
         bodyShape={bodyShape}
         preserveHipsPosition={preserveHipsPosition}
         onAnimationsChange={onAnimationsChange}
@@ -57,6 +67,9 @@ export function AvatarPresenter({
       animationUrl={animationUrl}
       animationName={animationName}
       slotSelections={slotSelections}
+      embeddedMeshNames={embeddedMeshNames}
+      externalAssets={externalAssets}
+      requiredUrls={requiredUrls}
       bodyShape={bodyShape}
       preserveHipsPosition={preserveHipsPosition}
       onAnimationsChange={onAnimationsChange}
@@ -66,7 +79,9 @@ export function AvatarPresenter({
 }
 
 function CheckedAvatarPresenter(props: Omit<AvatarPresenterProps, 'assetStatusOverride'>) {
-  const assetStatus = useAvatarAssetAvailability(props.modelUrl);
+  const assetStatus = useAvatarAssetsAvailability(
+    props.requiredUrls ?? [props.modelUrl ?? AVATAR_MODEL_URL],
+  );
 
   return <AvatarPresenterContent {...props} assetStatus={assetStatus} />;
 }
@@ -83,6 +98,8 @@ function AvatarPresenterContent({
   animationUrl,
   animationName,
   slotSelections,
+  embeddedMeshNames,
+  externalAssets,
   bodyShape,
   preserveHipsPosition,
   onAnimationsChange,
@@ -99,6 +116,8 @@ function AvatarPresenterContent({
           animationUrl={animationUrl}
           animationName={animationName}
           slotSelections={slotSelections}
+          embeddedMeshNames={embeddedMeshNames}
+          externalAssets={externalAssets}
           bodyShape={bodyShape}
           preserveHipsPosition={preserveHipsPosition}
           onAnimationsChange={onAnimationsChange}
