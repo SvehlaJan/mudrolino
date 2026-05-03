@@ -28,6 +28,25 @@ approaches. Automation should handle pipeline chores:
 - rendering QA views
 - inspecting GLB structure
 
+## Runtime Slot Contract
+
+The app runtime loads the base avatar and selected garment assets separately.
+
+Canonical base: `public/avatar/modular/male-base-plain.glb`.
+
+Garments live under `public/avatar/garments/`.
+
+Catalog metadata lives in `src/avatar/avatarCatalog.ts`.
+
+External garment GLBs must be authored in the same coordinate space as the base.
+React normalizes the base once and mounts garments under the same scaled root
+group.
+
+`shoes_blue_sneakers_v1.glb` is static-preview-ready but not production
+animation-ready. Preview must allow walk/run with this shoe selected to debug
+foot poke-through/deformation in the real slot renderer. Keep
+`animationReady: false` until walking/running QA passes.
+
 ## Blender MCP Access From Codex
 
 The Blender add-on server is reachable at `localhost:9876`. Codex does not
@@ -57,7 +76,7 @@ Current files:
   `public/avatar/garments/shoes_blue_sneakers_v1.glb`
 - Runtime plain base:
   `public/avatar/modular/male-base-plain.glb`
-- Temporary combined preview asset for `/avatar-preview`:
+- Historical combined preview artifact from the old `/avatar-preview` shortcut:
   `public/avatar/modular/male-base-plain-blue-sneakers.glb`
 - Export/fitting helper:
   `tools/blender/export_plain_avatar_shoes.py`
@@ -407,9 +426,9 @@ Render selected animation frames:
 - Rendered QA matters more than Meshy thumbnail quality. Meshy thumbnail looked
   good immediately, but Blender revealed the first pair was sideways and later
   too narrow.
-- `/avatar-preview` currently uses a combined preview GLB for shoes rather than
-  runtime-loading separate garment GLBs alongside the base. Treat this as a
-  workbench shortcut until the renderer has a real multi-asset slot system.
+- `/avatar-preview` previously used a combined preview GLB for shoes as a
+  deprecated workbench shortcut. The current runtime has a real multi-asset
+  slot system and loads the base plus garment GLBs separately.
 - Static shoe fit does not prove animation readiness. The blue sneakers fit the
   rest pose, but the first walking tests showed foot poke-through or bad sneaker
   deformation depending on the binding strategy.
@@ -421,19 +440,15 @@ Render selected animation frames:
 
 ## Suggested Next Steps
 
-1. Promote the shoe preview shortcut into a real runtime slot system that can
-   load separate garment GLBs alongside the base.
-2. Add a shoe-specific animation export path that splits or weights heel and toe
+1. Add a shoe-specific animation export path that splits or weights heel and toe
    regions to `Foot` and `ToeBase`, then test against `walk_test`.
-3. Hide or crop the avatar foot mesh when shoes are active so foot skin cannot
+2. Hide or crop the avatar foot mesh when shoes are active so foot skin cannot
    poke through during animation.
-4. Tighten the GLB export contract so separate garment files import without the
+3. Tighten the GLB export contract so separate garment files import without the
    extra `Icosphere` and without tangent-space/runtime warnings where possible.
-5. Add a proper `shoes` catalog type and persisted selection only after the
-   renderer supports separate GLB loading cleanly.
-6. Try one more rigid accessory, such as glasses or a hat, before spending
+4. Try one more rigid accessory, such as glasses or a hat, before spending
    credits on deforming garments like hoodies or trousers.
-7. Do not spend credits on another T-shirt until the team decides whether tops
+5. Do not spend credits on another T-shirt until the team decides whether tops
    should be authored manually, generated as isolated garments, or replaced by a
    better base/avatar generation pass.
 

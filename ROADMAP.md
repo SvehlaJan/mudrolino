@@ -213,7 +213,8 @@
 - [ ] Expand the MVP top-slot model into practical slots: `top`, `bottom`, `shoes`, `hair`, and `accessory`
 - [ ] Add a female-coded underlayer base as a separate `baseVariant`, not as a clothing preset
 - [ ] Decide whether male and female bases can share one animation set directly or need per-base Blender retarget/export steps
-- [ ] Move from "one modular GLB per base" toward separate clothing GLBs once the MVP is stable
+- [x] Move from baked combined preview GLBs to runtime-loading separate garment GLBs for static slots
+- [ ] Make footwear animation-ready without foot poke-through or unacceptable deformation
 - [ ] Design clothing catalog items so one item ID can map to per-base fitted assets, e.g. male and female GLBs for the same shirt
 - [ ] Add compatibility metadata for clothing assets by `baseVariant`, slot, and supported body-shape range
 - [ ] Add parent-facing customization UI for base variant and all unlocked slots
