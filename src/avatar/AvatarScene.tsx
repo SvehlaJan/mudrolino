@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { AvatarModel } from './AvatarModel';
+import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
 
 interface AvatarSceneProps {
@@ -10,6 +11,8 @@ interface AvatarSceneProps {
   animationUrl?: string;
   animationName?: string | null;
   slotSelections?: AvatarSlotSelections;
+  embeddedMeshNames?: string[];
+  externalAssets?: AvatarExternalAsset[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
   onAnimationsChange?: (names: string[]) => void;
@@ -34,6 +37,8 @@ export function AvatarScene({
   animationUrl,
   animationName,
   slotSelections,
+  embeddedMeshNames,
+  externalAssets,
   bodyShape,
   preserveHipsPosition,
   onAnimationsChange,
@@ -65,6 +70,8 @@ export function AvatarScene({
             animationUrl={animationUrl}
             animationName={animationName}
             slotSelections={slotSelections}
+            embeddedMeshNames={embeddedMeshNames}
+            externalAssets={externalAssets}
             bodyShape={bodyShape}
             preserveHipsPosition={preserveHipsPosition}
             onAnimationsChange={onAnimationsChange}
