@@ -4,7 +4,16 @@ import {
   AVATAR_MODULAR_MALE_RUNNING_MODEL_URL,
   AVATAR_MODULAR_MALE_WALKING_MODEL_URL,
 } from './avatarConstants';
-import { AvatarAnimationName, AvatarConfig, AvatarSlot } from './avatarTypes';
+import { AvatarAnimationName, AvatarConfig, AvatarSlot, AvatarSlotSelections } from './avatarTypes';
+
+const AVATAR_SLOT_SELECTION_KEY_ORDER: Record<keyof AvatarSlotSelections, true> = {
+  top: true,
+  shoes: true,
+};
+
+const AVATAR_SLOT_SELECTION_KEYS = Object.keys(
+  AVATAR_SLOT_SELECTION_KEY_ORDER,
+) as Array<keyof AvatarSlotSelections>;
 
 export interface AvatarExternalAsset {
   id: string;
@@ -25,7 +34,7 @@ export interface ResolvedAvatarAssets {
   animationWarnings: string[];
 }
 
-export function getAnimationSource(animation: AvatarAnimationName) {
+function getAnimationSource(animation: AvatarAnimationName) {
   if (animation === 'walk') {
     return {
       animationUrl: AVATAR_MODULAR_MALE_WALKING_MODEL_URL,
@@ -50,10 +59,9 @@ export function getAnimationSource(animation: AvatarAnimationName) {
 }
 
 export function resolveAvatarAssets(config: AvatarConfig): ResolvedAvatarAssets {
-  const selectedItems = [
-    getAvatarCatalogItem(config.slotSelections.top),
-    getAvatarCatalogItem(config.slotSelections.shoes),
-  ].filter((item): item is NonNullable<typeof item> => Boolean(item));
+  const selectedItems = AVATAR_SLOT_SELECTION_KEYS.map((slotKey) =>
+    getAvatarCatalogItem(config.slotSelections[slotKey]),
+  ).filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   const embeddedMeshNames = selectedItems.flatMap((item) =>
     item.source.kind === 'embeddedMesh' ? [item.source.meshName] : [],
@@ -81,11 +89,13 @@ export function resolveAvatarAssets(config: AvatarConfig): ResolvedAvatarAssets 
       ? []
       : externalAssets.flatMap((asset) => asset.animationWarning ?? []);
 
-  const requiredUrls = [
-    AVATAR_MODULAR_MALE_MODEL_URL,
-    ...(animation.animationUrl ? [animation.animationUrl] : []),
-    ...externalAssets.map((asset) => asset.url),
-  ];
+  const requiredUrls = Array.from(
+    new Set([
+      AVATAR_MODULAR_MALE_MODEL_URL,
+      ...(animation.animationUrl ? [animation.animationUrl] : []),
+      ...externalAssets.map((asset) => asset.url),
+    ]),
+  );
 
   return {
     baseUrl: AVATAR_MODULAR_MALE_MODEL_URL,
