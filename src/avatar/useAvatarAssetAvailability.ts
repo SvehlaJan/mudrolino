@@ -1,15 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 
 export type AssetStatus = 'checking' | 'available' | 'missing';
 
-interface AssetAvailabilityRequest {
-  key: string;
-  urls: string[];
-}
-
 interface AssetAvailabilityState {
-  request: AssetAvailabilityRequest;
+  key: string;
   status: AssetStatus;
 }
 
@@ -39,33 +34,30 @@ export function useAvatarAssetAvailability(url = AVATAR_MODEL_URL): AssetStatus 
 }
 
 export function useAvatarAssetsAvailability(urls: string[]): AssetStatus {
-  const key = urls.join('|');
-  const request = useMemo<AssetAvailabilityRequest>(
-    () => ({
-      key,
-      urls: key.length > 0 ? key.split('|') : [],
-    }),
-    [key],
-  );
+  const key = JSON.stringify(urls);
+
   const [state, setState] = useState<AssetAvailabilityState>({
-    request,
-    status: request.urls.length === 0 ? 'missing' : 'checking',
+    key,
+    status: urls.length === 0 ? 'missing' : 'checking',
   });
 
   useEffect(() => {
-    if (request.urls.length === 0) return;
+    const requestUrls = urls;
+    if (requestUrls.length === 0) return;
 
     const controller = new AbortController();
 
-    Promise.all(request.urls.map((url) => checkAsset(url, controller.signal))).then((availability) => {
+    Promise.all(requestUrls.map((url) => checkAsset(url, controller.signal))).then((availability) => {
       if (!controller.signal.aborted) {
-        setState({ request, status: availability.every(Boolean) ? 'available' : 'missing' });
+        setState({ key, status: availability.every(Boolean) ? 'available' : 'missing' });
       }
     });
 
     return () => controller.abort();
-  }, [request]);
+    // `key` tracks URL-list contents without forcing callers to memoize array props.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
-  if (request.urls.length === 0) return 'missing';
-  return state.request === request ? state.status : 'checking';
+  if (urls.length === 0) return 'missing';
+  return state.key === key ? state.status : 'checking';
 }
