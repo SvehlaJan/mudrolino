@@ -164,8 +164,7 @@ MVP architecture decision:
 
 - Use one modular GLB per base variant for the first customizable avatar.
 - Generate a new male-coded underlayer base from scratch rather than editing the current clothed Meshy character.
-- Implement only the `top` slot first.
-- Keep separate clothing GLBs in the backlog after the first modular base is stable.
+- Implement embedded `top` meshes first, then runtime-load separate garment GLBs for slots such as shoes.
 - Store face and body-shape config now, but render only placeholder face and average body for MVP.
 
 Runtime responsibilities:
@@ -181,10 +180,12 @@ Current runtime implementation status:
 - `avatarConstants.ts` includes `AVATAR_MODULAR_MALE_MODEL_URL`.
 - Avatar storage version is `2`.
 - Avatar state now persists `baseVariant`, `slotSelections`, `face`, and `bodyShape`.
-- `AvatarModel` toggles `top_*` mesh visibility from `slotSelections.top`.
-- `/avatar-preview` is the app-facing modular avatar workbench around the modular male asset, with top selector controls, face/body-shape state, diagnostics, persistence, and reset.
+- `AvatarModel` toggles embedded `top_*` mesh visibility from resolved slot selections.
+- Runtime external garment GLBs are loaded beside the base and mounted under the same normalized avatar root.
+- Current separate shoe asset `shoes_blue_sneakers_v1.glb` has no armature/actions. For preview debugging, `AvatarModel` attaches its left/right roots to the cloned base `LeftFoot` and `RightFoot` bones so shoes follow walk/run animation rigidly.
+- `/avatar-preview` is the app-facing modular avatar workbench around the modular male asset, with top/shoes selector controls, face/body-shape state, diagnostics, persistence, and reset.
 - Home avatar overlay loads the modular male GLB and saved top selection.
-- Home settings include a parent-facing avatar top selector.
+- Home settings include parent-facing avatar top and shoes selectors.
 
 ## Male Modular Avatar Design
 
@@ -692,6 +693,7 @@ Recent modular avatar browser verification:
 | 2026-05-01 | Prefer Meshy image-to-3D over text-to-3D for avatar base generation. | The first text-to-3D male base was rejected visually; generated image references give stronger control over silhouette, pose, and modest underlayer styling. |
 | 2026-05-01 | Reject the first textured image-to-3D male base for rigging. | It validates technically, but still contains torso/groin anatomical shading that violates the modest underlayer requirement. |
 | 2026-05-01 | Use the no-texture Meshy image-to-3D male base for MVP rigging and modular export. | The no-texture output avoids texture-driven anatomical shading; Blender owns skin/clothing materials and exports the first modular GLB. |
+| 2026-05-04 | Runtime slots now load separate garment GLBs for shoes, with rigid foot-bone attachment for debug animation. | The shoe GLB has no armature/actions, so a separately mounted scene will stay static unless the runtime attaches it to `LeftFoot`/`RightFoot` or the asset is exported with compatible rigging. This enables preview debugging but does not solve production toe deformation or foot hiding. |
 | 2026-05-01 | Automated top shells are acceptable for proving slot toggling but not final clothing quality. | Cropped skinned body duplicates preserve rig compatibility quickly; polished clothing should be hand-fitted in Blender or delivered later as separate clothing GLBs. |
 | 2026-05-01 | Increase Meshy helper API request timeout from 60 seconds to 180 seconds. | No-texture image-to-3D task creation exceeded 60 seconds twice without charging; the longer timeout let the request return a task id and complete normally. |
 | 2026-05-02 | Meshy spends are pre-approved while balance stays above 1000 credits. | The user explicitly approved continued avatar-base plan spends under that threshold, but each spend and resulting balance should still be reported. |

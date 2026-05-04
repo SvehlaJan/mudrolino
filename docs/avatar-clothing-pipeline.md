@@ -47,6 +47,13 @@ animation-ready. Preview must allow walk/run with this shoe selected to debug
 foot poke-through/deformation in the real slot renderer. Keep
 `animationReady: false` until walking/running QA passes.
 
+Current runtime debug behavior: the shoe GLB has no armature and no actions, so
+the renderer attaches the left and right shoe roots to the cloned base
+`LeftFoot` and `RightFoot` bones when the external asset slot is `shoes`. This
+makes the separate GLB follow the animated feet in `/avatar-preview` without
+returning to baked combined preview assets. Treat this as rigid debug binding,
+not a final footwear rig.
+
 ## Blender MCP Access From Codex
 
 The Blender add-on server is reachable at `localhost:9876`. Codex does not
@@ -224,7 +231,7 @@ Tested approaches:
    - Limitation: shoes are independent static meshes and will not follow foot
      bones during animation.
 
-2. Bone-parented shoes:
+2. Exported bone-parented shoes:
    - Attempted to parent each shoe mesh to `LeftFoot`/`RightFoot`.
    - Result: exported transforms were wrong; inspection showed shoe meshes far
      from the avatar, around `y=-9`, `z=-8`.
@@ -244,6 +251,20 @@ Tested approaches:
      toe and sidewalls.
    - Lesson: naive nearest-weight transfer is suitable for body-shell tops, but
      it is wrong for rigid/semi-rigid shoes.
+
+5. Runtime rigid foot attachment:
+   - Inspection confirmed `public/avatar/garments/shoes_blue_sneakers_v1.glb`
+     contains two mesh roots and no armature or actions.
+   - `AvatarModel` now attaches the separate shoe roots to the cloned base
+     `LeftFoot` and `RightFoot` bones at runtime with Three.js
+     `Object3D.attach`.
+   - Result: the separate shoe GLB follows the animated base feet in
+     `/avatar-preview` while preserving the real runtime slot system.
+   - Limitation: this does not deform the shoe around the toe, so skin
+     poke-through can still happen during walk/run.
+   - Lesson: runtime attachment is useful for debugging rigid accessories and
+     footwear motion, but production shoes still need an asset-side heel/toe
+     strategy.
 
 Failed animated shoe preview artifact:
 
@@ -429,9 +450,15 @@ Render selected animation frames:
 - `/avatar-preview` previously used a combined preview GLB for shoes as a
   deprecated workbench shortcut. The current runtime has a real multi-asset
   slot system and loads the base plus garment GLBs separately.
+- Separate shoe GLBs do not automatically follow animation. If the garment file
+  has no compatible armature/skinning, the runtime must either attach it to
+  target bones for debugging or the asset must be exported with a proper rig.
 - Static shoe fit does not prove animation readiness. The blue sneakers fit the
   rest pose, but the first walking tests showed foot poke-through or bad sneaker
   deformation depending on the binding strategy.
+- Runtime `Object3D.attach` to `LeftFoot`/`RightFoot` is acceptable for preview
+  debugging of the current rigid sneakers. Do not mistake it for production
+  footwear support, because toe bend and hidden-foot masking remain unsolved.
 - Naive nearest-weight transfer from the base foot deforms rigid shoes. Use it
   only as a diagnostic experiment unless the asset is intentionally soft.
 - Meshy walking/running GLBs contain location, rotation, and scale tracks. Use
