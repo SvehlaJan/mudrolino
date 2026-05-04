@@ -71,6 +71,38 @@ function applyEmbeddedMeshVisibility(scene: Object3D, selectedMeshNames: string[
   });
 }
 
+function findObjectByNamePart(scene: Object3D, namePart: string) {
+  const normalizedNamePart = namePart.toLowerCase();
+  let match: Object3D | null = null;
+
+  scene.traverse((object) => {
+    if (match || object === scene) return;
+    if (object.name.toLowerCase().includes(normalizedNamePart)) {
+      match = object;
+    }
+  });
+
+  return match;
+}
+
+function attachShoeSceneToFootBones(baseScene: Object3D, garmentScene: Object3D) {
+  const bindings = [
+    { objectNamePart: 'left', boneName: 'LeftFoot' },
+    { objectNamePart: 'right', boneName: 'RightFoot' },
+  ];
+
+  baseScene.updateMatrixWorld(true);
+  garmentScene.updateMatrixWorld(true);
+
+  bindings.forEach(({ objectNamePart, boneName }) => {
+    const shoeRoot = findObjectByNamePart(garmentScene, objectNamePart);
+    const footBone = baseScene.getObjectByName(boneName);
+
+    if (!shoeRoot || !footBone) return;
+    footBone.attach(shoeRoot);
+  });
+}
+
 function getPreviewScale(bodyShape?: AvatarBodyShapeConfig) {
   const scale = bodyShape?.scale ?? 1;
   return Math.min(1.2, Math.max(0.8, scale));
@@ -117,10 +149,15 @@ export function AvatarModel({
 
     const scale = (size.y > 0 ? TARGET_MODEL_HEIGHT / size.y : 1) * getPreviewScale(bodyShape);
     const position = new Vector3(-center.x * scale, -bounds.min.y * scale, -center.z * scale);
-    const clonedGarmentScenes = externalGltfs.map((externalGltf) => {
+    const clonedGarmentScenes = externalGltfs.map((externalGltf, index) => {
       const clonedGarmentScene = clone(externalGltf.scene);
       clonedGarmentScene.updateMatrixWorld(true);
       disableMeshFrustumCulling(clonedGarmentScene);
+
+      if (externalAssets[index]?.slot === 'shoes') {
+        attachShoeSceneToFootBones(clonedScene, clonedGarmentScene);
+      }
+
       return clonedGarmentScene;
     });
 
@@ -131,7 +168,7 @@ export function AvatarModel({
       rootScale: scale,
       rootPosition: position,
     };
-  }, [bodyShape, externalGltfs, gltf.scene, selectedEmbeddedMeshNames]);
+  }, [bodyShape, externalAssets, externalGltfs, gltf.scene, selectedEmbeddedMeshNames]);
   const animationClips = useMemo(
     () => sanitizeAnimationClips(animationSource.animations, hipsAnchor, preserveHipsPosition),
     [animationSource.animations, hipsAnchor, preserveHipsPosition],
