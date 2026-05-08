@@ -116,6 +116,13 @@ Blender 5.1 action API notes:
 - Do not assume `action.fcurves` exists. Imported glTF actions may be layered actions using slots, layers, strips, and channel bags.
 - To read f-curves, support both legacy `action.fcurves` and layered `action.layers -> strips -> strip.channelbag(slot).fcurves`.
 - To write f-curves, assign the new action to the target armature first, then use `action.fcurve_ensure_for_datablock(...)`.
+- **After assigning an action, bind its slot or the armature evaluates a static rest pose:**
+  ```python
+  armature.animation_data.action = action
+  if hasattr(armature.animation_data, "action_slot") and len(action.slots) > 0:
+      armature.animation_data.action_slot = action.slots[0]
+  ```
+  This is mandatory for all MCP sessions and CLI scripts that import walk/run GLBs.
 - When exporting a cleaned GLB, remove unrelated source actions and use:
   - `export_animation_mode="ACTIVE_ACTIONS"`
   - `export_force_sampling=False`
@@ -123,6 +130,34 @@ Blender 5.1 action API notes:
   - `export_bake_animation=False`
 
 Without those export options, Blender can re-export extra source actions and sample location/scale tracks back into the GLB.
+
+## Slot item authoring and bone attachment
+
+When attaching a garment GLB to the base avatar armature, always use
+**position-based bone assignment**, not name-based:
+
+| Garment root world X | Assigned bone |
+| --- | --- |
+| `>= 0` | `LeftFoot` (character's anatomical left) |
+| `< 0` | `RightFoot` (character's anatomical right) |
+
+Shoe GLBs use viewer-perspective naming (the object `shoes_blue_sneaker_left`
+sits at `X = -0.158` = viewer's left = character's anatomical right). The
+skeleton uses anatomical naming. Name-based matching creates a 30 cm cross-body
+error that is invisible in Blender rest-pose previews but causes wrong-foot
+animation in Three.js.
+
+The same convention applies to any bilateral slot (wrists, shoulders, knees).
+
+## Blender MCP availability
+
+The Blender MCP connector provides native `execute_blender_code`,
+`render_thumbnail_to_path`, and related tools inside **Claude Code** sessions.
+It is **not available in Codex**. Use the CLI scripts above as the portable,
+agent-neutral path:
+
+- `tools/blender/inspect_slot_fit.py` — fit diagnostics and QA renders for any garment
+- `tools/blender/render_avatar_runtime_slots.py` — animation frame renders with garment attached
 
 ## Runtime verification
 

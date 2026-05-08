@@ -182,7 +182,7 @@ Current runtime implementation status:
 - Avatar state now persists `baseVariant`, `slotSelections`, `face`, and `bodyShape`.
 - `AvatarModel` toggles embedded `top_*` mesh visibility from resolved slot selections.
 - Runtime external garment GLBs are loaded beside the base and mounted under the same normalized avatar root.
-- Current separate shoe asset `shoes_blue_sneakers_v1.glb` has no armature/actions. For preview debugging, `AvatarModel` attaches its left/right roots to the cloned base `LeftFoot` and `RightFoot` bones so shoes follow walk/run animation rigidly.
+- Current separate shoe asset `shoes_blue_sneakers_v1.glb` has no armature/actions. `AvatarModel` attaches each shoe root to `LeftFoot`/`RightFoot` by **X-position** (positive X → LeftFoot, negative X → RightFoot). This is a rigid debug binding, not a final rig. A previously shipped name-based approach caused a 30 cm cross-body positioning error and was fixed on 2026-05-06.
 - `/avatar-preview` is the app-facing modular avatar workbench around the modular male asset, with top/shoes selector controls, face/body-shape state, diagnostics, persistence, and reset.
 - Home avatar overlay loads the modular male GLB and saved top selection.
 - Home settings include parent-facing avatar top and shoes selectors.
@@ -470,6 +470,18 @@ Project-local tooling:
 
 - [tools/blender/inspect_avatar_glb.py](/Users/svehla/playground/teo-learn/tools/blender/inspect_avatar_glb.py)
 - [tools/blender/export_clean_avatar_clip.py](/Users/svehla/playground/teo-learn/tools/blender/export_clean_avatar_clip.py)
+- [tools/blender/inspect_slot_fit.py](/Users/svehla/playground/teo-learn/tools/blender/inspect_slot_fit.py) — validates garment-to-bone offsets and renders a QA frame grid for any new slot item
+- [tools/blender/render_avatar_runtime_slots.py](/Users/svehla/playground/teo-learn/tools/blender/render_avatar_runtime_slots.py) — renders base + garment at key animation frames, mirroring the runtime slot system
+
+**Blender MCP availability by agent type:**
+
+The Blender MCP connector exposes live Blender inspection and rendering as native
+tools (`execute_blender_code`, `render_thumbnail_to_path`, etc.).
+
+- **Claude Code**: Blender MCP tools are available as native agent tools. Use them for fast iteration — load GLBs, render frames, and read screenshots without spawning a Blender process.
+- **Codex**: Blender MCP tools are not available. Use the CLI scripts above via bash instead.
+
+For both agents, the CLI scripts are the portable fallback and the authoritative diagnostic path.
 
 Historical POC inspection command shape:
 
@@ -506,7 +518,14 @@ Important Blender 5.1 lessons:
 - Blender may crash inside Codex's default sandbox before Python starts because Metal/GPU backend detection fails. Rerun outside the sandbox when the crash log points to GPU/Metal initialization.
 - Do not run parallel Blender imports/exports unless necessary.
 - Parse Blender script args after the `--` separator.
-- Imported glTF actions may be layered actions, not legacy actions. Support slots/layers/strips/channel bags.
+- Imported glTF actions are **layered actions** in Blender 5.x, not legacy actions. After assigning the action to the armature, the action slot must be explicitly bound or the animation evaluates as a static rest pose:
+  ```python
+  armature.animation_data.action = action
+  if hasattr(armature.animation_data, "action_slot") and len(action.slots) > 0:
+      armature.animation_data.action_slot = action.slots[0]
+  ```
+  Both `render_avatar_runtime_slots.py` and `inspect_slot_fit.py` already include this fix. Any new Blender script that imports glTF animations must include it.
+- `action.fcurves` does not exist on layered actions. Use `action.slots`, `action.layers`, and `strip.channelbag_for_slot(slot)` instead.
 - `action.fcurve_ensure_for_datablock(...)` requires the action to be assigned to the target armature first.
 - Use active-action-only glTF export settings for cleaned clips:
   - `export_animation_mode="ACTIVE_ACTIONS"`
@@ -542,6 +561,62 @@ Interpretation:
 - The pose/motion still needs human review before it becomes an in-game response animation.
 - If visual quality is still not good enough, the next Blender step is proper retargeting/baking, not more React patching.
 
+## Slot Item Authoring Contract
+
+This section is the canonical reference for authoring future slot items (shoes,
+trousers, hats, accessories). Violating these rules causes positioning bugs that
+only appear at runtime, not in Blender.
+
+### Bone attachment convention
+
+The runtime (`AvatarModel.tsx`) and all Blender debug scripts use
+**position-based bone assignment**:
+
+| Garment root world X | Assigned bone |
+| --- | --- |
+| `>= 0` | `LeftFoot` (character's anatomical left) |
+| `< 0` | `RightFoot` (character's anatomical right) |
+
+Do **not** use name-based matching. Shoe GLBs use viewer-perspective naming
+(the object called `shoes_blue_sneaker_left` sits at `X = -0.158`, which is the
+viewer's left = character's anatomical **right**). The skeleton uses anatomical
+naming. Name-based matching ("left" → LeftFoot) created a **30 cm cross-body
+error** that was invisible in Blender rest-pose previews but visible in Three.js
+during animation.
+
+The same rule applies to future items that attach to other bilateral bones
+(wrists, shoulders, knees). Always match by X sign, not by name substring.
+
+### Coordinate space and scale
+
+- Author garment GLBs in the same world-space coordinate system as the base avatar.
+- The base avatar armature has a `0.01` Blender scale (imported from Meshy in centimeters). Garment GLBs should be exported without any object-level scale (all transforms baked into mesh data), so they import at the same metre-scale as the base.
+- After the Three.js runtime normalizes the base to `TARGET_MODEL_HEIGHT = 2.7`, the outer group scale is applied to both the base scene and all attached garments together. Garments do not need to account for this scale.
+
+### Position-based fit validation
+
+After exporting a new garment GLB, run before shipping:
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background --factory-startup --enable-autoexec \
+  --python tools/blender/inspect_slot_fit.py \
+  -- \
+  --base   public/avatar/modular/male-base-plain.glb \
+  --garment public/avatar/garments/<item-id>.glb \
+  --animation public/avatar/modular/male-base-plain-walking.glb \
+  --output-dir /tmp/<item-id>-fit \
+  --frames 1 13 25
+```
+
+Read `fit_report.json`:
+
+- `offset_x_m` should be `< 0.05` (5 cm). Status shows `OK` or `WARN:large_x_offset`.
+- `ankle_pct_from_sole` for shoes should be `50–70 %`. The blue sneakers sit at `~64 %`.
+- Render `frame_001_front.png`, `frame_013_front.png`, `frame_025_front.png` before marking animation-ready.
+
+**Claude Code only**: Run the same diagnostic via live Blender MCP (`execute_blender_code`) for instant feedback without CLI overhead. See `docs/avatar-clothing-pipeline.md` for the paste-in snippet.
+
 ## Runtime Lessons
 
 The avatar can load while rendering as a blank canvas if skinned mesh culling/bounds are wrong.
@@ -560,6 +635,13 @@ Preview framing fixes:
 - camera moved farther back for inspection
 - responsive preview viewport has explicit height
 - mobile canvas now renders at useful height instead of `318 x 150`
+
+Shoe/slot attachment fix (2026-05-06):
+
+- `attachShoeSceneToFootBones` originally used name-based matching (`"left"` → `LeftFoot`). This put shoes on the wrong feet with a 30 cm horizontal cross-body error during animation.
+- Fixed to use X-position matching: snapshot `garmentScene.children` before the loop (iterating while calling `attach()` mutates the children array mid-loop), get each root's world X, assign `X >= 0 → LeftFoot` / `X < 0 → RightFoot`.
+- Dead `findObjectByNamePart` helper removed from `AvatarModel.tsx`.
+- After the fix, residual horizontal error is 1.4 cm and the ankle bone sits at 64 % of shoe height from sole.
 
 Known nonblocking warning:
 
@@ -697,6 +779,8 @@ Recent modular avatar browser verification:
 | 2026-05-01 | Automated top shells are acceptable for proving slot toggling but not final clothing quality. | Cropped skinned body duplicates preserve rig compatibility quickly; polished clothing should be hand-fitted in Blender or delivered later as separate clothing GLBs. |
 | 2026-05-01 | Increase Meshy helper API request timeout from 60 seconds to 180 seconds. | No-texture image-to-3D task creation exceeded 60 seconds twice without charging; the longer timeout let the request return a task id and complete normally. |
 | 2026-05-02 | Meshy spends are pre-approved while balance stays above 1000 credits. | The user explicitly approved continued avatar-base plan spends under that threshold, but each spend and resulting balance should still be reported. |
+| 2026-05-06 | Shoe-to-bone attachment uses X-position matching, not name matching. | Shoe GLBs use viewer-left naming; the skeleton uses anatomical naming. Name matching caused a 30 cm cross-body error invisible in Blender rest-pose previews. Position matching drops the error to 1.4 cm. All future slot items follow the same rule. |
+| 2026-05-06 | Blender MCP is the preferred feedback loop for Claude Code; CLI scripts are the fallback for Codex. | The Blender MCP connector exposes live Blender as native agent tools in Claude Code but is not available in Codex. CLI scripts (`inspect_slot_fit.py`, `render_avatar_runtime_slots.py`) are the portable, agent-neutral path and must stay maintained. |
 
 ## Related Context
 

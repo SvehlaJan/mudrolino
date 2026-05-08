@@ -17,6 +17,7 @@ interface AvatarPresenterProps {
   requiredUrls?: string[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
+  showSkeleton?: boolean;
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
@@ -34,6 +35,7 @@ export function AvatarPresenter({
   requiredUrls,
   bodyShape,
   preserveHipsPosition,
+  showSkeleton,
   assetStatusOverride,
   onAnimationsChange,
   onModelReady,
@@ -53,6 +55,7 @@ export function AvatarPresenter({
         requiredUrls={requiredUrls}
         bodyShape={bodyShape}
         preserveHipsPosition={preserveHipsPosition}
+        showSkeleton={showSkeleton}
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
       />
@@ -72,6 +75,7 @@ export function AvatarPresenter({
       requiredUrls={requiredUrls}
       bodyShape={bodyShape}
       preserveHipsPosition={preserveHipsPosition}
+      showSkeleton={showSkeleton}
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
     />
@@ -102,6 +106,7 @@ function AvatarPresenterContent({
   externalAssets,
   bodyShape,
   preserveHipsPosition,
+  showSkeleton,
   onAnimationsChange,
   onModelReady,
 }: AvatarPresenterContentProps) {
@@ -120,6 +125,7 @@ function AvatarPresenterContent({
           externalAssets={externalAssets}
           bodyShape={bodyShape}
           preserveHipsPosition={preserveHipsPosition}
+          showSkeleton={showSkeleton}
           onAnimationsChange={onAnimationsChange}
           onModelReady={onModelReady}
         />

@@ -19,6 +19,7 @@ interface AvatarModelProps {
   preserveHipsPosition?: boolean;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
+  onSceneReady?: (scene: Object3D) => void;
 }
 
 const TARGET_MODEL_HEIGHT = 2.7;
@@ -71,36 +72,28 @@ function applyEmbeddedMeshVisibility(scene: Object3D, selectedMeshNames: string[
   });
 }
 
-function findObjectByNamePart(scene: Object3D, namePart: string) {
-  const normalizedNamePart = namePart.toLowerCase();
-  let match: Object3D | null = null;
 
-  scene.traverse((object) => {
-    if (match || object === scene) return;
-    if (object.name.toLowerCase().includes(normalizedNamePart)) {
-      match = object;
-    }
-  });
-
-  return match;
-}
-
+// Attach each shoe root to the foot bone on the same side of X=0.
+// Shoe GLBs follow viewer-left naming (negative X = viewer's left = character's anatomical
+// right), while bones use anatomical naming (LeftFoot = character's left = positive X).
+// Matching by X position instead of object name keeps both conventions working correctly
+// and stays consistent with the Blender render_avatar_runtime_slots.py debug script.
 function attachShoeSceneToFootBones(baseScene: Object3D, garmentScene: Object3D) {
-  const bindings = [
-    { objectNamePart: 'left', boneName: 'LeftFoot' },
-    { objectNamePart: 'right', boneName: 'RightFoot' },
-  ];
-
   baseScene.updateMatrixWorld(true);
   garmentScene.updateMatrixWorld(true);
 
-  bindings.forEach(({ objectNamePart, boneName }) => {
-    const shoeRoot = findObjectByNamePart(garmentScene, objectNamePart);
-    const footBone = baseScene.getObjectByName(boneName);
+  // Snapshot children before iteration — attach() removes each child from garmentScene mid-loop.
+  const roots = [...garmentScene.children];
+  const worldPos = new Vector3();
 
-    if (!shoeRoot || !footBone) return;
-    footBone.attach(shoeRoot);
-  });
+  for (const root of roots) {
+    root.getWorldPosition(worldPos);
+    // Positive X = character's anatomical left → LeftFoot
+    // Negative X = character's anatomical right → RightFoot
+    const boneName = worldPos.x >= 0 ? 'LeftToeBase' : 'RightToeBase';
+    const footBone = baseScene.getObjectByName(boneName);
+    footBone?.attach(root);
+  }
 }
 
 function getPreviewScale(bodyShape?: AvatarBodyShapeConfig) {
@@ -119,6 +112,7 @@ export function AvatarModel({
   preserveHipsPosition,
   onAnimationsChange,
   onModelReady,
+  onSceneReady,
 }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
   const gltf = useGLTF(url);
@@ -177,7 +171,8 @@ export function AvatarModel({
 
   useEffect(() => {
     onModelReady?.();
-  }, [garmentScenes, onModelReady, scene]);
+    onSceneReady?.(scene);
+  }, [garmentScenes, onModelReady, onSceneReady, scene]);
 
   useEffect(() => {
     onAnimationsChange?.(names);

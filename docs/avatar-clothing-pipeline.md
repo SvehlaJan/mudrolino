@@ -54,20 +54,97 @@ makes the separate GLB follow the animated feet in `/avatar-preview` without
 returning to baked combined preview assets. Treat this as rigid debug binding,
 not a final footwear rig.
 
+## Bone Attachment Convention
+
+The runtime (`AvatarModel.tsx attachShoeSceneToFootBones`) and the Blender debug
+scripts use **position-based bone assignment**, not name-based:
+
+- Garment root at **positive X** → `LeftFoot` (character's anatomical left)
+- Garment root at **negative X** → `RightFoot` (character's anatomical right)
+
+This is required because shoe GLBs use viewer-left naming (the shoe labeled
+"left" sits at negative X = viewer's left = character's anatomical right), while
+the skeleton uses anatomical naming. Name-based matching ("left" → LeftFoot)
+put the shoes on the wrong feet with a 30 cm cross-body error.
+
+When authoring future slot items, position the garment roots in the same world
+space as the base avatar. Position-based matching will then assign each root to
+the nearest anatomical foot bone with a residual error of ~1.4 cm.
+
+## Blender MCP Feedback Loop
+
+The Blender MCP connector is available in Claude Code as a native tool set. Use
+it for rapid slot positioning iteration without running Blender CLI scripts.
+
+### Quick diagnostic (paste into execute_blender_code)
+
+```python
+import bpy
+from mathutils import Vector
+
+def bl_to_threejs(v): return (v[0], v[2], -v[1])
+
+armature = next(o for o in bpy.context.scene.objects if o.type == "ARMATURE")
+bpy.context.view_layer.update()
+
+garment_roots = [o for o in bpy.context.scene.objects if o.parent is None and o.type == "EMPTY"]
+for root in garment_roots:
+    pos = bl_to_threejs(root.matrix_world.translation)
+    bone_name = "LeftFoot" if pos[0] >= 0 else "RightFoot"
+    pb = armature.pose.bones[bone_name]
+    bone_pos = bl_to_threejs(armature.matrix_world @ pb.head)
+    mesh = next((c for c in root.children if c.type == "MESH"), None)
+    shoe_h = None
+    if mesh:
+        ys = [bl_to_threejs(mesh.matrix_world @ Vector(c))[1] for c in mesh.bound_box]
+        shoe_h = max(ys) - min(ys)
+    print(f"{root.name} → {bone_name}  x_off={pos[0]-bone_pos[0]:+.4f}m  "
+          f"ankle={round(-( pos[1]-bone_pos[1])/shoe_h*100,1) if shoe_h else '?'}%  "
+          f"{'OK' if abs(pos[0]-bone_pos[0])<0.05 else 'WARN'}")
+```
+
+### Dedicated diagnostic script
+
+```bash
+'/Applications/Blender.app/Contents/MacOS/Blender' \
+  --background --factory-startup --enable-autoexec \
+  --python tools/blender/inspect_slot_fit.py \
+  -- \
+  --base   public/avatar/modular/male-base-plain.glb \
+  --garment public/avatar/garments/shoes_blue_sneakers_v1.glb \
+  --animation public/avatar/modular/male-base-plain-walking.glb \
+  --output-dir /tmp/slot-fit-debug \
+  --frames 1 13 25
+```
+
+Produces `fit_report.json` (offsets, ankle %, OK/WARN per root) and PNG renders
+for each frame + view combination.
+
+### Blender 5.x animation slot binding
+
+Blender 5.1 uses a layered-action system for imported glTF animations. After
+assigning an action to an armature, the action's slot must be explicitly bound or
+the animation evaluates as a static rest pose:
+
+```python
+armature.animation_data.action = action
+if hasattr(armature.animation_data, "action_slot") and len(action.slots) > 0:
+    armature.animation_data.action_slot = action.slots[0]
+```
+
+Both `render_avatar_runtime_slots.py` and `inspect_slot_fit.py` include this fix.
+Do not add animation to Blender MCP diagnostic sessions without it.
+
 ## Blender MCP Access From Codex
 
-The Blender add-on server is reachable at `localhost:9876`. Codex does not
-currently expose the ad-hoc Blender MCP server as a native tool in this session,
-so use:
+The Blender MCP connector is now available as a native Claude Code tool set — use
+`execute_blender_code` directly from the agent instead of the old CLI client.
+
+The old `blender_mcp_client.py` helper remains for historical reference:
 
 ```bash
 python3 tools/blender/blender_mcp_client.py list-tools
-python3 tools/blender/blender_mcp_client.py call-tool get_scene_info --arguments '{"user_prompt":"..."}'
-python3 tools/blender/blender_mcp_client.py call-tool execute_blender_code --arguments-file tools/blender/<args>.json
 ```
-
-The installed `blender-mcp` package uses newline-delimited JSON-RPC over stdio,
-not `Content-Length` framing.
 
 ## Current Validated Shoe Pipeline
 

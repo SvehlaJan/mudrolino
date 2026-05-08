@@ -1,7 +1,9 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import { Object3D } from 'three';
 import { AvatarModel } from './AvatarModel';
+import { AvatarSkeletonOverlay } from './AvatarSkeletonOverlay';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
 
@@ -15,6 +17,7 @@ interface AvatarSceneProps {
   externalAssets?: AvatarExternalAsset[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
+  showSkeleton?: boolean;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
 }
@@ -41,9 +44,12 @@ export function AvatarScene({
   externalAssets,
   bodyShape,
   preserveHipsPosition,
+  showSkeleton,
   onAnimationsChange,
   onModelReady,
 }: AvatarSceneProps) {
+  const [avatarScene, setAvatarScene] = useState<Object3D | null>(null);
+
   return (
     <div className={className}>
       <Canvas
@@ -76,8 +82,10 @@ export function AvatarScene({
             preserveHipsPosition={preserveHipsPosition}
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
+            onSceneReady={setAvatarScene}
           />
         </Suspense>
+        {showSkeleton && avatarScene && <AvatarSkeletonOverlay scene={avatarScene} />}
       </Canvas>
     </div>
   );

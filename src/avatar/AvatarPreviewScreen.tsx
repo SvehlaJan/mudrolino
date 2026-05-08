@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
   BadgeInfo,
+  Bone,
   Check,
   Database,
   RotateCcw,
@@ -157,6 +158,7 @@ export function AvatarPreviewScreen() {
   const [storageSnapshot, setStorageSnapshot] = useState<string | null>(() => readStorageSnapshot());
   const [animationNames, setAnimationNames] = useState<string[]>([]);
   const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
+  const [showSkeleton, setShowSkeleton] = useState(false);
   const resolvedAssets = useMemo(
     () => resolveAvatarAssets(previewState.config),
     [previewState.config],
@@ -432,10 +434,24 @@ export function AvatarPreviewScreen() {
                     externalAssets={resolvedAssets.externalAssets}
                     requiredUrls={resolvedAssets.requiredUrls}
                     bodyShape={previewState.config.bodyShape}
+                    showSkeleton={showSkeleton}
                     onAnimationsChange={setAnimationNames}
                     onModelReady={() => setReadyModelKey(modelReadyKey)}
                     label="Modular avatar preview"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowSkeleton((v) => !v)}
+                    aria-pressed={showSkeleton}
+                    aria-label="Toggle skeleton overlay"
+                    className={`absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full shadow-chip transition-colors ${
+                      showSkeleton
+                        ? 'bg-accent-blue text-white'
+                        : 'bg-white/90 text-text-main hover:bg-white'
+                    }`}
+                  >
+                    <Bone size={18} />
+                  </button>
                   {!isModelReady && (
                     <div
                       className="absolute inset-0 flex items-center justify-center bg-bg-light/70 p-6 text-center"
