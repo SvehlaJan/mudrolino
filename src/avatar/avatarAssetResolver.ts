@@ -9,6 +9,7 @@ import { AvatarAnimationName, AvatarConfig, AvatarSlot, AvatarSlotSelections } f
 const AVATAR_SLOT_SELECTION_KEY_ORDER: Record<keyof AvatarSlotSelections, true> = {
   top: true,
   shoes: true,
+  accessory: true,
 };
 
 const AVATAR_SLOT_SELECTION_KEYS = Object.keys(

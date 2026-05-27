@@ -16,7 +16,7 @@ import {
 import { AvatarPresenter } from './AvatarPresenter';
 import { resolveAvatarAssets } from './avatarAssetResolver';
 import { AVATAR_BLUE_SNEAKERS_MODEL_URL, AVATAR_STORAGE_KEY } from './avatarConstants';
-import { AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
+import { AVATAR_ACCESSORY_ITEMS, AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
 import {
   AvatarAnimationName,
   AvatarBodyShapeConfig,
@@ -30,7 +30,7 @@ import {
 } from './avatarStore';
 import { useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
-type FutureSlot = 'bottom' | 'hair' | 'accessory';
+type FutureSlot = 'bottom' | 'hair';
 
 const ANIMATION_OPTIONS: AvatarAnimationName[] = ['idle', 'walk', 'run', 'success', 'failure'];
 const BUILD_OPTIONS: AvatarBodyShapeConfig['build'][] = ['average', 'slim', 'sturdy'];
@@ -39,7 +39,6 @@ const HEIGHT_OPTIONS: AvatarBodyShapeConfig['height'][] = ['average', 'short', '
 const FUTURE_SLOTS: Array<{ id: FutureSlot; label: string }> = [
   { id: 'bottom', label: 'Bottom' },
   { id: 'hair', label: 'Hair' },
-  { id: 'accessory', label: 'Accessory' },
 ];
 
 const animationLabels: Record<AvatarAnimationName, string> = {
@@ -299,6 +298,27 @@ export function AvatarPreviewScreen() {
               <p className="break-all text-xs font-bold leading-snug text-text-main/45">
                 Source shoe GLB: {AVATAR_BLUE_SNEAKERS_MODEL_URL}
               </p>
+            </div>
+
+            <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Accessory</p>
+            <div className="grid gap-2">
+              {AVATAR_ACCESSORY_ITEMS.map((item) => (
+                <OptionButton
+                  key={item.id}
+                  label={item.label}
+                  selected={previewState.config.slotSelections.accessory === item.id}
+                  swatchClassName={item.swatchClassName}
+                  onClick={() => {
+                    setConfig((config) => ({
+                      ...config,
+                      slotSelections: {
+                        ...config.slotSelections,
+                        accessory: item.id,
+                      },
+                    }));
+                  }}
+                />
+              ))}
             </div>
 
             <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Future slots</p>

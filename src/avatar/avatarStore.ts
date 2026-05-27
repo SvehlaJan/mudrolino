@@ -1,7 +1,9 @@
 import { AVATAR_STATE_VERSION, AVATAR_STORAGE_KEY } from './avatarConstants';
 import {
+  DEFAULT_AVATAR_ACCESSORY,
   DEFAULT_AVATAR_SHOES,
   DEFAULT_AVATAR_TOP,
+  isAvatarAccessoryItemId,
   isAvatarShoesItemId,
   isAvatarTopItemId,
 } from './avatarCatalog';
@@ -22,6 +24,7 @@ export function createDefaultAvatarState(): StoredAvatarState {
       slotSelections: {
         top: DEFAULT_AVATAR_TOP,
         shoes: DEFAULT_AVATAR_SHOES,
+        accessory: DEFAULT_AVATAR_ACCESSORY,
       },
       face: {
         mode: 'placeholder',
@@ -76,6 +79,9 @@ export function loadAvatarState(): StoredAvatarState {
           shoes: isAvatarShoesItemId(slotSelections?.shoes)
             ? slotSelections.shoes
             : DEFAULT_AVATAR_SHOES,
+          accessory: isAvatarAccessoryItemId(slotSelections?.accessory)
+            ? slotSelections.accessory
+            : DEFAULT_AVATAR_ACCESSORY,
         },
         face: {
           mode: face?.mode === 'generated_decal' ? 'generated_decal' : 'placeholder',

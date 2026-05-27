@@ -5,10 +5,12 @@ export type AvatarSlot = 'top' | 'bottom' | 'shoes' | 'hair' | 'accessory';
 export type AvatarAnimationName = 'idle' | 'walk' | 'run' | 'success' | 'failure';
 export type AvatarTopItemId = 'top_blue_tshirt' | 'top_green_hoodie';
 export type AvatarShoesItemId = 'shoes_none' | 'shoes_blue_sneakers_v1';
+export type AvatarAccessoryItemId = 'accessory_none' | 'hat_red_cap_v1';
 
 export interface AvatarSlotSelections {
   top: AvatarTopItemId;
   shoes: AvatarShoesItemId;
+  accessory: AvatarAccessoryItemId;
 }
 
 export interface AvatarFaceConfig {

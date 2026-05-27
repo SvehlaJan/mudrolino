@@ -96,6 +96,19 @@ function attachShoeSceneToFootBones(baseScene: Object3D, garmentScene: Object3D)
   }
 }
 
+function attachAccessoryToHeadBone(baseScene: Object3D, garmentScene: Object3D) {
+  baseScene.updateMatrixWorld(true);
+  garmentScene.updateMatrixWorld(true);
+
+  const headBone = baseScene.getObjectByName('Head');
+  if (!headBone) return;
+
+  const roots = [...garmentScene.children];
+  for (const root of roots) {
+    headBone.attach(root);
+  }
+}
+
 function getPreviewScale(bodyShape?: AvatarBodyShapeConfig) {
   const scale = bodyShape?.scale ?? 1;
   return Math.min(1.2, Math.max(0.8, scale));
@@ -150,6 +163,9 @@ export function AvatarModel({
 
       if (externalAssets[index]?.slot === 'shoes') {
         attachShoeSceneToFootBones(clonedScene, clonedGarmentScene);
+      }
+      if (externalAssets[index]?.slot === 'accessory') {
+        attachAccessoryToHeadBone(clonedScene, clonedGarmentScene);
       }
 
       return clonedGarmentScene;

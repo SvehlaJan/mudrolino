@@ -1,0 +1,31 @@
+{
+  "project_name": "hat-baseball-cap-v1",
+  "folder": "20260508_183917_hat-baseball-cap-v1_019e0871",
+  "root_task_id": "019e0871-7410-70b5-b74e-2d8425d0071b",
+  "created_at": "2026-05-08T18:39:19.476712",
+  "updated_at": "2026-05-08T18:39:19.476909",
+  "tasks": [
+    {
+      "task_id": "019e0871-7410-70b5-b74e-2d8425d0071b",
+      "task_type": "multi-image-to-3d",
+      "stage": "complete",
+      "files": [
+        "model.glb"
+      ],
+      "created_at": "2026-05-08T18:39:19.476951",
+      "extra": {
+        "endpoint": "/openapi/v1/multi-image-to-3d",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "fbx",
+          "glb",
+          "mtl",
+          "obj",
+          "stl",
+          "usdz"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20260508_183917_hat-baseball-cap-v1_019e0871/thumbnail.png"
+      }
+    }
+  ]
+}

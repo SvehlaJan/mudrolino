@@ -79,7 +79,7 @@ def export_plain_base(base_path: str, output_path: str) -> None:
     import_glb(base_path)
 
     for obj in list(bpy.data.objects):
-        if obj.name.startswith("top_"):
+        if obj.name.startswith("top_") or obj.name.startswith("Icosphere"):
             bpy.data.objects.remove(obj, do_unlink=True)
 
     export_glb(output_path)
