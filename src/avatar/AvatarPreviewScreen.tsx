@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
-  BadgeInfo,
   Bone,
   Check,
   Database,
@@ -11,11 +10,9 @@ import {
   Shirt,
   SlidersHorizontal,
   Sparkles,
-  UserRound,
 } from 'lucide-react';
 import { AvatarPresenter } from './AvatarPresenter';
 import { resolveAvatarAssets } from './avatarAssetResolver';
-import { AVATAR_BLUE_SNEAKERS_MODEL_URL, AVATAR_STORAGE_KEY } from './avatarConstants';
 import { AVATAR_ACCESSORY_ITEMS, AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
 import {
   AvatarAnimationName,
@@ -30,16 +27,9 @@ import {
 } from './avatarStore';
 import { useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
-type FutureSlot = 'bottom' | 'hair';
-
 const ANIMATION_OPTIONS: AvatarAnimationName[] = ['idle', 'walk', 'run', 'success', 'failure'];
 const BUILD_OPTIONS: AvatarBodyShapeConfig['build'][] = ['average', 'slim', 'sturdy'];
 const HEIGHT_OPTIONS: AvatarBodyShapeConfig['height'][] = ['average', 'short', 'tall'];
-
-const FUTURE_SLOTS: Array<{ id: FutureSlot; label: string }> = [
-  { id: 'bottom', label: 'Bottom' },
-  { id: 'hair', label: 'Hair' },
-];
 
 const animationLabels: Record<AvatarAnimationName, string> = {
   idle: 'Idle',
@@ -60,14 +50,6 @@ const heightLabels: Record<AvatarBodyShapeConfig['height'], string> = {
   short: 'Short',
   tall: 'Tall',
 };
-
-function readStorageSnapshot() {
-  try {
-    return localStorage.getItem(AVATAR_STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
 
 function formatJson(value: unknown) {
   return JSON.stringify(value, null, 2);
@@ -110,6 +92,7 @@ interface OptionButtonProps {
   detail?: string;
   swatchClassName?: string;
   onClick?: () => void;
+  testId?: string;
 }
 
 function OptionButton({
@@ -119,6 +102,7 @@ function OptionButton({
   detail,
   swatchClassName,
   onClick,
+  testId,
 }: OptionButtonProps) {
   return (
     <button
@@ -126,6 +110,7 @@ function OptionButton({
       disabled={disabled}
       onClick={onClick}
       aria-pressed={selected}
+      data-testid={testId}
       className={`flex min-h-14 items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left font-bold transition-colors ${
         selected
           ? 'border-accent-blue bg-accent-blue text-white'
@@ -154,8 +139,6 @@ function OptionButton({
 export function AvatarPreviewScreen() {
   const navigate = useNavigate();
   const [previewState, setPreviewState] = useState<StoredAvatarState>(() => loadAvatarState());
-  const [storageSnapshot, setStorageSnapshot] = useState<string | null>(() => readStorageSnapshot());
-  const [animationNames, setAnimationNames] = useState<string[]>([]);
   const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
   const [showSkeleton, setShowSkeleton] = useState(false);
   const resolvedAssets = useMemo(
@@ -172,21 +155,12 @@ export function AvatarPreviewScreen() {
   ].join(':');
   const isModelReady = readyModelKey === modelReadyKey;
 
-  const selectedMeshNames = useMemo(
-    () => [
-      ...resolvedAssets.embeddedMeshNames,
-      ...resolvedAssets.externalAssets.map((asset) => asset.id),
-    ],
-    [resolvedAssets.embeddedMeshNames, resolvedAssets.externalAssets],
-  );
-
   const setConfig = useCallback((updater: (config: AvatarConfig) => AvatarConfig) => {
     setPreviewState((state) => updateStoredConfig(state, updater));
   }, []);
 
   const handlePersist = useCallback(() => {
     saveAvatarState(previewState);
-    setStorageSnapshot(readStorageSnapshot());
   }, [previewState]);
 
   const handleResetPreview = useCallback(() => {
@@ -197,7 +171,6 @@ export function AvatarPreviewScreen() {
     const nextState = createDefaultAvatarState();
     saveAvatarState(nextState);
     setPreviewState(nextState);
-    setStorageSnapshot(readStorageSnapshot());
   }, []);
 
   return (
@@ -224,13 +197,6 @@ export function AvatarPreviewScreen() {
             </p>
           </div>
 
-          <WorkbenchSection title="Base" icon={<UserRound size={19} />}>
-            <div className="grid grid-cols-2 gap-2">
-              <OptionButton label="Male" detail="active" selected />
-              <OptionButton label="Female" detail="planned" disabled />
-            </div>
-          </WorkbenchSection>
-
           <WorkbenchSection title="Animation State" icon={<Sparkles size={19} />}>
             <div className="grid grid-cols-3 gap-2">
               {ANIMATION_OPTIONS.map((animation) => (
@@ -238,6 +204,7 @@ export function AvatarPreviewScreen() {
                   key={animation}
                   label={animationLabels[animation]}
                   selected={previewState.config.animation === animation}
+                  testId={`animation-${animation}`}
                   onClick={() => {
                     setConfig((config) => ({ ...config, animation }));
                   }}
@@ -253,9 +220,9 @@ export function AvatarPreviewScreen() {
                 <OptionButton
                   key={item.id}
                   label={item.label}
-                  detail="embedded mesh"
                   selected={previewState.config.slotSelections.top === item.id}
                   swatchClassName={item.swatchClassName}
+                  testId={`slot-top-${item.id}`}
                   onClick={() => {
                     setConfig((config) => ({
                       ...config,
@@ -275,15 +242,9 @@ export function AvatarPreviewScreen() {
                 <OptionButton
                   key={item.id}
                   label={item.label}
-                  detail={
-                    item.source.kind === 'externalGltf' && !item.source.animationReady
-                      ? 'runtime GLB, debug animation'
-                      : item.source.kind === 'none'
-                        ? 'plain base'
-                        : undefined
-                  }
                   selected={previewState.config.slotSelections.shoes === item.id}
                   swatchClassName={item.swatchClassName}
+                  testId={`slot-shoes-${item.id}`}
                   onClick={() => {
                     setConfig((config) => ({
                       ...config,
@@ -295,9 +256,6 @@ export function AvatarPreviewScreen() {
                   }}
                 />
               ))}
-              <p className="break-all text-xs font-bold leading-snug text-text-main/45">
-                Source shoe GLB: {AVATAR_BLUE_SNEAKERS_MODEL_URL}
-              </p>
             </div>
 
             <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Accessory</p>
@@ -308,6 +266,7 @@ export function AvatarPreviewScreen() {
                   label={item.label}
                   selected={previewState.config.slotSelections.accessory === item.id}
                   swatchClassName={item.swatchClassName}
+                  testId={`slot-accessory-${item.id}`}
                   onClick={() => {
                     setConfig((config) => ({
                       ...config,
@@ -320,23 +279,6 @@ export function AvatarPreviewScreen() {
                 />
               ))}
             </div>
-
-            <p className="mb-3 mt-5 text-sm font-bold text-text-main/55">Future slots</p>
-            <div className="grid grid-cols-2 gap-2">
-              {FUTURE_SLOTS.map((slot) => (
-                <OptionButton key={slot.id} label={slot.label} detail="planned" disabled />
-              ))}
-            </div>
-          </WorkbenchSection>
-
-          <WorkbenchSection title="Face" icon={<BadgeInfo size={19} />}>
-            <div className="grid grid-cols-2 gap-2">
-              <OptionButton label="Placeholder" detail="active" selected />
-              <OptionButton label="Generated decal" detail="planned" disabled />
-            </div>
-            <p className="mt-3 text-sm font-semibold leading-snug text-text-main/55">
-              The GLB includes `face_anchor`; selfie processing and decal rendering stay behind the backend backlog.
-            </p>
           </WorkbenchSection>
 
           <WorkbenchSection title="Body Shape" icon={<SlidersHorizontal size={19} />}>
@@ -411,6 +353,7 @@ export function AvatarPreviewScreen() {
               <button
                 type="button"
                 onClick={handlePersist}
+                data-testid="avatar-persist"
                 className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-success px-4 py-3 font-black text-white shadow-chip transition-transform hover:scale-[1.01] active:scale-[0.99]"
               >
                 <Save size={18} />
@@ -455,7 +398,6 @@ export function AvatarPreviewScreen() {
                     requiredUrls={resolvedAssets.requiredUrls}
                     bodyShape={previewState.config.bodyShape}
                     showSkeleton={showSkeleton}
-                    onAnimationsChange={setAnimationNames}
                     onModelReady={() => setReadyModelKey(modelReadyKey)}
                     label="Modular avatar preview"
                   />
@@ -464,6 +406,7 @@ export function AvatarPreviewScreen() {
                     onClick={() => setShowSkeleton((v) => !v)}
                     aria-pressed={showSkeleton}
                     aria-label="Toggle skeleton overlay"
+                    data-testid="skeleton-toggle"
                     className={`absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full shadow-chip transition-colors ${
                       showSkeleton
                         ? 'bg-accent-blue text-white'
@@ -508,7 +451,7 @@ export function AvatarPreviewScreen() {
           </div>
 
           <div className="rounded-[24px] bg-white p-5 shadow-chip">
-            <div className="grid gap-4 lg:grid-cols-3">
+            <div className="grid gap-4 lg:grid-cols-2">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
                   Asset
@@ -530,34 +473,6 @@ export function AvatarPreviewScreen() {
                     <dt className="text-text-main/45">Status</dt>
                     <dd className="text-text-main">{previewAssetStatus}</dd>
                   </div>
-                  <div>
-                    <dt className="text-text-main/45">Animation source</dt>
-                    <dd className="break-all text-text-main">
-                      {resolvedAssets.animationUrl ?? 'embedded / idle'}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-text-main/45">Animation warning</dt>
-                    <dd className="break-words text-text-main">
-                      {resolvedAssets.animationWarnings.length > 0
-                        ? resolvedAssets.animationWarnings.join(' ')
-                        : 'ready'}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-text-main/45">Model ready</dt>
-                    <dd className="text-text-main">{isModelReady ? 'yes' : 'no'}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-text-main/45">Animation clips</dt>
-                    <dd className="break-words text-text-main">
-                      {animationNames.length > 0 ? animationNames.join(', ') : 'none in current GLB'}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-text-main/45">Visible meshes</dt>
-                    <dd className="break-words text-text-main">{selectedMeshNames.join(', ')}</dd>
-                  </div>
                 </dl>
               </div>
 
@@ -567,15 +482,6 @@ export function AvatarPreviewScreen() {
                 </p>
                 <pre className="mt-3 max-h-56 overflow-auto rounded-2xl bg-bg-light p-3 text-xs font-bold leading-relaxed text-text-main/75">
                   {formatJson(previewState)}
-                </pre>
-              </div>
-
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
-                  Persisted storage
-                </p>
-                <pre className="mt-3 max-h-56 overflow-auto rounded-2xl bg-bg-light p-3 text-xs font-bold leading-relaxed text-text-main/75">
-                  {storageSnapshot ?? 'null'}
                 </pre>
               </div>
             </div>
