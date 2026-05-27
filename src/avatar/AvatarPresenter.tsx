@@ -22,6 +22,7 @@ interface AvatarPresenterProps {
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
   onSceneData?: (data: AvatarSceneData) => void;
+  onRegisterCameraReset?: (reset: () => void) => void;
 }
 
 export function AvatarPresenter({
@@ -41,6 +42,7 @@ export function AvatarPresenter({
   onAnimationsChange,
   onModelReady,
   onSceneData,
+  onRegisterCameraReset,
 }: AvatarPresenterProps) {
   if (assetStatusOverride) {
     return (
@@ -61,6 +63,7 @@ export function AvatarPresenter({
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
         onSceneData={onSceneData}
+        onRegisterCameraReset={onRegisterCameraReset}
       />
     );
   }
@@ -82,6 +85,7 @@ export function AvatarPresenter({
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
       onSceneData={onSceneData}
+      onRegisterCameraReset={onRegisterCameraReset}
     />
   );
 }
@@ -114,6 +118,7 @@ function AvatarPresenterContent({
   onAnimationsChange,
   onModelReady,
   onSceneData,
+  onRegisterCameraReset,
 }: AvatarPresenterContentProps) {
   if (assetStatus !== 'available') return null;
 
@@ -134,6 +139,7 @@ function AvatarPresenterContent({
           onAnimationsChange={onAnimationsChange}
           onModelReady={onModelReady}
           onSceneData={onSceneData}
+          onRegisterCameraReset={onRegisterCameraReset}
         />
       </div>
     </AvatarRuntimeBoundary>
