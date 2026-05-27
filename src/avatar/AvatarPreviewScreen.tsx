@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -6,6 +6,7 @@ import {
   Check,
   Database,
   RotateCcw,
+  RotateCw,
   Save,
   Shirt,
   SlidersHorizontal,
@@ -206,6 +207,7 @@ export function AvatarPreviewScreen() {
   const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
   const [showSkeleton, setShowSkeleton] = useState(false);
   const [sceneData, setSceneData] = useState<AvatarSceneData | null>(null);
+  const cameraResetRef = useRef<(() => void) | null>(null);
   const resolvedAssets = useMemo(
     () => resolveAvatarAssets(previewState.config),
     [previewState.config],
@@ -470,15 +472,30 @@ export function AvatarPreviewScreen() {
                     showSkeleton={showSkeleton}
                     onModelReady={handleModelReady}
                     onSceneData={setSceneData}
+                    onRegisterCameraReset={(reset) => {
+                      cameraResetRef.current = reset;
+                    }}
                     label="Modular avatar preview"
                   />
+                  {/* Camera reset — top right */}
+                  <button
+                    type="button"
+                    onClick={() => cameraResetRef.current?.()}
+                    aria-label="Reset camera view"
+                    data-testid="camera-reset"
+                    className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-text-main shadow-chip transition-colors hover:bg-white"
+                  >
+                    <RotateCw size={18} />
+                  </button>
+
+                  {/* Skeleton toggle — top left */}
                   <button
                     type="button"
                     onClick={() => setShowSkeleton((v) => !v)}
                     aria-pressed={showSkeleton}
                     aria-label="Toggle skeleton overlay"
                     data-testid="skeleton-toggle"
-                    className={`absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full shadow-chip transition-colors ${
+                    className={`absolute left-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full shadow-chip transition-colors ${
                       showSkeleton
                         ? 'bg-accent-blue text-white'
                         : 'bg-white/90 text-text-main hover:bg-white'
