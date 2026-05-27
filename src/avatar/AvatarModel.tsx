@@ -6,7 +6,7 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { DEFAULT_AVATAR_TOP, getAvatarTopMeshName } from './avatarCatalog';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarGarmentFit, AvatarSceneData, AvatarSlotSelections } from './avatarTypes';
 
 interface AvatarModelProps {
   url?: string;
@@ -20,6 +20,7 @@ interface AvatarModelProps {
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
   onSceneReady?: (scene: Object3D) => void;
+  onSceneData?: (data: AvatarSceneData) => void;
 }
 
 const TARGET_MODEL_HEIGHT = 2.7;
@@ -114,6 +115,82 @@ function getPreviewScale(bodyShape?: AvatarBodyShapeConfig) {
   return Math.min(1.2, Math.max(0.8, scale));
 }
 
+const SNAPSHOT_BONES = ['Head', 'Hips', 'LeftFoot', 'RightFoot', 'LeftToeBase', 'RightToeBase'];
+
+function r3(n: number) {
+  return Math.round(n * 1000) / 1000;
+}
+
+function vec3(v: Vector3) {
+  return { x: r3(v.x), y: r3(v.y), z: r3(v.z) };
+}
+
+function computeAvatarSceneData(
+  scene: Object3D,
+  externalAssets: AvatarExternalAsset[],
+): AvatarSceneData {
+  scene.updateMatrixWorld(true);
+  const worldPos = new Vector3();
+
+  const bones: AvatarSceneData['bones'] = {};
+  for (const name of SNAPSHOT_BONES) {
+    const bone = scene.getObjectByName(name);
+    if (bone) {
+      bone.getWorldPosition(worldPos);
+      bones[name] = vec3(worldPos);
+    }
+  }
+
+  const garments: AvatarSceneData['garments'] = {};
+
+  for (const asset of externalAssets) {
+    if (asset.slot === 'accessory') {
+      const headBone = scene.getObjectByName('Head');
+      if (!headBone) continue;
+      headBone.getWorldPosition(worldPos);
+      const boneWorld = vec3(worldPos);
+      const bounds = new Box3();
+      headBone.traverse((obj) => {
+        if ('isMesh' in obj && obj.isMesh) bounds.expandByObject(obj);
+      });
+      if (bounds.isEmpty()) continue;
+      const center = new Vector3();
+      bounds.getCenter(center);
+      garments['accessory'] = {
+        targetBone: 'Head',
+        boneWorld,
+        meshCenter: vec3(center),
+        meshBounds: { zMin: r3(bounds.min.z), zMax: r3(bounds.max.z) },
+      } satisfies AvatarGarmentFit;
+    } else if (asset.slot === 'shoes') {
+      for (const [key, boneName] of [
+        ['shoes_L', 'LeftToeBase'],
+        ['shoes_R', 'RightToeBase'],
+      ] as const) {
+        const footBone = scene.getObjectByName(boneName);
+        if (!footBone) continue;
+        footBone.getWorldPosition(worldPos);
+        const boneWorld = vec3(worldPos);
+        const bounds = new Box3();
+        footBone.traverse((obj) => {
+          if ('isMesh' in obj && obj.isMesh) bounds.expandByObject(obj);
+        });
+        if (bounds.isEmpty()) continue;
+        const center = new Vector3();
+        bounds.getCenter(center);
+        garments[key] = {
+          targetBone: boneName,
+          boneWorld,
+          meshCenter: vec3(center),
+          meshBounds: { zMin: r3(bounds.min.z), zMax: r3(bounds.max.z) },
+        } satisfies AvatarGarmentFit;
+      }
+    }
+  }
+
+  return { bones, garments };
+}
+
 export function AvatarModel({
   url = AVATAR_MODEL_URL,
   animationUrl,
@@ -126,6 +203,7 @@ export function AvatarModel({
   onAnimationsChange,
   onModelReady,
   onSceneReady,
+  onSceneData,
 }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
   const gltf = useGLTF(url);
@@ -186,9 +264,11 @@ export function AvatarModel({
   const { actions, names } = useAnimations(animationClips, groupRef);
 
   useEffect(() => {
+    groupRef.current?.updateMatrixWorld(true);
     onModelReady?.();
     onSceneReady?.(scene);
-  }, [garmentScenes, onModelReady, onSceneReady, scene]);
+    onSceneData?.(computeAvatarSceneData(scene, externalAssets));
+  }, [externalAssets, garmentScenes, onModelReady, onSceneData, onSceneReady, scene]);
 
   useEffect(() => {
     onAnimationsChange?.(names);

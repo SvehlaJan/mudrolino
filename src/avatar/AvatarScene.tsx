@@ -5,7 +5,7 @@ import { Object3D } from 'three';
 import { AvatarModel } from './AvatarModel';
 import { AvatarSkeletonOverlay } from './AvatarSkeletonOverlay';
 import { AvatarExternalAsset } from './avatarAssetResolver';
-import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarSceneData, AvatarSlotSelections } from './avatarTypes';
 
 interface AvatarSceneProps {
   className?: string;
@@ -20,6 +20,7 @@ interface AvatarSceneProps {
   showSkeleton?: boolean;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
+  onSceneData?: (data: AvatarSceneData) => void;
 }
 
 function AvatarCameraRig() {
@@ -47,6 +48,7 @@ export function AvatarScene({
   showSkeleton,
   onAnimationsChange,
   onModelReady,
+  onSceneData,
 }: AvatarSceneProps) {
   const [avatarScene, setAvatarScene] = useState<Object3D | null>(null);
 
@@ -83,6 +85,7 @@ export function AvatarScene({
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
             onSceneReady={setAvatarScene}
+            onSceneData={onSceneData}
           />
         </Suspense>
         {showSkeleton && avatarScene && <AvatarSkeletonOverlay scene={avatarScene} />}

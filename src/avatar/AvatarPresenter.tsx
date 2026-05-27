@@ -2,7 +2,7 @@ import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import { AvatarScene } from './AvatarScene';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarBodyShapeConfig, AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarSceneData, AvatarSlotSelections } from './avatarTypes';
 import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
 interface AvatarPresenterProps {
@@ -21,6 +21,7 @@ interface AvatarPresenterProps {
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
+  onSceneData?: (data: AvatarSceneData) => void;
 }
 
 export function AvatarPresenter({
@@ -39,6 +40,7 @@ export function AvatarPresenter({
   assetStatusOverride,
   onAnimationsChange,
   onModelReady,
+  onSceneData,
 }: AvatarPresenterProps) {
   if (assetStatusOverride) {
     return (
@@ -58,6 +60,7 @@ export function AvatarPresenter({
         showSkeleton={showSkeleton}
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
+        onSceneData={onSceneData}
       />
     );
   }
@@ -78,6 +81,7 @@ export function AvatarPresenter({
       showSkeleton={showSkeleton}
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
+      onSceneData={onSceneData}
     />
   );
 }
@@ -109,6 +113,7 @@ function AvatarPresenterContent({
   showSkeleton,
   onAnimationsChange,
   onModelReady,
+  onSceneData,
 }: AvatarPresenterContentProps) {
   if (assetStatus !== 'available') return null;
 
@@ -128,6 +133,7 @@ function AvatarPresenterContent({
           showSkeleton={showSkeleton}
           onAnimationsChange={onAnimationsChange}
           onModelReady={onModelReady}
+          onSceneData={onSceneData}
         />
       </div>
     </AvatarRuntimeBoundary>
