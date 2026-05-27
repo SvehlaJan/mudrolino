@@ -41,3 +41,15 @@ export interface StoredAvatarState {
   config: AvatarConfig;
   progress: AvatarProgressState;
 }
+
+export interface AvatarGarmentFit {
+  targetBone: string;
+  boneWorld: { x: number; y: number; z: number };
+  meshCenter: { x: number; y: number; z: number };
+  meshBounds: { zMin: number; zMax: number };
+}
+
+export interface AvatarSceneData {
+  bones: Record<string, { x: number; y: number; z: number }>;
+  garments: Record<string, AvatarGarmentFit>;
+}
