@@ -19,6 +19,7 @@ import {
   AvatarAnimationName,
   AvatarBodyShapeConfig,
   AvatarConfig,
+  AvatarSceneData,
   AvatarShoesItemId,
   AvatarTopItemId,
   StoredAvatarState,
@@ -204,6 +205,7 @@ export function AvatarPreviewScreen() {
   });
   const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
   const [showSkeleton, setShowSkeleton] = useState(false);
+  const [sceneData, setSceneData] = useState<AvatarSceneData | null>(null);
   const resolvedAssets = useMemo(
     () => resolveAvatarAssets(previewState.config),
     [previewState.config],
@@ -235,6 +237,11 @@ export function AvatarPreviewScreen() {
     saveAvatarState(nextState);
     setPreviewState(nextState);
   }, []);
+
+  const handleModelReady = useCallback(() => {
+    setReadyModelKey(modelReadyKey);
+    setSceneData(null);
+  }, [modelReadyKey]);
 
   return (
     <div className="min-h-[100svh] overflow-y-auto bg-bg-light p-4 text-text-main sm:p-6 lg:p-8">
@@ -461,7 +468,8 @@ export function AvatarPreviewScreen() {
                     requiredUrls={resolvedAssets.requiredUrls}
                     bodyShape={previewState.config.bodyShape}
                     showSkeleton={showSkeleton}
-                    onModelReady={() => setReadyModelKey(modelReadyKey)}
+                    onModelReady={handleModelReady}
+                    onSceneData={setSceneData}
                     label="Modular avatar preview"
                   />
                   <button
@@ -514,7 +522,7 @@ export function AvatarPreviewScreen() {
           </div>
 
           <div className="rounded-[24px] bg-white p-5 shadow-chip">
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="grid gap-4 lg:grid-cols-3">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
                   Asset
@@ -547,7 +555,44 @@ export function AvatarPreviewScreen() {
                   {formatJson(previewState)}
                 </pre>
               </div>
+
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
+                  3D fit
+                </p>
+                {sceneData ? (
+                  <dl className="mt-3 space-y-2 text-sm font-bold text-text-main/70">
+                    <div>
+                      <dt className="text-text-main/45">Bones</dt>
+                      <dd className="break-all font-mono text-xs text-text-main">
+                        {Object.entries(sceneData.bones)
+                          .map(([name, p]) => `${name}(${p.x},${p.y},${p.z})`)
+                          .join('  ')}
+                      </dd>
+                    </div>
+                    {Object.entries(sceneData.garments).map(([key, fit]) => (
+                      <div key={key}>
+                        <dt className="text-text-main/45">{key}</dt>
+                        <dd className="break-all font-mono text-xs text-text-main">
+                          bone {fit.targetBone} z={fit.boneWorld.z} | center z={fit.meshCenter.z} | Δz=
+                          {(fit.meshCenter.z - fit.boneWorld.z).toFixed(3)} | Z {fit.meshBounds.zMin}–
+                          {fit.meshBounds.zMax}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : (
+                  <p className="mt-3 text-sm font-bold text-text-main/40">Loading…</p>
+                )}
+              </div>
             </div>
+            <pre
+              data-testid="avatar-debug-json"
+              hidden
+              aria-hidden="true"
+            >
+              {sceneData ? JSON.stringify(sceneData, null, 2) : ''}
+            </pre>
           </div>
         </section>
       </main>
