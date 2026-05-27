@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
   Bone,
@@ -15,9 +15,12 @@ import { AvatarPresenter } from './AvatarPresenter';
 import { resolveAvatarAssets } from './avatarAssetResolver';
 import { AVATAR_ACCESSORY_ITEMS, AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
 import {
+  AvatarAccessoryItemId,
   AvatarAnimationName,
   AvatarBodyShapeConfig,
   AvatarConfig,
+  AvatarShoesItemId,
+  AvatarTopItemId,
   StoredAvatarState,
 } from './avatarTypes';
 import {
@@ -136,9 +139,69 @@ function OptionButton({
   );
 }
 
+const VALID_ANIMATIONS = new Set<AvatarAnimationName>(['idle', 'walk', 'run', 'success', 'failure']);
+
+function parseUrlParams(params: URLSearchParams): Partial<{
+  top: AvatarTopItemId;
+  shoes: AvatarShoesItemId;
+  accessory: AvatarAccessoryItemId;
+  animation: AvatarAnimationName;
+  scale: number;
+  agent: boolean;
+}> {
+  const result: ReturnType<typeof parseUrlParams> = {};
+
+  const top = params.get('top');
+  if (top && AVATAR_TOP_ITEMS.some((i) => i.id === top)) result.top = top as AvatarTopItemId;
+
+  const shoes = params.get('shoes');
+  if (shoes && AVATAR_SHOES_ITEMS.some((i) => i.id === shoes)) result.shoes = shoes as AvatarShoesItemId;
+
+  const accessory = params.get('accessory');
+  if (accessory && AVATAR_ACCESSORY_ITEMS.some((i) => i.id === accessory))
+    result.accessory = accessory as AvatarAccessoryItemId;
+
+  const animation = params.get('animation');
+  if (animation && VALID_ANIMATIONS.has(animation as AvatarAnimationName))
+    result.animation = animation as AvatarAnimationName;
+
+  const scaleStr = params.get('scale');
+  if (scaleStr !== null) {
+    const scale = Math.min(1.2, Math.max(0.8, Number(scaleStr)));
+    if (!Number.isNaN(scale)) result.scale = scale;
+  }
+
+  if (params.get('agent') === '1') result.agent = true;
+
+  return result;
+}
+
 export function AvatarPreviewScreen() {
   const navigate = useNavigate();
-  const [previewState, setPreviewState] = useState<StoredAvatarState>(() => loadAvatarState());
+  const [searchParams] = useSearchParams();
+  // isAgentMode will be used in Task 8 for the agent clean layout
+  const _isAgentMode = searchParams.get('agent') === '1';
+  const [previewState, setPreviewState] = useState<StoredAvatarState>(() => {
+    const base = loadAvatarState();
+    const url = parseUrlParams(searchParams);
+    if (Object.keys(url).length === 0) return base;
+    return {
+      ...base,
+      config: {
+        ...base.config,
+        ...(url.animation !== undefined && { animation: url.animation }),
+        ...(url.scale !== undefined && {
+          bodyShape: { ...base.config.bodyShape, scale: url.scale },
+        }),
+        slotSelections: {
+          ...base.config.slotSelections,
+          ...(url.top !== undefined && { top: url.top }),
+          ...(url.shoes !== undefined && { shoes: url.shoes }),
+          ...(url.accessory !== undefined && { accessory: url.accessory }),
+        },
+      },
+    };
+  });
   const [readyModelKey, setReadyModelKey] = useState<string | null>(null);
   const [showSkeleton, setShowSkeleton] = useState(false);
   const resolvedAssets = useMemo(
