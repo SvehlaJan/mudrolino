@@ -483,7 +483,6 @@ export function AvatarPreviewScreen() {
                     animationUrl={resolvedAssets.animationUrl}
                     animationName={resolvedAssets.animationName}
                     preserveHipsPosition={resolvedAssets.preserveHipsPosition}
-                    embeddedMeshNames={resolvedAssets.embeddedMeshNames}
                     externalAssets={resolvedAssets.externalAssets}
                     requiredUrls={resolvedAssets.requiredUrls}
                     bodyShape={previewState.config.bodyShape}

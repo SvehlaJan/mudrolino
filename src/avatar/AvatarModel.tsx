@@ -3,17 +3,14 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { AnimationClip } from 'three';
 import { Box3, Group, Object3D, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
-import { DEFAULT_AVATAR_TOP, getAvatarTopMeshName } from './avatarCatalog';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarBodyShapeConfig, AvatarGarmentFit, AvatarSceneData, AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
 
 interface AvatarModelProps {
   url?: string;
   animationUrl?: string;
   animationName?: string | null;
-  slotSelections?: AvatarSlotSelections;
-  embeddedMeshNames?: string[];
   externalAssets?: AvatarExternalAsset[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
@@ -24,7 +21,6 @@ interface AvatarModelProps {
 }
 
 const TARGET_MODEL_HEIGHT = 2.7;
-const EMBEDDED_MESH_PREFIXES = ['top_'];
 
 function sanitizeAnimationClips(
   clips: AnimationClip[],
@@ -64,15 +60,6 @@ function disableMeshFrustumCulling(scene: Object3D) {
     }
   });
 }
-
-function applyEmbeddedMeshVisibility(scene: Object3D, selectedMeshNames: string[]) {
-  const selectedMeshNameSet = new Set(selectedMeshNames);
-  scene.traverse((object) => {
-    if (!EMBEDDED_MESH_PREFIXES.some((prefix) => object.name.startsWith(prefix))) return;
-    object.visible = selectedMeshNameSet.has(object.name);
-  });
-}
-
 
 // Attach each shoe root to the foot bone on the same side of X=0.
 // Shoe GLBs follow viewer-left naming (negative X = viewer's left = character's anatomical
@@ -195,8 +182,6 @@ export function AvatarModel({
   url = AVATAR_MODEL_URL,
   animationUrl,
   animationName,
-  slotSelections,
-  embeddedMeshNames,
   externalAssets = [],
   bodyShape,
   preserveHipsPosition,
@@ -213,18 +198,11 @@ export function AvatarModel({
     [externalAssets],
   );
   const externalGltfs = useGLTF(externalAssetUrls);
-  const selectedEmbeddedMeshNames = useMemo(() => {
-    if (embeddedMeshNames) return embeddedMeshNames;
-
-    const selectedTop = slotSelections?.top ?? DEFAULT_AVATAR_TOP;
-    return [getAvatarTopMeshName(selectedTop)];
-  }, [embeddedMeshNames, slotSelections]);
   const { scene, garmentScenes, hipsAnchor, rootScale, rootPosition } = useMemo(() => {
     const clonedScene = clone(gltf.scene);
     const hips = clonedScene.getObjectByName('Hips');
     clonedScene.updateMatrixWorld(true);
     disableMeshFrustumCulling(clonedScene);
-    applyEmbeddedMeshVisibility(clonedScene, selectedEmbeddedMeshNames);
     const bounds = new Box3().setFromObject(clonedScene);
     const size = new Vector3();
     const center = new Vector3();
@@ -256,7 +234,7 @@ export function AvatarModel({
       rootScale: scale,
       rootPosition: position,
     };
-  }, [bodyShape, externalAssets, externalGltfs, gltf.scene, selectedEmbeddedMeshNames]);
+  }, [bodyShape, externalAssets, externalGltfs, gltf.scene]);
   const animationClips = useMemo(
     () => sanitizeAnimationClips(animationSource.animations, hipsAnchor, preserveHipsPosition),
     [animationSource.animations, hipsAnchor, preserveHipsPosition],

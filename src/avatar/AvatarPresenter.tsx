@@ -2,7 +2,7 @@ import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import { AvatarScene } from './AvatarScene';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarBodyShapeConfig, AvatarSceneData, AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarSceneData } from './avatarTypes';
 import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
 interface AvatarPresenterProps {
@@ -11,8 +11,6 @@ interface AvatarPresenterProps {
   modelUrl?: string;
   animationUrl?: string;
   animationName?: string | null;
-  slotSelections?: AvatarSlotSelections;
-  embeddedMeshNames?: string[];
   externalAssets?: AvatarExternalAsset[];
   requiredUrls?: string[];
   bodyShape?: AvatarBodyShapeConfig;
@@ -31,8 +29,6 @@ export function AvatarPresenter({
   modelUrl = AVATAR_MODEL_URL,
   animationUrl,
   animationName,
-  slotSelections,
-  embeddedMeshNames,
   externalAssets,
   requiredUrls,
   bodyShape,
@@ -53,8 +49,6 @@ export function AvatarPresenter({
         modelUrl={modelUrl}
         animationUrl={animationUrl}
         animationName={animationName}
-        slotSelections={slotSelections}
-        embeddedMeshNames={embeddedMeshNames}
         externalAssets={externalAssets}
         requiredUrls={requiredUrls}
         bodyShape={bodyShape}
@@ -75,8 +69,6 @@ export function AvatarPresenter({
       modelUrl={modelUrl}
       animationUrl={animationUrl}
       animationName={animationName}
-      slotSelections={slotSelections}
-      embeddedMeshNames={embeddedMeshNames}
       externalAssets={externalAssets}
       requiredUrls={requiredUrls}
       bodyShape={bodyShape}
@@ -109,8 +101,6 @@ function AvatarPresenterContent({
   modelUrl = AVATAR_MODEL_URL,
   animationUrl,
   animationName,
-  slotSelections,
-  embeddedMeshNames,
   externalAssets,
   bodyShape,
   preserveHipsPosition,
@@ -130,8 +120,6 @@ function AvatarPresenterContent({
           modelUrl={modelUrl}
           animationUrl={animationUrl}
           animationName={animationName}
-          slotSelections={slotSelections}
-          embeddedMeshNames={embeddedMeshNames}
           externalAssets={externalAssets}
           bodyShape={bodyShape}
           preserveHipsPosition={preserveHipsPosition}

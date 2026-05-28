@@ -6,15 +6,13 @@ import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { AvatarModel } from './AvatarModel';
 import { AvatarSkeletonOverlay } from './AvatarSkeletonOverlay';
 import { AvatarExternalAsset } from './avatarAssetResolver';
-import { AvatarBodyShapeConfig, AvatarSceneData, AvatarSlotSelections } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarSceneData } from './avatarTypes';
 
 interface AvatarSceneProps {
   className?: string;
   modelUrl?: string;
   animationUrl?: string;
   animationName?: string | null;
-  slotSelections?: AvatarSlotSelections;
-  embeddedMeshNames?: string[];
   externalAssets?: AvatarExternalAsset[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
@@ -71,8 +69,6 @@ export function AvatarScene({
   modelUrl,
   animationUrl,
   animationName,
-  slotSelections,
-  embeddedMeshNames,
   externalAssets,
   bodyShape,
   preserveHipsPosition,
@@ -115,8 +111,6 @@ export function AvatarScene({
             url={modelUrl}
             animationUrl={animationUrl}
             animationName={animationName}
-            slotSelections={slotSelections}
-            embeddedMeshNames={embeddedMeshNames}
             externalAssets={externalAssets}
             bodyShape={bodyShape}
             preserveHipsPosition={preserveHipsPosition}

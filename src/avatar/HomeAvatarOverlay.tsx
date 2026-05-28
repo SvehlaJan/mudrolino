@@ -1,10 +1,7 @@
 import { AvatarPresenter } from './AvatarPresenter';
 import { AVATAR_MODULAR_MALE_MODEL_URL } from './avatarConstants';
-import { useAvatarState } from './useAvatarState';
 
 export function HomeAvatarOverlay() {
-  const { avatarState } = useAvatarState();
-
   return (
     <div
       aria-hidden="true"
@@ -13,7 +10,6 @@ export function HomeAvatarOverlay() {
       <AvatarPresenter
         className="h-full w-full"
         modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
-        slotSelections={avatarState.config.slotSelections}
       />
     </div>
   );

@@ -17,7 +17,7 @@ interface AvatarCatalogItemBase<TId extends AvatarCatalogItemId, TSlot extends A
 }
 
 export type AvatarTopCatalogItem = AvatarCatalogItemBase<AvatarTopItemId, 'top'> & {
-  source: { kind: 'embeddedMesh'; meshName: string };
+  source: { kind: 'none' };
 };
 
 export type AvatarShoesCatalogItem = AvatarCatalogItemBase<AvatarShoesItemId, 'shoes'> & {
@@ -34,26 +34,17 @@ export type AvatarAccessoryCatalogItem = AvatarCatalogItemBase<AvatarAccessoryIt
 
 export type AvatarCatalogItem = AvatarTopCatalogItem | AvatarShoesCatalogItem | AvatarAccessoryCatalogItem;
 
-export const DEFAULT_AVATAR_TOP: AvatarTopItemId = 'top_blue_tshirt';
+export const DEFAULT_AVATAR_TOP: AvatarTopItemId = 'top_none';
 export const DEFAULT_AVATAR_SHOES: AvatarShoesItemId = 'shoes_none';
 export const DEFAULT_AVATAR_ACCESSORY: AvatarAccessoryItemId = 'accessory_none';
 
 export const AVATAR_TOP_ITEMS: AvatarTopCatalogItem[] = [
   {
-    id: 'top_blue_tshirt',
+    id: 'top_none',
     slot: 'top',
-    label: 'Modré tričko',
-    swatchClassName: 'bg-accent-blue',
+    label: 'No top',
     compatibleBaseVariants: ['male'],
-    source: { kind: 'embeddedMesh', meshName: 'top_blue_tshirt' },
-  },
-  {
-    id: 'top_green_hoodie',
-    slot: 'top',
-    label: 'Zelená mikina',
-    swatchClassName: 'bg-success',
-    compatibleBaseVariants: ['male'],
-    source: { kind: 'embeddedMesh', meshName: 'top_green_hoodie' },
+    source: { kind: 'none' },
   },
 ];
 
@@ -117,9 +108,4 @@ export function getAvatarCatalogItem(id: AvatarCatalogItemId): AvatarCatalogItem
   return [...AVATAR_TOP_ITEMS, ...AVATAR_SHOES_ITEMS, ...AVATAR_ACCESSORY_ITEMS].find(
     (item) => item.id === id,
   );
-}
-
-export function getAvatarTopMeshName(itemId: AvatarTopItemId): string {
-  const source = getAvatarCatalogItem(itemId)?.source;
-  return source?.kind === 'embeddedMesh' ? source.meshName : DEFAULT_AVATAR_TOP;
 }

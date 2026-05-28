@@ -29,7 +29,6 @@ export interface ResolvedAvatarAssets {
   animationUrl?: string;
   animationName: string | null;
   preserveHipsPosition: boolean;
-  embeddedMeshNames: string[];
   externalAssets: AvatarExternalAsset[];
   requiredUrls: string[];
   animationWarnings: string[];
@@ -63,10 +62,6 @@ export function resolveAvatarAssets(config: AvatarConfig): ResolvedAvatarAssets 
   const selectedItems = AVATAR_SLOT_SELECTION_KEYS.map((slotKey) =>
     getAvatarCatalogItem(config.slotSelections[slotKey]),
   ).filter((item): item is NonNullable<typeof item> => Boolean(item));
-
-  const embeddedMeshNames = selectedItems.flatMap((item) =>
-    item.source.kind === 'embeddedMesh' ? [item.source.meshName] : [],
-  );
 
   const externalAssets = selectedItems.flatMap((item): AvatarExternalAsset[] =>
     item.source.kind === 'externalGltf'
@@ -103,7 +98,6 @@ export function resolveAvatarAssets(config: AvatarConfig): ResolvedAvatarAssets 
     animationUrl: animation.animationUrl,
     animationName: animation.animationName,
     preserveHipsPosition: animation.preserveHipsPosition,
-    embeddedMeshNames,
     externalAssets,
     requiredUrls,
     animationWarnings,
