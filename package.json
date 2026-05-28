@@ -11,7 +11,10 @@
     "lint": "tsc --noEmit && node_modules/.bin/eslint src --ext ts,tsx",
     "test:audio": "npx tsx public/audio/_review/check_audio.ts",
     "avatar:gltf:inspect": "gltf-transform inspect",
-    "avatar:gltf:validate": "node tools/avatar/validate_gltf.js"
+    "avatar:gltf:validate": "node tools/avatar/validate_gltf.js",
+    "avatar:gltf:optimize:body": "gltf-transform optimize public/avatar/modular/male-base-plain.glb public/avatar/modular/male-base-plain.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false && gltf-transform optimize public/avatar/modular/male-base-plain-walking.glb public/avatar/modular/male-base-plain-walking.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false && gltf-transform optimize public/avatar/modular/male-base-plain-running.glb public/avatar/modular/male-base-plain-running.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false",
+    "avatar:gltf:optimize:shoes": "gltf-transform optimize public/avatar/garments/shoes_blue_sneakers_v1.glb public/avatar/garments/shoes_blue_sneakers_v1.glb --simplify true --simplify-ratio 0.02 --texture-compress webp --texture-size 512 --compress meshopt --flatten false --join false",
+    "avatar:gltf:optimize:hat": "gltf-transform optimize public/avatar/garments/hat_red_cap_v1.glb public/avatar/garments/hat_red_cap_v1.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
