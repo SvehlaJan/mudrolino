@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -181,8 +181,7 @@ function parseUrlParams(params: URLSearchParams): Partial<{
 export function AvatarPreviewScreen() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  // isAgentMode will be used in Task 8 for the agent clean layout
-  const _isAgentMode = searchParams.get('agent') === '1';
+  const isAgentMode = searchParams.get('agent') === '1';
   const [previewState, setPreviewState] = useState<StoredAvatarState>(() => {
     const base = loadAvatarState();
     const url = parseUrlParams(searchParams);
@@ -245,6 +244,13 @@ export function AvatarPreviewScreen() {
     setSceneData(null);
   }, [modelReadyKey]);
 
+  useEffect(() => {
+    document.title = isAgentMode ? 'Avatar debug' : 'Avatar workbench';
+    return () => {
+      document.title = 'Hravé Učenie';
+    };
+  }, [isAgentMode]);
+
   return (
     <div className="min-h-[100svh] overflow-y-auto bg-bg-light p-4 text-text-main sm:p-6 lg:p-8">
       <button
@@ -255,7 +261,14 @@ export function AvatarPreviewScreen() {
         <ArrowLeft size={28} />
       </button>
 
-      <main className="mx-auto grid min-h-[calc(100svh-2rem)] max-w-7xl gap-5 pt-16 lg:grid-cols-[380px_minmax(0,1fr)] lg:pt-0">
+      <main
+        className={`mx-auto grid min-h-[calc(100svh-2rem)] max-w-7xl gap-5 pt-16 lg:pt-0 ${
+          isAgentMode
+            ? 'grid-cols-1'
+            : 'lg:grid-cols-[380px_minmax(0,1fr)]'
+        }`}
+      >
+        {!isAgentMode && (
         <aside className="rounded-[24px] bg-white p-5 shadow-chip lg:max-h-[calc(100svh-4rem)] lg:overflow-y-auto">
           <div className="pb-5">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
@@ -452,10 +465,15 @@ export function AvatarPreviewScreen() {
             </div>
           </WorkbenchSection>
         </aside>
+        )}
 
         <section className="grid min-h-[680px] gap-5 lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_auto]">
           <div className="min-h-[520px] rounded-[24px] bg-white p-4 shadow-chip sm:p-5">
-            <div className="h-[min(72svh,760px)] min-h-[500px] overflow-hidden rounded-[20px] bg-[radial-gradient(circle_at_top,rgba(108,196,255,0.18),transparent_42%),linear-gradient(180deg,rgba(250,251,255,1),rgba(237,243,248,1))]">
+            <div className={`overflow-hidden rounded-[20px] bg-[radial-gradient(circle_at_top,rgba(108,196,255,0.18),transparent_42%),linear-gradient(180deg,rgba(250,251,255,1),rgba(237,243,248,1))] ${
+              isAgentMode
+                ? 'h-[min(85svh,900px)] min-h-[600px]'
+                : 'h-[min(72svh,760px)] min-h-[500px]'
+            }`}>
               {previewAssetStatus === 'available' ? (
                 <div className="relative h-full w-full">
                   <AvatarPresenter
