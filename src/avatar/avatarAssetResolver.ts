@@ -38,7 +38,7 @@ function getAnimationSource(animation: AvatarAnimationName) {
   if (animation === 'walk') {
     return {
       animationUrl: AVATAR_MODULAR_MALE_WALKING_MODEL_URL,
-      animationName: 'walk_test',
+      animationName: 'walk',
       preserveHipsPosition: true,
     };
   }
@@ -46,7 +46,7 @@ function getAnimationSource(animation: AvatarAnimationName) {
   if (animation === 'run') {
     return {
       animationUrl: AVATAR_MODULAR_MALE_RUNNING_MODEL_URL,
-      animationName: 'run_test',
+      animationName: 'run',
       preserveHipsPosition: true,
     };
   }
