@@ -1,7 +1,12 @@
 import { AvatarPresenter } from './AvatarPresenter';
+import { resolveAvatarAssets } from './avatarAssetResolver';
 import { AVATAR_MODULAR_MALE_MODEL_URL } from './avatarConstants';
+import { useAvatarState } from './useAvatarState';
 
 export function HomeAvatarOverlay() {
+  const { avatarState } = useAvatarState();
+  const resolvedAssets = resolveAvatarAssets(avatarState.config);
+
   return (
     <div
       aria-hidden="true"
@@ -10,6 +15,7 @@ export function HomeAvatarOverlay() {
       <AvatarPresenter
         className="h-full w-full"
         modelUrl={AVATAR_MODULAR_MALE_MODEL_URL}
+        externalAssets={resolvedAssets.externalAssets}
       />
     </div>
   );
