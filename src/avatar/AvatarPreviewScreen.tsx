@@ -556,6 +556,79 @@ export function AvatarPreviewScreen() {
           </div>
 
           <div className="rounded-[24px] bg-white p-5 shadow-chip">
+            {isAgentMode && (
+              <div className="mb-5 space-y-3 border-b border-text-main/10 pb-5">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">Controls</p>
+                {/* Animation */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="w-20 shrink-0 text-xs font-bold text-text-main/45">Animation</span>
+                  {ANIMATION_OPTIONS.map((anim) => (
+                    <button
+                      key={anim}
+                      onClick={() => setConfig((c) => ({ ...c, animation: anim }))}
+                      className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                        previewState.config.animation === anim
+                          ? 'bg-accent-blue text-white'
+                          : 'bg-bg-light text-text-main hover:bg-text-main/10'
+                      }`}
+                    >
+                      {animationLabels[anim]}
+                    </button>
+                  ))}
+                </div>
+                {/* Top */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="w-20 shrink-0 text-xs font-bold text-text-main/45">Top</span>
+                  {AVATAR_TOP_ITEMS.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setConfig((c) => ({ ...c, slotSelections: { ...c.slotSelections, top: item.id } }))}
+                      className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                        previewState.config.slotSelections.top === item.id
+                          ? 'bg-accent-blue text-white'
+                          : 'bg-bg-light text-text-main hover:bg-text-main/10'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+                {/* Shoes */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="w-20 shrink-0 text-xs font-bold text-text-main/45">Shoes</span>
+                  {AVATAR_SHOES_ITEMS.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setConfig((c) => ({ ...c, slotSelections: { ...c.slotSelections, shoes: item.id } }))}
+                      className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                        previewState.config.slotSelections.shoes === item.id
+                          ? 'bg-accent-blue text-white'
+                          : 'bg-bg-light text-text-main hover:bg-text-main/10'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+                {/* Accessory */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="w-20 shrink-0 text-xs font-bold text-text-main/45">Accessory</span>
+                  {AVATAR_ACCESSORY_ITEMS.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setConfig((c) => ({ ...c, slotSelections: { ...c.slotSelections, accessory: item.id } }))}
+                      className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                        previewState.config.slotSelections.accessory === item.id
+                          ? 'bg-accent-blue text-white'
+                          : 'bg-bg-light text-text-main hover:bg-text-main/10'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="grid gap-4 lg:grid-cols-3">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-text-main/45">
