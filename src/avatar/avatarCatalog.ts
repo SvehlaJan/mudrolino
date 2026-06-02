@@ -57,7 +57,7 @@ export const AVATAR_TOP_ITEMS: AvatarTopCatalogItem[] = [
     source: {
       kind: 'externalGltf',
       url: '/avatar/garments/top_blue_tshirt_v1.glb',
-      animationReady: false,
+      animationReady: true,
     },
   },
   {
