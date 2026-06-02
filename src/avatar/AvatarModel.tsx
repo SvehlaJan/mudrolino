@@ -6,6 +6,7 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 import { AvatarBodyShapeConfig, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
+import { hasSkinnedMesh, rebindGarmentToBaseSkeleton } from './skinnedGarment';
 
 interface AvatarModelProps {
   url?: string;
@@ -217,11 +218,13 @@ export function AvatarModel({
       clonedGarmentScene.updateMatrixWorld(true);
       disableMeshFrustumCulling(clonedGarmentScene);
 
-      if (externalAssets[index]?.slot === 'shoes') {
+      const slot = externalAssets[index]?.slot;
+      if (slot === 'shoes') {
         attachShoeSceneToFootBones(clonedScene, clonedGarmentScene);
-      }
-      if (externalAssets[index]?.slot === 'accessory') {
+      } else if (slot === 'accessory') {
         attachAccessoryToHeadBone(clonedScene, clonedGarmentScene);
+      } else if (slot === 'top' && hasSkinnedMesh(clonedGarmentScene)) {
+        rebindGarmentToBaseSkeleton(clonedGarmentScene, clonedScene);
       }
 
       return clonedGarmentScene;
