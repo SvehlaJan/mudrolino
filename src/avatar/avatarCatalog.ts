@@ -17,7 +17,9 @@ interface AvatarCatalogItemBase<TId extends AvatarCatalogItemId, TSlot extends A
 }
 
 export type AvatarTopCatalogItem = AvatarCatalogItemBase<AvatarTopItemId, 'top'> & {
-  source: { kind: 'none' };
+  source:
+    | { kind: 'externalGltf'; url: string; animationReady: boolean }
+    | { kind: 'none' };
 };
 
 export type AvatarShoesCatalogItem = AvatarCatalogItemBase<AvatarShoesItemId, 'shoes'> & {
@@ -45,6 +47,30 @@ export const AVATAR_TOP_ITEMS: AvatarTopCatalogItem[] = [
     label: 'No top',
     compatibleBaseVariants: ['male'],
     source: { kind: 'none' },
+  },
+  {
+    id: 'top_blue_tshirt_v1',
+    slot: 'top',
+    label: 'Blue t-shirt',
+    swatchClassName: 'bg-accent-blue',
+    compatibleBaseVariants: ['male'],
+    source: {
+      kind: 'externalGltf',
+      url: '/avatar/garments/top_blue_tshirt_v1.glb',
+      animationReady: false,
+    },
+  },
+  {
+    id: 'top_orange_hoodie_v1',
+    slot: 'top',
+    label: 'Orange hoodie',
+    swatchClassName: 'bg-accent-orange',
+    compatibleBaseVariants: ['male'],
+    source: {
+      kind: 'externalGltf',
+      url: '/avatar/garments/top_orange_hoodie_v1.glb',
+      animationReady: false,
+    },
   },
 ];
 

@@ -1,0 +1,43 @@
+{
+  "project_name": "top-orange-hoodie-v1",
+  "folder": "20260602_071712_top-orange-hoodie-v1_019e86bf",
+  "root_task_id": "019e86bf-dfdd-76b6-8c4c-6c08db63f3f8",
+  "created_at": "2026-06-02T07:17:13.694846",
+  "updated_at": "2026-06-02T07:22:04.771935",
+  "tasks": [
+    {
+      "task_id": "019e86bf-dfdd-76b6-8c4c-6c08db63f3f8",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "files": [
+        "preview.glb"
+      ],
+      "created_at": "2026-06-02T07:17:13.694951",
+      "extra": {
+        "endpoint": "/openapi/v2/text-to-3d",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "glb"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20260602_071712_top-orange-hoodie-v1_019e86bf/thumbnail.png"
+      }
+    },
+    {
+      "task_id": "019e86c6-3c08-7882-a85a-08fa0bb367fa",
+      "task_type": "text-to-3d",
+      "stage": "refine",
+      "files": [
+        "refined.glb"
+      ],
+      "created_at": "2026-06-02T07:22:04.771942",
+      "extra": {
+        "endpoint": "/openapi/v2/text-to-3d",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "glb"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20260602_071712_top-orange-hoodie-v1_019e86bf/thumbnail.png"
+      }
+    }
+  ]
+}

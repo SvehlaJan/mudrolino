@@ -214,6 +214,7 @@
 - [ ] Add a female-coded underlayer base as a separate `baseVariant`, not as a clothing preset
 - [ ] Decide whether male and female bases can share one animation set directly or need per-base Blender retarget/export steps
 - [x] Move from baked combined preview GLBs to runtime-loading separate garment GLBs for static slots
+- [x] Populate the external-GLB `top` slot with first garments (`top_blue_tshirt_v1`, `top_orange_hoodie_v1`) generated via Meshy text-to-3d
 - [ ] Make footwear animation-ready without foot poke-through or unacceptable deformation
 - [ ] Design clothing catalog items so one item ID can map to per-base fitted assets, e.g. male and female GLBs for the same shirt
 - [ ] Add compatibility metadata for clothing assets by `baseVariant`, slot, and supported body-shape range
@@ -287,3 +288,5 @@
 | 2026-05-01 | Avatar customization should move to a scratch-built male-coded underlayer base before clothing work. | The current clothed Meshy character proved the runtime and animation cleanup path, but it is one fused mesh with one material, so real clothing slots need a new modular base asset. |
 | 2026-05-01 | Avatar MVP will use one modular GLB per base and implement only the `top` slot first. | This keeps the renderer simpler while preserving a slot-ready state/catalog design; separate clothing GLBs remain a backlog goal after the first base works. |
 | 2026-05-01 | Face customization starts with an easier generated face decal, not full head replacement. | A selfie can be transformed server-side into a stylized face PNG and applied to a prepared face anchor; UV-based head texture replacement can wait until the decal approach is validated. |
+| 2026-06-02 | Garment tops are generated with Meshy text-to-3d (lowpoly, Meshy 6), not multi-image. | Text-to-3d produced clean hollow t-shirt and hoodie shells with no reference-image dependency; multi-image stays the fallback for pieces text-to-3d handles poorly. |
+| 2026-06-02 | Avatar garments skip `hd_texture` and are post-processed with `gltf-transform optimize` (webp/1024, no geometry compression). | 4K maps bloated a t-shirt to 17 MB for no visible gain at avatar scale; optimization lands garments under ~1 MB, and the runtime's plain `useGLTF` has no Draco/Meshopt decoder. |

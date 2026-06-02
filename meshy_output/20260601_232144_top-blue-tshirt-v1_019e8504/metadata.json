@@ -1,0 +1,43 @@
+{
+  "project_name": "top-blue-tshirt-v1",
+  "folder": "20260601_232144_top-blue-tshirt-v1_019e8504",
+  "root_task_id": "019e8504-cb2d-71d4-bdd0-2800e8d12ef1",
+  "created_at": "2026-06-01T23:21:45.773128",
+  "updated_at": "2026-06-02T07:14:10.346683",
+  "tasks": [
+    {
+      "task_id": "019e8504-cb2d-71d4-bdd0-2800e8d12ef1",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "files": [
+        "preview.glb"
+      ],
+      "created_at": "2026-06-01T23:21:45.773275",
+      "extra": {
+        "endpoint": "/openapi/v2/text-to-3d",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "glb"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20260601_232144_top-blue-tshirt-v1_019e8504/thumbnail.png"
+      }
+    },
+    {
+      "task_id": "019e86be-fd02-7767-a667-a9133a4d6694",
+      "task_type": "text-to-3d",
+      "stage": "refine",
+      "files": [
+        "refined.glb"
+      ],
+      "created_at": "2026-06-02T07:14:10.346693",
+      "extra": {
+        "endpoint": "/openapi/v2/text-to-3d",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "glb"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20260601_232144_top-blue-tshirt-v1_019e8504/thumbnail.png"
+      }
+    }
+  ]
+}

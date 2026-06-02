@@ -64,6 +64,22 @@
       "created_at": "2026-05-08T18:39:19.476712",
       "updated_at": "2026-05-08T18:39:19.476909",
       "task_count": 1
+    },
+    {
+      "folder": "20260601_232144_top-blue-tshirt-v1_019e8504",
+      "project_name": "top-blue-tshirt-v1",
+      "root_task_id": "019e8504-cb2d-71d4-bdd0-2800e8d12ef1",
+      "created_at": "2026-06-01T23:21:45.773128",
+      "updated_at": "2026-06-02T07:14:10.346683",
+      "task_count": 2
+    },
+    {
+      "folder": "20260602_071712_top-orange-hoodie-v1_019e86bf",
+      "project_name": "top-orange-hoodie-v1",
+      "root_task_id": "019e86bf-dfdd-76b6-8c4c-6c08db63f3f8",
+      "created_at": "2026-06-02T07:17:13.694846",
+      "updated_at": "2026-06-02T07:22:04.771935",
+      "task_count": 2
     }
   ]
 }
