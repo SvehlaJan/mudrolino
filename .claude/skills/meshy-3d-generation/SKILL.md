@@ -36,3 +36,15 @@ Use the repo-local helper at `tools/meshy/meshy_ops.py` for all Meshy work in th
 - Custom animation: `animate`
 
 Run `python3 tools/meshy/meshy_ops.py <command> --help` for flags.
+
+## Best-practice flags (Meshy 6 / 2026 API)
+
+`--ai-model latest` resolves to Meshy 6. Prefer these on generation commands:
+
+- `--target-formats glb` to skip unused formats and finish faster.
+- `--model-type lowpoly` for mobile-friendly, game-ready topology (this is a kids app).
+- `--auto-size --origin-at {center|bottom}` to reduce manual transform tuning of garments.
+- `--hd-texture` for 4K textures and `--keep-lighting` only when baked lighting is wanted.
+- `--image-enhancement` when feeding AI-generated reference plates to image/multi-image.
+
+`--symmetry-mode` is deprecated (2026-05-11); the helper warns when it is used. See `tools/meshy/README.md` for the full recipe. When `--wait` is set, responses surface `consumed_credits`.

@@ -165,6 +165,44 @@ def coerce_image_input(value: str, cwd: Path) -> str:
     return file_to_data_uri(path)
 
 
+def warn_deprecated_symmetry(args: argparse.Namespace) -> None:
+    if getattr(args, "symmetry_mode", None):
+        stderr(
+            "WARNING: --symmetry-mode was deprecated by Meshy on 2026-05-11 for text/image/"
+            "multi-image tasks and may be ignored by the latest models."
+        )
+
+
+def apply_sizing_format_flags(payload: dict[str, Any], args: argparse.Namespace) -> None:
+    """Sizing/format flags shared by preview, refine, image, and multi-image tasks."""
+    target_formats = getattr(args, "target_formats", None)
+    if target_formats:
+        payload["target_formats"] = target_formats
+    if getattr(args, "auto_size", False):
+        payload["auto_size"] = True
+    origin_at = getattr(args, "origin_at", None)
+    if origin_at:
+        payload["origin_at"] = origin_at
+
+
+def apply_mesh_shaping_flags(payload: dict[str, Any], args: argparse.Namespace) -> None:
+    """Topology/poly-budget flags shared by preview, image, and multi-image tasks."""
+    model_type = getattr(args, "model_type", None)
+    if model_type:
+        payload["model_type"] = model_type
+    decimation_mode = getattr(args, "decimation_mode", None)
+    if decimation_mode:
+        payload["decimation_mode"] = decimation_mode
+
+
+def apply_texture_quality_flags(payload: dict[str, Any], args: argparse.Namespace) -> None:
+    """Texture-quality flags shared by refine, image, multi-image, and retexture tasks."""
+    if getattr(args, "hd_texture", False):
+        payload["hd_texture"] = True
+    if getattr(args, "keep_lighting", False):
+        payload["remove_lighting"] = False
+
+
 class MeshyClient:
     def __init__(self, api_key: str):
         self.api_key = api_key
@@ -324,6 +362,8 @@ def build_task_response(
     }
     if task is not None:
         response["status"] = task.get("status")
+        if task.get("consumed_credits") is not None:
+            response["consumed_credits"] = task["consumed_credits"]
         if "model_urls" in task:
             response["available_formats"] = sorted(task["model_urls"].keys())
         response["task"] = task
@@ -411,13 +451,12 @@ def handle_balance(args: argparse.Namespace, cwd: Path) -> None:
 def handle_text_to_3d_preview(args: argparse.Namespace, cwd: Path) -> None:
     require_confirmation(args)
     client = MeshyClient(require_api_key(cwd))
+    warn_deprecated_symmetry(args)
     payload: dict[str, Any] = {
         "mode": "preview",
         "prompt": args.prompt,
         "ai_model": args.ai_model,
     }
-    if args.model_type:
-        payload["model_type"] = args.model_type
     if args.topology:
         payload["topology"] = args.topology
     if args.target_polycount is not None:
@@ -428,6 +467,8 @@ def handle_text_to_3d_preview(args: argparse.Namespace, cwd: Path) -> None:
         payload["symmetry_mode"] = args.symmetry_mode
     if args.pose_mode:
         payload["pose_mode"] = args.pose_mode
+    apply_mesh_shaping_flags(payload, args)
+    apply_sizing_format_flags(payload, args)
 
     endpoint = "/openapi/v2/text-to-3d"
     task_id = client.create_task(endpoint, payload)
@@ -458,6 +499,10 @@ def handle_text_to_3d_refine(args: argparse.Namespace, cwd: Path) -> None:
     }
     if args.texture_prompt:
         payload["texture_prompt"] = args.texture_prompt
+    if args.texture_image_url:
+        payload["texture_image_url"] = coerce_image_input(args.texture_image_url, cwd)
+    apply_texture_quality_flags(payload, args)
+    apply_sizing_format_flags(payload, args)
     endpoint = "/openapi/v2/text-to-3d"
     task_id = client.create_task(endpoint, payload)
     response = maybe_wait_for_task(
@@ -485,6 +530,11 @@ def handle_image_to_3d(args: argparse.Namespace, cwd: Path) -> None:
         "enable_pbr": not args.disable_pbr,
         "ai_model": args.ai_model,
     }
+    if args.image_enhancement:
+        payload["image_enhancement"] = True
+    apply_mesh_shaping_flags(payload, args)
+    apply_sizing_format_flags(payload, args)
+    apply_texture_quality_flags(payload, args)
     endpoint = "/openapi/v1/image-to-3d"
     task_id = client.create_task(endpoint, payload)
     response = maybe_wait_for_task(
@@ -512,6 +562,11 @@ def handle_multi_image_to_3d(args: argparse.Namespace, cwd: Path) -> None:
         "enable_pbr": not args.disable_pbr,
         "ai_model": args.ai_model,
     }
+    if args.image_enhancement:
+        payload["image_enhancement"] = True
+    apply_mesh_shaping_flags(payload, args)
+    apply_sizing_format_flags(payload, args)
+    apply_texture_quality_flags(payload, args)
     endpoint = "/openapi/v1/multi-image-to-3d"
     task_id = client.create_task(endpoint, payload)
     response = maybe_wait_for_task(
@@ -544,6 +599,7 @@ def handle_retexture(args: argparse.Namespace, cwd: Path) -> None:
         payload["text_style_prompt"] = args.text_style
     if args.image_style:
         payload["image_style_url"] = coerce_image_input(args.image_style, cwd)
+    apply_texture_quality_flags(payload, args)
 
     endpoint = "/openapi/v1/retexture"
     task_id = client.create_task(endpoint, payload)
@@ -690,6 +746,27 @@ def add_shared_generation_flags(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--download-glb", action="store_true", help="Download the resulting .glb when Meshy returns one.")
 
 
+def add_sizing_format_flags(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--target-formats",
+        action="append",
+        choices=("glb", "obj", "fbx", "stl", "usdz", "3mf"),
+        help="Restrict generated formats (repeat per format). Pass 'glb' to skip unused formats and finish faster.",
+    )
+    parser.add_argument("--auto-size", action="store_true", help="Let Meshy estimate real-world height and rescale the mesh.")
+    parser.add_argument("--origin-at", choices=("bottom", "center"), help="Mesh origin placement (default bottom).")
+
+
+def add_mesh_shaping_flags(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--model-type", choices=("standard", "lowpoly"), help="lowpoly yields game/mobile-ready topology.")
+    parser.add_argument("--decimation-mode", type=int, choices=(1, 2, 3, 4), help="Adaptive polygon-reduction level (1-4).")
+
+
+def add_texture_quality_flags(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--hd-texture", action="store_true", help="Generate 4K textures (meshy-6/latest only).")
+    parser.add_argument("--keep-lighting", action="store_true", help="Keep baked lighting in textures (default removes it).")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Project-local Meshy 3D helper")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -700,37 +777,49 @@ def build_parser() -> argparse.ArgumentParser:
     preview = subparsers.add_parser("text-to-3d-preview", help="Create a preview text-to-3d task.")
     add_shared_generation_flags(preview)
     preview.add_argument("--prompt", required=True)
-    preview.add_argument("--ai-model", default="latest")
-    preview.add_argument("--model-type")
+    preview.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
     preview.add_argument("--topology", choices=("triangle", "quad"))
     preview.add_argument("--target-polycount", type=int)
     preview.add_argument("--should-remesh", action="store_true")
-    preview.add_argument("--symmetry-mode", choices=("auto", "on", "off"))
+    preview.add_argument("--symmetry-mode", choices=("auto", "on", "off"), help="Deprecated by Meshy 2026-05-11; may be ignored.")
     preview.add_argument("--pose-mode", choices=("a-pose", "t-pose"))
+    add_mesh_shaping_flags(preview)
+    add_sizing_format_flags(preview)
     preview.set_defaults(handler=handle_text_to_3d_preview)
 
     refine = subparsers.add_parser("text-to-3d-refine", help="Refine a preview text-to-3d task.")
     add_shared_generation_flags(refine)
     refine.add_argument("--preview-task-id", required=True)
-    refine.add_argument("--ai-model", default="latest")
+    refine.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
     refine.add_argument("--texture-prompt")
+    refine.add_argument("--texture-image-url", help="URL, data URI, or local image path to guide the texture.")
     refine.add_argument("--disable-pbr", action="store_true")
+    add_sizing_format_flags(refine)
+    add_texture_quality_flags(refine)
     refine.set_defaults(handler=handle_text_to_3d_refine)
 
     image = subparsers.add_parser("image-to-3d", help="Create a 3D model from one image.")
     add_shared_generation_flags(image)
     image.add_argument("--image", required=True, help="URL, data URI, or local image path.")
-    image.add_argument("--ai-model", default="latest")
+    image.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
     image.add_argument("--no-texture", action="store_true")
     image.add_argument("--disable-pbr", action="store_true")
+    image.add_argument("--image-enhancement", action="store_true", help="Pre-clean the input image before generation.")
+    add_mesh_shaping_flags(image)
+    add_sizing_format_flags(image)
+    add_texture_quality_flags(image)
     image.set_defaults(handler=handle_image_to_3d)
 
     multi_image = subparsers.add_parser("multi-image-to-3d", help="Create a 3D model from multiple images.")
     add_shared_generation_flags(multi_image)
     multi_image.add_argument("--image", action="append", required=True, help="Repeat for each image input.")
-    multi_image.add_argument("--ai-model", default="latest")
+    multi_image.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
     multi_image.add_argument("--no-texture", action="store_true")
     multi_image.add_argument("--disable-pbr", action="store_true")
+    multi_image.add_argument("--image-enhancement", action="store_true", help="Pre-clean the input images before generation.")
+    add_mesh_shaping_flags(multi_image)
+    add_sizing_format_flags(multi_image)
+    add_texture_quality_flags(multi_image)
     multi_image.set_defaults(handler=handle_multi_image_to_3d)
 
     retexture = subparsers.add_parser("retexture", help="Apply a new texture style to a Meshy task or model URL.")
@@ -742,6 +831,7 @@ def build_parser() -> argparse.ArgumentParser:
     style_group.add_argument("--text-style")
     style_group.add_argument("--image-style", help="URL, data URI, or local image path.")
     retexture.add_argument("--disable-pbr", action="store_true")
+    add_texture_quality_flags(retexture)
     retexture.set_defaults(handler=handle_retexture)
 
     remesh = subparsers.add_parser("remesh", help="Change formats or topology for a Meshy task.")
