@@ -69,7 +69,7 @@ export const AVATAR_TOP_ITEMS: AvatarTopCatalogItem[] = [
     source: {
       kind: 'externalGltf',
       url: '/avatar/garments/top_orange_hoodie_v1.glb',
-      animationReady: false,
+      animationReady: true,
     },
   },
 ];
