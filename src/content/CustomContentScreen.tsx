@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Trash2 } from 'lucide-react';
+import { Edit3, EyeOff, Plus, RotateCcw, Trash2 } from 'lucide-react';
 import { useContent } from '../shared/contexts/ContentContext';
 import { getLocaleContent } from '../shared/contentRegistry';
 import { audioOverrideStore } from '../shared/services/audioOverrideStore';
@@ -15,6 +15,10 @@ import { RecordingListItem } from '../recordings/RecordingListItem';
 import type { AudioItem } from '../recordings/RecordingListItem';
 import { AppScreen, BackButton, TopBar } from '../shared/ui';
 import type { UserWord, UserPraise } from '../shared/types';
+import {
+  validateWordForm,
+} from './customContentValidation';
+import type { WordFormErrors } from './customContentValidation';
 
 type Section = 'letters' | 'numbers' | 'phrases' | 'words' | 'praise';
 
@@ -28,6 +32,44 @@ const SECTION_LABELS: Record<Section, string> = {
 
 const SECTIONS: Section[] = ['letters', 'numbers', 'phrases', 'words', 'praise'];
 const SAVED_FLASH_MS = 800;
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return <p className="text-sm font-bold text-red-500">{message}</p>;
+}
+
+function SectionNotice({ message }: { message: string | null }) {
+  if (!message) return null;
+  return (
+    <div className="rounded-2xl border-2 border-amber-200 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-700">
+      {message}
+    </div>
+  );
+}
+
+function SectionSummary({
+  readyCount,
+  draftCount,
+  hiddenDefaultCount,
+}: {
+  readyCount: number;
+  draftCount: number;
+  hiddenDefaultCount: number;
+}) {
+  return (
+    <div className="grid grid-cols-3 gap-2">
+      <div className="rounded-2xl bg-green-50 px-3 py-2 text-center text-sm font-bold text-green-700">
+        Hotové: {readyCount}
+      </div>
+      <div className="rounded-2xl bg-amber-50 px-3 py-2 text-center text-sm font-bold text-amber-700">
+        Koncepty: {draftCount}
+      </div>
+      <div className="rounded-2xl bg-shadow/10 px-3 py-2 text-center text-sm font-bold text-text-main/65">
+        Skryté: {hiddenDefaultCount}
+      </div>
+    </div>
+  );
+}
 
 function buildSystemItems(locale: string, section: 'letters' | 'numbers' | 'phrases'): AudioItem[] {
   const content = getLocaleContent(locale);
@@ -143,7 +185,14 @@ interface EditableWordListProps {
 }
 
 function EditableWordList({ locale }: EditableWordListProps) {
-  const { allUserWords, addWord, updateWord, deleteWord } = useContent();
+  const {
+    allUserWords,
+    addWord,
+    updateWord,
+    deleteWord,
+    hideDefaultWord,
+    restoreDefaultWords,
+  } = useContent();
   const recorder = useRecorder();
   const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -157,6 +206,9 @@ function EditableWordList({ locale }: EditableWordListProps) {
   const [formWord, setFormWord] = useState('');
   const [formSyllables, setFormSyllables] = useState('');
   const [formEmoji, setFormEmoji] = useState('');
+  const [formErrors, setFormErrors] = useState<WordFormErrors>({});
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [sectionNotice, setSectionNotice] = useState<string | null>(null);
 
   useEffect(() => {
     audioOverrideStore.listKeys().then((keys) => setOverrideKeys(new Set(keys)));
@@ -215,24 +267,107 @@ function EditableWordList({ locale }: EditableWordListProps) {
     setOverrideKeys(new Set(keys));
   }, [locale, updateWord]);
 
-  const handleAddWord = useCallback(async () => {
-    if (!formWord.trim() || !formSyllables.trim() || !formEmoji.trim()) return;
-    const id = crypto.randomUUID();
-    await addWord({
-      word: formWord.trim(),
-      syllables: formSyllables.trim().toLowerCase(),
-      emoji: formEmoji.trim(),
-      audioKey: `custom-${id}`,
-      isDefault: false,
-    });
+  const defaultWordCount = getLocaleContent(locale).wordItems.length;
+  const readyCount = allUserWords.filter((word) => word.status === 'ready').length;
+  const draftCount = allUserWords.filter((word) => word.status === 'draft').length;
+  const hiddenDefaultCount = Math.max(0, defaultWordCount - allUserWords.filter((word) => word.isDefault).length);
+
+  const resetWordForm = useCallback(() => {
     setFormWord('');
     setFormSyllables('');
     setFormEmoji('');
+    setFormErrors({});
+    setEditingId(null);
     setShowAddForm(false);
-  }, [addWord, formWord, formSyllables, formEmoji]);
+  }, []);
+
+  const populateWordForm = useCallback((word: UserWord) => {
+    setFormWord(word.word);
+    setFormSyllables(word.syllables);
+    setFormEmoji(word.emoji);
+    setFormErrors({});
+    setEditingId(word.id);
+    setShowAddForm(true);
+  }, []);
+
+  const handleSaveWord = useCallback(async () => {
+    const validation = validateWordForm(
+      { word: formWord, syllables: formSyllables, emoji: formEmoji },
+      allUserWords,
+      editingId ?? undefined,
+    );
+    setFormErrors(validation.errors);
+    if (!validation.valid) return;
+
+    try {
+      if (editingId) {
+        await updateWord(editingId, validation.values);
+      } else {
+        const id = crypto.randomUUID();
+        await addWord({
+          word: validation.values.word,
+          syllables: validation.values.syllables,
+          emoji: validation.values.emoji,
+          audioKey: `custom-${id}`,
+          isDefault: false,
+        });
+      }
+      resetWordForm();
+      setSectionNotice(null);
+    } catch {
+      setSectionNotice('Slovo sa nepodarilo uložiť. Skúste to znova.');
+    }
+  }, [
+    addWord,
+    allUserWords,
+    editingId,
+    formEmoji,
+    formSyllables,
+    formWord,
+    resetWordForm,
+    updateWord,
+  ]);
+
+  const handleHideDefaultWord = useCallback(async (word: UserWord) => {
+    try {
+      await hideDefaultWord(word.id);
+      setSectionNotice(`Slovo ${word.word} je skryté.`);
+    } catch {
+      setSectionNotice('Slovo sa nepodarilo skryť. Skúste to znova.');
+    }
+  }, [hideDefaultWord]);
+
+  const handleRestoreDefaultWords = useCallback(async () => {
+    try {
+      const result = await restoreDefaultWords();
+      if (result.skippedDuplicates > 0) {
+        setSectionNotice(`Obnovené: ${result.restored}. Preskočené duplicity: ${result.skippedDuplicates}.`);
+      } else {
+        setSectionNotice(`Obnovené predvolené slová: ${result.restored}.`);
+      }
+    } catch {
+      setSectionNotice('Predvolené slová sa nepodarilo obnoviť. Skúste to znova.');
+    }
+  }, [restoreDefaultWords]);
 
   return (
     <div className="space-y-3">
+      <SectionSummary
+        readyCount={readyCount}
+        draftCount={draftCount}
+        hiddenDefaultCount={hiddenDefaultCount}
+      />
+      <SectionNotice message={sectionNotice} />
+      {hiddenDefaultCount > 0 && (
+        <button
+          onClick={() => void handleRestoreDefaultWords()}
+          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-shadow/10 py-3 text-lg font-semibold text-text-main/70 active:opacity-60"
+        >
+          <RotateCcw size={20} />
+          Obnoviť predvolené slová
+        </button>
+      )}
+
       {allUserWords.map((word) => {
         const storeKey = `${locale}/words/${word.audioKey}`;
         const item: AudioItem = {
@@ -246,18 +381,38 @@ function EditableWordList({ locale }: EditableWordListProps) {
             item={item}
             secondaryLabel={word.syllables.toUpperCase()}
             menuActions={[
-              {
-                label: 'Zmazať slovo',
-                icon: <Trash2 size={16} />,
-                tone: 'danger',
-                onSelect: () => void deleteWord(word.id),
-              },
+              ...(!word.isDefault
+                ? [
+                    {
+                      label: 'Upraviť slovo',
+                      icon: <Edit3 size={16} />,
+                      onSelect: () => populateWordForm(word),
+                    },
+                  ]
+                : []),
+              word.isDefault
+                ? {
+                    label: 'Skryť slovo',
+                    icon: <EyeOff size={16} />,
+                    tone: 'danger' as const,
+                    onSelect: () => void handleHideDefaultWord(word),
+                  }
+                : {
+                    label: 'Zmazať slovo',
+                    icon: <Trash2 size={16} />,
+                    tone: 'danger' as const,
+                    onSelect: () => void deleteWord(word.id),
+                  },
             ]}
             hasCustom={overrideKeys.has(storeKey)}
             isActive={word.id === activeId}
             recorderState={recorder.state}
             speaking={recorder.speaking}
             savedFlash={word.id === activeId && savedFlash}
+            statusLabel={word.isDefault ? 'Predvolené' : word.status === 'draft' ? 'Koncept' : 'Vlastné'}
+            statusTone={word.status === 'draft' ? 'draft' : word.isDefault ? 'default' : 'ready'}
+            allowPlay={word.status === 'ready' || overrideKeys.has(storeKey)}
+            recordEmphasis={word.status === 'draft'}
             onRecord={() => handleRecord(word.id)}
             onStop={handleStop}
             onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: word.word }] })}
@@ -274,27 +429,30 @@ function EditableWordList({ locale }: EditableWordListProps) {
             value={formWord}
             onChange={(e) => setFormWord(e.target.value)}
           />
+          <FieldError message={formErrors.word} />
           <input
             className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
             placeholder="Slabiky (napr. ja-ho-da)"
             value={formSyllables}
             onChange={(e) => setFormSyllables(e.target.value)}
           />
+          <FieldError message={formErrors.syllables} />
           <input
             className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
             placeholder="Emoji (napr. 🍓)"
             value={formEmoji}
             onChange={(e) => setFormEmoji(e.target.value)}
           />
+          <FieldError message={formErrors.emoji} />
           <div className="flex gap-2">
             <button
-              onClick={() => void handleAddWord()}
+              onClick={() => void handleSaveWord()}
               className="flex-1 rounded-xl bg-primary text-white py-2 font-bold text-lg active:opacity-80"
             >
-              Pridať
+              {editingId ? 'Uložiť' : 'Pridať'}
             </button>
             <button
-              onClick={() => setShowAddForm(false)}
+              onClick={resetWordForm}
               className="flex-1 rounded-xl bg-shadow/10 text-text-main py-2 font-bold text-lg active:opacity-80"
             >
               Zrušiť
@@ -303,7 +461,11 @@ function EditableWordList({ locale }: EditableWordListProps) {
         </div>
       ) : (
         <button
-          onClick={() => setShowAddForm(true)}
+          onClick={() => {
+            setEditingId(null);
+            setShowAddForm(true);
+            setFormErrors({});
+          }}
           className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
         >
           <Plus size={20} />
