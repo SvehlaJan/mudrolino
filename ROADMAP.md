@@ -146,6 +146,7 @@
 - [ ] Decide whether to use analytics for public launch
 - [ ] If analytics is adopted, choose privacy-friendly platform and verify no cookie banner is needed
 - [ ] Evaluate and optionally implement PWA: manifest, installability, offline caching for app shell/audio/avatar assets
+- [x] Add installable PWA support for mobile with offline core games
 - [ ] SEO: meta tags, Open Graph, page title/description for discoverability
 - [ ] Landing page or app-at-root decision
 - [ ] Public smoke test on production URL
