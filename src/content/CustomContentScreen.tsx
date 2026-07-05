@@ -263,7 +263,7 @@ function EditableWordList({ locale }: EditableWordListProps) {
 
   const handleDeleteAudio = useCallback(async (word: UserWord) => {
     await audioOverrideStore.delete(`${locale}/words/${word.audioKey}`);
-    await updateWord(word.id, { status: 'draft' });
+    await updateWord(word.id, { status: word.isDefault ? 'ready' : 'draft' });
     const keys = await audioOverrideStore.listKeys();
     setOverrideKeys(new Set(keys));
   }, [locale, updateWord]);
@@ -560,7 +560,7 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
 
   const handleDeleteAudio = useCallback(async (praise: UserPraise) => {
     await audioOverrideStore.delete(`${locale}/praise/${praise.audioKey}`);
-    await updatePraise(praise.id, { status: 'draft' });
+    await updatePraise(praise.id, { status: praise.isDefault ? 'ready' : 'draft' });
     const keys = await audioOverrideStore.listKeys();
     setOverrideKeys(new Set(keys));
   }, [locale, updatePraise]);
