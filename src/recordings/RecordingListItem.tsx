@@ -28,6 +28,11 @@ export interface RecordingListItemProps {
   speaking: boolean;
   /** True for ~800ms after blob is saved. Only meaningful when isActive. */
   savedFlash: boolean;
+  statusLabel?: string;
+  statusTone?: 'default' | 'draft' | 'ready';
+  allowPlay?: boolean;
+  allowDeleteRecording?: boolean;
+  recordEmphasis?: boolean;
   onRecord: () => void;
   onStop: () => void;
   onPlay: () => void;
@@ -43,6 +48,11 @@ export function RecordingListItem({
   recorderState,
   speaking,
   savedFlash,
+  statusLabel,
+  statusTone = 'default',
+  allowPlay = true,
+  allowDeleteRecording = true,
+  recordEmphasis = false,
   onRecord,
   onStop,
   onPlay,
@@ -87,6 +97,16 @@ export function RecordingListItem({
   else if (isProcessing) statusText = 'Spracovávam…';
   else if (isSavedFlash) statusText = 'Uložené';
 
+  const customStatusClass = statusTone === 'draft'
+    ? 'bg-amber-100 text-amber-700'
+    : statusTone === 'ready'
+      ? 'bg-green-100 text-green-700'
+      : 'bg-shadow/10 text-text-main/60';
+
+  const recordClass = recordEmphasis
+    ? '!bg-soft-watermelon text-text-main ring-2 ring-soft-watermelon/45'
+    : '!bg-soft-watermelon/45 text-text-main';
+
   // ── Label colour ──────────────────────────────────────────────────────────
   let labelClass = 'text-lg font-medium text-left truncate text-text-main ';
   if (isSavedFlash) labelClass += 'text-green-300';
@@ -120,6 +140,12 @@ export function RecordingListItem({
         <span className="text-xs italic opacity-80 shrink-0 mr-1">{statusText}</span>
       )}
 
+      {statusLabel && !isEngaged && (
+        <span className={`shrink-0 rounded-full px-2 py-1 text-[0.68rem] font-bold ${customStatusClass}`}>
+          {statusLabel}
+        </span>
+      )}
+
       {/* Right buttons — each slot is sized to the circular button */}
       {isEngaged ? (
         <>
@@ -140,7 +166,7 @@ export function RecordingListItem({
         <>
           {/* Delete — only when idle and has custom recording */}
           <div className="w-9 flex items-center justify-center shrink-0">
-            {hasCustom && (
+            {hasCustom && allowDeleteRecording && (
               <IconButton
                 onClick={onDelete}
                 className={`${compactActionClass} !bg-shadow/20 text-text-main/70`}
@@ -153,20 +179,22 @@ export function RecordingListItem({
 
           {/* Play */}
           <div className="w-9 flex items-center justify-center shrink-0">
-            <IconButton
-              onClick={onPlay}
-              className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
-              label="Prehrať"
-            >
-              <Play size={16} />
-            </IconButton>
+            {allowPlay && (
+              <IconButton
+                onClick={onPlay}
+                className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
+                label="Prehrať"
+              >
+                <Play size={16} />
+              </IconButton>
+            )}
           </div>
 
           {/* Record */}
           <div className="w-9 flex items-center justify-center shrink-0">
             <IconButton
               onClick={onRecord}
-              className={`${compactActionClass} !bg-soft-watermelon/45 text-text-main`}
+              className={`${compactActionClass} ${recordClass}`}
               label="Nahrať"
             >
               <Mic size={16} />

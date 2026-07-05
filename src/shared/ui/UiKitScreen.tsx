@@ -16,6 +16,7 @@ import { ChoiceTile } from './ChoiceTile';
 import { SearchInput, SegmentedChoice, TextAreaControl, ToggleControl } from './FormControls';
 import { OverlayFrame } from './OverlayFrame';
 import { cx } from './utils';
+import { RecordingListItem } from '../../recordings/RecordingListItem';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -170,6 +171,55 @@ export function UiKitScreen() {
           </Card>
         </div>
         <div className="grid gap-3 lg:grid-cols-2">
+          <RecordingListItem
+            item={{ key: 'sk/words/custom-draft', label: 'Jahoda 🍓', category: 'words' }}
+            secondaryLabel="JA-HO-DA"
+            hasCustom={false}
+            isActive={false}
+            recorderState="idle"
+            speaking={false}
+            savedFlash={false}
+            statusLabel="Koncept"
+            statusTone="draft"
+            allowPlay={false}
+            recordEmphasis
+            onRecord={() => undefined}
+            onStop={() => undefined}
+            onPlay={() => undefined}
+            onDelete={() => undefined}
+          />
+
+          <RecordingListItem
+            item={{ key: 'sk/words/custom-ready', label: 'Jahoda 🍓', category: 'words' }}
+            secondaryLabel="JA-HO-DA"
+            hasCustom
+            isActive={false}
+            recorderState="idle"
+            speaking={false}
+            savedFlash={false}
+            statusLabel="Vlastné"
+            statusTone="ready"
+            onRecord={() => undefined}
+            onStop={() => undefined}
+            onPlay={() => undefined}
+            onDelete={() => undefined}
+          />
+
+          <RecordingListItem
+            item={{ key: 'sk/words/default-ready', label: 'Mama 👩', category: 'words' }}
+            secondaryLabel="MA-MA"
+            hasCustom={false}
+            isActive={false}
+            recorderState="idle"
+            speaking={false}
+            savedFlash={false}
+            statusLabel="Predvolené"
+            onRecord={() => undefined}
+            onStop={() => undefined}
+            onPlay={() => undefined}
+            onDelete={() => undefined}
+          />
+
           <RecordingRowExample
             label="mama 👩"
             indicator={<span className="inline-block h-3 w-3 rounded-full border-2 border-shadow/20" />}
