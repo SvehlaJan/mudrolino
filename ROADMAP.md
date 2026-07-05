@@ -77,7 +77,7 @@
 - [x] Add/delete custom praise entries
 - [x] Record local audio overrides for letters, numbers, phrases, words, and praise
 - [x] `audioManager` plays custom audio before bundled MP3/TTS fallback
-- [ ] Harden custom content validation and empty states for Words/Syllables/Assembly
+- [x] Harden custom content validation, draft states, default restore, and empty states for Words/Syllables/Assembly
 - [ ] Decide whether friend-share build needs export/import or reset-to-defaults controls
 
 ### 1.3 Settings and Locale Foundation
