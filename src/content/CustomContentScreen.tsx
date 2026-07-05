@@ -16,9 +16,10 @@ import type { AudioItem } from '../recordings/RecordingListItem';
 import { AppScreen, BackButton, TopBar } from '../shared/ui';
 import type { UserWord, UserPraise } from '../shared/types';
 import {
+  validatePraiseForm,
   validateWordForm,
 } from './customContentValidation';
-import type { WordFormErrors } from './customContentValidation';
+import type { PraiseFormErrors, WordFormErrors } from './customContentValidation';
 
 type Section = 'letters' | 'numbers' | 'phrases' | 'words' | 'praise';
 
@@ -483,7 +484,14 @@ interface EditablePraiseListProps {
 }
 
 function EditablePraiseList({ locale }: EditablePraiseListProps) {
-  const { allUserPraises, addPraise, updatePraise, deletePraise } = useContent();
+  const {
+    allUserPraises,
+    addPraise,
+    updatePraise,
+    deletePraise,
+    hideDefaultPraise,
+    restoreDefaultPraises,
+  } = useContent();
   const recorder = useRecorder();
   const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -496,6 +504,9 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
   const [showAddForm, setShowAddForm] = useState(false);
   const [formText, setFormText] = useState('');
   const [formEmoji, setFormEmoji] = useState('');
+  const [formErrors, setFormErrors] = useState<PraiseFormErrors>({});
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [sectionNotice, setSectionNotice] = useState<string | null>(null);
 
   useEffect(() => {
     audioOverrideStore.listKeys().then((keys) => setOverrideKeys(new Set(keys)));
@@ -554,22 +565,106 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
     setOverrideKeys(new Set(keys));
   }, [locale, updatePraise]);
 
-  const handleAddPraise = useCallback(async () => {
-    if (!formText.trim() || !formEmoji.trim()) return;
-    const id = crypto.randomUUID();
-    await addPraise({
-      text: formText.trim(),
-      emoji: formEmoji.trim(),
-      audioKey: `custom-${id}`,
-      isDefault: false,
-    });
+  const defaultPraiseCount = getLocaleContent(locale).praiseEntries.length;
+  const readyCount = allUserPraises.filter((praise) => praise.status === 'ready').length;
+  const draftCount = allUserPraises.filter((praise) => praise.status === 'draft').length;
+  const hiddenDefaultCount = Math.max(
+    0,
+    defaultPraiseCount - allUserPraises.filter((praise) => praise.isDefault).length,
+  );
+
+  const resetPraiseForm = useCallback(() => {
     setFormText('');
     setFormEmoji('');
+    setFormErrors({});
+    setEditingId(null);
     setShowAddForm(false);
-  }, [addPraise, formText, formEmoji]);
+  }, []);
+
+  const populatePraiseForm = useCallback((praise: UserPraise) => {
+    setFormText(praise.text);
+    setFormEmoji(praise.emoji);
+    setFormErrors({});
+    setEditingId(praise.id);
+    setShowAddForm(true);
+  }, []);
+
+  const handleSavePraise = useCallback(async () => {
+    const validation = validatePraiseForm(
+      { text: formText, emoji: formEmoji },
+      allUserPraises,
+      editingId ?? undefined,
+    );
+    setFormErrors(validation.errors);
+    if (!validation.valid) return;
+
+    try {
+      if (editingId) {
+        await updatePraise(editingId, validation.values);
+      } else {
+        const id = crypto.randomUUID();
+        await addPraise({
+          text: validation.values.text,
+          emoji: validation.values.emoji,
+          audioKey: `custom-${id}`,
+          isDefault: false,
+        });
+      }
+      resetPraiseForm();
+      setSectionNotice(null);
+    } catch {
+      setSectionNotice('Pochvalu sa nepodarilo uložiť. Skúste to znova.');
+    }
+  }, [
+    addPraise,
+    allUserPraises,
+    editingId,
+    formEmoji,
+    formText,
+    resetPraiseForm,
+    updatePraise,
+  ]);
+
+  const handleHideDefaultPraise = useCallback(async (praise: UserPraise) => {
+    try {
+      await hideDefaultPraise(praise.id);
+      setSectionNotice(`Pochvala ${praise.text} je skrytá.`);
+    } catch {
+      setSectionNotice('Pochvalu sa nepodarilo skryť. Skúste to znova.');
+    }
+  }, [hideDefaultPraise]);
+
+  const handleRestoreDefaultPraises = useCallback(async () => {
+    try {
+      const result = await restoreDefaultPraises();
+      if (result.skippedDuplicates > 0) {
+        setSectionNotice(`Obnovené: ${result.restored}. Preskočené duplicity: ${result.skippedDuplicates}.`);
+      } else {
+        setSectionNotice(`Obnovené predvolené pochvaly: ${result.restored}.`);
+      }
+    } catch {
+      setSectionNotice('Predvolené pochvaly sa nepodarilo obnoviť. Skúste to znova.');
+    }
+  }, [restoreDefaultPraises]);
 
   return (
     <div className="space-y-3">
+      <SectionSummary
+        readyCount={readyCount}
+        draftCount={draftCount}
+        hiddenDefaultCount={hiddenDefaultCount}
+      />
+      <SectionNotice message={sectionNotice} />
+      {hiddenDefaultCount > 0 && (
+        <button
+          onClick={() => void handleRestoreDefaultPraises()}
+          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-shadow/10 py-3 text-lg font-semibold text-text-main/70 active:opacity-60"
+        >
+          <RotateCcw size={20} />
+          Obnoviť predvolené pochvaly
+        </button>
+      )}
+
       {allUserPraises.map((praise) => {
         const storeKey = `${locale}/praise/${praise.audioKey}`;
         const item: AudioItem = {
@@ -582,18 +677,38 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
             key={praise.id}
             item={item}
             menuActions={[
-              {
-                label: 'Zmazať pochvalu',
-                icon: <Trash2 size={16} />,
-                tone: 'danger',
-                onSelect: () => void deletePraise(praise.id),
-              },
+              ...(!praise.isDefault
+                ? [
+                    {
+                      label: 'Upraviť pochvalu',
+                      icon: <Edit3 size={16} />,
+                      onSelect: () => populatePraiseForm(praise),
+                    },
+                  ]
+                : []),
+              praise.isDefault
+                ? {
+                    label: 'Skryť pochvalu',
+                    icon: <EyeOff size={16} />,
+                    tone: 'danger' as const,
+                    onSelect: () => void handleHideDefaultPraise(praise),
+                  }
+                : {
+                    label: 'Zmazať pochvalu',
+                    icon: <Trash2 size={16} />,
+                    tone: 'danger' as const,
+                    onSelect: () => void deletePraise(praise.id),
+                  },
             ]}
             hasCustom={overrideKeys.has(storeKey)}
             isActive={praise.id === activeId}
             recorderState={recorder.state}
             speaking={recorder.speaking}
             savedFlash={praise.id === activeId && savedFlash}
+            statusLabel={praise.isDefault ? 'Predvolené' : praise.status === 'draft' ? 'Koncept' : 'Vlastné'}
+            statusTone={praise.status === 'draft' ? 'draft' : praise.isDefault ? 'default' : 'ready'}
+            allowPlay={praise.status === 'ready' || overrideKeys.has(storeKey)}
+            recordEmphasis={praise.status === 'draft'}
             onRecord={() => handleRecord(praise.id)}
             onStop={handleStop}
             onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: praise.text }] })}
@@ -610,21 +725,23 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
             value={formText}
             onChange={(e) => setFormText(e.target.value)}
           />
+          <FieldError message={formErrors.text} />
           <input
             className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
             placeholder="Emoji (napr. 🌟)"
             value={formEmoji}
             onChange={(e) => setFormEmoji(e.target.value)}
           />
+          <FieldError message={formErrors.emoji} />
           <div className="flex gap-2">
             <button
-              onClick={() => void handleAddPraise()}
+              onClick={() => void handleSavePraise()}
               className="flex-1 rounded-xl bg-primary text-white py-2 font-bold text-lg active:opacity-80"
             >
-              Pridať
+              {editingId ? 'Uložiť' : 'Pridať'}
             </button>
             <button
-              onClick={() => setShowAddForm(false)}
+              onClick={resetPraiseForm}
               className="flex-1 rounded-xl bg-shadow/10 text-text-main py-2 font-bold text-lg active:opacity-80"
             >
               Zrušiť
@@ -633,7 +750,11 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
         </div>
       ) : (
         <button
-          onClick={() => setShowAddForm(true)}
+          onClick={() => {
+            setEditingId(null);
+            setShowAddForm(true);
+            setFormErrors({});
+          }}
           className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
         >
           <Plus size={20} />
