@@ -14,8 +14,8 @@ Use separate source and runtime files for clothing and accessories:
 - stable object names per catalog item
 - canonical app base now points at the plain underlayer:
   `public/avatar/modular/male-base-plain.glb`
-- the original modular base with prototype tops remains available at
-  `public/avatar/modular/male-base-modular.glb`
+- historical combined/prototype modular bases are no longer app-facing runtime
+  assets; keep their provenance under `meshy_output/` and the dated plans/specs
 
 Do not try to solve all clothing with one universal builder script. Shoes,
 trousers, shirts, hoodies, hair, and accessories need different authoring
@@ -160,8 +160,6 @@ Current files:
   `public/avatar/garments/shoes_blue_sneakers_v1.glb`
 - Runtime plain base:
   `public/avatar/modular/male-base-plain.glb`
-- Historical combined preview artifact from the old `/avatar-preview` shortcut:
-  `public/avatar/modular/male-base-plain-blue-sneakers.glb`
 - Export/fitting helper:
   `tools/blender/export_plain_avatar_shoes.py`
 - Foot-fit measurement helper:
@@ -439,7 +437,7 @@ On this machine, Blender 5.1 can crash inside Codex's default sandbox during
 startup. Rerun Blender commands outside the sandbox when the crash occurs before
 Python script output.
 
-Measure avatar foot and shoe bounds:
+Legacy combined-preview foot and shoe bounds command:
 
 ```bash
 '/Applications/Blender.app/Contents/MacOS/Blender' \
@@ -451,7 +449,12 @@ Measure avatar foot and shoe bounds:
   --input public/avatar/modular/male-base-plain-blue-sneakers.glb
 ```
 
-Regenerate the current plain base, separate shoe pair, and combined preview:
+That combined GLB is no longer a current runtime asset. For the current separate
+shoe slot, inspect fit through `/avatar-preview` or update the helper to import
+both `public/avatar/modular/male-base-plain.glb` and
+`public/avatar/garments/shoes_blue_sneakers_v1.glb`.
+
+Regenerate the current plain base and separate shoe pair:
 
 ```bash
 '/Applications/Blender.app/Contents/MacOS/Blender' \
@@ -460,14 +463,13 @@ Regenerate the current plain base, separate shoe pair, and combined preview:
   --enable-autoexec \
   --python tools/blender/export_plain_avatar_shoes.py \
   -- \
-  --base public/avatar/modular/male-base-modular.glb \
+  --base public/avatar/modular/male-base-plain.glb \
   --shoe meshy_output/20260502_213708_blue-sneaker-multiview_019dea2e/model.glb \
   --plain-output public/avatar/modular/male-base-plain.glb \
-  --shoes-output public/avatar/garments/shoes_blue_sneakers_v1.glb \
-  --combined-output public/avatar/modular/male-base-plain-blue-sneakers.glb
+  --shoes-output public/avatar/garments/shoes_blue_sneakers_v1.glb
 ```
 
-Inspect animated shoe/body bounds across frames:
+Legacy animated combined-preview shoe/body bounds command:
 
 ```bash
 '/Applications/Blender.app/Contents/MacOS/Blender' \

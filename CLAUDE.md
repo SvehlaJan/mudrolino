@@ -10,7 +10,6 @@ npm run build     # Production build to dist/
 npm run preview   # Preview production build
 npm run lint      # TypeScript type checking (no emit)
 npm run clean     # Remove dist/
-npm run codegen   # Regenerate src/shared/wordItems.generated.ts from data/words.csv
 npm run test:audio # Validate expected audio files vs. content/audio keys
 ```
 
@@ -23,9 +22,9 @@ No test runner is configured.
 
 ## Architecture
 
-This is a Slovak-language educational web app ("Hravé Učenie") for preschoolers with 5 mini-games: alphabet, syllables, numbers, counting, and words.
+This is a Slovak-language educational web app ("Hravé Učenie") for preschoolers with 6 mini-games: alphabet, syllables, numbers, counting, words, and syllable assembly.
 
-**Routing shell**: `src/App.tsx` uses `react-router-dom` for the main app shell and routes (`/`, `/alphabet`, `/syllables`, `/numbers`, `/counting`, `/words`). It also owns the home screen, parent gate flow, settings overlays, and route transition animations.
+**Routing shell**: `src/App.tsx` uses `react-router-dom` for the main app shell and routes (`/`, `/alphabet`, `/syllables`, `/numbers`, `/counting`, `/words`, `/assembly`, `/settings`, `/content`, `/avatar-preview`, `/ui-kit`). It also owns the home screen, parent gate flow, settings overlays, and route transition animations.
 
 **Domain types**: `src/shared/types.ts` defines the current domain models:
 - `Letter`
@@ -45,18 +44,21 @@ Each game provides a `GameDescriptor<T>` that defines item identity, rendering, 
 
 **Counting game**: `src/games/counting/CountingItemsGame.tsx` is intentionally bespoke. It manages its own round loop because its mechanic differs from the shared grid-based games.
 
+**Assembly game**: `src/games/assembly/AssemblyGame.tsx` is intentionally bespoke. It uses shuffled syllable tiles and answer slots instead of the shared single-tap grid loop.
+
 **Content registry**: `src/shared/contentRegistry.ts` is the main content registry for:
 - `LETTER_ITEMS`
-- `WORD_ITEMS` (re-exported from generated code)
+- `WORD_ITEMS` from locale modules
 - derived `SYLLABLE_ITEMS`
 - `NUMBER_ITEMS`
 - `AUDIO_PHRASES`
 - praise entries and shared timing constants
 
-**Word content pipeline**:
-- Source of truth: `data/words.csv`
-- Generated file: `src/shared/wordItems.generated.ts`
-- Regenerate with: `npm run codegen`
+**Word and custom-content pipeline**:
+- Default Slovak words live in `src/shared/locales/sk.ts`
+- Czech is stubbed in `src/shared/locales/cs.ts` and falls back to Slovak until populated
+- User-managed words and praise entries live in local storage through `src/shared/services/localContentRepository.ts`
+- `/content` lets parents add/delete local words and praise and record audio overrides
 
 **Audio**: All audio goes through `src/shared/services/audioManager.ts`. It plays clip sequences from `public/audio/` and falls back per clip to Web Speech API (`sk-SK`) when a file is missing or fails to play.
 
@@ -96,24 +98,25 @@ This consolidation phase standardizes the current playful UI. Do not introduce a
 
 ## Audio files
 
-Drop recorded `.mp3` files into `public/audio/` subdirectories. File naming follows `audioKey` values from `contentRegistry.ts`:
+Drop recorded `.mp3` files into locale-prefixed `public/audio/` subdirectories. File naming follows `audioKey` values from locale content:
 
-- `public/audio/letters/a.mp3`, `s-caron.mp3`, `c-caron.mp3` … (bare letter sound)
-- `public/audio/syllables/ma.mp3`, `me.mp3` … (bare syllable sound, derived from words)
-- `public/audio/words/jahoda.mp3`, `mama.mp3` … (full spoken word clips)
-- `public/audio/numbers/1.mp3`, `2.mp3` … (number word)
-- `public/audio/phrases/najdi-pismeno.mp3`, `toto-je-pismeno.mp3`, `co-tu-je-napisane.mp3`, `toto-je-slovo.mp3`, `nevadi.mp3`, `spravna-odpoved.mp3` …
-- `public/audio/praise/vyborne.mp3`, `skvela-praca.mp3` …
+- `public/audio/sk/letters/a.mp3`, `s-caron.mp3`, `c-caron.mp3` … (bare letter sound)
+- `public/audio/sk/syllables/ma.mp3`, `me.mp3` … (bare syllable sound, derived from words)
+- `public/audio/sk/words/jahoda.mp3`, `mama.mp3` … (full spoken word clips)
+- `public/audio/sk/numbers/1.mp3`, `2.mp3` … (number word)
+- `public/audio/sk/phrases/najdi-pismenko.mp3`, `toto-je-pismenko.mp3`, `co-tu-je-napisane.mp3`, `toto-je-slovo.mp3`, `nevadi.mp3`, `spravna-odpoved.mp3` …
+- `public/audio/sk/praise/vyborne.mp3`, `skvela-praca.mp3` …
 - `public/audio/music/background.mp3` (optional background music)
 
 TTS fallback is automatic — missing files cause no errors during development.
 
 ## Key Data
 
-- `src/shared/contentRegistry.ts` — registry for letters, words, derived syllables, numbers, praise, and timing
+- `src/shared/locales/sk.ts` — default Slovak letters, words, numbers, phrases, and praise
+- `src/shared/contentRegistry.ts` — locale registry helpers, derived syllables, counting emoji, and timing
 - `src/shared/types.ts` — domain types plus `GameDescriptor<T>`, `AudioSpec`, `SuccessSpec`, and `FailureSpec`
-- `data/words.csv` — editable word list used by the words game and syllable derivation
-- `src/shared/wordItems.generated.ts` — generated word data; do not edit by hand
+- `src/shared/services/localContentRepository.ts` — local-first custom words and praise storage
+- `src/shared/services/audioOverrideStore.ts` — IndexedDB-backed custom audio overrides
 
 ## Environment
 
