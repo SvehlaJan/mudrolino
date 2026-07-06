@@ -46,15 +46,15 @@ function HomeLauncher({
   }, [navigate, scrollRef]);
 
   return (
-    <AppScreen maxWidth="wide" className="p-4 sm:p-6 lg:p-8">
+    <AppScreen maxWidth="wide" fixedHeight={false} scrollable className="min-h-[100svh] p-4 pb-28 sm:p-6 sm:pb-32 lg:p-8">
         {/* Header */}
-        <div className="flex flex-wrap justify-between items-start gap-4 mb-4 sm:mb-6 lg:mb-8 shrink-0">
+        <div className="flex justify-between items-start gap-4 mb-4 sm:mb-6 lg:mb-8 shrink-0">
           <div className="flex min-w-0 flex-1 flex-col gap-2">
             <h1 className="text-[clamp(2.6rem,6vw,5.25rem)] font-black text-text-main tracking-tight leading-none">Hravé Učenie</h1>
             <p className="text-[clamp(1.05rem,2.2vw,1.7rem)] font-medium opacity-60 leading-tight">Vyber si hru a poďme na to!</p>
           </div>
 
-          <div className="flex w-full shrink-0 flex-col items-end gap-2 sm:w-auto">
+          <div className="flex shrink-0 flex-col items-end gap-2">
             <IconButton
               label="Nastavenia"
               onClick={onOpenSettings}
@@ -63,17 +63,17 @@ function HomeLauncher({
               <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 rounded-full blur-sm absolute" />
               <Settings size={28} className="sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-text-main opacity-80" />
             </IconButton>
-            <PwaHomeControl className="w-full sm:w-80" />
           </div>
         </div>
+        <PwaHomeControl />
 
         {/* Game Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 flex-1 min-h-0 auto-rows-fr content-stretch">
+        <div className="grid grid-cols-2 auto-rows-[minmax(11.25rem,auto)] gap-3 sm:auto-rows-[minmax(13rem,auto)] sm:gap-4 lg:grid-cols-3 lg:flex-1 lg:auto-rows-fr lg:content-stretch lg:gap-5">
           {GAME_METADATA.map((game) => (
             <button
               key={game.id}
               onClick={() => handleGameSelect(game.id)}
-              className="group relative flex min-h-0 flex-col"
+              className="group relative flex min-h-[11.25rem] flex-col sm:min-h-[13rem] lg:min-h-0"
             >
               <div className="absolute inset-0 bg-shadow/10 rounded-[28px] sm:rounded-[36px] -m-1.5 sm:-m-2 transition-colors group-hover:bg-shadow/20" />
               <div className="relative h-full bg-white rounded-[24px] sm:rounded-[30px] p-4 sm:p-5 lg:p-6 flex flex-col justify-between gap-3 shadow-sm text-left overflow-hidden">
