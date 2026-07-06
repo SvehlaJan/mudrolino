@@ -17,6 +17,7 @@ import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { shouldPlaySelectedSyllableAudio } from './assemblyAudioLogic';
 
 interface AssemblyGameProps {
   onExit: () => void;
@@ -430,7 +431,14 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
       });
     });
 
-    if (typeof selectedTileText === 'string' && !placingLastTile) {
+    if (
+      typeof selectedTileText === 'string'
+      && shouldPlaySelectedSyllableAudio({
+        placingLastTile,
+        nextPlaced: nextPlacedSnapshot ?? [],
+        correctSyllables,
+      })
+    ) {
       const selectedSyllable = selectedTileText as string;
       audioManager.play({
         clips: [
@@ -442,7 +450,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
     if (nextPlacedSnapshot) {
       validateBoard(nextPlacedSnapshot, selectedTileText ?? undefined);
     }
-  }, [animateBoardMove, board.placedTiles, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
+  }, [animateBoardMove, board.placedTiles, correctSyllables, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
 
   const handlePlacedTileTap = useCallback((slotIndex: number) => {
     if (showSuccess || showSessionComplete || isResettingBoard) return;

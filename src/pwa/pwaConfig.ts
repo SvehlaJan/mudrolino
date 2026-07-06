@@ -76,6 +76,8 @@ export const pwaHtmlHeadTags: HtmlTagDescriptor[] = [
 
 export const pwaControlCopy = {
   installLabel: `Pridať ${pwaBrand.shortName}`,
+  installDescription: 'Uložiť aplikáciu na plochu a používať ju pohodlne.',
+  iosInstallDescription: 'Zobraziť postup pridania na plochu.',
   offlineReady: `${pwaBrand.shortName} je pripravený aj offline.`,
   iosHelp: `Na iPhone otvorte Zdieľať a zvoľte Pridať na plochu.`,
 } as const;

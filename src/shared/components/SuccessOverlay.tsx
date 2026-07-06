@@ -10,6 +10,7 @@ import { TIMING } from '../contentRegistry';
 import { useContent } from '../contexts/ContentContext';
 import { audioManager } from '../services/audioManager';
 import { IconButton, OverlayFrame } from '../ui';
+import { getSuccessOverlayAudioSpec } from './successOverlayAudio';
 
 interface SuccessOverlayProps {
   show: boolean;
@@ -18,7 +19,7 @@ interface SuccessOverlayProps {
 }
 
 export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) {
-  const { praiseEntries } = useContent();
+  const { praiseEntries, locale } = useContent();
   const [praise, setPraise] = useState<PraiseEntry>(praiseEntries[0] ?? { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' });
   const [paused, setPaused] = useState(false);
   const cancelledRef = useRef(false);
@@ -34,9 +35,7 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
     const minTimer = new Promise<void>(resolve =>
       setTimeout(resolve, TIMING.SUCCESS_OVERLAY_DURATION_MS)
     );
-    const audio = spec.audioSpec
-      ? audioManager.playPraise().then(() => audioManager.play(spec.audioSpec!))
-      : audioManager.playPraise();
+    const audio = audioManager.play(getSuccessOverlayAudioSpec(locale, entry, spec));
 
     Promise.all([minTimer, audio]).then(() => {
       if (!cancelledRef.current) onComplete();

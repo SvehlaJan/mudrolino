@@ -9,6 +9,8 @@ __pycache__/
 .env*
 !.env.example
 .superpowers/brainstorm
+.codex/
+.claude/settings.local.json
 .claude/worktrees/
 .worktrees/
 .playwright-cli/

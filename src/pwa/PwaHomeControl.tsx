@@ -27,7 +27,9 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
   };
 
   return (
-    <div className={`space-y-2 ${className ?? ''}`}>
+    <div
+      className={`fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-4 right-4 z-40 mx-auto max-w-sm space-y-2 sm:left-auto sm:right-6 sm:w-80 sm:max-w-none ${className ?? ''}`}
+    >
       {pwa.needRefresh && (
         <Card className="w-full !rounded-2xl !p-3 text-left !shadow-sm">
           <div className="flex items-start gap-2">
@@ -60,15 +62,24 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
       )}
 
       {pwa.canInstall && !pwa.needRefresh && (
-        <div className="flex justify-end">
-          <IconButton
-            label={pwaControlCopy.installLabel}
-            onClick={() => void handleInstall()}
-            className="!h-12 !w-12 !bg-white/70 text-text-main !shadow-sm"
-          >
-            {pwa.platform === 'ios' ? <Share2 size={20} /> : <Download size={20} />}
-          </IconButton>
-        </div>
+        <button
+          type="button"
+          aria-label={pwaControlCopy.installLabel}
+          className="w-full rounded-2xl bg-white/95 p-3 text-left shadow-md ring-1 ring-shadow/10 backdrop-blur transition-transform active:scale-[0.98]"
+          onClick={() => void handleInstall()}
+        >
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-sm">
+              {pwa.platform === 'ios' ? <Share2 size={20} /> : <Download size={20} />}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm font-bold leading-tight text-text-main">{pwaControlCopy.installLabel}</span>
+              <span className="mt-1 block text-xs font-semibold leading-snug text-text-main/55">
+                {pwa.platform === 'ios' ? pwaControlCopy.iosInstallDescription : pwaControlCopy.installDescription}
+              </span>
+            </span>
+          </div>
+        </button>
       )}
 
       {showIosHelp && (
@@ -85,6 +96,13 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
                 Rozumiem
               </button>
             </div>
+            <IconButton
+              label="Zavrieť"
+              onClick={() => setShowIosHelp(false)}
+              className="!h-8 !w-8 !bg-shadow/10 !shadow-none"
+            >
+              <X size={16} />
+            </IconButton>
           </div>
         </Card>
       )}
