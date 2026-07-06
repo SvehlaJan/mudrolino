@@ -77,7 +77,7 @@
 - [x] Add/delete custom praise entries
 - [x] Record local audio overrides for letters, numbers, phrases, words, and praise
 - [x] `audioManager` plays custom audio before bundled MP3/TTS fallback
-- [ ] Harden custom content validation and empty states for Words/Syllables/Assembly
+- [x] Harden custom content validation, draft states, default restore, and empty states for Words/Syllables/Assembly
 - [ ] Decide whether friend-share build needs export/import or reset-to-defaults controls
 
 ### 1.3 Settings and Locale Foundation
@@ -99,7 +99,7 @@
 - [ ] Verify feedback submissions from deployed private build
 
 ### 1.5 Avatar Companion and Customization
-> Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The historical Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but the app-facing runtime has moved to the modular male base at `public/avatar/modular/male-base-modular.glb`. Old `public/avatar/meshy` POC GLBs are no longer current published assets; related source/provenance remains under `meshy_output/`.
+> Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The historical Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but the app-facing runtime now uses the plain male base at `public/avatar/modular/male-base-plain.glb` plus separate garment GLBs under `public/avatar/garments/`. Old `public/avatar/meshy` POC GLBs are no longer current published assets; related source/provenance remains under `meshy_output/`.
 
 - [x] Avatar companion design spec (`docs/superpowers/specs/`)
 - [x] Local avatar runtime under `src/avatar/`
@@ -111,7 +111,7 @@
 - [x] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character
 - [x] Keep or retarget to a stable armature with reusable named bones so idle/success/failure animations can drive the base and clothing meshes
 - [x] Export one MVP modular GLB for the male base containing the base body plus named top-slot mesh variants
-- [x] Publish the current app-facing avatar asset at `public/avatar/modular/male-base-modular.glb`
+- [x] Publish the current app-facing avatar base at `public/avatar/modular/male-base-plain.glb`
 - [ ] Map idle/success/failure avatar states into runtime-facing names
 - [ ] Add avatar to session-complete/reward screens first
 - [ ] Decide whether per-round success/failure overlays should use the avatar or keep the current lightweight treatment
@@ -146,6 +146,7 @@
 - [ ] Decide whether to use analytics for public launch
 - [ ] If analytics is adopted, choose privacy-friendly platform and verify no cookie banner is needed
 - [ ] Evaluate and optionally implement PWA: manifest, installability, offline caching for app shell/audio/avatar assets
+- [x] Add installable PWA support for mobile with offline core games
 - [ ] SEO: meta tags, Open Graph, page title/description for discoverability
 - [ ] Landing page or app-at-root decision
 - [ ] Public smoke test on production URL

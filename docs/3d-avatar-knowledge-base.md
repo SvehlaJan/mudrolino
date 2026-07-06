@@ -53,15 +53,16 @@ Preview route:
 
 Current default avatar URL:
 
-- `/avatar/modular/male-base-modular.glb`
+- `/avatar/modular/male-base-plain.glb`
 
 Current modular male avatar URL:
 
-- `/avatar/modular/male-base-modular.glb`
+- `/avatar/modular/male-base-plain.glb`
 
 Current app-facing published asset:
 
-- [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
+- [public/avatar/modular/male-base-plain.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-plain.glb)
+- Runtime garments load separately from [public/avatar/garments](/Users/svehla/playground/teo-learn/public/avatar/garments).
 
 Historical cleaned animation candidates:
 
@@ -108,7 +109,13 @@ Raw Meshy project output:
 
 Published app assets:
 
-- [public/avatar/modular/male-base-modular.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-modular.glb)
+- [public/avatar/modular/male-base-plain.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-plain.glb)
+- [public/avatar/modular/male-base-plain-walking.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-plain-walking.glb)
+- [public/avatar/modular/male-base-plain-running.glb](/Users/svehla/playground/teo-learn/public/avatar/modular/male-base-plain-running.glb)
+- [public/avatar/garments/top_blue_tshirt_v1.glb](/Users/svehla/playground/teo-learn/public/avatar/garments/top_blue_tshirt_v1.glb)
+- [public/avatar/garments/top_orange_hoodie_v1.glb](/Users/svehla/playground/teo-learn/public/avatar/garments/top_orange_hoodie_v1.glb)
+- [public/avatar/garments/shoes_blue_sneakers_v1.glb](/Users/svehla/playground/teo-learn/public/avatar/garments/shoes_blue_sneakers_v1.glb)
+- [public/avatar/garments/hat_red_cap_v1.glb](/Users/svehla/playground/teo-learn/public/avatar/garments/hat_red_cap_v1.glb)
 
 Removed app-facing POC assets:
 
@@ -743,14 +750,14 @@ Recent modular avatar browser verification:
 - Generated first Meshy shrug animation as a negative reaction candidate.
 - Previously published Meshy POC outputs under `public/avatar/meshy/`; those public POC GLBs have since been removed from app-facing runtime assets.
 - Added `/avatar-preview` route, now evolved into the modular avatar workbench.
-- Replaced old placeholder default URL with the historical Meshy rigged asset, then replaced it again with `/avatar/modular/male-base-modular.glb`.
+- Replaced old placeholder default URL with the historical Meshy rigged asset, then replaced it with `/avatar/modular/male-base-modular.glb`, and later split the app-facing runtime to `/avatar/modular/male-base-plain.glb` plus separate garment GLBs.
 - Added Blender inspection and clean-export scripts.
 - Exported first rotation-only cleaned cheer candidate.
 - Exported first rotation-only cleaned `sad_react` candidate.
 - Verified cleaned `sad_react` candidate renders in `/avatar-preview` on desktop and mobile.
 - Fixed preview rendering for skinned mesh visibility and responsive canvas height.
 - Installed Playwright for browser verification.
-- Generated, rigged, and exported the first male modular MVP GLB at `public/avatar/modular/male-base-modular.glb`.
+- Generated, rigged, and exported the first male modular MVP GLB at `public/avatar/modular/male-base-modular.glb`; current app-facing base is the later plain export at `public/avatar/modular/male-base-plain.glb`.
 - Added slot-ready avatar state/catalog migration.
 - Added runtime top-slot mesh visibility toggling.
 - Added `/avatar-preview` controls for modular male top selection.

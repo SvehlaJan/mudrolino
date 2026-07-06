@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Loader2, Mic, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
+import { CheckCircle2, Download, Loader2, Mic, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
 import { IconMenuButton } from './IconMenuButton';
@@ -16,6 +16,7 @@ import { ChoiceTile } from './ChoiceTile';
 import { SearchInput, SegmentedChoice, TextAreaControl, ToggleControl } from './FormControls';
 import { OverlayFrame } from './OverlayFrame';
 import { cx } from './utils';
+import { RecordingListItem } from '../../recordings/RecordingListItem';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -170,6 +171,55 @@ export function UiKitScreen() {
           </Card>
         </div>
         <div className="grid gap-3 lg:grid-cols-2">
+          <RecordingListItem
+            item={{ key: 'sk/words/custom-draft', label: 'Jahoda 🍓', category: 'words' }}
+            secondaryLabel="JA-HO-DA"
+            hasCustom={false}
+            isActive={false}
+            recorderState="idle"
+            speaking={false}
+            savedFlash={false}
+            statusLabel="Koncept"
+            statusTone="draft"
+            allowPlay={false}
+            recordEmphasis
+            onRecord={() => undefined}
+            onStop={() => undefined}
+            onPlay={() => undefined}
+            onDelete={() => undefined}
+          />
+
+          <RecordingListItem
+            item={{ key: 'sk/words/custom-ready', label: 'Jahoda 🍓', category: 'words' }}
+            secondaryLabel="JA-HO-DA"
+            hasCustom
+            isActive={false}
+            recorderState="idle"
+            speaking={false}
+            savedFlash={false}
+            statusLabel="Vlastné"
+            statusTone="ready"
+            onRecord={() => undefined}
+            onStop={() => undefined}
+            onPlay={() => undefined}
+            onDelete={() => undefined}
+          />
+
+          <RecordingListItem
+            item={{ key: 'sk/words/default-ready', label: 'Mama 👩', category: 'words' }}
+            secondaryLabel="MA-MA"
+            hasCustom={false}
+            isActive={false}
+            recorderState="idle"
+            speaking={false}
+            savedFlash={false}
+            statusLabel="Predvolené"
+            onRecord={() => undefined}
+            onStop={() => undefined}
+            onPlay={() => undefined}
+            onDelete={() => undefined}
+          />
+
           <RecordingRowExample
             label="mama 👩"
             indicator={<span className="inline-block h-3 w-3 rounded-full border-2 border-shadow/20" />}
@@ -208,6 +258,26 @@ export function UiKitScreen() {
               },
             ]}
           />
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
+            <div className="flex items-center gap-2">
+              <Download size={18} className="text-text-main/70" />
+              <p className="text-sm font-bold text-text-main">Pridať Teo</p>
+            </div>
+          </Card>
+          <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={18} className="text-green-600" />
+              <p className="text-sm font-bold text-text-main">Teo je pripravený aj offline.</p>
+            </div>
+          </Card>
+          <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
+            <div className="flex items-center gap-2">
+              <RefreshCw size={18} className="text-primary" />
+              <p className="text-sm font-bold text-text-main">Nová verzia je pripravená.</p>
+            </div>
+          </Card>
         </div>
       </Section>
 

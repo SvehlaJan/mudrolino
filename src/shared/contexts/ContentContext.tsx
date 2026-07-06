@@ -13,6 +13,7 @@ import type {
 } from '../types';
 import { deriveSyllableItems, getLocaleContent } from '../contentRegistry';
 import type { ContentRepository } from '../services/contentRepository';
+import type { RestoreDefaultsResult } from '../services/contentRepository';
 import { LocalContentRepository } from '../services/localContentRepository';
 import { audioOverrideStore } from '../services/audioOverrideStore';
 
@@ -41,12 +42,16 @@ export interface ContentContextValue {
     changes: Partial<Pick<UserWord, 'word' | 'syllables' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
   ): Promise<void>;
   deleteWord(id: string): Promise<void>;
+  hideDefaultWord(id: string): Promise<void>;
+  restoreDefaultWords(): Promise<RestoreDefaultsResult>;
   addPraise(data: Omit<UserPraise, 'id' | 'status' | 'order' | 'locale'>): Promise<void>;
   updatePraise(
     id: string,
     changes: Partial<Pick<UserPraise, 'text' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
   ): Promise<void>;
   deletePraise(id: string): Promise<void>;
+  hideDefaultPraise(id: string): Promise<void>;
+  restoreDefaultPraises(): Promise<RestoreDefaultsResult>;
 }
 
 const ContentContext = createContext<ContentContextValue | null>(null);
@@ -62,6 +67,33 @@ interface ContentProviderProps {
   children: React.ReactNode;
 }
 
+function buildDefaultWords(locale: string): UserWord[] {
+  return getLocaleContent(locale).wordItems.map((word, index) => ({
+    id: crypto.randomUUID(),
+    word: word.word,
+    syllables: word.syllables,
+    emoji: word.emoji,
+    audioKey: word.audioKey,
+    status: 'ready' as const,
+    isDefault: true,
+    locale,
+    order: index,
+  }));
+}
+
+function buildDefaultPraises(locale: string): UserPraise[] {
+  return getLocaleContent(locale).praiseEntries.map((praise, index) => ({
+    id: crypto.randomUUID(),
+    text: praise.text,
+    emoji: praise.emoji,
+    audioKey: praise.audioKey,
+    status: 'ready' as const,
+    isDefault: true,
+    locale,
+    order: index,
+  }));
+}
+
 export function ContentProvider({ locale, children }: ContentProviderProps) {
   const repoRef = useRef<ContentRepository>(new LocalContentRepository(locale));
   const [allUserWords, setAllUserWords] = useState<UserWord[]>([]);
@@ -73,30 +105,8 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     const repo = new LocalContentRepository(locale);
     repoRef.current = repo;
 
-    const localeData = getLocaleContent(locale);
-
-    const seedWords: UserWord[] = localeData.wordItems.map((w, i) => ({
-      id: crypto.randomUUID(),
-      word: w.word,
-      syllables: w.syllables,
-      emoji: w.emoji,
-      audioKey: w.audioKey,
-      status: 'ready' as const,
-      isDefault: true,
-      locale,
-      order: i,
-    }));
-
-    const seedPraises: UserPraise[] = localeData.praiseEntries.map((p, i) => ({
-      id: crypto.randomUUID(),
-      text: p.text,
-      emoji: p.emoji,
-      audioKey: p.audioKey,
-      status: 'ready' as const,
-      isDefault: true,
-      locale,
-      order: i,
-    }));
+    const seedWords = buildDefaultWords(locale);
+    const seedPraises = buildDefaultPraises(locale);
 
     void repo
       .seed(seedWords, seedPraises)
@@ -148,6 +158,20 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     [allUserWords, locale, reload],
   );
 
+  const hideDefaultWord = useCallback(
+    async (id: string) => {
+      await repoRef.current.hideDefaultWord(id);
+      await reload();
+    },
+    [reload],
+  );
+
+  const restoreDefaultWords = useCallback(async () => {
+    const result = await repoRef.current.restoreDefaultWords(buildDefaultWords(locale));
+    await reload();
+    return result;
+  }, [locale, reload]);
+
   const addPraise = useCallback(
     async (data: Omit<UserPraise, 'id' | 'status' | 'order' | 'locale'>) => {
       await repoRef.current.addPraise(data);
@@ -179,6 +203,20 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     [allUserPraises, locale, reload],
   );
 
+  const hideDefaultPraise = useCallback(
+    async (id: string) => {
+      await repoRef.current.hideDefaultPraise(id);
+      await reload();
+    },
+    [reload],
+  );
+
+  const restoreDefaultPraises = useCallback(async () => {
+    const result = await repoRef.current.restoreDefaultPraises(buildDefaultPraises(locale));
+    await reload();
+    return result;
+  }, [locale, reload]);
+
   const localeData = getLocaleContent(locale);
   const readyWords = allUserWords.filter((w) => w.status === 'ready');
   const wordItems: Word[] = readyWords.map((w) => ({
@@ -206,9 +244,13 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     addWord,
     updateWord,
     deleteWord,
+    hideDefaultWord,
+    restoreDefaultWords,
     addPraise,
     updatePraise,
     deletePraise,
+    hideDefaultPraise,
+    restoreDefaultPraises,
   };
 
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;

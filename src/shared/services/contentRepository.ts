@@ -1,6 +1,11 @@
 // src/shared/services/contentRepository.ts
 import type { UserWord, UserPraise } from '../types';
 
+export interface RestoreDefaultsResult {
+  restored: number;
+  skippedDuplicates: number;
+}
+
 export interface ContentRepository {
   readonly locale: string;
 
@@ -14,6 +19,8 @@ export interface ContentRepository {
     changes: Partial<Pick<UserWord, 'word' | 'syllables' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
   ): Promise<UserWord>;
   deleteWord(id: string): Promise<void>;
+  hideDefaultWord(id: string): Promise<void>;
+  restoreDefaultWords(defaultWords: UserWord[]): Promise<RestoreDefaultsResult>;
 
   getPraises(): Promise<UserPraise[]>;
   addPraise(praise: Omit<UserPraise, 'id' | 'status' | 'order' | 'locale'>): Promise<UserPraise>;
@@ -22,4 +29,6 @@ export interface ContentRepository {
     changes: Partial<Pick<UserPraise, 'text' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
   ): Promise<UserPraise>;
   deletePraise(id: string): Promise<void>;
+  hideDefaultPraise(id: string): Promise<void>;
+  restoreDefaultPraises(defaultPraises: UserPraise[]): Promise<RestoreDefaultsResult>;
 }
