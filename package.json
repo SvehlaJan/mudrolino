@@ -10,6 +10,7 @@
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && node_modules/.bin/eslint src --ext ts,tsx",
     "test:audio": "npx tsx public/audio/_review/check_audio.ts",
+    "pwa:icons": "node tools/pwa/generate-icons.mjs",
     "avatar:gltf:inspect": "gltf-transform inspect",
     "avatar:gltf:validate": "node tools/avatar/validate_gltf.js",
     "avatar:gltf:optimize:body": "gltf-transform optimize public/avatar/modular/male-base-plain.glb public/avatar/modular/male-base-plain.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false && gltf-transform optimize public/avatar/modular/male-base-plain-walking.glb public/avatar/modular/male-base-plain-walking.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false && gltf-transform optimize public/avatar/modular/male-base-plain-running.glb public/avatar/modular/male-base-plain-running.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false",
@@ -44,10 +45,12 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "gltf-validator": "^2.0.0-dev.3.10",
     "playwright": "^1.59.1",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.1",
-    "vite": "^8.0.7"
+    "vite": "^8.0.7",
+    "vite-plugin-pwa": "^1.3.0"
   }
 }

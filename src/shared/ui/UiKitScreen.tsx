@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Loader2, Mic, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
+import { CheckCircle2, Download, Loader2, Mic, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
 import { IconMenuButton } from './IconMenuButton';
@@ -258,6 +258,26 @@ export function UiKitScreen() {
               },
             ]}
           />
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
+            <div className="flex items-center gap-2">
+              <Download size={18} className="text-text-main/70" />
+              <p className="text-sm font-bold text-text-main">Pridať Teo</p>
+            </div>
+          </Card>
+          <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={18} className="text-green-600" />
+              <p className="text-sm font-bold text-text-main">Teo je pripravený aj offline.</p>
+            </div>
+          </Card>
+          <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
+            <div className="flex items-center gap-2">
+              <RefreshCw size={18} className="text-primary" />
+              <p className="text-sm font-bold text-text-main">Nová verzia je pripravená.</p>
+            </div>
+          </Card>
         </div>
       </Section>
 

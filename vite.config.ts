@@ -1,12 +1,26 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig, loadEnv} from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
+import { pwaHtmlHeadTags, pwaHtmlTitle, pwaPluginOptions } from './src/pwa/pwaConfig';
+
+function pwaHtmlMetadataPlugin(): Plugin {
+  return {
+    name: 'teo-pwa-html-metadata',
+    transformIndexHtml(html) {
+      return {
+        html: html.replace(/<title>.*<\/title>/, `<title>${pwaHtmlTitle}</title>`),
+        tags: pwaHtmlHeadTags,
+      };
+    },
+  };
+}
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), pwaHtmlMetadataPlugin(), VitePWA(pwaPluginOptions)],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },

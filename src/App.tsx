@@ -27,6 +27,7 @@ import { HomeAvatarOverlay } from './avatar/HomeAvatarOverlay';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
 import { AppScreen, IconButton, UiKitScreen } from './shared/ui';
 import { CustomContentScreen } from './content/CustomContentScreen';
+import { PwaHomeControl } from './pwa/PwaHomeControl';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
 
@@ -47,20 +48,23 @@ function HomeLauncher({
   return (
     <AppScreen maxWidth="wide" className="p-4 sm:p-6 lg:p-8">
         {/* Header */}
-        <div className="flex justify-between items-start gap-4 mb-4 sm:mb-6 lg:mb-8 shrink-0">
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap justify-between items-start gap-4 mb-4 sm:mb-6 lg:mb-8 shrink-0">
+          <div className="flex min-w-0 flex-1 flex-col gap-2">
             <h1 className="text-[clamp(2.6rem,6vw,5.25rem)] font-black text-text-main tracking-tight leading-none">Hravé Učenie</h1>
             <p className="text-[clamp(1.05rem,2.2vw,1.7rem)] font-medium opacity-60 leading-tight">Vyber si hru a poďme na to!</p>
           </div>
 
-          <IconButton
-            label="Nastavenia"
-            onClick={onOpenSettings}
-            className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 !bg-shadow/20 !shadow-none hover:scale-105 active:scale-95 shrink-0 relative"
-          >
-            <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 rounded-full blur-sm absolute" />
-            <Settings size={28} className="sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-text-main opacity-80" />
-          </IconButton>
+          <div className="flex w-full shrink-0 flex-col items-end gap-2 sm:w-auto">
+            <IconButton
+              label="Nastavenia"
+              onClick={onOpenSettings}
+              className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 !bg-shadow/20 !shadow-none hover:scale-105 active:scale-95 shrink-0 relative"
+            >
+              <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 rounded-full blur-sm absolute" />
+              <Settings size={28} className="sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-text-main opacity-80" />
+            </IconButton>
+            <PwaHomeControl className="w-full sm:w-80" />
+          </div>
         </div>
 
         {/* Game Grid */}
