@@ -99,7 +99,7 @@ Expected: the `scripts` object contains this exact new key/value and all existin
 Create `src/pwa/pwaConfig.verify.ts` with this complete content:
 
 ```typescript
-import { pwaManifest, pwaPluginOptions } from './pwaConfig';
+import { pwaBrand, pwaHtmlHeadTags, pwaHtmlTitle, pwaIcons, pwaManifest, pwaPluginOptions } from './pwaConfig';
 
 function assert(condition: boolean, message: string) {
   if (!condition) throw new Error(message);
@@ -114,6 +114,28 @@ assert(pwaManifest.display === 'standalone', 'manifest uses standalone display')
 assert(pwaManifest.orientation === 'portrait-primary', 'manifest uses portrait-primary orientation');
 assert(Boolean(pwaManifest.theme_color?.startsWith('#')), 'theme_color is a solid hex color');
 assert(Boolean(pwaManifest.background_color?.startsWith('#')), 'background_color is a solid hex color');
+
+assert(pwaHtmlTitle === pwaBrand.appName, 'html title uses centralized app name');
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'theme-color' && tag.attrs.content === pwaBrand.themeColor),
+  'html head tags include theme-color',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'apple-mobile-web-app-title' && tag.attrs.content === pwaBrand.shortName),
+  'html head tags include Apple web app title',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'mobile-web-app-capable' && tag.attrs.content === 'yes'),
+  'html head tags include mobile web app capable',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'apple-mobile-web-app-capable' && tag.attrs.content === 'yes'),
+  'html head tags include Apple standalone capable',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'link' && tag.attrs?.rel === 'apple-touch-icon' && tag.attrs.href === pwaIcons.appleTouch),
+  'html head tags include Apple touch icon',
+);
 
 const iconSources = new Set(pwaManifest.icons.map((icon) => icon.src));
 assert(iconSources.has('/pwa/pwa-192x192.png'), 'manifest includes 192 icon');
@@ -154,7 +176,21 @@ Expected: command fails because `src/pwa/pwaConfig.ts` does not exist yet.
 Create `src/pwa/pwaConfig.ts` with this complete content:
 
 ```typescript
+import type { HtmlTagDescriptor } from 'vite';
 import type { ManifestOptions, VitePWAOptions } from 'vite-plugin-pwa';
+
+type PwaManifest = Partial<ManifestOptions> & {
+  name: string;
+  short_name: string;
+  lang: string;
+  start_url: string;
+  scope: string;
+  display: ManifestOptions['display'];
+  orientation: string;
+  theme_color: string;
+  background_color: string;
+  icons: NonNullable<ManifestOptions['icons']>;
+};
 
 export const pwaBrand = {
   appName: 'Teo Learn',
@@ -171,7 +207,58 @@ export const pwaIcons = {
   appleTouch: '/pwa/apple-touch-icon.png',
 } as const;
 
-export const pwaManifest: ManifestOptions = {
+export const pwaHtmlTitle = pwaBrand.appName;
+
+export const pwaHtmlHeadTags: HtmlTagDescriptor[] = [
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'theme-color',
+      content: pwaBrand.themeColor,
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'apple-mobile-web-app-title',
+      content: pwaBrand.shortName,
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'mobile-web-app-capable',
+      content: 'yes',
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'apple-mobile-web-app-capable',
+      content: 'yes',
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'link',
+    attrs: {
+      rel: 'apple-touch-icon',
+      href: pwaIcons.appleTouch,
+    },
+    injectTo: 'head',
+  },
+];
+
+export const pwaControlCopy = {
+  installLabel: `Pridať ${pwaBrand.shortName}`,
+  offlineReady: `${pwaBrand.shortName} je pripravený aj offline.`,
+  iosHelp: `Na iPhone otvorte Zdieľať a zvoľte Pridať na plochu.`,
+} as const;
+
+export const pwaManifest: PwaManifest = {
   id: '/',
   name: pwaBrand.appName,
   short_name: pwaBrand.shortName,
@@ -244,9 +331,21 @@ Modify `vite.config.ts` to import the plugin and central config:
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
-import { pwaPluginOptions } from './src/pwa/pwaConfig';
+import { pwaHtmlHeadTags, pwaHtmlTitle, pwaPluginOptions } from './src/pwa/pwaConfig';
+
+function pwaHtmlMetadataPlugin(): Plugin {
+  return {
+    name: 'teo-pwa-html-metadata',
+    transformIndexHtml(html) {
+      return {
+        html: html.replace(/<title>.*<\/title>/, `<title>${pwaHtmlTitle}</title>`),
+        tags: pwaHtmlHeadTags,
+      };
+    },
+  };
+}
 ```
 
 Then change the plugin list from:
@@ -258,7 +357,7 @@ plugins: [react(), tailwindcss()],
 to:
 
 ```typescript
-plugins: [react(), tailwindcss(), VitePWA(pwaPluginOptions)],
+plugins: [react(), tailwindcss(), pwaHtmlMetadataPlugin(), VitePWA(pwaPluginOptions)],
 ```
 
 Also fix spacing in the Vite import if the file currently has `import {defineConfig, loadEnv} from 'vite';`.
