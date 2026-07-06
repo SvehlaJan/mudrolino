@@ -866,13 +866,13 @@ If icon paths are emitted without a leading slash, that is acceptable as long as
 Run:
 
 ```bash
-node -e "const fs=require('fs'); const sw=fs.readFileSync('dist/sw.js','utf8'); for (const needle of ['audio/words', 'audio/praise', 'fonts/fredoka', 'pwa/pwa-512x512.png']) { if (!sw.includes(needle)) throw new Error('Missing precache entry: '+needle); } console.log('service worker precache coverage looks OK');"
+node -e "const fs=require('fs'); const sw=fs.readFileSync('dist/sw.js','utf8'); for (const needle of ['audio/sk/words', 'audio/sk/praise', 'fonts/fredoka', 'pwa/pwa-512x512.png']) { if (!sw.includes(needle)) throw new Error('Missing precache entry: '+needle); } console.log('service worker precache coverage looks OK for locale-prefixed audio');"
 ```
 
 Expected output:
 
 ```text
-service worker precache coverage looks OK
+service worker precache coverage looks OK for locale-prefixed audio
 ```
 
 - [ ] **Step 5: Preview production build**
