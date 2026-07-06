@@ -1,3 +1,4 @@
+import type { HtmlTagDescriptor } from 'vite';
 import type { ManifestOptions, VitePWAOptions } from 'vite-plugin-pwa';
 
 type PwaManifest = Partial<ManifestOptions> & {
@@ -26,6 +27,57 @@ export const pwaIcons = {
   standard512: '/pwa/pwa-512x512.png',
   maskable512: '/pwa/pwa-maskable-512x512.png',
   appleTouch: '/pwa/apple-touch-icon.png',
+} as const;
+
+export const pwaHtmlTitle = pwaBrand.appName;
+
+export const pwaHtmlHeadTags: HtmlTagDescriptor[] = [
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'theme-color',
+      content: pwaBrand.themeColor,
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'apple-mobile-web-app-title',
+      content: pwaBrand.shortName,
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'mobile-web-app-capable',
+      content: 'yes',
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'meta',
+    attrs: {
+      name: 'apple-mobile-web-app-capable',
+      content: 'yes',
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'link',
+    attrs: {
+      rel: 'apple-touch-icon',
+      href: pwaIcons.appleTouch,
+    },
+    injectTo: 'head',
+  },
+];
+
+export const pwaControlCopy = {
+  installLabel: `Pridať ${pwaBrand.shortName}`,
+  offlineReady: `${pwaBrand.shortName} je pripravený aj offline.`,
+  iosHelp: `Na iPhone otvorte Zdieľať a zvoľte Pridať na plochu.`,
 } as const;
 
 export const pwaManifest: PwaManifest = {
@@ -76,7 +128,7 @@ export const pwaPluginOptions: Partial<VitePWAOptions> = {
       '**/*.{js,css,html,webmanifest}',
       'audio/**/*.{mp3,ogg,wav}',
       'fonts/**/*.woff2',
-      'pwa/**/*.{png,svg}',
+      'pwa/**/*.svg',
     ],
     globIgnores: [
       'avatar/**/*.glb',

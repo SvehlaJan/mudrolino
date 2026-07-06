@@ -1,4 +1,4 @@
-import { pwaManifest, pwaPluginOptions } from './pwaConfig';
+import { pwaBrand, pwaHtmlHeadTags, pwaHtmlTitle, pwaIcons, pwaManifest, pwaPluginOptions } from './pwaConfig';
 
 function assert(condition: boolean, message: string) {
   if (!condition) throw new Error(message);
@@ -13,6 +13,28 @@ assert(pwaManifest.display === 'standalone', 'manifest uses standalone display')
 assert(pwaManifest.orientation === 'portrait-primary', 'manifest uses portrait-primary orientation');
 assert(Boolean(pwaManifest.theme_color?.startsWith('#')), 'theme_color is a solid hex color');
 assert(Boolean(pwaManifest.background_color?.startsWith('#')), 'background_color is a solid hex color');
+
+assert(pwaHtmlTitle === pwaBrand.appName, 'html title uses centralized app name');
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'theme-color' && tag.attrs.content === pwaBrand.themeColor),
+  'html head tags include theme-color',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'apple-mobile-web-app-title' && tag.attrs.content === pwaBrand.shortName),
+  'html head tags include Apple web app title',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'mobile-web-app-capable' && tag.attrs.content === 'yes'),
+  'html head tags include mobile web app capable',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'meta' && tag.attrs?.name === 'apple-mobile-web-app-capable' && tag.attrs.content === 'yes'),
+  'html head tags include Apple standalone capable',
+);
+assert(
+  pwaHtmlHeadTags.some((tag) => tag.tag === 'link' && tag.attrs?.rel === 'apple-touch-icon' && tag.attrs.href === pwaIcons.appleTouch),
+  'html head tags include Apple touch icon',
+);
 
 const iconSources = new Set(pwaManifest.icons.map((icon) => icon.src));
 assert(iconSources.has('/pwa/pwa-192x192.png'), 'manifest includes 192 icon');

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Download, RefreshCw, Share2, X } from 'lucide-react';
 import { Button, Card, IconButton } from '../shared/ui';
+import { pwaControlCopy } from './pwaConfig';
 import { usePwaInstall } from './usePwaInstall';
 
 export interface PwaHomeControlProps {
@@ -50,7 +51,7 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
         <Card className="w-full !rounded-2xl !p-3 text-left !shadow-sm">
           <div className="flex items-start gap-2">
             <CheckCircle2 size={18} className="mt-1 shrink-0 text-green-600" />
-            <p className="min-w-0 flex-1 text-sm font-bold text-text-main">Teo je pripravený aj offline.</p>
+            <p className="min-w-0 flex-1 text-sm font-bold text-text-main">{pwaControlCopy.offlineReady}</p>
             <IconButton label="Zavrieť" onClick={pwa.dismissOfflineReady} className="!h-8 !w-8 !bg-shadow/10 !shadow-none">
               <X size={16} />
             </IconButton>
@@ -61,7 +62,7 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
       {pwa.canInstall && !pwa.needRefresh && (
         <div className="flex justify-end">
           <IconButton
-            label="Pridať Teo"
+            label={pwaControlCopy.installLabel}
             onClick={() => void handleInstall()}
             className="!h-12 !w-12 !bg-white/70 text-text-main !shadow-sm"
           >
@@ -75,7 +76,7 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
           <div className="flex items-start gap-2">
             <Share2 size={18} className="mt-1 shrink-0 text-accent-orange" />
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-bold text-text-main">Na iPhone otvorte Zdieľať a zvoľte Pridať na plochu.</p>
+              <p className="text-sm font-bold text-text-main">{pwaControlCopy.iosHelp}</p>
               <button
                 type="button"
                 onClick={() => setShowIosHelp(false)}

@@ -219,7 +219,7 @@ export const pwaPluginOptions: Partial<VitePWAOptions> = {
       '**/*.{js,css,html,webmanifest}',
       'audio/**/*.{mp3,ogg,wav}',
       'fonts/**/*.woff2',
-      'pwa/**/*.{png,svg}',
+      'pwa/**/*.svg',
     ],
     globIgnores: [
       'avatar/**/*.glb',
@@ -804,19 +804,24 @@ git commit -m "feat: add parent pwa home control"
 
 - [ ] **Step 1: Add HTML metadata**
 
-Modify the `<head>` in `index.html` so it contains:
+Keep `index.html` as the base shell with charset, viewport, and an empty title placeholder:
 
 ```html
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title></title>
+```
+
+Inject PWA metadata from `src/pwa/pwaConfig.ts` through the Vite `transformIndexHtml` hook so built HTML contains:
+
+```html
 <meta name="theme-color" content="#F53D4C" />
 <meta name="apple-mobile-web-app-title" content="Teo" />
 <meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="apple-touch-icon" href="/pwa/apple-touch-icon.png" />
 <title>Teo Learn</title>
 ```
-
-Do not add `apple-mobile-web-app-capable` in this task; prefer the manifest and current mobile browser behavior.
 
 - [ ] **Step 2: Build production output**
 
