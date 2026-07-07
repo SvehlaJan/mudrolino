@@ -135,7 +135,7 @@
 > Candidate games that fit the current learning model but are not friends-first blockers.
 
 - [x] **Prvé písmenko** — sound-first word-to-starting-letter game using ready words and active alphabet settings.
-- [ ] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
+- [x] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
 - [ ] **Ktoré chýba?** — show a short number or letter sequence with one missing item and let the child identify it.
 
 ---

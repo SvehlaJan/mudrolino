@@ -4,7 +4,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 
 ## Features
 
-- Seven mini-games: alphabet, syllables, numbers, counting, words, first-letter sounds, and syllable assembly.
+- Eight mini-games: alphabet, syllables, numbers, counting, words, first-letter sounds, syllable assembly, and missing-syllable completion.
 - Audio-first gameplay with recorded `.mp3` clips when present and Slovak TTS fallback when files are missing.
 - Shared success, failure, and session-complete overlays across the grid-based games.
 - Parent-protected settings flow via a 3-second hold gate.
@@ -23,6 +23,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `Slová`: read a syllabified word prompt and match it to the right emoji.
 - `Prvé písmenko`: hear a word, see its emoji, and choose the first Slovak letter.
 - `Skladaj`: arrange shuffled syllable tiles into the correct word.
+- `Doplň slabiku`: hear a word and choose the missing syllable from four tiles.
 
 ## Tech Stack
 
@@ -44,6 +45,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `src/games/counting/CountingItemsGame.tsx` is a bespoke mechanic and does not use `FindItGame`.
 - `src/games/first-letter/FirstLetterGame.tsx` is a bespoke word-to-first-letter mechanic that shares the app's standard overlays and controls.
 - `src/games/assembly/AssemblyGame.tsx` is a bespoke tap-to-place syllable ordering game.
+- `src/games/complete-syllable/CompleteSyllableGame.tsx` is a bespoke missing-syllable mechanic that shares the app's standard overlays and controls.
 - `src/shared/contentRegistry.ts` is the locale-aware content registry for letters, derived syllables, numbers, shared phrase audio metadata, timing constants, and praise entries.
 - `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
 - `src/content/CustomContentScreen.tsx` is the parent-facing local content and recording surface.
