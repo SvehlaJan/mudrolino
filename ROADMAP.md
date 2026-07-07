@@ -61,9 +61,9 @@
 
 - [~] UX review in progress in parallel
 - [ ] Apply critical UX findings from review
-- [ ] Run a full smoke test on phone and desktop/tablet: home, all games, settings, custom content, recording, feedback, avatar flag on/off
+- [x] Run a full smoke test on phone and desktop/tablet: home, all games, settings, custom content, recording, feedback, avatar flag on/off
 - [ ] Verify production build and deploy target
-- [ ] Configure `VITE_WEB3FORMS_KEY` for private feedback collection
+- [x] Configure `VITE_WEB3FORMS_KEY` for private feedback collection
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
 
@@ -96,7 +96,7 @@
 - [x] Feedback form spec (`docs/superpowers/specs/2026-04-23-feedback-form-design.md`)
 - [x] Parent-facing feedback form in settings
 - [x] Submit feedback through Web3Forms when `VITE_WEB3FORMS_KEY` is configured
-- [ ] Verify feedback submissions from deployed private build
+- [x] Verify feedback submissions from deployed private build
 
 ### 1.5 Avatar Companion and Customization
 > Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The historical Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but the app-facing runtime now uses the plain male base at `public/avatar/modular/male-base-plain.glb` plus separate garment GLBs under `public/avatar/garments/`. Old `public/avatar/meshy` POC GLBs are no longer current published assets; related source/provenance remains under `meshy_output/`.
@@ -131,13 +131,19 @@
 - [ ] Decide and set up analytics platform if needed
 - [ ] Instrument screen views and game events if analytics is adopted
 
+### 1.7 Future Game Backlog
+> Candidate games that fit the current learning model but are not friends-first blockers.
+
+- [ ] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
+- [ ] **Ktoré chýba?** — show a short number or letter sequence with one missing item and let the child identify it.
+
 ---
 
 ## Phase 2 — Public Launch
 
 **Goal:** Move from trusted-friend sharing to a public Slovak web launch after feedback and privacy basics are handled. Still no accounts or payments.
 
-> Open decisions: domain, PWA, landing page vs. app-at-root, analytics, and how much of the UX review must be applied before public sharing.
+> Open decisions: domain, landing page vs. app-at-root, analytics, and how much of the UX review must be applied before public sharing. Installable PWA support is implemented for the current app.
 
 - [ ] Synthesize friend feedback into launch blockers vs. later improvements
 - [ ] Decide on domain and configure DNS
@@ -145,7 +151,7 @@
 - [ ] Write and publish privacy policy (GDPR-compliant, covers children and local microphone/audio storage)
 - [ ] Decide whether to use analytics for public launch
 - [ ] If analytics is adopted, choose privacy-friendly platform and verify no cookie banner is needed
-- [ ] Evaluate and optionally implement PWA: manifest, installability, offline caching for app shell/audio/avatar assets
+- [x] Evaluate and implement PWA: manifest, installability, and offline caching for the app shell/core games
 - [x] Add installable PWA support for mobile with offline core games
 - [ ] SEO: meta tags, Open Graph, page title/description for discoverability
 - [ ] Landing page or app-at-root decision
@@ -259,7 +265,7 @@
 - [ ] COPPA compliance review if English-speaking market is targeted (Phase 4)
 
 ### Performance and PWA
-- [ ] Evaluate PWA: service worker, offline caching, web app manifest (Phase 2 decision)
+- [x] Evaluate and implement PWA: service worker, offline caching, web app manifest, and mobile install prompt
 - [ ] Audio/avatar preloading strategy as content library and 3D assets grow
 - [ ] Avatar bundle-size and mobile performance audit
 - [ ] Image/emoji asset optimization audit
@@ -295,3 +301,5 @@
 | 2026-06-02 | Avatar garments skip `hd_texture` and are post-processed with `gltf-transform optimize` (webp/1024). | 4K maps bloated a t-shirt to 17 MB for no visible gain at avatar scale; optimization lands garments under ~1 MB. |
 | 2026-06-02 | Garments are skinned to the body's shared armature (Blender data-transfer weights) and rebound at runtime by bone name; meshopt geometry compression is used. | Static single-bone attach can't deform a torso/sleeve garment. Correction to the earlier note: drei `useGLTF` DOES decode meshopt (the body GLB itself is meshopt-compressed), so garments are meshopt-compressed too. |
 | 2026-06-02 | Thin garments (tee) need clean object-scale fit + OUTSIDE shrinkwrap + flat-matte maps; per-vertex normal inflation is avoided (it self-intersects into slivers). Bulky garments (hoodie) need neither shrinkwrap nor inflation. | A natural-shaped thin garment clips at the neck/shoulders on a visible body; OUTSIDE shrinkwrap lifts only the clipping verts. The true fix for a clip-free thin tee is body-masking (backlog). |
+| 2026-07-06 | Friends-first feedback uses Web3Forms on the deployed build. | Feedback submissions have been verified in production, so a heavier feedback platform remains deferred. |
+| 2026-07-06 | PWA support is implemented for mobile install and offline core games. | The friend-share build now has a manifest, service worker, generated icons, install prompt, and app-shell/core-game offline caching; larger audio/avatar preloading remains a later performance task. |

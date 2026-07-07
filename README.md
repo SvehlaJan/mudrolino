@@ -8,6 +8,10 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - Audio-first gameplay with recorded `.mp3` clips when present and Slovak TTS fallback when files are missing.
 - Shared success, failure, and session-complete overlays across the grid-based games.
 - Parent-protected settings flow via a 3-second hold gate.
+- Parent-managed local content for custom words, praise, and recorded audio overrides.
+- Parent feedback form backed by Web3Forms on the deployed build.
+- Installable PWA support with generated icons, a mobile install prompt, and offline core games.
+- Optional local avatar customization and preview tooling behind the avatar feature flag.
 - Mobile-first UI with oversized controls, safe-area spacing, and animated transitions.
 
 ## Games
@@ -28,6 +32,8 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `motion/react`
 - `react-router-dom`
 - Lucide React
+- `vite-plugin-pwa`
+- React Three Fiber / Three.js for the avatar preview and companion runtime
 
 ## Architecture
 
@@ -38,6 +44,9 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `src/games/assembly/AssemblyGame.tsx` is a bespoke tap-to-place syllable ordering game.
 - `src/shared/contentRegistry.ts` is the locale-aware content registry for letters, derived syllables, numbers, shared phrase audio metadata, timing constants, and praise entries.
 - `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
+- `src/content/CustomContentScreen.tsx` is the parent-facing local content and recording surface.
+- `src/pwa/` owns the PWA manifest metadata, install/update prompt state, and home-screen PWA control.
+- `src/avatar/` owns the local avatar runtime, preview route, clothing catalog, and avatar persistence.
 
 ## UI Component Library
 
@@ -55,8 +64,17 @@ When changing shared UI, keep three things aligned:
 
 - Slovak default words live in `src/shared/locales/sk.ts`.
 - Parents can add local custom words and praise entries from `/content`; those are stored per locale in local storage.
+- Parents can record local audio overrides for bundled content and custom entries; custom audio is stored locally in IndexedDB and played before bundled MP3/TTS fallback.
 - Syllable items are derived from ready word items in `src/shared/contentRegistry.ts`.
 - Audio validation lives in `public/audio/_review/check_audio.ts` and can be run with `npm run test:audio`.
+
+## PWA and Deployment
+
+- PWA metadata and service worker options live in `src/pwa/pwaConfig.ts` and `vite.config.ts`.
+- Generated app icons live under `public/pwa/`; regenerate them with `npm run pwa:icons`.
+- The home screen shows a floating install/offline/update prompt when the browser exposes a relevant PWA state.
+- Core app routes and audio needed for the current games are cached for offline use. Avatar asset preloading remains a later performance task.
+- The deployed friends-first build has Web3Forms feedback submissions verified.
 
 ## Development
 
