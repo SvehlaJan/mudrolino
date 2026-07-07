@@ -32,6 +32,18 @@ interface FirstLetterGameProps {
 const MAX_ROUNDS = 5;
 const MAX_ATTEMPTS = 3;
 
+function clearTimer(timerRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>) {
+  if (timerRef.current) {
+    clearTimeout(timerRef.current);
+    timerRef.current = null;
+  }
+}
+
+function clearTimers(timersRef: React.MutableRefObject<Set<ReturnType<typeof setTimeout>>>) {
+  timersRef.current.forEach(clearTimeout);
+  timersRef.current.clear();
+}
+
 function getPromptAudio(locale: string, item: FirstLetterItem) {
   return {
     clips: [
@@ -95,6 +107,10 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
   const pendingRoundEndRef = useRef(false);
+  const promptTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const roundEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const feedbackResetTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
+  const sessionTokenRef = useRef(0);
 
   const activeLetters = useMemo(
     () => getActiveFirstLetterLetters(letterItems, settings.alphabetAccents),
@@ -106,7 +122,19 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
   );
   const lobby = GAME_DEFINITIONS_BY_ID.FIRST_LETTER.lobby;
 
+  const clearTransientTimers = useCallback(() => {
+    clearTimer(promptTimerRef);
+    clearTimer(roundEndTimerRef);
+    clearTimers(feedbackResetTimersRef);
+  }, []);
+
+  const cleanupPlayEffects = useCallback(() => {
+    clearTransientTimers();
+    audioManager.stop();
+  }, [clearTransientTimers]);
+
   const startRound = useCallback((queueOverride?: FirstLetterItem[]) => {
+    clearTransientTimers();
     const currentQueue = queueOverride && queueOverride.length > 0
       ? queueOverride
       : roundQueue.length > 0
@@ -123,22 +151,28 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
     setShowSuccess(false);
     setShowFailure(false);
     pendingRoundEndRef.current = false;
-  }, [activeLetters, eligibleItems, roundQueue]);
+  }, [activeLetters, clearTransientTimers, eligibleItems, roundQueue]);
 
   useEffect(() => {
-    return () => audioManager.stop();
-  }, []);
+    return cleanupPlayEffects;
+  }, [cleanupPlayEffects]);
 
   useEffect(() => {
     if (gameState !== 'PLAYING' || !targetItem || showSuccess || showFailure || showSessionComplete) return;
-    const timer = setTimeout(() => {
+    const sessionToken = sessionTokenRef.current;
+    clearTimer(promptTimerRef);
+    promptTimerRef.current = setTimeout(() => {
+      promptTimerRef.current = null;
+      if (sessionTokenRef.current !== sessionToken) return;
       audioManager.play(getPromptAudio(locale, targetItem));
     }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimeout(timer);
+    return () => clearTimer(promptTimerRef);
   }, [gameState, targetItem, locale, showFailure, showSessionComplete, showSuccess]);
 
   const handlePlay = () => {
     if (eligibleItems.length === 0 || activeLetters.length < 4) return;
+    sessionTokenRef.current += 1;
+    cleanupPlayEffects();
     const queue = fisherYatesShuffle(eligibleItems);
     setRoundQueue(queue);
     setRoundsPlayed(0);
@@ -150,16 +184,24 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
   };
 
   const finishRound = (wasCorrect: boolean) => {
+    const sessionToken = sessionTokenRef.current;
     const nextRoundsPlayed = roundsPlayed + 1;
     setRoundsPlayed(nextRoundsPlayed);
     if (wasCorrect) setCorrectRounds((value) => value + 1);
 
+    clearTimer(roundEndTimerRef);
     if (nextRoundsPlayed >= MAX_ROUNDS) {
-      setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+      roundEndTimerRef.current = setTimeout(() => {
+        roundEndTimerRef.current = null;
+        if (sessionTokenRef.current !== sessionToken) return;
+        setShowSessionComplete(true);
+      }, TIMING.SUCCESS_SHOW_DELAY_MS);
       return;
     }
 
-    setTimeout(() => {
+    roundEndTimerRef.current = setTimeout(() => {
+      roundEndTimerRef.current = null;
+      if (sessionTokenRef.current !== sessionToken) return;
       if (wasCorrect) {
         setShowSuccess(true);
       } else {
@@ -192,16 +234,40 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
     }
 
     audioManager.play(getWrongAudio(locale, letter));
-    setTimeout(() => {
+    const sessionToken = sessionTokenRef.current;
+    const feedbackResetTimer = setTimeout(() => {
+      feedbackResetTimersRef.current.delete(feedbackResetTimer);
+      if (sessionTokenRef.current !== sessionToken) return;
       setFeedback((current) => ({ ...current, [letter.symbol]: null }));
     }, TIMING.FEEDBACK_RESET_MS);
+    feedbackResetTimersRef.current.add(feedbackResetTimer);
+  };
+
+  const handleBackToLobby = () => {
+    sessionTokenRef.current += 1;
+    cleanupPlayEffects();
+    setTargetItem(null);
+    setRoundQueue([]);
+    setChoices([]);
+    setFeedback({});
+    setWrongAttemptsThisRound(0);
+    setShowSuccess(false);
+    setShowFailure(false);
+    setSuccessSpec(null);
+    setFailureSpec(null);
+    setRoundsPlayed(0);
+    setCorrectRounds(0);
+    setTotalTaps(0);
+    setShowSessionComplete(false);
+    pendingRoundEndRef.current = false;
+    setGameState('HOME');
   };
 
   if (gameState === 'PLAYING') {
     return (
       <AppScreen>
         <TopBar
-          left={<BackButton onClick={() => setGameState('HOME')} />}
+          left={<BackButton onClick={handleBackToLobby} />}
           center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
           right={
             <IconButton
@@ -248,7 +314,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
           roundsCompleted={correctRounds}
           totalTaps={totalTaps}
           maxRounds={MAX_ROUNDS}
-          onComplete={() => setGameState('HOME')}
+          onComplete={handleBackToLobby}
         />
       </AppScreen>
     );
