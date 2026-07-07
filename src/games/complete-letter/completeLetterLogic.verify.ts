@@ -107,4 +107,19 @@ const tinyLetters = letters.filter((letter) => ['A', 'M', 'CH'].includes(letter.
 const tinyEligible = buildEligibleCompleteLetterWords([mama], tinyLetters, true, 1, 4);
 assert(tinyEligible.length === 0, 'word is excluded when four unique choices cannot be built');
 
+let threwForIneligibleWord = false;
+try {
+  createCompleteLetterRound(badUnknown, letters, 1);
+} catch {
+  threwForIneligibleWord = true;
+}
+assert(threwForIneligibleWord, 'createCompleteLetterRound throws for a word that cannot be split into active units');
+
+const scarceLetters = letters.filter((letter) => ['A', 'M'].includes(letter.symbol));
+const scarceEligible = buildEligibleCompleteLetterWords([mama], scarceLetters, true, 1, 4);
+assert(scarceEligible.length === 0, 'no words are eligible when fewer than choiceCount active letters exist at all');
+
+const adaptiveRound = createCompleteLetterRound(mama, letters, 'adaptive', () => 0);
+assert(adaptiveRound.missingIndexes.length === 1, 'adaptive mode through createCompleteLetterRound hides one unit for a four-unit word');
+
 console.log('completeLetterLogic checks passed');
