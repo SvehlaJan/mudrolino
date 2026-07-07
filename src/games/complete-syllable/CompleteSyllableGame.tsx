@@ -359,7 +359,8 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
                 onClick={() => handleChoice(syllable)}
                 aria-label={syllable.symbol}
                 state={feedback[syllable.symbol] ?? 'neutral'}
-                className="aspect-[1.35]"
+                shape="option"
+                className="h-[clamp(8.5rem,21vh,13rem)] rounded-[22px] sm:rounded-[28px]"
               >
                 <span className="font-spline text-[clamp(2.35rem,10vw,5.25rem)] font-bold leading-none">
                   {syllable.symbol}
