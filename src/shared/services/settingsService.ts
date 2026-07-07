@@ -9,6 +9,7 @@ export const DEFAULT_SETTINGS: GameSettings = {
   syllablesGridSize: 6,
   numbersRange: { start: 1, end: 10 },
   countingRange: { start: 1, end: 5 },
+  completeLetterMissingCount: 1,
 };
 
 function isValidRange(value: unknown): value is { start: number; end: number } {
@@ -18,6 +19,10 @@ function isValidRange(value: unknown): value is { start: number; end: number } {
     typeof (value as Record<string, unknown>).start === 'number' &&
     typeof (value as Record<string, unknown>).end === 'number'
   );
+}
+
+function isValidCompleteLetterMissingCount(value: unknown): value is GameSettings['completeLetterMissingCount'] {
+  return value === 1 || value === 2 || value === 'adaptive';
 }
 
 export function loadSettings(): GameSettings {
@@ -32,6 +37,9 @@ export function loadSettings(): GameSettings {
       syllablesGridSize: [4, 6].includes(stored.syllablesGridSize as number) ? stored.syllablesGridSize as 4 | 6 : DEFAULT_SETTINGS.syllablesGridSize,
       numbersRange: isValidRange(stored.numbersRange) ? stored.numbersRange : DEFAULT_SETTINGS.numbersRange,
       countingRange: isValidRange(stored.countingRange) ? stored.countingRange : DEFAULT_SETTINGS.countingRange,
+      completeLetterMissingCount: isValidCompleteLetterMissingCount(stored.completeLetterMissingCount)
+        ? stored.completeLetterMissingCount
+        : DEFAULT_SETTINGS.completeLetterMissingCount,
     };
   } catch {
     return DEFAULT_SETTINGS;

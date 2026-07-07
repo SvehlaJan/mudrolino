@@ -15,6 +15,7 @@ export const SETTINGS_SUBTITLES: Record<SettingsTarget, string> = {
   FIRST_LETTER: 'Hra s prvým písmenkom',
   ASSEMBLY: 'Hra so skladaním',
   COMPLETE_SYLLABLE: 'Hra s dopĺňaním slabík',
+  COMPLETE_LETTER: 'Hra s dopĺňaním písmen',
 };
 
 export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
@@ -26,6 +27,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   syllablesGridSize: boolean;
   numbersRange: boolean;
   countingRange: boolean;
+  completeLetterMissingCount: boolean;
 }> = {
   home: {
     music: true,
@@ -36,6 +38,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: true,
     numbersRange: true,
     countingRange: true,
+    completeLetterMissingCount: true,
   },
   ALPHABET: {
     music: true,
@@ -46,6 +49,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: false,
     numbersRange: false,
     countingRange: false,
+    completeLetterMissingCount: false,
   },
   SYLLABLES: {
     music: true,
@@ -56,6 +60,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: true,
     numbersRange: false,
     countingRange: false,
+    completeLetterMissingCount: false,
   },
   NUMBERS: {
     music: true,
@@ -66,6 +71,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: false,
     numbersRange: true,
     countingRange: false,
+    completeLetterMissingCount: false,
   },
   COUNTING_ITEMS: {
     music: true,
@@ -76,6 +82,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: false,
     numbersRange: false,
     countingRange: true,
+    completeLetterMissingCount: false,
   },
   WORDS: {
     music: true,
@@ -86,6 +93,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: false,
     numbersRange: false,
     countingRange: false,
+    completeLetterMissingCount: false,
   },
   FIRST_LETTER: {
     music: true,
@@ -96,6 +104,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: false,
     numbersRange: false,
     countingRange: false,
+    completeLetterMissingCount: false,
   },
   ASSEMBLY: {
     music: true,
@@ -106,6 +115,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: false,
     numbersRange: false,
     countingRange: false,
+    completeLetterMissingCount: false,
   },
   COMPLETE_SYLLABLE: {
     music: true,
@@ -116,6 +126,18 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     syllablesGridSize: false,
     numbersRange: false,
     countingRange: false,
+    completeLetterMissingCount: false,
+  },
+  COMPLETE_LETTER: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: true,
   },
 };
 

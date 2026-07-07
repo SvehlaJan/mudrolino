@@ -5,8 +5,10 @@
 
 import type { ReactNode } from 'react';
 
-export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'FIRST_LETTER' | 'ASSEMBLY' | 'COMPLETE_SYLLABLE';
+export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'FIRST_LETTER' | 'ASSEMBLY' | 'COMPLETE_SYLLABLE' | 'COMPLETE_LETTER';
 export type SettingsTarget = 'home' | GameId;
+
+export type CompleteLetterMissingCount = 1 | 2 | 'adaptive';
 
 export interface GameSettings {
   music: boolean;
@@ -15,6 +17,7 @@ export interface GameSettings {
   syllablesGridSize: 4 | 6;
   numbersRange: { start: number; end: number };
   countingRange: { start: number; end: number };
+  completeLetterMissingCount: CompleteLetterMissingCount;
 }
 
 export interface GameMetadata {

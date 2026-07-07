@@ -44,6 +44,8 @@ interface SettingsRangeCardProps {
   formatLabel?: (value: number) => string;
 }
 
+const COMPLETE_LETTER_MISSING_COUNT_OPTIONS = [1, 2, 'adaptive'] as const;
+
 function SettingsCard({ children }: SettingsCardProps) {
   return <Card>{children}</Card>;
 }
@@ -86,6 +88,36 @@ function SettingsRangeCard({
           formatLabel={formatLabel}
           onSelect={onSelect}
           columns={options.length === 2 ? 2 : 3}
+        />
+      </div>
+    </SettingsSection>
+  );
+}
+
+function CompleteLetterMissingCountCard({
+  selected,
+  onSelect,
+}: {
+  selected: GameSettings['completeLetterMissingCount'];
+  onSelect: (value: GameSettings['completeLetterMissingCount']) => void;
+}) {
+  return (
+    <SettingsSection>
+      <h3 className="text-xl font-bold sm:text-2xl">Chýbajúce písmená</h3>
+      <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+        Vyberte, koľko písmen má v slove chýbať.
+      </p>
+      <div className="mt-5">
+        <SegmentedChoice
+          options={COMPLETE_LETTER_MISSING_COUNT_OPTIONS}
+          selected={selected}
+          activeClassName="bg-success"
+          columns={3}
+          formatLabel={(value) => {
+            if (value === 'adaptive') return 'Podľa dĺžky';
+            return String(value);
+          }}
+          onSelect={onSelect}
         />
       </div>
     </SettingsSection>
@@ -160,6 +192,15 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
         </GameSettingsGroupCard>
       )}
 
+      {visibility.completeLetterMissingCount && isHome && (
+        <GameSettingsGroupCard title="Doplň písmeno">
+          <CompleteLetterMissingCountCard
+            selected={settings.completeLetterMissingCount}
+            onSelect={(value) => onUpdate({ ...settings, completeLetterMissingCount: value })}
+          />
+        </GameSettingsGroupCard>
+      )}
+
       {visibility.alphabetAccents && !isHome && (
         <SettingsCard>
           <ToggleControl
@@ -172,6 +213,13 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
             activeColorClassName="bg-accent-blue"
           />
         </SettingsCard>
+      )}
+
+      {visibility.completeLetterMissingCount && !isHome && (
+        <CompleteLetterMissingCountCard
+          selected={settings.completeLetterMissingCount}
+          onSelect={(value) => onUpdate({ ...settings, completeLetterMissingCount: value })}
+        />
       )}
 
       {visibility.alphabetGridSize && !isHome && (
