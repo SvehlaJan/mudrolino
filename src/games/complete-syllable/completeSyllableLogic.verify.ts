@@ -18,6 +18,7 @@ const jahoda: Word = { word: 'Jahoda', syllables: 'ja-ho-da', emoji: '🍓', aud
 const kura: Word = { word: 'Kura', syllables: 'ku-ra', emoji: '🐔', audioKey: 'kura' };
 const badShort: Word = { word: 'Pes', syllables: 'pes', emoji: '🐶', audioKey: 'pes' };
 const badLong: Word = { word: 'Nepouzite', syllables: 'ne-po-u-zi-te', emoji: '🧩', audioKey: 'nepouzite' };
+const badMissing: Word = { word: 'Chyba', syllables: 'ja-xx-da', emoji: '🧩', audioKey: 'chyba' };
 const spaced: Word = { word: 'Medzera', syllables: ' ma - ma ', emoji: '👩', audioKey: 'mama' };
 
 const syllables: Syllable[] = [
@@ -50,6 +51,14 @@ assert(hiddenSlots.map((slot) => slot.text).join('-') === 'JA-__-DA', 'hidden pr
 
 const revealedSlots = buildPromptSlots(round, true);
 assert(revealedSlots.map((slot) => slot.text).join('-') === 'JA-HO-DA', 'revealed prompt fills the missing syllable');
+
+const firstRepeatedSlotRound = createCompleteSyllableRound(spaced, 0);
+const firstRepeatedSlotHidden = buildPromptSlots(firstRepeatedSlotRound, false);
+assert(firstRepeatedSlotHidden.map((slot) => slot.text).join('-') === '__-MA', 'first repeated syllable slot can be hidden');
+
+const secondRepeatedSlotRound = createCompleteSyllableRound(spaced, 1);
+const secondRepeatedSlotHidden = buildPromptSlots(secondRepeatedSlotRound, false);
+assert(secondRepeatedSlotHidden.map((slot) => slot.text).join('-') === 'MA-__', 'second repeated syllable slot can be hidden');
 
 const choices = buildSyllableChoices(round, syllables, 4);
 const choiceSymbols = choices.map((choice) => choice.symbol);
@@ -85,6 +94,9 @@ assert(eligible.some((word) => word.word === 'Kura'), 'two-syllable word is elig
 assert(eligible.some((word) => word.word === 'Medzera'), 'trimmed repeated-syllable word is eligible');
 assert(!eligible.some((word) => word.word === 'Pes'), 'one-syllable word is excluded');
 assert(!eligible.some((word) => word.word === 'Nepouzite'), 'five-syllable word is excluded');
+
+const missingSyllableEligible = buildEligibleCompleteSyllableWords([badMissing], syllables, 4);
+assert(missingSyllableEligible.length === 0, 'word is excluded when one word syllable is missing from the pool');
 
 const mixedCaseEligible = buildEligibleCompleteSyllableWords([jahoda], mixedCasePool, 4);
 assert(mixedCaseEligible.some((word) => word.word === 'Jahoda'), 'mixed-case pool makes Jahoda eligible');
