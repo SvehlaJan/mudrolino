@@ -57,12 +57,37 @@ assert(choices.length === 4, 'choice generation returns four syllables');
 assert(choiceSymbols.includes('HO'), 'choices include the correct syllable');
 assert(new Set(choiceSymbols).size === choiceSymbols.length, 'choices are unique');
 
+const mixedCasePool: Syllable[] = [
+  { symbol: 'ja', audioKey: 'ja', sourceWords: [jahoda] },
+  { symbol: ' ho ', audioKey: 'ho', sourceWords: [jahoda] },
+  { symbol: 'HO', audioKey: 'ho-duplicate', sourceWords: [jahoda] },
+  { symbol: ' da ', audioKey: 'da', sourceWords: [jahoda] },
+  { symbol: 'ku', audioKey: 'ku', sourceWords: [kura] },
+  { symbol: ' ra ', audioKey: 'ra', sourceWords: [kura] },
+  { symbol: 'to', audioKey: 'to', sourceWords: [] },
+];
+const mixedCaseChoices = buildSyllableChoices(round, mixedCasePool, 4);
+const mixedCaseChoiceSymbols = mixedCaseChoices.map((choice) => choice.symbol);
+assert(mixedCaseChoices.length === 4, 'mixed-case choice generation returns four syllables');
+assert(mixedCaseChoiceSymbols.includes('HO'), 'mixed-case choices normalize and include the correct syllable');
+assert(
+  mixedCaseChoiceSymbols.every((symbol) => symbol === symbol.trim().toLocaleUpperCase('sk-SK')),
+  'mixed-case choices return normalized symbols',
+);
+assert(
+  new Set(mixedCaseChoiceSymbols).size === mixedCaseChoiceSymbols.length,
+  'mixed-case choices are unique by normalized symbol',
+);
+
 const eligible = buildEligibleCompleteSyllableWords([jahoda, kura, badShort, badLong, spaced], syllables, 4);
 assert(eligible.some((word) => word.word === 'Jahoda'), 'three-syllable word is eligible');
 assert(eligible.some((word) => word.word === 'Kura'), 'two-syllable word is eligible');
 assert(eligible.some((word) => word.word === 'Medzera'), 'trimmed repeated-syllable word is eligible');
 assert(!eligible.some((word) => word.word === 'Pes'), 'one-syllable word is excluded');
 assert(!eligible.some((word) => word.word === 'Nepouzite'), 'five-syllable word is excluded');
+
+const mixedCaseEligible = buildEligibleCompleteSyllableWords([jahoda], mixedCasePool, 4);
+assert(mixedCaseEligible.some((word) => word.word === 'Jahoda'), 'mixed-case pool makes Jahoda eligible');
 
 const tinyPool = syllables.filter((syllable) => ['JA', 'HO', 'DA'].includes(syllable.symbol));
 const tinyEligible = buildEligibleCompleteSyllableWords([jahoda], tinyPool, 4);

@@ -27,8 +27,9 @@ function normalizeSyllable(value: string): string {
 function getUniqueSyllables(syllableItems: Syllable[]): Syllable[] {
   const bySymbol = new Map<string, Syllable>();
   for (const syllable of syllableItems) {
-    if (!bySymbol.has(syllable.symbol)) {
-      bySymbol.set(syllable.symbol, syllable);
+    const symbol = normalizeSyllable(syllable.symbol);
+    if (!bySymbol.has(symbol)) {
+      bySymbol.set(symbol, { ...syllable, symbol });
     }
   }
   return Array.from(bySymbol.values());
