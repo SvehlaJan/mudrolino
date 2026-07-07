@@ -138,7 +138,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
   }, [gameState, targetItem, locale, showFailure, showSessionComplete, showSuccess]);
 
   const handlePlay = () => {
-    if (eligibleItems.length === 0 || activeLetters.length < 2) return;
+    if (eligibleItems.length === 0 || activeLetters.length < 4) return;
     const queue = fisherYatesShuffle(eligibleItems);
     setRoundQueue(queue);
     setRoundsPlayed(0);
@@ -259,7 +259,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
       title={lobby.title}
       playButtonColorClassName={lobby.playButtonColorClassName}
       subtitle={
-        eligibleItems.length === 0 || activeLetters.length < 2
+        eligibleItems.length === 0 || activeLetters.length < 4
           ? <>Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.</>
           : undefined
       }
