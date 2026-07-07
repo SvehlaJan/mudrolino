@@ -62,7 +62,7 @@ function getSuccessSpec(locale: string, round: CompleteSyllableRound): SuccessSp
     echoLine: getCompletedLine(round),
     audioSpec: {
       clips: [
-        { path: `${locale}/words/${round.word.audioKey}`, fallbackText: round.word.syllables },
+        { path: `${locale}/words/${round.word.audioKey}`, fallbackText: round.word.word },
       ],
     },
   };
@@ -74,7 +74,7 @@ function getFailureSpec(locale: string, round: CompleteSyllableRound): FailureSp
     audioSpec: {
       clips: [
         getPhraseClip(locale, 'neverMind'),
-        { path: `${locale}/words/${round.word.audioKey}`, fallbackText: round.word.syllables },
+        { path: `${locale}/words/${round.word.audioKey}`, fallbackText: round.word.word },
       ],
     },
   };
@@ -130,30 +130,78 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
     audioManager.stop();
   }, [clearTransientTimers]);
 
+  const resetPlayState = useCallback(() => {
+    setTargetRound(null);
+    setRoundQueue([]);
+    setChoices([]);
+    setFeedback({});
+    setWrongAttemptsThisRound(0);
+    setShowMissingSyllable(false);
+    setShowSuccess(false);
+    setShowFailure(false);
+    setSuccessSpec(null);
+    setFailureSpec(null);
+    setRoundsPlayed(0);
+    setCorrectRounds(0);
+    setTotalTaps(0);
+    setShowSessionComplete(false);
+    pendingRoundEndRef.current = false;
+  }, []);
+
+  const returnToLobby = useCallback(() => {
+    sessionTokenRef.current += 1;
+    cleanupPlayEffects();
+    resetPlayState();
+    setGameState('HOME');
+  }, [cleanupPlayEffects, resetPlayState]);
+
+  const findPlayableRound = useCallback((candidateQueue: Word[]) => {
+    for (let index = 0; index < candidateQueue.length; index += 1) {
+      try {
+        const round = createCompleteSyllableRound(candidateQueue[index]);
+        const roundChoices = buildSyllableChoices(round, syllableItems, CHOICE_COUNT);
+        if (roundChoices.length === CHOICE_COUNT) {
+          return {
+            round,
+            choices: roundChoices,
+            remainingQueue: candidateQueue.slice(index + 1),
+          };
+        }
+      } catch {
+        continue;
+      }
+    }
+    return null;
+  }, [syllableItems]);
+
   const startRound = useCallback((queueOverride?: Word[]) => {
     clearTransientTimers();
-    const currentQueue = queueOverride && queueOverride.length > 0
-      ? queueOverride
-      : roundQueue.length > 0
+    const hasOverrideQueue = Boolean(queueOverride && queueOverride.length > 0);
+    const hasStoredQueue = !hasOverrideQueue && roundQueue.length > 0;
+    const currentQueue = hasOverrideQueue
+      ? queueOverride!
+      : hasStoredQueue
         ? roundQueue
         : fisherYatesShuffle(eligibleWords);
-    const [nextWord, ...rest] = currentQueue;
-    if (!nextWord) return;
+    const freshQueue = fisherYatesShuffle(eligibleWords);
+    const playableRound = findPlayableRound(currentQueue)
+      ?? (hasOverrideQueue || hasStoredQueue ? findPlayableRound(freshQueue) : null);
 
-    const nextRound = createCompleteSyllableRound(nextWord);
-    const nextChoices = buildSyllableChoices(nextRound, syllableItems, CHOICE_COUNT);
-    if (nextChoices.length !== CHOICE_COUNT) return;
+    if (!playableRound) {
+      returnToLobby();
+      return;
+    }
 
-    setTargetRound(nextRound);
-    setRoundQueue(rest);
-    setChoices(nextChoices);
+    setTargetRound(playableRound.round);
+    setRoundQueue(playableRound.remainingQueue);
+    setChoices(playableRound.choices);
     setFeedback({});
     setWrongAttemptsThisRound(0);
     setShowMissingSyllable(false);
     setShowSuccess(false);
     setShowFailure(false);
     pendingRoundEndRef.current = false;
-  }, [clearTransientTimers, eligibleWords, roundQueue, syllableItems]);
+  }, [clearTransientTimers, eligibleWords, findPlayableRound, returnToLobby, roundQueue]);
 
   useEffect(() => {
     return cleanupPlayEffects;
@@ -170,6 +218,12 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
     }, TIMING.AUDIO_DELAY_MS);
     return () => clearTimer(promptTimerRef);
   }, [gameState, locale, showFailure, showSessionComplete, showSuccess, targetRound]);
+
+  const playPromptAudio = useCallback(() => {
+    if (!targetRound) return;
+    clearTimer(promptTimerRef);
+    audioManager.play(getPromptAudio(locale, targetRound));
+  }, [locale, targetRound]);
 
   const handlePlay = () => {
     if (eligibleWords.length === 0) return;
@@ -213,11 +267,13 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
   };
 
   const handleChoice = (syllable: Syllable) => {
+    clearTimer(promptTimerRef);
     if (!targetRound || showSuccess || showFailure || showSessionComplete || pendingRoundEndRef.current) return;
     setTotalTaps((value) => value + 1);
 
     if (syllable.symbol === targetRound.correctSyllable) {
       pendingRoundEndRef.current = true;
+      audioManager.stop();
       setFeedback((current) => ({ ...current, [syllable.symbol]: 'correct' }));
       setShowMissingSyllable(true);
       setSuccessSpec(getSuccessSpec(locale, targetRound));
@@ -231,6 +287,7 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
 
     if (nextWrongAttempts >= MAX_ATTEMPTS) {
       pendingRoundEndRef.current = true;
+      audioManager.stop();
       setShowMissingSyllable(true);
       setFailureSpec(getFailureSpec(locale, targetRound));
       finishRound(false);
@@ -248,28 +305,12 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
   };
 
   const handleBackToLobby = () => {
-    sessionTokenRef.current += 1;
-    cleanupPlayEffects();
-    setTargetRound(null);
-    setRoundQueue([]);
-    setChoices([]);
-    setFeedback({});
-    setWrongAttemptsThisRound(0);
-    setShowMissingSyllable(false);
-    setShowSuccess(false);
-    setShowFailure(false);
-    setSuccessSpec(null);
-    setFailureSpec(null);
-    setRoundsPlayed(0);
-    setCorrectRounds(0);
-    setTotalTaps(0);
-    setShowSessionComplete(false);
-    pendingRoundEndRef.current = false;
-    setGameState('HOME');
+    returnToLobby();
   };
 
   if (gameState === 'PLAYING') {
     const slots = targetRound ? buildPromptSlots(targetRound, showMissingSyllable) : [];
+    const emojiLabel = targetRound ? `Obrázok pre slovo ${targetRound.word.word}` : 'Obrázok pre slovo';
 
     return (
       <AppScreen>
@@ -278,7 +319,7 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
           center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
           right={
             <IconButton
-              onClick={() => targetRound && audioManager.play(getPromptAudio(locale, targetRound))}
+              onClick={playPromptAudio}
               label="Prehrať zvuk"
             >
               <Volume2 size={24} className="sm:h-7 sm:w-7" />
@@ -287,12 +328,12 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
         />
 
         <div className="flex shrink-0 flex-col items-center justify-center gap-4 pb-4 text-center sm:gap-5">
-          <div role="img" aria-label="Hľadané slovo" className="text-[clamp(4.5rem,18vw,9rem)] leading-none">
+          <div role="img" aria-label={emojiLabel} className="text-[clamp(4.5rem,18vw,9rem)] leading-none">
             {targetRound?.word.emoji}
           </div>
           <div className="flex max-w-full flex-wrap items-center justify-center gap-2 px-2 sm:gap-3">
             {slots.map((slot, index) => (
-              <React.Fragment key={`${slot.text}-${index}`}>
+              <span key={`${slot.text}-${index}`} className="inline-flex items-center gap-2 sm:gap-3">
                 {index > 0 && (
                   <span className="font-spline text-[clamp(1.5rem,5vw,3rem)] font-black text-text-main/45">-</span>
                 )}
@@ -305,7 +346,7 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
                 >
                   {slot.text}
                 </span>
-              </React.Fragment>
+              </span>
             ))}
           </div>
         </div>
