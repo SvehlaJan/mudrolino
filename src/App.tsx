@@ -18,6 +18,7 @@ import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
+import { FirstLetterGame } from './games/first-letter/FirstLetterGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
 import { SettingsScreen } from './shared/components/SettingsScreen';
 import { ContentProvider } from './shared/contexts/ContentContext';
@@ -233,6 +234,14 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/first-letter"
+            element={
+              <ErrorBoundary>
+                <FirstLetterGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('FIRST_LETTER')} />
               </ErrorBoundary>
             }
           />

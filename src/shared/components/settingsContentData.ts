@@ -12,6 +12,7 @@ export const SETTINGS_SUBTITLES: Record<SettingsTarget, string> = {
   NUMBERS: 'Hra s číslami',
   COUNTING_ITEMS: 'Hra s počítaním',
   WORDS: 'Hra so slovami',
+  FIRST_LETTER: 'Hra s prvým písmenkom',
   ASSEMBLY: 'Hra so skladaním',
 };
 
@@ -80,6 +81,16 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     avatar: false,
     recordings: false,
     alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+  },
+  FIRST_LETTER: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
     alphabetGridSize: false,
     syllablesGridSize: false,
     numbersRange: false,

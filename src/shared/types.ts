@@ -5,7 +5,7 @@
 
 import type { ReactNode } from 'react';
 
-export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'ASSEMBLY';
+export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'FIRST_LETTER' | 'ASSEMBLY';
 export type SettingsTarget = 'home' | GameId;
 
 export interface GameSettings {
