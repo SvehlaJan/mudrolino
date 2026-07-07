@@ -4,7 +4,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 
 ## Features
 
-- Six mini-games: alphabet, syllables, numbers, counting, words, and syllable assembly.
+- Seven mini-games: alphabet, syllables, numbers, counting, words, first-letter sounds, and syllable assembly.
 - Audio-first gameplay with recorded `.mp3` clips when present and Slovak TTS fallback when files are missing.
 - Shared success, failure, and session-complete overlays across the grid-based games.
 - Parent-protected settings flow via a 3-second hold gate.
@@ -21,6 +21,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `Čísla`: hear a number and tap the correct numeral.
 - `Spočítaj`: count scattered emoji items, then choose the correct number.
 - `Slová`: read a syllabified word prompt and match it to the right emoji.
+- `Prvé písmenko`: hear a word, see its emoji, and choose the first Slovak letter.
 - `Skladaj`: arrange shuffled syllable tiles into the correct word.
 
 ## Tech Stack
@@ -41,6 +42,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `src/shared/types.ts` defines the domain models (`Letter`, `Syllable`, `Word`, `SlovakNumber`) and the generic `GameDescriptor<T>` contract.
 - `src/shared/components/FindItGame.tsx` implements the shared round loop for the alphabet, syllables, numbers, and words games.
 - `src/games/counting/CountingItemsGame.tsx` is a bespoke mechanic and does not use `FindItGame`.
+- `src/games/first-letter/FirstLetterGame.tsx` is a bespoke word-to-first-letter mechanic that shares the app's standard overlays and controls.
 - `src/games/assembly/AssemblyGame.tsx` is a bespoke tap-to-place syllable ordering game.
 - `src/shared/contentRegistry.ts` is the locale-aware content registry for letters, derived syllables, numbers, shared phrase audio metadata, timing constants, and praise entries.
 - `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
