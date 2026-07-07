@@ -172,7 +172,9 @@ New phrase audio can be added later for `Na aké písmenko sa začína?` and `za
 
 ## Architecture
 
-Prefer reusing `FindItGame` with a new descriptor and a derived item type.
+Use a small bespoke game loop for the play screen while reusing the same shared UI primitives and overlays as the other games.
+
+`FindItGame` is not a clean fit because it assumes the round target and selectable cards are the same item type. `Prvé písmenko` has a word target and letter answer tiles; forcing this into `FindItGame` would make correctness depend on derived wrapper objects instead of the selected letter itself.
 
 Proposed new game files:
 
@@ -181,9 +183,7 @@ Proposed new game files:
   - reads content through `useContent()`
   - reads `settings.alphabetAccents`
   - builds eligible derived items
-  - passes a descriptor into `FindItGame`
-- `src/games/first-letter/firstLetterDescriptor.tsx`
-  - describes prompt rendering, letter tile rendering, prompt audio, wrong audio, success/failure specs
+  - owns the round loop, letter choices, attempts, feedback, and session completion trigger
 - `src/games/first-letter/firstLetterLogic.ts`
   - pure helpers for first-letter derivation, active letter filtering, and eligible item construction
 - `src/games/first-letter/firstLetterLogic.verify.ts`
