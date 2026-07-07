@@ -116,6 +116,20 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
       bottomDecorationClassName: 'absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-accent-blue opacity-20 translate-y-10 blur-md pointer-events-none',
     },
   },
+  {
+    id: 'COMPLETE_SYLLABLE',
+    path: '/complete-syllable',
+    title: 'Doplň slabiku',
+    description: 'Vyber slabiku, ktorá chýba',
+    icon: <Puzzle size={48} className="sm:h-16 sm:w-16" />,
+    color: 'bg-accent-blue',
+    lobby: {
+      title: 'DOPLŇ SLABIKU',
+      playButtonColorClassName: 'bg-accent-blue',
+      topDecorationClassName: 'absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-success opacity-30 -rotate-12 blur-sm pointer-events-none',
+      bottomDecorationClassName: 'absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-primary opacity-20 translate-y-10 blur-md pointer-events-none',
+    },
+  },
 ];
 
 export const GAME_METADATA: GameMetadata[] = GAME_DEFINITIONS.map(({ lobby: _lobby, path: _path, ...metadata }) => metadata);

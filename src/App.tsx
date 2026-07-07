@@ -20,6 +20,7 @@ import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { WordsGame } from './games/words/WordsGame';
 import { FirstLetterGame } from './games/first-letter/FirstLetterGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
+import { CompleteSyllableGame } from './games/complete-syllable/CompleteSyllableGame';
 import { SettingsScreen } from './shared/components/SettingsScreen';
 import { ContentProvider } from './shared/contexts/ContentContext';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
@@ -250,6 +251,14 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <AssemblyGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/complete-syllable"
+            element={
+              <ErrorBoundary>
+                <CompleteSyllableGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COMPLETE_SYLLABLE')} />
               </ErrorBoundary>
             }
           />

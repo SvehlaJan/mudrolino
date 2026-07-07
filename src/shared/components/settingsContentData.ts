@@ -14,6 +14,7 @@ export const SETTINGS_SUBTITLES: Record<SettingsTarget, string> = {
   WORDS: 'Hra so slovami',
   FIRST_LETTER: 'Hra s prvým písmenkom',
   ASSEMBLY: 'Hra so skladaním',
+  COMPLETE_SYLLABLE: 'Hra s dopĺňaním slabík',
 };
 
 export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
@@ -97,6 +98,16 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     countingRange: false,
   },
   ASSEMBLY: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+  },
+  COMPLETE_SYLLABLE: {
     music: true,
     avatar: false,
     recordings: false,
