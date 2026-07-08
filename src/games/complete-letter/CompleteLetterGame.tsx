@@ -177,6 +177,16 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: Complet
     setGameState('HOME');
   }, [cleanupPlayEffects, resetPlayState]);
 
+  const scheduleFeedbackReset = useCallback((symbol: string) => {
+    const sessionToken = sessionTokenRef.current;
+    const feedbackResetTimer = setTimeout(() => {
+      feedbackResetTimersRef.current.delete(feedbackResetTimer);
+      if (sessionTokenRef.current !== sessionToken) return;
+      setFeedback((current) => ({ ...current, [symbol]: null }));
+    }, TIMING.FEEDBACK_RESET_MS);
+    feedbackResetTimersRef.current.add(feedbackResetTimer);
+  }, []);
+
   const findPlayableRound = useCallback((candidateQueue: Word[]) => {
     for (let index = 0; index < candidateQueue.length; index += 1) {
       try {
@@ -307,14 +317,10 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: Complet
       setFilledMissingCount(nextFilledCount);
 
       if (nextFilledCount < targetRound.missingIndexes.length) {
+        // activeLetters reflects live settings; a mid-round settings change (rare) could shift
+        // distractors for the next blank — correct answer is unaffected.
         setChoices(buildLetterChoices(targetRound, activeLetters, nextFilledCount, CHOICE_COUNT));
-        const sessionToken = sessionTokenRef.current;
-        const feedbackResetTimer = setTimeout(() => {
-          feedbackResetTimersRef.current.delete(feedbackResetTimer);
-          if (sessionTokenRef.current !== sessionToken) return;
-          setFeedback((current) => ({ ...current, [letter.symbol]: null }));
-        }, TIMING.FEEDBACK_RESET_MS);
-        feedbackResetTimersRef.current.add(feedbackResetTimer);
+        scheduleFeedbackReset(letter.symbol);
         return;
       }
 
@@ -339,13 +345,7 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: Complet
     }
 
     audioManager.play(getWrongAudio(locale, letter));
-    const sessionToken = sessionTokenRef.current;
-    const feedbackResetTimer = setTimeout(() => {
-      feedbackResetTimersRef.current.delete(feedbackResetTimer);
-      if (sessionTokenRef.current !== sessionToken) return;
-      setFeedback((current) => ({ ...current, [letter.symbol]: null }));
-    }, TIMING.FEEDBACK_RESET_MS);
-    feedbackResetTimersRef.current.add(feedbackResetTimer);
+    scheduleFeedbackReset(letter.symbol);
   };
 
   const handleBackToLobby = () => {
