@@ -98,4 +98,4 @@ Golden-path specs additionally assert:
 
 - New script: `npm run test:e2e`, using Playwright's built-in `webServer` config to start the preview/dev server automatically.
 - Future game-addition plans (per `CLAUDE.md`'s "Adding a new grid-based game" section) get a step that extends this suite instead of writing a one-off verification script.
-- `CLAUDE.md`'s "No test runner is configured" line and the "Commands" section need updating once this ships — tracked as an implementation task, not resolved in this design.
+- This repo maintains two near-duplicate agent-instructions files: `CLAUDE.md` (Claude Code) and `AGENTS.md` (Codex). `CLAUDE.md`'s "No test runner is configured" line and the "Commands" section need updating once this ships, and the same substantive update must be mirrored into `AGENTS.md` — tracked as an implementation task, not resolved in this design.
