@@ -86,7 +86,8 @@ Every spec asserts, at minimum:
 
 Golden-path specs additionally assert:
 - The expected overlay (`SuccessOverlay` / `FailureOverlay` / `SessionCompleteOverlay`) actually appears, located via `page.waitForSelector`/`page.getByRole` with generous timeouts — not fixed `sleep()` calls, since overlay auto-dismiss timing is exactly what caused missed screenshots during this session's manual QA.
-- Round counters increment as expected across a full 5-round session for at least one game per cluster.
+- Every game's golden-path spec exercises both the correct-answer path (via the oracle's `expectCorrect: true`, reaching `SuccessOverlay`) and a deliberate-wrong-answer path (via `expectCorrect: false` repeated to `MAX_ATTEMPTS`, reaching `FailureOverlay`) at least once.
+- Round counters increment as expected across a full 5-round session for one designated representative game per cluster (alphabet for find-it, complete-letter for fill-in, assembly for bespoke) — not all 9 games, to keep suite runtime reasonable given the round-counter/session-complete logic is shared within each cluster.
 
 ## Viewports
 
