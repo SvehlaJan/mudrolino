@@ -130,6 +130,20 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
       bottomDecorationClassName: 'absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-primary opacity-20 translate-y-10 blur-md pointer-events-none',
     },
   },
+  {
+    id: 'COMPLETE_LETTER',
+    path: '/complete-letter',
+    title: 'Doplň písmeno',
+    description: 'Doplň písmenko v slove',
+    icon: <Type size={48} className="sm:h-16 sm:w-16" />,
+    color: 'bg-success',
+    lobby: {
+      title: 'DOPLŇ PÍSMENO',
+      playButtonColorClassName: 'bg-success',
+      topDecorationClassName: 'absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-accent-blue opacity-30 -rotate-12 blur-sm pointer-events-none',
+      bottomDecorationClassName: 'absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-soft-watermelon opacity-20 translate-y-10 blur-md pointer-events-none',
+    },
+  },
 ];
 
 export const GAME_METADATA: GameMetadata[] = GAME_DEFINITIONS.map(({ lobby: _lobby, path: _path, ...metadata }) => metadata);

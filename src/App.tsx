@@ -21,6 +21,7 @@ import { WordsGame } from './games/words/WordsGame';
 import { FirstLetterGame } from './games/first-letter/FirstLetterGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
 import { CompleteSyllableGame } from './games/complete-syllable/CompleteSyllableGame';
+import { CompleteLetterGame } from './games/complete-letter/CompleteLetterGame';
 import { SettingsScreen } from './shared/components/SettingsScreen';
 import { ContentProvider } from './shared/contexts/ContentContext';
 import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
@@ -259,6 +260,14 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <CompleteSyllableGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COMPLETE_SYLLABLE')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/complete-letter"
+            element={
+              <ErrorBoundary>
+                <CompleteLetterGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COMPLETE_LETTER')} />
               </ErrorBoundary>
             }
           />

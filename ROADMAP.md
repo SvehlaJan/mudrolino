@@ -136,6 +136,8 @@
 
 - [x] **Prvé písmenko** — sound-first word-to-starting-letter game using ready words and active alphabet settings.
 - [x] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
+- [x] **Doplň písmeno** — show a word with one or more missing Slovak letter units and let the child fill them in guided order.
+- [ ] **Doplň slovo** — future word-level completion game using the same guided missing-unit idea.
 - [ ] **Ktoré chýba?** — show a short number or letter sequence with one missing item and let the child identify it.
 
 ---
