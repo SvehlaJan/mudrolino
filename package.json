@@ -10,7 +10,7 @@
     "build:e2e": "vite build --mode test",
     "test:e2e": "npm run build:e2e && playwright test --config=e2e/playwright.config.ts",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit && node_modules/.bin/eslint src --ext ts,tsx",
+    "lint": "tsc --noEmit && node_modules/.bin/eslint src e2e --ext ts,tsx",
     "test:audio": "npx tsx public/audio/_review/check_audio.ts",
     "pwa:icons": "node tools/pwa/generate-icons.mjs",
     "avatar:gltf:inspect": "gltf-transform inspect",
