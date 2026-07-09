@@ -2,7 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import { AudioClip, Letter, Syllable, Word, LocaleContent, AudioPhraseKey } from './types';
+import { AudioClip, AudioSpec, Letter, Syllable, Word, LocaleContent, AudioPhraseKey } from './types';
 import * as sk from './locales/sk';
 import * as cs from './locales/cs';
 
@@ -78,6 +78,31 @@ export function getPhraseClip(locale: string, phraseKey: AudioPhraseKey): AudioC
   return {
     path: `${locale}/phrases/${phrase.audioKey}`,
     fallbackText: phrase.text,
+  };
+}
+
+export type AnswerAudioCategory = 'letters' | 'syllables' | 'numbers' | 'words';
+
+export function getItemAudioClip(
+  locale: string,
+  category: AnswerAudioCategory,
+  audioKey: string,
+  fallbackText: string,
+): AudioClip {
+  return { path: `${locale}/${category}/${audioKey}`, fallbackText };
+}
+
+export function getWrongAnswerAudio(
+  locale: string,
+  category: AnswerAudioCategory,
+  audioKey: string,
+  fallbackText: string,
+): AudioSpec {
+  return {
+    clips: [
+      getItemAudioClip(locale, category, audioKey, fallbackText),
+      getPhraseClip(locale, 'retry'),
+    ],
   };
 }
 
