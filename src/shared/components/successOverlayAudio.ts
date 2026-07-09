@@ -7,8 +7,8 @@ export function getSuccessOverlayAudioSpec(
 ): AudioSpec {
   return {
     clips: [
-      { path: `${locale}/praise/${praise.audioKey}`, fallbackText: praise.text },
       ...(spec.audioSpec?.clips ?? []),
+      { path: `${locale}/praise/${praise.audioKey}`, fallbackText: praise.text },
     ],
   };
 }
