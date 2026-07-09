@@ -7,6 +7,8 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
+    "build:e2e": "vite build --mode test",
+    "test:e2e": "npm run build:e2e && playwright test --config=e2e/playwright.config.ts",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && node_modules/.bin/eslint src --ext ts,tsx",
     "test:audio": "npx tsx public/audio/_review/check_audio.ts",
@@ -35,6 +37,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@gltf-transform/cli": "^4.3.0",
+    "@playwright/test": "^1.59.1",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
