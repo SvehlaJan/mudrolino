@@ -10,12 +10,13 @@ interface RoundCounterProps {
 }
 
 export function RoundCounter({ completed, total, label = 'kolá' }: RoundCounterProps) {
+  const currentRound = Math.min(completed + 1, total);
   return (
     <div
       className="rounded-full bg-white px-5 py-2 text-base font-bold text-text-main shadow-block sm:text-lg"
-      aria-label={`${completed} z ${total} ${label}`}
+      aria-label={`${currentRound} z ${total} ${label}`}
     >
-      ✓ {completed} / {total}
+      ✓ {currentRound} / {total}
     </div>
   );
 }
