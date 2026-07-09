@@ -13,7 +13,7 @@ import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } f
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
-import { TIMING, getPhraseClip } from '../../shared/contentRegistry';
+import { TIMING, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { audioManager } from '../../shared/services/audioManager';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
@@ -62,7 +62,7 @@ function getSuccessSpec(locale: string, item: FirstLetterItem): SuccessSpec {
     echoLine: getRelationshipLine(item),
     audioSpec: {
       clips: [
-        { path: `${locale}/words/${item.word.audioKey}`, fallbackText: `${item.word.word} začína na ${item.firstLetter.symbol}.` },
+        getItemAudioClip(locale, 'words', item.word.audioKey, `${item.word.word} začína na ${item.firstLetter.symbol}.`),
       ],
     },
   };
@@ -81,13 +81,7 @@ function getFailureSpec(locale: string, item: FirstLetterItem): FailureSpec {
 }
 
 function getWrongAudio(locale: string, selected: Letter) {
-  return {
-    clips: [
-      getPhraseClip(locale, 'thisIs'),
-      { path: `${locale}/letters/${selected.audioKey}`, fallbackText: selected.symbol },
-      getPhraseClip(locale, 'retry'),
-    ],
-  };
+  return getWrongAnswerAudio(locale, 'letters', selected.audioKey, selected.symbol);
 }
 
 export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLetterGameProps) {
