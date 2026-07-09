@@ -13,6 +13,7 @@ import { SessionCompleteOverlay } from './SessionCompleteOverlay';
 import { TIMING } from '../contentRegistry';
 import { fisherYatesShuffle } from '../utils';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../ui';
+import { setE2EState } from '../services/e2eState';
 
 interface FindItGameProps<T> {
   descriptor: GameDescriptor<T>;
@@ -103,6 +104,15 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const overlay = showSessionComplete ? 'session-complete' : showSuccess ? 'success' : showFailure ? 'failure' : null;
+    setE2EState({
+      overlay,
+      correctItemId: targetItem ? descriptor.getItemId(targetItem) : null,
+      gridItemIds: gridItems.map((item) => descriptor.getItemId(item)),
+    });
+  }, [targetItem, gridItems, showSuccess, showFailure, showSessionComplete, descriptor]);
 
   const startNewRound = useCallback(() => {
     setSession(prev => {
