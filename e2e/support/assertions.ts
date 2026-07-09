@@ -1,6 +1,7 @@
 import { Page, Request, expect } from '@playwright/test';
 import type { E2EOverlay } from '../../src/shared/services/e2eState';
 
+/** Call before any navigation (page.goto) — listeners registered here won't see events that already fired. */
 export function trackConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
   page.on('console', (message) => {
@@ -14,6 +15,7 @@ export function expectNoConsoleErrors(errors: string[]): void {
   expect(errors, `Unexpected console errors:\n${errors.join('\n')}`).toEqual([]);
 }
 
+/** Call before any navigation (page.goto) — listeners registered here won't see events that already fired. */
 export function trackFailedRequests(page: Page): string[] {
   const failures: string[] = [];
   page.on('requestfailed', (request: Request) => {
