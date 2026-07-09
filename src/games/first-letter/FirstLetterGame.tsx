@@ -280,7 +280,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
         />
 
         <div className="flex shrink-0 flex-col items-center justify-center pb-4 text-center">
-          <div role="img" aria-label="Hľadané slovo" className="text-[clamp(6rem,24vw,12rem)] leading-none">
+          <div role="img" aria-label="Hľadané slovo" className="text-[clamp(6rem,18vh,12rem)] leading-none">
             {targetItem?.word.emoji}
           </div>
         </div>
@@ -293,7 +293,8 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
                 onClick={() => handleChoice(letter)}
                 aria-label={letter.symbol}
                 state={feedback[letter.symbol] ?? 'neutral'}
-                className="aspect-square"
+                shape="option"
+                className="h-[clamp(4.5rem,21vh,7rem)] rounded-[22px] p-2 sm:rounded-[28px] sm:p-3"
               >
                 <span className="font-spline text-[clamp(2.75rem,12vw,6rem)] font-bold leading-none">
                   {letter.symbol}
