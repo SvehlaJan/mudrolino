@@ -70,6 +70,9 @@ for (const game of FIND_IT_GAMES) {
   });
 }
 
+// alphabet is the sole full-session representative for this cluster: round-counter and
+// session-complete logic is shared via FindItGame across all 4 games, so one full run is
+// enough to cover it. See docs/superpowers/specs/2026-07-08-automated-ui-testing-design.md.
 test('alphabet: a full 5-round session reaches the session-complete overlay', async ({ page }) => {
   const errors = trackConsoleErrors(page);
   const failedRequests = trackFailedRequests(page);
