@@ -11,14 +11,22 @@ npm run preview   # Preview production build
 npm run lint      # TypeScript type checking (no emit)
 npm run clean     # Remove dist/
 npm run test:audio # Validate expected audio files vs. content/audio keys
+npm run test:e2e  # Run the Playwright end-to-end suite (builds a test-mode bundle first)
 ```
 
-No test runner is configured.
+An end-to-end Playwright suite exists under `e2e/` (run via `npm run test:e2e`). There is still no unit/component test runner — pure logic modules use one-shot `.verify.ts` scripts run via `npx tsx` (see `npm run test:audio` and any `*.verify.ts` file for the pattern).
 
 ## Gotchas
 
 - `npm run lint` requires `node_modules` to be present (`npm install` first); `typescript` is a local dep, not global.
 - `npm run dev` binds to `0.0.0.0` — the dev server is accessible on the local network, not just localhost.
+
+## End-to-End Testing
+
+- `e2e/` holds the Playwright Test suite: `e2e/playwright.config.ts`, shared helpers in `e2e/support/`, and `*.spec.ts` files.
+- Run the full suite with `npm run test:e2e` (this runs `vite build --mode test` first, then starts `vite preview` and runs Playwright against it).
+- Games publish a small, additive `window.__E2E__` object via `setE2EState()` from `src/shared/services/e2eState.ts`, active only in dev mode or the `test` build mode — never in the real production build. Specs read it via `e2e/support/e2eHook.ts`'s `getE2EState()` to know the correct answer for the current round deterministically, instead of guessing from rendered content.
+- When adding a new grid-based game (see below), also add its route to `e2e/smoke.spec.ts`, and add an oracle hook + golden-path spec if the game doesn't fit an existing shared spec (`e2e/find-it-games.spec.ts` covers any game built on `FindItGame`).
 
 ## Architecture
 
