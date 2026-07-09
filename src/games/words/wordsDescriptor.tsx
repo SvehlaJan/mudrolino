@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, Word } from '../../shared/types';
-import { getPhraseClip } from '../../shared/contentRegistry';
+import { getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 
 export function createWordsDescriptor(wordItems: Word[], locale: string): GameDescriptor<Word> {
   return {
@@ -30,16 +30,10 @@ export function createWordsDescriptor(wordItems: Word[], locale: string): GameDe
     getReplayAudio: (w) => ({
       clips: [{ path: `${locale}/words/${w.audioKey}`, fallbackText: w.word }],
     }),
-    getWrongAudio: (_t, s) => ({
-      clips: [
-        getPhraseClip(locale, 'thisIs'),
-        { path: `${locale}/words/${s.audioKey}`, fallbackText: s.word },
-        getPhraseClip(locale, 'retry'),
-      ],
-    }),
+    getWrongAudio: (_t, s) => getWrongAnswerAudio(locale, 'words', s.audioKey, s.word),
     getSuccessSpec: (w) => ({
       echoLine: `${w.syllables} ${w.emoji}`,
-      audioSpec: { clips: [{ path: `${locale}/words/${w.audioKey}`, fallbackText: w.word }] },
+      audioSpec: { clips: [getItemAudioClip(locale, 'words', w.audioKey, w.word)] },
     }),
     getFailureSpec: (w) => ({
       echoLine: `${w.syllables} ${w.emoji}`,

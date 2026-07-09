@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, NumberItem } from '../../shared/types';
-import { getPhraseClip } from '../../shared/contentRegistry';
+import { getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 
 export function createNumbersDescriptor(
   range: { start: number; end: number },
@@ -30,14 +30,11 @@ export function createNumbersDescriptor(
         { path: `${locale}/numbers/${n.audioKey}`, fallbackText: String(n.value) },
       ],
     }),
-    getWrongAudio: (_t, s) => ({
-      clips: [
-        getPhraseClip(locale, 'thisIs'),
-        { path: `${locale}/numbers/${s.audioKey}`, fallbackText: String(s.value) },
-        getPhraseClip(locale, 'retry'),
-      ],
+    getWrongAudio: (_t, s) => getWrongAnswerAudio(locale, 'numbers', s.audioKey, String(s.value)),
+    getSuccessSpec: (n) => ({
+      echoLine: `Číslo ${n.value} 🎉`,
+      audioSpec: { clips: [getItemAudioClip(locale, 'numbers', n.audioKey, String(n.value))] },
     }),
-    getSuccessSpec: (n) => ({ echoLine: `Číslo ${n.value} 🎉` }),
     getFailureSpec: (n) => ({
       echoLine: `Číslo ${n.value} 🎉`,
       audioSpec: {
