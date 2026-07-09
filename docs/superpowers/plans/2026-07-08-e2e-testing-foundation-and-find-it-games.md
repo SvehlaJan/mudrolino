@@ -88,7 +88,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run preview -- --port ${PORT}`,
+    command: `npm run preview -- --port ${PORT} --host 127.0.0.1`,
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,
@@ -97,6 +97,8 @@ export default defineConfig({
 ```
 
 `testDir: '.'` resolves relative to this config file's own directory (`e2e/`), so specs living directly in `e2e/*.spec.ts` are discovered; files under `e2e/support/` don't match the default `*.spec.ts` pattern and are not treated as tests.
+
+**Note (added after implementation):** the `webServer.command` above includes `--host 127.0.0.1`, which was not in the original version of this snippet. Without it, `vite preview` can bind to IPv6 loopback (`[::1]`) only on some machines depending on Node/OS DNS resolution order, while Playwright's healthcheck hardcodes `127.0.0.1` (IPv4) — causing a 30s `webServer` startup timeout with no tests ever running. This was discovered and fixed during Task 3 (commit `b26a4aa`). Any future plan reusing this config shape must keep `--host 127.0.0.1` in the command.
 
 Two projects implement the design's viewport requirement: `desktop` runs every spec (smoke tests are desktop-only per the design, so they only ever run here); `mobile` overrides the viewport and, via `testMatch`, runs ONLY the golden-path spec (`find-it-games.spec.ts`) — matching "golden-path tests run on both viewports, smoke tests run desktop-only" exactly. `devices['Desktop Chrome']` is used as the base for both (not a touch-emulation mobile device profile) to match this repo's existing manual-verification convention of plain viewport resizing on desktop Chromium, documented in `.agents/skills/playwright-browser-verification/SKILL.md`.
 
@@ -174,15 +176,19 @@ This file is the ONLY place any game component needs to import from to publish o
 Create `e2e/support/e2eHook.ts`:
 
 ```ts
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 import type { E2EGlobalState } from '../../src/shared/services/e2eState';
 
 export async function getE2EState<T extends E2EGlobalState>(page: Page): Promise<T> {
-  return page.evaluate(() => (window as unknown as { __E2E__: T }).__E2E__);
+  const state = await page.evaluate(() => (window as unknown as { __E2E__?: T }).__E2E__);
+  expect(state, 'window.__E2E__ was never set — is the E2E build guard active?').toBeDefined();
+  return state as T;
 }
 ```
 
 This imports only the `E2EGlobalState` **type** from the app source (a compile-time-only import — nothing from `src/` executes inside the Playwright/Node process). Game-specific specs extend `E2EGlobalState` with their own fields (see Task 3).
+
+**Note (added after implementation):** the assertion above was not in the original version of this snippet. Without it, `page.evaluate` resolves `undefined` on any page where `setE2EState` hasn't run yet, and the original `Promise<T>` return type silently lied about that possibility — a caller reading `state.someField` before checking anything got a confusing `Cannot read properties of undefined` crash instead of a clear test-failure message. Fixed during Task 2 (commit `16e0742`) by asserting non-undefined inside this helper, so every caller gets a good error message for free.
 
 - [ ] **Step 3: Create shared assertion/wait helpers**
 
