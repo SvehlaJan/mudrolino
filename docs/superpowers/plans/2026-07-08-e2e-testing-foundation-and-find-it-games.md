@@ -121,7 +121,7 @@ Run:
 npx playwright test --config=e2e/playwright.config.ts --list
 ```
 
-Expected: exits 0, prints something like `Total: 0 tests in 0 files` (no spec files exist yet — this only confirms the config itself is valid TypeScript and loads without error).
+Expected: prints `Total: 0 tests in 0 files` (no spec files exist yet). Note: Playwright's `--list` treats "no tests found" as an error condition and exits `1` in this version, even though the config itself loaded and evaluated correctly — exit code `1` here is expected, not a failure. Confirm config validity via `npx tsc --noEmit` and `npm run lint` (both should exit `0`) rather than the `--list` exit code.
 
 - [ ] **Step 6: Commit**
 
