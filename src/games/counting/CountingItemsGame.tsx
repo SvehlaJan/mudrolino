@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Volume2, RefreshCw } from 'lucide-react';
 import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, COUNTING_EMOJIS, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { NumberItem, FailureSpec } from '../../shared/types';
@@ -131,6 +131,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     if (showSuccess || showFailure || pendingFailureRef.current || showSessionComplete || !targetItem) return;
     setTotalTaps(prev => prev + 1);
     if (item.value === targetItem.value) {
+      audioManager.play(getItemAnnouncementAudio(locale, 'numbers', item.audioKey, String(item.value)));
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
       const nextRoundsPlayed = roundsPlayed + 1;
       setRoundsPlayed(nextRoundsPlayed);
@@ -238,10 +239,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       {targetItem && (
         <SuccessOverlay
           show={showSuccess}
-          spec={{
-            echoLine: `Správne, je ich ${targetItem.value} ⭐`,
-            audioSpec: { clips: [getItemAudioClip(locale, 'numbers', targetItem.audioKey, String(targetItem.value))] },
-          }}
+          spec={{ echoLine: `Správne, je ich ${targetItem.value} ⭐` }}
           onComplete={startNewRound}
         />
       )}
