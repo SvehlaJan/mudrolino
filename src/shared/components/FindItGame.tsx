@@ -142,6 +142,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     setTotalTaps(prev => prev + 1);
     if (descriptor.getItemId(item) === descriptor.getItemId(targetItem)) {
       pendingSuccessRef.current = true;
+      audioManager.play(descriptor.getCorrectAudio(item));
       setFeedback(prev => ({ ...prev, [index]: 'correct' }));
       setSuccessSpec(descriptor.getSuccessSpec(targetItem));
       const nextRoundsPlayed = roundsPlayed + 1;

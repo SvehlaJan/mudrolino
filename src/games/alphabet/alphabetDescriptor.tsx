@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, Letter } from '../../shared/types';
-import { getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 
 export function createAlphabetDescriptor(
   gridSize: 4 | 6 | 8,
@@ -30,12 +30,10 @@ export function createAlphabetDescriptor(
         { path: `${locale}/letters/${l.audioKey}`, fallbackText: l.symbol },
       ],
     }),
+    getCorrectAudio: (l) => getItemAnnouncementAudio(locale, 'letters', l.audioKey, l.symbol),
     getWrongAudio: (_t, s) => getWrongAnswerAudio(locale, 'letters', s.audioKey, s.symbol),
     getSuccessSpec: (l) => ({
       echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
-      audioSpec: {
-        clips: [getItemAudioClip(locale, 'letters', l.audioKey, `${l.symbol} ako ${l.label}`)],
-      },
     }),
     getFailureSpec: (l) => ({
       echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,

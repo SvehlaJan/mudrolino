@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { GameDescriptor, Syllable } from '../../shared/types';
-import { getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 
 export function createSyllablesDescriptor(
   gridSize: 4 | 6,
@@ -30,12 +30,13 @@ export function createSyllablesDescriptor(
         { path: `${locale}/syllables/${s.audioKey}`, fallbackText: s.symbol },
       ],
     }),
+    getCorrectAudio: (s) => getItemAnnouncementAudio(locale, 'syllables', s.audioKey, s.symbol),
     getWrongAudio: (_t, s) => getWrongAnswerAudio(locale, 'syllables', s.audioKey, s.symbol),
     getSuccessSpec: (s) => {
       const w = s.sourceWords[Math.floor(Math.random() * s.sourceWords.length)];
       return {
         echoLine: `${s.symbol} ako ${w.syllables} ${w.emoji}`,
-        audioSpec: { clips: [getItemAudioClip(locale, 'syllables', s.audioKey, s.symbol)] },
+        audioSpec: { clips: [getItemAudioClip(locale, 'words', w.audioKey, w.word)] },
       };
     },
     getFailureSpec: (s) => {

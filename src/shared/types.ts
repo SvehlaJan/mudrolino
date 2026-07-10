@@ -124,6 +124,8 @@ export interface GameDescriptor<T> {
    * If omitted, falls back to getPromptAudio (existing behavior).
    */
   getReplayAudio?: (target: T) => AudioSpec;
+  /** Audio to play immediately when the child taps the correct card, before the success overlay appears. */
+  getCorrectAudio(target: T): AudioSpec;
   /** Audio to play when the child taps a wrong card. */
   getWrongAudio(target: T, selected: T): AudioSpec;
   /** Success overlay content for the correct answer. */
