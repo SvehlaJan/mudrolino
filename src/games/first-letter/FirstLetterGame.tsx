@@ -13,7 +13,7 @@ import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } f
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
-import { TIMING, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { TIMING, getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { audioManager } from '../../shared/services/audioManager';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
@@ -210,6 +210,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
 
     if (letter.symbol === targetItem.firstLetter.symbol) {
       pendingRoundEndRef.current = true;
+      audioManager.play(getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol));
       setFeedback((current) => ({ ...current, [letter.symbol]: 'correct' }));
       setSuccessSpec(getSuccessSpec(locale, targetItem));
       finishRound(true);
