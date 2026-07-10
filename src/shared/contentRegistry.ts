@@ -106,6 +106,15 @@ export function getWrongAnswerAudio(
   };
 }
 
+export function getItemAnnouncementAudio(
+  locale: string,
+  category: AnswerAudioCategory,
+  audioKey: string,
+  fallbackText: string,
+): AudioSpec {
+  return { clips: [getItemAudioClip(locale, category, audioKey, fallbackText)] };
+}
+
 export function getAlphabetItems(locale: string, includeAccentedLetters: boolean): Letter[] {
   const letters = getLocaleContent(locale).letterItems;
   if (includeAccentedLetters) return letters;

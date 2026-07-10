@@ -1,4 +1,4 @@
-import { getItemAudioClip, getWrongAnswerAudio } from './contentRegistry';
+import { getItemAnnouncementAudio, getItemAudioClip, getWrongAnswerAudio } from './contentRegistry';
 
 function assert(condition: boolean, message: string): void {
   if (!condition) {
@@ -16,5 +16,10 @@ assert(wrongAudio.clips[0].path === 'sk/numbers/3', 'wrong-answer audio reads th
 assert(wrongAudio.clips[0].fallbackText === '3', 'wrong-answer audio item clip keeps its fallback text');
 assert(wrongAudio.clips[1].path === 'sk/phrases/skus-to-znova', 'wrong-answer audio ends with the retry phrase');
 assert(wrongAudio.clips[1].fallbackText === 'Skús to znova.', 'retry clip keeps its fallback text');
+
+const announcementAudio = getItemAnnouncementAudio('sk', 'syllables', 'ma', 'MA');
+assert(announcementAudio.clips.length === 1, 'immediate announcement audio has exactly one clip');
+assert(announcementAudio.clips[0].path === 'sk/syllables/ma', 'immediate announcement audio plays the item itself');
+assert(announcementAudio.clips[0].fallbackText === 'MA', 'immediate announcement audio keeps its fallback text');
 
 console.log('contentRegistry answer-audio checks passed');
