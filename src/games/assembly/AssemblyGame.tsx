@@ -9,7 +9,7 @@ import { Volume2 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { audioManager } from '../../shared/services/audioManager';
-import { TIMING } from '../../shared/contentRegistry';
+import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, TIMING } from '../../shared/contentRegistry';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { Word } from '../../shared/types';
 import { AppScreen, BackButton, Card, IconButton, RoundCounter, TopBar } from '../../shared/ui';
@@ -79,19 +79,17 @@ function getReplayAudio(locale: string, word: Word) {
 }
 
 function getSuccessAudio(locale: string, word: Word) {
-  return {
-    clips: [{ path: `${locale}/words/${word.audioKey}`, fallbackText: word.word }],
-  };
+  return { clips: [getItemAudioClip(locale, 'words', word.audioKey, word.word)] };
 }
 
 function getWrongAudio(locale: string, word: Word, selectedSyllable?: string) {
   return {
     clips: [
       ...(selectedSyllable
-        ? [{ path: `${locale}/syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable }]
+        ? [getItemAudioClip(locale, 'syllables', selectedSyllable.toLowerCase(), selectedSyllable)]
         : []),
-      { path: `${locale}/phrases/skus-to-znova`, fallbackText: 'Skús to znova.' },
-      { path: `${locale}/words/${word.audioKey}`, fallbackText: word.word },
+      getPhraseClip(locale, 'retry'),
+      getItemAudioClip(locale, 'words', word.audioKey, word.word),
     ],
   };
 }
@@ -440,11 +438,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
       })
     ) {
       const selectedSyllable = selectedTileText as string;
-      audioManager.play({
-        clips: [
-          { path: `${locale}/syllables/${selectedSyllable.toLowerCase()}`, fallbackText: selectedSyllable },
-        ],
-      });
+      audioManager.play(getItemAnnouncementAudio(locale, 'syllables', selectedSyllable.toLowerCase(), selectedSyllable));
     }
 
     if (nextPlacedSnapshot) {
