@@ -13,7 +13,7 @@ import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } f
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
-import { TIMING, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { TIMING, getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { audioManager } from '../../shared/services/audioManager';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
@@ -307,6 +307,7 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: Complet
       const nextFilledCount = filledMissingCount + 1;
       setFeedback((current) => ({ ...current, [letter.symbol]: 'correct' }));
       setFilledMissingCount(nextFilledCount);
+      audioManager.play(getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol));
 
       if (nextFilledCount < targetRound.missingIndexes.length) {
         // activeLetters reflects live settings; a mid-round settings change (rare) could shift
@@ -317,7 +318,6 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: Complet
       }
 
       pendingRoundEndRef.current = true;
-      audioManager.stop();
       setSuccessSpec(getSuccessSpec(locale, targetRound));
       finishRound(true);
       return;
