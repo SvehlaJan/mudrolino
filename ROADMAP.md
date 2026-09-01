@@ -132,14 +132,12 @@
 - [ ] Decide and set up analytics platform if needed
 - [ ] Instrument screen views and game events if analytics is adopted
 
-### 1.7 Future Game Backlog
-> Candidate games that fit the current learning model but are not friends-first blockers.
+### 1.7 Game Backlog — closed
+> Three candidate games shipped. The remaining candidates were dropped on 2026-09-01; nine games is enough for friends-first, and the next release work is sharing and feedback, not more mechanics.
 
 - [x] **Prvé písmenko** — sound-first word-to-starting-letter game using ready words and active alphabet settings.
 - [x] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
 - [x] **Doplň písmeno** — show a word with one or more missing Slovak letter units and let the child fill them in guided order.
-- [ ] **Doplň slovo** — future word-level completion game using the same guided missing-unit idea.
-- [ ] **Ktoré chýba?** — show a short number or letter sequence with one missing item and let the child identify it.
 
 ---
 
@@ -307,5 +305,6 @@
 | 2026-06-02 | Garments are skinned to the body's shared armature (Blender data-transfer weights) and rebound at runtime by bone name; meshopt geometry compression is used. | Static single-bone attach can't deform a torso/sleeve garment. Correction to the earlier note: drei `useGLTF` DOES decode meshopt (the body GLB itself is meshopt-compressed), so garments are meshopt-compressed too. |
 | 2026-06-02 | Thin garments (tee) need clean object-scale fit + OUTSIDE shrinkwrap + flat-matte maps; per-vertex normal inflation is avoided (it self-intersects into slivers). Bulky garments (hoodie) need neither shrinkwrap nor inflation. | A natural-shaped thin garment clips at the neck/shoulders on a visible body; OUTSIDE shrinkwrap lifts only the clipping verts. The true fix for a clip-free thin tee is body-masking (backlog). |
 | 2026-07-06 | Friends-first feedback uses Web3Forms on the deployed build. | Feedback submissions have been verified in production, so a heavier feedback platform remains deferred. |
+| 2026-09-01 | Phase 1.7's unbuilt games ("Doplň slovo", "Ktoré chýba?") are dropped rather than deferred. | Nine games already cover the learning model, and the friends-first blockers are sharing, feedback, and UX findings. Either idea can be re-added from this log if real feedback asks for it. |
 | 2026-09-01 | The avatar renderer is a lazy chunk and is excluded from the PWA precache. | three.js/R3F/drei were more than half the main bundle for a feature behind `VITE_AVATAR_POC_ENABLED`. The avatar GLBs were already excluded from precache, so precaching the renderer bought nothing offline; a failed chunk load is caught by the existing `AvatarRuntimeBoundary` and just hides the avatar. |
 | 2026-07-06 | PWA support is implemented for mobile install and offline core games. | The friend-share build now has a manifest, service worker, generated icons, install prompt, and app-shell/core-game offline caching; larger audio/avatar preloading remains a later performance task. |

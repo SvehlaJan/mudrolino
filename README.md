@@ -52,7 +52,8 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
 - `src/content/CustomContentScreen.tsx` is the parent-facing local content and recording surface.
 - `src/pwa/` owns the PWA manifest metadata, install/update prompt state, and home-screen PWA control.
-- `src/avatar/` owns the local avatar runtime, preview route, clothing catalog, and avatar persistence.
+- `src/avatar/` owns the local avatar runtime, preview route, clothing catalog, and avatar persistence. The three.js renderer is lazy-loaded from `AvatarPresenter`, so it stays out of the main bundle.
+- `src/shared/gameCatalog.tsx` defines every game's id, route, home-screen card, and lobby metadata.
 
 ## UI Component Library
 
@@ -79,7 +80,8 @@ When changing shared UI, keep three things aligned:
 - PWA metadata and service worker options live in `src/pwa/pwaConfig.ts` and `vite.config.ts`.
 - Generated app icons live under `public/pwa/`; regenerate them with `npm run pwa:icons`.
 - The home screen shows a floating install/offline/update prompt when the browser exposes a relevant PWA state.
-- Core app routes and audio needed for the current games are cached for offline use. Avatar asset preloading remains a later performance task.
+- Core app routes and audio needed for the current games are cached for offline use. The avatar GLBs and the lazy-loaded avatar renderer chunk are deliberately left out of the precache, so the avatar simply hides when it is unavailable offline.
+- Audio and avatar preloading strategy as the content library grows remains a later performance task.
 - The deployed friends-first build has Web3Forms feedback submissions verified.
 
 ## Development
