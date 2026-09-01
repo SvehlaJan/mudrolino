@@ -15,6 +15,14 @@ Playwright is a dev dependency in this repo. If browser binaries are missing:
 npx playwright install chromium
 ```
 
+That download is blocked in some sandboxes (Claude Code on the web returns `403 ... no rule or allowlist entry allows host "cdn.playwright.dev"`). Those environments pre-stage a browser under `PLAYWRIGHT_BROWSERS_PATH` instead — `npm run test:e2e` picks it up automatically via `e2e/browserResolver.ts`. For a one-off script that calls `chromium.launch()` directly, pass that binary yourself:
+
+```js
+await chromium.launch({ executablePath: `${process.env.PLAYWRIGHT_BROWSERS_PATH}/chromium` });
+```
+
+Do not chase a failed `playwright install` in such an environment; use the pre-installed browser.
+
 Start the app:
 
 ```bash
@@ -54,7 +62,7 @@ For `/avatar-preview`, wait for app state before taking screenshots:
 - canvas width and height are nonzero
 - `canvas.toDataURL("image/png").length` is nonzero
 
-One-shot headless Chrome screenshots may capture the empty shell before the 18 MB GLB finishes loading. Prefer Playwright waits over fixed `--virtual-time-budget` screenshots.
+One-shot headless Chrome screenshots may capture the empty shell before the GLBs finish loading (the base body and each garment are a few hundred KB each, and the renderer itself is a lazy chunk). Prefer Playwright waits over fixed `--virtual-time-budget` screenshots.
 
 ## Visual Verification Pattern
 

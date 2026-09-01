@@ -1,7 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
+import { resolveChromiumExecutable } from './browserResolver';
 import { DESKTOP_VIEWPORT, MOBILE_VIEWPORT } from './support/viewports';
 
 const PORT = 4173;
+
+const chromiumExecutable = resolveChromiumExecutable();
+if (chromiumExecutable) {
+  console.log(`[e2e] Using pre-installed Chromium at ${chromiumExecutable}`);
+}
 
 export default defineConfig({
   testDir: '.',
@@ -13,6 +19,7 @@ export default defineConfig({
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
     trace: 'retain-on-failure',
+    launchOptions: { executablePath: chromiumExecutable },
   },
   projects: [
     {

@@ -54,13 +54,11 @@
 
 ## Phase 1 — Friends-first Share
 
-**Goal:** Share a useful, local-first Slovak app with trusted friends quickly. No accounts, no payments, no public marketing launch. UX review continues in parallel and only release-blocks if it finds child-flow or parent-settings problems.
+**Goal:** Share a useful, local-first Slovak app with trusted friends quickly. No accounts, no payments, no public marketing launch.
 
 ### 1.1 Release Readiness
 > Focus on confidence for a small private audience, not full public-launch polish.
 
-- [~] UX review in progress in parallel
-- [ ] Apply critical UX findings from review
 - [x] Run a full smoke test on phone and desktop/tablet: home, all games, settings, custom content, recording, feedback, avatar flag on/off
 - [ ] Verify production build and deploy target
 - [x] Configure `VITE_WEB3FORMS_KEY` for private feedback collection
@@ -145,7 +143,7 @@
 
 **Goal:** Move from trusted-friend sharing to a public Slovak web launch after feedback and privacy basics are handled. Still no accounts or payments.
 
-> Open decisions: domain, landing page vs. app-at-root, analytics, and how much of the UX review must be applied before public sharing. Installable PWA support is implemented for the current app.
+> Open decisions: domain, landing page vs. app-at-root, and analytics. Installable PWA support is implemented for the current app.
 
 - [ ] Synthesize friend feedback into launch blockers vs. later improvements
 - [ ] Decide on domain and configure DNS
@@ -277,7 +275,7 @@
 - [ ] **AC1** — Keyboard navigation (arrow keys, Enter, Space on game grids)
 - [x] **AC2** — ARIA labels on icon-only/game buttons
 - [x] **AC3** — Emoji text alternatives in SuccessOverlay/session feedback
-> Re-check during UX review; AC1 remains deferred because the primary target is preschool touch use.
+> AC1 remains deferred because the primary target is preschool touch use.
 
 ---
 
@@ -305,6 +303,7 @@
 | 2026-06-02 | Garments are skinned to the body's shared armature (Blender data-transfer weights) and rebound at runtime by bone name; meshopt geometry compression is used. | Static single-bone attach can't deform a torso/sleeve garment. Correction to the earlier note: drei `useGLTF` DOES decode meshopt (the body GLB itself is meshopt-compressed), so garments are meshopt-compressed too. |
 | 2026-06-02 | Thin garments (tee) need clean object-scale fit + OUTSIDE shrinkwrap + flat-matte maps; per-vertex normal inflation is avoided (it self-intersects into slivers). Bulky garments (hoodie) need neither shrinkwrap nor inflation. | A natural-shaped thin garment clips at the neck/shoulders on a visible body; OUTSIDE shrinkwrap lifts only the clipping verts. The true fix for a clip-free thin tee is body-masking (backlog). |
 | 2026-07-06 | Friends-first feedback uses Web3Forms on the deployed build. | Feedback submissions have been verified in production, so a heavier feedback platform remains deferred. |
-| 2026-09-01 | Phase 1.7's unbuilt games ("Doplň slovo", "Ktoré chýba?") are dropped rather than deferred. | Nine games already cover the learning model, and the friends-first blockers are sharing, feedback, and UX findings. Either idea can be re-added from this log if real feedback asks for it. |
+| 2026-09-01 | The UX review is no longer tracked on this roadmap. | It is done by hand, outside the repo, whenever it is worth doing; a permanently `[~]` task with no findings document was only adding noise to Phase 1.1 and Phase 2's open decisions. |
+| 2026-09-01 | Phase 1.7's unbuilt games ("Doplň slovo", "Ktoré chýba?") are dropped rather than deferred. | Nine games already cover the learning model, and the friends-first blockers are sharing and feedback. Either idea can be re-added from this log if real feedback asks for it. |
 | 2026-09-01 | The avatar renderer is a lazy chunk and is excluded from the PWA precache. | three.js/R3F/drei were more than half the main bundle for a feature behind `VITE_AVATAR_POC_ENABLED`. The avatar GLBs were already excluded from precache, so precaching the renderer bought nothing offline; a failed chunk load is caught by the existing `AvatarRuntimeBoundary` and just hides the avatar. |
 | 2026-07-06 | PWA support is implemented for mobile install and offline core games. | The friend-share build now has a manifest, service worker, generated icons, install prompt, and app-shell/core-game offline caching; larger audio/avatar preloading remains a later performance task. |

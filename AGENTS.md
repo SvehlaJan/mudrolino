@@ -22,6 +22,7 @@ An end-to-end Playwright suite exists under `e2e/` (run via `npm run test:e2e`).
 
 - `npm run lint` requires `node_modules` to be present (`npm install` first); `typescript` is a local dep, not global.
 - `npm run dev` binds to `0.0.0.0` — the dev server is accessible on the local network, not just localhost.
+- `npm run test:e2e` does not need `npx playwright install` in a sandbox that pre-stages a browser (Claude Code on the web, some CI images); see the browser resolution note below.
 
 ## End-to-End Testing
 
@@ -29,6 +30,8 @@ An end-to-end Playwright suite exists under `e2e/` (run via `npm run test:e2e`).
 - Run the full suite with `npm run test:e2e` (this runs `vite build --mode test` first, then starts `vite preview` and runs Playwright against it).
 - Games publish a small, additive `window.__E2E__` object via `setE2EState()` from `src/shared/services/e2eState.ts`, active only in dev mode or the `test` build mode — never in the real production build. Specs read it via `e2e/support/e2eHook.ts`'s `getE2EState()` to know the correct answer for the current round deterministically, instead of guessing from rendered content.
 - When adding a new game (see "Adding a new game" below), also add its route to `e2e/smoke.spec.ts`, and add an oracle hook + golden-path spec if the game doesn't fit an existing shared spec (`e2e/find-it-games.spec.ts` covers any game built on `FindItGame`).
+- Specs assert that a route produces no console errors and no failed requests, so an unrelated 404 (a missing favicon, say) fails every test rather than one. Check the whole suite's failures for a single shared cause before debugging a spec.
+- **Browser resolution**: `e2e/browserResolver.ts` decides which Chromium to launch. Normally it returns `undefined` and Playwright uses its own managed browser. In a sandbox that pre-stages one under `PLAYWRIGHT_BROWSERS_PATH` and blocks `cdn.playwright.dev` (so `npx playwright install` 403s), it launches `$PLAYWRIGHT_BROWSERS_PATH/chromium` instead, and the run prints which binary it picked. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to force a specific binary. Verify with `npx tsx e2e/browserResolver.verify.ts`.
 
 ## Architecture
 

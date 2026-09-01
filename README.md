@@ -109,4 +109,5 @@ When changing shared UI, keep three things aligned:
 - `npm run lint` requires `node_modules` to exist because `typescript` and `eslint` are local dependencies.
 - If you edit default words, update `src/shared/locales/sk.ts` directly and run the app/audio checks.
 - If you add, remove, or rename audio files, run `npm run test:audio` to catch missing or orphaned assets.
+- `npm run test:e2e` normally uses Playwright's managed browser. In a sandbox that pre-installs one under `PLAYWRIGHT_BROWSERS_PATH` and blocks browser downloads, it falls back to that browser automatically; `PLAYWRIGHT_CHROMIUM_EXECUTABLE` forces a specific binary.
 - The app is currently Slovak-only.
