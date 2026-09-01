@@ -27,6 +27,7 @@ export const pwaIcons = {
   standard512: '/pwa/pwa-512x512.png',
   maskable512: '/pwa/pwa-maskable-512x512.png',
   appleTouch: '/pwa/apple-touch-icon.png',
+  faviconSvg: '/pwa/teo-icon-source.svg',
 } as const;
 
 export const pwaHtmlTitle = pwaBrand.appName;
@@ -61,6 +62,25 @@ export const pwaHtmlHeadTags: HtmlTagDescriptor[] = [
     attrs: {
       name: 'apple-mobile-web-app-capable',
       content: 'yes',
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'link',
+    attrs: {
+      rel: 'icon',
+      type: 'image/svg+xml',
+      href: pwaIcons.faviconSvg,
+    },
+    injectTo: 'head',
+  },
+  {
+    tag: 'link',
+    attrs: {
+      rel: 'icon',
+      type: 'image/png',
+      sizes: '192x192',
+      href: pwaIcons.standard192,
     },
     injectTo: 'head',
   },

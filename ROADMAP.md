@@ -64,6 +64,7 @@
 - [x] Run a full smoke test on phone and desktop/tablet: home, all games, settings, custom content, recording, feedback, avatar flag on/off
 - [ ] Verify production build and deploy target
 - [x] Configure `VITE_WEB3FORMS_KEY` for private feedback collection
+- [x] Add browser favicon links so page loads stop requesting a missing `/favicon.ico` (this 404 turned every e2e console-error assertion red)
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
 
