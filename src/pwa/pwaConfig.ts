@@ -154,6 +154,9 @@ export const pwaPluginOptions: Partial<VitePWAOptions> = {
     ],
     globIgnores: [
       'avatar/**/*.glb',
+      // The lazily-loaded avatar renderer is useless offline without the GLBs above,
+      // so precaching ~950 kB of three.js would only inflate the install.
+      'assets/AvatarScene-*.js',
       '**/*.map',
       'sw.js',
       'workbox-*.js',

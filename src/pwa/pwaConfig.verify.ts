@@ -68,5 +68,9 @@ assert(globPatterns.includes('fonts/**/*.woff2'), 'workbox precaches local fonts
 
 const globIgnores = pwaPluginOptions.workbox?.globIgnores ?? [];
 assert(globIgnores.includes('avatar/**/*.glb'), 'workbox skips large avatar glbs in first pass');
+assert(
+  globIgnores.includes('assets/AvatarScene-*.js'),
+  'workbox skips the lazy avatar renderer chunk, which cannot render without the skipped glbs',
+);
 
 console.log('pwaConfig checks passed');
