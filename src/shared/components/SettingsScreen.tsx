@@ -6,6 +6,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameSettings } from '../types';
+import { AppSettings } from '../services/appSettingsStore';
 import { SettingsContent } from './SettingsContent';
 import { AppScreen, BackButton, TopBar } from '../ui';
 
@@ -13,9 +14,17 @@ interface SettingsScreenProps {
   settings: GameSettings;
   onUpdate: (settings: GameSettings) => void;
   onReady?: () => void;
+  appSettings?: AppSettings;
+  onUpdateAppSettings?: (settings: AppSettings) => void;
 }
 
-export function SettingsScreen({ settings, onUpdate, onReady }: SettingsScreenProps) {
+export function SettingsScreen({
+  settings,
+  onUpdate,
+  onReady,
+  appSettings,
+  onUpdateAppSettings,
+}: SettingsScreenProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,6 +50,8 @@ export function SettingsScreen({ settings, onUpdate, onReady }: SettingsScreenPr
         settings={settings}
         onUpdate={onUpdate}
         onManageRecordings={() => navigate('/content')}
+        appSettings={appSettings}
+        onUpdateAppSettings={onUpdateAppSettings}
       />
     </AppScreen>
   );

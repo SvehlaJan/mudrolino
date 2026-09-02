@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Languages, MessageSquare, Mic, Music } from 'lucide-react';
+import { Languages, MessageSquare, Mic, Music, Type } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { audioManager } from '../services/audioManager';
 import { FeedbackModal } from './FeedbackModal';
@@ -13,12 +13,15 @@ import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
 import { Button, Card, SegmentedChoice, ToggleControl } from '../ui';
 import { AvatarCustomizationSettings } from '../../avatar/AvatarCustomizationSettings';
+import { AppSettings, AppFontFamily, applyFontFamily } from '../services/appSettingsStore';
 
 interface SettingsContentProps {
   target: SettingsTarget;
   settings: GameSettings;
   onUpdate: (settings: GameSettings) => void;
   onManageRecordings?: () => void;
+  appSettings?: AppSettings;
+  onUpdateAppSettings?: (settings: AppSettings) => void;
 }
 
 interface SettingsCardProps {
@@ -124,7 +127,14 @@ function CompleteLetterMissingCountCard({
   );
 }
 
-export function SettingsContent({ target, settings, onUpdate, onManageRecordings }: SettingsContentProps) {
+export function SettingsContent({
+  target,
+  settings,
+  onUpdate,
+  onManageRecordings,
+  appSettings,
+  onUpdateAppSettings,
+}: SettingsContentProps) {
   const visibility = SETTINGS_VISIBILITY[target];
   const isHome = target === 'home';
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
@@ -149,6 +159,35 @@ export function SettingsContent({ target, settings, onUpdate, onManageRecordings
       )}
 
       {visibility.avatar && <AvatarCustomizationSettings />}
+
+      {isHome && appSettings && onUpdateAppSettings && (
+        <SettingsCard>
+          <div className="flex items-start gap-4">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+              <Type size={24} className="sm:h-7 sm:w-7" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-xl font-bold leading-tight sm:text-2xl">Písmo</h3>
+              <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
+                Štýl písma v celej aplikácii.
+              </p>
+            </div>
+          </div>
+          <div className="mt-5">
+            <SegmentedChoice<AppFontFamily>
+              options={['nunito', 'shantell']}
+              selected={appSettings.fontFamily}
+              activeClassName="bg-accent-blue"
+              formatLabel={(value) => value === 'nunito' ? 'Zaoblené (Nunito)' : 'Hravé (Shantell)'}
+              onSelect={(value) => {
+                applyFontFamily(value);
+                onUpdateAppSettings({ ...appSettings, fontFamily: value });
+              }}
+              columns={2}
+            />
+          </div>
+        </SettingsCard>
+      )}
 
       {visibility.recordings && onManageRecordings && (
         <SettingsCard>
