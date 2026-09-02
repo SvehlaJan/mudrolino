@@ -139,6 +139,8 @@
 - [x] **Doplň písmeno** — show a word with one or more missing Slovak letter units and let the child fill them in guided order.
 - [ ] **Doplň slovo** — future word-level completion game using the same guided missing-unit idea.
 - [ ] **Ktoré chýba?** — show a short number or letter sequence with one missing item and let the child identify it.
+- [ ] **Viac alebo Menej** — quantity comparison game (two object piles, tap the one with more; numeral-comparison mode as a setting). Spec: `docs/superpowers/specs/2026-09-02-compare-quantities-game-design.md`.
+- [ ] **Simple Addition with Objects** — follow-up to Viac alebo Menej: two small object groups, child counts the combined total and taps the matching numeral. Not yet spec'd.
 
 ---
 
