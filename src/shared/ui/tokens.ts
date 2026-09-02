@@ -5,7 +5,7 @@
 
 export const uiTokens = {
   screenPadding: 'px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5',
-  screenBg: 'bg-bg-light text-text-main font-fredoka',
+  screenBg: 'bg-bg-light text-text-main font-app',
   maxWidth: {
     narrow: 'max-w-2xl',
     game: 'max-w-5xl',
