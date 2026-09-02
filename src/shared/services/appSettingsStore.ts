@@ -24,7 +24,7 @@ export function loadAppSettings(): AppSettings {
     const stored = JSON.parse(raw) as Record<string, unknown>;
     return {
       locale: typeof stored.locale === 'string' ? stored.locale : DEFAULT_APP_SETTINGS.locale,
-      fontFamily: stored.fontFamily === 'shantell' ? 'shantell' : 'nunito',
+      fontFamily: stored.fontFamily === 'shantell' ? 'shantell' : DEFAULT_APP_SETTINGS.fontFamily,
     };
   } catch {
     return DEFAULT_APP_SETTINGS;

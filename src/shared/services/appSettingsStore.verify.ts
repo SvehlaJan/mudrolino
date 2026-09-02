@@ -30,12 +30,18 @@ if (fallback.fontFamily !== 'nunito') {
   throw new Error(`Expected fallback to 'nunito', got '${fallback.fontFamily}'`);
 }
 
-// Test applyFontFamily safe in non-DOM and DOM environments
+// Verify non-DOM safety
 applyFontFamily('nunito');
-if (typeof document !== 'undefined') {
-  if (document.documentElement.dataset.font !== 'nunito') {
-    throw new Error(`Expected document dataset.font to be 'nunito'`);
-  }
+
+// Verify DOM mutation behavior
+const mockDocument = { documentElement: { dataset: {} as Record<string, string> } };
+(global as unknown as { document: typeof mockDocument }).document = mockDocument;
+
+applyFontFamily('shantell');
+if (mockDocument.documentElement.dataset.font !== 'shantell') {
+  throw new Error(`Expected dataset.font to be 'shantell', got '${mockDocument.documentElement.dataset.font}'`);
 }
+
+delete (global as unknown as { document?: unknown }).document;
 
 console.log('✓ appSettingsStore font tests passed');
