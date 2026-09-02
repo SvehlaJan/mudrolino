@@ -178,7 +178,11 @@ export function SettingsContent({
               options={['nunito', 'shantell']}
               selected={appSettings.fontFamily}
               activeClassName="bg-accent-blue"
-              formatLabel={(value) => value === 'nunito' ? 'Zaoblené (Nunito)' : 'Hravé (Shantell)'}
+              formatLabel={(value) => (
+                <span style={{ fontFamily: value === 'nunito' ? '"Nunito", sans-serif' : '"Shantell Sans", cursive, sans-serif' }}>
+                  {value === 'nunito' ? 'Zaoblené (Nunito)' : 'Hravé (Shantell)'}
+                </span>
+              )}
               onSelect={(value) => {
                 applyFontFamily(value);
                 onUpdateAppSettings({ ...appSettings, fontFamily: value });

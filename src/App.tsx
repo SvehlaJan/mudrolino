@@ -138,7 +138,6 @@ export default function App() {
 
   // Sync app settings
   useEffect(() => {
-    applyFontFamily(appSettings.fontFamily);
     saveAppSettings(appSettings);
   }, [appSettings]);
 
@@ -195,7 +194,7 @@ export default function App() {
 
   return (
     <ContentProvider locale={locale}>
-    <div className="min-h-screen bg-bg-light font-fredoka text-text-main relative">
+    <div className="min-h-screen bg-bg-light font-app text-text-main relative">
       <div className="w-full min-h-screen">
         <Routes location={location}>
           <Route
