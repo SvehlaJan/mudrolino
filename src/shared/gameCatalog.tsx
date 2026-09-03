@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Apple, BookOpen, Gamepad2, Play, Puzzle, Type, WandSparkles } from 'lucide-react';
+import { Apple, BookOpen, Gamepad2, Play, Puzzle, Scale, Type, WandSparkles } from 'lucide-react';
 import type { GameId, GameMetadata } from './types';
 
 interface GameLobbyMetadata {
@@ -72,6 +72,20 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     lobby: {
       title: 'SPOČÍTAJ',
       playButtonColorClassName: 'bg-soft-watermelon',
+    },
+  },
+  {
+    id: 'COMPARE_QUANTITIES',
+    path: '/compare',
+    title: 'Viac alebo Menej',
+    description: 'Kde je viac predmetov?',
+    icon: <Scale size={48} className="sm:w-16 sm:h-16" />,
+    color: 'bg-accent-blue',
+    lobby: {
+      title: 'VIAC ALEBO MENEJ',
+      playButtonColorClassName: 'bg-accent-blue',
+      topDecorationClassName: 'absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-primary opacity-30 -rotate-12 blur-sm pointer-events-none',
+      bottomDecorationClassName: 'absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-success opacity-20 translate-y-10 blur-md pointer-events-none',
     },
   },
   {
