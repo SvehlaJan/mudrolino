@@ -1,164 +1,89 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+Guidance for coding agents working in this repository. Claude Code reads this
+through `CLAUDE.md`, which imports it. Deeper, area-specific conventions live in
+`.claude/rules/` — Claude loads each one automatically when it touches matching
+files, and other agents can read them directly.
 
 ## Commands
 
 ```bash
-npm run dev       # Start dev server on port 3000
-npm run build     # Production build to dist/
-npm run preview   # Preview production build
-npm run lint      # TypeScript type checking (no emit)
-npm run clean     # Remove dist/
-npm run test:audio # Validate expected audio files vs. content/audio keys
-npm run test:e2e  # Run the Playwright end-to-end suite (builds a test-mode bundle first)
+npm run dev        # Dev server on port 3000, bound to 0.0.0.0
+npm run build      # Production build to dist/
+npm run lint       # tsc --noEmit + ESLint over src and e2e
+npm run test:audio # Check expected audio files against locale audio keys
+npm run test:e2e   # Playwright suite (builds a test-mode bundle first)
+npm run pwa:icons  # Regenerate public/pwa/ icons from the SVG source
 ```
 
-An end-to-end Playwright suite exists under `e2e/` (run via `npm run test:e2e`). There is still no unit/component test runner — pure logic modules use one-shot `.verify.ts` scripts run via `npx tsx` (see `npm run test:audio` and any `*.verify.ts` file for the pattern).
+## Verify before you commit
+
+There is no unit test runner. Verification is these four, cheapest first. Run
+what your change touches, and say what you ran and what it returned — never
+report a change as working without one of them.
+
+1. `npm run lint` — must be clean. One known warning: react-refresh in `ContentContext.tsx`.
+2. `npx tsx <module>.verify.ts` for any pure-logic module you touched. Each `*Logic.ts`, `contentRegistry.ts`, `pwaConfig.ts`, `browserResolver.ts`, and the overlay audio helpers has one. A new logic module needs one too.
+3. `npm run test:audio` when you add, rename, or remove audio files or audio keys.
+4. `npm run test:e2e` before anything touching routing, a game loop, or the app shell.
+
+## Repository etiquette
+
+- Work on a branch; never commit to `main`.
+- Commit messages are `type: imperative summary` (`fix:`, `feat:`, `perf:`, `docs:`, `test:`, `chore:`) with a body explaining why, not what.
+- Update `ROADMAP.md` in the same change when you finish, add, or drop a task, and add a Decisions Log row for a significant choice.
+- Do not open a pull request unless asked.
 
 ## Gotchas
 
-- `npm run lint` requires `node_modules` to be present (`npm install` first); `typescript` is a local dep, not global.
-- `npm run dev` binds to `0.0.0.0` — the dev server is accessible on the local network, not just localhost.
-
-## End-to-End Testing
-
-- `e2e/` holds the Playwright Test suite: `e2e/playwright.config.ts`, shared helpers in `e2e/support/`, and `*.spec.ts` files.
-- Run the full suite with `npm run test:e2e` (this runs `vite build --mode test` first, then starts `vite preview` and runs Playwright against it).
-- Games publish a small, additive `window.__E2E__` object via `setE2EState()` from `src/shared/services/e2eState.ts`, active only in dev mode or the `test` build mode — never in the real production build. Specs read it via `e2e/support/e2eHook.ts`'s `getE2EState()` to know the correct answer for the current round deterministically, instead of guessing from rendered content.
-- When adding a new grid-based game (see below), also add its route to `e2e/smoke.spec.ts`, and add an oracle hook + golden-path spec if the game doesn't fit an existing shared spec (`e2e/find-it-games.spec.ts` covers any game built on `FindItGame`).
+- `npm run lint` and every `.verify.ts` need `node_modules` — `typescript` and `tsx` are local deps, not global.
+- `npm run dev` binds to `0.0.0.0`, so the dev server is reachable on the local network.
+- e2e specs assert no console errors and no failed requests on every route, so a single unrelated 404 fails all 28 tests. Look for one shared cause before debugging a spec.
+- PWA metadata lives in `src/pwa/pwaConfig.ts`. Editing `index.html` achieves nothing — the build overwrites its title and injects the head tags.
+- **IMPORTANT**: never statically import `AvatarScene`, `AvatarModel`, `AvatarSkeletonOverlay`, or `skinnedGarment` from outside `src/avatar/`. three.js is a lazy chunk behind `AvatarPresenter`; a static import silently puts ~950 kB back into the main bundle.
 
 ## Architecture
 
-This is a Slovak-language educational web app ("Hravé Učenie") for preschoolers with 6 mini-games: alphabet, syllables, numbers, counting, words, and syllable assembly.
+A Slovak-language educational PWA for preschoolers ("Hravé Učenie") with 9
+mini-games. React 19, TypeScript, Vite, Tailwind v4. Local-first: no backend, no
+accounts.
 
-**Routing shell**: `src/App.tsx` uses `react-router-dom` for the main app shell and routes (`/`, `/alphabet`, `/syllables`, `/numbers`, `/counting`, `/words`, `/assembly`, `/settings`, `/content`, `/avatar-preview`, `/ui-kit`). It also owns the home screen, parent gate flow, settings overlays, and route transition animations.
+- `src/App.tsx` owns the routed shell, home screen, parent gate, and settings overlays.
+- `src/shared/gameCatalog.tsx` — `GAME_DEFINITIONS` is the single source for a game's id, route, home card, and lobby metadata. Register a game here rather than hand-wiring the home screen.
+- `src/shared/components/FindItGame.tsx` — the shared round loop for the 4 grid games (alphabet, syllables, numbers, words), driven by a `GameDescriptor<T>` from `src/shared/types.ts`. The other 5 games are bespoke and own their loops.
+- `src/shared/contentRegistry.ts` — locale-aware content and the shared answer-audio helpers.
+- `src/shared/services/audioManager.ts` — all audio. It falls back per clip to `sk-SK` Web Speech TTS, so a missing file is never an error.
+- `src/shared/ui/` — shared UI primitives. Use them before writing one-off Tailwind strings, and update the hidden `/ui-kit` route in the same change.
 
-**Domain types**: `src/shared/types.ts` defines the current domain models:
-- `Letter`
-- `Syllable`
-- `Word`
-- `SlovakNumber`
+**Answer audio contract** (all 9 games): the tapped or target item's own audio
+plays first, then the verdict — a praise clip on success, the shared retry
+phrase on a wrong answer. Never reintroduce per-game "Toto je …" phrasing and
+never put praise before the item. Assembly is the one exception and keeps its
+own bespoke wrong-answer audio.
 
-It also defines the reusable `GameDescriptor<T>` interface, plus `AudioSpec`, `SuccessSpec`, and `FailureSpec`.
+**Content**: Slovak defaults live in `src/shared/locales/sk.ts`; Czech is a stub
+that falls back to Slovak. Parents add words, praise, and recorded audio
+overrides locally through `/content`. Custom audio beats bundled MP3, which
+beats TTS.
 
-**Shared game loop**: `src/shared/components/FindItGame.tsx` is the generic engine for the 4 grid-based "find it" games:
-- alphabet
-- syllables
-- numbers
-- words
-
-Each game provides a `GameDescriptor<T>` that defines item identity, rendering, prompts, wrong-answer audio, and overlay content.
-
-**Counting game**: `src/games/counting/CountingItemsGame.tsx` is intentionally bespoke. It manages its own round loop because its mechanic differs from the shared grid-based games.
-
-**Assembly game**: `src/games/assembly/AssemblyGame.tsx` is intentionally bespoke. It uses shuffled syllable tiles and answer slots instead of the shared single-tap grid loop.
-
-**Content registry**: `src/shared/contentRegistry.ts` is the main content registry for:
-- `LETTER_ITEMS`
-- `WORD_ITEMS` from locale modules
-- derived `SYLLABLE_ITEMS`
-- `NUMBER_ITEMS`
-- `AUDIO_PHRASES`
-- praise entries and shared timing constants
-
-**Word and custom-content pipeline**:
-- Default Slovak words live in `src/shared/locales/sk.ts`
-- Czech is stubbed in `src/shared/locales/cs.ts` and falls back to Slovak until populated
-- User-managed words and praise entries live in local storage through `src/shared/services/localContentRepository.ts`
-- `/content` lets parents add/delete local words and praise and record audio overrides
-
-**Audio**: All audio goes through `src/shared/services/audioManager.ts`. It plays clip sequences from `public/audio/` and falls back per clip to Web Speech API (`sk-SK`) when a file is missing or fails to play.
-
-**Shared overlays**:
-- `SuccessOverlay.tsx`
-- `FailureOverlay.tsx`
-- `SessionCompleteOverlay.tsx`
-
-These power the end-of-round and end-of-session feedback used across the games.
-
-**ParentsGate** (`src/shared/components/ParentsGate.tsx`): 3-second hold-to-enter mechanism guarding the settings screen.
-
-**Settings**:
-- `src/shared/components/SettingsOverlay.tsx` handles shared settings like music and number/counting ranges.
-- `src/games/alphabet/AlphabetSettingsOverlay.tsx` handles alphabet card-count settings.
-- `src/games/syllables/SyllablesSettingsOverlay.tsx` handles syllable card-count settings.
-
-**Adding a new grid-based game**:
-1. Create a component in `src/games/<name>/`.
-2. Define a `GameDescriptor<T>` for the game.
-3. Reuse `FindItGame<T>` if the mechanic fits the shared pattern.
-4. Add the route and home-screen card in `App.tsx`.
-5. Update `ROADMAP.md` if the new game changes scope or delivery status.
-
-## UI Component Library
-
-Shared UI primitives live in `src/shared/ui/`. New UI should use these primitives before adding one-off Tailwind class strings:
-
-- `AppScreen` for full-screen shells and standard responsive padding.
-- `TopBar`, `BackButton`, `IconButton`, and `RoundCounter` for game and parent-screen navigation.
-- `Button`, `Card`, `ChoiceTile`, and form controls for repeated actions, surfaces, selectable tiles, and settings/feedback inputs.
-- `OverlayFrame` for modal feedback shells.
-
-The hidden `/ui-kit` route is the designer-review surface for shared UI components and states. When adding or changing a shared component, update its `/ui-kit` example in the same change. If the component API or usage contract changes, update this file and `README.md`.
-
-This consolidation phase standardizes the current playful UI. Do not introduce a broad redesign unless the task explicitly asks for one, but prefer shared component consistency over preserving old one-off spacing, colors, typography, or radii.
-
-## Audio files
-
-Drop recorded `.mp3` files into locale-prefixed `public/audio/` subdirectories. File naming follows `audioKey` values from locale content:
-
-- `public/audio/sk/letters/a.mp3`, `s-caron.mp3`, `c-caron.mp3` … (bare letter sound)
-- `public/audio/sk/syllables/ma.mp3`, `me.mp3` … (bare syllable sound, derived from words)
-- `public/audio/sk/words/jahoda.mp3`, `mama.mp3` … (full spoken word clips)
-- `public/audio/sk/numbers/1.mp3`, `2.mp3` … (number word)
-- `public/audio/sk/phrases/najdi-pismenko.mp3`, `toto-je-pismenko.mp3`, `co-tu-je-napisane.mp3`, `toto-je-slovo.mp3`, `nevadi.mp3`, `spravna-odpoved.mp3` …
-- `public/audio/sk/praise/vyborne.mp3`, `skvela-praca.mp3` …
-- `public/audio/music/background.mp3` (optional background music)
-
-TTS fallback is automatic — missing files cause no errors during development.
-
-## Key Data
-
-- `src/shared/locales/sk.ts` — default Slovak letters, words, numbers, phrases, and praise
-- `src/shared/contentRegistry.ts` — locale registry helpers, derived syllables, counting emoji, and timing
-- `src/shared/types.ts` — domain types plus `GameDescriptor<T>`, `AudioSpec`, `SuccessSpec`, and `FailureSpec`
-- `src/shared/services/localContentRepository.ts` — local-first custom words and praise storage
-- `src/shared/services/audioOverrideStore.ts` — IndexedDB-backed custom audio overrides
+Do not start a broad UI redesign unless the task asks for one. Prefer shared
+component consistency over preserving old one-off spacing, color, or radii.
 
 ## Environment
 
-`GEMINI_API_KEY` is exposed in `vite.config.ts` (see `.env.example`). `APP_URL` is still present in `.env.example` from the starter template but is not part of the current app flow.
+`GEMINI_API_KEY` is exposed in `vite.config.ts` (see `.env.example`); `APP_URL`
+is a leftover from the starter template and unused. The avatar is behind
+`VITE_AVATAR_POC_ENABLED`, and the feedback form needs `VITE_WEB3FORMS_KEY`.
 
-## Local Meshy Helper
+## Skills
 
-This repo includes a project-local Meshy helper for 3D generation flows:
-- Helper CLI: `tools/meshy/meshy_ops.py`
-- Operator reference: `tools/meshy/README.md`
+Detailed workflows are skills rather than always-loaded context: Meshy 3D
+generation in `.claude/skills/meshy-3d-generation/` (mirrored for Cursor in
+`.cursor/skills/`), browser verification and the Blender avatar pipeline in
+`.agents/skills/`. Read the matching skill before doing that kind of work.
 
-Use it when the user asks for Meshy operations such as:
-- text-to-3d
-- image-to-3d
-- multi-image-to-3d
-- retexture
-- remesh
-- auto-rigging
-- animation
-- Meshy balance checks
-- downloading `.glb` outputs
-
-Rules:
-- Load `MESHY_API_KEY` only from the current shell environment or repo-local `.env`.
-- Never read or write `~/.zshrc`, `~/.bashrc`, or other shell profile files.
-- Keep downloads inside `meshy_output/`.
-- Before any credit-spending Meshy command, summarize expected cost and wait for user approval.
-- Only pass `--confirm-spend` to the helper after the user approves.
-- Do not use the 3D printing workflow in this repo.
-
-## Roadmap
-
-`ROADMAP.md` is the living product roadmap. Keep it up-to-date:
-- Mark tasks `[x]` as soon as they are completed.
-- Add new tasks as they are identified.
-- Record decisions in the Decisions Log table at the bottom when a significant choice is made.
-- Move completed phases to a "Done" section if they become noisy.
+One rule is here rather than only in the skill, because it spends real money:
+**Meshy commands cost credits — always summarize the expected cost and wait for
+the user to approve before passing `--confirm-spend`.** Keep `MESHY_API_KEY` to
+the environment or a repo-local `.env`, and keep downloads under
+`meshy_output/`.

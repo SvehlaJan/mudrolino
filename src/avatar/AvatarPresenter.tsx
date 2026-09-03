@@ -1,9 +1,18 @@
+import { Suspense, lazy } from 'react';
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
-import { AvatarScene } from './AvatarScene';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
 import { AvatarBodyShapeConfig, AvatarSceneData } from './avatarTypes';
 import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
+
+/**
+ * three.js, @react-three/fiber and drei are only needed once an avatar actually renders,
+ * so the whole renderer is split out of the main bundle. A failed chunk load throws during
+ * render and is swallowed by AvatarRuntimeBoundary, same as any other avatar runtime error.
+ */
+const AvatarScene = lazy(() =>
+  import('./AvatarScene').then((module) => ({ default: module.AvatarScene })),
+);
 
 interface AvatarPresenterProps {
   className?: string;
@@ -115,20 +124,22 @@ function AvatarPresenterContent({
   return (
     <AvatarRuntimeBoundary>
       <div className={className} role="img" aria-label={label}>
-        <AvatarScene
-          className="h-full w-full"
-          modelUrl={modelUrl}
-          animationUrl={animationUrl}
-          animationName={animationName}
-          externalAssets={externalAssets}
-          bodyShape={bodyShape}
-          preserveHipsPosition={preserveHipsPosition}
-          showSkeleton={showSkeleton}
-          onAnimationsChange={onAnimationsChange}
-          onModelReady={onModelReady}
-          onSceneData={onSceneData}
-          onRegisterCameraReset={onRegisterCameraReset}
-        />
+        <Suspense fallback={null}>
+          <AvatarScene
+            className="h-full w-full"
+            modelUrl={modelUrl}
+            animationUrl={animationUrl}
+            animationName={animationName}
+            externalAssets={externalAssets}
+            bodyShape={bodyShape}
+            preserveHipsPosition={preserveHipsPosition}
+            showSkeleton={showSkeleton}
+            onAnimationsChange={onAnimationsChange}
+            onModelReady={onModelReady}
+            onSceneData={onSceneData}
+            onRegisterCameraReset={onRegisterCameraReset}
+          />
+        </Suspense>
       </div>
     </AvatarRuntimeBoundary>
   );

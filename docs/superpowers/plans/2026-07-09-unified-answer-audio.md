@@ -33,7 +33,7 @@
 - Modify: `src/shared/contentRegistry.ts`
 - Create: `src/shared/contentRegistry.verify.ts`
 
-- [ ] **Step 1: Write the failing verifier**
+- [x] **Step 1: Write the failing verifier**
 
 Create `src/shared/contentRegistry.verify.ts`:
 
@@ -60,7 +60,7 @@ assert(wrongAudio.clips[1].fallbackText === 'Skús to znova.', 'retry clip keeps
 console.log('contentRegistry answer-audio checks passed');
 ```
 
-- [ ] **Step 2: Run the verifier and confirm it fails**
+- [x] **Step 2: Run the verifier and confirm it fails**
 
 Run:
 
@@ -70,7 +70,7 @@ npx tsx src/shared/contentRegistry.verify.ts
 
 Expected: failure — `getItemAudioClip`/`getWrongAnswerAudio` are not exported yet.
 
-- [ ] **Step 3: Add the shared helpers**
+- [x] **Step 3: Add the shared helpers**
 
 In `src/shared/contentRegistry.ts`, change the type import on line 5 from:
 
@@ -113,7 +113,7 @@ export function getWrongAnswerAudio(
 }
 ```
 
-- [ ] **Step 4: Run the verifier and confirm it passes**
+- [x] **Step 4: Run the verifier and confirm it passes**
 
 Run:
 
@@ -127,7 +127,7 @@ Expected:
 contentRegistry answer-audio checks passed
 ```
 
-- [ ] **Step 5: Verify the rest of the app still compiles**
+- [x] **Step 5: Verify the rest of the app still compiles**
 
 Run:
 
@@ -137,7 +137,7 @@ npm run lint
 
 Expected: exit code `0`, only the pre-existing `react-refresh/only-export-components` warning in `ContentContext.tsx`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/shared/contentRegistry.ts src/shared/contentRegistry.verify.ts
@@ -152,7 +152,7 @@ git commit -m "feat: add shared answer-audio helpers"
 - Modify: `src/shared/components/successOverlayAudio.ts`
 - Modify: `src/shared/components/successOverlayAudio.verify.ts`
 
-- [ ] **Step 1: Update the verifier's expected order first**
+- [x] **Step 1: Update the verifier's expected order first**
 
 In `src/shared/components/successOverlayAudio.verify.ts`, replace the assertions block (lines 23-26):
 
@@ -172,7 +172,7 @@ assert(audioSpec.clips[1].path === 'sk/praise/skvela-praca', 'praise audio match
 assert(audioSpec.clips[1].fallbackText === 'Skvelá práca!', 'praise fallback text matches displayed praise');
 ```
 
-- [ ] **Step 2: Run the verifier and confirm it now fails**
+- [x] **Step 2: Run the verifier and confirm it now fails**
 
 Run:
 
@@ -182,7 +182,7 @@ npx tsx src/shared/components/successOverlayAudio.verify.ts
 
 Expected: failure — the current implementation still puts praise first, so `clips[0].path` is `sk/praise/skvela-praca`, not `sk/words/jahoda`.
 
-- [ ] **Step 3: Reorder the implementation**
+- [x] **Step 3: Reorder the implementation**
 
 In `src/shared/components/successOverlayAudio.ts`, replace the function body:
 
@@ -218,7 +218,7 @@ export function getSuccessOverlayAudioSpec(
 }
 ```
 
-- [ ] **Step 4: Run the verifier and confirm it passes**
+- [x] **Step 4: Run the verifier and confirm it passes**
 
 Run:
 
@@ -232,7 +232,7 @@ Expected:
 successOverlayAudio checks passed
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/shared/components/successOverlayAudio.ts src/shared/components/successOverlayAudio.verify.ts
@@ -249,7 +249,7 @@ git commit -m "fix: play item audio before praise on success"
 - Modify: `src/games/numbers/numbersDescriptor.tsx`
 - Modify: `src/games/words/wordsDescriptor.tsx`
 
-- [ ] **Step 1: Update `alphabetDescriptor.tsx`**
+- [x] **Step 1: Update `alphabetDescriptor.tsx`**
 
 Change the import on line 8 from:
 
@@ -307,7 +307,7 @@ with:
 
 Do NOT touch `getPromptAudio` or `getFailureSpec` — both still use `getPhraseClip` for `'find'`/`'neverMind'`/`'itIs'`, which remain unchanged.
 
-- [ ] **Step 2: Update `syllablesDescriptor.tsx`**
+- [x] **Step 2: Update `syllablesDescriptor.tsx`**
 
 Change the import on line 8 from:
 
@@ -362,7 +362,7 @@ with:
 
 Do NOT touch `getPromptAudio` or `getFailureSpec`.
 
-- [ ] **Step 3: Update `numbersDescriptor.tsx`**
+- [x] **Step 3: Update `numbersDescriptor.tsx`**
 
 Change the import on line 8 from:
 
@@ -411,7 +411,7 @@ with:
 
 Do NOT touch `getPromptAudio` or `getFailureSpec`.
 
-- [ ] **Step 4: Update `wordsDescriptor.tsx`**
+- [x] **Step 4: Update `wordsDescriptor.tsx`**
 
 Change the import on line 8 from:
 
@@ -463,7 +463,7 @@ with:
 
 Do NOT touch `getPromptAudio`, `getReplayAudio`, or `getFailureSpec`.
 
-- [ ] **Step 5: Verify**
+- [x] **Step 5: Verify**
 
 Run:
 
@@ -477,7 +477,7 @@ npm run lint
 
 Expected: verifier prints `contentRegistry answer-audio checks passed`; lint exits `0` with only the pre-existing warning.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/games/alphabet/alphabetDescriptor.tsx src/games/syllables/syllablesDescriptor.tsx src/games/numbers/numbersDescriptor.tsx src/games/words/wordsDescriptor.tsx
@@ -491,7 +491,7 @@ git commit -m "fix: unify answer audio for alphabet, syllables, numbers, and wor
 **Files:**
 - Modify: `src/games/counting/CountingItemsGame.tsx`
 
-- [ ] **Step 1: Update the import**
+- [x] **Step 1: Update the import**
 
 Change line 9 from:
 
@@ -505,7 +505,7 @@ to:
 import { TIMING, COUNTING_EMOJIS, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 ```
 
-- [ ] **Step 2: Replace the inline wrong-answer audio**
+- [x] **Step 2: Replace the inline wrong-answer audio**
 
 In `handleOptionClick`, replace (lines 167-173):
 
@@ -525,7 +525,7 @@ with:
         audioManager.play(getWrongAnswerAudio(locale, 'numbers', item.audioKey, String(item.value)));
 ```
 
-- [ ] **Step 3: Add the missing success audio**
+- [x] **Step 3: Add the missing success audio**
 
 Replace the inline `SuccessOverlay` spec (lines 244-249):
 
@@ -556,7 +556,7 @@ with:
 
 Do NOT touch the failure spec (`getPhraseClip(locale, 'neverMind')`/`'itIs'` block) or the `countItems` prompt phrase.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -566,7 +566,7 @@ npm run lint
 
 Expected: exit code `0`, only the pre-existing warning.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/games/counting/CountingItemsGame.tsx
@@ -580,7 +580,7 @@ git commit -m "fix: unify answer audio for counting game"
 **Files:**
 - Modify: `src/games/first-letter/FirstLetterGame.tsx`
 
-- [ ] **Step 1: Update the import**
+- [x] **Step 1: Update the import**
 
 Change line 16 from:
 
@@ -594,7 +594,7 @@ to:
 import { TIMING, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 ```
 
-- [ ] **Step 2: Replace `getWrongAudio`**
+- [x] **Step 2: Replace `getWrongAudio`**
 
 Replace (lines 83-91):
 
@@ -618,7 +618,7 @@ function getWrongAudio(locale: string, selected: Letter) {
 }
 ```
 
-- [ ] **Step 3: Update `getSuccessSpec`**
+- [x] **Step 3: Update `getSuccessSpec`**
 
 Replace (lines 60-69), keeping the existing compound fallback sentence exactly as-is:
 
@@ -652,7 +652,7 @@ function getSuccessSpec(locale: string, item: FirstLetterItem): SuccessSpec {
 
 Do NOT touch `getFailureSpec` or the prompt audio.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -662,7 +662,7 @@ npm run lint
 
 Expected: exit code `0`, only the pre-existing warning.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/games/first-letter/FirstLetterGame.tsx
@@ -676,7 +676,7 @@ git commit -m "fix: unify answer audio for first-letter game"
 **Files:**
 - Modify: `src/games/complete-syllable/CompleteSyllableGame.tsx`
 
-- [ ] **Step 1: Update the import**
+- [x] **Step 1: Update the import**
 
 Change the contentRegistry import line from:
 
@@ -690,7 +690,7 @@ to:
 import { TIMING, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 ```
 
-- [ ] **Step 2: Replace `getWrongAudio`**
+- [x] **Step 2: Replace `getWrongAudio`**
 
 Replace:
 
@@ -714,7 +714,7 @@ function getWrongAudio(locale: string, selected: Syllable) {
 }
 ```
 
-- [ ] **Step 3: Update `getSuccessSpec`**
+- [x] **Step 3: Update `getSuccessSpec`**
 
 Replace:
 
@@ -746,7 +746,7 @@ function getSuccessSpec(locale: string, round: CompleteSyllableRound): SuccessSp
 
 Do NOT touch `getFailureSpec` or `getPromptAudio`.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -760,7 +760,7 @@ npm run lint
 
 Expected: verifier still prints `completeSyllableLogic checks passed` (its pure logic is untouched by this task); lint exits `0` with only the pre-existing warning.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/games/complete-syllable/CompleteSyllableGame.tsx
@@ -774,7 +774,7 @@ git commit -m "fix: unify answer audio for complete-syllable game"
 **Files:**
 - Modify: `src/games/complete-letter/CompleteLetterGame.tsx`
 
-- [ ] **Step 1: Update the import**
+- [x] **Step 1: Update the import**
 
 Change the contentRegistry import line from:
 
@@ -788,7 +788,7 @@ to:
 import { TIMING, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 ```
 
-- [ ] **Step 2: Replace `getWrongAudio`**
+- [x] **Step 2: Replace `getWrongAudio`**
 
 Replace:
 
@@ -812,7 +812,7 @@ function getWrongAudio(locale: string, selected: Letter) {
 }
 ```
 
-- [ ] **Step 3: Update `getSuccessSpec`**
+- [x] **Step 3: Update `getSuccessSpec`**
 
 Replace:
 
@@ -844,7 +844,7 @@ function getSuccessSpec(locale: string, round: CompleteLetterRound): SuccessSpec
 
 Do NOT touch `getFailureSpec` or `getPromptAudio`.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -858,7 +858,7 @@ npm run lint
 
 Expected: verifier still prints `completeLetterLogic checks passed`; lint exits `0` with only the pre-existing warning.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/games/complete-letter/CompleteLetterGame.tsx
@@ -872,7 +872,7 @@ git commit -m "fix: unify answer audio for complete-letter game"
 **Files:**
 - No planned file edits.
 
-- [ ] **Step 1: Run all focused verifiers**
+- [x] **Step 1: Run all focused verifiers**
 
 ```bash
 npx tsx src/shared/contentRegistry.verify.ts
@@ -904,7 +904,7 @@ npx tsx src/shared/components/sessionCompleteAudio.verify.ts
 
 Expected: each prints its own `checks passed` line, exit `0`.
 
-- [ ] **Step 2: Run audio content validation**
+- [x] **Step 2: Run audio content validation**
 
 ```bash
 npm run test:audio
@@ -912,7 +912,7 @@ npm run test:audio
 
 Expected: all 6 audio categories pass (this change reuses only existing audio files/keys, adds no new ones).
 
-- [ ] **Step 3: Run the e2e suite**
+- [x] **Step 3: Run the e2e suite**
 
 ```bash
 npm run test:e2e
@@ -920,7 +920,7 @@ npm run test:e2e
 
 Expected: all 28 tests pass. These specs assert on overlay *state* (`window.__E2E__.overlay`), not audio content, so they should be unaffected by this change — a failure here would mean something broke beyond the intended audio scope.
 
-- [ ] **Step 4: Run lint and build**
+- [x] **Step 4: Run lint and build**
 
 ```bash
 npm run lint
@@ -932,7 +932,7 @@ npm run build
 
 Expected: both exit `0` (build may show the existing large-chunk warning and PWA precache output — both expected).
 
-- [ ] **Step 5: Check git state**
+- [x] **Step 5: Check git state**
 
 ```bash
 git status --short --branch
@@ -945,6 +945,15 @@ git log --oneline --decorate --max-count=10
 Expected: working tree clean; latest commits show Tasks 1-7's commits in order.
 
 ---
+
+## Verification Record
+
+All 8 tasks are implemented and committed. Task 8's final verification ran on 2026-09-01:
+
+- 5 `.verify.ts` scripts — pass.
+- `npm run test:audio` — all 6 audio categories pass.
+- `npm run test:e2e` — 28/28 pass. The suite was red before this run for an unrelated reason: no favicon was declared, so every page load 404'd on `/favicon.ico` and tripped `expectNoConsoleErrors`. Fixed separately in `src/pwa/pwaConfig.ts`.
+- `npm run lint` and `npm run build` — exit 0 (one pre-existing react-refresh warning in `ContentContext.tsx`, plus the known large-chunk and PWA precache output).
 
 ## Review Guidance for the Implementing Agent
 

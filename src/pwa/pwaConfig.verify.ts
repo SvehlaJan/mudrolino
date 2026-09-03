@@ -35,6 +35,18 @@ assert(
   pwaHtmlHeadTags.some((tag) => tag.tag === 'link' && tag.attrs?.rel === 'apple-touch-icon' && tag.attrs.href === pwaIcons.appleTouch),
   'html head tags include Apple touch icon',
 );
+assert(
+  pwaHtmlHeadTags.some(
+    (tag) => tag.tag === 'link' && tag.attrs?.rel === 'icon' && tag.attrs.href === pwaIcons.faviconSvg,
+  ),
+  'html head tags include an SVG favicon so browsers stop requesting a missing /favicon.ico',
+);
+assert(
+  pwaHtmlHeadTags.some(
+    (tag) => tag.tag === 'link' && tag.attrs?.rel === 'icon' && tag.attrs.href === pwaIcons.standard192,
+  ),
+  'html head tags include a PNG favicon fallback',
+);
 
 const iconSources = new Set(pwaManifest.icons.map((icon) => icon.src));
 assert(iconSources.has('/pwa/pwa-192x192.png'), 'manifest includes 192 icon');
@@ -56,5 +68,9 @@ assert(globPatterns.includes('fonts/**/*.woff2'), 'workbox precaches local fonts
 
 const globIgnores = pwaPluginOptions.workbox?.globIgnores ?? [];
 assert(globIgnores.includes('avatar/**/*.glb'), 'workbox skips large avatar glbs in first pass');
+assert(
+  globIgnores.includes('assets/AvatarScene-*.js'),
+  'workbox skips the lazy avatar renderer chunk, which cannot render without the skipped glbs',
+);
 
 console.log('pwaConfig checks passed');
