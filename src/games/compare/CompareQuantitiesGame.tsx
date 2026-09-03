@@ -53,11 +53,14 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
   const lastPairKeyRef = useRef<string | null>(null);
   const pendingRoundEndRef = useRef(false);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const promptTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const availableItems = useMemo(
-    () => numberItems.filter((n) => n.value >= range.start && n.value <= range.end),
-    [numberItems, range.start, range.end],
-  );
+  const availableItems = useMemo(() => {
+    const filtered = numberItems.filter((n) => n.value >= range.start && n.value <= range.end);
+    return filtered.length >= 2
+      ? filtered
+      : numberItems.filter((n) => n.value >= 1 && n.value <= 5);
+  }, [numberItems, range.start, range.end]);
 
   useEffect(() => {
     return () => {
@@ -65,6 +68,10 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
       if (transitionTimerRef.current) {
         clearTimeout(transitionTimerRef.current);
         transitionTimerRef.current = null;
+      }
+      if (promptTimerRef.current) {
+        clearTimeout(promptTimerRef.current);
+        promptTimerRef.current = null;
       }
     };
   }, []);
@@ -82,6 +89,10 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
     if (transitionTimerRef.current) {
       clearTimeout(transitionTimerRef.current);
       transitionTimerRef.current = null;
+    }
+    if (promptTimerRef.current) {
+      clearTimeout(promptTimerRef.current);
+      promptTimerRef.current = null;
     }
   }, []);
 
@@ -123,11 +134,13 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
 
   useEffect(() => {
     if (gameState === 'PLAYING') {
-      const timer = setTimeout(
+      promptTimerRef.current = setTimeout(
         () => audioManager.play({ clips: [getPhraseClip(locale, 'whereIsMore')] }),
         TIMING.AUDIO_DELAY_MS,
       );
-      return () => clearTimeout(timer);
+      return () => {
+        if (promptTimerRef.current) clearTimeout(promptTimerRef.current);
+      };
     }
   }, [gameState, locale]);
 
@@ -141,7 +154,11 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
   }, [round, showSuccess, showSessionComplete, wrongSide]);
 
   const handleTap = (side: Side) => {
-    if (!round || showSuccess || showSessionComplete || pendingRoundEndRef.current) return;
+    if (!round || showSuccess || showSessionComplete || pendingRoundEndRef.current || side === wrongSide) return;
+    if (promptTimerRef.current) {
+      clearTimeout(promptTimerRef.current);
+      promptTimerRef.current = null;
+    }
     setTotalTaps((prev) => prev + 1);
     const item = round[side];
 
