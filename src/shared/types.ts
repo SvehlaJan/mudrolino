@@ -5,7 +5,7 @@
 
 import type { ReactNode } from 'react';
 
-export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'FIRST_LETTER' | 'ASSEMBLY' | 'COMPLETE_SYLLABLE' | 'COMPLETE_LETTER';
+export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'FIRST_LETTER' | 'ASSEMBLY' | 'COMPLETE_SYLLABLE' | 'COMPLETE_LETTER' | 'COMPARE_QUANTITIES';
 export type SettingsTarget = 'home' | GameId;
 
 export type CompleteLetterMissingCount = 1 | 2 | 'adaptive';
@@ -18,6 +18,8 @@ export interface GameSettings {
   numbersRange: { start: number; end: number };
   countingRange: { start: number; end: number };
   completeLetterMissingCount: CompleteLetterMissingCount;
+  compareRange: { start: number; end: number };
+  compareMode: 'objects' | 'numerals';
 }
 
 export interface GameMetadata {
@@ -153,7 +155,7 @@ export type AudioPhraseKey =
   | 'find' | 'thisIs' | 'number' | 'letter' | 'syllable' | 'word'
   | 'findLetter' | 'thisIsLetter' | 'thisIsSyllable' | 'thisIsWord'
   | 'countItems' | 'whatIsWrittenHere' | 'orderSyllables'
-  | 'retry' | 'neverMind' | 'itIs' | 'yesThereAre' | 'noThereAre' | 'correctAnswerIs';
+  | 'retry' | 'neverMind' | 'itIs' | 'yesThereAre' | 'noThereAre' | 'correctAnswerIs' | 'whereIsMore';
 
 // ---------------------------------------------------------------------------
 // User-managed content — stored in LocalContentRepository, seeded from defaults
