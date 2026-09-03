@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Languages, MessageSquare, Mic, Music, Type } from 'lucide-react';
+import { Languages, MessageSquare, Mic, Music, Scale, Type } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { audioManager } from '../services/audioManager';
 import { FeedbackModal } from './FeedbackModal';
@@ -352,6 +352,55 @@ export function SettingsContent({
           activeClassName="bg-soft-watermelon"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, countingRange: { start: 1, end: value as 5 | 10 } })}
+        />
+      )}
+
+      {visibility.compareRange && isHome && (
+        <GameSettingsGroupCard title="Viac alebo Menej">
+          <ToggleControl
+            label="Porovnávaj čísla"
+            description="Namiesto predmetov porovnávať napísané čísla."
+            icon={<Scale size={24} className="sm:h-7 sm:w-7" />}
+            iconBackgroundClassName="bg-accent-blue/35"
+            checked={settings.compareMode === 'numerals'}
+            onToggle={() => onUpdate({ ...settings, compareMode: settings.compareMode === 'numerals' ? 'objects' : 'numerals' })}
+            activeColorClassName="bg-accent-blue"
+          />
+          <SettingsRangeCard
+            title="Rozsah porovnávania"
+            description="Vyberte rozsah čísel pre porovnávanie."
+            options={[5, 10]}
+            selected={settings.compareRange.end}
+            activeClassName="bg-accent-blue"
+            formatLabel={(value) => `1 - ${value}`}
+            onSelect={(value) => onUpdate({ ...settings, compareRange: { start: 1, end: value as 5 | 10 } })}
+          />
+        </GameSettingsGroupCard>
+      )}
+
+      {visibility.compareMode && !isHome && (
+        <SettingsCard>
+          <ToggleControl
+            label="Porovnávaj čísla"
+            description="Namiesto predmetov porovnávať napísané čísla."
+            icon={<Scale size={24} className="sm:h-7 sm:w-7" />}
+            iconBackgroundClassName="bg-accent-blue/35"
+            checked={settings.compareMode === 'numerals'}
+            onToggle={() => onUpdate({ ...settings, compareMode: settings.compareMode === 'numerals' ? 'objects' : 'numerals' })}
+            activeColorClassName="bg-accent-blue"
+          />
+        </SettingsCard>
+      )}
+
+      {visibility.compareRange && !isHome && (
+        <SettingsRangeCard
+          title="Viac alebo Menej"
+          description="Vyberte rozsah čísel pre porovnávanie."
+          options={[5, 10]}
+          selected={settings.compareRange.end}
+          activeClassName="bg-accent-blue"
+          formatLabel={(value) => `1 - ${value}`}
+          onSelect={(value) => onUpdate({ ...settings, compareRange: { start: 1, end: value as 5 | 10 } })}
         />
       )}
 
