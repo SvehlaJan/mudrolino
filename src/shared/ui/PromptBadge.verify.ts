@@ -39,14 +39,25 @@ clickableBadge.props.onClick();
 assert.equal(clickCount, 1, 'onClick handler was called');
 
 // Trigger onKeyDown with Enter and Space
-clickableBadge.props.onKeyDown({ key: 'Enter' });
-assert.equal(clickCount, 2, 'Enter key activated onClick');
+let preventDefaultCalls = 0;
+const mockEvent = (key: string) => ({
+  key,
+  preventDefault: () => {
+    preventDefaultCalls += 1;
+  },
+});
 
-clickableBadge.props.onKeyDown({ key: ' ' });
+clickableBadge.props.onKeyDown(mockEvent('Enter'));
+assert.equal(clickCount, 2, 'Enter key activated onClick');
+assert.equal(preventDefaultCalls, 1, 'preventDefault called on Enter');
+
+clickableBadge.props.onKeyDown(mockEvent(' '));
 assert.equal(clickCount, 3, 'Space key activated onClick');
+assert.equal(preventDefaultCalls, 2, 'preventDefault called on Space');
 
 // Trigger onKeyDown with other key
-clickableBadge.props.onKeyDown({ key: 'Tab' });
+clickableBadge.props.onKeyDown(mockEvent('Tab'));
 assert.equal(clickCount, 3, 'Other keys do not activate onClick');
+assert.equal(preventDefaultCalls, 2, 'preventDefault not called on Tab');
 
 console.log('✅ PromptBadge verification tests passed');
