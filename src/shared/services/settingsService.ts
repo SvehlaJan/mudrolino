@@ -10,6 +10,8 @@ export const DEFAULT_SETTINGS: GameSettings = {
   numbersRange: { start: 1, end: 10 },
   countingRange: { start: 1, end: 5 },
   completeLetterMissingCount: 1,
+  compareRange: { start: 1, end: 5 },
+  compareMode: 'objects',
 };
 
 function isValidRange(value: unknown): value is { start: number; end: number } {
@@ -23,6 +25,10 @@ function isValidRange(value: unknown): value is { start: number; end: number } {
 
 function isValidCompleteLetterMissingCount(value: unknown): value is GameSettings['completeLetterMissingCount'] {
   return value === 1 || value === 2 || value === 'adaptive';
+}
+
+function isValidCompareMode(value: unknown): value is GameSettings['compareMode'] {
+  return value === 'objects' || value === 'numerals';
 }
 
 export function loadSettings(): GameSettings {
@@ -40,6 +46,8 @@ export function loadSettings(): GameSettings {
       completeLetterMissingCount: isValidCompleteLetterMissingCount(stored.completeLetterMissingCount)
         ? stored.completeLetterMissingCount
         : DEFAULT_SETTINGS.completeLetterMissingCount,
+      compareRange: isValidRange(stored.compareRange) ? stored.compareRange : DEFAULT_SETTINGS.compareRange,
+      compareMode: isValidCompareMode(stored.compareMode) ? stored.compareMode : DEFAULT_SETTINGS.compareMode,
     };
   } catch {
     return DEFAULT_SETTINGS;
