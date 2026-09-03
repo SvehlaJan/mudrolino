@@ -10,6 +10,7 @@ import { audioManager } from '../services/audioManager';
 import { SuccessOverlay } from './SuccessOverlay';
 import { FailureOverlay } from './FailureOverlay';
 import { SessionCompleteOverlay } from './SessionCompleteOverlay';
+import { AuditoryPromptBadge } from './AuditoryPromptBadge';
 import { TIMING } from '../contentRegistry';
 import { fisherYatesShuffle } from '../utils';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../ui';
@@ -70,6 +71,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const [correctRounds, setCorrectRounds] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   const { targetItem, gridItems } = roundState;
   const gridAreaRef = useRef<HTMLDivElement | null>(null);
@@ -128,14 +130,27 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     pendingSuccessRef.current = false;
   }, [descriptor]);
 
+  const playPrompt = useCallback(async () => {
+    if (!targetItem) return;
+    setIsAudioPlaying(true);
+    try {
+      const spec = descriptor.getReplayAudio
+        ? descriptor.getReplayAudio(targetItem)
+        : descriptor.getPromptAudio(targetItem);
+      await audioManager.play(spec);
+    } finally {
+      setIsAudioPlaying(false);
+    }
+  }, [targetItem, descriptor]);
+
   useEffect(() => {
     if (!targetItem) return;
     const timer = setTimeout(
-      () => audioManager.play(descriptor.getPromptAudio(targetItem)),
+      () => void playPrompt(),
       TIMING.AUDIO_DELAY_MS
     );
     return () => clearTimeout(timer);
-  }, [targetItem, descriptor]);
+  }, [targetItem, playPrompt]);
 
   const handleCardClick = (item: T, index: number) => {
     if (showSuccess || showFailure || pendingSuccessRef.current || !targetItem || showSessionComplete) return;
@@ -206,11 +221,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const gridWidth = tileSize ? tileSize * activeCols + gridGap * (activeCols - 1) : undefined;
   const replayButton = (
     <IconButton
-      onClick={() => targetItem && audioManager.play(
-        descriptor.getReplayAudio
-          ? descriptor.getReplayAudio(targetItem)
-          : descriptor.getPromptAudio(targetItem)
-      )}
+      onClick={playPrompt}
       label="Prehrať zvuk"
     >
       <Volume2 size={24} className="sm:w-7 sm:h-7" />
@@ -226,7 +237,11 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
       />
 
       <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
-        {prompt && <div className="text-center max-w-full">{prompt}</div>}
+        {prompt ? (
+          <div className="text-center max-w-full">{prompt}</div>
+        ) : (
+          <AuditoryPromptBadge isPlaying={isAudioPlaying} onReplay={playPrompt} />
+        )}
       </div>
 
       <div ref={gridAreaRef} className="flex-1 min-h-0 flex items-center justify-center">
