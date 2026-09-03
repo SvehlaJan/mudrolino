@@ -136,7 +136,7 @@
 - [x] **Prvé písmenko** — sound-first word-to-starting-letter game using ready words and active alphabet settings.
 - [x] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
 - [x] **Doplň písmeno** — show a word with one or more missing Slovak letter units and let the child fill them in guided order.
-- [ ] **Viac alebo Menej** — future quantity comparison game (two object piles, tap the one with more; numeral-comparison mode as a setting). Spec: `docs/superpowers/specs/2026-09-02-compare-quantities-game-design.md`.
+- [x] **Viac alebo Menej** — quantity comparison game (two object piles, tap the one with more; numeral-comparison mode as a setting). Spec: `docs/superpowers/specs/2026-09-02-compare-quantities-game-design.md`.
 
 ---
 
@@ -309,4 +309,5 @@
 | 2026-09-01 | The avatar renderer is a lazy chunk and is excluded from the PWA precache. | three.js/R3F/drei were more than half the main bundle for a feature behind `VITE_AVATAR_POC_ENABLED`. The avatar GLBs were already excluded from precache, so precaching the renderer bought nothing offline; a failed chunk load is caught by the existing `AvatarRuntimeBoundary` and just hides the avatar. |
 | 2026-09-02 | Nunito adopted as default typography with Shantell Sans alternative in Parent Settings | Fredoka had defective Slovak diacritics (rendering accents as acute/tilde); Nunito provides authentic Slovak diacritics with variable 400..900 weights; Shantell Sans provides an optional comic-book style. |
 | 2026-09-03 | Comprehensive UI/UX Enhancements: AuditoryPromptBadge, Zero-collision CSS Grid in Counting, PromptBadge standardization, Assembly mobile thumb layout, and Avatar garment localization | Solves tactile toddler interaction in counting via procedural Web Audio, provides visual audio feedback in auditory games, standardizes prompt replay UX, anchors mobile interaction in thumb zone, and localizes all avatar clothes in SK and CS. |
+| 2026-09-03 | Viac alebo Menej quantity comparison mini-game added with self-correcting 2-choice mechanic | Bespoke game state machine rather than FindItGame engine because every round ends in success with wrong side disabled; supports numerals and object emoji piles, settings range, and TTS fallback. |
 
