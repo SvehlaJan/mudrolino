@@ -12,7 +12,7 @@ import { audioManager } from '../../shared/services/audioManager';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, TIMING } from '../../shared/contentRegistry';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { Word } from '../../shared/types';
-import { AppScreen, BackButton, Card, IconButton, RoundCounter, TopBar } from '../../shared/ui';
+import { AppScreen, BackButton, Card, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
@@ -539,11 +539,14 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
         />
 
         <div className="flex justify-center">
-          <Card className="min-w-[180px] !rounded-[32px] !px-8 !py-6 text-center !shadow-block sm:min-w-[220px] sm:!rounded-[48px] sm:!px-12 sm:!py-8">
-            <div className="text-[72px] sm:text-[112px] lg:text-[132px] leading-none" aria-label={targetWord?.word}>
+          <PromptBadge
+            onClick={() => targetWord && playPromptAudio(targetWord)}
+            ariaLabel={targetWord?.word}
+          >
+            <span className="text-6xl sm:text-7xl leading-none">
               {targetWord?.emoji}
-            </div>
-          </Card>
+            </span>
+          </PromptBadge>
         </div>
 
         <Card

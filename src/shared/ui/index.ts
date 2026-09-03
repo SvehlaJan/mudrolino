@@ -11,6 +11,7 @@ export * from './FormControls';
 export * from './IconButton';
 export * from './IconMenuButton';
 export * from './OverlayFrame';
+export * from './PromptBadge';
 export * from './RoundCounter';
 export * from './TopBar';
 export * from './UiKitScreen';

@@ -9,7 +9,7 @@ import { FailureSpec, SuccessSpec, Syllable, Word } from '../../shared/types';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
-import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
+import { AppScreen, BackButton, ChoiceTile, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -320,9 +320,11 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: CompleteSyllabl
         />
 
         <div className="flex shrink-0 flex-col items-center justify-center gap-4 pb-4 text-center sm:gap-5">
-          <div role="img" aria-label={emojiLabel} className="text-[clamp(4.5rem,18vw,9rem)] leading-none">
-            {targetRound?.word.emoji}
-          </div>
+          <PromptBadge onClick={playPromptAudio} ariaLabel={emojiLabel}>
+            <span className="text-6xl sm:text-7xl leading-none">
+              {targetRound?.word.emoji}
+            </span>
+          </PromptBadge>
           <div className="flex max-w-full flex-wrap items-center justify-center gap-2 px-2 sm:gap-3">
             {slots.map((slot, index) => (
               <span key={`${slot.text}-${index}`} className="inline-flex items-center gap-2 sm:gap-3">

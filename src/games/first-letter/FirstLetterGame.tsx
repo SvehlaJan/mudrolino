@@ -9,7 +9,7 @@ import { GameSettings, Letter, SuccessSpec, FailureSpec } from '../../shared/typ
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
-import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
+import { AppScreen, BackButton, ChoiceTile, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -163,6 +163,12 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
     return () => clearTimer(promptTimerRef);
   }, [gameState, targetItem, locale, showFailure, showSessionComplete, showSuccess]);
 
+  const playPromptAudio = useCallback(() => {
+    if (!targetItem) return;
+    clearTimer(promptTimerRef);
+    audioManager.play(getPromptAudio(locale, targetItem));
+  }, [locale, targetItem]);
+
   const handlePlay = () => {
     if (eligibleItems.length === 0 || activeLetters.length < 4) return;
     sessionTokenRef.current += 1;
@@ -266,7 +272,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
           center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
           right={
             <IconButton
-              onClick={() => targetItem && audioManager.play(getPromptAudio(locale, targetItem))}
+              onClick={playPromptAudio}
               label="Prehrať zvuk"
             >
               <Volume2 size={24} className="sm:h-7 sm:w-7" />
@@ -275,9 +281,11 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
         />
 
         <div className="flex shrink-0 flex-col items-center justify-center pb-4 text-center">
-          <div role="img" aria-label="Hľadané slovo" className="text-[clamp(6rem,18vh,12rem)] leading-none">
-            {targetItem?.word.emoji}
-          </div>
+          <PromptBadge onClick={playPromptAudio} ariaLabel={targetItem?.word.word}>
+            <span className="text-6xl sm:text-7xl leading-none">
+              {targetItem?.word.emoji}
+            </span>
+          </PromptBadge>
         </div>
 
         <div className="flex min-h-0 flex-1 items-center justify-center">

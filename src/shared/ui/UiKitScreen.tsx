@@ -15,6 +15,7 @@ import { Card } from './Card';
 import { ChoiceTile } from './ChoiceTile';
 import { SearchInput, SegmentedChoice, TextAreaControl, ToggleControl } from './FormControls';
 import { OverlayFrame } from './OverlayFrame';
+import { PromptBadge } from './PromptBadge';
 import { cx } from './utils';
 import { RecordingListItem } from '../../recordings/RecordingListItem';
 
@@ -374,6 +375,17 @@ export function UiKitScreen() {
               </div>
             </Card>
           </div>
+        </div>
+      </Section>
+
+      <Section title="Prompt Badge">
+        <div className="flex flex-wrap gap-4 items-center">
+          <PromptBadge ariaLabel="Auto">
+            <span className="text-6xl sm:text-7xl">🚗</span>
+          </PromptBadge>
+          <PromptBadge onClick={() => {}} ariaLabel="Klikateľný prompt">
+            <span className="text-6xl sm:text-7xl">🍎</span>
+          </PromptBadge>
         </div>
       </Section>
 
