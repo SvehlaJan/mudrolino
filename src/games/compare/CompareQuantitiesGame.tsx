@@ -9,7 +9,7 @@ import { audioManager } from '../../shared/services/audioManager';
 import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { fisherYatesShuffle } from '../../shared/utils';
-import { NumberItem } from '../../shared/types';
+import { AudioClip, NumberItem } from '../../shared/types';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
@@ -42,6 +42,17 @@ function formatComparison(locale: string, larger: number, smaller: number): stri
     return `${larger} je více než ${smaller}`;
   }
   return `${larger} je viac ako ${smaller}`;
+}
+
+function getComparisonAudioClip(locale: string, larger: number, smaller: number): AudioClip {
+  const fallbackText = formatComparison(locale, larger, smaller);
+  const audioKey = locale === 'cs'
+    ? `${larger}-je-vice-nez-${smaller}`
+    : `${larger}-je-viac-ako-${smaller}`;
+  return {
+    path: `${locale}/compare/${audioKey}`,
+    fallbackText,
+  };
 }
 
 export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: CompareQuantitiesGameProps) {
@@ -284,6 +295,15 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
               round[round.correctSide].value,
               round[round.correctSide === 'left' ? 'right' : 'left'].value,
             ),
+            audioSpec: {
+              clips: [
+                getComparisonAudioClip(
+                  locale,
+                  round[round.correctSide].value,
+                  round[round.correctSide === 'left' ? 'right' : 'left'].value,
+                ),
+              ],
+            },
           }}
           onComplete={startNewRound}
         />
