@@ -17,18 +17,13 @@ import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteO
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 
+import { playPopSound } from './countingSfx';
+import { generateGridItems, COUNTING_GRID_TOTAL_SLOTS, GridItemSlot } from './countingGridLogic';
+
 interface CountingItemsGameProps {
   onExit: () => void;
   onOpenSettings: () => void;
   range: { start: number; end: number };
-}
-
-interface ItemPosition {
-  x: number;
-  y: number;
-  emoji: string;
-  rotation: number;
-  scale: number;
 }
 
 export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
@@ -36,7 +31,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.COUNTING_ITEMS.lobby;
   const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
-  const [itemPositions, setItemPositions] = useState<ItemPosition[]>([]);
+  const [itemSlots, setItemSlots] = useState<GridItemSlot[]>([]);
   const [optionItems, setOptionItems] = useState<NumberItem[]>([]);
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
   const [showSuccess, setShowSuccess] = useState(false);
@@ -49,7 +44,6 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
   const [correctRounds, setCorrectRounds] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const pendingFailureRef = useRef(false);
 
   const availableItems = useMemo(
@@ -67,34 +61,13 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     return () => audioManager.stop();
   }, []);
 
-  const generatePositions = useCallback((count: number): ItemPosition[] => {
-    const emoji = COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)];
-    const slots = fisherYatesShuffle(Array.from({ length: 16 }, (_, i) => i)).slice(0, count);
-    const padding = 15;
-    const usableSize = 100 - 2 * padding;
-    const cellSize = usableSize / 4;
-    return slots.map(slotIndex => {
-      const row = Math.floor(slotIndex / 4);
-      const col = slotIndex % 4;
-      const centerX = padding + (col + 0.5) * cellSize;
-      const centerY = padding + (row + 0.5) * cellSize;
-      return {
-        x: centerX + (Math.random() - 0.5) * cellSize * 0.4,
-        y: centerY + (Math.random() - 0.5) * cellSize * 0.4,
-        emoji,
-        rotation: Math.random() * 40 - 20,
-        scale: 0.9 + Math.random() * 0.3,
-      };
-    });
-  }, []);
-
   const startNewRound = useCallback(() => {
     if (availableItems.length === 0) return;
     if (queueRef.current.length === 0) {
       queueRef.current = fisherYatesShuffle(availableItems);
     }
     const target = queueRef.current.shift()!;
-    const positions = generatePositions(target.value);
+    const slots = generateGridItems(target.value, COUNTING_EMOJIS);
 
     // Build 4 options (target + 3 others from full number items range up to max)
     const allNumbers = numberItems.filter((n) => n.value <= Math.max(range.end, 10));
@@ -104,14 +77,14 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
     const options = fisherYatesShuffle([...others, target]);
 
     setTargetItem(target);
-    setItemPositions(positions);
+    setItemSlots(slots);
     setOptionItems(options);
     setFeedback({});
     setShowSuccess(false);
     setShowFailure(false);
     pendingFailureRef.current = false;
     setWrongAttemptsThisRound(0);
-  }, [availableItems, numberItems, range.end, generatePositions]);
+  }, [availableItems, numberItems, range.end]);
 
   useEffect(() => {
     if (gameState === 'PLAYING' && !targetItem) startNewRound();
@@ -197,23 +170,30 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
       />
 
       <Card
-        ref={containerRef}
-        className="relative flex-1 min-h-[220px] overflow-hidden !rounded-[30px] !border-4 !border-dashed !border-shadow/20 !bg-white/50 !p-0 !shadow-none sm:!rounded-[44px]"
+        className="relative flex-1 min-h-[220px] overflow-hidden !rounded-[30px] !border-4 !border-dashed !border-shadow/20 !bg-white/50 !p-3 sm:!p-5 !shadow-none sm:!rounded-[44px]"
       >
-        {itemPositions.map((pos, i) => (
-          <div
-            key={`${targetItem?.value}-${i}`}
-            aria-hidden="true"
-            className="absolute text-5xl sm:text-7xl md:text-8xl select-none"
-            style={{
-              left: `${pos.x}%`,
-              top: `${pos.y}%`,
-              transform: `translate(-50%, -50%) rotate(${pos.rotation}deg) scale(${pos.scale})`,
-            }}
-          >
-            {pos.emoji}
-          </div>
-        ))}
+        <div className="grid grid-cols-3 sm:grid-cols-5 auto-rows-fr h-full w-full gap-2 sm:gap-4 place-items-center">
+          {Array.from({ length: COUNTING_GRID_TOTAL_SLOTS }, (_, slotIndex) => {
+            const item = itemSlots.find((s) => s.slotIndex === slotIndex);
+            if (!item) {
+              return <div key={`empty-${slotIndex}`} className="w-full h-full" aria-hidden="true" />;
+            }
+            return (
+              <button
+                key={`item-${slotIndex}`}
+                type="button"
+                onClick={() => playPopSound()}
+                aria-label="Spočítateľný predmet"
+                className="relative flex items-center justify-center text-5xl sm:text-7xl md:text-8xl select-none transition-transform active:scale-125 active:rotate-12 cursor-pointer focus:outline-none"
+                style={{
+                  transform: `rotate(${item.rotation}deg) translate(${item.offsetX}px, ${item.offsetY}px)`,
+                }}
+              >
+                {item.emoji}
+              </button>
+            );
+          })}
+        </div>
         <IconButton
           onClick={startNewRound}
           label="Nové kolo"
