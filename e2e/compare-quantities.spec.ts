@@ -34,12 +34,13 @@ test('compare quantities: correct tap reaches the success overlay', async ({ pag
   expect(state.correctSide, 'expected an active round').not.toBeNull();
   await page.getByRole('button', { name: SIDE_LABEL[state.correctSide!] }).click();
   await waitForOverlay(page, 'success');
+  await expect(page.getByText(/je viac ako/)).toBeVisible();
 
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
 });
 
-test('compare quantities: wrong tap disables that pile and lets the child self-correct', async ({ page }) => {
+test('compare quantities: wrong tap keeps pile enabled and lets the child self-correct', async ({ page }) => {
   const errors = trackConsoleErrors(page);
   const failedRequests = trackFailedRequests(page);
   await page.goto('/compare');
@@ -52,12 +53,13 @@ test('compare quantities: wrong tap disables that pile and lets the child self-c
 
   const wrongButton = page.getByRole('button', { name: SIDE_LABEL[wrong] });
   await wrongButton.click();
-  await expect(wrongButton).toBeDisabled();
+  await expect(wrongButton).toBeEnabled();
 
   const correctButton = page.getByRole('button', { name: SIDE_LABEL[state.correctSide!] });
   await expect(correctButton).toBeEnabled();
   await correctButton.click();
   await waitForOverlay(page, 'success');
+  await expect(page.getByText(/je viac ako/)).toBeVisible();
 
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);

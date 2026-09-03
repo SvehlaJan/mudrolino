@@ -37,12 +37,19 @@ function pairKey(a: number, b: number): string {
   return [a, b].sort((x, y) => x - y).join('-');
 }
 
+function formatComparison(locale: string, larger: number, smaller: number): string {
+  if (locale === 'cs') {
+    return `${larger} je více než ${smaller}`;
+  }
+  return `${larger} je viac ako ${smaller}`;
+}
+
 export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: CompareQuantitiesGameProps) {
   const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const lobby = GAME_DEFINITIONS_BY_ID.COMPARE_QUANTITIES.lobby;
   const [round, setRound] = useState<RoundState | null>(null);
-  const [pileState, setPileState] = useState<Record<Side, 'neutral' | 'correct'>>({ left: 'neutral', right: 'neutral' });
+  const [pileState, setPileState] = useState<Record<Side, 'neutral' | 'correct' | 'wrong'>>({ left: 'neutral', right: 'neutral' });
   const [wrongSide, setWrongSide] = useState<Side | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const MAX_ROUNDS = 5;
@@ -54,6 +61,7 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
   const pendingRoundEndRef = useRef(false);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const promptTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const feedbackResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const availableItems = useMemo(() => {
     const filtered = numberItems.filter((n) => n.value >= range.start && n.value <= range.end);
@@ -72,6 +80,10 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
       if (promptTimerRef.current) {
         clearTimeout(promptTimerRef.current);
         promptTimerRef.current = null;
+      }
+      if (feedbackResetTimerRef.current) {
+        clearTimeout(feedbackResetTimerRef.current);
+        feedbackResetTimerRef.current = null;
       }
     };
   }, []);
@@ -94,6 +106,10 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
       clearTimeout(promptTimerRef.current);
       promptTimerRef.current = null;
     }
+    if (feedbackResetTimerRef.current) {
+      clearTimeout(feedbackResetTimerRef.current);
+      feedbackResetTimerRef.current = null;
+    }
   }, []);
 
   const handlePlay = () => {
@@ -109,6 +125,10 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
 
   const startNewRound = useCallback(() => {
     pendingRoundEndRef.current = false;
+    if (feedbackResetTimerRef.current) {
+      clearTimeout(feedbackResetTimerRef.current);
+      feedbackResetTimerRef.current = null;
+    }
     if (availableItems.length < 2) return;
     let a: NumberItem;
     let b: NumberItem;
@@ -154,7 +174,7 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
   }, [round, showSuccess, showSessionComplete, wrongSide]);
 
   const handleTap = (side: Side) => {
-    if (!round || showSuccess || showSessionComplete || pendingRoundEndRef.current || side === wrongSide) return;
+    if (!round || showSuccess || showSessionComplete || pendingRoundEndRef.current) return;
     if (promptTimerRef.current) {
       clearTimeout(promptTimerRef.current);
       promptTimerRef.current = null;
@@ -164,6 +184,10 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
 
     if (side === round.correctSide) {
       pendingRoundEndRef.current = true;
+      if (feedbackResetTimerRef.current) {
+        clearTimeout(feedbackResetTimerRef.current);
+        feedbackResetTimerRef.current = null;
+      }
       audioManager.play(getItemAnnouncementAudio(locale, 'numbers', item.audioKey, String(item.value)));
       setPileState((prev) => ({ ...prev, [side]: 'correct' }));
       const nextRoundsPlayed = roundsPlayed + 1;
@@ -183,6 +207,14 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
     } else {
       audioManager.play(getWrongAnswerAudio(locale, 'numbers', item.audioKey, String(item.value)));
       setWrongSide(side);
+      setPileState((prev) => ({ ...prev, [side]: 'wrong' }));
+      if (feedbackResetTimerRef.current) {
+        clearTimeout(feedbackResetTimerRef.current);
+      }
+      feedbackResetTimerRef.current = setTimeout(() => {
+        feedbackResetTimerRef.current = null;
+        setPileState((prev) => ({ ...prev, [side]: 'neutral' }));
+      }, TIMING.FEEDBACK_RESET_MS);
     }
   };
 
@@ -214,37 +246,45 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
       />
 
       {round && (
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 flex-1 min-h-0">
-          {(['left', 'right'] as const).map((side) => (
-            <ChoiceTile
-              key={side}
-              shape="option"
-              state={pileState[side] === 'correct' ? 'correct' : 'neutral'}
-              disabled={wrongSide === side}
-              onClick={() => handleTap(side)}
-              aria-label={side === 'left' ? 'Ľavá skupina' : 'Pravá skupina'}
-              className="h-full !rounded-[30px] sm:!rounded-[40px]"
-            >
-              {mode === 'numerals' ? (
-                <span className="text-6xl font-spline sm:text-8xl">{round[side].value}</span>
-              ) : (
-                <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 max-w-[85%]">
-                  {Array.from({ length: round[side].value }).map((_, i) => (
-                    <span key={i} aria-hidden="true" className="text-3xl sm:text-5xl select-none">
-                      {round.emoji}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </ChoiceTile>
-          ))}
+        <div className="flex flex-1 min-h-0 items-center justify-center w-full px-2">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-md sm:max-w-xl aspect-[2/1] max-h-[260px] sm:max-h-[340px]">
+            {(['left', 'right'] as const).map((side) => (
+              <ChoiceTile
+                key={side}
+                shape="option"
+                state={pileState[side]}
+                disabled={showSuccess || showSessionComplete}
+                onClick={() => handleTap(side)}
+                aria-label={side === 'left' ? 'Ľavá skupina' : 'Pravá skupina'}
+                className="h-full w-full !rounded-[24px] sm:!rounded-[32px] p-2 sm:p-4"
+              >
+                {mode === 'numerals' ? (
+                  <span className="text-5xl font-spline sm:text-7xl">{round[side].value}</span>
+                ) : (
+                  <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 max-w-[90%]">
+                    {Array.from({ length: round[side].value }).map((_, i) => (
+                      <span key={i} aria-hidden="true" className="text-2xl sm:text-4xl select-none">
+                        {round.emoji}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </ChoiceTile>
+            ))}
+          </div>
         </div>
       )}
 
       {round && (
         <SuccessOverlay
           show={showSuccess}
-          spec={{ echoLine: `${round[round.correctSide].value} ⭐` }}
+          spec={{
+            echoLine: formatComparison(
+              locale,
+              round[round.correctSide].value,
+              round[round.correctSide === 'left' ? 'right' : 'left'].value,
+            ),
+          }}
           onComplete={startNewRound}
         />
       )}
