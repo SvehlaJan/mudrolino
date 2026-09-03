@@ -180,7 +180,7 @@ export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingIte
             }
             return (
               <button
-                key={`item-${slotIndex}`}
+                key={`item-${roundsPlayed}-${slotIndex}`}
                 type="button"
                 onClick={() => playPopSound()}
                 aria-label="Spočítateľný predmet"

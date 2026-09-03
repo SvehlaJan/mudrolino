@@ -42,6 +42,15 @@ export function playPopSound(): void {
     osc.connect(gain);
     gain.connect(ctx.destination);
 
+    osc.onended = () => {
+      try {
+        osc.disconnect();
+        gain.disconnect();
+      } catch {
+        // Safe swallow
+      }
+    };
+
     osc.start(now);
     osc.stop(now + 0.065);
   } catch {
