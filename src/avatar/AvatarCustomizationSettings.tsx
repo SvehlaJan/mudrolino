@@ -15,8 +15,8 @@ import {
 export function AvatarCustomizationSettings() {
   const { avatarState, updateAvatarState } = useAvatarState();
   const { locale } = useContent();
-  const topLabels = locale === 'cs' ? CS_TOP_LABELS : SK_TOP_LABELS;
-  const shoesLabels = locale === 'cs' ? CS_SHOES_LABELS : SK_SHOES_LABELS;
+  const topLabels = locale === 'cs' ? { ...SK_TOP_LABELS, ...CS_TOP_LABELS } : SK_TOP_LABELS;
+  const shoesLabels = locale === 'cs' ? { ...SK_SHOES_LABELS, ...CS_SHOES_LABELS } : SK_SHOES_LABELS;
   const selectedTop = avatarState.config.slotSelections.top;
   const selectedShoes = avatarState.config.slotSelections.shoes;
 
