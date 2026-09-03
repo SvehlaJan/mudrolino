@@ -51,17 +51,53 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
   const [totalTaps, setTotalTaps] = useState(0);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
   const lastPairKeyRef = useRef<string | null>(null);
+  const pendingRoundEndRef = useRef(false);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const availableItems = useMemo(
     () => numberItems.filter((n) => n.value >= range.start && n.value <= range.end),
-    [numberItems, range],
+    [numberItems, range.start, range.end],
   );
 
   useEffect(() => {
-    return () => audioManager.stop();
+    return () => {
+      audioManager.stop();
+      if (transitionTimerRef.current) {
+        clearTimeout(transitionTimerRef.current);
+        transitionTimerRef.current = null;
+      }
+    };
   }, []);
 
+  const resetSession = useCallback(() => {
+    setRoundsPlayed(0);
+    setCorrectRounds(0);
+    setTotalTaps(0);
+    setShowSessionComplete(false);
+    setShowSuccess(false);
+    setRound(null);
+    setWrongSide(null);
+    setPileState({ left: 'neutral', right: 'neutral' });
+    pendingRoundEndRef.current = false;
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+      transitionTimerRef.current = null;
+    }
+  }, []);
+
+  const handlePlay = () => {
+    resetSession();
+    setGameState('PLAYING');
+  };
+
+  const handleBackToLobby = () => {
+    audioManager.stop();
+    resetSession();
+    setGameState('HOME');
+  };
+
   const startNewRound = useCallback(() => {
+    pendingRoundEndRef.current = false;
     if (availableItems.length < 2) return;
     let a: NumberItem;
     let b: NumberItem;
@@ -105,20 +141,27 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
   }, [round, showSuccess, showSessionComplete, wrongSide]);
 
   const handleTap = (side: Side) => {
-    if (!round || showSuccess || showSessionComplete) return;
+    if (!round || showSuccess || showSessionComplete || pendingRoundEndRef.current) return;
     setTotalTaps((prev) => prev + 1);
     const item = round[side];
 
     if (side === round.correctSide) {
+      pendingRoundEndRef.current = true;
       audioManager.play(getItemAnnouncementAudio(locale, 'numbers', item.audioKey, String(item.value)));
       setPileState((prev) => ({ ...prev, [side]: 'correct' }));
       const nextRoundsPlayed = roundsPlayed + 1;
       setRoundsPlayed(nextRoundsPlayed);
       setCorrectRounds((prev) => prev + 1);
       if (nextRoundsPlayed >= MAX_ROUNDS) {
-        setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        transitionTimerRef.current = setTimeout(() => {
+          transitionTimerRef.current = null;
+          setShowSessionComplete(true);
+        }, TIMING.SUCCESS_SHOW_DELAY_MS);
       } else {
-        setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
+        transitionTimerRef.current = setTimeout(() => {
+          transitionTimerRef.current = null;
+          setShowSuccess(true);
+        }, TIMING.SUCCESS_SHOW_DELAY_MS);
       }
     } else {
       audioManager.play(getWrongAnswerAudio(locale, 'numbers', item.audioKey, String(item.value)));
@@ -132,7 +175,7 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
         title={lobby.title}
         playButtonColorClassName={lobby.playButtonColorClassName}
         subtitle={<>Rozsah: {range.start} - {range.end}</>}
-        onPlay={() => setGameState('PLAYING')}
+        onPlay={handlePlay}
         onBack={onExit}
         onOpenSettings={onOpenSettings}
         topDecorationClassName={lobby.topDecorationClassName}
@@ -144,7 +187,7 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
   return (
     <AppScreen contentClassName="gap-3 sm:gap-4 md:gap-5">
       <TopBar
-        left={<BackButton onClick={() => setGameState('HOME')} />}
+        left={<BackButton onClick={handleBackToLobby} />}
         center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
         right={(
           <IconButton label="Prehrať zvuk" onClick={() => audioManager.play({ clips: [getPhraseClip(locale, 'whereIsMore')] })}>
@@ -193,7 +236,7 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
         roundsCompleted={correctRounds}
         totalTaps={totalTaps}
         maxRounds={MAX_ROUNDS}
-        onComplete={() => setGameState('HOME')}
+        onComplete={handleBackToLobby}
       />
     </AppScreen>
   );
