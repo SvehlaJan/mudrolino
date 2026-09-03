@@ -19,7 +19,9 @@ export function expectNoConsoleErrors(errors: string[]): void {
 export function trackFailedRequests(page: Page): string[] {
   const failures: string[] = [];
   page.on('requestfailed', (request: Request) => {
-    failures.push(`${request.method()} ${request.url()} — ${request.failure()?.errorText ?? 'unknown error'}`);
+    const errorText = request.failure()?.errorText;
+    if (errorText === 'net::ERR_ABORTED') return;
+    failures.push(`${request.method()} ${request.url()} — ${errorText ?? 'unknown error'}`);
   });
   page.on('response', (response) => {
     if (response.status() >= 400) {

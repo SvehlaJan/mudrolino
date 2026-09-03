@@ -136,12 +136,12 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     pendingSuccessRef.current = false;
   }, [descriptor]);
 
-  const playPrompt = useCallback(async () => {
+  const playPrompt = useCallback(async (isReplay = false) => {
     if (!targetItem) return;
     const playbackId = ++promptPlaybackIdRef.current;
     setIsAudioPlaying(true);
     try {
-      const spec = descriptor.getReplayAudio
+      const spec = isReplay && descriptor.getReplayAudio
         ? descriptor.getReplayAudio(targetItem)
         : descriptor.getPromptAudio(targetItem);
       await audioManager.play(spec);
@@ -152,10 +152,14 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
     }
   }, [targetItem, descriptor]);
 
+  const replayPrompt = useCallback(() => {
+    void playPrompt(true);
+  }, [playPrompt]);
+
   useEffect(() => {
     if (!targetItem) return;
     const timer = setTimeout(
-      () => void playPrompt(),
+      () => void playPrompt(false),
       TIMING.AUDIO_DELAY_MS
     );
     return () => clearTimeout(timer);
@@ -232,7 +236,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const gridWidth = tileSize ? tileSize * activeCols + gridGap * (activeCols - 1) : undefined;
   const replayButton = (
     <IconButton
-      onClick={playPrompt}
+      onClick={replayPrompt}
       label="Prehrať zvuk"
     >
       <Volume2 size={24} className="sm:w-7 sm:h-7" />
@@ -251,7 +255,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
         {prompt ? (
           <div className="text-center max-w-full">{prompt}</div>
         ) : (
-          <AuditoryPromptBadge isPlaying={isAudioPlaying} onReplay={playPrompt} />
+          <AuditoryPromptBadge isPlaying={isAudioPlaying} onReplay={replayPrompt} />
         )}
       </div>
 
