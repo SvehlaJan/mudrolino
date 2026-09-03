@@ -136,8 +136,10 @@ function AnswerSlot({
 
   return (
     <div
-      className={`min-h-[88px] sm:min-h-[120px] rounded-[28px] sm:rounded-[32px] border-[3px] border-dashed flex items-center justify-center ${
-        tile ? 'border-primary/35 bg-primary/8' : 'border-shadow/15 bg-bg-light/55'
+      className={`min-h-[88px] sm:min-h-[120px] rounded-[28px] sm:rounded-[32px] border-[3px] border-dashed flex items-center justify-center transition-colors ${
+        tile
+          ? 'border-primary/40 bg-primary/10'
+          : 'border-primary/40 bg-white/70 shadow-sm'
       }`}
     >
       <div className="w-full max-w-[240px] h-[72px] sm:h-[92px] flex items-center justify-center">
@@ -149,7 +151,7 @@ function AnswerSlot({
             onClick={() => onTileTap(index)}
           />
         ) : (
-          <span className="text-shadow/25 text-xl sm:text-2xl font-black">?</span>
+          <span className="text-text-main/40 text-2xl sm:text-3xl font-black select-none">?</span>
         )}
       </div>
     </div>
@@ -527,72 +529,79 @@ export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
 
   return (
     <AppScreen maxWidth="game" contentClassName="gap-4 sm:gap-5 md:gap-6 xl:max-w-5xl">
-      <div ref={boardRootRef} className="flex flex-1 min-h-0 flex-col gap-4 sm:gap-5 md:gap-6">
-        <TopBar
-          left={<BackButton onClick={handleBackToLobby} />}
-          center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
-          right={(
-            <IconButton label="Prehrať slovo" onClick={() => playPromptAudio(targetWord)}>
-              <Volume2 size={24} className="sm:w-7 sm:h-7" />
-            </IconButton>
-          )}
-        />
+      <div
+        ref={boardRootRef}
+        className="flex flex-1 min-h-0 flex-col justify-between gap-4 sm:justify-center sm:gap-6"
+      >
+        <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
+          <TopBar
+            left={<BackButton onClick={handleBackToLobby} />}
+            center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
+            right={(
+              <IconButton label="Prehrať slovo" onClick={() => playPromptAudio(targetWord)}>
+                <Volume2 size={24} className="sm:w-7 sm:h-7" />
+              </IconButton>
+            )}
+          />
 
-        <div className="flex justify-center">
-          <PromptBadge
-            onClick={() => targetWord && playPromptAudio(targetWord)}
-            ariaLabel={targetWord?.word}
-          >
-            <span className="text-6xl sm:text-7xl leading-none">
-              {targetWord?.emoji}
-            </span>
-          </PromptBadge>
+          <div className="flex justify-center">
+            <PromptBadge
+              onClick={() => targetWord && playPromptAudio(targetWord)}
+              ariaLabel={targetWord?.word}
+            >
+              <span className="text-6xl sm:text-7xl leading-none">
+                {targetWord?.emoji}
+              </span>
+            </PromptBadge>
+          </div>
         </div>
 
-        <Card
-          className={`mx-auto w-full max-w-3xl !rounded-[36px] !bg-white/70 !p-4 !shadow-block transition-all sm:!rounded-[48px] sm:!p-6 ${
-            wrongPulse ? 'ring-4 ring-soft-watermelon scale-[1.01]' : ''
-          }`}
-        >
-          <div className={`grid gap-3 sm:gap-5 ${placedTiles.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
-            {placedTiles.map((tile, index) => (
-              <AnswerSlot
-                key={`answer-slot-${index}`}
-                index={index}
-                tile={tile}
-                isResettingBoard={isResettingBoard}
-                hiddenTileIds={animatingTileIds}
-                onTileTap={handlePlacedTileTap}
-              />
-            ))}
-          </div>
-        </Card>
+        <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
+          <Card
+            className={`mx-auto w-full max-w-3xl !rounded-[36px] !bg-white/70 !p-4 !shadow-block transition-all sm:!rounded-[48px] sm:!p-6 ${
+              wrongPulse ? 'ring-4 ring-soft-watermelon scale-[1.01]' : ''
+            }`}
+          >
+            <div className={`grid gap-3 sm:gap-5 ${placedTiles.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+              {placedTiles.map((tile, index) => (
+                <AnswerSlot
+                  key={`answer-slot-${index}`}
+                  index={index}
+                  tile={tile}
+                  isResettingBoard={isResettingBoard}
+                  hiddenTileIds={animatingTileIds}
+                  onTileTap={handlePlacedTileTap}
+                />
+              ))}
+            </div>
+          </Card>
 
-        <Card className="mx-auto w-full max-w-3xl !rounded-[36px] !p-4 !shadow-block sm:!rounded-[48px] sm:!p-6">
-          <div className={`grid gap-3 sm:gap-5 min-h-[112px] ${correctSyllables.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
-            {Array.from({ length: correctSyllables.length }, (_, index) => {
-              const tile = trayTiles.find(candidate => candidate.trayIndex === index) ?? null;
+          <Card className="mx-auto w-full max-w-3xl !rounded-[36px] !p-4 !shadow-block sm:!rounded-[48px] sm:!p-6">
+            <div className={`grid gap-3 sm:gap-5 min-h-[112px] ${correctSyllables.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+              {Array.from({ length: correctSyllables.length }, (_, index) => {
+                const tile = trayTiles.find(candidate => candidate.trayIndex === index) ?? null;
 
-              return (
-                <div
-                  key={`tray-slot-${index}`}
-                  className="min-h-[88px] sm:min-h-[120px] flex items-center justify-center"
-                >
-                  <div className="w-full max-w-[240px] h-[72px] sm:h-[92px] flex items-center justify-center">
-                    {tile ? (
-                      <TileButton
-                        tile={tile}
-                        disabled={isResettingBoard || animatingTileIds.includes(tile.id)}
-                        hidden={animatingTileIds.includes(tile.id)}
-                        onClick={() => handleTrayTileTap(tile.id)}
-                      />
-                    ) : null}
+                return (
+                  <div
+                    key={`tray-slot-${index}`}
+                    className="min-h-[88px] sm:min-h-[120px] flex items-center justify-center"
+                  >
+                    <div className="w-full max-w-[240px] h-[72px] sm:h-[92px] flex items-center justify-center">
+                      {tile ? (
+                        <TileButton
+                          tile={tile}
+                          disabled={isResettingBoard || animatingTileIds.includes(tile.id)}
+                          hidden={animatingTileIds.includes(tile.id)}
+                          onClick={() => handleTrayTileTap(tile.id)}
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </Card>
+                );
+              })}
+            </div>
+          </Card>
+        </div>
       </div>
 
       {targetWord && (
