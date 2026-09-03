@@ -16,6 +16,7 @@ import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteO
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 import { setE2EState } from '../../shared/services/e2eState';
+import { generateCompareGridSlots, COMPARE_GRID_TOTAL_SLOTS, CompareGridSlot } from './compareGridLogic';
 
 interface CompareQuantitiesGameProps {
   onExit: () => void;
@@ -31,6 +32,8 @@ interface RoundState {
   right: NumberItem;
   correctSide: Side;
   emoji: string;
+  leftSlots: CompareGridSlot[];
+  rightSlots: CompareGridSlot[];
 }
 
 function pairKey(a: number, b: number): string {
@@ -152,8 +155,10 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
 
     const emoji = COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)];
     const correctSide: Side = a.value > b.value ? 'left' : 'right';
+    const leftSlots = generateCompareGridSlots(a.value, emoji);
+    const rightSlots = generateCompareGridSlots(b.value, emoji);
 
-    setRound({ left: a, right: b, correctSide, emoji });
+    setRound({ left: a, right: b, correctSide, emoji, leftSlots, rightSlots });
     setPileState({ left: 'neutral', right: 'neutral' });
     setWrongSide(null);
     setShowSuccess(false);
@@ -272,12 +277,27 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
                 {mode === 'numerals' ? (
                   <span className="text-5xl font-spline sm:text-7xl">{round[side].value}</span>
                 ) : (
-                  <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 max-w-[90%]">
-                    {Array.from({ length: round[side].value }).map((_, i) => (
-                      <span key={i} aria-hidden="true" className="text-2xl sm:text-4xl select-none">
-                        {round.emoji}
-                      </span>
-                    ))}
+                  <div className="grid grid-cols-3 auto-rows-fr h-full w-full p-1 sm:p-2 place-items-center">
+                    {Array.from({ length: COMPARE_GRID_TOTAL_SLOTS }, (_, slotIndex) => {
+                      const item = (side === 'left' ? round.leftSlots : round.rightSlots).find(
+                        (s) => s.slotIndex === slotIndex,
+                      );
+                      if (!item) {
+                        return <div key={`empty-${slotIndex}`} className="w-full h-full" aria-hidden="true" />;
+                      }
+                      return (
+                        <span
+                          key={`slot-${slotIndex}`}
+                          aria-hidden="true"
+                          className="relative flex items-center justify-center text-2xl sm:text-3xl select-none"
+                          style={{
+                            transform: `rotate(${item.rotation}deg) translate(${item.offsetX}px, ${item.offsetY}px)`,
+                          }}
+                        >
+                          {item.emoji}
+                        </span>
+                      );
+                    })}
                   </div>
                 )}
               </ChoiceTile>
