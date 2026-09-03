@@ -5,7 +5,11 @@ import path from 'path';
 const req = createRequire(path.join(process.cwd(), 'package.json'));
 const { chromium } = req('playwright');
 
-const screenshotDir = '/Users/svehla/.gemini/antigravity/brain/c3bef48f-2a10-49a2-ab43-e3c295a19449/screenshots';
+const baseUrl = process.env.BASE_URL || 'http://127.0.0.1:3000';
+const screenshotDir =
+  process.env.SCREENSHOT_DIR ||
+  '/Users/svehla/.gemini/antigravity/brain/c3bef48f-2a10-49a2-ab43-e3c295a19449/screenshots';
+
 if (!fs.existsSync(screenshotDir)) {
   fs.mkdirSync(screenshotDir, { recursive: true });
 }
@@ -24,7 +28,7 @@ async function run() {
 
   // 1. Home with default font (Nunito)
   console.log('Navigating to Home...');
-  await page.goto('http://127.0.0.1:3000/');
+  await page.goto(`${baseUrl}/`);
   await page.waitForSelector('text=Hravé Učenie');
   await page.waitForTimeout(1000);
 
@@ -39,7 +43,7 @@ async function run() {
 
   // 2. Settings screen with Písmo card
   console.log('Navigating to Settings...');
-  await page.goto('http://127.0.0.1:3000/settings');
+  await page.goto(`${baseUrl}/settings`);
   await page.waitForSelector('text=Písmo');
   await page.waitForTimeout(500);
 
@@ -60,7 +64,7 @@ async function run() {
 
   // 4. Home with Shantell Sans
   console.log('Navigating to Home with Shantell...');
-  await page.goto('http://127.0.0.1:3000/');
+  await page.goto(`${baseUrl}/`);
   await page.waitForSelector('text=Hravé Učenie');
   await page.waitForTimeout(500);
 
@@ -69,7 +73,7 @@ async function run() {
 
   // 5. Mobile viewport verification with Nunito
   console.log('Switching back to Nunito and testing mobile viewport...');
-  await page.goto('http://127.0.0.1:3000/settings');
+  await page.goto(`${baseUrl}/settings`);
   await page.waitForSelector('text=Písmo');
   const nunitoBtn = page.getByRole('button', { name: /Zaoblené/i });
   await nunitoBtn.click();
@@ -80,7 +84,7 @@ async function run() {
     deviceScaleFactor: 2,
   });
 
-  await mobilePage.goto('http://127.0.0.1:3000/');
+  await mobilePage.goto(`${baseUrl}/`);
   await mobilePage.waitForSelector('text=Hravé Učenie');
   await mobilePage.waitForTimeout(500);
 

@@ -11,6 +11,8 @@
     "test:e2e": "npm run build:e2e && playwright test --config=e2e/playwright.config.ts",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && node_modules/.bin/eslint src e2e --ext ts,tsx",
+    "test:fonts": "tsx tools/verify_fonts.ts && tsx src/shared/services/appSettingsStore.verify.ts",
+    "verify:font-rendering": "node tools/verify_font_rendering.mjs",
     "test:audio": "npx tsx public/audio/_review/check_audio.ts",
     "pwa:icons": "node tools/pwa/generate-icons.mjs",
     "avatar:gltf:inspect": "gltf-transform inspect",
