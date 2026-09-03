@@ -289,7 +289,7 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
                         <span
                           key={`slot-${slotIndex}`}
                           aria-hidden="true"
-                          className="relative flex items-center justify-center text-2xl sm:text-3xl select-none"
+                          className="relative flex items-center justify-center text-3xl sm:text-4xl md:text-5xl leading-none select-none"
                           style={{
                             transform: `rotate(${item.rotation}deg) translate(${item.offsetX}px, ${item.offsetY}px)`,
                           }}
