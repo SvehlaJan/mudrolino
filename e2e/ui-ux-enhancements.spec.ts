@@ -80,4 +80,40 @@ test.describe('UI/UX Enhancements', () => {
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
   });
+
+  test('capture visual screenshots for artifacts', async ({ page }) => {
+    const artifactDir = '/Users/svehla/.gemini/antigravity/brain/1c617958-883c-4416-b9d5-e0538924bcba';
+
+    // 1. Auditory prompt badge in Alphabet
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    await expect(page.getByRole('button', { name: 'Prehrať zadanie znova' })).toBeVisible();
+    await page.screenshot({ path: `${artifactDir}/auditory-prompt-badge.png` });
+
+    // 2. Counting grid
+    await page.goto('/counting');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    await expect(page.getByRole('button', { name: 'Spočítateľný predmet' }).first()).toBeVisible();
+    await page.screenshot({ path: `${artifactDir}/counting-grid.png` });
+
+    // 3. Words tile emojis
+    await page.goto('/words');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    await expect(page.getByRole('button', { name: 'Prehrať zvuk' })).toBeVisible();
+    await page.screenshot({ path: `${artifactDir}/words-tile-emojis.png` });
+
+    // 4. UI Kit
+    await page.goto('/ui-kit');
+    const promptBadgeHeading = page.getByRole('heading', { name: 'Prompt Badge' });
+    await expect(promptBadgeHeading).toBeVisible();
+    await promptBadgeHeading.scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `${artifactDir}/ui-kit-prompt-badge.png` });
+
+    // 5. Assembly mobile thumb layout
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/assembly');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    await expect(page.getByText('?').first()).toBeVisible();
+    await page.screenshot({ path: `${artifactDir}/assembly-mobile-thumb.png` });
+  });
 });
