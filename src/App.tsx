@@ -17,6 +17,7 @@ import { AlphabetGame } from './games/alphabet/AlphabetGame';
 import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
+import { CompareQuantitiesGame } from './games/compare/CompareQuantitiesGame';
 import { WordsGame } from './games/words/WordsGame';
 import { FirstLetterGame } from './games/first-letter/FirstLetterGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
@@ -236,6 +237,19 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/compare"
+            element={
+              <ErrorBoundary>
+                <CompareQuantitiesGame
+                  range={settings.compareRange}
+                  mode={settings.compareMode}
+                  onExit={handleExitGame}
+                  onOpenSettings={() => handleOpenSettings('COMPARE_QUANTITIES')}
+                />
               </ErrorBoundary>
             }
           />
