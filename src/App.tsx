@@ -8,7 +8,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import { Settings } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
-import { loadAppSettings, saveAppSettings, AppSettings } from './shared/services/appSettingsStore';
+import { loadAppSettings, saveAppSettings, AppSettings, applyFontFamily } from './shared/services/appSettingsStore';
 import { GameSettings, GameId, SettingsTarget } from './shared/types';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
@@ -100,9 +100,12 @@ function HomeLauncher({
   );
 }
 
+// Initialize font attribute immediately on boot
+applyFontFamily(loadAppSettings().fontFamily);
+
 export default function App() {
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
-  const [appSettings, _setAppSettings] = useState<AppSettings>(loadAppSettings);
+  const [appSettings, setAppSettings] = useState<AppSettings>(loadAppSettings);
   const locale = appSettings.locale;
   const [settingsTarget, setSettingsTarget] = useState<SettingsTarget>('home');
   const [settingsScreen, setSettingsScreen] = useState<SettingsFlowState>('none');
@@ -114,6 +117,11 @@ export default function App() {
   const navigate = useCallback((to: string) => {
     rawNavigate(to);
   }, [rawNavigate]);
+
+  // Apply font family on mount / layout
+  useLayoutEffect(() => {
+    applyFontFamily(appSettings.fontFamily);
+  }, [appSettings.fontFamily]);
 
   // Restore scroll when returning to home
   useLayoutEffect(() => {
@@ -186,7 +194,7 @@ export default function App() {
 
   return (
     <ContentProvider locale={locale}>
-    <div className="min-h-screen bg-bg-light font-fredoka text-text-main relative">
+    <div className="min-h-screen bg-bg-light font-app text-text-main relative">
       <div className="w-full min-h-screen">
         <Routes location={location}>
           <Route
@@ -295,6 +303,8 @@ export default function App() {
                 settings={settings}
                 onUpdate={setSettings}
                 onReady={awaitingHomeSettingsReveal ? handleHomeSettingsReady : undefined}
+                appSettings={appSettings}
+                onUpdateAppSettings={setAppSettings}
               />
             }
           />
