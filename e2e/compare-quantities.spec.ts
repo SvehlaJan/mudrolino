@@ -28,6 +28,7 @@ test('compare quantities: correct tap reaches the success overlay', async ({ pag
   const failedRequests = trackFailedRequests(page);
   await page.goto('/compare');
   await page.getByRole('button', { name: 'Hrať' }).click();
+  await expect(page.getByRole('button', { name: SIDE_LABEL.left })).toBeVisible();
 
   const state = await getE2EState<CompareE2EState>(page);
   expect(state.correctSide, 'expected an active round').not.toBeNull();
@@ -43,6 +44,7 @@ test('compare quantities: wrong tap disables that pile and lets the child self-c
   const failedRequests = trackFailedRequests(page);
   await page.goto('/compare');
   await page.getByRole('button', { name: 'Hrať' }).click();
+  await expect(page.getByRole('button', { name: SIDE_LABEL.left })).toBeVisible();
 
   const state = await getE2EState<CompareE2EState>(page);
   expect(state.correctSide, 'expected an active round').not.toBeNull();
