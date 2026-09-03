@@ -136,6 +136,7 @@ function AnswerSlot({
 
   return (
     <div
+      aria-label={tile ? `Slabika ${index + 1}: ${tile.text}` : `Slabika ${index + 1}: prázdne`}
       className={`min-h-[88px] sm:min-h-[120px] rounded-[28px] sm:rounded-[32px] border-[3px] border-dashed flex items-center justify-center transition-colors ${
         tile
           ? 'border-primary/40 bg-primary/10'
@@ -151,7 +152,7 @@ function AnswerSlot({
             onClick={() => onTileTap(index)}
           />
         ) : (
-          <span className="text-text-main/40 text-2xl sm:text-3xl font-black select-none">?</span>
+          <span aria-hidden="true" className="text-text-main/40 text-2xl sm:text-3xl font-black select-none">?</span>
         )}
       </div>
     </div>
