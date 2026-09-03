@@ -1,10 +1,15 @@
-# SDD Progress Ledger: UI/UX Enhancements
+# SDD Progress Ledger: Compare Quantities Game ("Viac alebo Menej")
 
-Base branch: feat/ui-ux-enhancements (base commit: 96da791)
+Base branch: feat/compare-quantities-game (base commit: 14ea3ee)
 
-- [x] Task 1: Avatar Settings Slovak & Czech Localization (commits 96da791..14e1e49, reviews clean, verify test added)
-- [x] Task 2: Standardized PromptBadge UI Primitive & Word Tile Emoji Scaling (commits 14e1e49..ed937fa, reviews clean, tests passing)
-- [x] Task 3: Assembly Mobile Thumb-Reach Ergonomics & Slot Contrast (commits ed937fa..afb7acb, reviews clean)
-- [x] Task 4: Auditory Games Visual Audio Cue (AuditoryPromptBadge) (commits afb7acb..2380aa7, reviews clean, tests passing)
-- [x] Task 5: Counting Game Zero-Collision CSS Grid & Web Audio Pop (commits 2380aa7..e0a8b4c, reviews clean, tests passing)
-- [x] Task 6: Visual & Playwright End-to-End Verification (commits b537542..7fc168a, 38/38 Playwright tests passing, 5 visual screenshots verified)
+- [x] Task 0: Create a feature branch (switched to feat/compare-quantities-game)
+- [x] Task 1: Domain types (commits 14ea3ee..6a4af1c, review clean)
+- [x] Task 2: Locale content — new phrase (commits 6a4af1c..f39c587, review clean)
+- [x] Task 3: Settings persistence (commits f39c587..9545dc7, review clean)
+- [x] Task 4: Settings UI — visibility and subtitle (commits 9545dc7..02a1bd9, review clean)
+- [x] Task 5: Settings UI — the actual controls (commits 02a1bd9..4def464, review clean)
+- [x] Task 6: Register the game in the catalog (commits 4def464..7df7876, review clean)
+- [x] Task 7: The game component (commits 7df7876..f191306, review clean)
+- [x] Task 8: Wire it into the app shell (commits f191306..129e9aa, review clean)
+- [x] Task 9: End-to-end tests (commits 129e9aa..846563a, review clean)
+- [x] Task 10: Final verification and roadmap update (commits 846563a..016efe7, review clean)
