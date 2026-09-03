@@ -1,16 +1,22 @@
 import { Shirt } from 'lucide-react';
 import { AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
-import { AvatarShoesItemId } from './avatarTypes';
 import { useAvatarState } from './useAvatarState';
 import { Card, ChoiceTile } from '../shared/ui';
-
-const shoesLabelById: Record<AvatarShoesItemId, string> = {
-  shoes_none: 'Bez topánok',
-  shoes_blue_sneakers_v1: 'Modré tenisky',
-};
+import { useContent } from '../shared/contexts/ContentContext';
+import {
+  AVATAR_TOP_LABELS as SK_TOP_LABELS,
+  AVATAR_SHOES_LABELS as SK_SHOES_LABELS,
+} from '../shared/locales/sk';
+import {
+  AVATAR_TOP_LABELS as CS_TOP_LABELS,
+  AVATAR_SHOES_LABELS as CS_SHOES_LABELS,
+} from '../shared/locales/cs';
 
 export function AvatarCustomizationSettings() {
   const { avatarState, updateAvatarState } = useAvatarState();
+  const { locale } = useContent();
+  const topLabels = locale === 'cs' ? CS_TOP_LABELS : SK_TOP_LABELS;
+  const shoesLabels = locale === 'cs' ? CS_SHOES_LABELS : SK_SHOES_LABELS;
   const selectedTop = avatarState.config.slotSelections.top;
   const selectedShoes = avatarState.config.slotSelections.shoes;
 
@@ -69,7 +75,7 @@ export function AvatarCustomizationSettings() {
                         className={`h-5 w-5 shrink-0 rounded-full border-2 border-white/80 ${item.swatchClassName}`}
                       />
                     )}
-                    <span className="truncate">{item.label}</span>
+                    <span className="truncate">{topLabels[item.id] ?? item.label}</span>
                   </span>
                 </ChoiceTile>
               );
@@ -115,7 +121,7 @@ export function AvatarCustomizationSettings() {
                         className={`h-5 w-5 shrink-0 rounded-full border-2 border-white/80 ${item.swatchClassName}`}
                       />
                     )}
-                    <span className="truncate">{shoesLabelById[item.id]}</span>
+                    <span className="truncate">{shoesLabels[item.id] ?? item.label}</span>
                   </span>
                 </ChoiceTile>
               );

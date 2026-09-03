@@ -109,3 +109,20 @@ export const PRAISE_ENTRIES: PraiseEntry[] = [
   { emoji: '🌈', text: 'Úžasné!',       audioKey: 'uzasne' },
   { emoji: '🎊', text: 'Paráda!',       audioKey: 'parada' },
 ];
+
+export const AVATAR_TOP_LABELS: Record<string, string> = {
+  top_none: 'Bez trička',
+  top_blue_tshirt_v1: 'Modré tričko',
+  top_orange_hoodie_v1: 'Oranžová mikina',
+};
+
+export const AVATAR_SHOES_LABELS: Record<string, string> = {
+  shoes_none: 'Bez topánok',
+  shoes_blue_sneakers_v1: 'Modré tenisky',
+};
+
+export const AVATAR_ACCESSORY_LABELS: Record<string, string> = {
+  accessory_none: 'Bez doplnku',
+  hat_red_cap_v1: 'Červená šiltovka',
+};
+
