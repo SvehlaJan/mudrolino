@@ -12,6 +12,7 @@ interface AuditoryPromptBadgeProps {
   isPlaying: boolean;
   onReplay: () => void;
   label?: string;
+  ariaLabel?: string;
   className?: string;
 }
 
@@ -19,6 +20,7 @@ export function AuditoryPromptBadge({
   isPlaying,
   onReplay,
   label = 'Počúvaj',
+  ariaLabel,
   className,
 }: AuditoryPromptBadgeProps) {
   return (
@@ -32,7 +34,7 @@ export function AuditoryPromptBadge({
           onReplay();
         }
       }}
-      aria-label="Prehrať zadanie znova"
+      aria-label={ariaLabel ?? 'Prehrať zadanie znova'}
       className={cx(
         'relative inline-flex items-center gap-3 !rounded-[28px] sm:!rounded-[36px] !px-6 !py-3 sm:!px-8 sm:!py-4 !shadow-block cursor-pointer select-none transition-transform active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40',
         className
@@ -43,7 +45,7 @@ export function AuditoryPromptBadge({
         {isPlaying && (
           <>
             <span className="absolute inline-flex h-full w-full rounded-full bg-primary/25 animate-ping" />
-            <span className="absolute inline-flex h-11 w-11 rounded-full border-2 border-primary/40 animate-pulse" />
+            <span className="absolute -inset-1.5 rounded-full border-2 border-primary/40 animate-pulse" />
           </>
         )}
         <Volume2

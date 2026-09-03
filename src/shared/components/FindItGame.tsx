@@ -76,11 +76,15 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   const { targetItem, gridItems } = roundState;
   const gridAreaRef = useRef<HTMLDivElement | null>(null);
   const pendingSuccessRef = useRef(false);
+  const promptPlaybackIdRef = useRef(0);
   const [viewportWidth, setViewportWidth] = useState(() => window.innerWidth);
   const [gridAreaSize, setGridAreaSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    return () => audioManager.stop();
+    return () => {
+      promptPlaybackIdRef.current += 1;
+      audioManager.stop();
+    };
   }, []);
 
   useEffect(() => {
@@ -117,6 +121,8 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
   }, [targetItem, gridItems, showSuccess, showFailure, showSessionComplete, descriptor]);
 
   const startNewRound = useCallback(() => {
+    promptPlaybackIdRef.current += 1;
+    setIsAudioPlaying(false);
     setSession(prev => {
       const pool = descriptor.getItems();
       const currentQueue = prev.roundQueue.length > 0 ? prev.roundQueue : fisherYatesShuffle(pool);
@@ -132,6 +138,7 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
 
   const playPrompt = useCallback(async () => {
     if (!targetItem) return;
+    const playbackId = ++promptPlaybackIdRef.current;
     setIsAudioPlaying(true);
     try {
       const spec = descriptor.getReplayAudio
@@ -139,7 +146,9 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
         : descriptor.getPromptAudio(targetItem);
       await audioManager.play(spec);
     } finally {
-      setIsAudioPlaying(false);
+      if (promptPlaybackIdRef.current === playbackId) {
+        setIsAudioPlaying(false);
+      }
     }
   }, [targetItem, descriptor]);
 
@@ -154,6 +163,8 @@ export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
 
   const handleCardClick = (item: T, index: number) => {
     if (showSuccess || showFailure || pendingSuccessRef.current || !targetItem || showSessionComplete) return;
+    promptPlaybackIdRef.current += 1;
+    setIsAudioPlaying(false);
     setTotalTaps(prev => prev + 1);
     if (descriptor.getItemId(item) === descriptor.getItemId(targetItem)) {
       pendingSuccessRef.current = true;
