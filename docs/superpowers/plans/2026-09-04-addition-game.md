@@ -14,7 +14,7 @@
 
 ## Task 0: Create a feature branch
 
-- [ ] **Step 1**
+- [x] **Step 1**
 
 ```bash
 git checkout main
@@ -35,7 +35,7 @@ git checkout -b feat/addition-game
 
 This is a pure relocation (same function, same behavior) so that Addition doesn't have to import from another game's folder. Per the design doc, names stay exactly as they are — only the file location changes.
 
-- [ ] **Step 1: Create the relocated logic file**
+- [x] **Step 1: Create the relocated logic file**
 
 `src/shared/utils.ts` already exists as a **file** (it exports `fisherYatesShuffle`), so the relocated module lives at `src/shared/scatterGridLogic.ts` — flat, alongside `contentRegistry.ts` and `gameCatalog.tsx` — rather than under a new `utils/` directory, which would collide with that existing file.
 
@@ -77,7 +77,7 @@ export function generateCompareGridSlots(count: number, emoji: string): CompareG
 }
 ```
 
-- [ ] **Step 2: Create the relocated verify script**
+- [x] **Step 2: Create the relocated verify script**
 
 Create `src/shared/scatterGridLogic.verify.ts`:
 
@@ -151,7 +151,7 @@ assert(
 console.log('scatterGridLogic verify tests passed successfully!');
 ```
 
-- [ ] **Step 3: Run the relocated verify script**
+- [x] **Step 3: Run the relocated verify script**
 
 ```bash
 npx tsx src/shared/scatterGridLogic.verify.ts
@@ -159,13 +159,13 @@ npx tsx src/shared/scatterGridLogic.verify.ts
 
 Expected: `scatterGridLogic verify tests passed successfully!`
 
-- [ ] **Step 4: Delete the old files**
+- [x] **Step 4: Delete the old files**
 
 ```bash
 git rm src/games/compare/compareGridLogic.ts src/games/compare/compareGridLogic.verify.ts
 ```
 
-- [ ] **Step 5: Update `CompareQuantitiesGame.tsx`'s import**
+- [x] **Step 5: Update `CompareQuantitiesGame.tsx`'s import**
 
 Find:
 
@@ -179,7 +179,7 @@ Replace with:
 import { generateCompareGridSlots, COMPARE_GRID_TOTAL_SLOTS, CompareGridSlot } from '../../shared/scatterGridLogic';
 ```
 
-- [ ] **Step 6: Type-check**
+- [x] **Step 6: Type-check**
 
 ```bash
 npm run lint
@@ -187,7 +187,7 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add -A
@@ -204,7 +204,7 @@ git commit -m "refactor: relocate scatter-grid layout logic to src/shared for re
 
 `CompareQuantitiesGame.tsx` currently inlines the "12-slot scatter grid vs. big numeral" rendering directly (its `mode === 'numerals' ? <span>...</span> : <div className="grid grid-cols-3...">`). Extracting it once removes that duplication now (Addition needs the identical rendering twice per round) and gives any future arithmetic game the same component unchanged.
 
-- [ ] **Step 1: Create the component**
+- [x] **Step 1: Create the component**
 
 ```tsx
 /**
@@ -257,7 +257,7 @@ export function QuantityCluster({ mode, value, slots = [], numeralClassName }: Q
 }
 ```
 
-- [ ] **Step 2: Use it from `CompareQuantitiesGame.tsx`**
+- [x] **Step 2: Use it from `CompareQuantitiesGame.tsx`**
 
 Find the import block and add the new component:
 
@@ -320,7 +320,7 @@ Replace with:
                 />
 ```
 
-- [ ] **Step 3: Type-check**
+- [x] **Step 3: Type-check**
 
 ```bash
 npm run lint
@@ -328,7 +328,7 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 4: Manual smoke check**
+- [x] **Step 4: Manual smoke check**
 
 ```bash
 npm run dev
@@ -336,7 +336,7 @@ npm run dev
 
 Open `/compare`, play a round in both objects and numerals mode (toggle in Settings), confirm rendering is pixel-identical to before (scattered emoji piles / big numerals). Stop the server once confirmed.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/shared/components/QuantityCluster.tsx src/games/compare/CompareQuantitiesGame.tsx
@@ -353,7 +353,7 @@ git commit -m "refactor: extract QuantityCluster component, dedupe Compare's inl
 
 Pure functions only — no rendering, no React. Addend/sum values are constructed directly as `NumberItem`-shaped objects (`{ value, audioKey: String(value) }`) rather than looked up from the locale's `NUMBER_ITEMS` pool, because that pool only covers 1–20 while `additionSumRange` goes up to 100 — audio for anything beyond 20 falls back to TTS automatically, the same as every other missing-audio case in this app (see `.claude/rules/audio.md`).
 
-- [ ] **Step 1: Write the module**
+- [x] **Step 1: Write the module**
 
 ```ts
 /**
@@ -447,7 +447,7 @@ export function buildAnswerOptions(
 }
 ```
 
-- [ ] **Step 2: Write the verify script**
+- [x] **Step 2: Write the verify script**
 
 ```ts
 /**
@@ -547,7 +547,7 @@ assert(tinyOptions.length === 1 && tinyOptions[0].value === 2, 'falls back to ju
 console.log('additionLogic verify tests passed successfully!');
 ```
 
-- [ ] **Step 3: Run the verify script**
+- [x] **Step 3: Run the verify script**
 
 ```bash
 npx tsx src/games/addition/additionLogic.verify.ts
@@ -555,7 +555,7 @@ npx tsx src/games/addition/additionLogic.verify.ts
 
 Expected: `additionLogic verify tests passed successfully!`
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/games/addition/additionLogic.ts src/games/addition/additionLogic.verify.ts
@@ -569,7 +569,7 @@ git commit -m "feat: add pure addition problem/answer generation logic"
 **Files:**
 - Modify: `src/shared/types.ts`
 
-- [ ] **Step 1: Add the `GameId`**
+- [x] **Step 1: Add the `GameId`**
 
 Find:
 
@@ -583,7 +583,7 @@ Replace with:
 export type GameId = 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'COUNTING_ITEMS' | 'WORDS' | 'FIRST_LETTER' | 'ASSEMBLY' | 'COMPLETE_SYLLABLE' | 'COMPLETE_LETTER' | 'COMPARE_QUANTITIES' | 'ADDITION';
 ```
 
-- [ ] **Step 2: Add the settings fields**
+- [x] **Step 2: Add the settings fields**
 
 Find:
 
@@ -619,7 +619,7 @@ export interface GameSettings {
 }
 ```
 
-- [ ] **Step 3: Add the audio phrase key**
+- [x] **Step 3: Add the audio phrase key**
 
 Find:
 
@@ -642,7 +642,7 @@ export type AudioPhraseKey =
   | 'howManyTogether';
 ```
 
-- [ ] **Step 4: Type-check (expect failures — fixed in Tasks 5-6)**
+- [x] **Step 4: Type-check (expect failures — fixed in Tasks 5-6)**
 
 ```bash
 npm run lint
@@ -650,7 +650,7 @@ npm run lint
 
 Expected: FAIL (`sk.ts`/`cs.ts` missing `howManyTogether`; `settingsService.ts`'s `DEFAULT_SETTINGS` missing the two new fields).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/shared/types.ts
@@ -665,7 +665,7 @@ git commit -m "feat: add ADDITION game id, settings, and audio phrase key"
 - Modify: `src/shared/locales/sk.ts`
 - Modify: `src/shared/locales/cs.ts`
 
-- [ ] **Step 1: Slovak**
+- [x] **Step 1: Slovak**
 
 Find:
 
@@ -684,7 +684,7 @@ Replace with:
 };
 ```
 
-- [ ] **Step 2: Czech**
+- [x] **Step 2: Czech**
 
 Find:
 
@@ -703,7 +703,7 @@ Replace with:
 
 (Keep the closing `};` on its own line right after — do not duplicate it.)
 
-- [ ] **Step 3: Type-check**
+- [x] **Step 3: Type-check**
 
 ```bash
 npm run lint
@@ -711,7 +711,7 @@ npm run lint
 
 Expected: still FAILS, only on `settingsService.ts` now (fixed in Task 6).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/shared/locales/sk.ts src/shared/locales/cs.ts
@@ -725,7 +725,7 @@ git commit -m "feat: add 'Koľko je dokopy?' audio phrase for the addition game"
 **Files:**
 - Modify: `src/shared/services/settingsService.ts`
 
-- [ ] **Step 1: Add defaults**
+- [x] **Step 1: Add defaults**
 
 Find:
 
@@ -761,7 +761,7 @@ export const DEFAULT_SETTINGS: GameSettings = {
 };
 ```
 
-- [ ] **Step 2: Add validators**
+- [x] **Step 2: Add validators**
 
 Find:
 
@@ -784,7 +784,7 @@ function isValidAdditionRepresentation(value: unknown): value is GameSettings['a
 }
 ```
 
-- [ ] **Step 3: Load and validate, with the same self-consistency guarantee as every other stored field**
+- [x] **Step 3: Load and validate, with the same self-consistency guarantee as every other stored field**
 
 Find:
 
@@ -806,7 +806,7 @@ Replace with:
 
 Note: the "`'objects'` only valid when sum range is 5 or 10" constraint is enforced where the setting is *written* (Step 4 below), not here — `loadSettings` only needs to validate shape/enum membership, matching how every other field here works. A previously-stored `{ additionSumRange: 100, additionRepresentation: 'objects' }` combination (e.g. from a settings export/import feature, if one existed) would still load as-is; `AdditionGame.tsx` reads `additionRepresentation` directly assuming the UI kept it consistent, exactly as `CompareQuantitiesGame.tsx` already trusts `compareMode` without re-validating it against `compareRange`.
 
-- [ ] **Step 4: Add a tested, named function for the range→representation auto-switch**
+- [x] **Step 4: Add a tested, named function for the range→representation auto-switch**
 
 This is real branching logic (not just shape validation), so per `AGENTS.md`'s "prefer a `.verify.ts` over reasoning about pure logic" convention, it gets extracted into a small, named, tested function rather than living inline in a settings-screen click handler. `settingsService.ts` doesn't have a `.verify.ts` yet — this creates its first one.
 
@@ -833,7 +833,7 @@ export function applyAdditionSumRangeChange(
 }
 ```
 
-- [ ] **Step 5: Write its verify script**
+- [x] **Step 5: Write its verify script**
 
 Create `src/shared/services/settingsService.verify.ts`:
 
@@ -880,7 +880,7 @@ assert(
 console.log('settingsService verify tests passed successfully!');
 ```
 
-- [ ] **Step 6: Run the verify script**
+- [x] **Step 6: Run the verify script**
 
 ```bash
 npx tsx src/shared/services/settingsService.verify.ts
@@ -888,7 +888,7 @@ npx tsx src/shared/services/settingsService.verify.ts
 
 Expected: `settingsService verify tests passed successfully!`
 
-- [ ] **Step 7: Type-check**
+- [x] **Step 7: Type-check**
 
 ```bash
 npm run lint
@@ -896,7 +896,7 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src/shared/services/settingsService.ts src/shared/services/settingsService.verify.ts
