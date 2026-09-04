@@ -100,6 +100,7 @@ export const AUDIO_PHRASES: Record<AudioPhraseKey, AudioPhrase> = {
   noThereAre:        { text: 'Nie, je ich',        audioKey: 'nie-je-ich' },
   correctAnswerIs:   { text: 'Správna odpoveď je', audioKey: 'spravna-odpoved' },
   whereIsMore:       { text: 'Kde je viac?',        audioKey: 'kde-je-viac' },
+  howManyTogether:   { text: 'Koľko je dokopy?',    audioKey: 'kolko-je-dokopy' },
 };
 
 export const PRAISE_ENTRIES: PraiseEntry[] = [
