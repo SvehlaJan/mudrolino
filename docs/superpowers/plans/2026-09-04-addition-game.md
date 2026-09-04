@@ -398,10 +398,17 @@ export function createAdditionProblem(sumRange: number, random: () => number = M
 }
 
 /**
- * Builds `count` numeral answer options including the correct sum, drawn from
- * [1, max(sumRange, sum.value)] excluding the sum itself. Returns fewer than
- * `count` items if the range can't supply enough distinct distractors — callers
- * should treat a short result as "try a different problem".
+ * Builds `count` numeral answer options including the correct sum. Distractors are
+ * near-misses — sum +/- a small offset — so a child can't just tap "the number that
+ * looks smallest/biggest" without actually computing. The offset band scales with
+ * sumRange (wider band at bigger ranges, since a fixed +/-1..3 would become trivially
+ * close at range=100). If the near-miss band can't supply enough distinct in-range
+ * candidates (e.g. sum sits right at the top of a small range), a second pass fills
+ * the rest from anywhere in [1, sumRange] — this guarantees `count` distinct options
+ * whenever sumRange >= count (true for all 4 configured ranges: 5, 10, 20, 100).
+ * Returns fewer than `count` items only if the range genuinely doesn't have enough
+ * distinct values at all (sumRange < count) — callers should treat a short result as
+ * "try a different problem".
  */
 export function buildAnswerOptions(
   sum: NumberItem,
@@ -409,17 +416,30 @@ export function buildAnswerOptions(
   count: number,
   random: () => number = Math.random,
 ): NumberItem[] {
-  const maxValue = Math.max(sumRange, sum.value);
-  const distractorPoolSize = maxValue - 1; // excluding sum.value itself
-  if (distractorPoolSize < count - 1) return [sum];
-
+  const offsetMax = Math.max(2, Math.ceil(sumRange / 10));
   const distractorValues = new Set<number>();
+
+  // Pass 1: prefer near-miss values within the offset band.
   let guard = 0;
   while (distractorValues.size < count - 1 && guard < 200) {
     guard += 1;
-    const candidate = 1 + Math.floor(random() * maxValue);
-    if (candidate !== sum.value) distractorValues.add(candidate);
+    const offset = 1 + Math.floor(random() * offsetMax);
+    const sign = random() < 0.5 ? -1 : 1;
+    const candidate = sum.value + sign * offset;
+    if (candidate < 1 || candidate > sumRange || candidate === sum.value) continue;
+    distractorValues.add(candidate);
   }
+
+  // Pass 2: fall back to any other valid value if the near-miss band came up short
+  // (e.g. sum is at the very edge of a small range, so half the offsets go out of bounds).
+  guard = 0;
+  while (distractorValues.size < count - 1 && guard < 200) {
+    guard += 1;
+    const candidate = 1 + Math.floor(random() * sumRange);
+    if (candidate === sum.value || distractorValues.has(candidate)) continue;
+    distractorValues.add(candidate);
+  }
+
   if (distractorValues.size < count - 1) return [sum];
 
   const distractors = Array.from(distractorValues).map(toNumberItem);
@@ -478,24 +498,51 @@ assert(
   'sumRange < 2 throws',
 );
 
-// buildAnswerOptions
+// buildAnswerOptions: always 4 distinct, in-range options across every configured range,
+// including sums sitting right at the edges (where the near-miss band alone isn't enough).
 for (const sumRange of [5, 10, 20, 100]) {
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 200; i++) {
     const problem = createAdditionProblem(sumRange);
     const options = buildAnswerOptions(problem.sum, sumRange, 4);
-    assert(options.length === 4, `expected 4 options, got ${options.length} for sumRange=${sumRange}`);
+    assert(options.length === 4, `expected 4 options, got ${options.length} for sumRange=${sumRange} sum=${problem.sum.value}`);
     assert(
       options.some((o) => o.value === problem.sum.value),
       'the correct sum must be among the options',
     );
     const uniqueValues = new Set(options.map((o) => o.value));
     assert(uniqueValues.size === 4, `options must be distinct, got ${[...uniqueValues]}`);
+    for (const option of options) {
+      assert(option.value >= 1 && option.value <= sumRange, `option ${option.value} out of [1, ${sumRange}]`);
+    }
   }
 }
 
-// buildAnswerOptions: too-small a range to supply enough distractors
+// buildAnswerOptions: near-miss band actually engages when there's ample room (sum comfortably
+// inside a large range) — at least one distractor should land within the offset band, not just
+// anywhere in [1, sumRange].
+{
+  const sum = toNumberItem(50);
+  const options = buildAnswerOptions(sum, 100, 4);
+  const offsetMax = Math.max(2, Math.ceil(100 / 10)); // 10
+  const distractors = options.filter((o) => o.value !== 50);
+  const nearCount = distractors.filter((o) => Math.abs(o.value - 50) <= offsetMax).length;
+  assert(nearCount >= 1, 'at least one distractor should land within the near-miss band when there is ample room');
+}
+
+// buildAnswerOptions: sum at the very top of the smallest configured range still produces
+// a full set of distinct options, via the pass-2 fallback (the near-miss band alone can't,
+// since half the offsets would go above the range ceiling).
+{
+  const sum = toNumberItem(5);
+  const options = buildAnswerOptions(sum, 5, 4);
+  assert(options.length === 4, 'edge-of-range sums must still produce a full set of options via the fallback pass');
+  assert(new Set(options.map((o) => o.value)).size === 4, 'edge-of-range options must be distinct');
+}
+
+// buildAnswerOptions: genuinely too-small a range (fewer distinct values than options needed)
+// still returns a short result rather than looping forever or crashing.
 const tinyOptions = buildAnswerOptions(toNumberItem(2), 2, 4);
-assert(tinyOptions.length === 1 && tinyOptions[0].value === 2, 'falls back to just the sum when the range is too small for 3 distractors');
+assert(tinyOptions.length === 1 && tinyOptions[0].value === 2, 'falls back to just the sum when the range has too few distinct values overall');
 
 console.log('additionLogic verify tests passed successfully!');
 ```
@@ -757,9 +804,91 @@ Replace with:
     };
 ```
 
-Note: the "`'objects'` only valid when sum range is 5 or 10" constraint is enforced where the setting is *written* (Task 9's `SettingsContent.tsx` change), not here — `loadSettings` only needs to validate shape/enum membership, matching how every other field here works. A previously-stored `{ additionSumRange: 100, additionRepresentation: 'objects' }` combination (e.g. from a settings export/import feature, if one existed) would still load as-is; `AdditionGame.tsx` reads `additionRepresentation` directly assuming the UI kept it consistent, exactly as `CompareQuantitiesGame.tsx` already trusts `compareMode` without re-validating it against `compareRange`.
+Note: the "`'objects'` only valid when sum range is 5 or 10" constraint is enforced where the setting is *written* (Step 4 below), not here — `loadSettings` only needs to validate shape/enum membership, matching how every other field here works. A previously-stored `{ additionSumRange: 100, additionRepresentation: 'objects' }` combination (e.g. from a settings export/import feature, if one existed) would still load as-is; `AdditionGame.tsx` reads `additionRepresentation` directly assuming the UI kept it consistent, exactly as `CompareQuantitiesGame.tsx` already trusts `compareMode` without re-validating it against `compareRange`.
 
-- [ ] **Step 4: Type-check**
+- [ ] **Step 4: Add a tested, named function for the range→representation auto-switch**
+
+This is real branching logic (not just shape validation), so per `AGENTS.md`'s "prefer a `.verify.ts` over reasoning about pure logic" convention, it gets extracted into a small, named, tested function rather than living inline in a settings-screen click handler. `settingsService.ts` doesn't have a `.verify.ts` yet — this creates its first one.
+
+Add to the end of `src/shared/services/settingsService.ts`:
+
+```ts
+
+/**
+ * Applies a new additionSumRange, auto-switching additionRepresentation to 'numerals'
+ * if the new range makes 'objects' invalid (20 or 100). One-directional: dropping the
+ * range back to 5/10 later does NOT restore 'objects' automatically — whatever is
+ * stored is always exactly what's displayed, with no separate remembered preference.
+ */
+export function applyAdditionSumRangeChange(
+  settings: GameSettings,
+  nextRange: GameSettings['additionSumRange'],
+): GameSettings {
+  const forcesNumerals = nextRange === 20 || nextRange === 100;
+  return {
+    ...settings,
+    additionSumRange: nextRange,
+    additionRepresentation: forcesNumerals ? 'numerals' : settings.additionRepresentation,
+  };
+}
+```
+
+- [ ] **Step 5: Write its verify script**
+
+Create `src/shared/services/settingsService.verify.ts`:
+
+```ts
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { applyAdditionSumRangeChange, DEFAULT_SETTINGS } from './settingsService';
+
+function assert(condition: boolean, message: string): void {
+  if (!condition) {
+    throw new Error(message);
+  }
+}
+
+// Dropping to/staying at 5 or 10 never touches representation, either direction.
+const objectsAt5 = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'objects' }, 5);
+assert(objectsAt5.additionRepresentation === 'objects', 'range=5 leaves objects untouched');
+assert(objectsAt5.additionSumRange === 5, 'range is always updated to the new value');
+
+const objectsAt10 = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'objects' }, 10);
+assert(objectsAt10.additionRepresentation === 'objects', 'range=10 leaves objects untouched');
+
+// Crossing into 20 or 100 forces numerals when it was objects.
+const forcedAt20 = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'objects' }, 20);
+assert(forcedAt20.additionRepresentation === 'numerals', 'range=20 forces numerals when it was objects');
+
+const forcedAt100 = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'objects' }, 100);
+assert(forcedAt100.additionRepresentation === 'numerals', 'range=100 forces numerals when it was objects');
+
+// Already-numerals stays numerals at 20/100 (no-op, not an error).
+const stillNumerals = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'numerals' }, 100);
+assert(stillNumerals.additionRepresentation === 'numerals', 'already-numerals stays numerals');
+
+// One-directional: dropping the range back to 5/10 does NOT restore objects.
+const staysNumeralsOnDrop = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'numerals' }, 5);
+assert(
+  staysNumeralsOnDrop.additionRepresentation === 'numerals',
+  'auto-switch is one-directional; dropping the range does not restore objects',
+);
+
+console.log('settingsService verify tests passed successfully!');
+```
+
+- [ ] **Step 6: Run the verify script**
+
+```bash
+npx tsx src/shared/services/settingsService.verify.ts
+```
+
+Expected: `settingsService verify tests passed successfully!`
+
+- [ ] **Step 7: Type-check**
 
 ```bash
 npm run lint
@@ -767,11 +896,11 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
-git add src/shared/services/settingsService.ts
-git commit -m "feat: add additionSumRange/additionRepresentation settings"
+git add src/shared/services/settingsService.ts src/shared/services/settingsService.verify.ts
+git commit -m "feat: add additionSumRange/additionRepresentation settings and auto-switch logic"
 ```
 
 ---
@@ -986,11 +1115,9 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
 }> = {
 ```
 
-- [ ] **Step 3: Add `additionSumRange: false, additionRepresentation: false,` to every existing entry**
+- [ ] **Step 3: Add the two new fields to `home`**
 
-Every one of the 10 existing entries (`home`, `ALPHABET`, `SYLLABLES`, `NUMBERS`, `COUNTING_ITEMS`, `WORDS`, `FIRST_LETTER`, `ASSEMBLY`, `COMPLETE_SYLLABLE`, `COMPLETE_LETTER`) needs the two new fields added — `true` for `home`, `false` for the other 9. Each entry currently ends with a `compareMode: <bool>,` line right before its closing `},`. For each entry, find that game's `compareMode` line and add the two new lines immediately after it, using the same boolean as that entry's own `compareMode` value (they track together — `home` is the only `true`, everything else is `false`):
-
-Find (in `home`):
+Find:
 
 ```ts
     compareRange: true,
@@ -1008,17 +1135,41 @@ Replace with:
   },
 ```
 
-Then for **each of the other 9 entries** (`ALPHABET`, `SYLLABLES`, `NUMBERS`, `COUNTING_ITEMS`, `WORDS`, `FIRST_LETTER`, `ASSEMBLY`, `COMPLETE_SYLLABLE`, `COMPLETE_LETTER`), find:
+The remaining 9 entries (`ALPHABET`, `SYLLABLES`, `NUMBERS`, `COUNTING_ITEMS`, `WORDS`, `FIRST_LETTER`, `ASSEMBLY`, `COMPLETE_SYLLABLE`, `COMPLETE_LETTER`) all get `additionSumRange: false, additionRepresentation: false,` added — but several of their bodies are textually identical to each other (`WORDS`, `ASSEMBLY`, and `COMPLETE_SYLLABLE` are all-`false` blocks with no distinguishing field), so each of the following 9 steps matches the **entire entry**, keyed by its unique opening line, rather than just the tail — a blind "replace this 3-line block, it appears 9 times" instruction would be genuinely ambiguous here (an editor could easily apply one occurrence's replacement to the wrong entry, or a naive replace-all could silently succeed while still being impossible to tell which entry got which edit from the diff alone).
+
+- [ ] **Step 4: `ALPHABET`**
+
+Find:
 
 ```ts
+  ALPHABET: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
+    alphabetGridSize: true,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
   },
 ```
 
-This exact text appears 9 times (once per entry) — replace **each occurrence** with:
+Replace with:
 
 ```ts
+  ALPHABET: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
+    alphabetGridSize: true,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
     additionSumRange: false,
@@ -1026,9 +1177,327 @@ This exact text appears 9 times (once per entry) — replace **each occurrence**
   },
 ```
 
-(Use a find-and-replace-all here since the surrounding text is identical for all 9 — a per-occurrence editor should confirm it changes exactly 9 places, not 10, since `home`'s block was already handled separately above with `true` values.)
+- [ ] **Step 5: `SYLLABLES`**
 
-- [ ] **Step 4: Add the `COMPARE_QUANTITIES` entry's two new fields, then the new `ADDITION` entry**
+Find:
+
+```ts
+  SYLLABLES: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: true,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  SYLLABLES: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: true,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 6: `NUMBERS`**
+
+Find:
+
+```ts
+  NUMBERS: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: true,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  NUMBERS: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: true,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 7: `COUNTING_ITEMS`**
+
+Find:
+
+```ts
+  COUNTING_ITEMS: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: true,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  COUNTING_ITEMS: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: true,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 8: `WORDS`**
+
+Find:
+
+```ts
+  WORDS: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  WORDS: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 9: `FIRST_LETTER`**
+
+Find:
+
+```ts
+  FIRST_LETTER: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  FIRST_LETTER: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 10: `ASSEMBLY`**
+
+Find:
+
+```ts
+  ASSEMBLY: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  ASSEMBLY: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 11: `COMPLETE_SYLLABLE`**
+
+Find:
+
+```ts
+  COMPLETE_SYLLABLE: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  COMPLETE_SYLLABLE: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 12: `COMPLETE_LETTER`**
+
+Find:
+
+```ts
+  COMPLETE_LETTER: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: true,
+    compareRange: false,
+    compareMode: false,
+  },
+```
+
+Replace with:
+
+```ts
+  COMPLETE_LETTER: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: true,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: true,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+```
+
+- [ ] **Step 13: Add the `COMPARE_QUANTITIES` entry's two new fields, then the new `ADDITION` entry**
 
 Find:
 
@@ -1085,15 +1554,15 @@ Replace with:
 };
 ```
 
-- [ ] **Step 5: Type-check**
+- [ ] **Step 14: Type-check**
 
 ```bash
 npm run lint
 ```
 
-Expected: PASS. (If it fails with a missing-property error on any `SETTINGS_VISIBILITY` entry, Step 3's replace-all missed an occurrence — search the file for any `compareMode: false,` not immediately followed by `additionSumRange:` and fix it.)
+Expected: PASS. (If it fails with a missing-property error on any `SETTINGS_VISIBILITY` entry, one of Steps 3-13 was skipped or mistyped — search the file for any `compareMode: false,` or `compareMode: true,` not immediately followed by `additionSumRange:` and fix it.)
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 15: Commit**
 
 ```bash
 git add src/shared/components/settingsContentData.ts
@@ -1268,9 +1737,26 @@ Replace with:
       {hasFeedbackKey() && (
 ```
 
-- [ ] **Step 4: Add the two new helper components**
+- [ ] **Step 4: Import the auto-switch function**
 
-These encapsulate the auto-switch and disabled-tile logic in one place, reused by both the `isHome` and per-game sections above (mirrors how `CompleteLetterMissingCountCard` is already factored out as a shared helper for the same reason). Find:
+Find:
+
+```ts
+import { GameSettings, SettingsTarget } from '../types';
+import { audioManager } from '../services/audioManager';
+```
+
+Replace with:
+
+```ts
+import { GameSettings, SettingsTarget } from '../types';
+import { audioManager } from '../services/audioManager';
+import { applyAdditionSumRangeChange } from '../services/settingsService';
+```
+
+- [ ] **Step 5: Add the two new helper components**
+
+These encapsulate the disabled-tile logic in one place, reused by both the `isHome` and per-game sections above (mirrors how `CompleteLetterMissingCountCard` is already factored out as a shared helper for the same reason). The auto-switch itself is the tested `applyAdditionSumRangeChange` from Task 6 — `AdditionSumRangeCard` just calls it, it doesn't reimplement the branching logic here. Find:
 
 ```tsx
 function CompleteLetterMissingCountCard({
@@ -1327,22 +1813,14 @@ function AdditionSumRangeCard({
       selected={settings.additionSumRange}
       activeClassName="bg-accent-blue"
       formatLabel={(value) => `1 - ${value}`}
-      onSelect={(value) => {
-        const nextRange = value as GameSettings['additionSumRange'];
-        const forcesNumerals = nextRange === 20 || nextRange === 100;
-        onUpdate({
-          ...settings,
-          additionSumRange: nextRange,
-          additionRepresentation: forcesNumerals ? 'numerals' : settings.additionRepresentation,
-        });
-      }}
+      onSelect={(value) => onUpdate(applyAdditionSumRangeChange(settings, value as GameSettings['additionSumRange']))}
     />
   );
 }
 
 ```
 
-- [ ] **Step 5: Type-check**
+- [ ] **Step 6: Type-check**
 
 ```bash
 npm run lint
@@ -1350,9 +1828,9 @@ npm run lint
 
 Expected: PASS. (`Scale` import may now be unused if nothing else in the file references it — check: the `Scale` icon was only used by the two `ToggleControl` blocks just replaced. If ESLint flags an unused import, remove `Scale` from the `lucide-react` import line at the top of the file.)
 
-- [ ] **Step 6: Remove the now-unused `Scale` import if flagged**
+- [ ] **Step 7: Remove the now-unused `Scale` import if flagged**
 
-If Step 5 reports `Scale` as unused, find:
+If Step 6 reports `Scale` as unused, find:
 
 ```ts
 import { Languages, MessageSquare, Mic, Music, Scale, Type } from 'lucide-react';
@@ -1366,7 +1844,7 @@ import { Languages, MessageSquare, Mic, Music, Type } from 'lucide-react';
 
 Then re-run `npm run lint` — PASS.
 
-- [ ] **Step 7: Manual smoke check**
+- [ ] **Step 8: Manual smoke check**
 
 ```bash
 npm run dev
@@ -1380,7 +1858,7 @@ Open Settings → home screen:
 
 Stop the server once confirmed.
 
-- [ ] **Step 8: Commit**
+- [ ] **Step 9: Commit**
 
 ```bash
 git add src/shared/components/SettingsContent.tsx
@@ -2096,13 +2574,14 @@ git commit -m "test: add e2e coverage for the addition game"
 npm run lint
 npx tsx src/shared/scatterGridLogic.verify.ts
 npx tsx src/games/addition/additionLogic.verify.ts
+npx tsx src/shared/services/settingsService.verify.ts
 npm run test:audio
 npm run test:e2e
 ```
 
 Expected:
 - `npm run lint` — PASS.
-- Both `.verify.ts` scripts — PASS with their success messages.
+- All three `.verify.ts` scripts — PASS with their success messages.
 - `npm run test:audio` — the `phrases` category reports **two** missing files: `sk/phrases/kde-je-viac.mp3` (pre-existing, from Compare) and `sk/phrases/kolko-je-dokopy.mp3` (new). **This is expected**, same reasoning as Compare's: TTS fallback covers it until recorded. The `addition/<a>-a-<b>-je-dokopy-<sum>` success-echo clips are per-problem (not a fixed set) and are **not** checked by `check_audio.ts` at all (it only validates the fixed `letters`/`syllables`/`words`/`numbers`/`praise`/`phrases` categories) — they rely on TTS in practice, same as Compare's comparison sentences.
 - `npm run test:e2e` — PASS.
 

@@ -280,6 +280,9 @@
 - [x] **AC3** — Emoji text alternatives in SuccessOverlay/session feedback
 > AC1 remains deferred because the primary target is preschool touch use.
 
+### Tech Debt
+- [ ] Extract a shared session/timer-guard hook (`sessionTokenRef` + timer cleanup + `MAX_ROUNDS`/`finishRound` handoff) — `CompleteSyllableGame`, `CompareQuantitiesGame`, `CountingItemsGame`, and `AdditionGame` each hand-roll near-identical versions of this. Flagged during the addition game's design (`docs/superpowers/specs/2026-09-04-addition-game-design.md`) rather than folded into that work, since it means refactoring already-shipped games as a side effect of adding a new one.
+
 ---
 
 ## Decisions Log

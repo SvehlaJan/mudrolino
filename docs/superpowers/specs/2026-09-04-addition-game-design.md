@@ -8,7 +8,8 @@ The planned follow-up to Compare Quantities (`docs/superpowers/specs/2026-09-02-
 
 - **Problem generation:** pick a target sum `S` uniformly from `[2, sumRange]` (the configured `additionSumRange`), then split it into two addends: `a` random in `[1, S-1]`, `b = S - a`. This gives even coverage across the whole configured range — the same "1 up to N" ceiling semantics every other range setting in the app already uses.
 - **Prompt:** two scattered object clusters (or two big numerals, in `'numerals'` mode) separated by a "+", e.g. `🍎🍎 + 🍎🍎🍎`. Audio prompt: "Koľko je dokopy?" ("How many are there together?").
-- **Answer grid:** 4 numeral tiles (the correct sum + 3 distractors drawn from nearby numbers), `MAX_ROUNDS = 5`, `MAX_ATTEMPTS = 3` before a `FailureOverlay` reveals the answer — identical retry semantics to every `FindItGame`-based game and to `CountingItemsGame`, so the "how many tries do I get" feel is consistent app-wide.
+- **Answer grid:** 4 numeral tiles (the correct sum + 3 distractors), `MAX_ROUNDS = 5`, `MAX_ATTEMPTS = 3` before a `FailureOverlay` reveals the answer — identical retry semantics to every `FindItGame`-based game and to `CountingItemsGame`, so the "how many tries do I get" feel is consistent app-wide.
+- **Distractors are near-misses, not uniform-random:** each distractor is `sum ± offset`, with `offset` drawn from `[1, max(2, ceil(sumRange / 10))]` — a small band at range 5/10, wider at range 100 — so a child can't just tap "the number that looks smallest/biggest" without actually computing. If the near-miss band can't supply enough distinct, in-range candidates (e.g. `sum` sitting right at the top of a small range), a fallback pass fills the rest from anywhere in `[1, sumRange]`, guaranteeing 4 distinct options always exist for every configured range.
 - **No-repeat guard:** the same pair-key idea Compare uses, applied to the addend pair, so the same problem doesn't repeat back-to-back.
 - **Success echo:** following Compare's shipped evolution (a spoken "5 je viac ako 2" sentence), Addition plays a spoken echo on success too — "2 a 3 je dokopy 5" — with its own locale-prefixed audio path and TTS fallback.
 
@@ -22,7 +23,7 @@ Superficially this looks like `FindItGame`'s shape (prompt → tap 1 of N tiles 
 
 The user flagged that follow-up arithmetic games (subtraction, etc.) are likely. Two pieces are extracted now because they are *concretely, immediately* reusable — not because of speculative generality:
 
-1. **Scatter-layout logic relocates out of `games/compare/`.** `generateCompareGridSlots`/`CompareGridSlot`/`COMPARE_GRID_TOTAL_SLOTS` (the 12-slot collision-free scatter layout with random rotation/offset) currently lives under a specific game's folder. Addition needs the exact same utility for its two clusters; importing it from `games/compare/` would be an odd cross-game dependency. It moves to `src/shared/utils/scatterGridLogic.ts` unchanged (same function, same `.verify.ts` semantics, just relocated), and Compare's import updates accordingly. Any future game gets it for free.
+1. **Scatter-layout logic relocates out of `games/compare/`.** `generateCompareGridSlots`/`CompareGridSlot`/`COMPARE_GRID_TOTAL_SLOTS` (the 12-slot collision-free scatter layout with random rotation/offset) currently lives under a specific game's folder. Addition needs the exact same utility for its two clusters; importing it from `games/compare/` would be an odd cross-game dependency. It moves to `src/shared/scatterGridLogic.ts` unchanged (same function, same `.verify.ts` semantics, just relocated — flat rather than under a new `utils/` subdirectory, since `src/shared/utils.ts` already exists as a file and would collide with a same-named directory), and Compare's import updates accordingly. Any future game gets it for free.
 2. **A small shared presentational component, `src/shared/components/QuantityCluster.tsx`**, renders either a scattered object cluster (count + emoji, via the relocated scatter logic) or a big numeral, depending on mode. Addition needs this rendering twice per round (once per addend) regardless of future games — extracting it once avoids duplicating that JSX inline, and a future Subtraction/Multiplication game reuses it unchanged.
 
 What is **deliberately not** abstracted yet:
@@ -40,7 +41,7 @@ additionRepresentation: 'objects' | 'numerals'; // default 'objects'
 
 - `additionSumRange`: a 4-option range picker (`SegmentedChoice` already supports up to 4 columns — direct reuse, no new component).
 - `additionRepresentation`: a 2-option tile picker, same `SegmentedChoice` component, reusing the **exact same value vocabulary as Compare's `compareMode`** (`'objects' | 'numerals'`, labeled "Predmety" / "Čísla") rather than a second vocabulary for the same concept.
-- **Constraint:** `'objects'` mode is only available when `additionSumRange` is 5 or 10 (individual objects stop being sensible to render/count much beyond that). When `additionSumRange` changes to 20 or 100 while representation is `'objects'`, the settings-update handler auto-switches representation to `'numerals'` (storage is always self-consistent — no fallback checks needed at read time in game logic). The "Predmety" tile is greyed out (present but unselectable) whenever range is 20 or 100.
+- **Constraint:** `'objects'` mode is only available when `additionSumRange` is 5 or 10 (individual objects stop being sensible to render/count much beyond that). When `additionSumRange` changes to 20 or 100 while representation is `'objects'`, a named, tested pure function (`applyAdditionSumRangeChange` in `settingsService.ts`, with its own `.verify.ts`) auto-switches representation to `'numerals'` (storage is always self-consistent — no fallback checks needed at read time in game logic). The switch is **one-directional**: dropping the range back to 5/10 later does not restore `'objects'` automatically — what's stored is always exactly what's displayed, with no separate "remembered preference" to track. The "Predmety" tile is greyed out (present but unselectable) whenever range is 20 or 100.
 - This constraint needs one small, generically useful addition to the shared `SegmentedChoice` component (`src/shared/ui/FormControls.tsx`): an optional `disabledOptions` prop, rendering the matching `ChoiceTile` with `disabled` (reusing `ChoiceTile`'s existing disabled visual, the same one Compare's wrong-pile already uses) instead of making the option vanish.
 
 ## Game 1 Retrofit — `compareMode` Toggle → Tile Picker
@@ -57,7 +58,7 @@ Small, behavior-neutral UI change bundled into the same implementation work: `Se
 
 Files touched, following the established "adding a game" checklist (`.claude/rules/games.md`):
 
-1. `src/shared/utils/scatterGridLogic.ts` — relocated from `src/games/compare/compareGridLogic.ts` (with its `.verify.ts`); `CompareQuantitiesGame.tsx`'s import updates.
+1. `src/shared/scatterGridLogic.ts` — relocated from `src/games/compare/compareGridLogic.ts` (with its `.verify.ts`); `CompareQuantitiesGame.tsx`'s import updates.
 2. `src/shared/components/QuantityCluster.tsx` — new shared presentational component.
 3. `src/games/addition/additionLogic.ts` + `.verify.ts` — problem generation, distractor generation, no-repeat guard.
 4. `src/games/addition/AdditionGame.tsx` — the bespoke component.
@@ -72,8 +73,12 @@ Files touched, following the established "adding a game" checklist (`.claude/rul
 ## Edge Cases
 
 - Range guard: if the number pool can't produce a valid problem for the configured range (shouldn't happen for any of the 4 fixed options, but defensive nonetheless), fall back the same way Compare's `availableItems` guard does.
-- Distractor generation must avoid duplicate values and avoid accidentally reusing the correct sum as a distractor.
+- Distractor generation must avoid duplicate values and avoid accidentally reusing the correct sum as a distractor; the near-miss band alone is not always wide enough (e.g. `sum` at the very top of a small range), hence the fallback pass described above.
 - `additionSumRange` of 100 with `'numerals'` mode can produce two-and-three-digit numeral tiles — the numeral tile's font sizing needs a lower clamp so 3-digit sums stay legible at the same tile size as single-digit ones (existing `font-spline` numeral styling already scales via `clamp()`-friendly Tailwind sizes elsewhere in the app; reuse that approach rather than a fixed size).
+
+## Flagged, Not In Scope: Shared Session/Timer-Guard Hook
+
+`AdditionGame.tsx` hand-rolls the same `sessionTokenRef` + timer-cleanup machinery (`clearTimer`, `clearTransientTimers`, `cleanupPlayEffects`, `resetPlayState`, `returnToLobby`, the `finishRound`/`MAX_ROUNDS` handoff) that `CompleteSyllableGame.tsx` already has almost verbatim, with Compare and Counting carrying variations of the same idea. This is real, bug-prone logic duplicated across (now) three-plus games — worth extracting into a shared hook eventually — but doing so here would mean refactoring an already-shipped, working game (`CompleteSyllableGame`) as a side effect of adding a new one, which is out of this plan's scope. Tracked as a follow-up in `ROADMAP.md` rather than folded into this work.
 
 ## Deferred: Future Arithmetic Games
 
