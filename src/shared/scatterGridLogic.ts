@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fisherYatesShuffle } from '../../shared/utils';
+import { fisherYatesShuffle } from './utils';
 
 export interface CompareGridSlot {
   slotIndex: number;

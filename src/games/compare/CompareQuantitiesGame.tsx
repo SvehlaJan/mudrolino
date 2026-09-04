@@ -16,7 +16,7 @@ import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteO
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 import { setE2EState } from '../../shared/services/e2eState';
-import { generateCompareGridSlots, COMPARE_GRID_TOTAL_SLOTS, CompareGridSlot } from './compareGridLogic';
+import { generateCompareGridSlots, COMPARE_GRID_TOTAL_SLOTS, CompareGridSlot } from '../../shared/scatterGridLogic';
 
 interface CompareQuantitiesGameProps {
   onExit: () => void;

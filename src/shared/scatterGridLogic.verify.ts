@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { COMPARE_GRID_TOTAL_SLOTS, generateCompareGridSlots } from './compareGridLogic';
+import { COMPARE_GRID_TOTAL_SLOTS, generateCompareGridSlots } from './scatterGridLogic';
 
 function assert(condition: boolean, message: string): void {
   if (!condition) {
@@ -64,4 +64,4 @@ assert(
   `count > ${COMPARE_GRID_TOTAL_SLOTS} should be capped to ${COMPARE_GRID_TOTAL_SLOTS}`,
 );
 
-console.log('compareGridLogic verify tests passed successfully!');
+console.log('scatterGridLogic verify tests passed successfully!');
