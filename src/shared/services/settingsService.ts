@@ -12,6 +12,8 @@ export const DEFAULT_SETTINGS: GameSettings = {
   completeLetterMissingCount: 1,
   compareRange: { start: 1, end: 5 },
   compareMode: 'objects',
+  additionSumRange: 5,
+  additionRepresentation: 'objects',
 };
 
 function isValidRange(value: unknown): value is { start: number; end: number } {
@@ -28,6 +30,14 @@ function isValidCompleteLetterMissingCount(value: unknown): value is GameSetting
 }
 
 function isValidCompareMode(value: unknown): value is GameSettings['compareMode'] {
+  return value === 'objects' || value === 'numerals';
+}
+
+function isValidAdditionSumRange(value: unknown): value is GameSettings['additionSumRange'] {
+  return value === 5 || value === 10 || value === 20 || value === 100;
+}
+
+function isValidAdditionRepresentation(value: unknown): value is GameSettings['additionRepresentation'] {
   return value === 'objects' || value === 'numerals';
 }
 
@@ -48,6 +58,8 @@ export function loadSettings(): GameSettings {
         : DEFAULT_SETTINGS.completeLetterMissingCount,
       compareRange: isValidRange(stored.compareRange) ? stored.compareRange : DEFAULT_SETTINGS.compareRange,
       compareMode: isValidCompareMode(stored.compareMode) ? stored.compareMode : DEFAULT_SETTINGS.compareMode,
+      additionSumRange: isValidAdditionSumRange(stored.additionSumRange) ? stored.additionSumRange : DEFAULT_SETTINGS.additionSumRange,
+      additionRepresentation: isValidAdditionRepresentation(stored.additionRepresentation) ? stored.additionRepresentation : DEFAULT_SETTINGS.additionRepresentation,
     };
   } catch {
     return DEFAULT_SETTINGS;
@@ -60,4 +72,22 @@ export function saveSettings(settings: GameSettings): void {
   } catch {
     // Silent fail: private/incognito mode or storage quota exceeded
   }
+}
+
+/**
+ * Applies a new additionSumRange, auto-switching additionRepresentation to 'numerals'
+ * if the new range makes 'objects' invalid (20 or 100). One-directional: dropping the
+ * range back to 5/10 later does NOT restore 'objects' automatically — whatever is
+ * stored is always exactly what's displayed, with no separate remembered preference.
+ */
+export function applyAdditionSumRangeChange(
+  settings: GameSettings,
+  nextRange: GameSettings['additionSumRange'],
+): GameSettings {
+  const forcesNumerals = nextRange === 20 || nextRange === 100;
+  return {
+    ...settings,
+    additionSumRange: nextRange,
+    additionRepresentation: forcesNumerals ? 'numerals' : settings.additionRepresentation,
+  };
 }
