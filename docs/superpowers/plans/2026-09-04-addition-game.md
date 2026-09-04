@@ -912,7 +912,7 @@ git commit -m "feat: add additionSumRange/additionRepresentation settings and au
 
 Needed so the "Predmety" (objects) tile can be shown-but-unselectable when `additionSumRange` is 20 or 100. This is additive — every existing `SegmentedChoice` call site omits the new prop and behaves identically to before.
 
-- [ ] **Step 1: Add the prop to the interface**
+- [x] **Step 1: Add the prop to the interface**
 
 Find:
 
@@ -942,7 +942,7 @@ interface SegmentedChoiceProps<T extends string | number> {
 }
 ```
 
-- [ ] **Step 2: Use it in the render**
+- [x] **Step 2: Use it in the render**
 
 Find:
 
@@ -1036,7 +1036,7 @@ export function SegmentedChoice<T extends string | number>({
 
 Why `unstyledState={!isSelected && !isDisabled}`: when `isDisabled` is true, `unstyledState` must be `false` so `ChoiceTile`'s own `stateClasses['disabled']` (`bg-bg-light text-text-main opacity-50`, applied automatically whenever its `disabled` prop is true) actually renders — otherwise the unselected-option `className` override (`opacity-70`) would be the only styling present and the option wouldn't visually read as disabled. Every existing call site never sets `disabledOptions`, so `isDisabled` is always `false` there and this exactly reproduces the prior `unstyledState={selected !== option}` behavior.
 
-- [ ] **Step 3: Type-check**
+- [x] **Step 3: Type-check**
 
 ```bash
 npm run lint
@@ -1044,7 +1044,7 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/shared/ui/FormControls.tsx
