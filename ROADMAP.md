@@ -130,13 +130,15 @@
 - [ ] Decide and set up analytics platform if needed
 - [ ] Instrument screen views and game events if analytics is adopted
 
-### 1.7 Game Backlog — closed
-> Three candidate games shipped. The remaining candidates were dropped on 2026-09-01; nine games is enough for friends-first, and the next release work is sharing and feedback, not more mechanics.
+### 1.7 Future Game Backlog
+> Candidate games that fit the current learning model.
 
 - [x] **Prvé písmenko** — sound-first word-to-starting-letter game using ready words and active alphabet settings.
 - [x] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
 - [x] **Doplň písmeno** — show a word with one or more missing Slovak letter units and let the child fill them in guided order.
 - [x] **Viac alebo Menej** — quantity comparison game (two object piles, tap the one with more; numeral-comparison mode as a setting). Spec: `docs/superpowers/specs/2026-09-02-compare-quantities-game-design.md`.
+- [ ] **Sčítaj** — simple addition game (two object/numeral groups combined, tap the matching sum; sum range and representation mode as settings). Spec: `docs/superpowers/specs/2026-09-04-addition-game-design.md`.
+- [ ] Further arithmetic games (e.g. subtraction) anticipated as follow-ups once addition ships and is validated.
 
 ---
 

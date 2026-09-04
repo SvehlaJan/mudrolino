@@ -4,8 +4,6 @@
 
 The planned follow-up to Compare Quantities (`docs/superpowers/specs/2026-09-02-compare-quantities-game-design.md`, shipped 2026-09-03): the child sees two small groups of objects (or two numerals, depending on a settings-controlled representation mode), separated by a "+", and taps the numeral matching their combined total from a row of answer options. This is the first of an anticipated small family of arithmetic games (subtraction is the next likely candidate), so this design deliberately extracts the two pieces that are genuinely, immediately reusable — without speculatively abstracting the parts that would differ per operation.
 
-Note: `ROADMAP.md`'s "Future Game Backlog" section was marked closed on 2026-09-01 ("nine games is enough for friends-first"), which predates and doesn't account for this game. This spec proceeds anyway (it's for the user's own child, not gated by the friends-first release scope) — `ROADMAP.md` will be updated to reflect that explicitly rather than silently reopening or ignoring the closed note.
-
 ## Game Mechanics (v1)
 
 - **Problem generation:** pick a target sum `S` uniformly from `[2, sumRange]` (the configured `additionSumRange`), then split it into two addends: `a` random in `[1, S-1]`, `b = S - a`. This gives even coverage across the whole configured range — the same "1 up to N" ceiling semantics every other range setting in the app already uses.
@@ -69,7 +67,7 @@ Files touched, following the established "adding a game" checklist (`.claude/rul
 8. `SegmentedChoice`'s new `disabledOptions` prop (`src/shared/ui/FormControls.tsx`).
 9. Lobby metadata entry in `gameCatalog.tsx`, route + home card in `App.tsx`.
 10. `e2e/smoke.spec.ts` route entry, oracle hook via `window.__E2E__`, and a golden-path spec (this game doesn't fit the shared `FindItGame` oracle any more than Compare did).
-11. `ROADMAP.md`: reopen/annotate the "Future Game Backlog — closed" section to record this game and the anticipated arithmetic-game family explicitly, rather than leaving the closure note stale.
+11. `ROADMAP.md`: mark this game done in the "Future Game Backlog" section once shipped.
 
 ## Edge Cases
 
