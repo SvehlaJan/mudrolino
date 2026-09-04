@@ -1058,7 +1058,7 @@ git commit -m "feat: add disabledOptions support to SegmentedChoice"
 **Files:**
 - Modify: `src/shared/components/settingsContentData.ts`
 
-- [ ] **Step 1: Add the subtitle**
+- [x] **Step 1: Add the subtitle**
 
 Find:
 
@@ -1075,7 +1075,7 @@ Replace with:
 };
 ```
 
-- [ ] **Step 2: Add the visibility flags**
+- [x] **Step 2: Add the visibility flags**
 
 Find:
 
@@ -1115,7 +1115,7 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
 }> = {
 ```
 
-- [ ] **Step 3: Add the two new fields to `home`**
+- [x] **Step 3: Add the two new fields to `home`**
 
 Find:
 
@@ -1137,7 +1137,7 @@ Replace with:
 
 The remaining 9 entries (`ALPHABET`, `SYLLABLES`, `NUMBERS`, `COUNTING_ITEMS`, `WORDS`, `FIRST_LETTER`, `ASSEMBLY`, `COMPLETE_SYLLABLE`, `COMPLETE_LETTER`) all get `additionSumRange: false, additionRepresentation: false,` added — but several of their bodies are textually identical to each other (`WORDS`, `ASSEMBLY`, and `COMPLETE_SYLLABLE` are all-`false` blocks with no distinguishing field), so each of the following 9 steps matches the **entire entry**, keyed by its unique opening line, rather than just the tail — a blind "replace this 3-line block, it appears 9 times" instruction would be genuinely ambiguous here (an editor could easily apply one occurrence's replacement to the wrong entry, or a naive replace-all could silently succeed while still being impossible to tell which entry got which edit from the diff alone).
 
-- [ ] **Step 4: `ALPHABET`**
+- [x] **Step 4: `ALPHABET`**
 
 Find:
 
@@ -1177,7 +1177,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 5: `SYLLABLES`**
+- [x] **Step 5: `SYLLABLES`**
 
 Find:
 
@@ -1217,7 +1217,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 6: `NUMBERS`**
+- [x] **Step 6: `NUMBERS`**
 
 Find:
 
@@ -1257,7 +1257,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 7: `COUNTING_ITEMS`**
+- [x] **Step 7: `COUNTING_ITEMS`**
 
 Find:
 
@@ -1297,7 +1297,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 8: `WORDS`**
+- [x] **Step 8: `WORDS`**
 
 Find:
 
@@ -1337,7 +1337,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 9: `FIRST_LETTER`**
+- [x] **Step 9: `FIRST_LETTER`**
 
 Find:
 
@@ -1377,7 +1377,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 10: `ASSEMBLY`**
+- [x] **Step 10: `ASSEMBLY`**
 
 Find:
 
@@ -1417,7 +1417,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 11: `COMPLETE_SYLLABLE`**
+- [x] **Step 11: `COMPLETE_SYLLABLE`**
 
 Find:
 
@@ -1457,7 +1457,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 12: `COMPLETE_LETTER`**
+- [x] **Step 12: `COMPLETE_LETTER`**
 
 Find:
 
@@ -1497,7 +1497,7 @@ Replace with:
   },
 ```
 
-- [ ] **Step 13: Add the `COMPARE_QUANTITIES` entry's two new fields, then the new `ADDITION` entry**
+- [x] **Step 13: Add the `COMPARE_QUANTITIES` entry's two new fields, then the new `ADDITION` entry**
 
 Find:
 
@@ -1554,7 +1554,7 @@ Replace with:
 };
 ```
 
-- [ ] **Step 14: Type-check**
+- [x] **Step 14: Type-check**
 
 ```bash
 npm run lint
@@ -1562,7 +1562,7 @@ npm run lint
 
 Expected: PASS. (If it fails with a missing-property error on any `SETTINGS_VISIBILITY` entry, one of Steps 3-13 was skipped or mistyped — search the file for any `compareMode: false,` or `compareMode: true,` not immediately followed by `additionSumRange:` and fix it.)
 
-- [ ] **Step 15: Commit**
+- [x] **Step 15: Commit**
 
 ```bash
 git add src/shared/components/settingsContentData.ts
