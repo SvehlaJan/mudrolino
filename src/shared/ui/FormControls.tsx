@@ -85,6 +85,8 @@ interface SegmentedChoiceProps<T extends string | number> {
   formatLabel?: (option: T) => React.ReactNode;
   activeClassName?: string;
   columns?: 2 | 3 | 4;
+  /** Options rendered visibly but non-selectable (dimmed, unclickable) — e.g. a choice that's invalid for the current settings combination. */
+  disabledOptions?: readonly T[];
 }
 
 const activeBackgroundOverride: Record<string, string> = {
@@ -108,6 +110,7 @@ export function SegmentedChoice<T extends string | number>({
   formatLabel = option => option,
   activeClassName = 'bg-accent-blue',
   columns,
+  disabledOptions,
 }: SegmentedChoiceProps<T>) {
   const gridClass =
     columns === 4
@@ -118,22 +121,29 @@ export function SegmentedChoice<T extends string | number>({
 
   return (
     <div className={cx('grid gap-3', gridClass)}>
-      {options.map(option => (
-        <ChoiceTile
-          key={String(option)}
-          shape="option"
-          state={selected === option ? 'selected' : 'neutral'}
-          unstyledState={selected !== option}
-          className={
-            selected === option
-              ? resolveActiveClassName(activeClassName)
-              : 'bg-bg-light text-text-main opacity-70 shadow-none'
-          }
-          onClick={() => onSelect(option)}
-        >
-          {formatLabel(option)}
-        </ChoiceTile>
-      ))}
+      {options.map(option => {
+        const isSelected = selected === option;
+        const isDisabled = disabledOptions?.includes(option) ?? false;
+        return (
+          <ChoiceTile
+            key={String(option)}
+            shape="option"
+            state={isSelected ? 'selected' : 'neutral'}
+            disabled={isDisabled}
+            unstyledState={!isSelected && !isDisabled}
+            className={
+              isSelected
+                ? resolveActiveClassName(activeClassName)
+                : isDisabled
+                  ? undefined
+                  : 'bg-bg-light text-text-main opacity-70 shadow-none'
+            }
+            onClick={() => onSelect(option)}
+          >
+            {formatLabel(option)}
+          </ChoiceTile>
+        );
+      })}
     </div>
   );
 }
