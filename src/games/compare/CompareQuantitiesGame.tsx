@@ -16,7 +16,8 @@ import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteO
 import { GameLobby } from '../../shared/components/GameLobby';
 import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
 import { setE2EState } from '../../shared/services/e2eState';
-import { generateCompareGridSlots, COMPARE_GRID_TOTAL_SLOTS, CompareGridSlot } from '../../shared/scatterGridLogic';
+import { generateCompareGridSlots, CompareGridSlot } from '../../shared/scatterGridLogic';
+import { QuantityCluster } from '../../shared/components/QuantityCluster';
 
 interface CompareQuantitiesGameProps {
   onExit: () => void;
@@ -274,32 +275,12 @@ export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: C
                 aria-label={side === 'left' ? 'Ľavá skupina' : 'Pravá skupina'}
                 className="h-full w-full !rounded-[24px] sm:!rounded-[32px] p-2 sm:p-4"
               >
-                {mode === 'numerals' ? (
-                  <span className="text-5xl font-spline sm:text-7xl">{round[side].value}</span>
-                ) : (
-                  <div className="grid grid-cols-3 auto-rows-fr h-full w-full p-1 sm:p-2 place-items-center">
-                    {Array.from({ length: COMPARE_GRID_TOTAL_SLOTS }, (_, slotIndex) => {
-                      const item = (side === 'left' ? round.leftSlots : round.rightSlots).find(
-                        (s) => s.slotIndex === slotIndex,
-                      );
-                      if (!item) {
-                        return <div key={`empty-${slotIndex}`} className="w-full h-full" aria-hidden="true" />;
-                      }
-                      return (
-                        <span
-                          key={`slot-${slotIndex}`}
-                          aria-hidden="true"
-                          className="relative flex items-center justify-center text-3xl sm:text-4xl md:text-5xl leading-none select-none"
-                          style={{
-                            transform: `rotate(${item.rotation}deg) translate(${item.offsetX}px, ${item.offsetY}px)`,
-                          }}
-                        >
-                          {item.emoji}
-                        </span>
-                      );
-                    })}
-                  </div>
-                )}
+                <QuantityCluster
+                  mode={mode}
+                  value={round[side].value}
+                  slots={side === 'left' ? round.leftSlots : round.rightSlots}
+                  numeralClassName="text-5xl font-spline sm:text-7xl"
+                />
               </ChoiceTile>
             ))}
           </div>
