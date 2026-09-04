@@ -17,6 +17,7 @@ export const SETTINGS_SUBTITLES: Record<SettingsTarget, string> = {
   COMPLETE_SYLLABLE: 'Hra s dopĺňaním slabík',
   COMPLETE_LETTER: 'Hra s dopĺňaním písmen',
   COMPARE_QUANTITIES: 'Hra s porovnávaním',
+  ADDITION: 'Hra so sčítaním',
 };
 
 export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
@@ -31,6 +32,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   completeLetterMissingCount: boolean;
   compareRange: boolean;
   compareMode: boolean;
+  additionSumRange: boolean;
+  additionRepresentation: boolean;
 }> = {
   home: {
     music: true,
@@ -44,6 +47,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: true,
     compareRange: true,
     compareMode: true,
+    additionSumRange: true,
+    additionRepresentation: true,
   },
   ALPHABET: {
     music: true,
@@ -57,6 +62,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   SYLLABLES: {
     music: true,
@@ -70,6 +77,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   NUMBERS: {
     music: true,
@@ -83,6 +92,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   COUNTING_ITEMS: {
     music: true,
@@ -96,6 +107,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   WORDS: {
     music: true,
@@ -109,6 +122,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   FIRST_LETTER: {
     music: true,
@@ -122,6 +137,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   ASSEMBLY: {
     music: true,
@@ -135,6 +152,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   COMPLETE_SYLLABLE: {
     music: true,
@@ -148,6 +167,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   COMPLETE_LETTER: {
     music: true,
@@ -161,6 +182,8 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: true,
     compareRange: false,
     compareMode: false,
+    additionSumRange: false,
+    additionRepresentation: false,
   },
   COMPARE_QUANTITIES: {
     music: true,
@@ -174,6 +197,23 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     completeLetterMissingCount: false,
     compareRange: true,
     compareMode: true,
+    additionSumRange: false,
+    additionRepresentation: false,
+  },
+  ADDITION: {
+    music: true,
+    avatar: false,
+    recordings: false,
+    alphabetAccents: false,
+    alphabetGridSize: false,
+    syllablesGridSize: false,
+    numbersRange: false,
+    countingRange: false,
+    completeLetterMissingCount: false,
+    compareRange: false,
+    compareMode: false,
+    additionSumRange: true,
+    additionRepresentation: true,
   },
 };
 
