@@ -3,13 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { applyAdditionSumRangeChange, DEFAULT_SETTINGS } from './settingsService';
+import { additionRangeForcesNumerals, applyAdditionSumRangeChange, DEFAULT_SETTINGS } from './settingsService';
 
 function assert(condition: boolean, message: string): void {
   if (!condition) {
     throw new Error(message);
   }
 }
+
+// additionRangeForcesNumerals: the single source of truth both the auto-switch and the
+// settings UI's disabled-tile check rely on.
+assert(additionRangeForcesNumerals(5) === false, 'range 5 does not force numerals');
+assert(additionRangeForcesNumerals(10) === false, 'range 10 does not force numerals');
+assert(additionRangeForcesNumerals(20) === true, 'range 20 forces numerals');
+assert(additionRangeForcesNumerals(100) === true, 'range 100 forces numerals');
 
 // Dropping to/staying at 5 or 10 never touches representation, either direction.
 const objectsAt5 = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'objects' }, 5);

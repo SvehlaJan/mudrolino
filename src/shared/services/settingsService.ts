@@ -74,6 +74,11 @@ export function saveSettings(settings: GameSettings): void {
   }
 }
 
+/** Ranges at which individual objects stop being sensible to render/count, forcing numerals. */
+export function additionRangeForcesNumerals(range: GameSettings['additionSumRange']): boolean {
+  return range === 20 || range === 100;
+}
+
 /**
  * Applies a new additionSumRange, auto-switching additionRepresentation to 'numerals'
  * if the new range makes 'objects' invalid (20 or 100). One-directional: dropping the
@@ -84,7 +89,7 @@ export function applyAdditionSumRangeChange(
   settings: GameSettings,
   nextRange: GameSettings['additionSumRange'],
 ): GameSettings {
-  const forcesNumerals = nextRange === 20 || nextRange === 100;
+  const forcesNumerals = additionRangeForcesNumerals(nextRange);
   return {
     ...settings,
     additionSumRange: nextRange,

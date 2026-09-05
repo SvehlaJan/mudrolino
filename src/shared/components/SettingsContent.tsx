@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
 import { Languages, MessageSquare, Mic, Music, Type } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { audioManager } from '../services/audioManager';
-import { applyAdditionSumRangeChange } from '../services/settingsService';
+import { additionRangeForcesNumerals, applyAdditionSumRangeChange } from '../services/settingsService';
 import { FeedbackModal } from './FeedbackModal';
 import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
@@ -91,7 +91,7 @@ function SettingsRangeCard({
           activeClassName={activeClassName}
           formatLabel={formatLabel}
           onSelect={onSelect}
-          columns={options.length === 2 ? 2 : 3}
+          columns={options.length === 2 ? 2 : options.length === 4 ? 4 : 3}
         />
       </div>
     </SettingsSection>
@@ -107,7 +107,7 @@ function AdditionRepresentationCard({
   settings: GameSettings;
   onUpdate: (settings: GameSettings) => void;
 }) {
-  const objectsDisabled = settings.additionSumRange === 20 || settings.additionSumRange === 100;
+  const objectsDisabled = additionRangeForcesNumerals(settings.additionSumRange);
   return (
     <SettingsSection>
       <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
