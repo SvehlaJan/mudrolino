@@ -5,9 +5,10 @@
 
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Languages, MessageSquare, Mic, Music, Scale, Type } from 'lucide-react';
+import { Languages, MessageSquare, Mic, Music, Type } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { audioManager } from '../services/audioManager';
+import { applyAdditionSumRangeChange } from '../services/settingsService';
 import { FeedbackModal } from './FeedbackModal';
 import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
@@ -94,6 +95,59 @@ function SettingsRangeCard({
         />
       </div>
     </SettingsSection>
+  );
+}
+
+const ADDITION_SUM_RANGE_OPTIONS = [5, 10, 20, 100] as const;
+
+function AdditionRepresentationCard({
+  settings,
+  onUpdate,
+}: {
+  settings: GameSettings;
+  onUpdate: (settings: GameSettings) => void;
+}) {
+  const objectsDisabled = settings.additionSumRange === 20 || settings.additionSumRange === 100;
+  return (
+    <SettingsSection>
+      <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
+      <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+        {objectsDisabled
+          ? 'Predmety sú dostupné len pri rozsahu 5 alebo 10.'
+          : 'Predmety na počítanie, alebo napísané čísla.'}
+      </p>
+      <div className="mt-5">
+        <SegmentedChoice
+          options={['objects', 'numerals'] as const}
+          selected={settings.additionRepresentation}
+          disabledOptions={objectsDisabled ? (['objects'] as const) : undefined}
+          activeClassName="bg-accent-blue"
+          formatLabel={(value) => (value === 'objects' ? 'Predmety' : 'Čísla')}
+          onSelect={(value) => onUpdate({ ...settings, additionRepresentation: value })}
+          columns={2}
+        />
+      </div>
+    </SettingsSection>
+  );
+}
+
+function AdditionSumRangeCard({
+  settings,
+  onUpdate,
+}: {
+  settings: GameSettings;
+  onUpdate: (settings: GameSettings) => void;
+}) {
+  return (
+    <SettingsRangeCard
+      title="Rozsah sčítania"
+      description="Vyberte najväčší možný súčet."
+      options={ADDITION_SUM_RANGE_OPTIONS}
+      selected={settings.additionSumRange}
+      activeClassName="bg-accent-blue"
+      formatLabel={(value) => `1 - ${value}`}
+      onSelect={(value) => onUpdate(applyAdditionSumRangeChange(settings, value as GameSettings['additionSumRange']))}
+    />
   );
 }
 
@@ -357,15 +411,22 @@ export function SettingsContent({
 
       {visibility.compareRange && isHome && (
         <GameSettingsGroupCard title="Viac alebo Menej">
-          <ToggleControl
-            label="Porovnávaj čísla"
-            description="Namiesto predmetov porovnávať napísané čísla."
-            icon={<Scale size={24} className="sm:h-7 sm:w-7" />}
-            iconBackgroundClassName="bg-accent-blue/35"
-            checked={settings.compareMode === 'numerals'}
-            onToggle={() => onUpdate({ ...settings, compareMode: settings.compareMode === 'numerals' ? 'objects' : 'numerals' })}
-            activeColorClassName="bg-accent-blue"
-          />
+          <SettingsSection>
+            <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
+            <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+              Predmety na počítanie, alebo napísané čísla.
+            </p>
+            <div className="mt-5">
+              <SegmentedChoice
+                options={['objects', 'numerals'] as const}
+                selected={settings.compareMode}
+                activeClassName="bg-accent-blue"
+                formatLabel={(value) => (value === 'objects' ? 'Predmety' : 'Čísla')}
+                onSelect={(value) => onUpdate({ ...settings, compareMode: value })}
+                columns={2}
+              />
+            </div>
+          </SettingsSection>
           <SettingsRangeCard
             title="Rozsah porovnávania"
             description="Vyberte rozsah čísel pre porovnávanie."
@@ -379,17 +440,22 @@ export function SettingsContent({
       )}
 
       {visibility.compareMode && !isHome && (
-        <SettingsCard>
-          <ToggleControl
-            label="Porovnávaj čísla"
-            description="Namiesto predmetov porovnávať napísané čísla."
-            icon={<Scale size={24} className="sm:h-7 sm:w-7" />}
-            iconBackgroundClassName="bg-accent-blue/35"
-            checked={settings.compareMode === 'numerals'}
-            onToggle={() => onUpdate({ ...settings, compareMode: settings.compareMode === 'numerals' ? 'objects' : 'numerals' })}
-            activeColorClassName="bg-accent-blue"
-          />
-        </SettingsCard>
+        <SettingsSection>
+          <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
+          <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+            Predmety na počítanie, alebo napísané čísla.
+          </p>
+          <div className="mt-5">
+            <SegmentedChoice
+              options={['objects', 'numerals'] as const}
+              selected={settings.compareMode}
+              activeClassName="bg-accent-blue"
+              formatLabel={(value) => (value === 'objects' ? 'Predmety' : 'Čísla')}
+              onSelect={(value) => onUpdate({ ...settings, compareMode: value })}
+              columns={2}
+            />
+          </div>
+        </SettingsSection>
       )}
 
       {visibility.compareRange && !isHome && (
@@ -402,6 +468,21 @@ export function SettingsContent({
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, compareRange: { start: 1, end: value as 5 | 10 } })}
         />
+      )}
+
+      {visibility.additionSumRange && isHome && (
+        <GameSettingsGroupCard title="Sčítaj">
+          <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} />
+          <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} />
+        </GameSettingsGroupCard>
+      )}
+
+      {visibility.additionRepresentation && !isHome && (
+        <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} />
+      )}
+
+      {visibility.additionSumRange && !isHome && (
+        <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} />
       )}
 
       {hasFeedbackKey() && (
