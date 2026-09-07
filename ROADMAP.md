@@ -137,7 +137,7 @@
 - [x] **Doplň slabiku** — show a word with one missing syllable and let the child choose the missing tile.
 - [x] **Doplň písmeno** — show a word with one or more missing Slovak letter units and let the child fill them in guided order.
 - [x] **Viac alebo Menej** — quantity comparison game (two object piles, tap the one with more; numeral-comparison mode as a setting). Spec: `docs/superpowers/specs/2026-09-02-compare-quantities-game-design.md`.
-- [ ] **Sčítaj** — simple addition game (two object/numeral groups combined, tap the matching sum; sum range and representation mode as settings). Spec: `docs/superpowers/specs/2026-09-04-addition-game-design.md`.
+- [x] **Sčítaj** — simple addition game (two object/numeral groups combined, tap the matching sum; sum range and representation mode as settings). Spec: `docs/superpowers/specs/2026-09-04-addition-game-design.md`.
 - [ ] Further arithmetic games (e.g. subtraction) anticipated as follow-ups once addition ships and is validated.
 
 ---
@@ -315,4 +315,5 @@
 | 2026-09-02 | Nunito adopted as default typography with Shantell Sans alternative in Parent Settings | Fredoka had defective Slovak diacritics (rendering accents as acute/tilde); Nunito provides authentic Slovak diacritics with variable 400..900 weights; Shantell Sans provides an optional comic-book style. |
 | 2026-09-03 | Comprehensive UI/UX Enhancements: AuditoryPromptBadge, Zero-collision CSS Grid in Counting, PromptBadge standardization, Assembly mobile thumb layout, and Avatar garment localization | Solves tactile toddler interaction in counting via procedural Web Audio, provides visual audio feedback in auditory games, standardizes prompt replay UX, anchors mobile interaction in thumb zone, and localizes all avatar clothes in SK and CS. |
 | 2026-09-03 | Viac alebo Menej quantity comparison mini-game added with self-correcting 2-choice mechanic | Bespoke game state machine rather than FindItGame engine because every round ends in success with wrong side disabled; supports numerals and object emoji piles, settings range, and TTS fallback. |
+| 2026-09-04 | Sčítaj addition mini-game added with bespoke 4-choice numeral tap mechanic | Bespoke game component rather than FindItGame engine (two-addend problem target + plain numeral options have different shapes); supports object clusters and numerals, near-miss distractor band, 3-attempt failure overlay, and TTS fallback. |
 

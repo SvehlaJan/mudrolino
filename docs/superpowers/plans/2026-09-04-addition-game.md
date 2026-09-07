@@ -1578,7 +1578,7 @@ git commit -m "feat: add settings visibility/subtitle for the addition game"
 
 Two changes here: (1) swap Compare's `compareMode` `ToggleControl` for a `SegmentedChoice` tile picker (behavior-neutral — same field, same values), and (2) add the addition game's two new controls, including the range→representation auto-switch and the disabled-tile constraint.
 
-- [ ] **Step 1: Retrofit Compare's `isHome` block**
+- [x] **Step 1: Retrofit Compare's `isHome` block**
 
 Find:
 
@@ -1641,7 +1641,7 @@ Replace with:
       )}
 ```
 
-- [ ] **Step 2: Retrofit Compare's `!isHome` block**
+- [x] **Step 2: Retrofit Compare's `!isHome` block**
 
 Find:
 
@@ -1684,7 +1684,7 @@ Replace with:
       )}
 ```
 
-- [ ] **Step 3: Add the addition game's settings, right after Compare's `!isHome` range block**
+- [x] **Step 3: Add the addition game's settings, right after Compare's `!isHome` range block**
 
 Find:
 
@@ -1737,7 +1737,7 @@ Replace with:
       {hasFeedbackKey() && (
 ```
 
-- [ ] **Step 4: Import the auto-switch function**
+- [x] **Step 4: Import the auto-switch function**
 
 Find:
 
@@ -1754,7 +1754,7 @@ import { audioManager } from '../services/audioManager';
 import { applyAdditionSumRangeChange } from '../services/settingsService';
 ```
 
-- [ ] **Step 5: Add the two new helper components**
+- [x] **Step 5: Add the two new helper components**
 
 These encapsulate the disabled-tile logic in one place, reused by both the `isHome` and per-game sections above (mirrors how `CompleteLetterMissingCountCard` is already factored out as a shared helper for the same reason). The auto-switch itself is the tested `applyAdditionSumRangeChange` from Task 6 — `AdditionSumRangeCard` just calls it, it doesn't reimplement the branching logic here. Find:
 
@@ -1820,7 +1820,7 @@ function AdditionSumRangeCard({
 
 ```
 
-- [ ] **Step 6: Type-check**
+- [x] **Step 6: Type-check**
 
 ```bash
 npm run lint
@@ -1828,7 +1828,7 @@ npm run lint
 
 Expected: PASS. (`Scale` import may now be unused if nothing else in the file references it — check: the `Scale` icon was only used by the two `ToggleControl` blocks just replaced. If ESLint flags an unused import, remove `Scale` from the `lucide-react` import line at the top of the file.)
 
-- [ ] **Step 7: Remove the now-unused `Scale` import if flagged**
+- [x] **Step 7: Remove the now-unused `Scale` import if flagged**
 
 If Step 6 reports `Scale` as unused, find:
 
@@ -1844,7 +1844,7 @@ import { Languages, MessageSquare, Mic, Music, Type } from 'lucide-react';
 
 Then re-run `npm run lint` — PASS.
 
-- [ ] **Step 8: Manual smoke check**
+- [x] **Step 8: Manual smoke check**
 
 ```bash
 npm run dev
@@ -1858,7 +1858,7 @@ Open Settings → home screen:
 
 Stop the server once confirmed.
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add src/shared/components/SettingsContent.tsx
@@ -1872,7 +1872,7 @@ git commit -m "feat: add addition game settings, retrofit compareMode to a tile 
 **Files:**
 - Modify: `src/shared/gameCatalog.tsx`
 
-- [ ] **Step 1: Import an icon**
+- [x] **Step 1: Import an icon**
 
 Find:
 
@@ -1886,7 +1886,7 @@ Replace with:
 import { Apple, BookOpen, Gamepad2, Plus, Play, Puzzle, Scale, Type, WandSparkles } from 'lucide-react';
 ```
 
-- [ ] **Step 2: Add the game definition**
+- [x] **Step 2: Add the game definition**
 
 Find the `COMPARE_QUANTITIES` entry (it ends right before `WORDS`):
 
@@ -1944,7 +1944,7 @@ Replace with:
     id: 'WORDS',
 ```
 
-- [ ] **Step 3: Type-check**
+- [x] **Step 3: Type-check**
 
 ```bash
 npm run lint
@@ -1952,7 +1952,7 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/shared/gameCatalog.tsx
@@ -1968,7 +1968,7 @@ git commit -m "feat: register addition game in the game catalog"
 
 Mirrors `CompleteSyllableGame.tsx`'s structure closely: `sessionTokenRef`-guarded timers (so a stale `setTimeout` from a round the child already backed out of can never mutate state after the fact — this exact class of bug was fixed after the fact in Compare's history, so this plan builds it in from the start), `MAX_ROUNDS`/`MAX_ATTEMPTS` → `FailureOverlay`, and a `findPlayableRound`-style retry loop for the no-repeat-pair guard.
 
-- [ ] **Step 1: Write the component**
+- [x] **Step 1: Write the component**
 
 ```tsx
 /**
@@ -2316,7 +2316,7 @@ export function AdditionGame({ onExit, onOpenSettings, sumRange, representation 
 }
 ```
 
-- [ ] **Step 2: Type-check**
+- [x] **Step 2: Type-check**
 
 ```bash
 npm run lint
@@ -2324,7 +2324,7 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/games/addition/AdditionGame.tsx
@@ -2338,7 +2338,7 @@ git commit -m "feat: implement AdditionGame component"
 **Files:**
 - Modify: `src/App.tsx`
 
-- [ ] **Step 1: Import the component**
+- [x] **Step 1: Import the component**
 
 Find:
 
@@ -2353,7 +2353,7 @@ import { CompareQuantitiesGame } from './games/compare/CompareQuantitiesGame';
 import { AdditionGame } from './games/addition/AdditionGame';
 ```
 
-- [ ] **Step 2: Add the route**
+- [x] **Step 2: Add the route**
 
 Find:
 
@@ -2408,7 +2408,7 @@ Replace with:
             path="/words"
 ```
 
-- [ ] **Step 3: Type-check**
+- [x] **Step 3: Type-check**
 
 ```bash
 npm run lint
@@ -2416,7 +2416,7 @@ npm run lint
 
 Expected: PASS.
 
-- [ ] **Step 4: Manual smoke check**
+- [x] **Step 4: Manual smoke check**
 
 ```bash
 npm run dev
@@ -2429,7 +2429,7 @@ npm run dev
 
 Stop the server once confirmed.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/App.tsx
@@ -2444,7 +2444,7 @@ git commit -m "feat: wire addition game into routing"
 - Modify: `e2e/smoke.spec.ts`
 - Create: `e2e/addition.spec.ts`
 
-- [ ] **Step 1: Add the route to the smoke suite**
+- [x] **Step 1: Add the route to the smoke suite**
 
 Find:
 
@@ -2481,7 +2481,7 @@ const ALL_GAME_ROUTES: SmokeCase[] = [
 ];
 ```
 
-- [ ] **Step 2: Write the golden-path spec**
+- [x] **Step 2: Write the golden-path spec**
 
 This game doesn't fit `find-it-games.spec.ts`'s oracle (`correctItemId`/`gridItemIds`), so — same as Compare — it gets its own spec, using the `overlay`/`correctSum`/`optionValues` fields `AdditionGame`'s `setE2EState` call already exposes.
 
@@ -2546,7 +2546,7 @@ test('addition: three wrong answers reach the failure overlay', async ({ page })
 });
 ```
 
-- [ ] **Step 3: Run the e2e suite**
+- [x] **Step 3: Run the e2e suite**
 
 ```bash
 npm run test:e2e
@@ -2554,7 +2554,7 @@ npm run test:e2e
 
 Expected: PASS for all tests, including the two new `addition.spec.ts` tests and the new `addition: route loads and lobby renders` smoke test.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add e2e/smoke.spec.ts e2e/addition.spec.ts
@@ -2568,7 +2568,7 @@ git commit -m "test: add e2e coverage for the addition game"
 **Files:**
 - Modify: `ROADMAP.md`
 
-- [ ] **Step 1: Run the full verification pass**
+- [x] **Step 1: Run the full verification pass**
 
 ```bash
 npm run lint
@@ -2585,12 +2585,12 @@ Expected:
 - `npm run test:audio` — the `phrases` category reports **two** missing files: `sk/phrases/kde-je-viac.mp3` (pre-existing, from Compare) and `sk/phrases/kolko-je-dokopy.mp3` (new). **This is expected**, same reasoning as Compare's: TTS fallback covers it until recorded. The `addition/<a>-a-<b>-je-dokopy-<sum>` success-echo clips are per-problem (not a fixed set) and are **not** checked by `check_audio.ts` at all (it only validates the fixed `letters`/`syllables`/`words`/`numbers`/`praise`/`phrases` categories) — they rely on TTS in practice, same as Compare's comparison sentences.
 - `npm run test:e2e` — PASS.
 
-- [ ] **Step 2: Update the roadmap**
+- [x] **Step 2: Update the roadmap**
 
 In `ROADMAP.md`, find:
 
 ```markdown
-- [ ] **Sčítaj** — simple addition game (two object/numeral groups combined, tap the matching sum; sum range and representation mode as settings). Spec: `docs/superpowers/specs/2026-09-04-addition-game-design.md`.
+- [x] **Sčítaj** — simple addition game (two object/numeral groups combined, tap the matching sum; sum range and representation mode as settings). Spec: `docs/superpowers/specs/2026-09-04-addition-game-design.md`.
 ```
 
 Replace with:
@@ -2599,7 +2599,7 @@ Replace with:
 - [x] **Sčítaj** — simple addition game (two object/numeral groups combined, tap the matching sum; sum range and representation mode as settings). Spec: `docs/superpowers/specs/2026-09-04-addition-game-design.md`.
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add ROADMAP.md
