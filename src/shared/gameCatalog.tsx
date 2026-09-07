@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Apple, BookOpen, Gamepad2, Play, Puzzle, Scale, Type, WandSparkles } from 'lucide-react';
+import { Apple, BookOpen, Gamepad2, Play, Plus, Puzzle, Scale, Type, WandSparkles } from 'lucide-react';
 import type { GameId, GameMetadata } from './types';
 
 interface GameLobbyMetadata {
@@ -86,6 +86,20 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
       playButtonColorClassName: 'bg-accent-blue',
       topDecorationClassName: 'absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-primary opacity-30 -rotate-12 blur-sm pointer-events-none',
       bottomDecorationClassName: 'absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-success opacity-20 translate-y-10 blur-md pointer-events-none',
+    },
+  },
+  {
+    id: 'ADDITION',
+    path: '/addition',
+    title: 'Sčítaj',
+    description: 'Koľko je to dokopy?',
+    icon: <Plus size={48} className="sm:w-16 sm:h-16" strokeWidth={3} />,
+    color: 'bg-soft-watermelon',
+    lobby: {
+      title: 'SČÍTAJ',
+      playButtonColorClassName: 'bg-soft-watermelon',
+      topDecorationClassName: 'absolute top-1/4 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 rounded-3xl bg-accent-blue opacity-30 -rotate-12 blur-sm pointer-events-none',
+      bottomDecorationClassName: 'absolute bottom-10 right-4 sm:bottom-20 sm:right-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-primary opacity-20 translate-y-10 blur-md pointer-events-none',
     },
   },
   {
