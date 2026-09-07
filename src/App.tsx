@@ -18,6 +18,7 @@ import { SyllablesGame } from './games/syllables/SyllablesGame';
 import { NumbersGame } from './games/numbers/NumbersGame';
 import { CountingItemsGame } from './games/counting/CountingItemsGame';
 import { CompareQuantitiesGame } from './games/compare/CompareQuantitiesGame';
+import { AdditionGame } from './games/addition/AdditionGame';
 import { WordsGame } from './games/words/WordsGame';
 import { FirstLetterGame } from './games/first-letter/FirstLetterGame';
 import { AssemblyGame } from './games/assembly/AssemblyGame';
@@ -249,6 +250,19 @@ export default function App() {
                   mode={settings.compareMode}
                   onExit={handleExitGame}
                   onOpenSettings={() => handleOpenSettings('COMPARE_QUANTITIES')}
+                />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/addition"
+            element={
+              <ErrorBoundary>
+                <AdditionGame
+                  sumRange={settings.additionSumRange}
+                  representation={settings.additionRepresentation}
+                  onExit={handleExitGame}
+                  onOpenSettings={() => handleOpenSettings('ADDITION')}
                 />
               </ErrorBoundary>
             }
