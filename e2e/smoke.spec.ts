@@ -17,6 +17,7 @@ const ALL_GAME_ROUTES: SmokeCase[] = [
   { name: 'numbers', path: '/numbers' },
   { name: 'counting', path: '/counting' },
   { name: 'compare', path: '/compare' },
+  { name: 'addition', path: '/addition' },
   { name: 'words', path: '/words' },
   { name: 'first-letter', path: '/first-letter' },
   { name: 'assembly', path: '/assembly' },
