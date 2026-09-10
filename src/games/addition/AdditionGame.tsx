@@ -301,12 +301,12 @@ export function AdditionGame({ onExit, onOpenSettings, sumRange, representation 
       />
 
       {round && (
-        <div className="flex flex-1 min-h-0 items-center justify-center gap-2 px-2 sm:gap-4">
-          <div className="grid h-full max-h-[220px] w-full max-w-[9.5rem] grid-cols-1 rounded-[24px] bg-white/50 sm:max-h-[280px] sm:max-w-[12rem] sm:rounded-[32px]">
+        <div className="flex flex-1 min-h-0 items-center justify-center gap-6 px-2 sm:gap-10 md:gap-14">
+          <div className="grid h-full max-h-[220px] w-full flex-1 min-w-0 max-w-[9.5rem] grid-cols-1 rounded-[24px] bg-white/50 sm:max-h-[280px] sm:max-w-[12rem] sm:rounded-[32px]">
             <QuantityCluster mode={representation} value={round.a.value} slots={round.aSlots} numeralClassName={numeralClassName} />
           </div>
-          <span className="font-spline text-4xl font-black text-text-main/60 sm:text-6xl" aria-hidden="true">+</span>
-          <div className="grid h-full max-h-[220px] w-full max-w-[9.5rem] grid-cols-1 rounded-[24px] bg-white/50 sm:max-h-[280px] sm:max-w-[12rem] sm:rounded-[32px]">
+          <span className="shrink-0 font-spline text-4xl font-black text-text-main/60 sm:text-6xl" aria-hidden="true">+</span>
+          <div className="grid h-full max-h-[220px] w-full flex-1 min-w-0 max-w-[9.5rem] grid-cols-1 rounded-[24px] bg-white/50 sm:max-h-[280px] sm:max-w-[12rem] sm:rounded-[32px]">
             <QuantityCluster mode={representation} value={round.b.value} slots={round.bSlots} numeralClassName={numeralClassName} />
           </div>
         </div>
