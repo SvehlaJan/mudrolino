@@ -13,7 +13,6 @@ import { FeedbackModal } from './FeedbackModal';
 import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
 import { Button, Card, SegmentedChoice, ToggleControl } from '../ui';
-import { AvatarCustomizationSettings } from '../../avatar/AvatarCustomizationSettings';
 import { AppSettings, AppFontFamily, applyFontFamily } from '../services/appSettingsStore';
 
 interface SettingsContentProps {
@@ -174,11 +173,10 @@ export function SettingsContent({
   onUpdateAppSettings,
 }: SettingsContentProps) {
   const visibility = SETTINGS_VISIBILITY[target];
-  const isHome = target === 'home';
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   return (
-    <div className="flex-1 min-h-0 space-y-4 overflow-y-auto p-3 sm:space-y-5 sm:p-6">
+    <div className="flex-1 min-h-0 space-y-3 sm:space-y-4 overflow-y-auto p-3 sm:p-4 landscape:p-3">
       {visibility.music && (
         <SettingsCard>
           <ToggleControl
@@ -196,9 +194,7 @@ export function SettingsContent({
         </SettingsCard>
       )}
 
-      {visibility.avatar && <AvatarCustomizationSettings />}
-
-      {isHome && appSettings && onUpdateAppSettings && (
+      {appSettings && onUpdateAppSettings && (
         <SettingsCard>
           <div className="flex items-start gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">

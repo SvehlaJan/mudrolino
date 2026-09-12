@@ -22,7 +22,6 @@ export const SETTINGS_SUBTITLES: Record<SettingsTarget, string> = {
 
 export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   music: boolean;
-  avatar: boolean;
   recordings: boolean;
   alphabetAccents: boolean;
   alphabetGridSize: boolean;
@@ -37,7 +36,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
 }> = {
   home: {
     music: true,
-    avatar: false,
     recordings: true,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -52,7 +50,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   ALPHABET: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: true,
     alphabetGridSize: true,
@@ -67,7 +64,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   SYLLABLES: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -82,7 +78,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   NUMBERS: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -97,7 +92,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   COUNTING_ITEMS: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -112,7 +106,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   WORDS: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -127,7 +120,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   FIRST_LETTER: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: true,
     alphabetGridSize: false,
@@ -142,7 +134,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   ASSEMBLY: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -157,7 +148,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   COMPLETE_SYLLABLE: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -172,7 +162,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   COMPLETE_LETTER: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: true,
     alphabetGridSize: false,
@@ -187,7 +176,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   COMPARE_QUANTITIES: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -202,7 +190,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   },
   ADDITION: {
     music: true,
-    avatar: false,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
