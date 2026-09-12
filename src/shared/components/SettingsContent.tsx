@@ -33,10 +33,12 @@ interface SettingsContentProps {
 
 interface SettingsCardProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface SettingsSectionProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface SettingsRangeCardProps {
@@ -48,6 +50,7 @@ interface SettingsRangeCardProps {
   activeClassName: string;
   onSelect: (value: number) => void;
   formatLabel?: (value: number) => string;
+  className?: string;
 }
 
 interface SettingsNavCardProps {
@@ -59,12 +62,12 @@ interface SettingsNavCardProps {
 
 const COMPLETE_LETTER_MISSING_COUNT_OPTIONS = [1, 2, 'adaptive'] as const;
 
-function SettingsCard({ children }: SettingsCardProps) {
-  return <Card>{children}</Card>;
+function SettingsCard({ children, className }: SettingsCardProps) {
+  return <Card className={className}>{children}</Card>;
 }
 
-function SettingsSection({ children }: SettingsSectionProps) {
-  return <Card variant="inset">{children}</Card>;
+function SettingsSection({ children, className }: SettingsSectionProps) {
+  return <Card variant="inset" className={className}>{children}</Card>;
 }
 
 function SettingsNavCard({ icon, title, description, onClick }: SettingsNavCardProps) {
@@ -74,7 +77,7 @@ function SettingsNavCard({ icon, title, description, onClick }: SettingsNavCardP
       onClick={onClick}
       className={cx(
         uiTokens.card,
-        'flex w-full items-center justify-between gap-4 text-left text-text-main transition-all hover:scale-[1.01] active:translate-y-1 active:shadow-block-pressed cursor-pointer',
+        'flex w-full items-center justify-between gap-4 text-left text-text-main transition-all hover:scale-[1.01] active:translate-y-1 active:shadow-block-pressed cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-blue/40',
       )}
     >
       <div className="flex min-w-0 flex-1 items-start gap-4">
@@ -82,13 +85,13 @@ function SettingsNavCard({ icon, title, description, onClick }: SettingsNavCardP
           {icon}
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="text-xl font-bold leading-tight sm:text-2xl">{title}</h3>
-          <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
+          <span className="block text-xl font-bold leading-tight sm:text-2xl text-text-main">{title}</span>
+          <span className="mt-1 block text-sm font-medium leading-snug opacity-55 sm:text-base text-text-main">
             {description}
-          </p>
+          </span>
         </div>
       </div>
-      <ChevronRight size={24} className="shrink-0 text-text-main opacity-40 sm:h-7 sm:w-7" />
+      <ChevronRight size={24} className="shrink-0 text-text-main opacity-40 sm:h-7 sm:w-7" aria-hidden="true" />
     </button>
   );
 }
@@ -102,9 +105,10 @@ function SettingsRangeCard({
   activeClassName,
   onSelect,
   formatLabel = String,
+  className,
 }: SettingsRangeCardProps) {
   return (
-    <SettingsSection>
+    <SettingsSection className={className}>
       <div className="flex items-start gap-4">
         {icon && (
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
@@ -137,13 +141,15 @@ const ADDITION_SUM_RANGE_OPTIONS = [5, 10, 20, 100] as const;
 function AdditionRepresentationCard({
   settings,
   onUpdate,
+  className,
 }: {
   settings: GameSettings;
   onUpdate: (settings: GameSettings) => void;
+  className?: string;
 }) {
   const objectsDisabled = additionRangeForcesNumerals(settings.additionSumRange);
   return (
-    <SettingsSection>
+    <SettingsSection className={className}>
       <div className="flex items-start gap-4">
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
           <Eye size={24} className="sm:h-7 sm:w-7" />
@@ -175,9 +181,11 @@ function AdditionRepresentationCard({
 function AdditionSumRangeCard({
   settings,
   onUpdate,
+  className,
 }: {
   settings: GameSettings;
   onUpdate: (settings: GameSettings) => void;
+  className?: string;
 }) {
   return (
     <SettingsRangeCard
@@ -189,6 +197,7 @@ function AdditionSumRangeCard({
       activeClassName="bg-accent-blue"
       formatLabel={(value) => String(value)}
       onSelect={(value) => onUpdate(applyAdditionSumRangeChange(settings, value as GameSettings['additionSumRange']))}
+      className={className}
     />
   );
 }
@@ -196,12 +205,14 @@ function AdditionSumRangeCard({
 function CompleteLetterMissingCountCard({
   selected,
   onSelect,
+  className,
 }: {
   selected: GameSettings['completeLetterMissingCount'];
   onSelect: (value: GameSettings['completeLetterMissingCount']) => void;
+  className?: string;
 }) {
   return (
-    <SettingsSection>
+    <SettingsSection className={className}>
       <div className="flex items-start gap-4">
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
           <Type size={24} className="sm:h-7 sm:w-7" />
@@ -241,8 +252,19 @@ export function SettingsContent({
   const visibility = SETTINGS_VISIBILITY[target];
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
+  const visibleCardsCount = Object.values(visibility).filter(Boolean).length;
+  const isSingleCard = target !== 'home' && visibleCardsCount === 1;
+  const singleCardClassName = isSingleCard ? 'landscape:col-span-2 max-w-lg mx-auto w-full' : undefined;
+
   return (
-    <div className="flex-1 min-h-0 space-y-3 sm:space-y-4 overflow-y-auto p-3 sm:p-4 landscape:p-3">
+    <div
+      className={cx(
+        'flex-1 min-h-0 overflow-y-auto p-3 sm:p-4 landscape:p-3',
+        target !== 'home'
+          ? 'space-y-3 sm:space-y-4 landscape:space-y-0 landscape:grid landscape:grid-cols-2 landscape:gap-3 landscape:items-start'
+          : 'space-y-3 sm:space-y-4',
+      )}
+    >
       {appSettings && onUpdateAppSettings && (
         <SettingsCard>
           <div className="flex items-start gap-4">
@@ -286,7 +308,7 @@ export function SettingsContent({
       )}
 
       {visibility.alphabetAccents && (
-        <SettingsCard>
+        <SettingsCard className={singleCardClassName}>
           <ToggleControl
             label="Písmená s dĺžňami a mäkčeňmi"
             description="Rozšíriť hru o slovenské znaky."
@@ -303,6 +325,7 @@ export function SettingsContent({
         <CompleteLetterMissingCountCard
           selected={settings.completeLetterMissingCount}
           onSelect={(value) => onUpdate({ ...settings, completeLetterMissingCount: value })}
+          className={singleCardClassName}
         />
       )}
 
@@ -316,6 +339,7 @@ export function SettingsContent({
           activeClassName="bg-accent-blue"
           formatLabel={(value) => String(value)}
           onSelect={(value) => onUpdate({ ...settings, alphabetGridSize: value as GameSettings['alphabetGridSize'] })}
+          className={singleCardClassName}
         />
       )}
 
@@ -329,6 +353,7 @@ export function SettingsContent({
           activeClassName="bg-primary"
           formatLabel={(value) => String(value)}
           onSelect={(value) => onUpdate({ ...settings, syllablesGridSize: value as GameSettings['syllablesGridSize'] })}
+          className={singleCardClassName}
         />
       )}
 
@@ -342,6 +367,7 @@ export function SettingsContent({
           activeClassName="bg-accent-blue"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, numbersRange: { start: 1, end: value as 5 | 10 | 20 } })}
+          className={singleCardClassName}
         />
       )}
 
@@ -355,11 +381,12 @@ export function SettingsContent({
           activeClassName="bg-soft-watermelon"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, countingRange: { start: 1, end: value as 5 | 10 } })}
+          className={singleCardClassName}
         />
       )}
 
       {visibility.compareMode && (
-        <SettingsSection>
+        <SettingsSection className={singleCardClassName}>
           <div className="flex items-start gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
               <Eye size={24} className="sm:h-7 sm:w-7" />
@@ -394,15 +421,16 @@ export function SettingsContent({
           activeClassName="bg-accent-blue"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, compareRange: { start: 1, end: value as 5 | 10 } })}
+          className={singleCardClassName}
         />
       )}
 
       {visibility.additionRepresentation && (
-        <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} />
+        <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} />
       )}
 
       {visibility.additionSumRange && (
-        <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} />
+        <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} />
       )}
 
       {target === 'home' && (

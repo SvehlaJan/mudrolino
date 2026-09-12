@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { GameId, GameSettings } from '../types';
 import { SettingsContent } from './SettingsContent';
 import { getSettingsSubtitle } from './settingsContentData';
@@ -20,7 +20,7 @@ interface SettingsOverlayProps {
 export function SettingsOverlay({ gameId, settings, onUpdate, onClose }: SettingsOverlayProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-light/95 backdrop-blur-md p-2 sm:p-4 landscape:p-2">
-      <Card variant="modal" className="max-h-[94vh] w-full max-w-2xl flex flex-col overflow-hidden p-0">
+      <Card variant="modal" className="max-h-[94vh] landscape:max-h-[96vh] w-full max-w-2xl landscape:max-w-3xl flex flex-col overflow-hidden p-0">
         <div className="shrink-0 border-b-2 border-shadow/30 bg-bg-light/50 p-3 sm:p-4 landscape:py-2 text-center">
           <h2 className="mb-0.5 text-xl font-bold sm:text-2xl landscape:text-xl">Rodičovská zóna</h2>
           <p className="text-xs font-medium opacity-60 sm:text-sm">{getSettingsSubtitle(gameId)}</p>
@@ -29,8 +29,8 @@ export function SettingsOverlay({ gameId, settings, onUpdate, onClose }: Setting
         <SettingsContent target={gameId} settings={settings} onUpdate={onUpdate} />
 
         <div className="shrink-0 border-t-2 border-shadow/30 bg-bg-light/50 p-2.5 sm:p-3 landscape:py-2">
-          <Button onClick={onClose} variant="secondary" size="sm" fullWidth className="py-2 sm:py-2.5 landscape:py-1.5 text-base sm:text-lg" icon={<ArrowLeft size={20} className="sm:h-6 sm:w-6" />}>
-            Späť
+          <Button onClick={onClose} variant="quiet" size="sm" fullWidth className="py-2 sm:py-2.5 landscape:py-1.5 text-base sm:text-lg text-text-main" icon={<Check size={20} className="sm:h-6 sm:w-6" />}>
+            Hotovo
           </Button>
         </div>
       </Card>

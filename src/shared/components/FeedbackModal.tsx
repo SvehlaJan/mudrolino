@@ -68,38 +68,38 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   return (
     <div className="fixed inset-0 z-50">
       <AppScreen maxWidth="narrow">
-        <TopBar left={<BackButton onClick={resetAndClose} />} />
+        <TopBar left={<BackButton onClick={resetAndClose} />} className="landscape:pb-1" />
 
-        <div className="mb-6 text-center">
-          <h2 className="text-3xl font-bold sm:text-5xl">Spätná väzba</h2>
-          <p className="mt-2 text-base font-medium opacity-60 sm:text-xl">
+        <div className="mb-3 sm:mb-6 text-center landscape:mb-2">
+          <h2 className="text-2xl font-bold sm:text-5xl landscape:text-xl">Spätná väzba</h2>
+          <p className="mt-1 text-sm font-medium opacity-60 sm:text-xl landscape:text-xs">
             Vaša správa nám pomôže zlepšiť Hravé Učenie
           </p>
         </div>
 
         {formState === 'success' ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-5 text-center">
-            <span className="text-6xl">🎉</span>
-            <h3 className="text-2xl font-bold sm:text-3xl">Ďakujeme!</h3>
-            <p className="max-w-xs text-base font-medium opacity-60 sm:text-lg">
+          <div className="flex flex-1 flex-col items-center justify-center gap-5 text-center landscape:gap-2">
+            <span className="text-6xl landscape:text-4xl">🎉</span>
+            <h3 className="text-2xl font-bold sm:text-3xl landscape:text-xl">Ďakujeme!</h3>
+            <p className="max-w-xs text-base font-medium opacity-60 sm:text-lg landscape:text-sm">
               Vaša správa bola odoslaná. Snažíme sa odpovedať do 48 hodín.
             </p>
-            <Button onClick={resetAndClose} className="mt-2">
+            <Button onClick={resetAndClose} className="mt-2 landscape:py-2">
               Zavrieť
             </Button>
           </div>
         ) : (
-          <div className="flex-1 space-y-4 overflow-y-auto">
-            <Card>
-              <h3 className="text-xl font-bold sm:text-2xl">Typ správy</h3>
-              <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="flex-1 space-y-4 landscape:space-y-2 overflow-y-auto">
+            <Card className="landscape:p-3">
+              <h3 className="text-xl font-bold sm:text-2xl landscape:text-base">Typ správy</h3>
+              <div className="mt-4 landscape:mt-2 grid grid-cols-2 gap-3 landscape:gap-2">
                 {CATEGORIES.map(({ value, label, emoji }) => (
                   <ChoiceTile
                     key={value}
                     shape="option"
                     state={category === value ? 'selected' : 'neutral'}
                     disabled={formState === 'submitting'}
-                    className="text-base sm:text-lg"
+                    className="landscape:py-2 text-sm sm:text-lg"
                     onClick={() => setCategory(value)}
                   >
                     {emoji} {label}
@@ -108,18 +108,18 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
               </div>
             </Card>
 
-            <Card>
-              <h3 className="text-xl font-bold sm:text-2xl">Vaša správa</h3>
-              <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">Voliteľné</p>
+            <Card className="landscape:p-3">
+              <h3 className="text-xl font-bold sm:text-2xl landscape:text-base">Vaša správa</h3>
+              <p className="mt-1 text-sm font-medium opacity-55 sm:text-base landscape:text-xs">Voliteľné</p>
               <TextAreaControl
                 value={message}
                 onChange={(e) => setMessage(e.target.value.slice(0, MAX_LENGTH))}
                 disabled={formState === 'submitting'}
                 placeholder="Opíšte čo sa stalo, čo vám chýba, alebo čo by ste chceli vylepšiť…"
-                rows={4}
-                className="mt-4"
+                rows={3}
+                className="mt-2 sm:mt-4 landscape:mt-2"
               />
-              <div className="mt-2 flex items-center justify-between text-sm font-medium opacity-55">
+              <div className="mt-2 flex items-center justify-between text-sm font-medium opacity-55 landscape:text-xs">
                 <span>
                   Pre snímku obrazovky napíšte na{' '}
                   <span className="text-text-main">jan.svehla@pm.me</span>
@@ -136,6 +136,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
               onClick={handleSubmit}
               disabled={!canSubmit}
               fullWidth
+              className="landscape:py-2"
               icon={formState === 'submitting' ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
             >
               {formState === 'submitting' ? 'Odosielam' : 'Odoslať'}
