@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Loader2, Send } from 'lucide-react';
 import {
   FeedbackCategory,
@@ -30,25 +30,33 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   const [message, setMessage] = useState('');
   const [formState, setFormState] = useState<FormState>('idle');
 
-  useEffect(() => {
-    if (formState !== 'success') return;
-    const id = setTimeout(() => {
-      setCategory(null);
-      setMessage('');
-      setFormState('idle');
-      onClose();
-    }, 3000);
-    return () => clearTimeout(id);
-  }, [formState, onClose]);
-
-  if (!isOpen) return null;
-
-  function resetAndClose() {
+  const resetAndClose = useCallback(() => {
     setCategory(null);
     setMessage('');
     setFormState('idle');
     onClose();
-  }
+  }, [onClose]);
+
+  useEffect(() => {
+    if (formState !== 'success') return;
+    const id = setTimeout(() => {
+      resetAndClose();
+    }, 3000);
+    return () => clearTimeout(id);
+  }, [formState, resetAndClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        resetAndClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, resetAndClose]);
+
+  if (!isOpen) return null;
 
   async function handleSubmit() {
     if (!category) return;
@@ -66,7 +74,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   const canSubmit = category !== null && (formState === 'idle' || formState === 'error');
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true">
       <AppScreen maxWidth="narrow">
         <TopBar left={<BackButton onClick={resetAndClose} />} className="landscape:pb-1" />
 
@@ -98,6 +106,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
                     key={value}
                     shape="option"
                     state={category === value ? 'selected' : 'neutral'}
+                    aria-pressed={category === value}
                     disabled={formState === 'submitting'}
                     className="landscape:py-2 text-sm sm:text-lg"
                     onClick={() => setCategory(value)}
@@ -118,6 +127,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
                 placeholder="Opíšte čo sa stalo, čo vám chýba, alebo čo by ste chceli vylepšiť…"
                 rows={3}
                 className="mt-2 sm:mt-4 landscape:mt-2"
+                aria-label="Vaša správa"
               />
               <div className="mt-2 flex items-center justify-between text-sm font-medium opacity-55 landscape:text-xs">
                 <span>

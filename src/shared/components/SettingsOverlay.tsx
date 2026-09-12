@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Check } from 'lucide-react';
 import { GameId, GameSettings } from '../types';
 import { SettingsContent } from './SettingsContent';
@@ -18,11 +18,27 @@ interface SettingsOverlayProps {
 }
 
 export function SettingsOverlay({ gameId, settings, onUpdate, onClose }: SettingsOverlayProps) {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-light/95 backdrop-blur-md p-2 sm:p-4 landscape:p-2">
-      <Card variant="modal" className="max-h-[94vh] landscape:max-h-[96vh] w-full max-w-2xl landscape:max-w-3xl flex flex-col overflow-hidden p-0">
+      <Card
+        variant="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="settings-overlay-title"
+        className="max-h-[94vh] landscape:max-h-[96vh] w-full max-w-2xl landscape:max-w-3xl flex flex-col overflow-hidden p-0"
+      >
         <div className="shrink-0 border-b-2 border-shadow/30 bg-bg-light/50 p-3 sm:p-4 landscape:py-2 text-center">
-          <h2 className="mb-0.5 text-xl font-bold sm:text-2xl landscape:text-xl">Rodičovská zóna</h2>
+          <h2 id="settings-overlay-title" className="mb-0.5 text-xl font-bold sm:text-2xl landscape:text-xl">Rodičovská zóna</h2>
           <p className="text-xs font-medium opacity-60 sm:text-sm">{getSettingsSubtitle(gameId)}</p>
         </div>
 

@@ -308,7 +308,7 @@ export function SettingsContent({
       )}
 
       {visibility.alphabetAccents && (
-        <SettingsCard className={singleCardClassName}>
+        <SettingsSection className={singleCardClassName}>
           <ToggleControl
             label="Písmená s dĺžňami a mäkčeňmi"
             description="Rozšíriť hru o slovenské znaky."
@@ -318,7 +318,7 @@ export function SettingsContent({
             onToggle={() => onUpdate({ ...settings, alphabetAccents: !settings.alphabetAccents })}
             activeColorClassName="bg-accent-blue"
           />
-        </SettingsCard>
+        </SettingsSection>
       )}
 
       {visibility.completeLetterMissingCount && (
@@ -442,14 +442,15 @@ export function SettingsContent({
         />
       )}
 
-      {createPortal(
-        <FeedbackModal
-          isOpen={isFeedbackOpen}
-          onClose={() => setIsFeedbackOpen(false)}
-          screen={target}
-        />,
-        document.body
-      )}
+      {isFeedbackOpen &&
+        createPortal(
+          <FeedbackModal
+            isOpen={isFeedbackOpen}
+            onClose={() => setIsFeedbackOpen(false)}
+            screen={target}
+          />,
+          document.body
+        )}
     </div>
   );
 }
