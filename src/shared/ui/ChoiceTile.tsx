@@ -18,7 +18,7 @@ interface ChoiceTileProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 
 const stateClasses: Record<ChoiceTileState, string> = {
   neutral: 'bg-white text-text-main shadow-block',
-  selected: 'bg-accent-blue text-text-main font-bold shadow-block scale-105',
+  selected: 'bg-accent-blue text-text-main shadow-block scale-105',
   correct: 'bg-success text-primary shadow-block-correct -translate-y-1',
   wrong: 'bg-white text-text-main opacity-50 shadow-block-pressed scale-95',
   disabled: 'bg-bg-light text-text-main opacity-50',

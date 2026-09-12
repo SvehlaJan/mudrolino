@@ -146,7 +146,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
                 onClick={handleConfirm}
                 disabled={!input || shaking}
                 aria-label="Potvrdiť"
-                className="bg-success py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl text-text-main font-black shadow-block-correct"
+                className="!bg-success py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl text-text-main font-black shadow-block-correct"
               >
                 ✓
               </Button>
