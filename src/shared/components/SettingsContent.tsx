@@ -5,12 +5,21 @@
 
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Languages, MessageSquare, Mic, Type } from 'lucide-react';
+import {
+  ChevronRight,
+  Eye,
+  Hash,
+  Languages,
+  LayoutGrid,
+  MessageSquare,
+  Mic,
+  Type,
+} from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
 import { additionRangeForcesNumerals, applyAdditionSumRangeChange } from '../services/settingsService';
 import { FeedbackModal } from './FeedbackModal';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
-import { Button, Card, SegmentedChoice, ToggleControl } from '../ui';
+import { Card, SegmentedChoice, ToggleControl, cx, uiTokens } from '../ui';
 import { AppSettings, AppFontFamily, applyFontFamily } from '../services/appSettingsStore';
 
 interface SettingsContentProps {
@@ -31,6 +40,7 @@ interface SettingsSectionProps {
 }
 
 interface SettingsRangeCardProps {
+  icon?: React.ReactNode;
   title: string;
   description: string;
   options: readonly number[];
@@ -38,6 +48,13 @@ interface SettingsRangeCardProps {
   activeClassName: string;
   onSelect: (value: number) => void;
   formatLabel?: (value: number) => string;
+}
+
+interface SettingsNavCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  onClick: () => void;
 }
 
 const COMPLETE_LETTER_MISSING_COUNT_OPTIONS = [1, 2, 'adaptive'] as const;
@@ -50,7 +67,34 @@ function SettingsSection({ children }: SettingsSectionProps) {
   return <Card variant="inset">{children}</Card>;
 }
 
+function SettingsNavCard({ icon, title, description, onClick }: SettingsNavCardProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cx(
+        uiTokens.card,
+        'flex w-full items-center justify-between gap-4 text-left text-text-main transition-all hover:scale-[1.01] active:translate-y-1 active:shadow-block-pressed cursor-pointer',
+      )}
+    >
+      <div className="flex min-w-0 flex-1 items-start gap-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+          {icon}
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-xl font-bold leading-tight sm:text-2xl">{title}</h3>
+          <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
+            {description}
+          </p>
+        </div>
+      </div>
+      <ChevronRight size={24} className="shrink-0 text-text-main opacity-40 sm:h-7 sm:w-7" />
+    </button>
+  );
+}
+
 function SettingsRangeCard({
+  icon,
   title,
   description,
   options,
@@ -61,10 +105,19 @@ function SettingsRangeCard({
 }: SettingsRangeCardProps) {
   return (
     <SettingsSection>
-      <h3 className="text-xl font-bold sm:text-2xl">{title}</h3>
-      <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
-        {description}
-      </p>
+      <div className="flex items-start gap-4">
+        {icon && (
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+            {icon}
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <h3 className="text-xl font-bold sm:text-2xl">{title}</h3>
+          <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+            {description}
+          </p>
+        </div>
+      </div>
       <div className="mt-5">
         <SegmentedChoice
           options={options}
@@ -91,12 +144,19 @@ function AdditionRepresentationCard({
   const objectsDisabled = additionRangeForcesNumerals(settings.additionSumRange);
   return (
     <SettingsSection>
-      <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
-      <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
-        {objectsDisabled
-          ? 'Predmety sú dostupné len pri rozsahu 5 alebo 10.'
-          : 'Predmety na počítanie, alebo napísané čísla.'}
-      </p>
+      <div className="flex items-start gap-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+          <Eye size={24} className="sm:h-7 sm:w-7" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
+          <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+            {objectsDisabled
+              ? 'Predmety sú dostupné len pri rozsahu 5 alebo 10.'
+              : 'Predmety na počítanie, alebo napísané čísla.'}
+          </p>
+        </div>
+      </div>
       <div className="mt-5">
         <SegmentedChoice
           options={['objects', 'numerals'] as const}
@@ -121,6 +181,7 @@ function AdditionSumRangeCard({
 }) {
   return (
     <SettingsRangeCard
+      icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
       title="Rozsah sčítania"
       description="Najväčší možný súčet."
       options={ADDITION_SUM_RANGE_OPTIONS}
@@ -141,10 +202,17 @@ function CompleteLetterMissingCountCard({
 }) {
   return (
     <SettingsSection>
-      <h3 className="text-xl font-bold sm:text-2xl">Chýbajúce písmená</h3>
-      <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
-        Vyberte, koľko písmen má v slove chýbať.
-      </p>
+      <div className="flex items-start gap-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+          <Type size={24} className="sm:h-7 sm:w-7" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-xl font-bold sm:text-2xl">Chýbajúce písmená</h3>
+          <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+            Vyberte, koľko písmen má v slove chýbať.
+          </p>
+        </div>
+      </div>
       <div className="mt-5">
         <SegmentedChoice
           options={COMPLETE_LETTER_MISSING_COUNT_OPTIONS}
@@ -209,22 +277,12 @@ export function SettingsContent({
       )}
 
       {visibility.recordings && onManageRecordings && (
-        <SettingsCard>
-          <div className="flex items-start gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
-              <Mic size={24} className="sm:h-7 sm:w-7" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="text-xl font-bold leading-tight sm:text-2xl">Vlastný obsah</h3>
-              <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
-                Nahraj vlastný hlas pre písmená, slová a frázy.
-              </p>
-            </div>
-          </div>
-          <Button onClick={onManageRecordings} fullWidth className="mt-5" icon={<Mic size={24} />}>
-            Vlastný obsah
-          </Button>
-        </SettingsCard>
+        <SettingsNavCard
+          icon={<Mic size={24} className="sm:h-7 sm:w-7" />}
+          title="Vlastný obsah"
+          description="Nahraj vlastný hlas pre písmená, slová a frázy."
+          onClick={onManageRecordings}
+        />
       )}
 
       {visibility.alphabetAccents && (
@@ -250,6 +308,7 @@ export function SettingsContent({
 
       {visibility.alphabetGridSize && (
         <SettingsRangeCard
+          icon={<LayoutGrid size={24} className="sm:h-7 sm:w-7" />}
           title="Počet kariet"
           description="Vyberte počet kariet v hre."
           options={[4, 6, 8]}
@@ -262,6 +321,7 @@ export function SettingsContent({
 
       {visibility.syllablesGridSize && (
         <SettingsRangeCard
+          icon={<LayoutGrid size={24} className="sm:h-7 sm:w-7" />}
           title="Počet kariet"
           description="Vyberte počet kariet v hre."
           options={[4, 6]}
@@ -274,6 +334,7 @@ export function SettingsContent({
 
       {visibility.numbersRange && (
         <SettingsRangeCard
+          icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
           title="Hra s číslami"
           description="Vyberte rozsah čísel pre hru."
           options={[5, 10, 20]}
@@ -286,6 +347,7 @@ export function SettingsContent({
 
       {visibility.countingRange && (
         <SettingsRangeCard
+          icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
           title="Počítanie predmetov"
           description="Vyberte rozsah pre počítanie predmetov."
           options={[5, 10]}
@@ -298,10 +360,17 @@ export function SettingsContent({
 
       {visibility.compareMode && (
         <SettingsSection>
-          <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
-          <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
-            Predmety na počítanie, alebo napísané čísla.
-          </p>
+          <div className="flex items-start gap-4">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+              <Eye size={24} className="sm:h-7 sm:w-7" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
+              <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
+                Predmety na počítanie, alebo napísané čísla.
+              </p>
+            </div>
+          </div>
           <div className="mt-5">
             <SegmentedChoice
               options={['objects', 'numerals'] as const}
@@ -317,6 +386,7 @@ export function SettingsContent({
 
       {visibility.compareRange && (
         <SettingsRangeCard
+          icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
           title="Viac alebo Menej"
           description="Vyberte rozsah čísel pre porovnávanie."
           options={[5, 10]}
@@ -336,22 +406,12 @@ export function SettingsContent({
       )}
 
       {target === 'home' && (
-        <SettingsCard>
-          <div className="flex items-start gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
-              <MessageSquare size={24} className="sm:h-7 sm:w-7" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="text-xl font-bold leading-tight sm:text-2xl">Spätná väzba</h3>
-              <p className="mt-1 text-sm font-medium leading-snug opacity-55 sm:text-base">
-                Pomôžte nám zlepšiť aplikáciu
-              </p>
-            </div>
-          </div>
-          <Button onClick={() => setIsFeedbackOpen(true)} fullWidth className="mt-5" icon={<MessageSquare size={24} />}>
-            Odoslať spätnú väzbu
-          </Button>
-        </SettingsCard>
+        <SettingsNavCard
+          icon={<MessageSquare size={24} className="sm:h-7 sm:w-7" />}
+          title="Spätná väzba"
+          description="Pomôžte nám zlepšiť aplikáciu"
+          onClick={() => setIsFeedbackOpen(true)}
+        />
       )}
 
       {createPortal(
