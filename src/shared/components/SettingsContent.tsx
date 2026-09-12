@@ -350,7 +350,7 @@ export function SettingsContent({
           description="Vyberte počet kariet v hre."
           options={[4, 6]}
           selected={settings.syllablesGridSize}
-          activeClassName="bg-primary"
+          activeClassName="bg-accent-blue"
           formatLabel={(value) => String(value)}
           onSelect={(value) => onUpdate({ ...settings, syllablesGridSize: value as GameSettings['syllablesGridSize'] })}
           className={singleCardClassName}
@@ -431,6 +431,12 @@ export function SettingsContent({
 
       {visibility.additionSumRange && (
         <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} />
+      )}
+
+      {target !== 'home' && visibleCardsCount === 0 && (
+        <div className="flex flex-col items-center justify-center p-8 text-center text-text-main opacity-60 landscape:col-span-2">
+          <p className="text-base sm:text-lg font-medium">Táto hra nemá žiadne ďalšie nastavenia.</p>
+        </div>
       )}
 
       {target === 'home' && (

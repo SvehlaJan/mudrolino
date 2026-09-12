@@ -74,12 +74,12 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   const canSubmit = category !== null && (formState === 'idle' || formState === 'error');
 
   return (
-    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title">
       <AppScreen maxWidth="narrow">
         <TopBar left={<BackButton onClick={resetAndClose} />} className="landscape:pb-1" />
 
         <div className="mb-3 sm:mb-6 text-center landscape:mb-2">
-          <h2 className="text-2xl font-bold sm:text-5xl landscape:text-xl">Spätná väzba</h2>
+          <h2 id="feedback-modal-title" className="text-2xl font-bold sm:text-5xl landscape:text-xl">Spätná väzba</h2>
           <p className="mt-1 text-sm font-medium opacity-60 sm:text-xl landscape:text-xs">
             Vaša správa nám pomôže zlepšiť Hravé Učenie
           </p>
