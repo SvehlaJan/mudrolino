@@ -28,7 +28,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-const compactActionClass = 'h-9 w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:h-9 sm:w-9';
+const compactActionClass = '!h-9 !w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:!h-9 sm:!w-9';
 
 interface RecordingRowExampleProps {
   label: string;
