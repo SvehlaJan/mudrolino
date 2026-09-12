@@ -118,7 +118,7 @@ export function RecordingListItem({
   else if (isProcessing) secondaryClass += 'text-amber-300/80';
   else if (isRecording) secondaryClass += speaking ? 'text-pink-200/80' : 'text-blue-200/80';
 
-  const compactActionClass = 'h-9 w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:h-9 sm:w-9';
+  const compactActionClass = '!h-9 !w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:!h-9 sm:!w-9';
 
   return (
     <Card variant="row" className={rowClass}>

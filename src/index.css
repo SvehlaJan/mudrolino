@@ -163,3 +163,11 @@ body {
   animation: toggle-pop 0.22s ease-out;
   animation-fill-mode: both;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

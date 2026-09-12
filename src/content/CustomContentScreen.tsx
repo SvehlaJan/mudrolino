@@ -785,7 +785,7 @@ export function CustomContentScreen() {
 
       <div className="mb-2 shrink-0 border-b-2 border-shadow/30 pb-4">
         <h2 className="mb-4 text-3xl font-bold">Vlastný obsah</h2>
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
           {SECTIONS.map((section) => (
             <button
               key={section}
