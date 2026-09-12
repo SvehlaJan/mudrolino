@@ -62,12 +62,31 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
     }
   }, [input, shaking, question.answer, onSuccess]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key >= '0' && e.key <= '9') {
+        handleDigit(e.key);
+      } else if (e.key === 'Backspace') {
+        handleBackspace();
+      } else if (e.key === 'Enter') {
+        handleConfirm();
+      } else if (e.key === 'Escape') {
+        onCancel();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleDigit, handleBackspace, handleConfirm, onCancel]);
+
   return (
     <AppScreen
       maxWidth="narrow"
       position="fixed"
       className="fixed inset-0 z-50 bg-bg-light/95 backdrop-blur-md"
-      contentClassName="max-w-sm landscape:max-w-2xl"
+      contentClassName="portrait:max-w-sm landscape:max-w-2xl"
     >
       <TopBar left={<BackButton onClick={onCancel} />} />
 
@@ -86,7 +105,11 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               {question.a} {question.op} {question.b} = ?
             </Card>
 
-            <Card className="w-full rounded-2xl py-2 sm:portrait:py-4 landscape:py-2 min-h-[48px] sm:portrait:min-h-[72px] flex items-center justify-center text-2xl sm:portrait:text-4xl landscape:text-2xl font-bold text-text-main">
+            <Card
+              role="status"
+              aria-live="polite"
+              className="w-full rounded-2xl py-2 sm:portrait:py-4 landscape:py-2 min-h-[48px] sm:portrait:min-h-[72px] flex items-center justify-center text-2xl sm:portrait:text-4xl landscape:text-2xl font-bold text-text-main"
+            >
               {input || <span className="opacity-30">—</span>}
             </Card>
           </div>
@@ -98,7 +121,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
                   key={d}
                   variant="quiet"
                   onClick={() => handleDigit(d)}
-                  className="py-2 sm:portrait:py-5 sm:landscape:py-2.5 landscape:py-2.5 text-xl sm:portrait:text-2xl sm:landscape:text-xl landscape:text-xl"
+                  className="py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl"
                 >
                   {d}
                 </Button>
@@ -107,14 +130,14 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
                 variant="quiet"
                 onClick={handleBackspace}
                 aria-label="Zmazať"
-                className="!bg-bg-light py-2 sm:portrait:py-5 sm:landscape:py-2.5 landscape:py-2.5 text-lg sm:portrait:text-xl sm:landscape:text-lg landscape:text-lg opacity-70"
+                className="!bg-bg-light py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl opacity-70"
               >
                 ⌫
               </Button>
               <Button
                 variant="quiet"
                 onClick={() => handleDigit('0')}
-                className="py-2 sm:portrait:py-5 sm:landscape:py-2.5 landscape:py-2.5 text-xl sm:portrait:text-2xl sm:landscape:text-xl landscape:text-xl"
+                className="py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl"
               >
                 0
               </Button>
@@ -123,7 +146,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
                 onClick={handleConfirm}
                 disabled={!input || shaking}
                 aria-label="Potvrdiť"
-                className="bg-success py-2 sm:portrait:py-5 sm:landscape:py-2.5 landscape:py-2.5 text-xl sm:portrait:text-2xl sm:landscape:text-xl landscape:text-xl text-text-main shadow-block-correct"
+                className="bg-success py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl text-text-main shadow-block-correct"
               >
                 ✓
               </Button>
