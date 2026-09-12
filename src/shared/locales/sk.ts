@@ -71,7 +71,20 @@ export const WORD_ITEMS: Word[] = [
   { word: 'Krava',   syllables: 'kra-va',     emoji: '🐄',  audioKey: 'krava' },
   { word: 'Kačica',  syllables: 'ka-či-ca',   emoji: '🦆',  audioKey: 'kacica' },
   { word: 'Žirafa',  syllables: 'ži-ra-fa',   emoji: '🦒',  audioKey: 'zirafa' },
-  { word: 'Jahoda',  syllables: 'ja-ho-da',   emoji: '🍓',  audioKey: 'jahoda' },
+  { word: 'Jahoda',    syllables: 'ja-ho-da',     emoji: '🍓',  audioKey: 'jahoda' },
+  { word: 'Raketa',    syllables: 'ra-ke-ta',     emoji: '🚀',  audioKey: 'raketa' },
+  { word: 'Lietadlo',  syllables: 'lie-ta-dlo',   emoji: '✈️',  audioKey: 'lietadlo' },
+  { word: 'Autobus',   syllables: 'au-to-bus',    emoji: '🚌',  audioKey: 'autobus' },
+  { word: 'Hasiči',    syllables: 'ha-si-či',     emoji: '🚒',  audioKey: 'hasici' },
+  { word: 'Cibuľa',    syllables: 'ci-bu-ľa',     emoji: '🧅',  audioKey: 'cibula' },
+  { word: 'Kladivo',   syllables: 'kla-di-vo',    emoji: '🔨',  audioKey: 'kladivo' },
+  { word: 'Papagáj',   syllables: 'pa-pa-gáj',    emoji: '🦜',  audioKey: 'papagaj' },
+  { word: 'Húsenica',  syllables: 'hú-se-ni-ca',  emoji: '🐛',  audioKey: 'husenica' },
+  { word: 'Čokoláda',  syllables: 'čo-ko-lá-da',  emoji: '🍫',  audioKey: 'cokolada' },
+  { word: 'Limonáda',   syllables: 'li-mo-ná-da',   emoji: '🥤',  audioKey: 'limonada' },
+  { word: 'Televízor',  syllables: 'te-le-ví-zor',  emoji: '📺',  audioKey: 'televizor' },
+  { word: 'Kukurica',   syllables: 'ku-ku-ri-ca',   emoji: '🌽',  audioKey: 'kukurica' },
+  { word: 'Katastrofa', syllables: 'ka-ta-stro-fa', emoji: '⚠️',  audioKey: 'katastrofa' },
 ];
 
 export const NUMBER_ITEMS: NumberItem[] = Array.from({ length: 20 }, (_, i) => ({
