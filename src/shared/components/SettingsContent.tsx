@@ -141,11 +141,11 @@ function AdditionSumRangeCard({
   return (
     <SettingsRangeCard
       title="Rozsah sčítania"
-      description="Vyberte najväčší možný súčet."
+      description="Najväčší možný súčet."
       options={ADDITION_SUM_RANGE_OPTIONS}
       selected={settings.additionSumRange}
       activeClassName="bg-accent-blue"
-      formatLabel={(value) => `1 - ${value}`}
+      formatLabel={(value) => String(value)}
       onSelect={(value) => onUpdate(applyAdditionSumRangeChange(settings, value as GameSettings['additionSumRange']))}
     />
   );
