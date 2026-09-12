@@ -29,7 +29,7 @@ export function SettingsOverlay({ gameId, settings, onUpdate, onClose }: Setting
         <SettingsContent target={gameId} settings={settings} onUpdate={onUpdate} />
 
         <div className="shrink-0 border-t-2 border-shadow/30 bg-bg-light/50 p-2.5 sm:p-3 landscape:py-2">
-          <Button onClick={onClose} variant="secondary" fullWidth className="py-2 sm:py-2.5 landscape:py-1.5 text-base sm:text-lg" icon={<ArrowLeft size={20} className="sm:h-6 sm:w-6" />}>
+          <Button onClick={onClose} variant="secondary" size="sm" fullWidth className="py-2 sm:py-2.5 landscape:py-1.5 text-base sm:text-lg" icon={<ArrowLeft size={20} className="sm:h-6 sm:w-6" />}>
             Späť
           </Button>
         </div>

@@ -64,61 +64,65 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
     <AppScreen
       position="fixed"
       className="fixed inset-0 z-50 bg-bg-light/95 backdrop-blur-md"
-      contentClassName="max-w-sm"
+      contentClassName="max-w-sm landscape:max-w-2xl"
     >
       <TopBar left={<BackButton onClick={onCancel} />} />
 
-      <div className="flex-1 flex flex-col items-center justify-center">
-        <div className="w-full px-6 flex flex-col items-center gap-6">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold text-text-main">Pre rodičov</h2>
-            <p className="text-lg opacity-60 font-medium mt-1">Vyriešte príklad pre vstup</p>
+      <div className="flex-1 flex flex-col items-center justify-center min-h-0">
+        <div className="w-full px-4 sm:px-6 flex flex-col items-center gap-6 landscape:flex-row landscape:items-center landscape:justify-center landscape:gap-8">
+          <div className="flex-1 flex flex-col items-center gap-3 landscape:gap-3 w-full">
+            <div className="text-center">
+              <h2 className="text-2xl sm:text-3xl landscape:text-2xl font-bold text-text-main">Pre rodičov</h2>
+              <p className="text-sm sm:text-base landscape:text-xs opacity-60 font-medium mt-0.5 sm:mt-1">Vyriešte príklad pre vstup</p>
+            </div>
+
+            <Card
+              variant="panel"
+              className={`w-full py-3 landscape:py-3 sm:py-6 text-center text-3xl sm:text-5xl landscape:text-3xl font-bold text-text-main ${shaking ? 'animate-shake' : ''}`}
+            >
+              {question.a} {question.op} {question.b} = ?
+            </Card>
+
+            <Card className="w-full rounded-2xl py-2 landscape:py-2 sm:py-4 min-h-[48px] sm:min-h-[72px] flex items-center justify-center text-2xl sm:text-4xl landscape:text-2xl font-bold text-text-main">
+              {input || <span className="opacity-30">—</span>}
+            </Card>
           </div>
 
-          <Card
-            variant="panel"
-            className={`w-full py-6 text-center text-5xl font-bold text-text-main ${shaking ? 'animate-shake' : ''}`}
-          >
-            {question.a} {question.op} {question.b} = ?
-          </Card>
-
-          <Card className="w-full rounded-2xl py-4 min-h-[72px] flex items-center justify-center text-4xl font-bold text-text-main">
-            {input || <span className="opacity-30">—</span>}
-          </Card>
-
-          <div className="grid grid-cols-3 gap-3 w-full">
-            {DIGITS.map(d => (
+          <div className="flex-1 w-full max-w-[280px]">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 w-full">
+              {DIGITS.map(d => (
+                <Button
+                  key={d}
+                  variant="quiet"
+                  onClick={() => handleDigit(d)}
+                  className="py-2 landscape:py-2.5 sm:py-5 text-xl sm:text-2xl landscape:text-xl"
+                >
+                  {d}
+                </Button>
+              ))}
               <Button
-                key={d}
                 variant="quiet"
-                onClick={() => handleDigit(d)}
-                className="py-5 text-2xl"
+                onClick={handleBackspace}
+                className="!bg-bg-light py-2 landscape:py-2.5 sm:py-5 text-lg sm:text-xl landscape:text-lg opacity-70"
               >
-                {d}
+                ⌫
               </Button>
-            ))}
-            <Button
-              variant="quiet"
-              onClick={handleBackspace}
-              className="!bg-bg-light py-5 text-xl opacity-70"
-            >
-              ⌫
-            </Button>
-            <Button
-              variant="quiet"
-              onClick={() => handleDigit('0')}
-              className="py-5 text-2xl"
-            >
-              0
-            </Button>
-            <Button
-              variant="primary"
-              onClick={handleConfirm}
-              disabled={!input || shaking}
-              className="bg-success py-5 text-2xl text-text-main shadow-block-correct"
-            >
-              ✓
-            </Button>
+              <Button
+                variant="quiet"
+                onClick={() => handleDigit('0')}
+                className="py-2 landscape:py-2.5 sm:py-5 text-xl sm:text-2xl landscape:text-xl"
+              >
+                0
+              </Button>
+              <Button
+                variant="primary"
+                onClick={handleConfirm}
+                disabled={!input || shaking}
+                className="bg-success py-2 landscape:py-2.5 sm:py-5 text-xl sm:text-2xl landscape:text-xl text-text-main shadow-block-correct"
+              >
+                ✓
+              </Button>
+            </div>
           </div>
         </div>
       </div>
