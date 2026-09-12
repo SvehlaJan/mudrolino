@@ -39,6 +39,7 @@ interface SettingsCardProps {
 interface SettingsSectionProps {
   children: React.ReactNode;
   className?: string;
+  isModal?: boolean;
 }
 
 interface SettingsRangeCardProps {
@@ -51,6 +52,7 @@ interface SettingsRangeCardProps {
   onSelect: (value: number) => void;
   formatLabel?: (value: number) => string;
   className?: string;
+  isModal?: boolean;
 }
 
 interface SettingsNavCardProps {
@@ -66,7 +68,10 @@ function SettingsCard({ children, className }: SettingsCardProps) {
   return <Card className={className}>{children}</Card>;
 }
 
-function SettingsSection({ children, className }: SettingsSectionProps) {
+function SettingsSection({ children, className, isModal }: SettingsSectionProps) {
+  if (isModal) {
+    return <div className={cx('p-1 sm:p-2', className)}>{children}</div>;
+  }
   return <Card variant="inset" className={className}>{children}</Card>;
 }
 
@@ -106,9 +111,10 @@ function SettingsRangeCard({
   onSelect,
   formatLabel = String,
   className,
+  isModal,
 }: SettingsRangeCardProps) {
   return (
-    <SettingsSection className={className}>
+    <SettingsSection className={className} isModal={isModal}>
       <div className="flex items-start gap-4">
         {icon && (
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
@@ -142,14 +148,16 @@ function AdditionRepresentationCard({
   settings,
   onUpdate,
   className,
+  isModal,
 }: {
   settings: GameSettings;
   onUpdate: (settings: GameSettings) => void;
   className?: string;
+  isModal?: boolean;
 }) {
   const objectsDisabled = additionRangeForcesNumerals(settings.additionSumRange);
   return (
-    <SettingsSection className={className}>
+    <SettingsSection className={className} isModal={isModal}>
       <div className="flex items-start gap-4">
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
           <Eye size={24} className="sm:h-7 sm:w-7" />
@@ -182,15 +190,17 @@ function AdditionSumRangeCard({
   settings,
   onUpdate,
   className,
+  isModal,
 }: {
   settings: GameSettings;
   onUpdate: (settings: GameSettings) => void;
   className?: string;
+  isModal?: boolean;
 }) {
   return (
     <SettingsRangeCard
       icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
-      title="Rozsah sčítania"
+      title="Rozsah súčtu"
       description="Najväčší možný súčet."
       options={ADDITION_SUM_RANGE_OPTIONS}
       selected={settings.additionSumRange}
@@ -198,6 +208,7 @@ function AdditionSumRangeCard({
       formatLabel={(value) => String(value)}
       onSelect={(value) => onUpdate(applyAdditionSumRangeChange(settings, value as GameSettings['additionSumRange']))}
       className={className}
+      isModal={isModal}
     />
   );
 }
@@ -206,13 +217,15 @@ function CompleteLetterMissingCountCard({
   selected,
   onSelect,
   className,
+  isModal,
 }: {
   selected: GameSettings['completeLetterMissingCount'];
   onSelect: (value: GameSettings['completeLetterMissingCount']) => void;
   className?: string;
+  isModal?: boolean;
 }) {
   return (
-    <SettingsSection className={className}>
+    <SettingsSection className={className} isModal={isModal}>
       <div className="flex items-start gap-4">
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
           <Type size={24} className="sm:h-7 sm:w-7" />
@@ -252,16 +265,17 @@ export function SettingsContent({
   const visibility = SETTINGS_VISIBILITY[target];
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
+  const isModal = target !== 'home';
   const visibleCardsCount = Object.values(visibility).filter(Boolean).length;
-  const isSingleCard = target !== 'home' && visibleCardsCount === 1;
-  const singleCardClassName = isSingleCard ? 'landscape:col-span-2 max-w-lg mx-auto w-full' : undefined;
+  const isSingleCard = isModal && visibleCardsCount === 1;
+  const singleCardClassName = isSingleCard ? 'landscape:col-span-2 w-full' : undefined;
 
   return (
     <div
       className={cx(
-        'flex-1 min-h-0 overflow-y-auto p-3 sm:p-4 landscape:p-3',
-        target !== 'home'
-          ? 'space-y-3 sm:space-y-4 landscape:space-y-0 landscape:grid landscape:grid-cols-2 landscape:gap-3 landscape:items-start'
+        'flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 landscape:p-3',
+        isModal
+          ? 'space-y-4 landscape:space-y-0 landscape:grid landscape:grid-cols-2 landscape:gap-4 landscape:items-start divide-y landscape:divide-y-0 divide-shadow/15'
           : 'space-y-3 sm:space-y-4',
       )}
     >
@@ -308,7 +322,7 @@ export function SettingsContent({
       )}
 
       {visibility.alphabetAccents && (
-        <SettingsSection className={singleCardClassName}>
+        <SettingsSection className={singleCardClassName} isModal={isModal}>
           <ToggleControl
             label="Písmená s dĺžňami a mäkčeňmi"
             description="Rozšíriť hru o slovenské znaky."
@@ -326,6 +340,7 @@ export function SettingsContent({
           selected={settings.completeLetterMissingCount}
           onSelect={(value) => onUpdate({ ...settings, completeLetterMissingCount: value })}
           className={singleCardClassName}
+          isModal={isModal}
         />
       )}
 
@@ -340,6 +355,7 @@ export function SettingsContent({
           formatLabel={(value) => String(value)}
           onSelect={(value) => onUpdate({ ...settings, alphabetGridSize: value as GameSettings['alphabetGridSize'] })}
           className={singleCardClassName}
+          isModal={isModal}
         />
       )}
 
@@ -354,13 +370,14 @@ export function SettingsContent({
           formatLabel={(value) => String(value)}
           onSelect={(value) => onUpdate({ ...settings, syllablesGridSize: value as GameSettings['syllablesGridSize'] })}
           className={singleCardClassName}
+          isModal={isModal}
         />
       )}
 
       {visibility.numbersRange && (
         <SettingsRangeCard
           icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
-          title="Hra s číslami"
+          title="Rozsah čísel"
           description="Vyberte rozsah čísel pre hru."
           options={[5, 10, 20]}
           selected={settings.numbersRange.end}
@@ -368,25 +385,27 @@ export function SettingsContent({
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, numbersRange: { start: 1, end: value as 5 | 10 | 20 } })}
           className={singleCardClassName}
+          isModal={isModal}
         />
       )}
 
       {visibility.countingRange && (
         <SettingsRangeCard
           icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
-          title="Počítanie predmetov"
-          description="Vyberte rozsah pre počítanie predmetov."
+          title="Rozsah počítania"
+          description="Vyberte rozsah počítania predmetov."
           options={[5, 10]}
           selected={settings.countingRange.end}
-          activeClassName="bg-soft-watermelon"
+          activeClassName="bg-accent-blue"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, countingRange: { start: 1, end: value as 5 | 10 } })}
           className={singleCardClassName}
+          isModal={isModal}
         />
       )}
 
       {visibility.compareMode && (
-        <SettingsSection className={singleCardClassName}>
+        <SettingsSection className={singleCardClassName} isModal={isModal}>
           <div className="flex items-start gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
               <Eye size={24} className="sm:h-7 sm:w-7" />
@@ -414,7 +433,7 @@ export function SettingsContent({
       {visibility.compareRange && (
         <SettingsRangeCard
           icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
-          title="Viac alebo Menej"
+          title="Rozsah čísel"
           description="Vyberte rozsah čísel pre porovnávanie."
           options={[5, 10]}
           selected={settings.compareRange.end}
@@ -422,15 +441,16 @@ export function SettingsContent({
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, compareRange: { start: 1, end: value as 5 | 10 } })}
           className={singleCardClassName}
+          isModal={isModal}
         />
       )}
 
       {visibility.additionRepresentation && (
-        <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} />
+        <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} isModal={isModal} />
       )}
 
       {visibility.additionSumRange && (
-        <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} />
+        <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} isModal={isModal} />
       )}
 
       {target !== 'home' && visibleCardsCount === 0 && (
