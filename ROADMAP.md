@@ -63,6 +63,9 @@
 - [ ] Verify production build and deploy target
 - [x] Configure `VITE_WEB3FORMS_KEY` for private feedback collection
 - [x] Add browser favicon links so page loads stop requesting a missing `/favicon.ico` (this 404 turned every e2e console-error assertion red)
+- [x] Pre-launch UI audit across 7 viewports — see `docs/ui-audit/`
+- [ ] Fix audit ship blockers: parents gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
+- [ ] Fix audit accessibility findings: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
 
@@ -323,3 +326,5 @@
 | 2026-09-12 | Contextual hierarchy shadow system (Option 1) | Replaced heavy, flat 8px block shadows on floating modals with soft diffused elevation (.shadow-modal); refined buttons to tactile 5px block shadows with 4px press travel; added 3px micro-chip lift for active segment choices. |
 
 
+| 2026-09-13 | Screenshot sweep is a tool, not a test (`npm run shots`) | UI review needs broad viewport coverage without the brittleness of visual-diff assertions; `tools/screenshots/capture.mjs` captures 39 scenes × 7 viewports and asserts nothing, so it never fails a build on a rendering difference. It answers the parents gate by reading its own arithmetic rather than adding a skip-the-gate flag, keeping the production bundle free of test backdoors. |
+| 2026-09-13 | Pre-launch UI audit findings recorded in `docs/ui-audit/` | Audit found 5 ship blockers (chief among them: the parents gate is bypassable by a single Back press), WCAG failures on every `opacity-55` description at 2.66:1, no `prefers-reduced-motion` guard anywhere, and a styling layer where over 100 `!important` uses fight the app's own primitives. The 2026-09-12 contrast pass fixed active choice tiles but not muted description text or game chips; the landscape fix landed on the in-game overlay but not the `/settings` route. |
