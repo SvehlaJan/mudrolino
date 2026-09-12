@@ -392,8 +392,8 @@ export function UiKitScreen() {
       <Section title="Forms">
         <Card className="space-y-5">
           <ToggleControl
-            label="Hudba"
-            description="Hudba na pozadí počas hrania"
+            label="Zvukové efekty"
+            description="Zvuková odozva pri klepnutí"
             checked
             onToggle={() => undefined}
             icon={<Volume2 size={24} />}

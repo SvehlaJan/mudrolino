@@ -5,12 +5,10 @@
 
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Languages, MessageSquare, Mic, Music, Type } from 'lucide-react';
+import { Languages, MessageSquare, Mic, Type } from 'lucide-react';
 import { GameSettings, SettingsTarget } from '../types';
-import { audioManager } from '../services/audioManager';
 import { additionRangeForcesNumerals, applyAdditionSumRangeChange } from '../services/settingsService';
 import { FeedbackModal } from './FeedbackModal';
-import { hasFeedbackKey } from '../services/feedbackService';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
 import { Button, Card, SegmentedChoice, ToggleControl } from '../ui';
 import { AppSettings, AppFontFamily, applyFontFamily } from '../services/appSettingsStore';
@@ -177,23 +175,6 @@ export function SettingsContent({
 
   return (
     <div className="flex-1 min-h-0 space-y-3 sm:space-y-4 overflow-y-auto p-3 sm:p-4 landscape:p-3">
-      {visibility.music && (
-        <SettingsCard>
-          <ToggleControl
-            label="Hudba"
-            description="Hudba na pozadí počas hrania"
-            icon={<Music size={24} className="sm:h-7 sm:w-7" />}
-            iconBackgroundClassName="bg-shadow/35"
-            checked={settings.music}
-            onToggle={() => {
-              const newMusic = !settings.music;
-              audioManager.updateSettings({ music: newMusic });
-              onUpdate({ ...settings, music: newMusic });
-            }}
-          />
-        </SettingsCard>
-      )}
-
       {appSettings && onUpdateAppSettings && (
         <SettingsCard>
           <div className="flex items-start gap-4">
@@ -354,7 +335,7 @@ export function SettingsContent({
         <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} />
       )}
 
-      {hasFeedbackKey() && (
+      {target === 'home' && (
         <SettingsCard>
           <div className="flex items-start gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">

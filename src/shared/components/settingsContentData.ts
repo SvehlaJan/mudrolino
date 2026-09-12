@@ -21,7 +21,6 @@ export const SETTINGS_SUBTITLES: Record<SettingsTarget, string> = {
 };
 
 export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
-  music: boolean;
   recordings: boolean;
   alphabetAccents: boolean;
   alphabetGridSize: boolean;
@@ -35,7 +34,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
   additionRepresentation: boolean;
 }> = {
   home: {
-    music: true,
     recordings: true,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -49,7 +47,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   ALPHABET: {
-    music: true,
     recordings: false,
     alphabetAccents: true,
     alphabetGridSize: true,
@@ -63,7 +60,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   SYLLABLES: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -77,7 +73,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   NUMBERS: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -91,7 +86,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   COUNTING_ITEMS: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -105,7 +99,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   WORDS: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -119,7 +112,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   FIRST_LETTER: {
-    music: true,
     recordings: false,
     alphabetAccents: true,
     alphabetGridSize: false,
@@ -133,7 +125,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   ASSEMBLY: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -147,7 +138,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   COMPLETE_SYLLABLE: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -161,7 +151,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   COMPLETE_LETTER: {
-    music: true,
     recordings: false,
     alphabetAccents: true,
     alphabetGridSize: false,
@@ -175,7 +164,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   COMPARE_QUANTITIES: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,
@@ -189,7 +177,6 @@ export const SETTINGS_VISIBILITY: Record<SettingsTarget, {
     additionRepresentation: false,
   },
   ADDITION: {
-    music: true,
     recordings: false,
     alphabetAccents: false,
     alphabetGridSize: false,

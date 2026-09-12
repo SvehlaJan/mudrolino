@@ -132,9 +132,8 @@ export default function App() {
     }
   }, [location.pathname]);
 
-  // Sync settings with AudioManager
+  // Sync settings with storage
   useEffect(() => {
-    audioManager.updateSettings(settings);
     saveSettings(settings);
   }, [settings]);
 

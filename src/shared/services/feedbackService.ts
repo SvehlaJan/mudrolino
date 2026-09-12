@@ -38,7 +38,13 @@ export function hasFeedbackKey(): boolean {
 
 export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
   const key = import.meta.env.VITE_WEB3FORMS_KEY;
-  if (!key) throw new Error('VITE_WEB3FORMS_KEY is not configured');
+  if (!key) {
+    if (import.meta.env.DEV) {
+      console.info('[Feedback DEV mode] Feedback submitted without API key:', payload);
+      return;
+    }
+    throw new Error('VITE_WEB3FORMS_KEY is not configured');
+  }
   const metadata = collectMetadata(payload.screen);
 
   const res = await fetch('https://api.web3forms.com/submit', {

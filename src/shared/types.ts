@@ -11,7 +11,6 @@ export type SettingsTarget = 'home' | GameId;
 export type CompleteLetterMissingCount = 1 | 2 | 'adaptive';
 
 export interface GameSettings {
-  music: boolean;
   alphabetGridSize: 4 | 6 | 8;
   alphabetAccents: boolean;
   syllablesGridSize: 4 | 6;

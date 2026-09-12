@@ -11,8 +11,6 @@ import { audioOverrideStore } from './audioOverrideStore';
 export class AudioManager {
   private synth: SpeechSynthesis = window.speechSynthesis;
   private currentAudio: HTMLAudioElement | null = null;
-  private musicAudio: HTMLAudioElement | null = null;
-  private musicEnabled = false;
   private playbackToken = 0;
   private locale = 'sk';
 
@@ -20,22 +18,6 @@ export class AudioManager {
     this.locale = loadAppSettings().locale;
     if (this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged = () => {};
-    }
-  }
-
-  updateSettings(settings: { music: boolean }): void {
-    this.musicEnabled = settings.music;
-    if (this.musicEnabled) {
-      if (!this.musicAudio) {
-        this.musicAudio = new Audio('/audio/music/background.mp3');
-        this.musicAudio.loop = true;
-        this.musicAudio.volume = 0.4;
-      }
-      this.musicAudio.play().catch(() => {});
-    } else {
-      if (this.musicAudio) {
-        this.musicAudio.pause();
-      }
     }
   }
 
