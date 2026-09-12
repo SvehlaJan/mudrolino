@@ -70,7 +70,7 @@ function SettingsCard({ children, className }: SettingsCardProps) {
 
 function SettingsSection({ children, className, isModal }: SettingsSectionProps) {
   if (isModal) {
-    return <div className={cx('p-1 sm:p-2', className)}>{children}</div>;
+    return <div className={cx('p-1 sm:p-2 pt-3 sm:pt-4 first:pt-0', className)}>{children}</div>;
   }
   return <Card variant="inset" className={className}>{children}</Card>;
 }
@@ -128,7 +128,7 @@ function SettingsRangeCard({
           </p>
         </div>
       </div>
-      <div className="mt-5">
+      <div className="mt-4 landscape:mt-2">
         <SegmentedChoice
           options={options}
           selected={selected}
@@ -171,7 +171,7 @@ function AdditionRepresentationCard({
           </p>
         </div>
       </div>
-      <div className="mt-5">
+      <div className="mt-4 landscape:mt-2">
         <SegmentedChoice
           options={['objects', 'numerals'] as const}
           selected={settings.additionRepresentation}
@@ -237,7 +237,7 @@ function CompleteLetterMissingCountCard({
           </p>
         </div>
       </div>
-      <div className="mt-5">
+      <div className="mt-4 landscape:mt-2">
         <SegmentedChoice
           options={COMPLETE_LETTER_MISSING_COUNT_OPTIONS}
           selected={selected}
@@ -267,15 +267,14 @@ export function SettingsContent({
 
   const isModal = target !== 'home';
   const visibleCardsCount = Object.values(visibility).filter(Boolean).length;
-  const isSingleCard = isModal && visibleCardsCount === 1;
-  const singleCardClassName = isSingleCard ? 'landscape:col-span-2 w-full' : undefined;
+  const singleCardClassName = undefined;
 
   return (
     <div
       className={cx(
-        'flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 landscape:p-3',
+        'flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 landscape:p-2.5',
         isModal
-          ? 'space-y-4 landscape:space-y-0 landscape:grid landscape:grid-cols-2 landscape:gap-4 landscape:items-start divide-y landscape:divide-y-0 divide-shadow/15'
+          ? 'space-y-4 landscape:space-y-2 divide-y divide-shadow/15'
           : 'space-y-3 sm:space-y-4',
       )}
     >
@@ -417,7 +416,7 @@ export function SettingsContent({
               </p>
             </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-4 landscape:mt-2">
             <SegmentedChoice
               options={['objects', 'numerals'] as const}
               selected={settings.compareMode}

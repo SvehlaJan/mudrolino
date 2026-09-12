@@ -7,8 +7,8 @@ import React, { useEffect } from 'react';
 import { Check, X } from 'lucide-react';
 import { GameId, GameSettings } from '../types';
 import { SettingsContent } from './SettingsContent';
-import { SETTINGS_VISIBILITY, getSettingsSubtitle } from './settingsContentData';
-import { Button, Card, cx } from '../ui';
+import { getSettingsSubtitle } from './settingsContentData';
+import { Button, Card } from '../ui';
 
 interface SettingsOverlayProps {
   gameId: GameId;
@@ -28,10 +28,6 @@ export function SettingsOverlay({ gameId, settings, onUpdate, onClose }: Setting
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  const visibility = SETTINGS_VISIBILITY[gameId];
-  const visibleCardsCount = visibility ? Object.values(visibility).filter(Boolean).length : 0;
-  const isMultiCard = visibleCardsCount > 1;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-light/95 backdrop-blur-md p-2 sm:p-4 landscape:p-2">
       <Card
@@ -39,10 +35,7 @@ export function SettingsOverlay({ gameId, settings, onUpdate, onClose }: Setting
         role="dialog"
         aria-modal="true"
         aria-labelledby="settings-overlay-title"
-        className={cx(
-          'max-h-[94vh] landscape:max-h-[96vh] w-full flex flex-col overflow-hidden p-0',
-          isMultiCard ? 'max-w-lg landscape:max-w-3xl' : 'max-w-md'
-        )}
+        className="max-h-[94vh] landscape:max-h-[96vh] w-full max-w-md flex flex-col overflow-hidden p-0"
       >
         <div className="relative shrink-0 border-b-2 border-shadow/30 bg-bg-light/50 p-3 sm:p-4 landscape:py-2 text-center">
           <h2 id="settings-overlay-title" className="mb-0.5 text-xl font-bold sm:text-2xl landscape:text-xl">Rodičovská zóna</h2>
