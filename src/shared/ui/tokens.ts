@@ -12,7 +12,7 @@ export const uiTokens = {
     wide: 'max-w-7xl',
   },
   iconButton:
-    'w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white text-text-main shadow-block flex items-center justify-center transition-all active:translate-y-2 active:shadow-block-pressed disabled:opacity-40 disabled:cursor-not-allowed',
+    'w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white text-text-main shadow-block flex items-center justify-center transition-all active:translate-y-1 active:shadow-block-pressed disabled:opacity-40 disabled:cursor-not-allowed',
   card:
     'rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_12px_28px_rgba(93,69,62,0.06)] sm:rounded-[32px] sm:p-6',
   panel:
@@ -20,5 +20,5 @@ export const uiTokens = {
   insetPanel:
     'rounded-[24px] border border-shadow/15 bg-bg-light/35 p-4 sm:rounded-[28px] sm:p-5',
   pressable:
-    'transition-all active:translate-y-2 active:shadow-block-pressed disabled:translate-y-0',
+    'transition-all active:translate-y-1 active:shadow-block-pressed disabled:translate-y-0',
 };

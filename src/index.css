@@ -92,19 +92,23 @@ body {
 }
 
 .shadow-block {
-  box-shadow: 0px 8px 0px var(--color-shadow), 0px 16px 24px rgba(93, 69, 62, 0.08);
+  box-shadow: 0px 5px 0px var(--color-shadow), 0px 10px 16px rgba(93, 69, 62, 0.08);
 }
 
 .shadow-block-pressed {
-  box-shadow: inset 0px 6px 12px var(--color-shadow);
+  box-shadow: inset 0px 4px 8px var(--color-shadow);
 }
 
 .shadow-block-correct {
-  box-shadow: 0px 8px 0px #92CBB5, 0px 16px 24px rgba(93, 69, 62, 0.15);
+  box-shadow: 0px 5px 0px #92CBB5, 0px 10px 16px rgba(93, 69, 62, 0.15);
 }
 
 .shadow-chip {
-  box-shadow: 0px 5px 0px var(--color-shadow), 0px 10px 16px rgba(93, 69, 62, 0.06);
+  box-shadow: 0px 3px 0px var(--color-shadow), 0px 6px 12px rgba(93, 69, 62, 0.08);
+}
+
+.shadow-modal {
+  box-shadow: 0px 24px 48px -12px rgba(93, 69, 62, 0.22), 0px 8px 20px -4px rgba(93, 69, 62, 0.08);
 }
 
 /* Safe-area-aware positioning for fixed corner buttons */

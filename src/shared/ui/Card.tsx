@@ -18,7 +18,7 @@ const variantClasses: Record<CardVariant, string> = {
   panel: uiTokens.panel,
   inset: uiTokens.insetPanel,
   row: 'rounded-2xl border-2 border-transparent bg-white px-4 py-3',
-  modal: 'rounded-[32px] border-4 border-white bg-white shadow-block sm:rounded-[40px]',
+  modal: 'rounded-[32px] border-4 border-white bg-white shadow-modal sm:rounded-[40px]',
 };
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(

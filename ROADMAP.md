@@ -320,4 +320,6 @@
 | 2026-09-12 | Delete background music; make feedback unconditionally visible on main settings | Background music feature removed from types, audioManager, and settings UI as games do not use it; feedback card made unconditionally visible on home settings screen with dev-mode fallback. |
 | 2026-09-12 | Settings UI consistency, WCAG AA contrast, and landscape overhaul | Replaced low-contrast white-on-pastel active choices with brand text-text-main (5.2:1+ contrast); converted /settings cards into pressable nav cards with chevron; added 2-column landscape grid in game settings overlays to eliminate scrolling; switched modal action to quiet "Hotovo" with dialog a11y. |
 | 2026-09-12 | Frameless settings presentation, adaptive dialog sizing, and dismiss ergonomics | Eliminated nested card-in-a-box framing in in-game settings overlays; sized single-setting dialogs to compact max-w-md; added top-right X close button and centered Hotovo action; harmonized setting titles to avoid echoing game names. |
+| 2026-09-12 | Contextual hierarchy shadow system (Option 1) | Replaced heavy, flat 8px block shadows on floating modals with soft diffused elevation (.shadow-modal); refined buttons to tactile 5px block shadows with 4px press travel; added 3px micro-chip lift for active segment choices. |
+
 
