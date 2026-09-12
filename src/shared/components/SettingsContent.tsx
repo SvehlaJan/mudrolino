@@ -29,11 +29,6 @@ interface SettingsCardProps {
   children: React.ReactNode;
 }
 
-interface GameSettingsGroupCardProps {
-  title: string;
-  children: React.ReactNode;
-}
-
 interface SettingsSectionProps {
   children: React.ReactNode;
 }
@@ -52,17 +47,6 @@ const COMPLETE_LETTER_MISSING_COUNT_OPTIONS = [1, 2, 'adaptive'] as const;
 
 function SettingsCard({ children }: SettingsCardProps) {
   return <Card>{children}</Card>;
-}
-
-function GameSettingsGroupCard({ title, children }: GameSettingsGroupCardProps) {
-  return (
-    <SettingsCard>
-      <h3 className="text-xl font-bold sm:text-2xl">{title}</h3>
-      <div className="mt-4 space-y-4">
-        {children}
-      </div>
-    </SettingsCard>
-  );
 }
 
 function SettingsSection({ children }: SettingsSectionProps) {
@@ -194,7 +178,7 @@ export function SettingsContent({
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   return (
-    <div className="flex-1 space-y-4 overflow-y-auto p-4 sm:space-y-5 sm:p-8">
+    <div className="flex-1 min-h-0 space-y-4 overflow-y-auto p-3 sm:space-y-5 sm:p-6">
       {visibility.music && (
         <SettingsCard>
           <ToggleControl
@@ -266,39 +250,7 @@ export function SettingsContent({
         </SettingsCard>
       )}
 
-      {visibility.alphabetAccents && isHome && (
-        <GameSettingsGroupCard title="Abeceda">
-          <ToggleControl
-            label="Písmená s dĺžňami a mäkčeňmi"
-            description="Rozšíriť hru o slovenské znaky."
-            icon={<Languages size={24} className="sm:h-7 sm:w-7" />}
-            iconBackgroundClassName="bg-accent-blue/35"
-            checked={settings.alphabetAccents}
-            onToggle={() => onUpdate({ ...settings, alphabetAccents: !settings.alphabetAccents })}
-            activeColorClassName="bg-accent-blue"
-          />
-          <SettingsRangeCard
-            title="Počet kariet"
-            description="Vyberte počet kariet v hre."
-            options={[4, 6, 8]}
-            selected={settings.alphabetGridSize}
-            activeClassName="bg-accent-blue"
-            formatLabel={(value) => String(value)}
-            onSelect={(value) => onUpdate({ ...settings, alphabetGridSize: value as GameSettings['alphabetGridSize'] })}
-          />
-        </GameSettingsGroupCard>
-      )}
-
-      {visibility.completeLetterMissingCount && isHome && (
-        <GameSettingsGroupCard title="Doplň písmeno">
-          <CompleteLetterMissingCountCard
-            selected={settings.completeLetterMissingCount}
-            onSelect={(value) => onUpdate({ ...settings, completeLetterMissingCount: value })}
-          />
-        </GameSettingsGroupCard>
-      )}
-
-      {visibility.alphabetAccents && !isHome && (
+      {visibility.alphabetAccents && (
         <SettingsCard>
           <ToggleControl
             label="Písmená s dĺžňami a mäkčeňmi"
@@ -312,14 +264,14 @@ export function SettingsContent({
         </SettingsCard>
       )}
 
-      {visibility.completeLetterMissingCount && !isHome && (
+      {visibility.completeLetterMissingCount && (
         <CompleteLetterMissingCountCard
           selected={settings.completeLetterMissingCount}
           onSelect={(value) => onUpdate({ ...settings, completeLetterMissingCount: value })}
         />
       )}
 
-      {visibility.alphabetGridSize && !isHome && (
+      {visibility.alphabetGridSize && (
         <SettingsRangeCard
           title="Počet kariet"
           description="Vyberte počet kariet v hre."
@@ -331,21 +283,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.syllablesGridSize && isHome && (
-        <GameSettingsGroupCard title="Slabiky">
-          <SettingsRangeCard
-            title="Počet kariet"
-            description="Vyberte počet kariet v hre."
-            options={[4, 6]}
-            selected={settings.syllablesGridSize}
-            activeClassName="bg-primary"
-            formatLabel={(value) => String(value)}
-            onSelect={(value) => onUpdate({ ...settings, syllablesGridSize: value as GameSettings['syllablesGridSize'] })}
-          />
-        </GameSettingsGroupCard>
-      )}
-
-      {visibility.syllablesGridSize && !isHome && (
+      {visibility.syllablesGridSize && (
         <SettingsRangeCard
           title="Počet kariet"
           description="Vyberte počet kariet v hre."
@@ -357,21 +295,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.numbersRange && isHome && (
-        <GameSettingsGroupCard title="Čísla">
-          <SettingsRangeCard
-            title="Rozsah čísel"
-            description="Vyberte rozsah čísel pre hru."
-            options={[5, 10, 20]}
-            selected={settings.numbersRange.end}
-            activeClassName="bg-accent-blue"
-            formatLabel={(value) => `1 - ${value}`}
-            onSelect={(value) => onUpdate({ ...settings, numbersRange: { start: 1, end: value as 5 | 10 | 20 } })}
-          />
-        </GameSettingsGroupCard>
-      )}
-
-      {visibility.numbersRange && !isHome && (
+      {visibility.numbersRange && (
         <SettingsRangeCard
           title="Hra s číslami"
           description="Vyberte rozsah čísel pre hru."
@@ -383,21 +307,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.countingRange && isHome && (
-        <GameSettingsGroupCard title="Počítanie">
-          <SettingsRangeCard
-            title="Rozsah počítania"
-            description="Vyberte rozsah pre počítanie predmetov."
-            options={[5, 10]}
-            selected={settings.countingRange.end}
-            activeClassName="bg-soft-watermelon"
-            formatLabel={(value) => `1 - ${value}`}
-            onSelect={(value) => onUpdate({ ...settings, countingRange: { start: 1, end: value as 5 | 10 } })}
-          />
-        </GameSettingsGroupCard>
-      )}
-
-      {visibility.countingRange && !isHome && (
+      {visibility.countingRange && (
         <SettingsRangeCard
           title="Počítanie predmetov"
           description="Vyberte rozsah pre počítanie predmetov."
@@ -409,37 +319,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.compareRange && isHome && (
-        <GameSettingsGroupCard title="Viac alebo Menej">
-          <SettingsSection>
-            <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
-            <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
-              Predmety na počítanie, alebo napísané čísla.
-            </p>
-            <div className="mt-5">
-              <SegmentedChoice
-                options={['objects', 'numerals'] as const}
-                selected={settings.compareMode}
-                activeClassName="bg-accent-blue"
-                formatLabel={(value) => (value === 'objects' ? 'Predmety' : 'Čísla')}
-                onSelect={(value) => onUpdate({ ...settings, compareMode: value })}
-                columns={2}
-              />
-            </div>
-          </SettingsSection>
-          <SettingsRangeCard
-            title="Rozsah porovnávania"
-            description="Vyberte rozsah čísel pre porovnávanie."
-            options={[5, 10]}
-            selected={settings.compareRange.end}
-            activeClassName="bg-accent-blue"
-            formatLabel={(value) => `1 - ${value}`}
-            onSelect={(value) => onUpdate({ ...settings, compareRange: { start: 1, end: value as 5 | 10 } })}
-          />
-        </GameSettingsGroupCard>
-      )}
-
-      {visibility.compareMode && !isHome && (
+      {visibility.compareMode && (
         <SettingsSection>
           <h3 className="text-xl font-bold sm:text-2xl">Zobrazenie</h3>
           <p className="mt-1 text-sm font-medium opacity-55 sm:text-base">
@@ -458,7 +338,7 @@ export function SettingsContent({
         </SettingsSection>
       )}
 
-      {visibility.compareRange && !isHome && (
+      {visibility.compareRange && (
         <SettingsRangeCard
           title="Viac alebo Menej"
           description="Vyberte rozsah čísel pre porovnávanie."
@@ -470,18 +350,11 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.additionSumRange && isHome && (
-        <GameSettingsGroupCard title="Sčítaj">
-          <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} />
-          <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} />
-        </GameSettingsGroupCard>
-      )}
-
-      {visibility.additionRepresentation && !isHome && (
+      {visibility.additionRepresentation && (
         <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} />
       )}
 
-      {visibility.additionSumRange && !isHome && (
+      {visibility.additionSumRange && (
         <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} />
       )}
 

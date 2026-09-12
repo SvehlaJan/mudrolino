@@ -23,7 +23,7 @@ function renderTitle(title: string) {
   return title.split('').map((char, i) => (
     <span
       key={`${title}-${i}`}
-      className={`${COLORS[i % COLORS.length]} inline-block py-2`}
+      className={`${COLORS[i % COLORS.length]} inline-block py-1 sm:py-2`}
       style={{
         transform: `rotate(${Math.sin(i) * 10}deg) translateY(${Math.cos(i) * 10}px)`,
         textShadow: '0px 4px 0px white, 0px 8px 0px var(--color-shadow)',
@@ -64,17 +64,18 @@ export function GameLobby({
   return (
     <AppScreen>
       <TopBar
+        className="relative z-20"
         left={<BackButton onClick={onBack} />}
         right={settingsButton}
       />
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-8 px-4 pt-4 sm:pt-6 pb-5 sm:pb-6">
-        <div className="text-center w-full max-w-5xl px-4 py-2 shrink-0">
-          <h1 className="text-[clamp(3rem,10vw,6.5rem)] font-black flex flex-wrap justify-center gap-1 sm:gap-3 select-none leading-[0.95]">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3 sm:gap-6 md:gap-8 px-4 py-2 sm:py-3 md:py-6">
+        <div className="text-center w-full max-w-5xl px-4 py-1 sm:py-2 shrink-0">
+          <h1 className="text-[clamp(2.5rem,min(8vw,14vh),6.5rem)] font-black flex flex-wrap justify-center gap-1 sm:gap-3 select-none leading-[0.95]">
             {renderTitle(title)}
           </h1>
           {subtitle && (
-            <p className="text-[clamp(1.1rem,2.7vw,1.7rem)] font-bold opacity-55 mt-3">
+            <p className="text-[clamp(1rem,min(2.5vw,3.5vh),1.7rem)] font-bold opacity-55 mt-1.5 sm:mt-3">
               {subtitle}
             </p>
           )}
