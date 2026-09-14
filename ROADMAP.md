@@ -64,8 +64,18 @@
 - [x] Configure `VITE_WEB3FORMS_KEY` for private feedback collection
 - [x] Add browser favicon links so page loads stop requesting a missing `/favicon.ico` (this 404 turned every e2e console-error assertion red)
 - [x] Pre-launch UI audit across 7 viewports — see `docs/ui-audit/`
-- [ ] Fix audit ship blockers: parents gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
-- [ ] Fix audit accessibility findings: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
+- [x] Approve full-app pre-publication redesign specification (`docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`)
+- [ ] Complete full-app UI redesign before publication (all eight sequential phases below)
+  - [ ] Phase 1 — baseline, protected-route safety, test-only parent-gate adapter, and regression scaffolding
+  - [ ] Phase 2 — Radix-backed component-library, token, responsive, motion, and accessibility foundation
+  - [ ] Phase 3 — scalable game catalog, grouped home, and all game lobbies
+  - [ ] Phase 4 — parent dashboard, settings registry, custom content, recordings, and feedback
+  - [ ] Phase 5 — shared game shell and Abeceda/Slabiky/Čísla/Slová migration
+  - [ ] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration
+  - [ ] Phase 7 — Spočítaj/Viac alebo menej/Sčítaj migration
+  - [ ] Phase 8 — release hardening and final Codex design review
+- [ ] Fix audit ship blockers through redesign phases: parent-gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
+- [ ] Fix audit accessibility findings through redesign phases: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
 
@@ -102,6 +112,8 @@
 
 ### 1.5 Avatar Companion and Customization
 > Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The historical Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but the app-facing runtime now uses the plain male base at `public/avatar/modular/male-base-plain.glb` plus separate garment GLBs under `public/avatar/garments/`. Old `public/avatar/meshy` POC GLBs are no longer current published assets; related source/provenance remains under `meshy_output/`.
+>
+> Remaining avatar work is outside the 2026-09 pre-publication UI redesign. The future product direction is a robust friendly buddy that cheers children, after the 3D models and runtime are improved in a dedicated phase.
 
 - [x] Avatar companion design spec (`docs/superpowers/specs/`)
 - [x] Local avatar runtime under `src/avatar/`
@@ -142,6 +154,7 @@
 - [x] **Viac alebo Menej** — quantity comparison game (two object piles, tap the one with more; numeral-comparison mode as a setting). Spec: `docs/superpowers/specs/2026-09-02-compare-quantities-game-design.md`.
 - [x] **Sčítaj** — simple addition game (two object/numeral groups combined, tap the matching sum; sum range and representation mode as settings). Spec: `docs/superpowers/specs/2026-09-04-addition-game-design.md`.
 - [ ] Further arithmetic games (e.g. subtraction) anticipated as follow-ups once addition ships and is validated.
+- [ ] Persistent child gamification (achievements, stickers, toy shelf, streaks, or progression) only after the full-app redesign ships and receives real usage feedback.
 
 ---
 
@@ -278,10 +291,10 @@
 - [ ] Image/emoji asset optimization audit
 
 ### Accessibility
-- [ ] **AC1** — Keyboard navigation (arrow keys, Enter, Space on game grids)
+- [ ] **AC1** — Keyboard navigation (arrow keys, Enter, Space on all child answer patterns) — required by full-app redesign Phases 5–8 before publication
 - [x] **AC2** — ARIA labels on icon-only/game buttons
 - [x] **AC3** — Emoji text alternatives in SuccessOverlay/session feedback
-> AC1 remains deferred because the primary target is preschool touch use.
+> Touch remains the primary child input, but AC1 is no longer deferred: the universal UI contract requires keyboard access before publication.
 
 ### Tech Debt
 - [ ] Extract a shared session/timer-guard hook (`sessionTokenRef` + timer cleanup + `MAX_ROUNDS`/`finishRound` handoff) — `CompleteSyllableGame`, `CompareQuantitiesGame`, `CountingItemsGame`, and `AdditionGame` each hand-roll near-identical versions of this. Flagged during the addition game's design (`docs/superpowers/specs/2026-09-04-addition-game-design.md`) rather than folded into that work, since it means refactoring already-shipped games as a side effect of adding a new one.
@@ -328,3 +341,7 @@
 
 | 2026-09-13 | Screenshot sweep is a tool, not a test (`npm run shots`) | UI review needs broad viewport coverage without the brittleness of visual-diff assertions; `tools/screenshots/capture.mjs` captures 39 scenes × 7 viewports and asserts nothing, so it never fails a build on a rendering difference. It answers the parents gate by reading its own arithmetic rather than adding a skip-the-gate flag, keeping the production bundle free of test backdoors. |
 | 2026-09-13 | Pre-launch UI audit findings recorded in `docs/ui-audit/` | Audit found 5 ship blockers (chief among them: the parents gate is bypassable by a single Back press), WCAG failures on every `opacity-55` description at 2.66:1, no `prefers-reduced-motion` guard anywhere, and a styling layer where over 100 `!important` uses fight the app's own primitives. The 2026-09-12 contrast pass fixed active choice tiles but not muted description text or game chips; the landscape fix landed on the in-game overlay but not the `/settings` route. |
+| 2026-09-14 | The complete foundation-first UI redesign is required before publication. | The approved design pairs a Living Toybox child experience with a calm parent dashboard, preserves the shared palette and light game cards, uses Radix behind repo-owned components, and requires universal functionality across desktop, tablet, portrait phone, and landscape phone. |
+| 2026-09-14 | The redesign excludes the avatar and persistent gamification. | The future avatar should be a robust friendly buddy that cheers children after its 3D models and runtime improve; achievements and deeper gamification remain backlog work rather than expanding the publication-critical redesign. |
+| 2026-09-14 | Redesign phases will be implemented sequentially by fresh Antigravity Gemini 3.8 Flash agents using subagent-driven development, followed by final Codex review. | Self-contained phase plans and clean handoffs prevent hidden conversational dependencies while keeping each independently verified phase based on the previous accepted commit. |
+| 2026-09-14 | Test-mode builds expose a parent-gate automation adapter; production builds do not. | This supersedes the 2026-09-13 tooling choice only for `mode=test`: gate-specific tests still exercise the real keypad, while unrelated E2E and screenshot scenes can quick-pass deterministically and a production assertion prevents the adapter from shipping. |
