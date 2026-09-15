@@ -67,7 +67,7 @@
 - [x] Approve full-app pre-publication redesign specification (`docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`)
 - [x] Write eight self-contained sequential implementation plans and Antigravity handoff index (`docs/superpowers/plans/2026-09-14-ui-redesign-implementation-index.md`)
 - [ ] Complete full-app UI redesign before publication (all eight sequential phases below)
-  - [ ] Phase 1 — baseline, protected-route safety, test-only parent-gate adapter, and regression scaffolding
+  - [~] Phase 1 — baseline, protected-route safety, test-only parent-gate adapter, and regression scaffolding (implementation complete, pending Codex acceptance)
   - [ ] Phase 2 — Radix-backed component-library, token, responsive, motion, and accessibility foundation
   - [ ] Phase 3 — scalable game catalog, grouped home, and all game lobbies
   - [ ] Phase 4 — parent dashboard, settings registry, custom content, recordings, and feedback
