@@ -56,6 +56,8 @@ function parseArgs(args) {
     }
   }
 
+  base = base.replace(/\/+$/, '');
+
   return { base, scenes, viewports, output };
 }
 
@@ -64,8 +66,6 @@ const SCENES = {
     await page.goto(`${baseUrl}/settings`);
     await page.getByRole('heading', { name: 'Pre rodičov' }).waitFor({ state: 'visible' });
     await page.getByRole('button', { name: '1', exact: true }).waitFor({ state: 'visible' });
-    await page.evaluate(() => document.fonts.ready);
-    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   },
   'parents-gate-error': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/settings`);
@@ -86,8 +86,6 @@ const SCENES = {
     }
     await page.getByRole('button', { name: 'Potvrdiť' }).click();
     await page.locator('.animate-shake').waitFor({ state: 'visible' });
-    await page.evaluate(() => document.fonts.ready);
-    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   },
   'settings': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/settings`);
@@ -102,8 +100,6 @@ const SCENES = {
     }
     await page.evaluate(() => window.__E2E__.parentGate.unlock());
     await page.getByRole('heading', { name: 'Rodičovská zóna' }).waitFor({ state: 'visible' });
-    await page.evaluate(() => document.fonts.ready);
-    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   },
   'content': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/content`);
@@ -118,13 +114,12 @@ const SCENES = {
     }
     await page.evaluate(() => window.__E2E__.parentGate.unlock());
     await page.getByRole('heading', { name: 'Vlastný obsah' }).waitFor({ state: 'visible' });
-    await page.evaluate(() => document.fonts.ready);
-    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   },
 };
 
 async function main() {
   const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg } = parseArgs(process.argv.slice(2));
+  const baseOrigin = new URL(base).origin;
 
   const targetScenes = inputScenes.length > 0 ? inputScenes : Object.keys(SCENES);
   for (const scene of targetScenes) {
@@ -196,7 +191,6 @@ async function main() {
             if (failure?.errorText === 'net::ERR_ABORTED') return;
             try {
               const reqOrigin = new URL(req.url()).origin;
-              const baseOrigin = new URL(base).origin;
               if (reqOrigin === baseOrigin) {
                 failedRequests.push(`${req.method()} ${req.url()} — ${failure?.errorText ?? 'unknown error'}`);
               }
@@ -207,7 +201,6 @@ async function main() {
           page.on('response', (res) => {
             try {
               const resOrigin = new URL(res.url()).origin;
-              const baseOrigin = new URL(base).origin;
               if (resOrigin === baseOrigin && res.status() >= 400) {
                 failedRequests.push(`${res.request().method()} ${res.url()} — HTTP ${res.status()}`);
               }
@@ -225,6 +218,9 @@ async function main() {
             if (failedRequests.length > 0) {
               throw new Error(`Failed same-origin requests in scene "${sceneName}" [${viewportName}]:\n${failedRequests.join('\n')}`);
             }
+
+            await page.evaluate(() => document.fonts.ready);
+            await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 
             const sceneDir = path.join(outputDir, sceneName);
             fs.mkdirSync(sceneDir, { recursive: true });

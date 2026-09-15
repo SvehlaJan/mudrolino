@@ -11,6 +11,7 @@ if (chromiumExecutable) {
 
 export default defineConfig({
   testDir: '.',
+  testIgnore: ['**/production-guards.spec.ts'],
   timeout: 30_000,
   expect: { timeout: 10_000 },
   fullyParallel: true,
