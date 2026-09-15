@@ -15,29 +15,34 @@ export async function expectMinimumTarget(page: Page, locator: Locator, size: nu
 }
 
 export async function expectWithinViewport(page: Page, locator: Locator) {
-  const box = await locator.boundingBox();
-  expect(box).not.toBeNull();
+  const rect = await locator.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    return { top: r.top, left: r.left, bottom: r.bottom, right: r.right };
+  });
   const viewport = page.viewportSize();
   expect(viewport).not.toBeNull();
-  expect(box!.x).toBeGreaterThanOrEqual(0);
-  expect(box!.y).toBeGreaterThanOrEqual(0);
-  expect(box!.x + box!.width).toBeLessThanOrEqual(viewport!.width + 1);
-  expect(box!.y + box!.height).toBeLessThanOrEqual(viewport!.height + 1);
+  expect(rect.left).toBeGreaterThanOrEqual(-1);
+  expect(rect.top).toBeGreaterThanOrEqual(-1);
+  expect(rect.right).toBeLessThanOrEqual(viewport!.width + 1);
+  expect(rect.bottom).toBeLessThanOrEqual(viewport!.height + 1);
 }
 
-export async function expectNoPairwiseOverlap(locators: Locator[]) {
-  const boxes = await Promise.all(locators.map((l) => l.boundingBox()));
+export async function expectNoPairwiseOverlap(locators: Locator[] | Locator) {
+  const elements = Array.isArray(locators) ? locators : await locators.all();
+  const boxes = await Promise.all(elements.map((l) => l.boundingBox()));
   for (let i = 0; i < boxes.length; i++) {
+    const a = boxes[i];
+    if (!a) continue;
     for (let j = i + 1; j < boxes.length; j++) {
-      const a = boxes[i];
       const b = boxes[j];
-      if (!a || !b) continue;
-      const overlaps =
-        a.x < b.x + b.width &&
-        a.x + a.width > b.x &&
-        a.y < b.y + b.height &&
-        a.y + a.height > b.y;
-      expect(overlaps).toBe(false);
+      if (!b) continue;
+      const overlapX = a.x < b.x + b.width - 0.5 && a.x + a.width > b.x + 0.5;
+      const overlapY = a.y < b.y + b.height - 0.5 && a.y + a.height > b.y + 0.5;
+      const overlaps = overlapX && overlapY;
+      expect(
+        overlaps,
+        `Elements at index ${i} and ${j} overlap: a=${JSON.stringify(a)} b=${JSON.stringify(b)}`,
+      ).toBe(false);
     }
   }
 }

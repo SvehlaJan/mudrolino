@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Locator } from '@playwright/test';
 import {
   trackConsoleErrors,
   expectNoConsoleErrors,
@@ -9,6 +9,7 @@ import { unlockParentGate } from './support/parentGate';
 import {
   expectNoHorizontalOverflow,
   expectMinimumTarget,
+  expectNoPairwiseOverlap,
 } from './support/layoutAssertions';
 import {
   CANONICAL_VIEWPORTS,
@@ -40,16 +41,22 @@ test.describe('Responsive Baseline Layout', () => {
       await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
       await expectNoHorizontalOverflow(page);
 
+      const keypadButtons: Locator[] = [];
       for (let digit = 0; digit <= 9; digit++) {
         const button = page.getByRole('button', { name: String(digit), exact: true });
         await expectMinimumTarget(page, button, 44);
+        keypadButtons.push(button);
       }
 
       const backspaceBtn = page.getByRole('button', { name: 'Zmazať' });
       await expectMinimumTarget(page, backspaceBtn, 44);
+      keypadButtons.push(backspaceBtn);
 
       const confirmBtn = page.getByRole('button', { name: 'Potvrdiť' });
       await expectMinimumTarget(page, confirmBtn, 44);
+      keypadButtons.push(confirmBtn);
+
+      await expectNoPairwiseOverlap(keypadButtons);
 
       // 2. Unlock gate and verify post-unlock layout
       await unlockParentGate(page);

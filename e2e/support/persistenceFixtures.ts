@@ -71,64 +71,83 @@ export async function seedLocalStorage(page: Page, data: Record<string, unknown>
   }, data);
 }
 
-export async function seedIndexedDBAudio(page: Page, key: string, dummyText = 'test audio') {
-  await page.evaluate(async ({ k, text }) => {
-    const DB_NAME = 'hrave-ucenie-audio-overrides';
-    const STORE_NAME = 'overrides';
-    const DB_VERSION = 1;
-    const blob = new Blob([text], { type: 'audio/webm' });
+export const DB_NAME = 'hrave-ucenie-audio-overrides';
+export const STORE_NAME = 'overrides';
+export const DB_VERSION = 1;
 
-    await new Promise<void>((resolve, reject) => {
-      const req = indexedDB.open(DB_NAME, DB_VERSION);
-      req.onupgradeneeded = (e) => {
-        const db = (e.target as IDBOpenDBRequest).result;
-        if (!db.objectStoreNames.contains(STORE_NAME)) {
-          db.createObjectStore(STORE_NAME);
-        }
-      };
-      req.onsuccess = () => {
-        const db = req.result;
-        const tx = db.transaction(STORE_NAME, 'readwrite');
-        tx.objectStore(STORE_NAME).put(blob, k);
-        tx.oncomplete = () => {
-          db.close();
-          resolve();
+export async function seedIndexedDBAudio(page: Page, key: string, dummyText = 'test audio') {
+  await page.evaluate(
+    async ({ k, text, dbName, storeName, dbVersion }) => {
+      const blob = new Blob([text], { type: 'audio/webm' });
+
+      await new Promise<void>((resolve, reject) => {
+        const req = indexedDB.open(dbName, dbVersion);
+        req.onupgradeneeded = (e) => {
+          const db = (e.target as IDBOpenDBRequest).result;
+          if (!db.objectStoreNames.contains(storeName)) {
+            db.createObjectStore(storeName);
+          }
         };
-        tx.onerror = () => reject(tx.error);
-      };
-      req.onerror = () => reject(req.error);
-    });
-  }, { k: key, text: dummyText });
+        req.onsuccess = () => {
+          const db = req.result;
+          const tx = db.transaction(storeName, 'readwrite');
+          tx.objectStore(storeName).put(blob, k);
+          tx.oncomplete = () => {
+            db.close();
+            resolve();
+          };
+          tx.onerror = () => {
+            db.close();
+            reject(tx.error);
+          };
+        };
+        req.onerror = () => reject(req.error);
+      });
+    },
+    { k: key, text: dummyText, dbName: DB_NAME, storeName: STORE_NAME, dbVersion: DB_VERSION },
+  );
 }
 
 export async function getIndexedDBAudio(page: Page, key: string): Promise<string | null> {
-  return page.evaluate(async (k) => {
-    const DB_NAME = 'hrave-ucenie-audio-overrides';
-    const STORE_NAME = 'overrides';
-    const DB_VERSION = 1;
-
-    return new Promise<string | null>((resolve, reject) => {
-      const req = indexedDB.open(DB_NAME, DB_VERSION);
-      req.onsuccess = () => {
-        const db = req.result;
-        if (!db.objectStoreNames.contains(STORE_NAME)) {
-          resolve(null);
-          return;
-        }
-        const tx = db.transaction(STORE_NAME, 'readonly');
-        const getReq = tx.objectStore(STORE_NAME).get(k);
-        getReq.onsuccess = async () => {
-          const blob = getReq.result as Blob | undefined;
-          if (!blob) {
+  return page.evaluate(
+    async ({ k, dbName, storeName, dbVersion }) => {
+      return new Promise<string | null>((resolve, reject) => {
+        const req = indexedDB.open(dbName, dbVersion);
+        req.onsuccess = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(storeName)) {
+            db.close();
             resolve(null);
             return;
           }
-          const text = await blob.text();
-          resolve(text);
+          const tx = db.transaction(storeName, 'readonly');
+          const getReq = tx.objectStore(storeName).get(k);
+          getReq.onsuccess = async () => {
+            const blob = getReq.result as Blob | undefined;
+            db.close();
+            if (!blob) {
+              resolve(null);
+              return;
+            }
+            try {
+              const text = await blob.text();
+              resolve(text);
+            } catch (err) {
+              reject(err);
+            }
+          };
+          getReq.onerror = () => {
+            db.close();
+            reject(getReq.error);
+          };
+          tx.onerror = () => {
+            db.close();
+            reject(tx.error);
+          };
         };
-        getReq.onerror = () => reject(getReq.error);
-      };
-      req.onerror = () => reject(req.error);
-    });
-  }, key);
+        req.onerror = () => reject(req.error);
+      });
+    },
+    { k: key, dbName: DB_NAME, storeName: STORE_NAME, dbVersion: DB_VERSION },
+  );
 }
