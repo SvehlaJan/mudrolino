@@ -11,7 +11,7 @@ import {
 import { unlockParentGate } from './support/parentGate';
 import {
   seedLocalStorage,
-  seedIndexedDBAudio,
+  seedIndexedDBAudioFixture,
   getIndexedDBAudio,
 } from './support/persistenceFixtures';
 
@@ -68,30 +68,49 @@ test.describe('Persistence and Backward Compatibility', () => {
     await seedLocalStorage(page, localDataV1);
     await page.goto('/content');
 
+    const audioFixture = await seedIndexedDBAudioFixture(page, localDataV1);
+    await page.reload();
+
     await unlockParentGate(page);
     await expect(page.getByRole('heading', { name: 'Vlastný obsah' })).toBeVisible();
 
     // Check custom words
     await page.getByRole('button', { name: 'Slová' }).click();
+    await expect(page.getByText('Mama 👩', { exact: true })).toBeVisible();
     await expect(page.getByText('auto', { exact: false })).toBeVisible();
+    const customWordRow = page.getByText('auto 🚗', { exact: true }).locator('xpath=../..');
+    await expect(customWordRow.getByRole('button', { name: 'Zmazať nahrávku' })).toBeVisible();
+    expect(audioFixture.key).toBe('sk/words/custom-custom-1');
 
     // Check custom praise
     await page.getByRole('button', { name: 'Pochvaly' }).click();
+    await expect(page.getByText('Výborne!', { exact: false })).toBeVisible();
     await expect(page.getByText('Super robota!', { exact: false })).toBeVisible();
+
+    const storedWords = await page.evaluate(() => JSON.parse(localStorage.getItem('hrave-ucenie-user-words-sk') ?? '[]'));
+    const storedPraises = await page.evaluate(() => JSON.parse(localStorage.getItem('hrave-ucenie-user-praises-sk') ?? '[]'));
+    expect(storedWords).toEqual(expect.arrayContaining([
+      expect.objectContaining({ word: 'Mama', isDefault: true, audioKey: 'mama' }),
+      expect.objectContaining({ word: 'auto', isDefault: false, audioKey: 'custom-custom-1' }),
+    ]));
+    expect(storedPraises).toEqual(expect.arrayContaining([
+      expect.objectContaining({ text: 'Výborne!', isDefault: true, audioKey: 'vyborne' }),
+      expect.objectContaining({ text: 'Super robota!', isDefault: false }),
+    ]));
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
   });
 
-  test('IndexedDB audio override can be stored and retrieved via audioOverrideStore', async ({ page }) => {
+  test('IndexedDB audio override fixture can be stored and retrieved', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
     await page.goto('/');
 
-    const testKey = 'sk/words/custom-1';
-    const testAudioData = 'custom-audio-recording-test-payload';
-    await seedIndexedDBAudio(page, testKey, testAudioData);
+    const fixture = await seedIndexedDBAudioFixture(page, localDataV1);
+    const testKey = fixture.key;
+    const testAudioData = fixture.text;
 
     const retrieved = await getIndexedDBAudio(page, testKey);
     expect(retrieved).toBe(testAudioData);

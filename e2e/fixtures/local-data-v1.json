@@ -15,28 +15,41 @@
     "locale": "sk",
     "fontFamily": "shantell"
   },
-  "hrave-ucenie-custom-content-sk": {
-    "words": [
-      { "id": "custom-1", "word": "auto", "syllables": ["au", "to"], "emoji": "🚗" }
-    ],
-    "praise": [
-      { "id": "custom-praise-1", "text": "Super robota!" }
-    ]
-  },
   "hrave-ucenie-user-words-sk": [
+    {
+      "id": "default-mama",
+      "word": "Mama",
+      "syllables": "ma-ma",
+      "emoji": "👩",
+      "audioKey": "mama",
+      "status": "ready",
+      "isDefault": true,
+      "locale": "sk",
+      "order": 0
+    },
     {
       "id": "custom-1",
       "word": "auto",
       "syllables": "au-to",
       "emoji": "🚗",
-      "audioKey": "custom-1",
+      "audioKey": "custom-custom-1",
       "status": "ready",
       "isDefault": false,
       "locale": "sk",
-      "order": 0
+      "order": 1
     }
   ],
   "hrave-ucenie-user-praises-sk": [
+    {
+      "id": "default-vyborne",
+      "text": "Výborne!",
+      "emoji": "🌟",
+      "audioKey": "vyborne",
+      "status": "ready",
+      "isDefault": true,
+      "locale": "sk",
+      "order": 0
+    },
     {
       "id": "custom-praise-1",
       "text": "Super robota!",
@@ -45,8 +58,12 @@
       "status": "ready",
       "isDefault": false,
       "locale": "sk",
-      "order": 0
+      "order": 1
     }
   ],
-  "hrave-ucenie-seeded-sk": "true"
+  "hrave-ucenie-seeded-sk": "true",
+  "indexedDBAudio": {
+    "key": "sk/words/custom-custom-1",
+    "text": "custom-audio-recording-test-payload"
+  }
 }
