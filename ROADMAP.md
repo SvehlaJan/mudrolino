@@ -65,6 +65,7 @@
 - [x] Add browser favicon links so page loads stop requesting a missing `/favicon.ico` (this 404 turned every e2e console-error assertion red)
 - [x] Pre-launch UI audit across 7 viewports — see `docs/ui-audit/`
 - [x] Approve full-app pre-publication redesign specification (`docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`)
+- [x] Write eight self-contained sequential implementation plans and Antigravity handoff index (`docs/superpowers/plans/2026-09-14-ui-redesign-implementation-index.md`)
 - [ ] Complete full-app UI redesign before publication (all eight sequential phases below)
   - [ ] Phase 1 — baseline, protected-route safety, test-only parent-gate adapter, and regression scaffolding
   - [ ] Phase 2 — Radix-backed component-library, token, responsive, motion, and accessibility foundation
