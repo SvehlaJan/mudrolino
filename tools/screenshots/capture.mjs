@@ -2,30 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 import { chromium } from 'playwright';
-
-export const CANONICAL_VIEWPORTS = {
-  narrowPhone: { width: 320, height: 568 },
-  smallPhone: { width: 360, height: 640 },
-  phonePortrait: { width: 390, height: 844 },
-  shortLandscape: { width: 667, height: 375 },
-  phoneLandscape: { width: 844, height: 390 },
-  tabletPortrait: { width: 768, height: 1024 },
-  tabletLandscape: { width: 1024, height: 768 },
-  desktop: { width: 1280, height: 900 },
-  desktopLarge: { width: 1440, height: 900 },
-  desktopWide: { width: 1920, height: 1080 },
-};
-
-function resolveChromiumExecutable(env = process.env, exists = fs.existsSync) {
-  const explicit = env.PLAYWRIGHT_CHROMIUM_EXECUTABLE;
-  if (explicit) return explicit;
-
-  const browsersPath = env.PLAYWRIGHT_BROWSERS_PATH;
-  if (!browsersPath) return undefined;
-
-  const preinstalled = path.join(browsersPath, 'chromium');
-  return exists(preinstalled) ? preinstalled : undefined;
-}
+import { resolveChromiumExecutable } from '../../e2e/browserResolver.ts';
+import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
 
 function parseArgs(args) {
   let base = 'http://127.0.0.1:4173';
@@ -212,13 +190,8 @@ async function main() {
           try {
             await SCENES[sceneName](page, base);
 
-            if (errors.length > 0) {
-              throw new Error(`Console errors in scene "${sceneName}" [${viewportName}]:\n${errors.join('\n')}`);
-            }
-            if (failedRequests.length > 0) {
-              throw new Error(`Failed same-origin requests in scene "${sceneName}" [${viewportName}]:\n${failedRequests.join('\n')}`);
-            }
-
+            // Font readiness and the two animation frames are part of the
+            // captured state; failures during either phase must be reported.
             await page.evaluate(() => document.fonts.ready);
             await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 
@@ -226,6 +199,13 @@ async function main() {
             fs.mkdirSync(sceneDir, { recursive: true });
             const filePath = path.join(sceneDir, `${viewportName}.png`);
             await page.screenshot({ path: filePath });
+
+            if (errors.length > 0) {
+              throw new Error(`Console errors in scene "${sceneName}" [${viewportName}]:\n${errors.join('\n')}`);
+            }
+            if (failedRequests.length > 0) {
+              throw new Error(`Failed same-origin requests in scene "${sceneName}" [${viewportName}]:\n${failedRequests.join('\n')}`);
+            }
           } finally {
             await page.close();
           }

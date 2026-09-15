@@ -467,7 +467,7 @@ function EditableWordList({ locale }: EditableWordListProps) {
             setShowAddForm(true);
             setFormErrors({});
           }}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
+          className="flex w-full min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
         >
           <Plus size={20} />
           Pridať slovo
@@ -755,7 +755,7 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
             setShowAddForm(true);
             setFormErrors({});
           }}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
+          className="flex w-full min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
         >
           <Plus size={20} />
           Pridať pochvalu
@@ -790,7 +790,7 @@ export function CustomContentScreen() {
             <button
               key={section}
               onClick={() => setActiveSection(section)}
-              className={`whitespace-nowrap rounded-full px-4 py-2 text-base font-semibold transition-colors ${
+              className={`whitespace-nowrap rounded-full px-4 py-2 min-h-11 text-base font-semibold transition-colors ${
                 activeSection === section
                   ? 'bg-primary text-white'
                   : 'bg-shadow/10 text-text-main'
