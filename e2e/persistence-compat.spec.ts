@@ -12,6 +12,7 @@ import { unlockParentGate } from './support/parentGate';
 import {
   seedLocalStorage,
   seedIndexedDBAudioFixture,
+  getIndexedDBAudio,
 } from './support/persistenceFixtures';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -68,6 +69,7 @@ test.describe('Persistence and Backward Compatibility', () => {
     await page.goto('/content');
 
     const audioFixture = await seedIndexedDBAudioFixture(page, localDataV1);
+    expect(await getIndexedDBAudio(page, audioFixture.key)).toBe(audioFixture.text);
     await page.reload();
     expect(await page.evaluate(() => localStorage.getItem('indexedDBAudio'))).toBeNull();
 
