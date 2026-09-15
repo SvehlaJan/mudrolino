@@ -1,0 +1,52 @@
+{
+  "hrave-ucenie-settings": {
+    "alphabetGridSize": 6,
+    "alphabetAccents": false,
+    "syllablesGridSize": 4,
+    "numbersRange": { "start": 1, "end": 20 },
+    "countingRange": { "start": 1, "end": 10 },
+    "completeLetterMissingCount": "adaptive",
+    "compareRange": { "start": 1, "end": 10 },
+    "compareMode": "numerals",
+    "additionSumRange": 20,
+    "additionRepresentation": "numerals"
+  },
+  "hrave-ucenie-app-settings": {
+    "locale": "sk",
+    "fontFamily": "shantell"
+  },
+  "hrave-ucenie-custom-content-sk": {
+    "words": [
+      { "id": "custom-1", "word": "auto", "syllables": ["au", "to"], "emoji": "🚗" }
+    ],
+    "praise": [
+      { "id": "custom-praise-1", "text": "Super robota!" }
+    ]
+  },
+  "hrave-ucenie-user-words-sk": [
+    {
+      "id": "custom-1",
+      "word": "auto",
+      "syllables": "au-to",
+      "emoji": "🚗",
+      "audioKey": "custom-1",
+      "status": "ready",
+      "isDefault": false,
+      "locale": "sk",
+      "order": 0
+    }
+  ],
+  "hrave-ucenie-user-praises-sk": [
+    {
+      "id": "custom-praise-1",
+      "text": "Super robota!",
+      "emoji": "🌟",
+      "audioKey": "custom-praise-1",
+      "status": "ready",
+      "isDefault": false,
+      "locale": "sk",
+      "order": 0
+    }
+  ],
+  "hrave-ucenie-seeded-sk": "true"
+}
