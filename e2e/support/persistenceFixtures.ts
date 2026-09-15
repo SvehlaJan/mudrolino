@@ -3,6 +3,7 @@ import { Page } from '@playwright/test';
 export async function seedLocalStorage(page: Page, data: Record<string, unknown>) {
   await page.addInitScript((items) => {
     for (const [k, v] of Object.entries(items)) {
+      if (k === 'indexedDBAudio') continue;
       window.localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v));
     }
   }, data);

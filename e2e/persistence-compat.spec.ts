@@ -12,7 +12,6 @@ import { unlockParentGate } from './support/parentGate';
 import {
   seedLocalStorage,
   seedIndexedDBAudioFixture,
-  getIndexedDBAudio,
 } from './support/persistenceFixtures';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -61,7 +60,7 @@ test.describe('Persistence and Backward Compatibility', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('custom words and praise are visible on /content after unlocking', async ({ page }) => {
+  test('seeded content and audio override are consumed on /content after unlocking', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
@@ -70,6 +69,7 @@ test.describe('Persistence and Backward Compatibility', () => {
 
     const audioFixture = await seedIndexedDBAudioFixture(page, localDataV1);
     await page.reload();
+    expect(await page.evaluate(() => localStorage.getItem('indexedDBAudio'))).toBeNull();
 
     await unlockParentGate(page);
     await expect(page.getByRole('heading', { name: 'Vlastný obsah' })).toBeVisible();
@@ -102,20 +102,4 @@ test.describe('Persistence and Backward Compatibility', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('IndexedDB audio override fixture can be stored and retrieved', async ({ page }) => {
-    const errors = trackConsoleErrors(page);
-    const failedRequests = trackFailedRequests(page);
-
-    await page.goto('/');
-
-    const fixture = await seedIndexedDBAudioFixture(page, localDataV1);
-    const testKey = fixture.key;
-    const testAudioData = fixture.text;
-
-    const retrieved = await getIndexedDBAudio(page, testKey);
-    expect(retrieved).toBe(testAudioData);
-
-    expectNoConsoleErrors(errors);
-    expectNoFailedRequests(failedRequests);
-  });
 });
