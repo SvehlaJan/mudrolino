@@ -29,7 +29,7 @@ export default defineConfig({
     {
       name: 'mobile',
       use: { ...devices['Desktop Chrome'], viewport: MOBILE_VIEWPORT },
-      testMatch: /(?:find-it-games|ui-ux-enhancements)\.spec\.ts/,
+      testMatch: /(?:find-it-games|ui-ux-enhancements|parent-access)\.spec\.ts/,
     },
   ],
   webServer: {
