@@ -1,14 +1,7 @@
-import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { isProtectedParentPath } from '../services/parentAccessLogic';
-
-export interface ParentAccessValue {
-  unlocked: boolean;
-  unlock(): void;
-  lock(): void;
-}
-
-const ParentAccessContext = createContext<ParentAccessValue | null>(null);
+import { ParentAccessContext } from './ParentAccessContext';
 
 export function ParentAccessProvider({ children }: { children: React.ReactNode }) {
   const [unlocked, setUnlocked] = useState(false);
@@ -27,12 +20,4 @@ export function ParentAccessProvider({ children }: { children: React.ReactNode }
   const value = useMemo(() => ({ unlocked, unlock, lock }), [unlocked, unlock, lock]);
 
   return <ParentAccessContext.Provider value={value}>{children}</ParentAccessContext.Provider>;
-}
-
-export function useParentAccess(): ParentAccessValue {
-  const context = useContext(ParentAccessContext);
-  if (!context) {
-    throw new Error('useParentAccess must be used within a ParentAccessProvider');
-  }
-  return context;
 }

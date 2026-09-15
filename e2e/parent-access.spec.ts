@@ -45,6 +45,21 @@ test.describe('Parent Access Gate', () => {
     expectNoFailedRequests(failedRequests);
   });
 
+  test('home settings entry requires the parent gate', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Nastavenia' }).click();
+
+    await expect(page).toHaveURL(/\/settings$/);
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
   test('leaving protected route and revisiting asks for gate again', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
@@ -61,6 +76,59 @@ test.describe('Parent Access Gate', () => {
     await page.goBack();
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('browser Forward returns to the protected route but keeps it locked', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Nastavenia' }).click();
+    await unlockParentGate(page);
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+
+    await page.goBack();
+    await expect(page).toHaveURL(/\/$/);
+    await page.goForward();
+
+    await expect(page).toHaveURL(/\/settings$/);
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('a fresh browser context is locked on a protected route', async ({ browser }) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.goto('/settings');
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+    await context.close();
+  });
+
+  test('unknown settings game entry stays guarded and unlocks only to the safe parent destination', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.goto('/settings/games/not-a-catalogued-game');
+    await expect(page).toHaveURL(/\/settings\/games\/not-a-catalogued-game$/);
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+
+    await unlockParentGate(page);
+    await expect(page).toHaveURL(/\/settings$/);
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
@@ -118,11 +186,12 @@ test.describe('Parent Access Gate', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('synthetic valid child returnTo cancel case navigates to specified child route', async ({ page }) => {
+  test('lobby deep-link with a catalogued child returnTo stays guarded and cancels back to that lobby', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await page.goto('/');
+    await page.goto('/alphabet');
+    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     await page.evaluate(() => {
       window.history.pushState(
         { usr: { returnTo: '/alphabet' }, key: 'synthetic-return', idx: 1 },
@@ -133,6 +202,7 @@ test.describe('Parent Access Gate', () => {
     });
 
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
 
     await page.getByRole('button', { name: 'Späť' }).click();
 

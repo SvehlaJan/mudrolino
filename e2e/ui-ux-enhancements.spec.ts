@@ -81,4 +81,3 @@ test.describe('UI/UX Enhancements', () => {
     expectNoFailedRequests(failedRequests);
   });
 });
-

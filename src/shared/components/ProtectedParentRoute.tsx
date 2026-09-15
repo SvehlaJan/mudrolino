@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useParentAccess } from '../contexts/ParentAccessContext';
+import { useParentAccess } from '../contexts/useParentAccess';
 import { sanitizeChildReturnPath } from '../services/parentAccessLogic';
 import { ParentsGate } from './ParentsGate';
 
