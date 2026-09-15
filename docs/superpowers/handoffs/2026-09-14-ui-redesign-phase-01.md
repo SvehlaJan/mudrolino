@@ -4,10 +4,10 @@
 - **Phase:** 1 (Baseline and Safety)
 - **Branch:** `feature/full-app-ui-redesign`
 - **Base SHA:** `4733806e23e306ebfe4889fc411090351328c809`
-- **Candidate SHA:** `2d14ee0c16ec32ebbbb5ef8d9fa567ccd123c9a2`
-- **Implementation Status:** Complete (Pending Codex Acceptance)
+- **Candidate SHA:** `a8945329e2e28be307782e99a852a9ae25bb892b`
+- **Implementation Status:** Accepted by Codex
 - **Working Tree Clean:** Yes (`git status --short` clean before handoff commit)
-- **Local Screenshot Artifact Directory:** `artifacts/ui/2d14ee0c16ec32ebbbb5ef8d9fa567ccd123c9a2/2026-09-15T21-01-50-683Z-53052`
+- **Local Screenshot Artifact Directory:** `artifacts/ui/a8945329e2e28be307782e99a852a9ae25bb892b/2026-09-15T22-00-53-909Z-69498`
 
 ---
 
@@ -17,11 +17,12 @@
 |---|---|---|
 | `npx tsx src/shared/services/parentAccessLogic.verify.ts` | **PASS** | Pure logic route classification & return path verification |
 | `npx tsx src/shared/services/e2eState.verify.ts` | **PASS** | Pure logic E2E state composable shallow merge |
-| `npm run lint` | **PASS** | 0 errors, 2 pre-existing fast-refresh warnings in Context files |
-| `npm run test:e2e` | **PASS** | 74/74 tests passed across desktop & mobile projects in 27.3s |
+| `npx tsx e2e/browserResolver.verify.ts` | **PASS** | Shared Chromium resolution contract used by E2E and screenshot capture |
+| `npm run lint` | **PASS** | 0 errors, 1 documented pre-existing fast-refresh warning in `ContentContext.tsx` |
+| `npm run test:e2e` | **PASS** | 102/102 tests passed across desktop & mobile projects in 28.5s |
 | `npm run test:e2e:production-guards` | **PASS** | 1/1 test passed (proves `parentGate` absent in production) |
-| `npm run build` | **PASS** | Clean production build in 931ms |
-| `git diff --check` | **PASS** | Clean whitespace, no unresolved conflicts |
+| `npm run build` | **PASS** | Production build passed as part of the production-guard command in 909ms |
+| `git diff --check 4733806...HEAD` | **PASS** | Entire Phase 1 branch diff has clean whitespace and no unresolved conflicts |
 
 ---
 
@@ -30,7 +31,7 @@
 Captured using `npm run shots -- --base=http://127.0.0.1:4173 --scene=parents-gate --scene=settings --scene=content` against local test preview server.
 
 Artifact path:
-`artifacts/ui/2d14ee0c16ec32ebbbb5ef8d9fa567ccd123c9a2/2026-09-15T21-01-50-683Z-53052`
+`artifacts/ui/a8945329e2e28be307782e99a852a9ae25bb892b/2026-09-15T22-00-53-909Z-69498`
 
 ### Captured Scenes & Viewports:
 - **`parents-gate`** (10 viewports):
@@ -58,17 +59,17 @@ Artifact path:
    - Removed legacy `awaitingHomeSettingsReveal` state.
 4. **Task 4 — Parent Access E2E Coverage:**
    - Created `e2e/support/parentGate.ts` (`unlockParentGate`, `solveParentGate`).
-   - Created `e2e/parent-access.spec.ts` covering direct routes, browser back/forward history re-locking, keypad solver, wrong-answer handling, cancel-to-home, synthetic `returnTo` cancel, protected-to-protected transitions, reload re-locking, and legacy `/recordings` redirect.
+   - Created `e2e/parent-access.spec.ts` covering every protected route, browser back/forward history re-locking, a fresh browser context, keypad solver, wrong-answer handling, cancel-to-home, validated lobby `returnTo`, unknown game IDs, protected-to-protected transitions, reload re-locking, and the legacy `/recordings` redirect.
    - Integrated `parent-access` into mobile project in `e2e/playwright.config.ts`.
 5. **Task 5 — Persistence & Responsive Baseline Fixtures:**
    - Defined `CANONICAL_VIEWPORTS` (10 viewports) in `e2e/support/viewports.ts`.
    - Created `expectNoHorizontalOverflow`, `expectMinimumTarget` (44px), `expectWithinViewport` (subpixel-tolerant), and `expectNoPairwiseOverlap` in `e2e/support/layoutAssertions.ts`.
-   - Created `e2e/fixtures/local-data-v1.json` and `e2e/support/persistenceFixtures.ts` with IndexedDB audio blob seeding and cleanup.
-   - Created `e2e/persistence-compat.spec.ts` and `e2e/responsive-baseline.spec.ts`.
+   - Created authoritative `e2e/fixtures/local-data-v1.json` and `e2e/support/persistenceFixtures.ts` fixtures for default/custom Slovak content and an IndexedDB audio Blob without test-only migration behavior.
+   - Created `e2e/persistence-compat.spec.ts` with payload and application-consumption evidence, plus `e2e/responsive-baseline.spec.ts` covering settings and content across all ten canonical viewports.
 6. **Task 6 — Production Guards & Screenshot CLI:**
    - Created `e2e/production-guards.spec.ts` and `e2e/playwright.production.config.ts` (port 4174).
    - Added `"test:e2e:production-guards"` script in `package.json`.
-   - Created `tools/screenshots/capture.mjs` supporting `--base`, `--scene`, `--viewport`, `--output`, generating structured screenshots under `artifacts/ui/<sha>/<runId>/`.
+   - Created `tools/screenshots/capture.mjs` supporting `--base`, `--scene`, `--viewport`, `--output`, reusing the shared browser resolver and viewport registry and generating structured screenshots under `artifacts/ui/<sha>/<runId>/`.
    - Removed legacy screenshot test with hardcoded path from `e2e/ui-ux-enhancements.spec.ts`.
    - Updated `.agents/skills/playwright-browser-verification/SKILL.md` and added `artifacts/ui/` to `.gitignore`.
 7. **Task 7 — Phase 1 Handoff & Roadmap Update:**
@@ -84,21 +85,23 @@ Artifact path:
 - **Task 4:** Spec review ✅ Approved | Code review ✅ Approved (`f71f138`)
 - **Task 5:** Spec review ✅ Approved | Code review ✅ Approved after fixes (`98965a2`, `62dc543`)
 - **Task 6:** Spec review ✅ Approved | Code review ✅ Approved after fixes (`b3f6a74`, `2d14ee0`)
+- **Codex remediation — parent access:** Spec review ✅ Approved | Code review ✅ Approved (`6798366`, `a894532`)
+- **Codex remediation — persistence:** Spec review ✅ Approved after fixes | Code review ✅ Approved after fixes (`1c6e315`, `07c47e4`, `d7d85bf`)
+- **Codex remediation — responsive/screenshots:** Spec review ✅ Approved after fixes | Code review ✅ Approved (`4c6eea9`, `5f1113e`)
+- **Final integrated review:** ✅ Approved candidate `a8945329e2e28be307782e99a852a9ae25bb892b`
 
 ---
 
 ## Risks & Preconditions for Phase 2
 
-- **No visual regressions introduced:** Phase 1 was strictly architectural and safety-oriented. The visual design of dialogs and components remains unchanged.
+- **No redesign introduced:** Phase 1 remained architectural and safety-oriented. The only presentation adjustment was enforcing the existing 44px minimum target contract on content tabs and add actions.
 - **Phase 2 Preconditions:**
-  1. Codex reviews this candidate SHA (`2d14ee0c16ec32ebbbb5ef8d9fa567ccd123c9a2`) and handoff evidence.
-  2. Codex records `Accepted` and commits the review on `feature/full-app-ui-redesign`.
-  3. That acceptance commit SHA becomes the base for Phase 2 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-2-design-system.md`).
+  1. Codex accepted candidate SHA `a8945329e2e28be307782e99a852a9ae25bb892b` after full verification and manual screenshot review.
+  2. The commit containing this acceptance record is the base for Phase 2 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-2-design-system.md`).
 
 ---
 
 ## Codex Review Record
-*(To be completed by Codex)*
-- **Reviewed Candidate SHA:** `2d14ee0c16ec32ebbbb5ef8d9fa567ccd123c9a2`
-- **Result:** [Accepted | Rejected]
-- **Reviewer Notes:**
+- **Reviewed Candidate SHA:** `a8945329e2e28be307782e99a852a9ae25bb892b`
+- **Result:** Accepted
+- **Reviewer Notes:** Initial review rejected incomplete route-matrix, persistence, responsive, lint, whitespace, and screenshot-tool evidence. Remediation was implemented through lower-cost subagents with separate specification and quality reviews. The final integrated review found no remaining implementation blockers; the full verification gate passed, and all 30 refreshed manual-review screenshots were present at the recorded candidate-SHA path with no gross clipping or overlap in the reviewed narrow-phone, short-landscape, and desktop samples.
