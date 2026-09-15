@@ -11,6 +11,7 @@ import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { loadAppSettings, saveAppSettings, AppSettings, applyFontFamily } from './shared/services/appSettingsStore';
 import { GameSettings, GameId, SettingsTarget } from './shared/types';
 import { ParentsGate } from './shared/components/ParentsGate';
+import { ProtectedParentRoute } from './shared/components/ProtectedParentRoute';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { AlphabetGame } from './games/alphabet/AlphabetGame';
@@ -111,7 +112,6 @@ export default function App() {
   const locale = appSettings.locale;
   const [settingsTarget, setSettingsTarget] = useState<SettingsTarget>('home');
   const [settingsScreen, setSettingsScreen] = useState<SettingsFlowState>('none');
-  const [awaitingHomeSettingsReveal, setAwaitingHomeSettingsReveal] = useState(false);
   const location = useLocation();
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
@@ -166,24 +166,17 @@ export default function App() {
   }, []);
 
   const handleOpenSettings = useCallback((target: SettingsTarget = 'home') => {
+    if (target === 'home') {
+      navigate('/settings');
+      return;
+    }
     setSettingsTarget(target);
     setSettingsScreen('gate');
-  }, []);
+  }, [navigate]);
 
   const handleGateSuccess = useCallback(() => {
-    if (settingsTarget === 'home') {
-      setAwaitingHomeSettingsReveal(true);
-      navigate('/settings');
-    } else {
-      setSettingsScreen('settings');
-    }
-  }, [settingsTarget, navigate]);
-
-  const handleHomeSettingsReady = useCallback(() => {
-    if (!awaitingHomeSettingsReveal) return;
-    setSettingsScreen('none');
-    setAwaitingHomeSettingsReveal(false);
-  }, [awaitingHomeSettingsReveal]);
+    setSettingsScreen('settings');
+  }, []);
 
   const handleCloseSettings = useCallback(() => {
     setSettingsScreen('none');
@@ -306,33 +299,38 @@ export default function App() {
               </ErrorBoundary>
             }
           />
-          <Route
-            path="/content"
-            element={
-              <ErrorBoundary>
-                <CustomContentScreen />
-              </ErrorBoundary>
-            }
-          />
-          <Route path="/recordings" element={<Navigate to="/content" replace />} />
+          <Route element={<ProtectedParentRoute />}>
+            <Route
+              path="/settings"
+              element={
+                <SettingsScreen
+                  settings={settings}
+                  onUpdate={setSettings}
+                  appSettings={appSettings}
+                  onUpdateAppSettings={setAppSettings}
+                />
+              }
+            />
+            <Route path="/settings/games" element={<Navigate to="/settings" replace />} />
+            <Route path="/settings/games/:gameId" element={<Navigate to="/settings" replace />} />
+            <Route path="/settings/app" element={<Navigate to="/settings" replace />} />
+            <Route path="/settings/help" element={<Navigate to="/settings" replace />} />
+            <Route
+              path="/content"
+              element={
+                <ErrorBoundary>
+                  <CustomContentScreen />
+                </ErrorBoundary>
+              }
+            />
+            <Route path="/recordings" element={<Navigate to="/content" replace />} />
+          </Route>
           <Route
             path="/avatar-preview"
             element={
               <ErrorBoundary>
                 {AVATAR_POC_ENABLED || import.meta.env.DEV ? <AvatarPreviewScreen /> : <Navigate to="/" replace />}
               </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <SettingsScreen
-                settings={settings}
-                onUpdate={setSettings}
-                onReady={awaitingHomeSettingsReveal ? handleHomeSettingsReady : undefined}
-                appSettings={appSettings}
-                onUpdateAppSettings={setAppSettings}
-              />
             }
           />
           <Route
