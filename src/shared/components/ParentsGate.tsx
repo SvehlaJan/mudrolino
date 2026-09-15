@@ -5,6 +5,7 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { AppScreen, BackButton, Button, Card, TopBar } from '../ui';
+import { exposeParentGateE2E } from '../services/e2eState';
 
 interface ParentsGateProps {
   onSuccess: () => void;
@@ -31,6 +32,11 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   const [input, setInput] = useState('');
   const [shaking, setShaking] = useState(false);
   const shakeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => exposeParentGateE2E({ answer: question.answer, unlock: onSuccess }), [
+    question.answer,
+    onSuccess,
+  ]);
 
   const handleDigit = useCallback((digit: string) => {
     if (shaking) return;
