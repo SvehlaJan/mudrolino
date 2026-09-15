@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { isProtectedParentPath } from '../services/parentAccessLogic';
 
@@ -13,19 +13,18 @@ const ParentAccessContext = createContext<ParentAccessValue | null>(null);
 export function ParentAccessProvider({ children }: { children: React.ReactNode }) {
   const [unlocked, setUnlocked] = useState(false);
   const location = useLocation();
-  const wasProtected = useRef(isProtectedParentPath(location.pathname));
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
 
-  useEffect(() => {
-    const protectedNow = isProtectedParentPath(location.pathname);
-    if (wasProtected.current && !protectedNow) setUnlocked(false); // eslint-disable-line react-hooks/set-state-in-effect
-    wasProtected.current = protectedNow;
-  }, [location.pathname]);
+  if (location.pathname !== prevPathname) {
+    setPrevPathname(location.pathname);
+    if (isProtectedParentPath(prevPathname) && !isProtectedParentPath(location.pathname)) {
+      setUnlocked(false);
+    }
+  }
 
-  const value = useMemo(() => ({
-    unlocked,
-    unlock: () => setUnlocked(true),
-    lock: () => setUnlocked(false),
-  }), [unlocked]);
+  const unlock = useCallback(() => setUnlocked(true), []);
+  const lock = useCallback(() => setUnlocked(false), []);
+  const value = useMemo(() => ({ unlocked, unlock, lock }), [unlocked, unlock, lock]);
 
   return <ParentAccessContext.Provider value={value}>{children}</ParentAccessContext.Provider>;
 }

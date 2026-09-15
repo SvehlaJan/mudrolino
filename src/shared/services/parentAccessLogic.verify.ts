@@ -23,6 +23,12 @@ for (const path of ['/', '/alphabet', '/assembly', '/ui-kit', '/avatar-preview']
 if (getParentRouteKind('/settings/games/ALPHABET') !== 'game-detail') {
   throw new Error('Game detail route was not classified');
 }
+if (!isProtectedParentPath('/settings/')) {
+  throw new Error('/settings/ must be protected');
+}
+if (getParentRouteKind('/settings/') !== 'dashboard') {
+  throw new Error('/settings/ must map to dashboard route kind');
+}
 if (sanitizeChildReturnPath('/alphabet') !== '/alphabet') {
   throw new Error('Catalogued child path should be accepted');
 }

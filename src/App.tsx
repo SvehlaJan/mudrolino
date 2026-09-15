@@ -167,6 +167,7 @@ export default function App() {
 
   const handleOpenSettings = useCallback((target: SettingsTarget = 'home') => {
     if (target === 'home') {
+      homeScrollRef.current = window.scrollY;
       navigate('/settings');
       return;
     }
