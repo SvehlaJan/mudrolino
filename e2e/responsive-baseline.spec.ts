@@ -29,6 +29,7 @@ test.describe('Responsive Baseline Layout', () => {
       for (let digit = 0; digit <= 9; digit++) {
         const button = page.getByRole('button', { name: String(digit), exact: true });
         await expectMinimumTarget(page, button, 44);
+        await expectWithinViewport(page, button);
         keypadButtons.push(button);
       }
       const backButton = page.getByRole('button', { name: 'Späť', exact: true });
@@ -37,6 +38,7 @@ test.describe('Responsive Baseline Layout', () => {
       await expectMinimumTarget(page, backButton, 44);
       await expectWithinViewport(page, backButton);
       await expectMinimumTarget(page, backspaceButton, 44);
+      await expectWithinViewport(page, backspaceButton);
       await expectMinimumTarget(page, confirmButton, 44);
       await expectWithinViewport(page, confirmButton);
       keypadButtons.push(backspaceButton, confirmButton);
