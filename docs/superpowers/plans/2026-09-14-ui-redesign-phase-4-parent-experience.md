@@ -12,11 +12,27 @@
 
 ## Required context and phase boundary
 
-Start from the accepted Phase 3 SHA on `feature/full-app-ui-redesign`. Read
+Start from the Codex-accepted Phase 3 SHA on `feature/full-app-ui-redesign`. Read
 `AGENTS.md`, `docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`,
 and Phase 1–3 handoff manifests. Reuse the protected route guard,
 automation adapter, catalog, setting IDs, UI wrappers, and layout assertions.
 Do not change game round logic or audio ordering.
+
+## Phase acceptance contract
+
+This phase produces a candidate SHA, not a self-approved result. After the
+handoff commit, stop and submit the exact SHA, verification evidence, and local
+screenshot directory to Codex. Phase 5 may begin only after Codex accepts that
+SHA. If rejected, remediate inside Phase 4 with the same agent when available,
+rerun affected checks and screenshots, and submit a new candidate; Phase 5 must
+not absorb the findings. Screenshots remain ignored local manual-review evidence
+under `artifacts/ui/<full-git-sha>/<unique-run-id>/` and are never committed or
+pixel-diffed.
+On approval, Codex records the reviewed candidate SHA and `Accepted` in the
+handoff manifest, commits that review, and returns the acceptance commit SHA;
+that commit is the only valid Phase 5 base. Any direct dependency addition,
+removal, major upgrade, or substitution requires a short fit proposal and Codex
+approval before `package.json` or the lockfile changes.
 
 ### Task 1: Replace the settings visibility matrix with a typed registry
 
@@ -621,7 +637,9 @@ Expected: PASS. Run `npm run test:audio` only if an audio key or asset changed.
 Capture `/settings`, `/settings/games`, representative one- and two-setting game
 details, `/settings/app`, `/settings/help`, and every `/content` category across
 the canonical parent matrix. Inspect desktop panes, mobile full-screen editors,
-short landscape, disabled rows, recording states, and dialogs.
+short landscape, disabled rows, recording states, and dialogs. Preserve the
+printed local `artifacts/ui/<full-git-sha>/<unique-run-id>/` path and record it in the
+handoff.
 
 - [ ] **Step 3: Verify storage compatibility explicitly**
 
@@ -631,7 +649,8 @@ word/praise envelopes.
 
 - [ ] **Step 4: Update roadmap, write manifest, commit, and stop**
 
-Record exact SHAs, clean status, migrations, commands/outcomes, screenshots,
+Mark Phase 4 implementation complete but pending Codex acceptance. Record exact
+SHAs, clean status, migrations, commands/outcomes, local screenshots, internal
 reviewer result, risks, and Phase 5 preconditions.
 
 ```bash
@@ -639,4 +658,5 @@ git add ROADMAP.md docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-04.md
 git commit -m "docs: hand off UI redesign phase four" -m "Verified parent routes and data migrations give game-shell work a stable settings and pause contract."
 ```
 
-Do not begin Phase 5.
+Do not begin Phase 5. Submit the exact candidate SHA and evidence to Codex and
+follow the acceptance contract above.

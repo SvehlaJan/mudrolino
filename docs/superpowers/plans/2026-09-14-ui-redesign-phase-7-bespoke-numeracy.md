@@ -12,7 +12,7 @@
 
 ## Required context and phase boundary
 
-Start from the accepted Phase 6 SHA on `feature/full-app-ui-redesign`. Read
+Start from the Codex-accepted Phase 6 SHA on `feature/full-app-ui-redesign`. Read
 `AGENTS.md`, `docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`,
 and all Phase 1–6 handoff
 manifests. Confirm these inherited Phase 5 APIs exist before editing:
@@ -33,6 +33,22 @@ answer-audio contract, and existing E2E oracle keys. Do not touch
 avatar code, parent routes, local-content storage, or audio assets.
 Every migrated game also merges `gameId` and `phase: session.state.phase` into
 the existing E2E oracle without replacing sibling parent/audio state.
+
+## Phase acceptance contract
+
+This phase produces a candidate SHA, not a self-approved result. After the
+handoff commit, stop and submit the exact SHA, verification evidence, and local
+screenshot directory to Codex. Phase 8 may begin only after Codex accepts that
+SHA. If rejected, remediate inside Phase 7 with the same agent when available,
+rerun affected checks and screenshots, and submit a new candidate; Phase 8 must
+not absorb the findings. Screenshots remain ignored local manual-review evidence
+under `artifacts/ui/<full-git-sha>/<unique-run-id>/` and are never committed or
+pixel-diffed.
+On approval, Codex records the reviewed candidate SHA and `Accepted` in the
+handoff manifest, commits that review, and returns the acceptance commit SHA;
+that commit is the only valid Phase 8 base. Any direct dependency addition,
+removal, major upgrade, or substitution requires a short fit proposal and Codex
+approval before `package.json` or the lockfile changes.
 
 ### Task 1: Define a deterministic collision-free quantity layout
 
@@ -646,7 +662,9 @@ Run:
 npm run shots -- --scene=counting-round --scene=compare-round --scene=addition-round --viewport=narrowPhone --viewport=shortLandscape --viewport=tabletPortrait --viewport=desktop
 ```
 
-Expected: sixteen named screenshots with no clipped answer, prompt, or critical control.
+Expected: twelve named screenshots with no clipped answer, prompt, or critical control.
+Preserve the printed local `artifacts/ui/<full-git-sha>/<unique-run-id>/` path and record it
+in the handoff.
 
 - [ ] **Step 6: Commit regression gates**
 
@@ -690,9 +708,10 @@ chunk.
 
 - [ ] **Step 3: Update roadmap and write the handoff manifest**
 
-Mark only Phase 7 complete. Record accepted Phase 6 base SHA, result SHA, branch,
-clean-worktree status, exact commands/outcomes, screenshot artifact directory,
-changed-file summary, reviewer result, known risks, and Phase 8 preconditions.
+Mark Phase 7 implementation complete but pending Codex acceptance. Record the
+Codex-accepted Phase 6 base SHA, result SHA, branch, clean-worktree status, exact
+commands/outcomes, local screenshot artifact directory, changed-file summary,
+internal reviewer result, known risks, and Phase 8 preconditions.
 Obtain SHAs and status with `git rev-parse HEAD` and `git status --short`; do not
 estimate them.
 
@@ -705,5 +724,6 @@ git commit -m "docs: hand off UI redesign phase seven" -m "Verified numeracy gam
 
 - [ ] **Step 5: Stop**
 
-Do not begin Phase 8. Return the manifest and resulting SHA for explicit phase
-acceptance.
+Do not begin Phase 8. Return the manifest, resulting SHA, verification evidence,
+and local screenshot path for explicit Codex acceptance. Follow the acceptance
+contract above if rejected.

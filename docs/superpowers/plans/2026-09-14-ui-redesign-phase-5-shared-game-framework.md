@@ -12,10 +12,10 @@
 
 ## Required context and phase boundary
 
-Start from the accepted Phase 4 SHA on `feature/full-app-ui-redesign`. Confirm a
+Start from the Codex-accepted Phase 4 SHA on `feature/full-app-ui-redesign`. Confirm a
 clean worktree, then read `AGENTS.md`,
 `docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`, all
-accepted Phase 1–4 handoff manifests, and:
+Codex-accepted Phase 1–4 handoff manifests, and:
 
 - `src/shared/components/FindItGame.tsx`
 - `src/shared/components/{SuccessOverlay,FailureOverlay,SessionCompleteOverlay,AuditoryPromptBadge}.tsx`
@@ -32,6 +32,22 @@ content/settings contracts. Do not introduce an alternate framework directory,
 a second button/focus API, another catalog, or route-specific viewport branches.
 Do not change parent routes, home, lobbies, persistence, audio assets/keys, or a
 bespoke game. Keep legacy overlays because seven bespoke games still need them.
+
+## Phase acceptance contract
+
+This phase produces a candidate SHA, not a self-approved result. After the
+handoff commit, stop and submit the exact SHA, verification evidence, and local
+screenshot directory to Codex. Phase 6 may begin only after Codex accepts that
+SHA. If rejected, remediate inside Phase 5 with the same agent when available,
+rerun affected checks and screenshots, and submit a new candidate; Phase 6 must
+not absorb the findings. Screenshots remain ignored local manual-review evidence
+under `artifacts/ui/<full-git-sha>/<unique-run-id>/` and are never committed or
+pixel-diffed.
+On approval, Codex records the reviewed candidate SHA and `Accepted` in the
+handoff manifest, commits that review, and returns the acceptance commit SHA;
+that commit is the only valid Phase 6 base. Any direct dependency addition,
+removal, major upgrade, or substitution requires a short fit proposal and Codex
+approval before `package.json` or the lockfile changes.
 
 Preserve these contracts exactly:
 
@@ -799,6 +815,8 @@ stays lazy with no static import from `src/shared/game/`.
 
 Use the Phase 1 screenshot harness for all four round, retry, success, failure,
 completion, paused, and Slová visual-prompt scenes across the Phase 5 matrix.
+Preserve the printed local `artifacts/ui/<full-git-sha>/<unique-run-id>/` path and record it
+in the handoff.
 Review containment, targets, material consistency, prompt/replay, focus, state
 text, finite motion, shared palette, and short-landscape density.
 
@@ -819,11 +837,12 @@ or unrelated game file changed.
 
 - [ ] **Step 5: Update roadmap and handoff**
 
-Mark only Phase 5 complete. Record branch, accepted Phase 4 base SHA, result SHA,
-clean status, exact `src/shared/game/index.ts` exports, state transition table,
-final-wrong audio evidence, actual commands/outcomes, screenshot artifact,
-reviewer result, legacy consumers, risks, and Phase 6 preconditions. Obtain SHAs
-and status from Git.
+Mark Phase 5 implementation complete but pending Codex acceptance. Record branch,
+the Codex-accepted Phase 4 base SHA, result SHA, clean status, exact
+`src/shared/game/index.ts` exports, state transition table, final-wrong audio
+evidence, actual commands/outcomes, local screenshot artifact, internal reviewer
+result, legacy consumers, risks, and Phase 6 preconditions. Obtain SHAs and
+status from Git.
 
 - [ ] **Step 6: Commit and stop**
 
@@ -833,5 +852,5 @@ git commit -m "docs: hand off UI redesign phase five" -m "Verified shell, sessio
 ```
 
 Do not begin Phase 6 and do not open a pull request. Return the manifest, result
-SHA, verification summary, screenshot artifact, and accepted residual risk for
-explicit phase acceptance.
+SHA, verification summary, local screenshot artifact, and residual risk for
+explicit Codex acceptance. Follow the acceptance contract above if rejected.

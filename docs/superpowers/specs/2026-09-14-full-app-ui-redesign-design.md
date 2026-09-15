@@ -586,9 +586,10 @@ Automated screenshots and targeted interaction checks must cover at least:
 | desktop | 1280×900 and 1440×900 |
 | wide desktop | 1920×1080 |
 
-The screenshot tool may keep a representative broad matrix while E2E projects
-use a smaller required subset. Every phase must test the viewports affected by
-its changes.
+The screenshot tool covers this full matrix in Chromium. Automated WebKit
+coverage is a smaller smoke suite at 390×844, 667×375, and 1280×900 covering
+home, parent entry, one literacy journey, and one numeracy journey. Every phase
+must test the viewports affected by its changes.
 
 ## Accessibility and Input Contract
 
@@ -692,9 +693,9 @@ coherent and verified, but no intermediate phase is the public redesign.
 
 ### Phase 8 — Release hardening
 
-- Complete responsive, accessibility, interaction, persistence, PWA/offline,
-  audio, and performance verification.
-- Review the full screenshot contact sheet across the canonical matrix.
+- Complete responsive, essential accessibility, interaction, persistence,
+  PWA/offline, audio, and production bundle-boundary verification.
+- Review the final local screenshot set across the canonical matrix.
 - Remove dead old UI paths and temporary migration scaffolding.
 - Confirm the production bundle contains no test gate adapter and does not pull
   avatar/three.js code into the main chunk.
@@ -722,13 +723,19 @@ The implementation will be performed sequentially in Antigravity:
   commands and outcomes, changed-file summary, reviewer/approval result,
   unresolved blockers/risks, and the next phase’s required base SHA and
   preconditions.
-- A phase is “accepted” only when its assigned acceptance checks pass and the
-  user or designated phase reviewer records approval in the handoff manifest.
+- Codex reviews every phase before the next phase starts. A phase is “accepted”
+  only when its assigned checks pass and Codex records approval in the handoff
+  manifest. A rejected phase returns to the same phase agent when available, or
+  to a fresh remediation agent otherwise; a later phase never absorbs the fix.
+- Agents must present the need and compatibility impact of the planned component
+  library before its first install. Any later direct dependency addition,
+  removal, major upgrade, or substitution also pauses for Codex to decide
+  whether it is a good fit.
 - `ROADMAP.md` and the Decisions Log are updated in the same phase when scope or
   significant choices change.
-- The final result after Phase 8 will be reviewed by Codex against this
-  specification, the implementation plans, the audit findings, and verification
-  evidence.
+- After Phase 8, Codex performs the final code/specification review. The user
+  then reviews the final screenshots and is the authority for final visual
+  sign-off.
 
 The implementation plan created after approval of this document must be
 self-contained and split into eight phase documents or eight clearly separable
@@ -746,8 +753,12 @@ Every phase runs the cheapest relevant checks first and records actual output:
 5. `npm run build` before phase handoff when bundling or production guards change
 6. targeted screenshot sweep across affected canonical viewports
 
-Screenshots are review artifacts, not assertions. Responsive phase acceptance
-also requires automated DOM checks that:
+Screenshots are manual-review artifacts, not assertions or pixel baselines. The
+single shared capture script writes every run to the ignored local path
+`artifacts/ui/<full-git-sha>/<unique-run-id>/` so repeated runs never overwrite
+earlier evidence. Every UI-changing phase records that path in its handoff; no
+screenshot artifact is committed. Responsive phase acceptance also requires
+automated DOM checks that:
 
 - the document has no unintended horizontal overflow;
 - all expected answer controls and critical actions intersect the viewport or
@@ -757,9 +768,11 @@ also requires automated DOM checks that:
 - critical controls do not overlap at the tested viewport;
 - focus order and keyboard activation work after responsive reflow.
 
-Phase 8 must generate a named final contact sheet and record human approval in
-`docs/ui-audit/redesign-final-review.md`, including the command, viewport matrix,
-artifact location, reviewer, date, and any accepted deviations.
+Phase 8 must capture a named final screenshot set and record the command,
+viewport matrix, local artifact location, Codex review, user visual sign-off,
+date, and any accepted deviations in `docs/ui-audit/redesign-final-review.md`.
+The full screenshot matrix runs in Chromium; a small WebKit smoke suite covers
+home, parent entry, and representative literacy and numeracy journeys.
 
 Release hardening additionally requires:
 
@@ -807,7 +820,7 @@ The redesign is complete only when:
   offline behavior remain intact.
 - The avatar is untouched and persistent gamification is not introduced.
 - Phase verification evidence and final Codex review find no unresolved release
-  blocker.
+  blocker, and the user has recorded final visual sign-off.
 
 ## Deferred Backlog
 

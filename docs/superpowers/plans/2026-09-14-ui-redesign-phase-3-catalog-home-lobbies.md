@@ -12,11 +12,27 @@
 
 ## Required context and phase boundary
 
-Start from the accepted Phase 2 SHA on `feature/full-app-ui-redesign`. Read
+Start from the Codex-accepted Phase 2 SHA on `feature/full-app-ui-redesign`. Read
 `AGENTS.md`, `docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`,
-and both accepted handoff manifests. Phase 2 primitives are mandatory;
+and both Codex-accepted handoff manifests. Phase 2 primitives are mandatory;
 do not create local replacements. This phase changes discovery and lobbies only;
 do not migrate game-round visuals or build the parent dashboard.
+
+## Phase acceptance contract
+
+This phase produces a candidate SHA, not a self-approved result. After the
+handoff commit, stop and submit the exact SHA, verification evidence, and local
+screenshot directory to Codex. Phase 4 may begin only after Codex accepts that
+SHA. If rejected, remediate inside Phase 3 with the same agent when available,
+rerun affected checks and screenshots, and submit a new candidate; Phase 4 must
+not absorb the findings. Screenshots remain ignored local manual-review evidence
+under `artifacts/ui/<full-git-sha>/<unique-run-id>/` and are never committed or
+pixel-diffed.
+On approval, Codex records the reviewed candidate SHA and `Accepted` in the
+handoff manifest, commits that review, and returns the acceptance commit SHA;
+that commit is the only valid Phase 4 base. Any direct dependency addition,
+removal, major upgrade, or substitution requires a short fit proposal and Codex
+approval before `package.json` or the lockfile changes.
 
 ### Task 1: Define stable setting IDs and Slovak UI-copy keys
 
@@ -407,12 +423,14 @@ Expected: PASS with all public and protected-route regressions green.
 
 Run the Phase 1 screenshot harness across the canonical matrix for home and all
 eleven lobby scenes. Check card baselines, long titles, short landscape, focus,
-and absence of per-game full-surface colors.
+and absence of per-game full-surface colors. Preserve the printed local
+`artifacts/ui/<full-git-sha>/<unique-run-id>/` path and record it in the handoff.
 
 - [ ] **Step 4: Update roadmap and handoff manifest**
 
-Mark only Phase 3 complete. Record exact base/result SHAs, clean status, commands,
-screenshots, lazy-chunk evidence, reviewer result, risks, and the Phase 4 base.
+Mark Phase 3 implementation complete but pending Codex acceptance. Record exact
+base/result SHAs, clean status, commands, local screenshots, lazy-chunk evidence,
+internal reviewer result, risks, and the proposed Phase 4 base.
 
 - [ ] **Step 5: Commit and stop**
 
@@ -421,4 +439,5 @@ git add e2e/smoke.spec.ts ROADMAP.md docs/superpowers/handoffs/2026-09-14-ui-red
 git commit -m "docs: hand off UI redesign phase three" -m "Verified catalog and navigation contracts give the parent agent stable game metadata and entry paths."
 ```
 
-Do not begin Phase 4.
+Do not begin Phase 4. Submit the exact candidate SHA and evidence to Codex and
+follow the acceptance contract above.

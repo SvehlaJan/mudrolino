@@ -27,6 +27,20 @@ Create `feature/full-app-ui-redesign` from the commit containing this plan. No
 later phase may start until this phase’s handoff manifest is accepted. Do not
 install Radix or visually redesign dialogs here; Phase 2 owns that work.
 
+## Phase acceptance contract
+
+This phase produces a candidate SHA, not a self-approved result. After the
+handoff commit, stop and submit the exact SHA, verification evidence, and local
+screenshot directory to Codex. Phase 2 may begin only after Codex accepts that
+SHA. If rejected, remediate inside Phase 1 with the same agent when available,
+rerun affected checks and screenshots, and submit a new candidate; Phase 2 must
+not absorb the findings. Screenshots remain ignored local manual-review evidence
+under `artifacts/ui/<full-git-sha>/<unique-run-id>/` and are never committed or
+pixel-diffed.
+On approval, Codex records the reviewed candidate SHA and `Accepted` in the
+handoff manifest, commits that review, and returns the acceptance commit SHA;
+that commit is the only valid Phase 2 base.
+
 ### Task 1: Create the parent-route policy as verified pure logic
 
 **Files:**
@@ -432,6 +446,7 @@ export const CANONICAL_VIEWPORTS = {
   tabletPortrait: { width: 768, height: 1024 },
   tabletLandscape: { width: 1024, height: 768 },
   desktop: { width: 1280, height: 900 },
+  desktopLarge: { width: 1440, height: 900 },
   desktopWide: { width: 1920, height: 1080 },
 } as const;
 ```
@@ -505,6 +520,9 @@ git commit -m "test: establish persistence and responsive baselines" -m "Stable 
 - Create: `e2e/production-guards.spec.ts`
 - Create: `e2e/playwright.production.config.ts`
 - Create: `tools/screenshots/capture.mjs`
+- Modify: `.agents/skills/playwright-browser-verification/SKILL.md`
+- Modify: `e2e/ui-ux-enhancements.spec.ts`
+- Modify: `.gitignore`
 - Modify: `package.json`
 - Modify: `package-lock.json`
 
@@ -538,12 +556,18 @@ The `shots` package script already points to this currently missing file. Create
 the Playwright CLI with these contracts:
 
 - accept `--base=<url>`, repeatable `--scene=<id>`, repeatable
-  `--viewport=<canonical-name>`, and `--output=<directory>`;
-- default to the Phase 1 `CANONICAL_VIEWPORTS` and write deterministic
-  `<output>/<scene>/<viewport>.png` paths;
-- launch installed Chrome through Playwright's `channel: 'chrome'`, create a new
-  context per viewport with `reducedMotion: 'reduce'`, and close browser/context
-  in `finally` blocks;
+  `--viewport=<canonical-name>`, and optional `--output=<directory>`;
+- when `--output` is omitted, resolve the full current Git SHA and a unique UTC
+  run ID containing milliseconds and the process ID, then write deterministic
+  `artifacts/ui/<full-git-sha>/<unique-run-id>/<scene>/<viewport>.png` paths;
+- create the run directory without overwrite; fail and ask for a new run ID on
+  the unlikely event of a collision;
+- add `artifacts/ui/` to `.gitignore`; never stage generated images;
+- default to the Phase 1 `CANONICAL_VIEWPORTS`;
+- launch Playwright Chromium using the existing `e2e/browserResolver.ts` so the
+  repository's resolved/preinstalled executable works in local and agent
+  environments; create a new context per viewport with
+  `reducedMotion: 'reduce'`, and close browser/context in `finally` blocks;
 - define `parents-gate`, `parents-gate-error`, `settings`, and `content` scene
   setup explicitly; later phases extend this registry rather than creating a
   second capture tool;
@@ -554,8 +578,27 @@ the Playwright CLI with these contracts:
   frames before capture; fail on console errors, failed same-origin requests,
   unknown scenes/viewports, or a protected quick-pass request against a
   non-test server.
+- do not compare pixels, create a baseline, or fail because the rendered design
+  differs from an earlier run. The images exist only for manual review.
 
-- [ ] **Step 4: Run both build modes**
+- [ ] **Step 4: Remove the legacy screenshot-only E2E side effect**
+
+Delete only the `capture visual screenshots for artifacts` test from
+`e2e/ui-ux-enhancements.spec.ts`; keep its behavioral tests. Update the repo
+browser-verification skill's “Visual Verification Pattern” to direct redesign
+work to `npm run shots`, the canonical viewports, and the ignored SHA/run output
+directory. Remove its generic `/tmp` screenshot default for redesign work.
+
+Run:
+
+```bash
+rg -n "\.gemini|page\.screenshot" e2e
+```
+
+Expected: no hard-coded personal artifact path and no screenshot-only test in
+the ordinary E2E suite.
+
+- [ ] **Step 5: Run both build modes**
 
 Run: `npm run test:e2e:production-guards`
 
@@ -565,10 +608,10 @@ Run: `npm run build:e2e && npx playwright test --config=e2e/playwright.config.ts
 
 Expected: PASS and quick-pass available.
 
-- [ ] **Step 5: Commit production safeguards**
+- [ ] **Step 6: Commit production safeguards**
 
 ```bash
-git add package.json package-lock.json e2e/production-guards.spec.ts e2e/playwright.production.config.ts tools/screenshots/capture.mjs
+git add .agents/skills/playwright-browser-verification/SKILL.md .gitignore package.json package-lock.json e2e/production-guards.spec.ts e2e/playwright.production.config.ts e2e/ui-ux-enhancements.spec.ts tools/screenshots/capture.mjs
 git commit -m "test: separate production and test gate behavior" -m "Distinct build verification prevents the automation shortcut from entering a release bundle."
 ```
 
@@ -609,14 +652,17 @@ npm run shots -- --base=http://127.0.0.1:4173 --scene=parents-gate --scene=setti
 ```
 
 Expected: every selected scene captures at every configured viewport without a
-setup failure.
+setup failure. Preserve and record the printed
+`artifacts/ui/<full-git-sha>/<unique-run-id>/` directory for Codex's manual
+review.
 
 - [ ] **Step 3: Update roadmap and write the handoff manifest**
 
-Mark only Phase 1 complete. Record the branch, base and result SHAs, clean status,
-all command outcomes, screenshot artifact path, changed files, reviewer result,
-risks, and Phase 2 preconditions. Use `git rev-parse HEAD` and `git status --short`
-to obtain the exact values; do not estimate them.
+Mark Phase 1 implementation complete but pending Codex acceptance. Record the
+branch, base and result SHAs, clean status, all command outcomes, local screenshot
+artifact path, changed files, internal reviewer result, risks, and Phase 2
+preconditions. Use `git rev-parse HEAD` and `git status --short` to obtain the
+exact values; do not estimate them.
 
 - [ ] **Step 4: Commit the phase handoff**
 
@@ -627,5 +673,6 @@ git commit -m "docs: hand off UI redesign phase one" -m "Recorded verification a
 
 - [ ] **Step 5: Stop**
 
-Do not begin Phase 2. Return the manifest and resulting SHA for explicit phase
-acceptance.
+Do not begin Phase 2. Return the manifest, resulting SHA, verification evidence,
+and local screenshot path for explicit Codex acceptance. Follow the phase
+acceptance contract above if Codex rejects the candidate.

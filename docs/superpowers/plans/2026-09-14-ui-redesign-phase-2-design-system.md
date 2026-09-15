@@ -12,12 +12,12 @@
 
 ## Required context and phase boundary
 
-Start from the accepted Phase 1 SHA on `feature/full-app-ui-redesign`. Verify a
+Start from the Codex-accepted Phase 1 SHA on `feature/full-app-ui-redesign`. Verify a
 clean worktree and read:
 
 - `AGENTS.md`
 - `docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`
-- the accepted Phase 1 handoff in `docs/superpowers/handoffs/`
+- the Codex-accepted Phase 1 handoff in `docs/superpowers/handoffs/`
 - `src/index.css`
 - every file under `src/shared/ui/`
 - `src/shared/components/ParentsGate.tsx`
@@ -25,13 +25,43 @@ clean worktree and read:
 Do not redesign home, lobbies, parent dashboard, custom content, or game rounds.
 Compatibility adapters are allowed only while current callers migrate.
 
+## Phase acceptance and dependency contract
+
+This phase produces a candidate SHA, not a self-approved result. After the
+handoff commit, stop and submit the exact SHA, verification evidence, and local
+screenshot directory to Codex. Phase 3 may begin only after Codex accepts that
+SHA. If rejected, remediate inside Phase 2 with the same agent when available,
+rerun affected checks and screenshots, and submit a new candidate; Phase 3 must
+not absorb the findings. Screenshots remain ignored local manual-review evidence
+under `artifacts/ui/<full-git-sha>/<unique-run-id>/` and are never committed or
+pixel-diffed.
+On approval, Codex records the reviewed candidate SHA and `Accepted` in the
+handoff manifest, commits that review, and returns the acceptance commit SHA;
+that commit is the only valid Phase 3 base.
+
+Before changing `package.json` or `package-lock.json`, present Codex with the
+direct dependency set, its purpose, why existing code is insufficient, and any
+material bundle, license, or maintenance implications. Install only after Codex
+confirms the libraries are a good fit. Apply this same pause to any later
+dependency addition, removal, major upgrade, or substitution.
+
 ### Task 1: Install the behavior and variant dependencies
 
 **Files:**
 - Modify: `package.json`
 - Modify: `package-lock.json`
 
-- [ ] **Step 1: Install runtime dependencies**
+- [ ] **Step 1: Obtain the component-library decision**
+
+Submit the proposed Radix packages, `class-variance-authority`, `clsx`,
+`tailwind-merge`, and `@axe-core/playwright` with the short fit assessment
+required by the dependency contract above. Wait for explicit Codex approval
+before editing either dependency file.
+
+Expected: Codex records approval or requests a revised dependency set. A
+rejection is resolved here; do not install speculatively.
+
+- [ ] **Step 2: Install runtime dependencies**
 
 ```bash
 npm install @radix-ui/react-dialog @radix-ui/react-alert-dialog @radix-ui/react-radio-group @radix-ui/react-switch @radix-ui/react-tabs @radix-ui/react-dropdown-menu @radix-ui/react-label class-variance-authority clsx tailwind-merge
@@ -39,7 +69,7 @@ npm install @radix-ui/react-dialog @radix-ui/react-alert-dialog @radix-ui/react-
 
 Expected: dependencies and lockfile update without peer-dependency errors.
 
-- [ ] **Step 2: Install the accessibility test dependency**
+- [ ] **Step 3: Install the accessibility test dependency**
 
 ```bash
 npm install --save-dev @axe-core/playwright
@@ -47,13 +77,13 @@ npm install --save-dev @axe-core/playwright
 
 Expected: `@axe-core/playwright` appears in `devDependencies`.
 
-- [ ] **Step 3: Verify dependency integrity**
+- [ ] **Step 4: Verify dependency integrity**
 
 Run: `npm run lint`
 
 Expected: existing source still passes before component migration.
 
-- [ ] **Step 4: Commit dependencies**
+- [ ] **Step 5: Commit dependencies**
 
 ```bash
 git add package.json package-lock.json
@@ -500,20 +530,23 @@ Expected: PASS. Confirm the production build keeps avatar/three.js in lazy chunk
 - [ ] **Step 2: Capture the foundation review surfaces**
 
 Run the screenshot sweep for `/ui-kit`, parent gate, and current settings across
-the canonical matrix. Inspect normal and reduced-motion states at 320×568 and
-667×375 in addition to desktop.
+the canonical matrix. Inspect 320×568 and 667×375 in addition to desktop;
+reduced-motion behavior remains an automated interaction check. Preserve the printed local
+`artifacts/ui/<full-git-sha>/<unique-run-id>/` path and record it in the handoff.
 
 - [ ] **Step 3: Update roadmap and handoff**
 
-Mark only Phase 2 complete. Record exact SHAs, clean status, dependency versions,
-commands/outcomes, screenshot location, reviewer result, remaining compatibility
-adapters, and Phase 3 preconditions.
+Mark Phase 2 implementation complete but pending Codex acceptance. Record exact
+SHAs, clean status, approved dependency versions, commands/outcomes, local
+screenshot location, internal reviewer result, remaining compatibility adapters,
+and Phase 3 preconditions.
 
 - [ ] **Step 4: Commit and stop**
 
 ```bash
 git add ROADMAP.md docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-02.md
-git commit -m "docs: hand off UI redesign phase two" -m "The accepted component contract gives the catalog and screen agent a stable foundation to consume."
+git commit -m "docs: hand off UI redesign phase two" -m "The review-ready component contract gives Codex a stable foundation candidate to assess."
 ```
 
-Do not begin Phase 3.
+Do not begin Phase 3. Submit the exact candidate SHA and evidence to Codex and
+follow the acceptance contract above.

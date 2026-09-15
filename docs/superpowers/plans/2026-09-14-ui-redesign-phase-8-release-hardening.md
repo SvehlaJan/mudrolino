@@ -4,17 +4,17 @@
 
 **Goal:** Produce objective evidence that every shipping route, game, parent capability, persisted datum, offline path, and production boundary satisfies the approved responsive and accessibility contract before publication.
 
-**Architecture:** One typed release matrix drives exhaustive Playwright journeys, canonical viewport checks, and named screenshots. Existing phase-specific tests remain the behavioral source of truth; Phase 8 adds cross-surface integration, offline production-build coverage, bundle/test-adapter guards, and a human-reviewed contact sheet. Cleanup occurs only after import and route evidence proves that legacy paths are dead.
+**Architecture:** One typed release matrix drives focused Playwright journeys, canonical Chromium viewport checks, and named local screenshots. Existing phase-specific tests remain the behavioral source of truth; Phase 8 adds cross-surface integration, a small WebKit smoke suite, offline production-build coverage, and production-boundary guards. Cleanup occurs only after import and route evidence proves that legacy paths are dead.
 
-**Tech Stack:** React 19, TypeScript, Vite production/test builds, Playwright, axe-core, vite-plugin-pwa/Workbox, Sharp, existing pure `.verify.ts` checks, shell-based bundle inspection.
+**Tech Stack:** React 19, TypeScript, Vite production/test builds, Playwright Chromium/WebKit, axe-core, vite-plugin-pwa/Workbox, existing pure `.verify.ts` checks, shell-based bundle inspection.
 
 ---
 
 ## Required context and phase boundary
 
-Start from the accepted Phase 7 SHA on `feature/full-app-ui-redesign`. Read
+Start from the Codex-accepted Phase 7 SHA on `feature/full-app-ui-redesign`. Read
 `AGENTS.md`, `docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`,
-and every accepted Phase 1–7 handoff manifest.
+and every Codex-accepted Phase 1–7 handoff manifest.
 Confirm a clean worktree, `VITE_AVATAR_POC_ENABLED` disabled in the release
 configuration, and no unresolved blocker in a prior manifest. Phase 8 does not
 redesign features, introduce new mechanics, change content, loosen assertions,
@@ -25,6 +25,22 @@ fixtures, layout assertions, and screenshot harness; the Phase 2 axe dependency;
 the Phase 3 catalog; the Phase 4 parent/recording fixtures; and the Phase 5 game
 harness. Preserve the `hrave-ucenie-settings`, `hrave-ucenie-app-settings`,
 custom-content, and IndexedDB audio compatibility contracts.
+
+## Phase acceptance contract
+
+This phase produces a candidate SHA, not a self-approved result. After the
+handoff commit, stop and submit the exact SHA, verification evidence, and local
+screenshot directory to Codex. If rejected, remediate inside Phase 8 with the
+same agent when available, rerun affected checks and screenshots, and submit a
+new candidate. Screenshots remain ignored local manual-review evidence under
+`artifacts/ui/<full-git-sha>/<unique-run-id>/` and are never committed or
+pixel-diffed. Any direct dependency addition, removal, major upgrade, or
+substitution requires a short fit proposal and Codex approval before
+`package.json` or the lockfile changes.
+
+Codex acceptance confirms code and specification compliance but does not replace
+the final visual decision. After Codex accepts the Phase 8 candidate, the user
+reviews the local screenshot set and provides final visual sign-off.
 
 ### Task 1: Make the release matrix exhaustive and verifiable
 
@@ -73,13 +89,13 @@ export const RELEASE_VIEWPORTS = {
   narrowPhone: { width: 320, height: 568 },
   smallPhone: { width: 360, height: 640 },
   phonePortrait: { width: 390, height: 844 },
-  shortPhoneLandscape: { width: 667, height: 375 },
+  shortLandscape: { width: 667, height: 375 },
   phoneLandscape: { width: 844, height: 390 },
   tabletPortrait: { width: 768, height: 1024 },
   tabletLandscape: { width: 1024, height: 768 },
   desktop: { width: 1280, height: 900 },
   desktopLarge: { width: 1440, height: 900 },
-  wideDesktop: { width: 1920, height: 1080 },
+  desktopWide: { width: 1920, height: 1080 },
 } as const;
 
 export interface ReleaseGameCase {
@@ -207,24 +223,21 @@ for (const game of RELEASE_GAME_CASES) {
 Keep the release title values verified against Phase 3 localized catalog copy so
 this journey exercises the visible home link rather than an internal ID.
 
-- [ ] **Step 3: Add retry and replay coverage for every pattern**
+- [ ] **Step 3: Add representative retry and replay coverage**
 
-For each game, start a second test and use a real visible incorrect path: one
-wrong choice for grid/counting/addition/complete-letter, the wrong side for
-comparison, and the oracle's full `incorrectTileOrder` for Assembly. Assert
-visible/live retry feedback and enabled recovery, then complete the round through
-real controls. Exercise the visible replay button and verify the prompt remains
-visible. Pattern-specific suites remain responsible for third-wrong semantics,
-sequential placement detail, comparison self-correction detail, and object
-interactions.
+Add one real visible incorrect/recovery path for each interaction family: shared
+grid, sequence, counting, comparison, and addition. Exercise replay once for an
+audio-first game and once for a visual-and-audio game. Keep game-specific failure
+details in the already accepted phase suites instead of duplicating every case
+here.
 
 - [ ] **Step 4: Run and fix integration failures**
 
 Run: `npm run build:e2e && npx playwright test --config=e2e/playwright.release.config.ts e2e/release-journeys.spec.ts`
 
-Expected: 22 logical cases PASS in each of the release config's representative
-phone, short-landscape, and desktop projects (66 project executions), with no
-console errors or failed same-origin requests.
+Expected: one happy journey per game plus the five representative recovery cases
+PASS in the default Chromium release project, with no console errors or failed
+same-origin requests.
 
 - [ ] **Step 5: Commit exhaustive child journeys**
 
@@ -239,14 +252,16 @@ git commit -m "test: cover every child journey before release" -m "Catalog-drive
 - Create: `e2e/playwright.release.config.ts`
 - Create: `e2e/release-responsive.spec.ts`
 - Create: `e2e/release-accessibility.spec.ts`
+- Create: `e2e/release-webkit-smoke.spec.ts`
 - Modify: `e2e/support/layoutAssertions.ts`
 
 - [ ] **Step 1: Configure the canonical release projects**
 
-Create one project per `RELEASE_VIEWPORTS` entry. Set `testMatch` to
-`/(release-responsive|release-accessibility)\.spec\.ts/`, reuse the test-mode
-preview server, retain trace and screenshot on failure, and run these two specs
-serially per file to avoid screenshot/resource contention. Do not remove the
+Create one Chromium project per `RELEASE_VIEWPORTS` entry for
+`release-responsive.spec.ts`. Run `release-accessibility.spec.ts` in representative
+phone portrait and desktop Chromium projects. Add three WebKit projects—390×844,
+667×375, and 1280×900—for `release-webkit-smoke.spec.ts`. Reuse the test-mode
+preview server and retain trace and screenshot on failure. Do not remove the
 smaller normal E2E project matrix.
 
 - [ ] **Step 2: Complete shared objective layout helpers**
@@ -289,12 +304,14 @@ At every canonical viewport:
 - browser zoom at 200% does not introduce two-dimensional scrolling in ordinary
   content.
 
-- [ ] **Step 4: Write accessibility checks for every interaction family**
+- [ ] **Step 4: Write the essential accessibility gate**
 
 Use `AxeBuilder` with `wcag2a`, `wcag2aa`, `wcag21aa`, and `wcag22aa`. Assert no
-critical or serious violation on home, every lobby, every active game pattern,
-gate, dashboard, each parent destination, content editor, recording error, and
-feedback success/error. Also verify:
+critical or serious violation on home, one lobby, each active game interaction
+family, the gate, dashboard, content editor, and feedback form. Verify visible
+keyboard focus on parent controls, correct dialog focus containment/restoration,
+and minimum 48px child/44px parent targets. Phase-specific suites remain the
+source of truth for detailed composite-keyboard behavior. Also verify:
 
 ```ts
 await expect(page.getByRole('main')).toHaveCount(1);
@@ -303,24 +320,36 @@ await page.getByRole('radiogroup').first().press('ArrowRight');
 await expect(page.getByRole('radio', { checked: true }).first()).toBeFocused();
 ```
 
-Test answer-group arrows/Enter/Space, switch Space, tabs Home/End/arrows,
-dropdown arrows/Escape, dialogs focus containment/restoration, error-summary
-focus, live results, and native/linked labels. Run a `reducedMotion: 'reduce'`
-context and assert no infinite animation plus equivalent visible outcomes.
+Run a `reducedMotion: 'reduce'` context and assert no infinite animation plus
+equivalent visible outcomes.
 
-- [ ] **Step 5: Run the canonical matrix**
+- [ ] **Step 5: Write the small WebKit smoke suite**
+
+At each of the three WebKit sizes, load home and the real parent gate, then run
+one literacy and one numeracy home → lobby → active-round journey. Assert the
+named heading and critical controls are visible, no horizontal overflow occurs,
+and no console error or failed same-origin request is recorded. Do not duplicate
+the full Chromium matrix in WebKit.
+
+- [ ] **Step 6: Run the browser matrix**
 
 ```bash
 npm run build:e2e
 npx playwright test --config=e2e/playwright.release.config.ts e2e/release-responsive.spec.ts e2e/release-accessibility.spec.ts
+npx playwright test --config=e2e/playwright.release.config.ts e2e/release-webkit-smoke.spec.ts
 ```
 
-Expected: PASS at all ten canonical dimensions with zero serious/critical axe violations, clipped critical controls, overlaps, undersized targets, or horizontal overflow.
+Expected: the responsive suite passes at all ten Chromium dimensions; the
+essential accessibility suite passes on representative Chromium sizes with zero
+serious/critical axe violations; and WebKit smoke passes at its three sizes.
+If Playwright reports that its WebKit executable is missing, run
+`npx playwright install webkit` and repeat the same command; browser availability
+is a Phase 8 prerequisite, not a reason to skip the smoke suite.
 
-- [ ] **Step 6: Commit responsive and accessibility gates**
+- [ ] **Step 7: Commit responsive and accessibility gates**
 
 ```bash
-git add e2e/playwright.release.config.ts e2e/release-responsive.spec.ts e2e/release-accessibility.spec.ts e2e/support/layoutAssertions.ts
+git add e2e/playwright.release.config.ts e2e/release-responsive.spec.ts e2e/release-accessibility.spec.ts e2e/release-webkit-smoke.spec.ts e2e/support/layoutAssertions.ts
 git commit -m "test: enforce release responsive and accessibility gates" -m "The complete viewport matrix now checks semantics, keyboard use, focus, target size, bounds, and reduced motion objectively."
 ```
 
@@ -447,11 +476,10 @@ git add e2e/offline.spec.ts e2e/playwright.production.config.ts src/pwa/pwaConfi
 git commit -m "test: verify every game remains available offline" -m "Production service-worker checks protect installation, deep links, lazy routes, and core audio from release regressions."
 ```
 
-### Task 6: Guard production test boundaries, lazy avatar code, and bundle growth
+### Task 6: Guard production test boundaries and lazy avatar code
 
 **Files:**
 - Create: `tools/release/verify-production-bundle.mjs`
-- Create: `tools/release/bundle-budget.json`
 - Modify: `e2e/production-guards.spec.ts`
 - Modify: `package.json`
 
@@ -465,9 +493,7 @@ the release route policy.
 - [ ] **Step 2: Implement the production bundle verifier**
 
 ```js
-import { gzipSync } from 'node:zlib';
 import { readFileSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
 
 const dist = new URL('../../dist/', import.meta.url);
 const html = readFileSync(new URL('index.html', dist), 'utf8');
@@ -485,23 +511,10 @@ const avatarChunks = files.filter(file => /Avatar|three|react-three/i.test(file)
 if (avatarChunks.length === 0) throw new Error('Expected avatar renderer to remain a separate lazy chunk');
 if (avatarChunks.includes(mainMatch[1])) throw new Error('Avatar code entered the main chunk');
 
-const budget = JSON.parse(readFileSync(new URL('./bundle-budget.json', import.meta.url), 'utf8'));
-const gzipBytes = gzipSync(main).byteLength;
-if (gzipBytes > budget.mainEntryGzipBytes) {
-  throw new Error(`Main entry ${gzipBytes} exceeds budget ${budget.mainEntryGzipBytes}`);
-}
-console.log(`✓ production bundle guards passed (${gzipBytes} gzip bytes)`);
+console.log('✓ production bundle boundaries passed');
 ```
 
-- [ ] **Step 3: Establish the checked-in budget from the accepted Phase 7 build**
-
-Run `npm run build`, measure the entry with the verifier temporarily in report
-mode, and write `bundle-budget.json` with `mainEntryGzipBytes` equal to the Phase
-7 measured value rounded up to the next 1024 bytes. Record the raw measurement
-and rounded budget in the Phase 8 handoff. The committed verifier never updates
-the budget automatically.
-
-- [ ] **Step 4: Run production guards**
+- [ ] **Step 3: Run production guards**
 
 ```bash
 npm run build
@@ -509,13 +522,14 @@ npm run verify:bundle
 npm run test:e2e:production-guards
 ```
 
-Expected: PASS; automation adapters absent, parent routes protected, avatar UI disabled, avatar renderer separate, and entry gzip at or below the checked-in budget.
+Expected: PASS; automation adapters absent, parent routes protected, avatar UI
+disabled, and avatar/three.js code outside the main entry chunk.
 
-- [ ] **Step 5: Commit production guards**
+- [ ] **Step 4: Commit production guards**
 
 ```bash
-git add tools/release/verify-production-bundle.mjs tools/release/bundle-budget.json e2e/production-guards.spec.ts package.json package-lock.json
-git commit -m "test: guard the production bundle boundary" -m "Release checks exclude automation bypasses and avatar rendering code while preventing silent entry-chunk growth."
+git add tools/release/verify-production-bundle.mjs e2e/production-guards.spec.ts package.json package-lock.json
+git commit -m "test: guard the production bundle boundary" -m "Release checks keep automation bypasses and avatar rendering code out of the production entry."
 ```
 
 ### Task 7: Remove confirmed dead legacy UI and rerun focused regressions
@@ -578,11 +592,10 @@ git add -A src e2e
 git commit -m "refactor: remove superseded UI paths" -m "Evidence-backed cleanup leaves every shipping route on one component, shell, and semantic styling system."
 ```
 
-### Task 8: Produce the final contact sheet, release report, and handoff
+### Task 8: Produce the final screenshot set, release report, and handoff
 
 **Files:**
 - Modify: `tools/screenshots/capture.mjs`
-- Create: `tools/screenshots/contact-sheet.mjs`
 - Create: `docs/ui-audit/redesign-final-review.md`
 - Create: `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md`
 - Modify: `ROADMAP.md`
@@ -590,10 +603,11 @@ git commit -m "refactor: remove superseded UI paths" -m "Evidence-backed cleanup
 - [ ] **Step 1: Make screenshot output deterministic**
 
 The capture tool must accept `--matrix=release`, derive dimensions from
-`RELEASE_VIEWPORTS`, use the test-only gate/game adapters, and write files as:
+`RELEASE_VIEWPORTS`, use Playwright Chromium plus the test-only gate/game
+adapters, and use its Phase 1 default output structure:
 
 ```text
-artifacts/redesign-final/<scene>/<viewport>.png
+artifacts/ui/<full-git-sha>/<unique-run-id>/<scene>/<viewport>.png
 ```
 
 Capture home; gate normal/error; all eleven lobbies; all eleven active rounds;
@@ -602,56 +616,7 @@ one/two-setting details; app/help; all five content categories; word/praise
 editors; disabled list; recording states; feedback form/error/success; and
 `/ui-kit`. Keypress and focus scenes must show a visible focus ring.
 
-- [ ] **Step 2: Implement the contact-sheet generator**
-
-```js
-import sharp from 'sharp';
-import { mkdir, readdir } from 'node:fs/promises';
-import { basename, dirname, join } from 'node:path';
-
-const source = process.argv[2] ?? 'artifacts/redesign-final';
-const output = process.argv[3] ?? 'artifacts/redesign-final-contact-sheet.jpg';
-const scenes = (await readdir(source, { withFileTypes: true })).filter(entry => entry.isDirectory()).map(entry => entry.name).sort();
-const cells = [];
-for (const scene of scenes) {
-  const directory = join(source, scene);
-  for (const file of (await readdir(directory)).filter(name => name.endsWith('.png')).sort()) {
-    const image = sharp(join(directory, file));
-    const metadata = await image.metadata();
-    const width = 280;
-    const height = Math.max(1, Math.round((metadata.height ?? 1) * width / (metadata.width ?? width)));
-    const buffer = await image.resize({ width }).jpeg({ quality: 82 }).toBuffer();
-    cells.push({ input: buffer, left: 0, top: 0, width, height, label: `${scene}/${basename(file, '.png')}` });
-  }
-}
-const gap = 20;
-const columns = 4;
-const rowHeights = Array.from({ length: Math.ceil(cells.length / columns) }, (_, row) =>
-  Math.max(...cells.slice(row * columns, row * columns + columns).map(cell => cell.height + 32)),
-);
-const canvasWidth = columns * 280 + (columns + 1) * gap;
-const canvasHeight = rowHeights.reduce((sum, value) => sum + value, 0) + (rowHeights.length + 1) * gap;
-let top = gap;
-const composites = [];
-for (let row = 0; row < rowHeights.length; row += 1) {
-  for (let column = 0; column < columns; column += 1) {
-    const cell = cells[row * columns + column];
-    if (!cell) continue;
-    const left = gap + column * (280 + gap);
-    composites.push({ input: cell.input, left, top: top + 32 });
-    composites.push({ input: Buffer.from(`<svg width="280" height="28"><text x="0" y="20" font-family="sans-serif" font-size="15" fill="#5D453E">${cell.label.replaceAll('&', '&amp;')}</text></svg>`), left, top });
-  }
-  top += rowHeights[row] + gap;
-}
-await mkdir(dirname(output), { recursive: true });
-await sharp({ create: { width: canvasWidth, height: canvasHeight, channels: 3, background: '#F4F1EA' } })
-  .composite(composites)
-  .jpeg({ quality: 88 })
-  .toFile(output);
-console.log(`✓ wrote ${output} with ${cells.length} screenshots`);
-```
-
-- [ ] **Step 3: Run the full automated release gate**
+- [ ] **Step 2: Run the full automated release gate**
 
 ```bash
 npm run verify:release
@@ -662,61 +627,73 @@ Expected: every pure verifier, lint, audio inventory, normal E2E, release E2E,
 production guard, offline test, production build, and bundle guard PASS. Save
 complete command output in the handoff manifest.
 
-- [ ] **Step 4: Capture and build the final contact sheet**
+- [ ] **Step 3: Capture the final manual-review set**
 
 ```bash
-npm run shots -- --matrix=release --output=artifacts/redesign-final
-node tools/screenshots/contact-sheet.mjs artifacts/redesign-final artifacts/redesign-final-contact-sheet.jpg
+npm run shots -- --matrix=release
 ```
 
-Expected: every named scene has all required viewport captures and the generator
-reports the exact image count without missing-file warnings.
+Expected: every named scene has all ten required Chromium viewport captures and
+the command prints one new ignored
+`artifacts/ui/<full-git-sha>/<unique-run-id>/` directory. Preserve the images
+unchanged for manual review. Do not compare pixels, approve a baseline, generate
+a contact sheet, or stage the artifact directory.
 
-- [ ] **Step 5: Prepare the report for the designated Codex review**
+- [ ] **Step 4: Prepare the pending review report**
 
 Write `docs/ui-audit/redesign-final-review.md` with:
 
-- branch, reviewed SHA, reviewer, date, capture command, matrix, artifact paths;
+- branch, reviewed SHA, reviewers, dates, capture command, Chromium matrix,
+  WebKit smoke matrix, and local artifact path;
 - route/scene inventory and exact screenshot count;
 - checks for Living Toybox coherence, light home cards, shared palette, parent
   calmness, focus, contrast, short-height fit, no clipped controls, consistent
   materials, reduced motion, and no mixed legacy surface;
-- `Result: Pending Codex review` (the implementing agent must not self-approve);
+- `Code/spec review: Pending Codex review` and
+  `Visual sign-off: Pending user review` (the implementing agent must not
+  self-approve either result);
 - every accepted deviation with owner and rationale. Use `None` when there are no
   accepted deviations.
 
-- [ ] **Step 6: Write the pending final handoff manifest**
+- [ ] **Step 5: Write the pending final handoff manifest**
 
-Do not mark Phase 8 or the full redesign complete yet. Record accepted Phase 7
-base SHA, evidence SHA, branch, clean status, every command/outcome, production
-bundle measurements, contact-sheet path, `Pending Codex review`, changed/deleted
-files, data-migration evidence, and remaining risks. Obtain exact values with
-`git rev-parse HEAD` and `git status --short`.
+Do not mark Phase 8 or the full redesign complete yet. Record the Codex-accepted
+Phase 7 base SHA, evidence SHA, branch, clean status, every command/outcome,
+production-boundary result, local screenshot path, `Pending Codex review`,
+`Pending user visual sign-off`, changed/deleted files, data-migration evidence,
+and remaining risks. Obtain exact values with `git rev-parse HEAD` and
+`git status --short`.
 
-- [ ] **Step 7: Commit documentation and stop**
+- [ ] **Step 6: Commit documentation and stop**
 
 ```bash
-git add tools/screenshots/capture.mjs tools/screenshots/contact-sheet.mjs docs/ui-audit/redesign-final-review.md docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md ROADMAP.md
-git commit -m "docs: hand off the UI redesign for final review" -m "The release evidence and contact sheet give the designated Codex reviewer one reproducible acceptance candidate."
+git add tools/screenshots/capture.mjs docs/ui-audit/redesign-final-review.md docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md ROADMAP.md
+git commit -m "docs: hand off the UI redesign for final review" -m "The release evidence and preserved screenshots give Codex and the user one reproducible acceptance candidate."
 ```
 
 Do not publish, merge, tag, or open a pull request unless the user explicitly
-asks. Return the final manifest, review report, contact-sheet path, and resulting
-SHA for Codex review against the design specification.
+asks. Return the final manifest, review report, local screenshot path, and
+resulting SHA for Codex review against the design specification.
 
-## Codex-only Phase 8 acceptance
+## Final acceptance sequence
 
 After the implementation agent stops, Codex checks out the exact evidence SHA,
-reads all eight manifests, inspects the full-resolution screenshots and contact
-sheet, and reviews the changed code against the design specification. Codex then:
+reads all eight manifests, inspects the full-resolution local screenshots, and
+reviews the changed code against the design specification. Codex then:
 
 1. records its name/date and either `Approved` or `Rejected` in
    `docs/ui-audit/redesign-final-review.md`;
 2. records findings and the review result in the Phase 8 handoff manifest;
-3. marks Phase 8 and the full redesign complete in `ROADMAP.md` only when no
-   publication blocker remains;
-4. runs `git diff --check`, commits the review documents with
-   `docs: record final UI redesign review`, and returns the review commit SHA.
+3. if rejected, returns findings to Phase 8's agent when available (or a fresh
+   Phase 8 remediation agent), which reruns affected gates and screenshots and
+   submits a new candidate;
+4. if approved, presents the unchanged local screenshot directory to the user
+   for final visual review.
 
-A rejection leaves the roadmap items open and sends each finding back to its
-owning phase; it is never converted into an accepted deviation automatically.
+Only after the user explicitly signs off the visual result does Codex record the
+user/date, mark Phase 8 and the full redesign complete in `ROADMAP.md`, run
+`git diff --check`, and commit the review documents with
+`docs: record final UI redesign approval`. A user rejection leaves the roadmap
+open and returns each finding to its owning phase's original agent when
+available, or to a fresh remediation agent otherwise. The finding is never
+converted into an accepted deviation automatically.
