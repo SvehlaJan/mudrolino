@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "build:e2e": "vite build --mode test",
     "test:e2e": "npm run build:e2e && playwright test --config=e2e/playwright.config.ts",
+    "test:e2e:production-guards": "npm run build && playwright test --config=e2e/playwright.production.config.ts e2e/production-guards.spec.ts",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && node_modules/.bin/eslint src e2e --ext ts,tsx",
     "test:fonts": "tsx tools/verify_fonts.ts && tsx src/shared/services/appSettingsStore.verify.ts",

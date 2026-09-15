@@ -66,18 +66,34 @@ One-shot headless Chrome screenshots may capture the empty shell before the GLBs
 
 ## Visual Verification Pattern
 
-Use desktop and mobile viewports:
+For UI redesign visual verification, run:
 
-- desktop: `1280 x 900`
-- mobile: `390 x 844`
+```bash
+npm run shots
+```
 
-For mobile layouts, scroll the canvas into view before screenshotting:
+Options include `--base=<url>`, `--scene=<id>`, `--viewport=<canonical-name>`, and optional `--output=<directory>`.
+
+Screenshots are saved to the git-ignored `artifacts/ui/<full-git-sha>/<unique-run-id>/<scene>/<viewport>.png` directory (or the specified `--output` directory) for manual inspection.
+
+The canonical viewports are:
+- `narrowPhone`: `320 x 568`
+- `smallPhone`: `360 x 640`
+- `phonePortrait`: `390 x 844`
+- `shortLandscape`: `667 x 375`
+- `phoneLandscape`: `844 x 390`
+- `tabletPortrait`: `768 x 1024`
+- `tabletLandscape`: `1024 x 768`
+- `desktop`: `1280 x 900`
+- `desktopLarge`: `1440 x 900`
+- `desktopWide`: `1920 x 1080`
+
+For mobile layouts or one-off canvas checks, scroll into view before screenshotting:
 
 ```js
 await page.locator("canvas").scrollIntoViewIfNeeded();
 ```
 
-Capture screenshots into `/tmp` unless the user asks for persistent artifacts.
 
 ## Console Expectations
 

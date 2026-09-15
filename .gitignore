@@ -17,4 +17,6 @@ __pycache__/
 tools/meshy/__pycache__/
 test-results/
 playwright-report/
-screenshots/
+/screenshots/
+artifacts/ui/
+
