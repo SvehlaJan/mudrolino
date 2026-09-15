@@ -45,6 +45,30 @@ test.describe('Parent Access Gate', () => {
     expectNoFailedRequests(failedRequests);
   });
 
+  for (const route of [
+    '/settings/games',
+    '/settings/games/ALPHABET',
+    '/settings/app',
+    '/settings/help',
+  ]) {
+    test(`direct navigation to ${route} stays guarded until unlock`, async ({ page }) => {
+      const errors = trackConsoleErrors(page);
+      const failedRequests = trackFailedRequests(page);
+
+      await page.goto(route);
+      await expect(page).toHaveURL(new RegExp(`${route.replaceAll('/', '\\/')}$`));
+      await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+
+      await unlockParentGate(page);
+      await expect(page).toHaveURL(/\/settings$/);
+      await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+
+      expectNoConsoleErrors(errors);
+      expectNoFailedRequests(failedRequests);
+    });
+  }
+
   test('home settings entry requires the parent gate', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
