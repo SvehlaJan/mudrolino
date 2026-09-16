@@ -21,9 +21,33 @@ import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
 import { UiKitScreen } from './shared/ui';
 import { CustomContentScreen } from './content/CustomContentScreen';
+import { useAutosaveStatus, type AutosaveStatus } from './shared/hooks/useAutosaveStatus';
 
 // Initialize font attribute immediately on boot
 applyFontFamily(loadAppSettings().fontFamily);
+
+function AutosaveNotice({ status }: { status: AutosaveStatus }) {
+  if (status === 'idle') return null;
+
+  const message = status === 'saving'
+    ? 'Ukladám nastavenia…'
+    : status === 'saved'
+      ? 'Nastavenia sú uložené.'
+      : 'Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.';
+
+  return (
+    <p
+      aria-live="polite"
+      className={status === 'error'
+        ? 'mx-auto mt-3 max-w-md rounded-2xl bg-red-100 px-4 py-3 text-center text-sm font-bold text-red-800'
+        : 'mx-auto mt-3 max-w-md text-center text-sm font-bold text-text-muted'}
+      data-testid="autosave-status"
+      role="status"
+    >
+      {message}
+    </p>
+  );
+}
 
 export default function App() {
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
@@ -36,6 +60,17 @@ export default function App() {
   const navigate = useCallback((to: string) => {
     rawNavigate(to);
   }, [rawNavigate]);
+  const saveGameSettings = useCallback((nextSettings: GameSettings) => saveSettings(nextSettings), []);
+  const saveApplicationSettings = useCallback((nextSettings: AppSettings) => saveAppSettings(nextSettings), []);
+  const gameSettingsAutosaveStatus = useAutosaveStatus(settings, saveGameSettings);
+  const appSettingsAutosaveStatus = useAutosaveStatus(appSettings, saveApplicationSettings);
+  const autosaveStatus: AutosaveStatus = gameSettingsAutosaveStatus === 'error' || appSettingsAutosaveStatus === 'error'
+    ? 'error'
+    : gameSettingsAutosaveStatus === 'saving' || appSettingsAutosaveStatus === 'saving'
+      ? 'saving'
+      : gameSettingsAutosaveStatus === 'saved' || appSettingsAutosaveStatus === 'saved'
+        ? 'saved'
+        : 'idle';
 
   // Apply font family on mount / layout
   useLayoutEffect(() => {
@@ -48,16 +83,6 @@ export default function App() {
       window.scrollTo(0, homeScrollRef.current);
     }
   }, [location.pathname]);
-
-  // Sync settings with storage
-  useEffect(() => {
-    saveSettings(settings);
-  }, [settings]);
-
-  // Sync app settings
-  useEffect(() => {
-    saveAppSettings(appSettings);
-  }, [appSettings]);
 
   // Sync locale with AudioManager
   useEffect(() => {
@@ -163,6 +188,7 @@ export default function App() {
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        {location.pathname.startsWith('/settings') && <AutosaveNotice status={autosaveStatus} />}
       </div>
     </div>
     </ContentProvider>

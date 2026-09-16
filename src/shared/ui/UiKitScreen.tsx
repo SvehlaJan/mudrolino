@@ -379,6 +379,20 @@ export function UiKitScreen() {
         </Card>
       </Section>
 
+      <Section title="Automatic save status">
+        <p className="max-w-3xl text-sm font-medium text-text-muted">
+          Nastavenia sa ukladajú automaticky. Stav je viditeľný aj oznamovaný zdvorilou živou oblasťou,
+          aby rodič vedel odlíšiť uloženie od chyby úložiska.
+        </p>
+        <Card className="mt-3 space-y-3">
+          <p className="text-sm font-bold text-text-muted" role="status" aria-live="polite">Ukladám nastavenia…</p>
+          <p className="text-sm font-bold text-text-muted" role="status" aria-live="polite">Nastavenia sú uložené.</p>
+          <p className="rounded-2xl bg-red-100 px-4 py-3 text-sm font-bold text-red-800" role="status" aria-live="polite">
+            Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.
+          </p>
+        </Card>
+      </Section>
+
       <Section title="Surfaces">
         <div className="grid gap-4 md:grid-cols-3">
           <Card>

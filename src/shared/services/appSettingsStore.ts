@@ -5,6 +5,13 @@
 
 const STORAGE_KEY = 'hrave-ucenie-app-settings';
 
+export type SaveResult = { ok: true } | { ok: false; reason: 'storage-unavailable' };
+
+export interface AppSettingsStorage {
+  getItem: (key: string) => string | null;
+  setItem: (key: string, value: string) => void;
+}
+
 export type AppFontFamily = 'nunito' | 'shantell';
 
 export interface AppSettings {
@@ -17,9 +24,18 @@ export const DEFAULT_APP_SETTINGS: AppSettings = {
   fontFamily: 'nunito',
 };
 
-export function loadAppSettings(): AppSettings {
+function getDefaultStorage(): AppSettingsStorage | null {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    return typeof globalThis.localStorage === 'undefined' ? null : globalThis.localStorage;
+  } catch {
+    return null;
+  }
+}
+
+export function loadAppSettings(storage: AppSettingsStorage | null = getDefaultStorage()): AppSettings {
+  try {
+    if (!storage) return DEFAULT_APP_SETTINGS;
+    const raw = storage.getItem(STORAGE_KEY);
     if (!raw) return DEFAULT_APP_SETTINGS;
     const stored = JSON.parse(raw) as Record<string, unknown>;
     return {
@@ -31,11 +47,16 @@ export function loadAppSettings(): AppSettings {
   }
 }
 
-export function saveAppSettings(settings: AppSettings): void {
+export function saveAppSettings(
+  settings: AppSettings,
+  storage: AppSettingsStorage | null = getDefaultStorage(),
+): SaveResult {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    if (!storage) return { ok: false, reason: 'storage-unavailable' };
+    storage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    return { ok: true };
   } catch {
-    // Silent fail: private/incognito mode or storage quota exceeded
+    return { ok: false, reason: 'storage-unavailable' };
   }
 }
 
