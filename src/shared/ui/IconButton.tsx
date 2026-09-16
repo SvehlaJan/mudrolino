@@ -5,12 +5,21 @@
 
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { uiTokens } from './tokens';
-import { cx } from './utils';
+import { cn } from './utils';
+import { iconButtonVariants, type IconButtonVariantProps } from './variants';
+import type { ButtonDensity } from './Button';
 
-interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+const ICON_DENSITY_CLASSES: Record<ButtonDensity, string> = {
+  comfortable: '',
+  compact: 'h-9 w-9 shadow-sm',
+};
+
+interface IconButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    IconButtonVariantProps {
   label: string;
   children: React.ReactNode;
+  density?: ButtonDensity;
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
@@ -18,6 +27,9 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(f
     label,
     children,
     className,
+    density = 'comfortable',
+    tone,
+    size,
     type = 'button',
     ...props
   },
@@ -29,7 +41,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(f
       ref={ref}
       type={type}
       aria-label={label}
-      className={cx(uiTokens.iconButton, className)}
+      data-tone={tone ?? 'neutral'}
+      className={cn(iconButtonVariants({ tone, size }), ICON_DENSITY_CLASSES[density], className)}
     >
       {children}
     </button>

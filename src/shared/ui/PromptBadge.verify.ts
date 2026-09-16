@@ -4,21 +4,19 @@
  */
 
 import assert from 'node:assert/strict';
+import { Button } from './Button';
+import { Card } from './Card';
 import { PromptBadge } from './PromptBadge';
 
-// Verify non-clickable badge behavior and accessibility attributes
-const staticBadge = PromptBadge({
-  children: '🚗',
-  ariaLabel: 'Auto',
-});
-
+// Static badge renders a non-interactive Card, never a fake `div[role="button"]`.
+const staticBadge = PromptBadge({ children: '🚗', ariaLabel: 'Auto' });
+assert.equal(staticBadge.type, Card, 'static badge renders Card');
 assert.equal(staticBadge.props['aria-label'], 'Auto');
-assert.equal(staticBadge.props.role, undefined);
-assert.equal(staticBadge.props.tabIndex, undefined);
+assert.equal(staticBadge.props.onClick, undefined);
 assert.ok(staticBadge.props.className.includes('min-w-[140px]'));
-assert.ok(staticBadge.props.className.includes('!shadow-block'));
+assert.ok(!staticBadge.props.className.includes('!'), 'no !important overrides remain');
 
-// Verify clickable badge behavior and accessibility attributes
+// Clickable badge renders a native Button, which owns focus/keyboard semantics for free.
 let clickCount = 0;
 const clickableBadge = PromptBadge({
   children: '🍎',
@@ -28,36 +26,12 @@ const clickableBadge = PromptBadge({
   },
 });
 
+assert.equal(clickableBadge.type, Button, 'clickable badge renders Button');
 assert.equal(clickableBadge.props['aria-label'], 'Jablko');
-assert.equal(clickableBadge.props.role, 'button');
-assert.equal(clickableBadge.props.tabIndex, 0);
+assert.equal(clickableBadge.props.tone, 'neutral');
 assert.ok(clickableBadge.props.className.includes('cursor-pointer'));
-assert.ok(clickableBadge.props.className.includes('active:scale-95'));
 
-// Trigger onClick
 clickableBadge.props.onClick();
-assert.equal(clickCount, 1, 'onClick handler was called');
-
-// Trigger onKeyDown with Enter and Space
-let preventDefaultCalls = 0;
-const mockEvent = (key: string) => ({
-  key,
-  preventDefault: () => {
-    preventDefaultCalls += 1;
-  },
-});
-
-clickableBadge.props.onKeyDown(mockEvent('Enter'));
-assert.equal(clickCount, 2, 'Enter key activated onClick');
-assert.equal(preventDefaultCalls, 1, 'preventDefault called on Enter');
-
-clickableBadge.props.onKeyDown(mockEvent(' '));
-assert.equal(clickCount, 3, 'Space key activated onClick');
-assert.equal(preventDefaultCalls, 2, 'preventDefault called on Space');
-
-// Trigger onKeyDown with other key
-clickableBadge.props.onKeyDown(mockEvent('Tab'));
-assert.equal(clickCount, 3, 'Other keys do not activate onClick');
-assert.equal(preventDefaultCalls, 2, 'preventDefault not called on Tab');
+assert.equal(clickCount, 1, 'onClick handler is wired to the native button');
 
 console.log('✅ PromptBadge verification tests passed');

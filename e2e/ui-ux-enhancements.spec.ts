@@ -71,7 +71,7 @@ test.describe('UI/UX Enhancements', () => {
     await page.getByRole('button', { name: 'Hrať' }).click();
 
     // Prompt badge is visible
-    const promptBadge = page.locator('div[role="button"][aria-label]');
+    const promptBadge = page.getByTestId('prompt-badge');
     await expect(promptBadge.first()).toBeVisible();
 
     // Empty slot with question mark placeholder is visible

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { uiTokens } from './tokens';
-import { cx } from './utils';
+import { cn } from './utils';
 
 type CardVariant = 'card' | 'panel' | 'inset' | 'row' | 'modal';
 
@@ -25,5 +25,5 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
   { className, variant = 'card', ...props },
   ref,
 ) {
-  return <div ref={ref} className={cx(variantClasses[variant], className)} {...props} />;
+  return <div ref={ref} className={cn(variantClasses[variant], className)} {...props} />;
 });

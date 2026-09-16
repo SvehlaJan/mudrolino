@@ -28,3 +28,24 @@ export const buttonVariants = cva(
 );
 
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+
+export const iconButtonVariants = cva(
+  'inline-flex items-center justify-center rounded-full shadow-block transition-all active:translate-y-1 active:shadow-block-pressed disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
+  {
+    variants: {
+      tone: {
+        neutral: 'bg-surface text-text-main',
+        primary: 'bg-action-primary text-white',
+        quiet: 'bg-transparent text-text-main shadow-none',
+        danger: 'bg-action-danger text-white',
+      },
+      size: {
+        parent: 'h-11 w-11',
+        child: 'h-12 w-12 sm:h-14 sm:w-14',
+      },
+    },
+    defaultVariants: { tone: 'neutral', size: 'child' },
+  },
+);
+
+export type IconButtonVariantProps = VariantProps<typeof iconButtonVariants>;

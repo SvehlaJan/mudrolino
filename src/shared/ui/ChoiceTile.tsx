@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import { Check, X } from 'lucide-react';
 import { uiTokens } from './tokens';
-import { cx } from './utils';
+import { cn } from './utils';
 
-type ChoiceTileState = 'neutral' | 'selected' | 'correct' | 'wrong' | 'disabled';
-type ChoiceTileShape = 'square' | 'option' | 'pill';
+export type ChoiceTileState = 'neutral' | 'selected' | 'correct' | 'wrong' | 'disabled';
+export type ChoiceTileShape = 'square' | 'option' | 'pill';
 
-interface ChoiceTileProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ChoiceTileProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   state?: ChoiceTileState;
   shape?: ChoiceTileShape;
   unstyledState?: boolean;
@@ -39,11 +40,14 @@ export const ChoiceTile = React.forwardRef<HTMLButtonElement, ChoiceTileProps>(f
     state = 'neutral',
     type = 'button',
     unstyledState = false,
+    'aria-pressed': ariaPressedProp,
     ...props
   },
   ref,
 ) {
   const resolvedState = disabled ? 'disabled' : state;
+  // 'selected' must be discoverable to assistive tech, not only expressed by background color.
+  const ariaPressed = ariaPressedProp ?? (resolvedState === 'selected' ? true : undefined);
 
   return (
     <button
@@ -51,8 +55,9 @@ export const ChoiceTile = React.forwardRef<HTMLButtonElement, ChoiceTileProps>(f
       ref={ref}
       disabled={disabled}
       type={type}
-      className={cx(
-        'flex items-center justify-center font-bold transition-all disabled:cursor-not-allowed',
+      aria-pressed={ariaPressed}
+      className={cn(
+        'relative flex items-center justify-center font-bold transition-all disabled:cursor-not-allowed',
         resolvedState !== 'wrong' && resolvedState !== 'disabled' && uiTokens.pressable,
         shapeClasses[shape],
         !unstyledState && stateClasses[resolvedState],
@@ -60,6 +65,24 @@ export const ChoiceTile = React.forwardRef<HTMLButtonElement, ChoiceTileProps>(f
       )}
     >
       {children}
+      {resolvedState === 'correct' && (
+        <span
+          data-testid="choice-tile-correct-icon"
+          aria-hidden="true"
+          className="pointer-events-none absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-green-600 shadow-sm sm:h-6 sm:w-6"
+        >
+          <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={3.5} />
+        </span>
+      )}
+      {resolvedState === 'wrong' && (
+        <span
+          data-testid="choice-tile-wrong-icon"
+          aria-hidden="true"
+          className="pointer-events-none absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-action-danger shadow-sm sm:h-6 sm:w-6"
+        >
+          <X className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={3.5} />
+        </span>
+      )}
     </button>
   );
 });

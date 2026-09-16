@@ -142,8 +142,51 @@ export function UiKitScreen() {
         </p>
       </header>
 
-      <Section title="Actions">
-        <Card className="flex flex-wrap items-center gap-4">
+      <Section title="Actions — typed variants">
+        <Card className="space-y-5">
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Rodič (tone × veľkosť, min. 44×44)</h3>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <Button tone="primary" size="parent" data-testid="ui-parent-primary">Primárne</Button>
+              <Button tone="neutral" size="parent" data-testid="ui-parent-neutral">Neutrálne</Button>
+              <Button tone="quiet" size="parent">Tiché</Button>
+              <Button tone="danger" size="parent">Zmazať</Button>
+              <Button tone="primary" size="parent" disabled>Vypnuté</Button>
+              <Button tone="primary" size="parent" icon={<Loader2 size={18} className="animate-spin" />}>
+                Odosielam
+              </Button>
+              <Button tone="neutral" size="parent" density="compact">Kompaktné</Button>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Dieťa (tone × veľkosť, min. 48×48)</h3>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <Button tone="primary" size="child" data-testid="ui-child-primary">Hrať</Button>
+              <Button tone="neutral" size="child">Tiché</Button>
+              <Button tone="danger" size="child">Zmazať</Button>
+              <Button tone="primary" size="play" aria-label="Hrať"><Play size={40} fill="currentColor" /></Button>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Ikonové tlačidlá</h3>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <IconButton label="Prehrať" tone="neutral" size="child"><Volume2 size={24} /></IconButton>
+              <IconButton label="Nahrať" tone="primary" size="child"><Mic size={24} /></IconButton>
+              <IconButton label="Zmazať" tone="danger" size="parent"><Trash2 size={18} /></IconButton>
+              <IconButton label="Ďalšie" tone="neutral" size="parent" density="compact"><Settings size={16} /></IconButton>
+            </div>
+          </div>
+        </Card>
+      </Section>
+
+      <Section title="Actions — legacy compatibility adapter">
+        <p className="max-w-3xl text-sm font-medium opacity-60">
+          Staré API (<code>variant</code>, <code>size=&quot;sm|md|lg&quot;</code>) sa naďalej vykresľuje
+          nezmenené, kým sa volajúce miesta nepremigrujú na <code>tone</code>/<code>size</code>.
+        </p>
+        <Card className="mt-3 flex flex-wrap items-center gap-4">
           <Button variant="primary" icon={<Settings size={22} />}>Primárne</Button>
           <Button variant="secondary">Sekundárne</Button>
           <Button variant="quiet">Tiché</Button>
@@ -151,8 +194,7 @@ export function UiKitScreen() {
           <Button variant="primary" disabled>Vypnuté</Button>
           <Button variant="primary" icon={<Loader2 size={20} className="animate-spin" />}>Odosielam</Button>
           <Button variant="play" aria-label="Hrať"><Play size={56} fill="currentColor" /></Button>
-          <IconButton label="Prehrať"><Volume2 size={24} /></IconButton>
-          <IconButton label="Nahrať"><Mic size={24} /></IconButton>
+          <Button size="sm" variant="quiet">Malé (sm)</Button>
         </Card>
       </Section>
 
@@ -285,11 +327,11 @@ export function UiKitScreen() {
       <Section title="Choices">
         <Card className="space-y-5">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
-            <ChoiceTile state="neutral"><span className="text-5xl">A</span></ChoiceTile>
-            <ChoiceTile state="selected"><span className="text-5xl">B</span></ChoiceTile>
-            <ChoiceTile state="correct"><span className="text-5xl">C</span></ChoiceTile>
-            <ChoiceTile state="wrong"><span className="text-5xl">D</span></ChoiceTile>
-            <ChoiceTile disabled><span className="text-5xl">E</span></ChoiceTile>
+            <ChoiceTile state="neutral" data-testid="ui-choice-neutral"><span className="text-5xl">A</span></ChoiceTile>
+            <ChoiceTile state="selected" data-testid="ui-choice-selected"><span className="text-5xl">B</span></ChoiceTile>
+            <ChoiceTile state="correct" data-testid="ui-choice-correct"><span className="text-5xl">C</span></ChoiceTile>
+            <ChoiceTile state="wrong" data-testid="ui-choice-wrong"><span className="text-5xl">D</span></ChoiceTile>
+            <ChoiceTile disabled data-testid="ui-choice-disabled"><span className="text-5xl">E</span></ChoiceTile>
           </div>
           <div className="grid max-w-md grid-cols-2 gap-4">
             <ChoiceTile><span className="text-6xl">M</span></ChoiceTile>
