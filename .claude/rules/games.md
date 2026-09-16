@@ -39,12 +39,14 @@ bespoke `assemblyAudioLogic.ts` and a fixed praise clip; leave it alone.
 
 ## Settings
 
-There are no per-game settings overlays. `SettingsContent.tsx` renders every
-section and `SETTINGS_VISIBILITY` in `settingsContentData.ts` maps each target
-(`home` or a `GameId`) to the sections it shows. It is presented as an in-game
-`SettingsOverlay` and as the `/settings` screen behind the parent gate. To add a
-per-game setting, add a flag to `SETTINGS_VISIBILITY` and a section to
-`SettingsContent`.
+A game's settings are declared as `SettingId`s on its `GAME_DEFINITIONS` entry
+in `gameCatalog.tsx`; each ID's control, validation, and dependency logic lives
+once in `src/shared/settings/settingsRegistry.ts`. `src/parent/` renders them —
+`SettingsRenderer` maps a game's IDs through `SettingField`, reused unchanged by
+both a lobby's settings trigger (`/settings/games/:gameId`) and the parent
+dashboard's drill-down. To add a per-game setting, add its ID to the game's
+`settings` array and a definition to `SETTINGS_REGISTRY`; no per-game UI code
+is needed.
 
 ## Adding a game
 

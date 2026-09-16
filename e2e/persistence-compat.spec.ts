@@ -35,7 +35,8 @@ test.describe('Persistence and Backward Compatibility', () => {
     await unlockParentGate(page);
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
 
-    // Verify font family option is visible
+    // Verify font family option is visible on the app settings screen
+    await page.getByRole('link', { name: /Aplikácia a vzhľad/ }).click();
     const fontButton = page.getByRole('radio', { name: /Hravé \(Shantell\)/i });
     await expect(fontButton).toBeVisible();
 

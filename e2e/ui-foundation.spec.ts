@@ -277,7 +277,11 @@ test.describe('UI foundation: overlay landmark hygiene', () => {
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
     await expect(page.getByRole('main')).toHaveCount(1);
 
-    await page.getByRole('button', { name: /spätná väzba/i }).click();
+    await page.getByRole('link', { name: /pomoc a spätná väzba/i }).click();
+    await expect(page).toHaveURL(/\/settings\/help$/);
+    await expect(page.getByRole('main')).toHaveCount(1);
+
+    await page.getByRole('button', { name: /odoslať spätnú väzbu/i }).click();
     await expect(page.getByRole('heading', { name: 'Spätná väzba' })).toBeVisible();
 
     await expect(page.getByRole('main')).toHaveCount(1);

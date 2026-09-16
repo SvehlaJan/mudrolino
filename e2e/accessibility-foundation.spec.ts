@@ -56,12 +56,6 @@ test.describe('Accessibility foundation', () => {
 
     const results = await new AxeBuilder(toAxeParams(page))
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
-      // `SettingsScreen.tsx`/`SettingsContent.tsx` are pre-existing legacy screens outside
-      // this task's file scope (`ParentsGate.tsx`, `UiKitScreen.tsx`); Phase 4
-      // (docs/superpowers/plans/2026-09-14-ui-redesign-phase-4-parent-experience.md) already
-      // owns rewriting `SettingsContent.tsx` and deleting `SettingsScreen.tsx`, so their
-      // `opacity-*` muted-text contrast debt is fixed there, not in this Task 6 pass.
-      .disableRules(['color-contrast'])
       .analyze();
 
     expect(results.violations.filter(v => isSeriousViolation(v.impact))).toEqual([]);

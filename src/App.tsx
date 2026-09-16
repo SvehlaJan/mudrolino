@@ -10,10 +10,14 @@ import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { loadAppSettings, saveAppSettings, AppSettings, applyFontFamily } from './shared/services/appSettingsStore';
 import { GameSettings } from './shared/types';
 import { ProtectedParentRoute } from './shared/components/ProtectedParentRoute';
-import { GameSettingsRoute } from './shared/components/GameSettingsRoute';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { GameRoute } from './shared/components/GameRoute';
-import { SettingsScreen } from './shared/components/SettingsScreen';
+import { ParentLayout } from './parent/ParentLayout';
+import { ParentDashboardScreen } from './parent/ParentDashboardScreen';
+import { GameSettingsOverviewScreen } from './parent/GameSettingsOverviewScreen';
+import { GameSettingsScreen } from './parent/GameSettingsScreen';
+import { AppSettingsScreen } from './parent/AppSettingsScreen';
+import { HelpFeedbackScreen } from './parent/HelpFeedbackScreen';
 import { ContentProvider } from './shared/contexts/ContentContext';
 import { GAME_DEFINITIONS } from './shared/gameCatalog';
 import { GroupedHomeScreen } from './home/GroupedHomeScreen';
@@ -137,38 +141,28 @@ export default function App() {
             />
           ))}
           <Route element={<ProtectedParentRoute />}>
-            <Route
-              path="/settings"
-              element={
-                <SettingsScreen
-                  settings={settings}
-                  onUpdate={setSettings}
-                  appSettings={appSettings}
-                  onUpdateAppSettings={setAppSettings}
-                />
-              }
-            />
-            <Route path="/settings/games" element={<Navigate to="/settings" replace />} />
-            <Route
-              path="/settings/games/:gameId"
-              element={
-                <GameSettingsRoute
-                  settings={settings}
-                  onUpdate={setSettings}
-                />
-              }
-            />
-            <Route path="/settings/app" element={<Navigate to="/settings" replace />} />
-            <Route path="/settings/help" element={<Navigate to="/settings" replace />} />
-            <Route
-              path="/content"
-              element={
-                <ErrorBoundary>
-                  <CustomContentScreen />
-                </ErrorBoundary>
-              }
-            />
-            <Route path="/recordings" element={<Navigate to="/content" replace />} />
+            <Route element={<ParentLayout />}>
+              <Route path="/settings" element={<ParentDashboardScreen />} />
+              <Route path="/settings/games" element={<GameSettingsOverviewScreen settings={settings} />} />
+              <Route
+                path="/settings/games/:gameId"
+                element={<GameSettingsScreen settings={settings} onUpdate={setSettings} />}
+              />
+              <Route
+                path="/settings/app"
+                element={<AppSettingsScreen appSettings={appSettings} onUpdate={setAppSettings} />}
+              />
+              <Route path="/settings/help" element={<HelpFeedbackScreen />} />
+              <Route
+                path="/content"
+                element={
+                  <ErrorBoundary>
+                    <CustomContentScreen />
+                  </ErrorBoundary>
+                }
+              />
+              <Route path="/recordings" element={<Navigate to="/content" replace />} />
+            </Route>
           </Route>
           <Route
             path="/avatar-preview"

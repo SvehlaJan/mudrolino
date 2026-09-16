@@ -86,7 +86,7 @@ test.describe('Game lobby semantic contract', () => {
     });
   }
 
-  test('alphabet lobby settings flow: cancel returns to /alphabet with focus, unlock opens selected game SettingsOverlay, saves updates, and close returns with focus', async ({ page }) => {
+  test('alphabet lobby settings flow: cancel returns to /alphabet with focus, unlock opens the routed game settings screen, saves updates, and close returns with focus', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
     await page.goto('/alphabet');
@@ -105,22 +105,22 @@ test.describe('Game lobby semantic contract', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
     await unlockParentGate(page);
 
-    // After unlock, must stay on route /settings/games/ALPHABET and render SettingsOverlay for Alphabet
+    // After unlock, must stay on route /settings/games/ALPHABET and render the routed settings screen for Alphabet
     await expect(page).toHaveURL(/\/settings\/games\/ALPHABET$/);
-    const settingsModal = page.getByRole('dialog');
-    await expect(settingsModal).toBeVisible();
-    await expect(settingsModal.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
-    await expect(settingsModal.getByText('Hra s písmenami')).toBeVisible();
-    await expect(settingsModal.getByRole('heading', { name: 'Počet kariet' })).toBeVisible();
-    await expect(settingsModal.getByText('Písmená s dĺžňami a mäkčeňmi')).toBeVisible();
+    const main = page.getByRole('main');
+    await expect(main).toBeVisible();
+    await expect(main.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await expect(main.getByText('Hra s písmenami')).toBeVisible();
+    await expect(main.getByRole('heading', { name: 'Počet kariet' })).toBeVisible();
+    await expect(main.getByRole('heading', { name: 'Písmená s dĺžňami a mäkčeňmi' })).toBeVisible();
 
     // 3. Update behavior: change grid size option to 6
-    const option6 = settingsModal.getByRole('radio', { name: '6' });
+    const option6 = main.getByRole('radio', { name: '6' });
     await option6.click();
     await expect(option6).toBeChecked();
 
-    // 4. Close settings via "Hotovo"
-    await settingsModal.getByRole('button', { name: 'Hotovo' }).click();
+    // 4. Close settings via the back action
+    await main.getByRole('button', { name: 'Späť' }).click();
 
     // Must return to originating lobby and restore focus to Settings button
     await expect(page).toHaveURL('/alphabet');

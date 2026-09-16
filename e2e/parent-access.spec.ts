@@ -61,11 +61,7 @@ test.describe('Parent Access Gate', () => {
       await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
 
       await unlockParentGate(page);
-      if (route === '/settings/games/ALPHABET') {
-        await expect(page).toHaveURL(/\/settings\/games\/ALPHABET$/);
-      } else {
-        await expect(page).toHaveURL(/\/settings$/);
-      }
+      await expect(page).toHaveURL(new RegExp(`${route.replaceAll('/', '\\/')}$`));
       await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
 
       expectNoConsoleErrors(errors);
@@ -249,7 +245,7 @@ test.describe('Parent Access Gate', () => {
     await unlockParentGate(page);
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
 
-    await page.getByRole('button', { name: /vlastný obsah/i }).click();
+    await page.getByRole('link', { name: /vlastný obsah/i }).click();
 
     await expect(page).toHaveURL(/\/content$/);
     await expect(page.getByRole('heading', { name: 'Vlastný obsah' })).toBeVisible();

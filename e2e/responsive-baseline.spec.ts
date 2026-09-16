@@ -47,7 +47,7 @@ test.describe('Responsive Baseline Layout', () => {
       await unlockParentGate(page);
       await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
       await expectNoHorizontalOverflow(page);
-      await assertReachableAction(page, page.getByRole('button', { name: /^Vlastný obsah/ }));
+      await assertReachableAction(page, page.getByRole('link', { name: /^Vlastný obsah/ }));
       await assertReachableAction(page, page.getByRole('button', { name: 'Späť', exact: true }));
       expectNoConsoleErrors(errors);
       expectNoFailedRequests(failedRequests);
