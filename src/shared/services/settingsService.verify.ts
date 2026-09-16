@@ -4,6 +4,7 @@
  */
 
 import { additionRangeForcesNumerals, applyAdditionSumRangeChange, DEFAULT_SETTINGS } from './settingsService';
+import { ADDITION_NUMERALS_NOTICE, SETTINGS_BY_ID } from '../settings/settingsRegistry';
 
 function assert(condition: boolean, message: string): void {
   if (!condition) {
@@ -29,6 +30,12 @@ assert(objectsAt10.additionRepresentation === 'objects', 'range=10 leaves object
 // Crossing into 20 or 100 forces numerals when it was objects.
 const forcedAt20 = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'objects' }, 20);
 assert(forcedAt20.additionRepresentation === 'numerals', 'range=20 forces numerals when it was objects');
+
+const rangeApplyResult = SETTINGS_BY_ID.additionSumRange.apply(
+  { ...DEFAULT_SETTINGS, additionRepresentation: 'objects' },
+  20,
+);
+assert(rangeApplyResult.notice === ADDITION_NUMERALS_NOTICE, 'the registry reports why it forced numerals');
 
 const forcedAt100 = applyAdditionSumRangeChange({ ...DEFAULT_SETTINGS, additionRepresentation: 'objects' }, 100);
 assert(forcedAt100.additionRepresentation === 'numerals', 'range=100 forces numerals when it was objects');

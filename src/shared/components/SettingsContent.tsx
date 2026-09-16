@@ -18,7 +18,7 @@ import {
 import { GameSettings, SettingsTarget } from '../types';
 import { additionRangeForcesNumerals, applyAdditionSumRangeChange } from '../services/settingsService';
 import { FeedbackModal } from './FeedbackModal';
-import { SETTINGS_VISIBILITY } from './settingsContentData';
+import { getSettingsForTarget } from '../settings/settingsRegistry';
 import { Card, SegmentedChoice, ToggleControl, cx, uiTokens, type RadioGroupTone } from '../ui';
 import { AppSettings, AppFontFamily, applyFontFamily } from '../services/appSettingsStore';
 
@@ -265,11 +265,11 @@ export function SettingsContent({
   appSettings,
   onUpdateAppSettings,
 }: SettingsContentProps) {
-  const visibility = SETTINGS_VISIBILITY[target];
+  const visibleSettingIds = new Set(getSettingsForTarget(target).map(setting => setting.id));
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   const isModal = target !== 'home';
-  const visibleCardsCount = Object.values(visibility).filter(Boolean).length;
+  const visibleCardsCount = visibleSettingIds.size;
   const singleCardClassName = undefined;
 
   return (
@@ -315,7 +315,7 @@ export function SettingsContent({
         </SettingsCard>
       )}
 
-      {visibility.recordings && onManageRecordings && (
+      {target === 'home' && onManageRecordings && (
         <SettingsNavCard
           icon={<Mic size={24} className="sm:h-7 sm:w-7" />}
           title="Vlastný obsah"
@@ -324,7 +324,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.alphabetAccents && (
+      {visibleSettingIds.has('alphabetAccents') && (
         <SettingsSection className={singleCardClassName} isModal={isModal}>
           <ToggleControl
             label="Písmená s dĺžňami a mäkčeňmi"
@@ -337,7 +337,7 @@ export function SettingsContent({
         </SettingsSection>
       )}
 
-      {visibility.completeLetterMissingCount && (
+      {visibleSettingIds.has('completeLetterMissingCount') && (
         <CompleteLetterMissingCountCard
           selected={settings.completeLetterMissingCount}
           onSelect={(value) => onUpdate({ ...settings, completeLetterMissingCount: value })}
@@ -346,7 +346,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.alphabetGridSize && (
+      {visibleSettingIds.has('alphabetGridSize') && (
         <SettingsRangeCard
           icon={<LayoutGrid size={24} className="sm:h-7 sm:w-7" />}
           title="Počet kariet"
@@ -361,7 +361,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.syllablesGridSize && (
+      {visibleSettingIds.has('syllablesGridSize') && (
         <SettingsRangeCard
           icon={<LayoutGrid size={24} className="sm:h-7 sm:w-7" />}
           title="Počet kariet"
@@ -376,7 +376,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.numbersRange && (
+      {visibleSettingIds.has('numbersRange') && (
         <SettingsRangeCard
           icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
           title="Rozsah čísel"
@@ -391,7 +391,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.countingRange && (
+      {visibleSettingIds.has('countingRange') && (
         <SettingsRangeCard
           icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
           title="Rozsah počítania"
@@ -406,7 +406,7 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.compareMode && (
+      {visibleSettingIds.has('compareMode') && (
         <SettingsSection className={singleCardClassName} isModal={isModal}>
           <div className="flex items-start gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
@@ -433,7 +433,7 @@ export function SettingsContent({
         </SettingsSection>
       )}
 
-      {visibility.compareRange && (
+      {visibleSettingIds.has('compareRange') && (
         <SettingsRangeCard
           icon={<Hash size={24} className="sm:h-7 sm:w-7" />}
           title="Rozsah čísel"
@@ -448,11 +448,11 @@ export function SettingsContent({
         />
       )}
 
-      {visibility.additionRepresentation && (
+      {visibleSettingIds.has('additionRepresentation') && (
         <AdditionRepresentationCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} isModal={isModal} />
       )}
 
-      {visibility.additionSumRange && (
+      {visibleSettingIds.has('additionSumRange') && (
         <AdditionSumRangeCard settings={settings} onUpdate={onUpdate} className={singleCardClassName} isModal={isModal} />
       )}
 

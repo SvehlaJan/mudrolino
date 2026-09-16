@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import { Check, X } from 'lucide-react';
 import { GameId, GameSettings } from '../types';
 import { SettingsContent } from './SettingsContent';
-import { getSettingsSubtitle } from './settingsContentData';
+import { getSettingsSubtitle } from '../settings/settingsRegistry';
 import { Button, Card } from '../ui';
 
 interface SettingsOverlayProps {
