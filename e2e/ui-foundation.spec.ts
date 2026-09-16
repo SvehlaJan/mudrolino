@@ -62,3 +62,75 @@ test.describe('UI foundation: core controls', () => {
     expect(box!.height).toBeGreaterThanOrEqual(48);
   });
 });
+
+test.describe('UI foundation: Radix wrappers', () => {
+  test('dialog traps and restores focus', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const trigger = page.getByRole('button', { name: 'Otvoriť ukážkový dialóg' });
+    await trigger.click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.getByRole('dialog')).toContainText('Ukážkový dialóg');
+    await page.keyboard.press('Escape');
+    await expect(trigger).toBeFocused();
+  });
+
+  test('alert dialog requires an explicit choice and ignores backdrop clicks', async ({ page }) => {
+    await page.goto('/ui-kit');
+    await page.getByRole('button', { name: 'Otvoriť potvrdenie' }).click();
+    const alert = page.getByRole('alertdialog');
+    await expect(alert).toBeVisible();
+    await page.mouse.click(4, 4);
+    await expect(alert).toBeVisible();
+    await page.getByRole('button', { name: 'Vymazať', exact: true }).click();
+    await expect(alert).not.toBeVisible();
+  });
+
+  test('radio, switch, tabs and menu support keyboard contracts', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const radio = page.getByRole('radio', { name: 'Šesť' });
+    await radio.focus();
+    // Radix's roving-focus radio only commits the arrow-driven selection once
+    // its own keydown-tracking listener has run before keyup resets it; a bare
+    // `.press()` fires both back-to-back with no task-queue turn between them.
+    await page.keyboard.down('ArrowRight');
+    await page.waitForTimeout(50);
+    await page.keyboard.up('ArrowRight');
+    await expect(page.getByRole('radio', { name: 'Osem' })).toBeChecked();
+    await page.getByRole('switch', { name: 'Diakritika' }).press('Space');
+    await expect(page.getByRole('switch', { name: 'Diakritika' })).toBeChecked();
+  });
+
+  test('tabs switch panels with arrow keys and move focus with them', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const wordsTab = page.getByRole('tab', { name: 'Slová (ukážka)' });
+    const praiseTab = page.getByRole('tab', { name: 'Pochvaly (ukážka)' });
+    await wordsTab.focus();
+    await expect(wordsTab).toHaveAttribute('data-state', 'active');
+    await page.keyboard.press('ArrowRight');
+    await expect(praiseTab).toHaveAttribute('data-state', 'active');
+    await expect(praiseTab).toBeFocused();
+    await expect(page.getByRole('tabpanel')).toContainText('Pochvaly');
+  });
+
+  test('dropdown menu opens on the trigger and closes back onto it with Escape', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const trigger = page.getByRole('button', { name: 'Ďalšie možnosti (ukážka)' });
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    const menu = page.getByRole('menu');
+    await expect(menu).toBeVisible();
+    await expect(page.getByRole('menuitem', { name: 'Upraviť' })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(menu).not.toBeVisible();
+    await expect(trigger).toBeFocused();
+  });
+
+  test('field wrapper links label, help, and error text', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const input = page.getByLabel('Vlastné slovo');
+    await expect(input).toBeVisible();
+    await input.fill('toto je velmi dlhe skusobne slovo pre test');
+    await expect(page.getByRole('alert')).toContainText('príliš dlhé');
+  });
+});

@@ -3,19 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { CheckCircle2, Download, Loader2, Mic, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { CheckCircle2, Download, Loader2, Mic, MoreHorizontal, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
 import { IconMenuButton } from './IconMenuButton';
 import { TopBar } from './TopBar';
 import { RoundCounter } from './RoundCounter';
+import { AlertDialogShell } from './AlertDialog';
 import { Button } from './Button';
 import { Card } from './Card';
 import { ChoiceTile } from './ChoiceTile';
+import { DialogShell } from './Dialog';
+import { DropdownMenu } from './DropdownMenu';
+import { Field } from './Field';
 import { SearchInput, SegmentedChoice, TextAreaControl, ToggleControl } from './FormControls';
 import { OverlayFrame } from './OverlayFrame';
+import { PageHeader } from './PageHeader';
 import { PromptBadge } from './PromptBadge';
+import { RadioGroupControl } from './RadioGroup';
+import { SwitchControl } from './Switch';
+import { Tabs, TabPanel } from './Tabs';
 import { cx } from './utils';
 import { RecordingListItem } from '../../recordings/RecordingListItem';
 
@@ -122,6 +130,134 @@ function RecordingRowExample({
           )}
         </>
       )}
+    </Card>
+  );
+}
+
+function UiKitDialogDemo() {
+  const [open, setOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  return (
+    <div className="flex flex-wrap gap-4">
+      <DialogShell
+        open={open}
+        onOpenChange={setOpen}
+        trigger={<Button tone="neutral" size="parent">Otvoriť ukážkový dialóg</Button>}
+        title="Ukážkový dialóg"
+        description="Toto je ukážkový popis dialógu pre kontrolu prístupnosti."
+      >
+        <p className="mt-4 text-base font-medium text-text-muted">
+          Obsah dialógu, ktorý overuje zachytenie a obnovenie zamerania.
+        </p>
+        <div className="mt-6 flex justify-end">
+          <Button tone="primary" size="parent" onClick={() => setOpen(false)}>Zavrieť</Button>
+        </div>
+      </DialogShell>
+
+      <AlertDialogShell
+        open={alertOpen}
+        onOpenChange={setAlertOpen}
+        trigger={<Button tone="danger" size="parent">Otvoriť potvrdenie</Button>}
+        title="Vymazať položku?"
+        description="Túto akciu nie je možné vrátiť späť."
+        cancelLabel="Zrušiť"
+        actionLabel="Vymazať"
+        onAction={() => undefined}
+      />
+    </div>
+  );
+}
+
+function UiKitInteractionDemo() {
+  const [gridSize, setGridSize] = useState<'4' | '6' | '8'>('6');
+  const [diacritics, setDiacritics] = useState(false);
+  const [tab, setTab] = useState('words');
+  const [customWord, setCustomWord] = useState('');
+  const customWordTooLong = customWord.length > 20;
+
+  return (
+    <Card className="space-y-6">
+      <div>
+        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Rádiová skupina</h3>
+        <div className="mt-3 max-w-md">
+          <RadioGroupControl
+            ariaLabel="Počet kariet"
+            options={[
+              { value: '4', label: 'Štyri' },
+              { value: '6', label: 'Šesť' },
+              { value: '8', label: 'Osem' },
+            ]}
+            value={gridSize}
+            onValueChange={setGridSize}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Prepínač</h3>
+        <div className="mt-3">
+          <SwitchControl
+            label="Diakritika"
+            description="Zobraziť písmená s dĺžňami a mäkčeňmi."
+            checked={diacritics}
+            onCheckedChange={setDiacritics}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Karty</h3>
+        <Tabs
+          ariaLabel="Kategórie vlastného obsahu (ukážka)"
+          items={[
+            { value: 'words', label: 'Slová (ukážka)' },
+            { value: 'praise', label: 'Pochvaly (ukážka)' },
+          ]}
+          value={tab}
+          onValueChange={setTab}
+        >
+          <TabPanel value="words" className="mt-3 text-base font-medium opacity-70">
+            Obsah karty Slová.
+          </TabPanel>
+          <TabPanel value="praise" className="mt-3 text-base font-medium opacity-70">
+            Obsah karty Pochvaly.
+          </TabPanel>
+        </Tabs>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Menu</h3>
+        <div className="mt-3">
+          <DropdownMenu
+            trigger={<IconButton label="Ďalšie možnosti (ukážka)"><MoreHorizontal size={18} /></IconButton>}
+            items={[
+              { label: 'Upraviť', onSelect: () => undefined },
+              { label: 'Zmazať', tone: 'danger', onSelect: () => undefined },
+            ]}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Pole formulára</h3>
+        <div className="mt-3 max-w-md">
+          <Field
+            label="Vlastné slovo"
+            helpText="Napríklad meno obľúbenej hračky."
+            errorText={customWordTooLong ? 'Slovo je príliš dlhé.' : undefined}
+          >
+            {fieldProps => (
+              <input
+                {...fieldProps}
+                value={customWord}
+                onChange={event => setCustomWord(event.target.value)}
+                className="w-full rounded-2xl border-2 border-shadow/10 bg-white px-4 py-3 text-lg font-medium focus:border-accent-blue/50 focus:outline-none"
+              />
+            )}
+          </Field>
+        </div>
+      </div>
     </Card>
   );
 }
@@ -443,6 +579,24 @@ export function UiKitScreen() {
           />
           <SearchInput value="mama" onChange={() => undefined} onClear={() => undefined} placeholder="Hľadať..." />
           <TextAreaControl value="Správa pre tím" onChange={() => undefined} rows={3} />
+        </Card>
+      </Section>
+
+      <Section title="Dialogs">
+        <UiKitDialogDemo />
+      </Section>
+
+      <Section title="Rádiové skupiny, prepínače, karty, menu a polia">
+        <UiKitInteractionDemo />
+      </Section>
+
+      <Section title="Page Header">
+        <Card>
+          <PageHeader
+            title="Nastavenia hier"
+            description="Uprav rozsahy a možnosti pre jednotlivé hry."
+            actions={<Button tone="neutral" size="parent">Hotovo</Button>}
+          />
         </Card>
       </Section>
 
