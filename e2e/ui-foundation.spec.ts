@@ -256,13 +256,18 @@ test.describe('UI foundation: universal screen contract', () => {
 });
 
 test.describe('UI foundation: overlay landmark hygiene', () => {
-  test('opening the parent gate over a game route does not duplicate the main landmark', async ({ page }) => {
+  test('opening the parent gate over a game route makes the background inert instead of duplicating the main landmark', async ({ page }) => {
     await page.goto('/alphabet');
     await expect(page.getByRole('main')).toHaveCount(1);
 
     await page.getByRole('button', { name: 'Nastavenia' }).click();
-    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await expect(page.getByRole('dialog', { name: 'Pre rodičov' })).toBeVisible();
 
+    // A real modal dialog makes the rest of the document inert to assistive tech rather than
+    // leaving a second, simultaneously reachable main landmark behind it.
+    await expect(page.getByRole('main')).toHaveCount(0);
+
+    await page.keyboard.press('Escape');
     await expect(page.getByRole('main')).toHaveCount(1);
   });
 

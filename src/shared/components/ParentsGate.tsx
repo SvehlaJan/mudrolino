@@ -4,7 +4,8 @@
  */
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { AppScreen, BackButton, Button, Card, TopBar } from '../ui';
+import { ArrowLeft } from 'lucide-react';
+import { Button, Card, DialogShell, IconButton } from '../ui';
 import { exposeParentGateE2E } from '../services/e2eState';
 
 interface ParentsGateProps {
@@ -13,6 +14,7 @@ interface ParentsGateProps {
 }
 
 const DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const ERROR_DISPLAY_MS = 500;
 
 function generateQuestion(): { a: number; b: number; op: '+' | '-'; answer: number } {
   if (Math.random() > 0.5) {
@@ -30,44 +32,55 @@ function generateQuestion(): { a: number; b: number; op: '+' | '-'; answer: numb
 export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   const [question, setQuestion] = useState(generateQuestion);
   const [input, setInput] = useState('');
-  const [shaking, setShaking] = useState(false);
-  const shakeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [error, setError] = useState(false);
+  const errorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const firstDigitRef = useRef<HTMLButtonElement>(null);
+  // Captured once, at mount: whichever control (e.g. a lobby's "Nastavenia" button) was
+  // focused right before this gate opened. See DialogShell's `restoreFocusRef` doc comment
+  // for why Radix can't infer this on its own without a `Dialog.Trigger`.
+  const restoreFocusRef = useRef<HTMLElement | null>(
+    typeof document !== 'undefined' ? (document.activeElement as HTMLElement | null) : null,
+  );
 
   useEffect(() => exposeParentGateE2E({ answer: question.answer, unlock: onSuccess }), [
     question.answer,
     onSuccess,
   ]);
 
-  const handleDigit = useCallback((digit: string) => {
-    if (shaking) return;
-    setInput(prev => prev.length < 2 ? prev + digit : prev);
-  }, [shaking]);
-
-  const handleBackspace = useCallback(() => {
-    if (shaking) return;
-    setInput(prev => prev.slice(0, -1));
-  }, [shaking]);
-
   useEffect(() => {
     return () => {
-      if (shakeTimerRef.current) clearTimeout(shakeTimerRef.current);
+      if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
     };
   }, []);
 
+  const handleDigit = useCallback((digit: string) => {
+    if (error) return;
+    setInput(prev => (prev.length < 2 ? prev + digit : prev));
+  }, [error]);
+
+  const handleBackspace = useCallback(() => {
+    if (error) return;
+    setInput(prev => prev.slice(0, -1));
+  }, [error]);
+
   const handleConfirm = useCallback(() => {
-    if (!input || shaking) return;
+    if (!input || error) return;
     if (parseInt(input, 10) === question.answer) {
       onSuccess();
-    } else {
-      setShaking(true);
-      shakeTimerRef.current = setTimeout(() => {
-        setShaking(false);
-        setQuestion(generateQuestion());
-        setInput('');
-      }, 500);
+      return;
     }
-  }, [input, shaking, question.answer, onSuccess]);
+    setError(true);
+    errorTimerRef.current = setTimeout(() => {
+      setError(false);
+      setQuestion(generateQuestion());
+      setInput('');
+    }, ERROR_DISPLAY_MS);
+  }, [input, error, question.answer, onSuccess]);
 
+  // Digits/Backspace/Enter need a global listener because the dialog has no text
+  // input to hold key focus. Escape is left to Dialog.Content's own onEscapeKeyDown,
+  // which already routes through onOpenChange below — handling it twice would
+  // invoke onCancel twice.
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key >= '0' && e.key <= '9') {
@@ -76,91 +89,101 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
         handleBackspace();
       } else if (e.key === 'Enter') {
         handleConfirm();
-      } else if (e.key === 'Escape') {
-        onCancel();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleDigit, handleBackspace, handleConfirm, onCancel]);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleDigit, handleBackspace, handleConfirm]);
 
   return (
-    <AppScreen
-      as="div"
-      maxWidth="narrow"
-      position="fixed"
-      className="fixed inset-0 z-50 bg-bg-light/95 backdrop-blur-md"
-      contentClassName="portrait:max-w-sm landscape:max-w-2xl"
+    <DialogShell
+      open
+      onOpenChange={open => {
+        if (!open) onCancel();
+      }}
+      title="Pre rodičov"
+      titleClassName="text-xl landscape:text-lg sm:portrait:text-3xl"
+      description="Vyriešte príklad pre vstup."
+      descriptionClassName="text-sm landscape:text-xs sm:portrait:text-base"
+      initialFocusRef={firstDigitRef}
+      restoreFocusRef={restoreFocusRef}
+      className="portrait:max-w-sm landscape:max-w-2xl landscape:p-3"
     >
-      <TopBar left={<BackButton onClick={onCancel} />} />
+      <div className="mt-1 flex justify-start landscape:mt-0.5">
+        <IconButton label="Späť" tone="neutral" size="parent" onClick={onCancel}>
+          <ArrowLeft size={20} />
+        </IconButton>
+      </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center min-h-0">
-        <div className="w-full px-4 sm:px-6 flex flex-col items-center gap-6 landscape:flex-row landscape:items-center landscape:justify-center landscape:gap-8">
-          <div className="w-full landscape:flex-1 flex flex-col items-center gap-3">
-            <div className="text-center">
-              <h2 className="text-2xl sm:portrait:text-3xl landscape:text-2xl font-bold text-text-main">Pre rodičov</h2>
-              <p className="text-sm sm:portrait:text-base landscape:text-xs opacity-60 font-medium mt-0.5 sm:portrait:mt-1">Vyriešte príklad pre vstup</p>
-            </div>
+      <div className="flex flex-col items-center gap-3 landscape:flex-row landscape:items-center landscape:gap-4">
+        <div className="w-full landscape:flex-1 flex flex-col items-center gap-2 landscape:gap-1.5">
+          <Card
+            variant="panel"
+            className={`w-full py-3 landscape:py-1.5 text-center text-2xl landscape:text-lg font-bold text-text-main sm:portrait:py-4 sm:portrait:text-4xl ${error ? 'animate-shake' : ''}`}
+          >
+            {question.a} {question.op} {question.b} = ?
+          </Card>
 
-            <Card
-              variant="panel"
-              className={`w-full py-3 sm:portrait:py-6 landscape:py-3 text-center text-3xl sm:portrait:text-5xl landscape:text-3xl font-bold text-text-main ${shaking ? 'animate-shake' : ''}`}
+          <Card
+            role="status"
+            aria-live="polite"
+            className="w-full rounded-2xl py-2 landscape:py-1 min-h-[40px] landscape:min-h-[32px] flex items-center justify-center text-xl landscape:text-lg font-bold text-text-main sm:portrait:min-h-[56px] sm:portrait:text-3xl"
+          >
+            {input || <span className="opacity-30">—</span>}
+          </Card>
+
+          {error && (
+            <p role="alert" className="text-xs landscape:text-[10px] font-bold text-action-danger sm:portrait:text-sm">
+              Nesprávna odpoveď. Skús to znova.
+            </p>
+          )}
+        </div>
+
+        <div className="w-full landscape:flex-1 max-w-[280px]">
+          <div className="grid grid-cols-3 gap-1.5 landscape:gap-1 w-full sm:portrait:gap-3">
+            {DIGITS.map((d, index) => (
+              <Button
+                key={d}
+                ref={index === 0 ? firstDigitRef : undefined}
+                tone="neutral"
+                size="parent"
+                onClick={() => handleDigit(d)}
+                className="py-1.5 landscape:py-1 text-lg landscape:text-base sm:portrait:py-4 sm:portrait:text-2xl"
+              >
+                {d}
+              </Button>
+            ))}
+            <Button
+              tone="neutral"
+              size="parent"
+              onClick={handleBackspace}
+              aria-label="Zmazať"
+              className="py-1.5 landscape:py-1 text-lg landscape:text-base opacity-70 sm:portrait:py-4 sm:portrait:text-2xl"
             >
-              {question.a} {question.op} {question.b} = ?
-            </Card>
-
-            <Card
-              role="status"
-              aria-live="polite"
-              className="w-full rounded-2xl py-2 sm:portrait:py-4 landscape:py-2 min-h-[48px] sm:portrait:min-h-[72px] flex items-center justify-center text-2xl sm:portrait:text-4xl landscape:text-2xl font-bold text-text-main"
+              ⌫
+            </Button>
+            <Button
+              tone="neutral"
+              size="parent"
+              onClick={() => handleDigit('0')}
+              className="py-1.5 landscape:py-1 text-lg landscape:text-base sm:portrait:py-4 sm:portrait:text-2xl"
             >
-              {input || <span className="opacity-30">—</span>}
-            </Card>
-          </div>
-
-          <div className="w-full landscape:flex-1 max-w-[280px]">
-            <div className="grid grid-cols-3 gap-2 sm:gap-3 w-full">
-              {DIGITS.map(d => (
-                <Button
-                  key={d}
-                  variant="quiet"
-                  onClick={() => handleDigit(d)}
-                  className="py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl"
-                >
-                  {d}
-                </Button>
-              ))}
-              <Button
-                variant="quiet"
-                onClick={handleBackspace}
-                aria-label="Zmazať"
-                className="!bg-bg-light py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl opacity-70"
-              >
-                ⌫
-              </Button>
-              <Button
-                variant="quiet"
-                onClick={() => handleDigit('0')}
-                className="py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl"
-              >
-                0
-              </Button>
-              <Button
-                variant="primary"
-                onClick={handleConfirm}
-                disabled={!input || shaking}
-                aria-label="Potvrdiť"
-                className="!bg-success py-2 landscape:py-2.5 sm:portrait:py-5 text-xl landscape:text-xl sm:portrait:text-2xl text-text-main font-black shadow-block-correct"
-              >
-                ✓
-              </Button>
-            </div>
+              0
+            </Button>
+            <Button
+              tone="primary"
+              size="parent"
+              onClick={handleConfirm}
+              disabled={!input || error}
+              aria-label="Potvrdiť"
+              className="py-1.5 landscape:py-1 text-lg landscape:text-base font-black sm:portrait:py-4 sm:portrait:text-2xl"
+            >
+              ✓
+            </Button>
           </div>
         </div>
       </div>
-    </AppScreen>
+    </DialogShell>
   );
 }

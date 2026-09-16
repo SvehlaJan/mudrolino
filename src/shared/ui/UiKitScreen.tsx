@@ -588,7 +588,7 @@ export function UiKitScreen() {
             icon={<Volume2 size={24} />}
           />
           <SearchInput value="mama" onChange={() => undefined} onClear={() => undefined} placeholder="Hľadať..." />
-          <TextAreaControl value="Správa pre tím" onChange={() => undefined} rows={3} />
+          <TextAreaControl aria-label="Správa pre tím" value="Správa pre tím" onChange={() => undefined} rows={3} />
         </Card>
       </Section>
 

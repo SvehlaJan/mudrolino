@@ -20,7 +20,18 @@ export interface DialogShellProps {
    */
   trigger?: React.ReactElement;
   initialFocusRef?: React.RefObject<HTMLElement | null>;
+  /**
+   * Radix's modal Dialog always restores close-focus to its own `Dialog.Trigger`, unconditionally
+   * pre-empting any generic "restore whatever was focused before" fallback — so when a dialog has
+   * no `trigger` prop (its opener lives in another component entirely, e.g. a route-driven gate),
+   * closing it would otherwise strand focus. Pass the element to refocus in that case.
+   */
+  restoreFocusRef?: React.RefObject<HTMLElement | null>;
   className?: string;
+  /** Overrides the title's default size when a consumer needs to fit a short viewport. */
+  titleClassName?: string;
+  /** Overrides the description's default size when a consumer needs to fit a short viewport. */
+  descriptionClassName?: string;
 }
 
 export function DialogShell({
@@ -31,7 +42,10 @@ export function DialogShell({
   children,
   trigger,
   initialFocusRef,
+  restoreFocusRef,
   className,
+  titleClassName,
+  descriptionClassName,
 }: DialogShellProps) {
   const descriptionId = useId();
 
@@ -47,14 +61,24 @@ export function DialogShell({
             event.preventDefault();
             initialFocusRef.current.focus();
           }}
+          onCloseAutoFocus={event => {
+            if (!restoreFocusRef?.current) return;
+            event.preventDefault();
+            restoreFocusRef.current.focus();
+          }}
           className={cn(
             'fixed left-1/2 top-1/2 z-50 max-h-[calc(100svh-2rem)] w-[min(42rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-3xl bg-surface p-5 shadow-modal',
             className,
           )}
         >
-          <Dialog.Title className="text-2xl font-black text-text-main sm:text-3xl">{title}</Dialog.Title>
+          <Dialog.Title className={cn('text-2xl font-black text-text-main sm:text-3xl', titleClassName)}>
+            {title}
+          </Dialog.Title>
           {description && (
-            <Dialog.Description id={descriptionId} className="mt-1 text-base font-medium text-text-muted">
+            <Dialog.Description
+              id={descriptionId}
+              className={cn('mt-1 text-base font-medium text-text-muted', descriptionClassName)}
+            >
               {description}
             </Dialog.Description>
           )}

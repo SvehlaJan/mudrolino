@@ -289,3 +289,100 @@ test.describe('Parent Access Gate', () => {
     expectNoFailedRequests(failedRequests);
   });
 });
+
+test.describe('Parent Gate Dialog', () => {
+  test('parent gate is a modal dialog with visible and announced errors', async ({ page }) => {
+    await page.goto('/settings');
+    const dialog = page.getByRole('dialog', { name: 'Pre rodičov' });
+    await expect(dialog).toBeVisible();
+
+    await page.waitForFunction(() => typeof window.__E2E__?.parentGate?.answer === 'number');
+    const answer = await page.evaluate(() => window.__E2E__?.parentGate?.answer);
+    if (typeof answer !== 'number') throw new Error('Parent gate answer unavailable');
+    const wrongDigit = String((answer + 1) % 10);
+
+    await page.getByRole('button', { name: wrongDigit, exact: true }).click();
+    await page.getByRole('button', { name: 'Potvrdiť' }).click();
+
+    await expect(dialog.getByRole('alert')).toContainText('Skús to znova');
+    await expect(page.locator('body')).not.toHaveCSS('overflow', 'visible');
+  });
+
+  test('initial focus lands inside the dialog and Tab never escapes it', async ({ page }) => {
+    await page.goto('/settings');
+    const dialog = page.getByRole('dialog', { name: 'Pre rodičov' });
+    await expect(dialog).toBeVisible();
+
+    await expect(page.locator(':focus')).toHaveJSProperty('nodeName', 'BUTTON');
+    const focusIsInsideDialog = await page.evaluate(() =>
+      document.querySelector('[role="dialog"]')?.contains(document.activeElement),
+    );
+    expect(focusIsInsideDialog).toBe(true);
+
+    for (let i = 0; i < 15; i++) {
+      await page.keyboard.press('Tab');
+      const stillInside = await page.evaluate(() =>
+        document.querySelector('[role="dialog"]')?.contains(document.activeElement),
+      );
+      expect(stillInside).toBe(true);
+    }
+  });
+
+  test('Escape cancels the gate and falls back to the same route as clicking Späť', async ({ page }) => {
+    await page.goto('/settings');
+    await expect(page.getByRole('dialog', { name: 'Pre rodičov' })).toBeVisible();
+
+    await page.keyboard.press('Escape');
+
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+  });
+
+  test('the physical keyboard drives digits, Backspace and Enter', async ({ page }) => {
+    await page.goto('/settings');
+    await page.waitForFunction(() => typeof window.__E2E__?.parentGate?.answer === 'number');
+    const answer = await page.evaluate(() => window.__E2E__?.parentGate?.answer);
+    if (typeof answer !== 'number') throw new Error('Parent gate answer unavailable');
+
+    // A stray leading digit, removed with Backspace — deterministic regardless of
+    // whether the real answer below is one or two digits long.
+    await page.keyboard.press('5');
+    await page.keyboard.press('Backspace');
+
+    for (const digit of String(answer)) {
+      await page.keyboard.press(digit);
+    }
+    await page.keyboard.press('Enter');
+
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+  });
+
+  test('closing the gate over a game route restores focus to the settings trigger', async ({ page }) => {
+    await page.goto('/alphabet');
+    const trigger = page.getByRole('button', { name: 'Nastavenia' });
+    await trigger.click();
+
+    const dialog = page.getByRole('dialog', { name: 'Pre rodičov' });
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press('Escape');
+
+    await expect(dialog).not.toBeVisible();
+    await expect(trigger).toBeFocused();
+  });
+
+  test('reduced motion still surfaces the wrong-answer error without relying on the shake animation', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/settings');
+    const dialog = page.getByRole('dialog', { name: 'Pre rodičov' });
+
+    await page.waitForFunction(() => typeof window.__E2E__?.parentGate?.answer === 'number');
+    const answer = await page.evaluate(() => window.__E2E__?.parentGate?.answer);
+    if (typeof answer !== 'number') throw new Error('Parent gate answer unavailable');
+    const wrongDigit = String((answer + 1) % 10);
+
+    await page.getByRole('button', { name: wrongDigit, exact: true }).click();
+    await page.getByRole('button', { name: 'Potvrdiť' }).click();
+
+    await expect(dialog.getByRole('alert')).toContainText('Skús to znova');
+  });
+});
