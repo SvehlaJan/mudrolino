@@ -77,6 +77,29 @@
   --color-accent-blue: #C7CEEA;
   --color-accent-orange: #F6A03C;
   --color-soft-watermelon: #FF9AA2;
+
+  --color-canvas: #F4F1EA;
+  --color-text-muted: #6F5A52;
+  --color-action-primary: #D92D3D;
+  --color-action-danger: #A61F2B;
+  --color-focus: #4051AD;
+  --color-selected-surface: #E4E7F8;
+  --color-success-surface: #B5EAD7;
+  --color-border-subtle: #DED3C6;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
