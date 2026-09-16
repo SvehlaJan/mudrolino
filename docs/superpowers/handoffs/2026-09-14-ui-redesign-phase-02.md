@@ -4,24 +4,34 @@
 - **Phase:** 2 (Design-System Foundation)
 - **Branch:** `feature/full-app-ui-redesign`
 - **Base SHA:** `f8da3a0ee888dcadfd28154d69d96cf92bf86151` (Codex-accepted Phase 1 candidate, commit "docs: accept UI redesign phase one")
-- **Candidate SHA:** `debc513b8102dbef72ebed83301be9d98dfab0f9` ("fix: close Task 6 parent-gate review findings (motion, keys, timer, contrast, copy)") — the last product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
+- **Prior candidate SHA:** `debc513b8102dbef72ebed83301be9d98dfab0f9` ("fix: close Task 6 parent-gate review findings (motion, keys, timer, contrast, copy)") — submitted once, not yet accepted by Codex; superseded by the remediation below before any acceptance record was made.
+- **Candidate SHA:** `ac4a40be0380e7bfc15a3e42c99eee902593661c` ("fix: permanently register the /ui-kit capture scene and stop its focus demo auto-scrolling") — the last product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
 - **Implementation Status:** Complete, pending Codex acceptance
 - **Working Tree Clean:** Yes (`git status --short` clean immediately before this handoff commit)
-- **Local Screenshot Artifact Directory:** `artifacts/ui/debc513b8102dbef72ebed83301be9d98dfab0f9/2026-09-16T12-30-21-522Z-50423`
+- **Local Screenshot Artifact Directory:** `artifacts/ui/ac4a40be0380e7bfc15a3e42c99eee902593661c/2026-09-16T12-52-06-572Z-57418`
+
+### Remediation summary (this update)
+The prior candidate (`debc513`) documented two gaps as non-blocking and deliberately left unfixed because Task 7's own file scope was verification/handoff only. This update remediates both, TDD-first, as a dedicated fix commit:
+1. **`tools/screenshots/capture.mjs` now permanently registers a `'ui-kit'` scene** (previously added locally, then reverted before commit). `parseArgs`/`SCENES`/`printHelp` are exported behind a main-module guard so the scene list, `--help` output, and unknown-scene validation all stay driven by one config, and a new `tools/screenshots/capture.verify.ts` covers it per the repo's pure-logic-verify convention.
+2. **`UiKitScreen.tsx`'s static completion-overlay demo no longer auto-scrolls a fresh `/ui-kit` load.** It previously rendered `OverlayFrame show focusOnShow` unconditionally, so `.focus()` on mount scrolled ~4800px down the page before a reviewer ever saw the top. The demo now sits behind an explicit "Zobraziť dokončenie" trigger button, preserving `focusOnShow`'s real interaction-focus behavior as e2e-covered, user-triggered UI rather than a page-load side effect.
+
+Full diff: `debc513..ac4a40b` (single commit, four files: `e2e/ui-foundation.spec.ts`, `src/shared/ui/UiKitScreen.tsx`, `tools/screenshots/capture.mjs`, `tools/screenshots/capture.verify.ts`).
 
 ---
 
 ## Verification Evidence
 
+Evidence below is from this remediation pass (candidate `ac4a40b`), rerun proportionately to what the fix touched — a `/ui-kit` demo component, its e2e coverage, and a dev-only screenshot tool. Task 1–6 evidence (dependency install, build output size, etc.) is unchanged from the prior candidate and not rerun.
+
 | Command | Result | Notes |
 |---|---|---|
-| `npx tsx src/shared/ui/variants.verify.ts` | **PASS** | `✓ UI variant contracts passed` — button variant class output and `cn` merge behavior |
-| `npm run lint` (`tsc --noEmit` + ESLint) | **PASS** | 0 errors, 1 pre-existing documented `react-refresh/only-export-components` warning in `ContentContext.tsx` (unchanged by Phase 2) |
-| `npm run test:e2e` | **PASS** | 148/148 tests passed across `desktop` and `mobile` Chromium projects in 32.0s, including the new `ui-foundation.spec.ts` (24 tests), `accessibility-foundation.spec.ts` (2 axe checks), and the expanded `parent-access.spec.ts` dialog-migration coverage |
-| `npm run build` | **PASS** | Production build in 1.09s; `AvatarScene-DoLu9sH7.js` (973.00 kB) stayed a separate chunk from the main `index-*.js` (739.40 kB) — see avatar/three.js confirmation below |
-| `git diff --check` (plan's literal no-arg form) | **PASS** | Clean working tree, nothing to check |
-| `git diff --check f8da3a0..HEAD` (full phase diff, additional rigor matching the Phase 1 handoff) | **PASS** | No whitespace errors or conflict markers across the entire Phase 2 diff |
-| `npm run test:audio` | **Not relevant; run anyway for an accurate baseline** | `git diff --stat f8da3a0..HEAD` touches no audio files, `audioManager.ts`, or `contentRegistry.ts`. The run shows 3/6 categories failing (missing bundled `syllables`/`words`/`phrases` MP3s, e.g. `raketa.mp3`, `kde-je-viac.mp3`) — a pre-existing gap unrelated to and unchanged by this phase; `audioManager` falls back to `sk-SK` TTS per its documented contract, so this is not a regression. |
+| `npx tsx tools/screenshots/capture.verify.ts` (new) | **PASS** | `✓ capture.mjs scene/help/config contracts passed` — confirmed RED first (`SCENES`/`parseArgs` not exported on the pre-fix module, via `git stash`), then GREEN after the fix |
+| `npx tsx src/shared/ui/variants.verify.ts` | **PASS** | `✓ UI variant contracts passed` — unaffected by this remediation, rerun for an accurate baseline |
+| `npm run lint` (`tsc --noEmit` + ESLint) | **PASS** | 0 errors, 1 pre-existing documented `react-refresh/only-export-components` warning in `ContentContext.tsx` (unchanged) |
+| `npm run test:e2e` | **PASS** | 149/149 across `desktop`/`mobile` Chromium projects in ~32s, including the two new/changed `ui-foundation.spec.ts` overlay-focus tests (TDD RED confirmed pre-fix: trigger button not found / `scrollY` ≠ 0, then GREEN post-fix). One `parent-access.spec.ts` timer test flaked once under full-suite worker contention (`errorRecoveries` polled 0 instead of 1); reran clean 3/3 in isolation and clean again on a full-suite rerun — pre-existing timing sensitivity unrelated to this change's files, not investigated further per this task's scope. |
+| `npm run build` | **PASS** | Production build in 0.91s; `AvatarScene-DoLu9sH7.js` (973.00 kB) stayed a separate chunk from the main `index-*.js` (739.71 kB) — see avatar/three.js confirmation below |
+| `git diff --check` (working tree, pre-commit) | **PASS** | No whitespace errors or conflict markers |
+| `npm run test:audio` | **Not rerun** | This remediation touches no audio files, `audioManager.ts`, or `contentRegistry.ts`; the pre-existing gap recorded against the prior candidate (missing bundled `syllables`/`words`/`phrases` MP3s, TTS fallback covers it) is unchanged and not re-verified here. |
 
 ### Avatar / three.js lazy-chunk confirmation
 `grep`-ing the built main chunk (`dist/assets/index-*.js`) for `AvatarScene` finds exactly the Vite `import()` chunk reference and dependency map (`__vite__mapDeps=(..."assets/AvatarScene-....js"...)`, `import(\`./AvatarScene-....js\`)`) — not the module body itself. The avatar/three.js/R3F/drei code remains isolated in the separate `AvatarScene-DoLu9sH7.js` lazy chunk, unchanged by Phase 2.
@@ -30,10 +40,10 @@
 
 ## Screenshot Capture Evidence
 
-Captured using `npm run shots -- --scene=ui-kit --scene=parents-gate --scene=settings` against a local `vite preview --port 4173` server built with `vite build --mode test`.
+Captured using `npm run shots -- --scene=ui-kit --scene=parents-gate --scene=settings` against a local `vite preview --port 4173` server built with `vite build --mode test`, using the now-permanent `'ui-kit'` scene (see remediation summary above).
 
 Artifact path:
-`artifacts/ui/debc513b8102dbef72ebed83301be9d98dfab0f9/2026-09-16T12-30-21-522Z-50423`
+`artifacts/ui/ac4a40be0380e7bfc15a3e42c99eee902593661c/2026-09-16T12-52-06-572Z-57418`
 
 ### Captured Scenes & Viewports (10 canonical viewports each):
 - **`ui-kit`**: `narrowPhone.png`, `smallPhone.png`, `phonePortrait.png`, `shortLandscape.png`, `phoneLandscape.png`, `tabletPortrait.png`, `tabletLandscape.png`, `desktop.png`, `desktopLarge.png`, `desktopWide.png`
@@ -44,19 +54,20 @@ The capture tool's own console-error/failed-same-origin-request assertions passe
 
 ### Manual inspection (320×568, 667×375, desktop — required by Task 7 Step 2)
 All nine images were opened and visually reviewed:
+- **`ui-kit`**: now lands at the true top of the page on every viewport — heading, description, and the first "Actions — typed variants" section render cleanly with no clipping or overlap at 320×568, 667×375, or desktop. The prior mid-page auto-scroll gap (below) is resolved; no supplementary force-scrolled capture is needed anymore.
 - **`parents-gate`**: keypad, equation, and confirm button fit cleanly with no clipping at all three sizes; the 667×375 short-landscape two-column layout (equation left, keypad right) shows no overlap.
 - **`settings`**: font choice, custom-content, and feedback rows stack cleanly at narrow widths and lay out as expected at desktop; this route was not redesigned in Phase 2 (only `ParentsGate` was in scope) and looks unchanged from Phase 1.
-- **`ui-kit`**: the captured frame lands mid-page (on the "Overlay Frame" demo section), not at the top, on every viewport — see the known-gap note below. A supplementary, non-committed capture that force-scrolled to `window.scrollTo(0, 0)` before screenshotting (same three viewports, same artifact run, saved under `.../ui-kit-top/`) confirms the actual top-of-page content — heading, description, and the first "Actions — typed variants" section — renders cleanly with no clipping or overlap at 320×568, 667×375, or desktop.
 
-### Known gap: `/ui-kit` has no capture-tool scene, and auto-scrolls away from its own top
-1. `tools/screenshots/capture.mjs`'s `SCENES` map (Files scope of Tasks 1–6, none of which touch it) had no `'ui-kit'` entry. A minimal scene (`goto('/ui-kit')` + wait for the `h1` "UI Kit" heading) was added locally to run this task's required sweep, then **reverted before committing** — Task 7's file scope and this session's explicit commit instruction are both "docs/roadmap only" — so the working tree stays clean of source changes. The screenshots above were captured while that temporary scene was in place; they remain valid evidence, but re-running `npm run shots -- --scene=ui-kit` will currently error with "Unknown scene" until a future change (recommended: a small Task-7-adjacent or Phase 3 follow-up) adds it back permanently.
-2. Separately, and unrelated to the scene gap: `UiKitScreen.tsx`'s static `OverlayFrame show focusOnShow` demo (added in Task 5, line ~633) calls `.focus()` on its "Hrať znova" button on every mount via `OverlayFrame`'s `focusOnShow` effect. Because the browser auto-scrolls a freshly focused element into view, **every fresh load of `/ui-kit` immediately scrolls ~4800px down the page**, away from the heading and the first documented sections. Confirmed directly (`window.scrollY` = 4815 on load; `document.activeElement` is the "Hrať znova" button). This is correct, intended behavior for `OverlayFrame`'s real product use (scrolling a genuine game-completion overlay's action into view is desired), but it is a self-inflicted UX/review defect specific to `/ui-kit` statically rendering that state as "always shown." It is dev-only (the route is excluded from child navigation) and does not affect any shipping surface, so it was **not fixed** — Task 7's file scope is handoff/roadmap only. Recommended as a one-line follow-up (e.g. wrap that one demo's initial state behind a "show" toggle, or pass `focusOnShow={false}` in the static swatch) whenever `UiKitScreen.tsx` is next touched.
+### Resolved: `/ui-kit` capture-tool scene and top-of-page auto-scroll
+Both gaps documented against the prior candidate (`debc513`) are fixed in `ac4a40b`, TDD-first (see remediation summary above and the commit message for the RED/GREEN detail):
+1. `'ui-kit'` is now a permanent entry in `tools/screenshots/capture.mjs`'s `SCENES` config — `npm run shots -- --scene=ui-kit` (and `--help`, which lists it) work without any local/reverted edits.
+2. `UiKitScreen.tsx`'s completion-overlay demo no longer renders `focusOnShow` pre-shown on mount; it requires an explicit click, so a fresh `/ui-kit` load stays at `scrollY = 0`. `e2e/ui-foundation.spec.ts` covers both the no-auto-scroll contract and (post-trigger) the original `focusOnShow` behavior.
 
 ### Reduced-motion behavior
 Per the plan, reduced-motion behavior is covered as an automated interaction check rather than a screenshot: `e2e/ui-foundation.spec.ts` ("reduced motion removes confetti particles entirely") and `e2e/parent-access.spec.ts` ("reduced motion truly disables the wrong-answer shake, not just speeds it up") both passed in the `npm run test:e2e` run above. The screenshot sweep itself also runs every scene under Playwright's `reducedMotion: 'reduce'` context option.
 
-### WebKit smoke — attempted, blocked by this sandboxed environment
-The design spec calls for "a small WebKit smoke suite" covering representative routes. No WebKit Playwright project exists in this repo yet (only `desktop`/`mobile` Chromium projects in `e2e/playwright.config.ts`), and adding one is outside Task 7's file scope. To still honor the requirement, WebKit was installed directly (`npx playwright install webkit`, matching the pattern `e2e/browserResolver.ts` already documents for sandboxed environments): the 75.4 MiB download completed to 100% twice, but the post-download install/extraction step then hung indefinitely both times, leaving only a partial `libwebrtc.dylib` in `~/Library/Caches/ms-playwright/webkit-2272/` with no runnable `pw_run.sh`/`.app` bundle. The second attempt was killed after several minutes of no progress (background task `bobi4i5ki`, exit 137) and the corrupted cache directory was removed. **WebKit smoke coverage could not be captured in this environment** — this mirrors the same class of sandbox constraint `browserResolver.ts` already documents for Chromium (network/extraction restrictions), just at the extraction step instead of the fetch step. This should be re-attempted from a non-sandboxed CI or developer machine; it is not a Phase 2 product defect.
+### WebKit smoke — attempted a third time, still blocked by this sandboxed environment
+The design spec calls for "a small WebKit smoke suite" covering representative routes. No WebKit Playwright project exists in this repo yet (only `desktop`/`mobile` Chromium projects in `e2e/playwright.config.ts`), and adding one is outside this remediation's scope (code-fix scope was limited to the two documented gaps). `npx playwright install webkit` was re-attempted (bounded to 240s this time rather than left unbounded): the 75.4 MiB download again completed cleanly to 100%, and this time the command itself returned (exit 0, no hang) — but the result was identical to the prior two attempts: only a partial `libwebrtc.dylib` landed in `~/Library/Caches/ms-playwright/webkit-2272/`, with no `pw_run.sh`/`.app` bundle anywhere under that directory. **WebKit smoke coverage still could not be captured in this environment.** The corrupted cache directory was removed again after confirming no runnable bundle existed. Three attempts across two sessions now reproduce the same post-download extraction failure consistently enough to treat it as a stable property of this sandbox, not transient flakiness — re-attempting here again is unlikely to change the outcome. This needs a non-sandboxed CI or developer machine before Phase 8 closes; it is not a Phase 2 product defect.
 
 ---
 
@@ -88,7 +99,8 @@ No dependency changes were made in Task 7; this table simply records what Tasks 
 4. **Task 4 — Radix wrappers:** New repo-owned `Dialog`/`AlertDialog`/`RadioGroup`/`Switch`/`Tabs`/`DropdownMenu`/`Field`/`PageHeader`; `FormControls.ToggleControl` reimplemented on `SwitchControl` (deprecated `onToggle` signature kept), `SegmentedChoice` reimplemented on `RadioGroupControl` with real radio semantics, `IconMenuButton` reimplemented on `DropdownMenu` with its external API unchanged; `activeClassName` and the `!bg-*` exact-string repair pattern were removed from these primitives entirely (`68af9cf`, review-fixed in `f17b90f` for `SegmentedChoice` radio semantics and `6fb8d7c` for remaining typed-control gaps).
 5. **Task 5 — Screen and motion foundations:** Added `src/shared/ui/motion.ts` (`motionPreset`: press/enter/reducedEnter/transition); `AppScreen` gained typed `mode`/`height`/`scroll`/`maxWidth`/`as` props, a `ResizeObserver`-based short-layout sizer (falling back to `window.innerHeight`), and deprecated `fixedHeight`/`scrollable` booleans; `OverlayFrame` stayed a non-modal labelled status region with finite reduced-motion-aware confetti (`bee6ab6`, review-fixed in `bff4454` for short-layout measurement and duplicate-`<main>` landmarks — `ParentsGate` and `FeedbackModal` now pass `as="div"`).
 6. **Task 6 — `ParentsGate` migration:** Rebuilt on `DialogShell`/`Button` with the Phase 1 arithmetic contract, keypad, and test adapter preserved; added a visible `role="alert"` error, initial-focus/Tab-containment/Escape/trigger-restore coverage, and axe checks on `/ui-kit`, the gate, and the protected dashboard in new `e2e/accessibility-foundation.spec.ts` (`4795392`, review-fixed in `debc513` for reduced-motion shake, keydown double-submit prevention, stacked error timers, exact copy, and residual low-contrast text/tiles within Task 6's own file scope).
-7. **Task 7 — Verification and handoff (this change):** Ran the full required check set, captured and manually reviewed the `/ui-kit`, `parents-gate`, and `settings` screenshot sweep, attempted and documented the WebKit smoke gap, and wrote this handoff plus the `ROADMAP.md` update. No product code was committed in Task 7 — see the reverted `tools/screenshots/capture.mjs` scene note above.
+7. **Task 7 — Verification and handoff:** Ran the full required check set, captured and manually reviewed the `/ui-kit`, `parents-gate`, and `settings` screenshot sweep, attempted and documented the WebKit smoke gap, and wrote the original handoff plus the `ROADMAP.md` update. No product code was committed in Task 7 itself — see the (then-)reverted `tools/screenshots/capture.mjs` scene note.
+8. **Task 7 remediation (this change, `ac4a40b`):** Fixed both gaps Task 7 had documented rather than fixed, TDD-first: `capture.mjs` permanently registers `'ui-kit'` in its `SCENES` config (exported, with a new `capture.verify.ts` covering it), and `UiKitScreen.tsx`'s completion-overlay demo moved behind an explicit trigger so a fresh `/ui-kit` load no longer auto-scrolls away from its own top. Reran proportionate verification (not the full Task 1–6 check set), recaptured all three screenshot scenes under a new artifact run, manually reviewed the required three viewports, re-attempted and re-documented the WebKit gap, and updated this handoff plus `ROADMAP.md` with the new candidate SHA.
 
 ---
 
@@ -102,7 +114,8 @@ Each feature task's own review/fix cycle is visible directly in its commit pair 
 - **Task 4 (Radix wrappers):** `68af9cf` → fixed in `f17b90f` (SegmentedChoice radio semantics, typed control tones) → further fixed in `6fb8d7c` (remaining typed-control gaps from the tone/variant refactor).
 - **Task 5 (screen/motion):** `bee6ab6` → fixed in `bff4454` (short-layout measured by container not just `window`, duplicate `<main>` landmarks removed).
 - **Task 6 (ParentsGate dialog):** `4795392` → fixed in `debc513` (motion, keys, timer, contrast, copy — see `ROADMAP.md` Decisions Log 2026-09-16 entries for the full rationale on each).
-- **Task 7 (this handoff):** Verification-only; no code changes to review. One pre-existing gap found during manual screenshot review (`/ui-kit` auto-scroll via the static `focusOnShow` demo) documented above rather than fixed, since it is outside Task 7's file scope.
+- **Task 7 (original handoff):** Verification-only; no code changes to review. Two gaps found during manual screenshot review (`/ui-kit` capture-tool scene missing; `/ui-kit` auto-scroll via the static `focusOnShow` demo) documented rather than fixed, since both were outside Task 7's own file scope.
+- **Task 7 remediation (this handoff):** `ac4a40b` — clean, both documented gaps fixed with TDD (RED confirmed for each before the fix: `git stash`-verified missing `capture.mjs` exports/scene, and failing e2e assertions for the trigger button and `scrollY`), no follow-up fix needed.
 
 ---
 
@@ -124,15 +137,15 @@ Confirmed clean of `!important`/`!bg-*`-style overrides: `Button.tsx`, `IconButt
 ## Risks & Preconditions for Phase 3
 
 - **No redesign of catalog, home, or lobbies introduced:** Phase 2 stayed within its boundary — only `ParentsGate` was migrated to the new dialog primitive; `/settings`, `/content`, home, and all game lobbies/rounds are visually unchanged from Phase 1.
-- **WebKit smoke coverage is still missing** (see gap above) — not a Phase 2 regression, but Phase 8's final release-hardening gate explicitly requires it, so it needs a working WebKit environment before that phase closes.
-- **`/ui-kit` capture-tool scene and auto-scroll gap** (see above) — low severity, dev-only, but worth a one-line fix whenever `UiKitScreen.tsx` is next touched (likely Phase 3, since it modifies `UiKitScreen.tsx` for lobby examples).
+- **WebKit smoke coverage is still missing** (see gap above, now attempted three times with a consistent result) — not a Phase 2 regression, but Phase 8's final release-hardening gate explicitly requires it, so it needs a working WebKit environment (non-sandboxed CI or developer machine) before that phase closes.
+- ~~`/ui-kit` capture-tool scene and auto-scroll gap~~ — **resolved in `ac4a40b`**, see remediation summary above.
 - **Phase 3 Preconditions:**
-  1. Codex reviews this handoff, the verification evidence, and the screenshot artifact directory above, then either accepts candidate SHA `debc513b8102dbef72ebed83301be9d98dfab0f9` (recording its own acceptance commit) or returns findings to this phase for remediation.
+  1. Codex reviews this handoff, the verification evidence, and the screenshot artifact directory above, then either accepts candidate SHA `ac4a40be0380e7bfc15a3e42c99eee902593661c` (recording its own acceptance commit) or returns findings to this phase for remediation.
   2. Phase 3 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-3-catalog-home-lobbies.md`) starts only from Codex's acceptance commit, not from this handoff commit directly.
 
 ---
 
 ## Codex Review Record
-- **Reviewed Candidate SHA:** _pending submission_
+- **Reviewed Candidate SHA:** _pending submission (supersedes prior unreviewed candidate `debc513b8102dbef72ebed83301be9d98dfab0f9`; submit `ac4a40be0380e7bfc15a3e42c99eee902593661c` instead)_
 - **Result:** _pending Codex review_
 - **Reviewer Notes:** _to be completed by Codex_
