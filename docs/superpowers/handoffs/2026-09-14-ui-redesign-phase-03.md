@@ -4,10 +4,10 @@
 - **Phase:** 3 (Catalog, Home, and Lobbies)
 - **Branch:** `feature/full-app-ui-redesign`
 - **Base SHA:** `3c3b14b8e217596bcfb62e49c71c4c153b3f2ec4` (Codex-accepted Phase 2 handoff commit "docs: accept UI redesign phase two")
-- **Candidate SHA:** `74d545b332703d1449fe59141460ae038527a2c8` ("fix: nest lobby body inside AppScreen for responsive short-landscape layout") — the last product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
+- **Candidate SHA:** `481f3e8c0a82f8d50195976e672a7b4f0f367091` ("fix: restore lobby settings route navigation and locale context") — the review-remediated product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
 - **Implementation Status:** Complete, pending Codex acceptance
 - **Working Tree Clean:** Yes (`git status --short` clean before handoff commit)
-- **Local Screenshot Artifact Directory:** `artifacts/ui/74d545b332703d1449fe59141460ae038527a2c8/2026-09-16T14-15-52-811Z-71633`
+- **Local Screenshot Artifact Directory:** `artifacts/ui/74d545b332703d1449fe59141460ae038527a2c8/2026-09-16T14-15-52-811Z-71633` (retained: visuals unchanged; see Screenshot Evidence below)
 
 ---
 
@@ -15,12 +15,13 @@
 
 | Command | Result | Notes |
 |---|---|---|
-| `npx tsx src/shared/uiCopy.verify.ts` | **PASS** | Pure-logic verifier: covers fallback to Slovak, missing-key detection, and stub-locale safety |
+| `npx tsx src/shared/uiCopy.verify.ts` | **PASS** | Pure-logic verifier: covers fallback to Slovak, missing-key detection, stub-locale safety, and exhaustive Czech fallback for all 11 games and play action |
 | `npx tsx src/shared/gameCatalog.verify.ts` | **PASS** | Pure-logic verifier: covers category completeness, valid setting IDs, absence of raw Tailwind color fragments, and 1:1 parity with module registry |
+| `npx tsx src/shared/services/parentAccessLogic.verify.ts` | **PASS** | Pure-logic verifier: covers protected route classification, `game-detail` classification, and return path sanitization |
 | `npx tsx tools/screenshots/capture.verify.ts` | **PASS** | Tooling verifier: covers `ui-kit`, `home`, and all 11 `lobby-*` scene registrations, slug aliases, `--help` output, and arg parsing |
 | `npm run lint` (`tsc --noEmit` + ESLint) | **PASS** | 0 errors, 1 pre-existing documented `react-refresh/only-export-components` warning in `ContentContext.tsx` |
-| `npm run test:e2e` | **PASS** | 166/166 tests across desktop and mobile Chromium projects in ~37s, including all 17 new catalog/home/lobby tests, smoke tests, and parent-access tests |
-| `npm run build` | **PASS** | Production build in 1.13s; 11 lazy game chunks; `AvatarScene-CDLptoUB.js` (973.04 kB) remained separate from main `index-*.js` (238.94 kB) |
+| `npm run test:e2e` | **PASS** | 167/167 tests across desktop and mobile Chromium projects in ~36s, including all 18 catalog/home/lobby tests, smoke tests, and parent-access tests |
+| `npm run build` | **PASS** | Production build in 1.08s; 11 lazy game chunks; `AvatarScene-CDLptoUB.js` (973.04 kB) remained separate from main `index-BT-Xzy90.js` (238.86 kB) |
 | `git diff --check` | **PASS** | No whitespace errors, no orphan trailing spaces, no conflict markers |
 
 ### Avatar / three.js lazy-chunk confirmation
@@ -35,6 +36,13 @@ Captured using `npm run shots -- --scene=home --scene=lobby-alphabet --scene=lob
 Artifact directory:
 `artifacts/ui/74d545b332703d1449fe59141460ae038527a2c8/2026-09-16T14-15-52-811Z-71633`
 
+### Why No Screenshot Recapture is Needed:
+No visual changes were introduced to any of the 12 registered screenshot scenes (`home` and the 11 `lobby-*` scenes). The visual styling, typography, colors, tactile presets, and responsive layout across all 10 canonical viewports remain 100% identical. The review remediation:
+1. Mounted `GameSettingsRoute` at `/settings/games/:gameId` (rendering the existing Phase 2 `SettingsOverlay` when unlocked), which is a route-level modal and not a registered screenshot scene.
+2. Hooked `GameLobby`'s text to `ContentContext` via `useContentLocale`, which continues to resolve identical Slovak strings for `'sk'` and the Czech fallback.
+3. Added focus restoration assertions upon dialog close and gate cancel.
+Recapturing the 120-image matrix would produce pixel-identical screenshots while consuming unnecessary storage and quota. Therefore, the existing artifact directory is preserved as the authoritative visual evidence.
+
 ### Captured Scenes & Viewports (10 canonical viewports each, 120 total):
 - **`home`**: `narrowPhone.png`, `smallPhone.png`, `phonePortrait.png`, `shortLandscape.png`, `phoneLandscape.png`, `tabletPortrait.png`, `tabletLandscape.png`, `desktop.png`, `desktopLarge.png`, `desktopWide.png`
 - **All 11 Game Lobbies** (`lobby-alphabet`, `lobby-syllables`, `lobby-numbers`, `lobby-counting`, `lobby-compare`, `lobby-addition`, `lobby-words`, `lobby-first-letter`, `lobby-assembly`, `lobby-complete-syllable`, `lobby-complete-letter`): same 10 viewports each
@@ -47,11 +55,11 @@ Artifact directory:
 - **Lobbies (667×375 shortLandscape)**: Evaluated inside `<AppScreen>` context, switching cleanly to the horizontal short-landscape composition: compact tactile preview and title/instruction on the left, primary child-size play action button on the right, keeping all controls in-viewport without vertical clipping.
 - **Lobbies (desktop)**: Centered layout with generous spacing and tactile Toybox presets (`wood`, `magnet`, `felt`, `picture`, `counter`, `tray`, `balance`).
 - **Settings Trigger Visibility**: Settings cog button is visible on lobbies whose catalog definition includes settings (`ALPHABET`, `SYLLABLES`, `NUMBERS`, `COUNTING_ITEMS`, `COMPARE_QUANTITIES`, `ADDITION`, `FIRST_LETTER`, `COMPLETE_LETTER`), and absent on lobbies with no settings (`WORDS`, `ASSEMBLY`, `COMPLETE_SYLLABLE`).
-- **Focus Restoration**: When the settings dialog is canceled over a game lobby (via Escape or "Späť"), focus is restored to the settings trigger button.
+- **Focus Restoration**: When the settings dialog is canceled over a game lobby (via Escape or "Späť") or closed after unlock, focus is restored to the settings trigger button.
 
 ---
 
-## Summary of Changes (Tasks 1–6)
+## Summary of Changes (Tasks 1–7)
 
 1. **Task 1 — Setting IDs and UI Copy Keys (`9758eb5`):**
    - Created `src/shared/settings/settingIds.ts` with typed enum-like string union of all 9 configurable setting IDs.
@@ -88,6 +96,11 @@ Artifact directory:
    - Permanently registered `home` and all 11 `lobby-*` scenes (with shorthand slug aliases) in `tools/screenshots/capture.mjs`, verified by `tools/screenshots/capture.verify.ts`.
    - Captured 120-image screenshot matrix across all 10 canonical viewports.
 
+6. **Task 7 — Consolidated Review Remediation (`481f3e8`):**
+   - **P1: Lobby Settings Flow:** Created `src/shared/components/GameSettingsRoute.tsx` and routed `/settings/games/:gameId` through `ProtectedParentRoute` in `App.tsx`. After parent unlock, renders the selected game's `SettingsOverlay`. On close ("Hotovo", close button, or Escape), safely navigates back to the originating lobby (`location.state.returnTo` or `definition.path`) with `{ returnFocus: 'settings' }` and locks the parent gate upon route departure. Cleaned up obsolete overlay state and callbacks in `App.tsx`.
+   - **P2: Locale Sourcing:** Exported `useContentLocale()` from `src/shared/contexts/ContentContext.tsx` with safe fallback to `'sk'`. Updated `GameLobby.tsx` to source its locale from `useContentLocale()` and pass it to `getUiCopy` without threading props through individual game components. Preserved Czech fallback contract and verified it both in pure logic (`src/shared/uiCopy.verify.ts`) and E2E (`e2e/catalog-home-lobbies.spec.ts`).
+   - **P3: Focus Assertion:** Added explicit `await expect(settingsBtn).toBeFocused()` assertions in `e2e/catalog-home-lobbies.spec.ts` both after parent gate cancellation and after closing the settings overlay. Updated `/settings/games/ALPHABET` unlock assertion in `e2e/parent-access.spec.ts` to reflect the destination route.
+
 ---
 
 ## Internal Review Ledger
@@ -98,7 +111,8 @@ Artifact directory:
 - **Task 5 (unified lobbies):** `01f112a` — Rebuilt lobby shell and migrated all 11 games; 17/17 new e2e tests passed.
 - **Task 6 (remediation & tool fix):** `f71fcce` — Restored settings button focus upon gate cancellation and permanently registered screenshot scenes.
 - **Task 6 (responsive lobby layout fix):** `74d545b` — Evaluated lobby body inside `<AppScreen>` context to render horizontal short-landscape composition.
-- **Verification Gate:** Full 166-test E2E suite, verifiers, linter, production build, and screenshot sweep all green.
+- **Task 7 (consolidated review remediation):** `481f3e8` — Restored route-driven `/settings/games/:gameId` flow to open `SettingsOverlay`, sourced locale from `ContentContext` with Czech fallback, and asserted focus restoration after cancel and close.
+- **Verification Gate:** Full 167-test E2E suite, all pure verifiers, linter, production build, and git diff check all green.
 
 ---
 
@@ -120,5 +134,5 @@ No new temporary adapters were introduced in Phase 3. The `GAME_METADATA` and `G
 - **No parent dashboard redesign introduced:** Phase 3 stayed strictly within its boundary — only catalog, home, and lobbies were redesigned. The parent dashboard (`/settings`), custom content (`/content`), and recordings management remain in their Phase 2 state, ready for redesign in Phase 4.
 - **WebKit smoke coverage environment limitation:** As documented in Phase 2, WebKit browser installation hangs in this sandboxed environment; WebKit smoke testing is a release gate for Phase 8.
 - **Phase 4 Preconditions:**
-  1. Codex reviews and accepts candidate SHA `74d545b332703d1449fe59141460ae038527a2c8` based on specification, code quality, and the 120-image screenshot artifact.
+  1. Codex reviews and accepts candidate SHA `481f3e8c0a82f8d50195976e672a7b4f0f367091` based on specification, code quality, and the 120-image screenshot artifact.
   2. Phase 4 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-4-parent-dashboard.md`) begins strictly from the commit containing the Codex acceptance record.
