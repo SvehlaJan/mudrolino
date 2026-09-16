@@ -68,7 +68,7 @@ function RecordingRowExample({
       <span className="min-w-0 flex-1 text-left">
         <span className="block truncate text-lg font-medium text-text-main">{label}</span>
         {secondaryLabel && (
-          <span className="mt-0.5 block truncate text-xs font-bold uppercase tracking-normal text-text-main/55">
+          <span className="mt-0.5 block truncate text-xs font-bold uppercase tracking-normal text-text-muted">
             {secondaryLabel}
           </span>
         )}
@@ -192,7 +192,7 @@ function UiKitInteractionDemo() {
   return (
     <Card className="space-y-6">
       <div>
-        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Rádiová skupina</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Rádiová skupina</h3>
         <div className="mt-3 max-w-md">
           <RadioGroupControl
             ariaLabel="Počet kariet"
@@ -208,7 +208,7 @@ function UiKitInteractionDemo() {
       </div>
 
       <div>
-        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Prepínač</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Prepínač</h3>
         <div className="mt-3">
           <SwitchControl
             label="Diakritika"
@@ -220,7 +220,7 @@ function UiKitInteractionDemo() {
       </div>
 
       <div>
-        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Karty</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Karty</h3>
         <Tabs
           ariaLabel="Kategórie vlastného obsahu (ukážka)"
           items={[
@@ -230,17 +230,17 @@ function UiKitInteractionDemo() {
           value={tab}
           onValueChange={setTab}
         >
-          <TabPanel value="words" className="mt-3 text-base font-medium opacity-70">
+          <TabPanel value="words" className="mt-3 text-base font-medium text-text-muted">
             Obsah karty Slová.
           </TabPanel>
-          <TabPanel value="praise" className="mt-3 text-base font-medium opacity-70">
+          <TabPanel value="praise" className="mt-3 text-base font-medium text-text-muted">
             Obsah karty Pochvaly.
           </TabPanel>
         </Tabs>
       </div>
 
       <div>
-        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Menu</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Menu</h3>
         <div className="mt-3">
           <DropdownMenu
             trigger={<IconButton label="Ďalšie možnosti (ukážka)"><MoreHorizontal size={18} /></IconButton>}
@@ -253,7 +253,7 @@ function UiKitInteractionDemo() {
       </div>
 
       <div>
-        <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Pole formulára</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Pole formulára</h3>
         <div className="mt-3 max-w-md">
           <Field
             label="Vlastné slovo"
@@ -288,7 +288,7 @@ export function UiKitScreen() {
 
       <header className="space-y-2">
         <h1 className="text-4xl font-black sm:text-6xl">UI Kit</h1>
-        <p className="max-w-3xl text-lg font-medium opacity-65">
+        <p className="max-w-3xl text-lg font-medium text-text-muted">
           Interná knižnica komponentov pre Hravé Učenie. Táto stránka je skrytá z detskej navigácie a slúži na kontrolu komponentov a stavov.
         </p>
       </header>
@@ -296,7 +296,7 @@ export function UiKitScreen() {
       <Section title="Actions — typed variants">
         <Card className="space-y-5">
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Rodič (tone × veľkosť, min. 44×44)</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Rodič (tone × veľkosť, min. 44×44)</h3>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <Button tone="primary" size="parent" data-testid="ui-parent-primary">Primárne</Button>
               <Button tone="neutral" size="parent" data-testid="ui-parent-neutral">Neutrálne</Button>
@@ -311,7 +311,7 @@ export function UiKitScreen() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Dieťa (tone × veľkosť, min. 48×48)</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Dieťa (tone × veľkosť, min. 48×48)</h3>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <Button tone="primary" size="child" data-testid="ui-child-primary">Hrať</Button>
               <Button tone="neutral" size="child">Tiché</Button>
@@ -322,7 +322,7 @@ export function UiKitScreen() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide opacity-55">Ikonové tlačidlá</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Ikonové tlačidlá</h3>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <IconButton label="Prehrať" tone="neutral" size="child"><Volume2 size={24} /></IconButton>
               <IconButton label="Nahrať" tone="primary" size="child"><Mic size={24} /></IconButton>
@@ -334,7 +334,7 @@ export function UiKitScreen() {
       </Section>
 
       <Section title="Actions — legacy compatibility adapter">
-        <p className="max-w-3xl text-sm font-medium opacity-60">
+        <p className="max-w-3xl text-sm font-medium text-text-muted">
           Staré API (<code>variant</code>, <code>size=&quot;sm|md|lg&quot;</code>) sa naďalej vykresľuje
           nezmenené, kým sa volajúce miesta nepremigrujú na <code>tone</code>/<code>size</code>.
         </p>
@@ -354,66 +354,74 @@ export function UiKitScreen() {
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <h3 className="text-xl font-bold">Karta</h3>
-            <p className="mt-2 font-medium opacity-60">Štandardný biely povrch.</p>
+            <p className="mt-2 font-medium text-text-muted">Štandardný biely povrch.</p>
           </Card>
           <Card variant="panel">
             <h3 className="text-xl font-bold">Panel</h3>
-            <p className="mt-2 font-medium opacity-60">Silnejší povrch pre hru.</p>
+            <p className="mt-2 font-medium text-text-muted">Silnejší povrch pre hru.</p>
           </Card>
           <Card variant="inset">
             <h3 className="text-xl font-bold">Vnorený blok</h3>
-            <p className="mt-2 font-medium opacity-60">Používa sa v nastaveniach.</p>
+            <p className="mt-2 font-medium text-text-muted">Používa sa v nastaveniach.</p>
           </Card>
         </div>
         <div className="grid gap-3 lg:grid-cols-2">
-          <RecordingListItem
-            item={{ key: 'sk/words/custom-draft', label: 'Jahoda 🍓', category: 'words' }}
-            secondaryLabel="JA-HO-DA"
-            hasCustom={false}
-            isActive={false}
-            recorderState="idle"
-            speaking={false}
-            savedFlash={false}
-            statusLabel="Koncept"
-            statusTone="draft"
-            allowPlay={false}
-            recordEmphasis
-            onRecord={() => undefined}
-            onStop={() => undefined}
-            onPlay={() => undefined}
-            onDelete={() => undefined}
-          />
+          {/* Embeds the real, pre-existing RecordingListItem for reference; its contrast
+              debt belongs to src/recordings/RecordingListItem.tsx, out of this task's scope. */}
+          <div data-testid="ui-kit-legacy-recording-item">
+            <RecordingListItem
+              item={{ key: 'sk/words/custom-draft', label: 'Jahoda 🍓', category: 'words' }}
+              secondaryLabel="JA-HO-DA"
+              hasCustom={false}
+              isActive={false}
+              recorderState="idle"
+              speaking={false}
+              savedFlash={false}
+              statusLabel="Koncept"
+              statusTone="draft"
+              allowPlay={false}
+              recordEmphasis
+              onRecord={() => undefined}
+              onStop={() => undefined}
+              onPlay={() => undefined}
+              onDelete={() => undefined}
+            />
+          </div>
 
-          <RecordingListItem
-            item={{ key: 'sk/words/custom-ready', label: 'Jahoda 🍓', category: 'words' }}
-            secondaryLabel="JA-HO-DA"
-            hasCustom
-            isActive={false}
-            recorderState="idle"
-            speaking={false}
-            savedFlash={false}
-            statusLabel="Vlastné"
-            statusTone="ready"
-            onRecord={() => undefined}
-            onStop={() => undefined}
-            onPlay={() => undefined}
-            onDelete={() => undefined}
-          />
+          <div data-testid="ui-kit-legacy-recording-item">
+            <RecordingListItem
+              item={{ key: 'sk/words/custom-ready', label: 'Jahoda 🍓', category: 'words' }}
+              secondaryLabel="JA-HO-DA"
+              hasCustom
+              isActive={false}
+              recorderState="idle"
+              speaking={false}
+              savedFlash={false}
+              statusLabel="Vlastné"
+              statusTone="ready"
+              onRecord={() => undefined}
+              onStop={() => undefined}
+              onPlay={() => undefined}
+              onDelete={() => undefined}
+            />
+          </div>
 
-          <RecordingListItem
-            item={{ key: 'sk/words/default-ready', label: 'Mama 👩', category: 'words' }}
-            secondaryLabel="MA-MA"
-            hasCustom={false}
-            isActive={false}
-            recorderState="idle"
-            speaking={false}
-            savedFlash={false}
-            statusLabel="Predvolené"
-            onRecord={() => undefined}
-            onStop={() => undefined}
-            onPlay={() => undefined}
-            onDelete={() => undefined}
-          />
+          <div data-testid="ui-kit-legacy-recording-item">
+            <RecordingListItem
+              item={{ key: 'sk/words/default-ready', label: 'Mama 👩', category: 'words' }}
+              secondaryLabel="MA-MA"
+              hasCustom={false}
+              isActive={false}
+              recorderState="idle"
+              speaking={false}
+              savedFlash={false}
+              statusLabel="Predvolené"
+              onRecord={() => undefined}
+              onStop={() => undefined}
+              onPlay={() => undefined}
+              onDelete={() => undefined}
+            />
+          </div>
 
           <RecordingRowExample
             label="mama 👩"
@@ -544,7 +552,7 @@ export function UiKitScreen() {
                     {text === '?' ? (
                       <span className="text-xl font-black text-shadow/25">?</span>
                     ) : (
-                      <span className="flex h-[72px] min-w-[112px] items-center justify-center rounded-[24px] border-2 border-white/30 bg-accent-blue px-6 text-3xl font-black uppercase tracking-wide text-white">
+                      <span className="flex h-[72px] min-w-[112px] items-center justify-center rounded-[24px] border-2 border-white/30 bg-accent-blue px-6 text-3xl font-black uppercase tracking-wide text-text-main">
                         {text}
                       </span>
                     )}
@@ -556,7 +564,7 @@ export function UiKitScreen() {
               <div className="grid min-h-[112px] grid-cols-3 gap-3">
                 {['HO', 'JA', 'DA'].map((text) => (
                   <div key={text} className="min-h-[88px] flex items-center justify-center">
-                    <span className="flex h-[72px] min-w-[112px] items-center justify-center rounded-[24px] border-2 border-white/30 bg-accent-blue px-6 text-3xl font-black uppercase tracking-wide text-white">
+                    <span className="flex h-[72px] min-w-[112px] items-center justify-center rounded-[24px] border-2 border-white/30 bg-accent-blue px-6 text-3xl font-black uppercase tracking-wide text-text-main">
                       {text}
                     </span>
                   </div>

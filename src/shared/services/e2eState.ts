@@ -3,6 +3,8 @@ export type E2EOverlay = 'success' | 'failure' | 'session-complete' | null;
 export interface ParentGateE2EState {
   answer: number | null;
   unlock: () => void;
+  /** How many times a wrong answer has finished its error → fresh-question recovery cycle. */
+  errorRecoveries: number;
 }
 
 export interface E2EGlobalState {

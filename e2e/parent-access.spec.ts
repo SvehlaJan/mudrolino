@@ -304,7 +304,7 @@ test.describe('Parent Gate Dialog', () => {
     await page.getByRole('button', { name: wrongDigit, exact: true }).click();
     await page.getByRole('button', { name: 'Potvrdiť' }).click();
 
-    await expect(dialog.getByRole('alert')).toContainText('Skús to znova');
+    await expect(dialog.getByRole('alert')).toContainText('Skús to ešte raz');
     await expect(page.locator('body')).not.toHaveCSS('overflow', 'visible');
   });
 
@@ -370,7 +370,7 @@ test.describe('Parent Gate Dialog', () => {
     await expect(trigger).toBeFocused();
   });
 
-  test('reduced motion still surfaces the wrong-answer error without relying on the shake animation', async ({ page }) => {
+  test('reduced motion truly disables the wrong-answer shake, not just speeds it up', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/settings');
     const dialog = page.getByRole('dialog', { name: 'Pre rodičov' });
@@ -380,9 +380,61 @@ test.describe('Parent Gate Dialog', () => {
     if (typeof answer !== 'number') throw new Error('Parent gate answer unavailable');
     const wrongDigit = String((answer + 1) % 10);
 
+    const equation = dialog.getByTestId('parent-gate-equation');
     await page.getByRole('button', { name: wrongDigit, exact: true }).click();
     await page.getByRole('button', { name: 'Potvrdiť' }).click();
 
-    await expect(dialog.getByRole('alert')).toContainText('Skús to znova');
+    await expect(dialog.getByRole('alert')).toContainText('Skús to ešte raz');
+    await expect(equation).not.toHaveClass(/animate-shake/);
+    await expect(equation).toHaveCSS('animation-name', 'none');
+  });
+
+  test('digit, Backspace, and Enter keydowns are prevented so focused buttons cannot double-submit and Backspace cannot navigate, while unhandled keys keep their default behavior', async ({ page }) => {
+    await page.goto('/settings');
+    await expect(page.getByRole('dialog', { name: 'Pre rodičov' })).toBeVisible();
+
+    const notCanceled = await page.evaluate(() => {
+      const dispatch = (key: string) =>
+        window.dispatchEvent(new KeyboardEvent('keydown', { key, cancelable: true, bubbles: true }));
+      return {
+        digit: dispatch('5'),
+        backspace: dispatch('Backspace'),
+        enter: dispatch('Enter'),
+        tab: dispatch('Tab'),
+      };
+    });
+
+    expect(notCanceled).toEqual({ digit: false, backspace: false, enter: false, tab: true });
+  });
+
+  test('a duplicated wrong-answer submission clears the pending error timer instead of stacking another', async ({ page }) => {
+    await page.goto('/settings');
+    await page.waitForFunction(() => typeof window.__E2E__?.parentGate?.answer === 'number');
+    const answer = await page.evaluate(() => window.__E2E__?.parentGate?.answer);
+    if (typeof answer !== 'number') throw new Error('Parent gate answer unavailable');
+    const wrongDigit = String((answer + 1) % 10);
+
+    await page.getByRole('button', { name: wrongDigit, exact: true }).click();
+    // Two Enter keydowns dispatched synchronously in the same task, bypassing any
+    // native button click synthesis, so both reach handleConfirm before React
+    // commits the first setError(true) — the only way to reproduce the race
+    // deterministically instead of relying on real timing.
+    await page.evaluate(() => {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    });
+
+    const dialog = page.getByRole('dialog', { name: 'Pre rodičov' });
+    await expect(dialog.getByRole('alert')).toBeVisible();
+    await expect(dialog.getByRole('alert')).toHaveCount(0);
+
+    // A generous settle window: proves no second, staggered timer fires later
+    // and bumps the count again, without pinning to the exact ~500ms delay.
+    await expect
+      .poll(() => page.evaluate(() => window.__E2E__?.parentGate?.errorRecoveries), { timeout: 2000 })
+      .toBe(1);
+    await page.waitForTimeout(800);
+    const errorRecoveries = await page.evaluate(() => window.__E2E__?.parentGate?.errorRecoveries);
+    expect(errorRecoveries).toBe(1);
   });
 });

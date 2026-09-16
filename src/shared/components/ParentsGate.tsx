@@ -5,6 +5,7 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { useReducedMotion } from 'motion/react';
 import { Button, Card, DialogShell, IconButton } from '../ui';
 import { exposeParentGateE2E } from '../services/e2eState';
 
@@ -33,7 +34,9 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   const [question, setQuestion] = useState(generateQuestion);
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const errorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const errorRecoveriesRef = useRef(0);
   const firstDigitRef = useRef<HTMLButtonElement>(null);
   // Captured once, at mount: whichever control (e.g. a lobby's "Nastavenia" button) was
   // focused right before this gate opened. See DialogShell's `restoreFocusRef` doc comment
@@ -42,7 +45,11 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
     typeof document !== 'undefined' ? (document.activeElement as HTMLElement | null) : null,
   );
 
-  useEffect(() => exposeParentGateE2E({ answer: question.answer, unlock: onSuccess }), [
+  useEffect(() => exposeParentGateE2E({
+    answer: question.answer,
+    unlock: onSuccess,
+    errorRecoveries: errorRecoveriesRef.current,
+  }), [
     question.answer,
     onSuccess,
   ]);
@@ -70,7 +77,9 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
       return;
     }
     setError(true);
+    if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
     errorTimerRef.current = setTimeout(() => {
+      errorRecoveriesRef.current += 1;
       setError(false);
       setQuestion(generateQuestion());
       setInput('');
@@ -84,10 +93,13 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key >= '0' && e.key <= '9') {
+        e.preventDefault();
         handleDigit(e.key);
       } else if (e.key === 'Backspace') {
+        e.preventDefault();
         handleBackspace();
       } else if (e.key === 'Enter') {
+        e.preventDefault();
         handleConfirm();
       }
     };
@@ -120,7 +132,8 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
         <div className="w-full landscape:flex-1 flex flex-col items-center gap-2 landscape:gap-1.5">
           <Card
             variant="panel"
-            className={`w-full py-3 landscape:py-1.5 text-center text-2xl landscape:text-lg font-bold text-text-main sm:portrait:py-4 sm:portrait:text-4xl ${error ? 'animate-shake' : ''}`}
+            data-testid="parent-gate-equation"
+            className={`w-full py-3 landscape:py-1.5 text-center text-2xl landscape:text-lg font-bold text-text-main sm:portrait:py-4 sm:portrait:text-4xl ${error && !prefersReducedMotion ? 'animate-shake' : ''}`}
           >
             {question.a} {question.op} {question.b} = ?
           </Card>
@@ -135,7 +148,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
 
           {error && (
             <p role="alert" className="text-xs landscape:text-[10px] font-bold text-action-danger sm:portrait:text-sm">
-              Nesprávna odpoveď. Skús to znova.
+              Skús to ešte raz
             </p>
           )}
         </div>

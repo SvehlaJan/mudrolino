@@ -3,7 +3,7 @@ import { mergeE2EState } from './e2eState';
 const unlock = () => undefined;
 const withGate = mergeE2EState(
   { overlay: null, correctItemId: 'A' },
-  { parentGate: { answer: 4, unlock } },
+  { parentGate: { answer: 4, unlock, errorRecoveries: 0 } },
 );
 const withGameUpdate = mergeE2EState(withGate, { overlay: 'success' });
 
