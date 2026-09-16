@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
+import { unlockParentGate } from './support/parentGate';
 
 test.describe('UI foundation: core controls', () => {
   test('core controls expose semantic states and minimum sizes', async ({ page }) => {
@@ -195,6 +196,86 @@ test.describe('UI foundation: universal screen contract', () => {
     const shortBox = await roundCounter.boundingBox();
 
     expect(shortBox!.height).toBeLessThan(regularBox!.height);
+  });
+
+  test('AppScreen height="content" sizes to its content, not a forced viewport minimum', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
+    await page.goto('/ui-kit'); // UiKitScreen uses fixedHeight={false} (height="content")
+    const minHeight = await page
+      .getByRole('main')
+      .evaluate((el) => parseFloat(getComputedStyle(el).minHeight));
+    expect(minHeight).toBe(0);
+  });
+
+  test('AppScreen height="viewport" (the default) still forces a full-viewport minimum height', async ({ page }) => {
+    const viewport = CANONICAL_VIEWPORTS.desktop;
+    await page.setViewportSize(viewport);
+    await page.goto('/alphabet'); // GameLobby uses a default AppScreen (height="viewport")
+    const minHeight = await page
+      .getByRole('main')
+      .evaluate((el) => parseFloat(getComputedStyle(el).minHeight));
+    expect(minHeight).toBeGreaterThanOrEqual(viewport.height - 1);
+  });
+
+  test('AppScreen short layout follows the rendered container, not only window.innerHeight, once an ancestor redefines the fixed containing block', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
+    await page.goto('/ui-kit');
+    await expect(page.getByRole('main')).toHaveAttribute('data-layout', 'regular');
+
+    // A transformed ancestor becomes the containing block for `position: fixed`
+    // descendants (CSS spec, not a browser quirk), so a 300px-tall, overflow-hidden
+    // wrapper around #root makes any fixed, inset-0 measurement node report ~300px
+    // even though window.innerHeight (the desktop viewport) stays ~900px.
+    await page.evaluate(() => {
+      const root = document.getElementById('root')!;
+      const wrapper = document.createElement('div');
+      wrapper.id = 'e2e-transformed-ancestor';
+      wrapper.style.transform = 'translateZ(0)';
+      wrapper.style.height = '300px';
+      wrapper.style.overflow = 'hidden';
+      root.parentElement!.insertBefore(wrapper, root);
+      wrapper.appendChild(root);
+    });
+
+    await expect(page.getByRole('main')).toHaveAttribute('data-layout', 'short');
+  });
+
+  test('AppScreen falls back to window.innerHeight when ResizeObserver is unavailable', async ({ page }) => {
+    await page.addInitScript(() => {
+      // @ts-expect-error test-only removal to force the safe-fallback code path
+      delete window.ResizeObserver;
+    });
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
+    await page.goto('/ui-kit');
+    await expect(page.getByRole('main')).toHaveAttribute('data-layout', 'short');
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
+    await expect(page.getByRole('main')).toHaveAttribute('data-layout', 'regular');
+  });
+});
+
+test.describe('UI foundation: overlay landmark hygiene', () => {
+  test('opening the parent gate over a game route does not duplicate the main landmark', async ({ page }) => {
+    await page.goto('/alphabet');
+    await expect(page.getByRole('main')).toHaveCount(1);
+
+    await page.getByRole('button', { name: 'Nastavenia' }).click();
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+
+    await expect(page.getByRole('main')).toHaveCount(1);
+  });
+
+  test('opening feedback from the settings screen does not duplicate the main landmark', async ({ page }) => {
+    await page.goto('/settings');
+    await unlockParentGate(page);
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await expect(page.getByRole('main')).toHaveCount(1);
+
+    await page.getByRole('button', { name: /spätná väzba/i }).click();
+    await expect(page.getByRole('heading', { name: 'Spätná väzba' })).toBeVisible();
+
+    await expect(page.getByRole('main')).toHaveCount(1);
   });
 });
 

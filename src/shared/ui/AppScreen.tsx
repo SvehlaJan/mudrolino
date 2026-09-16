@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AppScreenLayoutContext,
   type AppScreenLayout,
@@ -17,6 +17,8 @@ export type { AppScreenLayout, AppScreenMode } from './appScreenLayout';
 
 export type AppScreenHeight = 'viewport' | 'content';
 export type AppScreenScroll = 'locked' | 'vertical';
+/** `'main'` for a real page; `'div'` for a screen stacked on top of one that already owns it, so the DOM never carries two simultaneous main landmarks. */
+export type AppScreenElement = 'main' | 'div';
 
 /**
  * Below this available content height a screen switches to its short layout.
@@ -34,6 +36,8 @@ interface AppScreenProps {
   mode?: AppScreenMode;
   height?: AppScreenHeight;
   scroll?: AppScreenScroll;
+  /** @default 'main' */
+  as?: AppScreenElement;
   /** @deprecated use `height="viewport" | "content"` instead. */
   fixedHeight?: boolean;
   /** @deprecated use `scroll="vertical" | "locked"` instead. */
@@ -52,37 +56,55 @@ export function AppScreen({
   fixedHeight = true,
   scrollable = false,
   position = 'relative',
+  as = 'main',
 }: AppScreenProps) {
   const resolvedHeight: AppScreenHeight = height ?? (fixedHeight ? 'viewport' : 'content');
   const resolvedScroll: AppScreenScroll = scroll ?? (scrollable ? 'vertical' : 'locked');
 
   const [layout, setLayout] = useState<AppScreenLayout>('regular');
+  const sizerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
-    // Measure the real viewport, not this screen's own rendered box: a scrollable
-    // (`height="content"`) screen's content can be far taller than the space actually
-    // available, which would otherwise never report "short". `document.documentElement`'s
-    // layout box grows with overflowing content too, so only `window.innerHeight` (or a
-    // resize of it) reports the space genuinely available to the screen.
-    const updateLayout = () => {
-      const availableHeight = window.innerHeight;
+    const applyHeight = (availableHeight: number) => {
       setLayout(availableHeight > 0 && availableHeight < SHORT_LAYOUT_MAX_HEIGHT ? 'short' : 'regular');
     };
-    updateLayout();
-    window.addEventListener('resize', updateLayout);
-    return () => window.removeEventListener('resize', updateLayout);
+
+    const sizer = sizerRef.current;
+    if (!sizer || typeof ResizeObserver === 'undefined') {
+      // Safe fallback (no ResizeObserver support): the previous window-driven signal.
+      const updateFromWindow = () => applyHeight(window.innerHeight);
+      updateFromWindow();
+      window.addEventListener('resize', updateFromWindow);
+      return () => window.removeEventListener('resize', updateFromWindow);
+    }
+
+    // Measure a dedicated `position: fixed; inset: 0` node, not this screen's own rendered
+    // box: a scrollable (`height="content"`) screen's content can be far taller than the
+    // space actually available, which would otherwise never report "short". A fixed,
+    // inset-0 node's own box is immune to that content growth, and — unlike
+    // `window.innerHeight` — it also tracks the real available box when an ancestor
+    // redefines the fixed containing block (e.g. via `transform`), so a screen nested in a
+    // shorter container than the browser viewport still gets the right reading.
+    const observer = new ResizeObserver((entries) => {
+      const observedHeight = entries[0]?.contentRect.height;
+      applyHeight(observedHeight ?? window.innerHeight);
+    });
+    observer.observe(sizer);
+    return () => observer.disconnect();
   }, []);
 
   const contextValue = useMemo<AppScreenLayoutContextValue>(() => ({ mode, layout }), [mode, layout]);
+  const Element = as;
 
   return (
     <AppScreenLayoutContext.Provider value={contextValue}>
-      <main
+      <div ref={sizerRef} aria-hidden="true" className="fixed inset-0 invisible pointer-events-none" />
+      <Element
         data-mode={mode}
         data-layout={layout}
         className={cn(
-          resolvedHeight === 'viewport' ? 'min-h-[100svh] h-[100svh]' : 'min-h-screen',
+          resolvedHeight === 'viewport' && 'min-h-[100svh] h-[100svh]',
           resolvedScroll === 'vertical' ? 'overflow-y-auto overflow-x-hidden' : 'overflow-hidden',
           position,
           // Fixed, edge-aligned screens (e.g. the parent gate overlay) sit outside body's own
@@ -104,7 +126,7 @@ export function AppScreen({
         >
           {children}
         </div>
-      </main>
+      </Element>
     </AppScreenLayoutContext.Provider>
   );
 }

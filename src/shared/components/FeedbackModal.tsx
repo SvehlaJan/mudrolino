@@ -75,7 +75,7 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
 
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title">
-      <AppScreen maxWidth="narrow">
+      <AppScreen as="div" maxWidth="narrow">
         <TopBar left={<BackButton onClick={resetAndClose} />} className="landscape:pb-1" />
 
         <div className="mb-3 sm:mb-6 text-center landscape:mb-2">
