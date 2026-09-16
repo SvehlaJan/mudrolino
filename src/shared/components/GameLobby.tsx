@@ -79,6 +79,98 @@ function TactilePreview({
   );
 }
 
+function LobbyBody({
+  definition,
+  title,
+  instruction,
+  availabilityMessage,
+  onPlay,
+}: {
+  definition: (typeof GAME_DEFINITIONS_BY_ID)[GameId];
+  title: string;
+  instruction: string;
+  availabilityMessage?: string;
+  onPlay(): void;
+}) {
+  const { layout } = useAppScreenLayout();
+  const isShort = layout === 'short';
+
+  if (isShort) {
+    return (
+      /* Short landscape (e.g. 667x375) horizontal composition */
+      <div className="flex-1 min-h-0 flex flex-row items-center justify-between gap-6 px-4 py-1 max-w-4xl mx-auto w-full">
+        <div className="flex items-center gap-4 min-w-0 flex-1">
+          <TactilePreview preset={definition.tactilePreset} icon={definition.icon} compact />
+          <div className="flex flex-col gap-1 min-w-0">
+            <h1 className="text-xl sm:text-2xl font-black text-text-main tracking-tight leading-tight select-none truncate">
+              {title}
+            </h1>
+            <p
+              data-testid="lobby-instruction"
+              className="text-xs sm:text-sm font-medium text-text-muted leading-snug line-clamp-2"
+            >
+              {instruction}
+            </p>
+            {availabilityMessage && (
+              <p role="status" className="text-xs font-bold text-action-danger">
+                {availabilityMessage}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="shrink-0">
+          <Button
+            size="child"
+            tone="primary"
+            onClick={onPlay}
+            disabled={Boolean(availabilityMessage)}
+            aria-label="Hrať"
+            className="h-20 w-20 rounded-full"
+          >
+            <Play size={36} className="ml-1" fill="currentColor" />
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    /* Portrait and desktop centered layout */
+    <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8 px-4 py-2 sm:py-4 md:py-6 text-center max-w-2xl mx-auto w-full">
+      <TactilePreview preset={definition.tactilePreset} icon={definition.icon} />
+
+      <div className="flex flex-col gap-1.5 sm:gap-3 min-w-0 max-w-xl">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-text-main tracking-tight leading-tight select-none">
+          {title}
+        </h1>
+        <p
+          data-testid="lobby-instruction"
+          className="text-sm sm:text-base md:text-lg font-medium text-text-muted max-w-md mx-auto leading-normal"
+        >
+          {instruction}
+        </p>
+        {availabilityMessage && (
+          <p role="status" className="text-xs sm:text-sm font-bold text-action-danger mt-1">
+            {availabilityMessage}
+          </p>
+        )}
+      </div>
+
+      <Button
+        size="play"
+        tone="primary"
+        onClick={onPlay}
+        disabled={Boolean(availabilityMessage)}
+        aria-label="Hrať"
+        className="shrink-0 mt-1 sm:mt-2"
+      >
+        <Play size={44} className="sm:w-16 sm:h-16 md:w-20 md:h-20 ml-1.5 sm:ml-2.5" fill="currentColor" />
+      </Button>
+    </div>
+  );
+}
+
 export function GameLobby({
   gameId,
   onPlay,
@@ -90,8 +182,6 @@ export function GameLobby({
   const definition = GAME_DEFINITIONS_BY_ID[gameId];
   const title = getUiCopy('sk', definition.titleKey);
   const instruction = getUiCopy('sk', definition.instructionKey);
-  const { layout } = useAppScreenLayout();
-  const isShort = layout === 'short';
   const location = useLocation();
   const settingsButtonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -119,77 +209,13 @@ export function GameLobby({
         left={<BackButton onClick={onBack} />}
         right={settingsButton}
       />
-
-      {isShort ? (
-        /* Short landscape (e.g. 667x375) horizontal composition */
-        <div className="flex-1 min-h-0 flex flex-row items-center justify-between gap-6 px-4 py-1 max-w-4xl mx-auto w-full">
-          <div className="flex items-center gap-4 min-w-0 flex-1">
-            <TactilePreview preset={definition.tactilePreset} icon={definition.icon} compact />
-            <div className="flex flex-col gap-1 min-w-0">
-              <h1 className="text-xl sm:text-2xl font-black text-text-main tracking-tight leading-tight select-none truncate">
-                {title}
-              </h1>
-              <p
-                data-testid="lobby-instruction"
-                className="text-xs sm:text-sm font-medium text-text-muted leading-snug line-clamp-2"
-              >
-                {instruction}
-              </p>
-              {availabilityMessage && (
-                <p role="status" className="text-xs font-bold text-action-danger">
-                  {availabilityMessage}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="shrink-0">
-            <Button
-              size="child"
-              tone="primary"
-              onClick={onPlay}
-              disabled={Boolean(availabilityMessage)}
-              aria-label="Hrať"
-              className="h-20 w-20 rounded-full"
-            >
-              <Play size={36} className="ml-1" fill="currentColor" />
-            </Button>
-          </div>
-        </div>
-      ) : (
-        /* Portrait and desktop centered layout */
-        <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8 px-4 py-2 sm:py-4 md:py-6 text-center max-w-2xl mx-auto w-full">
-          <TactilePreview preset={definition.tactilePreset} icon={definition.icon} />
-
-          <div className="flex flex-col gap-1.5 sm:gap-3 min-w-0 max-w-xl">
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-text-main tracking-tight leading-tight select-none">
-              {title}
-            </h1>
-            <p
-              data-testid="lobby-instruction"
-              className="text-sm sm:text-base md:text-lg font-medium text-text-muted max-w-md mx-auto leading-normal"
-            >
-              {instruction}
-            </p>
-            {availabilityMessage && (
-              <p role="status" className="text-xs sm:text-sm font-bold text-action-danger mt-1">
-                {availabilityMessage}
-              </p>
-            )}
-          </div>
-
-          <Button
-            size="play"
-            tone="primary"
-            onClick={onPlay}
-            disabled={Boolean(availabilityMessage)}
-            aria-label="Hrať"
-            className="shrink-0 mt-1 sm:mt-2"
-          >
-            <Play size={44} className="sm:w-16 sm:h-16 md:w-20 md:h-20 ml-1.5 sm:ml-2.5" fill="currentColor" />
-          </Button>
-        </div>
-      )}
+      <LobbyBody
+        definition={definition}
+        title={title}
+        instruction={instruction}
+        availabilityMessage={availabilityMessage}
+        onPlay={onPlay}
+      />
     </AppScreen>
   );
 }
