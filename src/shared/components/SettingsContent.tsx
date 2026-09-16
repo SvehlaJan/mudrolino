@@ -19,7 +19,7 @@ import { GameSettings, SettingsTarget } from '../types';
 import { additionRangeForcesNumerals, applyAdditionSumRangeChange } from '../services/settingsService';
 import { FeedbackModal } from './FeedbackModal';
 import { SETTINGS_VISIBILITY } from './settingsContentData';
-import { Card, SegmentedChoice, ToggleControl, cx, uiTokens } from '../ui';
+import { Card, SegmentedChoice, ToggleControl, cx, uiTokens, type RadioGroupTone } from '../ui';
 import { AppSettings, AppFontFamily, applyFontFamily } from '../services/appSettingsStore';
 
 interface SettingsContentProps {
@@ -48,7 +48,7 @@ interface SettingsRangeCardProps {
   description: string;
   options: readonly number[];
   selected: number;
-  activeClassName: string;
+  tone: RadioGroupTone;
   onSelect: (value: number) => void;
   formatLabel?: (value: number) => string;
   className?: string;
@@ -107,7 +107,7 @@ function SettingsRangeCard({
   description,
   options,
   selected,
-  activeClassName,
+  tone,
   onSelect,
   formatLabel = String,
   className,
@@ -130,9 +130,10 @@ function SettingsRangeCard({
       </div>
       <div className="mt-4 landscape:mt-2">
         <SegmentedChoice
+          ariaLabel={title}
           options={options}
           selected={selected}
-          activeClassName={activeClassName}
+          tone={tone}
           formatLabel={formatLabel}
           onSelect={onSelect}
           columns={options.length === 2 ? 2 : options.length === 4 ? 4 : 3}
@@ -173,10 +174,11 @@ function AdditionRepresentationCard({
       </div>
       <div className="mt-4 landscape:mt-2">
         <SegmentedChoice
+          ariaLabel="Zobrazenie"
           options={['objects', 'numerals'] as const}
           selected={settings.additionRepresentation}
           disabledOptions={objectsDisabled ? (['objects'] as const) : undefined}
-          activeClassName="bg-accent-blue"
+          tone="accent"
           formatLabel={(value) => (value === 'objects' ? 'Predmety' : 'Čísla')}
           onSelect={(value) => onUpdate({ ...settings, additionRepresentation: value })}
           columns={2}
@@ -204,7 +206,7 @@ function AdditionSumRangeCard({
       description="Najväčší možný súčet."
       options={ADDITION_SUM_RANGE_OPTIONS}
       selected={settings.additionSumRange}
-      activeClassName="bg-accent-blue"
+      tone="accent"
       formatLabel={(value) => String(value)}
       onSelect={(value) => onUpdate(applyAdditionSumRangeChange(settings, value as GameSettings['additionSumRange']))}
       className={className}
@@ -239,9 +241,10 @@ function CompleteLetterMissingCountCard({
       </div>
       <div className="mt-4 landscape:mt-2">
         <SegmentedChoice
+          ariaLabel="Chýbajúce písmená"
           options={COMPLETE_LETTER_MISSING_COUNT_OPTIONS}
           selected={selected}
-          activeClassName="bg-success"
+          tone="success"
           columns={3}
           formatLabel={(value) => {
             if (value === 'adaptive') return 'Podľa dĺžky';
@@ -293,9 +296,10 @@ export function SettingsContent({
           </div>
           <div className="mt-5">
             <SegmentedChoice<AppFontFamily>
+              ariaLabel="Písmo"
               options={['nunito', 'shantell']}
               selected={appSettings.fontFamily}
-              activeClassName="bg-accent-blue"
+              tone="accent"
               formatLabel={(value) => (
                 <span style={{ fontFamily: value === 'nunito' ? '"Nunito", sans-serif' : '"Shantell Sans", cursive, sans-serif' }}>
                   {value === 'nunito' ? 'Zaoblené (Nunito)' : 'Hravé (Shantell)'}
@@ -326,10 +330,9 @@ export function SettingsContent({
             label="Písmená s dĺžňami a mäkčeňmi"
             description="Rozšíriť hru o slovenské znaky."
             icon={<Languages size={24} className="sm:h-7 sm:w-7" />}
-            iconBackgroundClassName="bg-accent-blue/35"
             checked={settings.alphabetAccents}
             onToggle={() => onUpdate({ ...settings, alphabetAccents: !settings.alphabetAccents })}
-            activeColorClassName="bg-accent-blue"
+            tone="accent"
           />
         </SettingsSection>
       )}
@@ -350,7 +353,7 @@ export function SettingsContent({
           description="Vyberte počet kariet v hre."
           options={[4, 6, 8]}
           selected={settings.alphabetGridSize}
-          activeClassName="bg-accent-blue"
+          tone="accent"
           formatLabel={(value) => String(value)}
           onSelect={(value) => onUpdate({ ...settings, alphabetGridSize: value as GameSettings['alphabetGridSize'] })}
           className={singleCardClassName}
@@ -365,7 +368,7 @@ export function SettingsContent({
           description="Vyberte počet kariet v hre."
           options={[4, 6]}
           selected={settings.syllablesGridSize}
-          activeClassName="bg-accent-blue"
+          tone="accent"
           formatLabel={(value) => String(value)}
           onSelect={(value) => onUpdate({ ...settings, syllablesGridSize: value as GameSettings['syllablesGridSize'] })}
           className={singleCardClassName}
@@ -380,7 +383,7 @@ export function SettingsContent({
           description="Vyberte rozsah čísel pre hru."
           options={[5, 10, 20]}
           selected={settings.numbersRange.end}
-          activeClassName="bg-accent-blue"
+          tone="accent"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, numbersRange: { start: 1, end: value as 5 | 10 | 20 } })}
           className={singleCardClassName}
@@ -395,7 +398,7 @@ export function SettingsContent({
           description="Vyberte rozsah počítania predmetov."
           options={[5, 10]}
           selected={settings.countingRange.end}
-          activeClassName="bg-accent-blue"
+          tone="accent"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, countingRange: { start: 1, end: value as 5 | 10 } })}
           className={singleCardClassName}
@@ -418,9 +421,10 @@ export function SettingsContent({
           </div>
           <div className="mt-4 landscape:mt-2">
             <SegmentedChoice
+              ariaLabel="Zobrazenie"
               options={['objects', 'numerals'] as const}
               selected={settings.compareMode}
-              activeClassName="bg-accent-blue"
+              tone="accent"
               formatLabel={(value) => (value === 'objects' ? 'Predmety' : 'Čísla')}
               onSelect={(value) => onUpdate({ ...settings, compareMode: value })}
               columns={2}
@@ -436,7 +440,7 @@ export function SettingsContent({
           description="Vyberte rozsah čísel pre porovnávanie."
           options={[5, 10]}
           selected={settings.compareRange.end}
-          activeClassName="bg-accent-blue"
+          tone="accent"
           formatLabel={(value) => `1 - ${value}`}
           onSelect={(value) => onUpdate({ ...settings, compareRange: { start: 1, end: value as 5 | 10 } })}
           className={singleCardClassName}

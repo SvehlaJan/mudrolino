@@ -36,7 +36,7 @@ test.describe('Persistence and Backward Compatibility', () => {
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
 
     // Verify font family option is visible
-    const fontButton = page.getByRole('button', { name: /Hravé \(Shantell\)/i });
+    const fontButton = page.getByRole('radio', { name: /Hravé \(Shantell\)/i });
     await expect(fontButton).toBeVisible();
 
     // Verify localStorage has persisted game settings correctly preserved

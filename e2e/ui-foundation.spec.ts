@@ -101,6 +101,18 @@ test.describe('UI foundation: Radix wrappers', () => {
     await expect(page.getByRole('switch', { name: 'Diakritika' })).toBeChecked();
   });
 
+  test('segmented choice renders as an accessible radio group, not choice-tile buttons', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const six = page.getByRole('radio', { name: '6 kariet' });
+    const eight = page.getByRole('radio', { name: '8 kariet' });
+    await expect(six).toBeChecked();
+    await six.focus();
+    await page.keyboard.down('ArrowRight');
+    await page.waitForTimeout(50);
+    await page.keyboard.up('ArrowRight');
+    await expect(eight).toBeChecked();
+  });
+
   test('tabs switch panels with arrow keys and move focus with them', async ({ page }) => {
     await page.goto('/ui-kit');
     const wordsTab = page.getByRole('tab', { name: 'Slová (ukážka)' });
@@ -126,10 +138,12 @@ test.describe('UI foundation: Radix wrappers', () => {
     await expect(trigger).toBeFocused();
   });
 
-  test('field wrapper links label, help, and error text', async ({ page }) => {
+  test('field wrapper links label, help, and error text, and exposes required state', async ({ page }) => {
     await page.goto('/ui-kit');
     const input = page.getByLabel('Vlastné slovo');
     await expect(input).toBeVisible();
+    await expect(input).toHaveAttribute('required', '');
+    await expect(input).toHaveAttribute('aria-required', 'true');
     await input.fill('toto je velmi dlhe skusobne slovo pre test');
     await expect(page.getByRole('alert')).toContainText('príliš dlhé');
   });

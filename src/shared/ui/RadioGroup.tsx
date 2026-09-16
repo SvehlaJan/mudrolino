@@ -13,11 +13,15 @@ export interface RadioGroupOption<T extends string> {
   disabled?: boolean;
 }
 
+/** Semantic checked-state color. Add a new entry here rather than accepting a raw class name. */
+export type RadioGroupTone = 'primary' | 'accent' | 'success';
+
 export interface RadioGroupControlProps<T extends string> {
   options: readonly RadioGroupOption<T>[];
   value: T;
   onValueChange: (value: T) => void;
   ariaLabel?: string;
+  tone?: RadioGroupTone;
   columns?: 2 | 3 | 4;
   disabled?: boolean;
   className?: string;
@@ -30,11 +34,18 @@ const gridColsClass: Record<2 | 3 | 4, string> = {
   4: 'grid-cols-4',
 };
 
+const toneCheckedClass: Record<RadioGroupTone, string> = {
+  primary: 'data-[state=checked]:bg-action-primary data-[state=checked]:text-white',
+  accent: 'data-[state=checked]:bg-accent-blue data-[state=checked]:text-text-main',
+  success: 'data-[state=checked]:bg-success data-[state=checked]:text-text-main',
+};
+
 export function RadioGroupControl<T extends string>({
   options,
   value,
   onValueChange,
   ariaLabel,
+  tone = 'primary',
   columns,
   disabled,
   className,
@@ -58,7 +69,8 @@ export function RadioGroupControl<T extends string>({
           className={cn(
             'relative flex min-h-12 min-w-12 items-center justify-center rounded-2xl px-4 py-4 font-bold shadow-block transition-all',
             'data-[state=unchecked]:bg-surface data-[state=unchecked]:text-text-main',
-            'data-[state=checked]:bg-action-primary data-[state=checked]:text-white data-[state=checked]:shadow-chip',
+            'data-[state=checked]:shadow-chip',
+            toneCheckedClass[tone],
             'disabled:cursor-not-allowed disabled:opacity-50',
             'focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
             itemClassName,

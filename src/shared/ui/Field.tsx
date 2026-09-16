@@ -11,6 +11,8 @@ export interface FieldControlProps {
   id: string;
   'aria-describedby'?: string;
   'aria-invalid'?: boolean;
+  required?: boolean;
+  'aria-required'?: boolean;
 }
 
 export interface FieldProps {
@@ -38,7 +40,13 @@ export function Field({ label, children, helpText, errorText, required, classNam
           </span>
         )}
       </LabelPrimitive.Root>
-      {children({ id, 'aria-describedby': describedBy, 'aria-invalid': errorText ? true : undefined })}
+      {children({
+        id,
+        'aria-describedby': describedBy,
+        'aria-invalid': errorText ? true : undefined,
+        required: required || undefined,
+        'aria-required': required || undefined,
+      })}
       {helpText && (
         <p id={helpId} className="text-sm text-text-muted">
           {helpText}

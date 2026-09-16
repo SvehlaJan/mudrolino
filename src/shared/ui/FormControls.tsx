@@ -5,8 +5,9 @@
 
 import React from 'react';
 import { Search, X } from 'lucide-react';
-import { ChoiceTile } from './ChoiceTile';
-import { SwitchControl } from './Switch';
+import { RadioGroupControl, type RadioGroupTone } from './RadioGroup';
+import { toSegmentedChoiceKey, resolveSegmentedChoiceOption } from './segmentedChoiceKey';
+import { SwitchControl, type SwitchTone } from './Switch';
 import { cx } from './utils';
 
 export interface ToggleControlProps {
@@ -15,20 +16,18 @@ export interface ToggleControlProps {
   description?: string;
   checked: boolean;
   onToggle: () => void;
-  iconBackgroundClassName?: string;
-  activeColorClassName?: string;
+  tone?: SwitchTone;
   className?: string;
 }
 
-/** @deprecated Pass semantic props to `SwitchControl` directly. Kept so pre-Phase-2 callers keep their exact class-based coloring until they migrate. */
+/** @deprecated Use `SwitchControl` directly with `onCheckedChange`. Kept only for the `onToggle`-shaped legacy call signature. */
 export function ToggleControl({
   label,
   icon,
   description,
   checked,
   onToggle,
-  iconBackgroundClassName = 'bg-shadow/35',
-  activeColorClassName = 'bg-soft-watermelon',
+  tone = 'watermelon',
   className,
 }: ToggleControlProps) {
   return (
@@ -38,8 +37,7 @@ export function ToggleControl({
       description={description}
       checked={checked}
       onCheckedChange={onToggle}
-      iconBackgroundClassName={iconBackgroundClassName}
-      trackActiveClassName={activeColorClassName}
+      tone={tone}
       className={className}
     />
   );
@@ -50,24 +48,11 @@ interface SegmentedChoiceProps<T extends string | number> {
   selected: T;
   onSelect: (option: T) => void;
   formatLabel?: (option: T) => React.ReactNode;
-  activeClassName?: string;
+  tone?: RadioGroupTone;
   columns?: 2 | 3 | 4;
+  ariaLabel?: string;
   /** Options rendered visibly but non-selectable (dimmed, unclickable) — e.g. a choice that's invalid for the current settings combination. */
   disabledOptions?: readonly T[];
-}
-
-const activeBackgroundOverride: Record<string, string> = {
-  'bg-accent-blue': '!bg-accent-blue',
-  'bg-primary': '!bg-primary',
-  'bg-soft-watermelon': '!bg-soft-watermelon',
-  'bg-success': '!bg-success',
-};
-
-function resolveActiveClassName(className: string) {
-  return className
-    .split(' ')
-    .map(token => activeBackgroundOverride[token] ?? token)
-    .join(' ');
 }
 
 export function SegmentedChoice<T extends string | number>({
@@ -75,43 +60,27 @@ export function SegmentedChoice<T extends string | number>({
   selected,
   onSelect,
   formatLabel = option => option,
-  activeClassName = 'bg-accent-blue',
+  tone = 'accent',
   columns,
+  ariaLabel,
   disabledOptions,
 }: SegmentedChoiceProps<T>) {
-  const gridClass =
-    columns === 4
-      ? 'grid-cols-4'
-      : columns === 2 || options.length === 2
-      ? 'grid-cols-2'
-      : 'grid-cols-3';
-
   return (
-    <div className={cx('grid gap-3', gridClass)}>
-      {options.map(option => {
-        const isSelected = selected === option;
-        const isDisabled = disabledOptions?.includes(option) ?? false;
-        return (
-          <ChoiceTile
-            key={String(option)}
-            shape="option"
-            state={isSelected ? 'selected' : 'neutral'}
-            disabled={isDisabled}
-            unstyledState={!isSelected && !isDisabled}
-            className={
-              isSelected
-                ? resolveActiveClassName(activeClassName)
-                : isDisabled
-                  ? undefined
-                  : 'bg-bg-light text-text-main opacity-70 shadow-none'
-            }
-            onClick={() => onSelect(option)}
-          >
-            {formatLabel(option)}
-          </ChoiceTile>
-        );
-      })}
-    </div>
+    <RadioGroupControl
+      ariaLabel={ariaLabel}
+      tone={tone}
+      columns={columns}
+      value={toSegmentedChoiceKey(selected)}
+      onValueChange={key => {
+        const option = resolveSegmentedChoiceOption(options, key);
+        if (option !== undefined) onSelect(option);
+      }}
+      options={options.map(option => ({
+        value: toSegmentedChoiceKey(option),
+        label: formatLabel(option),
+        disabled: disabledOptions?.includes(option) ?? false,
+      }))}
+    />
   );
 }
 

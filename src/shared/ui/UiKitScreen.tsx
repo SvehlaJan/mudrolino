@@ -169,6 +169,19 @@ function UiKitDialogDemo() {
   );
 }
 
+function UiKitSegmentedChoiceDemo() {
+  const [tileCount, setTileCount] = useState<4 | 6 | 8>(6);
+  return (
+    <SegmentedChoice
+      ariaLabel="Počet kariet (segmentovaný výber)"
+      options={[4, 6, 8]}
+      selected={tileCount}
+      onSelect={setTileCount}
+      formatLabel={(value) => `${value} kariet`}
+    />
+  );
+}
+
 function UiKitInteractionDemo() {
   const [gridSize, setGridSize] = useState<'4' | '6' | '8'>('6');
   const [diacritics, setDiacritics] = useState(false);
@@ -246,6 +259,7 @@ function UiKitInteractionDemo() {
             label="Vlastné slovo"
             helpText="Napríklad meno obľúbenej hračky."
             errorText={customWordTooLong ? 'Slovo je príliš dlhé.' : undefined}
+            required
           >
             {fieldProps => (
               <input
@@ -476,12 +490,7 @@ export function UiKitScreen() {
             <ChoiceTile state="wrong"><span className="text-6xl">S</span></ChoiceTile>
             <ChoiceTile><span className="text-6xl">O</span></ChoiceTile>
           </div>
-          <SegmentedChoice
-            options={[4, 6, 8]}
-            selected={6}
-            onSelect={() => undefined}
-            formatLabel={(value) => `${value} kariet`}
-          />
+          <UiKitSegmentedChoiceDemo />
         </Card>
       </Section>
 

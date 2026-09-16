@@ -7,6 +7,21 @@ import React from 'react';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import { cn } from './utils';
 
+/** Semantic icon-tile and checked-track color pairing. Add a new entry here rather than accepting a raw class name. */
+export type SwitchTone = 'primary' | 'accent' | 'watermelon';
+
+const iconToneClass: Record<SwitchTone, string> = {
+  primary: 'bg-selected-surface',
+  accent: 'bg-accent-blue/35',
+  watermelon: 'bg-shadow/35',
+};
+
+const trackToneClass: Record<SwitchTone, string> = {
+  primary: 'bg-action-primary',
+  accent: 'bg-accent-blue',
+  watermelon: 'bg-soft-watermelon',
+};
+
 export interface SwitchControlProps {
   label: string;
   icon?: React.ReactNode;
@@ -14,10 +29,7 @@ export interface SwitchControlProps {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   disabled?: boolean;
-  /** Escape hatch for compatibility callers that still pass a raw icon-tile background class. */
-  iconBackgroundClassName?: string;
-  /** Escape hatch for compatibility callers that still pass a raw checked-track background class. */
-  trackActiveClassName?: string;
+  tone?: SwitchTone;
   className?: string;
 }
 
@@ -28,8 +40,7 @@ export function SwitchControl({
   checked,
   onCheckedChange,
   disabled,
-  iconBackgroundClassName = 'bg-selected-surface',
-  trackActiveClassName = 'bg-action-primary',
+  tone = 'primary',
   className,
 }: SwitchControlProps) {
   return (
@@ -39,7 +50,7 @@ export function SwitchControl({
           <div
             className={cn(
               'flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] text-text-main sm:h-16 sm:w-16',
-              iconBackgroundClassName,
+              iconToneClass[tone],
             )}
           >
             {icon}
@@ -62,7 +73,7 @@ export function SwitchControl({
           'relative h-10 w-[4.5rem] shrink-0 rounded-full bg-shadow px-1 transition-colors duration-300 sm:h-12 sm:w-24',
           'disabled:cursor-not-allowed disabled:opacity-40',
           'focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
-          checked && trackActiveClassName,
+          checked && trackToneClass[tone],
         )}
       >
         <SwitchPrimitive.Thumb
