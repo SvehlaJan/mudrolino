@@ -280,6 +280,7 @@ export function UiKitScreen() {
   return (
     <AppScreen fixedHeight={false} scrollable maxWidth="wide" contentClassName="gap-8 pb-8">
       <TopBar
+        data-testid="ui-kit-topbar"
         left={<BackButton onClick={() => window.history.back()} />}
         center={<RoundCounter completed={2} total={5} />}
         right={<IconButton label="Nastavenia"><Settings size={24} /></IconButton>}
@@ -620,6 +621,14 @@ export function UiKitScreen() {
             <div className="text-6xl">🤗</div>
             <h3 className="mt-2 text-4xl font-black text-[#3a4a8a]">Nevadí!</h3>
             <p className="mt-3 text-2xl font-extrabold text-[#5566aa]">Ukážka panelu</p>
+          </OverlayFrame>
+          <OverlayFrame show inline tone="success" focusOnShow panelClassName="bg-white shadow-block">
+            <div className="text-6xl">🏆</div>
+            <h3 className="mt-2 text-4xl font-black text-primary">Hotovo!</h3>
+            <div className="mt-4 flex justify-center gap-3">
+              <Button tone="primary" size="parent">Hrať znova</Button>
+              <Button tone="neutral" size="parent">Domov</Button>
+            </div>
           </OverlayFrame>
         </div>
       </Section>

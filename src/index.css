@@ -159,7 +159,7 @@ body {
 .overlay-confetti {
   animation-name: overlay-confetti-fall;
   animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
   animation-fill-mode: both;
   will-change: transform, opacity;
   pointer-events: none;

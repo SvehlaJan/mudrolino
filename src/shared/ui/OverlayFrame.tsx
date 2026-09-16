@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { COLORS } from '../contentRegistry';
-import { cx } from './utils';
+import { motionPreset } from './motion';
+import { cn } from './utils';
 
 interface ConfettiLayerProps {
   show?: boolean;
@@ -39,7 +41,7 @@ export function ConfettiLayer({ show = true }: ConfettiLayerProps) {
         <div
           key={i}
           aria-hidden="true"
-          className={cx(
+          className={cn(
             'overlay-confetti absolute blur-[1px]',
             p.shape === 0
               ? 'w-7 h-7 rounded-full'
@@ -65,6 +67,9 @@ export function ConfettiLayer({ show = true }: ConfettiLayerProps) {
   );
 }
 
+const FOCUSABLE_SELECTOR =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 interface OverlayFrameProps {
   show: boolean;
   children: React.ReactNode;
@@ -73,6 +78,8 @@ interface OverlayFrameProps {
   confetti?: boolean;
   panelClassName?: string;
   inline?: boolean;
+  /** Moves focus to the panel's first focusable control once shown. Use only when the panel exposes a required completion action, not a transient success/failure celebration. */
+  focusOnShow?: boolean;
 }
 
 export function OverlayFrame({
@@ -83,28 +90,45 @@ export function OverlayFrame({
   confetti = false,
   panelClassName,
   inline = false,
+  focusOnShow = false,
 }: OverlayFrameProps) {
+  const prefersReducedMotion = useReducedMotion();
+  const panelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!show || !focusOnShow) return;
+    panelRef.current?.querySelector<HTMLElement>(FOCUSABLE_SELECTOR)?.focus();
+  }, [show, focusOnShow]);
+
   if (!show) return null;
+
+  const enterPreset = prefersReducedMotion ? motionPreset.reducedEnter : motionPreset.enter;
 
   return (
     <div
       onClick={onBackdropClick}
-      className={cx(
+      className={cn(
         inline ? 'relative min-h-[320px] rounded-[32px]' : 'fixed inset-0 z-50',
         'flex flex-col items-center justify-center overflow-hidden backdrop-blur-sm',
         tone === 'failure' ? 'bg-[#1e2a4a]/70' : 'bg-bg-light/80',
       )}
     >
-      {confetti && <ConfettiLayer />}
-      <div
+      {confetti && !prefersReducedMotion && <ConfettiLayer />}
+      <motion.div
+        ref={panelRef}
+        role="status"
+        aria-live="polite"
         onClick={event => event.stopPropagation()}
-        className={cx(
+        initial={enterPreset.initial}
+        animate={enterPreset.animate}
+        transition={motionPreset.transition}
+        className={cn(
           'relative z-10 mx-6 w-auto max-w-[90vw] rounded-[48px] border-[6px] border-white px-12 py-12 text-center sm:px-20 sm:py-16',
           panelClassName,
         )}
       >
         {children}
-      </div>
+      </motion.div>
     </div>
   );
 }

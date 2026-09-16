@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { expectNoHorizontalOverflow } from './support/layoutAssertions';
+import { CANONICAL_VIEWPORTS } from './support/viewports';
 
 test.describe('UI foundation: core controls', () => {
   test('core controls expose semantic states and minimum sizes', async ({ page }) => {
@@ -146,5 +148,79 @@ test.describe('UI foundation: Radix wrappers', () => {
     await expect(input).toHaveAttribute('aria-required', 'true');
     await input.fill('toto je velmi dlhe skusobne slovo pre test');
     await expect(page.getByRole('alert')).toContainText('príliš dlhé');
+  });
+});
+
+test.describe('UI foundation: universal screen contract', () => {
+  test('AppScreen renders exactly one main landmark with no horizontal overflow across the canonical matrix', async ({ page }) => {
+    for (const viewport of [
+      CANONICAL_VIEWPORTS.narrowPhone,
+      CANONICAL_VIEWPORTS.shortLandscape,
+      CANONICAL_VIEWPORTS.tabletPortrait,
+      CANONICAL_VIEWPORTS.desktop,
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto('/ui-kit');
+      await expect(page.getByRole('main')).toHaveCount(1);
+      await expectNoHorizontalOverflow(page);
+    }
+  });
+
+  test('AppScreen derives a short layout from available height, not orientation alone', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
+    await page.goto('/ui-kit');
+    await expect(page.getByRole('main')).toHaveAttribute('data-layout', 'short');
+    await expect(page.getByRole('main')).toHaveAttribute('data-mode', 'child');
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.tabletPortrait);
+    await expect(page.getByRole('main')).toHaveAttribute('data-layout', 'regular');
+  });
+
+  test('TopBar reads the short layout from its nearest AppScreen', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
+    await page.goto('/ui-kit');
+    await expect(page.getByTestId('ui-kit-topbar')).toHaveAttribute('data-layout', 'short');
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
+    await expect(page.getByTestId('ui-kit-topbar')).toHaveAttribute('data-layout', 'regular');
+  });
+
+  test('RoundCounter is more compact under the short layout', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.tabletPortrait);
+    await page.goto('/ui-kit');
+    const roundCounter = page.getByLabel('3 z 5 kolá', { exact: true });
+    const regularBox = await roundCounter.boundingBox();
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
+    const shortBox = await roundCounter.boundingBox();
+
+    expect(shortBox!.height).toBeLessThan(regularBox!.height);
+  });
+});
+
+test.describe('UI foundation: overlay motion and status', () => {
+  test('overlay frame announces its outcome as a live status region', async ({ page }) => {
+    await page.goto('/ui-kit');
+    await expect(page.getByRole('status').filter({ hasText: 'Výborne!' })).toBeVisible();
+    await expect(page.getByRole('status').filter({ hasText: 'Nevadí!' })).toBeVisible();
+  });
+
+  test('correct-answer confetti is finite, not an infinite loop', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const particle = page.locator('.overlay-confetti').first();
+    await expect(particle).toBeVisible();
+    const iterationCount = await particle.evaluate((el) => getComputedStyle(el).animationIterationCount);
+    expect(iterationCount).not.toBe('infinite');
+  });
+
+  test('reduced motion removes confetti particles entirely', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/ui-kit');
+    await expect(page.locator('.overlay-confetti')).toHaveCount(0);
+  });
+
+  test('a completion overlay with focusOnShow moves focus to its first action', async ({ page }) => {
+    await page.goto('/ui-kit');
+    await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeFocused();
   });
 });
