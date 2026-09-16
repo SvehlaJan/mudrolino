@@ -48,4 +48,20 @@ await Promise.all([
   secondRepo.addPraise({ text: 'Druhá', emoji: '2️⃣', audioKey: 'custom-praise-second', isDefault: false }),
 ]);
 if ((await repo.getPraises()).length !== beforeConcurrentPraises + 2) throw new Error('concurrent praise writes must not lose entries');
+
+const seedFirst = new LocalContentRepository('cs');
+await Promise.all([
+  seedFirst.seed([], []),
+  seedFirst.addWord({ word: 'Pretrvá', syllables: 'pre-tr-vá', emoji: '🟢', audioKey: 'custom-seed-first', isDefault: false }),
+]);
+if (!(await seedFirst.getWords()).some((word) => word.audioKey === 'custom-seed-first')) throw new Error('seed-before-add race must preserve custom word');
+const addFirst = new LocalContentRepository('de');
+await Promise.all([
+  addFirst.addPraise({ text: 'Pretrvá', emoji: '🟣', audioKey: 'custom-add-first', isDefault: false }),
+  addFirst.seed([], []),
+]);
+const racedPraises = await addFirst.getPraises();
+if (!racedPraises.some((praise) => praise.audioKey === 'custom-add-first')) throw new Error('add-before-seed race must preserve custom praise');
+if (!racedPraises.some((praise) => praise.enabled && praise.status === 'ready')) throw new Error('zero-playable seed must repair praise availability');
+if (!(await seedFirst.getWords()).some((word) => word.enabled && word.status === 'ready')) throw new Error('zero-playable seed must repair word availability');
 console.log('✓ local content repository contracts passed');
