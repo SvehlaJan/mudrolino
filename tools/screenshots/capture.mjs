@@ -5,15 +5,18 @@ import { chromium } from 'playwright';
 import { resolveChromiumExecutable } from '../../e2e/browserResolver.ts';
 import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
 
-function parseArgs(args) {
+export function parseArgs(args) {
   let base = 'http://127.0.0.1:4173';
   const scenes = [];
   const viewports = [];
   let output = null;
+  let help = false;
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
-    if (arg.startsWith('--base=')) {
+    if (arg === '--help' || arg === '-h') {
+      help = true;
+    } else if (arg.startsWith('--base=')) {
       base = arg.slice('--base='.length);
     } else if (arg === '--base' && i + 1 < args.length) {
       base = args[++i];
@@ -36,10 +39,23 @@ function parseArgs(args) {
 
   base = base.replace(/\/+$/, '');
 
-  return { base, scenes, viewports, output };
+  return { base, scenes, viewports, output, help };
 }
 
-const SCENES = {
+export function printHelp() {
+  console.log(`Usage: npm run shots -- [--base=<url>] [--scene=<id>] [--viewport=<name>] [--output=<dir>] [--help]
+
+Repeat --scene/--viewport to capture more than one; omitting either captures all of them.
+
+Scenes:    ${Object.keys(SCENES).join(', ')}
+Viewports: ${Object.keys(CANONICAL_VIEWPORTS).join(', ')}`);
+}
+
+export const SCENES = {
+  'ui-kit': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/ui-kit`);
+    await page.getByRole('heading', { name: 'UI Kit', level: 1 }).waitFor({ state: 'visible' });
+  },
   'parents-gate': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/settings`);
     await page.getByRole('heading', { name: 'Pre rodičov' }).waitFor({ state: 'visible' });
@@ -96,7 +112,11 @@ const SCENES = {
 };
 
 async function main() {
-  const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg } = parseArgs(process.argv.slice(2));
+  const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg, help } = parseArgs(process.argv.slice(2));
+  if (help) {
+    printHelp();
+    return;
+  }
   const baseOrigin = new URL(base).origin;
 
   const targetScenes = inputScenes.length > 0 ? inputScenes : Object.keys(SCENES);
@@ -221,7 +241,10 @@ async function main() {
   console.log(outputDir);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+if (isMainModule) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

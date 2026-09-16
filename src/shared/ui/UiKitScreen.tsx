@@ -169,6 +169,31 @@ function UiKitDialogDemo() {
   );
 }
 
+function UiKitOverlayCompletionDemo() {
+  const [show, setShow] = useState(false);
+
+  if (!show) {
+    return (
+      <div className="grid min-h-[320px] place-items-center rounded-[32px] border-[6px] border-dashed border-border-subtle">
+        <Button tone="primary" size="parent" onClick={() => setShow(true)}>
+          Zobraziť dokončenie
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <OverlayFrame show inline tone="success" focusOnShow panelClassName="bg-white shadow-block">
+      <div className="text-6xl">🏆</div>
+      <h3 className="mt-2 text-4xl font-black text-primary">Hotovo!</h3>
+      <div className="mt-4 flex justify-center gap-3">
+        <Button tone="primary" size="parent">Hrať znova</Button>
+        <Button tone="neutral" size="parent">Domov</Button>
+      </div>
+    </OverlayFrame>
+  );
+}
+
 function UiKitSegmentedChoiceDemo() {
   const [tileCount, setTileCount] = useState<4 | 6 | 8>(6);
   return (
@@ -630,14 +655,7 @@ export function UiKitScreen() {
             <h3 className="mt-2 text-4xl font-black text-[#3a4a8a]">Nevadí!</h3>
             <p className="mt-3 text-2xl font-extrabold text-[#5566aa]">Ukážka panelu</p>
           </OverlayFrame>
-          <OverlayFrame show inline tone="success" focusOnShow panelClassName="bg-white shadow-block">
-            <div className="text-6xl">🏆</div>
-            <h3 className="mt-2 text-4xl font-black text-primary">Hotovo!</h3>
-            <div className="mt-4 flex justify-center gap-3">
-              <Button tone="primary" size="parent">Hrať znova</Button>
-              <Button tone="neutral" size="parent">Domov</Button>
-            </div>
-          </OverlayFrame>
+          <UiKitOverlayCompletionDemo />
         </div>
       </Section>
     </AppScreen>

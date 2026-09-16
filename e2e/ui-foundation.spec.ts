@@ -305,8 +305,16 @@ test.describe('UI foundation: overlay motion and status', () => {
     await expect(page.locator('.overlay-confetti')).toHaveCount(0);
   });
 
-  test('a completion overlay with focusOnShow moves focus to its first action', async ({ page }) => {
+  test('a completion overlay with focusOnShow moves focus to its first action once triggered', async ({ page }) => {
     await page.goto('/ui-kit');
+    await page.getByRole('button', { name: 'Zobraziť dokončenie' }).click();
     await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeFocused();
+  });
+
+  test('a fresh /ui-kit load does not auto-scroll away from its own top', async ({ page }) => {
+    await page.goto('/ui-kit');
+    await expect(page.getByRole('heading', { name: 'UI Kit', level: 1 })).toBeInViewport();
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBe(0);
   });
 });
