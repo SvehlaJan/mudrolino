@@ -22,7 +22,7 @@ export class LocalContentRepository implements ContentRepository {
     return running;
   }
   async isSeeded() { return read(seededKey(this.locale)) === 'true'; }
-  async seed(words: UserWord[], praises: UserPraise[]) { if (await this.isSeeded()) return; write(wordsKey(this.locale), words); write(praisesKey(this.locale), praises); try { localStorage.setItem(seededKey(this.locale), 'true'); } catch { /* storage is unavailable */ } }
+  async seed(words: UserWord[], praises: UserPraise[]) { return this.enqueue(seededKey(this.locale), async () => { if (await this.isSeeded()) return; write(wordsKey(this.locale), words); write(praisesKey(this.locale), praises); try { localStorage.setItem(seededKey(this.locale), 'true'); } catch { /* storage is unavailable */ } }); }
   async getWords() { return migrateWords({ raw: read(wordsKey(this.locale)), defaults: defaultsWords(this.locale), locale: this.locale, seeded: await this.isSeeded() }).items; }
   async getPraises() { return migratePraises({ raw: read(praisesKey(this.locale)), defaults: defaultsPraises(this.locale), locale: this.locale, seeded: await this.isSeeded() }).items; }
   async addWord(word: Omit<UserWord, 'id' | 'status' | 'enabled' | 'order' | 'locale'>) { return this.enqueue(wordsKey(this.locale), async () => { const words = await this.getWords(); const item: UserWord = { ...word, id: crypto.randomUUID(), status: 'draft', enabled: true, locale: this.locale, order: nextOrder(words) }; write(wordsKey(this.locale), [...words, item]); return item; }); }

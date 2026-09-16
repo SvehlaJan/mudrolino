@@ -2,15 +2,19 @@ import { LocalContentRepository } from './localContentRepository';
 import { LAST_PLAYABLE_MESSAGE } from '../../content/contentState';
 
 const data = new Map<string, string>();
+let writes = 0;
 Object.assign(globalThis, {
   localStorage: {
     getItem: (key: string) => data.get(key) ?? null,
-    setItem: (key: string, value: string) => data.set(key, value),
+    setItem: (key: string, value: string) => { writes += 1; data.set(key, value); },
   },
 });
 
 const repo = new LocalContentRepository('sk');
 await repo.seed([], []);
+const writesBeforeLoad = writes;
+await repo.getWords();
+if (writes !== writesBeforeLoad) throw new Error('loading migration must not write storage');
 const words = await repo.getWords();
 if (!words.some((word) => word.enabled && word.status === 'ready')) throw new Error('seeded defaults must be playable');
 await repo.restoreAllDefaultWords();
@@ -37,4 +41,11 @@ await Promise.all([
   secondRepo.addWord({ word: 'Druhé', syllables: 'dru-hé', emoji: '2️⃣', audioKey: 'custom-second', isDefault: false }),
 ]);
 if ((await repo.getWords()).length !== beforeConcurrentAdds + 2) throw new Error('concurrent repository writes must not lose entries');
+await repo.restoreAllDefaultPraises();
+const beforeConcurrentPraises = (await repo.getPraises()).length;
+await Promise.all([
+  repo.addPraise({ text: 'Prvá', emoji: '1️⃣', audioKey: 'custom-praise-first', isDefault: false }),
+  secondRepo.addPraise({ text: 'Druhá', emoji: '2️⃣', audioKey: 'custom-praise-second', isDefault: false }),
+]);
+if ((await repo.getPraises()).length !== beforeConcurrentPraises + 2) throw new Error('concurrent praise writes must not lose entries');
 console.log('✓ local content repository contracts passed');

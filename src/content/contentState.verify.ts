@@ -18,4 +18,15 @@ const custom = { ...defaults[0], id: 'mine', isDefault: false, audioKey: 'custom
 const withCustom = migrateWords({ raw: [custom, defaults[0], defaults[0]], defaults, locale: 'sk', seeded: true });
 if (withCustom.items[0].id !== 'mine' || withCustom.items[0].audioKey !== 'custom-mine') throw new Error('custom content must preserve ids and audio keys');
 if (migrateWords({ raw: '{bad json', defaults, locale: 'sk', seeded: true }).items.length !== defaults.length) throw new Error('corrupt JSON must recover defaults');
+const v2 = { version: 2 as const, items: [{ ...defaults[0], id: 'wrong', word: 'corrupt', status: 'draft' as const, locale: 'other', enabled: false }] };
+const once = migrateWords({ raw: v2, defaults, locale: 'sk', seeded: true });
+const twice = migrateWords({ raw: { version: 2, items: once.items }, defaults, locale: 'sk', seeded: true });
+if (JSON.stringify(once.items) !== JSON.stringify(twice.items)) throw new Error('v2 migration must be idempotent');
+const canonical = once.items.find((item) => item.audioKey === 'auto')!;
+if (canonical.word !== 'Auto' || canonical.status !== 'ready' || canonical.locale !== 'sk' || canonical.id !== 'default:word:sk:auto') throw new Error('canonical default fields must win over corrupt stored fields');
+if (!once.items.find((item) => item.audioKey === 'dom' && !item.enabled)) throw new Error('removed default must remain restorable as disabled');
+const duplicate = migrateWords({ raw: [defaults[0], { ...defaults[0], id: 'dup' }], defaults, locale: 'sk', seeded: true });
+if (duplicate.items.filter((item) => item.audioKey === 'auto').length !== 1) throw new Error('duplicate defaults must collapse by audio key');
+const repaired = migrateWords({ raw: { version: 2, items: defaults.map((item) => ({ ...item, enabled: false })) }, defaults, locale: 'sk', seeded: true });
+if (!repaired.repaired || !repaired.items.some((item) => item.enabled && item.status === 'ready')) throw new Error('zero playable v2 data must repair only in memory');
 console.log('✓ content migration and availability passed');
