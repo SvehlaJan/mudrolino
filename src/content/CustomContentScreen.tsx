@@ -191,8 +191,8 @@ function EditableWordList({ locale }: EditableWordListProps) {
     addWord,
     updateWord,
     deleteWord,
-    hideDefaultWord,
-    restoreDefaultWords,
+    setDefaultWordEnabled,
+    restoreAllDefaultWords,
   } = useContent();
   const recorder = useRecorder();
   const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
@@ -331,25 +331,21 @@ function EditableWordList({ locale }: EditableWordListProps) {
 
   const handleHideDefaultWord = useCallback(async (word: UserWord) => {
     try {
-      await hideDefaultWord(word.id);
+      await setDefaultWordEnabled(word.id, false);
       setSectionNotice(`Slovo ${word.word} je skryté.`);
     } catch {
       setSectionNotice('Slovo sa nepodarilo skryť. Skúste to znova.');
     }
-  }, [hideDefaultWord]);
+  }, [setDefaultWordEnabled]);
 
   const handleRestoreDefaultWords = useCallback(async () => {
     try {
-      const result = await restoreDefaultWords();
-      if (result.skippedDuplicates > 0) {
-        setSectionNotice(`Obnovené: ${result.restored}. Preskočené duplicity: ${result.skippedDuplicates}.`);
-      } else {
-        setSectionNotice(`Obnovené predvolené slová: ${result.restored}.`);
-      }
+      await restoreAllDefaultWords();
+      setSectionNotice('Predvolené slová boli obnovené.');
     } catch {
       setSectionNotice('Predvolené slová sa nepodarilo obnoviť. Skúste to znova.');
     }
-  }, [restoreDefaultWords]);
+  }, [restoreAllDefaultWords]);
 
   return (
     <div className="space-y-3">
@@ -489,8 +485,8 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
     addPraise,
     updatePraise,
     deletePraise,
-    hideDefaultPraise,
-    restoreDefaultPraises,
+    setDefaultPraiseEnabled,
+    restoreAllDefaultPraises,
   } = useContent();
   const recorder = useRecorder();
   const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
@@ -627,25 +623,21 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
 
   const handleHideDefaultPraise = useCallback(async (praise: UserPraise) => {
     try {
-      await hideDefaultPraise(praise.id);
+      await setDefaultPraiseEnabled(praise.id, false);
       setSectionNotice(`Pochvala ${praise.text} je skrytá.`);
     } catch {
       setSectionNotice('Pochvalu sa nepodarilo skryť. Skúste to znova.');
     }
-  }, [hideDefaultPraise]);
+  }, [setDefaultPraiseEnabled]);
 
   const handleRestoreDefaultPraises = useCallback(async () => {
     try {
-      const result = await restoreDefaultPraises();
-      if (result.skippedDuplicates > 0) {
-        setSectionNotice(`Obnovené: ${result.restored}. Preskočené duplicity: ${result.skippedDuplicates}.`);
-      } else {
-        setSectionNotice(`Obnovené predvolené pochvaly: ${result.restored}.`);
-      }
+      await restoreAllDefaultPraises();
+      setSectionNotice('Predvolené pochvaly boli obnovené.');
     } catch {
       setSectionNotice('Predvolené pochvaly sa nepodarilo obnoviť. Skúste to znova.');
     }
-  }, [restoreDefaultPraises]);
+  }, [restoreAllDefaultPraises]);
 
   return (
     <div className="space-y-3">

@@ -163,6 +163,7 @@ export interface UserWord {
   imageUrl?: string;  // reserved — future photo support
   audioKey: string;   // defaults keep original key; custom words use "custom-{id}"
   status: 'draft' | 'ready'; // ready = audio exists; only ready words appear in games
+  enabled: boolean;
   isDefault: boolean;
   locale: string;
   order: number;
@@ -175,6 +176,7 @@ export interface UserPraise {
   imageUrl?: string;  // reserved — future photo support
   audioKey: string;
   status: 'draft' | 'ready';
+  enabled: boolean;
   isDefault: boolean;
   locale: string;
   order: number;

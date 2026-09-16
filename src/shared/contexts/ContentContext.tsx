@@ -13,7 +13,6 @@ import type {
 } from '../types';
 import { deriveSyllableItems, getLocaleContent } from '../contentRegistry';
 import type { ContentRepository } from '../services/contentRepository';
-import type { RestoreDefaultsResult } from '../services/contentRepository';
 import { LocalContentRepository } from '../services/localContentRepository';
 import { audioOverrideStore } from '../services/audioOverrideStore';
 
@@ -25,7 +24,7 @@ export interface ContentContextValue {
   numberItems: NumberItem[];
   audioPhrases: Record<AudioPhraseKey, AudioPhrase>;
 
-  // User-managed — reactive, only status:'ready' items
+  // User-managed — reactive, only enabled ready items
   wordItems: Word[];
   syllableItems: Syllable[];
   praiseEntries: PraiseEntry[];
@@ -36,22 +35,22 @@ export interface ContentContextValue {
 
   isLoading: boolean;
 
-  addWord(data: Omit<UserWord, 'id' | 'status' | 'order' | 'locale'>): Promise<void>;
+  addWord(data: Omit<UserWord, 'id' | 'status' | 'enabled' | 'order' | 'locale'>): Promise<void>;
   updateWord(
     id: string,
     changes: Partial<Pick<UserWord, 'word' | 'syllables' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
   ): Promise<void>;
   deleteWord(id: string): Promise<void>;
-  hideDefaultWord(id: string): Promise<void>;
-  restoreDefaultWords(): Promise<RestoreDefaultsResult>;
-  addPraise(data: Omit<UserPraise, 'id' | 'status' | 'order' | 'locale'>): Promise<void>;
+  setDefaultWordEnabled(id: string, enabled: boolean): Promise<void>;
+  restoreAllDefaultWords(): Promise<void>;
+  addPraise(data: Omit<UserPraise, 'id' | 'status' | 'enabled' | 'order' | 'locale'>): Promise<void>;
   updatePraise(
     id: string,
     changes: Partial<Pick<UserPraise, 'text' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
   ): Promise<void>;
   deletePraise(id: string): Promise<void>;
-  hideDefaultPraise(id: string): Promise<void>;
-  restoreDefaultPraises(): Promise<RestoreDefaultsResult>;
+  setDefaultPraiseEnabled(id: string, enabled: boolean): Promise<void>;
+  restoreAllDefaultPraises(): Promise<void>;
 }
 
 const ContentContext = createContext<ContentContextValue | null>(null);
@@ -75,12 +74,13 @@ interface ContentProviderProps {
 
 function buildDefaultWords(locale: string): UserWord[] {
   return getLocaleContent(locale).wordItems.map((word, index) => ({
-    id: crypto.randomUUID(),
+    id: `default:word:${locale}:${word.audioKey}`,
     word: word.word,
     syllables: word.syllables,
     emoji: word.emoji,
     audioKey: word.audioKey,
     status: 'ready' as const,
+    enabled: true,
     isDefault: true,
     locale,
     order: index,
@@ -89,11 +89,12 @@ function buildDefaultWords(locale: string): UserWord[] {
 
 function buildDefaultPraises(locale: string): UserPraise[] {
   return getLocaleContent(locale).praiseEntries.map((praise, index) => ({
-    id: crypto.randomUUID(),
+    id: `default:praise:${locale}:${praise.audioKey}`,
     text: praise.text,
     emoji: praise.emoji,
     audioKey: praise.audioKey,
     status: 'ready' as const,
+    enabled: true,
     isDefault: true,
     locale,
     order: index,
@@ -134,7 +135,7 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
   }, []);
 
   const addWord = useCallback(
-    async (data: Omit<UserWord, 'id' | 'status' | 'order' | 'locale'>) => {
+    async (data: Omit<UserWord, 'id' | 'status' | 'enabled' | 'order' | 'locale'>) => {
       await repoRef.current.addWord(data);
       await reload();
     },
@@ -164,22 +165,21 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     [allUserWords, locale, reload],
   );
 
-  const hideDefaultWord = useCallback(
-    async (id: string) => {
-      await repoRef.current.hideDefaultWord(id);
+  const setDefaultWordEnabled = useCallback(
+    async (id: string, enabled: boolean) => {
+      await repoRef.current.setDefaultWordEnabled(id, enabled);
       await reload();
     },
     [reload],
   );
 
-  const restoreDefaultWords = useCallback(async () => {
-    const result = await repoRef.current.restoreDefaultWords(buildDefaultWords(locale));
+  const restoreAllDefaultWords = useCallback(async () => {
+    await repoRef.current.restoreAllDefaultWords();
     await reload();
-    return result;
-  }, [locale, reload]);
+  }, [reload]);
 
   const addPraise = useCallback(
-    async (data: Omit<UserPraise, 'id' | 'status' | 'order' | 'locale'>) => {
+    async (data: Omit<UserPraise, 'id' | 'status' | 'enabled' | 'order' | 'locale'>) => {
       await repoRef.current.addPraise(data);
       await reload();
     },
@@ -209,22 +209,21 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     [allUserPraises, locale, reload],
   );
 
-  const hideDefaultPraise = useCallback(
-    async (id: string) => {
-      await repoRef.current.hideDefaultPraise(id);
+  const setDefaultPraiseEnabled = useCallback(
+    async (id: string, enabled: boolean) => {
+      await repoRef.current.setDefaultPraiseEnabled(id, enabled);
       await reload();
     },
     [reload],
   );
 
-  const restoreDefaultPraises = useCallback(async () => {
-    const result = await repoRef.current.restoreDefaultPraises(buildDefaultPraises(locale));
+  const restoreAllDefaultPraises = useCallback(async () => {
+    await repoRef.current.restoreAllDefaultPraises();
     await reload();
-    return result;
-  }, [locale, reload]);
+  }, [reload]);
 
   const localeData = getLocaleContent(locale);
-  const readyWords = allUserWords.filter((w) => w.status === 'ready');
+  const readyWords = allUserWords.filter((w) => w.enabled && w.status === 'ready');
   const wordItems: Word[] = readyWords.map((w) => ({
     word: w.word,
     syllables: w.syllables,
@@ -233,7 +232,7 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
   }));
   const syllableItems = deriveSyllableItems(wordItems);
   const praiseEntries: PraiseEntry[] = allUserPraises
-    .filter((p) => p.status === 'ready')
+    .filter((p) => p.enabled && p.status === 'ready')
     .map((p) => ({ text: p.text, emoji: p.emoji, audioKey: p.audioKey }));
 
   const value: ContentContextValue = {
@@ -250,13 +249,13 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     addWord,
     updateWord,
     deleteWord,
-    hideDefaultWord,
-    restoreDefaultWords,
+    setDefaultWordEnabled,
+    restoreAllDefaultWords,
     addPraise,
     updatePraise,
     deletePraise,
-    hideDefaultPraise,
-    restoreDefaultPraises,
+    setDefaultPraiseEnabled,
+    restoreAllDefaultPraises,
   };
 
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;
