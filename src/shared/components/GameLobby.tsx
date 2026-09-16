@@ -9,6 +9,7 @@ import { Play, Settings } from 'lucide-react';
 import type { GameId } from '../types';
 import { GAME_DEFINITIONS_BY_ID, type TactilePreset, type GameIconId } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
+import { useContentLocale } from '../contexts/ContentContext';
 import { AppScreen, BackButton, Button, IconButton, TopBar } from '../ui';
 import { useAppScreenLayout } from '../ui/appScreenLayout';
 import { cn } from '../ui/utils';
@@ -83,12 +84,16 @@ function LobbyBody({
   definition,
   title,
   instruction,
+  playLabel,
+  locale,
   availabilityMessage,
   onPlay,
 }: {
   definition: (typeof GAME_DEFINITIONS_BY_ID)[GameId];
   title: string;
   instruction: string;
+  playLabel: string;
+  locale: string;
   availabilityMessage?: string;
   onPlay(): void;
 }) {
@@ -98,7 +103,7 @@ function LobbyBody({
   if (isShort) {
     return (
       /* Short landscape (e.g. 667x375) horizontal composition */
-      <div className="flex-1 min-h-0 flex flex-row items-center justify-between gap-6 px-4 py-1 max-w-4xl mx-auto w-full">
+      <div data-testid="lobby-body" data-locale={locale} className="flex-1 min-h-0 flex flex-row items-center justify-between gap-6 px-4 py-1 max-w-4xl mx-auto w-full">
         <div className="flex items-center gap-4 min-w-0 flex-1">
           <TactilePreview preset={definition.tactilePreset} icon={definition.icon} compact />
           <div className="flex flex-col gap-1 min-w-0">
@@ -125,7 +130,7 @@ function LobbyBody({
             tone="primary"
             onClick={onPlay}
             disabled={Boolean(availabilityMessage)}
-            aria-label="Hrať"
+            aria-label={playLabel}
             className="h-20 w-20 rounded-full"
           >
             <Play size={36} className="ml-1" fill="currentColor" />
@@ -137,7 +142,7 @@ function LobbyBody({
 
   return (
     /* Portrait and desktop centered layout */
-    <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8 px-4 py-2 sm:py-4 md:py-6 text-center max-w-2xl mx-auto w-full">
+    <div data-testid="lobby-body" data-locale={locale} className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8 px-4 py-2 sm:py-4 md:py-6 text-center max-w-2xl mx-auto w-full">
       <TactilePreview preset={definition.tactilePreset} icon={definition.icon} />
 
       <div className="flex flex-col gap-1.5 sm:gap-3 min-w-0 max-w-xl">
@@ -162,7 +167,7 @@ function LobbyBody({
         tone="primary"
         onClick={onPlay}
         disabled={Boolean(availabilityMessage)}
-        aria-label="Hrať"
+        aria-label={playLabel}
         className="shrink-0 mt-1 sm:mt-2"
       >
         <Play size={44} className="sm:w-16 sm:h-16 md:w-20 md:h-20 ml-1.5 sm:ml-2.5" fill="currentColor" />
@@ -179,9 +184,11 @@ export function GameLobby({
   availabilityMessage,
   as = 'main',
 }: GameLobbyProps) {
+  const locale = useContentLocale();
   const definition = GAME_DEFINITIONS_BY_ID[gameId];
-  const title = getUiCopy('sk', definition.titleKey);
-  const instruction = getUiCopy('sk', definition.instructionKey);
+  const title = getUiCopy(locale, definition.titleKey);
+  const instruction = getUiCopy(locale, definition.instructionKey);
+  const playLabel = getUiCopy(locale, 'lobby.play');
   const location = useLocation();
   const settingsButtonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -213,6 +220,8 @@ export function GameLobby({
         definition={definition}
         title={title}
         instruction={instruction}
+        playLabel={playLabel}
+        locale={locale}
         availabilityMessage={availabilityMessage}
         onPlay={onPlay}
       />

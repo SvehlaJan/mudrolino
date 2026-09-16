@@ -8,10 +8,9 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { loadAppSettings, saveAppSettings, AppSettings, applyFontFamily } from './shared/services/appSettingsStore';
-import { GameSettings, SettingsTarget } from './shared/types';
-import { ParentsGate } from './shared/components/ParentsGate';
+import { GameSettings } from './shared/types';
 import { ProtectedParentRoute } from './shared/components/ProtectedParentRoute';
-import { SettingsOverlay } from './shared/components/SettingsOverlay';
+import { GameSettingsRoute } from './shared/components/GameSettingsRoute';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { GameRoute } from './shared/components/GameRoute';
 import { SettingsScreen } from './shared/components/SettingsScreen';
@@ -23,8 +22,6 @@ import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
 import { UiKitScreen } from './shared/ui';
 import { CustomContentScreen } from './content/CustomContentScreen';
 
-type SettingsFlowState = 'none' | 'gate' | 'settings';
-
 // Initialize font attribute immediately on boot
 applyFontFamily(loadAppSettings().fontFamily);
 
@@ -32,8 +29,6 @@ export default function App() {
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
   const [appSettings, setAppSettings] = useState<AppSettings>(loadAppSettings);
   const locale = appSettings.locale;
-  const [settingsTarget, setSettingsTarget] = useState<SettingsTarget>('home');
-  const [settingsScreen, setSettingsScreen] = useState<SettingsFlowState>('none');
   const location = useLocation();
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
@@ -87,23 +82,10 @@ export default function App() {
     };
   }, []);
 
-  const handleOpenSettings = useCallback((target: SettingsTarget = 'home') => {
-    if (target === 'home') {
-      homeScrollRef.current = window.scrollY;
-      navigate('/settings');
-      return;
-    }
-    setSettingsTarget(target);
-    setSettingsScreen('gate');
+  const handleOpenSettings = useCallback(() => {
+    homeScrollRef.current = window.scrollY;
+    navigate('/settings');
   }, [navigate]);
-
-  const handleGateSuccess = useCallback(() => {
-    setSettingsScreen('settings');
-  }, []);
-
-  const handleCloseSettings = useCallback(() => {
-    setSettingsScreen('none');
-  }, []);
 
   return (
     <ContentProvider locale={locale}>
@@ -114,7 +96,7 @@ export default function App() {
             path="/"
             element={
               <GroupedHomeScreen
-                onOpenSettings={() => handleOpenSettings('home')}
+                onOpenSettings={handleOpenSettings}
                 onSelectGame={() => {
                   homeScrollRef.current = window.scrollY;
                 }}
@@ -142,7 +124,15 @@ export default function App() {
               }
             />
             <Route path="/settings/games" element={<Navigate to="/settings" replace />} />
-            <Route path="/settings/games/:gameId" element={<Navigate to="/settings" replace />} />
+            <Route
+              path="/settings/games/:gameId"
+              element={
+                <GameSettingsRoute
+                  settings={settings}
+                  onUpdate={setSettings}
+                />
+              }
+            />
             <Route path="/settings/app" element={<Navigate to="/settings" replace />} />
             <Route path="/settings/help" element={<Navigate to="/settings" replace />} />
             <Route
@@ -174,22 +164,6 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-
-      {settingsScreen === 'gate' && (
-        <ParentsGate
-          onSuccess={handleGateSuccess}
-          onCancel={() => setSettingsScreen('none')}
-        />
-      )}
-
-      {settingsScreen === 'settings' && settingsTarget !== 'home' && (
-        <SettingsOverlay
-          gameId={settingsTarget}
-          settings={settings}
-          onUpdate={setSettings}
-          onClose={handleCloseSettings}
-        />
-      )}
     </div>
     </ContentProvider>
   );

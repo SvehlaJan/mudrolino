@@ -62,6 +62,12 @@ export function useContent(): ContentContextValue {
   return ctx;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
+export function useContentLocale(): string {
+  const ctx = useContext(ContentContext);
+  return ctx?.locale ?? 'sk';
+}
+
 interface ContentProviderProps {
   locale: string;
   children: React.ReactNode;

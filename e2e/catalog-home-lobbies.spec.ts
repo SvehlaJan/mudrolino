@@ -86,25 +86,67 @@ test.describe('Game lobby semantic contract', () => {
     });
   }
 
-  test('alphabet lobby settings flow: cancel returns to /alphabet, unlock reaches protected parent screen', async ({ page }) => {
+  test('alphabet lobby settings flow: cancel returns to /alphabet with focus, unlock opens selected game SettingsOverlay, saves updates, and close returns with focus', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
     await page.goto('/alphabet');
     const settingsBtn = page.getByRole('button', { name: 'Nastavenia' });
     await expect(settingsBtn).toBeVisible();
 
-    // 1. Open settings and cancel
+    // 1. Open settings and cancel gate
     await settingsBtn.click();
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.getByRole('button', { name: 'Späť' }).click();
     await expect(page).toHaveURL('/alphabet');
+    await expect(settingsBtn).toBeFocused();
 
     // 2. Open settings and unlock
     await settingsBtn.click();
     await expect(page.getByRole('dialog')).toBeVisible();
     await unlockParentGate(page);
-    await expect(page).toHaveURL(/\/settings/);
-    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+
+    // After unlock, must stay on route /settings/games/ALPHABET and render SettingsOverlay for Alphabet
+    await expect(page).toHaveURL(/\/settings\/games\/ALPHABET$/);
+    const settingsModal = page.getByRole('dialog');
+    await expect(settingsModal).toBeVisible();
+    await expect(settingsModal.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await expect(settingsModal.getByText('Hra s písmenami')).toBeVisible();
+    await expect(settingsModal.getByRole('heading', { name: 'Počet kariet' })).toBeVisible();
+    await expect(settingsModal.getByText('Písmená s dĺžňami a mäkčeňmi')).toBeVisible();
+
+    // 3. Update behavior: change grid size option to 6
+    const option6 = settingsModal.getByRole('radio', { name: '6' });
+    await option6.click();
+    await expect(option6).toBeChecked();
+
+    // 4. Close settings via "Hotovo"
+    await settingsModal.getByRole('button', { name: 'Hotovo' }).click();
+
+    // Must return to originating lobby and restore focus to Settings button
+    await expect(page).toHaveURL('/alphabet');
+    await expect(settingsBtn).toBeFocused();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('lobby sources locale from ContentContext and preserves Czech fallback', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.addInitScript(() => {
+      localStorage.setItem(
+        'hrave-ucenie-app-settings',
+        JSON.stringify({ locale: 'cs', fontFamily: 'nunito' }),
+      );
+    });
+
+    await page.goto('/alphabet');
+    const main = page.getByRole('main');
+    await expect(page.getByTestId('lobby-body')).toHaveAttribute('data-locale', 'cs');
+    await expect(main.getByRole('heading', { level: 1 })).toHaveText('Abeceda');
+    await expect(main.getByTestId('lobby-instruction')).toHaveText('Nájdi správne písmenko.');
+    await expect(main.getByRole('button', { name: 'Hrať' })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
