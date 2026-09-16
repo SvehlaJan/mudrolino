@@ -5,7 +5,7 @@
 - **Branch:** `feature/full-app-ui-redesign`
 - **Base SHA:** `3c3b14b8e217596bcfb62e49c71c4c153b3f2ec4` (Codex-accepted Phase 2 handoff commit "docs: accept UI redesign phase two")
 - **Candidate SHA:** `481f3e8c0a82f8d50195976e672a7b4f0f367091` ("fix: restore lobby settings route navigation and locale context") — the review-remediated product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
-- **Implementation Status:** Complete, pending Codex acceptance
+- **Implementation Status:** Complete, Codex accepted
 - **Working Tree Clean:** Yes (`git status --short` clean before handoff commit)
 - **Local Screenshot Artifact Directory:** `artifacts/ui/74d545b332703d1449fe59141460ae038527a2c8/2026-09-16T14-15-52-811Z-71633` (retained: visuals unchanged; see Screenshot Evidence below)
 
@@ -134,5 +134,12 @@ No new temporary adapters were introduced in Phase 3. The `GAME_METADATA` and `G
 - **No parent dashboard redesign introduced:** Phase 3 stayed strictly within its boundary — only catalog, home, and lobbies were redesigned. The parent dashboard (`/settings`), custom content (`/content`), and recordings management remain in their Phase 2 state, ready for redesign in Phase 4.
 - **WebKit smoke coverage environment limitation:** As documented in Phase 2, WebKit browser installation hangs in this sandboxed environment; WebKit smoke testing is a release gate for Phase 8.
 - **Phase 4 Preconditions:**
-  1. Codex reviews and accepts candidate SHA `481f3e8c0a82f8d50195976e672a7b4f0f367091` based on specification, code quality, and the 120-image screenshot artifact.
+  1. Codex accepted candidate SHA `481f3e8c0a82f8d50195976e672a7b4f0f367091` after independent specification, code-quality, and visual-evidence review.
   2. Phase 4 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-4-parent-dashboard.md`) begins strictly from the commit containing the Codex acceptance record.
+
+---
+
+## Codex Review Record
+- **Reviewed Candidate SHA:** `481f3e8c0a82f8d50195976e672a7b4f0f367091`
+- **Result:** Accepted
+- **Reviewer Notes:** The initial boundary review rejected candidate `74d545b` because a lobby's protected settings route redirected to the general parent dashboard, lobby copy hard-coded Slovak, and focus restoration was not asserted. Candidate `481f3e8` remediated all three: the guarded route renders the selected game's settings, close/cancel returns to the originating lobby with focus restored, and lobby copy reads the existing locale context with Czech fallback. The focused re-review approved the remediation. All pure verifiers, lint, production build, and 167/167 Chromium E2E tests passed. The existing 120-image matrix remains valid because the remediation changed routing, locale sourcing with identical fallback copy, and assertions—not rendered home/lobby styling.
