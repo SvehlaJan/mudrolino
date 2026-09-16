@@ -8,16 +8,16 @@ export function useAutosaveStatus<T>(value: T, save: (value: T) => SaveResult): 
 
   useEffect(() => {
     let active = true;
-    let finishTimer: number | undefined;
+    let saveTimer: number | undefined;
     let resetTimer: number | undefined;
 
     queueMicrotask(() => {
       if (!active) return;
       setStatus('saving');
-      const result = save(value);
 
-      finishTimer = window.setTimeout(() => {
+      saveTimer = window.setTimeout(() => {
         if (!active) return;
+        const result = save(value);
         setStatus(result.ok ? 'saved' : 'error');
         if (!result.ok) return;
         resetTimer = window.setTimeout(() => {
@@ -28,7 +28,7 @@ export function useAutosaveStatus<T>(value: T, save: (value: T) => SaveResult): 
 
     return () => {
       active = false;
-      if (finishTimer !== undefined) window.clearTimeout(finishTimer);
+      if (saveTimer !== undefined) window.clearTimeout(saveTimer);
       if (resetTimer !== undefined) window.clearTimeout(resetTimer);
     };
   }, [value, save]);

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, Download, Loader2, Mic, MoreHorizontal, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
 import { BackButton, IconButton } from './IconButton';
@@ -30,6 +30,8 @@ import { GameCard } from '../../home/GameCard';
 import { GameLobby } from '../components/GameLobby';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
+import { useAutosaveStatus, type AutosaveStatus } from '../hooks/useAutosaveStatus';
+import type { SaveResult } from '../services/appSettingsStore';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -305,6 +307,78 @@ function UiKitInteractionDemo() {
   );
 }
 
+function autosaveStatusMessage(status: AutosaveStatus): string {
+  if (status === 'saving') return 'Ukladám nastavenia…';
+  if (status === 'saved') return 'Nastavenia sú uložené.';
+  if (status === 'error') return 'Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.';
+  return 'Nastavenia čakajú na zmenu.';
+}
+
+function AutosaveCleanupProbe({ onSave, onUnmount }: { onSave: () => void; onUnmount: () => void }) {
+  const save = useCallback((): SaveResult => {
+    onSave();
+    return { ok: true };
+  }, [onSave]);
+
+  useAutosaveStatus('cleanup-probe', save);
+
+  useEffect(() => {
+    onUnmount();
+  }, [onUnmount]);
+
+  return null;
+}
+
+function AutosaveStatusDemo() {
+  const [value, setValue] = useState(0);
+  const [shouldFail, setShouldFail] = useState(false);
+  const [showCleanupProbe, setShowCleanupProbe] = useState(false);
+  const [saves, setSaves] = useState<string[]>([]);
+  const [cleanupSaves, setCleanupSaves] = useState(0);
+  const save = useCallback((nextValue: number): SaveResult => {
+    setSaves(history => [...history, `${shouldFail ? 'error' : 'saved'}:${nextValue}`]);
+    return shouldFail ? { ok: false, reason: 'storage-unavailable' } : { ok: true };
+  }, [shouldFail]);
+  const status = useAutosaveStatus(value, save);
+  const cleanupProbeSave = useCallback(() => {
+    setCleanupSaves(count => count + 1);
+  }, []);
+  const unmountCleanupProbe = useCallback(() => {
+    setShowCleanupProbe(false);
+  }, []);
+
+  return (
+    <Card
+      className="mt-3 space-y-3"
+      data-cleanup-saves={cleanupSaves}
+      data-saves={saves.join(',')}
+      data-testid="autosave-status-demo"
+    >
+      <p
+        aria-live="polite"
+        className={status === 'error'
+          ? 'rounded-2xl bg-red-100 px-4 py-3 text-sm font-bold text-red-800'
+          : 'text-sm font-bold text-text-muted'}
+        role="status"
+      >
+        {autosaveStatusMessage(status)}
+      </p>
+      <div className="flex flex-wrap gap-3">
+        <Button tone="neutral" size="parent" onClick={() => setValue(current => current + 1)}>
+          Zmeniť ukážkovú hodnotu
+        </Button>
+        <Button tone="danger" size="parent" onClick={() => setShouldFail(true)}>
+          Simulovať chybu úložiska
+        </Button>
+        <Button tone="neutral" size="parent" onClick={() => setShowCleanupProbe(true)}>
+          Overiť zrušenie automatického uloženia
+        </Button>
+      </div>
+      {showCleanupProbe && <AutosaveCleanupProbe onSave={cleanupProbeSave} onUnmount={unmountCleanupProbe} />}
+    </Card>
+  );
+}
+
 export function UiKitScreen() {
   return (
     <AppScreen fixedHeight={false} scrollable maxWidth="wide" contentClassName="gap-8 pb-8">
@@ -384,13 +458,7 @@ export function UiKitScreen() {
           Nastavenia sa ukladajú automaticky. Stav je viditeľný aj oznamovaný zdvorilou živou oblasťou,
           aby rodič vedel odlíšiť uloženie od chyby úložiska.
         </p>
-        <Card className="mt-3 space-y-3">
-          <p className="text-sm font-bold text-text-muted" role="status" aria-live="polite">Ukladám nastavenia…</p>
-          <p className="text-sm font-bold text-text-muted" role="status" aria-live="polite">Nastavenia sú uložené.</p>
-          <p className="rounded-2xl bg-red-100 px-4 py-3 text-sm font-bold text-red-800" role="status" aria-live="polite">
-            Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.
-          </p>
-        </Card>
+        <AutosaveStatusDemo />
       </Section>
 
       <Section title="Surfaces">

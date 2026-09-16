@@ -318,3 +318,39 @@ test.describe('UI foundation: overlay motion and status', () => {
     expect(scrollY).toBe(0);
   });
 });
+
+test.describe('UI foundation: automatic save status', () => {
+  test('UI kit documents one polite automatic-save status at a time', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const demo = page.getByTestId('autosave-status-demo');
+    await expect(demo.getByRole('status')).toHaveCount(1);
+    await expect(demo.getByRole('status')).toHaveAttribute('aria-live', 'polite');
+  });
+
+  test('autosave hook saves lifecycle changes once in StrictMode and exposes failures', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const demo = page.getByTestId('autosave-status-demo');
+
+    await expect(demo).toHaveAttribute('data-saves', 'saved:0');
+    await expect(demo.getByRole('status')).toHaveText('Nastavenia čakajú na zmenu.');
+
+    await demo.getByRole('button', { name: 'Zmeniť ukážkovú hodnotu' }).click();
+    await expect(demo).toHaveAttribute('data-saves', 'saved:0,saved:1');
+    await expect(demo.getByRole('status')).toHaveText('Nastavenia sú uložené.');
+
+    await page.waitForTimeout(1300);
+    await expect(demo.getByRole('status')).toHaveText('Nastavenia čakajú na zmenu.');
+
+    await demo.getByRole('button', { name: 'Simulovať chybu úložiska' }).click();
+    await expect(demo).toHaveAttribute('data-saves', 'saved:0,saved:1,error:1');
+    await expect(demo.getByRole('status')).toHaveText('Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.');
+  });
+
+  test('autosave cleanup prevents stale work after unmount', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const demo = page.getByTestId('autosave-status-demo');
+
+    await demo.getByRole('button', { name: 'Overiť zrušenie automatického uloženia' }).click();
+    await expect(demo).toHaveAttribute('data-cleanup-saves', '0');
+  });
+});
