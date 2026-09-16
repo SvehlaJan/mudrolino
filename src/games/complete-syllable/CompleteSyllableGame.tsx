@@ -9,7 +9,6 @@ import { FailureSpec, SuccessSpec, Syllable, Word } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { AppScreen, BackButton, ChoiceTile, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -105,7 +104,6 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: GameRuntimeProp
     () => buildEligibleCompleteSyllableWords(wordItems, syllableItems, CHOICE_COUNT),
     [wordItems, syllableItems],
   );
-  const lobby = GAME_LOBBY_LEGACY.COMPLETE_SYLLABLE;
 
   const clearTransientTimers = useCallback(() => {
     clearTimer(promptTimerRef);
@@ -379,18 +377,15 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: GameRuntimeProp
 
   return (
     <GameLobby
-      title={lobby.title}
-      playButtonColorClassName={lobby.playButtonColorClassName}
-      subtitle={
+      gameId="COMPLETE_SYLLABLE"
+      availabilityMessage={
         eligibleWords.length === 0
-          ? <>Pridajte slová s dvomi až štyrmi slabikami.</>
+          ? 'Pridajte slová s dvomi až štyrmi slabikami.'
           : undefined
       }
       onPlay={handlePlay}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
-      topDecorationClassName={lobby.topDecorationClassName}
-      bottomDecorationClassName={lobby.bottomDecorationClassName}
     />
   );
 }

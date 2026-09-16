@@ -27,6 +27,7 @@ import { Tabs, TabPanel } from './Tabs';
 import { cx } from './utils';
 import { RecordingListItem } from '../../recordings/RecordingListItem';
 import { GameCard } from '../../home/GameCard';
+import { GameLobby } from '../components/GameLobby';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
 
@@ -701,6 +702,23 @@ export function UiKitScreen() {
             </div>
           </div>
         </div>
+      </Section>
+
+      <Section title="Game Lobby Shell">
+        <Card className="space-y-4">
+          <p className="text-text-muted text-sm font-medium">
+            Zjednotené lobby s taktilným náhľadom, jedným nadpisom, inštrukciou a tlačidlom Hrať.
+          </p>
+          <div className="h-[460px] border border-border-subtle rounded-3xl overflow-hidden relative">
+            <GameLobby
+              as="div"
+              gameId="ALPHABET"
+              onPlay={() => undefined}
+              onBack={() => undefined}
+              onOpenSettings={() => undefined}
+            />
+          </div>
+        </Card>
       </Section>
     </AppScreen>
   );

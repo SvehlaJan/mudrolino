@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { FindItGame } from '../../shared/components/FindItGame';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { createAlphabetDescriptor } from './alphabetDescriptor';
 import { useContent } from '../../shared/contexts/ContentContext';
 
@@ -20,7 +19,6 @@ export function AlphabetGame({ settings, onExit, onOpenSettings }: GameRuntimePr
     : letterItems.filter((l) => l.symbol.normalize('NFD') === l.symbol);
 
   const descriptor = createAlphabetDescriptor(settings.alphabetGridSize, filteredLetterItems, locale);
-  const lobby = GAME_LOBBY_LEGACY.ALPHABET;
 
   if (gameState === 'PLAYING') {
     return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
@@ -28,13 +26,10 @@ export function AlphabetGame({ settings, onExit, onOpenSettings }: GameRuntimePr
 
   return (
     <GameLobby
-      title={lobby.title}
-      playButtonColorClassName={lobby.playButtonColorClassName}
+      gameId="ALPHABET"
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
-      topDecorationClassName={lobby.topDecorationClassName}
-      bottomDecorationClassName={lobby.bottomDecorationClassName}
     />
   );
 }

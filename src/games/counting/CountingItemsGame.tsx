@@ -16,7 +16,6 @@ import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 
 import { playPopSound } from './countingSfx';
 import { generateGridItems, COUNTING_GRID_TOTAL_SLOTS, GridItemSlot } from './countingGridLogic';
@@ -25,7 +24,6 @@ export function CountingItemsGame({ settings, onExit, onOpenSettings }: GameRunt
   const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const range = settings.countingRange;
-  const lobby = GAME_LOBBY_LEGACY.COUNTING_ITEMS;
   const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
   const [itemSlots, setItemSlots] = useState<GridItemSlot[]>([]);
   const [optionItems, setOptionItems] = useState<NumberItem[]>([]);
@@ -143,9 +141,7 @@ export function CountingItemsGame({ settings, onExit, onOpenSettings }: GameRunt
   if (gameState === 'HOME') {
     return (
       <GameLobby
-        title={lobby.title}
-        playButtonColorClassName={lobby.playButtonColorClassName}
-        subtitle={<>Rozsah: {range.start} - {range.end}</>}
+        gameId="COUNTING_ITEMS"
         onPlay={() => setGameState('PLAYING')}
         onBack={onExit}
         onOpenSettings={onOpenSettings}

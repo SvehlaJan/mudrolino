@@ -9,7 +9,6 @@ import { FailureSpec, Letter, SuccessSpec, Word } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -125,8 +124,6 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRun
     ),
     [letterItems, settings.alphabetAccents, settings.completeLetterMissingCount, wordItems],
   );
-
-  const lobby = GAME_LOBBY_LEGACY.COMPLETE_LETTER;
 
   const clearTransientTimers = useCallback(() => {
     clearTimer(promptTimerRef);
@@ -409,18 +406,15 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRun
 
   return (
     <GameLobby
-      title={lobby.title}
-      playButtonColorClassName={lobby.playButtonColorClassName}
-      subtitle={
+      gameId="COMPLETE_LETTER"
+      availabilityMessage={
         eligibleWords.length === 0
-          ? <>Pridajte slová z aktívnych písmen alebo upravte nastavenia písmen.</>
+          ? 'Pridajte slová z aktívnych písmen alebo upravte nastavenia písmen.'
           : undefined
       }
       onPlay={handlePlay}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
-      topDecorationClassName={lobby.topDecorationClassName}
-      bottomDecorationClassName={lobby.bottomDecorationClassName}
     />
   );
 }

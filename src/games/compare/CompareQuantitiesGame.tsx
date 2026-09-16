@@ -15,7 +15,6 @@ import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } f
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { setE2EState } from '../../shared/services/e2eState';
 import { generateCompareGridSlots, CompareGridSlot } from '../../shared/scatterGridLogic';
 import { QuantityCluster } from '../../shared/components/QuantityCluster';
@@ -57,7 +56,6 @@ export function CompareQuantitiesGame({ settings, onExit, onOpenSettings }: Game
   const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const { compareRange: range, compareMode: mode } = settings;
-  const lobby = GAME_LOBBY_LEGACY.COMPARE_QUANTITIES;
   const [round, setRound] = useState<RoundState | null>(null);
   const [pileState, setPileState] = useState<Record<Side, 'neutral' | 'correct' | 'wrong'>>({ left: 'neutral', right: 'neutral' });
   const [wrongSide, setWrongSide] = useState<Side | null>(null);
@@ -233,14 +231,10 @@ export function CompareQuantitiesGame({ settings, onExit, onOpenSettings }: Game
   if (gameState === 'HOME') {
     return (
       <GameLobby
-        title={lobby.title}
-        playButtonColorClassName={lobby.playButtonColorClassName}
-        subtitle={<>Rozsah: {range.start} - {range.end}</>}
+        gameId="COMPARE_QUANTITIES"
         onPlay={handlePlay}
         onBack={onExit}
         onOpenSettings={onOpenSettings}
-        topDecorationClassName={lobby.topDecorationClassName}
-        bottomDecorationClassName={lobby.bottomDecorationClassName}
       />
     );
   }

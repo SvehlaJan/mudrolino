@@ -9,7 +9,6 @@ import { FailureSpec, NumberItem, SuccessSpec } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { QuantityCluster } from '../../shared/components/QuantityCluster';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
@@ -78,7 +77,6 @@ export function AdditionGame({ settings, onExit, onOpenSettings }: GameRuntimePr
   const { locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const { additionSumRange: sumRange, additionRepresentation: representation } = settings;
-  const lobby = GAME_LOBBY_LEGACY.ADDITION;
 
   const [round, setRound] = useState<AdditionRound | null>(null);
   const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
@@ -269,14 +267,10 @@ export function AdditionGame({ settings, onExit, onOpenSettings }: GameRuntimePr
   if (gameState === 'HOME') {
     return (
       <GameLobby
-        title={lobby.title}
-        playButtonColorClassName={lobby.playButtonColorClassName}
-        subtitle={<>Súčet do {sumRange}</>}
+        gameId="ADDITION"
         onPlay={handlePlay}
         onBack={onExit}
         onOpenSettings={onOpenSettings}
-        topDecorationClassName={lobby.topDecorationClassName}
-        bottomDecorationClassName={lobby.bottomDecorationClassName}
       />
     );
   }

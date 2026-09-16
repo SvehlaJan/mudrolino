@@ -17,7 +17,6 @@ import { AppScreen, BackButton, Card, IconButton, PromptBadge, RoundCounter, Top
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { shouldPlaySelectedSyllableAudio } from './assemblyAudioLogic';
 
 type GameState = 'HOME' | 'PLAYING';
@@ -158,7 +157,6 @@ function AnswerSlot({
 export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, locale, praiseEntries } = useContent();
   const [gameState, setGameState] = useState<GameState>('HOME');
-  const lobby = GAME_LOBBY_LEGACY.ASSEMBLY;
   const [targetWord, setTargetWord] = useState<Word | null>(null);
   const [board, setBoard] = useState<BoardState>({ trayTiles: [], placedTiles: [] });
   const [showSuccess, setShowSuccess] = useState(false);
@@ -505,12 +503,11 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   if (gameState === 'HOME') {
     return (
       <GameLobby
-        title={lobby.title}
-        playButtonColorClassName={lobby.playButtonColorClassName}
-        subtitle={
+        gameId="ASSEMBLY"
+        availabilityMessage={
           eligibleWords.length === 0
-            ? <>Pridajte slová so slabikami v sekcii Obsah</>
-            : <>Poskladaj slovo zo slabík</>
+            ? 'Pridajte slová so slabikami v sekcii Obsah'
+            : undefined
         }
         onPlay={() => {
           if (eligibleWords.length === 0) return;
@@ -518,8 +515,6 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
         }}
         onBack={onExit}
         onOpenSettings={onOpenSettings}
-        topDecorationClassName={lobby.topDecorationClassName}
-        bottomDecorationClassName={lobby.bottomDecorationClassName}
       />
     );
   }

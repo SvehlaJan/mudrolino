@@ -7,6 +7,7 @@ import {
 } from './support/assertions';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
+import { unlockParentGate } from './support/parentGate';
 
 test.describe('Catalog, home, and lobbies', () => {
   test('home renders ordered catalog groups and every game once', async ({ page }) => {
@@ -45,5 +46,83 @@ test.describe('Catalog, home, and lobbies', () => {
     await expect(section.getByText('Jednotlivá karta (GameCard)')).toBeVisible();
     await expect(section.getByText('Karta s dlhým zalamovaným názvom')).toBeVisible();
     await expect(section.getByText('Rozloženie na úzkej obrazovke (320px layout)')).toBeVisible();
+  });
+});
+
+const LOBBY_CASES = [
+  { id: 'ALPHABET', path: '/alphabet', hasSettings: true },
+  { id: 'SYLLABLES', path: '/syllables', hasSettings: true },
+  { id: 'NUMBERS', path: '/numbers', hasSettings: true },
+  { id: 'COUNTING_ITEMS', path: '/counting', hasSettings: true },
+  { id: 'COMPARE_QUANTITIES', path: '/compare', hasSettings: true },
+  { id: 'ADDITION', path: '/addition', hasSettings: true },
+  { id: 'WORDS', path: '/words', hasSettings: false },
+  { id: 'FIRST_LETTER', path: '/first-letter', hasSettings: true },
+  { id: 'ASSEMBLY', path: '/assembly', hasSettings: false },
+  { id: 'COMPLETE_SYLLABLE', path: '/complete-syllable', hasSettings: false },
+  { id: 'COMPLETE_LETTER', path: '/complete-letter', hasSettings: true },
+];
+
+test.describe('Game lobby semantic contract', () => {
+  for (const game of LOBBY_CASES) {
+    test(`lobby for ${game.id} (${game.path}) fulfills semantic contract`, async ({ page }) => {
+      const errors = trackConsoleErrors(page);
+      const failedRequests = trackFailedRequests(page);
+      await page.goto(game.path);
+      const main = page.getByRole('main');
+      await expect(main.getByRole('heading', { level: 1 })).toHaveCount(1);
+      await expect(main.getByTestId('lobby-instruction')).toBeVisible();
+      await expect(main.getByTestId('lobby-tactile-preview')).toBeVisible();
+      await expect(main.getByRole('button', { name: 'Hrať' })).toHaveCount(1);
+
+      const settingsBtn = page.getByRole('button', { name: 'Nastavenia' });
+      if (game.hasSettings) {
+        await expect(settingsBtn).toBeVisible();
+      } else {
+        await expect(settingsBtn).toHaveCount(0);
+      }
+      expectNoConsoleErrors(errors);
+      expectNoFailedRequests(failedRequests);
+    });
+  }
+
+  test('alphabet lobby settings flow: cancel returns to /alphabet, unlock reaches protected parent screen', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+    await page.goto('/alphabet');
+    const settingsBtn = page.getByRole('button', { name: 'Nastavenia' });
+    await expect(settingsBtn).toBeVisible();
+
+    // 1. Open settings and cancel
+    await settingsBtn.click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.getByRole('button', { name: 'Späť' }).click();
+    await expect(page).toHaveURL('/alphabet');
+
+    // 2. Open settings and unlock
+    await settingsBtn.click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await unlockParentGate(page);
+    await expect(page).toHaveURL(/\/settings/);
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('lobby renders cleanly at short landscape (667x375) and narrow phone (320x568)', async ({ page }) => {
+    // 320x568
+    await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
+    await page.goto('/alphabet');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+
+    // 667x375
+    await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
+    await page.goto('/alphabet');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
   });
 });

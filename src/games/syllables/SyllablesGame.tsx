@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { FindItGame } from '../../shared/components/FindItGame';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createSyllablesDescriptor } from './syllablesDescriptor';
 
@@ -15,7 +14,6 @@ export function SyllablesGame({ settings, onExit, onOpenSettings }: GameRuntimeP
   const { syllableItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, syllableItems, locale);
-  const lobby = GAME_LOBBY_LEGACY.SYLLABLES;
 
   if (gameState === 'PLAYING') {
     return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
@@ -23,13 +21,10 @@ export function SyllablesGame({ settings, onExit, onOpenSettings }: GameRuntimeP
 
   return (
     <GameLobby
-      title={lobby.title}
-      playButtonColorClassName={lobby.playButtonColorClassName}
+      gameId="SYLLABLES"
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
-      topDecorationClassName={lobby.topDecorationClassName}
-      bottomDecorationClassName={lobby.bottomDecorationClassName}
     />
   );
 }

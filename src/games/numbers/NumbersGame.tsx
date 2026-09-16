@@ -7,7 +7,6 @@ import React, { useState, useMemo } from 'react';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { FindItGame } from '../../shared/components/FindItGame';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createNumbersDescriptor } from './numbersDescriptor';
 
@@ -23,7 +22,6 @@ export function NumbersGame({ settings, onExit, onOpenSettings }: GameRuntimePro
     () => createNumbersDescriptor(range, filteredNumbers, locale),
     [range, filteredNumbers, locale],
   );
-  const lobby = GAME_LOBBY_LEGACY.NUMBERS;
 
   if (gameState === 'PLAYING') {
     return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
@@ -31,14 +29,10 @@ export function NumbersGame({ settings, onExit, onOpenSettings }: GameRuntimePro
 
   return (
     <GameLobby
-      title={lobby.title}
-      playButtonColorClassName={lobby.playButtonColorClassName}
-      subtitle={<>Rozsah: {range.start} - {range.end}</>}
+      gameId="NUMBERS"
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
-      topDecorationClassName={lobby.topDecorationClassName}
-      bottomDecorationClassName={lobby.bottomDecorationClassName}
     />
   );
 }

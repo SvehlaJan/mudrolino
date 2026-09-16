@@ -9,7 +9,6 @@ import { Letter, SuccessSpec, FailureSpec } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { AppScreen, BackButton, ChoiceTile, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -109,7 +108,6 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
     () => buildFirstLetterItems(wordItems, activeLetters),
     [wordItems, activeLetters],
   );
-  const lobby = GAME_LOBBY_LEGACY.FIRST_LETTER;
 
   const clearTransientTimers = useCallback(() => {
     clearTimer(promptTimerRef);
@@ -321,18 +319,15 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
 
   return (
     <GameLobby
-      title={lobby.title}
-      playButtonColorClassName={lobby.playButtonColorClassName}
-      subtitle={
+      gameId="FIRST_LETTER"
+      availabilityMessage={
         eligibleItems.length === 0 || activeLetters.length < 4
-          ? <>Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.</>
+          ? 'Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.'
           : undefined
       }
       onPlay={handlePlay}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
-      topDecorationClassName={lobby.topDecorationClassName}
-      bottomDecorationClassName={lobby.bottomDecorationClassName}
     />
   );
 }
