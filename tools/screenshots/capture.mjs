@@ -109,7 +109,74 @@ export const SCENES = {
     await page.evaluate(() => window.__E2E__.parentGate.unlock());
     await page.getByRole('heading', { name: 'Vlastný obsah' }).waitFor({ state: 'visible' });
   },
+  'home': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/`);
+    await page.getByRole('heading', { name: 'Písmená a slová' }).waitFor({ state: 'visible' });
+    await page.getByRole('heading', { name: 'Čísla a počítanie' }).waitFor({ state: 'visible' });
+  },
+  'lobby-alphabet': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/alphabet`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-syllables': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/syllables`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-numbers': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/numbers`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-counting': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/counting`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-compare': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/compare`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-addition': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/addition`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-words': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/words`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-first-letter': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/first-letter`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-assembly': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/assembly`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-complete-syllable': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/complete-syllable`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
+  'lobby-complete-letter': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/complete-letter`);
+    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
+  },
 };
+
+// Aliases for convenient shorthand targeting (e.g. --scene=alphabet)
+const LOBBY_SLUGS = [
+  'alphabet',
+  'syllables',
+  'numbers',
+  'counting',
+  'compare',
+  'addition',
+  'words',
+  'first-letter',
+  'assembly',
+  'complete-syllable',
+  'complete-letter',
+];
+for (const slug of LOBBY_SLUGS) {
+  SCENES[slug] = SCENES[`lobby-${slug}`];
+}
 
 async function main() {
   const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg, help } = parseArgs(process.argv.slice(2));

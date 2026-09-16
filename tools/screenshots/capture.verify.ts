@@ -4,6 +4,31 @@ import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
 if (!('ui-kit' in SCENES)) {
   throw new Error('capture.mjs must permanently register a "ui-kit" scene for the /ui-kit sweep');
 }
+if (!('home' in SCENES)) {
+  throw new Error('capture.mjs must permanently register a "home" scene');
+}
+
+const REQUIRED_LOBBIES = [
+  'alphabet',
+  'syllables',
+  'numbers',
+  'counting',
+  'compare',
+  'addition',
+  'words',
+  'first-letter',
+  'assembly',
+  'complete-syllable',
+  'complete-letter',
+];
+for (const slug of REQUIRED_LOBBIES) {
+  if (!(`lobby-${slug}` in SCENES)) {
+    throw new Error(`capture.mjs must permanently register "lobby-${slug}" scene`);
+  }
+  if (!(slug in SCENES)) {
+    throw new Error(`capture.mjs must permanently register "${slug}" alias scene`);
+  }
+}
 
 const defaults = parseArgs([]);
 if (defaults.base !== 'http://127.0.0.1:4173') throw new Error(`Unexpected default base: ${defaults.base}`);

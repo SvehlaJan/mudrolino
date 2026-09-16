@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Play, Settings } from 'lucide-react';
 import type { GameId } from '../types';
 import { GAME_DEFINITIONS_BY_ID, type TactilePreset, type GameIconId } from '../gameCatalog';
@@ -91,9 +92,18 @@ export function GameLobby({
   const instruction = getUiCopy('sk', definition.instructionKey);
   const { layout } = useAppScreenLayout();
   const isShort = layout === 'short';
+  const location = useLocation();
+  const settingsButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    if ((location.state as { returnFocus?: unknown } | null)?.returnFocus === 'settings') {
+      settingsButtonRef.current?.focus();
+    }
+  }, [location.state]);
 
   const settingsButton = onOpenSettings ? (
     <IconButton
+      ref={settingsButtonRef}
       onClick={onOpenSettings}
       label="Nastavenia"
       tone="neutral"

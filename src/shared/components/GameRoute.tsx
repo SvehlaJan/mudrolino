@@ -28,7 +28,10 @@ export function GameRoute({ gameId, settings }: GameRouteProps) {
 
   const onExit = () => navigate('/');
   const onOpenSettings = definition.settings.length
-    ? () => navigate(`/settings/games/${gameId}`, { state: { returnTo: definition.path } })
+    ? () =>
+        navigate(`/settings/games/${gameId}`, {
+          state: { returnTo: definition.path, returnFocus: 'settings' },
+        })
     : undefined;
 
   return (

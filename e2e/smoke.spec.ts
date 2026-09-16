@@ -5,25 +5,7 @@ import {
   trackFailedRequests,
   expectNoFailedRequests,
 } from './support/assertions';
-
-interface SmokeCase {
-  name: string;
-  path: string;
-}
-
-const ALL_GAME_ROUTES: SmokeCase[] = [
-  { name: 'alphabet', path: '/alphabet' },
-  { name: 'syllables', path: '/syllables' },
-  { name: 'numbers', path: '/numbers' },
-  { name: 'counting', path: '/counting' },
-  { name: 'compare', path: '/compare' },
-  { name: 'addition', path: '/addition' },
-  { name: 'words', path: '/words' },
-  { name: 'first-letter', path: '/first-letter' },
-  { name: 'assembly', path: '/assembly' },
-  { name: 'complete-syllable', path: '/complete-syllable' },
-  { name: 'complete-letter', path: '/complete-letter' },
-];
+import { GAME_DEFINITIONS } from '../src/shared/gameCatalog';
 
 test('home: loads without errors', async ({ page }) => {
   const errors = trackConsoleErrors(page);
@@ -34,8 +16,8 @@ test('home: loads without errors', async ({ page }) => {
   expectNoFailedRequests(failedRequests);
 });
 
-for (const game of ALL_GAME_ROUTES) {
-  test(`${game.name}: route loads and lobby renders`, async ({ page }) => {
+for (const game of GAME_DEFINITIONS) {
+  test(`${game.path.replace('/', '')}: route loads and lobby renders`, async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
     await page.goto(game.path);
