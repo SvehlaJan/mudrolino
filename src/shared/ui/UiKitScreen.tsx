@@ -166,6 +166,7 @@ export function UiKitScreen() {
               <Button tone="neutral" size="child">Tiché</Button>
               <Button tone="danger" size="child">Zmazať</Button>
               <Button tone="primary" size="play" aria-label="Hrať"><Play size={40} fill="currentColor" /></Button>
+              <Button size="child" data-testid="ui-child-size-only">Iba veľkosť</Button>
             </div>
           </div>
 
@@ -175,7 +176,7 @@ export function UiKitScreen() {
               <IconButton label="Prehrať" tone="neutral" size="child"><Volume2 size={24} /></IconButton>
               <IconButton label="Nahrať" tone="primary" size="child"><Mic size={24} /></IconButton>
               <IconButton label="Zmazať" tone="danger" size="parent"><Trash2 size={18} /></IconButton>
-              <IconButton label="Ďalšie" tone="neutral" size="parent" density="compact"><Settings size={16} /></IconButton>
+              <IconButton label="Ďalšie" tone="neutral" size="parent" density="compact" data-testid="ui-icon-compact-parent"><Settings size={16} /></IconButton>
             </div>
           </div>
         </Card>

@@ -11,7 +11,7 @@ import type { ButtonDensity } from './Button';
 
 const ICON_DENSITY_CLASSES: Record<ButtonDensity, string> = {
   comfortable: '',
-  compact: 'h-9 w-9 shadow-sm',
+  compact: 'shadow-sm',
 };
 
 interface IconButtonProps

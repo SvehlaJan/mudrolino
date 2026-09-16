@@ -78,8 +78,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
   },
   ref,
 ) {
-  const usesTypedApi = tone !== undefined;
-  const displayTone: ButtonTone = tone ?? LEGACY_VARIANT_TONE[variant ?? 'primary'];
+  const usesTypedApi = tone !== undefined || (size !== undefined && !isLegacySize(size));
+  const displayTone: ButtonTone = tone ?? (usesTypedApi ? 'neutral' : LEGACY_VARIANT_TONE[variant ?? 'primary']);
 
   const visualClassName = usesTypedApi
     ? cn(buttonVariants({ tone, size: isLegacySize(size) ? undefined : size }), 'gap-2', DENSITY_CLASSES[density])

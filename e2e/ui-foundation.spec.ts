@@ -44,4 +44,21 @@ test.describe('UI foundation: core controls', () => {
     await expect(legacyPrimary).toBeVisible();
     await expect(legacyPrimary).toHaveAttribute('data-tone', 'primary');
   });
+
+  test('compact density keeps the icon button at its semantic minimum tap target', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const compactIcon = page.getByTestId('ui-icon-compact-parent');
+    const box = await compactIcon.boundingBox();
+    expect(box!.width).toBeGreaterThanOrEqual(44);
+    expect(box!.height).toBeGreaterThanOrEqual(44);
+  });
+
+  test('a semantic size alone opts a button into the typed variant with a default tone', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const sizeOnly = page.getByTestId('ui-child-size-only');
+    await expect(sizeOnly).toHaveAttribute('data-tone', 'neutral');
+    const box = await sizeOnly.boundingBox();
+    expect(box!.width).toBeGreaterThanOrEqual(48);
+    expect(box!.height).toBeGreaterThanOrEqual(48);
+  });
 });
