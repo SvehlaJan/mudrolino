@@ -84,7 +84,7 @@ test.describe('Parent Access Gate', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('leaving protected route and revisiting asks for gate again', async ({ page }) => {
+  test('leaving protected route via in-app back navigation replaces history so browser back cannot reopen it', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
@@ -96,10 +96,11 @@ test.describe('Parent Access Gate', () => {
     await page.getByRole('button', { name: 'Späť' }).click();
     await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
 
-    // Revisit protected settings via browser back
+    // The in-app close replaced the /settings entry, so browser back cannot resurrect it
     await page.goBack();
-    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await expect(page).not.toHaveURL(/\/settings$/);
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).not.toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

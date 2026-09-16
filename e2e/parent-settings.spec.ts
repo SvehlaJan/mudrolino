@@ -84,6 +84,28 @@ test.describe('Parent dashboard and game settings', () => {
     expectNoFailedRequests(failedRequests);
   });
 
+  test('closing the dashboard replaces history so browser back cannot reopen it', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Nastavenia' }).click();
+    await unlockParentGate(page);
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+
+    await page.getByRole('button', { name: 'Späť' }).click();
+    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+
+    await page.goBack();
+    await expect(page).not.toHaveURL(/\/settings$/);
+    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).not.toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
   test('changing a setting updates immediately, with no separate save action', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);

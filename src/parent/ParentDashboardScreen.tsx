@@ -48,7 +48,7 @@ export function ParentDashboardScreen() {
 
   return (
     <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
-      <TopBar left={<BackButton onClick={() => closeToChild()} />} />
+      <TopBar left={<BackButton onClick={() => closeToChild({ replace: true })} />} />
       <PageHeader title="Rodičovská zóna" description="Nastavenia, obsah a pomoc pre rodičov." />
       <nav aria-label="Rodičovská zóna" className="mt-5 space-y-3 sm:mt-6">
         {DESTINATIONS.map(destination => (
