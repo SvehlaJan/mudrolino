@@ -28,4 +28,13 @@ const praises = await repo.getPraises();
 data.set('hrave-ucenie-user-praises-sk', JSON.stringify({ version: 2, items: [{ ...praises.find((praise) => praise.enabled)!, enabled: true }] }));
 const onlyPraise = (await repo.getPraises()).find((praise) => praise.enabled)!;
 try { await repo.updatePraise(onlyPraise.id, { status: 'draft' }); throw new Error('making the last playable praise a draft should fail'); } catch (error) { if ((error as Error).message !== LAST_PLAYABLE_MESSAGE) throw error; }
+
+await repo.restoreAllDefaultWords();
+const beforeConcurrentAdds = (await repo.getWords()).length;
+const secondRepo = new LocalContentRepository('sk');
+await Promise.all([
+  repo.addWord({ word: 'Prvé', syllables: 'pr-vé', emoji: '1️⃣', audioKey: 'custom-first', isDefault: false }),
+  secondRepo.addWord({ word: 'Druhé', syllables: 'dru-hé', emoji: '2️⃣', audioKey: 'custom-second', isDefault: false }),
+]);
+if ((await repo.getWords()).length !== beforeConcurrentAdds + 2) throw new Error('concurrent repository writes must not lose entries');
 console.log('✓ local content repository contracts passed');

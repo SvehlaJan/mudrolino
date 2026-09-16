@@ -268,10 +268,9 @@ function EditableWordList({ locale }: EditableWordListProps) {
     setOverrideKeys(new Set(keys));
   }, [locale, updateWord]);
 
-  const defaultWordCount = getLocaleContent(locale).wordItems.length;
-  const readyCount = allUserWords.filter((word) => word.status === 'ready').length;
+  const readyCount = allUserWords.filter((word) => word.enabled && word.status === 'ready').length;
   const draftCount = allUserWords.filter((word) => word.status === 'draft').length;
-  const hiddenDefaultCount = Math.max(0, defaultWordCount - allUserWords.filter((word) => word.isDefault).length);
+  const hiddenDefaultCount = allUserWords.filter((word) => word.isDefault && !word.enabled).length;
 
   const resetWordForm = useCallback(() => {
     setFormWord('');
@@ -387,14 +386,18 @@ function EditableWordList({ locale }: EditableWordListProps) {
                     },
                   ]
                 : []),
-              word.isDefault
+              word.isDefault && word.enabled
                 ? {
                     label: 'Skryť slovo',
                     icon: <EyeOff size={16} />,
                     tone: 'danger' as const,
                     onSelect: () => void handleHideDefaultWord(word),
                   }
-                : {
+                : word.isDefault ? {
+                    label: 'Obnoviť slovo',
+                    icon: <RotateCcw size={16} />,
+                    onSelect: () => void setDefaultWordEnabled(word.id, true),
+                  } : {
                     label: 'Zmazať slovo',
                     icon: <Trash2 size={16} />,
                     tone: 'danger' as const,
@@ -561,12 +564,11 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
     setOverrideKeys(new Set(keys));
   }, [locale, updatePraise]);
 
-  const defaultPraiseCount = getLocaleContent(locale).praiseEntries.length;
-  const readyCount = allUserPraises.filter((praise) => praise.status === 'ready').length;
+  const readyCount = allUserPraises.filter((praise) => praise.enabled && praise.status === 'ready').length;
   const draftCount = allUserPraises.filter((praise) => praise.status === 'draft').length;
   const hiddenDefaultCount = Math.max(
     0,
-    defaultPraiseCount - allUserPraises.filter((praise) => praise.isDefault).length,
+    allUserPraises.filter((praise) => praise.isDefault && !praise.enabled).length,
   );
 
   const resetPraiseForm = useCallback(() => {
@@ -678,14 +680,18 @@ function EditablePraiseList({ locale }: EditablePraiseListProps) {
                     },
                   ]
                 : []),
-              praise.isDefault
+              praise.isDefault && praise.enabled
                 ? {
                     label: 'Skryť pochvalu',
                     icon: <EyeOff size={16} />,
                     tone: 'danger' as const,
                     onSelect: () => void handleHideDefaultPraise(praise),
                   }
-                : {
+                : praise.isDefault ? {
+                    label: 'Obnoviť pochvalu',
+                    icon: <RotateCcw size={16} />,
+                    onSelect: () => void setDefaultPraiseEnabled(praise.id, true),
+                  } : {
                     label: 'Zmazať pochvalu',
                     icon: <Trash2 size={16} />,
                     tone: 'danger' as const,

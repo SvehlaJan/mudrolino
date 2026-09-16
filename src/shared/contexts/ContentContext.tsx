@@ -111,6 +111,7 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
   useEffect(() => {
     const repo = new LocalContentRepository(locale);
     repoRef.current = repo;
+    let active = true;
 
     const seedWords = buildDefaultWords(locale);
     const seedPraises = buildDefaultPraises(locale);
@@ -119,10 +120,12 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
       .seed(seedWords, seedPraises)
       .then(() => Promise.all([repo.getWords(), repo.getPraises()]))
       .then(([words, praises]) => {
+        if (!active) return;
         setAllUserWords(words);
         setAllUserPraises(praises);
         setLoadedLocale(locale);
       });
+    return () => { active = false; };
   }, [locale]);
 
   const reload = useCallback(async () => {

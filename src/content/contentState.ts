@@ -25,7 +25,8 @@ function migrate<T extends Managed>(args: { raw: unknown; defaults: T[]; locale:
     if (defaultItem && item.isDefault) {
       if (seenDefaultKeys.has(item.audioKey)) continue;
       seenDefaultKeys.add(item.audioKey);
-      items.push({ ...defaultItem, ...item, id: args.defaultId(args.locale, item.audioKey), enabled: item.enabled ?? true } as T);
+      // Persisted defaults may be stale or malformed; only their enabled state is user-owned.
+      items.push({ ...item, ...defaultItem, id: args.defaultId(args.locale, item.audioKey), enabled: item.enabled ?? true } as T);
     } else {
       items.push({ ...item, enabled: item.enabled ?? true } as T);
     }
