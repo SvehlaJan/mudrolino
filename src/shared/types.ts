@@ -23,14 +23,6 @@ export interface GameSettings {
   additionRepresentation: 'objects' | 'numerals';
 }
 
-export interface GameMetadata {
-  id: GameId;
-  title: string;
-  description: string;
-  icon: ReactNode;
-  color: string;
-}
-
 // ---------------------------------------------------------------------------
 // Domain models — pure data, no game logic, no optional cross-game fields
 // ---------------------------------------------------------------------------
