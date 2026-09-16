@@ -26,6 +26,9 @@ import { SwitchControl } from './Switch';
 import { Tabs, TabPanel } from './Tabs';
 import { cx } from './utils';
 import { RecordingListItem } from '../../recordings/RecordingListItem';
+import { GameCard } from '../../home/GameCard';
+import { GAME_DEFINITIONS } from '../gameCatalog';
+import { getUiCopy } from '../uiCopy';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -656,6 +659,47 @@ export function UiKitScreen() {
             <p className="mt-3 text-2xl font-extrabold text-[#5566aa]">Ukážka panelu</p>
           </OverlayFrame>
           <UiKitOverlayCompletionDemo />
+        </div>
+      </Section>
+
+      <Section title="Game Cards & Grouped Home">
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-lg font-bold text-text-muted mb-2">Jednotlivá karta (GameCard)</h3>
+            <div className="max-w-xs">
+              <GameCard game={GAME_DEFINITIONS[0]} />
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-text-muted mb-2">Karta s dlhým zalamovaným názvom</h3>
+            <div className="max-w-xs">
+              <GameCard
+                game={GAME_DEFINITIONS[0]}
+                title="Mimoriadne dlhý názov hry na viac riadkov pre overenie zalamovania"
+                description="Detailný popis hry s dlhším textom, ktorý otestuje správanie textových kontajnerov a zachovanie stabilnej základne."
+              />
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-text-muted mb-2">Nadpisy skupín</h3>
+            <div className="space-y-2">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-text-main tracking-tight">
+                {getUiCopy('sk', 'category.literacy')}
+              </h2>
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-text-main tracking-tight">
+                {getUiCopy('sk', 'category.numeracy')}
+              </h2>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-text-muted mb-2">Rozloženie na úzkej obrazovke (320px layout)</h3>
+            <div className="w-[320px] p-3 bg-canvas border border-border-subtle rounded-2xl">
+              <div className="grid grid-cols-2 gap-2.5">
+                <GameCard game={GAME_DEFINITIONS[0]} />
+                <GameCard game={GAME_DEFINITIONS[1]} />
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
     </AppScreen>

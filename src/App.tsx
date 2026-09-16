@@ -5,11 +5,10 @@
 
 import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import { Settings } from 'lucide-react';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
 import { loadAppSettings, saveAppSettings, AppSettings, applyFontFamily } from './shared/services/appSettingsStore';
-import { GameSettings, GameId, SettingsTarget } from './shared/types';
+import { GameSettings, SettingsTarget } from './shared/types';
 import { ParentsGate } from './shared/components/ParentsGate';
 import { ProtectedParentRoute } from './shared/components/ProtectedParentRoute';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
@@ -17,81 +16,14 @@ import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { GameRoute } from './shared/components/GameRoute';
 import { SettingsScreen } from './shared/components/SettingsScreen';
 import { ContentProvider } from './shared/contexts/ContentContext';
-import { GAME_DEFINITIONS, GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
+import { GAME_DEFINITIONS } from './shared/gameCatalog';
+import { GroupedHomeScreen } from './home/GroupedHomeScreen';
 import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
-import { HomeAvatarOverlay } from './avatar/HomeAvatarOverlay';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
-import { AppScreen, IconButton, UiKitScreen } from './shared/ui';
+import { UiKitScreen } from './shared/ui';
 import { CustomContentScreen } from './content/CustomContentScreen';
-import { PwaHomeControl } from './pwa/PwaHomeControl';
 
 type SettingsFlowState = 'none' | 'gate' | 'settings';
-
-function HomeLauncher({
-  onOpenSettings,
-  scrollRef,
-  navigate,
-}: {
-  onOpenSettings: () => void;
-  scrollRef: React.RefObject<number>;
-  navigate: (to: string) => void;
-}) {
-  const handleGameSelect = useCallback((gameId: GameId) => {
-    scrollRef.current = window.scrollY;
-    navigate(GAME_PATH[gameId]);
-  }, [navigate, scrollRef]);
-
-  return (
-    <AppScreen maxWidth="wide" fixedHeight={false} scrollable className="min-h-[100svh] p-4 pb-28 sm:p-6 sm:pb-32 lg:p-8">
-        {/* Header */}
-        <div className="flex justify-between items-start gap-4 mb-4 sm:mb-6 lg:mb-8 shrink-0">
-          <div className="flex min-w-0 flex-1 flex-col gap-2">
-            <h1 className="text-[clamp(2.6rem,6vw,5.25rem)] font-black text-text-main tracking-tight leading-none">Hravé Učenie</h1>
-            <p className="text-[clamp(1.05rem,2.2vw,1.7rem)] font-medium opacity-60 leading-tight">Vyber si hru a poďme na to!</p>
-          </div>
-
-          <div className="flex shrink-0 flex-col items-end gap-2">
-            <IconButton
-              label="Nastavenia"
-              onClick={onOpenSettings}
-              className="w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 !bg-shadow/20 !shadow-none hover:scale-105 active:scale-95 shrink-0 relative"
-            >
-              <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 rounded-full blur-sm absolute" />
-              <Settings size={28} className="sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-text-main opacity-80" />
-            </IconButton>
-          </div>
-        </div>
-        <PwaHomeControl />
-
-        {/* Game Grid */}
-        <div className="grid grid-cols-2 auto-rows-[minmax(11.25rem,auto)] gap-3 sm:auto-rows-[minmax(13rem,auto)] sm:gap-4 lg:grid-cols-3 lg:flex-1 lg:auto-rows-fr lg:content-stretch lg:gap-5">
-          {GAME_METADATA.map((game) => (
-            <button
-              key={game.id}
-              onClick={() => handleGameSelect(game.id)}
-              className="group relative flex min-h-[11.25rem] flex-col sm:min-h-[13rem] lg:min-h-0"
-            >
-              <div className="absolute inset-0 bg-shadow/10 rounded-[28px] sm:rounded-[36px] -m-1.5 sm:-m-2 transition-colors group-hover:bg-shadow/20" />
-              <div className="relative h-full bg-white rounded-[24px] sm:rounded-[30px] p-4 sm:p-5 lg:p-6 flex flex-col justify-between gap-3 shadow-sm text-left overflow-hidden">
-                <div className={`w-14 h-14 sm:w-[4.5rem] sm:h-[4.5rem] lg:w-20 lg:h-20 rounded-[18px] sm:rounded-[24px] ${game.color} flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-105`}>
-                  {game.icon}
-                </div>
-                <div className="min-h-0">
-                  <h3 className="text-[clamp(1.45rem,3.1vw,2.4rem)] font-black mb-1 sm:mb-2 text-text-main leading-[0.95]">{game.title}</h3>
-                  <p className="text-[clamp(0.92rem,1.65vw,1.2rem)] font-medium opacity-60 leading-snug">{game.description}</p>
-                </div>
-              </div>
-              <div className={`absolute -bottom-2 -right-2 w-20 h-20 sm:w-24 sm:h-24 ${game.color} opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity`} />
-            </button>
-          ))}
-        </div>
-      {/* Background Decorations */}
-      <div aria-hidden="true" className="fixed top-1/3 -left-32 w-96 h-96 rounded-full bg-accent-blue opacity-[0.03] blur-[100px] pointer-events-none" />
-      <div aria-hidden="true" className="fixed bottom-0 -right-32 w-[500px] h-[500px] rounded-full bg-primary opacity-[0.03] blur-[100px] pointer-events-none" />
-      {AVATAR_POC_ENABLED && <HomeAvatarOverlay />}
-    </AppScreen>
-  );
-}
 
 // Initialize font attribute immediately on boot
 applyFontFamily(loadAppSettings().fontFamily);
@@ -181,10 +113,12 @@ export default function App() {
           <Route
             path="/"
             element={
-              <HomeLauncher
+              <GroupedHomeScreen
                 onOpenSettings={() => handleOpenSettings('home')}
-                scrollRef={homeScrollRef}
-                navigate={navigate}
+                onSelectGame={() => {
+                  homeScrollRef.current = window.scrollY;
+                }}
+                locale={locale}
               />
             }
           />

@@ -3,10 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Apple, BookOpen, Gamepad2, Play, Plus, Puzzle, Scale, Type, WandSparkles } from 'lucide-react';
 import type { GameId } from './types';
-import { getUiCopy, UiCopyKey } from './uiCopy';
+import type { UiCopyKey } from './uiCopy';
 import { SettingId } from './settings/settingIds';
 
 // ---------------------------------------------------------------------------
@@ -223,54 +221,6 @@ export const GAME_DEFINITIONS_BY_ID: Record<GameId, GameDefinition> = Object.fro
   GAME_DEFINITIONS.map(game => [game.id, game])
 ) as Record<GameId, GameDefinition>;
 
-// ---------------------------------------------------------------------------
-// Temporary bridge for the pre-redesign HomeLauncher; deleted together with
-// HomeLauncher in Task 4.
-// ---------------------------------------------------------------------------
-
-interface LegacyGameMetadata {
-  id: GameId;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  color: string;
-}
-
-const LEGACY_ICON_ELEMENT: Record<GameIconId, React.ReactNode> = {
-  letters: <Type size={48} className="sm:w-16 sm:h-16" />,
-  syllables: <Gamepad2 size={48} className="sm:w-16 sm:h-16" />,
-  numbers: <Play size={48} className="sm:w-16 sm:h-16 ml-2" fill="currentColor" />,
-  counting: <Apple size={48} className="sm:w-16 sm:h-16" />,
-  compare: <Scale size={48} className="sm:w-16 sm:h-16" />,
-  addition: <Plus size={48} className="sm:w-16 sm:h-16" strokeWidth={3} />,
-  words: <BookOpen size={48} className="sm:w-16 sm:h-16" />,
-  'first-letter': <WandSparkles size={48} className="sm:h-16 sm:w-16" />,
-  assembly: <Puzzle size={48} className="sm:w-16 sm:h-16" />,
-  'complete-syllable': <Puzzle size={48} className="sm:h-16 sm:w-16" />,
-  'complete-letter': <Type size={48} className="sm:h-16 sm:w-16" />,
-};
-
-const LEGACY_COLOR_BY_ID: Record<GameId, string> = {
-  ALPHABET: 'bg-primary',
-  SYLLABLES: 'bg-success',
-  NUMBERS: 'bg-accent-blue',
-  COUNTING_ITEMS: 'bg-soft-watermelon',
-  COMPARE_QUANTITIES: 'bg-accent-blue',
-  ADDITION: 'bg-soft-watermelon',
-  WORDS: 'bg-soft-watermelon',
-  FIRST_LETTER: 'bg-success',
-  ASSEMBLY: 'bg-primary',
-  COMPLETE_SYLLABLE: 'bg-accent-blue',
-  COMPLETE_LETTER: 'bg-success',
-};
-
-export const GAME_METADATA: LegacyGameMetadata[] = GAME_DEFINITIONS.map((game) => ({
-  id: game.id,
-  title: getUiCopy('sk', game.titleKey),
-  description: getUiCopy('sk', game.descriptionKey),
-  icon: LEGACY_ICON_ELEMENT[game.icon],
-  color: LEGACY_COLOR_BY_ID[game.id],
-}));
 
 // ---------------------------------------------------------------------------
 // Temporary bridge for the pre-redesign GameLobby call sites; deleted together
