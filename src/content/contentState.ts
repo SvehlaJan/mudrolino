@@ -45,5 +45,6 @@ function migrate<T extends Managed>(args: { raw: unknown; defaults: T[]; locale:
 export function migrateWords(args: { raw: unknown; defaults: UserWord[]; locale: string; seeded: boolean }): MigrationResult<UserWord> { return migrate({ ...args, defaultId: defaultWordId }); }
 export function migratePraises(args: { raw: unknown; defaults: UserPraise[]; locale: string; seeded: boolean }): MigrationResult<UserPraise> { return migrate({ ...args, defaultId: defaultPraiseId }); }
 export function isPlayable(item: Pick<Managed, 'enabled' | 'status'>): boolean { return item.enabled === true && item.status === 'ready'; }
+export function assertHasPlayable<T extends Pick<Managed, 'enabled' | 'status'>>(items: T[]): void { if (!items.some(isPlayable)) throw new Error(LAST_PLAYABLE_MESSAGE); }
 export function canDisableOrDelete<T extends Pick<Managed, 'id' | 'enabled' | 'status'>>(items: T[], id: string): boolean { return !isPlayable(items.find((item) => item.id === id) ?? { enabled: false, status: 'draft' }) || items.filter(isPlayable).length > 1; }
 export function assertCanDisableOrDelete<T extends Pick<Managed, 'id' | 'enabled' | 'status'>>(items: T[], id: string): void { if (!canDisableOrDelete(items, id)) throw new Error(LAST_PLAYABLE_MESSAGE); }
