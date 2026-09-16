@@ -23,7 +23,7 @@ export interface SettingDefinition {
   options: readonly SettingOption[];
   read: (settings: GameSettings) => SettingValue;
   apply: (settings: GameSettings, value: SettingValue) => SettingApplyResult;
-  summarize: (value: SettingValue) => string;
+  summarize: (settings: GameSettings) => string;
   isValid: (value: unknown) => value is SettingValue;
 }
 
@@ -61,49 +61,49 @@ export const SETTINGS_REGISTRY: readonly SettingDefinition[] = [
   {
     id: 'alphabetAccents', label: 'Písmená s dĺžňami a mäkčeňmi', description: 'Rozšíriť hru o slovenské znaky.', kind: 'switch',
     options: [{ value: false, label: 'Vypnuté' }, { value: true, label: 'Zapnuté' }],
-    read: settings => settings.alphabetAccents, apply: plainApply('alphabetAccents'), summarize: value => value ? 'Zapnuté' : 'Vypnuté',
+    read: settings => settings.alphabetAccents, apply: plainApply('alphabetAccents'), summarize: settings => settings.alphabetAccents ? 'Zapnuté' : 'Vypnuté',
     isValid: value => isOneOf(value, [false, true]),
   },
   {
     id: 'alphabetGridSize', label: 'Počet kariet', description: 'Vyberte počet kariet v hre.', kind: 'radio',
     options: [4, 6, 8].map(value => ({ value, label: String(value) })),
-    read: settings => settings.alphabetGridSize, apply: plainApply('alphabetGridSize'), summarize: value => String(value),
+    read: settings => settings.alphabetGridSize, apply: plainApply('alphabetGridSize'), summarize: settings => String(settings.alphabetGridSize),
     isValid: value => isOneOf(value, [4, 6, 8]),
   },
   {
     id: 'syllablesGridSize', label: 'Počet kariet', description: 'Vyberte počet kariet v hre.', kind: 'radio',
     options: [4, 6].map(value => ({ value, label: String(value) })),
-    read: settings => settings.syllablesGridSize, apply: plainApply('syllablesGridSize'), summarize: value => String(value),
+    read: settings => settings.syllablesGridSize, apply: plainApply('syllablesGridSize'), summarize: settings => String(settings.syllablesGridSize),
     isValid: value => isOneOf(value, [4, 6]),
   },
   {
     id: 'numbersRange', label: 'Rozsah čísel', description: 'Vyberte rozsah čísel pre hru.', kind: 'radio',
     options: [5, 10, 20].map(end => ({ value: range(end), label: `1 - ${end}` })),
-    read: settings => settings.numbersRange, apply: plainApply('numbersRange'), summarize: value => optionLabel(SETTINGS_REGISTRY.find(setting => setting.id === 'numbersRange')!.options, value),
+    read: settings => settings.numbersRange, apply: plainApply('numbersRange'), summarize: settings => optionLabel(SETTINGS_REGISTRY.find(setting => setting.id === 'numbersRange')!.options, settings.numbersRange),
     isValid: value => isExactRange(value, [5, 10, 20]),
   },
   {
     id: 'countingRange', label: 'Rozsah počítania', description: 'Vyberte rozsah počítania predmetov.', kind: 'radio',
     options: [5, 10].map(end => ({ value: range(end), label: `1 - ${end}` })),
-    read: settings => settings.countingRange, apply: plainApply('countingRange'), summarize: value => optionLabel(SETTINGS_REGISTRY.find(setting => setting.id === 'countingRange')!.options, value),
+    read: settings => settings.countingRange, apply: plainApply('countingRange'), summarize: settings => optionLabel(SETTINGS_REGISTRY.find(setting => setting.id === 'countingRange')!.options, settings.countingRange),
     isValid: value => isExactRange(value, [5, 10]),
   },
   {
     id: 'completeLetterMissingCount', label: 'Chýbajúce písmená', description: 'Vyberte, koľko písmen má v slove chýbať.', kind: 'radio',
     options: [{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 'adaptive', label: 'Podľa dĺžky' }],
-    read: settings => settings.completeLetterMissingCount, apply: plainApply('completeLetterMissingCount'), summarize: value => value === 'adaptive' ? 'Podľa dĺžky' : String(value),
+    read: settings => settings.completeLetterMissingCount, apply: plainApply('completeLetterMissingCount'), summarize: settings => settings.completeLetterMissingCount === 'adaptive' ? 'Podľa dĺžky' : String(settings.completeLetterMissingCount),
     isValid: value => isOneOf(value, [1, 2, 'adaptive']),
   },
   {
     id: 'compareRange', label: 'Rozsah čísel', description: 'Vyberte rozsah čísel pre porovnávanie.', kind: 'radio',
     options: [5, 10].map(end => ({ value: range(end), label: `1 - ${end}` })),
-    read: settings => settings.compareRange, apply: plainApply('compareRange'), summarize: value => optionLabel(SETTINGS_REGISTRY.find(setting => setting.id === 'compareRange')!.options, value),
+    read: settings => settings.compareRange, apply: plainApply('compareRange'), summarize: settings => optionLabel(SETTINGS_REGISTRY.find(setting => setting.id === 'compareRange')!.options, settings.compareRange),
     isValid: value => isExactRange(value, [5, 10]),
   },
   {
     id: 'compareMode', label: 'Zobrazenie', description: 'Predmety na počítanie, alebo napísané čísla.', kind: 'radio',
     options: [{ value: 'objects', label: 'Predmety' }, { value: 'numerals', label: 'Čísla' }],
-    read: settings => settings.compareMode, apply: plainApply('compareMode'), summarize: value => value === 'objects' ? 'Predmety' : 'Čísla',
+    read: settings => settings.compareMode, apply: plainApply('compareMode'), summarize: settings => settings.compareMode === 'objects' ? 'Predmety' : 'Čísla',
     isValid: value => isOneOf(value, ['objects', 'numerals']),
   },
   {
@@ -118,7 +118,7 @@ export const SETTINGS_REGISTRY: readonly SettingDefinition[] = [
         ...(forcesNumerals && settings.additionRepresentation !== 'numerals' ? { notice: ADDITION_NUMERALS_NOTICE } : {}),
       };
     },
-    summarize: value => String(value), isValid: value => isOneOf(value, [5, 10, 20, 100]),
+    summarize: settings => String(settings.additionSumRange), isValid: value => isOneOf(value, [5, 10, 20, 100]),
   },
   {
     id: 'additionRepresentation', label: 'Zobrazenie', description: 'Predmety na počítanie, alebo napísané čísla.', kind: 'radio',
@@ -131,7 +131,7 @@ export const SETTINGS_REGISTRY: readonly SettingDefinition[] = [
         ...(forceNumerals && value === 'objects' ? { notice: ADDITION_NUMERALS_NOTICE } : {}),
       };
     },
-    summarize: value => value === 'objects' ? 'Predmety' : 'Čísla', isValid: value => isOneOf(value, ['objects', 'numerals']),
+    summarize: settings => settings.additionRepresentation === 'objects' ? 'Predmety' : 'Čísla', isValid: value => isOneOf(value, ['objects', 'numerals']),
   },
 ];
 

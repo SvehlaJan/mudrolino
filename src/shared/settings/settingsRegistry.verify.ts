@@ -20,6 +20,10 @@ for (const game of GAME_DEFINITIONS) {
 }
 
 const numbersRange = SETTINGS_REGISTRY.find(setting => setting.id === 'numbersRange')!;
+assert(
+  numbersRange.summarize({ ...DEFAULT_SETTINGS, numbersRange: { start: 1, end: 20 } }) === '1 - 20',
+  'summaries read their value from the complete settings object',
+);
 assert(numbersRange.isValid({ start: 1, end: 5 }), 'numbers accepts 1-5');
 assert(numbersRange.isValid({ start: 1, end: 20 }), 'numbers accepts 1-20');
 assert(!numbersRange.isValid({ start: 2, end: 5 }), 'numbers rejects a non-canonical start');
