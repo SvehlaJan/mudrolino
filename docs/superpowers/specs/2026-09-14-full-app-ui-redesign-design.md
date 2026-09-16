@@ -703,9 +703,13 @@ coherent and verified, but no intermediate phase is the public redesign.
 
 ## Per-Phase Execution Model
 
-The implementation will be performed sequentially in Antigravity:
+The implementation will be performed sequentially under Codex orchestration:
 
-- Each phase is assigned to a fresh agent using **Gemini 3.8 Flash**.
+- Each phase starts in a fresh **Claude Code Sonnet** session with **Extra**
+  effort (`--model sonnet --effort xhigh`). If Claude's rolling five-hour quota
+  is exhausted, Codex hands the current phase and unchanged worktree to a fresh
+  Antigravity agent using **Gemini 3.8 Flash High**. Providers never implement
+  the same phase concurrently.
 - Implementation uses one long-lived `feature/full-app-ui-redesign` branch
   created from the approved planning commit. Each phase agent starts from the
   accepted commit produced by the previous phase; phases are not implemented
@@ -727,6 +731,10 @@ The implementation will be performed sequentially in Antigravity:
   only when its assigned checks pass and Codex records approval in the handoff
   manifest. A rejected phase returns to the same phase agent when available, or
   to a fresh remediation agent otherwise; a later phase never absorbs the fix.
+- Codex remains the external orchestrator and reviewer regardless of which
+  provider implements the phase. Project-local Claude hooks block push and
+  destructive git operations; routine in-scope command prompts may be approved,
+  while dependency changes still require the explicit approval below.
 - Agents must present the need and compatibility impact of the planned component
   library before its first install. Any later direct dependency addition,
   removal, major upgrade, or substitution also pauses for Codex to decide

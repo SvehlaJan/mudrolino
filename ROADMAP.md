@@ -68,7 +68,7 @@
 - [x] Write eight self-contained sequential implementation plans and Antigravity handoff index (`docs/superpowers/plans/2026-09-14-ui-redesign-implementation-index.md`)
 - [ ] Complete full-app UI redesign before publication (all eight sequential phases below)
   - [x] Phase 1 — baseline, protected-route safety, test-only parent-gate adapter, and regression scaffolding (Codex accepted `a894532`)
-  - [ ] Phase 2 — Radix-backed component-library, token, responsive, motion, and accessibility foundation
+  - [~] Phase 2 — Radix-backed component-library, token, responsive, motion, and accessibility foundation (delegated to Claude Code Sonnet, Extra effort)
   - [ ] Phase 3 — scalable game catalog, grouped home, and all game lobbies
   - [ ] Phase 4 — parent dashboard, settings registry, custom content, recordings, and feedback
   - [ ] Phase 5 — shared game shell and Abeceda/Slabiky/Čísla/Slová migration
@@ -306,6 +306,7 @@
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-09-16 | UI redesign phases 2–8 use Claude Code Sonnet with Extra effort first, falling back to Antigravity Gemini 3.8 Flash High only when Claude's five-hour quota is exhausted; Codex remains reviewer/orchestrator. | This uses the preferred implementation agent while preserving sequential phase gates, avoiding concurrent edits, and keeping progress moving across provider quota windows. |
 | 2026-04-05 | Option B roadmap: MVP launch first, then platform | Get real users before investing in backend; freemium upsell works better after free-tier discovery |
 | 2026-04-05 | Content configurability moved to pre-launch (Phase 1) | App feels incomplete without it even at launch |
 | 2026-04-05 | Analytics before public launch | Superseded by 2026-05-01 friends-first decision; analytics is optional before public launch. |

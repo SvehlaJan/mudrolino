@@ -11,8 +11,13 @@ below turn that specification into executable, test-first work.
    set.
 2. Run phases strictly in order on that one branch. Never implement phases in
    parallel.
-3. Assign each phase to a fresh Antigravity agent using Gemini 3.8 Flash.
-4. The phase agent must use `superpowers:subagent-driven-development`, follow
+3. Assign each phase first to a fresh Claude Code session using Sonnet with
+   Extra effort (`--model sonnet --effort xhigh`). If Claude reports that its
+   rolling five-hour quota is exhausted, stop that session and hand the same
+   phase, current worktree, plan, progress, and unresolved checks to a fresh
+   Antigravity agent using `gemini-3.8-flash-high`. Never run both phase
+   implementers concurrently.
+4. The active phase agent must use `superpowers:subagent-driven-development`, follow
    `AGENTS.md`, and read the approved design spec, its phase plan, and all prior
    Codex-accepted handoff manifests before editing.
 5. Each phase stops after its verification gate and handoff commit. Codex
@@ -37,6 +42,11 @@ below turn that specification into executable, test-first work.
 9. No phase opens a pull request. Codex reviews every phase and performs the
    final cross-spec review after Phase 8. The user alone gives final visual
    sign-off.
+10. Codex owns orchestration: it launches or resumes the active implementation
+    session, answers only routine in-scope command prompts, reviews every
+    candidate, returns rejected findings to the same phase implementer when
+    available, and records the acceptance commit before launching the next
+    phase. Project Claude hooks block push and destructive git commands.
 
 ## Phase order
 
@@ -53,7 +63,10 @@ below turn that specification into executable, test-first work.
 
 ## Fresh-agent launch prompt
 
-Replace `<N>`, `<PLAN>`, and `<BASE_SHA>` with the Codex-accepted phase values:
+Replace `<N>`, `<PLAN>`, and `<BASE_SHA>` with the Codex-accepted phase values.
+For Claude Code launch a fresh session with `--model sonnet --effort xhigh`;
+for quota fallback use a fresh Antigravity session with
+`gemini-3.8-flash-high`:
 
 ```text
 Implement UI redesign Phase <N> from <PLAN> on branch
@@ -71,6 +84,11 @@ screenshot script and record the uncommitted
 `artifacts/ui/<full-git-sha>/<unique-run-id>/` directory for manual review. Do
 not add or replace a component library without first presenting the need and
 compatibility impact to Codex for approval.
+
+You are the implementation owner for this phase. Codex is the external phase
+reviewer and orchestrator. If Claude Code reports a rolling five-hour quota
+limit, stop cleanly without reverting or discarding work and provide a concise
+progress checkpoint so Codex can hand the same worktree to Antigravity.
 ```
 
 ## Review inputs
