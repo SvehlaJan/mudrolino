@@ -25,7 +25,6 @@ export interface RadioGroupControlProps<T extends string> {
   columns?: 2 | 3 | 4;
   disabled?: boolean;
   className?: string;
-  itemClassName?: string;
 }
 
 const gridColsClass: Record<2 | 3 | 4, string> = {
@@ -49,7 +48,6 @@ export function RadioGroupControl<T extends string>({
   columns,
   disabled,
   className,
-  itemClassName,
 }: RadioGroupControlProps<T>) {
   const resolvedColumns = columns ?? (options.length === 2 ? 2 : 3);
 
@@ -73,7 +71,6 @@ export function RadioGroupControl<T extends string>({
             toneCheckedClass[tone],
             'disabled:cursor-not-allowed disabled:opacity-50',
             'focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
-            itemClassName,
           )}
         >
           {option.label}

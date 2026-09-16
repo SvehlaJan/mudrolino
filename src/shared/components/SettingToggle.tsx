@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { ToggleControl } from '../ui';
+import { ToggleControl, type SwitchTone } from '../ui';
 
 interface SettingToggleProps {
   label: string;
@@ -12,8 +12,7 @@ interface SettingToggleProps {
   description?: string;
   checked: boolean;
   onToggle: () => void;
-  iconBackgroundClassName: string;
-  activeColorClassName?: string;
+  tone?: SwitchTone;
   className?: string;
 }
 
