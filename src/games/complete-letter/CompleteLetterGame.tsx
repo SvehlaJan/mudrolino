@@ -5,10 +5,11 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Volume2 } from 'lucide-react';
-import { FailureSpec, GameSettings, Letter, SuccessSpec, Word } from '../../shared/types';
+import { FailureSpec, Letter, SuccessSpec, Word } from '../../shared/types';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -25,12 +26,6 @@ import {
   getActiveCompleteLetterLetters,
   getActiveMissingIndex,
 } from './completeLetterLogic';
-
-interface CompleteLetterGameProps {
-  settings: GameSettings;
-  onExit: () => void;
-  onOpenSettings: () => void;
-}
 
 const MAX_ROUNDS = 5;
 const MAX_ATTEMPTS = 3;
@@ -92,7 +87,7 @@ function getWrongAudio(locale: string, selected: Letter) {
   return getWrongAnswerAudio(locale, 'letters', selected.audioKey, selected.symbol);
 }
 
-export function CompleteLetterGame({ settings, onExit, onOpenSettings }: CompleteLetterGameProps) {
+export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, letterItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const [targetRound, setTargetRound] = useState<CompleteLetterRound | null>(null);
@@ -131,7 +126,7 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: Complet
     [letterItems, settings.alphabetAccents, settings.completeLetterMissingCount, wordItems],
   );
 
-  const lobby = GAME_DEFINITIONS_BY_ID.COMPLETE_LETTER.lobby;
+  const lobby = GAME_LOBBY_LEGACY.COMPLETE_LETTER;
 
   const clearTransientTimers = useCallback(() => {
     clearTimer(promptTimerRef);

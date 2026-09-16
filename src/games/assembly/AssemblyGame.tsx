@@ -12,17 +12,13 @@ import { audioManager } from '../../shared/services/audioManager';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, TIMING } from '../../shared/contentRegistry';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { Word } from '../../shared/types';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { AppScreen, BackButton, Card, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { shouldPlaySelectedSyllableAudio } from './assemblyAudioLogic';
-
-interface AssemblyGameProps {
-  onExit: () => void;
-  onOpenSettings: () => void;
-}
 
 type GameState = 'HOME' | 'PLAYING';
 
@@ -159,10 +155,10 @@ function AnswerSlot({
   );
 }
 
-export function AssemblyGame({ onExit, onOpenSettings }: AssemblyGameProps) {
+export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, locale, praiseEntries } = useContent();
   const [gameState, setGameState] = useState<GameState>('HOME');
-  const lobby = GAME_DEFINITIONS_BY_ID.ASSEMBLY.lobby;
+  const lobby = GAME_LOBBY_LEGACY.ASSEMBLY;
   const [targetWord, setTargetWord] = useState<Word | null>(null);
   const [board, setBoard] = useState<BoardState>({ trayTiles: [], placedTiles: [] });
   const [showSuccess, setShowSuccess] = useState(false);

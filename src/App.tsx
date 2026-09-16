@@ -14,20 +14,10 @@ import { ParentsGate } from './shared/components/ParentsGate';
 import { ProtectedParentRoute } from './shared/components/ProtectedParentRoute';
 import { SettingsOverlay } from './shared/components/SettingsOverlay';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
-import { AlphabetGame } from './games/alphabet/AlphabetGame';
-import { SyllablesGame } from './games/syllables/SyllablesGame';
-import { NumbersGame } from './games/numbers/NumbersGame';
-import { CountingItemsGame } from './games/counting/CountingItemsGame';
-import { CompareQuantitiesGame } from './games/compare/CompareQuantitiesGame';
-import { AdditionGame } from './games/addition/AdditionGame';
-import { WordsGame } from './games/words/WordsGame';
-import { FirstLetterGame } from './games/first-letter/FirstLetterGame';
-import { AssemblyGame } from './games/assembly/AssemblyGame';
-import { CompleteSyllableGame } from './games/complete-syllable/CompleteSyllableGame';
-import { CompleteLetterGame } from './games/complete-letter/CompleteLetterGame';
+import { GameRoute } from './shared/components/GameRoute';
 import { SettingsScreen } from './shared/components/SettingsScreen';
 import { ContentProvider } from './shared/contexts/ContentContext';
-import { GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
+import { GAME_DEFINITIONS, GAME_METADATA, GAME_PATH } from './shared/gameCatalog';
 import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 import { HomeAvatarOverlay } from './avatar/HomeAvatarOverlay';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
@@ -183,10 +173,6 @@ export default function App() {
     setSettingsScreen('none');
   }, []);
 
-  const handleExitGame = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
-
   return (
     <ContentProvider locale={locale}>
     <div className="min-h-screen bg-bg-light font-app text-text-main relative">
@@ -202,104 +188,13 @@ export default function App() {
               />
             }
           />
-          <Route
-            path="/alphabet"
-            element={
-              <ErrorBoundary>
-                <AlphabetGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ALPHABET')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/syllables"
-            element={
-              <ErrorBoundary>
-                <SyllablesGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('SYLLABLES')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/numbers"
-            element={
-              <ErrorBoundary>
-                <NumbersGame range={settings.numbersRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('NUMBERS')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/counting"
-            element={
-              <ErrorBoundary>
-                <CountingItemsGame range={settings.countingRange} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COUNTING_ITEMS')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/compare"
-            element={
-              <ErrorBoundary>
-                <CompareQuantitiesGame
-                  range={settings.compareRange}
-                  mode={settings.compareMode}
-                  onExit={handleExitGame}
-                  onOpenSettings={() => handleOpenSettings('COMPARE_QUANTITIES')}
-                />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/addition"
-            element={
-              <ErrorBoundary>
-                <AdditionGame
-                  sumRange={settings.additionSumRange}
-                  representation={settings.additionRepresentation}
-                  onExit={handleExitGame}
-                  onOpenSettings={() => handleOpenSettings('ADDITION')}
-                />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/words"
-            element={
-              <ErrorBoundary>
-                <WordsGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('WORDS')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/first-letter"
-            element={
-              <ErrorBoundary>
-                <FirstLetterGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('FIRST_LETTER')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/assembly"
-            element={
-              <ErrorBoundary>
-                <AssemblyGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('ASSEMBLY')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/complete-syllable"
-            element={
-              <ErrorBoundary>
-                <CompleteSyllableGame onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COMPLETE_SYLLABLE')} />
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/complete-letter"
-            element={
-              <ErrorBoundary>
-                <CompleteLetterGame settings={settings} onExit={handleExitGame} onOpenSettings={() => handleOpenSettings('COMPLETE_LETTER')} />
-              </ErrorBoundary>
-            }
-          />
+          {GAME_DEFINITIONS.map(game => (
+            <Route
+              key={game.id}
+              path={game.path}
+              element={<GameRoute gameId={game.id} settings={settings} />}
+            />
+          ))}
           <Route element={<ProtectedParentRoute />}>
             <Route
               path="/settings"

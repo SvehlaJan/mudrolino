@@ -10,21 +10,15 @@ import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWr
 import { useContent } from '../../shared/contexts/ContentContext';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { AudioClip, NumberItem } from '../../shared/types';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { setE2EState } from '../../shared/services/e2eState';
 import { generateCompareGridSlots, CompareGridSlot } from '../../shared/scatterGridLogic';
 import { QuantityCluster } from '../../shared/components/QuantityCluster';
-
-interface CompareQuantitiesGameProps {
-  onExit: () => void;
-  onOpenSettings: () => void;
-  range: { start: number; end: number };
-  mode: 'objects' | 'numerals';
-}
 
 type Side = 'left' | 'right';
 
@@ -59,10 +53,11 @@ function getComparisonAudioClip(locale: string, larger: number, smaller: number)
   };
 }
 
-export function CompareQuantitiesGame({ onExit, onOpenSettings, range, mode }: CompareQuantitiesGameProps) {
+export function CompareQuantitiesGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const lobby = GAME_DEFINITIONS_BY_ID.COMPARE_QUANTITIES.lobby;
+  const { compareRange: range, compareMode: mode } = settings;
+  const lobby = GAME_LOBBY_LEGACY.COMPARE_QUANTITIES;
   const [round, setRound] = useState<RoundState | null>(null);
   const [pileState, setPileState] = useState<Record<Side, 'neutral' | 'correct' | 'wrong'>>({ left: 'neutral', right: 'neutral' });
   const [wrongSide, setWrongSide] = useState<Side | null>(null);

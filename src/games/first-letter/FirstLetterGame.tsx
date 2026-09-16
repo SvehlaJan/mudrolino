@@ -5,10 +5,11 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Volume2 } from 'lucide-react';
-import { GameSettings, Letter, SuccessSpec, FailureSpec } from '../../shared/types';
+import { Letter, SuccessSpec, FailureSpec } from '../../shared/types';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { AppScreen, BackButton, ChoiceTile, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
@@ -22,12 +23,6 @@ import {
   FirstLetterItem,
   getActiveFirstLetterLetters,
 } from './firstLetterLogic';
-
-interface FirstLetterGameProps {
-  settings: GameSettings;
-  onExit: () => void;
-  onOpenSettings: () => void;
-}
 
 const MAX_ROUNDS = 5;
 const MAX_ATTEMPTS = 3;
@@ -84,7 +79,7 @@ function getWrongAudio(locale: string, selected: Letter) {
   return getWrongAnswerAudio(locale, 'letters', selected.audioKey, selected.symbol);
 }
 
-export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLetterGameProps) {
+export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, letterItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const [targetItem, setTargetItem] = useState<FirstLetterItem | null>(null);
@@ -114,7 +109,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: FirstLette
     () => buildFirstLetterItems(wordItems, activeLetters),
     [wordItems, activeLetters],
   );
-  const lobby = GAME_DEFINITIONS_BY_ID.FIRST_LETTER.lobby;
+  const lobby = GAME_LOBBY_LEGACY.FIRST_LETTER;
 
   const clearTransientTimers = useCallback(() => {
     clearTimer(promptTimerRef);

@@ -10,26 +10,22 @@ import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWr
 import { useContent } from '../../shared/contexts/ContentContext';
 import { fisherYatesShuffle } from '../../shared/utils';
 import { NumberItem, FailureSpec } from '../../shared/types';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { AppScreen, BackButton, Card, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { FailureOverlay } from '../../shared/components/FailureOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 
 import { playPopSound } from './countingSfx';
 import { generateGridItems, COUNTING_GRID_TOTAL_SLOTS, GridItemSlot } from './countingGridLogic';
 
-interface CountingItemsGameProps {
-  onExit: () => void;
-  onOpenSettings: () => void;
-  range: { start: number; end: number };
-}
-
-export function CountingItemsGame({ onExit, onOpenSettings, range }: CountingItemsGameProps) {
+export function CountingItemsGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const lobby = GAME_DEFINITIONS_BY_ID.COUNTING_ITEMS.lobby;
+  const range = settings.countingRange;
+  const lobby = GAME_LOBBY_LEGACY.COUNTING_ITEMS;
   const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
   const [itemSlots, setItemSlots] = useState<GridItemSlot[]>([]);
   const [optionItems, setOptionItems] = useState<NumberItem[]>([]);

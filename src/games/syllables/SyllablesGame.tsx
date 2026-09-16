@@ -4,24 +4,18 @@
  */
 
 import React, { useState } from 'react';
-import { GameSettings } from '../../shared/types';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { FindItGame } from '../../shared/components/FindItGame';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createSyllablesDescriptor } from './syllablesDescriptor';
 
-interface SyllablesGameProps {
-  settings: GameSettings;
-  onExit: () => void;
-  onOpenSettings: () => void;
-}
-
-export function SyllablesGame({ settings, onExit, onOpenSettings }: SyllablesGameProps) {
+export function SyllablesGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { syllableItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, syllableItems, locale);
-  const lobby = GAME_DEFINITIONS_BY_ID.SYLLABLES.lobby;
+  const lobby = GAME_LOBBY_LEGACY.SYLLABLES;
 
   if (gameState === 'PLAYING') {
     return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;

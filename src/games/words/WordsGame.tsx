@@ -4,22 +4,18 @@
  */
 
 import React, { useMemo, useState } from 'react';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { FindItGame } from '../../shared/components/FindItGame';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createWordsDescriptor } from './wordsDescriptor';
 
-interface WordsGameProps {
-  onExit: () => void;
-  onOpenSettings: () => void;
-}
-
-export function WordsGame({ onExit, onOpenSettings }: WordsGameProps) {
+export function WordsGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const descriptor = useMemo(() => createWordsDescriptor(wordItems, locale), [wordItems, locale]);
-  const lobby = GAME_DEFINITIONS_BY_ID.WORDS.lobby;
+  const lobby = GAME_LOBBY_LEGACY.WORDS;
 
   if (gameState === 'PLAYING') {
     return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;

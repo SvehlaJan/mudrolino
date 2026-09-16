@@ -6,9 +6,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Volume2 } from 'lucide-react';
 import { FailureSpec, NumberItem, SuccessSpec } from '../../shared/types';
+import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { GAME_DEFINITIONS_BY_ID } from '../../shared/gameCatalog';
+import { GAME_LOBBY_LEGACY } from '../../shared/gameCatalog';
 import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
 import { QuantityCluster } from '../../shared/components/QuantityCluster';
 import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
@@ -19,13 +20,6 @@ import { generateCompareGridSlots, CompareGridSlot } from '../../shared/scatterG
 import { audioManager } from '../../shared/services/audioManager';
 import { setE2EState } from '../../shared/services/e2eState';
 import { buildAnswerOptions, createAdditionProblem, pairKey } from './additionLogic';
-
-interface AdditionGameProps {
-  onExit: () => void;
-  onOpenSettings: () => void;
-  sumRange: 5 | 10 | 20 | 100;
-  representation: 'objects' | 'numerals';
-}
 
 interface AdditionRound {
   a: NumberItem;
@@ -80,10 +74,11 @@ function getFailureSpec(locale: string, round: AdditionRound): FailureSpec {
   };
 }
 
-export function AdditionGame({ onExit, onOpenSettings, sumRange, representation }: AdditionGameProps) {
+export function AdditionGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const lobby = GAME_DEFINITIONS_BY_ID.ADDITION.lobby;
+  const { additionSumRange: sumRange, additionRepresentation: representation } = settings;
+  const lobby = GAME_LOBBY_LEGACY.ADDITION;
 
   const [round, setRound] = useState<AdditionRound | null>(null);
   const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
