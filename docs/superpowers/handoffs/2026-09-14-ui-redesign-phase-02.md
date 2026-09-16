@@ -6,7 +6,7 @@
 - **Base SHA:** `f8da3a0ee888dcadfd28154d69d96cf92bf86151` (Codex-accepted Phase 1 candidate, commit "docs: accept UI redesign phase one")
 - **Prior candidate SHA:** `debc513b8102dbef72ebed83301be9d98dfab0f9` ("fix: close Task 6 parent-gate review findings (motion, keys, timer, contrast, copy)") — submitted once, not yet accepted by Codex; superseded by the remediation below before any acceptance record was made.
 - **Candidate SHA:** `ac4a40be0380e7bfc15a3e42c99eee902593661c` ("fix: permanently register the /ui-kit capture scene and stop its focus demo auto-scrolling") — the last product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
-- **Implementation Status:** Complete, pending Codex acceptance
+- **Implementation Status:** Complete, Codex accepted
 - **Working Tree Clean:** Yes (`git status --short` clean immediately before this handoff commit)
 - **Local Screenshot Artifact Directory:** `artifacts/ui/ac4a40be0380e7bfc15a3e42c99eee902593661c/2026-09-16T12-52-06-572Z-57418`
 
@@ -116,6 +116,7 @@ Each feature task's own review/fix cycle is visible directly in its commit pair 
 - **Task 6 (ParentsGate dialog):** `4795392` → fixed in `debc513` (motion, keys, timer, contrast, copy — see `ROADMAP.md` Decisions Log 2026-09-16 entries for the full rationale on each).
 - **Task 7 (original handoff):** Verification-only; no code changes to review. Two gaps found during manual screenshot review (`/ui-kit` capture-tool scene missing; `/ui-kit` auto-scroll via the static `focusOnShow` demo) documented rather than fixed, since both were outside Task 7's own file scope.
 - **Task 7 remediation (this handoff):** `ac4a40b` — clean, both documented gaps fixed with TDD (RED confirmed for each before the fix: `git stash`-verified missing `capture.mjs` exports/scene, and failing e2e assertions for the trigger button and `scrollY`), no follow-up fix needed.
+- **Final integrated Codex review:** ✅ Spec review approved candidate `ac4a40be0380e7bfc15a3e42c99eee902593661c`; quality and visual review initially rejected the non-reproducible `/ui-kit` capture and page-load auto-scroll, then approved both after `ac4a40b` and the refreshed 30-image sweep.
 
 ---
 
@@ -140,12 +141,12 @@ Confirmed clean of `!important`/`!bg-*`-style overrides: `Button.tsx`, `IconButt
 - **WebKit smoke coverage is still missing** (see gap above, now attempted three times with a consistent result) — not a Phase 2 regression, but Phase 8's final release-hardening gate explicitly requires it, so it needs a working WebKit environment (non-sandboxed CI or developer machine) before that phase closes.
 - ~~`/ui-kit` capture-tool scene and auto-scroll gap~~ — **resolved in `ac4a40b`**, see remediation summary above.
 - **Phase 3 Preconditions:**
-  1. Codex reviews this handoff, the verification evidence, and the screenshot artifact directory above, then either accepts candidate SHA `ac4a40be0380e7bfc15a3e42c99eee902593661c` (recording its own acceptance commit) or returns findings to this phase for remediation.
-  2. Phase 3 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-3-catalog-home-lobbies.md`) starts only from Codex's acceptance commit, not from this handoff commit directly.
+  1. Codex accepted candidate SHA `ac4a40be0380e7bfc15a3e42c99eee902593661c` after independent specification, code-quality, and refreshed screenshot review.
+  2. Phase 3 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-3-catalog-home-lobbies.md`) starts only from the commit containing this acceptance record.
 
 ---
 
 ## Codex Review Record
-- **Reviewed Candidate SHA:** _pending submission (supersedes prior unreviewed candidate `debc513b8102dbef72ebed83301be9d98dfab0f9`; submit `ac4a40be0380e7bfc15a3e42c99eee902593661c` instead)_
-- **Result:** _pending Codex review_
-- **Reviewer Notes:** _to be completed by Codex_
+- **Reviewed Candidate SHA:** `ac4a40be0380e7bfc15a3e42c99eee902593661c`
+- **Result:** Accepted
+- **Reviewer Notes:** The final specification review found the Phase 2 component, responsive, motion, accessibility, dependency, and scope contracts complete. The quality/visual review initially rejected two Task 7 evidence gaps: `/ui-kit` was not a permanent screenshot scene and its static focus demo auto-scrolled fresh loads. Candidate `ac4a40b` fixed both with automated coverage; the focused re-review approved the permanent capture contract and refreshed 30-image matrix, including 320×568, 667×375, and desktop. Chromium verification passed 149/149, lint and production build passed, and the avatar/three.js boundary remained lazy. WebKit remains a documented environment constraint and a Phase 8 release gate.
