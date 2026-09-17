@@ -14,6 +14,47 @@ async function openContent(page: Page) {
   await unlockParentGate(page);
 }
 
+async function installSuccessfulRecorder(page: Page) {
+  await page.addInitScript(() => {
+    class FakeAudioContext {
+      createMediaStreamSource() { return { connect() {} }; }
+      createAnalyser() {
+        return {
+          fftSize: 0,
+          frequencyBinCount: 8,
+          getFloatTimeDomainData(values: Float32Array) { values.fill(0); },
+        };
+      }
+      async decodeAudioData() {
+        return { getChannelData: () => new Float32Array([0.3, 0.2, 0.1]) };
+      }
+      close() { return Promise.resolve(); }
+    }
+
+    class FakeMediaRecorder extends EventTarget {
+      state: 'inactive' | 'recording' = 'inactive';
+      mimeType = 'audio/webm';
+      ondataavailable: ((event: BlobEvent) => void) | null = null;
+      onstop: (() => void) | null = null;
+      constructor(_stream: MediaStream) { super(); }
+      start() { this.state = 'recording'; }
+      stop() {
+        if (this.state === 'inactive') return;
+        this.state = 'inactive';
+        this.ondataavailable?.({ data: new Blob(['recording'], { type: this.mimeType }) } as BlobEvent);
+        this.onstop?.();
+      }
+    }
+
+    Object.defineProperty(window, 'AudioContext', { configurable: true, value: FakeAudioContext });
+    Object.defineProperty(window, 'MediaRecorder', { configurable: true, value: FakeMediaRecorder });
+    Object.defineProperty(navigator, 'mediaDevices', {
+      configurable: true,
+      value: { getUserMedia: async () => ({ getTracks: () => [{ stop() {} }] }) },
+    });
+  });
+}
+
 async function openTab(page: Page, name: RegExp) {
   await page.getByRole('tab', { name }).click();
 }
@@ -71,6 +112,20 @@ test.describe('Custom content manager', () => {
     await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Auto');
     await expect(page.getByText('AU-TO', { exact: true })).toBeVisible();
     await expect(page.getByText('ma-ma')).toHaveCount(0);
+  });
+
+  test('stopping a recording saves a playable override for its active row', async ({ page }) => {
+    await installSuccessfulRecorder(page);
+    await openContent(page);
+    await openTab(page, /Slová/);
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Auto');
+
+    const autoRow = page.getByText('Auto 🚗', { exact: true }).locator('xpath=../..');
+    await autoRow.getByRole('button', { name: 'Nahrať' }).click();
+    await expect(page.getByRole('button', { name: 'Zastaviť' })).toBeVisible();
+    await page.getByRole('button', { name: 'Zastaviť' }).click();
+
+    await expect(page.getByRole('button', { name: 'Zmazať nahrávku' })).toBeVisible();
   });
 
   test('adding a word with valid input appears in the list and updates the tab count', async ({ page }) => {

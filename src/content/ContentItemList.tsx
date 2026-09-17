@@ -67,7 +67,6 @@ export function ContentItemList({
   const savedFlashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const activeIdRef = useRef(activeId);
   useEffect(() => { activeIdRef.current = activeId; }, [activeId]);
-  const discardRef = useRef(false);
   const disabledSectionId = useId();
 
   const rowsKey = rows.map(row => row.storeKey).join('|');
@@ -85,7 +84,6 @@ export function ContentItemList({
   useEffect(() => {
     if (!recorder.blobPromise) return;
     recorder.blobPromise.then(async blob => {
-      if (discardRef.current) { discardRef.current = false; return; }
       const id = activeIdRef.current;
       if (!id) return;
       const row = findRow(id);
@@ -109,7 +107,6 @@ export function ContentItemList({
 
   const handleRecord = useCallback((id: string) => {
     if (activeId !== null && recorder.state !== 'idle') return;
-    discardRef.current = false;
     audioManager.stop();
     setActiveId(id);
     setSavedFlash(false);
@@ -117,10 +114,8 @@ export function ContentItemList({
   }, [activeId, recorder]);
 
   const handleStop = useCallback(() => {
-    discardRef.current = true;
-    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
-    setActiveId(null);
-    setSavedFlash(false);
+    // The current row must remain active through MediaRecorder's asynchronous
+    // processing so the resulting blob is saved to the row that was stopped.
     recorder.stop();
   }, [recorder]);
 
