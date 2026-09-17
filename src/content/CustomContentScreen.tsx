@@ -327,6 +327,42 @@ export function CustomContentScreen() {
     searchText: praise.text,
   }));
 
+  const restoreUndoWord = useCallback(async (word: UserWord, audioBlob: Blob | null) => {
+    let restored: UserWord | null = null;
+    const audioKey = `custom-${crypto.randomUUID()}`;
+    try {
+      restored = await addWord({ word: word.word, syllables: word.syllables, emoji: word.emoji, audioKey, isDefault: false });
+      if (audioBlob) {
+        await audioOverrideStore.set(`${locale}/words/${audioKey}`, audioBlob);
+        await updateWord(restored.id, { status: 'ready' });
+      }
+    } catch {
+      if (restored) {
+        await audioOverrideStore.delete(`${locale}/words/${audioKey}`).catch(() => undefined);
+        await deleteWord(restored.id).catch(() => undefined);
+      }
+      setActionNotice('Obnovenie položky sa nepodarilo dokončiť. Skúste to znova.');
+    }
+  }, [addWord, deleteWord, locale, updateWord]);
+
+  const restoreUndoPraise = useCallback(async (praise: UserPraise, audioBlob: Blob | null) => {
+    let restored: UserPraise | null = null;
+    const audioKey = `custom-${crypto.randomUUID()}`;
+    try {
+      restored = await addPraise({ text: praise.text, emoji: praise.emoji, audioKey, isDefault: false });
+      if (audioBlob) {
+        await audioOverrideStore.set(`${locale}/praise/${audioKey}`, audioBlob);
+        await updatePraise(restored.id, { status: 'ready' });
+      }
+    } catch {
+      if (restored) {
+        await audioOverrideStore.delete(`${locale}/praise/${audioKey}`).catch(() => undefined);
+        await deletePraise(restored.id).catch(() => undefined);
+      }
+      setActionNotice('Obnovenie položky sa nepodarilo dokončiť. Skúste to znova.');
+    }
+  }, [addPraise, deletePraise, locale, updatePraise]);
+
   // ── Deletion confirm + undo ─────────────────────────────────────────────
   const confirmPendingDelete = useCallback(async () => {
     if (!pendingDelete) return;
@@ -335,45 +371,27 @@ export function CustomContentScreen() {
     if (pending.kind === 'word') {
       const word = pending.item;
       const storeKey = `${locale}/words/${word.audioKey}`;
-      const audioBlob = await audioOverrideStore.get(storeKey);
       try {
+        const audioBlob = await audioOverrideStore.get(storeKey);
         await deleteWord(word.id);
+        scheduleUndo(`Slovo „${word.word}“ bolo zmazané.`, () => { void restoreUndoWord(word, audioBlob); });
       } catch {
-        setActionNotice(LAST_PLAYABLE_MESSAGE);
+        setActionNotice('Položku sa nepodarilo zmazať. Skúste to znova.');
         return;
       }
-      scheduleUndo(`Slovo „${word.word}“ bolo zmazané.`, () => {
-        void (async () => {
-          const audioKey = `custom-${crypto.randomUUID()}`;
-          const restored = await addWord({ word: word.word, syllables: word.syllables, emoji: word.emoji, audioKey, isDefault: false });
-          if (audioBlob) {
-            await audioOverrideStore.set(`${locale}/words/${audioKey}`, audioBlob);
-            await updateWord(restored.id, { status: 'ready' });
-          }
-        })();
-      });
     } else {
       const praise = pending.item;
       const storeKey = `${locale}/praise/${praise.audioKey}`;
-      const audioBlob = await audioOverrideStore.get(storeKey);
       try {
+        const audioBlob = await audioOverrideStore.get(storeKey);
         await deletePraise(praise.id);
+        scheduleUndo(`Pochvala „${praise.text}“ bola zmazaná.`, () => { void restoreUndoPraise(praise, audioBlob); });
       } catch {
-        setActionNotice(LAST_PLAYABLE_MESSAGE);
+        setActionNotice('Položku sa nepodarilo zmazať. Skúste to znova.');
         return;
       }
-      scheduleUndo(`Pochvala „${praise.text}“ bola zmazaná.`, () => {
-        void (async () => {
-          const audioKey = `custom-${crypto.randomUUID()}`;
-          const restored = await addPraise({ text: praise.text, emoji: praise.emoji, audioKey, isDefault: false });
-          if (audioBlob) {
-            await audioOverrideStore.set(`${locale}/praise/${audioKey}`, audioBlob);
-            await updatePraise(restored.id, { status: 'ready' });
-          }
-        })();
-      });
     }
-  }, [pendingDelete, locale, deleteWord, deletePraise, addWord, addPraise, updateWord, updatePraise, scheduleUndo]);
+  }, [pendingDelete, locale, deleteWord, deletePraise, restoreUndoWord, restoreUndoPraise, scheduleUndo]);
 
   // ── Editor ───────────────────────────────────────────────────────────────
   const editingWord = editor?.kind === 'word' && editor.mode === 'edit'
