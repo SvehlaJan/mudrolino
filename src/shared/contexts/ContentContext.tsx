@@ -35,7 +35,7 @@ export interface ContentContextValue {
 
   isLoading: boolean;
 
-  addWord(data: Omit<UserWord, 'id' | 'status' | 'enabled' | 'order' | 'locale'>): Promise<void>;
+  addWord(data: Omit<UserWord, 'id' | 'status' | 'enabled' | 'order' | 'locale'>): Promise<UserWord>;
   updateWord(
     id: string,
     changes: Partial<Pick<UserWord, 'word' | 'syllables' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
@@ -43,7 +43,7 @@ export interface ContentContextValue {
   deleteWord(id: string): Promise<void>;
   setDefaultWordEnabled(id: string, enabled: boolean): Promise<void>;
   restoreAllDefaultWords(): Promise<void>;
-  addPraise(data: Omit<UserPraise, 'id' | 'status' | 'enabled' | 'order' | 'locale'>): Promise<void>;
+  addPraise(data: Omit<UserPraise, 'id' | 'status' | 'enabled' | 'order' | 'locale'>): Promise<UserPraise>;
   updatePraise(
     id: string,
     changes: Partial<Pick<UserPraise, 'text' | 'emoji' | 'imageUrl' | 'status' | 'order'>>,
@@ -139,8 +139,9 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
 
   const addWord = useCallback(
     async (data: Omit<UserWord, 'id' | 'status' | 'enabled' | 'order' | 'locale'>) => {
-      await repoRef.current.addWord(data);
+      const item = await repoRef.current.addWord(data);
       await reload();
+      return item;
     },
     [reload],
   );
@@ -183,8 +184,9 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
 
   const addPraise = useCallback(
     async (data: Omit<UserPraise, 'id' | 'status' | 'enabled' | 'order' | 'locale'>) => {
-      await repoRef.current.addPraise(data);
+      const item = await repoRef.current.addPraise(data);
       await reload();
+      return item;
     },
     [reload],
   );

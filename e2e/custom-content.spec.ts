@@ -41,8 +41,10 @@ async function installSuccessfulRecorder(page: Page) {
       stop() {
         if (this.state === 'inactive') return;
         this.state = 'inactive';
-        this.ondataavailable?.({ data: new Blob(['recording'], { type: this.mimeType }) } as BlobEvent);
-        this.onstop?.();
+        window.setTimeout(() => {
+          this.ondataavailable?.({ data: new Blob(['recording'], { type: this.mimeType }) } as BlobEvent);
+          this.onstop?.();
+        }, 25);
       }
     }
 
@@ -128,6 +130,18 @@ test.describe('Custom content manager', () => {
     await expect(page.getByRole('button', { name: 'Zmazať nahrávku' })).toBeVisible();
   });
 
+  test('a pending recording save blocks a newer row from taking its blob', async ({ page }) => {
+    await installSuccessfulRecorder(page);
+    await openContent(page);
+    await openTab(page, /Slová/);
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Auto');
+    const autoRow = page.getByText('Auto 🚗', { exact: true }).locator('xpath=../..');
+    await autoRow.getByRole('button', { name: 'Nahrať' }).click();
+    await page.getByRole('button', { name: 'Zastaviť' }).click();
+    await page.getByRole('button', { name: 'Nahrať' }).last().click();
+    await expect(autoRow.getByRole('button', { name: 'Zmazať nahrávku' })).toBeVisible();
+  });
+
   test('adding a word with valid input appears in the list and updates the tab count', async ({ page }) => {
     await openContent(page);
     await openTab(page, /Slová/);
@@ -158,6 +172,30 @@ test.describe('Custom content manager', () => {
     await expect(summary).toBeFocused();
     await expect(page.getByLabel(/^Slovo\b/)).toHaveAttribute('aria-invalid', 'true');
     await expect(page.locator('[role="alert"][id$="-error"]', { hasText: 'Zadajte slovo.' })).toBeVisible();
+  });
+
+  test('editor and delete confirmation return focus to their originating controls', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.tabletPortrait);
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    const add = page.getByRole('button', { name: 'Pridať slovo' });
+    await add.click();
+    await page.keyboard.press('Escape');
+    await expect(add).toBeFocused();
+
+    await add.click();
+    await page.getByLabel(/^Slovo\b/).fill('Rebarbora');
+    await page.getByLabel(/^Slabiky\b/).fill('re-bar-bo-ra');
+    await page.getByLabel(/^Emoji\b/).fill('🌿');
+    await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Rebarbora');
+
+    const menu = page.getByRole('button', { name: 'Ďalšie možnosti' });
+    await menu.click();
+    await page.getByRole('menuitem', { name: 'Zmazať' }).click();
+    await page.getByRole('alertdialog').getByRole('button', { name: 'Zrušiť' }).click();
+    await expect(menu).toBeFocused();
   });
 
   test('editing a custom word updates its details', async ({ page }) => {
@@ -256,6 +294,27 @@ test.describe('Custom content manager', () => {
 
     await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Hruska');
     await expect(page.getByText('HRU-SKA', { exact: true })).toBeVisible();
+  });
+
+  test('Undo restores a recorded custom word as playable', async ({ page }) => {
+    await installSuccessfulRecorder(page);
+    await openContent(page);
+    await openTab(page, /Slová/);
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+    await page.getByLabel(/^Slovo\b/).fill('Hlasik');
+    await page.getByLabel(/^Slabiky\b/).fill('hla-sik');
+    await page.getByLabel(/^Emoji\b/).fill('🔊');
+    await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Hlasik');
+    await page.getByRole('button', { name: 'Nahrať' }).click();
+    await page.getByRole('button', { name: 'Zastaviť' }).click();
+    await expect(page.getByRole('button', { name: 'Zmazať nahrávku' })).toBeVisible();
+    await page.getByRole('button', { name: 'Ďalšie možnosti' }).click();
+    await page.getByRole('menuitem', { name: 'Zmazať' }).click();
+    await page.getByRole('alertdialog').getByRole('button', { name: 'Zmazať' }).click();
+    await page.getByRole('status').filter({ hasText: 'bolo zmazané' }).getByRole('button', { name: 'Vrátiť späť' }).click();
+    await expect(page.getByRole('button', { name: 'Prehrať' })).toBeVisible();
+    await expect(page.getByText('Koncept')).toHaveCount(0);
   });
 
   test('deleting the last playable custom item is blocked with an explanation', async ({ page }) => {

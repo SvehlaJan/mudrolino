@@ -106,6 +106,11 @@ function describePendingDelete(pending: PendingDelete): string {
   return `„${label}“ sa odstráni zo zoznamu aj s nahraným zvukom. Túto akciu môžeš hneď potom vrátiť späť.`;
 }
 
+function currentMenuTrigger(): HTMLElement | null {
+  return document.querySelector<HTMLElement>('button[aria-label="Ďalšie možnosti"][data-state="open"]')
+    ?? document.activeElement as HTMLElement | null;
+}
+
 export function CustomContentScreen() {
   const {
     locale,
@@ -136,6 +141,8 @@ export function CustomContentScreen() {
   const [pendingDelete, setPendingDelete] = useState<PendingDelete | null>(null);
   const [undoNotice, setUndoNotice] = useState<UndoNotice | null>(null);
   const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const editorRestoreFocusRef = useRef<HTMLElement | null>(null);
+  const deleteRestoreFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => () => {
     if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
@@ -185,10 +192,12 @@ export function CustomContentScreen() {
   }, [restoreAllDefaultWords]);
 
   const requestDeleteWord = useCallback((word: UserWord) => {
+    deleteRestoreFocusRef.current = currentMenuTrigger();
     setPendingDelete({ kind: 'word', item: word });
   }, []);
 
   const requestEditWord = useCallback((word: UserWord) => {
+    editorRestoreFocusRef.current = currentMenuTrigger();
     setEditor({ kind: 'word', mode: 'edit', id: word.id });
   }, []);
 
@@ -268,10 +277,12 @@ export function CustomContentScreen() {
   }, [restoreAllDefaultPraises]);
 
   const requestDeletePraise = useCallback((praise: UserPraise) => {
+    deleteRestoreFocusRef.current = currentMenuTrigger();
     setPendingDelete({ kind: 'praise', item: praise });
   }, []);
 
   const requestEditPraise = useCallback((praise: UserPraise) => {
+    editorRestoreFocusRef.current = currentMenuTrigger();
     setEditor({ kind: 'praise', mode: 'edit', id: praise.id });
   }, []);
 
@@ -334,8 +345,11 @@ export function CustomContentScreen() {
       scheduleUndo(`Slovo „${word.word}“ bolo zmazané.`, () => {
         void (async () => {
           const audioKey = `custom-${crypto.randomUUID()}`;
-          await addWord({ word: word.word, syllables: word.syllables, emoji: word.emoji, audioKey, isDefault: false });
-          if (audioBlob) await audioOverrideStore.set(`${locale}/words/${audioKey}`, audioBlob);
+          const restored = await addWord({ word: word.word, syllables: word.syllables, emoji: word.emoji, audioKey, isDefault: false });
+          if (audioBlob) {
+            await audioOverrideStore.set(`${locale}/words/${audioKey}`, audioBlob);
+            await updateWord(restored.id, { status: 'ready' });
+          }
         })();
       });
     } else {
@@ -351,12 +365,15 @@ export function CustomContentScreen() {
       scheduleUndo(`Pochvala „${praise.text}“ bola zmazaná.`, () => {
         void (async () => {
           const audioKey = `custom-${crypto.randomUUID()}`;
-          await addPraise({ text: praise.text, emoji: praise.emoji, audioKey, isDefault: false });
-          if (audioBlob) await audioOverrideStore.set(`${locale}/praise/${audioKey}`, audioBlob);
+          const restored = await addPraise({ text: praise.text, emoji: praise.emoji, audioKey, isDefault: false });
+          if (audioBlob) {
+            await audioOverrideStore.set(`${locale}/praise/${audioKey}`, audioBlob);
+            await updatePraise(restored.id, { status: 'ready' });
+          }
         })();
       });
     }
-  }, [pendingDelete, locale, deleteWord, deletePraise, addWord, addPraise, scheduleUndo]);
+  }, [pendingDelete, locale, deleteWord, deletePraise, addWord, addPraise, updateWord, updatePraise, scheduleUndo]);
 
   // ── Editor ───────────────────────────────────────────────────────────────
   const editingWord = editor?.kind === 'word' && editor.mode === 'edit'
@@ -479,7 +496,7 @@ export function CustomContentScreen() {
                 const word = allUserWords.find(item => item.id === row.id);
                 return word ? updateWord(row.id, { status: word.isDefault ? 'ready' : 'draft' }) : undefined;
               }}
-              addAction={{ label: 'Pridať slovo', onClick: () => setEditor({ kind: 'word', mode: 'add' }) }}
+              addAction={{ label: 'Pridať slovo', onClick: () => { editorRestoreFocusRef.current = document.activeElement as HTMLElement | null; setEditor({ kind: 'word', mode: 'add' }); } }}
               searchLabel="Hľadať slovo"
               emptyMessage="Zatiaľ žiadne slová."
               noticeMessage={readyWordCount <= 1 ? LAST_PLAYABLE_MESSAGE : null}
@@ -496,7 +513,7 @@ export function CustomContentScreen() {
                 const praise = allUserPraises.find(item => item.id === row.id);
                 return praise ? updatePraise(row.id, { status: praise.isDefault ? 'ready' : 'draft' }) : undefined;
               }}
-              addAction={{ label: 'Pridať pochvalu', onClick: () => setEditor({ kind: 'praise', mode: 'add' }) }}
+              addAction={{ label: 'Pridať pochvalu', onClick: () => { editorRestoreFocusRef.current = document.activeElement as HTMLElement | null; setEditor({ kind: 'praise', mode: 'add' }); } }}
               searchLabel="Hľadať pochvalu"
               emptyMessage="Zatiaľ žiadne pochvaly."
               noticeMessage={readyPraiseCount <= 1 ? LAST_PLAYABLE_MESSAGE : null}
@@ -525,6 +542,7 @@ export function CustomContentScreen() {
           open={editor !== null}
           onOpenChange={open => { if (!open) setEditor(null); }}
           title={editorTitle}
+          restoreFocusRef={editorRestoreFocusRef}
           className={layoutMode === 'compact' ? FULLSCREEN_DIALOG_CLASS : undefined}
         >
           <div className="mt-4">{renderEditor()}</div>
@@ -540,6 +558,7 @@ export function CustomContentScreen() {
         actionLabel="Zmazať"
         actionTone="danger"
         onAction={() => void confirmPendingDelete()}
+        restoreFocusRef={deleteRestoreFocusRef}
       />
 
       {undoNotice && (

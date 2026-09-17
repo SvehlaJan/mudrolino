@@ -64,6 +64,8 @@ export function ContentItemList({
   const [savedFlash, setSavedFlash] = useState(false);
   const [query, setQuery] = useState('');
   const [disabledOpen, setDisabledOpen] = useState(false);
+  const [recordingError, setRecordingError] = useState<string | null>(null);
+  const savingRef = useRef(false);
   const savedFlashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const activeIdRef = useRef(activeId);
   useEffect(() => { activeIdRef.current = activeId; }, [activeId]);
@@ -73,7 +75,9 @@ export function ContentItemList({
   const disabledRowsKey = disabledRows.map(row => row.storeKey).join('|');
 
   useEffect(() => {
-    audioOverrideStore.listKeys().then(keys => setOverrideKeys(new Set(keys)));
+    void audioOverrideStore.listKeys().then(keys => setOverrideKeys(new Set(keys))).catch(() => {
+      setRecordingError('Nahrávky sa nepodarilo načítať. Skúste to znova.');
+    });
   }, [rowsKey, disabledRowsKey]);
 
   const findRow = useCallback(
@@ -88,15 +92,23 @@ export function ContentItemList({
       if (!id) return;
       const row = findRow(id);
       if (!row) return;
-      await audioOverrideStore.set(row.storeKey, blob);
-      await onAfterRecordSaved?.(row);
-      const keys = await audioOverrideStore.listKeys();
-      setOverrideKeys(new Set(keys));
-      setSavedFlash(true);
-      savedFlashTimerRef.current = setTimeout(() => {
-        setSavedFlash(false);
+      try {
+        await audioOverrideStore.set(row.storeKey, blob);
+        await onAfterRecordSaved?.(row);
+        const keys = await audioOverrideStore.listKeys();
+        setOverrideKeys(new Set(keys));
+        setSavedFlash(true);
+        savedFlashTimerRef.current = setTimeout(() => {
+          setSavedFlash(false);
+          setActiveId(null);
+          savingRef.current = false;
+        }, SAVED_FLASH_MS);
+      } catch {
+        setRecordingError('Nahrávku sa nepodarilo uložiť. Skúste to znova.');
         setActiveId(null);
-      }, SAVED_FLASH_MS);
+        setSavedFlash(false);
+        savingRef.current = false;
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recorder.blobPromise]);
@@ -105,25 +117,36 @@ export function ContentItemList({
     if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
   }, []);
 
-  const handleRecord = useCallback((id: string) => {
-    if (activeId !== null && recorder.state !== 'idle') return;
+  const handleRecord = useCallback(async (id: string) => {
+    if (activeId !== null || savingRef.current || recorder.state !== 'idle') return;
     audioManager.stop();
     setActiveId(id);
     setSavedFlash(false);
-    void recorder.start();
+    setRecordingError(null);
+    try {
+      await recorder.start();
+    } catch {
+      setRecordingError('Nahrávanie sa nepodarilo spustiť. Skúste to znova.');
+      setActiveId(null);
+    }
   }, [activeId, recorder]);
 
   const handleStop = useCallback(() => {
     // The current row must remain active through MediaRecorder's asynchronous
     // processing so the resulting blob is saved to the row that was stopped.
+    savingRef.current = true;
     recorder.stop();
   }, [recorder]);
 
   const handleDeleteAudio = useCallback(async (row: ContentRow) => {
-    await audioOverrideStore.delete(row.storeKey);
-    await onAfterDeleteAudio?.(row);
-    const keys = await audioOverrideStore.listKeys();
-    setOverrideKeys(new Set(keys));
+    try {
+      await audioOverrideStore.delete(row.storeKey);
+      await onAfterDeleteAudio?.(row);
+      const keys = await audioOverrideStore.listKeys();
+      setOverrideKeys(new Set(keys));
+    } catch {
+      setRecordingError('Nahrávku sa nepodarilo odstrániť. Skúste to znova.');
+    }
   }, [onAfterDeleteAudio]);
 
   const normalizedQuery = normalizeComparableText(query);
@@ -133,7 +156,7 @@ export function ContentItemList({
   );
   const visibleRows = rows.filter(matches);
   const visibleDisabledRows = disabledRows.filter(matches);
-  const searchedWithNoResults = normalizedQuery.length > 0 && visibleRows.length === 0 && rows.length > 0;
+  const searchedWithNoResults = normalizedQuery.length > 0 && visibleRows.length === 0 && visibleDisabledRows.length === 0;
 
   return (
     <div className="space-y-3">
@@ -156,6 +179,7 @@ export function ContentItemList({
           {noticeMessage}
         </p>
       )}
+      {recordingError && <p role="status" className="rounded-2xl bg-action-danger/10 px-4 py-3 text-sm font-bold text-action-danger">{recordingError}</p>}
 
       {searchedWithNoResults && (
         <p className="px-1 text-sm font-medium text-text-muted">Nič sa nenašlo pre „{query}“.</p>
@@ -181,7 +205,7 @@ export function ContentItemList({
             statusTone={row.statusTone}
             allowPlay={row.allowPlay ?? true}
             recordEmphasis={row.recordEmphasis}
-            onRecord={() => handleRecord(row.id)}
+            onRecord={() => { void handleRecord(row.id); }}
             onStop={handleStop}
             onPlay={() => audioManager.play({ clips: [{ path: row.storeKey, fallbackText: row.label }] })}
             onDelete={() => void handleDeleteAudio(row)}

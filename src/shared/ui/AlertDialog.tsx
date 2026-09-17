@@ -23,6 +23,7 @@ export interface AlertDialogShellProps {
    * `AlertDialog.Trigger` so Radix can restore focus to it on close.
    */
   trigger?: React.ReactElement;
+  restoreFocusRef?: React.RefObject<HTMLElement | null>;
   className?: string;
 }
 
@@ -43,6 +44,7 @@ export function AlertDialogShell({
   actionTone = 'danger',
   children,
   trigger,
+  restoreFocusRef,
   className,
 }: AlertDialogShellProps) {
   const descriptionId = useId();
@@ -54,6 +56,11 @@ export function AlertDialogShell({
         <AlertDialog.Overlay className="fixed inset-0 z-40 bg-text-main/40 backdrop-blur-sm" />
         <AlertDialog.Content
           aria-describedby={description ? descriptionId : undefined}
+          onCloseAutoFocus={event => {
+            if (!restoreFocusRef?.current) return;
+            event.preventDefault();
+            restoreFocusRef.current.focus();
+          }}
           className={cn(
             'fixed left-1/2 top-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-surface p-5 shadow-modal',
             className,
