@@ -1,0 +1,272 @@
+import { test, expect, Page } from '@playwright/test';
+import {
+  trackConsoleErrors,
+  expectNoConsoleErrors,
+  trackFailedRequests,
+  expectNoFailedRequests,
+} from './support/assertions';
+import { expectNoHorizontalOverflow } from './support/layoutAssertions';
+import { CANONICAL_VIEWPORTS } from './support/viewports';
+import { unlockParentGate } from './support/parentGate';
+
+async function openContent(page: Page) {
+  await page.goto('/content');
+  await unlockParentGate(page);
+}
+
+async function openTab(page: Page, name: RegExp) {
+  await page.getByRole('tab', { name }).click();
+}
+
+async function disableRow(page: Page, searchLabel: RegExp, searchTerm: string) {
+  const search = page.getByRole('textbox', { name: searchLabel });
+  await search.fill(searchTerm);
+  await page.getByRole('button', { name: 'Ďalšie možnosti' }).first().click();
+  await page.getByRole('menuitem', { name: 'Vypnúť' }).click();
+  await search.fill('');
+  await page.evaluate(() => window.scrollTo(0, 0));
+}
+
+test.describe('Custom content manager', () => {
+  test('shows all five categories with counts and supports keyboard selection', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await openContent(page);
+    await expect(page.getByRole('heading', { name: 'Vlastný obsah' })).toBeVisible();
+
+    const tablist = page.getByRole('tablist', { name: 'Kategórie vlastného obsahu' });
+    await expect(tablist).toBeVisible();
+    for (const name of [/Písmená \(\d+\)/, /Čísla \(\d+\)/, /Frázy \(\d+\)/, /Slová \(\d+\)/, /Pochvaly \(\d+\)/]) {
+      await expect(page.getByRole('tab', { name })).toBeVisible();
+    }
+
+    const wordsTab = page.getByRole('tab', { name: /Slová/ });
+    await wordsTab.click();
+    await expect(wordsTab).toHaveAttribute('aria-selected', 'true');
+    await expect(page.getByRole('textbox', { name: /Hľadať slovo/ })).toBeVisible();
+
+    await wordsTab.focus();
+    await page.keyboard.press('ArrowDown');
+    await expect(page.getByRole('tab', { name: /Pochvaly/ })).toHaveAttribute('aria-selected', 'true');
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('a narrow viewport shows a scrollable tab strip with a visible overflow cue; a wide one does not', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
+    await openContent(page);
+    await expect(page.getByTestId('content-tabs-fade-end')).toHaveCSS('opacity', '1');
+    await expectNoHorizontalOverflow(page);
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
+    await expect(page.getByTestId('content-tabs-fade-end')).toHaveCount(0);
+  });
+
+  test('search filters the word list to matching rows only', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Auto');
+    await expect(page.getByText('AU-TO', { exact: true })).toBeVisible();
+    await expect(page.getByText('ma-ma')).toHaveCount(0);
+  });
+
+  test('adding a word with valid input appears in the list and updates the tab count', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    const tab = page.getByRole('tab', { name: /Slová/ });
+    const before = await tab.textContent();
+    const beforeCount = Number(before?.match(/\((\d+)\)/)?.[1]);
+
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+    await page.getByLabel(/^Slovo\b/).fill('Cvikla');
+    await page.getByLabel(/^Slabiky\b/).fill('cvik-la');
+    await page.getByLabel(/^Emoji\b/).fill('🥬');
+    await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+
+    await expect(page.getByText('CVIK-LA', { exact: true })).toBeVisible();
+    await expect(tab).toContainText(`(${beforeCount + 1})`);
+  });
+
+  test('adding a word with invalid input shows inline errors and focuses an error summary', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+    await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+
+    const summary = page.getByRole('alert').filter({ hasText: 'Opravte, prosím, tieto polia' });
+    await expect(summary).toBeVisible();
+    await expect(summary).toBeFocused();
+    await expect(page.getByLabel(/^Slovo\b/)).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('[role="alert"][id$="-error"]', { hasText: 'Zadajte slovo.' })).toBeVisible();
+  });
+
+  test('editing a custom word updates its details', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+    await page.getByLabel(/^Slovo\b/).fill('Repa');
+    await page.getByLabel(/^Slabiky\b/).fill('re-pa');
+    await page.getByLabel(/^Emoji\b/).fill('🥕');
+    await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+    await expect(page.getByText('RE-PA', { exact: true })).toBeVisible();
+
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Repa');
+    await page.getByRole('button', { name: 'Ďalšie možnosti' }).first().click();
+    await page.getByRole('menuitem', { name: 'Upraviť' }).click();
+    await expect(page.getByLabel(/^Slovo\b/)).toHaveValue('Repa');
+    await page.getByLabel(/^Slovo\b/).fill('Repka');
+    await page.getByRole('button', { name: 'Uložiť', exact: true }).click();
+
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('');
+    await expect(page.getByText('Repka')).toBeVisible();
+  });
+
+  test('disabling a default word collapses it into a Vypnuté section and it can be restored individually', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    await disableRow(page, /Hľadať slovo/, 'Mama');
+
+    const disabledToggle = page.getByRole('button', { name: /Vypnuté \(1\)/ });
+    await expect(disabledToggle).toBeVisible();
+    await expect(page.getByText('ma-ma')).toHaveCount(0);
+
+    await disabledToggle.click();
+    await expect(page.getByText('MA-MA', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Obnoviť' }).click();
+
+    await expect(page.getByRole('button', { name: /Vypnuté/ })).toHaveCount(0);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(page.getByText('ma-ma')).toBeVisible();
+  });
+
+  test('restore-all only appears once more than one default is disabled, and restores them all', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    await disableRow(page, /Hľadať slovo/, 'Mama');
+    await expect(page.getByRole('button', { name: /Vypnuté \(1\)/ })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Obnoviť všetko' })).toHaveCount(0);
+
+    await disableRow(page, /Hľadať slovo/, 'Tata');
+    await expect(page.getByRole('button', { name: /Vypnuté \(2\)/ })).toBeVisible();
+    const restoreAll = page.getByRole('button', { name: 'Obnoviť všetko' });
+    await expect(restoreAll).toBeVisible();
+    await restoreAll.click();
+
+    await expect(page.getByRole('button', { name: /Vypnuté/ })).toHaveCount(0);
+  });
+
+  test('the last enabled praise cannot be disabled and the constraint is explained', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Pochvaly/);
+
+    for (const text of ['Skvelá', 'šikovný', 'To je ono', 'Úžasné', 'Paráda']) {
+      await disableRow(page, /Hľadať pochvalu/, text);
+    }
+
+    await expect(page.getByText('Aspoň jedna položka musí zostať zapnutá.')).toBeVisible();
+    await page.getByRole('button', { name: 'Ďalšie možnosti' }).first().click();
+    await expect(page.getByRole('menuitem', { name: 'Vypnúť' })).toBeDisabled();
+  });
+
+  test('deleting a custom word requires confirmation and can be undone', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+    await page.getByLabel(/^Slovo\b/).fill('Hruska');
+    await page.getByLabel(/^Slabiky\b/).fill('hru-ska');
+    await page.getByLabel(/^Emoji\b/).fill('🍐');
+    await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Hruska');
+    await page.getByRole('button', { name: 'Ďalšie možnosti' }).first().click();
+    await page.getByRole('menuitem', { name: 'Zmazať' }).click();
+
+    const dialog = page.getByRole('alertdialog', { name: 'Zmazať slovo?' });
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('button', { name: 'Zmazať' }).click();
+
+    await expect(page.getByText('hru-ska')).toHaveCount(0);
+    const undoBanner = page.getByRole('status').filter({ hasText: 'bolo zmazané' });
+    await expect(undoBanner).toBeVisible();
+    await undoBanner.getByRole('button', { name: 'Vrátiť späť' }).click();
+
+    await page.getByRole('textbox', { name: /Hľadať slovo/ }).fill('Hruska');
+    await expect(page.getByText('HRU-SKA', { exact: true })).toBeVisible();
+  });
+
+  test('deleting the last playable custom item is blocked with an explanation', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Pochvaly/);
+
+    // Add the custom replacement first so every default can still be disabled
+    // one at a time (the guard always leaves at least one playable item).
+    await page.getByRole('button', { name: 'Pridať pochvalu' }).click();
+    await page.getByLabel(/^Text pochvaly\b/).fill('Bravo!');
+    await page.getByLabel(/^Emoji\b/).fill('👏');
+    await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+    await expect(page.getByText('Bravo!')).toBeVisible();
+
+    for (const text of ['Výborne', 'Skvelá', 'šikovný', 'To je ono', 'Úžasné', 'Paráda']) {
+      await disableRow(page, /Hľadať pochvalu/, text);
+    }
+
+    await expect(page.getByText('Aspoň jedna položka musí zostať zapnutá.')).toBeVisible();
+    await page.getByRole('button', { name: 'Ďalšie možnosti' }).first().click();
+    await expect(page.getByRole('menuitem', { name: 'Zmazať' })).toBeDisabled();
+  });
+
+  test('667x375 short landscape stacks the layout and opens a full-screen editor dialog', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
+    await openContent(page);
+    await openTab(page, /Slová/);
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+
+    const dialog = page.getByRole('dialog', { name: 'Pridať slovo' });
+    await expect(dialog).toBeVisible();
+    const box = await dialog.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.width).toBeGreaterThan(CANONICAL_VIEWPORTS.shortLandscape.width - 20);
+    await expectNoHorizontalOverflow(page);
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('768x1024 tablet shows a two-pane layout with a focused (non-full-screen) editor dialog', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.tabletPortrait);
+    await openContent(page);
+    await openTab(page, /Slová/);
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+
+    const dialog = page.getByRole('dialog', { name: 'Pridať slovo' });
+    await expect(dialog).toBeVisible();
+    const box = await dialog.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.width).toBeLessThan(CANONICAL_VIEWPORTS.tabletPortrait.width - 40);
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('1280px desktop shows the rail, list, and an inline editor together without a dialog', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
+    await openContent(page);
+    await openTab(page, /Slová/);
+    await page.getByRole('button', { name: 'Pridať slovo' }).click();
+
+    await expect(page.getByRole('heading', { name: 'Pridať slovo', level: 2 })).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByRole('tab', { name: /Slová/ })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+});

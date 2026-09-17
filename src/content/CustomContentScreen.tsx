@@ -3,23 +3,33 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Edit3, EyeOff, Plus, RotateCcw, Trash2 } from 'lucide-react';
+import { Edit3, EyeOff, Trash2 } from 'lucide-react';
 import { useContent } from '../shared/contexts/ContentContext';
 import { getLocaleContent } from '../shared/contentRegistry';
 import { audioOverrideStore } from '../shared/services/audioOverrideStore';
-import { audioManager } from '../shared/services/audioManager';
-import { useRecorder } from '../shared/hooks/useRecorder';
-import { RecordingListItem } from '../recordings/RecordingListItem';
-import type { AudioItem } from '../recordings/RecordingListItem';
-import { AppScreen, BackButton, TopBar } from '../shared/ui';
-import type { UserWord, UserPraise } from '../shared/types';
+import { useAppScreenLayout } from '../shared/ui/appScreenLayout';
 import {
-  validatePraiseForm,
-  validateWordForm,
-} from './customContentValidation';
-import type { PraiseFormErrors, WordFormErrors } from './customContentValidation';
+  AlertDialogShell,
+  AppScreen,
+  BackButton,
+  Button,
+  Card,
+  DialogShell,
+  PageHeader,
+  TabPanel,
+  TopBar,
+  cn,
+} from '../shared/ui';
+import type { IconMenuAction } from '../shared/ui';
+import { ContentCategoryNav } from './ContentCategoryNav';
+import { ContentItemList } from './ContentItemList';
+import type { ContentRow } from './ContentItemList';
+import { WordEditor } from './WordEditor';
+import { PraiseEditor } from './PraiseEditor';
+import { canDisableOrDelete, LAST_PLAYABLE_MESSAGE } from './contentState';
+import type { UserPraise, UserWord } from '../shared/types';
 
 type Section = 'letters' | 'numbers' | 'phrases' | 'words' | 'praise';
 
@@ -32,781 +42,522 @@ const SECTION_LABELS: Record<Section, string> = {
 };
 
 const SECTIONS: Section[] = ['letters', 'numbers', 'phrases', 'words', 'praise'];
-const SAVED_FLASH_MS = 800;
 
-function FieldError({ message }: { message?: string }) {
-  if (!message) return null;
-  return <p className="text-sm font-bold text-red-500">{message}</p>;
+const FULLSCREEN_DIALOG_CLASS =
+  'left-0 top-0 h-[100svh] max-h-[100svh] w-screen max-w-none translate-x-0 translate-y-0 rounded-none';
+
+type EditorTarget =
+  | { kind: 'word'; mode: 'add' }
+  | { kind: 'word'; mode: 'edit'; id: string }
+  | { kind: 'praise'; mode: 'add' }
+  | { kind: 'praise'; mode: 'edit'; id: string };
+
+type PendingDelete =
+  | { kind: 'word'; item: UserWord }
+  | { kind: 'praise'; item: UserPraise };
+
+interface UndoNotice {
+  message: string;
+  onUndo: () => void;
 }
 
-function SectionNotice({ message }: { message: string | null }) {
-  if (!message) return null;
-  return (
-    <div className="rounded-2xl border-2 border-amber-200 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-700">
-      {message}
-    </div>
-  );
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(() => (
+    typeof window !== 'undefined' ? window.matchMedia(query).matches : false
+  ));
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    const handleChange = () => setMatches(mql.matches);
+    handleChange();
+    mql.addEventListener('change', handleChange);
+    return () => mql.removeEventListener('change', handleChange);
+  }, [query]);
+  return matches;
 }
 
-function SectionSummary({
-  readyCount,
-  draftCount,
-  hiddenDefaultCount,
-}: {
-  readyCount: number;
-  draftCount: number;
-  hiddenDefaultCount: number;
-}) {
-  return (
-    <div className="grid grid-cols-3 gap-2">
-      <div className="rounded-2xl bg-green-50 px-3 py-2 text-center text-sm font-bold text-green-700">
-        Hotové: {readyCount}
-      </div>
-      <div className="rounded-2xl bg-amber-50 px-3 py-2 text-center text-sm font-bold text-amber-700">
-        Koncepty: {draftCount}
-      </div>
-      <div className="rounded-2xl bg-shadow/10 px-3 py-2 text-center text-sm font-bold text-text-main/65">
-        Skryté: {hiddenDefaultCount}
-      </div>
-    </div>
-  );
-}
-
-function buildSystemItems(locale: string, section: 'letters' | 'numbers' | 'phrases'): AudioItem[] {
+function buildSystemRows(locale: string, section: 'letters' | 'numbers' | 'phrases'): ContentRow[] {
   const content = getLocaleContent(locale);
   if (section === 'letters') {
-    return content.letterItems.map((l) => ({
-      key: `${locale}/letters/${l.audioKey}`,
-      label: l.label ? `${l.symbol} — ${l.label} ${l.emoji}` : `${l.symbol} ${l.emoji}`,
-      category: 'letters',
+    return content.letterItems.map(letter => ({
+      id: `letter:${letter.audioKey}`,
+      storeKey: `${locale}/letters/${letter.audioKey}`,
+      label: letter.label ? `${letter.symbol} — ${letter.label} ${letter.emoji}` : `${letter.symbol} ${letter.emoji}`,
+      searchText: `${letter.symbol} ${letter.label}`,
     }));
   }
   if (section === 'numbers') {
-    return content.numberItems.map((n) => ({
-      key: `${locale}/numbers/${n.audioKey}`,
-      label: String(n.value),
-      category: 'numbers',
+    return content.numberItems.map(number => ({
+      id: `number:${number.audioKey}`,
+      storeKey: `${locale}/numbers/${number.audioKey}`,
+      label: String(number.value),
+      searchText: String(number.value),
     }));
   }
   return Object.entries(content.audioPhrases).map(([phraseKey, phrase]) => ({
-    key: `${locale}/phrases/${phrase.audioKey}`,
+    id: `phrase:${phrase.audioKey}`,
+    storeKey: `${locale}/phrases/${phrase.audioKey}`,
     label: `${phraseKey}: ${phrase.text}`,
-    category: 'phrases',
+    searchText: `${phraseKey} ${phrase.text}`,
   }));
 }
 
-// ── System audio section (letters / numbers / phrases) ─────────────────────────
-
-interface SystemAudioSectionProps {
-  items: AudioItem[];
+function describePendingDelete(pending: PendingDelete): string {
+  const label = pending.kind === 'word' ? pending.item.word : pending.item.text;
+  return `„${label}“ sa odstráni zo zoznamu aj s nahraným zvukom. Túto akciu môžeš hneď potom vrátiť späť.`;
 }
 
-function SystemAudioSection({ items }: SystemAudioSectionProps) {
-  const recorder = useRecorder();
-  const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
-  const [activeKey, setActiveKey] = useState<string | null>(null);
-  const [savedFlash, setSavedFlash] = useState(false);
-  const savedFlashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const activeKeyRef = useRef(activeKey);
-  useEffect(() => { activeKeyRef.current = activeKey; }, [activeKey]);
-  const discardRef = useRef(false);
-
-  useEffect(() => {
-    audioOverrideStore.listKeys().then((keys) => setOverrideKeys(new Set(keys)));
-  }, []);
-
-  useEffect(() => {
-    if (!recorder.blobPromise) return;
-    recorder.blobPromise.then(async (blob) => {
-      if (discardRef.current) { discardRef.current = false; return; }
-      if (!activeKeyRef.current) return;
-      await audioOverrideStore.set(activeKeyRef.current, blob);
-      const keys = await audioOverrideStore.listKeys();
-      setOverrideKeys(new Set(keys));
-      setSavedFlash(true);
-      savedFlashTimerRef.current = setTimeout(() => {
-        setSavedFlash(false);
-        setActiveKey(null);
-      }, SAVED_FLASH_MS);
-    });
-  }, [recorder.blobPromise]);
-
-  useEffect(() => () => {
-    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
-  }, []);
-
-  const handleRecord = useCallback((key: string) => {
-    if (activeKey !== null && recorder.state !== 'idle') return;
-    discardRef.current = false;
-    audioManager.stop();
-    setActiveKey(key);
-    setSavedFlash(false);
-    void recorder.start();
-  }, [activeKey, recorder]);
-
-  const handleStop = useCallback(() => {
-    discardRef.current = true;
-    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
-    setActiveKey(null);
-    setSavedFlash(false);
-    recorder.stop();
-  }, [recorder]);
-
-  const handleDelete = useCallback(async (key: string) => {
-    await audioOverrideStore.delete(key);
-    const keys = await audioOverrideStore.listKeys();
-    setOverrideKeys(new Set(keys));
-  }, []);
-
-  return (
-    <div className="space-y-2">
-      {items.map((item) => (
-        <RecordingListItem
-          key={item.key}
-          item={item}
-          hasCustom={overrideKeys.has(item.key)}
-          isActive={item.key === activeKey}
-          recorderState={recorder.state}
-          speaking={recorder.speaking}
-          savedFlash={item.key === activeKey && savedFlash}
-          onRecord={() => handleRecord(item.key)}
-          onStop={handleStop}
-          onPlay={() => audioManager.play({ clips: [{ path: item.key, fallbackText: item.label }] })}
-          onDelete={() => void handleDelete(item.key)}
-        />
-      ))}
-    </div>
-  );
-}
-
-// ── Editable word list ─────────────────────────────────────────────────────────
-
-interface EditableWordListProps {
-  locale: string;
-}
-
-function EditableWordList({ locale }: EditableWordListProps) {
+export function CustomContentScreen() {
   const {
+    locale,
     allUserWords,
+    allUserPraises,
     addWord,
     updateWord,
     deleteWord,
     setDefaultWordEnabled,
     restoreAllDefaultWords,
-  } = useContent();
-  const recorder = useRecorder();
-  const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [savedFlash, setSavedFlash] = useState(false);
-  const savedFlashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const activeIdRef = useRef(activeId);
-  useEffect(() => { activeIdRef.current = activeId; }, [activeId]);
-  const discardRef = useRef(false);
-
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [formWord, setFormWord] = useState('');
-  const [formSyllables, setFormSyllables] = useState('');
-  const [formEmoji, setFormEmoji] = useState('');
-  const [formErrors, setFormErrors] = useState<WordFormErrors>({});
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [sectionNotice, setSectionNotice] = useState<string | null>(null);
-
-  useEffect(() => {
-    audioOverrideStore.listKeys().then((keys) => setOverrideKeys(new Set(keys)));
-  }, [allUserWords]);
-
-  const getAudioKey = useCallback((id: string) => {
-    return allUserWords.find((w) => w.id === id)?.audioKey ?? null;
-  }, [allUserWords]);
-
-  useEffect(() => {
-    if (!recorder.blobPromise) return;
-    recorder.blobPromise.then(async (blob) => {
-      if (discardRef.current) { discardRef.current = false; return; }
-      const id = activeIdRef.current;
-      if (!id) return;
-      const audioKey = getAudioKey(id);
-      if (!audioKey) return;
-      const storeKey = `${locale}/words/${audioKey}`;
-      await audioOverrideStore.set(storeKey, blob);
-      await updateWord(id, { status: 'ready' });
-      const keys = await audioOverrideStore.listKeys();
-      setOverrideKeys(new Set(keys));
-      setSavedFlash(true);
-      savedFlashTimerRef.current = setTimeout(() => {
-        setSavedFlash(false);
-        setActiveId(null);
-      }, SAVED_FLASH_MS);
-    });
-  }, [recorder.blobPromise]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => () => {
-    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
-  }, []);
-
-  const handleRecord = useCallback((id: string) => {
-    if (activeId !== null && recorder.state !== 'idle') return;
-    discardRef.current = false;
-    audioManager.stop();
-    setActiveId(id);
-    setSavedFlash(false);
-    void recorder.start();
-  }, [activeId, recorder]);
-
-  const handleStop = useCallback(() => {
-    discardRef.current = true;
-    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
-    setActiveId(null);
-    setSavedFlash(false);
-    recorder.stop();
-  }, [recorder]);
-
-  const handleDeleteAudio = useCallback(async (word: UserWord) => {
-    await audioOverrideStore.delete(`${locale}/words/${word.audioKey}`);
-    await updateWord(word.id, { status: word.isDefault ? 'ready' : 'draft' });
-    const keys = await audioOverrideStore.listKeys();
-    setOverrideKeys(new Set(keys));
-  }, [locale, updateWord]);
-
-  const readyCount = allUserWords.filter((word) => word.enabled && word.status === 'ready').length;
-  const draftCount = allUserWords.filter((word) => word.status === 'draft').length;
-  const hiddenDefaultCount = allUserWords.filter((word) => word.isDefault && !word.enabled).length;
-
-  const resetWordForm = useCallback(() => {
-    setFormWord('');
-    setFormSyllables('');
-    setFormEmoji('');
-    setFormErrors({});
-    setEditingId(null);
-    setShowAddForm(false);
-  }, []);
-
-  const populateWordForm = useCallback((word: UserWord) => {
-    setFormWord(word.word);
-    setFormSyllables(word.syllables);
-    setFormEmoji(word.emoji);
-    setFormErrors({});
-    setEditingId(word.id);
-    setShowAddForm(true);
-  }, []);
-
-  const handleSaveWord = useCallback(async () => {
-    const validation = validateWordForm(
-      { word: formWord, syllables: formSyllables, emoji: formEmoji },
-      allUserWords,
-      editingId ?? undefined,
-    );
-    setFormErrors(validation.errors);
-    if (!validation.valid) return;
-
-    try {
-      if (editingId) {
-        await updateWord(editingId, validation.values);
-      } else {
-        const id = crypto.randomUUID();
-        await addWord({
-          word: validation.values.word,
-          syllables: validation.values.syllables,
-          emoji: validation.values.emoji,
-          audioKey: `custom-${id}`,
-          isDefault: false,
-        });
-      }
-      resetWordForm();
-      setSectionNotice(null);
-    } catch {
-      setSectionNotice('Slovo sa nepodarilo uložiť. Skúste to znova.');
-    }
-  }, [
-    addWord,
-    allUserWords,
-    editingId,
-    formEmoji,
-    formSyllables,
-    formWord,
-    resetWordForm,
-    updateWord,
-  ]);
-
-  const handleHideDefaultWord = useCallback(async (word: UserWord) => {
-    try {
-      await setDefaultWordEnabled(word.id, false);
-      setSectionNotice(`Slovo ${word.word} je skryté.`);
-    } catch {
-      setSectionNotice('Slovo sa nepodarilo skryť. Skúste to znova.');
-    }
-  }, [setDefaultWordEnabled]);
-
-  const handleRestoreDefaultWords = useCallback(async () => {
-    try {
-      await restoreAllDefaultWords();
-      setSectionNotice('Predvolené slová boli obnovené.');
-    } catch {
-      setSectionNotice('Predvolené slová sa nepodarilo obnoviť. Skúste to znova.');
-    }
-  }, [restoreAllDefaultWords]);
-
-  return (
-    <div className="space-y-3">
-      <SectionSummary
-        readyCount={readyCount}
-        draftCount={draftCount}
-        hiddenDefaultCount={hiddenDefaultCount}
-      />
-      <SectionNotice message={sectionNotice} />
-      {hiddenDefaultCount > 0 && (
-        <button
-          onClick={() => void handleRestoreDefaultWords()}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-shadow/10 py-3 text-lg font-semibold text-text-main/70 active:opacity-60"
-        >
-          <RotateCcw size={20} />
-          Obnoviť predvolené slová
-        </button>
-      )}
-
-      {allUserWords.map((word) => {
-        const storeKey = `${locale}/words/${word.audioKey}`;
-        const item: AudioItem = {
-          key: storeKey,
-          label: `${word.word} ${word.emoji}${word.status === 'draft' ? ' ·' : ''}`,
-          category: 'words',
-        };
-        return (
-          <RecordingListItem
-            key={word.id}
-            item={item}
-            secondaryLabel={word.syllables.toUpperCase()}
-            menuActions={[
-              ...(!word.isDefault
-                ? [
-                    {
-                      label: 'Upraviť slovo',
-                      icon: <Edit3 size={16} />,
-                      onSelect: () => populateWordForm(word),
-                    },
-                  ]
-                : []),
-              word.isDefault && word.enabled
-                ? {
-                    label: 'Skryť slovo',
-                    icon: <EyeOff size={16} />,
-                    tone: 'danger' as const,
-                    onSelect: () => void handleHideDefaultWord(word),
-                  }
-                : word.isDefault ? {
-                    label: 'Obnoviť slovo',
-                    icon: <RotateCcw size={16} />,
-                    onSelect: () => void setDefaultWordEnabled(word.id, true),
-                  } : {
-                    label: 'Zmazať slovo',
-                    icon: <Trash2 size={16} />,
-                    tone: 'danger' as const,
-                    onSelect: () => void deleteWord(word.id),
-                  },
-            ]}
-            hasCustom={overrideKeys.has(storeKey)}
-            isActive={word.id === activeId}
-            recorderState={recorder.state}
-            speaking={recorder.speaking}
-            savedFlash={word.id === activeId && savedFlash}
-            statusLabel={word.isDefault ? 'Predvolené' : word.status === 'draft' ? 'Koncept' : 'Vlastné'}
-            statusTone={word.status === 'draft' ? 'draft' : word.isDefault ? 'default' : 'ready'}
-            allowPlay={word.status === 'ready' || overrideKeys.has(storeKey)}
-            recordEmphasis={word.status === 'draft'}
-            onRecord={() => handleRecord(word.id)}
-            onStop={handleStop}
-            onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: word.word }] })}
-            onDelete={() => void handleDeleteAudio(word)}
-          />
-        );
-      })}
-
-      {showAddForm ? (
-        <div className="rounded-2xl border-2 border-shadow/20 bg-white p-4 space-y-3">
-          <input
-            className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
-            placeholder="Slovo (napr. Jahoda)"
-            value={formWord}
-            onChange={(e) => setFormWord(e.target.value)}
-          />
-          <FieldError message={formErrors.word} />
-          <input
-            className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
-            placeholder="Slabiky (napr. ja-ho-da)"
-            value={formSyllables}
-            onChange={(e) => setFormSyllables(e.target.value)}
-          />
-          <FieldError message={formErrors.syllables} />
-          <input
-            className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
-            placeholder="Emoji (napr. 🍓)"
-            value={formEmoji}
-            onChange={(e) => setFormEmoji(e.target.value)}
-          />
-          <FieldError message={formErrors.emoji} />
-          <div className="flex gap-2">
-            <button
-              onClick={() => void handleSaveWord()}
-              className="flex-1 rounded-xl bg-primary text-white py-2 font-bold text-lg active:opacity-80"
-            >
-              {editingId ? 'Uložiť' : 'Pridať'}
-            </button>
-            <button
-              onClick={resetWordForm}
-              className="flex-1 rounded-xl bg-shadow/10 text-text-main py-2 font-bold text-lg active:opacity-80"
-            >
-              Zrušiť
-            </button>
-          </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => {
-            setEditingId(null);
-            setShowAddForm(true);
-            setFormErrors({});
-          }}
-          className="flex w-full min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
-        >
-          <Plus size={20} />
-          Pridať slovo
-        </button>
-      )}
-    </div>
-  );
-}
-
-// ── Editable praise list ───────────────────────────────────────────────────────
-
-interface EditablePraiseListProps {
-  locale: string;
-}
-
-function EditablePraiseList({ locale }: EditablePraiseListProps) {
-  const {
-    allUserPraises,
     addPraise,
     updatePraise,
     deletePraise,
     setDefaultPraiseEnabled,
     restoreAllDefaultPraises,
   } = useContent();
-  const recorder = useRecorder();
-  const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [savedFlash, setSavedFlash] = useState(false);
-  const savedFlashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const activeIdRef = useRef(activeId);
-  useEffect(() => { activeIdRef.current = activeId; }, [activeId]);
-  const discardRef = useRef(false);
+  const navigate = useNavigate();
+  const { layout } = useAppScreenLayout();
+  const isSpaciousWidth = useMediaQuery('(min-width: 1280px)');
+  const isMediumWidth = useMediaQuery('(min-width: 768px)');
+  const layoutMode: 'spacious' | 'medium' | 'compact' =
+    layout === 'short' ? 'compact' : isSpaciousWidth ? 'spacious' : isMediumWidth ? 'medium' : 'compact';
+  const navOrientation = layoutMode === 'compact' ? 'horizontal' : 'vertical';
 
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [formText, setFormText] = useState('');
-  const [formEmoji, setFormEmoji] = useState('');
-  const [formErrors, setFormErrors] = useState<PraiseFormErrors>({});
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [sectionNotice, setSectionNotice] = useState<string | null>(null);
-
-  useEffect(() => {
-    audioOverrideStore.listKeys().then((keys) => setOverrideKeys(new Set(keys)));
-  }, [allUserPraises]);
-
-  const getAudioKey = useCallback((id: string) => {
-    return allUserPraises.find((p) => p.id === id)?.audioKey ?? null;
-  }, [allUserPraises]);
-
-  useEffect(() => {
-    if (!recorder.blobPromise) return;
-    recorder.blobPromise.then(async (blob) => {
-      if (discardRef.current) { discardRef.current = false; return; }
-      const id = activeIdRef.current;
-      if (!id) return;
-      const audioKey = getAudioKey(id);
-      if (!audioKey) return;
-      const storeKey = `${locale}/praise/${audioKey}`;
-      await audioOverrideStore.set(storeKey, blob);
-      await updatePraise(id, { status: 'ready' });
-      const keys = await audioOverrideStore.listKeys();
-      setOverrideKeys(new Set(keys));
-      setSavedFlash(true);
-      savedFlashTimerRef.current = setTimeout(() => {
-        setSavedFlash(false);
-        setActiveId(null);
-      }, SAVED_FLASH_MS);
-    });
-  }, [recorder.blobPromise]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [activeSection, setActiveSection] = useState<Section>('letters');
+  const [editor, setEditor] = useState<EditorTarget | null>(null);
+  const [actionNotice, setActionNotice] = useState<string | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<PendingDelete | null>(null);
+  const [undoNotice, setUndoNotice] = useState<UndoNotice | null>(null);
+  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => () => {
-    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
   }, []);
 
-  const handleRecord = useCallback((id: string) => {
-    if (activeId !== null && recorder.state !== 'idle') return;
-    discardRef.current = false;
-    audioManager.stop();
-    setActiveId(id);
-    setSavedFlash(false);
-    void recorder.start();
-  }, [activeId, recorder]);
-
-  const handleStop = useCallback(() => {
-    discardRef.current = true;
-    if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
-    setActiveId(null);
-    setSavedFlash(false);
-    recorder.stop();
-  }, [recorder]);
-
-  const handleDeleteAudio = useCallback(async (praise: UserPraise) => {
-    await audioOverrideStore.delete(`${locale}/praise/${praise.audioKey}`);
-    await updatePraise(praise.id, { status: praise.isDefault ? 'ready' : 'draft' });
-    const keys = await audioOverrideStore.listKeys();
-    setOverrideKeys(new Set(keys));
-  }, [locale, updatePraise]);
-
-  const readyCount = allUserPraises.filter((praise) => praise.enabled && praise.status === 'ready').length;
-  const draftCount = allUserPraises.filter((praise) => praise.status === 'draft').length;
-  const hiddenDefaultCount = Math.max(
-    0,
-    allUserPraises.filter((praise) => praise.isDefault && !praise.enabled).length,
-  );
-
-  const resetPraiseForm = useCallback(() => {
-    setFormText('');
-    setFormEmoji('');
-    setFormErrors({});
-    setEditingId(null);
-    setShowAddForm(false);
+  const scheduleUndo = useCallback((message: string, onUndo: () => void) => {
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    setUndoNotice({ message, onUndo });
+    undoTimerRef.current = setTimeout(() => setUndoNotice(null), 6000);
   }, []);
 
-  const populatePraiseForm = useCallback((praise: UserPraise) => {
-    setFormText(praise.text);
-    setFormEmoji(praise.emoji);
-    setFormErrors({});
-    setEditingId(praise.id);
-    setShowAddForm(true);
+  const dismissUndo = useCallback(() => {
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    setUndoNotice(null);
   }, []);
 
-  const handleSavePraise = useCallback(async () => {
-    const validation = validatePraiseForm(
-      { text: formText, emoji: formEmoji },
-      allUserPraises,
-      editingId ?? undefined,
-    );
-    setFormErrors(validation.errors);
-    if (!validation.valid) return;
+  // ── Words ────────────────────────────────────────────────────────────────
+  const enabledWords = allUserWords.filter(word => word.enabled);
+  const disabledWords = allUserWords.filter(word => word.isDefault && !word.enabled);
+  const readyWordCount = allUserWords.filter(word => word.enabled && word.status === 'ready').length;
 
+  const requestDisableWord = useCallback(async (word: UserWord) => {
     try {
-      if (editingId) {
-        await updatePraise(editingId, validation.values);
-      } else {
-        const id = crypto.randomUUID();
-        await addPraise({
-          text: validation.values.text,
-          emoji: validation.values.emoji,
-          audioKey: `custom-${id}`,
-          isDefault: false,
-        });
-      }
-      resetPraiseForm();
-      setSectionNotice(null);
+      await setDefaultWordEnabled(word.id, false);
+      setActionNotice(`Slovo „${word.word}“ je vypnuté.`);
     } catch {
-      setSectionNotice('Pochvalu sa nepodarilo uložiť. Skúste to znova.');
+      setActionNotice('Slovo sa nepodarilo vypnúť. Skúste to znova.');
     }
-  }, [
-    addPraise,
-    allUserPraises,
-    editingId,
-    formEmoji,
-    formText,
-    resetPraiseForm,
-    updatePraise,
-  ]);
+  }, [setDefaultWordEnabled]);
 
-  const handleHideDefaultPraise = useCallback(async (praise: UserPraise) => {
+  const requestRestoreWord = useCallback(async (id: string) => {
+    try {
+      await setDefaultWordEnabled(id, true);
+      setActionNotice(null);
+    } catch {
+      setActionNotice('Slovo sa nepodarilo obnoviť. Skúste to znova.');
+    }
+  }, [setDefaultWordEnabled]);
+
+  const requestRestoreAllWords = useCallback(async () => {
+    try {
+      await restoreAllDefaultWords();
+      setActionNotice('Predvolené slová boli obnovené.');
+    } catch {
+      setActionNotice('Predvolené slová sa nepodarilo obnoviť. Skúste to znova.');
+    }
+  }, [restoreAllDefaultWords]);
+
+  const requestDeleteWord = useCallback((word: UserWord) => {
+    setPendingDelete({ kind: 'word', item: word });
+  }, []);
+
+  const requestEditWord = useCallback((word: UserWord) => {
+    setEditor({ kind: 'word', mode: 'edit', id: word.id });
+  }, []);
+
+  const buildWordRow = useCallback((word: UserWord): ContentRow => {
+    const canRemove = canDisableOrDelete(allUserWords, word.id);
+    const menuActions: IconMenuAction[] = word.isDefault
+      ? [{
+          label: 'Vypnúť',
+          icon: <EyeOff size={16} />,
+          tone: 'danger',
+          disabled: !canRemove,
+          onSelect: () => void requestDisableWord(word),
+        }]
+      : [
+          { label: 'Upraviť', icon: <Edit3 size={16} />, onSelect: () => requestEditWord(word) },
+          {
+            label: 'Zmazať',
+            icon: <Trash2 size={16} />,
+            tone: 'danger',
+            disabled: !canRemove,
+            onSelect: () => requestDeleteWord(word),
+          },
+        ];
+    return {
+      id: word.id,
+      storeKey: `${locale}/words/${word.audioKey}`,
+      label: `${word.word} ${word.emoji}${word.status === 'draft' ? ' ·' : ''}`,
+      secondaryLabel: word.syllables.toUpperCase(),
+      statusLabel: word.isDefault ? 'Predvolené' : word.status === 'draft' ? 'Koncept' : 'Vlastné',
+      statusTone: word.status === 'draft' ? 'draft' : word.isDefault ? 'default' : 'ready',
+      allowPlay: word.status === 'ready',
+      recordEmphasis: word.status === 'draft',
+      menuActions,
+      searchText: `${word.word} ${word.syllables}`,
+    };
+  }, [allUserWords, locale, requestDisableWord, requestEditWord, requestDeleteWord]);
+
+  const wordRows = enabledWords.map(buildWordRow);
+  const disabledWordRows: ContentRow[] = disabledWords.map(word => ({
+    id: word.id,
+    storeKey: `${locale}/words/${word.audioKey}`,
+    label: `${word.word} ${word.emoji}`,
+    secondaryLabel: word.syllables.toUpperCase(),
+    searchText: `${word.word} ${word.syllables}`,
+  }));
+
+  // ── Praise ───────────────────────────────────────────────────────────────
+  const enabledPraises = allUserPraises.filter(praise => praise.enabled);
+  const disabledPraises = allUserPraises.filter(praise => praise.isDefault && !praise.enabled);
+  const readyPraiseCount = allUserPraises.filter(praise => praise.enabled && praise.status === 'ready').length;
+
+  const requestDisablePraise = useCallback(async (praise: UserPraise) => {
     try {
       await setDefaultPraiseEnabled(praise.id, false);
-      setSectionNotice(`Pochvala ${praise.text} je skrytá.`);
+      setActionNotice(`Pochvala „${praise.text}“ je vypnutá.`);
     } catch {
-      setSectionNotice('Pochvalu sa nepodarilo skryť. Skúste to znova.');
+      setActionNotice('Pochvalu sa nepodarilo vypnúť. Skúste to znova.');
     }
   }, [setDefaultPraiseEnabled]);
 
-  const handleRestoreDefaultPraises = useCallback(async () => {
+  const requestRestorePraise = useCallback(async (id: string) => {
+    try {
+      await setDefaultPraiseEnabled(id, true);
+      setActionNotice(null);
+    } catch {
+      setActionNotice('Pochvalu sa nepodarilo obnoviť. Skúste to znova.');
+    }
+  }, [setDefaultPraiseEnabled]);
+
+  const requestRestoreAllPraises = useCallback(async () => {
     try {
       await restoreAllDefaultPraises();
-      setSectionNotice('Predvolené pochvaly boli obnovené.');
+      setActionNotice('Predvolené pochvaly boli obnovené.');
     } catch {
-      setSectionNotice('Predvolené pochvaly sa nepodarilo obnoviť. Skúste to znova.');
+      setActionNotice('Predvolené pochvaly sa nepodarilo obnoviť. Skúste to znova.');
     }
   }, [restoreAllDefaultPraises]);
 
-  return (
-    <div className="space-y-3">
-      <SectionSummary
-        readyCount={readyCount}
-        draftCount={draftCount}
-        hiddenDefaultCount={hiddenDefaultCount}
-      />
-      <SectionNotice message={sectionNotice} />
-      {hiddenDefaultCount > 0 && (
-        <button
-          onClick={() => void handleRestoreDefaultPraises()}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-shadow/10 py-3 text-lg font-semibold text-text-main/70 active:opacity-60"
-        >
-          <RotateCcw size={20} />
-          Obnoviť predvolené pochvaly
-        </button>
-      )}
+  const requestDeletePraise = useCallback((praise: UserPraise) => {
+    setPendingDelete({ kind: 'praise', item: praise });
+  }, []);
 
-      {allUserPraises.map((praise) => {
-        const storeKey = `${locale}/praise/${praise.audioKey}`;
-        const item: AudioItem = {
-          key: storeKey,
-          label: `${praise.emoji} ${praise.text}${praise.status === 'draft' ? ' ·' : ''}`,
-          category: 'praise',
-        };
-        return (
-          <RecordingListItem
-            key={praise.id}
-            item={item}
-            menuActions={[
-              ...(!praise.isDefault
-                ? [
-                    {
-                      label: 'Upraviť pochvalu',
-                      icon: <Edit3 size={16} />,
-                      onSelect: () => populatePraiseForm(praise),
-                    },
-                  ]
-                : []),
-              praise.isDefault && praise.enabled
-                ? {
-                    label: 'Skryť pochvalu',
-                    icon: <EyeOff size={16} />,
-                    tone: 'danger' as const,
-                    onSelect: () => void handleHideDefaultPraise(praise),
-                  }
-                : praise.isDefault ? {
-                    label: 'Obnoviť pochvalu',
-                    icon: <RotateCcw size={16} />,
-                    onSelect: () => void setDefaultPraiseEnabled(praise.id, true),
-                  } : {
-                    label: 'Zmazať pochvalu',
-                    icon: <Trash2 size={16} />,
-                    tone: 'danger' as const,
-                    onSelect: () => void deletePraise(praise.id),
-                  },
-            ]}
-            hasCustom={overrideKeys.has(storeKey)}
-            isActive={praise.id === activeId}
-            recorderState={recorder.state}
-            speaking={recorder.speaking}
-            savedFlash={praise.id === activeId && savedFlash}
-            statusLabel={praise.isDefault ? 'Predvolené' : praise.status === 'draft' ? 'Koncept' : 'Vlastné'}
-            statusTone={praise.status === 'draft' ? 'draft' : praise.isDefault ? 'default' : 'ready'}
-            allowPlay={praise.status === 'ready' || overrideKeys.has(storeKey)}
-            recordEmphasis={praise.status === 'draft'}
-            onRecord={() => handleRecord(praise.id)}
-            onStop={handleStop}
-            onPlay={() => audioManager.play({ clips: [{ path: storeKey, fallbackText: praise.text }] })}
-            onDelete={() => void handleDeleteAudio(praise)}
-          />
-        );
-      })}
+  const requestEditPraise = useCallback((praise: UserPraise) => {
+    setEditor({ kind: 'praise', mode: 'edit', id: praise.id });
+  }, []);
 
-      {showAddForm ? (
-        <div className="rounded-2xl border-2 border-shadow/20 bg-white p-4 space-y-3">
-          <input
-            className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
-            placeholder="Text (napr. Výborne!)"
-            value={formText}
-            onChange={(e) => setFormText(e.target.value)}
-          />
-          <FieldError message={formErrors.text} />
-          <input
-            className="w-full rounded-xl border border-shadow/20 bg-bg-light px-4 py-2 text-lg font-medium outline-none"
-            placeholder="Emoji (napr. 🌟)"
-            value={formEmoji}
-            onChange={(e) => setFormEmoji(e.target.value)}
-          />
-          <FieldError message={formErrors.emoji} />
-          <div className="flex gap-2">
-            <button
-              onClick={() => void handleSavePraise()}
-              className="flex-1 rounded-xl bg-primary text-white py-2 font-bold text-lg active:opacity-80"
-            >
-              {editingId ? 'Uložiť' : 'Pridať'}
-            </button>
-            <button
-              onClick={resetPraiseForm}
-              className="flex-1 rounded-xl bg-shadow/10 text-text-main py-2 font-bold text-lg active:opacity-80"
-            >
-              Zrušiť
-            </button>
-          </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => {
-            setEditingId(null);
-            setShowAddForm(true);
-            setFormErrors({});
-          }}
-          className="flex w-full min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-shadow/25 py-3 text-lg font-semibold text-text-main/60 active:opacity-60"
-        >
-          <Plus size={20} />
-          Pridať pochvalu
-        </button>
-      )}
-    </div>
-  );
-}
+  const buildPraiseRow = useCallback((praise: UserPraise): ContentRow => {
+    const canRemove = canDisableOrDelete(allUserPraises, praise.id);
+    const menuActions: IconMenuAction[] = praise.isDefault
+      ? [{
+          label: 'Vypnúť',
+          icon: <EyeOff size={16} />,
+          tone: 'danger',
+          disabled: !canRemove,
+          onSelect: () => void requestDisablePraise(praise),
+        }]
+      : [
+          { label: 'Upraviť', icon: <Edit3 size={16} />, onSelect: () => requestEditPraise(praise) },
+          {
+            label: 'Zmazať',
+            icon: <Trash2 size={16} />,
+            tone: 'danger',
+            disabled: !canRemove,
+            onSelect: () => requestDeletePraise(praise),
+          },
+        ];
+    return {
+      id: praise.id,
+      storeKey: `${locale}/praise/${praise.audioKey}`,
+      label: `${praise.emoji} ${praise.text}${praise.status === 'draft' ? ' ·' : ''}`,
+      statusLabel: praise.isDefault ? 'Predvolené' : praise.status === 'draft' ? 'Koncept' : 'Vlastné',
+      statusTone: praise.status === 'draft' ? 'draft' : praise.isDefault ? 'default' : 'ready',
+      allowPlay: praise.status === 'ready',
+      recordEmphasis: praise.status === 'draft',
+      menuActions,
+      searchText: praise.text,
+    };
+  }, [allUserPraises, locale, requestDisablePraise, requestEditPraise, requestDeletePraise]);
 
-// ── Main screen ────────────────────────────────────────────────────────────────
+  const praiseRows = enabledPraises.map(buildPraiseRow);
+  const disabledPraiseRows: ContentRow[] = disabledPraises.map(praise => ({
+    id: praise.id,
+    storeKey: `${locale}/praise/${praise.audioKey}`,
+    label: `${praise.emoji} ${praise.text}`,
+    searchText: praise.text,
+  }));
 
-export function CustomContentScreen() {
-  const { locale } = useContent();
-  const navigate = useNavigate();
-  const [activeSection, setActiveSection] = useState<Section>('letters');
-
-  const systemItems = useMemo(() => {
-    if (activeSection === 'letters' || activeSection === 'numbers' || activeSection === 'phrases') {
-      return buildSystemItems(locale, activeSection);
+  // ── Deletion confirm + undo ─────────────────────────────────────────────
+  const confirmPendingDelete = useCallback(async () => {
+    if (!pendingDelete) return;
+    const pending = pendingDelete;
+    setPendingDelete(null);
+    if (pending.kind === 'word') {
+      const word = pending.item;
+      const storeKey = `${locale}/words/${word.audioKey}`;
+      const audioBlob = await audioOverrideStore.get(storeKey);
+      try {
+        await deleteWord(word.id);
+      } catch {
+        setActionNotice(LAST_PLAYABLE_MESSAGE);
+        return;
+      }
+      scheduleUndo(`Slovo „${word.word}“ bolo zmazané.`, () => {
+        void (async () => {
+          const audioKey = `custom-${crypto.randomUUID()}`;
+          await addWord({ word: word.word, syllables: word.syllables, emoji: word.emoji, audioKey, isDefault: false });
+          if (audioBlob) await audioOverrideStore.set(`${locale}/words/${audioKey}`, audioBlob);
+        })();
+      });
+    } else {
+      const praise = pending.item;
+      const storeKey = `${locale}/praise/${praise.audioKey}`;
+      const audioBlob = await audioOverrideStore.get(storeKey);
+      try {
+        await deletePraise(praise.id);
+      } catch {
+        setActionNotice(LAST_PLAYABLE_MESSAGE);
+        return;
+      }
+      scheduleUndo(`Pochvala „${praise.text}“ bola zmazaná.`, () => {
+        void (async () => {
+          const audioKey = `custom-${crypto.randomUUID()}`;
+          await addPraise({ text: praise.text, emoji: praise.emoji, audioKey, isDefault: false });
+          if (audioBlob) await audioOverrideStore.set(`${locale}/praise/${audioKey}`, audioBlob);
+        })();
+      });
     }
-    return [];
-  }, [locale, activeSection]);
+  }, [pendingDelete, locale, deleteWord, deletePraise, addWord, addPraise, scheduleUndo]);
+
+  // ── Editor ───────────────────────────────────────────────────────────────
+  const editingWord = editor?.kind === 'word' && editor.mode === 'edit'
+    ? allUserWords.find(word => word.id === editor.id)
+    : undefined;
+  const editingPraise = editor?.kind === 'praise' && editor.mode === 'edit'
+    ? allUserPraises.find(praise => praise.id === editor.id)
+    : undefined;
+
+  const editorTitle = !editor
+    ? ''
+    : editor.kind === 'word'
+      ? (editor.mode === 'edit' ? 'Upraviť slovo' : 'Pridať slovo')
+      : (editor.mode === 'edit' ? 'Upraviť pochvalu' : 'Pridať pochvalu');
+
+  function renderEditor() {
+    if (!editor) return null;
+    if (editor.kind === 'word') {
+      return (
+        <WordEditor
+          key={editor.mode === 'edit' ? editor.id : 'add-word'}
+          mode={editor.mode}
+          initialValues={editingWord ? { word: editingWord.word, syllables: editingWord.syllables, emoji: editingWord.emoji } : undefined}
+          existingWords={allUserWords}
+          editingId={editor.mode === 'edit' ? editor.id : undefined}
+          onCancel={() => setEditor(null)}
+          onSubmit={async values => {
+            try {
+              if (editor.mode === 'edit') {
+                await updateWord(editor.id, values);
+              } else {
+                const audioKey = `custom-${crypto.randomUUID()}`;
+                await addWord({ ...values, audioKey, isDefault: false });
+              }
+              setEditor(null);
+              setActionNotice(null);
+            } catch {
+              setActionNotice('Slovo sa nepodarilo uložiť. Skúste to znova.');
+            }
+          }}
+        />
+      );
+    }
+    return (
+      <PraiseEditor
+        key={editor.mode === 'edit' ? editor.id : 'add-praise'}
+        mode={editor.mode}
+        initialValues={editingPraise ? { text: editingPraise.text, emoji: editingPraise.emoji } : undefined}
+        existingPraises={allUserPraises}
+        editingId={editor.mode === 'edit' ? editor.id : undefined}
+        onCancel={() => setEditor(null)}
+        onSubmit={async values => {
+          try {
+            if (editor.mode === 'edit') {
+              await updatePraise(editor.id, values);
+            } else {
+              const audioKey = `custom-${crypto.randomUUID()}`;
+              await addPraise({ ...values, audioKey, isDefault: false });
+            }
+            setEditor(null);
+            setActionNotice(null);
+          } catch {
+            setActionNotice('Pochvalu sa nepodarilo uložiť. Skúste to znova.');
+          }
+        }}
+      />
+    );
+  }
+
+  // ── Category nav ─────────────────────────────────────────────────────────
+  const content = getLocaleContent(locale);
+  const sections = SECTIONS.map(id => ({
+    id,
+    label: SECTION_LABELS[id],
+    count: id === 'letters' ? content.letterItems.length
+      : id === 'numbers' ? content.numberItems.length
+      : id === 'phrases' ? Object.keys(content.audioPhrases).length
+      : id === 'words' ? wordRows.length
+      : praiseRows.length,
+  }));
+  const showEditorColumn = activeSection === 'words' || activeSection === 'praise';
 
   return (
-    <AppScreen maxWidth="narrow">
+    <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="wide">
       <TopBar left={<BackButton onClick={() => navigate(-1)} />} />
+      <PageHeader title="Vlastný obsah" description="Nahraj vlastný hlas a uprav slová a pochvaly." />
 
-      <div className="mb-2 shrink-0 border-b-2 border-shadow/30 pb-4">
-        <h2 className="mb-4 text-3xl font-bold">Vlastný obsah</h2>
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-          {SECTIONS.map((section) => (
-            <button
-              key={section}
-              onClick={() => setActiveSection(section)}
-              className={`whitespace-nowrap rounded-full px-4 py-2 min-h-11 text-base font-semibold transition-colors ${
-                activeSection === section
-                  ? 'bg-primary text-white'
-                  : 'bg-shadow/10 text-text-main'
-              }`}
-            >
-              {SECTION_LABELS[section]}
-            </button>
-          ))}
-        </div>
-      </div>
+      {actionNotice && (
+        <p role="status" className="mt-3 rounded-2xl bg-selected-surface px-4 py-3 text-sm font-bold text-text-main">
+          {actionNotice}
+        </p>
+      )}
 
-      <div className="min-h-0 flex-1 overflow-y-auto py-2">
-        {(activeSection === 'letters' || activeSection === 'numbers' || activeSection === 'phrases') && (
-          <SystemAudioSection items={systemItems} />
+      <div
+        className={cn(
+          'mt-5 sm:mt-6',
+          layoutMode === 'spacious' && showEditorColumn && 'grid grid-cols-[220px_minmax(280px,1fr)_minmax(320px,1fr)] items-start gap-6',
+          layoutMode === 'spacious' && !showEditorColumn && 'grid grid-cols-[220px_minmax(0,1fr)] items-start gap-6',
+          layoutMode === 'medium' && 'grid grid-cols-[220px_minmax(0,1fr)] items-start gap-6',
         )}
-        {activeSection === 'words' && <EditableWordList locale={locale} />}
-        {activeSection === 'praise' && <EditablePraiseList locale={locale} />}
+      >
+        <ContentCategoryNav items={sections} value={activeSection} onValueChange={setActiveSection} orientation={navOrientation}>
+          <TabPanel value="letters">
+            <ContentItemList rows={buildSystemRows(locale, 'letters')} searchLabel="Hľadať písmeno" emptyMessage="Žiadne písmená." />
+          </TabPanel>
+          <TabPanel value="numbers">
+            <ContentItemList rows={buildSystemRows(locale, 'numbers')} searchLabel="Hľadať číslo" emptyMessage="Žiadne čísla." />
+          </TabPanel>
+          <TabPanel value="phrases">
+            <ContentItemList rows={buildSystemRows(locale, 'phrases')} searchLabel="Hľadať frázu" emptyMessage="Žiadne frázy." />
+          </TabPanel>
+          <TabPanel value="words">
+            <ContentItemList
+              rows={wordRows}
+              disabledRows={disabledWordRows}
+              onRestoreOne={row => void requestRestoreWord(row.id)}
+              onRestoreAll={() => void requestRestoreAllWords()}
+              onAfterRecordSaved={row => updateWord(row.id, { status: 'ready' })}
+              onAfterDeleteAudio={row => {
+                const word = allUserWords.find(item => item.id === row.id);
+                return word ? updateWord(row.id, { status: word.isDefault ? 'ready' : 'draft' }) : undefined;
+              }}
+              addAction={{ label: 'Pridať slovo', onClick: () => setEditor({ kind: 'word', mode: 'add' }) }}
+              searchLabel="Hľadať slovo"
+              emptyMessage="Zatiaľ žiadne slová."
+              noticeMessage={readyWordCount <= 1 ? LAST_PLAYABLE_MESSAGE : null}
+            />
+          </TabPanel>
+          <TabPanel value="praise">
+            <ContentItemList
+              rows={praiseRows}
+              disabledRows={disabledPraiseRows}
+              onRestoreOne={row => void requestRestorePraise(row.id)}
+              onRestoreAll={() => void requestRestoreAllPraises()}
+              onAfterRecordSaved={row => updatePraise(row.id, { status: 'ready' })}
+              onAfterDeleteAudio={row => {
+                const praise = allUserPraises.find(item => item.id === row.id);
+                return praise ? updatePraise(row.id, { status: praise.isDefault ? 'ready' : 'draft' }) : undefined;
+              }}
+              addAction={{ label: 'Pridať pochvalu', onClick: () => setEditor({ kind: 'praise', mode: 'add' }) }}
+              searchLabel="Hľadať pochvalu"
+              emptyMessage="Zatiaľ žiadne pochvaly."
+              noticeMessage={readyPraiseCount <= 1 ? LAST_PLAYABLE_MESSAGE : null}
+            />
+          </TabPanel>
+        </ContentCategoryNav>
+
+        {layoutMode === 'spacious' && showEditorColumn && (
+          <div className="sticky top-4">
+            {editor ? (
+              <Card variant="panel">
+                <PageHeader headingLevel="h2" title={editorTitle} />
+                <div className="mt-4">{renderEditor()}</div>
+              </Card>
+            ) : (
+              <div className="rounded-[32px] border-2 border-dashed border-border-subtle p-8 text-center text-sm font-medium text-text-muted">
+                Vyber položku na úpravu alebo pridaj novú.
+              </div>
+            )}
+          </div>
+        )}
       </div>
+
+      {layoutMode !== 'spacious' && (
+        <DialogShell
+          open={editor !== null}
+          onOpenChange={open => { if (!open) setEditor(null); }}
+          title={editorTitle}
+          className={layoutMode === 'compact' ? FULLSCREEN_DIALOG_CLASS : undefined}
+        >
+          <div className="mt-4">{renderEditor()}</div>
+        </DialogShell>
+      )}
+
+      <AlertDialogShell
+        open={pendingDelete !== null}
+        onOpenChange={open => { if (!open) setPendingDelete(null); }}
+        title={pendingDelete?.kind === 'word' ? 'Zmazať slovo?' : 'Zmazať pochvalu?'}
+        description={pendingDelete ? describePendingDelete(pendingDelete) : undefined}
+        cancelLabel="Zrušiť"
+        actionLabel="Zmazať"
+        actionTone="danger"
+        onAction={() => void confirmPendingDelete()}
+      />
+
+      {undoNotice && (
+        <div
+          role="status"
+          className="fixed inset-x-4 bottom-4 z-30 mx-auto flex max-w-md items-center justify-between gap-3 rounded-2xl bg-text-main px-4 py-3 text-white shadow-modal sm:inset-x-auto sm:right-6"
+        >
+          <span className="text-sm font-medium">{undoNotice.message}</span>
+          <Button
+            tone="neutral"
+            size="parent"
+            density="compact"
+            onClick={() => { undoNotice.onUndo(); dismissUndo(); }}
+          >
+            Vrátiť späť
+          </Button>
+        </div>
+      )}
     </AppScreen>
   );
 }

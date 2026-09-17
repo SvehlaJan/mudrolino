@@ -12,6 +12,7 @@ export interface IconMenuAction {
   label: string;
   icon?: React.ReactNode;
   tone?: 'default' | 'danger';
+  disabled?: boolean;
   onSelect: () => void;
 }
 
