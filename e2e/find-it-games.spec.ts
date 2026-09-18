@@ -268,6 +268,98 @@ test('alphabet: completion actions stay absent until session-complete after a fi
   await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
 });
 
+// A final round reaches its terminal phase (`answered-correctly`, or `answered-incorrectly`
+// with feedback: 'failure') as soon as the answer resolves, but SHOW_SESSION_COMPLETE only
+// dispatches once the verdict audio finishes — the same narrow window the two tests above
+// cover. If a parent pause were possible in that window, invalidate() would cancel the
+// in-flight resolveAnswer() before it could dispatch SHOW_SESSION_COMPLETE, permanently
+// stranding the round input-locked with no completion overlay. Proving the pause control is
+// unavailable for the whole window (rather than racing a click against it) is the
+// deterministic way to rule that out.
+test('alphabet: the parent pause control stays unavailable through the final correct verdict, and completion is still reached', async ({ page }) => {
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  for (let round = 0; round < 4; round += 1) {
+    const state = await getE2EState<FindItE2EState>(page);
+    await pressAnswerById(page, state.correctItemId!);
+    await waitForGamePhase(page, 'answered-correctly');
+    await page.getByRole('button', { name: 'Pokračovať' }).click();
+    await waitForGamePhase(page, 'ready');
+  }
+
+  const finalState = await getE2EState<FindItE2EState>(page);
+  await pressAnswerById(page, finalState.correctItemId!);
+
+  // `expect(locator).toHaveCount(0)` retries for up to its own timeout, so it would still
+  // pass here even if the button were present the instant this loop observed the verdict
+  // phase, as long as it disappeared later when session-complete legitimately hid it — that
+  // would mask exactly the bug this test exists to catch. Read the count as a plain number
+  // instead, so a same-instant snapshot is what gets asserted.
+  let observedFinalVerdict = false;
+  const deadline = Date.now() + 5000;
+  while (Date.now() < deadline) {
+    const state = await getE2EState<FindItE2EState>(page);
+    if (state.gamePhase === 'session-complete') break;
+    if (state.gamePhase === 'answered-correctly') {
+      observedFinalVerdict = true;
+      const lockButtonCount = await page.getByRole('button', { name: 'Rodičovská prestávka' }).count();
+      expect(lockButtonCount, 'parent pause control must not be available during the final verdict').toBe(0);
+    }
+  }
+  expect(observedFinalVerdict, 'expected to observe the final verdict phase before completion').toBe(true);
+
+  await waitForGamePhase(page, 'session-complete');
+  const playAgain = page.getByRole('button', { name: 'Hrať znova' });
+  const home = page.getByRole('button', { name: 'Domov' });
+  await expect(playAgain).toBeVisible();
+  await expect(home).toBeVisible();
+  await playAgain.click();
+  await waitForGamePhase(page, 'ready');
+});
+
+test('alphabet: the parent pause control stays unavailable through the final exhausted-failure verdict, and completion is still reached', async ({ page }) => {
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  for (let round = 0; round < 4; round += 1) {
+    const state = await getE2EState<FindItE2EState>(page);
+    await pressAnswerById(page, state.correctItemId!);
+    await waitForGamePhase(page, 'answered-correctly');
+    await page.getByRole('button', { name: 'Pokračovať' }).click();
+    await waitForGamePhase(page, 'ready');
+  }
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const wrongId = await findWrongId(page);
+    await pressAnswerById(page, wrongId);
+    if (attempt < 2) await waitForGamePhase(page, 'awaiting-answer');
+  }
+
+  // See the success-path test above for why this reads a plain count rather than using the
+  // auto-retrying `toHaveCount(0)` assertion.
+  let observedFinalVerdict = false;
+  const deadline = Date.now() + 5000;
+  while (Date.now() < deadline) {
+    const state = await getE2EState<FindItE2EState>(page);
+    if (state.gamePhase === 'session-complete') break;
+    if (state.gamePhase === 'answered-incorrectly' && state.roundsPlayed === 5) {
+      observedFinalVerdict = true;
+      const lockButtonCount = await page.getByRole('button', { name: 'Rodičovská prestávka' }).count();
+      expect(lockButtonCount, 'parent pause control must not be available during the final verdict').toBe(0);
+    }
+  }
+  expect(observedFinalVerdict, 'expected to observe the final verdict phase before completion').toBe(true);
+
+  await waitForGamePhase(page, 'session-complete');
+  const playAgain = page.getByRole('button', { name: 'Hrať znova' });
+  const home = page.getByRole('button', { name: 'Domov' });
+  await expect(playAgain).toBeVisible();
+  await expect(home).toBeVisible();
+  await home.click();
+  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+});
+
 const EXPECTED_GAMES = [
   { path: '/alphabet', title: 'Abeceda', instruction: 'Nájdi písmeno, ktoré počuješ.', material: 'wood' },
   { path: '/syllables', title: 'Slabiky', instruction: 'Nájdi slabiku, ktorú počuješ.', material: 'magnet' },

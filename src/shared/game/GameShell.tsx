@@ -68,8 +68,18 @@ export function GameShell({
   const restoreFocusRef = useRef<HTMLElement | null>(null);
   const pausedFocusRef = useRef<HTMLDivElement | null>(null);
   const [showParentGate, setShowParentGate] = useState(false);
+
+  // A final round reaches `answered-correctly`/`answered-incorrectly` (feedback: 'failure')
+  // as soon as the reducer resolves the answer, but useGameSession only dispatches
+  // SHOW_SESSION_COMPLETE once the praise/failure verdict audio has actually finished. A
+  // parent pause landing in that window would invalidate() the in-flight resolveAnswer()
+  // before it could dispatch SHOW_SESSION_COMPLETE, permanently stranding the round
+  // input-locked with no way to reach the completion overlay — so the pause control must be
+  // unavailable for the whole window, not just once session-complete is reached.
+  const isFinalRound = state.roundsPlayed >= state.maxRounds;
   const canPause = Boolean(onPause && onResume)
     && !state.paused
+    && !isFinalRound
     && state.phase !== 'session-complete'
     && state.phase !== 'recoverable-error';
 
@@ -88,12 +98,10 @@ export function GameShell({
   const definition = GAME_DEFINITIONS.find((g) => g.id === gameId);
   const title = definition ? getUiCopy(locale, definition.titleKey) : gameId;
 
-  // A final round reaches `answered-correctly`/`answered-incorrectly` (feedback: 'failure')
-  // as soon as the reducer resolves the answer, but useGameSession only dispatches
-  // SHOW_SESSION_COMPLETE once the praise/failure verdict audio has actually finished.
-  // Locking input must happen immediately; showing completion's Play again/Home must wait
-  // for that phase, or a child could tap past a session recap whose audio never played.
-  const isFinalRound = state.roundsPlayed >= state.maxRounds;
+  // Showing completion's Play again/Home must wait for `session-complete`, or a child could
+  // tap past a session recap whose audio never played; input locking uses `isFinalRound`
+  // itself (above) so it takes effect the instant the round resolves, not once that phase
+  // lands.
   const transientFeedback = feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !isFinalRound;
   const contentLocked =
     state.paused ||
