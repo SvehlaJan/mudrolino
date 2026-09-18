@@ -4,10 +4,10 @@
 - **Phase:** 4 (Parent Experience)
 - **Branch:** `feature/full-app-ui-redesign`
 - **Base SHA:** `3b8e7e3e4cb4901fec6655c65be8702b8d41cf07` (The accepted starting point commit on `feature/full-app-ui-redesign`: "fix: recover failed custom content undo")
-- **Candidate SHA:** `8a070889e33869062b6ccbfdc04b608a464816e1` ("fix: make feedback status accessible") — the review-remediated product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
+- **Candidate SHA:** `98a662c505fe64d80d0e5467a0b7f14db03e5cd1` ("fix: close phase four review gaps") — the review-remediated product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
 - **Implementation Status:** Complete, pending Codex acceptance
 - **Working Tree Clean:** Yes (`git status --short` clean before handoff commit)
-- **Local Screenshot Artifact Directory:** `artifacts/ui/8a070889e33869062b6ccbfdc04b608a464816e1/2026-09-18T01-58-36-661Z-78681` (140 screenshots: 14 scenes across 10 canonical viewports)
+- **Local Screenshot Artifact Directory:** `artifacts/ui/98a662c505fe64d80d0e5467a0b7f14db03e5cd1/2026-09-18T02-21-58-046Z-84679` (210 screenshots: 21 scenes across 10 canonical viewports)
 
 ---
 
@@ -19,7 +19,7 @@
 | `npx tsx src/shared/services/settingsService.verify.ts` | **PASS** | Pure-logic verifier: covers settings persistence, fallback on corrupt values, save error detection |
 | `npx tsx src/shared/services/appSettingsStore.verify.ts` | **PASS** | Pure-logic verifier: covers font preference round-trip and quota error handling |
 | `npx tsx src/content/customContentValidation.verify.ts` | **PASS** | Pure-logic verifier: covers word, syllable, and praise validation, duplicate prevention, and normalization |
-| `npx tsx src/content/contentState.verify.ts` | **PASS** | Pure-logic verifier: covers v2 content migration, default ID determinism, enabled-state invariants, and last-playable item protection |
+| `npx tsx src/content/contentState.verify.ts` | **PASS** | Pure-logic verifier: covers unseeded empty/corrupt migration fallback, v2 content migration, default ID determinism, enabled-state invariants, and last-playable item protection |
 | `npx tsx src/shared/services/localContentRepository.verify.ts` | **PASS** | Pure-logic verifier: covers repository CRUD, enable/disable toggling, restorable defaults, and domain guards |
 | `npx tsx src/recordings/recordingState.verify.ts` | **PASS** | Pure-logic verifier: covers state transitions (`idle`, `requesting`, `recording`, `processing`, `saved`, `cancelled`, `error`) |
 | `npx tsx src/shared/contentRegistry.verify.ts` | **PASS** | Pure-logic verifier: covers answer-audio sequencing contract and locale content integrity |
@@ -27,9 +27,9 @@
 | `npx tsx src/shared/services/parentAccessLogic.verify.ts` | **PASS** | Pure-logic verifier: covers protected route classification and return path sanitization |
 | `npx tsx tools/screenshots/capture.verify.ts` | **PASS** | Tooling verifier: covers screenshot scene registration, args parsing, and help output |
 | `npm run lint` (`tsc --noEmit` + ESLint) | **PASS** | 0 errors, 1 pre-existing documented `react-refresh/only-export-components` warning in `ContentContext.tsx` |
-| `npm run test:e2e` | **PASS** | 216/216 tests passed across desktop and mobile Chromium projects (~41s), covering all parent routes, content management, recordings, feedback, and baseline accessibility |
+| `npm run test:e2e` | **PASS** | 217/217 tests passed across desktop and mobile Chromium projects (~41s), covering all parent routes, safe in-parent not-found state, content management, recordings, feedback, and baseline accessibility |
 | `npx playwright test e2e/persistence-compat.spec.ts` | **PASS** | 2/2 tests passed: validates backward compatibility of v1 localStorage and IndexedDB audio overrides |
-| `npm run build` | **PASS** | Production build in 888ms; `AvatarScene-CDLptoUB.js` (973.04 kB) remains isolated from main chunk `index-CDM3XdUf.js` (246.89 kB) |
+| `npm run build` | **PASS** | Production build in 907ms; `AvatarScene-CDLptoUB.js` (973.04 kB) remains isolated from main chunk `index-DHHs9R5p.js` (248.21 kB) |
 | `git diff --check` | **PASS** | No whitespace errors, no trailing spaces, no conflict markers |
 | `npm run test:audio` | **Not rerun** | Audio keys and bundled audio assets were not modified |
 
@@ -43,8 +43,8 @@ Inspection of `dist/assets/index-*.js` confirms that `AvatarScene` is never bund
 1. **localStorage**:
    - `hrave-ucenie-settings`: unchanged keys and storage format; validates through typed registry.
    - `hrave-ucenie-app-settings`: unchanged schema (font family preference preserved).
-   - `hrave-ucenie-user-words-sk`: migrated transparently to v2 envelope with `enabled: boolean`, deterministic default IDs `default:word:<locale>:<key>`, preserving custom word IDs, metadata, and audio overrides.
-   - `hrave-ucenie-user-praises-sk`: migrated transparently to v2 envelope with `enabled: boolean`, deterministic default IDs `default:praise:<locale>:<key>`.
+   - `hrave-ucenie-user-words-sk`: migrated transparently to v2 envelope with `enabled: boolean`, deterministic default IDs `default:word:<locale>:<key>`, preserving custom word IDs, metadata, and audio overrides. When input is empty/corrupt and unseeded (e.g. private mode or localStorage disabled), pure migration in memory enables the first ready default without writing during load.
+   - `hrave-ucenie-user-praises-sk`: migrated transparently to v2 envelope with `enabled: boolean`, deterministic default IDs `default:praise:<locale>:<key>`. Unseeded empty/corrupt input recovers the first ready default in memory without load writes.
    - **Invariant:** Pure domain guard `canDisableOrDelete` guarantees at least one playable word and praise at all times with message `Aspoň jedna položka musí zostať zapnutá.`.
 
 2. **IndexedDB**:
@@ -59,13 +59,14 @@ Inspection of `dist/assets/index-*.js` confirms that `AvatarScene` is never bund
 Captured against local preview server built with `vite build --mode test`.
 
 Artifact directory:
-`artifacts/ui/8a070889e33869062b6ccbfdc04b608a464816e1/2026-09-18T01-58-36-661Z-78681`
+`artifacts/ui/98a662c505fe64d80d0e5467a0b7f14db03e5cd1/2026-09-18T02-21-58-046Z-84679`
 
-### Captured Scenes & Viewports (10 canonical viewports each, 140 total):
+### Captured Scenes & Viewports (10 canonical viewports each, 210 total):
 - **`parent-dashboard`** (`/settings`): `narrowPhone.png`, `smallPhone.png`, `phonePortrait.png`, `shortLandscape.png`, `phoneLandscape.png`, `tabletPortrait.png`, `tabletLandscape.png`, `desktop.png`, `desktopLarge.png`, `desktopWide.png`
 - **`parent-games`** (`/settings/games`): same 10 viewports
 - **`parent-game-alphabet`** (`/settings/games/ALPHABET`): same 10 viewports
 - **`parent-game-addition`** (`/settings/games/ADDITION`): same 10 viewports
+- **`parent-game-not-found`** (`/settings/games/not-a-real-game`): same 10 viewports
 - **`parent-app`** (`/settings/app`): same 10 viewports
 - **`parent-help`** (`/settings/help`): same 10 viewports
 - **`parent-feedback-dialog`** (`/settings/help` with feedback modal open): same 10 viewports
@@ -76,15 +77,22 @@ Artifact directory:
 - **`content-praises`** (`/content` - Praise category): same 10 viewports
 - **`content-word-editor`** (`/content` with Word editor open): same 10 viewports
 - **`content-recording-active`** (`/content` with active recording controls): same 10 viewports
+- **`content-disabled-collapsed`** (`/content` words with collapsed disabled disclosure): same 10 viewports
+- **`content-disabled-expanded`** (`/content` words with expanded restore controls): same 10 viewports
+- **`parent-addition-dependency-notice`** (`/settings/games/ADDITION` with dependency notice visible): same 10 viewports
+- **`content-recording-active-scrolled`** (`/content` active recording controls scrolled into view): same 10 viewports
+- **`parent-feedback-actions-scrolled`** (`/settings/help` feedback submit action scrolled into view): same 10 viewports
+- **`content-editor-actions-scrolled`** (`/content` editor submit action scrolled into view): same 10 viewports
 
 ### Visual Inspection Report (320×568, 667×375, and desktop):
 - **`/settings` (Parent Dashboard)**: Calm, organized dashboard presenting four primary destinations (`Nastavenia hier`, `Vlastný obsah`, `Aplikácia a vzhľad`, `Pomoc a spätná väzba`). At 320×568, cards stack cleanly; on desktop, cards lay out in responsive multi-column grid with clear touch/click targets.
 - **`/settings/games`**: Games overview derives directly from the semantic catalog and shows setting summaries per game. Empty-setting games are cleanly omitted.
 - **Game details (`ALPHABET`, `ADDITION`)**: Cleanly render catalogued controls (`SwitchControl`, `RadioGroupControl`). On `ADDITION`, selecting range 20/100 displays the dependency notice `Pri rozsahu 20 alebo 100 sa zobrazenie prepne na čísla.` in an accessible callout. On desktop, renders side-by-side list and detail panel; on mobile, stacks cleanly.
+- **Unknown game settings (`/settings/games/not-a-real-game`)**: Renders an accessible in-parent not-found state with description `Nastavenia hry sa nenašli` and actionable, accessible links back to `Prehľad nastavení hier` and `Rodičovská zóna`.
 - **`/settings/app`**: Font choice radio group and application appearance controls render with AA contrast.
-- **`/settings/help` & Feedback Dialog**: Feedback trigger button opens `DialogShell`. Dialog renders accessible `RadioGroupControl` for categories, `TextAreaControl` with remaining character counter, honest no-reply wording, selectable `mailto:` link, and clear retry button on submission failure. Focus traps inside dialog and restores to trigger button upon close or Escape.
+- **`/settings/help` & Feedback Dialog**: Feedback trigger button opens `DialogShell`. Dialog renders accessible `RadioGroupControl` for categories, `TextAreaControl` with remaining character counter, honest no-reply wording, selectable `mailto:` link, and clear retry button on submission failure. Primary actions are scrollable and reachable even at 320×568 and 667×375.
 - **`/content` (Custom Content Manager)**: One responsive capability model across all viewports. Vertical category rail + list + editor on desktop; tab strip + list + modal dialog on compact/mobile. Disabled default items render in a collapsed disclosure (`Vypnuté (N)`) with individual restore and "Obnoviť všetko".
-- **Recording Rows**: Every interactive button meets 44×44px minimum tap target. Active recording row shows distinct "Zastaviť" and "Zrušiť nahrávanie" buttons with live polite status announcements (`Nahrávam — hovorte do mikrofónu`). While one row records, other record buttons are visibly disabled.
+- **Recording Rows**: Every interactive button meets 44×44px minimum tap target. Active recording row shows distinct "Zastaviť" and "Zrušiť nahrávanie" buttons with live polite status announcements (`Nahrávam — hovorte do mikrofónu`). While one row records, other record buttons are visibly disabled. On short landscape (667×375), recording controls are cleanly scrolled into view.
 
 ---
 
@@ -125,12 +133,34 @@ Artifact directory:
 
 ---
 
+## Codex Review Remediation Ledger (Candidate `98a662c`)
+
+- **Finding 1 — Unknown `/settings/games/:gameId` safe not-found state:**
+  - Replaced silent redirect to `/settings` with an accessible, responsive in-parent not-found state inside `GameSettingsScreen.tsx`.
+  - The not-found state renders within `AppScreen`, providing TopBar back navigation and prominent buttons to `Prehľad nastavení hier` (`/settings/games`) and `Rodičovská zóna` (`/settings`).
+  - Catalogued games with no settings remain safely handled via redirect to `/settings`.
+  - Updated `e2e/parent-settings.spec.ts` and `e2e/parent-access.spec.ts` to assert that unknown game paths keep the URL, render the safe not-found state, and provide functioning return links.
+- **Finding 2 — Unseeded `migrateWords`/`migratePraises` zero-playable recovery:**
+  - Added pure failing verifier coverage in `src/content/contentState.verify.ts` for empty, null, and corrupt input under `seeded: false` for both words and praises.
+  - Updated `migrate` in `src/content/contentState.ts` so that when input yields zero playable items and no ready default exists in `items`, the first locale ready default from `defaults` is added in memory with its deterministic ID (`default:word:<locale>:<key>` or `default:praise:<locale>:<key>`).
+  - Sets `repaired: true` while strictly preserving `persistedDuringLoad: false`, custom IDs, and legacy/v2 migration idempotence.
+- **Finding 3 — Complete parent screenshot evidence:**
+  - Captured a fresh 210-image artifact directory under `artifacts/ui/98a662c505fe64d80d0e5467a0b7f14db03e5cd1/2026-09-18T02-21-58-046Z-84679/`.
+  - Preserved all 10 canonical viewports across 21 scenes.
+  - In addition to the full parent matrix, visibly captured focused scenes for:
+    1. Collapsed disabled-content disclosure (`content-disabled-collapsed`) and its expanded restore controls (`content-disabled-expanded`).
+    2. Addition 20/100 dependency notice (`parent-addition-dependency-notice`).
+    3. Active recording controls scrolled into view on short landscape (`content-recording-active-scrolled`).
+    4. Feedback dialog and content editor primary actions scrolled into view on short/narrow viewports (`parent-feedback-actions-scrolled`, `content-editor-actions-scrolled`).
+
+---
+
 ## Internal Review Ledger
 
 - **Tasks 1–5:** Committed in history (`44ea6cf`..`3b8e7e3`) — settings registry, autosave status, parent dashboard routes, content migration, and universal content editor.
 - **Task 6 (recording state machine):** `ad51a47` — Reducer verifier passed; hook returns explicit outcomes; 11/11 browser recording tests passed.
 - **Task 7 (feedback dialog):** `8a07088` — Shared form semantics, retry support, focus restoration, honest copy; 4/4 feedback e2e tests passed.
-- **Task 8 (verification & handoff):** All 11 pure verifiers passed, `npm run lint` clean, 216/216 E2E tests passed, production build clean, 140-image screenshot matrix captured and visually verified.
+- **Remediation (Codex review findings):** `98a662c` — Safe not-found route state, unseeded zero-playable migration recovery, pure verifiers for words & praises, 217/217 E2E tests clean, 210-image screenshot matrix captured and verified.
 
 ---
 
@@ -151,11 +181,11 @@ No new temporary adapters were introduced in Phase 4. Existing Phase 2 compatibi
 
 - **WebKit smoke coverage environment limitation:** WebKit installation hangs in this sandboxed environment; WebKit smoke testing remains a release gate for Phase 8.
 - **Phase 5 Preconditions:**
-  1. Codex reviews candidate SHA `8a070889e33869062b6ccbfdc04b608a464816e1` and records acceptance.
+  1. Codex reviews candidate SHA `98a662c505fe64d80d0e5467a0b7f14db03e5cd1` and records acceptance.
   2. Phase 5 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-5-game-shell-and-word-games.md`) begins strictly from the Codex acceptance-record commit.
 
 ---
 
 ## Codex Review Record
-- **Reviewed Candidate SHA:** `8a070889e33869062b6ccbfdc04b608a464816e1`
+- **Reviewed Candidate SHA:** `98a662c505fe64d80d0e5467a0b7f14db03e5cd1`
 - **Result:** Pending Codex acceptance
