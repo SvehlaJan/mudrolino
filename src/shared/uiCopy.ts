@@ -14,6 +14,23 @@ const SK_COPY = {
 
   'lobby.play': 'Hrať',
 
+  'game.replayPrompt': 'Zopakovať zadanie',
+  'game.answerGroup': 'Možnosti odpovede',
+  'game.continue': 'Pokračovať',
+  'game.playAgain': 'Hrať znova',
+  'game.home': 'Domov',
+  'game.retryError': 'Skúsiť znova',
+  'game.progress': 'Postup v hre',
+  'game.retryPrompt': 'Skús ešte raz',
+  'game.successTitle': 'Výborne!',
+  'game.failureTitle': 'Nevadí, poďme ďalej',
+  'game.completionTitle': 'Koniec hry',
+
+  'game.retry.detail': 'Nevadí, počúvaj ešte raz.',
+  'game.failure.detail': 'Správnu odpoveď si ukážeme spolu.',
+  'game.error.title': 'Niečo sa nepodarilo.',
+  'game.error.detail': 'Skúsime to ešte raz?',
+
   'category.literacy': 'Písmená a slová',
   'category.numeracy': 'Čísla a počítanie',
 

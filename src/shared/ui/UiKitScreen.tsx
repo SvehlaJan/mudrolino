@@ -30,6 +30,8 @@ import { GameCard } from '../../home/GameCard';
 import { GameLobby } from '../components/GameLobby';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
+import { AnswerGroup, GamePrompt, GameShell } from '../game';
+import type { GameState } from '../game/gameState';
 import { useAutosaveStatus, type AutosaveStatus } from '../hooks/useAutosaveStatus';
 import type { SaveResult } from '../services/appSettingsStore';
 
@@ -197,6 +199,82 @@ function UiKitOverlayCompletionDemo() {
         <Button tone="neutral" size="parent">Domov</Button>
       </div>
     </OverlayFrame>
+  );
+}
+
+type GameShellDemoState = 'ready' | 'listening' | 'retry' | 'success' | 'failure' | 'paused' | 'error' | 'completion' | 'visual' | 'reduced-motion' | 'focus-restoration';
+
+function getGameShellDemoState(example: GameShellDemoState): GameState {
+  const base: GameState = {
+    phase: 'awaiting-answer', resumePhase: null, paused: false, maxRounds: 5, maxAttempts: 3,
+    wrongAttempts: 0, roundsPlayed: 0, correctRounds: 0, totalTaps: 0,
+    selectedAnswerId: null, feedback: null, errorMessage: null,
+  };
+
+  switch (example) {
+    case 'listening': return { ...base, phase: 'listening' };
+    case 'retry': return { ...base, phase: 'answered-incorrectly', wrongAttempts: 1 };
+    case 'success': return { ...base, phase: 'answered-correctly', roundsPlayed: 1, correctRounds: 1, feedback: 'success' };
+    case 'failure': return { ...base, phase: 'answered-incorrectly', roundsPlayed: 1, feedback: 'failure' };
+    case 'paused': return { ...base, paused: true, resumePhase: 'awaiting-answer' };
+    case 'error': return { ...base, phase: 'recoverable-error', errorMessage: 'Zvuk sa nepodarilo prehrať.' };
+    case 'completion': return { ...base, phase: 'session-complete', roundsPlayed: 5, correctRounds: 5, totalTaps: 6 };
+    default: return base;
+  }
+}
+
+function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
+  const [focusDemoPaused, setFocusDemoPaused] = useState(false);
+  const state = stateName === 'focus-restoration'
+    ? { ...getGameShellDemoState('ready'), paused: focusDemoPaused, resumePhase: focusDemoPaused ? 'awaiting-answer' as const : null }
+    : getGameShellDemoState(stateName);
+  const feedback = stateName === 'retry'
+    ? { kind: 'retry' as const, title: getUiCopy('sk', 'game.retryPrompt'), detail: getUiCopy('sk', 'game.retry.detail') }
+    : stateName === 'success'
+    ? { kind: 'success' as const, title: getUiCopy('sk', 'game.successTitle'), onContinue: () => undefined }
+    : stateName === 'failure'
+    ? { kind: 'failure' as const, title: getUiCopy('sk', 'game.failureTitle'), detail: getUiCopy('sk', 'game.failure.detail'), onContinue: () => undefined }
+    : undefined;
+  const visual = stateName === 'visual' ? <span className="text-6xl" aria-label="Auto">🚗</span> : undefined;
+
+  return (
+    <div data-demo-state={stateName} data-demo-viewports="320x568 667x375" data-demo-motion={stateName === 'reduced-motion' ? 'system-reduced' : 'default'}>
+      <GameShell
+        gameId="ALPHABET"
+        state={state}
+        onBack={() => undefined}
+        prompt={<GamePrompt instruction="Nájdi písmeno, ktoré počuješ." visual={visual} replaying={stateName === 'listening' || stateName === 'reduced-motion'} onReplay={() => undefined} />}
+        feedback={feedback}
+        completion={{
+          praise: { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' },
+          correctRounds: 5, totalTaps: 6, maxRounds: 5, onPlayAgain: () => undefined, onHome: () => undefined,
+        }}
+        onRetryError={() => undefined}
+      >
+        <AnswerGroup label={getUiCopy('sk', 'game.answerGroup')} orientation="grid">
+          {['A', 'B', 'C', 'D'].map(letter => (
+            <button
+              key={letter}
+              type="button"
+              aria-label={`Písmeno ${letter}`}
+              className="flex min-h-12 min-w-12 items-center justify-center rounded-2xl bg-white text-2xl font-black text-text-main shadow-block transition-transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-focus"
+            >
+              {letter}
+            </button>
+          ))}
+        </AnswerGroup>
+      </GameShell>
+      {stateName === 'focus-restoration' && (
+        <button
+          type="button"
+          data-testid="game-pause-demo-toggle"
+          className="sr-only"
+          onClick={() => setFocusDemoPaused(paused => !paused)}
+        >
+          {focusDemoPaused ? 'Obnoviť ukážku' : 'Pozastaviť ukážku'}
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -380,6 +458,15 @@ function AutosaveStatusDemo() {
 }
 
 export function UiKitScreen() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('example') === 'game-shell') {
+    const requestedState = params.get('state') as GameShellDemoState | null;
+    const stateName: GameShellDemoState = requestedState && [
+      'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration',
+    ].includes(requestedState) ? requestedState : 'ready';
+    return <UiKitGameShellDemo stateName={stateName} />;
+  }
+
   return (
     <AppScreen fixedHeight={false} scrollable maxWidth="wide" contentClassName="gap-8 pb-8">
       <TopBar
@@ -816,6 +903,24 @@ export function UiKitScreen() {
               onBack={() => undefined}
               onOpenSettings={() => undefined}
             />
+          </div>
+        </Card>
+      </Section>
+
+      <Section title="Game Shell">
+        <Card className="space-y-3">
+          <p className="font-medium text-text-muted">
+            Samostatná ukážka hernej obrazovky pokrýva zvukové aj obrazové zadanie, stavy pripravené/počúvanie/opakovanie/úspech/neúspech/pozastavenie/chyba/dokončenie,
+            preferenciu obmedzeného pohybu a rozloženia 320×568 aj 667×375.
+          </p>
+          <div className="flex flex-wrap gap-3 text-sm font-black text-action-primary underline">
+            {[
+              ['ready', 'Pripravené'], ['listening', 'Počúvanie'], ['visual', 'Obrazové zadanie'], ['retry', 'Opakovanie'],
+              ['success', 'Úspech'], ['failure', 'Neúspech'], ['paused', 'Pozastavené'], ['error', 'Chyba'],
+              ['completion', 'Dokončenie'], ['reduced-motion', 'Obmedzený pohyb'], ['focus-restoration', 'Obnovenie fokusu'],
+            ].map(([state, label]) => (
+              <a key={state} href={`/ui-kit?example=game-shell&state=${state}`}>{label}</a>
+            ))}
           </div>
         </Card>
       </Section>

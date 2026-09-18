@@ -8,6 +8,62 @@ import {
 import { getE2EState } from './support/e2eHook';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 
+test.describe('shared shell and answer group contract', () => {
+  test('shared shell exposes the complete round contract', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-shell');
+
+    await expect(page.getByRole('main')).toHaveCount(1);
+    await expect(page.getByRole('heading', { level: 1, name: 'Abeceda' })).toHaveCount(1);
+    await expect(page.getByRole('progressbar', { name: 'Postup v hre' })).toHaveAttribute('aria-valuenow', '1');
+    await expect(page.getByTestId('game-visible-instruction')).toHaveText('Nájdi písmeno, ktoré počuješ.');
+    await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
+    await expect(page.getByRole('group', { name: 'Možnosti odpovede' })).toBeVisible();
+  });
+
+  test('answer group uses one tab stop and spatial arrows', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-shell');
+    const a = page.getByRole('button', { name: 'Písmeno A' });
+    await a.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(page.getByRole('button', { name: 'Písmeno B' })).toBeFocused();
+    await page.keyboard.press('ArrowDown');
+    await expect(page.getByRole('button', { name: 'Písmeno D' })).toBeFocused();
+  });
+
+  test('shared shell documents recoverable, paused, feedback, and completion states', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-shell&state=retry');
+    await expect(page.getByRole('status')).toContainText('Skús ešte raz');
+
+    await page.goto('/ui-kit?example=game-shell&state=success');
+    await expect(page.getByRole('status')).toContainText('Výborne');
+    await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
+
+    await page.goto('/ui-kit?example=game-shell&state=failure');
+    await expect(page.getByRole('status')).toContainText('Nevadí');
+
+    await page.goto('/ui-kit?example=game-shell&state=paused');
+    await expect(page.getByTestId('game-interactive-content')).toHaveAttribute('inert', '');
+
+    await page.goto('/ui-kit?example=game-shell&state=error');
+    await expect(page.getByRole('alert')).toContainText('Skúsiť znova');
+    await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
+
+    await page.goto('/ui-kit?example=game-shell&state=completion');
+    await expect(page.getByText('5 / 5', { exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+  });
+
+  test('shared shell restores answer focus when a paused shell resumes', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-shell&state=focus-restoration');
+    const answer = page.getByRole('button', { name: 'Písmeno A' });
+    await answer.focus();
+    await page.getByTestId('game-pause-demo-toggle').evaluate((button: HTMLButtonElement) => button.click());
+    await expect(page.getByTestId('game-interactive-content')).toHaveAttribute('inert', '');
+    await page.getByTestId('game-pause-demo-toggle').evaluate((button: HTMLButtonElement) => button.click());
+    await expect(answer).toBeFocused();
+  });
+});
+
 interface AlphabetState extends E2EGlobalState {
   correctItemId: string | null;
   gridItemIds: string[];
