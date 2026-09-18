@@ -247,6 +247,9 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
   useEffect(() => {
     phaseRef.current = state.phase;
   }, [state.phase]);
+  // Set synchronously at the very top of chooseAnswer, before any local state update or await —
+  // see the comment there for why this can't be the React-state-derived `canAnswer` instead.
+  const answerLockRef = useRef(false);
 
   useEffect(() => {
     if (!targetRound || isEmpty) return;
@@ -276,50 +279,58 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
   }, [isEmpty, playAgain]);
 
   const chooseAnswer = useCallback(async (letter: Letter) => {
-    // Unlike a single-shot choice, this round settles local state (filledCount/choices) before
-    // calling resolveAnswer — resolveAnswer's own re-entrancy guard runs too late to protect
-    // that local update, so a fast double-tap must be rejected here first.
     if (!targetRound || correctSymbol === null || !canAnswer) return;
-    const answerId = letter.symbol;
+    // Unlike a single-shot choice, this round settles local state (filledCount/choices) before
+    // calling resolveAnswer, so useGameSession's own re-entrancy guard (its `answeringRef`,
+    // mutated synchronously at the top of resolveAnswer) runs too late to protect that local
+    // update from a same-tick double-invocation. Mirror that same ref-before-any-await pattern
+    // here, locally, so a fast double-tap is rejected before settleBlank ever runs.
+    if (answerLockRef.current) return;
+    answerLockRef.current = true;
+    try {
+      const answerId = letter.symbol;
 
-    if (letter.symbol === correctSymbol) {
-      const nextFilledCount = filledCount + 1;
-      const isFinalBlank = nextFilledCount >= targetRound.missingIndexes.length;
+      if (letter.symbol === correctSymbol) {
+        const nextFilledCount = filledCount + 1;
+        const isFinalBlank = nextFilledCount >= targetRound.missingIndexes.length;
 
-      if (!isFinalBlank) {
-        // activeLetters reflects live settings; a mid-round settings change (rare) could shift
-        // distractors for the next blank — the correct answer itself is unaffected.
-        const nextChoices = buildLetterChoices(targetRound, activeLetters, nextFilledCount, CHOICE_COUNT);
-        settleBlank(nextFilledCount, nextChoices);
+        if (!isFinalBlank) {
+          // activeLetters reflects live settings; a mid-round settings change (rare) could shift
+          // distractors for the next blank — the correct answer itself is unaffected.
+          const nextChoices = buildLetterChoices(targetRound, activeLetters, nextFilledCount, CHOICE_COUNT);
+          settleBlank(nextFilledCount, nextChoices);
+          await resolveAnswer({
+            answerId,
+            outcome: 'progress',
+            selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
+          });
+          return;
+        }
+
+        const praise = pickPraise(praiseEntries);
+        setRoundPraise(praise);
+        settleBlank(nextFilledCount);
         await resolveAnswer({
           answerId,
-          outcome: 'progress',
+          outcome: 'correct',
           selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
+          verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetRound)),
         });
         return;
       }
 
-      const praise = pickPraise(praiseEntries);
-      setRoundPraise(praise);
-      settleBlank(nextFilledCount);
+      const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
+      // Reveal every remaining missing unit before the failure explanation plays.
+      if (exhausted) settleBlank(targetRound.missingIndexes.length);
       await resolveAnswer({
         answerId,
-        outcome: 'correct',
-        selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
-        verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetRound)),
+        outcome: 'wrong',
+        selectionAudio: getWrongAnswerAudio(locale, 'letters', letter.audioKey, letter.symbol),
+        verdictAudio: exhausted ? getFailureSpec(locale, targetRound).audioSpec : undefined,
       });
-      return;
+    } finally {
+      answerLockRef.current = false;
     }
-
-    const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
-    // Reveal every remaining missing unit before the failure explanation plays.
-    if (exhausted) settleBlank(targetRound.missingIndexes.length);
-    await resolveAnswer({
-      answerId,
-      outcome: 'wrong',
-      selectionAudio: getWrongAnswerAudio(locale, 'letters', letter.audioKey, letter.symbol),
-      verdictAudio: exhausted ? getFailureSpec(locale, targetRound).audioSpec : undefined,
-    });
   }, [targetRound, correctSymbol, canAnswer, filledCount, activeLetters, locale, praiseEntries, resolveAnswer, settleBlank, state.maxAttempts, state.wrongAttempts]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
