@@ -31,7 +31,7 @@ import { GameLobby } from '../components/GameLobby';
 import { FindItGame } from '../components/FindItGame';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
-import { AnswerGroup, GamePrompt, GameShell, PlayTray, TactilePiece } from '../game';
+import { AnswerGroup, GamePrompt, GameShell, InsetSlot, PictureCard, PlayTray, TactilePiece, WordRail } from '../game';
 import type { GameState } from '../game/gameState';
 import type { TactileMaterial } from '../game/materials';
 import type { GameDescriptor } from '../types';
@@ -902,6 +902,39 @@ export function UiKitScreen() {
             </Card>
           </div>
         </div>
+      </Section>
+
+      <Section title="Literárne materiály">
+        <section aria-label="Literárne materiály" className="space-y-6">
+          <Card className="space-y-6">
+            <div className="grid gap-6 sm:grid-cols-[auto_1fr] sm:items-center">
+              <PictureCard emoji="👩" label="Mama" caption="Mama" />
+              <WordRail label="Slovo MAMA">
+                <InsetSlot data-testid="inset-slot-active" label="Chýbajúca slabika" state="active" />
+                <InsetSlot data-testid="inset-slot-filled" label="Vyplnená slabika: MA" state="filled">
+                  <span aria-hidden="true">MA</span>
+                </InsetSlot>
+              </WordRail>
+            </div>
+            <PlayTray label="Slabiky na výber">
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <TactilePiece as="button" material="felt" label="Slabika MA">MA</TactilePiece>
+                <TactilePiece as="button" material="felt" label="Slabika LA">LA</TactilePiece>
+              </div>
+            </PlayTray>
+          </Card>
+        </section>
+
+        <Card className="space-y-3">
+          <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Dlhé slovo bez vodorovného pretečenia</h3>
+          <WordRail label="Slovo DŽUNGĽA">
+            {['DŽ', 'U', 'N', 'G', 'Ľ', 'A'].map((unit) => (
+              <InsetSlot key={unit} label={`Písmeno ${unit}`} state="fixed">
+                <span aria-hidden="true">{unit}</span>
+              </InsetSlot>
+            ))}
+          </WordRail>
+        </Card>
       </Section>
 
       <Section title="Prompt Badge">

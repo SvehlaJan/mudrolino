@@ -5,3 +5,6 @@
 
 export * from './TactilePiece';
 export * from './PlayTray';
+export * from './PictureCard';
+export * from './WordRail';
+export * from './InsetSlot';
