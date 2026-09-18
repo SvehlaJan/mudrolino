@@ -2,6 +2,9 @@ import { canAcceptAnswer, createGameState, gameStateReducer } from './gameState'
 
 let state = createGameState({ maxRounds: 5, maxAttempts: 3 });
 if (state.phase !== 'ready' || state.roundsPlayed !== 0 || state.totalTaps !== 0) throw new Error('bad initial state');
+if (gameStateReducer(state, { type: 'ROUND_READY' }) !== state) throw new Error('ROUND_READY must reject from ready');
+if (gameStateReducer(state, { type: 'NEXT_ROUND' }) !== state) throw new Error('NEXT_ROUND must reject before terminal feedback');
+if (gameStateReducer(state, { type: 'SHOW_SESSION_COMPLETE' }) !== state) throw new Error('completion must reject before max rounds');
 state = gameStateReducer(state, { type: 'PROMPT_STARTED' });
 if (state.phase !== 'listening' || !canAcceptAnswer(state)) throw new Error('opening audio must remain answerable');
 state = gameStateReducer(state, { type: 'ANSWER_STARTED', answerId: 'B' });
@@ -10,7 +13,8 @@ state = gameStateReducer(state, { type: 'ANSWER_WRONG' });
 if (state.phase !== 'answered-incorrectly' || state.wrongAttempts !== 1 || state.totalTaps !== 1) throw new Error('bad retry');
 state = gameStateReducer(state, { type: 'RETRY_READY' });
 state = gameStateReducer(state, { type: 'ANSWER_STARTED', answerId: 'C' });
-state = gameStateReducer(state, { type: 'ANSWER_WRONG' });
+state = gameStateReducer(state, { type: 'ANSWER_WRONG', countTap: false });
+if (state.totalTaps !== 1) throw new Error('wrong answer countTap false must not increment taps');
 state = gameStateReducer(state, { type: 'RETRY_READY' });
 state = gameStateReducer(state, { type: 'ANSWER_STARTED', answerId: 'D' });
 state = gameStateReducer(state, { type: 'ANSWER_WRONG' });
@@ -22,6 +26,7 @@ if (state.feedback !== 'success' || state.roundsPlayed !== 2 || state.correctRou
 const phase = state.phase;
 state = gameStateReducer(state, { type: 'PAUSE' });
 if (!state.paused || canAcceptAnswer(state)) throw new Error('pause must block input');
+if (gameStateReducer(state, { type: 'ERROR', message: 'ignored while paused' }) !== state) throw new Error('paused error must be ignored');
 state = gameStateReducer(state, { type: 'RESUME' });
 if (state.paused || state.phase !== phase) throw new Error('resume lost phase');
 state = gameStateReducer(state, { type: 'ERROR', message: 'Obsah sa nepodarilo načítať.' });
@@ -34,6 +39,7 @@ if (state.phase !== 'ready' || state.roundsPlayed !== 0 || state.totalTaps !== 0
 // and assert five consecutive wrong resolutions never produce failure or increment roundsPlayed.
 // Repeat progress with default countTap and assert it increments totalTaps exactly once.
 let uncapped = createGameState({ maxRounds: 5, maxAttempts: null });
+uncapped = gameStateReducer(uncapped, { type: 'LOAD' });
 uncapped = gameStateReducer(uncapped, { type: 'ROUND_READY' });
 uncapped = gameStateReducer(uncapped, { type: 'ANSWER_STARTED', answerId: 'X' });
 uncapped = gameStateReducer(uncapped, { type: 'ANSWER_PROGRESS', countTap: false });

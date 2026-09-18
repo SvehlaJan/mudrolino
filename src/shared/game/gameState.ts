@@ -75,10 +75,11 @@ export const canAcceptAnswer = (state: GameState): boolean =>
 export const gameStateReducer = (state: GameState, event: GameEvent): GameState => {
   switch (event.type) {
     case 'LOAD':
-      return { ...state, phase: 'loading' };
+      if (state.paused || (state.phase !== 'ready' && state.phase !== 'recoverable-error')) return state;
+      return { ...state, phase: 'loading', errorMessage: null };
 
     case 'ROUND_READY':
-      if (state.paused) return state;
+      if (state.paused || (state.phase !== 'loading' && state.phase !== 'transitioning')) return state;
       return {
         ...state,
         phase: 'awaiting-answer',
@@ -169,6 +170,7 @@ export const gameStateReducer = (state: GameState, event: GameEvent): GameState 
       return state;
 
     case 'NEXT_ROUND':
+      if (state.paused || (state.phase !== 'answered-correctly' && !(state.phase === 'answered-incorrectly' && state.feedback === 'failure'))) return state;
       return {
         ...state,
         phase: 'ready',
@@ -178,6 +180,7 @@ export const gameStateReducer = (state: GameState, event: GameEvent): GameState 
       };
 
     case 'SHOW_SESSION_COMPLETE':
+      if (state.paused || state.roundsPlayed < state.maxRounds || (state.phase !== 'answered-correctly' && !(state.phase === 'answered-incorrectly' && state.feedback === 'failure'))) return state;
       return {
         ...state,
         phase: 'session-complete',
@@ -211,6 +214,7 @@ export const gameStateReducer = (state: GameState, event: GameEvent): GameState 
       };
 
     case 'ERROR':
+      if (state.paused || state.phase === 'session-complete' || state.phase === 'recoverable-error') return state;
       return {
         ...state,
         phase: 'recoverable-error',
