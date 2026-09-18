@@ -347,10 +347,15 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
     activeTweensRef.current.set(tileId, tween);
   }, [cleanupFloatingTile]);
 
-  const validateBoard = useCallback((nextBoard: AssemblyBoard, finalSelectedSyllable?: string) => {
-    if (!targetWord || !isAssemblyBoardComplete(nextBoard)) return;
+  const validateBoard = useCallback((nextPlaced: (AssemblyTile | null)[], finalSelectedSyllable?: string) => {
+    // isAssemblyBoardComplete/isAssemblyBoardCorrect take a whole AssemblyBoard but
+    // only ever read `.placedTiles`. This caller only has the placed-tiles snapshot
+    // (see handleTrayTileTap's comment on why), so `trayTiles: []` here is a dummy
+    // that satisfies the parameter type -- never read `.trayTiles` off `placedBoard`.
+    const placedBoard: AssemblyBoard = { trayTiles: [], placedTiles: nextPlaced };
+    if (!targetWord || !isAssemblyBoardComplete(placedBoard)) return;
 
-    const isCorrect = isAssemblyBoardCorrect(nextBoard, correctSyllables);
+    const isCorrect = isAssemblyBoardCorrect(placedBoard, correctSyllables);
     setTotalChecks(prev => prev + 1);
 
     if (isCorrect) {
@@ -378,8 +383,8 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
       setIsResettingBoard(true);
       resetRevealTimerRef.current = null;
       resetBoardTimerRef.current = setTimeout(() => {
-        const emptyBoard: AssemblyBoard = { trayTiles: [], placedTiles: [...nextBoard.placedTiles] };
-        setBoard(nextBoard.placedTiles.reduce<AssemblyBoard>(
+        const emptyBoard: AssemblyBoard = { trayTiles: [], placedTiles: [...nextPlaced] };
+        setBoard(nextPlaced.reduce<AssemblyBoard>(
           (acc, tile, slotIndex) => (tile ? returnTileToTray(acc, slotIndex) : acc),
           emptyBoard,
         ));
@@ -430,7 +435,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
     }
 
     if (nextPlacedSnapshot) {
-      validateBoard({ trayTiles: [], placedTiles: nextPlacedSnapshot }, selectedTileText ?? undefined);
+      validateBoard(nextPlacedSnapshot, selectedTileText ?? undefined);
     }
   }, [animateBoardMove, board.placedTiles, correctSyllables, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
 
