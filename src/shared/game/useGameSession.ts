@@ -73,6 +73,14 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
     return operationIdRef.current;
   }, []);
 
+  const scheduleRetryReady = useCallback((operationId: number) => {
+    const timer = setTimeout(() => {
+      timersRef.current.delete(timer);
+      if (operationId === operationIdRef.current) dispatchEvent({ type: 'RETRY_READY' });
+    }, TIMING.FEEDBACK_RESET_MS);
+    timersRef.current.add(timer);
+  }, [dispatchEvent]);
+
   const playPrompt = useCallback(async (audio: AudioSpec, replay: boolean): Promise<void> => {
     const operationId = invalidate();
     if (stateRef.current.paused) return;
@@ -114,11 +122,7 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
     if (input.outcome === 'wrong' && !terminalFailure) {
       answeringRef.current = false;
       setAnswering(false);
-      const timer = setTimeout(() => {
-        timersRef.current.delete(timer);
-        if (operationId === operationIdRef.current) dispatchEvent({ type: 'RETRY_READY' });
-      }, TIMING.FEEDBACK_RESET_MS);
-      timersRef.current.add(timer);
+      scheduleRetryReady(operationId);
       return 'retry';
     }
 
@@ -131,7 +135,7 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
       dispatchEvent({ type: 'SHOW_SESSION_COMPLETE' });
     }
     return input.outcome === 'correct' ? 'success' : 'failure';
-  }, [dispatchEvent, invalidate]);
+  }, [dispatchEvent, invalidate, scheduleRetryReady]);
 
   const continueAfterFeedback = useCallback(() => {
     const current = stateRef.current;
@@ -166,14 +170,8 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
     const operationId = operationIdRef.current;
     dispatchEvent({ type: 'RESUME' });
     if (recoverCancelledAnswer) dispatchEvent({ type: 'ANSWER_PROGRESS', countTap: false });
-    if (recoverPendingRetry) {
-      const timer = setTimeout(() => {
-        timersRef.current.delete(timer);
-        if (operationId === operationIdRef.current) dispatchEvent({ type: 'RETRY_READY' });
-      }, TIMING.FEEDBACK_RESET_MS);
-      timersRef.current.add(timer);
-    }
-  }, [dispatchEvent]);
+    if (recoverPendingRetry) scheduleRetryReady(operationId);
+  }, [dispatchEvent, scheduleRetryReady]);
 
   const fail = useCallback((message: string) => {
     invalidate();
