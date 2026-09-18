@@ -54,19 +54,20 @@ export class AudioManager {
     this.stop();
     const playbackToken = this.playbackToken;
     for (const clip of clips) {
-      recordE2EAudioEvent(`start:${clip.path}`);
       // clip.path is locale-prefixed, e.g. 'sk/letters/a'
       // The override store key and the /audio/ URL both use this same path.
       const override = await audioOverrideStore.get(clip.path);
+      if (playbackToken !== this.playbackToken) return;
       const url = override
         ? URL.createObjectURL(override)
         : `/audio/${clip.path}.mp3`;
+      recordE2EAudioEvent(`start:${clip.path}`);
       try {
         await this.playSingleClip(url, playbackToken);
       } catch {
         if (playbackToken !== this.playbackToken) return;
         console.warn('[AudioManager] Audio file failed, falling back to TTS:', clip.fallbackText);
-        await this.speakAsync(clip.fallbackText);
+        await this.speakAsync(clip.fallbackText, playbackToken);
       } finally {
         if (override) URL.revokeObjectURL(url);
       }
@@ -84,12 +85,14 @@ export class AudioManager {
       const cleanup = () => {
         audio.onended = null;
         audio.onerror = null;
+        if (playbackToken === this.playbackToken && this.currentAudio === audio) {
+          this.currentAudio = null;
+        }
       };
 
       const resolveOnce = () => {
         if (settled) return;
         settled = true;
-        this.currentAudio = null;
         cleanup();
         resolve();
       };
@@ -97,7 +100,6 @@ export class AudioManager {
       const rejectOnce = () => {
         if (settled) return;
         settled = true;
-        this.currentAudio = null;
         cleanup();
         if (playbackToken !== this.playbackToken) {
           resolve();
@@ -112,11 +114,12 @@ export class AudioManager {
     });
   }
 
-  private speakAsync(text: string): Promise<void> {
+  private speakAsync(text: string, playbackToken: number): Promise<void> {
     return new Promise((resolve) => {
-      if (!this.synth) { resolve(); return; }
+      if (!this.synth || playbackToken !== this.playbackToken) { resolve(); return; }
       this.synth.cancel();
       setTimeout(() => {
+        if (playbackToken !== this.playbackToken) { resolve(); return; }
         const utterance = new SpeechSynthesisUtterance(text);
         const voices = this.synth.getVoices();
         const langMap: Record<string, string> = {
@@ -132,6 +135,7 @@ export class AudioManager {
         utterance.onend = () => resolve();
         utterance.onerror = () => resolve();
         if (this.synth.paused) this.synth.resume();
+        if (playbackToken !== this.playbackToken) { resolve(); return; }
         this.synth.speak(utterance);
       }, 50);
     });

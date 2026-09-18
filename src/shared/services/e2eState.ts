@@ -42,7 +42,7 @@ export function setE2EState(patch: Partial<E2EGlobalState>): void {
  * while browser tests can assert clip order without depending on playback durations.
  */
 export function recordE2EAudioEvent(event: string): void {
-  if (import.meta.env.MODE !== 'test') return;
+  if (import.meta.env?.MODE !== 'test') return;
   const audioEvents = [...(window.__E2E__?.audioEvents ?? []), event];
   setE2EState({ audioEvents });
 }
