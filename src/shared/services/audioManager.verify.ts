@@ -26,7 +26,7 @@ class FakeAudio {
 
   play(): Promise<void> {
     if (this.path.includes('tts')) return Promise.reject(new Error('missing clip'));
-    if (!this.path.includes('first') && !this.path.includes('second')) {
+    if (!this.path.includes('first') && !this.path.includes('second') && !this.path.includes('long')) {
       queueMicrotask(() => this.onended?.());
     }
     return Promise.resolve();
@@ -103,6 +103,22 @@ try {
   assert.equal(secondAudio.paused, true, 'a stale clip completion must not clear the current clip');
   secondAudio.onended?.();
   await Promise.all([first, second]);
+
+  const midPlayManager = new AudioManager();
+  const midPlay = midPlayManager.play({ clips: [{ path: 'long-running', fallbackText: 'long' }] });
+  await Promise.resolve();
+  await Promise.resolve();
+  const stillPending = await Promise.race([
+    midPlay.then(() => false),
+    new Promise<boolean>((resolve) => setTimeout(() => resolve(true), 20)),
+  ]);
+  assert.equal(stillPending, true, 'a clip with no ended/error event must still be pending before stop');
+  midPlayManager.stop();
+  const settledPromptly = await Promise.race([
+    midPlay.then(() => true),
+    new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 200)),
+  ]);
+  assert.equal(settledPromptly, true, 'stop() must settle an active clip without manually invoking onended');
 } finally {
   audioOverrideStore.get = originalGet;
 }

@@ -14,6 +14,10 @@ export class AudioManager {
   private currentAudio: HTMLAudioElement | null = null;
   private playbackToken = 0;
   private locale = 'sk';
+  /** Settles the currently pending playSingleClip/speakAsync promise as cancelled — stop()
+   * calls this directly so an in-flight await never hangs on an onended/onend that a
+   * paused/cancelled element or utterance may not reliably fire. */
+  private pendingCancel: (() => void) | null = null;
 
   constructor() {
     this.locale = loadAppSettings().locale;
@@ -29,12 +33,15 @@ export class AudioManager {
   /** Stop any in-progress audio or TTS immediately. */
   stop(): void {
     this.playbackToken += 1;
+    const cancelPending = this.pendingCancel;
+    this.pendingCancel = null;
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
       this.currentAudio = null;
     }
     this.synth.cancel();
+    cancelPending?.();
   }
 
   /** Play a sequence of AudioClips. Each clip falls back to its own TTS if the file fails. */
@@ -88,6 +95,7 @@ export class AudioManager {
         if (playbackToken === this.playbackToken && this.currentAudio === audio) {
           this.currentAudio = null;
         }
+        if (this.pendingCancel === cancelThisClip) this.pendingCancel = null;
       };
 
       const resolveOnce = () => {
@@ -108,6 +116,9 @@ export class AudioManager {
         reject(new Error(`Failed to load: ${path}`));
       };
 
+      const cancelThisClip = () => resolveOnce();
+      this.pendingCancel = cancelThisClip;
+
       audio.onended = resolveOnce;
       audio.onerror = rejectOnce;
       audio.play().catch(() => rejectOnce());
@@ -118,8 +129,16 @@ export class AudioManager {
     return new Promise((resolve) => {
       if (!this.synth || playbackToken !== this.playbackToken) { resolve(); return; }
       this.synth.cancel();
+      let settled = false;
+      const settleOnce = () => {
+        if (settled) return;
+        settled = true;
+        if (this.pendingCancel === settleOnce) this.pendingCancel = null;
+        resolve();
+      };
+      this.pendingCancel = settleOnce;
       setTimeout(() => {
-        if (playbackToken !== this.playbackToken) { resolve(); return; }
+        if (playbackToken !== this.playbackToken) { settleOnce(); return; }
         const utterance = new SpeechSynthesisUtterance(text);
         const voices = this.synth.getVoices();
         const langMap: Record<string, string> = {
@@ -132,10 +151,10 @@ export class AudioManager {
         utterance.lang = lang;
         utterance.rate = 0.9;
         utterance.pitch = 1.0;
-        utterance.onend = () => resolve();
-        utterance.onerror = () => resolve();
+        utterance.onend = settleOnce;
+        utterance.onerror = settleOnce;
         if (this.synth.paused) this.synth.resume();
-        if (playbackToken !== this.playbackToken) { resolve(); return; }
+        if (playbackToken !== this.playbackToken) { settleOnce(); return; }
         this.synth.speak(utterance);
       }, 50);
     });
