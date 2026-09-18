@@ -4,12 +4,12 @@
  */
 
 import React, { useState } from 'react';
-import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import type { GameId, GameSettings } from '../shared/types';
 import { GAME_DEFINITIONS_BY_ID } from '../shared/gameCatalog';
 import { sanitizeChildReturnPath } from '../shared/services/parentAccessLogic';
 import { getSettingsSubtitle } from '../shared/settings/settingsRegistry';
-import { AppScreen, BackButton, PageHeader, TopBar } from '../shared/ui';
+import { AppScreen, BackButton, PageHeader, TopBar, cn, uiTokens } from '../shared/ui';
 import { GameSettingsList } from './GameSettingsOverviewScreen';
 import { SettingsRenderer } from './SettingsRenderer';
 import { useParentZone } from './ParentZoneContext';
@@ -35,10 +35,6 @@ export function GameSettingsScreen({ settings, onUpdate }: GameSettingsScreenPro
 
   const definition = gameId ? GAME_DEFINITIONS_BY_ID[gameId as GameId] : undefined;
 
-  if (!definition || definition.settings.length === 0) {
-    return <Navigate to="/settings" replace />;
-  }
-
   const state = location.state as { returnTo?: unknown } | null;
   const returnTo = sanitizeChildReturnPath(state?.returnTo);
   const cameFromLobby = returnTo !== '/';
@@ -50,6 +46,48 @@ export function GameSettingsScreen({ settings, onUpdate }: GameSettingsScreenPro
     }
     navigate('/settings/games', { replace: true });
   };
+
+  if (!definition) {
+    return (
+      <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="wide">
+        <TopBar left={<BackButton onClick={handleBack} />} />
+        <div data-testid="game-settings-not-found">
+          <PageHeader title="Rodičovská zóna" description="Nastavenia hry sa nenašli" />
+          <div className="mt-6 rounded-[28px] border-2 border-dashed border-border-subtle p-6 text-center text-text-muted">
+            <p className="text-base font-medium">
+              Požadovaná hra neexistuje alebo nemá žiadne nastaviteľné parametre.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <Link
+                to="/settings/games"
+                replace
+                className={cn(
+                  uiTokens.pressable,
+                  'inline-flex items-center justify-center rounded-[20px] bg-accent-blue px-6 py-3 text-base font-bold text-text-main shadow-block hover:scale-[1.02] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
+                )}
+              >
+                Prehľad nastavení hier
+              </Link>
+              <Link
+                to="/settings"
+                replace
+                className={cn(
+                  uiTokens.pressable,
+                  'inline-flex items-center justify-center rounded-[20px] bg-white px-6 py-3 text-base font-bold text-text-main shadow-block hover:scale-[1.02] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
+                )}
+              >
+                Rodičovská zóna
+              </Link>
+            </div>
+          </div>
+        </div>
+      </AppScreen>
+    );
+  }
+
+  if (definition.settings.length === 0) {
+    return <Navigate to="/settings" replace />;
+  }
 
   return (
     <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="wide">

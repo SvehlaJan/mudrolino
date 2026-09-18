@@ -39,7 +39,16 @@ function migrate<T extends Managed>(args: { raw: unknown; defaults: T[]; locale:
   let repaired = false;
   if (!items.some((item) => item.enabled && item.status === 'ready')) {
     const firstDefault = items.find((item) => item.isDefault && item.status === 'ready');
-    if (firstDefault) { firstDefault.enabled = true; repaired = true; }
+    if (firstDefault) {
+      firstDefault.enabled = true;
+      repaired = true;
+    } else {
+      const firstLocaleDefault = args.defaults.find((item) => item.status === 'ready');
+      if (firstLocaleDefault) {
+        items.push({ ...firstLocaleDefault, id: args.defaultId(args.locale, firstLocaleDefault.audioKey), enabled: true } as T);
+        repaired = true;
+      }
+    }
   }
   return { items, repaired, persistedDuringLoad: false };
 }

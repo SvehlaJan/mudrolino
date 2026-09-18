@@ -53,11 +53,32 @@ test.describe('Parent dashboard and game settings', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('an uncatalogued game id redirects to the dashboard after unlock', async ({ page }) => {
+  test('an uncatalogued game id shows a safe parent not-found state with a route back', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
     await page.goto('/settings/games/not-a-real-game');
+    await unlockParentGate(page);
+    await expect(page).toHaveURL(/\/settings\/games\/not-a-real-game$/);
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await expect(page.getByText('Nastavenia hry sa nenašli')).toBeVisible();
+    await expect(page.getByTestId('game-settings-not-found')).toBeVisible();
+
+    const overviewLink = page.getByRole('link', { name: 'Prehľad nastavení hier' });
+    await expect(overviewLink).toBeVisible();
+    await overviewLink.click();
+    await expect(page).toHaveURL(/\/settings\/games$/);
+    await expect(page.getByRole('link', { name: /Abeceda/ })).toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('a catalogued game without settings remains safe', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.goto('/settings/games/WORDS');
     await unlockParentGate(page);
     await expect(page).toHaveURL(/\/settings$/);
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();

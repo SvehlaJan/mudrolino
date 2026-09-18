@@ -152,8 +152,9 @@ test.describe('Parent Access Gate', () => {
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
 
     await unlockParentGate(page);
-    await expect(page).toHaveURL(/\/settings$/);
+    await expect(page).toHaveURL(/\/settings\/games\/not-a-catalogued-game$/);
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await expect(page.getByTestId('game-settings-not-found')).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
