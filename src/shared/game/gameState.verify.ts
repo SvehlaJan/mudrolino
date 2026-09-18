@@ -9,6 +9,18 @@ state = gameStateReducer(state, { type: 'PROMPT_STARTED' });
 if (state.phase !== 'listening' || !canAcceptAnswer(state)) throw new Error('opening audio must remain answerable');
 state = gameStateReducer(state, { type: 'ANSWER_STARTED', answerId: 'B' });
 if (canAcceptAnswer(state) || state.selectedAnswerId !== 'B') throw new Error('answer in flight must lock taps');
+state = gameStateReducer(state, { type: 'PAUSE' });
+if (!state.paused || state.resumePhase !== 'resolving-answer') throw new Error('pause must preserve in-flight resolution');
+for (const event of [
+  { type: 'ANSWER_PROGRESS' as const },
+  { type: 'ANSWER_WRONG' as const },
+  { type: 'ANSWER_CORRECT' as const },
+]) {
+  if (gameStateReducer(state, event) !== state) throw new Error('paused answer resolution must be ignored');
+}
+if (state.totalTaps !== 0 || state.wrongAttempts !== 0 || state.feedback !== null) throw new Error('paused resolution mutated counters');
+state = gameStateReducer(state, { type: 'RESUME' });
+if (state.paused || state.phase !== 'resolving-answer') throw new Error('resume must restore in-flight resolution');
 state = gameStateReducer(state, { type: 'ANSWER_WRONG' });
 if (state.phase !== 'answered-incorrectly' || state.wrongAttempts !== 1 || state.totalTaps !== 1) throw new Error('bad retry');
 state = gameStateReducer(state, { type: 'RETRY_READY' });

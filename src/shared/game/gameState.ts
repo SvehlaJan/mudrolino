@@ -110,7 +110,7 @@ export const gameStateReducer = (state: GameState, event: GameEvent): GameState 
       };
 
     case 'ANSWER_PROGRESS':
-      if (state.phase !== 'resolving-answer') {
+      if (state.paused || state.phase !== 'resolving-answer') {
         return state;
       }
       return {
@@ -121,7 +121,7 @@ export const gameStateReducer = (state: GameState, event: GameEvent): GameState 
       };
 
     case 'ANSWER_WRONG': {
-      if (state.phase !== 'resolving-answer') {
+      if (state.paused || state.phase !== 'resolving-answer') {
         return state;
       }
       const totalTaps = state.totalTaps + (event.countTap === false ? 0 : 1);
@@ -147,7 +147,7 @@ export const gameStateReducer = (state: GameState, event: GameEvent): GameState 
     }
 
     case 'ANSWER_CORRECT':
-      if (state.phase !== 'resolving-answer') {
+      if (state.paused || state.phase !== 'resolving-answer') {
         return state;
       }
       return {
