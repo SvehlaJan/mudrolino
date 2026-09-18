@@ -65,8 +65,19 @@ if (target) {
   const choices = buildLetterChoices(target, letters, 4);
   const symbols = choices.map((letter) => letter.symbol);
   assert(choices.length === 4, 'four choices are generated');
-  assert(symbols.includes('J'), 'choices include the correct letter');
+  assert(
+    symbols.filter((symbol) => symbol === target.firstLetter.symbol).length === 1,
+    'choices contain exactly one correct symbol',
+  );
   assert(new Set(symbols).size === symbols.length, 'choices do not contain duplicate letters');
 }
+
+// An ineligible word (unavailable first letter) must never enter the eligible-item queue that
+// rounds are drawn from — re-asserted here directly against buildFirstLetterItems' output,
+// not just getFirstSlovakLetterSymbol's return value.
+assert(
+  !buildFirstLetterItems(words, letters).some((item) => item.word.word === '1auto'),
+  'a word with no eligible first letter never enters the round queue',
+);
 
 console.log('firstLetterLogic checks passed');

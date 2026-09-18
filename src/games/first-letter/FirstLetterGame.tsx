@@ -4,18 +4,30 @@
  */
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Volume2 } from 'lucide-react';
-import { Letter, SuccessSpec, FailureSpec } from '../../shared/types';
+import { Letter, PraiseEntry, SuccessSpec, FailureSpec } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { AppScreen, BackButton, ChoiceTile, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
-import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
-import { FailureOverlay } from '../../shared/components/FailureOverlay';
-import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
+import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
+import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
 import { TIMING, getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { audioManager } from '../../shared/services/audioManager';
+import { setE2EState } from '../../shared/services/e2eState';
+import { getUiCopy } from '../../shared/uiCopy';
 import { fisherYatesShuffle } from '../../shared/utils';
+import {
+  AnswerGroup,
+  GamePrompt,
+  GameShell,
+  PictureCard,
+  PlayTray,
+  TactilePiece,
+  useGameSession,
+  type GameShellCompletion,
+  type GameShellFeedback,
+  type GameState,
+  type TactilePieceState,
+} from '../../shared/game';
 import {
   buildFirstLetterItems,
   buildLetterChoices,
@@ -23,19 +35,13 @@ import {
   getActiveFirstLetterLetters,
 } from './firstLetterLogic';
 
-const MAX_ROUNDS = 5;
-const MAX_ATTEMPTS = 3;
+const INSTRUCTION = 'Ktorým písmenom sa začína toto slovo?';
+const ANSWER_GROUP_LABEL = 'Vyber prvé písmeno';
 
-function clearTimer(timerRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>) {
-  if (timerRef.current) {
-    clearTimeout(timerRef.current);
-    timerRef.current = null;
-  }
-}
+const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
-function clearTimers(timersRef: React.MutableRefObject<Set<ReturnType<typeof setTimeout>>>) {
-  timersRef.current.forEach(clearTimeout);
-  timersRef.current.clear();
+function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
+  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
 }
 
 function getPromptAudio(locale: string, item: FirstLetterItem) {
@@ -74,31 +80,228 @@ function getFailureSpec(locale: string, item: FirstLetterItem): FailureSpec {
   };
 }
 
-function getWrongAudio(locale: string, selected: Letter) {
-  return getWrongAnswerAudio(locale, 'letters', selected.audioKey, selected.symbol);
+interface RoundState {
+  targetItem: FirstLetterItem | null;
+  choices: Letter[];
+}
+
+function buildRound(target: FirstLetterItem | undefined, activeLetters: Letter[]): RoundState {
+  if (!target) return { targetItem: null, choices: [] };
+  return { targetItem: target, choices: buildLetterChoices(target, activeLetters, 4) };
+}
+
+/**
+ * Only the tapped answer ever gets a non-idle state — every other magnet stays 'idle' and
+ * relies on AnswerGroup's own disabled cloning to look locked while input is resolving.
+ */
+function getAnswerPieceState(state: GameState, answerId: string): TactilePieceState | undefined {
+  if (state.selectedAnswerId !== answerId) return undefined;
+  if (state.phase === 'resolving-answer') return 'pressed';
+  if (state.phase === 'answered-correctly') return 'settled';
+  if (state.phase === 'answered-incorrectly') return 'retry';
+  return undefined;
+}
+
+interface FirstLetterPlayfieldProps {
+  eligibleItems: FirstLetterItem[];
+  activeLetters: Letter[];
+  onExit: () => void;
+}
+
+function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLetterPlayfieldProps) {
+  const { locale, praiseEntries } = useContent();
+  const isEmpty = eligibleItems.length === 0 || activeLetters.length < 4;
+
+  const [{ roundState }, setSession] = useState<{ roundState: RoundState; roundQueue: FirstLetterItem[] }>(() => {
+    const pool = fisherYatesShuffle(eligibleItems);
+    const [first, ...rest] = pool;
+    return { roundState: buildRound(first, activeLetters), roundQueue: rest };
+  });
+  const { targetItem, choices } = roundState;
+  const [completionPraise, setCompletionPraise] = useState<PraiseEntry>(() => pickPraise(praiseEntries));
+  const [roundPraise, setRoundPraise] = useState<PraiseEntry | null>(null);
+
+  const startNewRound = useCallback(() => {
+    setSession((prev) => {
+      const currentQueue = prev.roundQueue.length > 0 ? prev.roundQueue : fisherYatesShuffle(eligibleItems);
+      const [target, ...rest] = currentQueue;
+      return { roundState: buildRound(target, activeLetters), roundQueue: rest };
+    });
+  }, [eligibleItems, activeLetters]);
+
+  const startNewSession = useCallback(() => {
+    setCompletionPraise(pickPraise(praiseEntries));
+    const pool = fisherYatesShuffle(eligibleItems);
+    const [first, ...rest] = pool;
+    setSession({ roundState: buildRound(first, activeLetters), roundQueue: rest });
+  }, [eligibleItems, activeLetters, praiseEntries]);
+
+  const session = useGameSession({
+    maxRounds: 5,
+    maxAttempts: 3,
+    onNextRound: startNewRound,
+    onPlayAgain: startNewSession,
+  });
+  const {
+    state,
+    canAnswer,
+    replaying,
+    startPrompt,
+    replayPrompt,
+    resolveAnswer,
+    continueAfterFeedback,
+    playAgain,
+    pause,
+    resume,
+    fail,
+  } = session;
+
+  useEffect(() => {
+    if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
+  }, [isEmpty, fail, locale]);
+
+  useEffect(() => {
+    setE2EState({
+      gameId: 'FIRST_LETTER',
+      gamePhase: state.phase,
+      paused: state.paused,
+      correctItemId: targetItem ? targetItem.firstLetter.symbol : null,
+      answerItemIds: choices.map((letter) => letter.symbol),
+      wrongAttempts: state.wrongAttempts,
+      roundsPlayed: state.roundsPlayed,
+      replaying,
+    });
+  }, [state, replaying, targetItem, choices]);
+
+  const phaseRef = useRef(state.phase);
+  useEffect(() => {
+    phaseRef.current = state.phase;
+  }, [state.phase]);
+
+  useEffect(() => {
+    if (!targetItem || isEmpty) return;
+    const timer = setTimeout(() => {
+      // A round-start prompt must never invalidate an answer that started resolving first —
+      // invalidate() would stop that answer's own in-flight audio and hang it forever. Only
+      // fire while the round is still untouched; a manual replay or an answer already moved on.
+      if (phaseRef.current !== 'ready') return;
+      void startPrompt(getPromptAudio(locale, targetItem));
+    }, TIMING.AUDIO_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [targetItem, isEmpty, locale, startPrompt]);
+
+  useEffect(() => {
+    if (state.phase !== 'session-complete' || state.paused) return;
+    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
+    return () => audioManager.stop();
+  }, [state.phase, state.paused, locale, completionPraise]);
+
+  const handleReplay = useCallback(() => {
+    if (!targetItem) return;
+    void replayPrompt(getPromptAudio(locale, targetItem));
+  }, [targetItem, locale, replayPrompt]);
+
+  const retryAfterError = useCallback(() => {
+    if (!isEmpty) playAgain();
+  }, [isEmpty, playAgain]);
+
+  const chooseAnswer = useCallback(async (letter: Letter) => {
+    if (!targetItem) return;
+    const answerId = letter.symbol;
+
+    if (letter.symbol === targetItem.firstLetter.symbol) {
+      const praise = pickPraise(praiseEntries);
+      setRoundPraise(praise);
+      await resolveAnswer({
+        answerId,
+        outcome: 'correct',
+        selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
+        verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetItem)),
+      });
+      return;
+    }
+
+    const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
+    await resolveAnswer({
+      answerId,
+      outcome: 'wrong',
+      selectionAudio: getWrongAnswerAudio(locale, 'letters', letter.audioKey, letter.symbol),
+      verdictAudio: exhausted ? getFailureSpec(locale, targetItem).audioSpec : undefined,
+    });
+  }, [targetItem, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts]);
+
+  const feedback: GameShellFeedback | null = state.feedback === 'success'
+    ? {
+        kind: 'success',
+        title: roundPraise?.text ?? getUiCopy(locale, 'game.successTitle'),
+        emoji: roundPraise?.emoji,
+        onContinue: continueAfterFeedback,
+      }
+    : state.feedback === 'failure'
+    ? {
+        kind: 'failure',
+        title: getUiCopy(locale, 'game.failureTitle'),
+        detail: getUiCopy(locale, 'game.failure.detail'),
+        onContinue: continueAfterFeedback,
+      }
+    : state.phase === 'answered-incorrectly'
+    ? { kind: 'retry', title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
+    : null;
+
+  const completion: GameShellCompletion = {
+    praise: completionPraise,
+    correctRounds: state.correctRounds,
+    totalTaps: state.totalTaps,
+    maxRounds: state.maxRounds,
+    onPlayAgain: playAgain,
+    onHome: onExit,
+  };
+
+  return (
+    <GameShell
+      gameId="FIRST_LETTER"
+      state={state}
+      onBack={onExit}
+      onRetryError={retryAfterError}
+      onPause={pause}
+      onResume={resume}
+      prompt={
+        <GamePrompt
+          instruction={INSTRUCTION}
+          visual={targetItem ? <PictureCard emoji={targetItem.word.emoji} label={targetItem.word.word} /> : null}
+          replaying={replaying}
+          onReplay={handleReplay}
+        />
+      }
+      feedback={feedback}
+      completion={completion}
+    >
+      <PlayTray label={getUiCopy(locale, 'game.playArea')}>
+        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer}>
+          {choices.map((letter) => (
+            <TactilePiece
+              key={letter.symbol}
+              as="button"
+              material="magnet"
+              label={`Písmeno ${letter.symbol}`}
+              data-answer-id={letter.symbol}
+              state={getAnswerPieceState(state, letter.symbol)}
+              onPress={() => void chooseAnswer(letter)}
+            >
+              <span className="font-spline text-[clamp(2.25rem,7vw,5rem)] font-bold leading-none">
+                {letter.symbol}
+              </span>
+            </TactilePiece>
+          ))}
+        </AnswerGroup>
+      </PlayTray>
+    </GameShell>
+  );
 }
 
 export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
-  const { wordItems, letterItems, locale } = useContent();
+  const { wordItems, letterItems } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const [targetItem, setTargetItem] = useState<FirstLetterItem | null>(null);
-  const [roundQueue, setRoundQueue] = useState<FirstLetterItem[]>([]);
-  const [choices, setChoices] = useState<Letter[]>([]);
-  const [feedback, setFeedback] = useState<Record<string, 'correct' | 'wrong' | null>>({});
-  const [wrongAttemptsThisRound, setWrongAttemptsThisRound] = useState(0);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showFailure, setShowFailure] = useState(false);
-  const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
-  const [failureSpec, setFailureSpec] = useState<FailureSpec | null>(null);
-  const [roundsPlayed, setRoundsPlayed] = useState(0);
-  const [correctRounds, setCorrectRounds] = useState(0);
-  const [totalTaps, setTotalTaps] = useState(0);
-  const [showSessionComplete, setShowSessionComplete] = useState(false);
-  const pendingRoundEndRef = useRef(false);
-  const promptTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const roundEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const feedbackResetTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
-  const sessionTokenRef = useRef(0);
 
   const activeLetters = useMemo(
     () => getActiveFirstLetterLetters(letterItems, settings.alphabetAccents),
@@ -108,212 +311,15 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
     () => buildFirstLetterItems(wordItems, activeLetters),
     [wordItems, activeLetters],
   );
-
-  const clearTransientTimers = useCallback(() => {
-    clearTimer(promptTimerRef);
-    clearTimer(roundEndTimerRef);
-    clearTimers(feedbackResetTimersRef);
-  }, []);
-
-  const cleanupPlayEffects = useCallback(() => {
-    clearTransientTimers();
-    audioManager.stop();
-  }, [clearTransientTimers]);
-
-  const startRound = useCallback((queueOverride?: FirstLetterItem[]) => {
-    clearTransientTimers();
-    const currentQueue = queueOverride && queueOverride.length > 0
-      ? queueOverride
-      : roundQueue.length > 0
-        ? roundQueue
-        : fisherYatesShuffle(eligibleItems);
-    const [nextTarget, ...rest] = currentQueue;
-    if (!nextTarget) return;
-
-    setTargetItem(nextTarget);
-    setRoundQueue(rest);
-    setChoices(buildLetterChoices(nextTarget, activeLetters, 4));
-    setFeedback({});
-    setWrongAttemptsThisRound(0);
-    setShowSuccess(false);
-    setShowFailure(false);
-    pendingRoundEndRef.current = false;
-  }, [activeLetters, clearTransientTimers, eligibleItems, roundQueue]);
-
-  useEffect(() => {
-    return cleanupPlayEffects;
-  }, [cleanupPlayEffects]);
-
-  useEffect(() => {
-    if (gameState !== 'PLAYING' || !targetItem || showSuccess || showFailure || showSessionComplete) return;
-    const sessionToken = sessionTokenRef.current;
-    clearTimer(promptTimerRef);
-    promptTimerRef.current = setTimeout(() => {
-      promptTimerRef.current = null;
-      if (sessionTokenRef.current !== sessionToken) return;
-      audioManager.play(getPromptAudio(locale, targetItem));
-    }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimer(promptTimerRef);
-  }, [gameState, targetItem, locale, showFailure, showSessionComplete, showSuccess]);
-
-  const playPromptAudio = useCallback(() => {
-    if (!targetItem) return;
-    clearTimer(promptTimerRef);
-    audioManager.play(getPromptAudio(locale, targetItem));
-  }, [locale, targetItem]);
-
-  const handlePlay = () => {
-    if (eligibleItems.length === 0 || activeLetters.length < 4) return;
-    sessionTokenRef.current += 1;
-    cleanupPlayEffects();
-    const queue = fisherYatesShuffle(eligibleItems);
-    setRoundQueue(queue);
-    setRoundsPlayed(0);
-    setCorrectRounds(0);
-    setTotalTaps(0);
-    setShowSessionComplete(false);
-    setGameState('PLAYING');
-    startRound(queue);
-  };
-
-  const finishRound = (wasCorrect: boolean) => {
-    const sessionToken = sessionTokenRef.current;
-    const nextRoundsPlayed = roundsPlayed + 1;
-    setRoundsPlayed(nextRoundsPlayed);
-    if (wasCorrect) setCorrectRounds((value) => value + 1);
-
-    clearTimer(roundEndTimerRef);
-    if (nextRoundsPlayed >= MAX_ROUNDS) {
-      roundEndTimerRef.current = setTimeout(() => {
-        roundEndTimerRef.current = null;
-        if (sessionTokenRef.current !== sessionToken) return;
-        setShowSessionComplete(true);
-      }, TIMING.SUCCESS_SHOW_DELAY_MS);
-      return;
-    }
-
-    roundEndTimerRef.current = setTimeout(() => {
-      roundEndTimerRef.current = null;
-      if (sessionTokenRef.current !== sessionToken) return;
-      if (wasCorrect) {
-        setShowSuccess(true);
-      } else {
-        setShowFailure(true);
-      }
-    }, TIMING.SUCCESS_SHOW_DELAY_MS);
-  };
-
-  const handleChoice = (letter: Letter) => {
-    if (!targetItem || showSuccess || showFailure || showSessionComplete || pendingRoundEndRef.current) return;
-    setTotalTaps((value) => value + 1);
-
-    if (letter.symbol === targetItem.firstLetter.symbol) {
-      pendingRoundEndRef.current = true;
-      audioManager.play(getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol));
-      setFeedback((current) => ({ ...current, [letter.symbol]: 'correct' }));
-      setSuccessSpec(getSuccessSpec(locale, targetItem));
-      finishRound(true);
-      return;
-    }
-
-    const nextWrongAttempts = wrongAttemptsThisRound + 1;
-    setWrongAttemptsThisRound(nextWrongAttempts);
-    setFeedback((current) => ({ ...current, [letter.symbol]: 'wrong' }));
-
-    if (nextWrongAttempts >= MAX_ATTEMPTS) {
-      pendingRoundEndRef.current = true;
-      setFailureSpec(getFailureSpec(locale, targetItem));
-      finishRound(false);
-      return;
-    }
-
-    audioManager.play(getWrongAudio(locale, letter));
-    const sessionToken = sessionTokenRef.current;
-    const feedbackResetTimer = setTimeout(() => {
-      feedbackResetTimersRef.current.delete(feedbackResetTimer);
-      if (sessionTokenRef.current !== sessionToken) return;
-      setFeedback((current) => ({ ...current, [letter.symbol]: null }));
-    }, TIMING.FEEDBACK_RESET_MS);
-    feedbackResetTimersRef.current.add(feedbackResetTimer);
-  };
-
-  const handleBackToLobby = () => {
-    sessionTokenRef.current += 1;
-    cleanupPlayEffects();
-    setTargetItem(null);
-    setRoundQueue([]);
-    setChoices([]);
-    setFeedback({});
-    setWrongAttemptsThisRound(0);
-    setShowSuccess(false);
-    setShowFailure(false);
-    setSuccessSpec(null);
-    setFailureSpec(null);
-    setRoundsPlayed(0);
-    setCorrectRounds(0);
-    setTotalTaps(0);
-    setShowSessionComplete(false);
-    pendingRoundEndRef.current = false;
-    setGameState('HOME');
-  };
+  const isPlayable = eligibleItems.length > 0 && activeLetters.length >= 4;
 
   if (gameState === 'PLAYING') {
     return (
-      <AppScreen>
-        <TopBar
-          left={<BackButton onClick={handleBackToLobby} />}
-          center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
-          right={
-            <IconButton
-              onClick={playPromptAudio}
-              label="Prehrať zvuk"
-            >
-              <Volume2 size={24} className="sm:h-7 sm:w-7" />
-            </IconButton>
-          }
-        />
-
-        <div className="flex shrink-0 flex-col items-center justify-center pb-4 text-center">
-          <PromptBadge onClick={playPromptAudio} ariaLabel={targetItem?.word.word}>
-            <span className="text-6xl sm:text-7xl leading-none">
-              {targetItem?.word.emoji}
-            </span>
-          </PromptBadge>
-        </div>
-
-        <div className="flex min-h-0 flex-1 items-center justify-center">
-          <div className="grid w-full max-w-2xl grid-cols-2 gap-3 px-1 sm:gap-4 sm:px-2">
-            {choices.map((letter) => (
-              <ChoiceTile
-                key={letter.symbol}
-                onClick={() => handleChoice(letter)}
-                aria-label={letter.symbol}
-                state={feedback[letter.symbol] ?? 'neutral'}
-                shape="option"
-                className="h-[clamp(4.5rem,21vh,7rem)] rounded-[22px] p-2 sm:rounded-[28px] sm:p-3"
-              >
-                <span className="font-spline text-[clamp(2.75rem,12vw,6rem)] font-bold leading-none">
-                  {letter.symbol}
-                </span>
-              </ChoiceTile>
-            ))}
-          </div>
-        </div>
-
-        {successSpec && (
-          <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={() => startRound()} />
-        )}
-        {failureSpec && (
-          <FailureOverlay show={showFailure} spec={failureSpec} onComplete={() => startRound()} />
-        )}
-        <SessionCompleteOverlay
-          show={showSessionComplete}
-          roundsCompleted={correctRounds}
-          totalTaps={totalTaps}
-          maxRounds={MAX_ROUNDS}
-          onComplete={handleBackToLobby}
-        />
-      </AppScreen>
+      <FirstLetterPlayfield
+        eligibleItems={eligibleItems}
+        activeLetters={activeLetters}
+        onExit={() => setGameState('HOME')}
+      />
     );
   }
 
@@ -321,11 +327,9 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
     <GameLobby
       gameId="FIRST_LETTER"
       availabilityMessage={
-        eligibleItems.length === 0 || activeLetters.length < 4
-          ? 'Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.'
-          : undefined
+        isPlayable ? undefined : 'Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.'
       }
-      onPlay={handlePlay}
+      onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
     />
