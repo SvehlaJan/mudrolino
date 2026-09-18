@@ -616,26 +616,39 @@ test.describe('Task 7: Real parent-dialog pause and resume', () => {
     expect(resumed.correctItemId).toBe(before.correctItemId);
     expect(resumed.gridItemIds).toEqual(before.gridItemIds);
     expect(resumed.roundsPlayed).toBe(0);
+    // A successful unlock must land focus on a live, currently-mounted control — the
+    // reappearing parent-pause lock — never on the button reference the gate captured before
+    // it (and the lock button itself) were removed from the DOM while paused.
+    await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toBeFocused();
   });
 
   test('alphabet: cancelling the parent dialog leaves the round paused for another unlock attempt', async ({ page }) => {
     await page.goto('/alphabet');
     await page.getByRole('button', { name: 'Hrať' }).click();
 
-    await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
+    // ParentsGate installs a global window keydown listener where Enter always submits the
+    // current (empty) answer, pre-empting a focused button's own native Enter activation —
+    // so this uses clicks, matching the finding's "where practical" allowance.
+    const lockButton = page.getByRole('button', { name: 'Rodičovská prestávka' });
+    await lockButton.click();
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
 
     await page.getByRole('button', { name: 'Späť' }).click();
     const afterCancel = await getE2EState<FindItE2EState>(page);
     expect(afterCancel.paused).toBe(true);
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toHaveCount(0);
+    // Cancelling must not strand focus on the detached button the gate captured on open —
+    // it must land on the live "Odomknúť" control that just reappeared.
+    const unlockButton = page.getByRole('button', { name: 'Odomknúť' });
+    await expect(unlockButton).toBeFocused();
 
-    await page.getByRole('button', { name: 'Odomknúť' }).click();
+    await unlockButton.click();
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
     await unlockParentGate(page);
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toHaveCount(0);
     const resumed = await getE2EState<FindItE2EState>(page);
     expect(resumed.paused).toBe(false);
+    await expect(lockButton).toBeFocused();
   });
 });
 

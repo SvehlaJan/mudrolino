@@ -66,8 +66,11 @@ export function GameShell({
 }: GameShellProps) {
   const locale = useContentLocale();
   const restoreFocusRef = useRef<HTMLElement | null>(null);
+  const lockButtonRef = useRef<HTMLButtonElement | null>(null);
+  const unlockButtonRef = useRef<HTMLButtonElement | null>(null);
   const pausedFocusRef = useRef<HTMLDivElement | null>(null);
   const [showParentGate, setShowParentGate] = useState(false);
+  const hasPauseContract = Boolean(onPause && onResume);
 
   // A final round reaches `answered-correctly`/`answered-incorrectly` (feedback: 'failure')
   // as soon as the reducer resolves the answer, but useGameSession only dispatches
@@ -77,7 +80,7 @@ export function GameShell({
   // input-locked with no way to reach the completion overlay — so the pause control must be
   // unavailable for the whole window, not just once session-complete is reached.
   const isFinalRound = state.roundsPlayed >= state.maxRounds;
-  const canPause = Boolean(onPause && onResume)
+  const canPause = hasPauseContract
     && !state.paused
     && !isFinalRound
     && state.phase !== 'session-complete'
@@ -110,15 +113,36 @@ export function GameShell({
     state.phase === 'recoverable-error' ||
     isFinalRound;
 
+  // With a real pause contract, the only path into `paused` is tapping the lock button, which
+  // also opens the gate in the same commit — so "whatever was focused before pause" is always
+  // that lock button. Capturing it as a plain `document.activeElement` snapshot (the previous
+  // approach, still used below for the no-contract case) grabs a reference that's about to be
+  // unmounted, since `canPause` goes false the instant `paused` flips true: `.focus()` on it
+  // later is a no-op and focus is stranded. Refs attached directly to the live lock/unlock
+  // buttons always point at whichever instance is currently mounted (React nulls a ref on
+  // unmount), so focusing through them works regardless of remounts. A consumer with no pause
+  // contract (e.g. the `/ui-kit` demo, which drives `paused` directly through `state` and never
+  // renders either button) keeps the original generic capture-and-restore behavior, since
+  // whatever it had focused before pausing stays mounted throughout.
   useEffect(() => {
     if (state.paused) {
-      restoreFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-      pausedFocusRef.current?.focus();
+      if (!hasPauseContract) {
+        restoreFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        pausedFocusRef.current?.focus();
+      } else if (!showParentGate) {
+        unlockButtonRef.current?.focus();
+      } else {
+        pausedFocusRef.current?.focus();
+      }
       return;
     }
-    restoreFocusRef.current?.focus();
-    restoreFocusRef.current = null;
-  }, [state.paused]);
+    if (!hasPauseContract) {
+      restoreFocusRef.current?.focus();
+      restoreFocusRef.current = null;
+      return;
+    }
+    lockButtonRef.current?.focus();
+  }, [state.paused, showParentGate, hasPauseContract]);
 
   const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly') && !isFinalRound && !transientFeedback;
 
@@ -139,7 +163,7 @@ export function GameShell({
               ariaLabel={getUiCopy(locale, 'game.progress')}
             />
             {canPause && (
-              <IconButton label={getUiCopy(locale, 'game.parentPause')} onClick={openParentPause}>
+              <IconButton ref={lockButtonRef} label={getUiCopy(locale, 'game.parentPause')} onClick={openParentPause}>
                 <Lock size={20} />
               </IconButton>
             )}
@@ -244,7 +268,7 @@ export function GameShell({
           <p>{getUiCopy(locale, 'game.paused')}</p>
           {onResume && !showParentGate && (
             <div data-testid="game-critical-controls" className="mt-3">
-              <Button tone="primary" size="child" onClick={() => setShowParentGate(true)}>
+              <Button ref={unlockButtonRef} tone="primary" size="child" onClick={() => setShowParentGate(true)}>
                 {getUiCopy(locale, 'game.unlock')}
               </Button>
             </div>
