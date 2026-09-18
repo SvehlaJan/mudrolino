@@ -30,8 +30,9 @@ import { GameCard } from '../../home/GameCard';
 import { GameLobby } from '../components/GameLobby';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
-import { AnswerGroup, GamePrompt, GameShell } from '../game';
+import { AnswerGroup, GamePrompt, GameShell, PlayTray, TactilePiece } from '../game';
 import type { GameState } from '../game/gameState';
+import type { TactileMaterial } from '../game/materials';
 import { useAutosaveStatus, type AutosaveStatus } from '../hooks/useAutosaveStatus';
 import type { SaveResult } from '../services/appSettingsStore';
 
@@ -302,6 +303,46 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
   );
 }
 
+const GAME_MATERIALS: TactileMaterial[] = ['wood', 'magnet', 'felt', 'picture', 'counter', 'paper'];
+
+function UiKitGameMaterialsDemo() {
+  const [pressCount, setPressCount] = useState(0);
+
+  return (
+    <div className="p-6">
+      <section aria-label="Materiály hier" className="space-y-6">
+        <div className="flex flex-wrap gap-4">
+          {GAME_MATERIALS.map((material) => (
+            <TactilePiece key={material} as="span" material={material} data-material={material}>
+              {material}
+            </TactilePiece>
+          ))}
+        </div>
+        <PlayTray label="Hracia plocha">
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <TactilePiece
+              as="button"
+              material="wood"
+              state="settled"
+              label="Písmeno A"
+              onPress={() => setPressCount((count) => count + 1)}
+            >
+              A
+            </TactilePiece>
+            <TactilePiece as="button" material="wood" state="retry" label="Písmeno B">
+              B
+            </TactilePiece>
+            <TactilePiece as="button" material="wood" state="disabled" disabled label="Písmeno C">
+              C
+            </TactilePiece>
+          </div>
+        </PlayTray>
+        <output data-testid="ui-piece-press-count" className="sr-only">{pressCount}</output>
+      </section>
+    </div>
+  );
+}
+
 function UiKitSegmentedChoiceDemo() {
   const [tileCount, setTileCount] = useState<4 | 6 | 8>(6);
   return (
@@ -487,6 +528,9 @@ export function UiKitScreen() {
     const requestedState = params.get('state');
     const stateName = isGameShellDemoState(requestedState) ? requestedState : 'ready';
     return <UiKitGameShellDemo stateName={stateName} />;
+  }
+  if (params.get('example') === 'game-materials') {
+    return <UiKitGameMaterialsDemo />;
   }
 
   return (

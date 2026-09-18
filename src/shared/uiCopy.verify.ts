@@ -37,6 +37,7 @@ const gameShellCopy = {
   'game.retryError': 'Skúsiť znova',
   'game.progress': 'Postup v hre',
   'game.retryPrompt': 'Skús ešte raz',
+  'game.piece.settledLabel': 'Uložené',
   'game.successTitle': 'Výborne!',
   'game.failureTitle': 'Nevadí, poďme ďalej',
   'game.completionTitle': 'Koniec hry',

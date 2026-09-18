@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import {
   clearAudioEvents,
   getAudioEvents,
@@ -9,6 +10,20 @@ import { getE2EState } from './support/e2eHook';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
+
+/**
+ * `@axe-core/playwright` declares its `page` param against a `Page` it imports straight from
+ * `playwright-core`, while `@playwright/test`'s own `page` fixture resolves through a separately
+ * nested `playwright-core`. Both are the same Playwright page at runtime; see
+ * `e2e/accessibility-foundation.spec.ts` for the original note on this version-skew cast.
+ */
+function toAxeParams(page: import('@playwright/test').Page): ConstructorParameters<typeof AxeBuilder>[0] {
+  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
+}
+
+function isSeriousAxeViolation(impact: string | null | undefined): boolean {
+  return ['critical', 'serious'].includes(impact ?? '');
+}
 
 test.describe('shared shell and answer group contract', () => {
   test('shared shell exposes the complete round contract', async ({ page }) => {
@@ -138,6 +153,54 @@ test.describe('shared shell and answer group contract', () => {
     await answers.nth(0).focus();
     await page.keyboard.press('ArrowDown');
     await expect(answers.nth(columns)).toBeFocused();
+  });
+});
+
+test.describe('Living Toybox materials', () => {
+  test('base materials expose meaning without color or motion', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-materials');
+    const region = page.getByRole('region', { name: 'Materiály hier' });
+
+    for (const material of ['wood', 'magnet', 'felt', 'picture', 'counter', 'paper']) {
+      await expect(region.locator(`[data-material="${material}"]`).first()).toBeVisible();
+    }
+    await expect(region.getByRole('button', { name: 'Písmeno A' })).toHaveAttribute('data-piece-state', 'settled');
+    await expect(region.getByRole('button', { name: 'Písmeno B' })).toContainText('Skús ešte raz');
+    await expect(region.getByTestId('play-tray')).toBeVisible();
+  });
+
+  test('tactile pieces meet the minimum touch target and support focus/disabled semantics', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-materials');
+    const region = page.getByRole('region', { name: 'Materiály hier' });
+
+    const pieceA = region.getByRole('button', { name: 'Písmeno A' });
+    const box = await pieceA.boundingBox();
+    expect(box?.width).toBeGreaterThanOrEqual(48);
+    expect(box?.height).toBeGreaterThanOrEqual(48);
+
+    await pieceA.focus();
+    await expect(pieceA).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('ui-piece-press-count')).toHaveText('1');
+
+    const pieceC = region.getByRole('button', { name: 'Písmeno C' });
+    await expect(pieceC).toBeDisabled();
+    await expect(pieceC).toHaveAttribute('data-piece-state', 'disabled');
+  });
+
+  test('the retry state stays legible as text under reduced motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/ui-kit?example=game-materials');
+    const region = page.getByRole('region', { name: 'Materiály hier' });
+    await expect(region.getByRole('button', { name: 'Písmeno B' })).toContainText('Skús ešte raz');
+  });
+
+  test('/ui-kit?example=game-materials has no critical or serious axe violations', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-materials');
+    const results = await new AxeBuilder(toAxeParams(page))
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(results.violations.filter((v) => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
 });
 
