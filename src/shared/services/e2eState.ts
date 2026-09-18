@@ -10,6 +10,8 @@ export interface ParentGateE2EState {
 export interface E2EGlobalState {
   overlay?: E2EOverlay;
   parentGate?: ParentGateE2EState;
+  /** Logical clip boundaries recorded by AudioManager in Vite's test mode only. */
+  audioEvents?: string[];
   [key: string]: unknown;
 }
 
@@ -33,6 +35,16 @@ export function mergeE2EState(
 export function setE2EState(patch: Partial<E2EGlobalState>): void {
   if (!isE2EActive()) return;
   window.__E2E__ = mergeE2EState(window.__E2E__, patch);
+}
+
+/**
+ * Audio observations are deliberately test-only: dev helpers retain their existing surface,
+ * while browser tests can assert clip order without depending on playback durations.
+ */
+export function recordE2EAudioEvent(event: string): void {
+  if (import.meta.env.MODE !== 'test') return;
+  const audioEvents = [...(window.__E2E__?.audioEvents ?? []), event];
+  setE2EState({ audioEvents });
 }
 
 export function exposeParentGateE2E(

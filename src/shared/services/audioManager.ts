@@ -7,6 +7,7 @@ import { AudioSpec, AudioClip } from '../types';
 import { getLocaleContent } from '../contentRegistry';
 import { loadAppSettings } from './appSettingsStore';
 import { audioOverrideStore } from './audioOverrideStore';
+import { recordE2EAudioEvent } from './e2eState';
 
 export class AudioManager {
   private synth: SpeechSynthesis = window.speechSynthesis;
@@ -53,6 +54,7 @@ export class AudioManager {
     this.stop();
     const playbackToken = this.playbackToken;
     for (const clip of clips) {
+      recordE2EAudioEvent(`start:${clip.path}`);
       // clip.path is locale-prefixed, e.g. 'sk/letters/a'
       // The override store key and the /audio/ URL both use this same path.
       const override = await audioOverrideStore.get(clip.path);
@@ -68,6 +70,8 @@ export class AudioManager {
       } finally {
         if (override) URL.revokeObjectURL(url);
       }
+      if (playbackToken !== this.playbackToken) return;
+      recordE2EAudioEvent(`finish:${clip.path}`);
     }
   }
 
