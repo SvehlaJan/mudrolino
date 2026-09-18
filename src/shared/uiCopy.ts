@@ -31,6 +31,8 @@ const SK_COPY = {
   'game.completionTitle': 'Koniec hry',
   'game.taps': 'klepnutí',
   'game.paused': 'Hra je pozastavená.',
+  'game.parentPause': 'Rodičovská prestávka',
+  'game.unlock': 'Odomknúť',
 
   'game.retry.detail': 'Nevadí, počúvaj ešte raz.',
   'game.failure.detail': 'Správnu odpoveď si ukážeme spolu.',

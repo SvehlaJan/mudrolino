@@ -3,14 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
+import { Lock } from 'lucide-react';
 import type { PraiseEntry, GameId } from '../types';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
 import { useContentLocale } from '../contexts/ContentContext';
-import { AppScreen, BackButton, Button, OverlayFrame, PageHeader, RoundCounter, cn } from '../ui';
+import { AppScreen, BackButton, Button, IconButton, OverlayFrame, PageHeader, RoundCounter, cn } from '../ui';
 import { motionPreset } from '../ui/motion';
+import { ParentsGate } from '../components/ParentsGate';
 import type { GameState } from './gameState';
 
 export interface GameShellFeedback {
@@ -39,6 +41,14 @@ export interface GameShellProps {
   feedback?: GameShellFeedback | null;
   completion?: GameShellCompletion | null;
   onRetryError?: () => void;
+  /**
+   * Wires a real, permitted parent dialog (the same ParentsGate used by the protected route
+   * group) directly into an active round: onPause fires immediately when a parent taps the
+   * lock, onResume fires once they solve the gate. Omit both to leave the shell exactly as
+   * before — the ui-kit demo has no session to pause.
+   */
+  onPause?(): void;
+  onResume?(): void;
   children: React.ReactNode;
 }
 
@@ -50,11 +60,30 @@ export function GameShell({
   feedback,
   completion,
   onRetryError,
+  onPause,
+  onResume,
   children,
 }: GameShellProps) {
   const locale = useContentLocale();
   const restoreFocusRef = useRef<HTMLElement | null>(null);
   const pausedFocusRef = useRef<HTMLDivElement | null>(null);
+  const [showParentGate, setShowParentGate] = useState(false);
+  const canPause = Boolean(onPause && onResume)
+    && !state.paused
+    && state.phase !== 'session-complete'
+    && state.phase !== 'recoverable-error';
+
+  const openParentPause = () => {
+    onPause?.();
+    setShowParentGate(true);
+  };
+  const handleGateSuccess = () => {
+    setShowParentGate(false);
+    onResume?.();
+  };
+  const handleGateCancel = () => {
+    setShowParentGate(false);
+  };
 
   const definition = GAME_DEFINITIONS.find((g) => g.id === gameId);
   const title = definition ? getUiCopy(locale, definition.titleKey) : gameId;
@@ -95,12 +124,17 @@ export function GameShell({
           </div>
         }
         actions={
-          <div data-testid="game-critical-controls">
+          <div data-testid="game-critical-controls" className="flex items-center gap-2">
             <RoundCounter
               completed={state.roundsPlayed}
               total={state.maxRounds}
               ariaLabel={getUiCopy(locale, 'game.progress')}
             />
+            {canPause && (
+              <IconButton label={getUiCopy(locale, 'game.parentPause')} onClick={openParentPause}>
+                <Lock size={20} />
+              </IconButton>
+            )}
           </div>
         }
       />
@@ -199,9 +233,18 @@ export function GameShell({
           aria-live="polite"
           className="rounded-2xl bg-white/95 px-4 py-3 text-center text-lg font-black text-text-main shadow-block"
         >
-          {getUiCopy(locale, 'game.paused')}
+          <p>{getUiCopy(locale, 'game.paused')}</p>
+          {onResume && !showParentGate && (
+            <div data-testid="game-critical-controls" className="mt-3">
+              <Button tone="primary" size="child" onClick={() => setShowParentGate(true)}>
+                {getUiCopy(locale, 'game.unlock')}
+              </Button>
+            </div>
+          )}
         </div>
       )}
+
+      {showParentGate && <ParentsGate onSuccess={handleGateSuccess} onCancel={handleGateCancel} />}
     </AppScreen>
   );
 }

@@ -8,6 +8,7 @@ import {
   expectNoFailedRequests,
 } from './support/assertions';
 import { pressAnswerById, waitForGamePhase } from './support/gameHarness';
+import { unlockParentGate } from './support/parentGate';
 import {
   expectNoHorizontalOverflow,
   expectMinimumTarget,
@@ -34,6 +35,7 @@ function isSeriousAxeViolation(impact: string | null | undefined): boolean {
 interface FindItE2EState extends E2EGlobalState {
   gameId: 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'WORDS';
   gamePhase: GamePhase;
+  paused: boolean;
   correctItemId: string | null;
   gridItemIds: string[];
   wrongAttempts: number;
@@ -380,6 +382,75 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
       await waitForGamePhase(page, 'ready');
     });
   }
+});
+
+test.describe('Task 7: Real parent-dialog pause and resume', () => {
+  test('alphabet: a permitted parent dialog pauses audio, timers, and input over a real round, then resumes safely', async ({ page }) => {
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    const before = await getE2EState<FindItE2EState>(page);
+    const wrongId = before.gridItemIds.find((id) => id !== before.correctItemId)!;
+
+    // Land in the non-exhausted retry window (feedback still resolving via a timer) and
+    // pause right there — the riskiest moment, since a lost timer would strand the round.
+    // 'answered-incorrectly' (feedback: null) only lasts TIMING.FEEDBACK_RESET_MS (500ms)
+    // before auto-clearing to 'awaiting-answer'; expect.poll's growing interval can skip
+    // straight over that window (see other specs in this suite), so this uses a tight,
+    // fixed-interval waitForFunction instead of waitForGamePhase to reliably catch it.
+    await pressAnswerById(page, wrongId);
+    await page.waitForFunction(
+      () => window.__E2E__?.gamePhase === 'answered-incorrectly',
+      undefined,
+      { polling: 20 },
+    );
+    await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
+    const paused = await getE2EState<FindItE2EState>(page);
+    expect(paused.paused).toBe(true);
+    await expect(page.getByTestId('game-interactive-content')).toHaveAttribute('inert', '');
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+
+    // Wait well past TIMING.FEEDBACK_RESET_MS (500ms); the retry-clear timer must not fire
+    // while paused, and target/grid/attempts must stay exactly as they were.
+    await page.waitForTimeout(800);
+    const stillPaused = await getE2EState<FindItE2EState>(page);
+    expect(stillPaused.gamePhase).toBe('answered-incorrectly');
+    expect(stillPaused.wrongAttempts).toBe(1);
+    expect(stillPaused.roundsPlayed).toBe(0);
+    expect(stillPaused.correctItemId).toBe(before.correctItemId);
+    expect(stillPaused.gridItemIds).toEqual(before.gridItemIds);
+
+    // Resolve the gate deterministically via the documented test-mode adapter rather than
+    // solving the arithmetic, matching the existing parent-gate E2E pattern.
+    await unlockParentGate(page);
+
+    await waitForGamePhase(page, 'awaiting-answer');
+    const resumed = await getE2EState<FindItE2EState>(page);
+    expect(resumed.paused).toBe(false);
+    expect(resumed.correctItemId).toBe(before.correctItemId);
+    expect(resumed.gridItemIds).toEqual(before.gridItemIds);
+    expect(resumed.roundsPlayed).toBe(0);
+  });
+
+  test('alphabet: cancelling the parent dialog leaves the round paused for another unlock attempt', async ({ page }) => {
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+
+    await page.getByRole('button', { name: 'Späť' }).click();
+    const afterCancel = await getE2EState<FindItE2EState>(page);
+    expect(afterCancel.paused).toBe(true);
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Odomknúť' }).click();
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await unlockParentGate(page);
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toHaveCount(0);
+    const resumed = await getE2EState<FindItE2EState>(page);
+    expect(resumed.paused).toBe(false);
+  });
 });
 
 test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {

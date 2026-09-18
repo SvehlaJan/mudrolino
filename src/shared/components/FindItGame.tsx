@@ -111,7 +111,7 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
     onNextRound: startNewRound,
     onPlayAgain: startNewSession,
   });
-  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, fail } = session;
+  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, pause, resume, fail } = session;
 
   useEffect(() => {
     if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
@@ -121,6 +121,7 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
     setE2EState({
       gameId,
       gamePhase: state.phase,
+      paused: state.paused,
       correctItemId: targetItem ? descriptor.getItemId(targetItem) : null,
       gridItemIds: gridItems.map((item) => descriptor.getItemId(item)),
       wrongAttempts: state.wrongAttempts,
@@ -220,6 +221,8 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
       state={state}
       onBack={onExit}
       onRetryError={retryAfterError}
+      onPause={pause}
+      onResume={resume}
       prompt={
         <GamePrompt
           instruction={descriptor.instruction}

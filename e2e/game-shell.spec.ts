@@ -288,6 +288,14 @@ test('answer tiles expose live retry and settled states with matching text', asy
   const wrongTile = page.locator(`[data-answer-id="${wrongId}"]`);
 
   await pressAnswerById(page, wrongId);
+  // 'answered-incorrectly' (feedback: null) only lasts TIMING.FEEDBACK_RESET_MS (500ms);
+  // Playwright's own attribute polling can start its next check after that window already
+  // closed, so this confirms the phase first with a tight, fixed-interval waitForFunction.
+  await page.waitForFunction(
+    () => window.__E2E__?.gamePhase === 'answered-incorrectly',
+    undefined,
+    { polling: 20 },
+  );
   await expect(wrongTile).toHaveAttribute('data-piece-state', 'retry');
   await expect(wrongTile).toContainText('Skús ešte raz');
   await waitForGamePhase(page, 'awaiting-answer');

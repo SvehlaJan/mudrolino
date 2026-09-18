@@ -53,6 +53,7 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
   const timersRef = useRef(new Set<ReturnType<typeof setTimeout>>());
   const answeringRef = useRef(false);
   const resumeCancelledAnswerRef = useRef(false);
+  const resumePendingRetryRef = useRef(false);
   const [answering, setAnswering] = useState(false);
   const [replaying, setReplaying] = useState(false);
 
@@ -147,16 +148,31 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
   }, [dispatchEvent, invalidate, options]);
 
   const pause = useCallback(() => {
-    resumeCancelledAnswerRef.current = stateRef.current.phase === 'resolving-answer';
+    const current = stateRef.current;
+    resumeCancelledAnswerRef.current = current.phase === 'resolving-answer';
+    // A non-exhausted wrong answer is still waiting on its own setTimeout(RETRY_READY) —
+    // invalidate() below clears that timer along with everything else, so resume must
+    // reschedule it or the round would be stranded showing retry feedback forever.
+    resumePendingRetryRef.current = current.phase === 'answered-incorrectly' && current.feedback === null;
     invalidate();
     dispatchEvent({ type: 'PAUSE' });
   }, [dispatchEvent, invalidate]);
 
   const resume = useCallback(() => {
     const recoverCancelledAnswer = resumeCancelledAnswerRef.current;
+    const recoverPendingRetry = resumePendingRetryRef.current;
     resumeCancelledAnswerRef.current = false;
+    resumePendingRetryRef.current = false;
+    const operationId = operationIdRef.current;
     dispatchEvent({ type: 'RESUME' });
     if (recoverCancelledAnswer) dispatchEvent({ type: 'ANSWER_PROGRESS', countTap: false });
+    if (recoverPendingRetry) {
+      const timer = setTimeout(() => {
+        timersRef.current.delete(timer);
+        if (operationId === operationIdRef.current) dispatchEvent({ type: 'RETRY_READY' });
+      }, TIMING.FEEDBACK_RESET_MS);
+      timersRef.current.add(timer);
+    }
   }, [dispatchEvent]);
 
   const fail = useCallback((message: string) => {
