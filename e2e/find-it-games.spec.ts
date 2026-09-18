@@ -784,16 +784,49 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
 
 test.describe('Task 7: Active rounds never require scrolling to reveal an answer', () => {
   for (const game of FIND_IT_GAMES) {
+    // GameShell's AppScreen renders `main` with `overflow-y-auto` (see AppScreen.tsx) — that
+    // element, not `document.documentElement`, is the real scroll container for a round.
+    // `document.documentElement` never overflows regardless of `main`'s own content, since
+    // `main` scrolls internally within a fixed `100svh` box; checking the document instead of
+    // `main` would pass even if every answer required scrolling to reach.
     test(`${game.name}: fits the viewport without vertical overflow at narrow and short viewports`, async ({ page }) => {
       for (const viewport of [CANONICAL_VIEWPORTS.narrowPhone, CANONICAL_VIEWPORTS.shortLandscape]) {
         await page.setViewportSize(viewport);
         await page.goto(game.path);
         await page.getByRole('button', { name: 'Hrať' }).click();
 
-        const overflow = await page.evaluate(() =>
-          document.documentElement.scrollHeight - document.documentElement.clientHeight,
-        );
-        expect(overflow, `${game.name} at ${viewport.width}x${viewport.height} must not need vertical scrolling to reveal an answer`).toBeLessThanOrEqual(1);
+        const overflow = await page.evaluate(() => {
+          const main = document.querySelector('main');
+          if (!main) return Infinity;
+          return main.scrollHeight - main.clientHeight;
+        });
+        expect(overflow, `${game.name} at ${viewport.width}x${viewport.height} must not need vertical scrolling inside main to reveal an answer`).toBeLessThanOrEqual(1);
+
+        const mainBounds = await page.evaluate(() => {
+          const main = document.querySelector('main');
+          if (!main) return null;
+          const rect = main.getBoundingClientRect();
+          return { top: rect.top, bottom: rect.bottom };
+        });
+        expect(mainBounds, `${game.name} at ${viewport.width}x${viewport.height} must render a main scroll container`).not.toBeNull();
+
+        const answers = page.locator('[data-testid="game-answer-region"] button');
+        const count = await answers.count();
+        expect(count).toBeGreaterThan(0);
+        for (let i = 0; i < count; i++) {
+          const answerBounds = await answers.nth(i).evaluate((el) => {
+            const rect = el.getBoundingClientRect();
+            return { top: rect.top, bottom: rect.bottom };
+          });
+          expect(
+            answerBounds.top,
+            `${game.name} answer ${i} at ${viewport.width}x${viewport.height} must start within main's visible area without scrolling`,
+          ).toBeGreaterThanOrEqual(mainBounds!.top - 1);
+          expect(
+            answerBounds.bottom,
+            `${game.name} answer ${i} at ${viewport.width}x${viewport.height} must end within main's visible area without scrolling`,
+          ).toBeLessThanOrEqual(mainBounds!.bottom + 1);
+        }
       }
     });
   }
