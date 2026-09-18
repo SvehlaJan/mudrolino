@@ -3,9 +3,9 @@
 ## Metadata
 - **Phase:** 4 (Parent Experience)
 - **Branch:** `feature/full-app-ui-redesign`
-- **Base SHA:** `3b8e7e3e4cb4901fec6655c65be8702b8d41cf07` (The accepted starting point commit on `feature/full-app-ui-redesign`: "fix: recover failed custom content undo")
+- **Base SHA:** `72797238e98a990e455737fc54311037951d5a6a` (Codex acceptance-record commit for Phase 3)
 - **Candidate SHA:** `8840128b53fefdd0e96c7f1b34f2b4cc246e64dc` ("fix: keep content rows readable on phones") — the review-remediated product-code commit; this handoff commit and the `ROADMAP.md` update sit on top of it as reporting-only metadata and are not part of the reviewable code candidate.
-- **Implementation Status:** Complete, pending Codex acceptance
+- **Implementation Status:** Accepted by Codex
 - **Working Tree Clean:** Yes (`git status --short` clean before handoff commit)
 - **Local Screenshot Artifact Directory:** `artifacts/ui/8840128b53fefdd0e96c7f1b34f2b4cc246e64dc/2026-09-18T02-38-40-236Z-87821` (210 screenshots: 21 scenes across 10 canonical viewports)
 
@@ -185,11 +185,13 @@ No new temporary adapters were introduced in Phase 4. Existing Phase 2 compatibi
 
 - **WebKit smoke coverage environment limitation:** WebKit installation hangs in this sandboxed environment; WebKit smoke testing remains a release gate for Phase 8.
 - **Phase 5 Preconditions:**
-  1. Codex reviews candidate SHA `8840128b53fefdd0e96c7f1b34f2b4cc246e64dc` and records acceptance.
-  2. Phase 5 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-5-game-shell-and-word-games.md`) begins strictly from the Codex acceptance-record commit.
+  1. Candidate SHA `8840128b53fefdd0e96c7f1b34f2b4cc246e64dc` is accepted by Codex.
+  2. Phase 5 (`docs/superpowers/plans/2026-09-14-ui-redesign-phase-5-shared-game-framework.md`) begins strictly from the Phase 4 Codex acceptance-record commit that updates this manifest.
 
 ---
 
 ## Codex Review Record
 - **Reviewed Candidate SHA:** `8840128b53fefdd0e96c7f1b34f2b4cc246e64dc`
-- **Result:** Pending Codex acceptance
+- **Result:** Accepted
+- **Accepted:** 2026-09-18
+- **Independent evidence:** 218/218 Chromium E2E tests passed; lint completed with 0 errors and the one documented Fast Refresh warning; the production build passed with `AvatarScene` isolated in its lazy chunk; all affected pure verifiers and `git diff --check` passed; the 210-image manual-review matrix was inspected across phone, short-landscape, tablet, and desktop states.
