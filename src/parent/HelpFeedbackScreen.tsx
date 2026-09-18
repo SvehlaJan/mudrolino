@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageSquare } from 'lucide-react';
 import { AppScreen, BackButton, Button, Card, PageHeader, TopBar } from '../shared/ui';
@@ -13,6 +12,7 @@ import { FeedbackModal } from '../shared/components/FeedbackModal';
 export function HelpFeedbackScreen() {
   const navigate = useNavigate();
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const openFeedbackRef = useRef<HTMLButtonElement>(null);
 
   return (
     <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
@@ -29,16 +29,21 @@ export function HelpFeedbackScreen() {
             .
           </p>
         </div>
-        <Button onClick={() => setIsFeedbackOpen(true)} icon={<MessageSquare size={20} />}>
+        <Button
+          ref={openFeedbackRef}
+          onClick={() => setIsFeedbackOpen(true)}
+          icon={<MessageSquare size={20} />}
+        >
           Odoslať spätnú väzbu
         </Button>
       </Card>
 
-      {isFeedbackOpen &&
-        createPortal(
-          <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} screen="help" />,
-          document.body,
-        )}
+      <FeedbackModal
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+        screen="help"
+        restoreFocusRef={openFeedbackRef}
+      />
     </AppScreen>
   );
 }

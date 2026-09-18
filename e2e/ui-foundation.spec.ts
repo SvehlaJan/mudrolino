@@ -284,7 +284,9 @@ test.describe('UI foundation: overlay landmark hygiene', () => {
     await page.getByRole('button', { name: /odoslať spätnú väzbu/i }).click();
     await expect(page.getByRole('heading', { name: 'Spätná väzba' })).toBeVisible();
 
-    await expect(page.getByRole('main')).toHaveCount(1);
+    // The shared modal dialog makes the background inert (same contract as the
+    // parent gate) instead of leaving a second main landmark behind the overlay.
+    await expect(page.getByRole('main')).toHaveCount(0);
   });
 });
 

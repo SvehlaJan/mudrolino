@@ -1,16 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Loader2, Send } from 'lucide-react';
 import {
   FeedbackCategory,
   FeedbackPayload,
   submitFeedback,
 } from '../services/feedbackService';
-import { AppScreen, BackButton, Button, Card, ChoiceTile, TextAreaControl, TopBar } from '../ui';
+import { Button, DialogShell, Field, RadioGroupControl, TextAreaControl } from '../ui';
 
 interface FeedbackModalProps {
   isOpen: boolean;
   onClose: () => void;
   screen: string;
+  /** Element to restore focus to on close, when the opener lives outside the dialog. */
+  restoreFocusRef?: React.RefObject<HTMLElement | null>;
 }
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
@@ -25,41 +27,21 @@ const CATEGORIES: { value: FeedbackCategory; label: string; emoji: string }[] = 
   { value: 'other',      label: 'Iné',             emoji: '💬' },
 ];
 
-export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
+export function FeedbackModal({ isOpen, onClose, screen, restoreFocusRef }: FeedbackModalProps) {
   const [category, setCategory] = useState<FeedbackCategory | null>(null);
   const [message, setMessage] = useState('');
   const [formState, setFormState] = useState<FormState>('idle');
 
   const resetAndClose = useCallback(() => {
+    if (formState === 'submitting') return;
     setCategory(null);
     setMessage('');
     setFormState('idle');
     onClose();
-  }, [onClose]);
-
-  useEffect(() => {
-    if (formState !== 'success') return;
-    const id = setTimeout(() => {
-      resetAndClose();
-    }, 3000);
-    return () => clearTimeout(id);
-  }, [formState, resetAndClose]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        resetAndClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, resetAndClose]);
-
-  if (!isOpen) return null;
+  }, [formState, onClose]);
 
   async function handleSubmit() {
-    if (!category) return;
+    if (!category || formState === 'submitting' || formState === 'success') return;
     setFormState('submitting');
     try {
       const payload: FeedbackPayload = { category, message, screen };
@@ -74,92 +56,90 @@ export function FeedbackModal({ isOpen, onClose, screen }: FeedbackModalProps) {
   const canSubmit = category !== null && (formState === 'idle' || formState === 'error');
 
   return (
-    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title">
-      <AppScreen as="div" maxWidth="narrow">
-        <TopBar left={<BackButton onClick={resetAndClose} />} className="landscape:pb-1" />
-
-        <div className="mb-3 sm:mb-6 text-center landscape:mb-2">
-          <h2 id="feedback-modal-title" className="text-2xl font-bold sm:text-5xl landscape:text-xl">Spätná väzba</h2>
-          <p className="mt-1 text-sm font-medium opacity-60 sm:text-xl landscape:text-xs">
-            Vaša správa nám pomôže zlepšiť Hravé Učenie
+    <DialogShell
+      open={isOpen}
+      onOpenChange={open => { if (!open) resetAndClose(); }}
+      title="Spätná väzba"
+      description="Vaša správa nám pomôže zlepšiť Hravé Učenie."
+      restoreFocusRef={restoreFocusRef}
+      className="p-5"
+    >
+      {formState === 'success' ? (
+        <div className="flex flex-col items-center gap-4 py-6 text-center" role="status">
+          <span className="text-6xl">🎉</span>
+          <h3 className="text-2xl font-bold text-text-main">Ďakujeme!</h3>
+          <p className="max-w-xs text-base font-medium text-text-muted">
+            Ďakujeme za spätnú väzbu. Tento formulár neposiela e-mailovú adresu a nemôžeme odpovedať priamo.
           </p>
+          <Button tone="primary" size="parent" onClick={resetAndClose}>Zavrieť</Button>
         </div>
+      ) : (
+        <form
+          className="space-y-4"
+          onSubmit={event => {
+            event.preventDefault();
+            void handleSubmit();
+          }}
+        >
+          <p className="text-sm text-text-muted">Formulár neposiela e-mailovú adresu, preto nemôžeme odpovedať priamo.</p>
+          <Field label="Typ správy" helpText="Vyberte, čo chcete nahlásiť.">
+            {() => (
+              <RadioGroupControl<FeedbackCategory>
+                ariaLabel="Typ správy"
+                options={CATEGORIES.map(({ value, label, emoji }) => ({ value, label: `${emoji} ${label}` }))}
+                value={category ?? ('' as FeedbackCategory)}
+                onValueChange={setCategory}
+                disabled={formState === 'submitting'}
+                columns={2}
+              />
+            )}
+          </Field>
 
-        {formState === 'success' ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-5 text-center landscape:gap-2">
-            <span className="text-6xl landscape:text-4xl">🎉</span>
-            <h3 className="text-2xl font-bold sm:text-3xl landscape:text-xl">Ďakujeme!</h3>
-            <p className="max-w-xs text-base font-medium opacity-60 sm:text-lg landscape:text-sm">
-              Vaša správa bola odoslaná. Snažíme sa odpovedať do 48 hodín.
-            </p>
-            <Button onClick={resetAndClose} className="mt-2 landscape:py-2">
-              Zavrieť
-            </Button>
-          </div>
-        ) : (
-          <div className="flex-1 space-y-4 landscape:space-y-2 overflow-y-auto">
-            <Card className="landscape:p-3">
-              <h3 className="text-xl font-bold sm:text-2xl landscape:text-base">Typ správy</h3>
-              <div className="mt-4 landscape:mt-2 grid grid-cols-2 gap-3 landscape:gap-2">
-                {CATEGORIES.map(({ value, label, emoji }) => (
-                  <ChoiceTile
-                    key={value}
-                    shape="option"
-                    state={category === value ? 'selected' : 'neutral'}
-                    aria-pressed={category === value}
-                    disabled={formState === 'submitting'}
-                    className="landscape:py-2 text-sm sm:text-lg"
-                    onClick={() => setCategory(value)}
-                  >
-                    {emoji} {label}
-                  </ChoiceTile>
-                ))}
-              </div>
-            </Card>
-
-            <Card className="landscape:p-3">
-              <h3 className="text-xl font-bold sm:text-2xl landscape:text-base">Vaša správa</h3>
-              <p className="mt-1 text-sm font-medium opacity-55 sm:text-base landscape:text-xs">Voliteľné</p>
+          <Field
+            label="Vaša správa"
+            helpText="Voliteľné. Pre snímku obrazovky napíšte na jan.svehla@pm.me."
+          >
+            {controlProps => (
               <TextAreaControl
+                {...controlProps}
+                aria-label="Vaša správa"
                 value={message}
                 onChange={(e) => setMessage(e.target.value.slice(0, MAX_LENGTH))}
                 disabled={formState === 'submitting'}
                 placeholder="Opíšte čo sa stalo, čo vám chýba, alebo čo by ste chceli vylepšiť…"
                 rows={3}
-                className="mt-2 sm:mt-4 landscape:mt-2"
-                aria-label="Vaša správa"
               />
-              <div className="mt-2 flex items-center justify-between text-sm font-medium opacity-55 landscape:text-xs">
-                <span>
-                  Pre snímku obrazovky napíšte na{' '}
-                  <span className="text-text-main">jan.svehla@pm.me</span>
-                </span>
-                {remaining < COUNTER_THRESHOLD && (
-                  <span className={remaining <= 20 ? 'text-red-500 opacity-100' : ''}>
-                    {remaining}
-                  </span>
-                )}
-              </div>
-            </Card>
+            )}
+          </Field>
 
-            <Button
-              onClick={handleSubmit}
-              disabled={!canSubmit}
-              fullWidth
-              className="landscape:py-2"
-              icon={formState === 'submitting' ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
-            >
-              {formState === 'submitting' ? 'Odosielam' : 'Odoslať'}
-            </Button>
-
-            {formState === 'error' && (
-              <p className="text-center text-sm font-medium text-red-500">
-                Odosielanie zlyhalo. Skúste znova.
-              </p>
+          <div className="flex items-center justify-between text-sm font-medium text-text-muted">
+            <span>
+              Pre snímku obrazovky napíšte na{' '}
+              <a className="font-bold text-text-main underline" href="mailto:jan.svehla@pm.me">jan.svehla@pm.me</a>
+            </span>
+            {remaining < COUNTER_THRESHOLD && (
+              <span className={remaining <= 20 ? 'text-action-danger' : ''}>{remaining}</span>
             )}
           </div>
-        )}
-      </AppScreen>
-    </div>
+
+          <Button
+            type="submit"
+            tone="primary"
+            size="parent"
+            fullWidth
+            disabled={!canSubmit}
+            icon={formState === 'submitting' ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
+          >
+            {formState === 'submitting' ? 'Odosielam…' : 'Odoslať'}
+          </Button>
+
+          {formState === 'error' && (
+            <p role="alert" className="text-center text-sm font-bold text-action-danger">
+              Odosielanie zlyhalo. Skúste znova.
+            </p>
+          )}
+        </form>
+      )}
+    </DialogShell>
   );
 }

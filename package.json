@@ -7,7 +7,7 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
-    "build:e2e": "vite build --mode test",
+    "build:e2e": "VITE_WEB3FORMS_KEY=e2e-placeholder vite build --mode test",
     "test:e2e": "npm run build:e2e && playwright test --config=e2e/playwright.config.ts",
     "test:e2e:production-guards": "npm run build && playwright test --config=e2e/playwright.production.config.ts e2e/production-guards.spec.ts",
     "clean": "rm -rf dist",
