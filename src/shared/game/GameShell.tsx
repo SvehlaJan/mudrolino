@@ -57,14 +57,19 @@ export function GameShell({
   const definition = GAME_DEFINITIONS.find((g) => g.id === gameId);
   const title = definition ? getUiCopy(locale, definition.titleKey) : gameId;
 
-  const isFinal = state.phase === 'session-complete' || state.roundsPlayed >= state.maxRounds;
-  const transientFeedback = feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !isFinal;
+  // A final round reaches `answered-correctly`/`answered-incorrectly` (feedback: 'failure')
+  // as soon as the reducer resolves the answer, but useGameSession only dispatches
+  // SHOW_SESSION_COMPLETE once the praise/failure verdict audio has actually finished.
+  // Locking input must happen immediately; showing completion's Play again/Home must wait
+  // for that phase, or a child could tap past a session recap whose audio never played.
+  const isFinalRound = state.roundsPlayed >= state.maxRounds;
+  const transientFeedback = feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !isFinalRound;
   const contentLocked =
     state.paused ||
     Boolean(transientFeedback) ||
     state.feedback !== null ||
     state.phase === 'recoverable-error' ||
-    isFinal;
+    isFinalRound;
 
   useEffect(() => {
     if (state.paused) {
@@ -76,7 +81,7 @@ export function GameShell({
     restoreFocusRef.current = null;
   }, [state.paused]);
 
-  const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly') && !isFinal && !transientFeedback;
+  const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly') && !isFinalRound && !transientFeedback;
 
   return (
     <AppScreen maxWidth="game" height="viewport" scroll="vertical" contentClassName="gap-3 sm:gap-4 [@media(max-height:480px)]:gap-1.5">
@@ -143,7 +148,7 @@ export function GameShell({
         </OverlayFrame>
       )}
 
-      {completion && (isFinal || state.phase === 'session-complete') && (
+      {completion && state.phase === 'session-complete' && (
         <OverlayFrame show tone="success" confetti panelClassName="bg-white shadow-block" focusOnShow>
           <div className="text-6xl" aria-hidden="true">{completion.praise.emoji}</div>
           <p className="mt-2 text-3xl font-black text-text-main">{getUiCopy(locale, 'game.completionTitle')}</p>

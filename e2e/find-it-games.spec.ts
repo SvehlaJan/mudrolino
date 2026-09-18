@@ -162,6 +162,60 @@ test('alphabet: a full 5-round session reaches an explicit completion that requi
   expectNoFailedRequests(failedRequests);
 });
 
+test('alphabet: completion actions stay absent until session-complete after a final correct answer', async ({ page }) => {
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  for (let round = 0; round < 4; round += 1) {
+    const state = await getE2EState<FindItE2EState>(page);
+    await pressAnswerById(page, state.correctItemId!);
+    await waitForGamePhase(page, 'answered-correctly');
+    await page.getByRole('button', { name: 'Pokračovať' }).click();
+    await waitForGamePhase(page, 'ready');
+  }
+
+  const finalState = await getE2EState<FindItE2EState>(page);
+  await pressAnswerById(page, finalState.correctItemId!);
+  await waitForGamePhase(page, 'answered-correctly');
+  // The reducer marks this the final round immediately, but the terminal praise/
+  // session-complete audio has not resolved yet — completion actions must wait for it.
+  await expect(page.getByRole('button', { name: 'Hrať znova' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Domov' })).toHaveCount(0);
+
+  await waitForGamePhase(page, 'session-complete');
+  await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
+});
+
+test('alphabet: completion actions stay absent until session-complete after a final exhausted-failure round', async ({ page }) => {
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  for (let round = 0; round < 4; round += 1) {
+    const state = await getE2EState<FindItE2EState>(page);
+    await pressAnswerById(page, state.correctItemId!);
+    await waitForGamePhase(page, 'answered-correctly');
+    await page.getByRole('button', { name: 'Pokračovať' }).click();
+    await waitForGamePhase(page, 'ready');
+  }
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const wrongId = await findWrongId(page);
+    await pressAnswerById(page, wrongId);
+    if (attempt < 2) await waitForGamePhase(page, 'awaiting-answer');
+  }
+
+  await waitForGamePhase(page, 'answered-incorrectly');
+  // Same contract on the exhausted-failure path: the failure verdict/explanation
+  // audio has not resolved yet, so completion actions must not be present.
+  await expect(page.getByRole('button', { name: 'Hrať znova' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Domov' })).toHaveCount(0);
+
+  await waitForGamePhase(page, 'session-complete');
+  await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
+});
+
 const EXPECTED_GAMES = [
   { path: '/alphabet', title: 'Abeceda', instruction: 'Nájdi písmeno, ktoré počuješ.', material: 'wood' },
   { path: '/syllables', title: 'Slabiky', instruction: 'Nájdi slabiku, ktorú počuješ.', material: 'magnet' },
