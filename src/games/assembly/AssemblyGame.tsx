@@ -18,23 +18,21 @@ import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
 import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { shouldPlaySelectedSyllableAudio } from './assemblyAudioLogic';
+import {
+  AssemblyBoard,
+  AssemblyTile,
+  createAssemblyBoard,
+  isAssemblyBoardComplete,
+  isAssemblyBoardCorrect,
+  moveTileToFirstOpenSlot,
+  returnTileToTray,
+} from './assemblyLogic';
 
 type GameState = 'HOME' | 'PLAYING';
 
-interface AssemblyTile {
-  id: string;
-  text: string;
-  trayIndex: number;
-}
-
-interface BoardState {
-  trayTiles: AssemblyTile[];
-  placedTiles: (AssemblyTile | null)[];
-}
-
 interface PreparedRound {
   word: Word;
-  board: BoardState;
+  board: AssemblyBoard;
 }
 
 interface TileButtonProps {
@@ -158,7 +156,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, locale, praiseEntries } = useContent();
   const [gameState, setGameState] = useState<GameState>('HOME');
   const [targetWord, setTargetWord] = useState<Word | null>(null);
-  const [board, setBoard] = useState<BoardState>({ trayTiles: [], placedTiles: [] });
+  const [board, setBoard] = useState<AssemblyBoard>({ trayTiles: [], placedTiles: [] });
   const [showSuccess, setShowSuccess] = useState(false);
   const [showSessionComplete, setShowSessionComplete] = useState(false);
   const [roundsPlayed, setRoundsPlayed] = useState(0);
@@ -199,12 +197,12 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const trayTiles = board.trayTiles;
   const placedTiles = board.placedTiles;
 
-  const createTiles = useCallback((syllables: string[]) => (
-    fisherYatesShuffle(syllables).map((text, trayIndex) => ({
-      id: `assembly-tile-${tileIdRef.current++}`,
-      text,
-      trayIndex,
-    }))
+  const createBoard = useCallback((syllables: string[]): AssemblyBoard => (
+    createAssemblyBoard(
+      syllables,
+      () => `assembly-tile-${tileIdRef.current++}`,
+      tiles => fisherYatesShuffle(tiles).map((tile, trayIndex) => ({ ...tile, trayIndex })),
+    )
   ), []);
 
   const prepareRound = useCallback((): PreparedRound | null => {
@@ -214,16 +212,10 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
       wordQueueRef.current = fisherYatesShuffle(eligibleWords);
     }
     const word = wordQueueRef.current.shift()!;
-    const trayTiles = createTiles(word.syllables.split('-'));
+    const board = createBoard(word.syllables.split('-'));
 
-    return {
-      word,
-      board: {
-        trayTiles,
-        placedTiles: Array.from({ length: trayTiles.length }, () => null),
-      },
-    };
-  }, [createTiles, eligibleWords]);
+    return { word, board };
+  }, [createBoard, eligibleWords]);
 
   const cleanupFloatingTile = useCallback((tileId: string) => {
     activeTweensRef.current.get(tileId)?.kill();
@@ -355,10 +347,10 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
     activeTweensRef.current.set(tileId, tween);
   }, [cleanupFloatingTile]);
 
-  const validateBoard = useCallback((nextPlaced: (AssemblyTile | null)[], finalSelectedSyllable?: string) => {
-    if (!targetWord || nextPlaced.some(slot => slot === null)) return;
+  const validateBoard = useCallback((nextBoard: AssemblyBoard, finalSelectedSyllable?: string) => {
+    if (!targetWord || !isAssemblyBoardComplete(nextBoard)) return;
 
-    const isCorrect = nextPlaced.every((tile, index) => tile?.text === correctSyllables[index]);
+    const isCorrect = isAssemblyBoardCorrect(nextBoard, correctSyllables);
     setTotalChecks(prev => prev + 1);
 
     if (isCorrect) {
@@ -379,7 +371,6 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
 
     triggerWrongPulse();
     audioManager.play(getWrongAudio(locale, targetWord, finalSelectedSyllable));
-    const resetTiles = nextPlaced.filter((tile): tile is AssemblyTile => tile !== null);
 
     clearTimer(resetRevealTimerRef);
     clearTimer(resetBoardTimerRef);
@@ -387,10 +378,11 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
       setIsResettingBoard(true);
       resetRevealTimerRef.current = null;
       resetBoardTimerRef.current = setTimeout(() => {
-        setBoard({
-          trayTiles: [...resetTiles].sort((first, second) => first.trayIndex - second.trayIndex),
-          placedTiles: Array.from({ length: correctSyllables.length }, () => null),
-        });
+        const emptyBoard: AssemblyBoard = { trayTiles: [], placedTiles: [...nextBoard.placedTiles] };
+        setBoard(nextBoard.placedTiles.reduce<AssemblyBoard>(
+          (acc, tile, slotIndex) => (tile ? returnTileToTray(acc, slotIndex) : acc),
+          emptyBoard,
+        ));
         setIsResettingBoard(false);
         cleanupAllFloatingTiles();
         resetBoardTimerRef.current = null;
@@ -404,6 +396,9 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
     const emptySlots = board.placedTiles.filter(s => s === null).length;
     const placingLastTile = emptySlots === 1;
 
+    // Snapshot only the placed-tiles array (not the whole AssemblyBoard) out of the
+    // setBoard updater: TS's control-flow narrowing mishandles a `let` outside the
+    // closure that shares the state's own object shape, collapsing it to `never`.
     let nextPlacedSnapshot: (AssemblyTile | null)[] | null = null;
     let selectedTileText: string | null = null;
     animateBoardMove(tileId, () => {
@@ -412,25 +407,21 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
         if (!tile) return prevBoard;
         selectedTileText = tile.text;
 
-        const targetSlotIndex = prevBoard.placedTiles.findIndex(slot => slot === null);
-        if (targetSlotIndex < 0) return prevBoard;
+        const nextBoard = moveTileToFirstOpenSlot(prevBoard, tileId);
+        if (nextBoard === prevBoard) return prevBoard;
 
-        const nextPlaced = [...prevBoard.placedTiles];
-        nextPlaced[targetSlotIndex] = tile;
-        nextPlacedSnapshot = nextPlaced;
-
-        return {
-          trayTiles: prevBoard.trayTiles.filter(candidate => candidate.id !== tileId),
-          placedTiles: nextPlaced,
-        };
+        nextPlacedSnapshot = nextBoard.placedTiles;
+        return nextBoard;
       });
     });
+
+    const nextPlaced = nextPlacedSnapshot ?? [];
 
     if (
       typeof selectedTileText === 'string'
       && shouldPlaySelectedSyllableAudio({
         placingLastTile,
-        nextPlaced: nextPlacedSnapshot ?? [],
+        nextPlaced,
         correctSyllables,
       })
     ) {
@@ -439,7 +430,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
     }
 
     if (nextPlacedSnapshot) {
-      validateBoard(nextPlacedSnapshot, selectedTileText ?? undefined);
+      validateBoard({ trayTiles: [], placedTiles: nextPlacedSnapshot }, selectedTileText ?? undefined);
     }
   }, [animateBoardMove, board.placedTiles, correctSyllables, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
 
@@ -450,18 +441,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
     if (!tile) return;
 
     animateBoardMove(tile.id, () => {
-      setBoard(prevBoard => {
-        const slotTile = prevBoard.placedTiles[slotIndex];
-        if (!slotTile) return prevBoard;
-
-        const nextPlaced = [...prevBoard.placedTiles];
-        nextPlaced[slotIndex] = null;
-
-        return {
-          trayTiles: [...prevBoard.trayTiles, slotTile].sort((first, second) => first.trayIndex - second.trayIndex),
-          placedTiles: nextPlaced,
-        };
-      });
+      setBoard(prevBoard => returnTileToTray(prevBoard, slotIndex));
     });
   }, [animateBoardMove, isResettingBoard, placedTiles, showSessionComplete, showSuccess]);
 
