@@ -59,7 +59,12 @@ export function GameShell({
 
   const isFinal = state.phase === 'session-complete' || state.roundsPlayed >= state.maxRounds;
   const transientFeedback = feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !isFinal;
-  const contentLocked = state.paused || Boolean(transientFeedback) || state.feedback !== null || state.phase === 'recoverable-error';
+  const contentLocked =
+    state.paused ||
+    Boolean(transientFeedback) ||
+    state.feedback !== null ||
+    state.phase === 'recoverable-error' ||
+    isFinal;
 
   useEffect(() => {
     if (state.paused) {
@@ -120,7 +125,6 @@ export function GameShell({
       {transientFeedback && feedback && (
         <OverlayFrame
           show
-          inline
           tone={feedback.kind === 'success' ? 'success' : 'failure'}
           panelClassName="bg-white shadow-block"
         >
@@ -140,7 +144,7 @@ export function GameShell({
       )}
 
       {completion && (isFinal || state.phase === 'session-complete') && (
-        <OverlayFrame show inline tone="success" confetti panelClassName="bg-white shadow-block" focusOnShow>
+        <OverlayFrame show tone="success" confetti panelClassName="bg-white shadow-block" focusOnShow>
           <div className="text-6xl" aria-hidden="true">{completion.praise.emoji}</div>
           <p className="mt-2 text-3xl font-black text-text-main">{getUiCopy(locale, 'game.completionTitle')}</p>
           <p className="mt-2 text-xl font-bold text-text-muted">{completion.praise.text}</p>
@@ -160,7 +164,7 @@ export function GameShell({
       )}
 
       {state.phase === 'recoverable-error' && (
-        <OverlayFrame show inline tone="failure" panelClassName="bg-white shadow-block" focusOnShow>
+        <OverlayFrame show tone="failure" panelClassName="bg-white shadow-block" focusOnShow>
           <div role="alert">
             <p className="text-2xl font-black text-text-main">
               {state.errorMessage || getUiCopy(locale, 'game.error.title')}

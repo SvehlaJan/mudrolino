@@ -125,6 +125,7 @@ export function AnswerGroup({
 
     switch (event.key) {
       case 'ArrowRight': {
+        event.preventDefault();
         for (let i = sourceIndex + 1; i < buttons.length; i++) {
           if (!isButtonDisabled(buttons[i])) {
             targetIndex = i;
@@ -134,6 +135,7 @@ export function AnswerGroup({
         break;
       }
       case 'ArrowLeft': {
+        event.preventDefault();
         for (let i = sourceIndex - 1; i >= 0; i--) {
           if (!isButtonDisabled(buttons[i])) {
             targetIndex = i;
@@ -143,6 +145,7 @@ export function AnswerGroup({
         break;
       }
       case 'ArrowDown': {
+        event.preventDefault();
         if (usesGrid) {
           const candidate = sourceIndex + geometry.cols;
           if (candidate < buttons.length && !isButtonDisabled(buttons[candidate])) {
@@ -159,6 +162,7 @@ export function AnswerGroup({
         break;
       }
       case 'ArrowUp': {
+        event.preventDefault();
         if (usesGrid) {
           const candidate = sourceIndex - geometry.cols;
           if (candidate >= 0 && !isButtonDisabled(buttons[candidate])) {
@@ -175,6 +179,7 @@ export function AnswerGroup({
         break;
       }
       case 'Home': {
+        event.preventDefault();
         for (let i = 0; i < buttons.length; i++) {
           if (!isButtonDisabled(buttons[i])) {
             targetIndex = i;
@@ -184,6 +189,7 @@ export function AnswerGroup({
         break;
       }
       case 'End': {
+        event.preventDefault();
         for (let i = buttons.length - 1; i >= 0; i--) {
           if (!isButtonDisabled(buttons[i])) {
             targetIndex = i;
@@ -197,7 +203,6 @@ export function AnswerGroup({
     }
 
     if (targetIndex !== undefined && targetIndex >= 0 && targetIndex < buttons.length) {
-      event.preventDefault();
       setActiveIndex(targetIndex);
       buttons[targetIndex].focus();
     }
