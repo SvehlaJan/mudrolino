@@ -63,13 +63,13 @@ test.describe('Responsive Baseline Layout', () => {
       await expect(page.getByRole('heading', { name: 'Vlastný obsah' })).toBeVisible();
       await expectNoHorizontalOverflow(page);
 
-      const wordsTab = page.getByRole('button', { name: 'Slová', exact: true });
+      const wordsTab = page.getByRole('tab', { name: /Slová/ });
       await expectMinimumTarget(page, wordsTab, 44);
       await wordsTab.scrollIntoViewIfNeeded();
       await wordsTab.click();
       await assertReachableAction(page, page.getByRole('button', { name: 'Pridať slovo', exact: true }));
 
-      const praiseTab = page.getByRole('button', { name: 'Pochvaly', exact: true });
+      const praiseTab = page.getByRole('tab', { name: /Pochvaly/ });
       await praiseTab.scrollIntoViewIfNeeded();
       await expectMinimumTarget(page, praiseTab, 44);
       await praiseTab.click();

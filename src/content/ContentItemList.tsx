@@ -5,16 +5,24 @@
 
 import React, { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { ChevronDown, Plus, RotateCcw } from 'lucide-react';
-import { Button, SearchInput } from '../shared/ui';
+import { AlertDialogShell, Button, SearchInput } from '../shared/ui';
 import type { IconMenuAction } from '../shared/ui';
 import { RecordingListItem } from '../recordings/RecordingListItem';
 import type { AudioItem } from '../recordings/RecordingListItem';
 import { audioManager } from '../shared/services/audioManager';
 import { audioOverrideStore } from '../shared/services/audioOverrideStore';
 import { useRecorder } from '../shared/hooks/useRecorder';
+import type { RecorderError } from '../recordings/recordingState';
 import { normalizeComparableText } from './customContentValidation';
 
 const SAVED_FLASH_MS = 800;
+
+function recorderErrorText(error: RecorderError | null): string | null {
+  if (error === 'permission-denied') return 'Povoľte mikrofón v nastaveniach prehliadača a skúste nahrať znova.';
+  if (error === 'processing-failed') return 'Spracovanie nahrávky zlyhalo. Skúste nahrať znova.';
+  if (error === 'unavailable') return 'Mikrofón nie je dostupný. Skontrolujte pripojenie a skúste znova.';
+  return null;
+}
 
 export interface ContentRow {
   id: string;
@@ -85,60 +93,57 @@ export function ContentItemList({
     [rows, disabledRows],
   );
 
-  useEffect(() => {
-    if (!recorder.blobPromise) return;
-    recorder.blobPromise.then(async blob => {
-      const id = activeIdRef.current;
-      if (!id) return;
-      const row = findRow(id);
-      if (!row) return;
-      try {
-        await audioOverrideStore.set(row.storeKey, blob);
-        await onAfterRecordSaved?.(row);
-        const keys = await audioOverrideStore.listKeys();
-        setOverrideKeys(new Set(keys));
-        setSavedFlash(true);
-        savedFlashTimerRef.current = setTimeout(() => {
-          setSavedFlash(false);
-          setActiveId(null);
-          savingRef.current = false;
-        }, SAVED_FLASH_MS);
-      } catch {
-        setRecordingError('Nahrávku sa nepodarilo uložiť. Skúste to znova.');
-        setActiveId(null);
-        setSavedFlash(false);
-        savingRef.current = false;
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recorder.blobPromise]);
-
   useEffect(() => () => {
+    activeIdRef.current = null;
     if (savedFlashTimerRef.current) clearTimeout(savedFlashTimerRef.current);
   }, []);
 
-  const handleRecord = useCallback(async (id: string) => {
-    if (activeId !== null || savingRef.current || recorder.state !== 'idle') return;
+  const [deleteRow, setDeleteRow] = useState<ContentRow | null>(null);
+  const deleteFocus = useRef<HTMLElement | null>(null);
+  const busy = ['requesting', 'recording', 'processing'].includes(recorder.state) || savedFlash;
+
+  const handleRecord = async (id: string) => {
+    if (['requesting', 'recording', 'processing'].includes(recorder.state) || savedFlash || savingRef.current) return;
+    recorder.reset();
     audioManager.stop();
+    activeIdRef.current = id;
     setActiveId(id);
     setSavedFlash(false);
     setRecordingError(null);
-    try {
-      await recorder.start();
-    } catch {
-      setRecordingError('Nahrávanie sa nepodarilo spustiť. Skúste to znova.');
-      setActiveId(null);
-    }
-  }, [activeId, recorder]);
+    await recorder.start();
+  };
 
-  const handleStop = useCallback(() => {
-    // The current row must remain active through MediaRecorder's asynchronous
-    // processing so the resulting blob is saved to the row that was stopped.
+  const handleStop = async () => {
+    const id = activeIdRef.current;
+    const row = id ? findRow(id) : null;
+    if (!row || savingRef.current) return;
     savingRef.current = true;
-    recorder.stop();
-  }, [recorder]);
+    try {
+      const blob = await recorder.stop();
+      if (activeIdRef.current !== id) return;
+      await audioOverrideStore.set(row.storeKey, blob);
+      await onAfterRecordSaved?.(row);
+      if (activeIdRef.current !== id) return;
+      setOverrideKeys(new Set(await audioOverrideStore.listKeys()));
+      setSavedFlash(true);
+      setRecordingError('Nahrávka uložená.');
+      savedFlashTimerRef.current = setTimeout(() => {
+        setSavedFlash(false);
+        setActiveId(null);
+        activeIdRef.current = null;
+        savingRef.current = false;
+        recorder.reset();
+      }, SAVED_FLASH_MS);
+    } catch (cause) {
+      if (activeIdRef.current !== id) return;
+      if (!(cause instanceof DOMException && cause.name === 'AbortError')) {
+        setRecordingError('Nahrávku sa nepodarilo uložiť. Skúste to znova.');
+      }
+      savingRef.current = false;
+    }
+  };
 
-  const handleDeleteAudio = useCallback(async (row: ContentRow) => {
+  const handleDeleteAudio = async (row: ContentRow) => {
     try {
       await audioOverrideStore.delete(row.storeKey);
       await onAfterDeleteAudio?.(row);
@@ -147,7 +152,9 @@ export function ContentItemList({
     } catch {
       setRecordingError('Nahrávku sa nepodarilo odstrániť. Skúste to znova.');
     }
-  }, [onAfterDeleteAudio]);
+  };
+
+  const errorText = recorderErrorText(recorder.error);
 
   const normalizedQuery = normalizeComparableText(query);
   const matches = useCallback(
@@ -179,7 +186,8 @@ export function ContentItemList({
           {noticeMessage}
         </p>
       )}
-      {recordingError && <p role="status" className="rounded-2xl bg-action-danger/10 px-4 py-3 text-sm font-bold text-action-danger">{recordingError}</p>}
+      <p role="status" aria-live="polite" className="text-sm font-bold text-text-main">{errorText ?? recordingError}</p>
+      <AlertDialogShell open={deleteRow !== null} onOpenChange={open => { if (!open) setDeleteRow(null); }} title="Zmazať nahrávku?" description="Použije sa pôvodný zvuk alebo hlas prehliadača." cancelLabel="Zrušiť" actionLabel="Zmazať" restoreFocusRef={deleteFocus} onAction={() => { if (deleteRow) void handleDeleteAudio(deleteRow); }} />
 
       {searchedWithNoResults && (
         <p className="px-1 text-sm font-medium text-text-muted">Nič sa nenašlo pre „{query}“.</p>
@@ -198,6 +206,7 @@ export function ContentItemList({
             menuActions={row.menuActions}
             hasCustom={overrideKeys.has(row.storeKey)}
             isActive={row.id === activeId}
+            disabled={busy}
             recorderState={recorder.state}
             speaking={recorder.speaking}
             savedFlash={row.id === activeId && savedFlash}
@@ -207,8 +216,16 @@ export function ContentItemList({
             recordEmphasis={row.recordEmphasis}
             onRecord={() => { void handleRecord(row.id); }}
             onStop={handleStop}
+            onCancel={() => {
+              recorder.cancel();
+              activeIdRef.current = null;
+              setActiveId(null);
+              savingRef.current = false;
+              setRecordingError('Nahrávanie zrušené.');
+              recorder.reset();
+            }}
             onPlay={() => audioManager.play({ clips: [{ path: row.storeKey, fallbackText: row.label }] })}
-            onDelete={() => void handleDeleteAudio(row)}
+            onDelete={() => { deleteFocus.current = document.activeElement as HTMLElement | null; setDeleteRow(row); }}
           />
         );
       })}

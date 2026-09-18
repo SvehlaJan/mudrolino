@@ -78,7 +78,7 @@ test.describe('Persistence and Backward Compatibility', () => {
     await expect(page.getByRole('heading', { name: 'Vlastný obsah' })).toBeVisible();
 
     // Check custom words
-    await page.getByRole('button', { name: 'Slová' }).click();
+    await page.getByRole('tab', { name: 'Slová' }).click();
     await expect(page.getByText('Mama 👩', { exact: true })).toBeVisible();
     await expect(page.getByText('auto', { exact: false })).toBeVisible();
     const customWordRow = page.getByText('auto 🚗', { exact: true }).locator('xpath=../..');
@@ -86,7 +86,7 @@ test.describe('Persistence and Backward Compatibility', () => {
     expect(audioFixture.key).toBe('sk/words/custom-custom-1');
 
     // Check custom praise
-    await page.getByRole('button', { name: 'Pochvaly' }).click();
+    await page.getByRole('tab', { name: 'Pochvaly' }).click();
     await expect(page.getByText('Výborne!', { exact: false })).toBeVisible();
     await expect(page.getByText('Super robota!', { exact: false })).toBeVisible();
 

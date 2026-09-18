@@ -318,16 +318,25 @@ test.describe('Custom content manager', () => {
   });
 
   test('deleting the last playable custom item is blocked with an explanation', async ({ page }) => {
+    await installSuccessfulRecorder(page);
     await openContent(page);
     await openTab(page, /Pochvaly/);
 
-    // Add the custom replacement first so every default can still be disabled
-    // one at a time (the guard always leaves at least one playable item).
+    // Add the custom replacement and record it so it is playable (ready):
+    // the guard protects the last *playable* item, so every default can then
+    // be disabled one at a time while the custom praise keeps the pool non-empty.
     await page.getByRole('button', { name: 'Pridať pochvalu' }).click();
     await page.getByLabel(/^Text pochvaly\b/).fill('Bravo!');
     await page.getByLabel(/^Emoji\b/).fill('👏');
     await page.getByRole('button', { name: 'Pridať', exact: true }).click();
     await expect(page.getByText('Bravo!')).toBeVisible();
+
+    const search = page.getByRole('textbox', { name: /Hľadať pochvalu/ });
+    await search.fill('Bravo');
+    await page.getByRole('button', { name: 'Nahrať' }).click();
+    await page.getByRole('button', { name: 'Zastaviť' }).click();
+    await expect(page.getByRole('button', { name: 'Zmazať nahrávku' })).toBeVisible();
+    await search.fill('');
 
     for (const text of ['Výborne', 'Skvelá', 'šikovný', 'To je ono', 'Úžasné', 'Paráda']) {
       await disableRow(page, /Hľadať pochvalu/, text);

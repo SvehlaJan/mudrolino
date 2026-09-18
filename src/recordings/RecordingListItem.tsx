@@ -7,7 +7,7 @@ import React from 'react';
 import { Mic, Trash2, Play, Square } from 'lucide-react';
 import type { RecorderState } from '../shared/hooks/useRecorder';
 import type { IconMenuAction } from '../shared/ui';
-import { Card, IconButton, IconMenuButton } from '../shared/ui';
+import { Button, Card, IconButton, IconMenuButton } from '../shared/ui';
 
 export interface AudioItem {
   key: string;
@@ -22,6 +22,7 @@ export interface RecordingListItemProps {
   hasCustom: boolean;
   /** True when this row owns the active recorder. */
   isActive: boolean;
+  disabled?: boolean;
   /** Only meaningful when isActive. */
   recorderState: RecorderState;
   /** True when recorder is active and voice has been detected. Only meaningful when isActive && recorderState === 'recording'. */
@@ -35,6 +36,7 @@ export interface RecordingListItemProps {
   recordEmphasis?: boolean;
   onRecord: () => void;
   onStop: () => void;
+  onCancel?: () => void;
   onPlay: () => void;
   onDelete: () => void;
 }
@@ -45,6 +47,7 @@ export function RecordingListItem({
   menuActions,
   hasCustom,
   isActive,
+  disabled = false,
   recorderState,
   speaking,
   savedFlash,
@@ -55,14 +58,16 @@ export function RecordingListItem({
   recordEmphasis = false,
   onRecord,
   onStop,
+  onCancel,
   onPlay,
   onDelete,
 }: RecordingListItemProps) {
+  const isRequesting = isActive && recorderState === 'requesting';
   const isRecording = isActive && recorderState === 'recording';
   const isProcessing = isActive && recorderState === 'processing';
   const isSavedFlash = isActive && savedFlash;
   // "active" = any non-idle state for this row (recording, processing, or saved flash)
-  const isEngaged = isRecording || isProcessing || isSavedFlash;
+  const isEngaged = isRequesting || isRecording || isProcessing || isSavedFlash;
 
   // ── Left indicator ────────────────────────────────────────────────────────
   let indicator: React.ReactNode;
@@ -78,22 +83,11 @@ export function RecordingListItem({
     indicator = <span className="w-3 h-3 rounded-full border-2 border-shadow/20 inline-block" />;
   }
 
-  // ── Row background / border ───────────────────────────────────────────────
-  let rowClass = 'flex items-center gap-2 transition-colors ';
-  if (isSavedFlash) {
-    rowClass += '!bg-green-950/40 !border-green-600/50';
-  } else if (isProcessing) {
-    rowClass += '!bg-amber-950/30 !border-amber-500/40';
-  } else if (isRecording && speaking) {
-    rowClass += '!bg-pink-950/30 !border-pink-500/50';
-  } else if (isRecording) {
-    rowClass += '!bg-blue-950/30 !border-accent-blue/50';
-  }
+  const rowClass = 'flex flex-wrap items-center gap-2 transition-colors';
 
-  // ── Status text ───────────────────────────────────────────────────────────
   let statusText: string | null = null;
-  if (isRecording && !speaking) statusText = 'Čakám…';
-  else if (isRecording && speaking) statusText = 'Počujem…';
+  if (isRequesting) statusText = 'Čakám na povolenie mikrofónu…';
+  else if (isRecording) statusText = speaking ? 'Nahrávam — počujem hlas.' : 'Nahrávam — hovorte do mikrofónu.';
   else if (isProcessing) statusText = 'Spracovávam…';
   else if (isSavedFlash) statusText = 'Uložené';
 
@@ -107,18 +101,10 @@ export function RecordingListItem({
     ? '!bg-soft-watermelon text-text-main ring-2 ring-soft-watermelon/45'
     : '!bg-soft-watermelon/45 text-text-main';
 
-  // ── Label colour ──────────────────────────────────────────────────────────
-  let labelClass = 'text-lg font-medium text-left truncate text-text-main ';
-  if (isSavedFlash) labelClass += 'text-green-300';
-  else if (isProcessing) labelClass += 'text-amber-300';
-  else if (isRecording) labelClass += speaking ? 'text-pink-200' : 'text-blue-200';
+  const labelClass = 'text-lg font-medium text-left break-words text-text-main';
+  const secondaryClass = 'mt-0.5 text-xs font-bold uppercase tracking-normal text-text-muted';
 
-  let secondaryClass = 'mt-0.5 text-xs font-bold uppercase tracking-normal text-text-main/55 truncate ';
-  if (isSavedFlash) secondaryClass += 'text-green-300/80';
-  else if (isProcessing) secondaryClass += 'text-amber-300/80';
-  else if (isRecording) secondaryClass += speaking ? 'text-pink-200/80' : 'text-blue-200/80';
-
-  const compactActionClass = '!h-9 !w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:!h-9 sm:!w-9';
+  const compactActionClass = 'h-11 w-11 min-h-11 min-w-11 shrink-0';
 
   return (
     <Card variant="row" className={rowClass}>
@@ -137,7 +123,7 @@ export function RecordingListItem({
 
       {/* Status text — flush against right buttons */}
       {statusText && (
-        <span className="text-xs italic opacity-80 shrink-0 mr-1">{statusText}</span>
+        <span role="status" aria-live="polite" className="basis-full text-sm text-text-main">{statusText}</span>
       )}
 
       {statusLabel && !isEngaged && (
@@ -150,22 +136,23 @@ export function RecordingListItem({
       {isEngaged ? (
         <>
           {/* Stop button (recording only; hidden during processing/saved) */}
-          <div className="w-9 flex items-center justify-center shrink-0">
+          <div className="w-11 flex items-center justify-center shrink-0">
             {isRecording && (
               <button
                 onClick={onStop}
-                className="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center active:opacity-70"
+                className="min-w-11 min-h-11 rounded-full bg-action-danger flex items-center justify-center focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus"
                 aria-label="Zastaviť"
               >
                 <Square size={12} className="text-white fill-white" />
               </button>
             )}
           </div>
+          {(isRequesting || isRecording || isProcessing) && <Button tone="neutral" size="parent" onClick={onCancel}>Zrušiť nahrávanie</Button>}
         </>
       ) : (
         <>
           {/* Delete — only when idle and has custom recording */}
-          <div className="w-9 flex items-center justify-center shrink-0">
+          <div className="w-11 flex items-center justify-center shrink-0">
             {hasCustom && allowDeleteRecording && (
               <IconButton
                 onClick={onDelete}
@@ -178,7 +165,7 @@ export function RecordingListItem({
           </div>
 
           {/* Play */}
-          <div className="w-9 flex items-center justify-center shrink-0">
+          <div className="w-11 flex items-center justify-center shrink-0">
             {allowPlay && (
               <IconButton
                 onClick={onPlay}
@@ -191,18 +178,19 @@ export function RecordingListItem({
           </div>
 
           {/* Record */}
-          <div className="w-9 flex items-center justify-center shrink-0">
+          <div className="w-11 flex items-center justify-center shrink-0">
             <IconButton
               onClick={onRecord}
               className={`${compactActionClass} ${recordClass}`}
               label="Nahrať"
+              disabled={disabled || (!isActive && ['requesting', 'recording', 'processing'].includes(recorderState))}
             >
               <Mic size={16} />
             </IconButton>
           </div>
 
           {menuActions && menuActions.length > 0 && (
-            <div className="w-9 flex items-center justify-center shrink-0">
+            <div className="w-11 flex items-center justify-center shrink-0">
               <IconMenuButton
                 label="Ďalšie možnosti"
                 actions={menuActions}

@@ -3,25 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { recordingTransition, type RecorderState, type RecorderError } from '../../recordings/recordingState';
 
-export type RecorderState = 'idle' | 'recording' | 'processing';
+export type { RecorderState } from '../../recordings/recordingState';
 
 export interface UseRecorderResult {
   state: RecorderState;
-  /** 0–1 float representing current input level (for VU meter) */
   level: number;
-  /** True when the current frame is above the silence threshold (voice detected) */
   speaking: boolean;
-  start: () => Promise<void>;
-  stop: () => void;
-  /** Resolves with the encoded WAV Blob after recording + processing finishes */
-  blobPromise: Promise<Blob> | null;
+  error: RecorderError | null;
+  start(): Promise<void>;
+  stop(): Promise<Blob>;
+  cancel(): void;
+  reset(): void;
 }
 
-// Silence detection thresholds — match the Python split_audio.py defaults
 const SILENCE_THRESHOLD_DB = -35;
-const SILENCE_DURATION_MS = 800;
 const SAMPLE_RATE = 44100;
 
 function rmsToDb(rms: number): number {
@@ -82,152 +80,158 @@ function encodeWav(samples: Float32Array): Blob {
 
 export function useRecorder(): UseRecorderResult {
   const [state, setState] = useState<RecorderState>('idle');
+  const stateRef = useRef<RecorderState>('idle');
+  const [error, setError] = useState<RecorderError | null>(null);
   const [level, setLevel] = useState(0);
   const [speaking, setSpeaking] = useState(false);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const chunksRef = useRef<BlobPart[]>([]);
-  const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const levelRafRef = useRef<number | null>(null);
-  const blobResolveRef = useRef<((blob: Blob) => void) | null>(null);
-  const [blobPromise, setBlobPromise] = useState<Promise<Blob> | null>(null);
+  const generation = useRef(0);
+  const resources = useRef<{
+    stream?: MediaStream;
+    recorder?: MediaRecorder;
+    context?: AudioContext;
+    decode?: AudioContext;
+    frame?: number;
+    timer?: ReturnType<typeof setTimeout>;
+    reject?: (reason: Error) => void;
+    chunks: Blob[];
+  }>({ chunks: [] });
+
+  const transition = useCallback((next: RecorderState) => {
+    stateRef.current = recordingTransition(stateRef.current, next);
+    setState(stateRef.current);
+  }, []);
 
   const cleanup = useCallback(() => {
-    if (silenceTimerRef.current) {
-      clearTimeout(silenceTimerRef.current);
-      silenceTimerRef.current = null;
+    const current = resources.current;
+    if (current.frame !== undefined) cancelAnimationFrame(current.frame);
+    clearTimeout(current.timer);
+    if (current.recorder) {
+      current.recorder.ondataavailable = null;
+      current.recorder.onstop = null;
+      current.recorder.onerror = null;
+      if (current.recorder.state !== 'inactive') current.recorder.stop();
     }
-    if (levelRafRef.current) {
-      cancelAnimationFrame(levelRafRef.current);
-      levelRafRef.current = null;
-    }
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((t) => t.stop());
-      streamRef.current = null;
-    }
-    if (audioContextRef.current) {
-      audioContextRef.current.close();
-      audioContextRef.current = null;
-    }
-    analyserRef.current = null;
-    mediaRecorderRef.current = null;
+    current.stream?.getTracks().forEach(track => track.stop());
+    void current.context?.close().catch(() => {});
+    void current.decode?.close().catch(() => {});
+    current.reject?.(new DOMException('Recording cancelled', 'AbortError'));
+    resources.current = { chunks: [] };
+  }, []);
+
+  const cancel = useCallback(() => {
+    generation.current++;
+    cleanup();
     setLevel(0);
     setSpeaking(false);
-  }, []);
+    transition('cancelled');
+  }, [cleanup, transition]);
 
-  const stop = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-      mediaRecorderRef.current.stop();
-    }
-  }, []);
+  const reset = useCallback(() => {
+    if (['requesting', 'recording', 'processing'].includes(stateRef.current)) cancel();
+    transition('idle');
+    setError(null);
+  }, [cancel, transition]);
+
+  useEffect(() => () => {
+    generation.current++;
+    cleanup();
+  }, [cleanup]);
 
   const start = useCallback(async () => {
-    if (state !== 'idle') return;
-
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    streamRef.current = stream;
-
-    const audioContext = new AudioContext({ sampleRate: SAMPLE_RATE });
-    audioContextRef.current = audioContext;
-
-    const source = audioContext.createMediaStreamSource(stream);
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 2048;
-    source.connect(analyser);
-    analyserRef.current = analyser;
-
-    const chunks: BlobPart[] = [];
-    chunksRef.current = chunks;
-
-    const mediaRecorder = new MediaRecorder(stream);
-    mediaRecorderRef.current = mediaRecorder;
-
-    const promise = new Promise<Blob>((resolve) => {
-      blobResolveRef.current = resolve;
-    });
-    setBlobPromise(promise);
-
-    mediaRecorder.ondataavailable = (e) => {
-      if (e.data.size > 0) chunks.push(e.data);
-    };
-
-    mediaRecorder.onstop = async () => {
-      setState('processing');
+    if (stateRef.current !== 'idle') return;
+    const token = ++generation.current;
+    transition('requesting');
+    setError(null);
+    try {
+      if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') throw new Error('Unavailable');
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (token !== generation.current) {
+        stream.getTracks().forEach(track => track.stop());
+        return;
+      }
+      resources.current.stream = stream;
+      const context = new AudioContext({ sampleRate: SAMPLE_RATE });
+      resources.current.context = context;
+      const analyser = context.createAnalyser();
+      analyser.fftSize = 2048;
+      context.createMediaStreamSource(stream).connect(analyser);
+      const recorder = new MediaRecorder(stream);
+      const current = resources.current;
+      current.recorder = recorder;
+      recorder.ondataavailable = event => {
+        if (token === generation.current && event.data.size) current.chunks.push(event.data);
+      };
+      recorder.onerror = () => {
+        if (token !== generation.current) return;
+        current.reject?.(new Error('Recording failed'));
+        cleanup();
+        setError('processing-failed');
+        transition('error');
+      };
+      recorder.start();
+      transition('recording');
+      const values = new Float32Array(analyser.frequencyBinCount);
+      const poll = () => {
+        if (token !== generation.current || stateRef.current !== 'recording') return;
+        analyser.getFloatTimeDomainData(values);
+        const rms = Math.sqrt(values.reduce((sum, value) => sum + value * value, 0) / values.length);
+        setLevel(Math.min(1, rms * 10));
+        setSpeaking(rmsToDb(rms) >= SILENCE_THRESHOLD_DB);
+        current.frame = requestAnimationFrame(poll);
+      };
+      current.frame = requestAnimationFrame(poll);
+    } catch (cause) {
+      if (token !== generation.current) return;
       cleanup();
+      setError(cause instanceof DOMException && cause.name === 'NotAllowedError' ? 'permission-denied' : 'unavailable');
+      transition('error');
+    }
+  }, [cleanup, transition]);
 
-      try {
-        const rawBlob = new Blob(chunks, { type: mediaRecorder.mimeType });
-        if (rawBlob.size === 0) throw new Error('No audio data recorded');
-
-        const arrayBuffer = await rawBlob.arrayBuffer();
-
-        // Decode to PCM for trimming
-        const decodeCtx = new AudioContext({ sampleRate: SAMPLE_RATE });
-        const audioBuffer = await decodeCtx.decodeAudioData(arrayBuffer);
-        decodeCtx.close();
-
-        const samples = audioBuffer.getChannelData(0);
-        const trimmed = trimSilence(samples, SILENCE_THRESHOLD_DB);
-        const wavBlob = encodeWav(trimmed);
-
-        blobResolveRef.current?.(wavBlob);
-      } catch (err) {
-        console.warn('[useRecorder] Processing failed:', err);
-        // Reject the promise so callers don't hang
-        blobResolveRef.current?.(new Blob([], { type: 'audio/wav' }));
-      } finally {
-        setState('idle');
+  const stop = useCallback(async (): Promise<Blob> => {
+    const current = resources.current;
+    const recorder = current.recorder;
+    if (stateRef.current !== 'recording' || !recorder) throw new Error('Recorder is not recording');
+    const token = generation.current;
+    transition('processing');
+    if (current.frame !== undefined) cancelAnimationFrame(current.frame);
+    setLevel(0);
+    setSpeaking(false);
+    try {
+      await new Promise<void>((resolve, reject) => {
+        current.reject = reject;
+        current.timer = setTimeout(() => reject(new Error('Recording timed out')), 10000);
+        recorder.onstop = () => { if (token === generation.current) resolve(); };
+        recorder.stop();
+        current.stream?.getTracks().forEach(track => track.stop());
+        current.stream = undefined;
+        void current.context?.close().catch(() => {});
+        current.context = undefined;
+      });
+      const raw = new Blob(current.chunks, { type: recorder.mimeType });
+      if (!raw.size) throw new Error('Empty recording');
+      const context = new AudioContext({ sampleRate: SAMPLE_RATE });
+      current.decode = context;
+      const decoded = await context.decodeAudioData(await raw.arrayBuffer());
+      if (token !== generation.current) throw new DOMException('Recording cancelled', 'AbortError');
+      const samples = trimSilence(decoded.getChannelData(0), SILENCE_THRESHOLD_DB);
+      if (!samples.length) throw new Error('Empty samples');
+      const blob = encodeWav(samples);
+      transition('saved');
+      return blob;
+    } catch (cause) {
+      if (token === generation.current) {
+        setError('processing-failed');
+        transition('error');
       }
-    };
-
-    // Level polling + silence detection
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Float32Array(bufferLength);
-    let silenceStart: number | null = null;
-    // Silence detection only activates after voice is first detected
-    let hasSpoken = false;
-
-    const pollLevel = () => {
-      if (!analyserRef.current) return;
-      analyserRef.current.getFloatTimeDomainData(dataArray);
-
-      let sum = 0;
-      for (let i = 0; i < bufferLength; i++) sum += dataArray[i] * dataArray[i];
-      const rms = Math.sqrt(sum / bufferLength);
-      const db = rmsToDb(rms);
-      setLevel(Math.min(1, rms * 10)); // scale for VU meter
-
-      const isSilent = db < SILENCE_THRESHOLD_DB;
-      setSpeaking(!isSilent);
-
-      if (!isSilent) hasSpoken = true;
-
-      // Only start watching for silence after voice has been detected at least once
-      if (hasSpoken) {
-        const now = performance.now();
-        if (isSilent) {
-          if (silenceStart === null) silenceStart = now;
-          else if (now - silenceStart >= SILENCE_DURATION_MS) {
-            // Auto-stop on sustained silence after speaking
-            if (mediaRecorderRef.current?.state === 'recording') {
-              mediaRecorderRef.current.stop();
-              return; // stop polling
-            }
-          }
-        } else {
-          silenceStart = null;
-        }
+      throw cause;
+    } finally {
+      if (token === generation.current) {
+        current.reject = undefined;
+        cleanup();
       }
+    }
+  }, [cleanup, transition]);
 
-      levelRafRef.current = requestAnimationFrame(pollLevel);
-    };
-
-    mediaRecorder.start();
-    setState('recording');
-    levelRafRef.current = requestAnimationFrame(pollLevel);
-  }, [state, cleanup]);
-
-  return { state, level, speaking, start, stop, blobPromise };
+  return { state, level, speaking, error, start, stop, cancel, reset };
 }

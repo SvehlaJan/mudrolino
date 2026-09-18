@@ -552,6 +552,23 @@ export function UiKitScreen() {
             hasCustom
           />
 
+          <div data-testid="ui-kit-legacy-recording-item">
+            <RecordingListItem
+              item={{ key: 'sk/words/recording', label: 'Jahoda 🍓', category: 'words' }}
+              secondaryLabel="JA-HO-DA"
+              hasCustom={false}
+              isActive
+              recorderState="recording"
+              speaking
+              savedFlash={false}
+              onRecord={() => undefined}
+              onStop={() => undefined}
+              onCancel={() => undefined}
+              onPlay={() => undefined}
+              onDelete={() => undefined}
+            />
+          </div>
+
           <RecordingRowExample
             label="pes 🐶"
             secondaryLabel="PES"
