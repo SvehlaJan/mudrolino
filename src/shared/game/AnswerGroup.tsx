@@ -105,6 +105,12 @@ export function AnswerGroup({
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const enabledIndices = options.flatMap((child, index) =>
+    disabled || child.props.disabled || child.props['aria-disabled'] === 'true' ? [] : [index],
+  );
+  const rovingIndex = enabledIndices.includes(activeIndex)
+    ? activeIndex
+    : enabledIndices.find(index => index >= activeIndex) ?? enabledIndices[0] ?? -1;
 
   const geometry = useMemo(
     () => calculateGeometry(options.length || 1, width, height, orientation),
@@ -121,7 +127,10 @@ export function AnswerGroup({
     if (buttons.length === 0) return;
 
     const currentFocusIndex = buttons.findIndex((btn) => btn === document.activeElement);
-    const sourceIndex = currentFocusIndex >= 0 ? currentFocusIndex : activeIndex;
+    const sourceIndex = currentFocusIndex >= 0 && !isButtonDisabled(buttons[currentFocusIndex])
+      ? currentFocusIndex
+      : rovingIndex;
+    if (sourceIndex < 0) return;
 
     let targetIndex: number | undefined;
 
@@ -246,7 +255,7 @@ export function AnswerGroup({
         {options.map((child, index) => {
           const isOptionDisabled = disabled || child.props.disabled || child.props['aria-disabled'] === 'true';
           return React.cloneElement(child, {
-            tabIndex: isOptionDisabled ? -1 : index === activeIndex ? 0 : -1,
+            tabIndex: isOptionDisabled ? -1 : index === rovingIndex ? 0 : -1,
             disabled: isOptionDisabled,
             onFocus: (event: React.FocusEvent<HTMLButtonElement>) => {
               child.props.onFocus?.(event);

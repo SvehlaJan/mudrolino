@@ -7,6 +7,8 @@ import {
 } from './support/gameHarness';
 import { getE2EState } from './support/e2eHook';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
+import { expectNoHorizontalOverflow, expectWithinViewport } from './support/layoutAssertions';
+import { CANONICAL_VIEWPORTS } from './support/viewports';
 
 test.describe('shared shell and answer group contract', () => {
   test('shared shell exposes the complete round contract', async ({ page }) => {
@@ -61,6 +63,64 @@ test.describe('shared shell and answer group contract', () => {
     await expect(page.getByTestId('game-interactive-content')).toHaveAttribute('inert', '');
     await page.getByTestId('game-pause-demo-toggle').evaluate((button: HTMLButtonElement) => button.click());
     await expect(answer).toBeFocused();
+  });
+
+  test('repairs roving focus, skips disabled answers, and preserves native activation', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-shell&state=answer-controls');
+    const a = page.getByRole('button', { name: 'Písmeno A' });
+    const b = page.getByRole('button', { name: 'Písmeno B' });
+    const d = page.getByRole('button', { name: 'Písmeno D' });
+
+    await a.focus();
+    await page.keyboard.press('Home');
+    await expect(a).toBeFocused();
+    await page.keyboard.press('End');
+    await expect(d).toBeFocused();
+
+    await a.focus();
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Space');
+    await expect(page.getByTestId('game-answer-activations')).toHaveText('2');
+
+    await a.focus();
+    await page.getByTestId('game-disable-a').evaluate((button: HTMLButtonElement) => button.click());
+    await expect(a).toBeDisabled();
+    await expect(a).not.toBeFocused();
+    await expect(b).toHaveAttribute('tabindex', '0');
+    await expect(page.locator('[data-testid="game-answer-region"] button:not(:disabled)[tabindex="0"]')).toHaveCount(1);
+
+    await page.getByTestId('game-disable-c').evaluate((button: HTMLButtonElement) => button.click());
+    await b.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(d).toBeFocused();
+
+    await d.focus();
+    await page.getByTestId('game-remove-d').evaluate((button: HTMLButtonElement) => button.click());
+    await expect(d).toHaveCount(0);
+    await expect(b).toHaveAttribute('tabindex', '0');
+    await expect(page.locator('[data-testid="game-answer-region"] button:not(:disabled)[tabindex="0"]')).toHaveCount(1);
+  });
+
+  test('keeps answer children and focus stable across a runtime resize', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-shell&state=answer-controls');
+    const b = page.getByRole('button', { name: 'Písmeno B' });
+    const child = await b.elementHandle();
+    await b.focus();
+    await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
+    await expect(b).toBeFocused();
+    expect(await child?.evaluate((element) => element.isConnected)).toBe(true);
+  });
+
+  test('keeps game shell controls and answers usable at narrow and short viewports', async ({ page }) => {
+    for (const viewport of [CANONICAL_VIEWPORTS.narrowPhone, CANONICAL_VIEWPORTS.shortLandscape]) {
+      await page.setViewportSize(viewport);
+      await page.goto('/ui-kit?example=game-shell');
+      await expectNoHorizontalOverflow(page);
+      await expectWithinViewport(page, page.getByRole('button', { name: 'Zopakovať zadanie' }));
+      await expectWithinViewport(page, page.getByRole('group', { name: 'Možnosti odpovede' }));
+      await page.getByRole('button', { name: 'Písmeno A' }).click();
+      await expect(page.getByRole('button', { name: 'Písmeno A' })).toBeFocused();
+    }
   });
 });
 

@@ -202,7 +202,7 @@ function UiKitOverlayCompletionDemo() {
   );
 }
 
-type GameShellDemoState = 'ready' | 'listening' | 'retry' | 'success' | 'failure' | 'paused' | 'error' | 'completion' | 'visual' | 'reduced-motion' | 'focus-restoration';
+type GameShellDemoState = 'ready' | 'listening' | 'retry' | 'success' | 'failure' | 'paused' | 'error' | 'completion' | 'visual' | 'reduced-motion' | 'focus-restoration' | 'answer-controls';
 
 function getGameShellDemoState(example: GameShellDemoState): GameState {
   const base: GameState = {
@@ -225,6 +225,9 @@ function getGameShellDemoState(example: GameShellDemoState): GameState {
 
 function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
   const [focusDemoPaused, setFocusDemoPaused] = useState(false);
+  const [disabledAnswers, setDisabledAnswers] = useState<string[]>([]);
+  const [showD, setShowD] = useState(true);
+  const [activations, setActivations] = useState(0);
   const state = stateName === 'focus-restoration'
     ? { ...getGameShellDemoState('ready'), paused: focusDemoPaused, resumePhase: focusDemoPaused ? 'awaiting-answer' as const : null }
     : getGameShellDemoState(stateName);
@@ -252,11 +255,13 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
         onRetryError={() => undefined}
       >
         <AnswerGroup label={getUiCopy('sk', 'game.answerGroup')} orientation="grid">
-          {['A', 'B', 'C', 'D'].map(letter => (
+          {['A', 'B', 'C', ...(showD ? ['D'] : [])].map(letter => (
             <button
               key={letter}
               type="button"
               aria-label={`Písmeno ${letter}`}
+              disabled={disabledAnswers.includes(letter)}
+              onClick={() => setActivations(count => count + 1)}
               className="flex min-h-12 min-w-12 items-center justify-center rounded-2xl bg-white text-2xl font-black text-text-main shadow-block transition-transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-focus"
             >
               {letter}
@@ -273,6 +278,14 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
         >
           {focusDemoPaused ? 'Obnoviť ukážku' : 'Pozastaviť ukážku'}
         </button>
+      )}
+      {stateName === 'answer-controls' && (
+        <div className="sr-only">
+          <output data-testid="game-answer-activations">{activations}</output>
+          <button type="button" data-testid="game-disable-a" onClick={() => setDisabledAnswers(current => [...new Set([...current, 'A'])])}>Zakázať A</button>
+          <button type="button" data-testid="game-disable-c" onClick={() => setDisabledAnswers(current => [...new Set([...current, 'C'])])}>Zakázať C</button>
+          <button type="button" data-testid="game-remove-d" onClick={() => setShowD(false)}>Odstrániť D</button>
+        </div>
       )}
     </div>
   );
@@ -462,7 +475,7 @@ export function UiKitScreen() {
   if (params.get('example') === 'game-shell') {
     const requestedState = params.get('state') as GameShellDemoState | null;
     const stateName: GameShellDemoState = requestedState && [
-      'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration',
+      'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration', 'answer-controls',
     ].includes(requestedState) ? requestedState : 'ready';
     return <UiKitGameShellDemo stateName={stateName} />;
   }
