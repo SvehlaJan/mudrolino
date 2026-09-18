@@ -28,11 +28,13 @@ import { cx } from './utils';
 import { RecordingListItem } from '../../recordings/RecordingListItem';
 import { GameCard } from '../../home/GameCard';
 import { GameLobby } from '../components/GameLobby';
+import { FindItGame } from '../components/FindItGame';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
 import { AnswerGroup, GamePrompt, GameShell, PlayTray, TactilePiece } from '../game';
 import type { GameState } from '../game/gameState';
 import type { TactileMaterial } from '../game/materials';
+import type { GameDescriptor } from '../types';
 import { useAutosaveStatus, type AutosaveStatus } from '../hooks/useAutosaveStatus';
 import type { SaveResult } from '../services/appSettingsStore';
 
@@ -303,6 +305,49 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
   );
 }
 
+interface EmptyPoolDemoItem { id: string; label: string; }
+
+const EMPTY_POOL_DEMO_ITEM: EmptyPoolDemoItem = { id: 'demo-item', label: 'Ukážka' };
+
+function createEmptyPoolDemoDescriptor(items: EmptyPoolDemoItem[]): GameDescriptor<EmptyPoolDemoItem> {
+  return {
+    gridSize: 4,
+    instruction: 'Nájdi ukážkovú položku.',
+    material: 'wood',
+    getItems: () => items,
+    getItemId: (item) => item.id,
+    getAccessibleLabel: (item) => item.label,
+    renderCard: (item) => <span>{item.label}</span>,
+    renderPrompt: () => null,
+    getPromptAudio: () => ({ clips: [] }),
+    getCorrectAudio: () => ({ clips: [] }),
+    getWrongAudio: () => ({ clips: [] }),
+    getSuccessSpec: () => ({ echoLine: 'Ukážka' }),
+    getFailureSpec: () => ({ echoLine: 'Ukážka', audioSpec: { clips: [] } }),
+  };
+}
+
+/**
+ * Exercises the real `FindItGame` (not a fabricated GameShell state) with a descriptor
+ * pool that starts empty, proving init/retry never call descriptor methods on an
+ * undefined target. `filled` flips reactively so retry can re-read a now-nonempty pool.
+ */
+function UiKitFindItEmptyPoolDemo() {
+  const [filled, setFilled] = useState(false);
+  const [exitCount, setExitCount] = useState(0);
+  const descriptor = createEmptyPoolDemoDescriptor(filled ? [EMPTY_POOL_DEMO_ITEM] : []);
+
+  return (
+    <div>
+      <FindItGame gameId="ALPHABET" descriptor={descriptor} onExit={() => setExitCount((count) => count + 1)} />
+      <div className="sr-only">
+        <button type="button" data-testid="empty-pool-fill" onClick={() => setFilled(true)}>Naplniť</button>
+        <output data-testid="empty-pool-exit-count">{exitCount}</output>
+      </div>
+    </div>
+  );
+}
+
 const GAME_MATERIALS: TactileMaterial[] = ['wood', 'magnet', 'felt', 'picture', 'counter', 'paper'];
 
 function UiKitGameMaterialsDemo() {
@@ -531,6 +576,9 @@ export function UiKitScreen() {
   }
   if (params.get('example') === 'game-materials') {
     return <UiKitGameMaterialsDemo />;
+  }
+  if (params.get('example') === 'game-empty-pool') {
+    return <UiKitFindItEmptyPoolDemo />;
   }
 
   return (
@@ -988,6 +1036,9 @@ export function UiKitScreen() {
               <a key={state} href={`/ui-kit?example=game-shell&state=${state}`}>{label}</a>
             ))}
           </div>
+          <a className="block text-sm font-black text-action-primary underline" href="/ui-kit?example=game-empty-pool">
+            Prázdny zásobník (empty-pool recovery)
+          </a>
         </Card>
       </Section>
     </AppScreen>

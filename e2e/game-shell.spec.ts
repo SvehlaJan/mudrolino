@@ -7,6 +7,12 @@ import {
   waitForGamePhase,
 } from './support/gameHarness';
 import { getE2EState } from './support/e2eHook';
+import {
+  trackConsoleErrors,
+  expectNoConsoleErrors,
+  trackFailedRequests,
+  expectNoFailedRequests,
+} from './support/assertions';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
@@ -201,6 +207,32 @@ test.describe('Living Toybox materials', () => {
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
     expect(results.violations.filter((v) => isSeriousAxeViolation(v.impact))).toEqual([]);
+  });
+});
+
+test.describe('FindIt empty-pool recovery', () => {
+  test('an empty descriptor pool renders a recoverable error without crashing, and retry recovers once content exists', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+    await page.goto('/ui-kit?example=game-empty-pool');
+
+    await expect(page.getByRole('alert')).toContainText('Žiadne položky na hranie.');
+    await expect(page.getByRole('button', { name: 'Skúsiť znova' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
+
+    await page.getByTestId('empty-pool-fill').evaluate((button: HTMLButtonElement) => button.click());
+    await page.getByRole('button', { name: 'Skúsiť znova' }).click();
+    await expect(page.getByTestId('game-answer-region')).toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('Home returns to the lobby from an empty-pool recoverable error', async ({ page }) => {
+    await page.goto('/ui-kit?example=game-empty-pool');
+    await expect(page.getByRole('alert')).toContainText('Žiadne položky na hranie.');
+    await page.getByRole('button', { name: 'Domov' }).click();
+    await expect(page.getByTestId('empty-pool-exit-count')).toHaveText('1');
   });
 });
 

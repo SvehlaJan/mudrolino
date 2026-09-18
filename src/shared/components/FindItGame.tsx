@@ -42,7 +42,8 @@ function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
   return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
 }
 
-function buildGrid<T>(descriptor: GameDescriptor<T>, target: T): RoundState<T> {
+function buildGrid<T>(descriptor: GameDescriptor<T>, target: T | undefined): RoundState<T> {
+  if (target === undefined) return { targetItem: null, gridItems: [] };
   const pool = descriptor.getItems();
   const effectiveGridSize = Math.min(descriptor.gridSize, pool.length);
   const others = fisherYatesShuffle(
