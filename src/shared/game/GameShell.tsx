@@ -79,7 +79,7 @@ export function GameShell({
   const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly') && !isFinal && !transientFeedback;
 
   return (
-    <AppScreen maxWidth="game" height="viewport" scroll="vertical" contentClassName="gap-3 sm:gap-4">
+    <AppScreen maxWidth="game" height="viewport" scroll="vertical" contentClassName="gap-3 sm:gap-4 [@media(max-height:480px)]:gap-1.5">
       <PageHeader
         title={title}
         leading={

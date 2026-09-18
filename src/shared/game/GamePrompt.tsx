@@ -23,7 +23,10 @@ export function GamePrompt({ instruction, visual, replaying = false, onReplay }:
   const locale = useContentLocale();
 
   return (
-    <section aria-label={getUiCopy(locale, 'game.promptSection')} className="flex flex-col items-center gap-3 text-center">
+    <section
+      aria-label={getUiCopy(locale, 'game.promptSection')}
+      className="flex flex-col items-center gap-2 sm:gap-3 [@media(max-height:480px)]:gap-1 text-center"
+    >
       <p data-testid="game-visible-instruction" className="text-lg font-black text-text-main sm:text-xl">
         {instruction}
       </p>

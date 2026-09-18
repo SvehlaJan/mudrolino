@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { getE2EState } from './support/e2eHook';
 import {
   trackConsoleErrors,
@@ -7,8 +8,23 @@ import {
   expectNoFailedRequests,
 } from './support/assertions';
 import { pressAnswerById, waitForGamePhase } from './support/gameHarness';
+import {
+  expectNoHorizontalOverflow,
+  expectMinimumTarget,
+  expectWithinViewport,
+  expectNoPairwiseOverlap,
+} from './support/layoutAssertions';
+import { CANONICAL_VIEWPORTS } from './support/viewports';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
+
+function toAxeParams(page: import('@playwright/test').Page): ConstructorParameters<typeof AxeBuilder>[0] {
+  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
+}
+
+function isSeriousAxeViolation(impact: string | null | undefined): boolean {
+  return ['critical', 'serious'].includes(impact ?? '');
+}
 
 interface FindItE2EState extends E2EGlobalState {
   gameId: 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'WORDS';
@@ -178,4 +194,169 @@ for (const exp of EXPECTED_GAMES) {
     expectNoFailedRequests(failedRequests);
   });
 }
+
+test.describe('Task 7: Viewport tests for FindIt games', () => {
+  const VIEWPORTS = [
+    CANONICAL_VIEWPORTS.narrowPhone,
+    CANONICAL_VIEWPORTS.shortLandscape,
+  ];
+
+  for (const game of FIND_IT_GAMES) {
+    for (const viewport of VIEWPORTS) {
+      test(`${game.name} meets viewport constraints at ${viewport.width}x${viewport.height}`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await page.goto(game.path);
+        await page.getByRole('button', { name: 'Hrať' }).click();
+
+        await expectNoHorizontalOverflow(page);
+        await expectWithinViewport(page, page.getByRole('button', { name: 'Zopakovať zadanie' }));
+
+        const answers = page.locator('[data-testid="game-answer-region"] button');
+        const count = await answers.count();
+        expect(count).toBeGreaterThan(0);
+
+        for (let i = 0; i < count; i++) {
+          const answer = answers.nth(i);
+          await expectWithinViewport(page, answer);
+          await expectMinimumTarget(page, answer, 48);
+        }
+
+        await expectNoPairwiseOverlap(answers);
+      });
+    }
+  }
+
+  const TABLET_DESKTOP_GAMES = [
+    { name: 'alphabet', path: '/alphabet' },
+    { name: 'words', path: '/words' },
+  ];
+  const LARGE_VIEWPORTS = [
+    CANONICAL_VIEWPORTS.tabletPortrait,
+    CANONICAL_VIEWPORTS.desktop,
+  ];
+
+  for (const game of TABLET_DESKTOP_GAMES) {
+    for (const viewport of LARGE_VIEWPORTS) {
+      test(`${game.name} meets viewport constraints at ${viewport.width}x${viewport.height}`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await page.goto(game.path);
+        await page.getByRole('button', { name: 'Hrať' }).click();
+
+        await expectNoHorizontalOverflow(page);
+        await expectWithinViewport(page, page.getByRole('button', { name: 'Zopakovať zadanie' }));
+
+        const answers = page.locator('[data-testid="game-answer-region"] button');
+        const count = await answers.count();
+        for (let i = 0; i < count; i++) {
+          const answer = answers.nth(i);
+          await expectWithinViewport(page, answer);
+          await expectMinimumTarget(page, answer, 48);
+        }
+
+        await expectNoPairwiseOverlap(answers);
+      });
+    }
+  }
+});
+
+test.describe('Task 7: Rotation preservation and keyboard control', () => {
+  test('rotation preserves round state, answers, and focus without restarting', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.phonePortrait);
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    const state1 = await getE2EState<FindItE2EState>(page);
+    const firstAnswer = page.locator('[data-testid="game-answer-region"] button').first();
+    await firstAnswer.focus();
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.phoneLandscape);
+    const state2 = await getE2EState<FindItE2EState>(page);
+    expect(state2.correctItemId).toBe(state1.correctItemId);
+    expect(state2.gridItemIds).toEqual(state1.gridItemIds);
+    expect(state2.roundsPlayed).toBe(state1.roundsPlayed);
+    await expect(firstAnswer).toBeVisible();
+
+    const wrongId = await findWrongId(page);
+    await pressAnswerById(page, wrongId);
+    await waitForGamePhase(page, 'awaiting-answer');
+    const state3 = await getE2EState<FindItE2EState>(page);
+    expect(state3.wrongAttempts).toBe(1);
+
+    await page.setViewportSize(CANONICAL_VIEWPORTS.phonePortrait);
+    const state4 = await getE2EState<FindItE2EState>(page);
+    expect(state4.correctItemId).toBe(state1.correctItemId);
+    expect(state4.gridItemIds).toEqual(state1.gridItemIds);
+    expect(state4.wrongAttempts).toBe(1);
+    expect(state4.roundsPlayed).toBe(state1.roundsPlayed);
+  });
+
+  for (const game of FIND_IT_GAMES) {
+    test(`${game.name}: full keyboard navigation, activation, and feedback flow`, async ({ page }) => {
+      await page.goto(game.path);
+      const playButton = page.getByRole('button', { name: 'Hrať' });
+      await playButton.focus();
+      await page.keyboard.press('Enter');
+
+      const state = await getE2EState<FindItE2EState>(page);
+      expect(state.correctItemId).not.toBeNull();
+
+      await page.keyboard.press('Tab');
+      const replay = page.getByRole('button', { name: 'Zopakovať zadanie' });
+      const replayIsFocused = await replay.evaluate((el) => el === document.activeElement);
+      if (replayIsFocused) {
+        await page.keyboard.press('Space');
+        await page.keyboard.press('Tab');
+      }
+
+      await page.keyboard.press('ArrowRight');
+      const correctBtn = page.locator(`[data-answer-id="${state.correctItemId}"]`);
+      await correctBtn.focus();
+      await page.keyboard.press('Enter');
+
+      await waitForGamePhase(page, 'answered-correctly');
+      const continueBtn = page.getByRole('button', { name: 'Pokračovať' });
+      await expect(continueBtn).toBeVisible();
+      await continueBtn.focus();
+      await page.keyboard.press('Enter');
+      await waitForGamePhase(page, 'ready');
+    });
+  }
+});
+
+test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
+  test('reduced motion and axe accessibility on FindIt round and feedback', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    const roundAxe = await new AxeBuilder(toAxeParams(page))
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(roundAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
+
+    const state = await getE2EState<FindItE2EState>(page);
+    await pressAnswerById(page, state.correctItemId!);
+    await waitForGamePhase(page, 'answered-correctly');
+    await expect(page.getByRole('status')).toContainText('Výborne');
+
+    const successAxe = await new AxeBuilder(toAxeParams(page))
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(successAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
+  });
+
+  test('200% zoom maintains accessibility without horizontal scrolling', async ({ page }) => {
+    await page.setViewportSize({ width: 640, height: 450 });
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    await expectNoHorizontalOverflow(page);
+    await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
+    const answers = page.locator('[data-testid="game-answer-region"] button');
+    const count = await answers.count();
+    for (let i = 0; i < count; i++) {
+      await expectMinimumTarget(page, answers.nth(i), 48);
+    }
+  });
+});
 

@@ -26,7 +26,7 @@ export function PlayTray({ label, density = 'comfortable', children, className, 
       data-testid="play-tray"
       className={cn(
         'relative flex min-h-0 w-full flex-1 flex-col items-center justify-center rounded-[28px] border border-shadow/15 bg-bg-light/35',
-        density === 'compact' ? 'gap-2 p-3' : 'gap-4 p-5',
+        density === 'compact' ? 'gap-2 p-3' : 'gap-4 p-5 [@media(max-height:480px)]:gap-2 [@media(max-height:480px)]:p-2.5',
         measured && 'overflow-hidden',
         className,
       )}

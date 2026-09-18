@@ -158,6 +158,27 @@ export const SCENES = {
     await page.goto(`${baseUrl}/complete-letter`);
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
+  'game-shell-success': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=success`);
+    await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
+  },
+  'game-shell-failure': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=failure`);
+    await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
+  },
+  'game-shell-completion': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=completion`);
+    await page.getByRole('button', { name: 'Hrať znova' }).waitFor({ state: 'visible' });
+  },
+  'game-shell-paused': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=paused`);
+    await page.getByRole('heading', { level: 1 }).waitFor({ state: 'visible' });
+  },
+  'game-words-visual': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/words`);
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    await page.locator('main h2').waitFor({ state: 'visible' });
+  },
 };
 
 // Aliases for convenient shorthand targeting (e.g. --scene=alphabet)
