@@ -75,6 +75,7 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
   });
   const { targetItem, gridItems } = roundState;
   const [completionPraise, setCompletionPraise] = useState<PraiseEntry>(() => pickPraise(praiseEntries));
+  const [roundPraise, setRoundPraise] = useState<PraiseEntry | null>(null);
 
   const startNewRound = useCallback(() => {
     setSession((prev) => {
@@ -152,11 +153,13 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
     const answerId = descriptor.getItemId(item);
 
     if (answerId === descriptor.getItemId(targetItem)) {
+      const praise = pickPraise(praiseEntries);
+      setRoundPraise(praise);
       await resolveAnswer({
         answerId,
         outcome: 'correct',
         selectionAudio: descriptor.getCorrectAudio(item),
-        verdictAudio: getSuccessOverlayAudioSpec(locale, pickPraise(praiseEntries), descriptor.getSuccessSpec(targetItem)),
+        verdictAudio: getSuccessOverlayAudioSpec(locale, praise, descriptor.getSuccessSpec(targetItem)),
       });
       return;
     }
@@ -171,7 +174,12 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
   }, [targetItem, descriptor, resolveAnswer, locale, praiseEntries, state.maxAttempts, state.wrongAttempts]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
-    ? { kind: 'success', title: getUiCopy(locale, 'game.successTitle'), onContinue: continueAfterFeedback }
+    ? {
+        kind: 'success',
+        title: roundPraise?.text ?? getUiCopy(locale, 'game.successTitle'),
+        emoji: roundPraise?.emoji,
+        onContinue: continueAfterFeedback,
+      }
     : state.feedback === 'failure'
     ? {
         kind: 'failure',

@@ -17,6 +17,8 @@ export interface GameShellFeedback {
   kind: 'retry' | 'success' | 'failure';
   title: string;
   detail?: string;
+  /** Overrides the default success/failure emoji — used to match a randomly picked praise entry. */
+  emoji?: string;
   onContinue?: () => void;
 }
 
@@ -134,7 +136,7 @@ export function GameShell({
           panelClassName="bg-white shadow-block"
         >
           <div className="text-5xl" aria-hidden="true">
-            {feedback.kind === 'success' ? '🌟' : '🤗'}
+            {feedback.emoji ?? (feedback.kind === 'success' ? '🌟' : '🤗')}
           </div>
           <p className="mt-2 text-3xl font-black text-text-main">{feedback.title}</p>
           {feedback.detail && <p className="mt-2 text-lg font-bold text-text-muted">{feedback.detail}</p>}

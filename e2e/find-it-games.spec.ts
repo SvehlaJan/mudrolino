@@ -17,6 +17,11 @@ import {
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
+import { PRAISE_ENTRIES } from '../src/shared/locales/sk';
+
+// One PraiseEntry is picked per success transition (see FindItGame.tsx), so the visible
+// success title is whichever entry's text was chosen, not always the generic default.
+const ANY_PRAISE_TEXT = new RegExp(PRAISE_ENTRIES.map((entry) => entry.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
 
 function toAxeParams(page: import('@playwright/test').Page): ConstructorParameters<typeof AxeBuilder>[0] {
   return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
@@ -87,7 +92,7 @@ for (const game of FIND_IT_GAMES) {
     const state = await getE2EState<FindItE2EState>(page);
     await pressAnswerById(page, state.correctItemId!);
     await waitForGamePhase(page, 'answered-correctly');
-    await expect(page.getByRole('status')).toContainText('Výborne');
+    await expect(page.getByRole('status')).toContainText(ANY_PRAISE_TEXT);
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
@@ -391,7 +396,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     const state = await getE2EState<FindItE2EState>(page);
     await pressAnswerById(page, state.correctItemId!);
     await waitForGamePhase(page, 'answered-correctly');
-    await expect(page.getByRole('status')).toContainText('Výborne');
+    await expect(page.getByRole('status')).toContainText(ANY_PRAISE_TEXT);
 
     const successAxe = await new AxeBuilder(toAxeParams(page))
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])

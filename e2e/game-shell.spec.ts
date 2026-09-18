@@ -16,6 +16,7 @@ import {
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
+import { PRAISE_ENTRIES } from '../src/shared/locales/sk';
 
 /**
  * `@axe-core/playwright` declares its `page` param against a `Page` it imports straight from
@@ -257,6 +258,25 @@ test('audio: records the alphabet prompt as logical clip events', async ({ page 
 
   await expect.poll(() => getAudioEvents(page)).toContain('start:sk/phrases/najdi');
   await expect.poll(() => getAudioEvents(page)).toContain('finish:sk/phrases/najdi');
+});
+
+test('audio: visible and spoken praise correspond to the same entry on a correct answer', async ({ page }) => {
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  const state = await getE2EState<AlphabetState>(page);
+  await clearAudioEvents(page);
+  await pressAnswerById(page, state.correctItemId!);
+  await waitForGamePhase(page, 'answered-correctly');
+  await expect.poll(async () => (await getAudioEvents(page)).some((event) => event.startsWith('start:sk/praise/'))).toBe(true);
+
+  const events = await getAudioEvents(page);
+  const praiseEvent = events.find((event) => event.startsWith('start:sk/praise/'))!;
+  const audioKey = praiseEvent.replace('start:sk/praise/', '');
+  const expectedPraise = PRAISE_ENTRIES.find((entry) => entry.audioKey === audioKey);
+  expect(expectedPraise, `expected a known SK praise entry for audioKey "${audioKey}"`).toBeDefined();
+
+  await expect(page.getByRole('status')).toContainText(expectedPraise!.text);
 });
 
 test('audio: alphabet serializes wrong, correct, and terminal-failure answer clips', async ({ page }) => {
