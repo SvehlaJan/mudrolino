@@ -7,7 +7,7 @@ import {
 } from './support/gameHarness';
 import { getE2EState } from './support/e2eHook';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
-import { expectNoHorizontalOverflow, expectWithinViewport } from './support/layoutAssertions';
+import { expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 
 test.describe('shared shell and answer group contract', () => {
@@ -121,6 +121,23 @@ test.describe('shared shell and answer group contract', () => {
       await page.getByRole('button', { name: 'Písmeno A' }).click();
       await expect(page.getByRole('button', { name: 'Písmeno A' })).toBeFocused();
     }
+  });
+
+  test('keeps a many-answer grid in bounds under narrow, short geometry', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 375 });
+    await page.goto('/ui-kit?example=game-shell&state=geometry-stress');
+    const group = page.getByRole('group', { name: 'Možnosti odpovede' });
+    const answers = group.getByRole('button');
+
+    await expect(answers).toHaveCount(10);
+    await expectNoHorizontalOverflow(page);
+    await expectNoPairwiseOverlap(await answers.all());
+
+    const columns = await group.evaluate((element) => Number.parseInt(getComputedStyle(element).getPropertyValue('--grid-cols'), 10));
+    expect(columns).toBeGreaterThanOrEqual(1);
+    await answers.nth(0).focus();
+    await page.keyboard.press('ArrowDown');
+    await expect(answers.nth(columns)).toBeFocused();
   });
 });
 

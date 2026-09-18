@@ -147,7 +147,7 @@ export function GameShell({
           <p className="mt-4 text-2xl font-black text-text-main">
             {completion.correctRounds} / {completion.maxRounds}
           </p>
-          <p className="mt-1 text-sm font-bold text-text-muted">{completion.totalTaps} klepnutí</p>
+          <p className="mt-1 text-sm font-bold text-text-muted">{completion.totalTaps} {getUiCopy(locale, 'game.taps')}</p>
           <div data-testid="game-critical-controls" className="mt-5 flex flex-wrap justify-center gap-3">
             <Button tone="primary" size="child" onClick={completion.onPlayAgain}>
               {getUiCopy(locale, 'game.playAgain')}
@@ -188,7 +188,7 @@ export function GameShell({
           aria-live="polite"
           className="rounded-2xl bg-white/95 px-4 py-3 text-center text-lg font-black text-text-main shadow-block"
         >
-          Hra je pozastavená.
+          {getUiCopy(locale, 'game.paused')}
         </div>
       )}
     </AppScreen>

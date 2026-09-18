@@ -23,7 +23,7 @@ export function GamePrompt({ instruction, visual, replaying = false, onReplay }:
   const locale = useContentLocale();
 
   return (
-    <section aria-label="Zadanie" className="flex flex-col items-center gap-3 text-center">
+    <section aria-label={getUiCopy(locale, 'game.promptSection')} className="flex flex-col items-center gap-3 text-center">
       <p data-testid="game-visible-instruction" className="text-lg font-black text-text-main sm:text-xl">
         {instruction}
       </p>
@@ -53,7 +53,7 @@ export function GamePrompt({ instruction, visual, replaying = false, onReplay }:
         }
         className={cn('min-h-5 text-sm font-bold text-text-muted', !replaying && 'pointer-events-none')}
       >
-        {replaying ? 'Prehrávam zadanie…' : ''}
+        {replaying ? getUiCopy(locale, 'game.replayingInstruction') : ''}
       </motion.p>
     </section>
   );

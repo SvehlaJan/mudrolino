@@ -28,6 +28,8 @@ if (getUiCopy('cs', 'lobby.play') !== 'Hrať') {
 
 const gameShellCopy = {
   'game.replayPrompt': 'Zopakovať zadanie',
+  'game.promptSection': 'Zadanie',
+  'game.replayingInstruction': 'Prehrávam zadanie…',
   'game.answerGroup': 'Možnosti odpovede',
   'game.continue': 'Pokračovať',
   'game.playAgain': 'Hrať znova',
@@ -38,6 +40,8 @@ const gameShellCopy = {
   'game.successTitle': 'Výborne!',
   'game.failureTitle': 'Nevadí, poďme ďalej',
   'game.completionTitle': 'Koniec hry',
+  'game.taps': 'klepnutí',
+  'game.paused': 'Hra je pozastavená.',
   'game.retry.detail': 'Nevadí, počúvaj ešte raz.',
   'game.failure.detail': 'Správnu odpoveď si ukážeme spolu.',
   'game.error.title': 'Niečo sa nepodarilo.',

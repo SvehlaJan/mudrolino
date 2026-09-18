@@ -202,7 +202,15 @@ function UiKitOverlayCompletionDemo() {
   );
 }
 
-type GameShellDemoState = 'ready' | 'listening' | 'retry' | 'success' | 'failure' | 'paused' | 'error' | 'completion' | 'visual' | 'reduced-motion' | 'focus-restoration' | 'answer-controls';
+const GAME_SHELL_DEMO_STATES = [
+  'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration', 'answer-controls', 'geometry-stress',
+] as const;
+
+type GameShellDemoState = typeof GAME_SHELL_DEMO_STATES[number];
+
+function isGameShellDemoState(value: string | null): value is GameShellDemoState {
+  return value !== null && GAME_SHELL_DEMO_STATES.some(state => state === value);
+}
 
 function getGameShellDemoState(example: GameShellDemoState): GameState {
   const base: GameState = {
@@ -239,6 +247,9 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
     ? { kind: 'failure' as const, title: getUiCopy('sk', 'game.failureTitle'), detail: getUiCopy('sk', 'game.failure.detail'), onContinue: () => undefined }
     : undefined;
   const visual = stateName === 'visual' ? <span className="text-6xl" aria-label="Auto">🚗</span> : undefined;
+  const answerLetters = stateName === 'geometry-stress'
+    ? ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    : ['A', 'B', 'C', ...(showD ? ['D'] : [])];
 
   return (
     <div data-demo-state={stateName} data-demo-viewports="320x568 667x375" data-demo-motion={stateName === 'reduced-motion' ? 'system-reduced' : 'default'}>
@@ -255,7 +266,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
         onRetryError={() => undefined}
       >
         <AnswerGroup label={getUiCopy('sk', 'game.answerGroup')} orientation="grid">
-          {['A', 'B', 'C', ...(showD ? ['D'] : [])].map(letter => (
+          {answerLetters.map(letter => (
             <button
               key={letter}
               type="button"
@@ -473,10 +484,8 @@ function AutosaveStatusDemo() {
 export function UiKitScreen() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('example') === 'game-shell') {
-    const requestedState = params.get('state') as GameShellDemoState | null;
-    const stateName: GameShellDemoState = requestedState && [
-      'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration', 'answer-controls',
-    ].includes(requestedState) ? requestedState : 'ready';
+    const requestedState = params.get('state');
+    const stateName = isGameShellDemoState(requestedState) ? requestedState : 'ready';
     return <UiKitGameShellDemo stateName={stateName} />;
   }
 

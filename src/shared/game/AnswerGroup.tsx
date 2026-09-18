@@ -24,6 +24,31 @@ interface Geometry {
   gap: number;
 }
 
+function calculateGridGeometry(itemCount: number, width: number, height: number, gap: number): Geometry {
+  if (!width || !height) {
+    const cols = Math.min(itemCount, 2);
+    return { cols, rows: Math.ceil(itemCount / cols), tileSize: MIN_TILE_SIZE, gap };
+  }
+
+  let best: Geometry | null = null;
+  for (let cols = 1; cols <= itemCount; cols += 1) {
+    const rows = Math.ceil(itemCount / cols);
+    const availableWidth = width - (cols - 1) * gap;
+    const availableHeight = height - (rows - 1) * gap;
+    const tileSize = Math.floor(Math.min(availableWidth / cols, availableHeight / rows));
+
+    if (tileSize < MIN_TILE_SIZE) continue;
+
+    const candidate: Geometry = { cols, rows, tileSize, gap };
+    if (!best || tileSize > best.tileSize || (tileSize === best.tileSize && height < 420 && rows < best.rows)) {
+      best = candidate;
+    }
+  }
+
+  // Width stays bounded at one child target; extra rows remain vertically contained by the shell.
+  return best ?? { cols: 1, rows: itemCount, tileSize: MIN_TILE_SIZE, gap };
+}
+
 function calculateGeometry(
   itemCount: number,
   width: number,
@@ -38,49 +63,12 @@ function calculateGeometry(
   if (orientation === 'horizontal') {
     const cols = itemCount;
     const rows = 1;
-    const availWidth = width > 0 ? width - (cols - 1) * gap : 0;
-    const cellWidth = availWidth > 0 ? availWidth / cols : MIN_TILE_SIZE;
-    const cellHeight = height > 0 ? height : MIN_TILE_SIZE;
-    const tileSize = Math.max(MIN_TILE_SIZE, Math.floor(Math.min(cellWidth, cellHeight)));
-    return { cols, rows, tileSize, gap };
+    const tileSize = Math.floor(Math.min((width - (cols - 1) * gap) / cols, height));
+    if (tileSize >= MIN_TILE_SIZE) return { cols, rows, tileSize, gap };
+    return calculateGridGeometry(itemCount, width, height, gap);
   }
 
-  // Before measurement fallback
-  if (!width || !height) {
-    const cols = Math.min(itemCount, 2);
-    const rows = Math.ceil(itemCount / cols);
-    return { cols, rows, tileSize: MIN_TILE_SIZE, gap };
-  }
-
-  let best: Geometry | null = null;
-
-  for (let cols = 1; cols <= itemCount; cols++) {
-    const rows = Math.ceil(itemCount / cols);
-    const availWidth = width - (cols - 1) * gap;
-    const availHeight = height - (rows - 1) * gap;
-    const cellWidth = availWidth > 0 ? availWidth / cols : 0;
-    const cellHeight = availHeight > 0 ? availHeight / rows : 0;
-    const cellSize = Math.floor(Math.min(cellWidth, cellHeight));
-    const tileSize = Math.max(MIN_TILE_SIZE, cellSize);
-
-    const candidate: Geometry = { cols, rows, tileSize, gap };
-
-    if (!best) {
-      best = candidate;
-    } else if (tileSize > best.tileSize) {
-      best = candidate;
-    } else if (tileSize === best.tileSize) {
-      if (height < 420 && rows < best.rows) {
-        best = candidate;
-      } else if (rows === best.rows && cols * rows < best.cols * best.rows) {
-        best = candidate;
-      } else if (rows < best.rows && cols <= best.cols) {
-        best = candidate;
-      }
-    }
-  }
-
-  return best ?? { cols: Math.min(itemCount, 2), rows: Math.ceil(itemCount / 2), tileSize: MIN_TILE_SIZE, gap };
+  return calculateGridGeometry(itemCount, width, height, gap);
 }
 
 function isButtonDisabled(btn: HTMLButtonElement | undefined): boolean {
@@ -116,6 +104,7 @@ export function AnswerGroup({
     () => calculateGeometry(options.length || 1, width, height, orientation),
     [options.length, width, height, orientation],
   );
+  const usesGrid = orientation === 'grid' || geometry.rows > 1;
 
   const getButtons = (): HTMLButtonElement[] => {
     if (!innerRef.current) return [];
@@ -154,7 +143,7 @@ export function AnswerGroup({
         break;
       }
       case 'ArrowDown': {
-        if (orientation === 'grid') {
+        if (usesGrid) {
           const candidate = sourceIndex + geometry.cols;
           if (candidate < buttons.length && !isButtonDisabled(buttons[candidate])) {
             targetIndex = candidate;
@@ -170,7 +159,7 @@ export function AnswerGroup({
         break;
       }
       case 'ArrowUp': {
-        if (orientation === 'grid') {
+        if (usesGrid) {
           const candidate = sourceIndex - geometry.cols;
           if (candidate >= 0 && !isButtonDisabled(buttons[candidate])) {
             targetIndex = candidate;
@@ -228,7 +217,7 @@ export function AnswerGroup({
         onKeyDown={handleKeyDown}
         className="w-full"
         style={
-          orientation === 'grid'
+          usesGrid
             ? ({
                 ['--grid-cols' as string]: String(geometry.cols),
                 ['--grid-rows' as string]: String(geometry.rows),
@@ -247,7 +236,8 @@ export function AnswerGroup({
                 ['--tile-size' as string]: `${geometry.tileSize}px`,
                 ['--grid-gap' as string]: `${geometry.gap}px`,
                 display: 'flex',
-                flexWrap: 'wrap',
+                flexWrap: 'nowrap',
+                overflowX: 'auto',
                 gap: `${geometry.gap}px`,
               } as React.CSSProperties)
         }
