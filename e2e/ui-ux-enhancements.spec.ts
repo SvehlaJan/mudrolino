@@ -7,19 +7,20 @@ import {
 } from './support/assertions';
 
 test.describe('UI/UX Enhancements', () => {
-  test('auditory prompt badge: renders in alphabet game and is clickable', async ({ page }) => {
+  test('replay control: renders in alphabet game and is clickable', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
     await page.goto('/alphabet');
     await page.getByRole('button', { name: 'Hrať' }).click();
 
-    const auditoryBadge = page.getByRole('button', { name: 'Prehrať zadanie znova' });
-    await expect(auditoryBadge).toBeVisible();
-    await expect(auditoryBadge.getByText('Počúvaj')).toBeVisible();
+    // Phase 5's shared GamePrompt replaced the audio-only AuditoryPromptBadge with a
+    // visible instruction plus this replay control for every FindIt-based game.
+    const replayButton = page.getByRole('button', { name: 'Zopakovať zadanie' });
+    await expect(replayButton).toBeVisible();
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
 
-    // Click to replay prompt
-    await auditoryBadge.click();
+    await replayButton.click();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

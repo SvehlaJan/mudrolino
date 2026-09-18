@@ -161,14 +161,20 @@ export const SCENES = {
   'game-shell-success': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=success`);
     await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
+    // `waitFor({ state: 'visible' })` resolves the instant the overlay's opacity leaves 0,
+    // not once its enter transition finishes — settle past motionPreset.transition (180ms)
+    // so the capture isn't a mid-fade frame.
+    await page.waitForTimeout(250);
   },
   'game-shell-failure': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=failure`);
     await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
+    await page.waitForTimeout(250);
   },
   'game-shell-completion': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=completion`);
     await page.getByRole('button', { name: 'Hrať znova' }).waitFor({ state: 'visible' });
+    await page.waitForTimeout(250);
   },
   'game-shell-paused': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=paused`);
