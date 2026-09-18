@@ -145,3 +145,37 @@ test('alphabet: a full 5-round session reaches an explicit completion that requi
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
 });
+
+const EXPECTED_GAMES = [
+  { path: '/alphabet', title: 'Abeceda', instruction: 'Nájdi písmeno, ktoré počuješ.', material: 'wood' },
+  { path: '/syllables', title: 'Slabiky', instruction: 'Nájdi slabiku, ktorú počuješ.', material: 'magnet' },
+  { path: '/numbers', title: 'Čísla', instruction: 'Nájdi číslo, ktoré počuješ.', material: 'wood' },
+  { path: '/words', title: 'Slová', instruction: 'Nájdi obrázok k slovu.', material: 'picture' },
+] as const;
+
+for (const exp of EXPECTED_GAMES) {
+  test(`${exp.path}: shared shell and material contract`, async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await page.goto(exp.path);
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    await expect(page.getByRole('heading', { level: 1, name: exp.title })).toBeVisible();
+    await expect(page.getByTestId('game-visible-instruction')).toContainText(exp.instruction);
+    await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
+    await expect(page.getByTestId('game-answer-region')).toBeVisible();
+    await expect(page.locator(`[data-material="${exp.material}"]`).first()).toBeVisible();
+
+    if (exp.path === '/words') {
+      const promptHeading = page.locator('main h2');
+      await expect(promptHeading).toBeVisible();
+      const text = await promptHeading.textContent();
+      expect(text).toMatch(/^[A-ZÁČĎÉÍĹĽŇÓÔŔŠŤÚÝŽ-]+$/);
+    }
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+}
+

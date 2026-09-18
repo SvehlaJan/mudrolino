@@ -108,6 +108,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
         aria-label={label}
         aria-description={stateNoteText ?? undefined}
         disabled={isEffectiveDisabled}
+        data-material={material}
         data-piece-state={resolvedState}
         onClick={(e) => {
           buttonProps.onClick?.(e);
@@ -125,6 +126,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
       {...props}
       ref={ref as React.Ref<HTMLSpanElement>}
       aria-label={label}
+      data-material={material}
       data-piece-state={resolvedState}
       className={sharedClassName}
     >
