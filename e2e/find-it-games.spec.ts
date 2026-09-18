@@ -693,4 +693,3 @@ test.describe('Task 7: Active rounds never require scrolling to reveal an answer
     });
   }
 });
-
