@@ -63,6 +63,37 @@ async function findWrongId(page: import('@playwright/test').Page): Promise<strin
   return wrongId!;
 }
 
+/**
+ * OverlayFrame's enter transition fades opacity 0→1 over motionPreset.transition (180ms),
+ * even under reduced motion (only translate/scale are dropped, not the fade itself).
+ * Playwright's own `visible` check resolves the instant opacity leaves 0, so an axe scan
+ * immediately after can catch a genuinely mid-fade frame and report a transient contrast
+ * "violation" that never reflects the settled panel. Wait for the observable computed
+ * opacity to actually reach 1 before scanning, rather than a blind sleep.
+ */
+async function waitForOverlaySettled(page: import('@playwright/test').Page): Promise<void> {
+  await page.waitForFunction(() => {
+    const panel = document.querySelector('[role="status"][aria-live="polite"]');
+    return panel !== null && getComputedStyle(panel).opacity === '1';
+  });
+}
+
+/** Plays a fresh alphabet session to session-complete via pointer, answering every round correctly. */
+async function completeAlphabetSession(page: import('@playwright/test').Page): Promise<void> {
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  for (let round = 0; round < 5; round += 1) {
+    const state = await getE2EState<FindItE2EState>(page);
+    await pressAnswerById(page, state.correctItemId!);
+    if (round < 4) {
+      await waitForGamePhase(page, 'answered-correctly');
+      await page.getByRole('button', { name: 'Pokračovať' }).click();
+      await waitForGamePhase(page, 'ready');
+    }
+  }
+  await waitForGamePhase(page, 'session-complete');
+}
+
 for (const game of FIND_IT_GAMES) {
   test(`${game.name}: round has one target among unique answer ids`, async ({ page }) => {
     await page.goto(game.path);
@@ -183,9 +214,17 @@ test('alphabet: completion actions stay absent until session-complete after a fi
 
   const finalState = await getE2EState<FindItE2EState>(page);
   await pressAnswerById(page, finalState.correctItemId!);
-  await waitForGamePhase(page, 'answered-correctly');
-  // The reducer marks this the final round immediately, but the terminal praise/
-  // session-complete audio has not resolved yet — completion actions must wait for it.
+  // The reducer marks this the final round 'answered-correctly' immediately, but
+  // SHOW_SESSION_COMPLETE only dispatches once the terminal praise audio actually
+  // finishes — a window narrow enough that expect.poll's growing interval can skip
+  // straight past it to 'session-complete', so this uses a tight fixed-interval check.
+  await page.waitForFunction(
+    () => window.__E2E__?.gamePhase === 'answered-correctly',
+    undefined,
+    { polling: 20 },
+  );
+  // The terminal praise/session-complete audio has not resolved yet — completion
+  // actions must wait for it.
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Domov' })).toHaveCount(0);
 
@@ -212,9 +251,15 @@ test('alphabet: completion actions stay absent until session-complete after a fi
     if (attempt < 2) await waitForGamePhase(page, 'awaiting-answer');
   }
 
-  await waitForGamePhase(page, 'answered-incorrectly');
-  // Same contract on the exhausted-failure path: the failure verdict/explanation
-  // audio has not resolved yet, so completion actions must not be present.
+  // Same instability as the success path above: this exhausting wrong answer reaches
+  // 'answered-incorrectly' immediately, but SHOW_SESSION_COMPLETE only dispatches once
+  // the failure verdict/explanation audio finishes.
+  await page.waitForFunction(
+    () => window.__E2E__?.gamePhase === 'answered-incorrectly',
+    undefined,
+    { polling: 20 },
+  );
+  // That audio has not resolved yet, so completion actions must not be present.
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Domov' })).toHaveCount(0);
 
@@ -336,6 +381,7 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
     expect(state2.gridItemIds).toEqual(state1.gridItemIds);
     expect(state2.roundsPlayed).toBe(state1.roundsPlayed);
     await expect(firstAnswer).toBeVisible();
+    await expect(firstAnswer).toBeFocused();
 
     const wrongId = await findWrongId(page);
     await pressAnswerById(page, wrongId);
@@ -382,6 +428,54 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
       await waitForGamePhase(page, 'ready');
     });
   }
+
+  test('alphabet: keyboard operates Play again and Home at completion without a pointer', async ({ page }) => {
+    async function playRoundByKeyboard(): Promise<void> {
+      const state = await getE2EState<FindItE2EState>(page);
+      const correctBtn = page.locator(`[data-answer-id="${state.correctItemId}"]`);
+      await correctBtn.focus();
+      await page.keyboard.press('Enter');
+    }
+
+    await page.goto('/alphabet');
+    const playButton = page.getByRole('button', { name: 'Hrať' });
+    await playButton.focus();
+    await page.keyboard.press('Enter');
+
+    for (let round = 0; round < 5; round += 1) {
+      await playRoundByKeyboard();
+      if (round < 4) {
+        await waitForGamePhase(page, 'answered-correctly');
+        const continueBtn = page.getByRole('button', { name: 'Pokračovať' });
+        await continueBtn.focus();
+        await page.keyboard.press('Enter');
+        await waitForGamePhase(page, 'ready');
+      }
+    }
+
+    await waitForGamePhase(page, 'session-complete');
+    const playAgainBtn = page.getByRole('button', { name: 'Hrať znova' });
+    await playAgainBtn.focus();
+    await page.keyboard.press('Enter');
+    await waitForGamePhase(page, 'ready');
+
+    for (let round = 0; round < 5; round += 1) {
+      await playRoundByKeyboard();
+      if (round < 4) {
+        await waitForGamePhase(page, 'answered-correctly');
+        const continueBtn = page.getByRole('button', { name: 'Pokračovať' });
+        await continueBtn.focus();
+        await page.keyboard.press('Enter');
+        await waitForGamePhase(page, 'ready');
+      }
+    }
+
+    await waitForGamePhase(page, 'session-complete');
+    const homeBtn = page.getByRole('button', { name: 'Domov' });
+    await homeBtn.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+  });
 });
 
 test.describe('Task 7: Real parent-dialog pause and resume', () => {
@@ -468,11 +562,90 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     await pressAnswerById(page, state.correctItemId!);
     await waitForGamePhase(page, 'answered-correctly');
     await expect(page.getByRole('status')).toContainText(ANY_PRAISE_TEXT);
+    await waitForOverlaySettled(page);
 
     const successAxe = await new AxeBuilder(toAxeParams(page))
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
     expect(successAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
+  });
+
+  test('reduced motion: retry feedback is legible with matching visible/live text', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    const wrongId = await findWrongId(page);
+    await pressAnswerById(page, wrongId);
+    await page.waitForFunction(
+      () => window.__E2E__?.gamePhase === 'answered-incorrectly',
+      undefined,
+      { polling: 20 },
+    );
+    // Reduced motion replaces translation/animation with an immediate opacity-only change —
+    // the retry status text itself must still render and match the tile's own state text.
+    await expect(page.getByRole('status')).toContainText('Skús ešte raz');
+    await expect(page.locator(`[data-answer-id="${wrongId}"]`)).toContainText('Skús ešte raz');
+  });
+
+  test('reduced motion: exhausted-failure feedback is legible with no serious axe violations', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/alphabet');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const wrongId = await findWrongId(page);
+      await pressAnswerById(page, wrongId);
+      if (attempt < 2) await waitForGamePhase(page, 'awaiting-answer');
+    }
+    await waitForGamePhase(page, 'answered-incorrectly');
+    await expect(page.getByRole('status')).toContainText('Nevadí');
+    await waitForOverlaySettled(page);
+
+    const failureAxe = await new AxeBuilder(toAxeParams(page))
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(failureAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
+  });
+
+  test('reduced motion: completion is legible with finite presentation and no serious axe violations', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await completeAlphabetSession(page);
+
+    await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
+    await waitForOverlaySettled(page);
+
+    const completionAxe = await new AxeBuilder(toAxeParams(page))
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(completionAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
+
+    // Finite, not a looping celebration: the completion actions must still be exactly the
+    // same after a long wait, matching the existing 5.5s completion-persistence assertion.
+    await page.waitForTimeout(1500);
+    await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+  });
+
+  for (const game of FIND_IT_GAMES) {
+    test(`${game.name}: no serious or critical axe violations on the active round`, async ({ page }) => {
+      await page.goto(game.path);
+      await page.getByRole('button', { name: 'Hrať' }).click();
+
+      const results = await new AxeBuilder(toAxeParams(page))
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+        .analyze();
+      expect(results.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
+    });
+  }
+
+  test('alphabet: no serious or critical axe violations on completion', async ({ page }) => {
+    await completeAlphabetSession(page);
+    await waitForOverlaySettled(page);
+    const results = await new AxeBuilder(toAxeParams(page))
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(results.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
 
   test('200% zoom maintains accessibility without horizontal scrolling', async ({ page }) => {
@@ -481,6 +654,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     await page.getByRole('button', { name: 'Hrať' }).click();
 
     await expectNoHorizontalOverflow(page);
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
     const answers = page.locator('[data-testid="game-answer-region"] button');
     const count = await answers.count();
@@ -488,5 +662,35 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
       await expectMinimumTarget(page, answers.nth(i), 48);
     }
   });
+
+  test('200% zoom keeps completion actions reachable without horizontal scrolling', async ({ page }) => {
+    await page.setViewportSize({ width: 640, height: 450 });
+    await completeAlphabetSession(page);
+
+    await expectNoHorizontalOverflow(page);
+    const playAgain = page.getByRole('button', { name: 'Hrať znova' });
+    const home = page.getByRole('button', { name: 'Domov' });
+    await playAgain.scrollIntoViewIfNeeded();
+    await expect(playAgain).toBeVisible();
+    await home.scrollIntoViewIfNeeded();
+    await expect(home).toBeVisible();
+  });
+});
+
+test.describe('Task 7: Active rounds never require scrolling to reveal an answer', () => {
+  for (const game of FIND_IT_GAMES) {
+    test(`${game.name}: fits the viewport without vertical overflow at narrow and short viewports`, async ({ page }) => {
+      for (const viewport of [CANONICAL_VIEWPORTS.narrowPhone, CANONICAL_VIEWPORTS.shortLandscape]) {
+        await page.setViewportSize(viewport);
+        await page.goto(game.path);
+        await page.getByRole('button', { name: 'Hrať' }).click();
+
+        const overflow = await page.evaluate(() =>
+          document.documentElement.scrollHeight - document.documentElement.clientHeight,
+        );
+        expect(overflow, `${game.name} at ${viewport.width}x${viewport.height} must not need vertical scrolling to reveal an answer`).toBeLessThanOrEqual(1);
+      }
+    });
+  }
 });
 
