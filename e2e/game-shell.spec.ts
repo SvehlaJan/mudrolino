@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import {
+  clearAudioEvents,
   getAudioEvents,
   pressAnswerById,
   waitForGamePhase,
@@ -12,10 +13,11 @@ interface AlphabetState extends E2EGlobalState {
   gridItemIds: string[];
 }
 
-function expectEventsInOrder(events: string[], expected: string[]): void {
+function expectEventsInOrder(events: string[], expected: Array<string | RegExp>): void {
   let after = -1;
   for (const event of expected) {
-    const index = events.indexOf(event, after + 1);
+    const index = events.findIndex((actual, index) => index > after
+      && (typeof event === 'string' ? actual === event : event.test(actual)));
     expect(index, `expected ${event} after event ${after}`).toBeGreaterThan(after);
     after = index;
   }
@@ -29,15 +31,15 @@ test('audio: records the alphabet prompt as logical clip events', async ({ page 
   await expect.poll(() => getAudioEvents(page)).toContain('finish:sk/phrases/najdi');
 });
 
-// Task 5 migrates FindItGame to useGameSession and gives every answer its data-answer-id.
-// Keep this contract ready now: it must be enabled together with that migration, rather than
-// pretending the legacy component already supplies the hook's state and control surface.
+// TODO(Task 5): unskip when FindItGame consumes useGameSession and supplies data-answer-id and
+// gamePhase E2E state. This is the non-negotiable audio-order contract for that migration.
 test.skip('audio: alphabet serializes wrong, correct, and terminal-failure answer clips', async ({ page }) => {
   await page.goto('/alphabet');
   await page.getByRole('button', { name: 'Hrať' }).click();
 
   const initial = await getE2EState<AlphabetState>(page);
   const wrongId = initial.gridItemIds.find((id) => id !== initial.correctItemId)!;
+  await clearAudioEvents(page);
   await pressAnswerById(page, wrongId);
   await waitForGamePhase(page, 'answered-incorrectly');
   expectEventsInOrder(await getAudioEvents(page), [
@@ -47,18 +49,25 @@ test.skip('audio: alphabet serializes wrong, correct, and terminal-failure answe
     'finish:sk/phrases/skus-to-znova',
   ]);
 
-  await waitForGamePhase(page, 'awaiting-answer');
-  await pressAnswerById(page, initial.correctItemId!);
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  const success = await getE2EState<AlphabetState>(page);
+  await clearAudioEvents(page);
+  await pressAnswerById(page, success.correctItemId!);
   await waitForGamePhase(page, 'answered-correctly');
   const successEvents = await getAudioEvents(page);
-  const correctStart = `start:sk/letters/${initial.correctItemId!.toLowerCase()}`;
-  expect(successEvents).toContain(correctStart);
-  expect(successEvents.find((event) => /^start:sk\/praise\//.test(event))).toBeDefined();
+  expectEventsInOrder(successEvents, [
+    `start:sk/letters/${success.correctItemId!.toLowerCase()}`,
+    `finish:sk/letters/${success.correctItemId!.toLowerCase()}`,
+    /^start:sk\/praise\//,
+    /^finish:sk\/praise\//,
+  ]);
 
-  // A fresh round, three wrong answers: the final answer keeps the same selected-item →
-  // retry ordering before the correct-answer explanation begins.
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
   const next = await getE2EState<AlphabetState>(page);
   const thirdWrong = next.gridItemIds.find((id) => id !== next.correctItemId)!;
+  await clearAudioEvents(page);
   await pressAnswerById(page, thirdWrong);
   await waitForGamePhase(page, 'awaiting-answer');
   await pressAnswerById(page, thirdWrong);
@@ -67,9 +76,14 @@ test.skip('audio: alphabet serializes wrong, correct, and terminal-failure answe
   await waitForGamePhase(page, 'answered-incorrectly');
   expectEventsInOrder(await getAudioEvents(page), [
     `start:sk/letters/${thirdWrong.toLowerCase()}`,
+    `finish:sk/letters/${thirdWrong.toLowerCase()}`,
     'start:sk/phrases/skus-to-znova',
+    'finish:sk/phrases/skus-to-znova',
     'start:sk/phrases/nevadi',
+    'finish:sk/phrases/nevadi',
     'start:sk/phrases/je-to',
+    'finish:sk/phrases/je-to',
     `start:sk/letters/${next.correctItemId!.toLowerCase()}`,
+    `finish:sk/letters/${next.correctItemId!.toLowerCase()}`,
   ]);
 });

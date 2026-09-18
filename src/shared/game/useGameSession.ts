@@ -27,7 +27,7 @@ export interface UseGameSessionOptions {
 
 export type AnswerResolution = 'progress' | 'retry' | 'failure' | 'success' | 'cancelled';
 
-export interface GameSession {
+export interface UseGameSessionResult {
   state: GameState;
   canAnswer: boolean;
   replaying: boolean;
@@ -42,7 +42,7 @@ export interface GameSession {
 }
 
 /** Coordinates reducer state with interruptible, serialized audio playback for a game round. */
-export function useGameSession(options: UseGameSessionOptions): GameSession {
+export function useGameSession(options: UseGameSessionOptions): UseGameSessionResult {
   const [state, dispatch] = useReducer(
     gameStateReducer,
     { maxRounds: options.maxRounds, maxAttempts: options.maxAttempts },
@@ -52,6 +52,7 @@ export function useGameSession(options: UseGameSessionOptions): GameSession {
   const operationIdRef = useRef(0);
   const timersRef = useRef(new Set<ReturnType<typeof setTimeout>>());
   const answeringRef = useRef(false);
+  const resumeCancelledAnswerRef = useRef(false);
   const [answering, setAnswering] = useState(false);
   const [replaying, setReplaying] = useState(false);
 
@@ -146,16 +147,17 @@ export function useGameSession(options: UseGameSessionOptions): GameSession {
   }, [dispatchEvent, invalidate, options]);
 
   const pause = useCallback(() => {
-    // A paused answer must not resume in `resolving-answer`: its playback has been cancelled,
-    // so restore the reducer to an answerable phase before recording the pause.
-    if (stateRef.current.phase === 'resolving-answer') {
-      dispatchEvent({ type: 'ANSWER_PROGRESS', countTap: false });
-    }
+    resumeCancelledAnswerRef.current = stateRef.current.phase === 'resolving-answer';
     invalidate();
     dispatchEvent({ type: 'PAUSE' });
   }, [dispatchEvent, invalidate]);
 
-  const resume = useCallback(() => dispatchEvent({ type: 'RESUME' }), [dispatchEvent]);
+  const resume = useCallback(() => {
+    const recoverCancelledAnswer = resumeCancelledAnswerRef.current;
+    resumeCancelledAnswerRef.current = false;
+    dispatchEvent({ type: 'RESUME' });
+    if (recoverCancelledAnswer) dispatchEvent({ type: 'ANSWER_PROGRESS', countTap: false });
+  }, [dispatchEvent]);
 
   const fail = useCallback((message: string) => {
     invalidate();

@@ -14,6 +14,18 @@ export async function getAudioEvents(page: Page): Promise<string[]> {
   });
 }
 
+/** Resets only test-observer events, preserving parent-gate and game E2E adapters. */
+export async function clearAudioEvents(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    const current = (window as unknown as { __E2E__?: GameHarnessState }).__E2E__;
+    if (!current) throw new Error('window.__E2E__ was never initialized');
+    (window as unknown as { __E2E__?: GameHarnessState }).__E2E__ = {
+      ...current,
+      audioEvents: [],
+    };
+  });
+}
+
 export async function readGamePhase(page: Page): Promise<GamePhase | undefined> {
   return page.evaluate(
     () => (window as unknown as { __E2E__?: GameHarnessState }).__E2E__?.gamePhase,
