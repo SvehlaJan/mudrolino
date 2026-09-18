@@ -58,7 +58,10 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
   const locale = useContentLocale();
   const prefersReducedMotion = useReducedMotion();
   const isEffectiveDisabled = disabled || state === 'disabled';
-  const resolvedState = isEffectiveDisabled ? 'disabled' : state;
+  // An explicit non-idle state (pressed/retry/settled) must stay visible even while the
+  // group locks input for that same answer — only a plain disabled idle tile falls back
+  // to the generic disabled look, so retry/settled semantics never collapse into it.
+  const resolvedState = state !== 'idle' ? state : (isEffectiveDisabled ? 'disabled' : 'idle');
   const showStateNote = resolvedState === 'retry' || resolvedState === 'settled';
 
   if (as === 'button' && !label && import.meta.env.DEV) {

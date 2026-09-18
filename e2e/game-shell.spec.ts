@@ -279,6 +279,30 @@ test('audio: visible and spoken praise correspond to the same entry on a correct
   await expect(page.getByRole('status')).toContainText(expectedPraise!.text);
 });
 
+test('answer tiles expose live retry and settled states with matching text', async ({ page }) => {
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  const initial = await getE2EState<AlphabetState>(page);
+  const wrongId = initial.gridItemIds.find((id) => id !== initial.correctItemId)!;
+  const wrongTile = page.locator(`[data-answer-id="${wrongId}"]`);
+
+  await pressAnswerById(page, wrongId);
+  await expect(wrongTile).toHaveAttribute('data-piece-state', 'retry');
+  await expect(wrongTile).toContainText('Skús ešte raz');
+  await waitForGamePhase(page, 'awaiting-answer');
+  await expect(wrongTile).toHaveAttribute('data-piece-state', 'idle');
+
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  const success = await getE2EState<AlphabetState>(page);
+  const correctTile = page.locator(`[data-answer-id="${success.correctItemId}"]`);
+
+  await pressAnswerById(page, success.correctItemId!);
+  await expect(correctTile).toHaveAttribute('data-piece-state', 'settled');
+  await expect(correctTile).toContainText('Uložené');
+});
+
 test('audio: alphabet serializes wrong, correct, and terminal-failure answer clips', async ({ page }) => {
   await page.goto('/alphabet');
   await page.getByRole('button', { name: 'Hrať' }).click();

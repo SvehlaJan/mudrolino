@@ -20,6 +20,8 @@ import {
   useGameSession,
   type GameShellCompletion,
   type GameShellFeedback,
+  type GameState,
+  type TactilePieceState,
 } from '../game';
 import { getSuccessOverlayAudioSpec } from './successOverlayAudio';
 import { getSessionCompleteAudioSpec } from './sessionCompleteAudio';
@@ -40,6 +42,18 @@ const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKe
 
 function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
   return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
+}
+
+/**
+ * Only the tapped answer ever gets a non-idle state — every other tile stays 'idle' and
+ * relies on AnswerGroup's own disabled cloning to look locked while input is resolving.
+ */
+function getAnswerPieceState(state: GameState, answerId: string): TactilePieceState | undefined {
+  if (state.selectedAnswerId !== answerId) return undefined;
+  if (state.phase === 'resolving-answer') return 'pressed';
+  if (state.phase === 'answered-correctly') return 'settled';
+  if (state.phase === 'answered-incorrectly') return 'retry';
+  return undefined;
 }
 
 function buildGrid<T>(descriptor: GameDescriptor<T>, target: T | undefined): RoundState<T> {
@@ -228,6 +242,7 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
                 material={descriptor.material}
                 label={descriptor.getAccessibleLabel(item)}
                 data-answer-id={id}
+                state={getAnswerPieceState(state, id)}
                 onPress={() => void chooseAnswer(item)}
               >
                 {descriptor.renderCard(item)}
