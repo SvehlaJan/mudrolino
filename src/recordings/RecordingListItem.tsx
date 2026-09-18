@@ -83,7 +83,7 @@ export function RecordingListItem({
     indicator = <span className="w-3 h-3 rounded-full border-2 border-shadow/20 inline-block" />;
   }
 
-  const rowClass = 'flex flex-wrap items-center gap-2 transition-colors';
+  const rowClass = 'flex flex-wrap items-center justify-between gap-2 transition-colors';
 
   let statusText: string | null = null;
   if (isRequesting) statusText = 'Čakám na povolenie mikrofónu…';
@@ -121,85 +121,97 @@ export function RecordingListItem({
         )}
       </span>
 
-      {/* Status text — flush against right buttons */}
+      {/* Status text — active recorder feedback live region */}
       {statusText && (
-        <span role="status" aria-live="polite" className="basis-full text-sm text-text-main">{statusText}</span>
-      )}
-
-      {statusLabel && !isEngaged && (
-        <span className={`shrink-0 rounded-full px-2 py-1 text-[0.68rem] font-bold ${customStatusClass}`}>
-          {statusLabel}
+        <span role="status" aria-live="polite" className="basis-full text-sm text-text-main">
+          {statusText}
         </span>
       )}
 
-      {/* Right buttons — each slot is sized to the circular button */}
-      {isEngaged ? (
-        <>
-          {/* Stop button (recording only; hidden during processing/saved) */}
-          <div className="w-11 flex items-center justify-center shrink-0">
-            {isRecording && (
-              <button
-                onClick={onStop}
-                className="min-w-11 min-h-11 rounded-full bg-action-danger flex items-center justify-center focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus"
-                aria-label="Zastaviť"
-              >
-                <Square size={12} className="text-white fill-white" />
-              </button>
-            )}
-          </div>
-          {(isRequesting || isRecording || isProcessing) && <Button tone="neutral" size="parent" onClick={onCancel}>Zrušiť nahrávanie</Button>}
-        </>
-      ) : (
-        <>
-          {/* Delete — only when idle and has custom recording */}
-          <div className="w-11 flex items-center justify-center shrink-0">
-            {hasCustom && allowDeleteRecording && (
-              <IconButton
-                onClick={onDelete}
-                className={`${compactActionClass} !bg-shadow/20 text-text-main/70`}
-                label="Zmazať nahrávku"
-              >
-                <Trash2 size={16} />
-              </IconButton>
-            )}
-          </div>
+      {/* Right controls / deliberate second row on compact mobile */}
+      <div className="flex w-full sm:w-auto flex-wrap items-center justify-end gap-2 shrink-0">
+        {statusLabel && !isEngaged && (
+          <span className={`mr-auto sm:mr-0 shrink-0 rounded-full px-2 py-1 text-[0.68rem] font-bold ${customStatusClass}`}>
+            {statusLabel}
+          </span>
+        )}
 
-          {/* Play */}
-          <div className="w-11 flex items-center justify-center shrink-0">
-            {allowPlay && (
-              <IconButton
-                onClick={onPlay}
-                className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
-                label="Prehrať"
-              >
-                <Play size={16} />
-              </IconButton>
-            )}
-          </div>
-
-          {/* Record */}
-          <div className="w-11 flex items-center justify-center shrink-0">
-            <IconButton
-              onClick={onRecord}
-              className={`${compactActionClass} ${recordClass}`}
-              label="Nahrať"
-              disabled={disabled || (!isActive && ['requesting', 'recording', 'processing'].includes(recorderState))}
-            >
-              <Mic size={16} />
-            </IconButton>
-          </div>
-
-          {menuActions && menuActions.length > 0 && (
+        {isEngaged ? (
+          <>
+            {/* Stop button (recording only; hidden during processing/saved) */}
             <div className="w-11 flex items-center justify-center shrink-0">
-              <IconMenuButton
-                label="Ďalšie možnosti"
-                actions={menuActions}
-                className={`${compactActionClass} !bg-transparent !shadow-none text-text-main/70`}
-              />
+              {isRecording && (
+                <button
+                  onClick={onStop}
+                  className="min-w-11 min-h-11 rounded-full bg-action-danger flex items-center justify-center focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus"
+                  aria-label="Zastaviť"
+                >
+                  <Square size={12} className="text-white fill-white" />
+                </button>
+              )}
             </div>
-          )}
-        </>
-      )}
+            {(isRequesting || isRecording || isProcessing) && (
+              <Button tone="neutral" size="parent" onClick={onCancel}>
+                Zrušiť nahrávanie
+              </Button>
+            )}
+          </>
+        ) : (
+          <>
+            {/* Delete — only when idle and has custom recording */}
+            {hasCustom && allowDeleteRecording ? (
+              <div className="w-11 flex items-center justify-center shrink-0">
+                <IconButton
+                  onClick={onDelete}
+                  className={`${compactActionClass} !bg-shadow/20 text-text-main/70`}
+                  label="Zmazať nahrávku"
+                >
+                  <Trash2 size={16} />
+                </IconButton>
+              </div>
+            ) : (
+              <div className="hidden sm:flex w-11 items-center justify-center shrink-0" />
+            )}
+
+            {/* Play */}
+            {allowPlay ? (
+              <div className="w-11 flex items-center justify-center shrink-0">
+                <IconButton
+                  onClick={onPlay}
+                  className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
+                  label="Prehrať"
+                >
+                  <Play size={16} />
+                </IconButton>
+              </div>
+            ) : (
+              <div className="hidden sm:flex w-11 items-center justify-center shrink-0" />
+            )}
+
+            {/* Record */}
+            <div className="w-11 flex items-center justify-center shrink-0">
+              <IconButton
+                onClick={onRecord}
+                className={`${compactActionClass} ${recordClass}`}
+                label="Nahrať"
+                disabled={disabled || (!isActive && ['requesting', 'recording', 'processing'].includes(recorderState))}
+              >
+                <Mic size={16} />
+              </IconButton>
+            </div>
+
+            {menuActions && menuActions.length > 0 && (
+              <div className="w-11 flex items-center justify-center shrink-0">
+                <IconMenuButton
+                  label="Ďalšie možnosti"
+                  actions={menuActions}
+                  className={`${compactActionClass} !bg-transparent !shadow-none text-text-main/70`}
+                />
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </Card>
   );
 }

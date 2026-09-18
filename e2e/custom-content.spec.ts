@@ -392,4 +392,58 @@ test.describe('Custom content manager', () => {
     await expect(page.getByRole('tab', { name: /Slová/ })).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
+
+  test('custom content rows keep readable labels and 44x44 reachable actions on narrow phones', async ({ page }) => {
+    const phoneViewports = [
+      CANONICAL_VIEWPORTS.narrowPhone,
+      CANONICAL_VIEWPORTS.smallPhone,
+      CANONICAL_VIEWPORTS.phonePortrait,
+    ];
+
+    for (const viewport of phoneViewports) {
+      await page.setViewportSize(viewport);
+      await openContent(page);
+      await openTab(page, /Slová/);
+
+      const mamaText = page.getByText(/^Mama\b/);
+      await expect(mamaText).toBeVisible();
+      const row = mamaText.locator('xpath=ancestor::div[contains(@class, "rounded-2xl")]').first();
+      await expect(row).toBeVisible();
+
+      const labelBox = await mamaText.boundingBox();
+      expect(labelBox).not.toBeNull();
+      expect(labelBox!.width).toBeGreaterThanOrEqual(160);
+
+      const isSingleLine = await mamaText.evaluate((el) => {
+        const style = window.getComputedStyle(el);
+        const lineHeight = parseFloat(style.lineHeight) || (parseFloat(style.fontSize) * 1.3);
+        return el.clientHeight <= lineHeight * 1.5;
+      });
+      expect(isSingleLine).toBe(true);
+
+      const playBtn = row.getByRole('button', { name: 'Prehrať' });
+      await expect(playBtn).toBeVisible();
+      const playBox = await playBtn.boundingBox();
+      expect(playBox!.width).toBeGreaterThanOrEqual(44);
+      expect(playBox!.height).toBeGreaterThanOrEqual(44);
+
+      const recordBtn = row.getByRole('button', { name: 'Nahrať' });
+      await expect(recordBtn).toBeVisible();
+      const recordBox = await recordBtn.boundingBox();
+      expect(recordBox!.width).toBeGreaterThanOrEqual(44);
+      expect(recordBox!.height).toBeGreaterThanOrEqual(44);
+
+      const menuBtn = row.getByRole('button', { name: 'Ďalšie možnosti' });
+      await expect(menuBtn).toBeVisible();
+      const menuBox = await menuBtn.boundingBox();
+      expect(menuBox!.width).toBeGreaterThanOrEqual(44);
+      expect(menuBox!.height).toBeGreaterThanOrEqual(44);
+
+      await menuBtn.click();
+      await expect(page.getByRole('menuitem', { name: 'Vypnúť' })).toBeVisible();
+      await page.keyboard.press('Escape');
+
+      await expectNoHorizontalOverflow(page);
+    }
+  });
 });
