@@ -57,12 +57,20 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
 ) {
   const locale = useContentLocale();
   const prefersReducedMotion = useReducedMotion();
-  const resolvedState = disabled ? 'disabled' : state;
+  const isEffectiveDisabled = disabled || state === 'disabled';
+  const resolvedState = isEffectiveDisabled ? 'disabled' : state;
   const showStateNote = resolvedState === 'retry' || resolvedState === 'settled';
 
   if (as === 'button' && !label && import.meta.env.DEV) {
     console.error('TactilePiece as="button" requires a label for its accessible name.');
   }
+
+  const stateNoteText =
+    resolvedState === 'retry'
+      ? getUiCopy(locale, 'game.retryPrompt')
+      : resolvedState === 'settled'
+      ? getUiCopy(locale, 'game.piece.settledLabel')
+      : null;
 
   const content = (
     <>
@@ -74,32 +82,36 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
           ) : (
             <Check aria-hidden="true" size={10} />
           )}
-          <span>
-            {resolvedState === 'retry'
-              ? getUiCopy(locale, 'game.retryPrompt')
-              : getUiCopy(locale, 'game.piece.settledLabel')}
-          </span>
+          <span>{stateNoteText}</span>
         </span>
       )}
     </>
   );
 
+  const isPressed = resolvedState === 'pressed';
   const pressClassName = prefersReducedMotion
-    ? 'active:opacity-85'
-    : 'active:translate-y-1 active:shadow-block-pressed';
-  const sharedClassName = cn(tactileMaterialVariants({ material }), !disabled && pressClassName, className);
+    ? cn('active:opacity-85', isPressed && 'opacity-85')
+    : cn('active:translate-y-1 active:shadow-block-pressed', isPressed && 'translate-y-1 shadow-block-pressed');
+  const sharedClassName = cn(
+    tactileMaterialVariants({ material }),
+    !isEffectiveDisabled && pressClassName,
+    className,
+  );
 
   if (as === 'button') {
+    const buttonProps = props as React.ButtonHTMLAttributes<HTMLButtonElement>;
     return (
       <button
-        {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        {...buttonProps}
         ref={ref as React.Ref<HTMLButtonElement>}
         type="button"
         aria-label={label}
-        disabled={disabled}
+        aria-description={stateNoteText ?? undefined}
+        disabled={isEffectiveDisabled}
         data-piece-state={resolvedState}
-        onClick={() => {
-          if (!disabled) onPress?.();
+        onClick={(e) => {
+          buttonProps.onClick?.(e);
+          if (!isEffectiveDisabled) onPress?.();
         }}
         className={sharedClassName}
       >
@@ -112,6 +124,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
     <span
       {...props}
       ref={ref as React.Ref<HTMLSpanElement>}
+      aria-label={label}
       data-piece-state={resolvedState}
       className={sharedClassName}
     >

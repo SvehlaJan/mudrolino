@@ -92,19 +92,20 @@ export interface FailureSpec {
 export interface GameDescriptor<T> {
   /** Total cards in the grid including the target. */
   gridSize: number;
-  /** Responsive column counts used to size the square grid from viewport width and height. */
-  gridCols: {
-    base: number;
-    sm?: number;
-  };
   /** Maximum correct answers before session ends. Defaults to 5 if omitted. */
   maxRounds?: number;
   /** Maximum wrong attempts per round before the failure overlay shows. Defaults to 3 if omitted. */
   maxAttempts?: number;
+  /** Always-visible instruction shown above the answer group (the universal a11y contract). */
+  instruction: string;
+  /** Tactile material used to render this game's answer tiles. */
+  material: 'wood' | 'magnet' | 'picture';
   /** Returns all items in the pool for this game. */
   getItems(): T[];
   /** Returns a stable unique string id for an item — used for dedup and comparison. */
   getItemId(item: T): string;
+  /** Accessible name for an answer tile, read by assistive tech (e.g. "Písmeno A"). */
+  getAccessibleLabel(item: T): string;
   /** Renders the card face shown in the grid. */
   renderCard(item: T): ReactNode;
   /**

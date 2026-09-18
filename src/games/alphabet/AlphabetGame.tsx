@@ -21,7 +21,7 @@ export function AlphabetGame({ settings, onExit, onOpenSettings }: GameRuntimePr
   const descriptor = createAlphabetDescriptor(settings.alphabetGridSize, filteredLetterItems, locale);
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame gameId="ALPHABET" descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (

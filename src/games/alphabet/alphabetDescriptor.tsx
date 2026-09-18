@@ -14,12 +14,11 @@ export function createAlphabetDescriptor(
 ): GameDescriptor<Letter> {
   return {
     gridSize,
-    gridCols: {
-      base: 2,
-      sm: gridSize === 8 ? 4 : gridSize === 6 ? 3 : 2,
-    },
+    instruction: 'Nájdi písmeno, ktoré počuješ.',
+    material: 'wood',
     getItems: () => letterItems,
     getItemId: (l) => l.symbol,
+    getAccessibleLabel: (l) => `Písmeno ${l.symbol}`,
     renderCard: (l) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{l.symbol}</span>
     ),

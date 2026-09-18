@@ -16,7 +16,7 @@ export function SyllablesGame({ settings, onExit, onOpenSettings }: GameRuntimeP
   const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, syllableItems, locale);
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame gameId="SYLLABLES" descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (

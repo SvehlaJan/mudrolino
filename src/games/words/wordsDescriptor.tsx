@@ -10,12 +10,11 @@ import { getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '..
 export function createWordsDescriptor(wordItems: Word[], locale: string): GameDescriptor<Word> {
   return {
     gridSize: 6,
-    gridCols: {
-      base: 2,
-      sm: 3,
-    },
+    instruction: 'Nájdi obrázok k slovu.',
+    material: 'picture',
     getItems: () => wordItems,
     getItemId: (w) => w.word,
+    getAccessibleLabel: (w) => `${w.word}, ${w.syllables}`,
     renderCard: (w) => (
       <span className="text-[clamp(3.75rem,14vw,7rem)] leading-none">{w.emoji}</span>
     ),

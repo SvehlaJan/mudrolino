@@ -3,20 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
-import { Volume2 } from 'lucide-react';
-import { GameDescriptor, SuccessSpec, FailureSpec } from '../types';
-import { audioManager } from '../services/audioManager';
-import { SuccessOverlay } from './SuccessOverlay';
-import { FailureOverlay } from './FailureOverlay';
-import { SessionCompleteOverlay } from './SessionCompleteOverlay';
-import { AuditoryPromptBadge } from './AuditoryPromptBadge';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { GameDescriptor, GameId, PraiseEntry } from '../types';
 import { TIMING } from '../contentRegistry';
 import { fisherYatesShuffle } from '../utils';
-import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../ui';
 import { setE2EState } from '../services/e2eState';
+import { useContent } from '../contexts/ContentContext';
+import { audioManager } from '../services/audioManager';
+import { getUiCopy } from '../uiCopy';
+import {
+  AnswerGroup,
+  GamePrompt,
+  GameShell,
+  PlayTray,
+  TactilePiece,
+  useGameSession,
+  type GameShellCompletion,
+  type GameShellFeedback,
+} from '../game';
+import { getSuccessOverlayAudioSpec } from './successOverlayAudio';
+import { getSessionCompleteAudioSpec } from './sessionCompleteAudio';
 
 interface FindItGameProps<T> {
+  gameId: GameId;
   descriptor: GameDescriptor<T>;
   /** Called when the child taps the back button — typically sets parent gameState back to 'HOME'. */
   onExit: () => void;
@@ -27,17 +36,10 @@ interface RoundState<T> {
   gridItems: T[];
 }
 
-function getGridColsClass(gridCols: GameDescriptor<unknown>['gridCols']) {
-  return gridCols.sm
-    ? `grid-cols-${gridCols.base} sm:grid-cols-${gridCols.sm}`
-    : `grid-cols-${gridCols.base}`;
-}
+const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
-function getGridMaxWidthClass(gridCols: GameDescriptor<unknown>['gridCols']) {
-  const desktopCols = gridCols.sm ?? gridCols.base;
-  if (desktopCols >= 4) return 'max-w-4xl';
-  if (desktopCols === 3) return 'max-w-3xl';
-  return 'max-w-2xl';
+function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
+  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
 }
 
 function buildGrid<T>(descriptor: GameDescriptor<T>, target: T): RoundState<T> {
@@ -46,251 +48,185 @@ function buildGrid<T>(descriptor: GameDescriptor<T>, target: T): RoundState<T> {
   const others = fisherYatesShuffle(
     pool.filter(item => descriptor.getItemId(item) !== descriptor.getItemId(target))
   ).slice(0, effectiveGridSize - 1);
-  return {
-    targetItem: target,
-    gridItems: fisherYatesShuffle([...others, target]),
-  };
+  const gridItems = fisherYatesShuffle([...others, target]);
+
+  if (import.meta.env.DEV) {
+    const ids = gridItems.map((item) => descriptor.getItemId(item));
+    if (new Set(ids).size !== ids.length) {
+      console.error('FindItGame: grid items must have unique ids', ids);
+    }
+    if (ids.filter((id) => id === descriptor.getItemId(target)).length !== 1) {
+      console.error('FindItGame: grid must contain exactly one target item', ids);
+    }
+  }
+
+  return { targetItem: target, gridItems };
 }
 
-export function FindItGame<T>({ descriptor, onExit }: FindItGameProps<T>) {
+export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>) {
+  const { locale, praiseEntries } = useContent();
+  const isEmpty = descriptor.getItems().length === 0;
+
   const [{ roundState }, setSession] = useState(() => {
     const pool = fisherYatesShuffle(descriptor.getItems());
     const [first, ...rest] = pool;
     return { roundState: buildGrid(descriptor, first), roundQueue: rest };
   });
-  const [feedback, setFeedback] = useState<Record<number, 'correct' | 'wrong' | null>>({});
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [successSpec, setSuccessSpec] = useState<SuccessSpec | null>(null);
-
-  const maxRounds = descriptor.maxRounds ?? 5;
-  const maxAttempts = descriptor.maxAttempts ?? 3;
-  const [wrongAttemptsThisRound, setWrongAttemptsThisRound] = useState(0);
-  const [showFailure, setShowFailure] = useState(false);
-  const [failureSpec, setFailureSpec] = useState<FailureSpec | null>(null);
-  const [roundsPlayed, setRoundsPlayed] = useState(0);
-  const [correctRounds, setCorrectRounds] = useState(0);
-  const [totalTaps, setTotalTaps] = useState(0);
-  const [showSessionComplete, setShowSessionComplete] = useState(false);
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-
   const { targetItem, gridItems } = roundState;
-  const gridAreaRef = useRef<HTMLDivElement | null>(null);
-  const pendingSuccessRef = useRef(false);
-  const promptPlaybackIdRef = useRef(0);
-  const [viewportWidth, setViewportWidth] = useState(() => window.innerWidth);
-  const [gridAreaSize, setGridAreaSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    return () => {
-      promptPlaybackIdRef.current += 1;
-      audioManager.stop();
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => setViewportWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useLayoutEffect(() => {
-    const node = gridAreaRef.current;
-    if (!node) return;
-
-    const updateSize = () => {
-      setGridAreaSize({
-        width: node.clientWidth,
-        height: node.clientHeight,
-      });
-    };
-
-    updateSize();
-
-    const observer = new ResizeObserver(updateSize);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const overlay = showSessionComplete ? 'session-complete' : showSuccess ? 'success' : showFailure ? 'failure' : null;
-    setE2EState({
-      overlay,
-      correctItemId: targetItem ? descriptor.getItemId(targetItem) : null,
-      gridItemIds: gridItems.map((item) => descriptor.getItemId(item)),
-    });
-  }, [targetItem, gridItems, showSuccess, showFailure, showSessionComplete, descriptor]);
+  const [completionPraise, setCompletionPraise] = useState<PraiseEntry>(() => pickPraise(praiseEntries));
 
   const startNewRound = useCallback(() => {
-    promptPlaybackIdRef.current += 1;
-    setIsAudioPlaying(false);
-    setSession(prev => {
+    setSession((prev) => {
       const pool = descriptor.getItems();
       const currentQueue = prev.roundQueue.length > 0 ? prev.roundQueue : fisherYatesShuffle(pool);
       const [target, ...rest] = currentQueue;
       return { roundState: buildGrid(descriptor, target), roundQueue: rest };
     });
-    setFeedback({});
-    setShowSuccess(false);
-    setShowFailure(false);
-    setWrongAttemptsThisRound(0);
-    pendingSuccessRef.current = false;
   }, [descriptor]);
 
-  const playPrompt = useCallback(async (isReplay = false) => {
-    if (!targetItem) return;
-    const playbackId = ++promptPlaybackIdRef.current;
-    setIsAudioPlaying(true);
-    try {
-      const spec = isReplay && descriptor.getReplayAudio
-        ? descriptor.getReplayAudio(targetItem)
-        : descriptor.getPromptAudio(targetItem);
-      await audioManager.play(spec);
-    } finally {
-      if (promptPlaybackIdRef.current === playbackId) {
-        setIsAudioPlaying(false);
-      }
-    }
-  }, [targetItem, descriptor]);
+  const startNewSession = useCallback(() => {
+    setCompletionPraise(pickPraise(praiseEntries));
+    startNewRound();
+  }, [praiseEntries, startNewRound]);
 
-  const replayPrompt = useCallback(() => {
-    void playPrompt(true);
-  }, [playPrompt]);
+  const session = useGameSession({
+    maxRounds: descriptor.maxRounds,
+    maxAttempts: descriptor.maxAttempts,
+    onNextRound: startNewRound,
+    onPlayAgain: startNewSession,
+  });
+  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, fail } = session;
 
   useEffect(() => {
-    if (!targetItem) return;
-    const timer = setTimeout(
-      () => void playPrompt(false),
-      TIMING.AUDIO_DELAY_MS
-    );
-    return () => clearTimeout(timer);
-  }, [targetItem, playPrompt]);
+    if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
+  }, [isEmpty, fail, locale]);
 
-  const handleCardClick = (item: T, index: number) => {
-    if (showSuccess || showFailure || pendingSuccessRef.current || !targetItem || showSessionComplete) return;
-    promptPlaybackIdRef.current += 1;
-    setIsAudioPlaying(false);
-    setTotalTaps(prev => prev + 1);
-    if (descriptor.getItemId(item) === descriptor.getItemId(targetItem)) {
-      pendingSuccessRef.current = true;
-      audioManager.play(descriptor.getCorrectAudio(item));
-      setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      setSuccessSpec(descriptor.getSuccessSpec(targetItem));
-      const nextRoundsPlayed = roundsPlayed + 1;
-      setRoundsPlayed(nextRoundsPlayed);
-      setCorrectRounds(prev => prev + 1);
-      if (nextRoundsPlayed >= maxRounds) {
-        setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-      } else {
-        setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-      }
-    } else {
-      const nextWrong = wrongAttemptsThisRound + 1;
-      setWrongAttemptsThisRound(nextWrong);
-      setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
-      if (nextWrong >= maxAttempts) {
-        pendingSuccessRef.current = true;
-        setFailureSpec(descriptor.getFailureSpec(targetItem));
-        const nextRoundsPlayed = roundsPlayed + 1;
-        setRoundsPlayed(nextRoundsPlayed);
-        if (nextRoundsPlayed >= maxRounds) {
-          setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-        } else {
-          setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-        }
-      } else {
-        audioManager.play(descriptor.getWrongAudio(targetItem, item));
-        setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
-      }
+  useEffect(() => {
+    setE2EState({
+      gameId,
+      gamePhase: state.phase,
+      correctItemId: targetItem ? descriptor.getItemId(targetItem) : null,
+      gridItemIds: gridItems.map((item) => descriptor.getItemId(item)),
+      wrongAttempts: state.wrongAttempts,
+      roundsPlayed: state.roundsPlayed,
+      replaying,
+    });
+  }, [gameId, state, replaying, targetItem, gridItems, descriptor]);
+
+  const phaseRef = useRef(state.phase);
+  useEffect(() => {
+    phaseRef.current = state.phase;
+  }, [state.phase]);
+
+  useEffect(() => {
+    if (!targetItem || isEmpty) return;
+    const timer = setTimeout(() => {
+      // A round-start prompt must never invalidate an answer that started resolving first —
+      // invalidate() would stop that answer's own in-flight audio and hang it forever. Only
+      // fire while the round is still untouched; a manual replay or an answer already moved on.
+      if (phaseRef.current !== 'ready') return;
+      void startPrompt(descriptor.getPromptAudio(targetItem));
+    }, TIMING.AUDIO_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [targetItem, isEmpty, descriptor, startPrompt]);
+
+  useEffect(() => {
+    if (state.phase !== 'session-complete' || state.paused) return;
+    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
+    return () => audioManager.stop();
+  }, [state.phase, state.paused, locale, completionPraise]);
+
+  const handleReplay = useCallback(() => {
+    if (!targetItem) return;
+    const spec = descriptor.getReplayAudio ? descriptor.getReplayAudio(targetItem) : descriptor.getPromptAudio(targetItem);
+    void replayPrompt(spec);
+  }, [targetItem, descriptor, replayPrompt]);
+
+  const retryAfterError = useCallback(() => {
+    if (descriptor.getItems().length > 0) playAgain();
+  }, [descriptor, playAgain]);
+
+  const chooseAnswer = useCallback(async (item: T) => {
+    if (!targetItem) return;
+    const answerId = descriptor.getItemId(item);
+
+    if (answerId === descriptor.getItemId(targetItem)) {
+      await resolveAnswer({
+        answerId,
+        outcome: 'correct',
+        selectionAudio: descriptor.getCorrectAudio(item),
+        verdictAudio: getSuccessOverlayAudioSpec(locale, pickPraise(praiseEntries), descriptor.getSuccessSpec(targetItem)),
+      });
+      return;
     }
+
+    const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
+    await resolveAnswer({
+      answerId,
+      outcome: 'wrong',
+      selectionAudio: descriptor.getWrongAudio(targetItem, item),
+      verdictAudio: exhausted ? descriptor.getFailureSpec(targetItem).audioSpec : undefined,
+    });
+  }, [targetItem, descriptor, resolveAnswer, locale, praiseEntries, state.maxAttempts, state.wrongAttempts]);
+
+  const feedback: GameShellFeedback | null = state.feedback === 'success'
+    ? { kind: 'success', title: getUiCopy(locale, 'game.successTitle'), onContinue: continueAfterFeedback }
+    : state.feedback === 'failure'
+    ? {
+        kind: 'failure',
+        title: getUiCopy(locale, 'game.failureTitle'),
+        detail: getUiCopy(locale, 'game.failure.detail'),
+        onContinue: continueAfterFeedback,
+      }
+    : state.phase === 'answered-incorrectly'
+    ? { kind: 'retry', title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
+    : null;
+
+  const completion: GameShellCompletion = {
+    praise: completionPraise,
+    correctRounds: state.correctRounds,
+    totalTaps: state.totalTaps,
+    maxRounds: state.maxRounds,
+    onPlayAgain: playAgain,
+    onHome: onExit,
   };
 
-  if (descriptor.getItems().length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full gap-4 p-8 text-center">
-        <p className="text-2xl font-bold text-text-main">Žiadne položky</p>
-        <p className="text-lg opacity-60">Pridajte obsah v sekcii pre rodičov.</p>
-        <button onClick={onExit} className="mt-4 px-6 py-3 bg-primary text-white rounded-2xl font-bold text-lg">
-          Späť
-        </button>
-      </div>
-    );
-  }
-
-  const prompt = targetItem ? descriptor.renderPrompt(targetItem) : null;
-  const gridColsClass = getGridColsClass(descriptor.gridCols);
-  const gridMaxWidthClass = getGridMaxWidthClass(descriptor.gridCols);
-  const activeCols = viewportWidth >= 640 ? (descriptor.gridCols.sm ?? descriptor.gridCols.base) : descriptor.gridCols.base;
-  const activeRows = Math.max(1, Math.ceil(gridItems.length / activeCols));
-  const gridGap = viewportWidth >= 768 ? 20 : viewportWidth >= 640 ? 16 : 12;
-  const tileSize = gridAreaSize.width > 0 && gridAreaSize.height > 0
-    ? Math.max(
-        0,
-        Math.floor(
-          Math.min(
-            (gridAreaSize.width - gridGap * (activeCols - 1)) / activeCols,
-            (gridAreaSize.height - gridGap * (activeRows - 1)) / activeRows,
-          ),
-        ),
-      )
-    : null;
-  const gridWidth = tileSize ? tileSize * activeCols + gridGap * (activeCols - 1) : undefined;
-  const replayButton = (
-    <IconButton
-      onClick={replayPrompt}
-      label="Prehrať zvuk"
-    >
-      <Volume2 size={24} className="sm:w-7 sm:h-7" />
-    </IconButton>
-  );
-
   return (
-    <AppScreen>
-      <TopBar
-        left={<BackButton onClick={onExit} />}
-        center={<RoundCounter completed={roundsPlayed} total={maxRounds} />}
-        right={replayButton}
-      />
-
-      <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 shrink-0 pb-3 sm:pb-4">
-        {prompt ? (
-          <div className="text-center max-w-full">{prompt}</div>
-        ) : (
-          <AuditoryPromptBadge isPlaying={isAudioPlaying} onReplay={replayPrompt} />
-        )}
-      </div>
-
-      <div ref={gridAreaRef} className="flex-1 min-h-0 flex items-center justify-center">
-        <div
-          className={`grid ${gridColsClass} gap-3 sm:gap-4 md:gap-5 w-full ${gridMaxWidthClass} mx-auto px-1 sm:px-2 place-content-center`}
-          style={gridWidth ? { width: `${gridWidth}px` } : undefined}
-        >
-          {gridItems.map((item, i) => (
-            <ChoiceTile
-              key={descriptor.getItemId(item)}
-              onClick={() => handleCardClick(item, i)}
-              aria-label={descriptor.getItemId(item)}
-              state={feedback[i] ?? 'neutral'}
-              className="w-full overflow-hidden"
-            >
-              {descriptor.renderCard(item)}
-            </ChoiceTile>
-          ))}
-        </div>
-      </div>
-
-      {successSpec && (
-        <SuccessOverlay show={showSuccess} spec={successSpec} onComplete={startNewRound} />
-      )}
-      {failureSpec && (
-        <FailureOverlay show={showFailure} spec={failureSpec} onComplete={startNewRound} />
-      )}
-      <SessionCompleteOverlay
-        show={showSessionComplete}
-        roundsCompleted={correctRounds}
-        totalTaps={totalTaps}
-        maxRounds={maxRounds}
-        onComplete={onExit}
-      />
-    </AppScreen>
+    <GameShell
+      gameId={gameId}
+      state={state}
+      onBack={onExit}
+      onRetryError={retryAfterError}
+      prompt={
+        <GamePrompt
+          instruction={descriptor.instruction}
+          visual={targetItem ? descriptor.renderPrompt(targetItem) : null}
+          replaying={replaying}
+          onReplay={handleReplay}
+        />
+      }
+      feedback={feedback}
+      completion={completion}
+    >
+      <PlayTray label={getUiCopy(locale, 'game.playArea')}>
+        <AnswerGroup label={getUiCopy(locale, 'game.answerGroup')} disabled={!canAnswer}>
+          {gridItems.map((item) => {
+            const id = descriptor.getItemId(item);
+            return (
+              <TactilePiece
+                key={id}
+                as="button"
+                material={descriptor.material}
+                label={descriptor.getAccessibleLabel(item)}
+                data-answer-id={id}
+                onPress={() => void chooseAnswer(item)}
+              >
+                {descriptor.renderCard(item)}
+              </TactilePiece>
+            );
+          })}
+        </AnswerGroup>
+      </PlayTray>
+    </GameShell>
   );
 }

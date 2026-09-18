@@ -14,12 +14,11 @@ export function createSyllablesDescriptor(
 ): GameDescriptor<Syllable> {
   return {
     gridSize,
-    gridCols: {
-      base: 2,
-      sm: gridSize === 6 ? 3 : 2,
-    },
+    instruction: 'Nájdi slabiku, ktorú počuješ.',
+    material: 'magnet',
     getItems: () => syllableItems,
     getItemId: (s) => s.symbol,
+    getAccessibleLabel: (s) => `Slabika ${s.symbol}`,
     renderCard: (s) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{s.symbol}</span>
     ),

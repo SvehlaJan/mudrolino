@@ -1,3 +1,5 @@
+import type { GamePhase } from '../game/gameState';
+
 export type E2EOverlay = 'success' | 'failure' | 'session-complete' | null;
 
 export interface ParentGateE2EState {
@@ -12,6 +14,8 @@ export interface E2EGlobalState {
   parentGate?: ParentGateE2EState;
   /** Logical clip boundaries recorded by AudioManager in Vite's test mode only. */
   audioEvents?: string[];
+  /** Shared game-session phase, published by games built on `useGameSession`. */
+  gamePhase?: GamePhase;
   [key: string]: unknown;
 }
 

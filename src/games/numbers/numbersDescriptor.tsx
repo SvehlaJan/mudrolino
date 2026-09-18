@@ -14,12 +14,11 @@ export function createNumbersDescriptor(
 ): GameDescriptor<NumberItem> {
   return {
     gridSize: 4,
-    gridCols: {
-      base: 2,
-      sm: 4,
-    },
+    instruction: 'Nájdi číslo, ktoré počuješ.',
+    material: 'wood',
     getItems: () => numberItems,
     getItemId: (n) => String(n.value),
+    getAccessibleLabel: (n) => `Číslo ${n.value}`,
     renderCard: (n) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{n.value}</span>
     ),

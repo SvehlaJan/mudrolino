@@ -24,7 +24,7 @@ export function NumbersGame({ settings, onExit, onOpenSettings }: GameRuntimePro
   );
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame gameId="NUMBERS" descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (

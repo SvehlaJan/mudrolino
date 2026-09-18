@@ -16,7 +16,7 @@ export function WordsGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const descriptor = useMemo(() => createWordsDescriptor(wordItems, locale), [wordItems, locale]);
 
   if (gameState === 'PLAYING') {
-    return <FindItGame descriptor={descriptor} onExit={() => setGameState('HOME')} />;
+    return <FindItGame gameId="WORDS" descriptor={descriptor} onExit={() => setGameState('HOME')} />;
   }
 
   return (

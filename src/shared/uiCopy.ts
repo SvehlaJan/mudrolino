@@ -18,6 +18,7 @@ const SK_COPY = {
   'game.promptSection': 'Zadanie',
   'game.replayingInstruction': 'Prehrávam zadanie…',
   'game.answerGroup': 'Možnosti odpovede',
+  'game.playArea': 'Hracia plocha',
   'game.continue': 'Pokračovať',
   'game.playAgain': 'Hrať znova',
   'game.home': 'Domov',
@@ -35,6 +36,7 @@ const SK_COPY = {
   'game.failure.detail': 'Správnu odpoveď si ukážeme spolu.',
   'game.error.title': 'Niečo sa nepodarilo.',
   'game.error.detail': 'Skúsime to ešte raz?',
+  'game.error.emptyPool': 'Žiadne položky na hranie.',
 
   'category.literacy': 'Písmená a slová',
   'category.numeracy': 'Čísla a počítanie',
