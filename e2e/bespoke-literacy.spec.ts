@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { expectMinimumTarget, expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { getE2EState } from './support/e2eHook';
 import { pressAnswerById, waitForGamePhase } from './support/gameHarness';
+import { seedLocalStorage } from './support/persistenceFixtures';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
 
@@ -112,4 +113,88 @@ test('Prvé písmenko keyboard: Tab enters the answer group, ArrowRight moves fo
     + '[data-testid="game-answer-region"] button[data-piece-state="retry"]',
   );
   expect(await activated.count()).toBe(1);
+});
+
+interface CompleteLetterE2EState extends E2EGlobalState {
+  gameId: 'COMPLETE_LETTER';
+  gamePhase: GamePhase;
+  paused: boolean;
+  correctItemId: string | null;
+  answerItemIds: string[];
+  wrongAttempts: number;
+  roundsPlayed: number;
+  replaying: boolean;
+  filledMissingCount: number;
+  missingCount: number;
+}
+
+test('Doplň písmeno uses the shared literacy shell with a progressive word rail', async ({ page }) => {
+  await seedLocalStorage(page, { 'hrave-ucenie-settings': { completeLetterMissingCount: 2 } });
+  await page.goto('/complete-letter');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await expect(page.getByRole('main')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Doplň písmeno' })).toBeVisible();
+  await expect(page.getByText('Doplň chýbajúce písmeno')).toBeVisible();
+  await expect(page.getByTestId('picture-card')).toBeVisible();
+  await expect(page.getByTestId('word-rail')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
+
+  const rail = page.getByTestId('word-rail');
+  await expect(rail.locator('[data-slot-state="active"]')).toHaveCount(1);
+  await expect(rail.locator('[data-slot-state="pending"]')).toHaveCount(1);
+
+  const answerButtons = page.locator('[data-testid="game-answer-region"] button');
+  await expect(answerButtons).toHaveCount(4);
+
+  const state = await getE2EState<CompleteLetterE2EState>(page);
+  expect(state.gameId).toBe('COMPLETE_LETTER');
+  expect(state.missingCount).toBe(2);
+  expect(state.filledMissingCount).toBe(0);
+  expect(state.correctItemId).not.toBeNull();
+  expect(state.answerItemIds).toContain(state.correctItemId);
+  expect(new Set(state.answerItemIds).size).toBe(state.answerItemIds.length);
+});
+
+test('Doplň písmeno advances the active inset on the first correct fit and completes on the second', async ({ page }) => {
+  await seedLocalStorage(page, { 'hrave-ucenie-settings': { completeLetterMissingCount: 2 } });
+  await page.goto('/complete-letter');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  const firstState = await getE2EState<CompleteLetterE2EState>(page);
+  expect(firstState.missingCount).toBe(2);
+  expect(firstState.filledMissingCount).toBe(0);
+
+  await pressAnswerById(page, firstState.correctItemId!);
+  // First fit is a 'progress' outcome: it settles one inset and returns straight to
+  // awaiting-answer — it must never end the round on its own.
+  await page.waitForFunction(
+    () => window.__E2E__?.filledMissingCount === 1,
+    undefined,
+    { polling: 20 },
+  );
+
+  const midState = await getE2EState<CompleteLetterE2EState>(page);
+  expect(midState.roundsPlayed).toBe(0);
+  expect(midState.gamePhase).not.toBe('answered-correctly');
+  expect(midState.correctItemId).not.toBeNull();
+
+  await pressAnswerById(page, midState.correctItemId!);
+  await waitForGamePhase(page, 'answered-correctly');
+
+  const finalState = await getE2EState<CompleteLetterE2EState>(page);
+  expect(finalState.roundsPlayed).toBe(1);
+  expect(finalState.filledMissingCount).toBe(2);
+});
+
+test('Doplň písmeno never reports an accented correct answer when accents are disabled', async ({ page }) => {
+  await seedLocalStorage(page, { 'hrave-ucenie-settings': { alphabetAccents: false } });
+  await page.goto('/complete-letter');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  const state = await getE2EState<CompleteLetterE2EState>(page);
+  expect(state.correctItemId).not.toBeNull();
+  expect(state.correctItemId!.normalize('NFD')).toBe(state.correctItemId);
+  for (const id of state.answerItemIds) {
+    expect(id.normalize('NFD')).toBe(id);
+  }
 });

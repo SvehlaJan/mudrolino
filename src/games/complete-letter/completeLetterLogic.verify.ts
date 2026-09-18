@@ -4,6 +4,7 @@ import {
   buildLetterChoices,
   buildPromptSlots,
   chooseMissingIndexes,
+  CompleteLetterRound,
   createCompleteLetterRound,
   getActiveCompleteLetterLetters,
   getActiveMissingIndex,
@@ -121,5 +122,24 @@ assert(scarceEligible.length === 0, 'no words are eligible when fewer than choic
 
 const adaptiveRound = createCompleteLetterRound(mama, letters, 'adaptive', () => 0);
 assert(adaptiveRound.missingIndexes.length === 1, 'adaptive mode through createCompleteLetterRound hides one unit for a four-unit word');
+
+const betaj: Word = { word: 'Betaj', syllables: 'be-taj', emoji: '🧩', audioKey: 'betaj' };
+const adaptiveFiveRound = createCompleteLetterRound(betaj, letters, 'adaptive', () => 0);
+assert(adaptiveFiveRound.units.length === 5, 'a five-letter word parses into five units through the full round path');
+assert(adaptiveFiveRound.missingIndexes.length === 2, 'adaptive mode through createCompleteLetterRound hides two units for a five-unit word');
+
+// Non-adjacent missing indexes exercise buildPromptSlots' interleaving of visible/active/pending
+// slots — the earlier round-based checks only ever hid leading positions (0, 0|1).
+const interleavedRound: CompleteLetterRound = { word: mama, units: ['M', 'A', 'M', 'A'], missingIndexes: [1, 3] };
+const interleavedFirst = buildPromptSlots(interleavedRound, 0);
+assert(
+  interleavedFirst.map((slot) => `${slot.text}:${slot.state}`).join('|') === 'M:visible|__:active|M:visible|__:pending',
+  'a visible unit sits between the active and pending blanks in slot order',
+);
+const interleavedSecond = buildPromptSlots(interleavedRound, 1);
+assert(
+  interleavedSecond.map((slot) => `${slot.text}:${slot.state}`).join('|') === 'M:visible|A:filled|M:visible|__:active',
+  'filling the earlier blank activates the later, non-adjacent blank without disturbing the visible unit between them',
+);
 
 console.log('completeLetterLogic checks passed');
