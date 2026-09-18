@@ -9,8 +9,8 @@
 - **Round 1 reporting commit:** `e3b73defb401032f2359b25ac64cf87b478e7bf6` ("docs: report Phase 5 remediation and correct the Phase 4 base attribution") — this document's and `ROADMAP.md`'s prior versions, as reporting-only metadata on top of `4d9afd1`. **Correction (round 2 finding 4):** this handoff's File Change Scope section previously, and incorrectly, listed this document and `ROADMAP.md` as part of the `9f452f4..4d9afd1` product/test range; they were always in this separate reporting commit instead. See the corrected **File Change Scope** below.
 - **Round 2 product-remediation SHA:** `c6e8b557f872e39dca9f5fc39429cfd42225eb40` ("refactor: consolidate the duplicated retry-timer scheduling in useGameSession") — the final product/test commit of the round 2 remediation pass, landed as commits `cdc2f44`..`c6e8b55` on top of the round 1 reporting commit `e3b73de`. This is the commit that should be checked out to review or build the phase; `4d9afd1` should not be used.
 - **This reporting commit:** this document's and `ROADMAP.md`'s current update sit in a separate commit on top of the round 2 product-remediation SHA (`c6e8b55`), as reporting-only metadata — not itself part of the reviewed product/test surface.
-- **Future Codex acceptance-record commit:** does not exist yet. Per the phase's acceptance contract, Codex (or the next reviewer) reviews the round 2 product-remediation SHA above, then commits its own "Accepted"/rejection record on top of this reporting commit; only that future acceptance-record commit is a valid Phase 6 base. Do not confuse any of these SHAs with each other.
-- **Implementation Status:** Remediated (round 2), pending review/acceptance
+- **Codex acceptance record:** Phase 5 candidate `c6e8b557f872e39dca9f5fc39429cfd42225eb40` was accepted on 2026-09-18 after an independent whole-phase review. The commit containing this acceptance record, not the product or reporting commit alone, is the sole valid Phase 6 base.
+- **Implementation Status:** Accepted
 - **Working Tree Clean:** Yes (`git status --short` clean before this handoff commit)
 - **Local Screenshot Artifact Directory:** unchanged from round 1 — `artifacts/ui/4d9afd1261daa0823c793c05049a2b50063b93bc/2026-09-18T13-36-56-049Z-62615` (63 screenshots: 9 scenes × 7 canonical viewports). Round 2 changed no visible styling or markup (a conditional-render guard, two focus-target refs, a duplicated-timer extraction, and test assertions only), so no recapture was needed; verified by inspection of every round 2 diff hunk.
 
@@ -265,6 +265,22 @@ changed in round 2 either — see the corrected **File Change Scope** below.
 | `npm run build` | **PASS** | Production build in ~0.9–1.1s; `AvatarScene-C5jF1NPA.js` (973.04 kB) remains an isolated lazy chunk |
 | `git diff --check d431e07...HEAD` | **PASS** | Clean against the Phase 4 base across the full branch history, including all round 2 commits |
 | `npm run test:audio` | **FAIL (pre-existing, out of scope)** | Identical 3 categories / same 13 words (and derived syllables) plus 2 phrases as every prior handoff on this branch reported. Round 2 touched no audio asset or key. |
+
+### Codex acceptance review
+
+Codex independently reviewed the complete Phase 5 product and both remediation
+rounds, including a second code-review pass over `e3b73de..c6e8b55`. No
+actionable findings remained. Fresh acceptance checks passed:
+
+- `npm run lint` — 0 errors; the single documented pre-existing Fast Refresh warning remains.
+- `gameState.verify.ts`, `audioManager.verify.ts`, `uiCopy.verify.ts`, and `capture.verify.ts` — all passed.
+- Focused terminal-verdict, real parent-pause/focus, and actual-scroll-container Playwright coverage — passed. The no-scroll block passed 8/8 serially after a six-worker run hit three navigation timeouts before reaching its assertions.
+- `git diff --check d431e07f4b90810a634176a3507dec8306294348..HEAD` — passed.
+- Claude's final implementation verification passed 164/164 targeted E2E tests, 346/346 full E2E tests, and the production build.
+
+At the user's direction, Codex did not inspect or regenerate screenshots during
+this final acceptance pass. The inherited missing-audio inventory remains
+unchanged and out of Phase 5 scope.
 
 ---
 
