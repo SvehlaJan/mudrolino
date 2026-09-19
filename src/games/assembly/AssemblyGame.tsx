@@ -5,217 +5,220 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { Volume2 } from 'lucide-react';
 import { gsap } from 'gsap';
-import { fisherYatesShuffle } from '../../shared/utils';
-import { audioManager } from '../../shared/services/audioManager';
-import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, TIMING } from '../../shared/contentRegistry';
-import { useContent } from '../../shared/contexts/ContentContext';
-import { Word } from '../../shared/types';
+import { useReducedMotion } from 'motion/react';
+import { AudioSpec, PraiseEntry, SuccessSpec, Word } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
-import { AppScreen, BackButton, Card, IconButton, PromptBadge, RoundCounter, TopBar } from '../../shared/ui';
-import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
-import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
+import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { shouldPlaySelectedSyllableAudio } from './assemblyAudioLogic';
+import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
+import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
+import { TIMING, getItemAnnouncementAudio, getItemAudioClip, getPhraseClip } from '../../shared/contentRegistry';
+import { audioManager } from '../../shared/services/audioManager';
+import { setE2EState } from '../../shared/services/e2eState';
+import { getUiCopy } from '../../shared/uiCopy';
+import { fisherYatesShuffle } from '../../shared/utils';
+import {
+  AnswerGroup,
+  GamePrompt,
+  GameShell,
+  InsetSlot,
+  PictureCard,
+  PlayTray,
+  TactilePiece,
+  WordRail,
+  useGameSession,
+  type GameShellCompletion,
+  type GameShellFeedback,
+  type GameState,
+  type TactilePieceState,
+} from '../../shared/game';
 import {
   AssemblyBoard,
   AssemblyTile,
   createAssemblyBoard,
-  isAssemblyBoardComplete,
-  isAssemblyBoardCorrect,
+  getCorrectTileOrder,
   moveTileToFirstOpenSlot,
   returnTileToTray,
 } from './assemblyLogic';
+import { getAssemblySelectionAudioDecision } from './assemblyAudioLogic';
 
-type GameState = 'HOME' | 'PLAYING';
-
-interface PreparedRound {
-  word: Word;
-  board: AssemblyBoard;
-}
-
-interface TileButtonProps {
-  tile: AssemblyTile;
-  disabled?: boolean;
-  hidden?: boolean;
-  onClick?: () => void;
-}
-
-interface AnswerSlotProps {
-  index: number;
-  tile: AssemblyTile | null;
-  isResettingBoard: boolean;
-  hiddenTileIds: string[];
-  onTileTap: (slotIndex: number) => void;
-}
-
+const INSTRUCTION = 'Usporiadaj slabiky';
+const ANSWER_GROUP_LABEL = 'Zásobník slabík';
 const MAX_ROUNDS = 5;
 const TILE_FLIGHT_DURATION_S = 0.62;
-const BOARD_SETTLE_DELAY_MS = 500;
-const WRONG_REVEAL_DELAY_MS = 180;
-const WRONG_RESET_DELAY_MS = 320;
+const REDUCED_MOTION_FADE_MS = 220;
 
-function getPromptAudio(locale: string, word: Word) {
+const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
+
+function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
+  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
+}
+
+function getPromptAudio(locale: string, word: Word): AudioSpec {
   return {
     clips: [
-      { path: `${locale}/phrases/usporiadaj-slabiky`, fallbackText: 'Usporiadaj slabiky' },
-      { path: `${locale}/words/${word.audioKey}`, fallbackText: word.word },
+      getPhraseClip(locale, 'orderSyllables'),
+      getItemAudioClip(locale, 'words', word.audioKey, word.word),
     ],
   };
 }
 
-function getReplayAudio(locale: string, word: Word) {
-  return {
-    clips: [{ path: `${locale}/words/${word.audioKey}`, fallbackText: word.word }],
-  };
-}
-
-function getSuccessAudio(locale: string, word: Word) {
+function getReplayAudio(locale: string, word: Word): AudioSpec {
   return { clips: [getItemAudioClip(locale, 'words', word.audioKey, word.word)] };
 }
 
-function getWrongAudio(locale: string, word: Word, selectedSyllable?: string) {
+function getCompletedLine(word: Word): string {
+  return `${word.syllables} ${word.emoji}`;
+}
+
+function getSuccessSpec(locale: string, word: Word): SuccessSpec {
+  return {
+    echoLine: getCompletedLine(word),
+    audioSpec: { clips: [getItemAudioClip(locale, 'words', word.audioKey, word.word)] },
+  };
+}
+
+/**
+ * The documented Assembly exception: a wrong FINAL tile skips the normal immediate
+ * selected-syllable call entirely and plays this exact 3-clip sequence instead — the syllable
+ * that was just placed, the shared retry phrase, then the target word — as the resolveAnswer
+ * `selectionAudio` itself (useGameSession never awaits `verdictAudio` for a non-terminal 'wrong'
+ * outcome, which this game always is, since it never fails). See assemblyAudioLogic.ts.
+ */
+function getWrongSequenceAudio(locale: string, word: Word, selectedSyllable: string): AudioSpec {
   return {
     clips: [
-      ...(selectedSyllable
-        ? [getItemAudioClip(locale, 'syllables', selectedSyllable.toLowerCase(), selectedSyllable)]
-        : []),
+      getItemAudioClip(locale, 'syllables', selectedSyllable.toLowerCase(), selectedSyllable),
       getPhraseClip(locale, 'retry'),
       getItemAudioClip(locale, 'words', word.audioKey, word.word),
     ],
   };
 }
 
-function renderTileLabel(text: string) {
+function renderTileLabel(text: string): string {
   return text.toUpperCase();
 }
 
-function clearTimer(timerRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>) {
-  if (timerRef.current) {
-    clearTimeout(timerRef.current);
-    timerRef.current = null;
+/** Mirrors CompleteLetterGame/CompleteSyllableGame's own per-answer piece-state convention. */
+function getTilePieceState(state: GameState, tileId: string): TactilePieceState | undefined {
+  if (state.selectedAnswerId !== tileId) return undefined;
+  if (state.phase === 'resolving-answer') return 'pressed';
+  if (state.phase === 'answered-correctly') return 'settled';
+  if (state.phase === 'answered-incorrectly') return 'retry';
+  return undefined;
+}
+
+function findNextTrayFocusId(trayTilesAfter: AssemblyTile[], placedTrayIndex: number): string | null {
+  if (trayTilesAfter.length === 0) return null;
+  const sorted = [...trayTilesAfter].sort((a, b) => a.trayIndex - b.trayIndex);
+  return (sorted.find((tile) => tile.trayIndex >= placedTrayIndex) ?? sorted[0]).id;
+}
+
+/** A minimal single-row roving-tabstop keydown handler, scoped to the rail's own occupied
+ * slots — WordRail/InsetSlot render an <ol>/<li> list, so the Phase 5 AnswerGroup component
+ * (which clones its own direct button children) cannot wrap it directly; this reproduces the
+ * same Home/End/ArrowLeft/ArrowRight contract as its own, independent group. */
+function handleRailKeyDown(event: React.KeyboardEvent<HTMLDivElement>, container: HTMLElement | null) {
+  if (!container) return;
+  const buttons = Array.from(container.querySelectorAll<HTMLButtonElement>('button:not(:disabled)'));
+  if (buttons.length === 0) return;
+  const currentIndex = buttons.findIndex((button) => button === document.activeElement);
+  const sourceIndex = currentIndex >= 0 ? currentIndex : 0;
+  let targetIndex: number | undefined;
+  switch (event.key) {
+    case 'ArrowRight':
+      event.preventDefault();
+      targetIndex = Math.min(sourceIndex + 1, buttons.length - 1);
+      break;
+    case 'ArrowLeft':
+      event.preventDefault();
+      targetIndex = Math.max(sourceIndex - 1, 0);
+      break;
+    case 'Home':
+      event.preventDefault();
+      targetIndex = 0;
+      break;
+    case 'End':
+      event.preventDefault();
+      targetIndex = buttons.length - 1;
+      break;
+    default:
+      return;
   }
+  buttons[targetIndex]?.focus();
 }
 
-function TileButton({
-  tile,
-  disabled = false,
-  hidden = false,
-  onClick,
-}: TileButtonProps) {
-  return (
-    <button
-      type="button"
-      data-assembly-tile-id={tile.id}
-      disabled={disabled}
-      onClick={onClick}
-      style={hidden ? { opacity: 0, visibility: 'hidden' } : undefined}
-      className={`w-full h-[72px] sm:h-[92px] min-w-[112px] sm:min-w-[150px] px-6 sm:px-8 rounded-[24px] border-2 border-white/30 bg-accent-blue text-white text-3xl sm:text-5xl font-black uppercase tracking-wide ${disabled ? 'pointer-events-none opacity-70' : ''} ${hidden ? 'opacity-0' : ''}`}
-    >
-      {renderTileLabel(tile.text)}
-    </button>
-  );
+interface RoundState {
+  word: Word | null;
+  board: AssemblyBoard;
 }
 
-function AnswerSlot({
-  index,
-  tile,
-  isResettingBoard,
-  hiddenTileIds,
-  onTileTap,
-}: AnswerSlotProps) {
-  const isHidden = tile ? hiddenTileIds.includes(tile.id) : false;
+const EMPTY_ROUND_STATE: RoundState = { word: null, board: { trayTiles: [], placedTiles: [] } };
 
-  return (
-    <div
-      aria-label={tile ? `Slabika ${index + 1}: ${tile.text}` : `Slabika ${index + 1}: prázdne`}
-      className={`min-h-[88px] sm:min-h-[120px] rounded-[28px] sm:rounded-[32px] border-[3px] border-dashed flex items-center justify-center transition-colors ${
-        tile
-          ? 'border-primary/40 bg-primary/10'
-          : 'border-primary/40 bg-white/70 shadow-sm'
-      }`}
-    >
-      <div className="w-full max-w-[240px] h-[72px] sm:h-[92px] flex items-center justify-center">
-        {tile ? (
-          <TileButton
-            tile={tile}
-            disabled={isResettingBoard || isHidden}
-            hidden={isHidden}
-            onClick={() => onTileTap(index)}
-          />
-        ) : (
-          <span aria-hidden="true" className="text-text-main/40 text-2xl sm:text-3xl font-black select-none">?</span>
-        )}
-      </div>
-    </div>
-  );
+interface AssemblyPlayfieldProps {
+  eligibleWords: Word[];
+  onExit: () => void;
 }
 
-export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
-  const { wordItems, locale, praiseEntries } = useContent();
-  const [gameState, setGameState] = useState<GameState>('HOME');
-  const [targetWord, setTargetWord] = useState<Word | null>(null);
-  const [board, setBoard] = useState<AssemblyBoard>({ trayTiles: [], placedTiles: [] });
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showSessionComplete, setShowSessionComplete] = useState(false);
-  const [roundsPlayed, setRoundsPlayed] = useState(0);
-  const [correctRounds, setCorrectRounds] = useState(0);
-  const [totalChecks, setTotalChecks] = useState(0);
-  const [isResettingBoard, setIsResettingBoard] = useState(false);
-  const [wrongPulse, setWrongPulse] = useState(false);
-  const [animatingTileIds, setAnimatingTileIds] = useState<string[]>([]);
+function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
+  const { locale, praiseEntries } = useContent();
+  const isEmpty = eligibleWords.length === 0;
+  const prefersReducedMotion = useReducedMotion();
+
   const tileIdRef = useRef(0);
+  const wordQueueRef = useRef<Word[]>([]);
   const boardRootRef = useRef<HTMLDivElement | null>(null);
-  const promptTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const wrongPulseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const resetRevealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const resetBoardTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const roundAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const trayRegionRef = useRef<HTMLDivElement | null>(null);
+  const railRegionRef = useRef<HTMLDivElement | null>(null);
   const activeTweensRef = useRef(new Map<string, gsap.core.Tween>());
   const floatingTilesRef = useRef(new Map<string, HTMLElement>());
+  const fadeTimersRef = useRef(new Map<string, ReturnType<typeof setTimeout>>());
+  const pendingFocusTileIdRef = useRef<string | null>(null);
+  const answerLockRef = useRef(false);
 
-  const eligibleWords = useMemo(
-    () =>
-      wordItems.filter(({ syllables }) => {
-        const syllableCount = syllables.split('-').length;
-        return syllableCount >= 2 && syllableCount <= 3;
-      }),
-    [wordItems],
-  );
-
-  const wordQueueRef = useRef<Word[]>([]);
-
-  useEffect(() => {
-    wordQueueRef.current = [];
-  }, [eligibleWords]);
-
-  const correctSyllables = useMemo(
-    () => targetWord?.syllables.split('-') ?? [],
-    [targetWord]
-  );
-  const trayTiles = board.trayTiles;
-  const placedTiles = board.placedTiles;
-
-  const createBoard = useCallback((syllables: string[]): AssemblyBoard => (
-    createAssemblyBoard(
-      syllables,
-      () => `assembly-tile-${tileIdRef.current++}`,
-      tiles => fisherYatesShuffle(tiles).map((tile, trayIndex) => ({ ...tile, trayIndex })),
-    )
+  const createBoard = useCallback((syllables: string[]): AssemblyBoard => createAssemblyBoard(
+    syllables,
+    () => `assembly-tile-${tileIdRef.current++}`,
+    (tiles) => fisherYatesShuffle(tiles).map((tile, trayIndex) => ({ ...tile, trayIndex })),
   ), []);
 
-  const prepareRound = useCallback((): PreparedRound | null => {
+  const drawWord = useCallback((): Word | null => {
     if (eligibleWords.length === 0) return null;
+    if (wordQueueRef.current.length === 0) wordQueueRef.current = fisherYatesShuffle(eligibleWords);
+    return wordQueueRef.current.shift()!;
+  }, [eligibleWords]);
 
-    if (wordQueueRef.current.length === 0) {
-      wordQueueRef.current = fisherYatesShuffle(eligibleWords);
-    }
-    const word = wordQueueRef.current.shift()!;
-    const board = createBoard(word.syllables.split('-'));
+  const buildRound = useCallback((): RoundState => {
+    const word = drawWord();
+    if (!word) return EMPTY_ROUND_STATE;
+    return { word, board: createBoard(word.syllables.split('-')) };
+  }, [drawWord, createBoard]);
 
-    return { word, board };
-  }, [createBoard, eligibleWords]);
+  const [roundState, setRoundState] = useState<RoundState>(() => buildRound());
+  const { word: targetWord, board } = roundState;
+  const trayTiles = board.trayTiles;
+  const placedTiles = board.placedTiles;
+  const placedTileList = useMemo(
+    () => placedTiles.filter((tile): tile is AssemblyTile => tile !== null),
+    [placedTiles],
+  );
+
+  const correctSyllables = useMemo(() => targetWord?.syllables.split('-') ?? [], [targetWord]);
+  const correctTileOrder = useMemo(
+    () => (targetWord ? getCorrectTileOrder(board, correctSyllables) : []),
+    [targetWord, board, correctSyllables],
+  );
+
+  const [completionPraise, setCompletionPraise] = useState<PraiseEntry>(() => pickPraise(praiseEntries));
+  const [roundPraise, setRoundPraise] = useState<PraiseEntry | null>(null);
+  const [animatingTileIds, setAnimatingTileIds] = useState<string[]>([]);
+  const [enteringTileIds, setEnteringTileIds] = useState<string[]>([]);
+  const [railActiveTileId, setRailActiveTileId] = useState<string | null>(null);
+
+  const resolvedRailActiveId = placedTileList.some((tile) => tile.id === railActiveTileId)
+    ? railActiveTileId
+    : placedTileList[0]?.id ?? null;
 
   const cleanupFloatingTile = useCallback((tileId: string) => {
     activeTweensRef.current.get(tileId)?.kill();
@@ -225,381 +228,459 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
       floatingTile.remove();
       floatingTilesRef.current.delete(tileId);
     }
-    setAnimatingTileIds(prev => prev.filter(id => id !== tileId));
+    const fadeTimer = fadeTimersRef.current.get(tileId);
+    if (fadeTimer) {
+      clearTimeout(fadeTimer);
+      fadeTimersRef.current.delete(tileId);
+    }
+    setAnimatingTileIds((prev) => (prev.includes(tileId) ? prev.filter((id) => id !== tileId) : prev));
+    setEnteringTileIds((prev) => (prev.includes(tileId) ? prev.filter((id) => id !== tileId) : prev));
   }, []);
 
   const cleanupAllFloatingTiles = useCallback(() => {
-    Array.from(activeTweensRef.current.keys()).forEach(tileId => {
-      cleanupFloatingTile(tileId);
-    });
-    setAnimatingTileIds([]);
+    const tileIds = new Set([...activeTweensRef.current.keys(), ...fadeTimersRef.current.keys()]);
+    tileIds.forEach(cleanupFloatingTile);
   }, [cleanupFloatingTile]);
 
-  const resetTransientTimers = useCallback(() => {
-    clearTimer(promptTimerRef);
-    clearTimer(wrongPulseTimerRef);
-    clearTimer(resetRevealTimerRef);
-    clearTimer(resetBoardTimerRef);
-    clearTimer(roundAdvanceTimerRef);
-    cleanupAllFloatingTiles();
-  }, [cleanupAllFloatingTiles]);
+  /**
+   * Moves one or more tiles between tray and rail. Normal motion flies a cloned node between
+   * measured positions (via a synchronous flushSync mutation so the destination can be measured
+   * immediately after). Reduced motion mutates the board immediately and only ever animates
+   * opacity, never position — see the plan's reduced-motion contract.
+   */
+  const animateTilesMove = useCallback((tileIds: string[], mutateBoard: () => void) => {
+    tileIds.forEach(cleanupFloatingTile);
 
-  const playPromptAudio = useCallback((word: Word | null) => {
-    if (!word) return;
-    audioManager.play(getReplayAudio(locale, word));
-  }, [locale]);
+    if (prefersReducedMotion) {
+      mutateBoard();
+      setAnimatingTileIds((prev) => Array.from(new Set([...prev, ...tileIds])));
+      setEnteringTileIds((prev) => Array.from(new Set([...prev, ...tileIds])));
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setEnteringTileIds((prev) => prev.filter((id) => !tileIds.includes(id)));
+        });
+      });
+      tileIds.forEach((tileId) => {
+        const timer = setTimeout(() => {
+          fadeTimersRef.current.delete(tileId);
+          setAnimatingTileIds((prev) => prev.filter((id) => id !== tileId));
+        }, REDUCED_MOTION_FADE_MS);
+        fadeTimersRef.current.set(tileId, timer);
+      });
+      return;
+    }
 
-  const triggerWrongPulse = useCallback(() => {
-    clearTimer(wrongPulseTimerRef);
-    setWrongPulse(true);
-    wrongPulseTimerRef.current = setTimeout(() => {
-      setWrongPulse(false);
-      wrongPulseTimerRef.current = null;
-    }, TIMING.FEEDBACK_RESET_MS);
-  }, []);
-
-  const startNewRound = useCallback(() => {
-    const nextRound = prepareRound();
-    if (!nextRound) return;
-
-    resetTransientTimers();
-    const { word: nextWord, board: nextBoard } = nextRound;
-
-    setTargetWord(nextWord);
-    setBoard(nextBoard);
-    setShowSuccess(false);
-    setShowSessionComplete(false);
-    setWrongPulse(false);
-    setIsResettingBoard(false);
-    setAnimatingTileIds([]);
-
-    promptTimerRef.current = setTimeout(() => {
-      audioManager.play(getPromptAudio(locale, nextWord));
-      promptTimerRef.current = null;
-    }, TIMING.AUDIO_DELAY_MS);
-  }, [locale, prepareRound, resetTransientTimers]);
-
-  useEffect(() => {
-    return () => {
-      audioManager.stop();
-      resetTransientTimers();
-    };
-  }, [resetTransientTimers]);
-
-  useEffect(() => {
-    if (gameState === 'PLAYING' && !targetWord) startNewRound(); // eslint-disable-line react-hooks/set-state-in-effect
-  }, [gameState, targetWord, startNewRound]);
-
-  const animateBoardMove = useCallback((tileId: string, mutateBoard: () => void) => {
     const root = boardRootRef.current;
-    const source = root?.querySelector(`[data-assembly-tile-id="${tileId}"]`) as HTMLElement | null;
-    if (!root || !source) {
+    if (!root) {
       mutateBoard();
       return;
     }
 
-    cleanupFloatingTile(tileId);
+    const sourceRects = new Map<string, DOMRect>();
+    tileIds.forEach((tileId) => {
+      const source = root.querySelector(`[data-tile-id="${tileId}"]`) as HTMLElement | null;
+      if (source) sourceRects.set(tileId, source.getBoundingClientRect());
+    });
+    if (sourceRects.size === 0) {
+      mutateBoard();
+      return;
+    }
 
-    const sourceRect = source.getBoundingClientRect();
-    const clone = source.cloneNode(true) as HTMLElement;
-    clone.style.position = 'fixed';
-    clone.style.top = `${sourceRect.top}px`;
-    clone.style.left = `${sourceRect.left}px`;
-    clone.style.width = `${sourceRect.width}px`;
-    clone.style.height = `${sourceRect.height}px`;
-    clone.style.margin = '0';
-    clone.style.pointerEvents = 'none';
-    clone.style.zIndex = '40';
-    clone.style.transformOrigin = 'top left';
-    document.body.appendChild(clone);
-    floatingTilesRef.current.set(tileId, clone);
+    const clones = new Map<string, HTMLElement>();
+    sourceRects.forEach((rect, tileId) => {
+      const source = root.querySelector(`[data-tile-id="${tileId}"]`) as HTMLElement;
+      const clone = source.cloneNode(true) as HTMLElement;
+      clone.style.position = 'fixed';
+      clone.style.top = `${rect.top}px`;
+      clone.style.left = `${rect.left}px`;
+      clone.style.width = `${rect.width}px`;
+      clone.style.height = `${rect.height}px`;
+      clone.style.margin = '0';
+      clone.style.pointerEvents = 'none';
+      clone.style.zIndex = '40';
+      clone.style.transformOrigin = 'top left';
+      document.body.appendChild(clone);
+      floatingTilesRef.current.set(tileId, clone);
+      clones.set(tileId, clone);
+    });
 
     flushSync(() => {
-      setAnimatingTileIds(prev => (prev.includes(tileId) ? prev : [...prev, tileId]));
+      setAnimatingTileIds((prev) => Array.from(new Set([...prev, ...tileIds])));
       mutateBoard();
     });
 
-    const destination = root.querySelector(`[data-assembly-tile-id="${tileId}"]`) as HTMLElement | null;
-    if (!destination) {
-      cleanupFloatingTile(tileId);
-      return;
-    }
-
-    const destinationRect = destination.getBoundingClientRect();
-    const tween = gsap.to(clone, {
-      top: destinationRect.top,
-      left: destinationRect.left,
-      width: destinationRect.width,
-      height: destinationRect.height,
-      duration: TILE_FLIGHT_DURATION_S,
-      ease: 'power2.inOut',
-      onComplete: () => {
-        activeTweensRef.current.delete(tileId);
-        setAnimatingTileIds(prev => prev.filter(id => id !== tileId));
-        requestAnimationFrame(() => {
-          if (floatingTilesRef.current.get(tileId) === clone) {
-            clone.remove();
-            floatingTilesRef.current.delete(tileId);
-          }
-        });
-      },
-    });
-    activeTweensRef.current.set(tileId, tween);
-  }, [cleanupFloatingTile]);
-
-  const validateBoard = useCallback((nextPlaced: (AssemblyTile | null)[], finalSelectedSyllable?: string) => {
-    // isAssemblyBoardComplete/isAssemblyBoardCorrect take a whole AssemblyBoard but
-    // only ever read `.placedTiles`. This caller only has the placed-tiles snapshot
-    // (see handleTrayTileTap's comment on why), so `trayTiles: []` here is a dummy
-    // that satisfies the parameter type -- never read `.trayTiles` off `placedBoard`.
-    const placedBoard: AssemblyBoard = { trayTiles: [], placedTiles: nextPlaced };
-    if (!targetWord || !isAssemblyBoardComplete(placedBoard)) return;
-
-    const isCorrect = isAssemblyBoardCorrect(placedBoard, correctSyllables);
-    setTotalChecks(prev => prev + 1);
-
-    if (isCorrect) {
-      const nextRoundsPlayed = roundsPlayed + 1;
-      setRoundsPlayed(nextRoundsPlayed);
-      setCorrectRounds(prev => prev + 1);
-      clearTimer(roundAdvanceTimerRef);
-      roundAdvanceTimerRef.current = setTimeout(() => {
-        if (nextRoundsPlayed >= MAX_ROUNDS) {
-          setShowSessionComplete(true);
-        } else {
-          setShowSuccess(true);
-        }
-        roundAdvanceTimerRef.current = null;
-      }, BOARD_SETTLE_DELAY_MS + TIMING.SUCCESS_SHOW_DELAY_MS);
-      return;
-    }
-
-    triggerWrongPulse();
-    audioManager.play(getWrongAudio(locale, targetWord, finalSelectedSyllable));
-
-    clearTimer(resetRevealTimerRef);
-    clearTimer(resetBoardTimerRef);
-    resetRevealTimerRef.current = setTimeout(() => {
-      setIsResettingBoard(true);
-      resetRevealTimerRef.current = null;
-      resetBoardTimerRef.current = setTimeout(() => {
-        const emptyBoard: AssemblyBoard = { trayTiles: [], placedTiles: [...nextPlaced] };
-        setBoard(nextPlaced.reduce<AssemblyBoard>(
-          (acc, tile, slotIndex) => (tile ? returnTileToTray(acc, slotIndex) : acc),
-          emptyBoard,
-        ));
-        setIsResettingBoard(false);
-        cleanupAllFloatingTiles();
-        resetBoardTimerRef.current = null;
-      }, WRONG_RESET_DELAY_MS);
-    }, BOARD_SETTLE_DELAY_MS + WRONG_REVEAL_DELAY_MS);
-  }, [cleanupAllFloatingTiles, correctSyllables, locale, roundsPlayed, targetWord, triggerWrongPulse]);
-
-  const handleTrayTileTap = useCallback((tileId: string) => {
-    if (showSuccess || showSessionComplete || isResettingBoard) return;
-
-    const emptySlots = board.placedTiles.filter(s => s === null).length;
-    const placingLastTile = emptySlots === 1;
-
-    // Snapshot only the placed-tiles array (not the whole AssemblyBoard) out of the
-    // setBoard updater: TS's control-flow narrowing mishandles a `let` outside the
-    // closure that shares the state's own object shape, collapsing it to `never`.
-    let nextPlacedSnapshot: (AssemblyTile | null)[] | null = null;
-    let selectedTileText: string | null = null;
-    animateBoardMove(tileId, () => {
-      setBoard(prevBoard => {
-        const tile = prevBoard.trayTiles.find(candidate => candidate.id === tileId);
-        if (!tile) return prevBoard;
-        selectedTileText = tile.text;
-
-        const nextBoard = moveTileToFirstOpenSlot(prevBoard, tileId);
-        if (nextBoard === prevBoard) return prevBoard;
-
-        nextPlacedSnapshot = nextBoard.placedTiles;
-        return nextBoard;
+    clones.forEach((clone, tileId) => {
+      const destination = root.querySelector(`[data-tile-id="${tileId}"]`) as HTMLElement | null;
+      if (!destination) {
+        cleanupFloatingTile(tileId);
+        return;
+      }
+      const destinationRect = destination.getBoundingClientRect();
+      const tween = gsap.to(clone, {
+        top: destinationRect.top,
+        left: destinationRect.left,
+        width: destinationRect.width,
+        height: destinationRect.height,
+        duration: TILE_FLIGHT_DURATION_S,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          activeTweensRef.current.delete(tileId);
+          setAnimatingTileIds((prev) => prev.filter((id) => id !== tileId));
+          requestAnimationFrame(() => {
+            if (floatingTilesRef.current.get(tileId) === clone) {
+              clone.remove();
+              floatingTilesRef.current.delete(tileId);
+            }
+          });
+        },
       });
+      activeTweensRef.current.set(tileId, tween);
     });
+  }, [cleanupFloatingTile, prefersReducedMotion]);
 
-    const nextPlaced = nextPlacedSnapshot ?? [];
+  const session = useGameSession({
+    maxRounds: MAX_ROUNDS,
+    maxAttempts: null,
+    onNextRound: () => {
+      cleanupAllFloatingTiles();
+      setRoundState(buildRound());
+    },
+    onPlayAgain: () => {
+      cleanupAllFloatingTiles();
+      setCompletionPraise(pickPraise(praiseEntries));
+      wordQueueRef.current = [];
+      setRoundState(buildRound());
+    },
+  });
+  const {
+    state,
+    canAnswer,
+    replaying,
+    startPrompt,
+    replayPrompt,
+    resolveAnswer,
+    continueAfterFeedback,
+    playAgain,
+    pause,
+    resume,
+    fail,
+  } = session;
 
-    if (
-      typeof selectedTileText === 'string'
-      && shouldPlaySelectedSyllableAudio({
-        placingLastTile,
-        nextPlaced,
-        correctSyllables,
-      })
-    ) {
-      const selectedSyllable = selectedTileText as string;
-      audioManager.play(getItemAnnouncementAudio(locale, 'syllables', selectedSyllable.toLowerCase(), selectedSyllable));
+  useEffect(() => {
+    if (isEmpty) {
+      cleanupAllFloatingTiles();
+      fail(getUiCopy(locale, 'game.error.emptyPool'));
     }
+  }, [isEmpty, fail, locale, cleanupAllFloatingTiles]);
 
-    if (nextPlacedSnapshot) {
-      validateBoard(nextPlacedSnapshot, selectedTileText ?? undefined);
-    }
-  }, [animateBoardMove, board.placedTiles, correctSyllables, isResettingBoard, locale, showSessionComplete, showSuccess, validateBoard]);
-
-  const handlePlacedTileTap = useCallback((slotIndex: number) => {
-    if (showSuccess || showSessionComplete || isResettingBoard) return;
-
-    const tile = placedTiles[slotIndex];
-    if (!tile) return;
-
-    animateBoardMove(tile.id, () => {
-      setBoard(prevBoard => returnTileToTray(prevBoard, slotIndex));
+  useEffect(() => {
+    setE2EState({
+      gameId: 'ASSEMBLY',
+      gamePhase: state.phase,
+      paused: state.paused,
+      wrongAttempts: state.wrongAttempts,
+      roundsPlayed: state.roundsPlayed,
+      totalTaps: state.totalTaps,
+      replaying,
+      trayTileIds: trayTiles.map((tile) => tile.id),
+      placedTileIds: placedTiles.map((tile) => tile?.id ?? null),
+      correctTileOrder,
     });
-  }, [animateBoardMove, isResettingBoard, placedTiles, showSessionComplete, showSuccess]);
+  }, [state, replaying, trayTiles, placedTiles, correctTileOrder]);
 
-  const handlePlay = useCallback(() => {
-    const nextRound = prepareRound();
-    if (!nextRound) return;
+  // Restores DOM focus after a board mutation: the "next available tray piece" once a tile is
+  // placed, or the tile itself once it returns to the tray. Set synchronously by placeTile/
+  // returnTile before any await, so no effect can fire in between and see a stale ref. The
+  // target stays `visibility: hidden` (normal motion) or opacity-faded (reduced motion) for the
+  // whole flight/fade window tracked by `animatingTileIds`, and a hidden element can't take
+  // focus — so this waits for that window to close, re-running each time it changes, before
+  // actually focusing and clearing the pending ref.
+  useEffect(() => {
+    const pendingId = pendingFocusTileIdRef.current;
+    if (!pendingId || animatingTileIds.includes(pendingId)) return;
+    pendingFocusTileIdRef.current = null;
+    const target = (trayRegionRef.current?.querySelector(`[data-tile-id="${pendingId}"]`)
+      ?? railRegionRef.current?.querySelector(`[data-tile-id="${pendingId}"]`)) as HTMLElement | null;
+    target?.focus();
+  }, [trayTiles, placedTiles, animatingTileIds]);
 
-    resetTransientTimers();
-    setTargetWord(nextRound.word);
-    setBoard(nextRound.board);
-    setShowSuccess(false);
-    setShowSessionComplete(false);
-    setWrongPulse(false);
-    setIsResettingBoard(false);
-    setAnimatingTileIds([]);
-    setGameState('PLAYING');
-    promptTimerRef.current = setTimeout(() => {
-      audioManager.play(getPromptAudio(locale, nextRound.word));
-      promptTimerRef.current = null;
+  const phaseRef = useRef(state.phase);
+  useEffect(() => {
+    phaseRef.current = state.phase;
+  }, [state.phase]);
+
+  useEffect(() => {
+    if (!targetWord || isEmpty) return;
+    const timer = setTimeout(() => {
+      // A round-start prompt must never invalidate an answer that started resolving first —
+      // invalidate() would stop that answer's own in-flight audio and hang it forever. Only
+      // fire while the round is still untouched; a manual replay or an answer already moved on.
+      if (phaseRef.current !== 'ready') return;
+      void startPrompt(getPromptAudio(locale, targetWord));
     }, TIMING.AUDIO_DELAY_MS);
-  }, [locale, prepareRound, resetTransientTimers]);
+    return () => clearTimeout(timer);
+  }, [targetWord, isEmpty, locale, startPrompt]);
 
-  const handleBackToLobby = useCallback(() => {
-    audioManager.stop();
-    resetTransientTimers();
-    setShowSuccess(false);
-    setShowSessionComplete(false);
-    setTargetWord(null);
-    setBoard({ trayTiles: [], placedTiles: [] });
-    setRoundsPlayed(0);
-    setCorrectRounds(0);
-    setTotalChecks(0);
-    setIsResettingBoard(false);
-    setWrongPulse(false);
-    setAnimatingTileIds([]);
-    setGameState('HOME');
-  }, [resetTransientTimers]);
+  useEffect(() => {
+    if (state.phase !== 'session-complete' || state.paused) return;
+    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
+    return () => audioManager.stop();
+  }, [state.phase, state.paused, locale, completionPraise]);
 
-  if (gameState === 'HOME') {
-    return (
-      <GameLobby
-        gameId="ASSEMBLY"
-        availabilityMessage={
-          eligibleWords.length === 0
-            ? 'Pridajte slová so slabikami v sekcii Obsah'
-            : undefined
-        }
-        onPlay={() => {
-          if (eligibleWords.length === 0) return;
-          handlePlay();
-        }}
-        onBack={onExit}
-        onOpenSettings={onOpenSettings}
-      />
-    );
+  // Every new round, replay, pause, lobby exit, recoverable error, and unmount must kill any
+  // in-flight GSAP tween/clone — useGameSession's own invalidate() only knows about audio and
+  // timers, not GSAP, so this game must clean those up itself at each of those points.
+  useEffect(() => () => cleanupAllFloatingTiles(), [cleanupAllFloatingTiles]);
+
+  const handleReplay = useCallback(() => {
+    if (!targetWord) return;
+    cleanupAllFloatingTiles();
+    void replayPrompt(getReplayAudio(locale, targetWord));
+  }, [targetWord, locale, replayPrompt, cleanupAllFloatingTiles]);
+
+  const handlePause = useCallback(() => {
+    cleanupAllFloatingTiles();
+    pause();
+  }, [cleanupAllFloatingTiles, pause]);
+
+  const handleExit = useCallback(() => {
+    cleanupAllFloatingTiles();
+    onExit();
+  }, [cleanupAllFloatingTiles, onExit]);
+
+  const retryAfterError = useCallback(() => {
+    if (!isEmpty) playAgain();
+  }, [isEmpty, playAgain]);
+
+  const placeTile = useCallback(async (tile: AssemblyTile) => {
+    if (!targetWord || !canAnswer) return;
+    if (animatingTileIds.includes(tile.id)) return;
+    if (answerLockRef.current) return;
+    answerLockRef.current = true;
+    try {
+      const emptySlotCount = board.placedTiles.filter((slot) => slot === null).length;
+      const placingLastTile = emptySlotCount === 1;
+      const nextBoard = moveTileToFirstOpenSlot(board, tile.id);
+      if (nextBoard === board) return;
+
+      animateTilesMove([tile.id], () => setRoundState((prev) => ({ ...prev, board: nextBoard })));
+      pendingFocusTileIdRef.current = findNextTrayFocusId(nextBoard.trayTiles, tile.trayIndex);
+
+      const decision = getAssemblySelectionAudioDecision({
+        placingLastTile,
+        nextPlaced: nextBoard.placedTiles,
+        correctSyllables,
+      });
+
+      if (!placingLastTile) {
+        await resolveAnswer({
+          answerId: tile.id,
+          outcome: 'progress',
+          countTap: false,
+          selectionAudio: getItemAnnouncementAudio(locale, 'syllables', tile.text.toLowerCase(), tile.text),
+        });
+        return;
+      }
+
+      if (decision === 'selected-now') {
+        const praise = pickPraise(praiseEntries);
+        setRoundPraise(praise);
+        await resolveAnswer({
+          answerId: tile.id,
+          outcome: 'correct',
+          selectionAudio: getItemAnnouncementAudio(locale, 'syllables', tile.text.toLowerCase(), tile.text),
+          verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetWord)),
+        });
+        return;
+      }
+
+      // decision === 'defer-to-wrong-sequence': the wrong-final-tile exception. Nothing plays
+      // the syllable immediately — the whole [syllable, retry, word] sequence below is the
+      // *only* time it's announced, standing in as this call's own selectionAudio (verdictAudio
+      // never plays for a non-terminal 'wrong' outcome, and this game never has a terminal one).
+      const resolution = await resolveAnswer({
+        answerId: tile.id,
+        outcome: 'wrong',
+        selectionAudio: getWrongSequenceAudio(locale, targetWord, tile.text),
+      });
+
+      if (resolution === 'retry') {
+        const placedNow = nextBoard.placedTiles.filter((placed): placed is AssemblyTile => placed !== null);
+        const resetBoard = placedNow.reduce<AssemblyBoard>(
+          (acc, _placedTile, slotIndex) => returnTileToTray(acc, slotIndex),
+          nextBoard,
+        );
+        const sortedTray = [...resetBoard.trayTiles].sort((a, b) => a.trayIndex - b.trayIndex);
+        pendingFocusTileIdRef.current = sortedTray[0]?.id ?? null;
+        animateTilesMove(
+          placedNow.map((placedTile) => placedTile.id),
+          () => setRoundState((prev) => ({ ...prev, board: resetBoard })),
+        );
+      }
+    } finally {
+      answerLockRef.current = false;
+    }
+  }, [
+    animateTilesMove, animatingTileIds, board, canAnswer, correctSyllables, locale,
+    praiseEntries, resolveAnswer, targetWord,
+  ]);
+
+  const returnTile = useCallback((tile: AssemblyTile, slotIndex: number) => {
+    if (!canAnswer || animatingTileIds.includes(tile.id)) return;
+    const nextBoard = returnTileToTray(board, slotIndex);
+    if (nextBoard === board) return;
+    pendingFocusTileIdRef.current = tile.id;
+    animateTilesMove([tile.id], () => setRoundState((prev) => ({ ...prev, board: nextBoard })));
+  }, [animateTilesMove, animatingTileIds, board, canAnswer]);
+
+  const feedback: GameShellFeedback | null = state.feedback === 'success'
+    ? {
+        kind: 'success',
+        title: roundPraise?.text ?? getUiCopy(locale, 'game.successTitle'),
+        emoji: roundPraise?.emoji,
+        onContinue: continueAfterFeedback,
+      }
+    : state.phase === 'answered-incorrectly'
+    ? { kind: 'retry', title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
+    : null;
+
+  const completion: GameShellCompletion = {
+    praise: completionPraise,
+    correctRounds: state.correctRounds,
+    totalTaps: state.totalTaps,
+    maxRounds: state.maxRounds,
+    onPlayAgain: playAgain,
+    onHome: handleExit,
+  };
+
+  return (
+    <GameShell
+      gameId="ASSEMBLY"
+      state={state}
+      onBack={handleExit}
+      onRetryError={retryAfterError}
+      onPause={handlePause}
+      onResume={resume}
+      prompt={
+        <GamePrompt
+          instruction={INSTRUCTION}
+          visual={
+            targetWord ? (
+              <div ref={boardRootRef} className="flex w-full flex-col items-center gap-3">
+                <PictureCard emoji={targetWord.emoji} label={targetWord.word} />
+                <div
+                  ref={railRegionRef}
+                  className="w-full"
+                  onKeyDown={(event) => handleRailKeyDown(event, railRegionRef.current)}
+                >
+                  <WordRail label={`Slovo ${targetWord.word}`}>
+                    {placedTiles.map((tile, index) => {
+                      const isMoving = tile ? animatingTileIds.includes(tile.id) : false;
+                      const isEntering = tile ? enteringTileIds.includes(tile.id) : false;
+                      return (
+                        <InsetSlot
+                          key={`assembly-slot-${index}`}
+                          label={tile ? `Slabika ${index + 1}: ${tile.text}` : `Slabika ${index + 1}: prázdne`}
+                          state={tile ? 'filled' : 'pending'}
+                        >
+                          {tile ? (
+                            <TactilePiece
+                              as="button"
+                              material="felt"
+                              label={`Umiestnená slabika ${tile.text}, klepnutím vrátiš do zásobníka`}
+                              data-tile-id={tile.id}
+                              state={getTilePieceState(state, tile.id)}
+                              disabled={!canAnswer || isMoving}
+                              tabIndex={tile.id === resolvedRailActiveId ? 0 : -1}
+                              onFocus={() => setRailActiveTileId(tile.id)}
+                              onPress={() => returnTile(tile, index)}
+                              style={
+                                prefersReducedMotion
+                                  ? { opacity: isEntering ? 0 : 1, transition: 'opacity 200ms ease' }
+                                  : isMoving ? { visibility: 'hidden' } : undefined
+                              }
+                            >
+                              <span className="font-spline text-[clamp(1.5rem,6vmin,3rem)] font-black leading-none">
+                                {renderTileLabel(tile.text)}
+                              </span>
+                            </TactilePiece>
+                          ) : null}
+                        </InsetSlot>
+                      );
+                    })}
+                  </WordRail>
+                </div>
+              </div>
+            ) : null
+          }
+          replaying={replaying}
+          onReplay={handleReplay}
+        />
+      }
+      feedback={feedback}
+      completion={completion}
+    >
+      <div ref={trayRegionRef} className="flex min-h-0 flex-1 flex-col">
+        <PlayTray label={getUiCopy(locale, 'game.playArea')}>
+          <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer}>
+            {trayTiles.map((tile) => {
+              const isMoving = animatingTileIds.includes(tile.id);
+              const isEntering = enteringTileIds.includes(tile.id);
+              return (
+                <TactilePiece
+                  key={tile.id}
+                  as="button"
+                  material="felt"
+                  label={`Slabika ${tile.text}`}
+                  data-tile-id={tile.id}
+                  state={getTilePieceState(state, tile.id)}
+                  disabled={isMoving}
+                  onPress={() => void placeTile(tile)}
+                  style={
+                    prefersReducedMotion
+                      ? { opacity: isEntering ? 0 : 1, transition: 'opacity 200ms ease' }
+                      : isMoving ? { visibility: 'hidden' } : undefined
+                  }
+                >
+                  <span className="font-spline text-[clamp(2rem,7vw,4.5rem)] font-black leading-none">
+                    {renderTileLabel(tile.text)}
+                  </span>
+                </TactilePiece>
+              );
+            })}
+          </AnswerGroup>
+        </PlayTray>
+      </div>
+    </GameShell>
+  );
+}
+
+export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
+  const { wordItems } = useContent();
+  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
+
+  const eligibleWords = useMemo(
+    () => wordItems.filter(({ syllables }) => {
+      const syllableCount = syllables.split('-').length;
+      return syllableCount >= 2 && syllableCount <= 3;
+    }),
+    [wordItems],
+  );
+  const isPlayable = eligibleWords.length > 0;
+
+  if (gameState === 'PLAYING') {
+    return <AssemblyPlayfield eligibleWords={eligibleWords} onExit={() => setGameState('HOME')} />;
   }
 
   return (
-    <AppScreen maxWidth="game" contentClassName="gap-4 sm:gap-5 md:gap-6 xl:max-w-5xl">
-      <div
-        ref={boardRootRef}
-        className="flex flex-1 min-h-0 flex-col justify-between gap-4 sm:justify-center sm:gap-6"
-      >
-        <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-          <TopBar
-            left={<BackButton onClick={handleBackToLobby} />}
-            center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
-            right={(
-              <IconButton label="Prehrať slovo" onClick={() => playPromptAudio(targetWord)}>
-                <Volume2 size={24} className="sm:w-7 sm:h-7" />
-              </IconButton>
-            )}
-          />
-
-          <div className="flex justify-center">
-            <PromptBadge
-              onClick={() => targetWord && playPromptAudio(targetWord)}
-              ariaLabel={targetWord?.word}
-            >
-              <span className="text-6xl sm:text-7xl leading-none">
-                {targetWord?.emoji}
-              </span>
-            </PromptBadge>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-          <Card
-            className={`mx-auto w-full max-w-3xl !rounded-[36px] !bg-white/70 !p-4 !shadow-block transition-all sm:!rounded-[48px] sm:!p-6 ${
-              wrongPulse ? 'ring-4 ring-soft-watermelon scale-[1.01]' : ''
-            }`}
-          >
-            <div className={`grid gap-3 sm:gap-5 ${placedTiles.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
-              {placedTiles.map((tile, index) => (
-                <AnswerSlot
-                  key={`answer-slot-${index}`}
-                  index={index}
-                  tile={tile}
-                  isResettingBoard={isResettingBoard}
-                  hiddenTileIds={animatingTileIds}
-                  onTileTap={handlePlacedTileTap}
-                />
-              ))}
-            </div>
-          </Card>
-
-          <Card className="mx-auto w-full max-w-3xl !rounded-[36px] !p-4 !shadow-block sm:!rounded-[48px] sm:!p-6">
-            <div className={`grid gap-3 sm:gap-5 min-h-[112px] ${correctSyllables.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
-              {Array.from({ length: correctSyllables.length }, (_, index) => {
-                const tile = trayTiles.find(candidate => candidate.trayIndex === index) ?? null;
-
-                return (
-                  <div
-                    key={`tray-slot-${index}`}
-                    className="min-h-[88px] sm:min-h-[120px] flex items-center justify-center"
-                  >
-                    <div className="w-full max-w-[240px] h-[72px] sm:h-[92px] flex items-center justify-center">
-                      {tile ? (
-                        <TileButton
-                          tile={tile}
-                          disabled={isResettingBoard || animatingTileIds.includes(tile.id)}
-                          hidden={animatingTileIds.includes(tile.id)}
-                          onClick={() => handleTrayTileTap(tile.id)}
-                        />
-                      ) : null}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Card>
-        </div>
-      </div>
-
-      {targetWord && (
-        <SuccessOverlay
-          show={showSuccess}
-          spec={{
-            echoLine: `${targetWord.syllables} ${targetWord.emoji}`,
-            audioSpec: getSuccessAudio(locale, targetWord),
-            praiseEntry: praiseEntries.find((entry) => entry.audioKey === 'vyborne'),
-          }}
-          onComplete={startNewRound}
-        />
-      )}
-
-      <SessionCompleteOverlay
-        show={showSessionComplete}
-        roundsCompleted={correctRounds}
-        totalTaps={totalChecks}
-        maxRounds={MAX_ROUNDS}
-        onComplete={handleBackToLobby}
-      />
-    </AppScreen>
+    <GameLobby
+      gameId="ASSEMBLY"
+      availabilityMessage={
+        isPlayable ? undefined : 'Pridajte slová so slabikami v sekcii Obsah'
+      }
+      onPlay={() => setGameState('PLAYING')}
+      onBack={onExit}
+      onOpenSettings={onOpenSettings}
+    />
   );
 }

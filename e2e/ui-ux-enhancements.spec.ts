@@ -63,7 +63,7 @@ test.describe('UI/UX Enhancements', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('assembly: prompt badge and answer slots render with thumb layout on mobile', async ({ page }) => {
+  test('assembly: picture card and rail slots render with thumb layout on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
@@ -71,11 +71,12 @@ test.describe('UI/UX Enhancements', () => {
     await page.goto('/assembly');
     await page.getByRole('button', { name: 'Hrať' }).click();
 
-    // Prompt badge is visible
-    const promptBadge = page.getByTestId('prompt-badge');
-    await expect(promptBadge.first()).toBeVisible();
+    // Task 6's migration replaced the bespoke PromptBadge/AnswerSlot markup with the shared
+    // PictureCard + WordRail/InsetSlot materials (same Phase 5 shell as the other literacy games).
+    const pictureCard = page.getByTestId('picture-card');
+    await expect(pictureCard.first()).toBeVisible();
 
-    // Empty slot with question mark placeholder is visible
+    // Empty rail slot with question mark placeholder is visible
     await expect(page.getByText('?').first()).toBeVisible();
 
     expectNoConsoleErrors(errors);
