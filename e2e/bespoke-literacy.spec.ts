@@ -3,6 +3,7 @@ import { expectMinimumTarget, expectNoHorizontalOverflow } from './support/layou
 import { getE2EState } from './support/e2eHook';
 import { clearAudioEvents, getAudioEvents, pressAnswerById, waitForGamePhase } from './support/gameHarness';
 import { seedLocalStorage } from './support/persistenceFixtures';
+import { unlockParentGate } from './support/parentGate';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
 
@@ -564,6 +565,49 @@ test('Skladaj shows a polite retry status on a wrong full rail, plays its specia
 
   await waitForGamePhase(page, 'awaiting-answer');
   await expect(rail.locator('[data-slot-state="filled"]')).toHaveCount(0);
+  await expect(rail.locator('[data-slot-state="pending"]')).toHaveCount(3);
+  await expect(tray.locator('[data-tile-id]')).toHaveCount(3);
+
+  const finalState = await getE2EState<AssemblyE2EState>(page);
+  expect(finalState.roundsPlayed).toBe(0);
+});
+
+test('Skladaj still resets a wrong full rail to the tray if a parent pauses mid-verdict-audio', async ({ page }) => {
+  await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
+  await page.goto('/assembly');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+
+  const state = await getE2EState<AssemblyE2EState>(page);
+  const [first, second, third] = state.correctTileOrder;
+  const wrongOrder = [second, first, third];
+  const tray = page.getByTestId('play-tray');
+  const rail = page.getByTestId('word-rail');
+
+  await tray.locator(`[data-tile-id="${wrongOrder[0]}"]`).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+  await tray.locator(`[data-tile-id="${wrongOrder[1]}"]`).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+
+  // Tap the final, wrong tile, then pause immediately — before the 3-clip wrong sequence
+  // (syllable -> retry -> word) has any chance to finish, so resolveAnswer's own in-flight
+  // audio await is still pending when pause()'s invalidate() stops it and bumps the operation
+  // id. That makes resolveAnswer resolve 'cancelled' instead of 'retry', which is exactly the
+  // window this test targets: placeTile's own reset never runs in that case, and only
+  // handleResume's board-state recovery check can put the tray back together.
+  await tray.locator(`[data-tile-id="${wrongOrder[2]}"]`).click();
+  await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
+
+  const paused = await getE2EState<AssemblyE2EState>(page);
+  expect(paused.paused).toBe(true);
+
+  // Resolve the gate deterministically via the documented test-mode adapter rather than solving
+  // the arithmetic, matching the established parent-gate E2E pattern.
+  await unlockParentGate(page);
+  await waitForGamePhase(page, 'awaiting-answer');
+
+  // The board must have reset to the tray — not been left standing with the wrong tile order in
+  // the rail — even though the verdict audio was cut off mid-sequence by the pause.
+  await expect.poll(() => rail.locator('[data-slot-state="filled"]').count()).toBe(0);
   await expect(rail.locator('[data-slot-state="pending"]')).toHaveCount(3);
   await expect(tray.locator('[data-tile-id]')).toHaveCount(3);
 

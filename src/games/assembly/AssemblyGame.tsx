@@ -38,6 +38,8 @@ import {
   AssemblyTile,
   createAssemblyBoard,
   getCorrectTileOrder,
+  isAssemblyBoardComplete,
+  isAssemblyBoardCorrect,
   moveTileToFirstOpenSlot,
   returnTileToTray,
 } from './assemblyLogic';
@@ -452,6 +454,45 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     if (!isEmpty) playAgain();
   }, [isEmpty, playAgain]);
 
+  /**
+   * Returns every currently placed tile back to the tray, animated. Used both by the normal
+   * wrong-full-rail completion inside placeTile (right after its verdict sequence finishes) and
+   * by handleResume's own recovery check below, since a pause can interrupt that verdict
+   * sequence before resolveAnswer ever reports 'retry'.
+   */
+  const resetWrongBoardToTray = useCallback((boardToReset: AssemblyBoard) => {
+    const placedNow = boardToReset.placedTiles.filter((placed): placed is AssemblyTile => placed !== null);
+    if (placedNow.length === 0) return;
+    const resetBoard = placedNow.reduce<AssemblyBoard>(
+      (acc, _placedTile, slotIndex) => returnTileToTray(acc, slotIndex),
+      boardToReset,
+    );
+    const sortedTray = [...resetBoard.trayTiles].sort((a, b) => a.trayIndex - b.trayIndex);
+    pendingFocusTileIdRef.current = sortedTray[0]?.id ?? null;
+    animateTilesMove(
+      placedNow.map((placedTile) => placedTile.id),
+      () => setRoundState((prev) => ({ ...prev, board: resetBoard })),
+    );
+  }, [animateTilesMove]);
+
+  /**
+   * pause() (see handlePause) calls useGameSession's invalidate(), which stops audioManager
+   * mid-clip and bumps its operation id. If that happens while the wrong-final-tile verdict
+   * sequence (selectionAudio: getWrongSequenceAudio) is still playing, resolveAnswer's own
+   * post-await staleness check fires before ANSWER_WRONG is ever dispatched, so it resolves
+   * 'cancelled' instead of 'retry' — placeTile's reset below never runs, and the board is left
+   * full with the wrong tile order. useGameSession's own resume() recovery
+   * (resumeCancelledAnswerRef) only restores the *session* phase, not this game's board, so
+   * resume re-checks the board directly here: if it's complete but not correct, the wrong-rail
+   * reset must still happen, exactly as if the verdict sequence had been allowed to finish.
+   */
+  const handleResume = useCallback(() => {
+    resume();
+    if (isAssemblyBoardComplete(board) && !isAssemblyBoardCorrect(board, correctSyllables)) {
+      resetWrongBoardToTray(board);
+    }
+  }, [resume, board, correctSyllables, resetWrongBoardToTray]);
+
   const placeTile = useCallback(async (tile: AssemblyTile) => {
     if (!targetWord || !canAnswer) return;
     if (animatingTileIds.includes(tile.id)) return;
@@ -505,24 +546,17 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       });
 
       if (resolution === 'retry') {
-        const placedNow = nextBoard.placedTiles.filter((placed): placed is AssemblyTile => placed !== null);
-        const resetBoard = placedNow.reduce<AssemblyBoard>(
-          (acc, _placedTile, slotIndex) => returnTileToTray(acc, slotIndex),
-          nextBoard,
-        );
-        const sortedTray = [...resetBoard.trayTiles].sort((a, b) => a.trayIndex - b.trayIndex);
-        pendingFocusTileIdRef.current = sortedTray[0]?.id ?? null;
-        animateTilesMove(
-          placedNow.map((placedTile) => placedTile.id),
-          () => setRoundState((prev) => ({ ...prev, board: resetBoard })),
-        );
+        resetWrongBoardToTray(nextBoard);
       }
+      // If resolution is 'cancelled' instead (a pause interrupted the verdict sequence above),
+      // the reset is not skipped — handleResume's own recovery check performs it once the
+      // parent unlocks, using the same resetWrongBoardToTray helper.
     } finally {
       answerLockRef.current = false;
     }
   }, [
     animateTilesMove, animatingTileIds, board, canAnswer, correctSyllables, locale,
-    praiseEntries, resolveAnswer, targetWord,
+    praiseEntries, resetWrongBoardToTray, resolveAnswer, targetWord,
   ]);
 
   const returnTile = useCallback((tile: AssemblyTile, slotIndex: number) => {
@@ -560,7 +594,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       onBack={handleExit}
       onRetryError={retryAfterError}
       onPause={handlePause}
-      onResume={resume}
+      onResume={handleResume}
       prompt={
         <GamePrompt
           instruction={INSTRUCTION}
