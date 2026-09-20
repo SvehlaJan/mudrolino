@@ -21,6 +21,11 @@ export function InsetSlot({ label, state, children, className = '', ...props }: 
       data-slot-state={state}
       className={cn(
         'grid min-h-14 min-w-14 place-items-center rounded-2xl border-[3px] px-3 py-2 font-spline text-[clamp(1.5rem,6vmin,3.25rem)] font-black leading-none',
+        // A short viewport height compresses this the same as a narrow one does: a longer word
+        // (more InsetSlots) needs the whole rail to wrap less, or a short landscape strip needs
+        // less vertical room per slot — either way the fallback is the same smaller slot.
+        '[@media(max-height:480px)]:min-h-9 [@media(max-height:480px)]:min-w-9 [@media(max-height:480px)]:px-1.5 [@media(max-height:480px)]:py-1 [@media(max-height:480px)]:text-[clamp(1rem,5vmin,2rem)]',
+        '[@media(max-width:400px)]:min-h-9 [@media(max-width:400px)]:min-w-9 [@media(max-width:400px)]:px-1.5 [@media(max-width:400px)]:py-1 [@media(max-width:400px)]:text-[clamp(1rem,5vmin,2rem)]',
         state === 'active' ? 'border-focus bg-selected-surface text-text-main' : 'border-border-subtle bg-surface text-text-main',
         state === 'pending' && 'bg-canvas text-text-muted',
         className,

@@ -187,6 +187,186 @@ export const SCENES = {
   },
 };
 
+// Task 7: round/retry/success/failure(-or-reset)/completion scenes for the four bespoke
+// literacy games. Lobby scenes already exist via the LOBBY_SLUGS aliasing below; protected
+// routes keep using the Phase 1 gate adapter above — these four games interact only through the
+// real Hrať control and the answer/tile controls it reveals, reading window.__E2E__ (the Phase
+// 3-6 oracle hook, active in this test-mode build) to find the correct/wrong id rather than
+// guessing from rendered content.
+async function readGameE2E(page) {
+  return page.evaluate(() => window.__E2E__);
+}
+
+async function waitForGamePhaseScene(page, phase) {
+  await page.waitForFunction((p) => window.__E2E__?.gamePhase === p, phase);
+}
+
+/**
+ * Builds the round/retry/success/failure/completion scene set shared by the three single-tap
+ * choice games (first-letter, complete-letter, complete-syllable) — each publishes the same
+ * `correctItemId`/`answerItemIds` shape and answers through one `data-answer-id` tap.
+ */
+function bespokeChoiceScenes(path) {
+  async function enterPlay(page, baseUrl) {
+    await page.goto(`${baseUrl}${path}`);
+    await page.getByRole('button', { name: 'Hrať' }).click();
+  }
+  async function pressAnswer(page, id) {
+    await page.locator(`[data-answer-id="${id}"]`).click();
+  }
+
+  return {
+    round: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      await page.locator('[data-testid="game-answer-region"] button').first().waitFor({ state: 'visible' });
+    },
+    retry: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      const state = await readGameE2E(page);
+      const wrongId = state.answerItemIds.find((id) => id !== state.correctItemId);
+      await pressAnswer(page, wrongId);
+      await waitForGamePhaseScene(page, 'answered-incorrectly');
+      await page.getByRole('status').waitFor({ state: 'visible' });
+      await page.waitForTimeout(250);
+    },
+    success: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      const state = await readGameE2E(page);
+      await pressAnswer(page, state.correctItemId);
+      await waitForGamePhaseScene(page, 'answered-correctly');
+      await page.getByRole('status').waitFor({ state: 'visible' });
+      await page.waitForTimeout(250);
+    },
+    failure: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      for (let attempt = 0; attempt < 3; attempt += 1) {
+        const state = await readGameE2E(page);
+        const wrongId = state.answerItemIds.find((id) => id !== state.correctItemId);
+        await pressAnswer(page, wrongId);
+        if (attempt < 2) await waitForGamePhaseScene(page, 'awaiting-answer');
+      }
+      await waitForGamePhaseScene(page, 'answered-incorrectly');
+      await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
+      await page.waitForTimeout(250);
+    },
+    completion: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      for (let round = 0; round < 5; round += 1) {
+        const state = await readGameE2E(page);
+        await pressAnswer(page, state.correctItemId);
+        await waitForGamePhaseScene(page, 'answered-correctly');
+        if (round < 4) {
+          await page.getByRole('button', { name: 'Pokračovať' }).click();
+          await waitForGamePhaseScene(page, 'ready');
+        }
+      }
+      await waitForGamePhaseScene(page, 'session-complete');
+      await page.getByRole('button', { name: 'Hrať znova' }).waitFor({ state: 'visible' });
+      await page.waitForTimeout(250);
+    },
+  };
+}
+
+for (const [prefix, path] of [
+  ['first-letter', '/first-letter'],
+  ['complete-letter', '/complete-letter'],
+  ['complete-syllable', '/complete-syllable'],
+]) {
+  const scenes = bespokeChoiceScenes(path);
+  SCENES[`${prefix}-round`] = scenes.round;
+  SCENES[`${prefix}-retry`] = scenes.retry;
+  SCENES[`${prefix}-success`] = scenes.success;
+  SCENES[`${prefix}-failure`] = scenes.failure;
+  SCENES[`${prefix}-completion`] = scenes.completion;
+}
+
+/**
+ * Assembly has no single-tap answer and no failure state (no max attempts) — a wrong outcome
+ * only exists at a wrong FULL rail, which then auto-resets the tray. 'assembly-reset' stands in
+ * for the failure scene the other three games have, capturing the tray just after that automatic
+ * reset instead of a terminal failure overlay that this game never shows.
+ */
+const assemblyScenes = (() => {
+  async function enterPlay(page, baseUrl) {
+    await page.goto(`${baseUrl}/assembly`);
+    await page.getByRole('button', { name: 'Hrať' }).click();
+  }
+  async function placeWrongFullRail(page) {
+    const state = await readGameE2E(page);
+    const order = state.correctTileOrder;
+    // Unseeded, so the word (and its syllable/tile count, 2 or 3 per AssemblyGame's own
+    // eligibility filter) is random — a one-position rotation of the correct order is always a
+    // different permutation, so it's guaranteed wrong regardless of tile count.
+    const wrongOrder = [...order.slice(1), order[0]];
+    const tray = page.getByTestId('play-tray');
+    for (const tileId of wrongOrder.slice(0, -1)) {
+      await tray.locator(`[data-tile-id="${tileId}"]`).click();
+      await waitForGamePhaseScene(page, 'awaiting-answer');
+    }
+    await tray.locator(`[data-tile-id="${wrongOrder[wrongOrder.length - 1]}"]`).click();
+    await waitForGamePhaseScene(page, 'answered-incorrectly');
+  }
+  async function placeCorrectFullRail(page) {
+    const state = await readGameE2E(page);
+    const tray = page.getByTestId('play-tray');
+    const order = state.correctTileOrder;
+    for (const tileId of order.slice(0, -1)) {
+      await tray.locator(`[data-tile-id="${tileId}"]`).click();
+      await waitForGamePhaseScene(page, 'awaiting-answer');
+    }
+    await tray.locator(`[data-tile-id="${order[order.length - 1]}"]`).click();
+    await waitForGamePhaseScene(page, 'answered-correctly');
+  }
+
+  return {
+    round: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      await page.locator('[data-testid="play-tray"] [data-tile-id]').first().waitFor({ state: 'visible' });
+    },
+    retry: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      await placeWrongFullRail(page);
+      await page.getByRole('status').waitFor({ state: 'visible' });
+      await page.waitForTimeout(250);
+    },
+    success: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      await placeCorrectFullRail(page);
+      await page.getByRole('status').waitFor({ state: 'visible' });
+      await page.waitForTimeout(250);
+    },
+    reset: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      await placeWrongFullRail(page);
+      // The wrong-full-rail verdict sequence finishes and the board auto-resets to a full tray
+      // (see resetWrongBoardToTray in AssemblyGame.tsx) well before the shared retry-ready timer
+      // clears the phase back to 'awaiting-answer' — waiting for that phase, then past the GSAP
+      // tile-flight duration, is enough to guarantee a settled, fully-refilled tray.
+      await waitForGamePhaseScene(page, 'awaiting-answer');
+      await page.waitForTimeout(700);
+    },
+    completion: async (page, baseUrl) => {
+      await enterPlay(page, baseUrl);
+      for (let round = 0; round < 5; round += 1) {
+        await placeCorrectFullRail(page);
+        if (round < 4) {
+          await page.getByRole('button', { name: 'Pokračovať' }).click();
+          await waitForGamePhaseScene(page, 'ready');
+        }
+      }
+      await waitForGamePhaseScene(page, 'session-complete');
+      await page.getByRole('button', { name: 'Hrať znova' }).waitFor({ state: 'visible' });
+      await page.waitForTimeout(250);
+    },
+  };
+})();
+
+SCENES['assembly-round'] = assemblyScenes.round;
+SCENES['assembly-retry'] = assemblyScenes.retry;
+SCENES['assembly-success'] = assemblyScenes.success;
+SCENES['assembly-reset'] = assemblyScenes.reset;
+SCENES['assembly-completion'] = assemblyScenes.completion;
+
 // Aliases for convenient shorthand targeting (e.g. --scene=alphabet)
 const LOBBY_SLUGS = [
   'alphabet',

@@ -1,11 +1,34 @@
-import { expect, test } from '@playwright/test';
-import { expectMinimumTarget, expectNoHorizontalOverflow } from './support/layoutAssertions';
+import { expect, test, type Page } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import {
+  expectMinimumTarget,
+  expectNoHorizontalOverflow,
+  expectNoPairwiseOverlap,
+  expectWithinViewport,
+} from './support/layoutAssertions';
 import { getE2EState } from './support/e2eHook';
-import { clearAudioEvents, getAudioEvents, pressAnswerById, waitForGamePhase } from './support/gameHarness';
+import {
+  clearAudioEvents,
+  getAudioEvents,
+  getAudioClipPaths,
+  pressAnswerById,
+  waitForGamePhase,
+  waitForPaused,
+} from './support/gameHarness';
 import { seedLocalStorage } from './support/persistenceFixtures';
 import { unlockParentGate } from './support/parentGate';
+import { CANONICAL_VIEWPORTS } from './support/viewports';
+import { CI_VIEWPORT_SUBSET } from './playwright.config';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
+
+function toAxeParams(page: Page): ConstructorParameters<typeof AxeBuilder>[0] {
+  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
+}
+
+function isSeriousAxeViolation(impact: string | null | undefined): boolean {
+  return ['critical', 'serious'].includes(impact ?? '');
+}
 
 test('UI kit exposes the literacy material vocabulary', async ({ page }) => {
   await page.goto('/ui-kit');
@@ -734,4 +757,448 @@ test('Skladaj leaves no stale floating tile clones after a wrong full rail reset
   const ids = await page.locator('[data-tile-id]').evaluateAll((nodes) => nodes.map((n) => n.getAttribute('data-tile-id')));
   expect(new Set(ids).size).toBe(3);
   await expect(tray.locator('[data-tile-id]')).toHaveCount(3);
+});
+
+// ============================================================================
+// Task 7: cluster-wide hardening.
+//
+// Tasks 3-6 each covered pause/keyboard/reduced-motion/focus for what that task's own brief
+// required, on the mechanic it migrated. This section closes the remaining gaps across all four
+// games together: the full canonical-viewport matrix, pause/rotation/focus exercised uniformly,
+// and assistive/reduced-motion checks exercised uniformly — reusing each game's own oracle hook
+// rather than duplicating the golden-path coverage already above.
+// ============================================================================
+
+interface BespokeRoundState extends E2EGlobalState {
+  gameId: 'FIRST_LETTER' | 'COMPLETE_LETTER' | 'COMPLETE_SYLLABLE' | 'ASSEMBLY';
+  gamePhase: GamePhase;
+  paused: boolean;
+  roundsPlayed: number;
+  wrongAttempts: number;
+}
+
+interface GenericChoiceState extends BespokeRoundState {
+  correctItemId: string | null;
+  answerItemIds: string[];
+}
+
+/** The 3-choice games (first-letter, complete-letter, complete-syllable) share one E2E state
+ * shape and one single-tap AnswerGroup mechanic, so they share one set of round helpers. */
+async function genericAnswerWrong(page: Page): Promise<string> {
+  const state = await getE2EState<GenericChoiceState>(page);
+  const wrongId = state.answerItemIds.find((id) => id !== state.correctItemId);
+  expect(wrongId, 'expected at least one non-target answer').toBeDefined();
+  await pressAnswerById(page, wrongId!);
+  await page.waitForFunction(
+    () => window.__E2E__?.gamePhase === 'answered-incorrectly',
+    undefined,
+    { polling: 20 },
+  );
+  return wrongId!;
+}
+
+async function genericAnswerCorrect(page: Page): Promise<string> {
+  const state = await getE2EState<GenericChoiceState>(page);
+  await pressAnswerById(page, state.correctItemId!);
+  await waitForGamePhase(page, 'answered-correctly');
+  return state.correctItemId!;
+}
+
+async function genericFinishSessionCorrectly(page: Page): Promise<void> {
+  for (let round = 0; round < 5; round += 1) {
+    await genericAnswerCorrect(page);
+    if (round < 4) {
+      await page.getByRole('button', { name: 'Pokračovať' }).click();
+      await waitForGamePhase(page, 'ready');
+    }
+  }
+  await waitForGamePhase(page, 'session-complete');
+}
+
+/** Assembly has no single-tap "wrong answer" — a wrong outcome only exists at a wrong FULL
+ * rail (see AssemblyGame's own documented exception), so its round helpers place three tiles. */
+async function asmAnswerWrong(page: Page): Promise<string> {
+  const state = await getE2EState<AssemblyE2EState>(page);
+  const [first, second, third] = state.correctTileOrder;
+  const wrongOrder = [second, first, third];
+  const tray = page.getByTestId('play-tray');
+  await tray.locator(`[data-tile-id="${wrongOrder[0]}"]`).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+  await tray.locator(`[data-tile-id="${wrongOrder[1]}"]`).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+  await tray.locator(`[data-tile-id="${wrongOrder[2]}"]`).click();
+  await waitForGamePhase(page, 'answered-incorrectly');
+  return wrongOrder[2];
+}
+
+async function asmAnswerCorrect(page: Page): Promise<string> {
+  const state = await getE2EState<AssemblyE2EState>(page);
+  const tray = page.getByTestId('play-tray');
+  const order = state.correctTileOrder;
+  for (const tileId of order.slice(0, -1)) {
+    await tray.locator(`[data-tile-id="${tileId}"]`).click();
+    await waitForGamePhase(page, 'awaiting-answer');
+  }
+  const lastTileId = order[order.length - 1];
+  await tray.locator(`[data-tile-id="${lastTileId}"]`).click();
+  await waitForGamePhase(page, 'answered-correctly');
+  return lastTileId;
+}
+
+async function asmFinishSessionCorrectly(page: Page): Promise<void> {
+  for (let round = 0; round < 5; round += 1) {
+    await asmAnswerCorrect(page);
+    if (round < 4) {
+      await page.getByRole('button', { name: 'Pokračovať' }).click();
+      await waitForGamePhase(page, 'ready');
+    }
+  }
+  await waitForGamePhase(page, 'session-complete');
+}
+
+interface BespokeGameCase {
+  name: string;
+  path: string;
+  heading: string;
+  instruction: string;
+  /** Navigates, seeds any fixture content Assembly needs for determinism, and starts a round
+   * through the real Hrať control. */
+  enterPlay(page: Page): Promise<void>;
+  /** Taps/places a wrong answer, landing in the shared 'answered-incorrectly' retry state.
+   * Returns the acted-on control's `data-answer-id`/`data-tile-id`. */
+  answerWrong(page: Page): Promise<string>;
+  /** Taps/places the correct answer(s), completing exactly one round successfully. Returns the
+   * acted-on control's `data-answer-id`/`data-tile-id`. */
+  answerCorrect(page: Page): Promise<string>;
+  /** Plays every round of a 5-round session correctly, reaching session-complete. */
+  finishSessionCorrectly(page: Page): Promise<void>;
+}
+
+const BESPOKE_GAMES: BespokeGameCase[] = [
+  {
+    name: 'first-letter',
+    path: '/first-letter',
+    heading: 'Prvé písmenko',
+    instruction: 'Ktorým písmenom sa začína toto slovo?',
+    enterPlay: async (page) => {
+      await page.goto('/first-letter');
+      await page.getByRole('button', { name: 'Hrať' }).click();
+    },
+    answerWrong: genericAnswerWrong,
+    answerCorrect: genericAnswerCorrect,
+    finishSessionCorrectly: genericFinishSessionCorrectly,
+  },
+  {
+    name: 'complete-letter',
+    path: '/complete-letter',
+    heading: 'Doplň písmeno',
+    instruction: 'Doplň chýbajúce písmeno',
+    enterPlay: async (page) => {
+      await page.goto('/complete-letter');
+      await page.getByRole('button', { name: 'Hrať' }).click();
+    },
+    answerWrong: genericAnswerWrong,
+    answerCorrect: genericAnswerCorrect,
+    finishSessionCorrectly: genericFinishSessionCorrectly,
+  },
+  {
+    name: 'complete-syllable',
+    path: '/complete-syllable',
+    heading: 'Doplň slabiku',
+    instruction: 'Doplň chýbajúcu slabiku',
+    enterPlay: async (page) => {
+      await page.goto('/complete-syllable');
+      await page.getByRole('button', { name: 'Hrať' }).click();
+    },
+    answerWrong: genericAnswerWrong,
+    answerCorrect: genericAnswerCorrect,
+    finishSessionCorrectly: genericFinishSessionCorrectly,
+  },
+  {
+    name: 'assembly',
+    path: '/assembly',
+    heading: 'Skladaj',
+    instruction: 'Usporiadaj slabiky',
+    enterPlay: async (page) => {
+      await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
+      await page.goto('/assembly');
+      await page.getByRole('button', { name: 'Hrať' }).click();
+    },
+    answerWrong: asmAnswerWrong,
+    answerCorrect: asmAnswerCorrect,
+    finishSessionCorrectly: asmFinishSessionCorrectly,
+  },
+];
+
+/** Selects a control by either attribute a game's round helpers might report — `data-answer-id`
+ * for the three choice games, `data-tile-id` for Assembly. */
+function actedControl(page: Page, id: string) {
+  return page.locator(`[data-answer-id="${id}"], [data-tile-id="${id}"]`);
+}
+
+/**
+ * OverlayFrame's enter transition fades opacity 0→1 over motionPreset.transition (180ms), even
+ * under reduced motion (only translate/scale are dropped, not the fade itself). Playwright's own
+ * `visible` check resolves the instant opacity leaves 0, so an axe scan immediately after can
+ * catch a genuinely mid-fade frame and report a transient contrast "violation" that never
+ * reflects the settled panel — wait for the observable computed opacity to actually reach 1.
+ */
+async function waitForOverlaySettled(page: Page): Promise<void> {
+  await page.waitForFunction(() => {
+    const panel = document.querySelector('[role="status"][aria-live="polite"]');
+    return panel !== null && getComputedStyle(panel).opacity === '1';
+  });
+}
+
+const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
+
+test.describe('Task 7: Full viewport matrix', () => {
+  const viewportEntries = Object.entries(CANONICAL_VIEWPORTS) as Array<
+    [keyof typeof CANONICAL_VIEWPORTS, (typeof CANONICAL_VIEWPORTS)[keyof typeof CANONICAL_VIEWPORTS]]
+  >;
+
+  for (const game of BESPOKE_GAMES) {
+    for (const [viewportName, viewport] of viewportEntries) {
+      test(`${game.name} meets viewport constraints at ${viewportName} (${viewport.width}x${viewport.height})`, async ({ page }) => {
+        test.skip(
+          Boolean(process.env.CI) && !CI_VIEWPORT_SUBSET.includes(viewportName),
+          'the full 10-size matrix runs locally and is covered by screenshot review; CI asserts the 4-viewport subset',
+        );
+
+        await page.setViewportSize(viewport);
+        await game.enterPlay(page);
+
+        await expectNoHorizontalOverflow(page);
+
+        // Child playfields (the picture/word-rail prompt visuals) may compress or scroll inside
+        // the bounded shell, so they only need to intersect the viewport, not sit fully inside
+        // it — unlike the answer region, replay, progress, and back action below.
+        for (const locator of [page.getByTestId('game-visible-instruction'), page.getByTestId('game-answer-region')]) {
+          const box = await locator.boundingBox();
+          expect(box, `${game.name} at ${viewportName}: expected a visible bounding box`).not.toBeNull();
+          expect(box!.x, `${game.name} at ${viewportName}: must intersect the viewport horizontally`).toBeLessThan(viewport.width);
+          expect(box!.x + box!.width, `${game.name} at ${viewportName}: must intersect the viewport horizontally`).toBeGreaterThan(0);
+        }
+
+        const replay = page.getByRole('button', { name: 'Zopakovať zadanie' });
+        const back = page.getByRole('button', { name: 'Späť', exact: true });
+        const progress = page.getByRole('progressbar', { name: 'Postup v hre' });
+        const answerRegion = page.getByTestId('game-answer-region');
+
+        await expectWithinViewport(page, answerRegion);
+        await expectWithinViewport(page, replay);
+        await expectWithinViewport(page, progress);
+        await expectWithinViewport(page, back);
+
+        await expectMinimumTarget(page, replay, 48);
+        await expectMinimumTarget(page, back, 48);
+
+        const answers = page.locator('[data-testid="game-answer-region"] button');
+        const count = await answers.count();
+        expect(count, `${game.name} at ${viewportName}: expected at least one answer control`).toBeGreaterThan(0);
+        for (let i = 0; i < count; i += 1) {
+          await expectMinimumTarget(page, answers.nth(i), 48);
+        }
+        await expectNoPairwiseOverlap(answers);
+      });
+    }
+  }
+});
+
+test.describe('Task 7: Pause, rotation, and focus restoration', () => {
+  for (const game of BESPOKE_GAMES) {
+    test(`${game.name}: a permitted parent dialog pauses audio/timers/input, then resume restores round, state, and focus`, async ({ page }) => {
+      await game.enterPlay(page);
+      // Land in the retry window first — a wrong answer's own retry-clear timer (and, for
+      // Assembly, its floating-tile animation bookkeeping) is the riskiest moment for a pause to
+      // strand, matching the precedent already established for this exact race.
+      await game.answerWrong(page);
+
+      const before = await getE2EState<BespokeRoundState>(page);
+      expect(before.wrongAttempts).toBeGreaterThan(0);
+
+      await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
+      await waitForPaused(page, true);
+      await expect(page.getByTestId('game-interactive-content')).toHaveAttribute('inert', '');
+      await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+
+      await clearAudioEvents(page);
+      // Prove the retry-clear timer really is frozen, not just that not enough time has passed
+      // yet — a deliberate wait-and-recheck (not a substitute for the waitForGamePhase/
+      // waitForPaused polling used everywhere else in this test).
+      await page.waitForTimeout(800);
+      const stillPaused = await getE2EState<BespokeRoundState>(page);
+      expect(stillPaused.gamePhase).toBe(before.gamePhase);
+      expect(stillPaused.wrongAttempts).toBe(before.wrongAttempts);
+      expect(stillPaused.roundsPlayed).toBe(before.roundsPlayed);
+      expect(await getAudioEvents(page)).toEqual([]);
+
+      await unlockParentGate(page);
+      await waitForPaused(page, false);
+      await waitForGamePhase(page, 'awaiting-answer');
+
+      const resumed = await getE2EState<BespokeRoundState>(page);
+      expect(resumed.roundsPlayed).toBe(before.roundsPlayed);
+      expect(resumed.wrongAttempts).toBe(before.wrongAttempts);
+      // A successful unlock must land focus on the live, currently-mounted lock control — never
+      // a detached reference to whatever the gate captured before it (and the lock button
+      // itself) were removed from the DOM while paused.
+      await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toBeFocused();
+
+      // The resumed round must still be fully answerable, exactly once — no answer duplicated
+      // and no answer lost from the pause/resume cycle.
+      await clearAudioEvents(page);
+      await game.answerCorrect(page);
+      const clipPaths = await getAudioClipPaths(page);
+      expect(clipPaths.length).toBeGreaterThan(0);
+      expect(new Set(clipPaths).size, `duplicate audio clip in ${JSON.stringify(clipPaths)}`).toBe(clipPaths.length);
+    });
+
+    test(`${game.name}: rotating portrait to landscape mid-round preserves round state and focus without clipping`, async ({ page }) => {
+      await page.setViewportSize(CANONICAL_VIEWPORTS.phonePortrait);
+      await game.enterPlay(page);
+      await game.answerWrong(page);
+      await waitForGamePhase(page, 'awaiting-answer');
+
+      const before = await getE2EState<BespokeRoundState>(page);
+      const replay = page.getByRole('button', { name: 'Zopakovať zadanie' });
+      await replay.focus();
+
+      await page.setViewportSize(CANONICAL_VIEWPORTS.phoneLandscape);
+      await expectNoHorizontalOverflow(page);
+      await expectWithinViewport(page, page.getByTestId('game-answer-region'));
+      await expectWithinViewport(page, replay);
+      await expect(replay).toBeFocused();
+
+      const afterLandscape = await getE2EState<BespokeRoundState>(page);
+      expect(afterLandscape.gamePhase).toBe(before.gamePhase);
+      expect(afterLandscape.roundsPlayed).toBe(before.roundsPlayed);
+      expect(afterLandscape.wrongAttempts).toBe(before.wrongAttempts);
+
+      await page.setViewportSize(CANONICAL_VIEWPORTS.phonePortrait);
+      await expectNoHorizontalOverflow(page);
+      const restored = await getE2EState<BespokeRoundState>(page);
+      expect(restored.roundsPlayed).toBe(before.roundsPlayed);
+      expect(restored.wrongAttempts).toBe(before.wrongAttempts);
+
+      // The round must still be completable after two resizes.
+      await game.answerCorrect(page);
+    });
+  }
+
+  test('cancelling the parent dialog with Escape leaves the round paused for another unlock attempt', async ({ page }) => {
+    // Exercises the shared GameShell/ParentsGate contract itself, which every game inherits
+    // unmodified — one representative game is enough; this is not per-game behavior.
+    const game = BESPOKE_GAMES[0];
+    await game.enterPlay(page);
+
+    const lockButton = page.getByRole('button', { name: 'Rodičovská prestávka' });
+    await lockButton.click();
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+
+    // The inherited ParentsGate/DialogShell contract routes Escape through its own
+    // onEscapeKeyDown -> onOpenChange(false) -> onCancel; this game adds no local handling.
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toHaveCount(0);
+    const afterCancel = await getE2EState<BespokeRoundState>(page);
+    expect(afterCancel.paused).toBe(true);
+    const unlockButton = page.getByRole('button', { name: 'Odomknúť' });
+    await expect(unlockButton).toBeFocused();
+
+    await unlockButton.click();
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await unlockParentGate(page);
+    await waitForPaused(page, false);
+    await expect(lockButton).toBeFocused();
+  });
+});
+
+test.describe('Task 7: Assistive contract', () => {
+  for (const game of BESPOKE_GAMES) {
+    test(`${game.name}: exposes one main, one heading, visible prompt/replay/progress, roving tabstop, and visible+live retry/correct states`, async ({ page }) => {
+      await game.enterPlay(page);
+
+      await expect(page.getByRole('main')).toHaveCount(1);
+      await expect(page.getByRole('heading', { level: 1, name: game.heading })).toHaveCount(1);
+      await expect(page.getByTestId('game-visible-instruction')).toHaveText(game.instruction);
+      await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
+      await expect(page.getByRole('progressbar', { name: 'Postup v hre' })).toHaveAttribute('aria-valuenow', '1');
+
+      // Roving tabstop: every game's choice/tray region is the same shared AnswerGroup
+      // instance, so ArrowRight must move focus within it identically for all four.
+      const answers = page.locator('[data-testid="game-answer-region"] button');
+      await answers.first().focus();
+      await page.keyboard.press('ArrowRight');
+      await expect(answers.nth(1)).toBeFocused();
+
+      const wrongId = await game.answerWrong(page);
+      const status = page.getByRole('status');
+      await expect(status).toBeVisible();
+      await expect(status).toContainText('Skús ešte raz');
+      await expect(status).toHaveAttribute('aria-live', 'polite');
+      await expect(actedControl(page, wrongId)).toContainText('Skús ešte raz');
+
+      await waitForGamePhase(page, 'awaiting-answer');
+
+      const correctId = await game.answerCorrect(page);
+      await expect(page.getByRole('status')).toBeVisible();
+      await expect(actedControl(page, correctId)).toHaveAttribute('data-piece-state', 'settled');
+    });
+
+    test(`${game.name}: reaching session completion moves focus to Play again`, async ({ page }) => {
+      await game.enterPlay(page);
+      await game.finishSessionCorrectly(page);
+
+      await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeFocused();
+      await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
+    });
+  }
+});
+
+test.describe('Task 7: Reduced motion', () => {
+  for (const game of BESPOKE_GAMES) {
+    test(`${game.name}: reduced motion keeps retry and correct feedback legible with no serious axe violations and no stale clones`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await game.enterPlay(page);
+
+      const roundAxe = await new AxeBuilder(toAxeParams(page)).withTags(AXE_TAGS).analyze();
+      expect(roundAxe.violations.filter((v) => isSeriousAxeViolation(v.impact))).toEqual([]);
+
+      const wrongId = await game.answerWrong(page);
+      await expect(page.getByRole('status')).toContainText('Skús ešte raz');
+      await expect(actedControl(page, wrongId)).toContainText('Skús ešte raz');
+      await waitForGamePhase(page, 'awaiting-answer');
+
+      const correctId = await game.answerCorrect(page);
+      await expect(page.getByRole('status')).toBeVisible();
+      await expect(actedControl(page, correctId)).toHaveAttribute('data-piece-state', 'settled');
+
+      // No translational tile flight and no leftover floating clone: every id in the live DOM
+      // (mainly exercises Assembly's tile-flight path — the other three render no clones at all)
+      // must still appear exactly once.
+      const tileIds = await page.locator('[data-tile-id]').evaluateAll((nodes) => nodes.map((n) => n.getAttribute('data-tile-id')));
+      expect(new Set(tileIds).size).toBe(tileIds.length);
+
+      await waitForOverlaySettled(page);
+      const successAxe = await new AxeBuilder(toAxeParams(page)).withTags(AXE_TAGS).analyze();
+      expect(successAxe.violations.filter((v) => isSeriousAxeViolation(v.impact))).toEqual([]);
+    });
+
+    test(`${game.name}: reduced motion still reaches a finite completion with no looping animation`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await game.enterPlay(page);
+      await game.finishSessionCorrectly(page);
+
+      await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+      await waitForOverlaySettled(page);
+      const completionAxe = await new AxeBuilder(toAxeParams(page)).withTags(AXE_TAGS).analyze();
+      expect(completionAxe.violations.filter((v) => isSeriousAxeViolation(v.impact))).toEqual([]);
+
+      // Finite, not an infinite celebration loop — the same completion controls must still be
+      // exactly there well past any short entrance transition.
+      await page.waitForTimeout(1500);
+      await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
+    });
+  }
 });

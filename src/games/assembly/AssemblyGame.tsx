@@ -600,7 +600,10 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
           instruction={INSTRUCTION}
           visual={
             targetWord ? (
-              <div ref={boardRootRef} className="flex w-full flex-col items-center gap-3">
+              <div
+                ref={boardRootRef}
+                className="flex w-full flex-col items-center gap-3 [@media(max-height:480px)]:gap-1 [@media(max-height:480px)]:max-h-20 [@media(max-height:480px)]:overflow-y-auto [@media(max-width:400px)]:gap-1 [@media(max-width:400px)]:max-h-20 [@media(max-width:400px)]:overflow-y-auto"
+              >
                 <PictureCard emoji={targetWord.emoji} label={targetWord.word} />
                 <div
                   ref={railRegionRef}
