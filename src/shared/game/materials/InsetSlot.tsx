@@ -25,7 +25,7 @@ export function InsetSlot({ label, state, children, className = '', ...props }: 
         // (more InsetSlots) needs the whole rail to wrap less, or a short landscape strip needs
         // less vertical room per slot — either way the fallback is the same smaller slot.
         '[@media(max-height:480px)]:min-h-9 [@media(max-height:480px)]:min-w-9 [@media(max-height:480px)]:px-1.5 [@media(max-height:480px)]:py-1 [@media(max-height:480px)]:text-[clamp(1rem,5vmin,2rem)]',
-        '[@media(max-width:400px)]:min-h-9 [@media(max-width:400px)]:min-w-9 [@media(max-width:400px)]:px-1.5 [@media(max-width:400px)]:py-1 [@media(max-width:400px)]:text-[clamp(1rem,5vmin,2rem)]',
+        '[@media(max-width:380px)]:min-h-9 [@media(max-width:380px)]:min-w-9 [@media(max-width:380px)]:px-1.5 [@media(max-width:380px)]:py-1 [@media(max-width:380px)]:text-[clamp(1rem,5vmin,2rem)]',
         state === 'active' ? 'border-focus bg-selected-surface text-text-main' : 'border-border-subtle bg-surface text-text-main',
         state === 'pending' && 'bg-canvas text-text-muted',
         className,

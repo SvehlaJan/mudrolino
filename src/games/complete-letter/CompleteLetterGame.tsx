@@ -375,11 +375,11 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
           instruction={INSTRUCTION}
           visual={
             targetRound ? (
-              // A very long word (or a short viewport) can push this picture+rail combo taller
-              // than the room left for the answer tray below it — cap it and let it scroll
-              // internally rather than squeezing the tray's own 48px answer controls off-screen;
-              // see the shared "answer region must not be clipped" contract.
-              <div className="flex w-full flex-col items-center gap-3 [@media(max-height:480px)]:gap-1 [@media(max-height:480px)]:max-h-20 [@media(max-height:480px)]:overflow-y-auto [@media(max-width:400px)]:gap-1 [@media(max-width:400px)]:max-h-20 [@media(max-width:400px)]:overflow-y-auto">
+              // A very short landscape strip or narrow phone leaves little room for this
+              // picture+rail combo alongside the answer tray below it — PictureCard/WordRail/
+              // InsetSlot each compact themselves enough at those two breakpoints that both stay
+              // visible and the tray still gets its needed 48px; see their own comments.
+              <div className="flex w-full flex-col items-center gap-3 [@media(max-height:480px)]:gap-0 [@media(max-width:380px)]:gap-1">
                 <PictureCard emoji={targetRound.word.emoji} label={targetRound.word.word} />
                 <WordRail label={`Slovo ${targetRound.word.word}`}>
                   {slots.map((slot) => (

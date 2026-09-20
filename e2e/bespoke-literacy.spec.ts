@@ -952,6 +952,36 @@ async function waitForOverlaySettled(page: Page): Promise<void> {
 
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 
+/**
+ * Confirms `locator` isn't silently clipped by an ancestor whose own overflow is restricting it
+ * (e.g. a `max-h-*`/`overflow-y-auto` wrapper whose content is taller than its own box, or a
+ * plain `overflow-hidden` container). `expectWithinViewport` alone can't catch this — a clipped
+ * element's bounding box can sit entirely within the page viewport while genuinely invisible
+ * under its own ancestor's clip, exactly the shape of gap Task 7 closed in `PictureCard`/
+ * `WordRail`'s short-layout wrapper (a fixed cap that left WordRail no room at all).
+ */
+async function expectNotClippedByAncestorOverflow(locator: ReturnType<Page['locator']>): Promise<void> {
+  const clippingAncestor = await locator.evaluate((el) => {
+    const rect = el.getBoundingClientRect();
+    let node = el.parentElement;
+    while (node) {
+      const style = getComputedStyle(node);
+      const restricts = ['auto', 'hidden', 'scroll'].includes(style.overflowY) && node.scrollHeight > node.clientHeight + 1;
+      if (restricts) {
+        const ancestorRect = node.getBoundingClientRect();
+        const visibleTop = ancestorRect.top;
+        const visibleBottom = ancestorRect.top + node.clientHeight;
+        if (rect.top < visibleTop - 1 || rect.bottom > visibleBottom + 1) {
+          return node.getAttribute('data-testid') ?? node.className ?? node.tagName;
+        }
+      }
+      node = node.parentElement;
+    }
+    return null;
+  });
+  expect(clippingAncestor, `expected element not to be clipped by ancestor "${clippingAncestor}"`).toBeNull();
+}
+
 test.describe('Task 7: Full viewport matrix', () => {
   const viewportEntries = Object.entries(CANONICAL_VIEWPORTS) as Array<
     [keyof typeof CANONICAL_VIEWPORTS, (typeof CANONICAL_VIEWPORTS)[keyof typeof CANONICAL_VIEWPORTS]]
@@ -980,6 +1010,16 @@ test.describe('Task 7: Full viewport matrix', () => {
           expect(box!.x + box!.width, `${game.name} at ${viewportName}: must intersect the viewport horizontally`).toBeGreaterThan(0);
         }
 
+        // Three of the four games render a WordRail — the actual blank(s) the round is about —
+        // inside the same prompt area as PictureCard. It must stay genuinely visible, not just
+        // "somewhere on the page": this is what a fixed, too-small wrapper cap broke silently.
+        const wordRail = page.getByTestId('word-rail');
+        if (await wordRail.count() > 0) {
+          await expect(wordRail).toBeVisible();
+          await expectWithinViewport(page, wordRail);
+          await expectNotClippedByAncestorOverflow(wordRail);
+        }
+
         const replay = page.getByRole('button', { name: 'Zopakovať zadanie' });
         const back = page.getByRole('button', { name: 'Späť', exact: true });
         const progress = page.getByRole('progressbar', { name: 'Postup v hre' });
@@ -1000,6 +1040,41 @@ test.describe('Task 7: Full viewport matrix', () => {
           await expectMinimumTarget(page, answers.nth(i), 48);
         }
         await expectNoPairwiseOverlap(answers);
+      });
+    }
+  }
+});
+
+test.describe('Task 7: WordRail must stay genuinely visible, not just on-page', () => {
+  // Dedicated, never-CI-skipped coverage for exactly the two sizes a real ancestor-clipping
+  // regression was found at: the app's own canonical mobile viewport (phonePortrait, the same
+  // size as MOBILE_VIEWPORT used throughout the rest of this suite) and shortLandscape. The full
+  // viewport-matrix test above also checks this at all 10 sizes, but only asserts the 4-viewport
+  // CI subset in CI — this block runs regardless, so a regression here always fails the suite.
+  const WORD_RAIL_GAMES = BESPOKE_GAMES.filter((game) => game.name !== 'first-letter');
+  const CHECK_VIEWPORTS: Array<[string, { width: number; height: number }]> = [
+    ['phonePortrait (MOBILE_VIEWPORT)', CANONICAL_VIEWPORTS.phonePortrait],
+    ['shortLandscape', CANONICAL_VIEWPORTS.shortLandscape],
+  ];
+
+  for (const game of WORD_RAIL_GAMES) {
+    for (const [viewportName, viewport] of CHECK_VIEWPORTS) {
+      test(`${game.name}: word-rail is visible and unclipped at ${viewportName} (${viewport.width}x${viewport.height})`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await game.enterPlay(page);
+
+        const wordRail = page.getByTestId('word-rail');
+        await expect(wordRail).toBeVisible();
+        await expectWithinViewport(page, wordRail);
+        await expectNotClippedByAncestorOverflow(wordRail);
+
+        // The actual blank(s)/letters inside must be visible too, not merely the section shell.
+        const slots = wordRail.locator('[data-slot-state]');
+        const slotCount = await slots.count();
+        expect(slotCount, `${game.name} at ${viewportName}: expected at least one word-rail slot`).toBeGreaterThan(0);
+        for (let i = 0; i < slotCount; i += 1) {
+          await expect(slots.nth(i)).toBeVisible();
+        }
       });
     }
   }
@@ -1066,6 +1141,15 @@ test.describe('Task 7: Pause, rotation, and focus restoration', () => {
 
       await page.setViewportSize(CANONICAL_VIEWPORTS.phoneLandscape);
       await expectNoHorizontalOverflow(page);
+      // AnswerGroup's own grid geometry is recomputed from a ResizeObserver callback, not
+      // synchronously with the resize itself — unlike a fresh page load (where it's already
+      // settled by the time a check runs), a resize on an already-mounted page needs a beat to
+      // catch up. Poll for that settlement instead of asserting once immediately after resizing.
+      await expect.poll(async () => {
+        const rect = await page.getByTestId('game-answer-region').evaluate((el) => el.getBoundingClientRect());
+        const viewport = page.viewportSize();
+        return viewport !== null && rect.bottom <= viewport.height + 1;
+      }).toBe(true);
       await expectWithinViewport(page, page.getByTestId('game-answer-region'));
       await expectWithinViewport(page, replay);
       await expect(replay).toBeFocused();
