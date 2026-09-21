@@ -11,6 +11,7 @@ import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
 import { useContentLocale } from '../contexts/ContentContext';
 import { AppScreen, BackButton, Button, IconButton, OverlayFrame, PageHeader, RoundCounter, cn } from '../ui';
+import { useAppScreenLayout } from '../ui/appScreenLayout';
 import { motionPreset } from '../ui/motion';
 import { ParentsGate } from '../components/ParentsGate';
 import type { GameState } from './gameState';
@@ -50,6 +51,56 @@ export interface GameShellProps {
   onPause?(): void;
   onResume?(): void;
   children: React.ReactNode;
+}
+
+/**
+ * The inline retry status is a normal-flow sibling below the interactive content, so every pixel
+ * it takes comes straight out of the answer tray's own flex space. On a screen that is short or
+ * narrow the tray has no slack left to give: the two-line band pushed it under AnswerGroup's
+ * 48px minimum tile size, AnswerGroup fell back to its "nothing fits" geometry, and the tiles
+ * then either spilled out over the banner itself (complete-letter/complete-syllable/assembly and
+ * Phase 5's own `words` at shortLandscape/phoneLandscape) or were clipped away entirely
+ * (narrowPhone). Collapsing to one line at exactly the sizes the shell already treats as
+ * constrained keeps the tray above that floor in every canonical viewport.
+ *
+ * The height half reads the measured `useAppScreenLayout().layout` signal — the same one
+ * TopBar/RoundCounter/GameLobby/CustomContentScreen consume — rather than introducing yet another
+ * raw `max-height:480px` query; the width half reuses the 380px narrow query PictureCard and the
+ * literacy prompt stacks already share. The detail line stays in the live region as `sr-only` so
+ * the spoken announcement is byte-for-byte what it was before, only its box is given up.
+ */
+function RetryStatusBanner({ title, detail }: { title: string; detail?: string }) {
+  const { layout } = useAppScreenLayout();
+  const compact = layout === 'short';
+
+  return (
+    <motion.div
+      role="status"
+      aria-live="polite"
+      data-testid="game-retry-status"
+      initial={motionPreset.enter.initial}
+      animate={motionPreset.enter.animate}
+      transition={motionPreset.transition}
+      className={cn(
+        'shrink-0 rounded-2xl bg-accent-blue/20 text-center font-bold text-text-main',
+        compact
+          ? 'px-3 py-1.5 text-sm'
+          : 'px-4 py-3 [@media(max-width:380px)]:px-3 [@media(max-width:380px)]:py-1.5 [@media(max-width:380px)]:text-sm',
+      )}
+    >
+      <p>{title}</p>
+      {detail && (
+        <p
+          className={cn(
+            'mt-1 text-sm text-text-muted',
+            compact ? 'sr-only' : '[@media(max-width:380px)]:sr-only',
+          )}
+        >
+          {detail}
+        </p>
+      )}
+    </motion.div>
+  );
 }
 
 export function GameShell({
@@ -175,24 +226,24 @@ export function GameShell({
         data-testid="game-interactive-content"
         inert={contentLocked || undefined}
         aria-hidden={contentLocked || undefined}
-        className={cn('flex min-h-0 flex-1 flex-col gap-3 sm:gap-4', contentLocked && 'pointer-events-none')}
+        // The prompt/tray gap was the one spacing token in this column with no constrained-size
+        // override (the AppScreen contentClassName above already has one), so a short landscape
+        // strip or a narrow phone was paying full price for it while the tray was starved —
+        // reclaim it at the same two breakpoints the rest of the shell already uses.
+        className={cn(
+          'flex min-h-0 flex-1 flex-col gap-3 sm:gap-4 [@media(max-width:380px)]:gap-1.5 [@media(max-height:480px)]:gap-1.5',
+          contentLocked && 'pointer-events-none',
+        )}
       >
         {prompt}
         <div className="flex min-h-0 flex-1 flex-col">{children}</div>
       </div>
 
       {showRetry && (
-        <motion.div
-          role="status"
-          aria-live="polite"
-          initial={motionPreset.enter.initial}
-          animate={motionPreset.enter.animate}
-          transition={motionPreset.transition}
-          className="rounded-2xl bg-accent-blue/20 px-4 py-3 text-center font-bold text-text-main"
-        >
-          <p>{feedback?.title || getUiCopy(locale, 'game.retryPrompt')}</p>
-          {feedback?.detail && <p className="mt-1 text-sm text-text-muted">{feedback.detail}</p>}
-        </motion.div>
+        <RetryStatusBanner
+          title={feedback?.title || getUiCopy(locale, 'game.retryPrompt')}
+          detail={feedback?.detail}
+        />
       )}
 
       {transientFeedback && feedback && (

@@ -45,8 +45,21 @@ function calculateGridGeometry(itemCount: number, width: number, height: number,
     }
   }
 
-  // Width stays bounded at one child target; extra rows remain vertically contained by the shell.
-  return best ?? { cols: 1, rows: itemCount, tileSize: MIN_TILE_SIZE, gap };
+  if (best) return best;
+
+  // Nothing reached the minimum child target, so some overflow is unavoidable — but it should be
+  // as small as possible. Stacking every tile in a single column (the previous fallback) spilled
+  // hundreds of pixels out of the tray and straight over whatever the shell rendered below it.
+  // Deriving the column count from the measured width instead keeps the row bounded horizontally
+  // exactly as before while making the vertical overflow the smallest it can be.
+  const columnsThatFit = Math.max(1, Math.floor((width + gap) / (MIN_TILE_SIZE + gap)));
+  const fallbackCols = Math.min(itemCount, columnsThatFit);
+  return {
+    cols: fallbackCols,
+    rows: Math.ceil(itemCount / fallbackCols),
+    tileSize: MIN_TILE_SIZE,
+    gap,
+  };
 }
 
 function calculateGeometry(

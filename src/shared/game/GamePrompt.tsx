@@ -25,7 +25,7 @@ export function GamePrompt({ instruction, visual, replaying = false, onReplay }:
   return (
     <section
       aria-label={getUiCopy(locale, 'game.promptSection')}
-      className="flex flex-col items-center gap-2 sm:gap-3 [@media(max-height:480px)]:gap-1 text-center"
+      className="flex flex-col items-center gap-2 sm:gap-3 [@media(max-width:380px)]:gap-1 [@media(max-height:480px)]:gap-0.5 text-center"
     >
       <p data-testid="game-visible-instruction" className="text-lg font-black text-text-main sm:text-xl">
         {instruction}
@@ -54,7 +54,16 @@ export function GamePrompt({ instruction, visual, replaying = false, onReplay }:
             ? { duration: 0.45 }
             : motionPreset.transition
         }
-        className={cn('min-h-5 text-sm font-bold text-text-muted', !replaying && 'pointer-events-none')}
+        // On a short screen this 20px reserved line is the difference between the answer tray
+        // clearing AnswerGroup's 48px minimum tile size and collapsing under it once a retry
+        // status banner also claims its share of the column (see RetryStatusBanner in
+        // GameShell.tsx). `sr-only` gives up the box without giving up the announcement — the
+        // live region still speaks the replay cue — and, unlike collapsing its min-height, it
+        // costs nothing when `replaying` flips, so the tray never resizes mid-prompt.
+        className={cn(
+          'min-h-5 text-sm font-bold text-text-muted [@media(max-height:480px)]:sr-only',
+          !replaying && 'pointer-events-none',
+        )}
       >
         {replaying ? getUiCopy(locale, 'game.replayingInstruction') : ''}
       </motion.p>

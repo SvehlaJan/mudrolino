@@ -827,7 +827,15 @@ async function asmAnswerWrong(page: Page): Promise<string> {
   await tray.locator(`[data-tile-id="${wrongOrder[1]}"]`).click();
   await waitForGamePhase(page, 'awaiting-answer');
   await tray.locator(`[data-tile-id="${wrongOrder[2]}"]`).click();
-  await waitForGamePhase(page, 'answered-incorrectly');
+  // The retry window is only TIMING.FEEDBACK_RESET_MS (500ms) wide, so this uses the tight
+  // fixed-interval wait the three choice games already use rather than `waitForGamePhase`'s
+  // `expect.poll`, whose growing interval can spend a large share of that window before it
+  // even observes the phase.
+  await page.waitForFunction(
+    () => window.__E2E__?.gamePhase === 'answered-incorrectly',
+    undefined,
+    { polling: 20 },
+  );
   return wrongOrder[2];
 }
 
@@ -982,6 +990,35 @@ async function expectNotClippedByAncestorOverflow(locator: ReturnType<Page['loca
   expect(clippingAncestor, `expected element not to be clipped by ancestor "${clippingAncestor}"`).toBeNull();
 }
 
+/** Every interactive playing-surface control a bespoke round exposes — AnswerGroup's choice
+ * buttons for the three choice games, the felt tray tiles for Assembly. */
+const PLAY_SURFACE_CONTROLS =
+  '[data-testid="game-answer-region"] button, [data-testid="play-tray"] [data-tile-id]';
+
+/**
+ * AnswerGroup derives its grid geometry (column count and an explicit pixel `--tile-size`) inside
+ * a ResizeObserver callback, so tile positions can still move a frame or two after first paint or
+ * after any layout change. Clicking before that settles can land the pointer on a neighbouring
+ * tile. The rotation test below already polls for this after a resize; this helper generalises it
+ * to "two consecutive reads of every control's box agree", which is what the screenshot capture
+ * tool needs too (`tools/screenshots/capture.mjs`).
+ */
+async function waitForPlaySurfaceSettled(page: Page): Promise<void> {
+  await page.locator(PLAY_SURFACE_CONTROLS).first().waitFor({ state: 'visible' });
+  let previous = '';
+  await expect.poll(async () => {
+    const current = await page.evaluate((selector) => Array.from(document.querySelectorAll(selector))
+      .map((el) => {
+        const rect = el.getBoundingClientRect();
+        return `${Math.round(rect.x)},${Math.round(rect.y)},${Math.round(rect.width)},${Math.round(rect.height)}`;
+      })
+      .join('|'), PLAY_SURFACE_CONTROLS);
+    const settled = current !== '' && current === previous;
+    previous = current;
+    return settled;
+  }).toBe(true);
+}
+
 test.describe('Task 7: Full viewport matrix', () => {
   const viewportEntries = Object.entries(CANONICAL_VIEWPORTS) as Array<
     [keyof typeof CANONICAL_VIEWPORTS, (typeof CANONICAL_VIEWPORTS)[keyof typeof CANONICAL_VIEWPORTS]]
@@ -1040,6 +1077,100 @@ test.describe('Task 7: Full viewport matrix', () => {
           await expectMinimumTarget(page, answers.nth(i), 48);
         }
         await expectNoPairwiseOverlap(answers);
+      });
+    }
+  }
+});
+
+/**
+ * Final whole-phase review gap: the viewport matrix above only ever measures the fresh
+ * `awaiting-answer` state, so nothing in the suite had ever measured a viewport while GameShell
+ * was also rendering its retry-status chrome below the interactive content. That is exactly the
+ * state the banner/answer-tray collision lived in — it shipped invisibly because no test entered
+ * it at a constrained size. This block drives every game into the retry state at every canonical
+ * viewport and asserts the shell still hands the tray a real, unclipped, minimum-target playfield.
+ */
+test.describe('Final review: the retry status banner never collides with the answer tray', () => {
+  const viewportEntries = Object.entries(CANONICAL_VIEWPORTS) as Array<
+    [keyof typeof CANONICAL_VIEWPORTS, (typeof CANONICAL_VIEWPORTS)[keyof typeof CANONICAL_VIEWPORTS]]
+  >;
+
+  for (const game of BESPOKE_GAMES) {
+    for (const [viewportName, viewport] of viewportEntries) {
+      test(`${game.name} keeps the retry status clear of the answer tray at ${viewportName} (${viewport.width}x${viewport.height})`, async ({ page }) => {
+        test.skip(
+          Boolean(process.env.CI) && !CI_VIEWPORT_SUBSET.includes(viewportName),
+          'the full 10-size matrix runs locally and is covered by screenshot review; CI asserts the 4-viewport subset',
+        );
+
+        await page.setViewportSize(viewport);
+        await game.enterPlay(page);
+        await waitForPlaySurfaceSettled(page);
+
+        await game.answerWrong(page);
+
+        // The retry phase auto-clears after TIMING.FEEDBACK_RESET_MS (500ms), so everything this
+        // test measures is read in one round trip first; the locator-based assertions that follow
+        // only re-confirm what the snapshot already proves.
+        const snapshot = await page.evaluate((selector) => {
+          const box = (el: Element | null) => {
+            if (!el) return null;
+            const rect = el.getBoundingClientRect();
+            return { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height };
+          };
+          const tray = document.querySelector('[data-testid="play-tray"]');
+          return {
+            banner: box(document.querySelector('[data-testid="game-retry-status"]')),
+            answerRegion: box(document.querySelector('[data-testid="game-answer-region"]')),
+            controls: Array.from(document.querySelectorAll(selector)).map((el) => box(el)!),
+            trayOverflowPx: tray ? tray.scrollHeight - tray.clientHeight : null,
+            viewportHeight: window.innerHeight,
+          };
+        }, PLAY_SURFACE_CONTROLS);
+
+        expect(
+          snapshot.banner,
+          `${game.name} at ${viewportName}: expected the retry status banner to still be showing when measured`,
+        ).not.toBeNull();
+        expect(
+          snapshot.answerRegion,
+          `${game.name} at ${viewportName}: expected a measurable answer region`,
+        ).not.toBeNull();
+
+        const overlap = Math.max(
+          0,
+          Math.min(snapshot.banner!.bottom, snapshot.answerRegion!.bottom)
+            - Math.max(snapshot.banner!.top, snapshot.answerRegion!.top),
+        );
+        expect(
+          overlap,
+          `${game.name} at ${viewportName}: retry banner ${JSON.stringify(snapshot.banner)} overlaps answer region ${JSON.stringify(snapshot.answerRegion)} by ${overlap}px`,
+        ).toBeLessThanOrEqual(0.5);
+
+        // An overlap-free banner is not enough on its own: a tray squeezed so hard that it clips
+        // its own tiles away also reports zero overlap. Every control must still be a real,
+        // on-screen, minimum-size target while the banner is up.
+        expect(snapshot.controls.length, `${game.name} at ${viewportName}: expected at least one control`).toBeGreaterThan(0);
+        for (const control of snapshot.controls) {
+          expect(
+            Math.min(control.width, control.height),
+            `${game.name} at ${viewportName}: control ${JSON.stringify(control)} is under the 48px child target during retry`,
+          ).toBeGreaterThanOrEqual(47.5);
+          expect(
+            control.bottom,
+            `${game.name} at ${viewportName}: control ${JSON.stringify(control)} runs past the bottom of the viewport during retry`,
+          ).toBeLessThanOrEqual(snapshot.viewportHeight + 1);
+        }
+        expect(
+          snapshot.trayOverflowPx,
+          `${game.name} at ${viewportName}: the play tray is clipping ${snapshot.trayOverflowPx}px of its own content during retry`,
+        ).toBeLessThanOrEqual(1);
+
+        const statusBanner = page.getByTestId('game-retry-status');
+        const answerRegion = page.getByTestId('game-answer-region');
+        await expectNoPairwiseOverlap([statusBanner, answerRegion]);
+        await expectNotClippedByAncestorOverflow(answerRegion);
+        await expectNoHorizontalOverflow(page);
       });
     }
   }
