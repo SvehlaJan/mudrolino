@@ -1417,3 +1417,112 @@ test.describe('Task 7: Reduced motion', () => {
     });
   }
 });
+
+// ============================================================================
+// Final whole-phase review: same-tick double-tap re-entrancy.
+//
+// Every one of the three choice games picks this round's praise entry and commits it to local
+// React state *before* awaiting resolveAnswer, so useGameSession's own synchronous guard (its
+// `answeringRef`) is set too late to protect that local write: a second tap landing in the same
+// task overwrites the shown praise while the first tap's verdict audio is already built from the
+// entry it replaced. Phase 5 hit exactly this class of bug in FindItGame.tsx, and Task 4's fix
+// round hit it again in CompleteLetterGame.tsx; this closes it for the remaining two and keeps a
+// regression test on all three.
+// ============================================================================
+
+const DOUBLE_TAP_PRAISES = [
+  { id: 'e2e-praise-alfa', text: 'Pochvala Alfa', emoji: '🅰️', audioKey: 'e2e-praise-alfa' },
+  { id: 'e2e-praise-beta', text: 'Pochvala Beta', emoji: '🅱️', audioKey: 'e2e-praise-beta' },
+] as const;
+
+/**
+ * Replaces the whole enabled praise pool with exactly two distinguishable entries. Seeding only
+ * the praises (and deliberately *not* `hrave-ucenie-seeded-sk`) leaves the default word pool
+ * untouched and enabled — LocalContentRepository.seed() still runs and re-adds every default
+ * praise as `enabled: false`, so `praiseEntries` ends up as precisely these two.
+ */
+function seedTwoPraises(page: Page) {
+  return seedLocalStorage(page, {
+    'hrave-ucenie-user-praises-sk': {
+      version: 2,
+      items: DOUBLE_TAP_PRAISES.map((praise, order) => ({
+        ...praise,
+        status: 'ready',
+        enabled: true,
+        isDefault: false,
+        locale: 'sk',
+        order,
+      })),
+    },
+  });
+}
+
+/**
+ * Makes `pickPraise` alternate instead of being random: successive `Math.random()` readings map
+ * to the first and last entry of any list in turn. Two picks with nothing in between therefore
+ * *always* disagree, which is what turns "the shown praise drifted from the spoken one" from a
+ * coin flip into a deterministic failure whenever the ref guard is missing.
+ */
+function stubAlternatingRandom(page: Page) {
+  return page.addInitScript(() => {
+    let reading = 0;
+    Math.random = () => {
+      reading += 1;
+      return reading % 2 === 1 ? 0 : 0.999999;
+    };
+  });
+}
+
+const DOUBLE_TAP_GAMES: Array<{ name: string; path: string; seed?(page: Page): Promise<void> }> = [
+  { name: 'first-letter', path: '/first-letter' },
+  { name: 'complete-syllable', path: '/complete-syllable' },
+  {
+    name: 'complete-letter',
+    path: '/complete-letter',
+    // One blank, so the very first correct tap is the round-winning one that picks a praise.
+    seed: (page) => seedLocalStorage(page, { 'hrave-ucenie-settings': { completeLetterMissingCount: 1 } }),
+  },
+];
+
+for (const game of DOUBLE_TAP_GAMES) {
+  test(`${game.name}: a same-tick double tap on the correct answer cannot desync the shown praise from the spoken one`, async ({ page }) => {
+    await stubAlternatingRandom(page);
+    await seedTwoPraises(page);
+    await game.seed?.(page);
+    await page.goto(game.path);
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    await waitForPlaySurfaceSettled(page);
+
+    const state = await getE2EState<GenericChoiceState>(page);
+    expect(state.correctItemId).not.toBeNull();
+    await clearAudioEvents(page);
+
+    // Both clicks are dispatched inside one task, so the second handler runs before the first has
+    // resumed from its first await — the window a React-state-derived `canAnswer` cannot close
+    // and only a synchronous ref guard can.
+    await page
+      .locator(`[data-answer-id=${JSON.stringify(state.correctItemId!)}]:visible`)
+      .evaluate((el) => {
+        (el as HTMLElement).click();
+        (el as HTMLElement).click();
+      });
+
+    // The success overlay only mounts once the verdict (praise) audio has finished, so this also
+    // guarantees the praise clip is already recorded by the time the events are read.
+    await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
+
+    const praiseClips = (await getAudioClipPaths(page)).filter((path) => path.startsWith('sk/praise/'));
+    expect(praiseClips, `expected exactly one praise clip, got ${JSON.stringify(praiseClips)}`).toHaveLength(1);
+
+    const spoken = DOUBLE_TAP_PRAISES.find((praise) => praiseClips[0] === `sk/praise/${praise.audioKey}`);
+    expect(spoken, `unrecognised praise clip ${praiseClips[0]}`).toBeDefined();
+    const other = DOUBLE_TAP_PRAISES.find((praise) => praise !== spoken)!;
+
+    // The praise the child sees must be the praise the child heard.
+    await expect(page.getByText(spoken!.text, { exact: true })).toBeVisible();
+    await expect(page.getByText(other.text, { exact: true })).toHaveCount(0);
+
+    const finalState = await getE2EState<GenericChoiceState>(page);
+    expect(finalState.roundsPlayed, 'the doubled tap must still count as exactly one round').toBe(1);
+  });
+}

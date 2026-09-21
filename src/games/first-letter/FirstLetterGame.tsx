@@ -177,6 +177,9 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
   useEffect(() => {
     phaseRef.current = state.phase;
   }, [state.phase]);
+  // Set synchronously inside chooseAnswer before any local state update or await — see the
+  // comment there for why the React-state-derived `canAnswer` cannot stand in for it.
+  const answerLockRef = useRef(false);
 
   useEffect(() => {
     if (!targetItem || isEmpty) return;
@@ -206,29 +209,42 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
   }, [isEmpty, playAgain]);
 
   const chooseAnswer = useCallback(async (letter: Letter) => {
-    if (!targetItem) return;
-    const answerId = letter.symbol;
+    if (!targetItem || !canAnswer) return;
+    // The praise entry backing this round's visible feedback is picked and committed to local
+    // state before resolveAnswer is awaited, so useGameSession's own re-entrancy guard (its
+    // `answeringRef`, mutated synchronously at the top of resolveAnswer) runs too late to
+    // protect it: a same-tick second tap can overwrite roundPraise while the first tap's
+    // verdict audio is already built from the entry it replaced, leaving the spoken praise and
+    // the shown praise mismatched. `canAnswer` is React-state-derived and cannot observe that
+    // second invocation in time either, so this mirrors CompleteLetterGame's reviewed ref guard.
+    if (answerLockRef.current) return;
+    answerLockRef.current = true;
+    try {
+      const answerId = letter.symbol;
 
-    if (letter.symbol === targetItem.firstLetter.symbol) {
-      const praise = pickPraise(praiseEntries);
-      setRoundPraise(praise);
+      if (letter.symbol === targetItem.firstLetter.symbol) {
+        const praise = pickPraise(praiseEntries);
+        setRoundPraise(praise);
+        await resolveAnswer({
+          answerId,
+          outcome: 'correct',
+          selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
+          verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetItem)),
+        });
+        return;
+      }
+
+      const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
       await resolveAnswer({
         answerId,
-        outcome: 'correct',
-        selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
-        verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetItem)),
+        outcome: 'wrong',
+        selectionAudio: getWrongAnswerAudio(locale, 'letters', letter.audioKey, letter.symbol),
+        verdictAudio: exhausted ? getFailureSpec(locale, targetItem).audioSpec : undefined,
       });
-      return;
+    } finally {
+      answerLockRef.current = false;
     }
-
-    const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
-    await resolveAnswer({
-      answerId,
-      outcome: 'wrong',
-      selectionAudio: getWrongAnswerAudio(locale, 'letters', letter.audioKey, letter.symbol),
-      verdictAudio: exhausted ? getFailureSpec(locale, targetItem).audioSpec : undefined,
-    });
-  }, [targetItem, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts]);
+  }, [targetItem, canAnswer, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
     ? {

@@ -221,6 +221,9 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
   useEffect(() => {
     phaseRef.current = state.phase;
   }, [state.phase]);
+  // Set synchronously inside chooseAnswer before any local state update or await — see the
+  // comment there for why the React-state-derived `canAnswer` cannot stand in for it.
+  const answerLockRef = useRef(false);
 
   useEffect(() => {
     if (!targetRound || isEmpty) return;
@@ -250,29 +253,42 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
   }, [isEmpty, playAgain]);
 
   const chooseAnswer = useCallback(async (syllable: Syllable) => {
-    if (!targetRound) return;
-    const answerId = syllable.symbol;
+    if (!targetRound || !canAnswer) return;
+    // The praise entry backing this round's visible feedback is picked and committed to local
+    // state before resolveAnswer is awaited, so useGameSession's own re-entrancy guard (its
+    // `answeringRef`, mutated synchronously at the top of resolveAnswer) runs too late to
+    // protect it: a same-tick second tap can overwrite roundPraise while the first tap's
+    // verdict audio is already built from the entry it replaced, leaving the spoken praise and
+    // the shown praise mismatched. `canAnswer` is React-state-derived and cannot observe that
+    // second invocation in time either, so this mirrors CompleteLetterGame's reviewed ref guard.
+    if (answerLockRef.current) return;
+    answerLockRef.current = true;
+    try {
+      const answerId = syllable.symbol;
 
-    if (syllable.symbol === targetRound.correctSyllable) {
-      const praise = pickPraise(praiseEntries);
-      setRoundPraise(praise);
+      if (syllable.symbol === targetRound.correctSyllable) {
+        const praise = pickPraise(praiseEntries);
+        setRoundPraise(praise);
+        await resolveAnswer({
+          answerId,
+          outcome: 'correct',
+          selectionAudio: getItemAnnouncementAudio(locale, 'syllables', syllable.audioKey, syllable.symbol),
+          verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetRound)),
+        });
+        return;
+      }
+
+      const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
       await resolveAnswer({
         answerId,
-        outcome: 'correct',
-        selectionAudio: getItemAnnouncementAudio(locale, 'syllables', syllable.audioKey, syllable.symbol),
-        verdictAudio: getSuccessOverlayAudioSpec(locale, praise, getSuccessSpec(locale, targetRound)),
+        outcome: 'wrong',
+        selectionAudio: getWrongAnswerAudio(locale, 'syllables', syllable.audioKey, syllable.symbol),
+        verdictAudio: exhausted ? getFailureSpec(locale, targetRound).audioSpec : undefined,
       });
-      return;
+    } finally {
+      answerLockRef.current = false;
     }
-
-    const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
-    await resolveAnswer({
-      answerId,
-      outcome: 'wrong',
-      selectionAudio: getWrongAnswerAudio(locale, 'syllables', syllable.audioKey, syllable.symbol),
-      verdictAudio: exhausted ? getFailureSpec(locale, targetRound).audioSpec : undefined,
-    });
-  }, [targetRound, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts]);
+  }, [targetRound, canAnswer, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
     ? {
