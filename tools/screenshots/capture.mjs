@@ -201,6 +201,41 @@ async function waitForGamePhaseScene(page, phase) {
   await page.waitForFunction((p) => window.__E2E__?.gamePhase === p, phase);
 }
 
+/** Every interactive control on a playing surface: AnswerGroup's choice buttons and Assembly's
+ * felt tray tiles. */
+const PLAY_SURFACE_CONTROLS =
+  '[data-testid="game-answer-region"] button, [data-testid="play-tray"] [data-tile-id]';
+
+/**
+ * Waits until two consecutive readings of every play-surface control's box agree.
+ *
+ * `AnswerGroup` derives its column count and its explicit pixel `--tile-size` inside a
+ * ResizeObserver callback, so tile boxes can still move a frame or two after first paint and
+ * again after every round change. Only the `round` scenes waited for anything at all before
+ * clicking; the rest clicked as soon as `window.__E2E__.gamePhase` allowed it, which is the most
+ * likely cause of the non-deterministic failures the Task 8 capture run hit — one of them was a
+ * click actionability timeout with a sibling tile intercepting the pointer, exactly what an
+ * unsettled grid produces. Mirrors the `expect.poll` settle wait in `e2e/bespoke-literacy.spec.ts`.
+ */
+async function waitForPlaySurfaceSettled(page) {
+  await page.locator(PLAY_SURFACE_CONTROLS).first().waitFor({ state: 'visible' });
+  await page.waitForFunction(
+    (selector) => {
+      const current = Array.from(document.querySelectorAll(selector))
+        .map((el) => {
+          const rect = el.getBoundingClientRect();
+          return `${Math.round(rect.x)},${Math.round(rect.y)},${Math.round(rect.width)},${Math.round(rect.height)}`;
+        })
+        .join('|');
+      const previous = window.__shotPlaySurface;
+      window.__shotPlaySurface = current;
+      return current !== '' && current === previous;
+    },
+    PLAY_SURFACE_CONTROLS,
+    { polling: 100, timeout: 15000 },
+  );
+}
+
 /**
  * Builds the round/retry/success/failure/completion scene set shared by the three single-tap
  * choice games (first-letter, complete-letter, complete-syllable) — each publishes the same
@@ -212,13 +247,14 @@ function bespokeChoiceScenes(path) {
     await page.getByRole('button', { name: 'Hrať' }).click();
   }
   async function pressAnswer(page, id) {
+    await waitForPlaySurfaceSettled(page);
     await page.locator(`[data-answer-id="${id}"]`).click();
   }
 
   return {
     round: async (page, baseUrl) => {
       await enterPlay(page, baseUrl);
-      await page.locator('[data-testid="game-answer-region"] button').first().waitFor({ state: 'visible' });
+      await waitForPlaySurfaceSettled(page);
     },
     retry: async (page, baseUrl) => {
       await enterPlay(page, baseUrl);
@@ -298,30 +334,30 @@ const assemblyScenes = (() => {
     // eligibility filter) is random — a one-position rotation of the correct order is always a
     // different permutation, so it's guaranteed wrong regardless of tile count.
     const wrongOrder = [...order.slice(1), order[0]];
-    const tray = page.getByTestId('play-tray');
-    for (const tileId of wrongOrder.slice(0, -1)) {
-      await tray.locator(`[data-tile-id="${tileId}"]`).click();
-      await waitForGamePhaseScene(page, 'awaiting-answer');
-    }
-    await tray.locator(`[data-tile-id="${wrongOrder[wrongOrder.length - 1]}"]`).click();
-    await waitForGamePhaseScene(page, 'answered-incorrectly');
+    await placeRail(page, wrongOrder, 'answered-incorrectly');
   }
   async function placeCorrectFullRail(page) {
     const state = await readGameE2E(page);
+    await placeRail(page, state.correctTileOrder, 'answered-correctly');
+  }
+  /** Every placement re-lays out both the tray and the rail, so the surface has to be re-settled
+   * before each tap, not just before the first one. */
+  async function placeRail(page, order, finalPhase) {
     const tray = page.getByTestId('play-tray');
-    const order = state.correctTileOrder;
     for (const tileId of order.slice(0, -1)) {
+      await waitForPlaySurfaceSettled(page);
       await tray.locator(`[data-tile-id="${tileId}"]`).click();
       await waitForGamePhaseScene(page, 'awaiting-answer');
     }
+    await waitForPlaySurfaceSettled(page);
     await tray.locator(`[data-tile-id="${order[order.length - 1]}"]`).click();
-    await waitForGamePhaseScene(page, 'answered-correctly');
+    await waitForGamePhaseScene(page, finalPhase);
   }
 
   return {
     round: async (page, baseUrl) => {
       await enterPlay(page, baseUrl);
-      await page.locator('[data-testid="play-tray"] [data-tile-id]').first().waitFor({ state: 'visible' });
+      await waitForPlaySurfaceSettled(page);
     },
     retry: async (page, baseUrl) => {
       await enterPlay(page, baseUrl);
