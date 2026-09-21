@@ -12,6 +12,7 @@ import {
   getAudioEvents,
   getAudioClipPaths,
   pressAnswerById,
+  stubSpeechSynthesis,
   waitForGamePhase,
   waitForPaused,
 } from './support/gameHarness';
@@ -1103,6 +1104,10 @@ test.describe('Final review: the retry status banner never collides with the ans
           'the full 10-size matrix runs locally and is covered by screenshot review; CI asserts the 4-viewport subset',
         );
 
+        // This is a geometry assertion, not an audio one: a headless TTS stall in the wrong
+        // answer's own clip sequence would strand the round before the banner ever renders and
+        // report as a layout failure. See stubSpeechSynthesis' own note.
+        await stubSpeechSynthesis(page);
         await page.setViewportSize(viewport);
         await game.enterPlay(page);
         await waitForPlaySurfaceSettled(page);
@@ -1486,6 +1491,9 @@ const DOUBLE_TAP_GAMES: Array<{ name: string; path: string; seed?(page: Page): P
 
 for (const game of DOUBLE_TAP_GAMES) {
   test(`${game.name}: a same-tick double tap on the correct answer cannot desync the shown praise from the spoken one`, async ({ page }) => {
+    // The seeded praises have no recorded mp3, so their clips always reach the TTS fallback; this
+    // test is about which praise was chosen, not about the synthesizer.
+    await stubSpeechSynthesis(page);
     await stubAlternatingRandom(page);
     await seedTwoPraises(page);
     await game.seed?.(page);

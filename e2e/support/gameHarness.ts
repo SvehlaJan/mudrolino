@@ -64,6 +64,29 @@ export async function getAudioClipPaths(page: Page): Promise<string[]> {
   return events.filter((event) => event.startsWith('start:')).map((event) => event.slice('start:'.length));
 }
 
+/**
+ * Settles Web Speech TTS immediately instead of waiting on the real synthesizer.
+ *
+ * `audioManager` falls back to TTS for any clip with no recorded mp3, and `speakAsync` has no
+ * timeout guard on the utterance's `onend`/`onerror` — so a headless Chromium synthesizer that
+ * never fires either leaves the round's `resolveAnswer` awaiting forever and the phase never
+ * advances. That is a real, pre-existing gap in `audioManager`, recorded as such; it is not what
+ * a layout or re-entrancy spec is measuring, and letting it stall one of those specs reports a
+ * defect that isn't there. Specs that assert audio *ordering* must not use this — clip
+ * `start:`/`finish:` events are recorded around the clip either way, so ordering specs keep
+ * exercising the real path.
+ */
+export async function stubSpeechSynthesis(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+    const prototype = Object.getPrototypeOf(synth) as SpeechSynthesis;
+    prototype.speak = function speak(utterance: SpeechSynthesisUtterance) {
+      setTimeout(() => utterance.onend?.(new Event('end') as SpeechSynthesisEvent), 0);
+    };
+  });
+}
+
 /** Uses the actual visible answer control; it never invokes React handlers directly. */
 export async function pressAnswerById(page: Page, id: string): Promise<void> {
   const answer = page.locator(`[data-answer-id=${JSON.stringify(id)}]:visible`);
