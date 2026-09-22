@@ -39,7 +39,6 @@ import {
   createAssemblyBoard,
   getCorrectTileOrder,
   isAssemblyBoardComplete,
-  isAssemblyBoardCorrect,
   moveTileToFirstOpenSlot,
   returnTileToTray,
 } from './assemblyLogic';
@@ -454,13 +453,8 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     if (!isEmpty) playAgain();
   }, [isEmpty, playAgain]);
 
-  /**
-   * Returns every currently placed tile back to the tray, animated. Used both by the normal
-   * wrong-full-rail completion inside placeTile (right after its verdict sequence finishes) and
-   * by handleResume's own recovery check below, since a pause can interrupt that verdict
-   * sequence before resolveAnswer ever reports 'retry'.
-   */
-  const resetWrongBoardToTray = useCallback((boardToReset: AssemblyBoard) => {
+  /** Returns every currently placed tile back to the tray, animated. */
+  const resetCompleteBoardToTray = useCallback((boardToReset: AssemblyBoard) => {
     const placedNow = boardToReset.placedTiles.filter((placed): placed is AssemblyTile => placed !== null);
     if (placedNow.length === 0) return;
     const resetBoard = placedNow.reduce<AssemblyBoard>(
@@ -476,22 +470,18 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
   }, [animateTilesMove]);
 
   /**
-   * pause() (see handlePause) calls useGameSession's invalidate(), which stops audioManager
-   * mid-clip and bumps its operation id. If that happens while the wrong-final-tile verdict
-   * sequence (selectionAudio: getWrongSequenceAudio) is still playing, resolveAnswer's own
-   * post-await staleness check fires before ANSWER_WRONG is ever dispatched, so it resolves
-   * 'cancelled' instead of 'retry' — placeTile's reset below never runs, and the board is left
-   * full with the wrong tile order. useGameSession's own resume() recovery
-   * (resumeCancelledAnswerRef) only restores the *session* phase, not this game's board, so
-   * resume re-checks the board directly here: if it's complete but not correct, the wrong-rail
-   * reset must still happen, exactly as if the verdict sequence had been allowed to finish.
+   * A pause during any final-tile selection clip invalidates resolveAnswer before it has
+   * committed an outcome. useGameSession then resumes from resolving-answer as awaiting-answer.
+   * The rail was updated before that clip began, so recover every complete board here; otherwise
+   * the child has an active round with no available tile. The resumePhase guard deliberately
+   * preserves a completed rail when a parent pauses after success feedback is already settled.
    */
   const handleResume = useCallback(() => {
     resume();
-    if (isAssemblyBoardComplete(board) && !isAssemblyBoardCorrect(board, correctSyllables)) {
-      resetWrongBoardToTray(board);
+    if (state.resumePhase === 'resolving-answer' && isAssemblyBoardComplete(board)) {
+      resetCompleteBoardToTray(board);
     }
-  }, [resume, board, correctSyllables, resetWrongBoardToTray]);
+  }, [resume, state.resumePhase, board, resetCompleteBoardToTray]);
 
   const placeTile = useCallback(async (tile: AssemblyTile) => {
     if (!targetWord || !canAnswer) return;
@@ -546,17 +536,16 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       });
 
       if (resolution === 'retry') {
-        resetWrongBoardToTray(nextBoard);
+        resetCompleteBoardToTray(nextBoard);
       }
-      // If resolution is 'cancelled' instead (a pause interrupted the verdict sequence above),
-      // the reset is not skipped — handleResume's own recovery check performs it once the
-      // parent unlocks, using the same resetWrongBoardToTray helper.
+      // A pause can cancel the sequence before it reports 'retry'. handleResume then restores
+      // the tray after the parent unlocks.
     } finally {
       answerLockRef.current = false;
     }
   }, [
     animateTilesMove, animatingTileIds, board, canAnswer, correctSyllables, locale,
-    praiseEntries, resetWrongBoardToTray, resolveAnswer, targetWord,
+    praiseEntries, resetCompleteBoardToTray, resolveAnswer, targetWord,
   ]);
 
   const returnTile = useCallback((tile: AssemblyTile, slotIndex: number) => {
@@ -679,7 +668,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                       : isMoving ? { visibility: 'hidden' } : undefined
                   }
                 >
-                  <span className="font-spline text-[clamp(2rem,7vw,4.5rem)] font-black leading-none">
+                  <span className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-black leading-none">
                     {renderTileLabel(tile.text)}
                   </span>
                 </TactilePiece>

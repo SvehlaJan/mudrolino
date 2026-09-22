@@ -9,6 +9,9 @@ import { loadAppSettings } from './appSettingsStore';
 import { audioOverrideStore } from './audioOverrideStore';
 import { recordE2EAudioEvent } from './e2eState';
 
+/** Web Speech can silently omit both terminal events in Chromium. */
+export const SPEECH_UTTERANCE_TIMEOUT_MS = 15_000;
+
 export class AudioManager {
   private synth: SpeechSynthesis = window.speechSynthesis;
   private currentAudio: HTMLAudioElement | null = null;
@@ -130,16 +133,28 @@ export class AudioManager {
       if (!this.synth || playbackToken !== this.playbackToken) { resolve(); return; }
       this.synth.cancel();
       let settled = false;
+      let timeout: ReturnType<typeof setTimeout> | null = null;
+      let utterance: SpeechSynthesisUtterance | null = null;
+
+      const cleanup = () => {
+        if (timeout !== null) clearTimeout(timeout);
+        if (utterance) {
+          utterance.onend = null;
+          utterance.onerror = null;
+        }
+        if (this.pendingCancel === settleOnce) this.pendingCancel = null;
+      };
+
       const settleOnce = () => {
         if (settled) return;
         settled = true;
-        if (this.pendingCancel === settleOnce) this.pendingCancel = null;
+        cleanup();
         resolve();
       };
       this.pendingCancel = settleOnce;
       setTimeout(() => {
         if (playbackToken !== this.playbackToken) { settleOnce(); return; }
-        const utterance = new SpeechSynthesisUtterance(text);
+        utterance = new SpeechSynthesisUtterance(text);
         const voices = this.synth.getVoices();
         const langMap: Record<string, string> = {
           sk: 'sk-SK', cs: 'cs-CZ', en: 'en-US',
@@ -155,7 +170,15 @@ export class AudioManager {
         utterance.onerror = settleOnce;
         if (this.synth.paused) this.synth.resume();
         if (playbackToken !== this.playbackToken) { settleOnce(); return; }
-        this.synth.speak(utterance);
+        timeout = setTimeout(() => {
+          if (playbackToken === this.playbackToken) this.synth.cancel();
+          settleOnce();
+        }, SPEECH_UTTERANCE_TIMEOUT_MS);
+        try {
+          this.synth.speak(utterance);
+        } catch {
+          settleOnce();
+        }
       }, 50);
     });
   }

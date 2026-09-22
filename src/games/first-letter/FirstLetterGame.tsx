@@ -304,7 +304,7 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
               state={getAnswerPieceState(state, letter.symbol)}
               onPress={() => void chooseAnswer(letter)}
             >
-              <span className="font-spline text-[clamp(2.25rem,7vw,5rem)] font-bold leading-none">
+              <span className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-bold leading-none">
                 {letter.symbol}
               </span>
             </TactilePiece>

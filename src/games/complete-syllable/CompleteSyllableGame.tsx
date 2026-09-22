@@ -380,7 +380,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
               state={getAnswerPieceState(state, syllable.symbol)}
               onPress={() => void chooseAnswer(syllable)}
             >
-              <span className="font-spline text-[clamp(2.25rem,7vw,5rem)] font-bold leading-none">
+              <span className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-bold leading-none">
                 {syllable.symbol}
               </span>
             </TactilePiece>

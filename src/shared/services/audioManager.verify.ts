@@ -13,6 +13,8 @@ function deferred<T>(): Deferred<T> {
 
 const played: FakeAudio[] = [];
 const spoken: FakeUtterance[] = [];
+const playbackEvents: string[] = [];
+let speechCompletion: 'automatic' | 'manual' | 'silent' = 'automatic';
 
 class FakeAudio {
   onended: (() => void) | null = null;
@@ -25,6 +27,7 @@ class FakeAudio {
   }
 
   play(): Promise<void> {
+    playbackEvents.push(`audio:${this.path}`);
     if (this.path.includes('tts')) return Promise.reject(new Error('missing clip'));
     if (!this.path.includes('first') && !this.path.includes('second') && !this.path.includes('long')) {
       queueMicrotask(() => this.onended?.());
@@ -51,12 +54,13 @@ class FakeUtterance {
 const synth = {
   onvoiceschanged: null as (() => void) | null,
   paused: false,
-  cancel: () => undefined,
+  cancel: () => { playbackEvents.push('synth:cancel'); },
   getVoices: () => [],
   resume: () => undefined,
   speak: (utterance: FakeUtterance) => {
     spoken.push(utterance);
-    utterance.onend?.();
+    playbackEvents.push(`synth:speak:${utterance.text}`);
+    if (speechCompletion === 'automatic') utterance.onend?.();
   },
 };
 
@@ -68,7 +72,7 @@ Object.assign(globalThis, {
   URL: { createObjectURL: () => 'blob:override', revokeObjectURL: () => undefined },
 });
 
-const { AudioManager } = await import('./audioManager');
+const { AudioManager, SPEECH_UTTERANCE_TIMEOUT_MS } = await import('./audioManager');
 const { audioOverrideStore } = await import('./audioOverrideStore');
 
 const originalGet = audioOverrideStore.get;
@@ -90,6 +94,59 @@ try {
   await new Promise((resolve) => setTimeout(resolve, 60));
   await ttsPlay;
   assert.equal(spoken.length, 0, 'stop must cancel delayed fallback speech before it starts');
+
+  speechCompletion = 'manual';
+  const completedTtsManager = new AudioManager();
+  const completedTtsPlay = completedTtsManager.play({ clips: [{ path: 'tts-completes', fallbackText: 'completed speech' }] });
+  await new Promise((resolve) => setTimeout(resolve, 60));
+  const completedUtterance = spoken.at(-1)!;
+  completedUtterance.onend?.();
+  await completedTtsPlay;
+  assert.equal(completedUtterance.onend, null, 'normal TTS completion must clean up its event handler');
+
+  const cancelledTtsManager = new AudioManager();
+  const cancelledTtsPlay = cancelledTtsManager.play({ clips: [{ path: 'tts-cancelled', fallbackText: 'cancelled speech' }] });
+  await new Promise((resolve) => setTimeout(resolve, 60));
+  const cancelledUtterance = spoken.at(-1)!;
+  cancelledTtsManager.stop();
+  await cancelledTtsPlay;
+  assert.equal(cancelledUtterance.onend, null, 'cancelled TTS must clean up its event handler');
+
+  speechCompletion = 'silent';
+  const silentTtsManager = new AudioManager();
+  const spokenBeforeSilentTts = spoken.length;
+  const eventsBeforeSilentTts = playbackEvents.length;
+  const nativeSetTimeout = globalThis.setTimeout;
+  const accelerateSpeechTimeout = (...[handler, delay, ...args]: Parameters<typeof setTimeout>) =>
+    nativeSetTimeout(handler, delay === SPEECH_UTTERANCE_TIMEOUT_MS ? 0 : delay, ...args);
+  globalThis.setTimeout = accelerateSpeechTimeout as typeof setTimeout;
+  try {
+    const silentTtsPlay = silentTtsManager.play({ clips: [
+      { path: 'tts-silent', fallbackText: 'silent speech' },
+      { path: 'after-silent', fallbackText: 'after silent speech' },
+    ] });
+    const silentTtsSettled = await Promise.race([
+      silentTtsPlay.then(() => true),
+      new Promise<boolean>((resolve) => nativeSetTimeout(() => resolve(false), 100)),
+    ]);
+    assert.equal(silentTtsSettled, true, 'a started TTS utterance with no end/error event must settle on its timeout');
+    const silentUtterances = spoken.slice(spokenBeforeSilentTts);
+    assert.equal(silentUtterances.length, 1, 'the silent test must start exactly one new TTS utterance');
+    const [silentUtterance] = silentUtterances;
+    assert.equal(silentUtterance.text, 'silent speech', 'the silent test must inspect its own utterance');
+    assert.equal(silentUtterance.onend, null, 'timed-out TTS must clean up its event handler');
+
+    const silentEvents = playbackEvents.slice(eventsBeforeSilentTts);
+    const speechIndex = silentEvents.indexOf('synth:speak:silent speech');
+    const timeoutCancelIndex = silentEvents.indexOf('synth:cancel', speechIndex + 1);
+    const followingClipIndex = silentEvents.indexOf('audio:/audio/after-silent.mp3');
+    assert.notEqual(timeoutCancelIndex, -1, 'the silent TTS timeout must call synth.cancel()');
+    assert.ok(followingClipIndex > timeoutCancelIndex, 'the following clip must wait until silent TTS is cancelled');
+  } finally {
+    globalThis.setTimeout = nativeSetTimeout;
+    silentTtsManager.stop();
+  }
+  speechCompletion = 'automatic';
 
   const currentManager = new AudioManager();
   const first = currentManager.play({ clips: [{ path: 'first', fallbackText: 'first' }] });

@@ -403,6 +403,12 @@ interface AssemblyE2EState extends E2EGlobalState {
 
 const ASSEMBLY_JAHODA = { word: 'Jahoda', syllables: 'ja-ho-da', emoji: '🍓', audioKey: 'jahoda' };
 const ASSEMBLY_MAMA = { word: 'Mama', syllables: 'ma-ma', emoji: '👩', audioKey: 'mama' };
+const LONG_LABEL_WORDS = {
+  'first-letter': { word: 'Džús', syllables: 'džús', emoji: '🥤', audioKey: 'dzus' },
+  'complete-letter': { word: 'Džús', syllables: 'džús', emoji: '🥤', audioKey: 'dzus' },
+  'complete-syllable': { word: 'Stromalina', syllables: 'stro-ma-li-na', emoji: '🌳', audioKey: 'stromalina' },
+  assembly: { word: 'Dlhý strom', syllables: 'dlo-hý-stro', emoji: '🌳', audioKey: 'dlhy-strom' },
+} as const;
 
 /**
  * Pins the eligible word pool to exactly one deterministic word, bypassing the random 33-word
@@ -411,7 +417,7 @@ const ASSEMBLY_MAMA = { word: 'Mama', syllables: 'ma-ma', emoji: '👩', audioKe
  * migration re-adds behind the scenes lands `enabled: false` (see contentState.ts's `migrate()`),
  * leaving only this one custom, enabled, ready word playable.
  */
-function seedSingleAssemblyWord(
+function seedSingleLiteracyWord(
   page: import('@playwright/test').Page,
   word: { word: string; syllables: string; emoji: string; audioKey: string },
 ) {
@@ -435,6 +441,13 @@ function seedSingleAssemblyWord(
       ],
     },
   });
+}
+
+function seedSingleAssemblyWord(
+  page: import('@playwright/test').Page,
+  word: { word: string; syllables: string; emoji: string; audioKey: string },
+) {
+  return seedSingleLiteracyWord(page, word);
 }
 
 function expectEventsInOrder(events: string[], expected: Array<string | RegExp>): void {
@@ -866,7 +879,7 @@ async function asmFinishSessionCorrectly(page: Page): Promise<void> {
 }
 
 interface BespokeGameCase {
-  name: string;
+  name: 'first-letter' | 'complete-letter' | 'complete-syllable' | 'assembly';
   path: string;
   heading: string;
   instruction: string;
@@ -1176,6 +1189,102 @@ test.describe('Final review: the retry status banner never collides with the ans
         await expectNoPairwiseOverlap([statusBanner, answerRegion]);
         await expectNotClippedByAncestorOverflow(answerRegion);
         await expectNoHorizontalOverflow(page);
+      });
+    }
+  }
+});
+
+/**
+ * The answer-grid geometry is deliberately driven by the available tray height on short
+ * landscapes. Its labels therefore cannot use viewport width alone: at 667px wide the former
+ * 7vw scale made a three-character syllable much wider than its roughly 61px answer tile. Check
+ * the rendered label box itself rather than scroll metrics, because TactilePiece intentionally
+ * allows its child content to paint outside its border in ordinary layouts.
+ */
+test.describe('Final review: literacy answer labels stay inside their tiles on landscape phones', () => {
+  const LANDSCAPE_VIEWPORTS: Array<[string, { width: number; height: number }]> = [
+    ['shortLandscape', CANONICAL_VIEWPORTS.shortLandscape],
+    ['phoneLandscape', CANONICAL_VIEWPORTS.phoneLandscape],
+  ];
+  const EXPECTED_STRESS_LABELS: Record<BespokeGameCase['name'], string[]> = {
+    'first-letter': ['DŽ'],
+    'complete-letter': ['DŽ'],
+    'complete-syllable': ['STRO'],
+    assembly: ['DLO', 'STRO'],
+  };
+
+  async function expectAnswerLabelsContained(
+    page: Page,
+    context: string,
+    expectedLabels: string[],
+  ): Promise<void> {
+    const geometry = await page.locator('[data-testid="game-answer-region"] button > .font-spline').evaluateAll((labels) =>
+      labels.map((label) => {
+        const labelRect = label.getBoundingClientRect();
+        const tileRect = label.parentElement!.getBoundingClientRect();
+        return {
+          label: label.textContent?.trim(),
+          labelLeft: labelRect.left,
+          labelRight: labelRect.right,
+          labelTop: labelRect.top,
+          labelBottom: labelRect.bottom,
+          tileLeft: tileRect.left,
+          tileRight: tileRect.right,
+          tileTop: tileRect.top,
+          tileBottom: tileRect.bottom,
+          tileWidth: tileRect.width,
+          tileHeight: tileRect.height,
+        };
+      }),
+    );
+
+    expect(geometry.length, `${context}: expected answer labels`).toBeGreaterThan(0);
+    for (const expectedLabel of expectedLabels) {
+      expect(
+        geometry.some((item) => item.label === expectedLabel),
+        `${context}: expected stress label ${expectedLabel} before measuring containment`,
+      ).toBe(true);
+    }
+    for (const item of geometry) {
+      expect(item.tileWidth, `${context}: ${item.label} target width`).toBeGreaterThanOrEqual(48);
+      expect(item.tileHeight, `${context}: ${item.label} target height`).toBeGreaterThanOrEqual(48);
+      expect(item.labelLeft, `${context}: ${item.label} extends left of its tile`).toBeGreaterThanOrEqual(item.tileLeft - 0.5);
+      expect(item.labelRight, `${context}: ${item.label} extends right of its tile`).toBeLessThanOrEqual(item.tileRight + 0.5);
+      expect(item.labelTop, `${context}: ${item.label} extends above its tile`).toBeGreaterThanOrEqual(item.tileTop - 0.5);
+      expect(item.labelBottom, `${context}: ${item.label} extends below its tile`).toBeLessThanOrEqual(item.tileBottom + 0.5);
+    }
+  }
+
+  async function enterLongLabelRound(page: Page, game: BespokeGameCase): Promise<void> {
+    // The production pools are shuffled, so pin one word per game and make the missing-letter
+    // picker choose its first unit. This guarantees the label that previously escaped its tile:
+    // DŽ for the two letter games, STRO for missing-syllable, and DLO/STRO in Assembly.
+    await page.addInitScript(() => { Math.random = () => 0; });
+    await seedSingleLiteracyWord(page, LONG_LABEL_WORDS[game.name]);
+    await page.goto(game.path);
+    await page.getByRole('button', { name: 'Hrať' }).click();
+  }
+
+  for (const game of BESPOKE_GAMES) {
+    for (const [viewportName, viewport] of LANDSCAPE_VIEWPORTS) {
+      test(`${game.name} contains every answer label in ${viewportName} during a round and retry`, async ({ page }) => {
+        await stubSpeechSynthesis(page);
+        await page.setViewportSize(viewport);
+        await enterLongLabelRound(page, game);
+        await waitForPlaySurfaceSettled(page);
+
+        await expectAnswerLabelsContained(
+          page,
+          `${game.name} at ${viewportName} during a round`,
+          EXPECTED_STRESS_LABELS[game.name],
+        );
+
+        await game.answerWrong(page);
+        await expectAnswerLabelsContained(
+          page,
+          `${game.name} at ${viewportName} during retry`,
+          EXPECTED_STRESS_LABELS[game.name],
+        );
       });
     }
   }
