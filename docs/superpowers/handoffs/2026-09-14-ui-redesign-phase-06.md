@@ -6,10 +6,11 @@
 - **Branch:** `feature/full-app-ui-redesign`
 - **Base SHA:** `443fa48384b75f9a5ceafc8293d4de03c3d5a115` ("docs: accept UI redesign phase five" — the Codex acceptance-record commit for Phase 5's round 2 remediated candidate `c6e8b557f872e39dca9f5fc39429cfd42225eb40`), per the Phase 5 handoff's own "Phase 6 Preconditions" section.
 - **Candidate SHA (Task 8's starting point and the pre-fix-wave HEAD):** `99b144863b298aa980e74f576b1363a36f690ab6` ("fix: stop hiding WordRail behind an undersized prompt cap")
-- **Candidate SHA (current, after the final whole-phase review fix wave):** `d6f32d9bf758e0e498c4cadf17a1df09170a46d1` ("test: keep the new literacy geometry specs off the real synthesizer") — the last code commit; this document and `ROADMAP.md` are updated in the docs commit that follows it. See **Final Whole-Phase Review Fix Wave** below.
-- **Implementation Status:** Complete, **pending Codex acceptance**. Task 8 was verification/documentation only; the fix wave recorded below is a separate, single remediation round on the findings of the final whole-phase review and likewise does not accept the phase.
+- **Candidate SHA (final whole-phase review fix wave, superseded):** `d6f32d9bf758e0e498c4cadf17a1df09170a46d1` ("test: keep the new literacy geometry specs off the real synthesizer").
+- **Candidate SHA (current, after acceptance-audit remediation):** `779f58e6505dd737cec905a95f25605dc99b1aaa` ("fix: keep literacy rounds readable and recoverable"). See **Acceptance-Audit Remediation** below.
+- **Implementation Status:** Complete, **pending Codex acceptance** of `779f58e6505dd737cec905a95f25605dc99b1aaa`.
 - **Working Tree Clean (before this handoff commit):** Yes.
-- **Local Screenshot Artifact Directory:** `artifacts/ui/d6f32d9bf758e0e498c4cadf17a1df09170a46d1/2026-09-21T00-20-35-805Z-59854/` — **complete: 240 images, 24 scenes × all 10 canonical viewports**, recaptured in one clean pass after the capture tool's settle-wait bug was fixed. This supersedes Task 8's partial 94-image run at `artifacts/ui/99b144863b298aa980e74f576b1363a36f690ab6/2026-09-20T12-56-38-065Z-39772/`. See **Screenshot Capture Evidence** below.
+- **Local Screenshot Artifact Directories:** `artifacts/ui/d6f32d9bf758e0e498c4cadf17a1df09170a46d1/2026-09-21T00-20-35-805Z-59854/` — the original complete 240-image matrix; `artifacts/ui/779f58e6505dd737cec905a95f25605dc99b1aaa/2026-09-22T19-47-46-706Z-4526/` — 16 fresh round/retry captures for all four affected literacy games at both landscape-phone viewports. The user requested no full-resolution screenshot analysis; acceptance relies on measured DOM containment and interaction checks instead.
 
 ## Commit History (base → head, in order)
 
@@ -31,6 +32,7 @@
 | Final review fix wave | `9d5fd30e4570402e17737f0d2887d26e712136dd` | fix: close the double-tap praise race in first-letter and missing-syllable |
 | Final review fix wave | `67f947cde9f5c46b97165c28a834d765622b4079` | fix: settle tile geometry before the capture tool clicks |
 | Final review fix wave | `d6f32d9bf758e0e498c4cadf17a1df09170a46d1` | test: keep the new literacy geometry specs off the real synthesizer |
+| Acceptance-audit remediation | `779f58e6505dd737cec905a95f25605dc99b1aaa` | fix: keep literacy rounds readable and recoverable |
 
 Each fix round is one Codex review-and-fix cycle on the immediately preceding task's own candidate — normal for this process, not a red flag. Task 8 (this document) is verification/documentation only, per the plan's process: it does not add new game logic or fix bugs found during its own review (see **Residual Risks item 15** for a genuine finding surfaced during this task that was deliberately left unfixed).
 
@@ -199,7 +201,7 @@ Items 1-14 are faithfully carried forward from the individual task reviews acros
 9. **Task 6 — no e2e test chains** a wrong-rail reset into a subsequent correct completion in the same round. *Non-blocking; coverage gap.*
 10. **Task 6 — `returnTile` lacks `placeTile`'s `answerLockRef` reentrancy guard** — appears adequate given `flushSync`-forced synchronous commits, but undocumented asymmetry. *Non-blocking.*
 11. **Task 6 — the "focus moves to next tray piece after placing" half of the focus contract** is only indirectly exercised (the return-focus half has an explicit assertion, the placement-focus half doesn't). *Non-blocking; coverage gap.*
-12. **Task 6, most notable — pre-existing, NOT introduced by this phase:** pausing during a CORRECT final tile's verdict audio (`useGameSession.resolveAnswer` returns `'cancelled'` instead of `'success'`) leaves the Assembly board fully placed and correct, but `useGameSession`'s own `resume()`/`resumeCancelledAnswerRef`/`ANSWER_PROGRESS` recovery reverts session phase to `awaiting-answer` even though there are no empty slots left to place a tile into — a possible dead-end. Verified identical before/after this phase's changes; inherited from Phase 5's `useGameSession`, not Assembly-specific. **Flagging prominently since it's a shared-framework gap, not a Phase-6-local one** — a future phase (or Phase 8) may need to address it in `useGameSession.ts` itself. *Recommend Phase 8 (or a dedicated framework task) fix; does not block Phase 6 acceptance since it's unchanged behavior.*
+12. **Task 6, most notable — pre-existing, NOT introduced by this phase:** pausing during a CORRECT final tile's verdict audio (`useGameSession.resolveAnswer` returns `'cancelled'` instead of `'success'`) leaves the Assembly board fully placed and correct, but `useGameSession`'s own `resume()`/`resumeCancelledAnswerRef`/`ANSWER_PROGRESS` recovery reverts session phase to `awaiting-answer` even though there are no empty slots left to place a tile into — a possible dead-end. Verified identical before/after this phase's changes; inherited from Phase 5's `useGameSession`, not Assembly-specific. **Status 2026-09-22: fixed in `779f58e` by resetting Assembly's complete board when resume follows an interrupted resolving-answer; a deterministic parent-gate E2E regression fails before the fix and passes after it.**
 13. **Task 7 — `PictureCard.tsx`'s two independent reduced-viewport breakpoints** (`max-height:480px` vs `max-width:380px`, current values as of `99b1448`) diverge in value; when both conditions are simultaneously true (~375×420, an unusual squarish window) the milder width-query wins and the answer tray can overflow its container. None of the 10 `CANONICAL_VIEWPORTS` reach this combination; essentially unreachable on real phone aspect ratios (only floating/split-screen desktop or foldable states could trigger it). *Non-blocking; already-narrow edge case.*
 14. **Task 7 — the brief's "no delayed input lock beyond duplicate-event prevention" clause under reduced motion** has no test that directly targets input-lock timing; covered only indirectly. *Non-blocking; coverage gap.*
 
@@ -233,7 +235,13 @@ The control confirms this is **not a framework-wide break** — the already-Code
 
 **Triage recommendation:** the reviewer (Codex) should decide whether this blocks Phase 6 acceptance. Arguments for treating it as non-blocking: it is inherited framework positioning logic Phase 6 did not touch, `shortLandscape` is a real but less common orientation, and the other three "worse" residual risks (item 12 especially) were similarly assessed as framework-level and not blocking in Phase 5's own acceptance. Arguments for treating it as blocking: it is newly, concretely surfaced by Phase 6's own content shape (not hypothetical), reproduces in all four of this phase's games, and directly touches the "visible feedback" and "short-landscape fit" criteria this very verification step was asked to check. This author's own read: **non-blocking for accepting Phase 6's game logic and content work, but worth a fast, narrowly-scoped follow-up fix in `GameShell.tsx` before Phase 8's release hardening**, since it is trivial to reproduce and characterize precisely (the table above) and does not require touching any of the four games themselves.
 
-### 16. New, recorded not fixed — tile *content* can overflow its own tile at the landscape strips
+### 16. Tile *content* overflow at the landscape strips — Phase 6 games fixed in `779f58e`
+
+> **Status 2026-09-22:** all four Phase 6 literacy games now size their answer labels from
+> `AnswerGroup`'s measured tile size. Deterministic DOM tests require DŽ, STRO, and DLO to
+> appear and remain inside their at-least-48px tiles in round and retry at both landscape-phone
+> viewports. The Phase 5 `words` observation below remains an independent, older residual risk.
+> The pre-remediation analysis is retained below as history.
 
 Surfaced by the fix wave's own measurement and visual review, and deliberately left open because
 it is a different defect from the banner collision and predates it.
@@ -458,14 +466,55 @@ Two notes on that list, for the reviewer's benefit rather than as amendments to 
   full 482-test suite passes; but a reviewer should know the blast radius includes Phase 5's four
   games at narrow and short sizes, where they gain room rather than lose it.
 
+## Acceptance-Audit Remediation (2026-09-22)
+
+Codex's fresh audit of candidate `d6f32d9` found that the retry-banner overlap was fixed but
+multi-letter answer text still escaped its tiles on landscape phones. It also elevated the
+recorded Assembly pause dead-end and Web Speech stall from deferred risks to fixes required
+before Phase 7. Candidate `779f58e` addresses those three issues:
+
+1. All four literacy games scale answer-label type from `AnswerGroup`'s measured `--tile-size`
+   instead of viewport width. The new E2E block seeds DŽ, STRO, and DLO, verifies those labels
+   actually appear, measures label bounds inside each tile in both round and retry, and requires
+   every child target to be at least 48px at 667×375 and 844×390. The first pre-fix focused run
+   failed in the syllable and Assembly cases; the final deterministic run passed **8/8**.
+2. Assembly resets a complete board on resume only when the parent pause interrupted
+   `resolving-answer`. This uses the existing board-reset animation and leaves settled feedback
+   untouched. The new parent-gate E2E regression failed before the fix with three filled slots
+   and an `awaiting-answer` phase; it passed after the fix.
+3. `audioManager.speakAsync` now cancels and settles Web Speech after 15 seconds without an
+   `onend`/`onerror` event. Normal completion and explicit stop clear the timeout and handlers.
+   The pure verifier covers a silent utterance, proves cancellation precedes the following clip,
+   and passed after its pre-fix failure.
+
+Fresh integrated verification: `npm run lint` passed with zero errors and the unchanged single
+`ContentContext.tsx` Fast Refresh warning; the six Phase 6 pure verifiers plus
+`audioManager.verify.ts` and `capture.verify.ts` passed; `npm run test:e2e` passed **491/491**;
+the final, stricter label-containment subset passed **8/8**; `npm run build` and
+`git diff --check` passed. No audio file or audio key changed, so `npm run test:audio` was not
+required. The production bundle still keeps `AvatarScene` in its separate lazy chunk.
+
+The screenshot script captured **16/16** affected round/retry scenes at the two landscape-phone
+viewports under the current candidate SHA. Per the user's explicit instruction, no
+full-resolution screenshots were opened for manual analysis. The geometry and interaction
+assertions above are the review evidence for this fix. Independent focused reviews of all
+three changes found only test-coverage gaps; those were closed, except an attempted settled-
+success pause test whose control is inaccessible behind the full-screen success overlay and
+therefore cannot represent a real user action.
+
+The older Phase 5 `words` answer-content overflow and the broader landscape playfield reflow
+remain release-review items outside this Phase 6 remediation. The 5-way shared glue duplication
+and the minor findings listed above remain non-blocking maintenance work.
+
 ## Phase 7 Preconditions
 
-- Base Phase 7's implementation on the Codex acceptance-record commit for this phase's candidate (`99b144863b298aa980e74f576b1363a36f690ab6`), once accepted — not on this candidate directly, consistent with every prior phase's precondition.
+- Base Phase 7's implementation on the Codex acceptance-record commit for current candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`, once accepted — not on the superseded `99b1448` or `d6f32d9` candidates directly.
 - The three remaining bespoke numeracy games (`addition`, `compare`, `counting`) still import the legacy `SuccessOverlay`/`FailureOverlay`/`SessionCompleteOverlay` components (confirmed in Step 2) — Phase 7's job, per the roadmap, is migrating `Spočítaj`/`Viac alebo menej`/`Sčítaj` onto the same shared game framework these four literacy games now use.
 - `src/shared/game/materials/{PictureCard, WordRail, InsetSlot}` (Task 1's new materials) are available and stable for Phase 7 if any numeracy game's content shape benefits from them, though numeracy content (object clusters, numeral tiles) may not map onto "word with blanks" materials as directly as literacy content did.
 - ~~**Strongly recommend Phase 7 resolve Residual Risk item 15**~~ — **done**: fixed in the final-review fix wave (`011b87b`), in shared framework code, so all seven non-FindIt games and the four FindIt games inherit it. Phase 7's numeracy games will render their own tall-prompt content (object clusters, numeral groups) into the same column; the new retry-state viewport matrix in `e2e/bespoke-literacy.spec.ts` is the pattern to copy for them.
 - ~~**Recommend completing the screenshot matrix's missing 6 viewports**~~ — **done**: the capture tool's settle-wait gap was fixed (`67f947c`) and the matrix recaptured; see **Screenshot Capture Evidence**.
-- Item 12 (paused-during-correct-verdict `useGameSession` dead-end) remains open and inherited; still worth a dedicated framework-level fix independent of Phase 7's own scope.
-- **The `audioManager.speakAsync` TTS timeout gap (item 1) is now a known suite-flake source, not just a content gap.** It stalled one test in a full-suite run during the fix wave. The fix wave worked around it in the two new blocks only; a real timeout guard in `speakAsync` would remove a whole class of non-deterministic failure from both the e2e suite and the screenshot capture tool, and is worth a dedicated framework task.
+- ~~Item 12 (paused-during-correct-verdict Assembly dead-end)~~ — fixed and regression-gated in `779f58e`.
+- ~~`audioManager.speakAsync` could await Web Speech forever~~ — fixed with a bounded, cancellation-aware timeout and pure verifier in `779f58e`.
 - **Short-landscape playfield reflow remains an explicit Phase 7/8 item** per the controller's ruling recorded below — the shell now compacts decoration and whitespace at short heights (the first half of the design spec's `:557-562` guidance) but still never reflows the playfield to use landscape width.
+- The older Phase 5 `words` answer-content overflow noted in item 16 remains for Phase 8 release review; the Phase 6 literacy labels are now covered by measured containment tests.
 - **The 5-way glue duplication across the non-FindIt games remains open** and is recommended as a dedicated, separately-reviewed task before or alongside Phase 7, since it would also touch accepted Phase 5 code.

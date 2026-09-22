@@ -72,7 +72,7 @@
   - [x] Phase 3 — scalable game catalog, grouped home, and all game lobbies (Codex accepted candidate `481f3e8`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-03.md`)
   - [x] Phase 4 — parent dashboard, settings registry, custom content, recordings, and feedback (Codex accepted candidate `8840128b53fefdd0e96c7f1b34f2b4cc246e64dc`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-04.md`)
   - [x] Phase 5 — shared game shell and Abeceda/Slabiky/Čísla/Slová migration (Codex accepted candidate `c6e8b557f872e39dca9f5fc39429cfd42225eb40`; `4d9afd1261daa0823c793c05049a2b50063b93bc` is superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-05.md`)
-  - [~] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration (implementation complete and remediated after the final whole-phase review, current candidate `d6f32d9bf758e0e498c4cadf17a1df09170a46d1`, **pending Codex acceptance** — `99b144863b298aa980e74f576b1363a36f690ab6` is superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-06.md`)
+  - [~] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration (implementation and acceptance-audit remediation complete, current candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`, **pending Codex acceptance** — `99b1448` and `d6f32d9` are superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-06.md`)
   - [ ] Phase 7 — Spočítaj/Viac alebo menej/Sčítaj migration
   - [ ] Phase 8 — release hardening, Codex review, and user visual sign-off
 - [ ] Fix audit ship blockers through redesign phases: parent-gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
