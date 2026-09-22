@@ -11,12 +11,10 @@ below turn that specification into executable, test-first work.
    set.
 2. Run phases strictly in order on that one branch. Never implement phases in
    parallel.
-3. Assign each phase first to a fresh Claude Code session using Sonnet with
-   Extra effort (`--model sonnet --effort xhigh`). If Claude reports that its
-   rolling five-hour quota is exhausted, stop that session and hand the same
-   phase, current worktree, plan, progress, and unresolved checks to a fresh
-   Antigravity agent using `gemini-3.8-flash-high`. Never run both phase
-   implementers concurrently.
+3. Phases 1–6 used the original Claude Code/Antigravity implementer preference.
+   On 2026-09-22 the user superseded that preference for remaining work: use
+   lower-cost Codex subagents for bounded tasks under one coordinating reviewer.
+   Keep phases sequential and do not assign concurrent edits to the same files.
 4. The active phase agent must use `superpowers:subagent-driven-development`, follow
    `AGENTS.md`, and read the approved design spec, its phase plan, and all prior
    Codex-accepted handoff manifests before editing.
@@ -33,7 +31,10 @@ below turn that specification into executable, test-first work.
 7. Every UI-changing phase runs the shared screenshot script and records its
    local artifact directory. Screenshots are uncommitted manual-review evidence
    under `artifacts/ui/<full-git-sha>/<unique-run-id>/`; they are not pixel-diff
-   assertions and never establish a visual baseline.
+   assertions and never establish a visual baseline. The user requested that
+   agents not analyze full-resolution screenshots; use objective browser layout
+   checks and capture inventories for agent review, preserving images for the
+   user's final visual sign-off.
 8. The listed component-library stack is the approved starting proposal, not
    permission for an implementation agent to change dependencies freely. Before
    the first install, and before any later direct dependency addition, removal,
@@ -64,9 +65,8 @@ below turn that specification into executable, test-first work.
 ## Fresh-agent launch prompt
 
 Replace `<N>`, `<PLAN>`, and `<BASE_SHA>` with the Codex-accepted phase values.
-For Claude Code launch a fresh session with `--model sonnet --effort xhigh`;
-for quota fallback use a fresh Antigravity session with
-`gemini-3.8-flash-high`:
+For Phases 7–8, provide this context to lower-cost Codex subagents in bounded
+tasks; the prior Claude/Antigravity launch preference above is historical:
 
 ```text
 Implement UI redesign Phase <N> from <PLAN> on branch
@@ -85,10 +85,9 @@ screenshot script and record the uncommitted
 not add or replace a component library without first presenting the need and
 compatibility impact to Codex for approval.
 
-You are the implementation owner for this phase. Codex is the external phase
-reviewer and orchestrator. If Claude Code reports a rolling five-hour quota
-limit, stop cleanly without reverting or discarding work and provide a concise
-progress checkpoint so Codex can hand the same worktree to Antigravity.
+You are the implementation owner for your bounded task. Codex coordinates the
+phase and performs its acceptance review. If blocked, stop cleanly without
+reverting or discarding work and provide a concise progress checkpoint.
 ```
 
 ## Review inputs

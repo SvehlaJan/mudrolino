@@ -8,7 +8,7 @@
 - **Candidate SHA (Task 8's starting point and the pre-fix-wave HEAD):** `99b144863b298aa980e74f576b1363a36f690ab6` ("fix: stop hiding WordRail behind an undersized prompt cap")
 - **Candidate SHA (final whole-phase review fix wave, superseded):** `d6f32d9bf758e0e498c4cadf17a1df09170a46d1` ("test: keep the new literacy geometry specs off the real synthesizer").
 - **Candidate SHA (current, after acceptance-audit remediation):** `779f58e6505dd737cec905a95f25605dc99b1aaa` ("fix: keep literacy rounds readable and recoverable"). See **Acceptance-Audit Remediation** below.
-- **Implementation Status:** Complete, **pending Codex acceptance** of `779f58e6505dd737cec905a95f25605dc99b1aaa`.
+- **Implementation Status:** **Accepted by Codex** on 2026-09-22 after review of candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`; the acceptance-record commit containing this status is the Phase 7 base.
 - **Working Tree Clean (before this handoff commit):** Yes.
 - **Local Screenshot Artifact Directories:** `artifacts/ui/d6f32d9bf758e0e498c4cadf17a1df09170a46d1/2026-09-21T00-20-35-805Z-59854/` — the original complete 240-image matrix; `artifacts/ui/779f58e6505dd737cec905a95f25605dc99b1aaa/2026-09-22T19-47-46-706Z-4526/` — 16 fresh round/retry captures for all four affected literacy games at both landscape-phone viewports. The user requested no full-resolution screenshot analysis; acceptance relies on measured DOM containment and interaction checks instead.
 
@@ -505,6 +505,16 @@ therefore cannot represent a real user action.
 The older Phase 5 `words` answer-content overflow and the broader landscape playfield reflow
 remain release-review items outside this Phase 6 remediation. The 5-way shared glue duplication
 and the minor findings listed above remain non-blocking maintenance work.
+
+### Codex acceptance
+
+**Accepted:** candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`. Codex checked the
+clean handoff commit `68692e23c664851d6d8bdda84ca1328698d72cd3`, the three independent
+focused reviews and their resolved findings, the fresh verification results above, and the
+16-file capture inventory. The user explicitly requested that full-resolution screenshots not
+be analyzed; the measured label-containment regression and existing full viewport tests supply
+the acceptance evidence for the affected visual behavior. This acceptance-record commit, not
+the code candidate or handoff commit, is the only valid Phase 7 starting point.
 
 ## Phase 7 Preconditions
 

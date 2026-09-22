@@ -72,7 +72,7 @@
   - [x] Phase 3 — scalable game catalog, grouped home, and all game lobbies (Codex accepted candidate `481f3e8`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-03.md`)
   - [x] Phase 4 — parent dashboard, settings registry, custom content, recordings, and feedback (Codex accepted candidate `8840128b53fefdd0e96c7f1b34f2b4cc246e64dc`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-04.md`)
   - [x] Phase 5 — shared game shell and Abeceda/Slabiky/Čísla/Slová migration (Codex accepted candidate `c6e8b557f872e39dca9f5fc39429cfd42225eb40`; `4d9afd1261daa0823c793c05049a2b50063b93bc` is superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-05.md`)
-  - [~] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration (implementation and acceptance-audit remediation complete, current candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`, **pending Codex acceptance** — `99b1448` and `d6f32d9` are superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-06.md`)
+  - [x] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration (Codex accepted remediated candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`; the acceptance-record commit is the Phase 7 base; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-06.md`)
   - [ ] Phase 7 — Spočítaj/Viac alebo menej/Sčítaj migration
   - [ ] Phase 8 — release hardening, Codex review, and user visual sign-off
 - [ ] Fix audit ship blockers through redesign phases: parent-gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
@@ -306,6 +306,8 @@
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-09-22 | Accept UI redesign Phase 6 candidate `779f58e` after the landscape answer-fit, interrupted Assembly answer, and stalled TTS fixes; Phase 7 begins from this acceptance-record commit. | Fresh lint, pure verifiers, 491/491 E2E, the final 8/8 long-label check, production build, and 16 targeted captures support the phase gate without full-resolution screenshot analysis, per the user's instruction. |
+| 2026-09-22 | Use lower-cost Codex subagents for the remaining redesign tasks under one coordinating reviewer. | The user explicitly changed the earlier Claude/Antigravity implementation preference; bounded agents can save tokens while the sequential phase acceptance gates remain in force. |
 | 2026-09-16 | UI redesign phases 2–8 use Claude Code Sonnet with Extra effort first, falling back to Antigravity Gemini 3.8 Flash High only when Claude's five-hour quota is exhausted; Codex remains reviewer/orchestrator. | This uses the preferred implementation agent while preserving sequential phase gates, avoiding concurrent edits, and keeping progress moving across provider quota windows. |
 | 2026-04-05 | Option B roadmap: MVP launch first, then platform | Get real users before investing in backend; freemium upsell works better after free-tier discovery |
 | 2026-04-05 | Content configurability moved to pre-launch (Phase 1) | App feels incomplete without it even at launch |
