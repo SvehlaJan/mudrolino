@@ -73,7 +73,7 @@
   - [x] Phase 4 — parent dashboard, settings registry, custom content, recordings, and feedback (Codex accepted candidate `8840128b53fefdd0e96c7f1b34f2b4cc246e64dc`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-04.md`)
   - [x] Phase 5 — shared game shell and Abeceda/Slabiky/Čísla/Slová migration (Codex accepted candidate `c6e8b557f872e39dca9f5fc39429cfd42225eb40`; `4d9afd1261daa0823c793c05049a2b50063b93bc` is superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-05.md`)
   - [x] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration (Codex accepted remediated candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`; the acceptance-record commit is the Phase 7 base; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-06.md`)
-  - [ ] Phase 7 — Spočítaj/Viac alebo menej/Sčítaj migration
+  - [ ] Phase 7 — Spočítaj/Viac alebo menej/Sčítaj migration (implementation and verification complete at candidate `7f921731ee6cbd835b9cb8ebfa312f175ab2f3b9`; pending Codex acceptance; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-07.md`)
   - [ ] Phase 8 — release hardening, Codex review, and user visual sign-off
 - [ ] Fix audit ship blockers through redesign phases: parent-gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
 - [ ] Fix audit accessibility findings through redesign phases: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
@@ -306,6 +306,7 @@
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-09-23 | Hand off the completed Phase 7 numeracy migration at candidate `7f921731ee6cbd835b9cb8ebfa312f175ab2f3b9` for independent acceptance before Claude begins Phase 8. | Six pure verifiers, lint, 643/643 full E2E, 1/1 production guard, production build, and 12 named captures passed. One pre-existing literacy retry geometry assertion failed once under the full suite and passed 25 focused repetitions plus the final full rerun; record it for release hardening rather than claim it cannot recur. The user's instruction rules out full-resolution screenshot analysis. |
 | 2026-09-22 | Accept UI redesign Phase 6 candidate `779f58e` after the landscape answer-fit, interrupted Assembly answer, and stalled TTS fixes; Phase 7 begins from this acceptance-record commit. | Fresh lint, pure verifiers, 491/491 E2E, the final 8/8 long-label check, production build, and 16 targeted captures support the phase gate without full-resolution screenshot analysis, per the user's instruction. |
 | 2026-09-22 | Use lower-cost Codex subagents for the remaining redesign tasks under one coordinating reviewer. | The user explicitly changed the earlier Claude/Antigravity implementation preference; bounded agents can save tokens while the sequential phase acceptance gates remain in force. |
 | 2026-09-16 | UI redesign phases 2–8 use Claude Code Sonnet with Extra effort first, falling back to Antigravity Gemini 3.8 Flash High only when Claude's five-hour quota is exhausted; Codex remains reviewer/orchestrator. | This uses the preferred implementation agent while preserving sequential phase gates, avoiding concurrent edits, and keeping progress moving across provider quota windows. |
