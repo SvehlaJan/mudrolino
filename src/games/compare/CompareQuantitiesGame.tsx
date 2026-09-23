@@ -4,41 +4,44 @@
  */
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Volume2 } from 'lucide-react';
-import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import type { AudioClip, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
+import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { fisherYatesShuffle } from '../../shared/utils';
-import { AudioClip, NumberItem } from '../../shared/types';
-import { GameRuntimeProps } from '../../shared/gameRuntime';
-import { AppScreen, BackButton, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
-import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
-import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
+import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
+import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
+import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { audioManager } from '../../shared/services/audioManager';
 import { setE2EState } from '../../shared/services/e2eState';
-import { generateCompareGridSlots, CompareGridSlot } from '../../shared/scatterGridLogic';
-import { QuantityCluster } from '../../shared/components/QuantityCluster';
+import { getUiCopy } from '../../shared/uiCopy';
+import {
+  BalancePlayfield,
+  GamePrompt,
+  GameShell,
+  QuantityTray,
+  useGameSession,
+  type GameShellCompletion,
+  type GameShellFeedback,
+  type GameState,
+} from '../../shared/game';
+import {
+  createComparisonRound,
+  formatComparison,
+  pairKey,
+  type ComparisonRound,
+  type ComparisonSide,
+} from './compareLogic';
 
-type Side = 'left' | 'right';
+const MAX_ROUNDS = 5;
+const RETRY_TITLE = 'Skús druhú skupinu.';
+const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
-interface RoundState {
-  left: NumberItem;
-  right: NumberItem;
-  correctSide: Side;
+interface RoundState extends ComparisonRound {
   emoji: string;
-  leftSlots: CompareGridSlot[];
-  rightSlots: CompareGridSlot[];
 }
 
-function pairKey(a: number, b: number): string {
-  return [a, b].sort((x, y) => x - y).join('-');
-}
-
-function formatComparison(locale: string, larger: number, smaller: number): string {
-  if (locale === 'cs') {
-    return `${larger} je více než ${smaller}`;
-  }
-  return `${larger} je viac ako ${smaller}`;
+function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
+  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
 }
 
 function getComparisonAudioClip(locale: string, larger: number, smaller: number): AudioClip {
@@ -46,265 +49,219 @@ function getComparisonAudioClip(locale: string, larger: number, smaller: number)
   const audioKey = locale === 'cs'
     ? `${larger}-je-vice-nez-${smaller}`
     : `${larger}-je-viac-ako-${smaller}`;
-  return {
-    path: `${locale}/compare/${audioKey}`,
-    fallbackText,
-  };
+  return { path: `${locale}/compare/${audioKey}`, fallbackText };
 }
 
-export function CompareQuantitiesGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
-  const { numberItems, locale } = useContent();
-  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const { compareRange: range, compareMode: mode } = settings;
-  const [round, setRound] = useState<RoundState | null>(null);
-  const [pileState, setPileState] = useState<Record<Side, 'neutral' | 'correct' | 'wrong'>>({ left: 'neutral', right: 'neutral' });
-  const [wrongSide, setWrongSide] = useState<Side | null>(null);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const MAX_ROUNDS = 5;
-  const [roundsPlayed, setRoundsPlayed] = useState(0);
-  const [correctRounds, setCorrectRounds] = useState(0);
-  const [totalTaps, setTotalTaps] = useState(0);
-  const [showSessionComplete, setShowSessionComplete] = useState(false);
-  const lastPairKeyRef = useRef<string | null>(null);
-  const pendingRoundEndRef = useRef(false);
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const promptTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const feedbackResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+function getPieceState(state: GameState, side: ComparisonSide) {
+  if (state.selectedAnswerId !== side) return undefined;
+  if (state.phase === 'resolving-answer') return 'pressed' as const;
+  if (state.phase === 'answered-correctly') return 'settled' as const;
+  if (state.phase === 'answered-incorrectly') return 'retry' as const;
+  return undefined;
+}
 
-  const availableItems = useMemo(() => {
-    const filtered = numberItems.filter((n) => n.value >= range.start && n.value <= range.end);
-    return filtered.length >= 2
-      ? filtered
-      : numberItems.filter((n) => n.value >= 1 && n.value <= 5);
-  }, [numberItems, range.start, range.end]);
+interface ComparePlayfieldProps {
+  availableItems: NumberItem[];
+  mode: 'objects' | 'numerals';
+  onExit(): void;
+}
+
+function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProps) {
+  const { locale, praiseEntries } = useContent();
+  const isEmpty = availableItems.length < 2;
+  const lastPairKeyRef = useRef<string | null>(null);
+  const [round, setRound] = useState<RoundState | null>(() => {
+    if (availableItems.length < 2) return null;
+    const comparison = createComparisonRound(availableItems);
+    return { ...comparison, emoji: COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)] };
+  });
+  const [roundPraise, setRoundPraise] = useState<PraiseEntry | null>(null);
+  const [wrongSide, setWrongSide] = useState<ComparisonSide | null>(null);
+  const [completionPraise, setCompletionPraise] = useState<PraiseEntry>(() => pickPraise(praiseEntries));
 
   useEffect(() => {
-    return () => {
-      audioManager.stop();
-      if (transitionTimerRef.current) {
-        clearTimeout(transitionTimerRef.current);
-        transitionTimerRef.current = null;
-      }
-      if (promptTimerRef.current) {
-        clearTimeout(promptTimerRef.current);
-        promptTimerRef.current = null;
-      }
-      if (feedbackResetTimerRef.current) {
-        clearTimeout(feedbackResetTimerRef.current);
-        feedbackResetTimerRef.current = null;
-      }
-    };
-  }, []);
-
-  const resetSession = useCallback(() => {
-    setRoundsPlayed(0);
-    setCorrectRounds(0);
-    setTotalTaps(0);
-    setShowSessionComplete(false);
-    setShowSuccess(false);
-    setRound(null);
-    setWrongSide(null);
-    setPileState({ left: 'neutral', right: 'neutral' });
-    pendingRoundEndRef.current = false;
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-      transitionTimerRef.current = null;
-    }
-    if (promptTimerRef.current) {
-      clearTimeout(promptTimerRef.current);
-      promptTimerRef.current = null;
-    }
-    if (feedbackResetTimerRef.current) {
-      clearTimeout(feedbackResetTimerRef.current);
-      feedbackResetTimerRef.current = null;
-    }
-  }, []);
-
-  const handlePlay = () => {
-    resetSession();
-    setGameState('PLAYING');
-  };
-
-  const handleBackToLobby = () => {
-    audioManager.stop();
-    resetSession();
-    setGameState('HOME');
-  };
+    if (round) lastPairKeyRef.current = pairKey(round.left.value, round.right.value);
+  }, [round]);
 
   const startNewRound = useCallback(() => {
-    pendingRoundEndRef.current = false;
-    if (feedbackResetTimerRef.current) {
-      clearTimeout(feedbackResetTimerRef.current);
-      feedbackResetTimerRef.current = null;
-    }
     if (availableItems.length < 2) return;
-    let a: NumberItem;
-    let b: NumberItem;
-    let attempts = 0;
-    do {
-      [a, b] = fisherYatesShuffle(availableItems).slice(0, 2);
-      attempts += 1;
-    } while (lastPairKeyRef.current === pairKey(a.value, b.value) && attempts < 10);
-    lastPairKeyRef.current = pairKey(a.value, b.value);
-
-    const emoji = COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)];
-    const correctSide: Side = a.value > b.value ? 'left' : 'right';
-    const leftSlots = generateCompareGridSlots(a.value, emoji);
-    const rightSlots = generateCompareGridSlots(b.value, emoji);
-
-    setRound({ left: a, right: b, correctSide, emoji, leftSlots, rightSlots });
-    setPileState({ left: 'neutral', right: 'neutral' });
+    let comparison = createComparisonRound(availableItems);
+    for (let attempt = 0; attempt < 9 && pairKey(comparison.left.value, comparison.right.value) === lastPairKeyRef.current; attempt += 1) {
+      comparison = createComparisonRound(availableItems);
+    }
+    lastPairKeyRef.current = pairKey(comparison.left.value, comparison.right.value);
+    setRound({ ...comparison, emoji: COUNTING_EMOJIS[Math.floor(Math.random() * COUNTING_EMOJIS.length)] });
+    setRoundPraise(null);
     setWrongSide(null);
-    setShowSuccess(false);
   }, [availableItems]);
 
-  useEffect(() => {
-    if (gameState === 'PLAYING' && !round) startNewRound(); // eslint-disable-line react-hooks/set-state-in-effect
-  }, [gameState, round, startNewRound]);
+  const startNewSession = useCallback(() => {
+    lastPairKeyRef.current = null;
+    setCompletionPraise(pickPraise(praiseEntries));
+    startNewRound();
+  }, [praiseEntries, startNewRound]);
+
+  const session = useGameSession({
+    maxRounds: MAX_ROUNDS,
+    maxAttempts: null,
+    onNextRound: startNewRound,
+    onPlayAgain: startNewSession,
+  });
+  const {
+    state,
+    canAnswer,
+    replaying,
+    startPrompt,
+    replayPrompt,
+    resolveAnswer,
+    continueAfterFeedback,
+    playAgain,
+    pause,
+    resume,
+    fail,
+  } = session;
 
   useEffect(() => {
-    if (gameState === 'PLAYING') {
-      promptTimerRef.current = setTimeout(
-        () => audioManager.play({ clips: [getPhraseClip(locale, 'whereIsMore')] }),
-        TIMING.AUDIO_DELAY_MS,
-      );
-      return () => {
-        if (promptTimerRef.current) clearTimeout(promptTimerRef.current);
-      };
-    }
-  }, [gameState, locale]);
+    if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
+  }, [fail, isEmpty, locale]);
+
+  const phaseRef = useRef(state.phase);
+  useEffect(() => {
+    phaseRef.current = state.phase;
+  }, [state.phase]);
 
   useEffect(() => {
-    const overlay = showSessionComplete ? 'session-complete' : showSuccess ? 'success' : null;
+    if (!round || isEmpty) return;
+    const timer = setTimeout(() => {
+      if (phaseRef.current === 'ready') void startPrompt({ clips: [getPhraseClip(locale, 'whereIsMore')] });
+    }, TIMING.AUDIO_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [isEmpty, locale, round, startPrompt]);
+
+  useEffect(() => {
+    if (state.phase !== 'session-complete' || state.paused) return;
+    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
+    return () => audioManager.stop();
+  }, [completionPraise, locale, state.paused, state.phase]);
+
+  useEffect(() => {
     setE2EState({
-      overlay,
+      gameId: 'COMPARE_QUANTITIES',
+      gamePhase: state.phase,
+      phase: state.phase,
+      paused: state.paused,
       correctSide: round?.correctSide ?? null,
       wrongSide,
+      overlay: state.phase === 'session-complete' ? 'session-complete' : state.feedback === 'success' ? 'success' : null,
+      roundsPlayed: state.roundsPlayed,
     });
-  }, [round, showSuccess, showSessionComplete, wrongSide]);
+  }, [round, state, wrongSide]);
 
-  const handleTap = (side: Side) => {
-    if (!round || showSuccess || showSessionComplete || pendingRoundEndRef.current) return;
-    if (promptTimerRef.current) {
-      clearTimeout(promptTimerRef.current);
-      promptTimerRef.current = null;
-    }
-    setTotalTaps((prev) => prev + 1);
+  const chooseSide = useCallback(async (side: ComparisonSide) => {
+    if (!round || !canAnswer) return;
     const item = round[side];
-
     if (side === round.correctSide) {
-      pendingRoundEndRef.current = true;
-      if (feedbackResetTimerRef.current) {
-        clearTimeout(feedbackResetTimerRef.current);
-        feedbackResetTimerRef.current = null;
-      }
-      audioManager.play(getItemAnnouncementAudio(locale, 'numbers', item.audioKey, String(item.value)));
-      setPileState((prev) => ({ ...prev, [side]: 'correct' }));
-      const nextRoundsPlayed = roundsPlayed + 1;
-      setRoundsPlayed(nextRoundsPlayed);
-      setCorrectRounds((prev) => prev + 1);
-      if (nextRoundsPlayed >= MAX_ROUNDS) {
-        transitionTimerRef.current = setTimeout(() => {
-          transitionTimerRef.current = null;
-          setShowSessionComplete(true);
-        }, TIMING.SUCCESS_SHOW_DELAY_MS);
-      } else {
-        transitionTimerRef.current = setTimeout(() => {
-          transitionTimerRef.current = null;
-          setShowSuccess(true);
-        }, TIMING.SUCCESS_SHOW_DELAY_MS);
-      }
-    } else {
-      audioManager.play(getWrongAnswerAudio(locale, 'numbers', item.audioKey, String(item.value)));
-      setWrongSide(side);
-      setPileState((prev) => ({ ...prev, [side]: 'wrong' }));
-      if (feedbackResetTimerRef.current) {
-        clearTimeout(feedbackResetTimerRef.current);
-      }
-      feedbackResetTimerRef.current = setTimeout(() => {
-        feedbackResetTimerRef.current = null;
-        setPileState((prev) => ({ ...prev, [side]: 'neutral' }));
-      }, TIMING.FEEDBACK_RESET_MS);
+      const praise = pickPraise(praiseEntries);
+      setRoundPraise(praise);
+      const other = round[side === 'left' ? 'right' : 'left'];
+      const successSpec: SuccessSpec = {
+        echoLine: formatComparison(locale, item.value, other.value),
+        audioSpec: { clips: [getComparisonAudioClip(locale, item.value, other.value)] },
+      };
+      await resolveAnswer({
+        answerId: side,
+        outcome: 'correct',
+        selectionAudio: getItemAnnouncementAudio(locale, 'numbers', item.audioKey, String(item.value)),
+        verdictAudio: getSuccessOverlayAudioSpec(locale, praise, successSpec),
+      });
+      return;
     }
-  };
 
-  if (gameState === 'HOME') {
-    return (
-      <GameLobby
-        gameId="COMPARE_QUANTITIES"
-        onPlay={handlePlay}
-        onBack={onExit}
-        onOpenSettings={onOpenSettings}
-      />
-    );
-  }
+    setWrongSide(side);
+    await resolveAnswer({
+      answerId: side,
+      outcome: 'wrong',
+      selectionAudio: getWrongAnswerAudio(locale, 'numbers', item.audioKey, String(item.value)),
+    });
+  }, [canAnswer, locale, praiseEntries, resolveAnswer, round]);
 
-  return (
-    <AppScreen contentClassName="gap-3 sm:gap-4 md:gap-5">
-      <TopBar
-        left={<BackButton onClick={handleBackToLobby} />}
-        center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
-        right={(
-          <IconButton label="Prehrať zvuk" onClick={() => audioManager.play({ clips: [getPhraseClip(locale, 'whereIsMore')] })}>
-            <Volume2 size={24} className="sm:w-7 sm:h-7" />
-          </IconButton>
-        )}
-      />
+  const handleReplay = useCallback(() => {
+    void replayPrompt({ clips: [getPhraseClip(locale, 'whereIsMore')] });
+  }, [locale, replayPrompt]);
 
-      {round && (
-        <div className="flex flex-1 min-h-0 items-center justify-center w-full px-2">
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-md sm:max-w-xl aspect-[2/1] max-h-[260px] sm:max-h-[340px]">
-            {(['left', 'right'] as const).map((side) => (
-              <ChoiceTile
-                key={side}
-                shape="option"
-                state={pileState[side]}
-                disabled={showSuccess || showSessionComplete}
-                onClick={() => handleTap(side)}
-                aria-label={side === 'left' ? 'Ľavá skupina' : 'Pravá skupina'}
-                className="h-full w-full !rounded-[24px] sm:!rounded-[32px] p-2 sm:p-4"
-              >
-                <QuantityCluster
-                  mode={mode}
-                  value={round[side].value}
-                  slots={side === 'left' ? round.leftSlots : round.rightSlots}
-                  numeralClassName="text-5xl font-spline sm:text-7xl"
-                />
-              </ChoiceTile>
-            ))}
-          </div>
-        </div>
-      )}
+  const retryAfterError = useCallback(() => {
+    if (!isEmpty) playAgain();
+  }, [isEmpty, playAgain]);
 
-      {round && (
-        <SuccessOverlay
-          show={showSuccess}
-          spec={{
-            echoLine: formatComparison(
+  const feedback: GameShellFeedback | null = state.feedback === 'success'
+    ? {
+        kind: 'success',
+        title: roundPraise?.text ?? getUiCopy(locale, 'game.successTitle'),
+        emoji: roundPraise?.emoji,
+        detail: round
+          ? formatComparison(
               locale,
               round[round.correctSide].value,
               round[round.correctSide === 'left' ? 'right' : 'left'].value,
-            ),
-            audioSpec: {
-              clips: [
-                getComparisonAudioClip(
-                  locale,
-                  round[round.correctSide].value,
-                  round[round.correctSide === 'left' ? 'right' : 'left'].value,
-                ),
-              ],
-            },
-          }}
-          onComplete={startNewRound}
+            )
+          : undefined,
+        onContinue: continueAfterFeedback,
+      }
+    : state.phase === 'answered-incorrectly' || (state.phase === 'awaiting-answer' && wrongSide !== null)
+    ? { kind: 'retry', title: RETRY_TITLE }
+    : null;
+
+  const completion: GameShellCompletion = {
+    praise: completionPraise,
+    correctRounds: state.correctRounds,
+    totalTaps: state.totalTaps,
+    maxRounds: state.maxRounds,
+    onPlayAgain: playAgain,
+    onHome: onExit,
+  };
+
+  const leftLabel = round ? `Skupina so ${round.left.value} predmetmi` : 'Ľavá skupina';
+  const rightLabel = round ? `Skupina so ${round.right.value} predmetmi` : 'Pravá skupina';
+
+  return (
+    <GameShell
+      gameId="COMPARE_QUANTITIES"
+      state={state}
+      onBack={onExit}
+      onRetryError={retryAfterError}
+      onPause={pause}
+      onResume={resume}
+      prompt={<GamePrompt instruction={getUiCopy(locale, 'game.compare.instruction')} replaying={replaying} onReplay={handleReplay} />}
+      feedback={feedback}
+      completion={completion}
+    >
+      {round && (
+        <BalancePlayfield
+          leftLabel={leftLabel}
+          rightLabel={rightLabel}
+          onChoose={side => void chooseSide(side)}
+          disabled={!canAnswer}
+          leftState={getPieceState(state, 'left')}
+          rightState={getPieceState(state, 'right')}
+          left={<QuantityTray count={round.left.value} emoji={round.emoji} mode={mode} label={leftLabel} className="h-full min-h-0 w-full" />}
+          right={<QuantityTray count={round.right.value} emoji={round.emoji} mode={mode} label={rightLabel} className="h-full min-h-0 w-full" />}
         />
       )}
-      <SessionCompleteOverlay
-        show={showSessionComplete}
-        roundsCompleted={correctRounds}
-        totalTaps={totalTaps}
-        maxRounds={MAX_ROUNDS}
-        onComplete={handleBackToLobby}
-      />
-    </AppScreen>
+    </GameShell>
   );
+}
+
+export function CompareQuantitiesGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+  const { numberItems } = useContent();
+  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
+  const availableItems = useMemo(() => {
+    const inSelectedRange = numberItems.filter(item => item.value >= settings.compareRange.start && item.value <= settings.compareRange.end);
+    return inSelectedRange.length >= 2 ? inSelectedRange : numberItems.filter(item => item.value >= 1 && item.value <= 5);
+  }, [numberItems, settings.compareRange.end, settings.compareRange.start]);
+
+  if (gameState === 'HOME') {
+    return <GameLobby gameId="COMPARE_QUANTITIES" onPlay={() => setGameState('PLAYING')} onBack={onExit} onOpenSettings={onOpenSettings} />;
+  }
+
+  return <ComparePlayfield availableItems={availableItems} mode={settings.compareMode} onExit={() => setGameState('HOME')} />;
 }
