@@ -4,6 +4,36 @@ import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';
 
 test.describe('UI foundation: core controls', () => {
+  test('quantity materials fit their measured surfaces and expose names', async ({ page }) => {
+    await page.goto('/ui-kit');
+    const tray = page.getByTestId('ui-quantity-tray');
+    await expect(tray).toHaveAttribute('role', 'img');
+    await expect(tray).toHaveAttribute('aria-label', 'Sedem predmetov');
+    await expect(tray.locator('[data-quantity-token]')).toHaveCount(7);
+
+    const trayBox = await tray.boundingBox();
+    for (const token of await tray.locator('[data-quantity-token]').all()) {
+      const box = await token.boundingBox();
+      expect(box!.x).toBeGreaterThanOrEqual(trayBox!.x);
+      expect(box!.y).toBeGreaterThanOrEqual(trayBox!.y);
+      expect(box!.x + box!.width).toBeLessThanOrEqual(trayBox!.x + trayBox!.width + 1);
+      expect(box!.y + box!.height).toBeLessThanOrEqual(trayBox!.y + trayBox!.height + 1);
+    }
+
+    const interactiveTray = page.getByRole('group', { name: 'Sedem počítadiel' });
+    const tokenButtons = interactiveTray.getByRole('button', { name: /^Predmet \d+ z 7$/ });
+    await expect(tokenButtons).toHaveCount(7);
+    await expect(tokenButtons.first()).toBeVisible();
+    for (const button of await tokenButtons.all()) {
+      const box = await button.boundingBox();
+      expect(box!.width).toBeGreaterThanOrEqual(48);
+      expect(box!.height).toBeGreaterThanOrEqual(48);
+    }
+    const comparisons = page.getByRole('group', { name: 'Porovnanie množstiev' });
+    await expect(comparisons).toHaveCount(3);
+    await expect(comparisons.first()).toBeVisible();
+  });
+
   test('core controls expose semantic states and minimum sizes', async ({ page }) => {
     await page.goto('/ui-kit');
     const child = page.getByTestId('ui-child-primary');

@@ -31,7 +31,7 @@ import { GameLobby } from '../components/GameLobby';
 import { FindItGame } from '../components/FindItGame';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
-import { AnswerGroup, GamePrompt, GameShell, InsetSlot, PictureCard, PlayTray, TactilePiece, WordRail } from '../game';
+import { AnswerGroup, BalancePlayfield, GamePrompt, GameShell, InsetSlot, PictureCard, PlayTray, QuantityTray, TactilePiece, WordRail } from '../game';
 import type { GameState } from '../game/gameState';
 import type { TactileMaterial } from '../game/materials';
 import type { GameDescriptor } from '../types';
@@ -385,6 +385,85 @@ function UiKitGameMaterialsDemo() {
         <output data-testid="ui-piece-press-count" className="sr-only">{pressCount}</output>
       </section>
     </div>
+  );
+}
+
+function UiKitQuantityMaterials() {
+  const [lastToken, setLastToken] = useState<number | null>(null);
+
+  return (
+    <section aria-label="Materiály množstiev" className="space-y-6">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {([1, 7, 10, 20] as const).map((count) => (
+          <Card key={count} className="space-y-3">
+            <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">{count} predmetov</h3>
+            <QuantityTray count={count} emoji="🍓" mode="objects" label={`${count} predmetov`} className="h-40" />
+            <QuantityTray count={count} emoji="🍓" mode="numerals" label={`Číslica ${count}`} className="h-24 bg-bg-light/35" />
+          </Card>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-start gap-6">
+        <div>
+          <h3 className="mb-2 text-sm font-bold uppercase tracking-wide text-text-muted">Dekoratívna plocha 128 px</h3>
+          <QuantityTray
+            count={7}
+            emoji="🍎"
+            mode="objects"
+            label="Sedem predmetov"
+            data-testid="ui-quantity-tray"
+            className="h-32 w-32 border border-shadow/15 bg-bg-light/35"
+          />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="mb-2 text-sm font-bold uppercase tracking-wide text-text-muted">Interaktívne počítadlá</h3>
+          <QuantityTray
+            count={7}
+            emoji="🟡"
+            mode="objects"
+            label="Sedem počítadiel"
+            interactiveTokens
+            onTokenPress={setLastToken}
+            className="h-56 min-w-[320px] border border-shadow/15 bg-bg-light/35"
+          />
+          <output className="sr-only" data-testid="ui-quantity-last-token">{lastToken ?? ''}</output>
+        </div>
+      </div>
+
+      <div className="space-y-3" data-demo-motion="system-reduced">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Porovnanie, spätná väzba a obmedzený pohyb</h3>
+        <div className="grid gap-4 lg:grid-cols-3">
+          <BalancePlayfield
+            left={<QuantityTray count={7} emoji="🍓" mode="objects" label="Sedem jahôd" className="h-full min-h-0" />}
+            right={<QuantityTray count={10} emoji="🍓" mode="objects" label="Desať jahôd" className="h-full min-h-0" />}
+            leftLabel="Sedem jahôd"
+            rightLabel="Desať jahôd"
+            onChoose={() => undefined}
+            leftState="settled"
+            rightState="retry"
+            className="min-h-[168px]"
+          />
+          <BalancePlayfield
+            left={<QuantityTray count={1} emoji="🍎" mode="numerals" label="Číslica jedna" className="h-full min-h-0" />}
+            right={<QuantityTray count={7} emoji="🍎" mode="numerals" label="Číslica sedem" className="h-full min-h-0" />}
+            leftLabel="Číslica jedna"
+            rightLabel="Číslica sedem"
+            onChoose={() => undefined}
+            disabled
+            className="min-h-[168px]"
+          />
+          <BalancePlayfield
+            left={<QuantityTray count={10} emoji="🟣" mode="objects" label="Desať žetónov" className="h-full min-h-0" />}
+            right={<QuantityTray count={20} emoji="🟣" mode="objects" label="Dvadsať žetónov" className="h-full min-h-0" />}
+            leftLabel="Desať žetónov"
+            rightLabel="Dvadsať žetónov"
+            onChoose={() => undefined}
+            leftState="pressed"
+            className="min-h-[168px] motion-reduce:opacity-85"
+          />
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -935,6 +1014,10 @@ export function UiKitScreen() {
             ))}
           </WordRail>
         </Card>
+      </Section>
+
+      <Section title="Materiály množstiev">
+        <UiKitQuantityMaterials />
       </Section>
 
       <Section title="Prompt Badge">
