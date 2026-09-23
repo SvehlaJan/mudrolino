@@ -33,7 +33,7 @@ test.describe('UI/UX Enhancements', () => {
     await page.goto('/counting');
     await page.getByRole('button', { name: 'Hrať' }).click();
 
-    const items = page.getByRole('button', { name: 'Spočítateľný predmet' });
+    const items = page.getByRole('button', { name: /^Predmet \d+ z \d+$/ });
     await expect(items.first()).toBeVisible();
 
     const initialCount = await items.count();
@@ -43,8 +43,9 @@ test.describe('UI/UX Enhancements', () => {
     // Tap the first item — should trigger pop without submitting or throwing
     await items.first().click();
 
-    // Confirm game is still in playing state
-    await expect(page.getByRole('button', { name: 'Nové kolo' })).toBeVisible();
+    // Confirm the pop leaves the shared round flow ready for an answer and its normal next-round handoff.
+    await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
+    await expect(page.getByRole('group', { name: 'Vyber počet' })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

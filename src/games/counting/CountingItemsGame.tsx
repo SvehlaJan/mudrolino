@@ -3,228 +3,204 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { Volume2, RefreshCw } from 'lucide-react';
-import { audioManager } from '../../shared/services/audioManager';
-import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { FailureSpec, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
+import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { fisherYatesShuffle } from '../../shared/utils';
-import { NumberItem, FailureSpec } from '../../shared/types';
-import { GameRuntimeProps } from '../../shared/gameRuntime';
-import { AppScreen, BackButton, Card, ChoiceTile, IconButton, RoundCounter, TopBar } from '../../shared/ui';
-import { SuccessOverlay } from '../../shared/components/SuccessOverlay';
-import { FailureOverlay } from '../../shared/components/FailureOverlay';
-import { SessionCompleteOverlay } from '../../shared/components/SessionCompleteOverlay';
 import { GameLobby } from '../../shared/components/GameLobby';
-
+import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
+import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
+import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio, TIMING } from '../../shared/contentRegistry';
+import { audioManager } from '../../shared/services/audioManager';
+import { setE2EState } from '../../shared/services/e2eState';
+import { getUiCopy } from '../../shared/uiCopy';
+import { fisherYatesShuffle } from '../../shared/utils';
+import {
+  AnswerGroup,
+  GamePrompt,
+  GameShell,
+  PlayTray,
+  QuantityTray,
+  TactilePiece,
+  useGameSession,
+  type GameShellCompletion,
+  type GameShellFeedback,
+  type GameState,
+  type TactilePieceState,
+} from '../../shared/game';
+import { generateGridItems } from './countingGridLogic';
 import { playPopSound } from './countingSfx';
-import { generateGridItems, COUNTING_GRID_TOTAL_SLOTS, GridItemSlot } from './countingGridLogic';
 
-export function CountingItemsGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
-  const { numberItems, locale } = useContent();
-  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-  const range = settings.countingRange;
-  const [targetItem, setTargetItem] = useState<NumberItem | null>(null);
-  const [itemSlots, setItemSlots] = useState<GridItemSlot[]>([]);
-  const [optionItems, setOptionItems] = useState<NumberItem[]>([]);
-  const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'wrong' | null }>({});
-  const [showSuccess, setShowSuccess] = useState(false);
-  const MAX_ROUNDS = 5;
-  const MAX_ATTEMPTS = 3;
-  const [wrongAttemptsThisRound, setWrongAttemptsThisRound] = useState(0);
-  const [showFailure, setShowFailure] = useState(false);
-  const [failureSpec, setFailureSpec] = useState<FailureSpec | null>(null);
-  const [roundsPlayed, setRoundsPlayed] = useState(0);
-  const [correctRounds, setCorrectRounds] = useState(0);
-  const [totalTaps, setTotalTaps] = useState(0);
-  const [showSessionComplete, setShowSessionComplete] = useState(false);
-  const pendingFailureRef = useRef(false);
+const INSTRUCTION = 'Spočítaj predmety.';
+const ANSWER_GROUP_LABEL = 'Vyber počet';
+const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
-  const availableItems = useMemo(
-    () => numberItems.filter((n) => n.value >= range.start && n.value <= range.end),
-    [numberItems, range],
-  );
+interface CountingRound {
+  target: NumberItem | null;
+  emoji: string;
+  options: NumberItem[];
+}
 
-  const queueRef = useRef<NumberItem[]>([]);
+function pickPraise(entries: PraiseEntry[]): PraiseEntry {
+  return entries[Math.floor(Math.random() * entries.length)] ?? FALLBACK_PRAISE;
+}
 
-  useEffect(() => {
-    queueRef.current = [];
-  }, [availableItems]);
+function getAnswerPieceState(state: GameState, answerId: string): TactilePieceState | undefined {
+  if (state.selectedAnswerId !== answerId) return undefined;
+  if (state.phase === 'resolving-answer') return 'pressed';
+  if (state.phase === 'answered-correctly') return 'settled';
+  if (state.phase === 'answered-incorrectly') return 'retry';
+  return undefined;
+}
 
-  useEffect(() => {
-    return () => audioManager.stop();
-  }, []);
+function createRound(target: NumberItem | undefined, allNumbers: NumberItem[]): CountingRound {
+  if (!target) return { target: null, emoji: '⭐', options: [] };
+  const emoji = generateGridItems(1, COUNTING_EMOJIS)[0]?.emoji ?? '⭐';
+  const distractors = fisherYatesShuffle(allNumbers.filter(item => item.value !== target.value)).slice(0, 3);
+  return { target, emoji, options: fisherYatesShuffle([...distractors, target]) };
+}
+
+interface CountingPlayfieldProps {
+  availableItems: NumberItem[];
+  allNumbers: NumberItem[];
+  onExit(): void;
+}
+
+function CountingPlayfield({ availableItems, allNumbers, onExit }: CountingPlayfieldProps) {
+  const { locale, praiseEntries } = useContent();
+  const isEmpty = availableItems.length === 0 || allNumbers.length < 4;
+  const [{ round }, setRoundSession] = useState<{ round: CountingRound; queue: NumberItem[] }>(() => {
+    const pool = fisherYatesShuffle(availableItems);
+    const [target, ...rest] = pool;
+    return { round: createRound(target, allNumbers), queue: rest };
+  });
+  const [completionPraise, setCompletionPraise] = useState(() => pickPraise(praiseEntries));
+  const [roundPraise, setRoundPraise] = useState<PraiseEntry | null>(null);
+  const { target, emoji, options } = round;
 
   const startNewRound = useCallback(() => {
-    if (availableItems.length === 0) return;
-    if (queueRef.current.length === 0) {
-      queueRef.current = fisherYatesShuffle(availableItems);
-    }
-    const target = queueRef.current.shift()!;
-    const slots = generateGridItems(target.value, COUNTING_EMOJIS);
+    setRoundSession((previous) => {
+      const pool = previous.queue.length > 0 ? previous.queue : fisherYatesShuffle(availableItems);
+      const [nextTarget, ...rest] = pool;
+      return { round: createRound(nextTarget, allNumbers), queue: rest };
+    });
+  }, [availableItems, allNumbers]);
 
-    // Build 4 options (target + 3 others from full number items range up to max)
-    const allNumbers = numberItems.filter((n) => n.value <= Math.max(range.end, 10));
-    const others = fisherYatesShuffle(
-      allNumbers.filter(n => n.value !== target.value)
-    ).slice(0, 3);
-    const options = fisherYatesShuffle([...others, target]);
+  const startNewSession = useCallback(() => {
+    setCompletionPraise(pickPraise(praiseEntries));
+    const pool = fisherYatesShuffle(availableItems);
+    const [nextTarget, ...rest] = pool;
+    setRoundSession({ round: createRound(nextTarget, allNumbers), queue: rest });
+  }, [allNumbers, availableItems, praiseEntries]);
 
-    setTargetItem(target);
-    setItemSlots(slots);
-    setOptionItems(options);
-    setFeedback({});
-    setShowSuccess(false);
-    setShowFailure(false);
-    pendingFailureRef.current = false;
-    setWrongAttemptsThisRound(0);
-  }, [availableItems, numberItems, range.end]);
+  const session = useGameSession({ maxRounds: 5, maxAttempts: 3, onNextRound: startNewRound, onPlayAgain: startNewSession });
+  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, pause, resume, fail } = session;
 
   useEffect(() => {
-    if (gameState === 'PLAYING' && !targetItem) startNewRound();
-  }, [gameState, targetItem, startNewRound]);
+    if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
+  }, [fail, isEmpty, locale]);
 
   useEffect(() => {
-    if (gameState === 'PLAYING') {
-      const timer = setTimeout(
-        () => audioManager.play({ clips: [getPhraseClip(locale, 'countItems')] }),
-        TIMING.AUDIO_DELAY_MS
-      );
-      return () => clearTimeout(timer);
-    }
-  }, [gameState, locale]);
+    setE2EState({
+      gameId: 'COUNTING_ITEMS',
+      phase: state.phase,
+      gamePhase: state.phase,
+      paused: state.paused,
+      correctItemId: target ? String(target.value) : null,
+      optionValues: options.map(option => option.value),
+      wrongAttempts: state.wrongAttempts,
+      roundsPlayed: state.roundsPlayed,
+      replaying,
+      overlay: state.phase === 'session-complete' ? 'session-complete' : state.feedback === 'success' ? 'success' : state.feedback === 'failure' ? 'failure' : null,
+    });
+  }, [options, replaying, state, target]);
 
-  const handleOptionClick = (item: NumberItem, index: number) => {
-    if (showSuccess || showFailure || pendingFailureRef.current || showSessionComplete || !targetItem) return;
-    setTotalTaps(prev => prev + 1);
-    if (item.value === targetItem.value) {
-      audioManager.play(getItemAnnouncementAudio(locale, 'numbers', item.audioKey, String(item.value)));
-      setFeedback(prev => ({ ...prev, [index]: 'correct' }));
-      const nextRoundsPlayed = roundsPlayed + 1;
-      setRoundsPlayed(nextRoundsPlayed);
-      setCorrectRounds(prev => prev + 1);
-      if (nextRoundsPlayed >= MAX_ROUNDS) {
-        setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-      } else {
-        setTimeout(() => setShowSuccess(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-      }
-    } else {
-      const nextWrong = wrongAttemptsThisRound + 1;
-      setWrongAttemptsThisRound(nextWrong);
-      setFeedback(prev => ({ ...prev, [index]: 'wrong' }));
-      if (nextWrong >= MAX_ATTEMPTS) {
-        pendingFailureRef.current = true;
-        setFailureSpec({
-          echoLine: `${targetItem.value} ⭐`,
-          audioSpec: {
-            clips: [
-              getPhraseClip(locale, 'neverMind'),
-              getPhraseClip(locale, 'itIs'),
-              { path: `${locale}/numbers/${targetItem.audioKey}`, fallbackText: String(targetItem.value) },
-            ],
-          },
-        });
-        const nextRoundsPlayed = roundsPlayed + 1;
-        setRoundsPlayed(nextRoundsPlayed);
-        if (nextRoundsPlayed >= MAX_ROUNDS) {
-          setTimeout(() => setShowSessionComplete(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-        } else {
-          setTimeout(() => setShowFailure(true), TIMING.SUCCESS_SHOW_DELAY_MS);
-        }
-      } else {
-        audioManager.play(getWrongAnswerAudio(locale, 'numbers', item.audioKey, String(item.value)));
-        setTimeout(() => setFeedback(prev => ({ ...prev, [index]: null })), TIMING.FEEDBACK_RESET_MS);
-      }
-    }
-  };
+  const phaseRef = useRef(state.phase);
+  useEffect(() => { phaseRef.current = state.phase; }, [state.phase]);
+  useEffect(() => {
+    if (!target || isEmpty) return;
+    const timer = setTimeout(() => {
+      if (phaseRef.current === 'ready') void startPrompt({ clips: [getPhraseClip(locale, 'countItems')] });
+    }, TIMING.AUDIO_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [isEmpty, locale, startPrompt, target]);
+  useEffect(() => {
+    if (state.phase !== 'session-complete' || state.paused) return;
+    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
+    return () => audioManager.stop();
+  }, [completionPraise, locale, state.paused, state.phase]);
 
-  if (gameState === 'HOME') {
-    return (
-      <GameLobby
-        gameId="COUNTING_ITEMS"
-        onPlay={() => setGameState('PLAYING')}
-        onBack={onExit}
-        onOpenSettings={onOpenSettings}
-      />
-    );
-  }
+  const handleReplay = useCallback(() => {
+    if (target) void replayPrompt({ clips: [getPhraseClip(locale, 'countItems')] });
+  }, [locale, replayPrompt, target]);
+
+  const answerLockRef = useRef(false);
+  const chooseAnswer = useCallback(async (item: NumberItem) => {
+    if (!target || !canAnswer || answerLockRef.current) return;
+    answerLockRef.current = true;
+    try {
+      const answerId = String(item.value);
+      if (item.value === target.value) {
+        const praise = pickPraise(praiseEntries);
+        setRoundPraise(praise);
+        const successSpec: SuccessSpec = { echoLine: `Správne, je ich ${target.value} ⭐` };
+        await resolveAnswer({ answerId, outcome: 'correct', selectionAudio: getItemAnnouncementAudio(locale, 'numbers', item.audioKey, String(item.value)), verdictAudio: getSuccessOverlayAudioSpec(locale, praise, successSpec) });
+        return;
+      }
+      const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
+      const failureSpec: FailureSpec = {
+        echoLine: `${target.value} ⭐`,
+        audioSpec: { clips: [getPhraseClip(locale, 'neverMind'), getPhraseClip(locale, 'itIs'), { path: `${locale}/numbers/${target.audioKey}`, fallbackText: String(target.value) }] },
+      };
+      await resolveAnswer({ answerId, outcome: 'wrong', selectionAudio: getWrongAnswerAudio(locale, 'numbers', item.audioKey, String(item.value)), verdictAudio: exhausted ? failureSpec.audioSpec : undefined });
+    } finally {
+      answerLockRef.current = false;
+    }
+  }, [canAnswer, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts, target]);
+
+  const feedback: GameShellFeedback | null = state.feedback === 'success'
+    ? {
+        kind: 'success',
+        title: roundPraise?.text ?? getUiCopy(locale, 'game.successTitle'),
+        detail: target ? `Správne, je ich ${target.value} ⭐` : undefined,
+        emoji: roundPraise?.emoji,
+        onContinue: continueAfterFeedback,
+      }
+    : state.feedback === 'failure'
+    ? {
+        kind: 'failure',
+        title: getUiCopy(locale, 'game.failureTitle'),
+        detail: target ? `${target.value} ⭐` : getUiCopy(locale, 'game.failure.detail'),
+        onContinue: continueAfterFeedback,
+      }
+    : state.phase === 'answered-incorrectly' || (state.phase === 'awaiting-answer' && state.wrongAttempts > 0)
+    ? { kind: 'retry', title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
+    : null;
+  const completion: GameShellCompletion = { praise: completionPraise, correctRounds: state.correctRounds, totalTaps: state.totalTaps, maxRounds: state.maxRounds, onPlayAgain: playAgain, onHome: onExit };
 
   return (
-    <AppScreen contentClassName="gap-3 sm:gap-4 md:gap-5">
-      <TopBar
-        left={<BackButton onClick={() => setGameState('HOME')} />}
-        center={<RoundCounter completed={roundsPlayed} total={MAX_ROUNDS} />}
-        right={(
-          <IconButton label="Prehrať zvuk" onClick={() => audioManager.play({ clips: [getPhraseClip(locale, 'countItems')] })}>
-            <Volume2 size={24} className="sm:w-7 sm:h-7" />
-          </IconButton>
-        )}
-      />
-
-      <Card
-        className="relative flex-1 min-h-[220px] overflow-hidden !rounded-[30px] !border-4 !border-dashed !border-shadow/20 !bg-white/50 !p-3 sm:!p-5 !shadow-none sm:!rounded-[44px]"
-      >
-        <div className="grid grid-cols-3 sm:grid-cols-5 auto-rows-fr h-full w-full gap-2 sm:gap-4 place-items-center">
-          {Array.from({ length: COUNTING_GRID_TOTAL_SLOTS }, (_, slotIndex) => {
-            const item = itemSlots.find((s) => s.slotIndex === slotIndex);
-            if (!item) {
-              return <div key={`empty-${slotIndex}`} className="w-full h-full" aria-hidden="true" />;
-            }
-            return (
-              <button
-                key={`item-${roundsPlayed}-${slotIndex}`}
-                type="button"
-                onClick={() => playPopSound()}
-                aria-label="Spočítateľný predmet"
-                className="relative flex items-center justify-center text-5xl sm:text-7xl md:text-8xl select-none transition-transform active:scale-125 active:rotate-12 cursor-pointer focus:outline-none"
-                style={{
-                  transform: `rotate(${item.rotation}deg) translate(${item.offsetX}px, ${item.offsetY}px)`,
-                }}
-              >
-                {item.emoji}
-              </button>
-            );
-          })}
-        </div>
-        <IconButton
-          onClick={startNewRound}
-          label="Nové kolo"
-          className="absolute bottom-4 right-4 !bg-white/50 text-shadow/40 hover:text-shadow"
-        >
-          <RefreshCw size={24} />
-        </IconButton>
-      </Card>
-
-      <div className="grid grid-cols-4 auto-rows-fr gap-3 sm:gap-4 md:gap-5 w-full shrink-0 pb-1 sm:pb-2">
-        {optionItems.map((item, i) => (
-          <ChoiceTile
-            key={i}
-            onClick={() => handleOptionClick(item, i)}
-            state={feedback[i] ?? 'neutral'}
-            className="w-full !aspect-[4/5] text-4xl font-spline sm:!aspect-square sm:text-6xl md:text-7xl"
-          >
-            {item.value}
-          </ChoiceTile>
-        ))}
+    <GameShell gameId="COUNTING_ITEMS" state={state} onBack={onExit} onRetryError={() => { if (!isEmpty) playAgain(); }} onPause={pause} onResume={resume} prompt={<GamePrompt instruction={INSTRUCTION} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
+      <div className="flex min-h-0 flex-1 flex-col gap-2 [@media(max-height:480px)]:gap-1">
+        <QuantityTray count={target?.value ?? 0} emoji={emoji} mode="objects" label="Predmety na spočítanie" interactiveTokens onTokenPress={() => playPopSound()} className="h-[min(30vh,156px)] min-h-[108px] shrink-0 rounded-[28px] border border-dashed border-shadow/25 bg-white/50 p-1" />
+        <PlayTray label={getUiCopy(locale, 'game.playArea')} density="compact" className="min-h-[72px] [@media(max-height:480px)]:min-h-[60px]">
+          <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer} orientation="horizontal">
+            {options.map((item) => (
+              <TactilePiece key={item.value} as="button" material="wood" label={String(item.value)} data-answer-id={String(item.value)} state={getAnswerPieceState(state, String(item.value))} onPress={() => void chooseAnswer(item)}>
+                <span className="font-spline text-[clamp(1.5rem,calc(var(--tile-size)*0.55),4rem)] leading-none">{item.value}</span>
+              </TactilePiece>
+            ))}
+          </AnswerGroup>
+        </PlayTray>
       </div>
-
-      {targetItem && (
-        <SuccessOverlay
-          show={showSuccess}
-          spec={{ echoLine: `Správne, je ich ${targetItem.value} ⭐` }}
-          onComplete={startNewRound}
-        />
-      )}
-      {failureSpec && (
-        <FailureOverlay show={showFailure} spec={failureSpec} onComplete={startNewRound} />
-      )}
-      <SessionCompleteOverlay
-        show={showSessionComplete}
-        roundsCompleted={correctRounds}
-        totalTaps={totalTaps}
-        maxRounds={MAX_ROUNDS}
-        onComplete={() => setGameState('HOME')}
-      />
-    </AppScreen>
+    </GameShell>
   );
+}
+
+export function CountingItemsGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+  const { numberItems } = useContent();
+  const [playing, setPlaying] = useState(false);
+  const availableItems = useMemo(() => numberItems.filter(item => item.value >= settings.countingRange.start && item.value <= settings.countingRange.end), [numberItems, settings.countingRange]);
+  const allNumbers = useMemo(() => numberItems.filter(item => item.value <= Math.max(settings.countingRange.end, 10)), [numberItems, settings.countingRange.end]);
+  if (playing) return <CountingPlayfield availableItems={availableItems} allNumbers={allNumbers} onExit={() => setPlaying(false)} />;
+  return <GameLobby gameId="COUNTING_ITEMS" onPlay={() => setPlaying(true)} onBack={onExit} onOpenSettings={onOpenSettings} />;
 }

@@ -7,6 +7,17 @@ function assert(condition: boolean, message: string): void {
   }
 }
 
+// The tray owns the actual hit-box geometry. Grid slots remain a stable, decorative
+// ordering source, so a deterministic random function can prove the generator never
+// loses, duplicates, or substitutes counters before the tray renders them.
+for (let count = 1; count <= 10; count += 1) {
+  const slots = generateGridItems(count, ['🍎'], () => 0.5);
+  assert(slots.length === count, `expected ${count} items`);
+  assert(new Set(slots.map(slot => slot.slotIndex)).size === count, 'slot indexes must be unique');
+  assert(slots.every(slot => slot.emoji === '🍎'), 'unexpected emoji');
+  assert(slots.every(slot => slot.rotation === 0 && slot.offsetX === 0 && slot.offsetY === 0), 'injected random must control decorative jitter');
+}
+
 // 1. Verify counts 1 to 10 across multiple randomized iterations
 for (let count = 1; count <= 10; count++) {
   for (let iteration = 0; iteration < 50; iteration++) {
