@@ -403,6 +403,33 @@ SCENES['assembly-success'] = assemblyScenes.success;
 SCENES['assembly-reset'] = assemblyScenes.reset;
 SCENES['assembly-completion'] = assemblyScenes.completion;
 
+/** Active numeracy rounds for the Phase 7 responsive review set. The hook is only used to wait
+ * for the real game session to enter its answer phase; no React handler is invoked directly. */
+async function enterNumeracyRound(page, baseUrl, path) {
+  await stubSpeechSynthesis(page);
+  await page.goto(`${baseUrl}${path}`);
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await waitForGamePhaseScene(page, 'awaiting-answer');
+  await page.getByTestId('game-answer-region').getByRole('button').first().waitFor({ state: 'visible' });
+}
+
+/** Match the E2E game harness: numeral prompts can fall back to Web Speech, which headless
+ * Chromium does not reliably complete. The visible controls and real click path remain intact. */
+async function stubSpeechSynthesis(page) {
+  await page.addInitScript(() => {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+    const prototype = Object.getPrototypeOf(synth);
+    prototype.speak = function speak(utterance) {
+      setTimeout(() => utterance.onend?.(new Event('end')), 0);
+    };
+  });
+}
+
+SCENES['counting-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, '/counting');
+SCENES['compare-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, '/compare');
+SCENES['addition-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, '/addition');
+
 // Aliases for convenient shorthand targeting (e.g. --scene=alphabet)
 const LOBBY_SLUGS = [
   'alphabet',

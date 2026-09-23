@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Lock } from 'lucide-react';
 import type { PraiseEntry, GameId } from '../types';
 import { GAME_DEFINITIONS } from '../gameCatalog';
@@ -71,15 +71,17 @@ export interface GameShellProps {
  */
 function RetryStatusBanner({ title, detail }: { title: string; detail?: string }) {
   const { layout } = useAppScreenLayout();
+  const prefersReducedMotion = useReducedMotion();
   const compact = layout === 'short';
+  const enterPreset = prefersReducedMotion ? motionPreset.reducedEnter : motionPreset.enter;
 
   return (
     <motion.div
       role="status"
       aria-live="polite"
       data-testid="game-retry-status"
-      initial={motionPreset.enter.initial}
-      animate={motionPreset.enter.animate}
+      initial={enterPreset.initial}
+      animate={enterPreset.animate}
       transition={motionPreset.transition}
       className={cn(
         'shrink-0 rounded-2xl bg-accent-blue/20 text-center font-bold text-text-main',

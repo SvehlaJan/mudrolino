@@ -3,6 +3,14 @@ import { resolveChromiumExecutable } from './browserResolver';
 import { DESKTOP_VIEWPORT, MOBILE_VIEWPORT, type CanonicalViewportName } from './support/viewports';
 
 const PORT = 4173;
+const NUMERACY_MATRIX_SPECS = /(?:numeracy-(?:responsive|accessibility)|counting|compare-quantities|addition)\.spec\.ts/;
+const NUMERACY_VIEWPORTS: Array<{ name: string; viewport: { width: number; height: number } }> = [
+  { name: 'numeracy-320x568', viewport: { width: 320, height: 568 } },
+  { name: 'numeracy-390x844', viewport: { width: 390, height: 844 } },
+  { name: 'numeracy-667x375', viewport: { width: 667, height: 375 } },
+  { name: 'numeracy-768x1024', viewport: { width: 768, height: 1024 } },
+  { name: 'numeracy-1280x900', viewport: { width: 1280, height: 900 } },
+];
 
 /**
  * The full 10-size `CANONICAL_VIEWPORTS` matrix is exercised for screenshot review
@@ -41,12 +49,20 @@ export default defineConfig({
     {
       name: 'desktop',
       use: { ...devices['Desktop Chrome'], viewport: DESKTOP_VIEWPORT },
+      // The numeracy games run under the five explicit projects below. Keeping them out of the
+      // default project preserves the existing suite's coverage count instead of multiplying it.
+      testIgnore: NUMERACY_MATRIX_SPECS,
     },
     {
       name: 'mobile',
       use: { ...devices['Desktop Chrome'], viewport: MOBILE_VIEWPORT },
       testMatch: /(?:find-it-games|ui-ux-enhancements|parent-access)\.spec\.ts/,
     },
+    ...NUMERACY_VIEWPORTS.map(({ name, viewport }) => ({
+      name,
+      use: { ...devices['Desktop Chrome'], viewport },
+      testMatch: NUMERACY_MATRIX_SPECS,
+    })),
   ],
   webServer: {
     command: `npm run preview -- --port ${PORT} --host 127.0.0.1`,
