@@ -143,7 +143,7 @@ test.describe('Parent dashboard and game settings', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('a forced dependency change explains itself with a visible notice', async ({ page }) => {
+  test('forced addition ranges explain their visible numeral representation', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
@@ -153,12 +153,18 @@ test.describe('Parent dashboard and game settings', () => {
     const numeralsOption = page.getByRole('radio', { name: 'Čísla' });
     await expect(objectsOption).toBeChecked();
 
-    await page.getByRole('radio', { name: '20', exact: true }).click();
-
-    await expect(numeralsOption).toBeChecked();
-    await expect(page.getByTestId('setting-dependency-notice')).toContainText(
-      'Pri rozsahu 20 alebo 100 sa zobrazenie prepne na čísla.',
-    );
+    for (const [index, range] of ['20', '100'].entries()) {
+      if (index > 0) {
+        await page.getByRole('radio', { name: '5', exact: true }).click();
+        await objectsOption.click();
+        await expect(objectsOption).toBeChecked();
+      }
+      await page.getByRole('radio', { name: range, exact: true }).click();
+      await expect(numeralsOption).toBeChecked();
+      await expect(page.getByTestId('setting-dependency-notice')).toContainText(
+        'Pri rozsahu 20 alebo 100 sa zobrazenie prepne na čísla.',
+      );
+    }
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

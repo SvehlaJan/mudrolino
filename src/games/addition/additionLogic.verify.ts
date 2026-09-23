@@ -41,6 +41,25 @@ for (const sumRange of [5, 10, 20, 100]) {
   }
 }
 
+// Deterministic boundary draws exercise the same option builder used by the rendered game.
+// This makes the full settings domain explicit instead of relying only on randomized samples.
+for (const range of [5, 10, 20, 100] as const) {
+  for (const random of [() => 0, () => 0.5, () => 0.999999]) {
+    const boundaryProblem = createAdditionProblem(range, random);
+    assert(boundaryProblem.a.value >= 1 && boundaryProblem.b.value >= 1, 'operands must be positive');
+    assert(boundaryProblem.sum.value <= range, `sum ${boundaryProblem.sum.value} exceeds ${range}`);
+    const boundaryOptions = buildAnswerOptions(boundaryProblem.sum, range, 4, random);
+    assert(
+      new Set(boundaryOptions.map(option => option.value)).size === boundaryOptions.length,
+      'boundary options must be unique',
+    );
+    assert(
+      boundaryOptions.filter(option => option.value === boundaryProblem.sum.value).length === 1,
+      'boundary options must include the correct sum exactly once',
+    );
+  }
+}
+
 assert(
   (() => { try { createAdditionProblem(1); return false; } catch { return true; } })(),
   'sumRange < 2 throws',
