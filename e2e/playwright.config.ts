@@ -51,7 +51,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], viewport: DESKTOP_VIEWPORT },
       // The numeracy games run under the five explicit projects below. Keeping them out of the
       // default project preserves the existing suite's coverage count instead of multiplying it.
-      testIgnore: NUMERACY_MATRIX_SPECS,
+      testIgnore: [NUMERACY_MATRIX_SPECS, '**/production-guards.spec.ts'],
     },
     {
       name: 'mobile',

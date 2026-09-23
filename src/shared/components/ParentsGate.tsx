@@ -36,7 +36,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   const [error, setError] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const errorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const errorRecoveriesRef = useRef(0);
+  const [errorRecoveries, setErrorRecoveries] = useState(0);
   const firstDigitRef = useRef<HTMLButtonElement>(null);
   // Captured once, at mount: whichever control (e.g. a lobby's "Nastavenia" button) was
   // focused right before this gate opened. See DialogShell's `restoreFocusRef` doc comment
@@ -48,10 +48,11 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   useEffect(() => exposeParentGateE2E({
     answer: question.answer,
     unlock: onSuccess,
-    errorRecoveries: errorRecoveriesRef.current,
+    errorRecoveries,
   }), [
     question.answer,
     onSuccess,
+    errorRecoveries,
   ]);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
     setError(true);
     if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
     errorTimerRef.current = setTimeout(() => {
-      errorRecoveriesRef.current += 1;
+      setErrorRecoveries(count => count + 1);
       setError(false);
       setQuestion(generateQuestion());
       setInput('');

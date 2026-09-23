@@ -58,7 +58,7 @@ test.describe('UI/UX Enhancements', () => {
     await page.goto('/ui-kit');
     await expect(page.getByRole('heading', { name: 'Prompt Badge' })).toBeVisible();
     await expect(page.getByText('🚗', { exact: true })).toBeVisible();
-    await expect(page.getByText('🍎', { exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Klikateľný prompt' }).getByText('🍎', { exact: true })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
