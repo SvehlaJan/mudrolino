@@ -2,7 +2,7 @@
 
 ## Status and exact starting point
 
-- **Status:** Implementation and verification complete; **pending independent Codex acceptance**. Phase 8 has not started.
+- **Status:** **Accepted by Codex** on 2026-09-23 after independent review of candidate `7f921731ee6cbd835b9cb8ebfa312f175ab2f3b9`. This acceptance-record commit is the Phase 8 base.
 - **Branch:** `feature/full-app-ui-redesign`.
 - **Accepted Phase 6 base:** `878171973398020a0c40c005ab6a6c38e325ed40`.
 - **Phase 7 code candidate:** `7f921731ee6cbd835b9cb8ebfa312f175ab2f3b9` (`fix: keep phase seven regression checks deterministic`). This is the tested code SHA; the documentation handoff commit follows it.
@@ -43,4 +43,8 @@ The final fix commit also kept production-only guards out of the test-mode Playw
 3. WebKit installation/extraction was unavailable in this sandbox during earlier phases. Phase 8 calls for a WebKit smoke suite; use an environment where the browser can be installed or record the exact constraint.
 4. The 12 screenshot files are capture evidence only. The user asked that full-resolution screenshots not be analyzed by this agent. Claude should preserve that preference unless the user changes it.
 
-Claude's next authorized work is to read `docs/superpowers/plans/2026-09-14-ui-redesign-phase-8-release-hardening.md` and the accepted handoff chain, **after Codex records Phase 7 acceptance**. The acceptance-record commit, not this code candidate or this manifest commit, is the valid Phase 8 base. Phase 8 adds the exhaustive release matrix, integrated browser journeys, offline and production checks, and final user visual sign-off; it should not change the numeracy games' learning rules.
+## Codex acceptance review
+
+An independent lower-cost Codex reviewer found no blocking issue. The review compared candidate `7f92173` with accepted Phase 6 base `8781719`, confirmed the shared shell/session/material migration and preservation of settings, five-round and attempt policies, E2E state merge, and answer-before-verdict audio order. It independently reran the quantity layout, counting, comparison, and addition pure verifiers; all passed. The final integrated 643/643 E2E run, production guard, build, and clean diff remain the browser and bundle evidence. The reviewer did not inspect screenshots, following the user's instruction.
+
+Phase 8 must start from this acceptance-record commit, not the code candidate or handoff commit. Its work is specified in `docs/superpowers/plans/2026-09-14-ui-redesign-phase-8-release-hardening.md`; it adds the exhaustive release matrix, integrated browser journeys, offline and production checks, and final user visual sign-off without changing the numeracy games' learning rules.
