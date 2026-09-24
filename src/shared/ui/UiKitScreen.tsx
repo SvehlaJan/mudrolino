@@ -716,23 +716,6 @@ export function UiKitScreen() {
         </Card>
       </Section>
 
-      <Section title="Actions — legacy compatibility adapter">
-        <p className="max-w-3xl text-sm font-medium text-text-muted">
-          Staré API (<code>variant</code>, <code>size=&quot;sm|md|lg&quot;</code>) sa naďalej vykresľuje
-          nezmenené, kým sa volajúce miesta nepremigrujú na <code>tone</code>/<code>size</code>.
-        </p>
-        <Card className="mt-3 flex flex-wrap items-center gap-4">
-          <Button variant="primary" icon={<Settings size={22} />}>Primárne</Button>
-          <Button variant="secondary">Sekundárne</Button>
-          <Button variant="quiet">Tiché</Button>
-          <Button variant="danger">Dôležité</Button>
-          <Button variant="primary" disabled>Vypnuté</Button>
-          <Button variant="primary" icon={<Loader2 size={20} className="animate-spin" />}>Odosielam</Button>
-          <Button variant="play" aria-label="Hrať"><Play size={56} fill="currentColor" /></Button>
-          <Button size="sm" variant="quiet">Malé (sm)</Button>
-        </Card>
-      </Section>
-
       <Section title="Automatic save status">
         <p className="max-w-3xl text-sm font-medium text-text-muted">
           Nastavenia sa ukladajú automaticky. Stav je viditeľný aj oznamovaný zdvorilou živou oblasťou,

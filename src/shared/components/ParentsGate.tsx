@@ -173,7 +173,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               size="parent"
               onClick={handleBackspace}
               aria-label="Zmazať"
-              className="py-1.5 landscape:py-1 text-lg landscape:text-base opacity-70 sm:portrait:py-4 sm:portrait:text-2xl"
+              className="py-1.5 text-lg landscape:py-1 landscape:text-base sm:portrait:py-4 sm:portrait:text-2xl"
             >
               ⌫
             </Button>

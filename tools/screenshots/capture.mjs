@@ -4,12 +4,14 @@ import { execSync } from 'node:child_process';
 import { chromium } from 'playwright';
 import { resolveChromiumExecutable } from '../../e2e/browserResolver.ts';
 import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
+import { RELEASE_VIEWPORTS } from '../../e2e/support/releaseMatrix.ts';
 
 export function parseArgs(args) {
   let base = 'http://127.0.0.1:4173';
   const scenes = [];
   const viewports = [];
   let output = null;
+  let matrix = null;
   let help = false;
 
   for (let i = 0; i < args.length; i++) {
@@ -28,6 +30,10 @@ export function parseArgs(args) {
       viewports.push(arg.slice('--viewport='.length));
     } else if (arg === '--viewport' && i + 1 < args.length) {
       viewports.push(args[++i]);
+    } else if (arg.startsWith('--matrix=')) {
+      matrix = arg.slice('--matrix='.length);
+    } else if (arg === '--matrix' && i + 1 < args.length) {
+      matrix = args[++i];
     } else if (arg.startsWith('--output=')) {
       output = arg.slice('--output='.length);
     } else if (arg === '--output' && i + 1 < args.length) {
@@ -39,13 +45,17 @@ export function parseArgs(args) {
 
   base = base.replace(/\/+$/, '');
 
-  return { base, scenes, viewports, output, help };
+  if (matrix !== null && matrix !== 'release') {
+    throw new Error(`Unknown screenshot matrix: "${matrix}". Valid matrices are: release`);
+  }
+
+  return { base, scenes, viewports, output, matrix, help };
 }
 
 export function printHelp() {
-  console.log(`Usage: npm run shots -- [--base=<url>] [--scene=<id>] [--viewport=<name>] [--output=<dir>] [--help]
+  console.log(`Usage: npm run shots -- [--base=<url>] [--matrix=release] [--scene=<id>] [--viewport=<name>] [--output=<dir>] [--help]
 
-Repeat --scene/--viewport to capture more than one; omitting either captures all of them.
+Repeat --scene/--viewport to capture more than one. --matrix=release selects the shipping scene set and release viewports; explicit scenes or viewports narrow that set. Omitting selectors captures all scenes and canonical viewports.
 
 Scenes:    ${Object.keys(SCENES).join(', ')}
 Viewports: ${Object.keys(CANONICAL_VIEWPORTS).join(', ')}`);
@@ -79,7 +89,9 @@ export const SCENES = {
       await page.getByRole('button', { name: digit, exact: true }).click();
     }
     await page.getByRole('button', { name: 'Potvrdiť' }).click();
-    await page.locator('.animate-shake').waitFor({ state: 'visible' });
+    // Release captures use reduced motion, so the error message is the stable
+    // signal; the shake class is deliberately absent in this context.
+    await page.getByRole('alert').waitFor({ state: 'visible' });
   },
   'settings': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/settings`);
@@ -108,6 +120,69 @@ export const SCENES = {
     }
     await page.evaluate(() => window.__E2E__.parentGate.unlock());
     await page.getByRole('heading', { name: 'Vlastný obsah' }).waitFor({ state: 'visible' });
+  },
+  'recordings': async (page, baseUrl) => {
+    // /recordings remains a supported legacy entry point, but the product intentionally redirects
+    // it to the consolidated custom-content screen after the parent gate opens.
+    await page.goto(`${baseUrl}/recordings`);
+    await page.getByRole('heading', { name: 'Pre rodičov' }).waitFor({ state: 'visible' });
+    const hasAdapter = await page.waitForFunction(
+      () => typeof window.__E2E__?.parentGate?.unlock === 'function',
+      null,
+      { timeout: 5000 },
+    ).catch(() => false);
+    if (!hasAdapter) {
+      throw new Error('Protected quick-pass request failed: window.__E2E__.parentGate.unlock() is missing (non-test server)');
+    }
+    await page.evaluate(() => window.__E2E__.parentGate.unlock());
+    await page.getByRole('heading', { name: 'Vlastný obsah' }).waitFor({ state: 'visible' });
+  },
+  'game-settings': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/settings/games`);
+    await page.getByRole('heading', { name: 'Pre rodičov' }).waitFor({ state: 'visible' });
+    const hasAdapter = await page.waitForFunction(
+      () => typeof window.__E2E__?.parentGate?.unlock === 'function',
+      null,
+      { timeout: 5000 },
+    ).catch(() => false);
+    if (!hasAdapter) {
+      throw new Error('Protected quick-pass request failed: window.__E2E__.parentGate.unlock() is missing (non-test server)');
+    }
+    await page.evaluate(() => window.__E2E__.parentGate.unlock());
+    await page.getByRole('heading', { name: 'Rodičovská zóna' }).waitFor({ state: 'visible' });
+    await page.getByRole('navigation', { name: 'Nastavenia hier' }).waitFor({ state: 'visible' });
+  },
+  'app-settings': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/settings/app`);
+    await page.getByRole('heading', { name: 'Pre rodičov' }).waitFor({ state: 'visible' });
+    const hasAdapter = await page.waitForFunction(
+      () => typeof window.__E2E__?.parentGate?.unlock === 'function',
+      null,
+      { timeout: 5000 },
+    ).catch(() => false);
+    if (!hasAdapter) {
+      throw new Error('Protected quick-pass request failed: window.__E2E__.parentGate.unlock() is missing (non-test server)');
+    }
+    await page.evaluate(() => window.__E2E__.parentGate.unlock());
+    await page.getByRole('heading', { name: 'Rodičovská zóna' }).waitFor({ state: 'visible' });
+    await page.getByText('Aplikácia a vzhľad', { exact: true }).waitFor({ state: 'visible' });
+  },
+  'parent-feedback': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/settings/help`);
+    await page.getByRole('heading', { name: 'Pre rodičov' }).waitFor({ state: 'visible' });
+    const hasAdapter = await page.waitForFunction(
+      () => typeof window.__E2E__?.parentGate?.unlock === 'function',
+      null,
+      { timeout: 5000 },
+    ).catch(() => false);
+    if (!hasAdapter) {
+      throw new Error('Protected quick-pass request failed: window.__E2E__.parentGate.unlock() is missing (non-test server)');
+    }
+    await page.evaluate(() => window.__E2E__.parentGate.unlock());
+    await page.getByRole('heading', { name: 'Rodičovská zóna' }).waitFor({ state: 'visible' });
+    await page.getByText('Pomoc a spätná väzba', { exact: true }).waitFor({ state: 'visible' });
+    await page.getByRole('button', { name: 'Odoslať spätnú väzbu' }).click();
+    await page.getByRole('dialog', { name: 'Spätná väzba' }).waitFor({ state: 'visible' });
   },
   'home': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/`);
@@ -171,6 +246,11 @@ export const SCENES = {
     await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
     await page.waitForTimeout(250);
   },
+  'game-shell-retry': async (page, baseUrl) => {
+    await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=retry`);
+    await page.getByRole('status').waitFor({ state: 'visible' });
+    await page.waitForTimeout(250);
+  },
   'game-shell-completion': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=completion`);
     await page.getByRole('button', { name: 'Hrať znova' }).waitFor({ state: 'visible' });
@@ -186,6 +266,10 @@ export const SCENES = {
     await page.locator('main h2').waitFor({ state: 'visible' });
   },
 };
+
+// The dashboard has historically been called "settings" in this runner. Keep that name for
+// scripts that already use it while giving the release matrix an explicit shipping-scene name.
+SCENES.dashboard = SCENES.settings;
 
 // Task 7: round/retry/success/failure(-or-reset)/completion scenes for the four bespoke
 // literacy games. Lobby scenes already exist via the LOBBY_SLUGS aliasing below; protected
@@ -430,6 +514,21 @@ SCENES['counting-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, 
 SCENES['compare-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, '/compare');
 SCENES['addition-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, '/addition');
 
+/** The four Find It games share the real game-session hook and answer surface. These release
+ * scenes stop at a settled, answerable first round; feedback is represented separately by the
+ * deterministic GameShell examples below. */
+async function enterFindItRound(page, baseUrl, path) {
+  await page.goto(`${baseUrl}${path}`);
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await waitForGamePhaseScene(page, 'awaiting-answer');
+  await waitForPlaySurfaceSettled(page);
+}
+
+SCENES['alphabet-round'] = (page, baseUrl) => enterFindItRound(page, baseUrl, '/alphabet');
+SCENES['syllables-round'] = (page, baseUrl) => enterFindItRound(page, baseUrl, '/syllables');
+SCENES['numbers-round'] = (page, baseUrl) => enterFindItRound(page, baseUrl, '/numbers');
+SCENES['words-round'] = (page, baseUrl) => enterFindItRound(page, baseUrl, '/words');
+
 // Aliases for convenient shorthand targeting (e.g. --scene=alphabet)
 const LOBBY_SLUGS = [
   'alphabet',
@@ -448,22 +547,189 @@ for (const slug of LOBBY_SLUGS) {
   SCENES[slug] = SCENES[`lobby-${slug}`];
 }
 
+/** Open a protected parent route through the same test-only gate adapter used by the existing
+ * parent scenes. Keeping access setup in one place makes the detailed capture states as
+ * deterministic as the dashboard capture. */
+async function openParentRoute(page, baseUrl, path) {
+  await page.goto(`${baseUrl}${path}`);
+  await page.getByRole('heading', { name: 'Pre rodičov' }).waitFor({ state: 'visible' });
+  const hasAdapter = await page.waitForFunction(
+    () => typeof window.__E2E__?.parentGate?.unlock === 'function',
+    null,
+    { timeout: 5000 },
+  ).catch(() => false);
+  if (!hasAdapter) {
+    throw new Error('Protected quick-pass request failed: window.__E2E__.parentGate.unlock() is missing (non-test server)');
+  }
+  await page.evaluate(() => window.__E2E__.parentGate.unlock());
+  await page.getByRole('dialog', { name: 'Pre rodičov' }).waitFor({ state: 'hidden' });
+}
+
+async function openContentSection(page, baseUrl, section) {
+  await openParentRoute(page, baseUrl, '/content');
+  await page.getByRole('heading', { name: 'Vlastný obsah' }).waitFor({ state: 'visible' });
+  await page.getByRole('tab', { name: new RegExp(`^${section} \\(`) }).click();
+}
+
+async function openFeedback(page, baseUrl, responseStatus) {
+  await page.route('**/api.web3forms.com/submit', route => route.fulfill({
+    status: responseStatus,
+    contentType: 'application/json',
+    body: JSON.stringify({ success: responseStatus < 400 }),
+  }));
+  await openParentRoute(page, baseUrl, '/settings/help');
+  await page.getByRole('button', { name: 'Odoslať spätnú väzbu' }).click();
+  await page.getByRole('dialog', { name: 'Spätná väzba' }).waitFor({ state: 'visible' });
+  await page.getByRole('radio', { name: /Chyba v hre/ }).click();
+  await page.getByRole('button', { name: 'Odoslať', exact: true }).click();
+  if (responseStatus >= 400) {
+    await page.getByText(/odosielanie zlyhalo/i).waitFor({ state: 'visible' });
+  } else {
+    await page.getByRole('heading', { name: 'Ďakujeme!' }).waitFor({ state: 'visible' });
+  }
+}
+
+// Detailed parent, content, and form states are part of the release review rather than being
+// implied by their overview routes. Each scene performs the same visible interaction a parent
+// would use, with network outcomes intercepted only for deterministic feedback states.
+SCENES['game-settings-alphabet'] = async (page, baseUrl) => {
+  await openParentRoute(page, baseUrl, '/settings/games/ALPHABET');
+  await page.getByTestId('game-settings-detail').waitFor({ state: 'visible' });
+};
+SCENES['game-settings-counting'] = async (page, baseUrl) => {
+  await openParentRoute(page, baseUrl, '/settings/games/COUNTING_ITEMS');
+  await page.getByTestId('game-settings-detail').waitFor({ state: 'visible' });
+};
+SCENES['parent-help'] = async (page, baseUrl) => {
+  await openParentRoute(page, baseUrl, '/settings/help');
+  await page.getByText('Pomoc a spätná väzba', { exact: true }).waitFor({ state: 'visible' });
+};
+
+for (const [id, label] of [
+  ['content-letters', 'Písmená'],
+  ['content-numbers', 'Čísla'],
+  ['content-phrases', 'Frázy'],
+  ['content-words', 'Slová'],
+  ['content-praise', 'Pochvaly'],
+]) {
+  SCENES[id] = (page, baseUrl) => openContentSection(page, baseUrl, label);
+}
+
+SCENES['content-word-editor'] = async (page, baseUrl) => {
+  await openContentSection(page, baseUrl, 'Slová');
+  await page.getByRole('button', { name: 'Pridať slovo' }).click();
+  await page.getByRole('heading', { name: 'Pridať slovo' }).waitFor({ state: 'visible' });
+};
+SCENES['content-praise-editor'] = async (page, baseUrl) => {
+  await openContentSection(page, baseUrl, 'Pochvaly');
+  await page.getByRole('button', { name: 'Pridať pochvalu' }).click();
+  await page.getByRole('heading', { name: 'Pridať pochvalu' }).waitFor({ state: 'visible' });
+};
+SCENES['content-disabled-list'] = async (page, baseUrl) => {
+  await openContentSection(page, baseUrl, 'Slová');
+  await page.getByRole('button', { name: 'Ďalšie možnosti' }).first().click();
+  await page.getByRole('menuitem', { name: 'Vypnúť' }).click();
+  await page.getByRole('button', { name: /Vypnuté \(1\)/ }).click();
+};
+SCENES['content-recording-draft'] = async (page, baseUrl) => {
+  await openContentSection(page, baseUrl, 'Slová');
+  await page.getByRole('button', { name: 'Pridať slovo' }).click();
+  await page.getByLabel(/^Slovo\b/).fill('Hruska');
+  await page.getByLabel('Slabiky').fill('hru-ska');
+  await page.getByLabel('Emoji').fill('🍐');
+  await page.getByRole('button', { name: 'Pridať', exact: true }).click();
+  await page.getByText('Koncept', { exact: true }).waitFor({ state: 'visible' });
+};
+SCENES['content-recording-ready'] = async (page, baseUrl) => {
+  await openContentSection(page, baseUrl, 'Slová');
+  await page.getByText('Predvolené', { exact: true }).first().waitFor({ state: 'visible' });
+};
+SCENES['recording-active'] = async (page, baseUrl) => {
+  await page.goto(`${baseUrl}/ui-kit`);
+  const recordingExample = page.getByTestId('ui-kit-legacy-recording-item').last();
+  await recordingExample.scrollIntoViewIfNeeded();
+  await recordingExample.getByRole('status').waitFor({ state: 'visible' });
+};
+SCENES['feedback-error'] = (page, baseUrl) => openFeedback(page, baseUrl, 500);
+SCENES['feedback-success'] = (page, baseUrl) => openFeedback(page, baseUrl, 200);
+SCENES['keyboard-focus'] = async (page, baseUrl) => {
+  await openContentSection(page, baseUrl, 'Písmená');
+  const lettersTab = page.getByRole('tab', { name: /^Písmená \(/ });
+  await lettersTab.focus();
+  const orientation = await page.getByRole('tablist').getAttribute('aria-orientation');
+  const arrow = orientation === 'vertical' ? 'ArrowDown' : 'ArrowRight';
+  await page.keyboard.down(arrow);
+  await page.waitForFunction(() => document.activeElement?.getAttribute('role') === 'tab' && document.activeElement?.textContent?.includes('Čísla'));
+  await page.keyboard.up(arrow);
+};
+
+/**
+ * A compact, intentional review surface for shipping UI. It covers the home, both parent-gate
+ * outcomes, one lobby and one live round for every released game, deterministic feedback
+ * states, and every parent-facing destination. The legacy recordings entry is included by name
+ * even though it resolves to the consolidated content screen after access is granted.
+ */
+export const RELEASE_SCENE_NAMES = [
+  'home',
+  'parents-gate',
+  'parents-gate-error',
+  ...LOBBY_SLUGS.map((slug) => `lobby-${slug}`),
+  ...LOBBY_SLUGS.map((slug) => `${slug}-round`),
+  'game-shell-success',
+  'game-shell-failure',
+  'game-shell-retry',
+  'game-shell-completion',
+  'game-shell-paused',
+  'dashboard',
+  'game-settings',
+  'app-settings',
+  'content',
+  'recordings',
+  'parent-feedback',
+  'game-settings-alphabet',
+  'game-settings-counting',
+  'parent-help',
+  'content-letters',
+  'content-numbers',
+  'content-phrases',
+  'content-words',
+  'content-praise',
+  'content-word-editor',
+  'content-praise-editor',
+  'content-disabled-list',
+  'content-recording-draft',
+  'content-recording-ready',
+  'recording-active',
+  'feedback-error',
+  'feedback-success',
+  'keyboard-focus',
+  'ui-kit',
+];
+
 async function main() {
-  const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg, help } = parseArgs(process.argv.slice(2));
+  const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg, matrix, help } = parseArgs(process.argv.slice(2));
   if (help) {
     printHelp();
     return;
   }
   const baseOrigin = new URL(base).origin;
 
-  const targetScenes = inputScenes.length > 0 ? inputScenes : Object.keys(SCENES);
+  const targetScenes = inputScenes.length > 0
+    ? inputScenes
+    : matrix === 'release'
+      ? RELEASE_SCENE_NAMES
+      : Object.keys(SCENES);
   for (const scene of targetScenes) {
     if (!(scene in SCENES)) {
       throw new Error(`Unknown scene: "${scene}". Valid scenes are: ${Object.keys(SCENES).join(', ')}`);
     }
   }
 
-  const targetViewports = inputViewports.length > 0 ? inputViewports : Object.keys(CANONICAL_VIEWPORTS);
+  const targetViewports = inputViewports.length > 0
+    ? inputViewports
+    : matrix === 'release'
+      ? Object.keys(RELEASE_VIEWPORTS)
+      : Object.keys(CANONICAL_VIEWPORTS);
   for (const viewport of targetViewports) {
     if (!(viewport in CANONICAL_VIEWPORTS)) {
       throw new Error(`Unknown viewport: "${viewport}". Valid viewports are: ${Object.keys(CANONICAL_VIEWPORTS).join(', ')}`);
@@ -515,6 +781,9 @@ async function main() {
 
           page.on('console', (msg) => {
             if (msg.type() === 'error') {
+              // The mocked external feedback endpoint intentionally returns 500
+              // for this one scene; Chromium logs that HTTP response as an error.
+              if (sceneName === 'feedback-error' && msg.text() === 'Failed to load resource: the server responded with a status of 500 (Internal Server Error)') return;
               errors.push(msg.text());
             }
           });

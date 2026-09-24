@@ -30,10 +30,10 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center">
           <div className="text-8xl mb-6">🙈</div>
           <h2 className="text-4xl font-black mb-4 text-text-main">Niečo sa pokazilo</h2>
-          <p className="text-xl opacity-60 mb-8">Skús to znova.</p>
+          <p className="mb-8 text-xl text-text-muted">Skús to znova.</p>
           <Button
-            variant="danger"
-            size="lg"
+            tone="danger"
+            size="child"
             onClick={() => self.setState({ hasError: false })}
             className="rounded-full px-12 py-6 text-2xl"
           >

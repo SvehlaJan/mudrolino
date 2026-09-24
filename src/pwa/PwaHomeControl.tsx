@@ -37,10 +37,10 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
             <div className="min-w-0 flex-1">
               <p className="text-sm font-bold text-text-main">Nová verzia je pripravená.</p>
               <div className="mt-2 flex gap-2">
-                <Button size="sm" variant="primary" onClick={() => void pwa.updateApp()}>
+                <Button tone="primary" size="parent" density="compact" onClick={() => void pwa.updateApp()}>
                   Aktualizovať
                 </Button>
-                <Button size="sm" variant="quiet" onClick={pwa.dismissUpdate}>
+                <Button tone="quiet" size="parent" density="compact" onClick={pwa.dismissUpdate}>
                   Neskôr
                 </Button>
               </div>
@@ -74,7 +74,7 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
             </span>
             <span className="min-w-0 flex-1">
               <span className="block text-sm font-bold leading-tight text-text-main">{pwaControlCopy.installLabel}</span>
-              <span className="mt-1 block text-xs font-semibold leading-snug text-text-main/55">
+              <span className="mt-1 block text-xs font-semibold leading-snug text-text-muted">
                 {pwa.platform === 'ios' ? pwaControlCopy.iosInstallDescription : pwaControlCopy.installDescription}
               </span>
             </span>
@@ -91,7 +91,7 @@ export function PwaHomeControl({ className }: PwaHomeControlProps) {
               <button
                 type="button"
                 onClick={() => setShowIosHelp(false)}
-                className="mt-2 text-sm font-bold text-text-main/60 active:opacity-60"
+                className="mt-2 text-sm font-bold text-text-muted active:opacity-60"
               >
                 Rozumiem
               </button>

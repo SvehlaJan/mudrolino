@@ -4,6 +4,7 @@ import { DESKTOP_VIEWPORT, MOBILE_VIEWPORT, type CanonicalViewportName } from '.
 
 const PORT = 4173;
 const NUMERACY_MATRIX_SPECS = /(?:numeracy-(?:responsive|accessibility)|counting|compare-quantities|addition)\.spec\.ts/;
+const RELEASE_ONLY_SPECS = /(?:offline|release-(?:journeys|audio-order|responsive|accessibility|webkit-smoke))\.spec\.ts/;
 const NUMERACY_VIEWPORTS: Array<{ name: string; viewport: { width: number; height: number } }> = [
   { name: 'numeracy-320x568', viewport: { width: 320, height: 568 } },
   { name: 'numeracy-390x844', viewport: { width: 390, height: 844 } },
@@ -34,7 +35,15 @@ if (chromiumExecutable) {
 
 export default defineConfig({
   testDir: '.',
-  testIgnore: ['**/production-guards.spec.ts'],
+  testIgnore: [
+    '**/production-guards.spec.ts',
+    '**/offline.spec.ts',
+    '**/release-journeys.spec.ts',
+    '**/release-audio-order.spec.ts',
+    '**/release-responsive.spec.ts',
+    '**/release-accessibility.spec.ts',
+    '**/release-webkit-smoke.spec.ts',
+  ],
   timeout: 30_000,
   expect: { timeout: 10_000 },
   fullyParallel: true,
@@ -51,7 +60,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], viewport: DESKTOP_VIEWPORT },
       // The numeracy games run under the five explicit projects below. Keeping them out of the
       // default project preserves the existing suite's coverage count instead of multiplying it.
-      testIgnore: [NUMERACY_MATRIX_SPECS, '**/production-guards.spec.ts'],
+      testIgnore: [NUMERACY_MATRIX_SPECS, RELEASE_ONLY_SPECS, '**/production-guards.spec.ts'],
     },
     {
       name: 'mobile',

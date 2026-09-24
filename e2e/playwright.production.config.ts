@@ -21,7 +21,7 @@ export default defineConfig({
     {
       name: 'production-guards',
       use: { ...devices['Desktop Chrome'], viewport: DESKTOP_VIEWPORT },
-      testMatch: /production-guards\.spec\.ts/,
+      testMatch: /(?:production-guards|offline)\.spec\.ts/,
     },
   ],
   webServer: {

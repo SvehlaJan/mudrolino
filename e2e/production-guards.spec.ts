@@ -12,9 +12,20 @@ test('production does not expose the parent gate adapter', async ({ page }) => {
 
   await page.goto('/settings');
   await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
-  const exposed = await page.evaluate(() => 'parentGate' in (window.__E2E__ ?? {}));
-  expect(exposed).toBe(false);
+  expect(await page.evaluate(() => window.__E2E__)).toBeUndefined();
 
+  expectNoConsoleErrors(errors);
+  expectNoFailedRequests(failedRequests);
+});
+
+test('release hides the avatar experiment and its preview route', async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  const failedRequests = trackFailedRequests(page);
+  await page.goto('/');
+  await expect(page.locator('canvas')).toHaveCount(0);
+  await page.goto('/avatar-preview');
+  await expect(page).toHaveURL('/');
+  await expect(page.locator('canvas')).toHaveCount(0);
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
 });

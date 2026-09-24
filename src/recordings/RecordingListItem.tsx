@@ -95,7 +95,7 @@ export function RecordingListItem({
     ? 'bg-amber-100 text-amber-700'
     : statusTone === 'ready'
       ? 'bg-green-100 text-green-700'
-      : 'bg-shadow/10 text-text-main/60';
+      : 'bg-shadow/10 text-text-muted';
 
   const recordClass = recordEmphasis
     ? '!bg-soft-watermelon text-text-main ring-2 ring-soft-watermelon/45'

@@ -162,7 +162,9 @@ export const pwaPluginOptions: Partial<VitePWAOptions> = {
       'workbox-*.js',
     ],
     maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
-    navigateFallback: '/',
+    // Workbox precaches `index.html`, not `/`. Point the navigation route at the
+    // actual precache key so unseen game deep links also open while offline.
+    navigateFallback: '/index.html',
   },
   devOptions: {
     enabled: false,

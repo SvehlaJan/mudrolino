@@ -1,4 +1,5 @@
 import { pwaBrand, pwaHtmlHeadTags, pwaHtmlTitle, pwaIcons, pwaManifest, pwaPluginOptions } from './pwaConfig';
+import { GAME_DEFINITIONS } from '../shared/gameCatalog';
 
 function assert(condition: boolean, message: string) {
   if (!condition) throw new Error(message);
@@ -63,14 +64,23 @@ assert(pwaPluginOptions.manifest === pwaManifest, 'plugin uses centralized manif
 
 const globPatterns = pwaPluginOptions.workbox?.globPatterns ?? [];
 assert(globPatterns.includes('**/*.{js,css,html,webmanifest}'), 'workbox precaches shell assets');
+assert(globPatterns.some((pattern) => pattern.includes('js')), 'workbox precaches lazy game chunks');
 assert(globPatterns.includes('audio/**/*.{mp3,ogg,wav}'), 'workbox precaches built-in audio');
 assert(globPatterns.includes('fonts/**/*.woff2'), 'workbox precaches local fonts');
+assert(globPatterns.includes('pwa/**/*.svg'), 'workbox precaches the SVG icon');
+assert(GAME_DEFINITIONS.length === 11, 'offline route inventory covers all eleven games');
+assert(new Set(GAME_DEFINITIONS.map((game) => game.path)).size === GAME_DEFINITIONS.length, 'offline game routes are unique');
 
 const globIgnores = pwaPluginOptions.workbox?.globIgnores ?? [];
 assert(globIgnores.includes('avatar/**/*.glb'), 'workbox skips large avatar glbs in first pass');
+assert(globIgnores.includes('**/*.map'), 'workbox skips source maps');
 assert(
   globIgnores.includes('assets/AvatarScene-*.js'),
   'workbox skips the lazy avatar renderer chunk, which cannot render without the skipped glbs',
 );
+assert(pwaPluginOptions.workbox?.navigateFallback === '/index.html', 'offline navigation falls back to the precached app shell');
+for (const icon of [pwaIcons.appleTouch, pwaIcons.standard192, pwaIcons.standard512, pwaIcons.maskable512]) {
+  assert(Boolean(pwaPluginOptions.includeAssets?.includes(icon.slice(1))), `workbox includes ${icon}`);
+}
 
 console.log('pwaConfig checks passed');

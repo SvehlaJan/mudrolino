@@ -46,3 +46,23 @@ export async function expectNoPairwiseOverlap(locators: Locator[] | Locator) {
     }
   }
 }
+
+/** Ensures every matching element can be brought into the route's scrollable region. */
+export async function expectReachableOrVisible(locator: Locator) {
+  const elements = await locator.all();
+  expect(elements, 'expected at least one reachable element').not.toHaveLength(0);
+  for (const [index, element] of elements.entries()) {
+    await element.scrollIntoViewIfNeeded();
+    await expect(element, `element at index ${index} should be visible after scrolling`).toBeVisible();
+    const box = await element.boundingBox();
+    expect(box, `element at index ${index} should have a rendered bounding box`).not.toBeNull();
+  }
+}
+
+/** Verifies the named buttons occur in the ordinary keyboard tab sequence. */
+export async function expectFocusOrder(page: Page, names: string[]) {
+  for (const name of names) {
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name }), `expected ${name} in tab order`).toBeFocused();
+  }
+}
