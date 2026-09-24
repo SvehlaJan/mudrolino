@@ -88,6 +88,7 @@ const REQUIRED_RELEASE_SCENES = [
   'content-disabled-list',
   'content-recording-draft',
   'content-recording-ready',
+  'recording-permission',
   'recording-active',
   'feedback-error',
   'feedback-success',

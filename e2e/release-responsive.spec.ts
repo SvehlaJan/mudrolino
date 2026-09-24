@@ -124,6 +124,27 @@ test('a portrait to landscape rotation preserves an active round and focused ans
   await expectNoHorizontalOverflow(page);
 });
 
+test('a portrait to landscape rotation preserves an open parent word editor, draft text, and focus', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/content');
+  await unlockParentGate(page);
+  await page.getByRole('tab', { name: 'Slová' }).click();
+  await page.getByRole('button', { name: 'Pridať slovo', exact: true }).click();
+
+  const editor = page.getByRole('dialog').filter({ has: page.getByRole('heading', { name: 'Pridať slovo' }) });
+  const word = editor.getByLabel(/^Slovo\b/);
+  await word.fill('Neuložené slovo');
+  await word.focus();
+  await expect(word).toBeFocused();
+
+  await page.setViewportSize({ width: 844, height: 390 });
+  await expect(page).toHaveURL('/content');
+  await expect(editor).toBeVisible();
+  await expect(word).toHaveValue('Neuložené slovo');
+  await expect(word).toBeFocused();
+  await expectNoHorizontalOverflow(page);
+});
+
 test('ordinary home content avoids horizontal scroll at 200 percent CSS zoom', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => { document.body.style.zoom = '2'; });

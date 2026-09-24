@@ -1,10 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { chromium } from 'playwright';
 import { resolveChromiumExecutable } from '../../e2e/browserResolver.ts';
 import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
 import { RELEASE_VIEWPORTS } from '../../e2e/support/releaseMatrix.ts';
+
+const recorderInitPath = fileURLToPath(new URL('./fakeRecorderInit.js', import.meta.url));
+
+async function installCaptureRecorder(page) {
+  await page.addInitScript({ path: recorderInitPath });
+}
 
 export function parseArgs(args) {
   let base = 'http://127.0.0.1:4173';
@@ -631,7 +638,7 @@ SCENES['content-disabled-list'] = async (page, baseUrl) => {
   await page.getByRole('menuitem', { name: 'Vypnúť' }).click();
   await page.getByRole('button', { name: /Vypnuté \(1\)/ }).click();
 };
-SCENES['content-recording-draft'] = async (page, baseUrl) => {
+async function createDraftWord(page, baseUrl) {
   await openContentSection(page, baseUrl, 'Slová');
   await page.getByRole('button', { name: 'Pridať slovo' }).click();
   await page.getByLabel(/^Slovo\b/).fill('Hruska');
@@ -639,16 +646,32 @@ SCENES['content-recording-draft'] = async (page, baseUrl) => {
   await page.getByLabel('Emoji').fill('🍐');
   await page.getByRole('button', { name: 'Pridať', exact: true }).click();
   await page.getByText('Koncept', { exact: true }).waitFor({ state: 'visible' });
+}
+SCENES['content-recording-draft'] = async (page, baseUrl) => {
+  await createDraftWord(page, baseUrl);
 };
 SCENES['content-recording-ready'] = async (page, baseUrl) => {
-  await openContentSection(page, baseUrl, 'Slová');
-  await page.getByText('Predvolené', { exact: true }).first().waitFor({ state: 'visible' });
+  await installCaptureRecorder(page);
+  await createDraftWord(page, baseUrl);
+  await page.getByRole('button', { name: 'Nahrať', exact: true }).last().click();
+  await page.getByRole('status').filter({ hasText: /Nahrávam/ }).waitFor({ state: 'visible' });
+  await page.getByRole('button', { name: 'Zastaviť', exact: true }).click();
+  await page.getByText('Vlastné', { exact: true }).waitFor({ state: 'visible' });
+  await page.getByRole('button', { name: 'Zmazať nahrávku' }).waitFor({ state: 'visible' });
+};
+SCENES['recording-permission'] = async (page, baseUrl) => {
+  await installCaptureRecorder(page);
+  await openContentSection(page, baseUrl, 'Písmená');
+  await page.evaluate(() => { window.__captureRecorder.mode = 'delayed-permission'; });
+  await page.getByRole('button', { name: 'Nahrať', exact: true }).first().click();
+  await page.getByRole('status').filter({ hasText: /Čakám na povolenie mikrofónu/ }).waitFor({ state: 'visible' });
 };
 SCENES['recording-active'] = async (page, baseUrl) => {
-  await page.goto(`${baseUrl}/ui-kit`);
-  const recordingExample = page.getByTestId('ui-kit-legacy-recording-item').last();
-  await recordingExample.scrollIntoViewIfNeeded();
-  await recordingExample.getByRole('status').waitFor({ state: 'visible' });
+  await installCaptureRecorder(page);
+  await openContentSection(page, baseUrl, 'Písmená');
+  await page.getByRole('button', { name: 'Nahrať', exact: true }).first().click();
+  await page.getByRole('status').filter({ hasText: /Nahrávam/ }).waitFor({ state: 'visible' });
+  await page.getByRole('button', { name: 'Zastaviť', exact: true }).waitFor({ state: 'visible' });
 };
 SCENES['feedback-error'] = (page, baseUrl) => openFeedback(page, baseUrl, 500);
 SCENES['feedback-success'] = (page, baseUrl) => openFeedback(page, baseUrl, 200);
@@ -699,6 +722,7 @@ export const RELEASE_SCENE_NAMES = [
   'content-disabled-list',
   'content-recording-draft',
   'content-recording-ready',
+  'recording-permission',
   'recording-active',
   'feedback-error',
   'feedback-success',
