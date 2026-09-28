@@ -638,21 +638,21 @@ SCENES['content-disabled-list'] = async (page, baseUrl) => {
   await page.getByRole('menuitem', { name: 'Vypnúť' }).click();
   await page.getByRole('button', { name: /Vypnuté \(1\)/ }).click();
 };
-async function createDraftWord(page, baseUrl) {
+async function createDraftWord(page, baseUrl, word = 'Hruska', syllables = 'hru-ska', emoji = '🍐') {
   await openContentSection(page, baseUrl, 'Slová');
   await page.getByRole('button', { name: 'Pridať slovo' }).click();
-  await page.getByLabel(/^Slovo\b/).fill('Hruska');
-  await page.getByLabel('Slabiky').fill('hru-ska');
-  await page.getByLabel('Emoji').fill('🍐');
+  await page.getByLabel(/^Slovo\b/).fill(word);
+  await page.getByLabel('Slabiky').fill(syllables);
+  await page.getByLabel('Emoji').fill(emoji);
   await page.getByRole('button', { name: 'Pridať', exact: true }).click();
-  await page.getByText('Koncept', { exact: true }).waitFor({ state: 'visible' });
+  await page.getByText(`${word} ${emoji} ·`, { exact: true }).waitFor({ state: 'visible' });
 }
 SCENES['content-recording-draft'] = async (page, baseUrl) => {
   await createDraftWord(page, baseUrl);
 };
 SCENES['content-recording-ready'] = async (page, baseUrl) => {
   await installCaptureRecorder(page);
-  await createDraftWord(page, baseUrl);
+  await createDraftWord(page, baseUrl, 'Marakuja', 'ma-ra-ku-ja', '🥭');
   await page.getByRole('button', { name: 'Nahrať', exact: true }).last().click();
   await page.getByRole('status').filter({ hasText: /Nahrávam/ }).waitFor({ state: 'visible' });
   await page.getByRole('button', { name: 'Zastaviť', exact: true }).click();
