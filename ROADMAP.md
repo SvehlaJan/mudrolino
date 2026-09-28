@@ -74,7 +74,7 @@
   - [x] Phase 5 — shared game shell and Abeceda/Slabiky/Čísla/Slová migration (Codex accepted candidate `c6e8b557f872e39dca9f5fc39429cfd42225eb40`; `4d9afd1261daa0823c793c05049a2b50063b93bc` is superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-05.md`)
   - [x] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration (Codex accepted remediated candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`; the acceptance-record commit is the Phase 7 base; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-06.md`)
   - [x] Phase 7 — Spočítaj/Viac alebo menej/Sčítaj migration (Codex accepted candidate `7f921731ee6cbd835b9cb8ebfa312f175ab2f3b9`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-07.md`)
-  - [ ] Phase 8 — release hardening implemented; Codex review and user visual sign-off pending (see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md`)
+  - [ ] Phase 8 — release hardening implemented and independently code/spec reviewed; 40 inherited missing bundled audio clips keep the aggregate release gate red, and user visual sign-off remains pending (see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md`)
 - [x] Fix audit ship blockers through redesign phases: parent-gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
 - [x] Fix audit accessibility findings through redesign phases: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
 - [ ] Share private URL with first friend group
