@@ -62,10 +62,16 @@ export function parseArgs(args) {
 export function printHelp() {
   console.log(`Usage: npm run shots -- [--base=<url>] [--matrix=release] [--scene=<id>] [--viewport=<name>] [--output=<dir>] [--help]
 
-Repeat --scene/--viewport to capture more than one. --matrix=release selects the shipping scene set and release viewports; explicit scenes or viewports narrow that set. Omitting selectors captures all scenes and canonical viewports.
+Repeat --scene/--viewport to capture more than one. --matrix=release selects the shipping scene set and release viewports; explicit scenes or viewports narrow that set. Omitting selectors captures all scenes and canonical viewports. By default, captures go to artifacts/ui/<UTC-date-time>-<pid>-<short-git-sha>/.
 
 Scenes:    ${Object.keys(SCENES).join(', ')}
 Viewports: ${Object.keys(CANONICAL_VIEWPORTS).join(', ')}`);
+}
+
+export function formatRunDirectoryName(date, gitSha, pid) {
+  const pad = (value, width = 2) => String(value).padStart(width, '0');
+  const timestamp = `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}T${pad(date.getUTCHours())}-${pad(date.getUTCMinutes())}-${pad(date.getUTCSeconds())}-${pad(date.getUTCMilliseconds(), 3)}Z`;
+  return `${timestamp}-${pid}-${gitSha.slice(0, 7)}`;
 }
 
 export const SCENES = {
@@ -773,10 +779,8 @@ async function main() {
     } catch (err) {
       throw new Error(`Failed to resolve git SHA: ${err.message}`);
     }
-    const now = new Date();
-    const pad = (n, w = 2) => String(n).padStart(w, '0');
-    const utcRunId = `${now.getUTCFullYear()}-${pad(now.getUTCMonth() + 1)}-${pad(now.getUTCDate())}T${pad(now.getUTCHours())}-${pad(now.getUTCMinutes())}-${pad(now.getUTCSeconds())}-${pad(now.getUTCMilliseconds(), 3)}Z-${process.pid}`;
-    outputDir = path.resolve(process.cwd(), 'artifacts', 'ui', gitSha, utcRunId);
+    const runName = formatRunDirectoryName(new Date(), gitSha, process.pid);
+    outputDir = path.resolve(process.cwd(), 'artifacts', 'ui', runName);
     if (fs.existsSync(outputDir)) {
       throw new Error(`Output collision: directory already exists at ${outputDir}`);
     }

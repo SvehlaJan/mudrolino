@@ -7,7 +7,7 @@
 - Phase 8 code candidate and screenshot evidence SHA: `1e0a2d43bd8065a55641248c90f330f5dbee82c5` (`fix: isolate recording capture drafts`), following core implementation commit `35ab5f5` and review fixes at `0ac1097`. The code worktree was clean immediately after this commit; this reporting document follows it.
 - Code/spec review: **No remaining production correctness blocker found** in independent lower-cost Codex review. It found missing unsaved parent editor rotation coverage and capture scenes that showed UI Kit recorder examples instead of shipping `/content` states; both were fixed before this SHA.
 - User visual sign-off: **Pending**. Codex did not inspect full-resolution screenshots, per the user's request.
-- Local screenshot directory: `artifacts/ui/1e0a2d43bd8065a55641248c90f330f5dbee82c5/2026-09-28T18-40-27-113Z-95209/` (ignored). Complete: 55 scenes × ten viewports = 550 PNGs; all scene directories contain ten files, and the capture command exited zero.
+- Local screenshot directory: `artifacts/ui/2026-09-28T18-40-27-113Z-95209-1e0a2d4/` (ignored). Complete: 55 scenes × ten viewports = 550 PNGs; all scene directories contain ten files, and the capture command exited zero. Older local runs were removed for the UI review; paths to them in historical handoffs are archival references.
 - No PR or deployment was requested or created.
 
 ## Delivered

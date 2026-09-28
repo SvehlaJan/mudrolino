@@ -74,7 +74,7 @@ npm run shots
 
 Options include `--base=<url>`, `--scene=<id>`, `--viewport=<canonical-name>`, and optional `--output=<directory>`.
 
-Screenshots are saved to the git-ignored `artifacts/ui/<full-git-sha>/<unique-run-id>/<scene>/<viewport>.png` directory (or the specified `--output` directory) for manual inspection.
+Screenshots are saved to the git-ignored `artifacts/ui/<UTC-date-time>-<pid>-<short-git-sha>/<scene>/<viewport>.png` directory (or the specified `--output` directory) for manual inspection.
 
 The canonical viewports are:
 - `narrowPhone`: `320 x 568`

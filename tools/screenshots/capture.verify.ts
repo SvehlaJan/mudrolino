@@ -1,4 +1,4 @@
-import { parseArgs, printHelp, RELEASE_SCENE_NAMES, SCENES } from './capture.mjs';
+import { formatRunDirectoryName, parseArgs, printHelp, RELEASE_SCENE_NAMES, SCENES } from './capture.mjs';
 import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
 
 if (!('ui-kit' in SCENES)) {
@@ -34,6 +34,11 @@ const defaults = parseArgs([]);
 if (defaults.base !== 'http://127.0.0.1:4173') throw new Error(`Unexpected default base: ${defaults.base}`);
 if (defaults.scenes.length !== 0) throw new Error('Default parse must not select any scene');
 if (defaults.help !== false) throw new Error('Default parse must not request help');
+
+const runName = formatRunDirectoryName(new Date('2026-09-28T18:40:27.113Z'), '1e0a2d43bd8065a55641248c90f330f5dbee82c5', 95209);
+if (runName !== '2026-09-28T18-40-27-113Z-95209-1e0a2d4') {
+  throw new Error(`Screenshot folder must start with its UTC capture time: ${runName}`);
+}
 
 const helpFlag = parseArgs(['--help']);
 if (helpFlag.help !== true) throw new Error('--help must be recognized as a flag, not an unknown argument');

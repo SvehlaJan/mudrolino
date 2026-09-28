@@ -8,7 +8,7 @@
 - Reviewer: independent lower-cost Codex code/spec review. **Code/spec review: No remaining production correctness blocker found.** The review identified missing editor rotation coverage and recording screenshot evidence; both were added and verified before this candidate.
 - **Visual sign-off: Pending user review.** The user asked that the agent not inspect full-resolution screenshots; no screenshots have been visually analyzed by Codex.
 - Capture command: `npm run shots -- --matrix=release` against a test-mode preview at `127.0.0.1:4173`.
-- Local screenshots: `artifacts/ui/1e0a2d43bd8065a55641248c90f330f5dbee82c5/2026-09-28T18-40-27-113Z-95209/` (ignored, never committed). Complete: 55 scene directories, ten PNGs each, 550 total. The capture command exited zero and its console/request guards found no errors.
+- Local screenshots: `artifacts/ui/2026-09-28T18-40-27-113Z-95209-1e0a2d4/` (ignored, never committed). Complete: 55 scene directories, ten PNGs each, 550 total. The capture command exited zero and its console/request guards found no errors. Older local capture runs were removed for the UI review.
 
 ## Coverage
 
