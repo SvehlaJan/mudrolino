@@ -32,9 +32,18 @@ test.describe('Parent dashboard and game settings', () => {
     await page.goto('/settings/games/ALPHABET');
     await unlockParentGate(page);
     const detail = page.getByTestId('game-settings-detail');
+    await expect(page.getByText('Nastavenia hry', { exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Abeceda' })).toBeVisible();
+    await expect(page.getByText('Hra s písmenami', { exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toHaveCount(0);
+    await expect(page.getByRole('navigation', { name: 'Nastavenia hier' })).toHaveCount(0);
     await expect(page.getByRole('switch', { name: /dĺžňami a mäkčeňmi/ })).toBeVisible();
     await expect(page.getByRole('radiogroup', { name: 'Počet kariet' })).toBeVisible();
     await expect(detail.getByText(/Rozsah súčtu/)).toHaveCount(0);
+
+    await page.goto('/settings/games/COMPLETE_LETTER');
+    await unlockParentGate(page);
+    await expect(page.getByRole('heading', { level: 1, name: 'Doplň písmeno' })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
@@ -46,6 +55,9 @@ test.describe('Parent dashboard and game settings', () => {
 
     await page.goto('/settings/games');
     await unlockParentGate(page);
+    await expect(page.getByRole('heading', { level: 1, name: 'Nastavenia hier' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toHaveCount(0);
+    await expect(page.getByText('Vyberte hru zo zoznamu a upravte jej nastavenia.')).toHaveCount(0);
     await expect(page.getByRole('link', { name: /Abeceda/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /^Slová/ })).toHaveCount(0);
 
@@ -233,15 +245,16 @@ test.describe('Parent dashboard and game settings', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('wide viewports show the games list alongside the selected game detail', async ({ page }) => {
+  test('wide viewports keep the selected game detail focused', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
     await page.setViewportSize(CANONICAL_VIEWPORTS.desktopWide);
     await page.goto('/settings/games/ALPHABET');
     await unlockParentGate(page);
+    await expect(page.getByText('Nastavenia hry', { exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Počet kariet' })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Slabiky/ })).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'Nastavenia hier' })).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 
     expectNoConsoleErrors(errors);

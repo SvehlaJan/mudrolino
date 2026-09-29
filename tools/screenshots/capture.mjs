@@ -162,7 +162,7 @@ export const SCENES = {
       throw new Error('Protected quick-pass request failed: window.__E2E__.parentGate.unlock() is missing (non-test server)');
     }
     await page.evaluate(() => window.__E2E__.parentGate.unlock());
-    await page.getByRole('heading', { name: 'Rodičovská zóna' }).waitFor({ state: 'visible' });
+    await page.getByRole('heading', { name: 'Nastavenia hier' }).waitFor({ state: 'visible' });
     await page.getByRole('navigation', { name: 'Nastavenia hier' }).waitFor({ state: 'visible' });
   },
   'app-settings': async (page, baseUrl) => {
