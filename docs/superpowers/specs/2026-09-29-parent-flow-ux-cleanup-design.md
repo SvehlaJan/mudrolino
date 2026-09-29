@@ -1,7 +1,7 @@
 # Parent flow UX cleanup
 
 **Date:** 2026-09-29  
-**Status:** Approved in conversation; written spec awaiting user review  
+**Status:** Approved for implementation
 **Scope:** Five browser annotations on game settings, the parent gate, help and feedback, and custom content rows.
 
 ## Goal
