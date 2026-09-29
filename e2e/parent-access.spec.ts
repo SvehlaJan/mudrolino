@@ -6,8 +6,26 @@ import {
   expectNoFailedRequests,
 } from './support/assertions';
 import { unlockParentGate, solveParentGate } from './support/parentGate';
+import { CANONICAL_VIEWPORTS } from './support/viewports';
 
 test.describe('Parent Access Gate', () => {
+  for (const [name, viewport] of [
+    ['narrow phone', CANONICAL_VIEWPORTS.narrowPhone],
+    ['short landscape', CANONICAL_VIEWPORTS.shortLandscape],
+    ['desktop', CANONICAL_VIEWPORTS.desktop],
+  ] as const) {
+    test(`challenge, answer, keypad, and exit fit ${name}`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      await page.goto('/settings');
+
+      const gate = page.getByRole('dialog', { name: 'Pre rodičov' });
+      await expect(gate.getByTestId('parent-gate-equation')).toBeInViewport({ ratio: 1 });
+      await expect(gate.getByRole('status', { name: 'Vaša odpoveď' })).toBeInViewport({ ratio: 1 });
+      await expect(gate.getByRole('button', { name: 'Potvrdiť' })).toBeInViewport({ ratio: 1 });
+      await expect(gate.getByRole('button', { name: 'Späť' })).toBeInViewport({ ratio: 1 });
+    });
+  }
+
   test('direct navigation to /settings shows gate without revealing protected content', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);

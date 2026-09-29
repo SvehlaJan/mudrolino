@@ -96,7 +96,7 @@ function buildSystemRows(locale: string, section: 'letters' | 'numbers' | 'phras
   return Object.entries(content.audioPhrases).map(([phraseKey, phrase]) => ({
     id: `phrase:${phrase.audioKey}`,
     storeKey: `${locale}/phrases/${phrase.audioKey}`,
-    label: `${phraseKey}: ${phrase.text}`,
+    label: phrase.text,
     searchText: `${phraseKey} ${phrase.text}`,
   }));
 }

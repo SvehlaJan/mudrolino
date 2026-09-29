@@ -14,10 +14,8 @@ import {
   pressAnswerById,
   stubSpeechSynthesis,
   waitForGamePhase,
-  waitForPaused,
 } from './support/gameHarness';
 import { seedLocalStorage } from './support/persistenceFixtures';
-import { unlockParentGate } from './support/parentGate';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { CI_VIEWPORT_SUBSET } from './playwright.config';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
@@ -602,49 +600,6 @@ test('Skladaj shows a polite retry status on a wrong full rail, plays its specia
 
   await waitForGamePhase(page, 'awaiting-answer');
   await expect(rail.locator('[data-slot-state="filled"]')).toHaveCount(0);
-  await expect(rail.locator('[data-slot-state="pending"]')).toHaveCount(3);
-  await expect(tray.locator('[data-tile-id]')).toHaveCount(3);
-
-  const finalState = await getE2EState<AssemblyE2EState>(page);
-  expect(finalState.roundsPlayed).toBe(0);
-});
-
-test('Skladaj still resets a wrong full rail to the tray if a parent pauses mid-verdict-audio', async ({ page }) => {
-  await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
-
-  const state = await getE2EState<AssemblyE2EState>(page);
-  const [first, second, third] = state.correctTileOrder;
-  const wrongOrder = [second, first, third];
-  const tray = page.getByTestId('play-tray');
-  const rail = page.getByTestId('word-rail');
-
-  await tray.locator(`[data-tile-id="${wrongOrder[0]}"]`).click();
-  await waitForGamePhase(page, 'awaiting-answer');
-  await tray.locator(`[data-tile-id="${wrongOrder[1]}"]`).click();
-  await waitForGamePhase(page, 'awaiting-answer');
-
-  // Tap the final, wrong tile, then pause immediately — before the 3-clip wrong sequence
-  // (syllable -> retry -> word) has any chance to finish, so resolveAnswer's own in-flight
-  // audio await is still pending when pause()'s invalidate() stops it and bumps the operation
-  // id. That makes resolveAnswer resolve 'cancelled' instead of 'retry', which is exactly the
-  // window this test targets: placeTile's own reset never runs in that case, and only
-  // handleResume's board-state recovery check can put the tray back together.
-  await tray.locator(`[data-tile-id="${wrongOrder[2]}"]`).click();
-  await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
-
-  const paused = await getE2EState<AssemblyE2EState>(page);
-  expect(paused.paused).toBe(true);
-
-  // Resolve the gate deterministically via the documented test-mode adapter rather than solving
-  // the arithmetic, matching the established parent-gate E2E pattern.
-  await unlockParentGate(page);
-  await waitForGamePhase(page, 'awaiting-answer');
-
-  // The board must have reset to the tray — not been left standing with the wrong tile order in
-  // the rail — even though the verdict audio was cut off mid-sequence by the pause.
-  await expect.poll(() => rail.locator('[data-slot-state="filled"]').count()).toBe(0);
   await expect(rail.locator('[data-slot-state="pending"]')).toHaveCount(3);
   await expect(tray.locator('[data-tile-id]')).toHaveCount(3);
 
@@ -1325,55 +1280,8 @@ test.describe('Task 7: WordRail must stay genuinely visible, not just on-page', 
   }
 });
 
-test.describe('Task 7: Pause, rotation, and focus restoration', () => {
+test.describe('Task 7: Rotation preserves focus', () => {
   for (const game of BESPOKE_GAMES) {
-    test(`${game.name}: a permitted parent dialog pauses audio/timers/input, then resume restores round, state, and focus`, async ({ page }) => {
-      await game.enterPlay(page);
-      // Land in the retry window first — a wrong answer's own retry-clear timer (and, for
-      // Assembly, its floating-tile animation bookkeeping) is the riskiest moment for a pause to
-      // strand, matching the precedent already established for this exact race.
-      await game.answerWrong(page);
-
-      const before = await getE2EState<BespokeRoundState>(page);
-      expect(before.wrongAttempts).toBeGreaterThan(0);
-
-      await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
-      await waitForPaused(page, true);
-      await expect(page.getByTestId('game-interactive-content')).toHaveAttribute('inert', '');
-      await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
-
-      await clearAudioEvents(page);
-      // Prove the retry-clear timer really is frozen, not just that not enough time has passed
-      // yet — a deliberate wait-and-recheck (not a substitute for the waitForGamePhase/
-      // waitForPaused polling used everywhere else in this test).
-      await page.waitForTimeout(800);
-      const stillPaused = await getE2EState<BespokeRoundState>(page);
-      expect(stillPaused.gamePhase).toBe(before.gamePhase);
-      expect(stillPaused.wrongAttempts).toBe(before.wrongAttempts);
-      expect(stillPaused.roundsPlayed).toBe(before.roundsPlayed);
-      expect(await getAudioEvents(page)).toEqual([]);
-
-      await unlockParentGate(page);
-      await waitForPaused(page, false);
-      await waitForGamePhase(page, 'awaiting-answer');
-
-      const resumed = await getE2EState<BespokeRoundState>(page);
-      expect(resumed.roundsPlayed).toBe(before.roundsPlayed);
-      expect(resumed.wrongAttempts).toBe(before.wrongAttempts);
-      // A successful unlock must land focus on the live, currently-mounted lock control — never
-      // a detached reference to whatever the gate captured before it (and the lock button
-      // itself) were removed from the DOM while paused.
-      await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toBeFocused();
-
-      // The resumed round must still be fully answerable, exactly once — no answer duplicated
-      // and no answer lost from the pause/resume cycle.
-      await clearAudioEvents(page);
-      await game.answerCorrect(page);
-      const clipPaths = await getAudioClipPaths(page);
-      expect(clipPaths.length).toBeGreaterThan(0);
-      expect(new Set(clipPaths).size, `duplicate audio clip in ${JSON.stringify(clipPaths)}`).toBe(clipPaths.length);
-    });
-
     test(`${game.name}: rotating portrait to landscape mid-round preserves round state and focus without clipping`, async ({ page }) => {
       await page.setViewportSize(CANONICAL_VIEWPORTS.phonePortrait);
       await game.enterPlay(page);
@@ -1414,32 +1322,6 @@ test.describe('Task 7: Pause, rotation, and focus restoration', () => {
       await game.answerCorrect(page);
     });
   }
-
-  test('cancelling the parent dialog with Escape leaves the round paused for another unlock attempt', async ({ page }) => {
-    // Exercises the shared GameShell/ParentsGate contract itself, which every game inherits
-    // unmodified — one representative game is enough; this is not per-game behavior.
-    const game = BESPOKE_GAMES[0];
-    await game.enterPlay(page);
-
-    const lockButton = page.getByRole('button', { name: 'Rodičovská prestávka' });
-    await lockButton.click();
-    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
-
-    // The inherited ParentsGate/DialogShell contract routes Escape through its own
-    // onEscapeKeyDown -> onOpenChange(false) -> onCancel; this game adds no local handling.
-    await page.keyboard.press('Escape');
-    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toHaveCount(0);
-    const afterCancel = await getE2EState<BespokeRoundState>(page);
-    expect(afterCancel.paused).toBe(true);
-    const unlockButton = page.getByRole('button', { name: 'Odomknúť' });
-    await expect(unlockButton).toBeFocused();
-
-    await unlockButton.click();
-    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
-    await unlockParentGate(page);
-    await waitForPaused(page, false);
-    await expect(lockButton).toBeFocused();
-  });
 });
 
 test.describe('Task 7: Assistive contract', () => {

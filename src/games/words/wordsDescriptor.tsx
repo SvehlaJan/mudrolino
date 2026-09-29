@@ -16,7 +16,9 @@ export function createWordsDescriptor(wordItems: Word[], locale: string): GameDe
     getItemId: (w) => w.word,
     getAccessibleLabel: (w) => `${w.word}, ${w.syllables}`,
     renderCard: (w) => (
-      <span className="text-[clamp(3.75rem,14vw,7rem)] leading-none">{w.emoji}</span>
+      <span className={`text-[clamp(3.75rem,14vw,7rem)] leading-none ${w.emoji === '🥚' ? 'drop-shadow-[0_1px_1px_rgba(75,55,30,0.8)]' : ''}`}>
+        {w.emoji}
+      </span>
     ),
     renderPrompt: (w) => (
       <h2 className="text-[clamp(1.9rem,5.5vw,4rem)] font-black tracking-[0.12em] text-text-main leading-none">

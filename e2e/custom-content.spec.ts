@@ -100,11 +100,31 @@ test.describe('Custom content manager', () => {
   test('a narrow viewport shows a scrollable tab strip with a visible overflow cue; a wide one does not', async ({ page }) => {
     await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
     await openContent(page);
-    await expect(page.getByTestId('content-tabs-fade-end')).toHaveCSS('opacity', '1');
+    const scrollLeft = page.getByRole('button', { name: 'Posunúť kategórie doľava' });
+    const scrollRight = page.getByRole('button', { name: 'Posunúť kategórie doprava' });
+    await expect(scrollLeft).toBeVisible();
+    await expect(scrollLeft).toBeDisabled();
+    await expect(scrollRight).toBeEnabled();
+    await scrollRight.click();
+    await expect(scrollLeft).toBeEnabled();
+    await scrollRight.click();
+    const praisesTab = page.getByRole('tab', { name: /Pochvaly/ });
+    await praisesTab.click();
+    await expect(praisesTab).toHaveAttribute('aria-selected', 'true');
+    await expect(scrollRight).toBeDisabled();
     await expectNoHorizontalOverflow(page);
 
     await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
-    await expect(page.getByTestId('content-tabs-fade-end')).toHaveCount(0);
+    await expect(page.getByTestId('content-tabs-scroll-left')).toHaveCount(0);
+    await expect(page.getByTestId('content-tabs-scroll-right')).toHaveCount(0);
+  });
+
+  test('phrase rows show parent-friendly text without internal keys', async ({ page }) => {
+    await openContent(page);
+    await openTab(page, /Frázy/);
+
+    await expect(page.getByText('Nájdi', { exact: true })).toBeVisible();
+    await expect(page.getByText(/^find:/)).toHaveCount(0);
   });
 
   test('search filters the word list to matching rows only', async ({ page }) => {

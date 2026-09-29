@@ -195,8 +195,6 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     resolveAnswer,
     continueAfterFeedback,
     playAgain,
-    pause,
-    resume,
     fail,
   } = session;
 
@@ -329,8 +327,6 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       state={state}
       onBack={onExit}
       onRetryError={retryAfterError}
-      onPause={pause}
-      onResume={resume}
       prompt={
         <GamePrompt
           instruction={INSTRUCTION}

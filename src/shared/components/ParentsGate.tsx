@@ -122,30 +122,36 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
       initialFocusRef={firstDigitRef}
       restoreFocusRef={restoreFocusRef}
       className="portrait:max-w-sm landscape:max-w-2xl landscape:p-3"
-    >
-      <div className="mt-1 flex justify-start landscape:mt-0.5">
+      headerAction={(
         <IconButton label="Späť" tone="neutral" size="parent" onClick={onCancel}>
           <ArrowLeft size={20} />
         </IconButton>
-      </div>
-
-      <div className="flex flex-col items-center gap-3 landscape:flex-row landscape:items-center landscape:gap-4">
-        <div className="w-full landscape:flex-1 flex flex-col items-center gap-2 landscape:gap-1.5">
+      )}
+    >
+      <div className="mt-4 grid grid-cols-1 items-stretch gap-4 landscape:mt-3 landscape:grid-cols-[minmax(0,1fr)_minmax(15rem,0.9fr)] landscape:items-center landscape:gap-6">
+        <div className="flex w-full flex-col gap-3">
           <Card
             variant="panel"
             data-testid="parent-gate-equation"
-            className={`w-full py-3 landscape:py-1.5 text-center text-2xl landscape:text-lg font-bold text-text-main sm:portrait:py-4 sm:portrait:text-4xl ${error && !prefersReducedMotion ? 'animate-shake' : ''}`}
+            className={`w-full py-5 text-center text-3xl font-black tracking-wide text-text-main sm:portrait:py-6 sm:portrait:text-4xl ${error && !prefersReducedMotion ? 'animate-shake' : ''}`}
           >
             {question.a} {question.op} {question.b} = ?
           </Card>
 
-          <Card
-            role="status"
-            aria-live="polite"
-            className="w-full rounded-2xl py-2 landscape:py-1 min-h-[40px] landscape:min-h-[32px] flex items-center justify-center text-xl landscape:text-lg font-bold text-text-main sm:portrait:min-h-[56px] sm:portrait:text-3xl"
-          >
-            {input || <span className="opacity-30">—</span>}
-          </Card>
+          <div className="flex flex-col gap-1.5">
+            <p className="px-1 text-sm font-bold text-text-muted">
+              Vaša odpoveď
+            </p>
+            <Card
+              id="parent-gate-answer"
+              role="status"
+              aria-label="Vaša odpoveď"
+              aria-live="polite"
+              className="flex min-h-14 w-full items-center justify-center rounded-2xl border border-border-subtle bg-surface-muted/50 py-2 text-2xl font-bold tabular-nums text-text-main sm:portrait:min-h-16 sm:portrait:text-3xl"
+            >
+              {input || <span className="text-text-muted/50">—</span>}
+            </Card>
+          </div>
 
           {error && (
             <p role="alert" className="text-xs landscape:text-[10px] font-bold text-action-danger sm:portrait:text-sm">
@@ -154,8 +160,8 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
           )}
         </div>
 
-        <div className="w-full landscape:flex-1 max-w-[280px]">
-          <div className="grid grid-cols-3 gap-1.5 landscape:gap-1 w-full sm:portrait:gap-3">
+        <div className="w-full">
+          <div className="grid w-full grid-cols-3 gap-2 sm:portrait:gap-3">
             {DIGITS.map((d, index) => (
               <Button
                 key={d}
@@ -163,7 +169,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
                 tone="neutral"
                 size="parent"
                 onClick={() => handleDigit(d)}
-                className="py-1.5 landscape:py-1 text-lg landscape:text-base sm:portrait:py-4 sm:portrait:text-2xl"
+                className="min-h-12 py-2 text-lg sm:portrait:min-h-14 sm:portrait:py-3 sm:portrait:text-2xl"
               >
                 {d}
               </Button>
@@ -173,7 +179,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               size="parent"
               onClick={handleBackspace}
               aria-label="Zmazať"
-              className="py-1.5 text-lg landscape:py-1 landscape:text-base sm:portrait:py-4 sm:portrait:text-2xl"
+              className="min-h-12 py-2 text-lg sm:portrait:min-h-14 sm:portrait:py-3 sm:portrait:text-2xl"
             >
               ⌫
             </Button>
@@ -181,7 +187,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               tone="neutral"
               size="parent"
               onClick={() => handleDigit('0')}
-              className="py-1.5 landscape:py-1 text-lg landscape:text-base sm:portrait:py-4 sm:portrait:text-2xl"
+              className="min-h-12 py-2 text-lg sm:portrait:min-h-14 sm:portrait:py-3 sm:portrait:text-2xl"
             >
               0
             </Button>
@@ -191,7 +197,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               onClick={handleConfirm}
               disabled={!input || error}
               aria-label="Potvrdiť"
-              className="py-1.5 landscape:py-1 text-lg landscape:text-base font-black sm:portrait:py-4 sm:portrait:text-2xl"
+              className="min-h-12 py-2 text-lg font-black sm:portrait:min-h-14 sm:portrait:py-3 sm:portrait:text-2xl"
             >
               ✓
             </Button>

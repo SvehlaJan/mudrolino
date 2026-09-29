@@ -91,7 +91,7 @@ test('compare quantities: supports object and numeral modes across both configur
   }
 });
 
-test('compare quantities: replay, roving keyboard controls, parent pause, Back, and completion use the shared shell', async ({ page }) => {
+test('compare quantities: replay, roving keyboard controls, progress-only header, Back, and completion use the shared shell', async ({ page }) => {
   await stubSpeechSynthesis(page);
   await startGame(page);
 
@@ -104,11 +104,13 @@ test('compare quantities: replay, roving keyboard controls, parent pause, Back, 
   await page.getByRole('button', { name: 'Späť' }).click();
   await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
   await startGame(page);
-  await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toBeVisible();
-  await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
-  await expect(page.getByText('Hra je pozastavená.')).toBeVisible();
+  await expect(page.getByRole('progressbar', { name: 'Postup v hre' })).toHaveAttribute('aria-valuenow', '1');
+  await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toHaveCount(0);
+  const active = await getE2EState<CompareE2EState>(page);
+  await answer(page, active.correctSide!).click();
+  await waitForGamePhase(page, 'answered-correctly');
 
-  // A fresh route gives the completion sequence an unpaused session.
+  // A fresh route gives the completion sequence a clean session.
   await startGame(page);
   for (let round = 0; round < 5; round += 1) {
     const state = await getE2EState<CompareE2EState>(page);

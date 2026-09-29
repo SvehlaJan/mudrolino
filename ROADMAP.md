@@ -77,6 +77,8 @@
   - [ ] Phase 8 — release hardening implemented and independently code/spec reviewed; 40 inherited missing bundled audio clips keep the aggregate release gate red, and user visual sign-off remains pending (see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md`)
 - [x] Fix audit ship blockers through redesign phases: parent-gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
 - [x] Fix audit accessibility findings through redesign phases: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
+- [x] Resolve the 2026-09-29 screenshot review findings: explicit comparison prompt, visible pale word choice, parent phrase labels and category navigation, and usable feedback dialog/copy on short screens
+- [x] Apply parent review feedback: clarify the arithmetic gate and keep every control visible on small screens, remove lobby preview icons, and remove the in-game parent pause shortcut
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
 
@@ -306,6 +308,8 @@
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-09-29 | Remove the in-game parent pause shortcut while keeping parent settings behind the gate from each lobby. | The lock icon and paused banner interrupted the child game and looked like an unexplained game control. The lobby remains the clear place for adults to open settings. |
+| 2026-09-29 | Keep feedback actions visible on short screens and require a description for bug reports and suggestions. | The screenshot review showed the submit control below the initial viewport and a report could previously be sent with only a category. A scrolling form body, visible close/action controls, and category-specific validation make the parent flow clearer. |
 | 2026-09-23 | Accept UI redesign Phase 7 candidate `7f92173`; Phase 8 starts from this acceptance-record commit. | Independent review found no blocking issue in the game/session/audio/settings migration. Four numeracy pure verifiers passed independently, and the final integrated gate passed 643/643 E2E plus production guard and build. Full-resolution screenshots were not inspected, following the user's instruction. |
 | 2026-09-23 | Hand off the completed Phase 7 numeracy migration at candidate `7f921731ee6cbd835b9cb8ebfa312f175ab2f3b9` for independent acceptance before Claude begins Phase 8. | Six pure verifiers, lint, 643/643 full E2E, 1/1 production guard, production build, and 12 named captures passed. One pre-existing literacy retry geometry assertion failed once under the full suite and passed 25 focused repetitions plus the final full rerun; record it for release hardening rather than claim it cannot recur. The user's instruction rules out full-resolution screenshot analysis. |
 | 2026-09-22 | Accept UI redesign Phase 6 candidate `779f58e` after the landscape answer-fit, interrupted Assembly answer, and stalled TTS fixes; Phase 7 begins from this acceptance-record commit. | Fresh lint, pure verifiers, 491/491 E2E, the final 8/8 long-label check, production build, and 16 targeted captures support the phase gate without full-resolution screenshot analysis, per the user's instruction. |

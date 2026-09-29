@@ -151,8 +151,6 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
     resolveAnswer,
     continueAfterFeedback,
     playAgain,
-    pause,
-    resume,
     fail,
   } = session;
 
@@ -279,8 +277,6 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
       state={state}
       onBack={onExit}
       onRetryError={retryAfterError}
-      onPause={pause}
-      onResume={resume}
       prompt={
         <GamePrompt
           instruction={INSTRUCTION}

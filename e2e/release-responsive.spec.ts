@@ -57,7 +57,7 @@ for (const game of RELEASE_GAME_CASES) {
     await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.getByRole('heading', { level: 1, name: game.title })).toBeVisible();
     await expect(page.getByTestId('lobby-instruction')).toBeVisible();
-    await expect(page.getByTestId('lobby-tactile-preview')).toBeVisible();
+    await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
     await expect(page.getByRole('button', { name: 'Späť' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     const settings = page.getByRole('button', { name: 'Nastavenia' });

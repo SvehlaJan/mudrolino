@@ -72,7 +72,7 @@ test.describe('Game lobby semantic contract', () => {
       const main = page.getByRole('main');
       await expect(main.getByRole('heading', { level: 1 })).toHaveCount(1);
       await expect(main.getByTestId('lobby-instruction')).toBeVisible();
-      await expect(main.getByTestId('lobby-tactile-preview')).toBeVisible();
+      await expect(main.getByTestId('lobby-tactile-preview')).toHaveCount(0);
       await expect(main.getByRole('button', { name: 'Hrať' })).toHaveCount(1);
 
       const settingsBtn = page.getByRole('button', { name: 'Nastavenia' });
@@ -158,6 +158,7 @@ test.describe('Game lobby semantic contract', () => {
     await page.goto('/alphabet');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 
     // 667x375
@@ -165,6 +166,7 @@ test.describe('Game lobby semantic contract', () => {
     await page.goto('/alphabet');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
   });
 });

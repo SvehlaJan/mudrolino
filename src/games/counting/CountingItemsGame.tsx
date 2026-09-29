@@ -94,7 +94,7 @@ function CountingPlayfield({ availableItems, allNumbers, onExit }: CountingPlayf
   }, [allNumbers, availableItems, praiseEntries]);
 
   const session = useGameSession({ maxRounds: 5, maxAttempts: 3, onNextRound: startNewRound, onPlayAgain: startNewSession });
-  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, pause, resume, fail } = session;
+  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, fail } = session;
 
   useEffect(() => {
     if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
@@ -179,7 +179,7 @@ function CountingPlayfield({ availableItems, allNumbers, onExit }: CountingPlayf
   const completion: GameShellCompletion = { praise: completionPraise, correctRounds: state.correctRounds, totalTaps: state.totalTaps, maxRounds: state.maxRounds, onPlayAgain: playAgain, onHome: onExit };
 
   return (
-    <GameShell gameId="COUNTING_ITEMS" state={state} onBack={onExit} onRetryError={() => { if (!isEmpty) playAgain(); }} onPause={pause} onResume={resume} prompt={<GamePrompt instruction={INSTRUCTION} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
+    <GameShell gameId="COUNTING_ITEMS" state={state} onBack={onExit} onRetryError={() => { if (!isEmpty) playAgain(); }} prompt={<GamePrompt instruction={INSTRUCTION} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
       <div className="flex min-h-0 flex-1 flex-col gap-2 [@media(max-height:480px)]:gap-1">
         <QuantityTray count={target?.value ?? 0} emoji={emoji} mode="objects" label="Predmety na spočítanie" interactiveTokens onTokenPress={() => playPopSound()} className="h-[min(30vh,156px)] min-h-[108px] shrink-0 rounded-[28px] border border-dashed border-shadow/25 bg-white/50 p-1" />
         <PlayTray label={getUiCopy(locale, 'game.playArea')} density="compact" className="min-h-[72px] [@media(max-height:480px)]:min-h-[60px]">

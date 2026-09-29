@@ -3,17 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { Lock } from 'lucide-react';
 import type { PraiseEntry, GameId } from '../types';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
 import { useContentLocale } from '../contexts/ContentContext';
-import { AppScreen, BackButton, Button, IconButton, OverlayFrame, PageHeader, RoundCounter, cn } from '../ui';
+import { AppScreen, BackButton, Button, OverlayFrame, PageHeader, RoundCounter, cn } from '../ui';
 import { useAppScreenLayout } from '../ui/appScreenLayout';
 import { motionPreset } from '../ui/motion';
-import { ParentsGate } from '../components/ParentsGate';
 import type { GameState } from './gameState';
 
 export interface GameShellFeedback {
@@ -42,14 +40,6 @@ export interface GameShellProps {
   feedback?: GameShellFeedback | null;
   completion?: GameShellCompletion | null;
   onRetryError?: () => void;
-  /**
-   * Wires a real, permitted parent dialog (the same ParentsGate used by the protected route
-   * group) directly into an active round: onPause fires immediately when a parent taps the
-   * lock, onResume fires once they solve the gate. Omit both to leave the shell exactly as
-   * before — the ui-kit demo has no session to pause.
-   */
-  onPause?(): void;
-  onResume?(): void;
   children: React.ReactNode;
 }
 
@@ -113,51 +103,18 @@ export function GameShell({
   feedback,
   completion,
   onRetryError,
-  onPause,
-  onResume,
   children,
 }: GameShellProps) {
   const locale = useContentLocale();
-  const restoreFocusRef = useRef<HTMLElement | null>(null);
-  const lockButtonRef = useRef<HTMLButtonElement | null>(null);
-  const unlockButtonRef = useRef<HTMLButtonElement | null>(null);
-  const pausedFocusRef = useRef<HTMLDivElement | null>(null);
-  const [showParentGate, setShowParentGate] = useState(false);
-  const hasPauseContract = Boolean(onPause && onResume);
-
-  // A final round reaches `answered-correctly`/`answered-incorrectly` (feedback: 'failure')
-  // as soon as the reducer resolves the answer, but useGameSession only dispatches
-  // SHOW_SESSION_COMPLETE once the praise/failure verdict audio has actually finished. A
-  // parent pause landing in that window would invalidate() the in-flight resolveAnswer()
-  // before it could dispatch SHOW_SESSION_COMPLETE, permanently stranding the round
-  // input-locked with no way to reach the completion overlay — so the pause control must be
-  // unavailable for the whole window, not just once session-complete is reached.
-  const isFinalRound = state.roundsPlayed >= state.maxRounds;
-  const canPause = hasPauseContract
-    && !state.paused
-    && !isFinalRound
-    && state.phase !== 'session-complete'
-    && state.phase !== 'recoverable-error';
-
-  const openParentPause = () => {
-    onPause?.();
-    setShowParentGate(true);
-  };
-  const handleGateSuccess = () => {
-    setShowParentGate(false);
-    onResume?.();
-  };
-  const handleGateCancel = () => {
-    setShowParentGate(false);
-  };
 
   const definition = GAME_DEFINITIONS.find((g) => g.id === gameId);
   const title = definition ? getUiCopy(locale, definition.titleKey) : gameId;
 
   // Showing completion's Play again/Home must wait for `session-complete`, or a child could
   // tap past a session recap whose audio never played; input locking uses `isFinalRound`
-  // itself (above) so it takes effect the instant the round resolves, not once that phase
+  // itself so it takes effect the instant the round resolves, not once that phase
   // lands.
+  const isFinalRound = state.roundsPlayed >= state.maxRounds;
   const transientFeedback = feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !isFinalRound;
   const contentLocked =
     state.paused ||
@@ -165,37 +122,6 @@ export function GameShell({
     state.feedback !== null ||
     state.phase === 'recoverable-error' ||
     isFinalRound;
-
-  // With a real pause contract, the only path into `paused` is tapping the lock button, which
-  // also opens the gate in the same commit — so "whatever was focused before pause" is always
-  // that lock button. Capturing it as a plain `document.activeElement` snapshot (the previous
-  // approach, still used below for the no-contract case) grabs a reference that's about to be
-  // unmounted, since `canPause` goes false the instant `paused` flips true: `.focus()` on it
-  // later is a no-op and focus is stranded. Refs attached directly to the live lock/unlock
-  // buttons always point at whichever instance is currently mounted (React nulls a ref on
-  // unmount), so focusing through them works regardless of remounts. A consumer with no pause
-  // contract (e.g. the `/ui-kit` demo, which drives `paused` directly through `state` and never
-  // renders either button) keeps the original generic capture-and-restore behavior, since
-  // whatever it had focused before pausing stays mounted throughout.
-  useEffect(() => {
-    if (state.paused) {
-      if (!hasPauseContract) {
-        restoreFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-        pausedFocusRef.current?.focus();
-      } else if (!showParentGate) {
-        unlockButtonRef.current?.focus();
-      } else {
-        pausedFocusRef.current?.focus();
-      }
-      return;
-    }
-    if (!hasPauseContract) {
-      restoreFocusRef.current?.focus();
-      restoreFocusRef.current = null;
-      return;
-    }
-    lockButtonRef.current?.focus();
-  }, [state.paused, showParentGate, hasPauseContract]);
 
   const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly') && !isFinalRound && !transientFeedback;
 
@@ -215,11 +141,6 @@ export function GameShell({
               total={state.maxRounds}
               ariaLabel={getUiCopy(locale, 'game.progress')}
             />
-            {canPause && (
-              <IconButton ref={lockButtonRef} label={getUiCopy(locale, 'game.parentPause')} onClick={openParentPause}>
-                <Lock size={20} />
-              </IconButton>
-            )}
           </div>
         }
       />
@@ -310,26 +231,6 @@ export function GameShell({
         </OverlayFrame>
       )}
 
-      {state.paused && (
-        <div
-          ref={pausedFocusRef}
-          tabIndex={-1}
-          role="status"
-          aria-live="polite"
-          className="rounded-2xl bg-white/95 px-4 py-3 text-center text-lg font-black text-text-main shadow-block"
-        >
-          <p>{getUiCopy(locale, 'game.paused')}</p>
-          {onResume && !showParentGate && (
-            <div data-testid="game-critical-controls" className="mt-3">
-              <Button ref={unlockButtonRef} tone="primary" size="child" onClick={() => setShowParentGate(true)}>
-                {getUiCopy(locale, 'game.unlock')}
-              </Button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {showParentGate && <ParentsGate onSuccess={handleGateSuccess} onCancel={handleGateCancel} />}
     </AppScreen>
   );
 }

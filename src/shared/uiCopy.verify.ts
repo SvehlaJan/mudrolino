@@ -17,7 +17,8 @@ for (const game of GAME_DEFINITIONS) {
   }
   const skInstruction = getUiCopy('sk', game.instructionKey);
   const csInstruction = getUiCopy('cs', game.instructionKey);
-  if (!csInstruction || csInstruction !== skInstruction) {
+  const expectedCsInstruction = game.id === 'COMPARE_QUANTITIES' ? 'Kde je více?' : skInstruction;
+  if (!csInstruction || csInstruction !== expectedCsInstruction) {
     throw new Error(`Czech instruction fallback missing or mismatch for ${game.id}`);
   }
 }

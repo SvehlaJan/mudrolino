@@ -5,6 +5,7 @@
 
 import React, { useId } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import { X } from 'lucide-react';
 import { cn } from './utils';
 
 export interface DialogShellProps {
@@ -12,6 +13,8 @@ export interface DialogShellProps {
   onOpenChange(open: boolean): void;
   title: string;
   description?: string;
+  showCloseButton?: boolean;
+  headerAction?: React.ReactNode;
   children: React.ReactNode;
   /**
    * The element that opens the dialog. Rendered through `Dialog.Trigger` so
@@ -39,6 +42,8 @@ export function DialogShell({
   onOpenChange,
   title,
   description,
+  showCloseButton = false,
+  headerAction,
   children,
   trigger,
   initialFocusRef,
@@ -71,9 +76,23 @@ export function DialogShell({
             className,
           )}
         >
-          <Dialog.Title className={cn('text-2xl font-black text-text-main sm:text-3xl', titleClassName)}>
-            {title}
-          </Dialog.Title>
+          <div className="flex items-start justify-between gap-3">
+            <Dialog.Title className={cn('text-2xl font-black text-text-main sm:text-3xl', titleClassName)}>
+              {title}
+            </Dialog.Title>
+            {headerAction}
+            {showCloseButton && (
+              <Dialog.Close asChild>
+                <button
+                  type="button"
+                  aria-label="Zavrieť dialóg"
+                  className="-mr-2 -mt-2 flex size-11 shrink-0 items-center justify-center rounded-full text-text-muted transition-colors hover:bg-surface-muted hover:text-text-main focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                >
+                  <X size={22} aria-hidden="true" />
+                </button>
+              </Dialog.Close>
+            )}
+          </div>
           {description && (
             <Dialog.Description
               id={descriptionId}

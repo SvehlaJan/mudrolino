@@ -77,16 +77,6 @@ test.describe('shared shell and answer group contract', () => {
     await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
   });
 
-  test('shared shell restores answer focus when a paused shell resumes', async ({ page }) => {
-    await page.goto('/ui-kit?example=game-shell&state=focus-restoration');
-    const answer = page.getByRole('button', { name: 'Písmeno A' });
-    await answer.focus();
-    await page.getByTestId('game-pause-demo-toggle').evaluate((button: HTMLButtonElement) => button.click());
-    await expect(page.getByTestId('game-interactive-content')).toHaveAttribute('inert', '');
-    await page.getByTestId('game-pause-demo-toggle').evaluate((button: HTMLButtonElement) => button.click());
-    await expect(answer).toBeFocused();
-  });
-
   test('repairs roving focus, skips disabled answers, and preserves native activation', async ({ page }) => {
     await page.goto('/ui-kit?example=game-shell&state=answer-controls');
     const a = page.getByRole('button', { name: 'Písmeno A' });

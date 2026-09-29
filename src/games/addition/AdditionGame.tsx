@@ -72,7 +72,7 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
   const [completionPraise, setCompletionPraise] = useState(() => pickPraise(praiseEntries));
   const startNewRound = useCallback(() => { setRound(createRound(sumRange, lastPairKeyRef)); setRoundPraise(null); }, [sumRange]);
   const startNewSession = useCallback(() => { lastPairKeyRef.current = null; setCompletionPraise(pickPraise(praiseEntries)); startNewRound(); }, [praiseEntries, startNewRound]);
-  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, pause, resume } = useGameSession({ maxRounds: MAX_ROUNDS, maxAttempts: MAX_ATTEMPTS, onNextRound: startNewRound, onPlayAgain: startNewSession });
+  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain } = useGameSession({ maxRounds: MAX_ROUNDS, maxAttempts: MAX_ATTEMPTS, onNextRound: startNewRound, onPlayAgain: startNewSession });
 
   const phaseRef = useRef(state.phase);
   useEffect(() => { phaseRef.current = state.phase; }, [state.phase]);
@@ -117,7 +117,7 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
   const equationLabel = `${round.a.value} plus ${round.b.value} sa rovná koľko?`;
 
   return (
-    <GameShell gameId="ADDITION" state={state} onBack={onExit} onPause={pause} onResume={resume} prompt={<GamePrompt instruction={INSTRUCTION} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
+    <GameShell gameId="ADDITION" state={state} onBack={onExit} prompt={<GamePrompt instruction={INSTRUCTION} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
       <div className="flex min-h-0 flex-1 flex-col gap-2 [@media(max-height:480px)]:gap-1">
         <section data-testid="addition-equation" aria-label={equationLabel} className="flex h-[min(29vh,168px)] min-h-[92px] shrink-0 items-stretch justify-center gap-2 rounded-[28px] border border-shadow/15 bg-bg-light/35 p-2 [@media(max-height:480px)]:min-h-[76px] [@media(max-height:480px)]:p-1">
           <QuantityTray count={round.a.value} emoji={round.emoji} mode={effectiveRepresentation} label={`Prvý sčítanec: ${round.a.value} predmetov`} className="min-w-0 flex-1 rounded-2xl bg-white/60" />

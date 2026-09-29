@@ -38,7 +38,6 @@ import {
   AssemblyTile,
   createAssemblyBoard,
   getCorrectTileOrder,
-  isAssemblyBoardComplete,
   moveTileToFirstOpenSlot,
   returnTileToTray,
 } from './assemblyLogic';
@@ -362,8 +361,6 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     resolveAnswer,
     continueAfterFeedback,
     playAgain,
-    pause,
-    resume,
     fail,
   } = session;
 
@@ -428,7 +425,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     return () => audioManager.stop();
   }, [state.phase, state.paused, locale, completionPraise]);
 
-  // Every new round, replay, pause, lobby exit, recoverable error, and unmount must kill any
+  // Every new round, replay, lobby exit, recoverable error, and unmount must kill any
   // in-flight GSAP tween/clone — useGameSession's own invalidate() only knows about audio and
   // timers, not GSAP, so this game must clean those up itself at each of those points.
   useEffect(() => () => cleanupAllFloatingTiles(), [cleanupAllFloatingTiles]);
@@ -438,11 +435,6 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     cleanupAllFloatingTiles();
     void replayPrompt(getReplayAudio(locale, targetWord));
   }, [targetWord, locale, replayPrompt, cleanupAllFloatingTiles]);
-
-  const handlePause = useCallback(() => {
-    cleanupAllFloatingTiles();
-    pause();
-  }, [cleanupAllFloatingTiles, pause]);
 
   const handleExit = useCallback(() => {
     cleanupAllFloatingTiles();
@@ -468,20 +460,6 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       () => setRoundState((prev) => ({ ...prev, board: resetBoard })),
     );
   }, [animateTilesMove]);
-
-  /**
-   * A pause during any final-tile selection clip invalidates resolveAnswer before it has
-   * committed an outcome. useGameSession then resumes from resolving-answer as awaiting-answer.
-   * The rail was updated before that clip began, so recover every complete board here; otherwise
-   * the child has an active round with no available tile. The resumePhase guard deliberately
-   * preserves a completed rail when a parent pauses after success feedback is already settled.
-   */
-  const handleResume = useCallback(() => {
-    resume();
-    if (state.resumePhase === 'resolving-answer' && isAssemblyBoardComplete(board)) {
-      resetCompleteBoardToTray(board);
-    }
-  }, [resume, state.resumePhase, board, resetCompleteBoardToTray]);
 
   const placeTile = useCallback(async (tile: AssemblyTile) => {
     if (!targetWord || !canAnswer) return;
@@ -538,8 +516,6 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       if (resolution === 'retry') {
         resetCompleteBoardToTray(nextBoard);
       }
-      // A pause can cancel the sequence before it reports 'retry'. handleResume then restores
-      // the tray after the parent unlocks.
     } finally {
       answerLockRef.current = false;
     }
@@ -582,8 +558,6 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       state={state}
       onBack={handleExit}
       onRetryError={retryAfterError}
-      onPause={handlePause}
-      onResume={handleResume}
       prompt={
         <GamePrompt
           instruction={INSTRUCTION}

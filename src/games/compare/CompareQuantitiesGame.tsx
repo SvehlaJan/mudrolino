@@ -116,8 +116,6 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
     resolveAnswer,
     continueAfterFeedback,
     playAgain,
-    pause,
-    resume,
     fail,
   } = session;
 
@@ -229,8 +227,6 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
       state={state}
       onBack={onExit}
       onRetryError={retryAfterError}
-      onPause={pause}
-      onResume={resume}
       prompt={<GamePrompt instruction={getUiCopy(locale, 'game.compare.instruction')} replaying={replaying} onReplay={handleReplay} />}
       feedback={feedback}
       completion={completion}

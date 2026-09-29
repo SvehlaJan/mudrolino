@@ -61,7 +61,7 @@ const SK_COPY = {
 
   'game.compare.title': 'Viac alebo Menej',
   'game.compare.description': 'Kde je viac predmetov?',
-  'game.compare.instruction': 'Zisti, kde je viac a kde menej predmetov.',
+  'game.compare.instruction': 'Kde je viac?',
 
   'game.addition.title': 'Sčítaj',
   'game.addition.description': 'Koľko je to dokopy?',
@@ -90,10 +90,11 @@ const SK_COPY = {
 
 export type UiCopyKey = keyof typeof SK_COPY;
 
-// Czech is a stub — empty until Task-driven translation work populates it.
-// Every key falls back to Slovak (see AGENTS.md: "Czech is a stub that falls
-// back to Slovak").
-const CS_COPY: Partial<Record<UiCopyKey, string>> = {};
+// Czech remains a stub. Translated keys are listed here; every other key
+// falls back to Slovak (see AGENTS.md).
+const CS_COPY: Partial<Record<UiCopyKey, string>> = {
+  'game.compare.instruction': 'Kde je více?',
+};
 
 const COPY_BY_LOCALE: Record<string, Partial<Record<UiCopyKey, string>>> = {
   sk: SK_COPY,

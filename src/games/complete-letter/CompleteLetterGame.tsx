@@ -219,8 +219,6 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
     resolveAnswer,
     continueAfterFeedback,
     playAgain,
-    pause,
-    resume,
     fail,
   } = session;
 
@@ -368,8 +366,6 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       state={state}
       onBack={onExit}
       onRetryError={retryAfterError}
-      onPause={pause}
-      onResume={resume}
       prompt={
         <GamePrompt
           instruction={INSTRUCTION}

@@ -114,10 +114,13 @@ test('addition uses the shared prompt, shell controls, unique answers, keyboard,
   await page.getByRole('button', { name: 'Späť' }).click();
   await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
   await startAddition(page);
-  await page.getByRole('button', { name: 'Rodičovská prestávka' }).click();
-  await expect(page.getByText('Hra je pozastavená.')).toBeVisible();
+  await expect(page.getByRole('progressbar', { name: 'Postup v hre' })).toHaveAttribute('aria-valuenow', '1');
+  await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toHaveCount(0);
+  const active = await getE2EState<AdditionE2EState>(page);
+  await page.locator(`[data-answer-id=${JSON.stringify(String(active.correctSum))}]`).click();
+  await waitForGamePhase(page, 'answered-correctly');
 
-  // Start fresh after exercising the shared pause surface.
+  // Start fresh after confirming the header stays focused on progress during play.
   await startAddition(page);
   let state = await getE2EState<AdditionE2EState>(page);
   expect(state.gameId).toBe('ADDITION');

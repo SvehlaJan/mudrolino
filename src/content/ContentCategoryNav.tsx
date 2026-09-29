@@ -4,6 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Tabs, cn } from '../shared/ui';
 
 export interface ContentCategoryNavItem<T extends string> {
@@ -25,8 +26,8 @@ export interface ContentCategoryNavProps<T extends string> {
 /**
  * Category navigation for /content. Wraps the shared Tabs primitive — its only
  * production consumer — with per-category counts and, in horizontal (compact)
- * mode, a measured edge-fade cue so a scrollable tab strip never looks like a
- * dead end on a narrow screen.
+ * mode, measured scroll controls so every category remains reachable on a
+ * narrow screen.
  */
 export function ContentCategoryNav<T extends string>({
   items,
@@ -40,6 +41,7 @@ export function ContentCategoryNav<T extends string>({
   const listElRef = useRef<HTMLDivElement | null>(null);
   const [canScrollStart, setCanScrollStart] = useState(false);
   const [canScrollEnd, setCanScrollEnd] = useState(false);
+  const hasOverflow = canScrollStart || canScrollEnd;
 
   const measure = useCallback(() => {
     const el = listElRef.current;
@@ -66,6 +68,12 @@ export function ContentCategoryNav<T extends string>({
     listElRef.current = node;
   }, []);
 
+  const scrollList = useCallback((direction: -1 | 1) => {
+    const el = listElRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * el.clientWidth, behavior: 'smooth' });
+  }, []);
+
   return (
     <Tabs
       items={items.map(item => ({ value: item.id, label: `${item.label} (${item.count})` }))}
@@ -85,28 +93,35 @@ export function ContentCategoryNav<T extends string>({
       listRef={isHorizontal ? setListRef : undefined}
       listClassName={
         isHorizontal
-          ? 'flex-nowrap overflow-x-auto no-scrollbar scroll-px-2'
+          ? cn(
+              'flex-nowrap overflow-x-auto no-scrollbar scroll-px-2 [&>[role=tab]]:shrink-0 [&>[role=tab]]:whitespace-nowrap',
+              hasOverflow && 'px-12',
+            )
           : 'flex-col items-stretch gap-1'
       }
       listOverlay={
-        isHorizontal ? (
+        isHorizontal && hasOverflow ? (
           <>
-            <div
-              aria-hidden="true"
-              data-testid="content-tabs-fade-start"
-              className={cn(
-                'pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-canvas to-transparent transition-opacity',
-                canScrollStart ? 'opacity-100' : 'opacity-0',
-              )}
-            />
-            <div
-              aria-hidden="true"
-              data-testid="content-tabs-fade-end"
-              className={cn(
-                'pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-canvas to-transparent transition-opacity',
-                canScrollEnd ? 'opacity-100' : 'opacity-0',
-              )}
-            />
+            <button
+              type="button"
+              aria-label="Posunúť kategórie doľava"
+              data-testid="content-tabs-scroll-left"
+              disabled={!canScrollStart}
+              onClick={() => scrollList(-1)}
+              className="absolute inset-y-0 left-0 z-10 flex min-h-11 w-11 items-center justify-center rounded-xl border border-border-subtle bg-canvas text-text-main shadow-sm disabled:opacity-40"
+            >
+              <ChevronLeft aria-hidden="true" size={20} />
+            </button>
+            <button
+              type="button"
+              aria-label="Posunúť kategórie doprava"
+              data-testid="content-tabs-scroll-right"
+              disabled={!canScrollEnd}
+              onClick={() => scrollList(1)}
+              className="absolute inset-y-0 right-0 z-10 flex min-h-11 w-11 items-center justify-center rounded-xl border border-border-subtle bg-canvas text-text-main shadow-sm disabled:opacity-40"
+            >
+              <ChevronRight aria-hidden="true" size={20} />
+            </button>
           </>
         ) : undefined
       }
