@@ -79,6 +79,7 @@
 - [x] Fix audit accessibility findings through redesign phases: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
 - [x] Resolve the 2026-09-29 screenshot review findings: explicit comparison prompt, visible pale word choice, parent phrase labels and category navigation, and usable feedback dialog/copy on short screens
 - [x] Apply parent review feedback: clarify the arithmetic gate and keep every control visible on small screens, remove lobby preview icons, and remove the in-game parent pause shortcut
+- [ ] Implement the approved parent-flow UX cleanup: focused game settings pages, compact gate expression, inline feedback form, and spaced recording-row actions (`docs/superpowers/specs/2026-09-29-parent-flow-ux-cleanup-design.md`)
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
 
@@ -308,6 +309,7 @@
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-09-29 | Use focused parent pages and a simplified two-column gate for the five new browser annotations. | The game list already provides selection, so a second list and overview placeholder add noise; direct feedback removes an unnecessary step; a single equation/answer line and correctly sized content controls address the remaining visual crowding. See the parent-flow UX cleanup spec. |
 | 2026-09-29 | Remove the in-game parent pause shortcut while keeping parent settings behind the gate from each lobby. | The lock icon and paused banner interrupted the child game and looked like an unexplained game control. The lobby remains the clear place for adults to open settings. |
 | 2026-09-29 | Keep feedback actions visible on short screens and require a description for bug reports and suggestions. | The screenshot review showed the submit control below the initial viewport and a report could previously be sent with only a category. A scrolling form body, visible close/action controls, and category-specific validation make the parent flow clearer. |
 | 2026-09-23 | Accept UI redesign Phase 7 candidate `7f92173`; Phase 8 starts from this acceptance-record commit. | Independent review found no blocking issue in the game/session/audio/settings migration. Four numeracy pure verifiers passed independently, and the final integrated gate passed 643/643 E2E plus production guard and build. Full-resolution screenshots were not inspected, following the user's instruction. |
