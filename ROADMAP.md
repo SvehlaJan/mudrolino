@@ -80,7 +80,7 @@
 - [x] Resolve the 2026-09-29 screenshot review findings: explicit comparison prompt, visible pale word choice, parent phrase labels and category navigation, and usable feedback dialog/copy on short screens
 - [x] Apply parent review feedback: clarify the arithmetic gate and keep every control visible on small screens, remove lobby preview icons, and remove the in-game parent pause shortcut
 - [x] Implement the approved parent-flow UX cleanup: focused game settings pages, compact gate expression, inline feedback form, and spaced recording-row actions (`docs/superpowers/specs/2026-09-29-parent-flow-ux-cleanup-design.md`)
-- [ ] Resolve the 2026-09-30 game-play annotations: audio-timed success, stable retry layout, Skladaj slots, and centered numeracy choices (`docs/superpowers/specs/2026-09-30-game-play-surface-cleanup-design.md`)
+- [x] Resolve the 2026-09-30 game-play annotations: audio-timed success, stable retry layout, Skladaj slots, and centered numeracy choices (`docs/superpowers/specs/2026-09-30-game-play-surface-cleanup-design.md`; integrated verification in `docs/superpowers/handoffs/2026-09-30-game-play-surface-in-progress.md`)
 - [x] Silence test-build media and fallback speech while preserving playback completion and normal-build audio
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
