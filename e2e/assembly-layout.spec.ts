@@ -3,13 +3,19 @@ import { seedLocalStorage } from './support/persistenceFixtures';
 import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 
 const WORD = { word: 'Jahoda', syllables: 'ja-ho-da', emoji: '🍓', audioKey: 'jahoda' };
+const LONG_SYLLABLE_WORD = { word: 'Dlhý strom', syllables: 'dlo-hý-stro', emoji: '🌳', audioKey: 'dlhy-strom' };
 const VIEWPORTS = [
   { name: 'desktop', width: 1280, height: 900 },
   { name: 'narrow phone', width: 320, height: 568 },
   { name: 'short landscape', width: 667, height: 375 },
 ];
+const LONG_LABEL_VIEWPORTS = [
+  { name: 'narrow phone', width: 320, height: 568 },
+  { name: 'short landscape', width: 667, height: 375 },
+  { name: 'phone landscape', width: 844, height: 390 },
+];
 
-async function seedWord(page: Page) {
+async function seedWord(page: Page, word = WORD) {
   await stubSpeechSynthesis(page);
   await stubAudioPlayback(page);
   await seedLocalStorage(page, {
@@ -17,7 +23,7 @@ async function seedWord(page: Page) {
     'hrave-ucenie-user-words-sk': {
       version: 2,
       items: [{
-        id: 'e2e-assembly-layout', ...WORD, status: 'ready', enabled: true,
+        id: 'e2e-assembly-layout', ...word, status: 'ready', enabled: true,
         isDefault: false, locale: 'sk', order: 0,
       }],
     },
@@ -25,6 +31,29 @@ async function seedWord(page: Page) {
   await page.goto('/assembly');
   await page.getByRole('button', { name: 'Hrať' }).click();
   await expect(page.getByTestId('word-rail')).toBeVisible();
+}
+
+async function expectLabelInsideTile(label: Locator, context: string) {
+  const geometry = await label.evaluate((element) => {
+    const tile = element.closest('[data-tile-id]');
+    if (!tile) throw new Error('Assembly label is missing its tile');
+    const tileRect = tile.getBoundingClientRect();
+    const labelRect = element.getBoundingClientRect();
+    return {
+      tileLeft: tileRect.left,
+      tileRight: tileRect.right,
+      tileTop: tileRect.top,
+      tileBottom: tileRect.bottom,
+      labelLeft: labelRect.left,
+      labelRight: labelRect.right,
+      labelTop: labelRect.top,
+      labelBottom: labelRect.bottom,
+    };
+  });
+  expect(geometry.labelLeft, `${context}: label extends left of tile`).toBeGreaterThanOrEqual(geometry.tileLeft - 0.5);
+  expect(geometry.labelRight, `${context}: label extends right of tile`).toBeLessThanOrEqual(geometry.tileRight + 0.5);
+  expect(geometry.labelTop, `${context}: label extends above tile`).toBeGreaterThanOrEqual(geometry.tileTop - 0.5);
+  expect(geometry.labelBottom, `${context}: label extends below tile`).toBeLessThanOrEqual(geometry.tileBottom + 0.5);
 }
 
 async function rect(locator: Locator) {
@@ -73,6 +102,10 @@ for (const viewport of VIEWPORTS) {
       return { fontFamily: style.fontFamily, fontSize: style.fontSize, fontWeight: style.fontWeight };
     });
     const sourceRect = await rect(trayTile);
+    const sourceFontSize = Number.parseFloat(sourceStyle.fontSize);
+    expect(sourceFontSize).toBeGreaterThanOrEqual(16);
+    expect(sourceFontSize).toBeLessThanOrEqual(32);
+    if (viewport.name === 'desktop') expect(sourceFontSize).toBeGreaterThanOrEqual(24);
 
     await trayTile.click({ force: true });
     await page.waitForFunction((id) => {
@@ -143,6 +176,25 @@ for (const viewport of VIEWPORTS) {
       expect(box.x + box.width).toBeLessThanOrEqual(viewMetrics.width);
       expect(box.y + box.height).toBeLessThanOrEqual(viewMetrics.height);
     }
+  });
+}
+
+for (const viewport of LONG_LABEL_VIEWPORTS) {
+  test(`assembly long syllable fits tray and rail at ${viewport.name}`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await seedWord(page, LONG_SYLLABLE_WORD);
+    await waitForGamePhase(page, 'awaiting-answer');
+
+    const tray = page.getByTestId('play-tray');
+    const rail = page.getByTestId('word-rail');
+    const trayLabel = tray.getByText('STRO', { exact: true });
+    await expect(trayLabel).toBeVisible();
+    await expectLabelInsideTile(trayLabel, `STRO in tray at ${viewport.name}`);
+
+    await trayLabel.click({ force: true });
+    const placedLabel = rail.getByText('STRO', { exact: true });
+    await expect(placedLabel).toBeVisible();
+    await expectLabelInsideTile(placedLabel, `STRO in rail at ${viewport.name}`);
   });
 }
 

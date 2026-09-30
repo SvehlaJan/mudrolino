@@ -559,7 +559,13 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
   };
 
   return (
-    <div className="contents" style={{ '--assembly-tile-size': 'clamp(3rem, min(18vw, 12vh), 8rem)' } as React.CSSProperties}>
+    <div
+      className="contents"
+      style={{
+        '--assembly-tile-size': 'clamp(3rem, min(18vw, 12vh), 8rem)',
+        '--assembly-label-size': 'clamp(1rem, calc(var(--assembly-tile-size) * 0.35), 2rem)',
+      } as React.CSSProperties}
+    >
     <GameShell
       gameId="ASSEMBLY"
       state={state}
@@ -612,7 +618,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                                   : isMoving ? { visibility: 'hidden' as const } : {}),
                               }}
                             >
-                              <span className="font-spline text-[clamp(1.25rem,4vw,2rem)] font-black leading-none">
+                              <span className="font-spline text-[length:var(--assembly-label-size)] font-black leading-none">
                                 {renderTileLabel(tile.text)}
                               </span>
                             </TactilePiece>
@@ -670,7 +676,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                   }}
                   className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 p-0"
                 >
-                  <span className="font-spline text-[clamp(1.25rem,4vw,2rem)] font-black leading-none">
+                  <span className="font-spline text-[length:var(--assembly-label-size)] font-black leading-none">
                     {renderTileLabel(tile.text)}
                   </span>
                 </TactilePiece>
