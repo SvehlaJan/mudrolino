@@ -79,7 +79,7 @@
 - [x] Fix audit accessibility findings through redesign phases: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
 - [x] Resolve the 2026-09-29 screenshot review findings: explicit comparison prompt, visible pale word choice, parent phrase labels and category navigation, and usable feedback dialog/copy on short screens
 - [x] Apply parent review feedback: clarify the arithmetic gate and keep every control visible on small screens, remove lobby preview icons, and remove the in-game parent pause shortcut
-- [ ] Implement the approved parent-flow UX cleanup: focused game settings pages, compact gate expression, inline feedback form, and spaced recording-row actions (`docs/superpowers/specs/2026-09-29-parent-flow-ux-cleanup-design.md`)
+- [x] Implement the approved parent-flow UX cleanup: focused game settings pages, compact gate expression, inline feedback form, and spaced recording-row actions (`docs/superpowers/specs/2026-09-29-parent-flow-ux-cleanup-design.md`)
 - [ ] Share private URL with first friend group
 - [ ] Collect and triage first feedback before public launch planning
 
