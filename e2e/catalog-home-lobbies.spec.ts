@@ -109,7 +109,7 @@ test.describe('Game lobby semantic contract', () => {
     await expect(page).toHaveURL(/\/settings\/games\/ALPHABET$/);
     const main = page.getByRole('main');
     await expect(main).toBeVisible();
-    await expect(main.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await expect(main.getByRole('heading', { name: 'Abeceda' })).toBeVisible();
     await expect(main.getByText('Hra s písmenami')).toBeVisible();
     await expect(main.getByRole('heading', { name: 'Počet kariet' })).toBeVisible();
     await expect(main.getByRole('heading', { name: 'Písmená s dĺžňami a mäkčeňmi' })).toBeVisible();

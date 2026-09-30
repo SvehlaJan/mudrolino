@@ -104,6 +104,8 @@ test.describe('Parent Access Gate', () => {
           ? 'Nastavenia hier'
           : route === '/settings/games/ALPHABET'
             ? 'Abeceda'
+            : route === '/settings/help'
+              ? 'Pomoc a spätná väzba'
             : 'Rodičovská zóna';
       await expect(page.getByRole('heading', { name: unlockedHeading })).toBeVisible();
 
