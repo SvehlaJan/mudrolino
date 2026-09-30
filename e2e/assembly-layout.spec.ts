@@ -136,6 +136,9 @@ for (const viewport of VIEWPORTS) {
     });
     expect(filledStyle).toEqual(sourceStyle);
     const filledRect = await rect(placedTile);
+    const filledSlotRect = await rect(placedTile.locator('..'));
+    expect(filledRect.x, 'placed syllable should align with its rail cell').toBeCloseTo(filledSlotRect.x, 0);
+    expect(filledRect.y, 'placed syllable should align with its rail cell').toBeCloseTo(filledSlotRect.y, 0);
     expect(Math.abs(filledRect.width - sourceRect.width)).toBeLessThanOrEqual(4);
     expect(Math.abs(filledRect.height - sourceRect.height)).toBeLessThanOrEqual(4);
     expectSameRect(await rect(rail), railRect);

@@ -596,7 +596,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                           label={tile ? `Slabika ${index + 1}: ${tile.text}` : `Slabika ${index + 1}: prázdne`}
                           state={tile ? 'filled' : 'pending'}
                           style={{ width: 'var(--assembly-tile-size)', height: 'var(--assembly-tile-size)' }}
-                          className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 shrink-0 p-0"
+                          className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 shrink-0 grid-cols-1 grid-rows-1 p-0"
                         >
                           {tile ? (
                             <TactilePiece
