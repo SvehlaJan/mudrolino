@@ -456,6 +456,20 @@ const assemblyScenes = (() => {
       await enterPlay(page, baseUrl);
       await waitForPlaySurfaceSettled(page);
     },
+    placed: async (page, baseUrl) => {
+      await stubSpeechSynthesis(page);
+      await enterPlay(page, baseUrl);
+      await waitForGamePhaseScene(page, 'awaiting-answer');
+      await waitForPlaySurfaceSettled(page);
+      const { correctTileOrder } = await readGameE2E(page);
+      const tileId = correctTileOrder[0];
+      await page.getByTestId('play-tray').locator(`[data-tile-id="${tileId}"]`).click();
+      await page.waitForFunction((id) => window.__E2E__?.placedTileIds?.includes(id), tileId);
+      await waitForGamePhaseScene(page, 'awaiting-answer');
+      // Wait past the tile-flight clone before reviewing the empty source and filled word cell.
+      await page.waitForTimeout(700);
+      await waitForPlaySurfaceSettled(page);
+    },
     retry: async (page, baseUrl) => {
       await enterPlay(page, baseUrl);
       await placeWrongFullRail(page);
@@ -495,6 +509,7 @@ const assemblyScenes = (() => {
 })();
 
 SCENES['assembly-round'] = assemblyScenes.round;
+SCENES['assembly-placed'] = assemblyScenes.placed;
 SCENES['assembly-retry'] = assemblyScenes.retry;
 SCENES['assembly-success'] = assemblyScenes.success;
 SCENES['assembly-reset'] = assemblyScenes.reset;

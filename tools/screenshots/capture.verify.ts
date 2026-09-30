@@ -7,6 +7,9 @@ if (!('ui-kit' in SCENES)) {
 if (!('home' in SCENES)) {
   throw new Error('capture.mjs must permanently register a "home" scene');
 }
+if (!('assembly-placed' in SCENES)) {
+  throw new Error('capture.mjs must register an "assembly-placed" scene for stable slot review');
+}
 
 const REQUIRED_LOBBIES = [
   'alphabet',
