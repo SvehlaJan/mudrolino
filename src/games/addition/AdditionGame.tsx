@@ -124,8 +124,8 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
           <span data-testid="addition-plus" aria-hidden="true" className="grid shrink-0 place-items-center font-spline text-3xl font-black text-text-main/60 sm:text-5xl">+</span>
           <QuantityTray count={round.b.value} emoji={round.emoji} mode={effectiveRepresentation} label={`Druhý sčítanec: ${round.b.value} predmetov`} className="min-w-0 flex-1 rounded-2xl bg-white/60" />
         </section>
-        <PlayTray label="Odpovede" density="compact" className="min-h-[116px] [@media(max-height:480px)]:min-h-[86px]">
-          <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer} orientation="horizontal">
+        <PlayTray label="Odpovede" density="compact" sizing="content">
+          <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer} orientation="horizontal" choiceLayout="tiles">
             {round.options.map(option => {
               const answerId = String(option.value);
               return <TactilePiece key={answerId} as="button" material="wood" label={answerId} data-answer-id={answerId} state={getAnswerPieceState(state, answerId)} onPress={() => void chooseAnswer(option)}><span className="font-spline text-[clamp(1.5rem,calc(var(--tile-size)*0.55),4rem)] leading-none">{option.value}</span></TactilePiece>;

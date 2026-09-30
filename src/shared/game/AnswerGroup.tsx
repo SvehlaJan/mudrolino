@@ -11,6 +11,7 @@ export interface AnswerGroupProps {
   label: string;
   disabled?: boolean;
   orientation?: 'grid' | 'horizontal';
+  choiceLayout?: 'tiles' | 'stretch';
   children: React.ReactNode;
   className?: string;
 }
@@ -67,6 +68,7 @@ function calculateGeometry(
   width: number,
   height: number,
   orientation: 'grid' | 'horizontal',
+  choiceLayout: 'tiles' | 'stretch',
 ): Geometry {
   const gap = height > 0 && height < 420 ? 12 : 16;
   if (itemCount <= 0) {
@@ -74,10 +76,11 @@ function calculateGeometry(
   }
 
   if (orientation === 'horizontal') {
+    if (choiceLayout === 'stretch') return { cols: itemCount, rows: 1, tileSize: MIN_TILE_SIZE, gap };
     const cols = itemCount;
     const rows = 1;
     const tileSize = Math.floor(Math.min((width - (cols - 1) * gap) / cols, height));
-    if (tileSize >= MIN_TILE_SIZE) return { cols, rows, tileSize, gap };
+    if (tileSize >= MIN_TILE_SIZE) return { cols, rows, tileSize: Math.min(tileSize, 96), gap };
     return calculateGridGeometry(itemCount, width, height, gap);
   }
 
@@ -94,6 +97,7 @@ export function AnswerGroup({
   label,
   disabled = false,
   orientation = 'grid',
+  choiceLayout = 'tiles',
   children,
   className,
 }: AnswerGroupProps) {
@@ -116,8 +120,8 @@ export function AnswerGroup({
     : enabledIndices.find(index => index >= activeIndex) ?? enabledIndices[0] ?? -1;
 
   const geometry = useMemo(
-    () => calculateGeometry(options.length || 1, width, height, orientation),
-    [options.length, width, height, orientation],
+    () => calculateGeometry(options.length || 1, width, height, orientation, choiceLayout),
+    [options.length, width, height, orientation, choiceLayout],
   );
   const usesGrid = orientation === 'grid' || geometry.rows > 1;
 
@@ -259,7 +263,9 @@ export function AnswerGroup({
                 ['--tile-size' as string]: `${geometry.tileSize}px`,
                 ['--grid-gap' as string]: `${geometry.gap}px`,
                 display: 'flex',
+                height: choiceLayout === 'stretch' ? '100%' : undefined,
                 flexWrap: 'nowrap',
+                justifyContent: choiceLayout === 'tiles' ? 'center' : undefined,
                 overflowX: 'auto',
                 gap: `${geometry.gap}px`,
               } as React.CSSProperties)
@@ -279,6 +285,14 @@ export function AnswerGroup({
               child.props.className,
               'min-h-[48px] min-w-[48px]',
             ),
+            style: orientation === 'horizontal'
+              ? {
+                  ...child.props.style,
+                  ...(choiceLayout === 'tiles'
+                    ? { width: geometry.tileSize, height: geometry.tileSize, flex: '0 0 auto' }
+                    : { flex: '1 1 0%', height: '100%' }),
+                }
+              : child.props.style,
           });
         })}
       </div>

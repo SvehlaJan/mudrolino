@@ -382,6 +382,15 @@ function UiKitGameMaterialsDemo() {
             </TactilePiece>
           </div>
         </PlayTray>
+        <PlayTray label="Kompaktné odpovede" density="compact" sizing="content">
+          <AnswerGroup label="Kompaktné odpovede" orientation="horizontal" choiceLayout="tiles">
+            {[1, 2, 3, 4].map(value => (
+              <TactilePiece key={value} as="button" material="wood" label={String(value)}>
+                {value}
+              </TactilePiece>
+            ))}
+          </AnswerGroup>
+        </PlayTray>
         <output data-testid="ui-piece-press-count" className="sr-only">{pressCount}</output>
       </section>
     </div>

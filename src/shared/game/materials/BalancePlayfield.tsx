@@ -40,7 +40,7 @@ export function BalancePlayfield({
   const { disabled: rightButtonDisabled = false, className: rightButtonClassName, ...rightButtonAttributes } = rightButtonProps ?? {};
 
   return (
-    <AnswerGroup label="Porovnanie množstiev" orientation="horizontal" className={cn('min-h-0', className)}>
+    <AnswerGroup label="Porovnanie množstiev" orientation="horizontal" choiceLayout="stretch" className={cn('min-h-0 my-auto h-[min(36vh,320px)] max-h-full flex-none', className)}>
       <TactilePiece
         as="button"
         material="wood"
