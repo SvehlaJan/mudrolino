@@ -194,6 +194,8 @@ export const SCENES = {
     await page.evaluate(() => window.__E2E__.parentGate.unlock());
     await page.getByRole('heading', { level: 1, name: 'Pomoc a spätná väzba' }).waitFor({ state: 'visible' });
     await page.getByRole('form', { name: 'Spätná väzba' }).waitFor({ state: 'visible' });
+    await page.getByRole('radio', { name: /Chyba v hre/ }).click();
+    await page.getByRole('textbox', { name: /Vaša správa/ }).fill('Hra sa zasekne po výbere odpovede.');
   },
   'home': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/`);

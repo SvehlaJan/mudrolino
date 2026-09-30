@@ -37,14 +37,32 @@ test('keyboard category selection and optional message retain honest copy', asyn
 
 test('loading and success stay visible inline', async ({ page }) => {
   await openFeedback(page);
-  await mockWeb3Forms(page, 200, 600);
+  const submissions: Array<{ method: string | null; data: Record<string, unknown> }> = [];
+  await page.route('**/api.web3forms.com/submit', async route => {
+    const request = route.request();
+    submissions.push({ method: request.method(), data: request.postDataJSON() as Record<string, unknown> });
+    await new Promise(resolve => setTimeout(resolve, 600));
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) });
+  });
+  const messageText = 'Hra sa zasekne po výbere odpovede.';
   await page.getByRole('radiogroup', { name: 'Typ správy' }).getByRole('radio', { name: /Chyba v hre/ }).click();
-  await page.getByRole('textbox', { name: /Vaša správa/ }).fill('Hra sa zasekne po výbere odpovede.');
-  await page.getByRole('button', { name: 'Odoslať' }).click();
+  await page.getByRole('textbox', { name: /Vaša správa/ }).fill(messageText);
+  const submit = page.getByRole('form', { name: 'Spätná väzba' }).locator('button[type="submit"]');
+  await submit.click();
   await expect(page.getByText('Odosielam…')).toBeVisible();
+  await expect(submit).toBeDisabled();
+  await submit.evaluate(button => (button as HTMLButtonElement).click());
+  await expect.poll(() => submissions.length).toBe(1);
   await expect(page.getByText('Ďakujeme!')).toBeVisible();
   await expect(page.getByRole('status').filter({ hasText: 'Ďakujeme!' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(0);
+  expect(submissions).toHaveLength(1);
+  expect(submissions[0].method).toBe('POST');
+  expect(submissions[0].data).toMatchObject({
+    category: 'Chyba v hre',
+    message: messageText,
+    screen: 'help',
+  });
 });
 
 test('server failure shows recoverable error and retry succeeds', async ({ page }) => {
