@@ -89,6 +89,12 @@ function isButtonDisabled(btn: HTMLButtonElement | undefined): boolean {
   return btn.disabled || btn.getAttribute('aria-disabled') === 'true';
 }
 
+function isLayoutPlaceholder(child: React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>): boolean {
+  return (child.props as React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    'data-answer-layout-placeholder'?: string;
+  })['data-answer-layout-placeholder'] === 'true';
+}
+
 export function AnswerGroup({
   label,
   disabled = false,
@@ -107,7 +113,8 @@ export function AnswerGroup({
 
   const [activeIndex, setActiveIndex] = useState(0);
   const enabledIndices = options.flatMap((child, index) =>
-    disabled || child.props.disabled || child.props['aria-disabled'] === 'true' ? [] : [index],
+    disabled || child.props.disabled || child.props['aria-disabled'] === 'true'
+      || isLayoutPlaceholder(child) ? [] : [index],
   );
   const rovingIndex = enabledIndices.includes(activeIndex)
     ? activeIndex
@@ -261,6 +268,7 @@ export function AnswerGroup({
         }
       >
         {options.map((child, index) => {
+          if (isLayoutPlaceholder(child)) return child;
           const isOptionDisabled = disabled || child.props.disabled || child.props['aria-disabled'] === 'true';
           return React.cloneElement(child, {
             tabIndex: isOptionDisabled ? -1 : index === rovingIndex ? 0 : -1,

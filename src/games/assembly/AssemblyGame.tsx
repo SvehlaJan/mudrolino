@@ -203,6 +203,12 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     () => placedTiles.filter((tile): tile is AssemblyTile => tile !== null),
     [placedTiles],
   );
+  const traySlots = useMemo(() => {
+    return Array.from({ length: trayTiles.length + placedTileList.length }, (_, trayIndex) => ({
+      trayIndex,
+      tile: trayTiles.find((candidate) => candidate.trayIndex === trayIndex),
+    }));
+  }, [trayTiles, placedTileList]);
 
   const correctSyllables = useMemo(() => targetWord?.syllables.split('-') ?? [], [targetWord]);
   const correctTileOrder = useMemo(
@@ -553,6 +559,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
   };
 
   return (
+    <div className="contents" style={{ '--assembly-tile-size': 'clamp(3rem, min(18vw, 12vh), 8rem)' } as React.CSSProperties}>
     <GameShell
       gameId="ASSEMBLY"
       state={state}
@@ -582,11 +589,14 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                           key={`assembly-slot-${index}`}
                           label={tile ? `Slabika ${index + 1}: ${tile.text}` : `Slabika ${index + 1}: prázdne`}
                           state={tile ? 'filled' : 'pending'}
+                          style={{ width: 'var(--assembly-tile-size)', height: 'var(--assembly-tile-size)' }}
+                          className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 shrink-0 p-0"
                         >
                           {tile ? (
                             <TactilePiece
                               as="button"
                               material="felt"
+                              className="h-full w-full min-h-0 min-w-0 p-0"
                               label={`Umiestnená slabika ${tile.text}, klepnutím vrátiš do zásobníka`}
                               data-tile-id={tile.id}
                               state={getTilePieceState(state, tile.id)}
@@ -594,13 +604,15 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                               tabIndex={tile.id === resolvedRailActiveId ? 0 : -1}
                               onFocus={() => setRailActiveTileId(tile.id)}
                               onPress={() => returnTile(tile, index)}
-                              style={
-                                prefersReducedMotion
+                              style={{
+                                width: 'var(--assembly-tile-size)',
+                                height: 'var(--assembly-tile-size)',
+                                ...(prefersReducedMotion
                                   ? { opacity: isEntering ? 0 : 1, transition: 'opacity 200ms ease' }
-                                  : isMoving ? { visibility: 'hidden' } : undefined
-                              }
+                                  : isMoving ? { visibility: 'hidden' as const } : {}),
+                              }}
                             >
-                              <span className="font-spline text-[clamp(1.5rem,6vmin,3rem)] font-black leading-none">
+                              <span className="font-spline text-[clamp(1.25rem,4vw,2rem)] font-black leading-none">
                                 {renderTileLabel(tile.text)}
                               </span>
                             </TactilePiece>
@@ -623,7 +635,19 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       <div ref={trayRegionRef} className="flex min-h-0 flex-1 flex-col">
         <PlayTray label={getUiCopy(locale, 'game.playArea')}>
           <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer}>
-            {trayTiles.map((tile) => {
+            {traySlots.map(({ trayIndex, tile }) => {
+              if (!tile) {
+                return (
+                  <div
+                    key={`assembly-empty-${trayIndex}`}
+                    data-tray-index={trayIndex}
+                    data-answer-layout-placeholder="true"
+                    aria-hidden="true"
+                    style={{ width: 'var(--assembly-tile-size)', height: 'var(--assembly-tile-size)' }}
+                    className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 rounded-2xl"
+                  />
+                );
+              }
               const isMoving = animatingTileIds.includes(tile.id);
               const isEntering = enteringTileIds.includes(tile.id);
               return (
@@ -633,16 +657,20 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                   material="felt"
                   label={`Slabika ${tile.text}`}
                   data-tile-id={tile.id}
+                  data-tray-index={trayIndex}
                   state={getTilePieceState(state, tile.id)}
                   disabled={isMoving}
                   onPress={() => void placeTile(tile)}
-                  style={
-                    prefersReducedMotion
+                  style={{
+                    width: 'var(--assembly-tile-size)',
+                    height: 'var(--assembly-tile-size)',
+                    ...(prefersReducedMotion
                       ? { opacity: isEntering ? 0 : 1, transition: 'opacity 200ms ease' }
-                      : isMoving ? { visibility: 'hidden' } : undefined
-                  }
+                      : isMoving ? { visibility: 'hidden' as const } : {}),
+                  }}
+                  className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 p-0"
                 >
-                  <span className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-black leading-none">
+                  <span className="font-spline text-[clamp(1.25rem,4vw,2rem)] font-black leading-none">
                     {renderTileLabel(tile.text)}
                   </span>
                 </TactilePiece>
@@ -652,6 +680,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
         </PlayTray>
       </div>
     </GameShell>
+    </div>
   );
 }
 
