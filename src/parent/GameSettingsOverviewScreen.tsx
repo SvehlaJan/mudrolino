@@ -19,8 +19,8 @@ interface GameSettingsListProps {
   settings: GameSettings;
 }
 
-/** Shared list of catalogued games with settings, used by the overview page. */
-export function GameSettingsList({ settings }: GameSettingsListProps) {
+/** List of catalogued games with settings shown on the overview page. */
+function GameSettingsList({ settings }: GameSettingsListProps) {
   const locale = useContentLocale();
 
   return (
