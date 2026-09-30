@@ -644,7 +644,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                     data-answer-layout-placeholder="true"
                     aria-hidden="true"
                     style={{ width: 'var(--assembly-tile-size)', height: 'var(--assembly-tile-size)' }}
-                    className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 rounded-2xl"
+                    className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 rounded-2xl border-2 border-dashed border-black/25 bg-white/60"
                   />
                 );
               }

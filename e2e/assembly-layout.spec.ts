@@ -88,6 +88,12 @@ for (const viewport of VIEWPORTS) {
     await expect(movedSource).toHaveAttribute('data-tray-index', selectedTrayIndex!);
     await expect(movedSource).toHaveAttribute('aria-hidden', 'true');
     await expect(movedSource.locator('button')).toHaveCount(0);
+    const placeholderStyle = await movedSource.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return { borderStyle: style.borderStyle, backgroundColor: style.backgroundColor };
+    });
+    expect(placeholderStyle.borderStyle).toBe('dashed');
+    expect(placeholderStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
     expect(await tray.locator('[data-tray-index]').evaluateAll((items) => items.map((item) => item.getAttribute('data-tray-index')))).toEqual(sourceOrder);
     const placedTile = rail.locator(`[data-tile-id="${tileId}"]`);
     await expect(placedTile).toBeVisible();
