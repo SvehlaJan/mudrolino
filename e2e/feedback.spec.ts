@@ -96,9 +96,9 @@ test('submit stays reachable on short screens while fields scroll', async ({ pag
     await page.setViewportSize(viewport);
     await openFeedback(page);
     const submit = page.getByRole('button', { name: 'Odoslať', exact: true });
-    await expect(submit).toBeInViewport();
+    await expect(submit).toBeInViewport({ ratio: 1 });
     const fields = page.getByRole('form', { name: 'Spätná väzba' }).locator('div.overflow-y-auto');
     await fields.evaluate(element => { element.scrollTop = element.scrollHeight; });
-    await expect(submit).toBeInViewport();
+    await expect(submit).toBeInViewport({ ratio: 1 });
   }
 });
