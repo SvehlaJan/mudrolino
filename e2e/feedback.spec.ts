@@ -4,8 +4,9 @@ import { unlockParentGate } from './support/parentGate';
 async function openFeedback(page: Page) {
   await page.goto('/settings/help');
   await unlockParentGate(page);
-  await page.getByRole('button', { name: 'Odoslať spätnú väzbu' }).click();
-  await expect(page.getByRole('dialog', { name: 'Spätná väzba' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Pomoc a spätná väzba' })).toBeVisible();
+  await expect(page.getByRole('form', { name: 'Spätná väzba' })).toBeVisible();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
 }
 
 function mockWeb3Forms(page: Page, status: number, delay = 0) {
@@ -15,7 +16,7 @@ function mockWeb3Forms(page: Page, status: number, delay = 0) {
   });
 }
 
-test('keyboard category selection, optional message, honest copy, selectable mailto', async ({ page }) => {
+test('keyboard category selection and optional message retain honest copy', async ({ page }) => {
   await openFeedback(page);
   const group = page.getByRole('radiogroup', { name: 'Typ správy' });
   const firstRadio = group.getByRole('radio', { name: /Chyba v hre/ });
@@ -31,11 +32,10 @@ test('keyboard category selection, optional message, honest copy, selectable mai
   await page.getByRole('textbox', { name: /Vaša správa/ }).fill('Návrh: pridať ďalšie hry.');
   await expect(page.getByText(/48 hodín/)).toHaveCount(0);
   await expect(page.getByText(/neposiela|neodpovedáme|nemôžeme odpovedať/i)).toBeVisible();
-  const mail = page.getByRole('link', { name: /jan\.svehla@pm\.me/ });
-  await expect(mail.first()).toHaveAttribute('href', 'mailto:jan.svehla@pm.me');
+  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveCount(0);
 });
 
-test('loading, success stays visible until dismissed, no auto-close', async ({ page }) => {
+test('loading and success stay visible inline', async ({ page }) => {
   await openFeedback(page);
   await mockWeb3Forms(page, 200, 600);
   await page.getByRole('radiogroup', { name: 'Typ správy' }).getByRole('radio', { name: /Chyba v hre/ }).click();
@@ -43,9 +43,7 @@ test('loading, success stays visible until dismissed, no auto-close', async ({ p
   await page.getByRole('button', { name: 'Odoslať' }).click();
   await expect(page.getByText('Odosielam…')).toBeVisible();
   await expect(page.getByText('Ďakujeme!')).toBeVisible();
-  await expect(page.getByRole('dialog', { name: 'Spätná väzba' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Zavrieť', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Zavrieť', exact: true }).click();
+  await expect(page.getByRole('status').filter({ hasText: 'Ďakujeme!' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
@@ -85,23 +83,22 @@ test('bug and suggestion require a non-empty message; praise and other allow an 
   }
 });
 
-test('Escape closes and focus returns to the opener', async ({ page }) => {
+test('inline feedback is the only help content and Back returns to settings', async ({ page }) => {
   await openFeedback(page);
-  await page.keyboard.press('Escape');
-  await expect(page.getByRole('dialog')).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'Odoslať spätnú väzbu' })).toBeFocused();
+  await expect(page.getByRole('main')).toHaveCount(1);
+  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Späť' }).click();
+  await expect(page).toHaveURL(/\/settings$/);
 });
 
-test('close and submit controls stay reachable on short screens', async ({ page }) => {
+test('submit stays reachable on short screens while fields scroll', async ({ page }) => {
   for (const viewport of [{ width: 320, height: 568 }, { width: 667, height: 375 }]) {
     await page.setViewportSize(viewport);
     await openFeedback(page);
-    const dialog = page.getByRole('dialog', { name: 'Spätná väzba' });
     const submit = page.getByRole('button', { name: 'Odoslať', exact: true });
-    const close = page.getByRole('button', { name: 'Zavrieť dialóg' });
     await expect(submit).toBeInViewport();
-    await expect(close).toBeInViewport();
-    await page.keyboard.press('Escape');
-    await expect(dialog).toHaveCount(0);
+    const fields = page.getByRole('form', { name: 'Spätná väzba' }).locator('div.overflow-y-auto');
+    await fields.evaluate(element => { element.scrollTop = element.scrollHeight; });
+    await expect(submit).toBeInViewport();
   }
 });

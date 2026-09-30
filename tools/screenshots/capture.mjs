@@ -192,10 +192,8 @@ export const SCENES = {
       throw new Error('Protected quick-pass request failed: window.__E2E__.parentGate.unlock() is missing (non-test server)');
     }
     await page.evaluate(() => window.__E2E__.parentGate.unlock());
-    await page.getByRole('heading', { name: 'Rodičovská zóna' }).waitFor({ state: 'visible' });
-    await page.getByText('Pomoc a spätná väzba', { exact: true }).waitFor({ state: 'visible' });
-    await page.getByRole('button', { name: 'Odoslať spätnú väzbu' }).click();
-    await page.getByRole('dialog', { name: 'Spätná väzba' }).waitFor({ state: 'visible' });
+    await page.getByRole('heading', { level: 1, name: 'Pomoc a spätná väzba' }).waitFor({ state: 'visible' });
+    await page.getByRole('form', { name: 'Spätná väzba' }).waitFor({ state: 'visible' });
   },
   'home': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/`);
@@ -591,9 +589,9 @@ async function openFeedback(page, baseUrl, responseStatus) {
     body: JSON.stringify({ success: responseStatus < 400 }),
   }));
   await openParentRoute(page, baseUrl, '/settings/help');
-  await page.getByRole('button', { name: 'Odoslať spätnú väzbu' }).click();
-  await page.getByRole('dialog', { name: 'Spätná väzba' }).waitFor({ state: 'visible' });
+  await page.getByRole('form', { name: 'Spätná väzba' }).waitFor({ state: 'visible' });
   await page.getByRole('radio', { name: /Chyba v hre/ }).click();
+  await page.getByRole('textbox', { name: /Vaša správa/ }).fill('Testovací opis chyby.');
   await page.getByRole('button', { name: 'Odoslať', exact: true }).click();
   if (responseStatus >= 400) {
     await page.getByText(/odosielanie zlyhalo/i).waitFor({ state: 'visible' });

@@ -111,12 +111,12 @@ test('dashboard, content editor, and feedback form have no serious accessibility
 
   await page.goto('/settings/help');
   await unlockParentGate(page);
-  const feedbackOpener = page.getByRole('button', { name: 'Odoslať spätnú väzbu' });
-  await feedbackOpener.click();
-  const dialog = page.getByRole('dialog', { name: 'Spätná väzba' });
-  await expect(dialog).toBeVisible();
+  const form = page.getByRole('form', { name: 'Spätná väzba' });
+  await expect(form).toBeVisible();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByRole('main')).toHaveCount(1);
   await expectNoSeriousAxeViolations(page);
-  const group = dialog.getByRole('radiogroup', { name: 'Typ správy' });
+  const group = form.getByRole('radiogroup', { name: 'Typ správy' });
   const firstCategory = group.getByRole('radio').first();
   await firstCategory.click();
   await firstCategory.focus();
@@ -128,8 +128,7 @@ test('dashboard, content editor, and feedback form have no serious accessibility
   await expect(nextCategory).toBeFocused();
   await page.keyboard.up('ArrowRight');
   await expect(nextCategory).toHaveAttribute('aria-checked', 'true');
-  await page.keyboard.press('Escape');
-  await expect(feedbackOpener).toBeFocused();
+  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveCount(0);
 });
 
 test('reduced motion keeps a wrong round outcome visible and disables infinite animations', async ({ page }) => {

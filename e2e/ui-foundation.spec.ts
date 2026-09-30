@@ -301,22 +301,14 @@ test.describe('UI foundation: overlay landmark hygiene', () => {
     await expect(page.getByRole('main')).toHaveCount(1);
   });
 
-  test('opening feedback from the settings screen does not duplicate the main landmark', async ({ page }) => {
-    await page.goto('/settings');
+  test('help route shows inline feedback with one main landmark and no dialog or email link', async ({ page }) => {
+    await page.goto('/settings/help');
     await unlockParentGate(page);
-    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Pomoc a spätná väzba' })).toBeVisible();
+    await expect(page.getByRole('form', { name: 'Spätná väzba' })).toBeVisible();
     await expect(page.getByRole('main')).toHaveCount(1);
-
-    await page.getByRole('link', { name: /pomoc a spätná väzba/i }).click();
-    await expect(page).toHaveURL(/\/settings\/help$/);
-    await expect(page.getByRole('main')).toHaveCount(1);
-
-    await page.getByRole('button', { name: /odoslať spätnú väzbu/i }).click();
-    await expect(page.getByRole('heading', { name: 'Spätná väzba' })).toBeVisible();
-
-    // The shared modal dialog makes the background inert (same contract as the
-    // parent gate) instead of leaving a second main landmark behind the overlay.
-    await expect(page.getByRole('main')).toHaveCount(0);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveCount(0);
   });
 });
 
