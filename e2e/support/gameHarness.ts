@@ -97,19 +97,22 @@ export async function stubSpeechSynthesis(page: Page): Promise<void> {
   });
 }
 
-/** Settles bundled HTML audio immediately, with an option to release praise clips on demand. */
-export async function stubAudioPlayback(page: Page, options: { holdPraise?: boolean } = {}): Promise<void> {
-  await page.addInitScript((holdPraise) => {
-    const testWindow = window as typeof window & { __heldPraiseAudio?: HTMLMediaElement };
+/** Settles bundled HTML audio immediately, with options to hold selected clips on demand. */
+export async function stubAudioPlayback(
+  page: Page,
+  options: { holdPraise?: boolean; holdPaths?: string[] } = {},
+): Promise<void> {
+  await page.addInitScript(({ holdPraise, holdPaths }) => {
+    const testWindow = window as typeof window & { __heldAudio?: HTMLMediaElement[] };
     HTMLMediaElement.prototype.play = function play() {
-      if (holdPraise && this.src.includes('/praise/')) {
-        testWindow.__heldPraiseAudio = this;
+      if ((holdPraise && this.src.includes('/praise/')) || holdPaths.some((path) => this.src.includes(path))) {
+        (testWindow.__heldAudio ??= []).push(this);
         return Promise.resolve();
       }
       setTimeout(() => this.dispatchEvent(new Event('ended')), 0);
       return Promise.resolve();
     };
-  }, options.holdPraise ?? false);
+  }, { holdPraise: options.holdPraise ?? false, holdPaths: options.holdPaths ?? [] });
 }
 
 /** Uses the actual visible answer control; it never invokes React handlers directly. */

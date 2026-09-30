@@ -54,6 +54,8 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
   const answeringRef = useRef(false);
   const resumeCancelledAnswerRef = useRef(false);
   const resumePendingRetryRef = useRef(false);
+  const resumePendingSuccessRef = useRef(false);
+  const successAdvancePendingRef = useRef(false);
   const [answering, setAnswering] = useState(false);
   const [replaying, setReplaying] = useState(false);
 
@@ -67,6 +69,7 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
     answeringRef.current = false;
     setAnswering(false);
     setReplaying(false);
+    successAdvancePendingRef.current = false;
     for (const timer of timersRef.current) clearTimeout(timer);
     timersRef.current.clear();
     audioManager.stop();
@@ -102,6 +105,23 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
     dispatchEvent({ type: 'NEXT_ROUND' });
     options.onNextRound();
   }, [dispatchEvent, invalidate, options]);
+
+  const scheduleSuccessAdvance = useCallback((operationId: number) => {
+    successAdvancePendingRef.current = true;
+    const timer = setTimeout(() => {
+      timersRef.current.delete(timer);
+      successAdvancePendingRef.current = false;
+      const current = stateRef.current;
+      if (
+        operationId === operationIdRef.current
+        && current.feedback === 'success'
+        && current.roundsPlayed < current.maxRounds
+      ) {
+        continueAfterFeedback();
+      }
+    }, 1000);
+    timersRef.current.add(timer);
+  }, [continueAfterFeedback]);
 
   const resolveAnswer = useCallback(async (input: ResolveAnswerInput): Promise<AnswerResolution> => {
     if (answeringRef.current || !canAcceptAnswer(stateRef.current)) return 'cancelled';
@@ -142,21 +162,10 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
     if (stateRef.current.roundsPlayed >= stateRef.current.maxRounds) {
       dispatchEvent({ type: 'SHOW_SESSION_COMPLETE' });
     } else if (input.outcome === 'correct') {
-      const timer = setTimeout(() => {
-        timersRef.current.delete(timer);
-        const current = stateRef.current;
-        if (
-          operationId === operationIdRef.current
-          && current.feedback === 'success'
-          && current.roundsPlayed < current.maxRounds
-        ) {
-          continueAfterFeedback();
-        }
-      }, 1000);
-      timersRef.current.add(timer);
+      scheduleSuccessAdvance(operationId);
     }
     return input.outcome === 'correct' ? 'success' : 'failure';
-  }, [continueAfterFeedback, dispatchEvent, invalidate, scheduleRetryReady]);
+  }, [dispatchEvent, invalidate, scheduleRetryReady, scheduleSuccessAdvance]);
 
   const playAgain = useCallback(() => {
     invalidate();
@@ -166,11 +175,18 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
 
   const pause = useCallback(() => {
     const current = stateRef.current;
+    if (current.paused) return;
     resumeCancelledAnswerRef.current = current.phase === 'resolving-answer';
     // A non-exhausted wrong answer is still waiting on its own setTimeout(RETRY_READY) —
     // invalidate() below clears that timer along with everything else, so resume must
     // reschedule it or the round would be stranded showing retry feedback forever.
     resumePendingRetryRef.current = current.phase === 'answered-incorrectly' && current.feedback === null;
+    // A success timer exists only after verdict audio resolves. Pausing during that audio
+    // cancels the playback and leaves Continue available without starting an early countdown.
+    resumePendingSuccessRef.current =
+      successAdvancePendingRef.current
+      && current.feedback === 'success'
+      && current.roundsPlayed < current.maxRounds;
     invalidate();
     dispatchEvent({ type: 'PAUSE' });
   }, [dispatchEvent, invalidate]);
@@ -178,13 +194,16 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
   const resume = useCallback(() => {
     const recoverCancelledAnswer = resumeCancelledAnswerRef.current;
     const recoverPendingRetry = resumePendingRetryRef.current;
+    const recoverPendingSuccess = resumePendingSuccessRef.current;
     resumeCancelledAnswerRef.current = false;
     resumePendingRetryRef.current = false;
+    resumePendingSuccessRef.current = false;
     const operationId = operationIdRef.current;
     dispatchEvent({ type: 'RESUME' });
     if (recoverCancelledAnswer) dispatchEvent({ type: 'ANSWER_PROGRESS', countTap: false });
     if (recoverPendingRetry) scheduleRetryReady(operationId);
-  }, [dispatchEvent, scheduleRetryReady]);
+    if (recoverPendingSuccess) scheduleSuccessAdvance(operationId);
+  }, [dispatchEvent, scheduleRetryReady, scheduleSuccessAdvance]);
 
   const fail = useCallback((message: string) => {
     invalidate();
