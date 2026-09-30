@@ -128,30 +128,29 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
         </IconButton>
       )}
     >
-      <div className="mt-4 grid grid-cols-1 items-stretch gap-4 landscape:mt-3 landscape:grid-cols-[minmax(0,1fr)_minmax(15rem,0.9fr)] landscape:items-center landscape:gap-6">
-        <div className="flex w-full flex-col gap-3">
+      <div className="mt-4 grid grid-cols-1 items-stretch gap-4 landscape:mt-2 landscape:grid-cols-[minmax(0,1fr)_minmax(15rem,0.9fr)] landscape:items-center landscape:gap-4">
+        <div className="flex w-full flex-col gap-2">
           <Card
             variant="panel"
             data-testid="parent-gate-equation"
-            className={`w-full py-5 text-center text-3xl font-black tracking-wide text-text-main sm:portrait:py-6 sm:portrait:text-4xl ${error && !prefersReducedMotion ? 'animate-shake' : ''}`}
+            className={`flex w-full items-center justify-center gap-2 px-2 py-3 text-center text-2xl font-black tracking-wide text-text-main landscape:py-2 landscape:text-3xl sm:portrait:gap-3 sm:portrait:py-4 sm:portrait:text-4xl ${error && !prefersReducedMotion ? 'animate-shake' : ''}`}
           >
-            {question.a} {question.op} {question.b} = ?
-          </Card>
-
-          <div className="flex flex-col gap-1.5">
-            <p className="px-1 text-sm font-bold text-text-muted">
-              Vaša odpoveď
-            </p>
-            <Card
+            <span className="sr-only">
+              {question.a} {question.op === '+' ? 'plus' : 'mínus'} {question.b} sa rovná
+            </span>
+            <span aria-hidden="true" className="flex items-center gap-2 sm:portrait:gap-3">
+              <span>{question.a} {question.op} {question.b} =</span>
+            </span>
+            <span
               id="parent-gate-answer"
               role="status"
               aria-label="Vaša odpoveď"
               aria-live="polite"
-              className="flex min-h-14 w-full items-center justify-center rounded-2xl border border-border-subtle bg-surface-muted/50 py-2 text-2xl font-bold tabular-nums text-text-main sm:portrait:min-h-16 sm:portrait:text-3xl"
+              className="inline-flex min-h-12 min-w-14 items-center justify-center rounded-xl border-2 border-accent-blue/50 bg-white px-3 py-1 text-accent-blue shadow-sm sm:portrait:min-h-14 sm:portrait:min-w-16"
             >
               {input || <span className="text-text-muted/50">—</span>}
-            </Card>
-          </div>
+            </span>
+          </Card>
 
           {error && (
             <p role="alert" className="text-xs landscape:text-[10px] font-bold text-action-danger sm:portrait:text-sm">

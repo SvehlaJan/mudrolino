@@ -19,12 +19,31 @@ test.describe('Parent Access Gate', () => {
       await page.goto('/settings');
 
       const gate = page.getByRole('dialog', { name: 'Pre rodičov' });
-      await expect(gate.getByTestId('parent-gate-equation')).toBeInViewport({ ratio: 1 });
-      await expect(gate.getByRole('status', { name: 'Vaša odpoveď' })).toBeInViewport({ ratio: 1 });
+      const equation = gate.getByTestId('parent-gate-equation');
+      const answer = gate.getByRole('status', { name: 'Vaša odpoveď' });
+      await expect(equation).toBeInViewport({ ratio: 1 });
+      await expect(answer).toBeInViewport({ ratio: 1 });
+      await expect(equation.getByRole('status', { name: 'Vaša odpoveď' })).toHaveCount(1);
       await expect(gate.getByRole('button', { name: 'Potvrdiť' })).toBeInViewport({ ratio: 1 });
       await expect(gate.getByRole('button', { name: 'Späť' })).toBeInViewport({ ratio: 1 });
+      await expect(gate.getByRole('heading', { name: 'Pre rodičov' })).toBeInViewport({ ratio: 1 });
+      for (const button of await gate.locator('button').all()) {
+        await expect(button).toBeInViewport({ ratio: 1 });
+        const box = await button.boundingBox();
+        expect(box?.height).toBeGreaterThanOrEqual(44);
+      }
     });
   }
+
+  test('answer status lives in the equation and follows keypad input', async ({ page }) => {
+    await page.goto('/settings');
+    const equation = page.getByTestId('parent-gate-equation');
+    const status = equation.getByRole('status', { name: 'Vaša odpoveď' });
+
+    await expect(status).toHaveText('—');
+    await page.getByRole('button', { name: '5', exact: true }).click();
+    await expect(status).toHaveText('5');
+  });
 
   test('direct navigation to /settings shows gate without revealing protected content', async ({ page }) => {
     const errors = trackConsoleErrors(page);
