@@ -21,6 +21,7 @@ class FakeAudio {
   onerror: (() => void) | null = null;
   currentTime = 0;
   paused = false;
+  muted = false;
 
   constructor(readonly path: string) {
     played.push(this);
@@ -46,6 +47,7 @@ class FakeUtterance {
   lang = '';
   rate = 1;
   pitch = 1;
+  volume = 1;
   voice: unknown;
 
   constructor(readonly text: string) {}
@@ -100,6 +102,7 @@ try {
   const completedTtsPlay = completedTtsManager.play({ clips: [{ path: 'tts-completes', fallbackText: 'completed speech' }] });
   await new Promise((resolve) => setTimeout(resolve, 60));
   const completedUtterance = spoken.at(-1)!;
+  assert.equal(completedUtterance.volume, 1, 'normal builds must preserve audible speech');
   completedUtterance.onend?.();
   await completedTtsPlay;
   assert.equal(completedUtterance.onend, null, 'normal TTS completion must clean up its event handler');
@@ -152,6 +155,7 @@ try {
   const first = currentManager.play({ clips: [{ path: 'first', fallbackText: 'first' }] });
   await Promise.resolve();
   const firstAudio = played.at(-1)!;
+  assert.equal(firstAudio.muted, false, 'normal builds must preserve audible media');
   const second = currentManager.play({ clips: [{ path: 'second', fallbackText: 'second' }] });
   await Promise.resolve();
   const secondAudio = played.at(-1)!;

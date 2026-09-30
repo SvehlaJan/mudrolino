@@ -89,6 +89,7 @@ export class AudioManager {
   private playSingleClip(path: string, playbackToken: number): Promise<void> {
     return new Promise((resolve, reject) => {
       const audio = new Audio(path);
+      if (import.meta.env?.MODE === 'test') audio.muted = true;
       this.currentAudio = audio;
       let settled = false;
 
@@ -155,6 +156,9 @@ export class AudioManager {
       setTimeout(() => {
         if (playbackToken !== this.playbackToken) { settleOnce(); return; }
         utterance = new SpeechSynthesisUtterance(text);
+        // macOS speech uses the system synthesizer, outside Chromium's --mute-audio output.
+        // Preserve native completion timing while keeping automated test builds silent.
+        if (import.meta.env?.MODE === 'test') utterance.volume = 0;
         const voices = this.synth.getVoices();
         const langMap: Record<string, string> = {
           sk: 'sk-SK', cs: 'cs-CZ', en: 'en-US',
