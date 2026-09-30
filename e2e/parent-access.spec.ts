@@ -99,7 +99,13 @@ test.describe('Parent Access Gate', () => {
 
       await unlockParentGate(page);
       await expect(page).toHaveURL(new RegExp(`${route.replaceAll('/', '\\/')}$`));
-      await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+      const unlockedHeading =
+        route === '/settings/games'
+          ? 'Nastavenia hier'
+          : route === '/settings/games/ALPHABET'
+            ? 'Abeceda'
+            : 'Rodičovská zóna';
+      await expect(page.getByRole('heading', { name: unlockedHeading })).toBeVisible();
 
       expectNoConsoleErrors(errors);
       expectNoFailedRequests(failedRequests);
