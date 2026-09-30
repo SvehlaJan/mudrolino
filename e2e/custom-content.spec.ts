@@ -144,8 +144,13 @@ test.describe('Custom content manager', () => {
 
     const autoRow = page.getByText('Auto 🚗', { exact: true }).locator('xpath=../..');
     await autoRow.getByRole('button', { name: 'Nahrať' }).click();
-    await expect(page.getByRole('button', { name: 'Zastaviť' })).toBeVisible();
-    await page.getByRole('button', { name: 'Zastaviť' }).click();
+    const stop = page.getByRole('button', { name: 'Zastaviť' });
+    await expect(stop).toBeVisible();
+    const stopBox = await stop.boundingBox();
+    expect(stopBox).not.toBeNull();
+    expect(stopBox!.width).toBeGreaterThanOrEqual(44);
+    expect(stopBox!.height).toBeGreaterThanOrEqual(44);
+    await stop.click();
 
     await expect(page.getByRole('button', { name: 'Zmazať nahrávku' })).toBeVisible();
   });
@@ -469,6 +474,32 @@ test.describe('Custom content manager', () => {
 
       await expectNoHorizontalOverflow(page);
     }
+  });
+
+  test('requesting recorder keeps the cancel action reachable without an empty stop slot', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'mediaDevices', {
+        configurable: true,
+        value: { getUserMedia: () => new Promise<MediaStream>(() => {}) },
+      });
+    });
+    await openContent(page);
+    await openTab(page, /Slová/);
+
+    const mamaText = page.getByText(/^Mama\b/);
+    const row = mamaText.locator('xpath=ancestor::div[contains(@class, "rounded-2xl")]').first();
+    await row.getByRole('button', { name: 'Nahrať' }).click();
+
+    await expect(row.getByRole('status')).toContainText('Čakám na povolenie mikrofónu');
+    await expect(row.getByRole('button', { name: 'Zastaviť' })).toHaveCount(0);
+    const cancel = row.getByRole('button', { name: 'Zrušiť nahrávanie' });
+    const cancelBox = await cancel.boundingBox();
+    expect(cancelBox).not.toBeNull();
+    expect(cancelBox!.width).toBeGreaterThanOrEqual(44);
+    expect(cancelBox!.height).toBeGreaterThanOrEqual(44);
+    expect(await cancel.evaluate(button => button.previousElementSibling)).toBeNull();
+    await expectNoHorizontalOverflow(page);
   });
 
   test('desktop letter-row actions have separate 44px targets', async ({ page }) => {

@@ -139,8 +139,8 @@ export function RecordingListItem({
         {isEngaged ? (
           <>
             {/* Stop button (recording only; hidden during processing/saved) */}
-            <div className="w-11 flex items-center justify-center shrink-0">
-              {isRecording && (
+            {isRecording && (
+              <div className="w-11 flex items-center justify-center shrink-0">
                 <button
                   onClick={onStop}
                   className="min-w-11 min-h-11 rounded-full bg-action-danger flex items-center justify-center focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus"
@@ -148,8 +148,8 @@ export function RecordingListItem({
                 >
                   <Square size={12} className="text-white fill-white" />
                 </button>
-              )}
-            </div>
+              </div>
+            )}
             {(isRequesting || isRecording || isProcessing) && (
               <Button tone="neutral" size="parent" onClick={onCancel}>
                 Zrušiť nahrávanie
