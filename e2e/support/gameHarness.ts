@@ -97,14 +97,19 @@ export async function stubSpeechSynthesis(page: Page): Promise<void> {
   });
 }
 
-/** Settles bundled HTML audio immediately so browser flow tests can observe the game after each clip. */
-export async function stubAudioPlayback(page: Page): Promise<void> {
-  await page.addInitScript(() => {
+/** Settles bundled HTML audio immediately, with an option to release praise clips on demand. */
+export async function stubAudioPlayback(page: Page, options: { holdPraise?: boolean } = {}): Promise<void> {
+  await page.addInitScript((holdPraise) => {
+    const testWindow = window as typeof window & { __heldPraiseAudio?: HTMLMediaElement };
     HTMLMediaElement.prototype.play = function play() {
+      if (holdPraise && this.src.includes('/praise/')) {
+        testWindow.__heldPraiseAudio = this;
+        return Promise.resolve();
+      }
       setTimeout(() => this.dispatchEvent(new Event('ended')), 0);
       return Promise.resolve();
     };
-  });
+  }, options.holdPraise ?? false);
 }
 
 /** Uses the actual visible answer control; it never invokes React handlers directly. */

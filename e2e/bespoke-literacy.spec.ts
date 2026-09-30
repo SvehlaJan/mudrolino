@@ -1091,6 +1091,7 @@ test.describe('Final review: retries keep the prompt and answer area geometry', 
           const tray = document.querySelector('[data-testid="play-tray"]');
           return {
             prompt: box(document.querySelector('[data-testid="game-visible-instruction"]')),
+            interactiveContent: box(document.querySelector('[data-testid="game-interactive-content"]')),
             answerRegion: box(document.querySelector('[data-testid="game-answer-region"]')),
             tray: box(document.querySelector('[data-testid="play-tray"]')),
             controls: Array.from(document.querySelectorAll(selector)).map((el) => box(el)!),
@@ -1103,6 +1104,7 @@ test.describe('Final review: retries keep the prompt and answer area geometry', 
         const snapshot = await readGeometry();
 
         expect(snapshot.prompt, `${game.name} at ${viewportName}: expected a measurable prompt`).not.toBeNull();
+        expect(snapshot.interactiveContent).toEqual(beforeRetry.interactiveContent);
         expect(snapshot.answerRegion, `${game.name} at ${viewportName}: expected a measurable answer region`).not.toBeNull();
         expect(snapshot.prompt).toEqual(beforeRetry.prompt);
         expect(snapshot.answerRegion).toEqual(beforeRetry.answerRegion);

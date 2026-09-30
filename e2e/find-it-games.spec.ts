@@ -184,6 +184,7 @@ test('FindIt retry announcement does not change prompt or answer geometry', asyn
     return {
       prompt: box('[data-testid="game-visible-instruction"]'),
       answers: box('[data-testid="game-answer-region"]'),
+      interactive: box('[data-testid="game-interactive-content"]'),
     };
   });
   const before = await geometry();
@@ -227,48 +228,75 @@ test('alphabet: a full 5-round session reaches an explicit completion that requi
   expectNoFailedRequests(failedRequests);
 });
 
-test('alphabet: non-final success advances one second after praise finishes', async ({ page }) => {
-  await stubAudioPlayback(page);
+async function releaseHeldPraise(page: import('@playwright/test').Page): Promise<void> {
+  await page.evaluate(() => {
+    const testWindow = window as typeof window & { __heldPraiseAudio?: HTMLMediaElement };
+    const praiseAudio = testWindow.__heldPraiseAudio;
+    if (!praiseAudio) throw new Error('expected praise audio to be held');
+    delete testWindow.__heldPraiseAudio;
+    praiseAudio.dispatchEvent(new Event('ended'));
+  });
+}
+
+async function playUntilPraiseIsHeld(page: import('@playwright/test').Page, praiseCount: number, answerId: string): Promise<void> {
+  await pressAnswerById(page, answerId);
+  await expect.poll(async () => (await getAudioEvents(page))
+    .filter((event) => event.startsWith('start:sk/praise/')).length).toBe(praiseCount);
+  await waitForGamePhase(page, 'answered-correctly');
+}
+
+test('alphabet: non-final success advances exactly one second after praise finishes', async ({ page }) => {
+  await stubAudioPlayback(page, { holdPraise: true });
   await stubSpeechSynthesis(page);
   await page.goto('/alphabet');
   await page.getByRole('button', { name: 'Hrať' }).click();
   const state = await getE2EState<FindItE2EState>(page);
 
-  await pressAnswerById(page, state.correctItemId!);
-  await waitForGamePhase(page, 'answered-correctly');
-  await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(1);
-  await page.waitForTimeout(750);
+  await playUntilPraiseIsHeld(page, 1, state.correctItemId!);
+  await page.waitForTimeout(1200);
   expect((await getE2EState<FindItE2EState>(page)).gamePhase).toBe('answered-correctly');
-  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
+  await releaseHeldPraise(page);
+  await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(1);
+  await page.waitForTimeout(950);
+  expect((await getE2EState<FindItE2EState>(page)).gamePhase).toBe('answered-correctly');
+  await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
+  await page.waitForTimeout(150);
   await waitForGamePhase(page, 'awaiting-answer');
-  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
+  await expect(page.getByRole('button', { name: 'Pokračovať' })).toHaveCount(0);
+  expect((await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
 });
 
 test('alphabet: Continue and backdrop advance, while panel clicks do not dismiss success', async ({ page }) => {
-  await stubAudioPlayback(page);
+  await stubAudioPlayback(page, { holdPraise: true });
   await stubSpeechSynthesis(page);
   await page.goto('/alphabet');
   await page.getByRole('button', { name: 'Hrať' }).click();
   let state = await getE2EState<FindItE2EState>(page);
 
-  await pressAnswerById(page, state.correctItemId!);
-  await waitForGamePhase(page, 'answered-correctly');
+  await playUntilPraiseIsHeld(page, 1, state.correctItemId!);
+  await releaseHeldPraise(page);
   await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(1);
-  await page.waitForTimeout(30);
+  await page.waitForTimeout(500);
   await page.getByRole('status').locator('p').first().click();
-  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
   await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
   await page.getByRole('button', { name: 'Pokračovať' }).click();
   await waitForGamePhase(page, 'awaiting-answer');
+  await page.waitForTimeout(1100);
+  await expect(page.getByRole('button', { name: 'Pokračovať' })).toHaveCount(0);
+  expect((await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
 
   state = await getE2EState<FindItE2EState>(page);
   await pressAnswerById(page, state.correctItemId!);
+  await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('start:sk/praise/')).length).toBe(2);
   await waitForGamePhase(page, 'answered-correctly');
+  await releaseHeldPraise(page);
   await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(2);
-  await page.waitForTimeout(30);
+  await page.waitForTimeout(500);
   await page.locator('div.fixed.inset-0.z-50').click({ position: { x: 2, y: 2 } });
   await waitForGamePhase(page, 'awaiting-answer');
-  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(2);
+  await page.waitForTimeout(1100);
+  await expect(page.getByRole('button', { name: 'Pokračovať' })).toHaveCount(0);
+  expect((await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(2);
 });
 
 test('alphabet: final session recap never auto-advances', async ({ page }) => {
