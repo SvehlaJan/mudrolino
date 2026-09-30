@@ -146,6 +146,15 @@ test('compare quantity cards have equal bounded heights and centered object grou
   await expect(page.getByRole('group', { name: 'Porovnanie množstiev' })).toBeVisible();
   await waitForGamePhase(page, 'awaiting-answer');
   const choices = page.locator('[data-answer-side]:visible');
+  const answerGroup = page.getByRole('group', { name: 'Porovnanie množstiev' });
+  const availableArea = await answerGroup.evaluate(element => {
+    // AnswerGroup sits inside GameShell's second interactive-content child, which excludes the prompt.
+    const area = element.parentElement?.parentElement;
+    if (!area) return null;
+    const rect = area.getBoundingClientRect();
+    return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+  });
+  expect(availableArea).not.toBeNull();
   const beforeRetry = await Promise.all(['left', 'right'].map(side => locatorBounds(page.locator(`[data-answer-side=${side}]:visible`))));
   const cards = await choices.evaluateAll(elements => elements.map(element => {
     const rect = element.getBoundingClientRect();
@@ -183,6 +192,14 @@ test('compare quantity cards have equal bounded heights and centered object grou
   expect(Math.abs(cards[0].height - cards[1].height)).toBeLessThanOrEqual(1);
   expect(Math.abs(cards[0].top - cards[1].top)).toBeLessThanOrEqual(1);
   expect(cards[0].height).toBeLessThanOrEqual(Math.min((page.viewportSize()!.height * 0.36), 320) + 1);
+  const beforePair = {
+    left: Math.min(cards[0].left, cards[1].left),
+    right: Math.max(cards[0].right, cards[1].right),
+    top: Math.min(cards[0].top, cards[1].top),
+    bottom: Math.max(cards[0].bottom, cards[1].bottom),
+  };
+  expect(Math.abs((beforePair.left + beforePair.right) / 2 - (availableArea!.left + availableArea!.right) / 2)).toBeLessThanOrEqual(12);
+  expect(Math.abs((beforePair.top + beforePair.bottom) / 2 - (availableArea!.top + availableArea!.bottom) / 2)).toBeLessThanOrEqual(12);
   for (const card of cards) {
     expect(card.height).toBeGreaterThanOrEqual(48);
     expect(card.overflowX || card.overflowY).toBe(false);
@@ -211,6 +228,21 @@ test('compare quantity cards have equal bounded heights and centered object grou
   await expect(page.getByRole('status')).toContainText('Skús druhú skupinu.');
   await waitForGamePhase(page, 'awaiting-answer');
   const afterRetry = await Promise.all(['left', 'right'].map(side => locatorBounds(page.locator(`[data-answer-side=${side}]:visible`))));
+  const availableAreaAfterRetry = await answerGroup.evaluate(element => {
+    const area = element.parentElement?.parentElement;
+    if (!area) return null;
+    const rect = area.getBoundingClientRect();
+    return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+  });
+  expect(availableAreaAfterRetry).not.toBeNull();
+  const afterPair = {
+    left: Math.min(afterRetry[0]!.x, afterRetry[1]!.x),
+    right: Math.max(afterRetry[0]!.x + afterRetry[0]!.width, afterRetry[1]!.x + afterRetry[1]!.width),
+    top: Math.min(afterRetry[0]!.y, afterRetry[1]!.y),
+    bottom: Math.max(afterRetry[0]!.y + afterRetry[0]!.height, afterRetry[1]!.y + afterRetry[1]!.height),
+  };
+  expect(Math.abs((afterPair.left + afterPair.right) / 2 - (availableAreaAfterRetry!.left + availableAreaAfterRetry!.right) / 2)).toBeLessThanOrEqual(12);
+  expect(Math.abs((afterPair.top + afterPair.bottom) / 2 - (availableAreaAfterRetry!.top + availableAreaAfterRetry!.bottom) / 2)).toBeLessThanOrEqual(12);
   for (let index = 0; index < beforeRetry.length; index += 1) {
     expect(beforeRetry[index]).not.toBeNull();
     expect(afterRetry[index]).not.toBeNull();
