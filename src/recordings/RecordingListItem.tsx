@@ -104,7 +104,7 @@ export function RecordingListItem({
   const labelClass = 'text-lg font-medium text-left break-words text-text-main';
   const secondaryClass = 'mt-0.5 text-xs font-bold uppercase tracking-normal text-text-muted';
 
-  const compactActionClass = 'h-11 w-11 min-h-11 min-w-11 shrink-0';
+  const compactActionClass = '!h-11 !w-11 min-h-11 min-w-11 shrink-0 !shadow-sm';
 
   return (
     <Card variant="row" className={rowClass}>
@@ -129,7 +129,7 @@ export function RecordingListItem({
       )}
 
       {/* Right controls / deliberate second row on compact mobile */}
-      <div className="flex w-full sm:w-auto flex-wrap items-center justify-end gap-2 shrink-0">
+      <div className="flex w-full flex-wrap items-center justify-end gap-3 shrink-0 sm:w-auto">
         {statusLabel && !isEngaged && (
           <span className={`mr-auto sm:mr-0 shrink-0 rounded-full px-2 py-1 text-[0.68rem] font-bold ${customStatusClass}`}>
             {statusLabel}
@@ -160,8 +160,10 @@ export function RecordingListItem({
           <>
             {/* Delete — only when idle and has custom recording */}
             {hasCustom && allowDeleteRecording ? (
-              <div className="w-11 flex items-center justify-center shrink-0">
+              <div className="flex w-11 shrink-0 items-center justify-center">
                 <IconButton
+                  size="parent"
+                  density="compact"
                   onClick={onDelete}
                   className={`${compactActionClass} !bg-shadow/20 text-text-main/70`}
                   label="Zmazať nahrávku"
@@ -169,14 +171,14 @@ export function RecordingListItem({
                   <Trash2 size={16} />
                 </IconButton>
               </div>
-            ) : (
-              <div className="hidden sm:flex w-11 items-center justify-center shrink-0" />
-            )}
+            ) : null}
 
             {/* Play */}
             {allowPlay ? (
-              <div className="w-11 flex items-center justify-center shrink-0">
+              <div className="flex w-11 shrink-0 items-center justify-center">
                 <IconButton
+                  size="parent"
+                  density="compact"
                   onClick={onPlay}
                   className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
                   label="Prehrať"
@@ -184,13 +186,13 @@ export function RecordingListItem({
                   <Play size={16} />
                 </IconButton>
               </div>
-            ) : (
-              <div className="hidden sm:flex w-11 items-center justify-center shrink-0" />
-            )}
+            ) : null}
 
             {/* Record */}
-            <div className="w-11 flex items-center justify-center shrink-0">
+            <div className="flex w-11 shrink-0 items-center justify-center">
               <IconButton
+                size="parent"
+                density="compact"
                 onClick={onRecord}
                 className={`${compactActionClass} ${recordClass}`}
                 label="Nahrať"
@@ -201,7 +203,7 @@ export function RecordingListItem({
             </div>
 
             {menuActions && menuActions.length > 0 && (
-              <div className="w-11 flex items-center justify-center shrink-0">
+              <div className="flex w-11 shrink-0 items-center justify-center">
                 <IconMenuButton
                   label="Ďalšie možnosti"
                   actions={menuActions}

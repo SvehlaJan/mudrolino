@@ -459,11 +459,35 @@ test.describe('Custom content manager', () => {
       expect(menuBox!.width).toBeGreaterThanOrEqual(44);
       expect(menuBox!.height).toBeGreaterThanOrEqual(44);
 
+      for (const [left, right] of [[playBox, recordBox], [recordBox, menuBox]] as const) {
+        expect(right!.x - (left!.x + left!.width)).toBeGreaterThanOrEqual(12);
+      }
+
       await menuBtn.click();
       await expect(page.getByRole('menuitem', { name: 'Vypnúť' })).toBeVisible();
       await page.keyboard.press('Escape');
 
       await expectNoHorizontalOverflow(page);
     }
+  });
+
+  test('desktop letter-row actions have separate 44px targets', async ({ page }) => {
+    await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
+    await openContent(page);
+    await openTab(page, /Písmená/);
+
+    const row = page.getByText(/^A — Auto/).locator('xpath=ancestor::div[contains(@class, "rounded-2xl")]').first();
+    const play = row.getByRole('button', { name: 'Prehrať' });
+    const record = row.getByRole('button', { name: 'Nahrať' });
+    const a = await play.boundingBox();
+    const b = await record.boundingBox();
+    expect(a).not.toBeNull();
+    expect(b).not.toBeNull();
+    expect(a!.width).toBeGreaterThanOrEqual(44);
+    expect(a!.height).toBeGreaterThanOrEqual(44);
+    expect(b!.width).toBeGreaterThanOrEqual(44);
+    expect(b!.height).toBeGreaterThanOrEqual(44);
+    expect(b!.x - (a!.x + a!.width)).toBeGreaterThanOrEqual(12);
+    await expectNoHorizontalOverflow(page);
   });
 });
