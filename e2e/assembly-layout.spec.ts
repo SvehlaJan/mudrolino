@@ -145,3 +145,49 @@ for (const viewport of VIEWPORTS) {
     }
   });
 }
+
+test('assembly tray keyboard navigation crosses rows with an empty indexed cell', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await seedWord(page);
+
+  const tray = page.getByTestId('play-tray');
+  const answerRegion = tray.getByTestId('game-answer-region');
+  await tray.locator('[data-testid="game-critical-controls"]').evaluate((element) => {
+    (element as HTMLElement).style.cssText += ';width:135px!important;flex:none;align-self:center';
+  });
+  await expect.poll(() => answerRegion.evaluate((element) => getComputedStyle(element).getPropertyValue('--grid-cols'))).toBe('2');
+  await waitForGamePhase(page, 'awaiting-answer');
+
+  const movedId = await tray.locator('[data-tray-index="1"]').getAttribute('data-tile-id');
+  const downTargetId = await tray.locator('[data-tray-index="2"]').getAttribute('data-tile-id');
+  expect(movedId).toBeTruthy();
+  expect(downTargetId).toBeTruthy();
+
+  await tray.locator(`[data-tile-id="${movedId}"]`).click({ force: true });
+  await page.waitForFunction((id) => {
+    const state = (window as typeof window & { __E2E__?: { placedTileIds?: string[] } }).__E2E__;
+    return state?.placedTileIds?.includes(id) ?? false;
+  }, movedId!);
+  await waitForGamePhase(page, 'awaiting-answer');
+
+  const sourceCell = tray.locator('[data-tray-index="0"]');
+  const downTarget = tray.locator(`[data-tile-id="${downTargetId}"]`);
+  await sourceCell.focus();
+  await sourceCell.press('ArrowDown');
+  await expect(downTarget).toBeFocused();
+  await downTarget.press('Enter');
+  await page.waitForFunction((id) => {
+    const state = (window as typeof window & { __E2E__?: { placedTileIds?: string[] } }).__E2E__;
+    return state?.placedTileIds?.includes(id) ?? false;
+  }, downTargetId!);
+  await waitForGamePhase(page, 'awaiting-answer');
+
+  const placedTarget = page.getByTestId('word-rail').locator(`[data-tile-id="${downTargetId}"]`);
+  await placedTarget.focus();
+  await placedTarget.press('Enter');
+  await page.waitForFunction((id) => {
+    const state = (window as typeof window & { __E2E__?: { trayTileIds?: string[] } }).__E2E__;
+    return state?.trayTileIds?.includes(id) ?? false;
+  }, downTargetId!);
+  await expect(tray.locator(`[data-tile-id="${downTargetId}"]`)).toBeVisible();
+});

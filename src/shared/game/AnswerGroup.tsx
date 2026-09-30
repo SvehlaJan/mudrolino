@@ -84,11 +84,6 @@ function calculateGeometry(
   return calculateGridGeometry(itemCount, width, height, gap);
 }
 
-function isButtonDisabled(btn: HTMLButtonElement | undefined): boolean {
-  if (!btn) return true;
-  return btn.disabled || btn.getAttribute('aria-disabled') === 'true';
-}
-
 function isLayoutPlaceholder(child: React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>): boolean {
   return (child.props as React.ButtonHTMLAttributes<HTMLButtonElement> & {
     'data-answer-layout-placeholder'?: string;
@@ -126,28 +121,30 @@ export function AnswerGroup({
   );
   const usesGrid = orientation === 'grid' || geometry.rows > 1;
 
-  const getButtons = (): HTMLButtonElement[] => {
-    if (!innerRef.current) return [];
-    return Array.from(innerRef.current.querySelectorAll<HTMLButtonElement>('button'));
+  const getOptionButton = (index: number): HTMLButtonElement | null => {
+    // Keep `index` in the complete child-slot space used by CSS grid. A placeholder consumes a
+    // cell without producing a button, so querying all buttons into a compressed list misaligns
+    // arrow-key movement with the rendered rows and columns.
+    const child = options[index];
+    if (!child || isLayoutPlaceholder(child) || disabled
+      || child.props.disabled || child.props['aria-disabled'] === 'true') return null;
+    const element = innerRef.current?.children.item(index);
+    if (element instanceof HTMLButtonElement) return element;
+    return element?.querySelector<HTMLButtonElement>('button') ?? null;
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const buttons = getButtons();
-    if (buttons.length === 0) return;
-
-    const currentFocusIndex = buttons.findIndex((btn) => btn === document.activeElement);
-    const sourceIndex = currentFocusIndex >= 0 && !isButtonDisabled(buttons[currentFocusIndex])
-      ? currentFocusIndex
-      : rovingIndex;
-    if (sourceIndex < 0) return;
+    const sourceIndex = options.findIndex((_, index) => getOptionButton(index) === document.activeElement);
+    const resolvedSourceIndex = sourceIndex >= 0 ? sourceIndex : rovingIndex;
+    if (resolvedSourceIndex < 0 || options.length === 0) return;
 
     let targetIndex: number | undefined;
 
     switch (event.key) {
       case 'ArrowRight': {
         event.preventDefault();
-        for (let i = sourceIndex + 1; i < buttons.length; i++) {
-          if (!isButtonDisabled(buttons[i])) {
+        for (let i = resolvedSourceIndex + 1; i < options.length; i++) {
+          if (getOptionButton(i)) {
             targetIndex = i;
             break;
           }
@@ -156,8 +153,8 @@ export function AnswerGroup({
       }
       case 'ArrowLeft': {
         event.preventDefault();
-        for (let i = sourceIndex - 1; i >= 0; i--) {
-          if (!isButtonDisabled(buttons[i])) {
+        for (let i = resolvedSourceIndex - 1; i >= 0; i--) {
+          if (getOptionButton(i)) {
             targetIndex = i;
             break;
           }
@@ -167,12 +164,12 @@ export function AnswerGroup({
       case 'ArrowDown': {
         event.preventDefault();
         if (usesGrid) {
-          const candidate = sourceIndex + geometry.cols;
-          if (candidate < buttons.length && !isButtonDisabled(buttons[candidate])) {
+          const candidate = resolvedSourceIndex + geometry.cols;
+          if (candidate < options.length && getOptionButton(candidate)) {
             targetIndex = candidate;
-          } else if (candidate < buttons.length) {
-            for (let i = candidate + 1; i < buttons.length; i++) {
-              if (!isButtonDisabled(buttons[i])) {
+          } else if (candidate < options.length) {
+            for (let i = candidate + 1; i < options.length; i++) {
+              if (getOptionButton(i)) {
                 targetIndex = i;
                 break;
               }
@@ -184,12 +181,12 @@ export function AnswerGroup({
       case 'ArrowUp': {
         event.preventDefault();
         if (usesGrid) {
-          const candidate = sourceIndex - geometry.cols;
-          if (candidate >= 0 && !isButtonDisabled(buttons[candidate])) {
+          const candidate = resolvedSourceIndex - geometry.cols;
+          if (candidate >= 0 && getOptionButton(candidate)) {
             targetIndex = candidate;
           } else if (candidate >= 0) {
             for (let i = candidate - 1; i >= 0; i--) {
-              if (!isButtonDisabled(buttons[i])) {
+              if (getOptionButton(i)) {
                 targetIndex = i;
                 break;
               }
@@ -200,8 +197,8 @@ export function AnswerGroup({
       }
       case 'Home': {
         event.preventDefault();
-        for (let i = 0; i < buttons.length; i++) {
-          if (!isButtonDisabled(buttons[i])) {
+        for (let i = 0; i < options.length; i++) {
+          if (getOptionButton(i)) {
             targetIndex = i;
             break;
           }
@@ -210,8 +207,8 @@ export function AnswerGroup({
       }
       case 'End': {
         event.preventDefault();
-        for (let i = buttons.length - 1; i >= 0; i--) {
-          if (!isButtonDisabled(buttons[i])) {
+        for (let i = options.length - 1; i >= 0; i--) {
+          if (getOptionButton(i)) {
             targetIndex = i;
             break;
           }
@@ -222,9 +219,10 @@ export function AnswerGroup({
         return;
     }
 
-    if (targetIndex !== undefined && targetIndex >= 0 && targetIndex < buttons.length) {
+    const targetButton = targetIndex === undefined ? null : getOptionButton(targetIndex);
+    if (targetIndex !== undefined && targetButton) {
       setActiveIndex(targetIndex);
-      buttons[targetIndex].focus();
+      targetButton.focus();
     }
   };
 
