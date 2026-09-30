@@ -97,6 +97,16 @@ export async function stubSpeechSynthesis(page: Page): Promise<void> {
   });
 }
 
+/** Settles bundled HTML audio immediately so browser flow tests can observe the game after each clip. */
+export async function stubAudioPlayback(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    HTMLMediaElement.prototype.play = function play() {
+      setTimeout(() => this.dispatchEvent(new Event('ended')), 0);
+      return Promise.resolve();
+    };
+  });
+}
+
 /** Uses the actual visible answer control; it never invokes React handlers directly. */
 export async function pressAnswerById(page: Page, id: string): Promise<void> {
   const answer = page.locator(`[data-answer-id=${JSON.stringify(id)}]:visible`);

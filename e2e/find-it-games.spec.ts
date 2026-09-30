@@ -7,7 +7,7 @@ import {
   trackFailedRequests,
   expectNoFailedRequests,
 } from './support/assertions';
-import { pressAnswerById, waitForGamePhase } from './support/gameHarness';
+import { getAudioEvents, pressAnswerById, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import {
   expectNoHorizontalOverflow,
   expectMinimumTarget,
@@ -169,6 +169,34 @@ for (const game of FIND_IT_GAMES) {
   });
 }
 
+test('FindIt retry announcement does not change prompt or answer geometry', async ({ page }) => {
+  await stubAudioPlayback(page);
+  await stubSpeechSynthesis(page);
+  await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  const state = await getE2EState<FindItE2EState>(page);
+  const geometry = () => page.evaluate(() => {
+    const box = (selector: string) => {
+      const rect = document.querySelector(selector)!.getBoundingClientRect();
+      return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
+    };
+    return {
+      prompt: box('[data-testid="game-visible-instruction"]'),
+      answers: box('[data-testid="game-answer-region"]'),
+    };
+  });
+  const before = await geometry();
+
+  const wrongId = state.gridItemIds.find((id) => id !== state.correctItemId)!;
+  await pressAnswerById(page, wrongId);
+  await page.waitForFunction(() => window.__E2E__?.gamePhase === 'answered-incorrectly', undefined, { polling: 20 });
+
+  expect(await geometry()).toEqual(before);
+  await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
+  await expect(page.getByTestId('game-retry-status')).toHaveAttribute('aria-live', 'polite');
+});
+
 // alphabet is the sole full-session representative for this cluster: round-counter and
 // session-complete logic is shared via FindItGame across all 4 games, so one full run is
 // enough to cover it. See docs/superpowers/specs/2026-07-08-automated-ui-testing-design.md.
@@ -197,6 +225,60 @@ test('alphabet: a full 5-round session reaches an explicit completion that requi
 
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
+});
+
+test('alphabet: non-final success advances one second after praise finishes', async ({ page }) => {
+  await stubAudioPlayback(page);
+  await stubSpeechSynthesis(page);
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  const state = await getE2EState<FindItE2EState>(page);
+
+  await pressAnswerById(page, state.correctItemId!);
+  await waitForGamePhase(page, 'answered-correctly');
+  await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(1);
+  await page.waitForTimeout(750);
+  expect((await getE2EState<FindItE2EState>(page)).gamePhase).toBe('answered-correctly');
+  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
+  await waitForGamePhase(page, 'awaiting-answer');
+  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
+});
+
+test('alphabet: Continue and backdrop advance, while panel clicks do not dismiss success', async ({ page }) => {
+  await stubAudioPlayback(page);
+  await stubSpeechSynthesis(page);
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  let state = await getE2EState<FindItE2EState>(page);
+
+  await pressAnswerById(page, state.correctItemId!);
+  await waitForGamePhase(page, 'answered-correctly');
+  await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(1);
+  await page.waitForTimeout(30);
+  await page.getByRole('status').locator('p').first().click();
+  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
+  await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
+  await page.getByRole('button', { name: 'Pokračovať' }).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+
+  state = await getE2EState<FindItE2EState>(page);
+  await pressAnswerById(page, state.correctItemId!);
+  await waitForGamePhase(page, 'answered-correctly');
+  await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(2);
+  await page.waitForTimeout(30);
+  await page.locator('div.fixed.inset-0.z-50').click({ position: { x: 2, y: 2 } });
+  await waitForGamePhase(page, 'awaiting-answer');
+  await expect.poll(async () => (await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(2);
+});
+
+test('alphabet: final session recap never auto-advances', async ({ page }) => {
+  await stubAudioPlayback(page);
+  await stubSpeechSynthesis(page);
+  await completeAlphabetSession(page);
+  await page.waitForTimeout(1300);
+  await waitForGamePhase(page, 'session-complete');
+  await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
 });
 
 test('alphabet: completion actions stay absent until session-complete after a final correct answer', async ({ page }) => {
@@ -500,7 +582,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     expect(successAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
 
-  test('reduced motion: retry feedback is legible with matching visible/live text', async ({ page }) => {
+  test('reduced motion: retry feedback is legible with matching screen-reader/live text', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/alphabet');
     await page.getByRole('button', { name: 'Hrať' }).click();

@@ -19,11 +19,9 @@ export function PlayTray({ label, density = 'comfortable', children, className, 
       aria-label={label}
       data-testid="play-tray"
       className={cn(
-        // Always clips. This used to be gated on a measured, non-zero box, which inverted exactly
-        // when it was needed most: a tray squeezed to a zero-height content box (a retry banner
-        // appearing on a short screen) reported "unmeasured", dropped the clip, and let the
-        // answer tiles paint straight over whatever sat below the tray. Assembly's flight clones
-        // are appended to document.body as `position: fixed` nodes, so they are unaffected.
+        // Always clips so answer tiles cannot paint outside the tray when a constrained screen
+        // leaves it little or no height. Assembly's flight clones are appended to document.body
+        // as `position: fixed` nodes, so they are unaffected.
         'relative flex min-h-0 w-full flex-1 flex-col items-center justify-center overflow-hidden rounded-[28px] border border-shadow/15 bg-bg-light/35',
         // The comfortable padding is the tray's own share of the vertical budget; on a short or
         // narrow screen it competes directly with the 48px minimum tile size, so it gives ground

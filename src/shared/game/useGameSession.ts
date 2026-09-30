@@ -95,6 +95,14 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
   const startPrompt = useCallback((audio: AudioSpec) => playPrompt(audio, false), [playPrompt]);
   const replayPrompt = useCallback((audio: AudioSpec) => playPrompt(audio, true), [playPrompt]);
 
+  const continueAfterFeedback = useCallback(() => {
+    const current = stateRef.current;
+    if (current.roundsPlayed >= current.maxRounds || current.feedback === null) return;
+    invalidate();
+    dispatchEvent({ type: 'NEXT_ROUND' });
+    options.onNextRound();
+  }, [dispatchEvent, invalidate, options]);
+
   const resolveAnswer = useCallback(async (input: ResolveAnswerInput): Promise<AnswerResolution> => {
     if (answeringRef.current || !canAcceptAnswer(stateRef.current)) return 'cancelled';
 
@@ -133,17 +141,22 @@ export function useGameSession(options: UseGameSessionOptions): UseGameSessionRe
     setAnswering(false);
     if (stateRef.current.roundsPlayed >= stateRef.current.maxRounds) {
       dispatchEvent({ type: 'SHOW_SESSION_COMPLETE' });
+    } else if (input.outcome === 'correct') {
+      const timer = setTimeout(() => {
+        timersRef.current.delete(timer);
+        const current = stateRef.current;
+        if (
+          operationId === operationIdRef.current
+          && current.feedback === 'success'
+          && current.roundsPlayed < current.maxRounds
+        ) {
+          continueAfterFeedback();
+        }
+      }, 1000);
+      timersRef.current.add(timer);
     }
     return input.outcome === 'correct' ? 'success' : 'failure';
-  }, [dispatchEvent, invalidate, scheduleRetryReady]);
-
-  const continueAfterFeedback = useCallback(() => {
-    const current = stateRef.current;
-    if (current.roundsPlayed >= current.maxRounds || current.feedback === null) return;
-    invalidate();
-    dispatchEvent({ type: 'NEXT_ROUND' });
-    options.onNextRound();
-  }, [dispatchEvent, invalidate, options]);
+  }, [continueAfterFeedback, dispatchEvent, invalidate, scheduleRetryReady]);
 
   const playAgain = useCallback(() => {
     invalidate();

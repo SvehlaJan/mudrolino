@@ -57,6 +57,7 @@ test.describe('shared shell and answer group contract', () => {
   test('shared shell documents recoverable, paused, feedback, and completion states', async ({ page }) => {
     await page.goto('/ui-kit?example=game-shell&state=retry');
     await expect(page.getByRole('status')).toContainText('Skús ešte raz');
+    await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
 
     await page.goto('/ui-kit?example=game-shell&state=success');
     await expect(page.getByRole('status')).toContainText('Výborne');

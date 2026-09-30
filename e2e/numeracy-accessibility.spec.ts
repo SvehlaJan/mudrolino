@@ -2,7 +2,7 @@ import { expect, test, type Locator, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';
-import { stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
+import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 
 const SERIOUS_IMPACTS = ['critical', 'serious'];
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
@@ -72,6 +72,7 @@ const NUMERACY_ROUTES: NumeracyRoute[] = [
 ];
 
 async function startRound(page: Page, route: NumeracyRoute): Promise<void> {
+  await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
   await page.goto(route.path);
   await page.getByRole('button', { name: 'Hrať' }).click();
@@ -115,13 +116,12 @@ async function expectReducedMotionResultDoesNotTransform(page: Page, answer: Loc
     });
   });
   await answer.click();
-  const status = page.getByRole('status');
-  await expect(status).toBeVisible();
+  await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   await page.evaluate(async () => {
     const state = window as typeof window & { __reducedMotionStatusCapture?: Promise<void> };
     await state.__reducedMotionStatusCapture;
   });
-  await expect(status).toHaveCSS('transform', 'none');
+  await expect(page.getByTestId('game-retry-status')).toHaveCSS('transform', 'none');
   const transforms = await page.evaluate(() =>
     (window as typeof window & { __reducedMotionStatusTransforms?: string[] }).__reducedMotionStatusTransforms ?? [],
   );
@@ -176,6 +176,7 @@ for (const route of NUMERACY_ROUTES) {
     const status = page.getByRole('status');
     await expect(status).toHaveAttribute('aria-live', 'polite');
     await expect(status).toContainText(route.retryTitle);
+    await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   });
 
   test(`${route.heading}: reduced motion has no infinite animations and keeps the result untransformed`, async ({ page }) => {

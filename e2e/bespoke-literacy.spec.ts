@@ -12,6 +12,7 @@ import {
   getAudioEvents,
   getAudioClipPaths,
   pressAnswerById,
+  stubAudioPlayback,
   stubSpeechSynthesis,
   waitForGamePhase,
 } from './support/gameHarness';
@@ -69,7 +70,9 @@ test('Prvé písmenko uses the shared literacy shell', async ({ page }) => {
   expect(state.answerItemIds).toContain(state.correctItemId);
 });
 
-test('Prvé písmenko shows a polite retry status on a wrong tap', async ({ page }) => {
+test('Prvé písmenko announces retry politely without changing the play surface', async ({ page }) => {
+  await stubAudioPlayback(page);
+  await stubSpeechSynthesis(page);
   await page.goto('/first-letter');
   await page.getByRole('button', { name: 'Hrať' }).click();
 
@@ -88,7 +91,7 @@ test('Prvé písmenko shows a polite retry status on a wrong tap', async ({ page
   );
 
   const status = page.getByRole('status');
-  await expect(status).toBeVisible();
+  await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   await expect(status).toContainText('Skús ešte raz');
   await expect(page.locator(`[data-answer-id="${wrongId}"]`)).toContainText('Skús ešte raz');
 });
@@ -306,7 +309,9 @@ test('Doplň slabiku uses the shared literacy shell with a one-blank inset word 
   expect(new Set(state.answerItemIds).size).toBe(state.answerItemIds.length);
 });
 
-test('Doplň slabiku shows a polite retry status on a wrong tap and leaves the inset unrevealed', async ({ page }) => {
+test('Doplň slabiku announces retry politely without changing the play surface and leaves the inset unrevealed', async ({ page }) => {
+  await stubAudioPlayback(page);
+  await stubSpeechSynthesis(page);
   await page.goto('/complete-syllable');
   await page.getByRole('button', { name: 'Hrať' }).click();
 
@@ -325,7 +330,7 @@ test('Doplň slabiku shows a polite retry status on a wrong tap and leaves the i
   );
 
   const status = page.getByRole('status');
-  await expect(status).toBeVisible();
+  await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   await expect(status).toContainText('Skús ešte raz');
   await expect(page.locator(`[data-answer-id="${wrongId}"]`)).toContainText('Skús ešte raz');
 
@@ -556,7 +561,9 @@ test('Skladaj settles a correct full rail before success, speaking the final syl
   expect(finalState.totalTaps).toBe(1);
 });
 
-test('Skladaj shows a polite retry status on a wrong full rail, plays its special sequence once, then returns every tile without counting a completed round', async ({ page }) => {
+test('Skladaj announces retry without a visible banner on a wrong full rail, plays its special sequence once, then returns every tile without counting a completed round', async ({ page }) => {
+  await stubAudioPlayback(page);
+  await stubSpeechSynthesis(page);
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
   await page.goto('/assembly');
   await page.getByRole('button', { name: 'Hrať' }).click();
@@ -577,7 +584,7 @@ test('Skladaj shows a polite retry status on a wrong full rail, plays its specia
   await tray.locator(`[data-tile-id="${wrongOrder[2]}"]`).click();
   await waitForGamePhase(page, 'answered-incorrectly');
 
-  await expect(status).toBeVisible();
+  await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   await expect(status).toContainText('Skús ešte raz');
 
   // The documented exception: exactly the wrong syllable, then retry, then the target word —
@@ -1052,40 +1059,30 @@ test.describe('Task 7: Full viewport matrix', () => {
 });
 
 /**
- * Final whole-phase review gap: the viewport matrix above only ever measures the fresh
- * `awaiting-answer` state, so nothing in the suite had ever measured a viewport while GameShell
- * was also rendering its retry-status chrome below the interactive content. That is exactly the
- * state the banner/answer-tray collision lived in — it shipped invisibly because no test entered
- * it at a constrained size. This block drives every game into the retry state at every canonical
- * viewport and asserts the shell still hands the tray a real, unclipped, minimum-target playfield.
+ * The retry announcement must not change the prompt or answer area's geometry. Exercise every
+ * bespoke game at each canonical viewport, then confirm the playfield remains usable.
  */
-test.describe('Final review: the retry status banner never collides with the answer tray', () => {
+test.describe('Final review: retries keep the prompt and answer area geometry', () => {
   const viewportEntries = Object.entries(CANONICAL_VIEWPORTS) as Array<
     [keyof typeof CANONICAL_VIEWPORTS, (typeof CANONICAL_VIEWPORTS)[keyof typeof CANONICAL_VIEWPORTS]]
   >;
 
   for (const game of BESPOKE_GAMES) {
     for (const [viewportName, viewport] of viewportEntries) {
-      test(`${game.name} keeps the retry status clear of the answer tray at ${viewportName} (${viewport.width}x${viewport.height})`, async ({ page }) => {
+      test(`${game.name} keeps retry announcement off the play surface at ${viewportName} (${viewport.width}x${viewport.height})`, async ({ page }) => {
         test.skip(
           Boolean(process.env.CI) && !CI_VIEWPORT_SUBSET.includes(viewportName),
           'the full 10-size matrix runs locally and is covered by screenshot review; CI asserts the 4-viewport subset',
         );
 
-        // This is a geometry assertion, not an audio one: a headless TTS stall in the wrong
-        // answer's own clip sequence would strand the round before the banner ever renders and
-        // report as a layout failure. See stubSpeechSynthesis' own note.
+        // Audio completion is stubbed because this check measures geometry, not playback timing.
+        await stubAudioPlayback(page);
         await stubSpeechSynthesis(page);
         await page.setViewportSize(viewport);
         await game.enterPlay(page);
         await waitForPlaySurfaceSettled(page);
 
-        await game.answerWrong(page);
-
-        // The retry phase auto-clears after TIMING.FEEDBACK_RESET_MS (500ms), so everything this
-        // test measures is read in one round trip first; the locator-based assertions that follow
-        // only re-confirm what the snapshot already proves.
-        const snapshot = await page.evaluate((selector) => {
+        const readGeometry = () => page.evaluate((selector) => {
           const box = (el: Element | null) => {
             if (!el) return null;
             const rect = el.getBoundingClientRect();
@@ -1093,36 +1090,27 @@ test.describe('Final review: the retry status banner never collides with the ans
           };
           const tray = document.querySelector('[data-testid="play-tray"]');
           return {
-            banner: box(document.querySelector('[data-testid="game-retry-status"]')),
+            prompt: box(document.querySelector('[data-testid="game-visible-instruction"]')),
             answerRegion: box(document.querySelector('[data-testid="game-answer-region"]')),
+            tray: box(document.querySelector('[data-testid="play-tray"]')),
             controls: Array.from(document.querySelectorAll(selector)).map((el) => box(el)!),
             trayOverflowPx: tray ? tray.scrollHeight - tray.clientHeight : null,
             viewportHeight: window.innerHeight,
           };
         }, PLAY_SURFACE_CONTROLS);
+        const beforeRetry = await readGeometry();
+        await game.answerWrong(page);
+        const snapshot = await readGeometry();
 
-        expect(
-          snapshot.banner,
-          `${game.name} at ${viewportName}: expected the retry status banner to still be showing when measured`,
-        ).not.toBeNull();
-        expect(
-          snapshot.answerRegion,
-          `${game.name} at ${viewportName}: expected a measurable answer region`,
-        ).not.toBeNull();
+        expect(snapshot.prompt, `${game.name} at ${viewportName}: expected a measurable prompt`).not.toBeNull();
+        expect(snapshot.answerRegion, `${game.name} at ${viewportName}: expected a measurable answer region`).not.toBeNull();
+        expect(snapshot.prompt).toEqual(beforeRetry.prompt);
+        expect(snapshot.answerRegion).toEqual(beforeRetry.answerRegion);
+        expect(snapshot.tray).toEqual(beforeRetry.tray);
+        await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
+        await expect(page.getByTestId('game-retry-status')).toHaveAttribute('aria-live', 'polite');
 
-        const overlap = Math.max(
-          0,
-          Math.min(snapshot.banner!.bottom, snapshot.answerRegion!.bottom)
-            - Math.max(snapshot.banner!.top, snapshot.answerRegion!.top),
-        );
-        expect(
-          overlap,
-          `${game.name} at ${viewportName}: retry banner ${JSON.stringify(snapshot.banner)} overlaps answer region ${JSON.stringify(snapshot.answerRegion)} by ${overlap}px`,
-        ).toBeLessThanOrEqual(0.5);
-
-        // An overlap-free banner is not enough on its own: a tray squeezed so hard that it clips
-        // its own tiles away also reports zero overlap. Every control must still be a real,
-        // on-screen, minimum-size target while the banner is up.
+        // Every control must remain an on-screen, minimum-size target in the retry state.
         expect(snapshot.controls.length, `${game.name} at ${viewportName}: expected at least one control`).toBeGreaterThan(0);
         for (const control of snapshot.controls) {
           expect(
@@ -1139,9 +1127,7 @@ test.describe('Final review: the retry status banner never collides with the ans
           `${game.name} at ${viewportName}: the play tray is clipping ${snapshot.trayOverflowPx}px of its own content during retry`,
         ).toBeLessThanOrEqual(1);
 
-        const statusBanner = page.getByTestId('game-retry-status');
         const answerRegion = page.getByTestId('game-answer-region');
-        await expectNoPairwiseOverlap([statusBanner, answerRegion]);
         await expectNotClippedByAncestorOverflow(answerRegion);
         await expectNoHorizontalOverflow(page);
       });
@@ -1344,7 +1330,7 @@ test.describe('Task 7: Assistive contract', () => {
 
       const wrongId = await game.answerWrong(page);
       const status = page.getByRole('status');
-      await expect(status).toBeVisible();
+      await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
       await expect(status).toContainText('Skús ešte raz');
       await expect(status).toHaveAttribute('aria-live', 'polite');
       await expect(actedControl(page, wrongId)).toContainText('Skús ešte raz');

@@ -54,12 +54,9 @@ export function GamePrompt({ instruction, visual, replaying = false, onReplay }:
             ? { duration: 0.45 }
             : motionPreset.transition
         }
-        // On a short screen this 20px reserved line is the difference between the answer tray
-        // clearing AnswerGroup's 48px minimum tile size and collapsing under it once a retry
-        // status banner also claims its share of the column (see RetryStatusBanner in
-        // GameShell.tsx). `sr-only` gives up the box without giving up the announcement — the
-        // live region still speaks the replay cue — and, unlike collapsing its min-height, it
-        // costs nothing when `replaying` flips, so the tray never resizes mid-prompt.
+        // At short heights the replay cue stays in the live region without reserving another
+        // line in the prompt. Keeping its min-height stable also prevents the tray resizing when
+        // `replaying` flips.
         className={cn(
           'min-h-5 text-sm font-bold text-text-muted [@media(max-height:480px)]:sr-only',
           !replaying && 'pointer-events-none',
