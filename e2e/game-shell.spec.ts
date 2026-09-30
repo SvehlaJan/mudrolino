@@ -164,7 +164,8 @@ test.describe('Living Toybox materials', () => {
     }
     await expect(region.getByRole('button', { name: 'Písmeno A' })).toHaveAttribute('data-piece-state', 'settled');
     await expect(region.getByRole('button', { name: 'Písmeno B' })).toContainText('Skús ešte raz');
-    await expect(region.getByTestId('play-tray')).toBeVisible();
+    await expect(region.getByRole('region', { name: 'Hracia plocha' })).toBeVisible();
+    await expect(region.getByRole('region', { name: 'Kompaktné odpovede' })).toBeVisible();
   });
 
   test('tactile pieces meet the minimum touch target and support focus/disabled semantics', async ({ page }) => {
