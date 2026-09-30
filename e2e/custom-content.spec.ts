@@ -110,7 +110,18 @@ test.describe('Custom content manager', () => {
     await scrollRight.click();
     const praisesTab = page.getByRole('tab', { name: /Pochvaly/ });
     await praisesTab.click();
+    await expect(praisesTab).toBeVisible();
     await expect(praisesTab).toHaveAttribute('aria-selected', 'true');
+    const tablist = page.getByRole('tablist', { name: 'Kategórie vlastného obsahu' });
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const atPhysicalEnd = await tablist.evaluate(el => el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
+      if (atPhysicalEnd) break;
+
+      const previousOffset = await tablist.evaluate(el => el.scrollLeft);
+      await scrollRight.click();
+      await expect.poll(() => tablist.evaluate(el => el.scrollLeft)).toBeGreaterThan(previousOffset);
+    }
+    await expect.poll(() => tablist.evaluate(el => el.scrollLeft + el.clientWidth >= el.scrollWidth - 1)).toBe(true);
     await expect(scrollRight).toBeDisabled();
     await expectNoHorizontalOverflow(page);
 
