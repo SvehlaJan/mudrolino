@@ -1,12 +1,12 @@
-import { test, expect, type Locator, type Page } from '@playwright/test';
+import { test, expect, type Locator, type Page } from './support/fixtures';
 import { trackConsoleErrors, expectNoConsoleErrors, trackFailedRequests, expectNoFailedRequests } from './support/assertions';
 import { unlockParentGate } from './support/parentGate';
 import { expectNoHorizontalOverflow, expectMinimumTarget, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
-import { CANONICAL_VIEWPORTS } from './support/viewports';
+import { INTEGRATION_VIEWPORTS } from './support/viewports';
 
-const viewportEntries = Object.entries(CANONICAL_VIEWPORTS) as Array<[
-  keyof typeof CANONICAL_VIEWPORTS,
-  (typeof CANONICAL_VIEWPORTS)[keyof typeof CANONICAL_VIEWPORTS],
+const viewportEntries = Object.entries(INTEGRATION_VIEWPORTS) as Array<[
+  keyof typeof INTEGRATION_VIEWPORTS,
+  (typeof INTEGRATION_VIEWPORTS)[keyof typeof INTEGRATION_VIEWPORTS],
 ]>;
 
 async function assertReachableAction(page: Page, action: Locator) {

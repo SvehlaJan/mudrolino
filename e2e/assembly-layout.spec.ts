@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from './support/fixtures';
 import { seedLocalStorage } from './support/persistenceFixtures';
 import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 

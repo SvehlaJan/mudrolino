@@ -12,9 +12,46 @@ import { recordE2EAudioEvent } from './e2eState';
 /** Web Speech can silently omit both terminal events in Chromium. */
 export const SPEECH_UTTERANCE_TIMEOUT_MS = 15_000;
 
+export interface AudioMedia {
+  onended: ((...args: never[]) => unknown) | null;
+  onerror: ((...args: never[]) => unknown) | null;
+  currentTime: number;
+  muted: boolean;
+  pause(): void;
+  play(): Promise<void>;
+}
+export interface AudioUtterance {
+  onend: ((...args: never[]) => unknown) | null;
+  onerror: ((...args: never[]) => unknown) | null;
+  voice: SpeechSynthesisVoice | null;
+  volume: number;
+  lang: string;
+  rate: number;
+  pitch: number;
+}
+export interface AudioManagerDependencies {
+  initialLocale: string;
+  synth: {
+    onvoiceschanged: unknown;
+    paused: boolean;
+    cancel(): void;
+    getVoices(): SpeechSynthesisVoice[];
+    resume(): void;
+    speak(utterance: AudioUtterance): void;
+  };
+  createAudio(path: string): AudioMedia;
+  createUtterance(text: string): AudioUtterance;
+  getOverride(path: string): Promise<Blob | null>;
+  createObjectURL(blob: Blob): string;
+  revokeObjectURL(url: string): void;
+  recordEvent(event: string): void;
+  clock: { setTimeout(callback: () => void, ms: number): ReturnType<typeof setTimeout>; clearTimeout(timer: ReturnType<typeof setTimeout>): void };
+}
+
 export class AudioManager {
-  private synth: SpeechSynthesis = window.speechSynthesis;
-  private currentAudio: HTMLAudioElement | null = null;
+  private readonly dependencies: AudioManagerDependencies;
+  private synth: AudioManagerDependencies['synth'];
+  private currentAudio: AudioMedia | null = null;
   private playbackToken = 0;
   private locale = 'sk';
   /** Settles the currently pending playSingleClip/speakAsync promise as cancelled — stop()
@@ -22,8 +59,21 @@ export class AudioManager {
    * paused/cancelled element or utterance may not reliably fire. */
   private pendingCancel: (() => void) | null = null;
 
-  constructor() {
-    this.locale = loadAppSettings().locale;
+  constructor(dependencies: Partial<AudioManagerDependencies> = {}) {
+    this.dependencies = {
+      initialLocale: dependencies.initialLocale ?? loadAppSettings().locale,
+      synth: dependencies.synth ?? window.speechSynthesis,
+      createAudio: path => new Audio(path),
+      createUtterance: text => new SpeechSynthesisUtterance(text),
+      getOverride: path => audioOverrideStore.get(path),
+      createObjectURL: blob => URL.createObjectURL(blob),
+      revokeObjectURL: url => URL.revokeObjectURL(url),
+      recordEvent: recordE2EAudioEvent,
+      clock: { setTimeout: (callback, ms) => setTimeout(callback, ms), clearTimeout: timer => clearTimeout(timer) },
+      ...dependencies,
+    };
+    this.synth = this.dependencies.synth;
+    this.locale = this.dependencies.initialLocale;
     if (this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged = () => {};
     }
@@ -66,12 +116,12 @@ export class AudioManager {
     for (const clip of clips) {
       // clip.path is locale-prefixed, e.g. 'sk/letters/a'
       // The override store key and the /audio/ URL both use this same path.
-      const override = await audioOverrideStore.get(clip.path);
+      const override = await this.dependencies.getOverride(clip.path);
       if (playbackToken !== this.playbackToken) return;
       const url = override
-        ? URL.createObjectURL(override)
+        ? this.dependencies.createObjectURL(override)
         : `/audio/${clip.path}.mp3`;
-      recordE2EAudioEvent(`start:${clip.path}`);
+      this.dependencies.recordEvent(`start:${clip.path}`);
       try {
         await this.playSingleClip(url, playbackToken);
       } catch {
@@ -79,16 +129,16 @@ export class AudioManager {
         console.warn('[AudioManager] Audio file failed, falling back to TTS:', clip.fallbackText);
         await this.speakAsync(clip.fallbackText, playbackToken);
       } finally {
-        if (override) URL.revokeObjectURL(url);
+        if (override) this.dependencies.revokeObjectURL(url);
       }
       if (playbackToken !== this.playbackToken) return;
-      recordE2EAudioEvent(`finish:${clip.path}`);
+      this.dependencies.recordEvent(`finish:${clip.path}`);
     }
   }
 
   private playSingleClip(path: string, playbackToken: number): Promise<void> {
     return new Promise((resolve, reject) => {
-      const audio = new Audio(path);
+      const audio = this.dependencies.createAudio(path);
       if (import.meta.env?.MODE === 'test') audio.muted = true;
       this.currentAudio = audio;
       let settled = false;
@@ -135,10 +185,12 @@ export class AudioManager {
       this.synth.cancel();
       let settled = false;
       let timeout: ReturnType<typeof setTimeout> | null = null;
-      let utterance: SpeechSynthesisUtterance | null = null;
+      let utterance: AudioUtterance | null = null;
+      let startDelay: ReturnType<typeof setTimeout> | null = null;
 
       const cleanup = () => {
-        if (timeout !== null) clearTimeout(timeout);
+        if (timeout !== null) this.dependencies.clock.clearTimeout(timeout);
+        if (startDelay !== null) this.dependencies.clock.clearTimeout(startDelay);
         if (utterance) {
           utterance.onend = null;
           utterance.onerror = null;
@@ -153,9 +205,10 @@ export class AudioManager {
         resolve();
       };
       this.pendingCancel = settleOnce;
-      setTimeout(() => {
+      startDelay = this.dependencies.clock.setTimeout(() => {
+        startDelay = null;
         if (playbackToken !== this.playbackToken) { settleOnce(); return; }
-        utterance = new SpeechSynthesisUtterance(text);
+        utterance = this.dependencies.createUtterance(text);
         // macOS speech uses the system synthesizer, outside Chromium's --mute-audio output.
         // Preserve native completion timing while keeping automated test builds silent.
         if (import.meta.env?.MODE === 'test') utterance.volume = 0;
@@ -174,7 +227,7 @@ export class AudioManager {
         utterance.onerror = settleOnce;
         if (this.synth.paused) this.synth.resume();
         if (playbackToken !== this.playbackToken) { settleOnce(); return; }
-        timeout = setTimeout(() => {
+        timeout = this.dependencies.clock.setTimeout(() => {
           if (playbackToken === this.playbackToken) this.synth.cancel();
           settleOnce();
         }, SPEECH_UTTERANCE_TIMEOUT_MS);

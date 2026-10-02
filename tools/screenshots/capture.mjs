@@ -3,6 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { chromium } from 'playwright';
+import sharp from 'sharp';
+import { buildIdentity } from '../verification/identity.mjs';
 import { resolveChromiumExecutable } from '../../e2e/browserResolver.ts';
 import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
 import { RELEASE_VIEWPORTS } from '../../e2e/support/releaseMatrix.ts';
@@ -20,11 +22,16 @@ export function parseArgs(args) {
   let output = null;
   let matrix = null;
   let help = false;
+  let seed = 20261002;
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg === '--help' || arg === '-h') {
       help = true;
+    } else if (arg.startsWith('--seed=')) {
+      seed = Number(arg.slice('--seed='.length));
+    } else if (arg === '--seed' && i + 1 < args.length) {
+      seed = Number(args[++i]);
     } else if (arg.startsWith('--base=')) {
       base = arg.slice('--base='.length);
     } else if (arg === '--base' && i + 1 < args.length) {
@@ -56,11 +63,12 @@ export function parseArgs(args) {
     throw new Error(`Unknown screenshot matrix: "${matrix}". Valid matrices are: release`);
   }
 
-  return { base, scenes, viewports, output, matrix, help };
+  if (!Number.isSafeInteger(seed) || seed < 0 || seed > 0xffffffff) throw new Error('Seed must be an unsigned 32-bit integer');
+  return { base, scenes, viewports, output, matrix, help, seed };
 }
 
 export function printHelp() {
-  console.log(`Usage: npm run shots -- [--base=<url>] [--matrix=release] [--scene=<id>] [--viewport=<name>] [--output=<dir>] [--help]
+  console.log(`Usage: npm run shots -- [--base=<url>] [--matrix=release] [--scene=<id>] [--viewport=<name>] [--output=<dir>] [--seed=<integer>] [--help]
 
 Repeat --scene/--viewport to capture more than one. --matrix=release selects the shipping scene set and release viewports; explicit scenes or viewports narrow that set. Omitting selectors captures all scenes and canonical viewports. By default, captures go to artifacts/ui/<UTC-date-time>-<pid>-<short-git-sha>/.
 
@@ -427,9 +435,8 @@ const assemblyScenes = (() => {
   async function placeWrongFullRail(page) {
     const state = await readGameE2E(page);
     const order = state.correctTileOrder;
-    // Unseeded, so the word (and its syllable/tile count, 2 or 3 per AssemblyGame's own
-    // eligibility filter) is random — a one-position rotation of the correct order is always a
-    // different permutation, so it's guaranteed wrong regardless of tile count.
+    // A rotation is wrong for the distinct-label ordinary fixture regardless of tile count.
+    // Duplicate-label stress captures use only the placed state, never this retry helper.
     const wrongOrder = [...order.slice(1), order[0]];
     await placeRail(page, wrongOrder, 'answered-incorrectly');
   }
@@ -510,6 +517,35 @@ const assemblyScenes = (() => {
 
 SCENES['assembly-round'] = assemblyScenes.round;
 SCENES['assembly-placed'] = assemblyScenes.placed;
+// Fixed stress content complements seeded ordinary captures: long and repeated labels.
+for (const [scene, word] of [
+  ['assembly-long-label', { word: 'Dlhý strom', syllables: 'dlo-hý-stro', emoji: '🌳', audioKey: 'dlhy-strom' }],
+  ['assembly-duplicate-label', { word: 'Mama', syllables: 'ma-ma', emoji: '👩', audioKey: 'mama' }],
+]) {
+  SCENES[scene] = async (page, baseUrl) => {
+    await page.addInitScript((entry) => {
+      localStorage.setItem('hrave-ucenie-seeded-sk', 'true');
+      localStorage.setItem('hrave-ucenie-user-words-sk', JSON.stringify({ version: 2, items: [{
+        ...entry, id: 'capture-stress-word', status: 'ready', enabled: true, isDefault: false, locale: 'sk', order: 0,
+      }] }));
+    }, word);
+    await assemblyScenes.placed(page, baseUrl);
+  };
+}
+SCENES['counting-maximum'] = async (page, baseUrl) => {
+  await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ countingRange: { start: 1, end: 10 } })));
+  await page.goto(`${baseUrl}/counting`);
+  // Place the highest item first in Fisher-Yates, then preserve it. Install after
+  // navigation so the generic seed initializer cannot replace this stress fixture.
+  await page.evaluate(() => {
+    let first = true;
+    Math.random = () => { if (first) { first = false; return 0; } return 0.999; };
+  });
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await page.waitForFunction(() => window.__E2E__?.correctItemId === '10');
+  await waitForPlaySurfaceSettled(page);
+  if (await page.getByRole('button', { name: /^Predmet \d+ z 10$/ }).count() !== 10) throw new Error('Maximum quantity fixture must render ten counters');
+};
 SCENES['assembly-retry'] = assemblyScenes.retry;
 SCENES['assembly-success'] = assemblyScenes.success;
 SCENES['assembly-reset'] = assemblyScenes.reset;
@@ -752,7 +788,7 @@ export const RELEASE_SCENE_NAMES = [
 ];
 
 async function main() {
-  const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg, matrix, help } = parseArgs(process.argv.slice(2));
+  const { base, scenes: inputScenes, viewports: inputViewports, output: outputArg, matrix, help, seed } = parseArgs(process.argv.slice(2));
   if (help) {
     printHelp();
     return;
@@ -802,13 +838,20 @@ async function main() {
   }
   fs.mkdirSync(outputDir, { recursive: true });
 
-  const executablePath = resolveChromiumExecutable();
-  const browser = await chromium.launch({
-    headless: true,
-    ...(executablePath ? { executablePath } : {}),
-  });
-
+  const localIdentity = buildIdentity('capture');
+  let servedIdentity = { mode: 'unidentified-development', fingerprint: null };
   try {
+    const response = await fetch(`${base}/build-identity.json`);
+    if (response.ok) servedIdentity = await response.json();
+  } catch { /* A development server may have no built identity. Record that explicitly. */ }
+  const manifest = { createdAt: new Date().toISOString(), commit: localIdentity.commit, fingerprint: localIdentity.fingerprint, build: servedIdentity, base, seed, captures: [] };
+  const executablePath = resolveChromiumExecutable();
+  let browser;
+  try {
+    browser = await chromium.launch({
+      headless: true,
+      ...(executablePath ? { executablePath } : {}),
+    });
     for (const viewportName of targetViewports) {
       const viewport = CANONICAL_VIEWPORTS[viewportName];
       const context = await browser.newContext({
@@ -819,8 +862,17 @@ async function main() {
       try {
         for (const sceneName of targetScenes) {
           const page = await context.newPage();
+          await page.addInitScript(({ initialSeed }) => {
+            let state = initialSeed >>> 0;
+            Math.random = () => {
+              state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+              return state / 4294967296;
+            };
+          }, { initialSeed: seed });
           const errors = [];
           const failedRequests = [];
+          const capture = { scene: sceneName, viewport: viewportName, seed, errors, failedRequests, success: false };
+          manifest.captures.push(capture);
 
           page.on('console', (msg) => {
             if (msg.type() === 'error') {
@@ -868,6 +920,12 @@ async function main() {
             fs.mkdirSync(sceneDir, { recursive: true });
             const filePath = path.join(sceneDir, `${viewportName}.png`);
             await page.screenshot({ path: filePath });
+            const reviewDir = path.join(outputDir, 'review', sceneName);
+            fs.mkdirSync(reviewDir, { recursive: true });
+            const reviewPath = path.join(reviewDir, `${viewportName}.png`);
+            await sharp(filePath).resize({ width: 320, withoutEnlargement: true }).png().toFile(reviewPath);
+            capture.original = path.relative(outputDir, filePath);
+            capture.review = path.relative(outputDir, reviewPath);
 
             if (errors.length > 0) {
               throw new Error(`Console errors in scene "${sceneName}" [${viewportName}]:\n${errors.join('\n')}`);
@@ -875,6 +933,10 @@ async function main() {
             if (failedRequests.length > 0) {
               throw new Error(`Failed same-origin requests in scene "${sceneName}" [${viewportName}]:\n${failedRequests.join('\n')}`);
             }
+            capture.success = true;
+          } catch (error) {
+            capture.failure = error.message;
+            throw error;
           } finally {
             await page.close();
           }
@@ -883,8 +945,12 @@ async function main() {
         await context.close();
       }
     }
+  } catch (error) {
+    manifest.failure = error.message;
+    throw error;
   } finally {
-    await browser.close();
+    await browser?.close();
+    fs.writeFileSync(path.join(outputDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
   }
 
   console.log(outputDir);

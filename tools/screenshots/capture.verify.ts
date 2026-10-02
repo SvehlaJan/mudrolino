@@ -138,3 +138,10 @@ if (!logs.some(line => line.includes('ui-kit'))) {
 }
 
 console.log('✓ capture.mjs scene/help/config contracts passed');
+
+if (parseArgs(['--seed=42']).seed !== 42) throw new Error('Explicit seed lost');
+for (const seed of ['NaN', '-1', '1.5', '4294967296']) {
+  let rejected = false;
+  try { parseArgs([`--seed=${seed}`]); } catch { rejected = true; }
+  if (!rejected) throw new Error(`Invalid seed accepted: ${seed}`);
+}

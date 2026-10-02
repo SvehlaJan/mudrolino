@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import { getE2EState } from './support/e2eHook';
 import {
@@ -107,9 +107,13 @@ for (const game of FIND_IT_GAMES) {
   });
 
   test(`${game.name}: answers are available while the opening prompt plays`, async ({ page }) => {
+    await stubAudioPlayback(page, { holdFirstClip: true });
     await page.goto(game.path);
     await page.getByRole('button', { name: 'Hrať' }).click();
 
+    await expect.poll(() => page.evaluate(() => (
+      window as typeof window & { __heldAudio?: HTMLMediaElement[] }
+    ).__heldAudio?.length ?? 0)).toBe(1);
     const state = await getE2EState<FindItE2EState>(page);
     await pressAnswerById(page, state.correctItemId!);
     await waitForGamePhase(page, 'answered-correctly');
@@ -169,10 +173,9 @@ for (const game of FIND_IT_GAMES) {
   });
 }
 
-test('FindIt retry announcement does not change prompt or answer geometry', async ({ page }) => {
+test('@geometry FindIt retry announcement does not change prompt or answer geometry', async ({ page }) => {
   await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
-  await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
   await page.goto('/alphabet');
   await page.getByRole('button', { name: 'Hrať' }).click();
   const state = await getE2EState<FindItE2EState>(page);
@@ -221,7 +224,8 @@ test('alphabet: a full 5-round session reaches an explicit completion that requi
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
 
-  await page.waitForTimeout(5500);
+  await page.clock.install();
+  await page.clock.runFor(5500);
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
 
   expectNoConsoleErrors(errors);
@@ -252,15 +256,19 @@ test('alphabet: non-final success advances one second after the full verdict aud
   const state = await getE2EState<FindItE2EState>(page);
 
   await playUntilPraiseIsHeld(page, 1, state.correctItemId!);
-  await page.waitForTimeout(1200);
+  await page.clock.install();
+  await page.clock.pauseAt(new Date(Date.now() + 100));
+  await page.clock.runFor(1200);
   expect((await getE2EState<FindItE2EState>(page)).gamePhase).toBe('answered-correctly');
   await releaseHeldAudioClip(page);
   await expect.poll(async () => (await getAudioEvents(page)).filter((event) => event.startsWith('finish:sk/praise/')).length).toBe(1);
   expect((await getAudioEvents(page)).at(-1)).toMatch(/^finish:sk\/praise\//);
-  await page.waitForTimeout(700);
+  await page.clock.runFor(999);
   expect((await getE2EState<FindItE2EState>(page)).gamePhase).toBe('answered-correctly');
   await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
-  await page.waitForTimeout(500);
+  await page.clock.runFor(1);
+  expect((await getE2EState<FindItE2EState>(page)).gamePhase).toBe('ready');
+  await page.clock.resume();
   await waitForGamePhase(page, 'awaiting-answer');
   await expect(page.getByRole('button', { name: 'Pokračovať' })).toHaveCount(0);
   expect((await getE2EState<FindItE2EState>(page)).roundsPlayed).toBe(1);
@@ -303,7 +311,8 @@ test('alphabet: final session recap never auto-advances', async ({ page }) => {
   await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
   await completeAlphabetSession(page);
-  await page.waitForTimeout(1300);
+  await page.clock.install();
+  await page.clock.runFor(1300);
   await waitForGamePhase(page, 'session-complete');
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
@@ -321,6 +330,10 @@ test('alphabet: completion actions stay absent until session-complete after a fi
     await waitForGamePhase(page, 'ready');
   }
 
+  await page.evaluate(() => {
+    (window as typeof window & { __holdAudioPaths?: string[] }).__holdAudioPaths = ['/praise/'];
+  });
+
   const finalState = await getE2EState<FindItE2EState>(page);
   await pressAnswerById(page, finalState.correctItemId!);
   // The reducer marks this the final round 'answered-correctly' immediately, but
@@ -337,6 +350,10 @@ test('alphabet: completion actions stay absent until session-complete after a fi
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Domov' })).toHaveCount(0);
 
+  await expect.poll(() => page.evaluate(() => (
+    window as typeof window & { __heldAudio?: HTMLMediaElement[] }
+  ).__heldAudio?.length ?? 0)).toBe(1);
+  await releaseHeldAudioClip(page);
   await waitForGamePhase(page, 'session-complete');
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();
@@ -353,6 +370,10 @@ test('alphabet: completion actions stay absent until session-complete after a fi
     await page.getByRole('button', { name: 'Pokračovať' }).click();
     await waitForGamePhase(page, 'ready');
   }
+
+  await page.evaluate(() => {
+    (window as typeof window & { __holdAudioPaths?: string[] }).__holdAudioPaths = ['/phrases/nevadi'];
+  });
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
     const wrongId = await findWrongId(page);
@@ -372,6 +393,10 @@ test('alphabet: completion actions stay absent until session-complete after a fi
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Domov' })).toHaveCount(0);
 
+  await expect.poll(() => page.evaluate(() => (
+    window as typeof window & { __heldAudio?: HTMLMediaElement[] }
+  ).__heldAudio?.length ?? 0)).toBe(1);
+  await releaseHeldAudioClip(page);
   await waitForGamePhase(page, 'session-complete');
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Domov' })).toBeVisible();

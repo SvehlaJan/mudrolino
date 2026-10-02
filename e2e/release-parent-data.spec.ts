@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './support/fixtures';
 import {
   expectNoConsoleErrors,
   expectNoFailedRequests,
@@ -68,6 +68,10 @@ test('legacy parent data stays editable across protected-route reloads and expir
   await expect(page.locator('html')).toHaveAttribute('data-font', 'shantell');
   await page.getByRole('radio', { name: /Zaoblené \(Nunito\)/ }).click();
   await expect(page.locator('html')).toHaveAttribute('data-font', 'nunito');
+  // Font preview updates immediately; wait for the saved value before unloading the document.
+  await expect.poll(() => page.evaluate(() => JSON.parse(
+    localStorage.getItem('hrave-ucenie-app-settings') ?? '{}',
+  ).fontFamily)).toBe('nunito');
   await reloadProtectedRoute(page);
   await expect(page.getByRole('radio', { name: /Zaoblené \(Nunito\)/ })).toBeChecked();
 

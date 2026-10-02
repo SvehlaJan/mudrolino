@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './support/fixtures';
 import {
   trackConsoleErrors,
   expectNoConsoleErrors,
@@ -26,7 +26,7 @@ test.describe('UI/UX Enhancements', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('counting game: items render in collision-free grid and are clickable with pop sound', async ({ page }) => {
+  test('@geometry counting game: items render in collision-free grid and are clickable with pop sound', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 

@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GameDescriptor, GameId, PraiseEntry } from '../types';
-import { TIMING } from '../contentRegistry';
 import { fisherYatesShuffle } from '../utils';
 import { setE2EState } from '../services/e2eState';
 import { useContent } from '../contexts/ContentContext';
-import { audioManager } from '../services/audioManager';
 import { getUiCopy } from '../uiCopy';
 import {
   AnswerGroup,
@@ -18,13 +16,13 @@ import {
   PlayTray,
   TactilePiece,
   useGameSession,
+  useGameSessionAudio,
   type GameShellCompletion,
   type GameShellFeedback,
   type GameState,
   type TactilePieceState,
 } from '../game';
 import { getSuccessOverlayAudioSpec } from './successOverlayAudio';
-import { getSessionCompleteAudioSpec } from './sessionCompleteAudio';
 
 interface FindItGameProps<T> {
   gameId: GameId;
@@ -111,7 +109,7 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
     onNextRound: startNewRound,
     onPlayAgain: startNewSession,
   });
-  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, fail } = session;
+  const { state, canAnswer, replaying, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain, fail } = session;
 
   useEffect(() => {
     if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
@@ -130,28 +128,10 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
     });
   }, [gameId, state, replaying, targetItem, gridItems, descriptor]);
 
-  const phaseRef = useRef(state.phase);
-  useEffect(() => {
-    phaseRef.current = state.phase;
-  }, [state.phase]);
-
-  useEffect(() => {
-    if (!targetItem || isEmpty) return;
-    const timer = setTimeout(() => {
-      // A round-start prompt must never invalidate an answer that started resolving first —
-      // invalidate() would stop that answer's own in-flight audio and hang it forever. Only
-      // fire while the round is still untouched; a manual replay or an answer already moved on.
-      if (phaseRef.current !== 'ready') return;
-      void startPrompt(descriptor.getPromptAudio(targetItem));
-    }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [targetItem, isEmpty, descriptor, startPrompt]);
-
-  useEffect(() => {
-    if (state.phase !== 'session-complete' || state.paused) return;
-    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
-    return () => audioManager.stop();
-  }, [state.phase, state.paused, locale, completionPraise]);
+  useGameSessionAudio({
+    session, roundKey: targetItem, enabled: !isEmpty && !!targetItem,
+    getPromptAudio: () => descriptor.getPromptAudio(targetItem!), locale, completionPraise,
+  });
 
   const handleReplay = useCallback(() => {
     if (!targetItem) return;

@@ -9,9 +9,7 @@ import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
-import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
-import { TIMING, getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
-import { audioManager } from '../../shared/services/audioManager';
+import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
 import { fisherYatesShuffle } from '../../shared/utils';
@@ -25,6 +23,7 @@ import {
   TactilePiece,
   WordRail,
   useGameSession,
+  useGameSessionAudio,
   type GameShellCompletion,
   type GameShellFeedback,
   type GameState,
@@ -214,7 +213,6 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
     state,
     canAnswer,
     replaying,
-    startPrompt,
     replayPrompt,
     resolveAnswer,
     continueAfterFeedback,
@@ -241,31 +239,14 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
     });
   }, [state, replaying, correctSymbol, choices, filledCount, targetRound]);
 
-  const phaseRef = useRef(state.phase);
-  useEffect(() => {
-    phaseRef.current = state.phase;
-  }, [state.phase]);
   // Set synchronously at the very top of chooseAnswer, before any local state update or await —
   // see the comment there for why this can't be the React-state-derived `canAnswer` instead.
   const answerLockRef = useRef(false);
 
-  useEffect(() => {
-    if (!targetRound || isEmpty) return;
-    const timer = setTimeout(() => {
-      // A round-start prompt must never invalidate an answer that started resolving first —
-      // invalidate() would stop that answer's own in-flight audio and hang it forever. Only
-      // fire while the round is still untouched; a manual replay or an answer already moved on.
-      if (phaseRef.current !== 'ready') return;
-      void startPrompt(getPromptAudio(locale, targetRound));
-    }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [targetRound, isEmpty, locale, startPrompt]);
-
-  useEffect(() => {
-    if (state.phase !== 'session-complete' || state.paused) return;
-    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
-    return () => audioManager.stop();
-  }, [state.phase, state.paused, locale, completionPraise]);
+  useGameSessionAudio({
+    session, roundKey: targetRound, enabled: !isEmpty && !!targetRound,
+    getPromptAudio: () => getPromptAudio(locale, targetRound!), locale, completionPraise,
+  });
 
   const handleReplay = useCallback(() => {
     if (!targetRound) return;
@@ -279,7 +260,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
   const chooseAnswer = useCallback(async (letter: Letter) => {
     if (!targetRound || correctSymbol === null || !canAnswer) return;
     // Unlike a single-shot choice, this round settles local state (filledCount/choices) before
-    // calling resolveAnswer, so useGameSession's own re-entrancy guard (its `answeringRef`,
+    // calling resolveAnswer, so useGameSession's own re-entrancy guard (its controller answer lock,
     // mutated synchronously at the top of resolveAnswer) runs too late to protect that local
     // update from a same-tick double-invocation. Mirror that same ref-before-any-await pattern
     // here, locally, so a fast double-tap is rejected before settleBlank ever runs.

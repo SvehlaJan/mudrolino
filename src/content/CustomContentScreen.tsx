@@ -28,7 +28,7 @@ import { ContentItemList } from './ContentItemList';
 import type { ContentRow } from './ContentItemList';
 import { WordEditor } from './WordEditor';
 import { PraiseEditor } from './PraiseEditor';
-import { canDisableOrDelete, LAST_PLAYABLE_MESSAGE } from './contentState';
+import { canDisableOrDelete, LAST_PLAYABLE_MESSAGE, summarizeContent } from './contentState';
 import type { UserPraise, UserWord } from '../shared/types';
 
 type Section = 'letters' | 'numbers' | 'phrases' | 'words' | 'praise';
@@ -160,9 +160,7 @@ export function CustomContentScreen() {
   }, []);
 
   // ── Words ────────────────────────────────────────────────────────────────
-  const enabledWords = allUserWords.filter(word => word.enabled);
-  const disabledWords = allUserWords.filter(word => word.isDefault && !word.enabled);
-  const readyWordCount = allUserWords.filter(word => word.enabled && word.status === 'ready').length;
+  const { enabled: enabledWords, disabledDefaults: disabledWords, readyCount: readyWordCount } = summarizeContent(allUserWords);
 
   const requestDisableWord = useCallback(async (word: UserWord) => {
     try {
@@ -245,9 +243,7 @@ export function CustomContentScreen() {
   }));
 
   // ── Praise ───────────────────────────────────────────────────────────────
-  const enabledPraises = allUserPraises.filter(praise => praise.enabled);
-  const disabledPraises = allUserPraises.filter(praise => praise.isDefault && !praise.enabled);
-  const readyPraiseCount = allUserPraises.filter(praise => praise.enabled && praise.status === 'ready').length;
+  const { enabled: enabledPraises, disabledDefaults: disabledPraises, readyCount: readyPraiseCount } = summarizeContent(allUserPraises);
 
   const requestDisablePraise = useCallback(async (praise: UserPraise) => {
     try {

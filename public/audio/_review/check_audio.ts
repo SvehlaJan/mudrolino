@@ -1,133 +1,84 @@
 #!/usr/bin/env npx tsx
 /**
- * check_audio.ts
- * ==============
- * Unit-test style checks that all audio files expected by contentRegistry.ts
- * are present on disk, and no unrecognised files exist.
- *
- * Run: npx tsx public/audio/_review/check_audio.ts
- * Or:  npm run test:audio
+ * Check bundled audio against Slovak locale keys and the pending-recording policy.
+ * Run with --strict in shipping checks; development accepts listed pending clips.
  */
 
-import { existsSync, readdirSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import {
-  getLocaleContent,
-} from '../../../src/shared/contentRegistry.ts';
+import { getLocaleContent } from '../../../src/shared/contentRegistry.ts';
+import { evaluateAudioInventory } from './audioInventory.ts';
 
-const {
-  letterItems: LETTER_ITEMS,
-  syllableItems: SYLLABLE_ITEMS,
-  wordItems: WORD_ITEMS,
-  numberItems: NUMBER_ITEMS,
-  praiseEntries: PRAISE_ENTRIES,
-  audioPhrases,
-} = getLocaleContent('sk');
-const AUDIO_PHRASE_LIST = Object.values(audioPhrases);
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const AUDIO_DIR = join(__dirname, '..');
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-interface Result {
-  missing: string[];
-  orphaned: string[];
+interface PendingRecording {
+  path: string;
+  reason: string;
 }
 
-function checkFolder(folder: string, expectedKeys: string[]): Result {
-  const folderPath = join(AUDIO_DIR, folder);
-  const expectedFiles = new Set(expectedKeys.map(k => `${k}.mp3`));
+interface PendingManifest {
+  policy: string;
+  pending: PendingRecording[];
+}
 
-  const missing = expectedKeys.filter(
-    key => !existsSync(join(folderPath, `${key}.mp3`))
-  );
+const audioDirectory = fileURLToPath(new URL('..', import.meta.url));
+const strict = process.argv.slice(2).includes('--strict');
+const unexpectedArguments = process.argv.slice(2).filter(argument => argument !== '--strict');
 
-  const orphaned: string[] = [];
-  if (existsSync(folderPath)) {
-    for (const fname of readdirSync(folderPath)) {
-      if (fname.endsWith('.mp3') && !expectedFiles.has(fname)) {
-        orphaned.push(fname);
-      }
+if (unexpectedArguments.length > 0) {
+  console.error(`Unknown argument(s): ${unexpectedArguments.join(', ')}`);
+  process.exit(2);
+}
+
+const content = getLocaleContent('sk');
+const expected = [
+  ...content.letterItems.map(item => `sk/letters/${item.audioKey}.mp3`),
+  ...content.syllableItems.map(item => `sk/syllables/${item.audioKey}.mp3`),
+  ...content.wordItems.map(item => `sk/words/${item.audioKey}.mp3`),
+  ...content.numberItems.map(item => `sk/numbers/${item.audioKey}.mp3`),
+  ...content.praiseEntries.map(item => `sk/praise/${item.audioKey}.mp3`),
+  ...Object.values(content.audioPhrases).map(item => `sk/phrases/${item.audioKey}.mp3`),
+];
+
+function findRecordings(directory: string): string[] {
+  const recordings: string[] = [];
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    if (entry.name === '_review') continue;
+    const fullPath = join(directory, entry.name);
+    if (entry.isDirectory()) {
+      recordings.push(...findRecordings(fullPath));
+    } else if (entry.isFile() && entry.name.endsWith('.mp3')) {
+      recordings.push(relative(audioDirectory, fullPath).split(sep).join('/'));
     }
   }
-
-  return { missing, orphaned };
+  return recordings;
 }
 
-let passed = 0;
-let failed = 0;
+const manifest = JSON.parse(
+  readFileSync(join(audioDirectory, '_review', 'pending-recordings.json'), 'utf8')
+) as PendingManifest;
+const pending = manifest.pending.map(recording => recording.path);
+const result = evaluateAudioInventory({
+  expected,
+  existing: findRecordings(audioDirectory),
+  pending,
+  strict,
+});
 
-function test(name: string, folder: string, keys: string[]): void {
-  const { missing, orphaned } = checkFolder(folder, keys);
-  const ok = missing.length === 0 && orphaned.length === 0;
-
-  if (ok) {
-    console.log(`  ✓  ${name} (${keys.length} files)`);
-    passed++;
-    return;
+if (result.issues.length > 0) {
+  if (strict) {
+    const missingCount = result.issues.filter(issue => issue.startsWith('Strict mode requires recording:')).length;
+    console.error(
+      `Audio inventory failed: ${missingCount} recording(s) missing, ${result.pendingCount} pending. ` +
+      'Shipping requires all recordings and an empty pending list.'
+    );
   }
-
-  console.log(`  ✗  ${name}`);
-  for (const k of missing)   console.log(`       missing:    ${k}.mp3`);
-  for (const f of orphaned)  console.log(`       unrecognised: ${f}`);
-  failed++;
-}
-
-// ---------------------------------------------------------------------------
-// Tests — one per audio category
-// ---------------------------------------------------------------------------
-
-console.log('\nAudio file coverage\n');
-
-test(
-  'letters',
-  'sk/letters',
-  LETTER_ITEMS.map(l => l.audioKey)
-);
-
-test(
-  'syllables',
-  'sk/syllables',
-  SYLLABLE_ITEMS.map(s => s.audioKey)
-);
-
-test(
-  'words',
-  'sk/words',
-  WORD_ITEMS.map(w => w.audioKey)
-);
-
-test(
-  'numbers',
-  'sk/numbers',
-  NUMBER_ITEMS.map(n => n.audioKey)
-);
-
-test(
-  'praise',
-  'sk/praise',
-  PRAISE_ENTRIES.map(p => p.audioKey)
-);
-
-test(
-  'phrases',
-  'sk/phrases',
-  AUDIO_PHRASE_LIST.map(phrase => phrase.audioKey)
-);
-
-// ---------------------------------------------------------------------------
-// Summary
-// ---------------------------------------------------------------------------
-
-console.log(`\n${'─'.repeat(40)}`);
-if (failed === 0) {
-  console.log(`✅  All ${passed} categories passed.\n`);
-} else {
-  console.log(`❌  ${failed} categor${failed === 1 ? 'y' : 'ies'} failed, ${passed} passed.\n`);
+  console.error(`Issues (${result.issues.length}):`);
+  for (const issue of result.issues) console.error(`  - ${issue}`);
   process.exit(1);
 }
+
+console.log(
+  `Audio inventory passed: ${expected.length} expected recording(s), ` +
+  `${result.pendingCount} known pending recording(s)${strict ? ' in strict mode' : ' accepted for development'}.`
+);

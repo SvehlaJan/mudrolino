@@ -9,9 +9,7 @@ import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
-import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
-import { TIMING, COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
-import { audioManager } from '../../shared/services/audioManager';
+import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
 import {
@@ -20,6 +18,7 @@ import {
   GameShell,
   QuantityTray,
   useGameSession,
+  useGameSessionAudio,
   type GameShellCompletion,
   type GameShellFeedback,
   type GameState,
@@ -111,7 +110,6 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
     state,
     canAnswer,
     replaying,
-    startPrompt,
     replayPrompt,
     resolveAnswer,
     continueAfterFeedback,
@@ -123,24 +121,10 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
     if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
   }, [fail, isEmpty, locale]);
 
-  const phaseRef = useRef(state.phase);
-  useEffect(() => {
-    phaseRef.current = state.phase;
-  }, [state.phase]);
-
-  useEffect(() => {
-    if (!round || isEmpty) return;
-    const timer = setTimeout(() => {
-      if (phaseRef.current === 'ready') void startPrompt({ clips: [getPhraseClip(locale, 'whereIsMore')] });
-    }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [isEmpty, locale, round, startPrompt]);
-
-  useEffect(() => {
-    if (state.phase !== 'session-complete' || state.paused) return;
-    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
-    return () => audioManager.stop();
-  }, [completionPraise, locale, state.paused, state.phase]);
+  useGameSessionAudio({
+    session, roundKey: round, enabled: !isEmpty && !!round,
+    getPromptAudio: () => ({ clips: [getPhraseClip(locale, 'whereIsMore')] }), locale, completionPraise,
+  });
 
   useEffect(() => {
     setE2EState({

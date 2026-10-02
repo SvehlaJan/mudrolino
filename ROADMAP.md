@@ -56,6 +56,14 @@
 
 **Goal:** Share a useful, local-first Slovak app with trusted friends quickly. No accounts, no payments, no public marketing launch.
 
+### Development feedback and agent cost
+
+- [x] Adopt source-selected editing, representative integration and exhaustive release profiles; retain important behavioral contracts.
+- [x] Extract injectable session/audio orchestration and fast controlled-clock tests; share lifecycle effects while games own boards/animations.
+- [x] Isolate build artifacts, aggregate verification reports and reproducible seeded screenshot review (measured results and workflow: `docs/superpowers/handoffs/2026-10-02-development-efficiency.md`).
+- [x] Track 40 intentionally pending recordings explicitly; development rejects unexpected omissions and shipping requires all recordings.
+- [ ] Record the 40 pending clips before deploying to friends and colleagues.
+
 ### 1.1 Release Readiness
 > Focus on confidence for a small private audience, not full public-launch polish.
 
@@ -385,3 +393,4 @@
 | 2026-09-24 | Phase 8 release hardening uses a catalog-derived eleven-game matrix and a ten-viewport browser gate; Workbox navigation falls back to its precached `/index.html`. | A production offline test exposed that fallback `/` did not serve an unseen deep link after the network disappeared. The corrected service worker passes all eleven offline game routes and the protected gate. The release candidate also adds cross-feature parent persistence, all-game audio ordering, Chromium layout/accessibility coverage, WebKit smoke checks, and production bundle guards. The inherited 40 missing bundled audio clips still fail `test:audio`; their runtime fallback remains Slovak TTS, so this remains an explicit content inventory item rather than a waived release check. |
 | 2026-09-28 | Keep one date-first local screenshot run for the UI review. | The complete Phase 8 set has 550 captures across 55 scenes and ten viewports. Naming future runs by UTC capture time makes them easier to find, while a short commit suffix preserves provenance. Older ignored runs were removed as requested. |
 | 2026-09-30 | Mute media and native speech only in Vite test builds. | Background browser tests interrupted other MacBook audio because macOS speech can bypass Chromium's headless media mute. Zero-volume utterances and muted media preserve native completion, cancellation, and audio-order observations; normal development and production remain audible. The speech-output browser regression, audio cancellation verifier, and lint passed. |
+| 2026-10-02 | Use source-selected editing, representative integration and exhaustive release, with injectable session/audio tests and an explicit pending recording list. | Faster feedback and lower agent costs come from removing repeated executions while retaining behavior and deployment coverage; missing recordings are accepted only during development and remain a shipping blocker. |

@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';
@@ -81,55 +81,18 @@ async function startRound(page: Page, route: NumeracyRoute): Promise<void> {
 }
 
 async function expectReducedMotionResultDoesNotTransform(page: Page, answer: Locator): Promise<void> {
-  await page.evaluate(() => {
-    const state = window as typeof window & {
-      __reducedMotionStatusTransforms?: string[];
-      __reducedMotionStatusCapture?: Promise<void>;
-    };
-    const transforms = new Set<string>();
-    const sample = () => {
-      for (const banner of document.querySelectorAll('[data-testid="game-retry-status"]')) {
-        transforms.add(getComputedStyle(banner).transform);
-      }
-    };
-    state.__reducedMotionStatusCapture = new Promise((resolve) => {
-      let started = false;
-      const captureFrame = () => {
-        sample();
-        if (framesRemaining-- > 0) {
-          requestAnimationFrame(captureFrame);
-        } else {
-          state.__reducedMotionStatusTransforms = [...transforms];
-          resolve();
-        }
-      };
-      let framesRemaining = 16;
-      const beginWhenVisible = () => {
-        if (started || !document.querySelector('[data-testid="game-retry-status"]')) return;
-        started = true;
-        observer.disconnect();
-        captureFrame();
-      };
-      const observer = new MutationObserver(beginWhenVisible);
-      observer.observe(document.body, { childList: true, subtree: true });
-      beginWhenVisible();
-    });
-  });
   await answer.click();
-  await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
-  await page.evaluate(async () => {
-    const state = window as typeof window & { __reducedMotionStatusCapture?: Promise<void> };
-    await state.__reducedMotionStatusCapture;
-  });
-  await expect(page.getByTestId('game-retry-status')).toHaveCSS('transform', 'none');
-  const transforms = await page.evaluate(() =>
-    (window as typeof window & { __reducedMotionStatusTransforms?: string[] }).__reducedMotionStatusTransforms ?? [],
-  );
-  expect(transforms).toEqual(['none']);
+  const retry = page.getByTestId('game-retry-status');
+  await expect(retry).toHaveClass(/sr-only/);
+  await expect(retry).toHaveAttribute('aria-live', 'polite');
+  await expect(retry).toHaveCSS('transform', 'none');
+  // The announcement is intentionally hidden; visible answer feedback is the motion contract.
+  await expect(answer).toHaveAttribute('data-piece-state', 'retry');
+  await expect(answer).toHaveCSS('transform', 'none');
 }
 
 for (const route of NUMERACY_ROUTES) {
-  test(`${route.heading}: exposes the semantic round structure and has no serious axe violations`, async ({ page }) => {
+  test(`@geometry ${route.heading}: exposes the semantic round structure and has no serious axe violations`, async ({ page }) => {
     await startRound(page, route);
 
     await expect(page.getByRole('main')).toHaveCount(1);
@@ -179,7 +142,7 @@ for (const route of NUMERACY_ROUTES) {
     await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   });
 
-  test(`${route.heading}: reduced motion has no infinite animations and keeps the result untransformed`, async ({ page }) => {
+  test(`@geometry ${route.heading}: reduced motion has no infinite animations and keeps the result untransformed`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await startRound(page, route);
     const state = await getE2EState<NumeracyE2EState>(page);

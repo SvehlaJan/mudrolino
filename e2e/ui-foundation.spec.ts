@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './support/fixtures';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';

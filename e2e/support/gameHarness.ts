@@ -1,7 +1,17 @@
 import { expect, type Page } from '@playwright/test';
+import { installAudioStub, installSpeechStub } from './audioStubs';
 import type { GamePhase } from '../../src/shared/game/gameState';
 import type { E2EGlobalState } from '../../src/shared/services/e2eState';
 import type { GameId } from '../../src/shared/types';
+
+const stubPriorities = new WeakMap<Page, { audio: number; speech: number }>();
+
+function nextStubPriority(page: Page, kind: 'audio' | 'speech'): number {
+  const priorities = stubPriorities.get(page) ?? { audio: 0, speech: 0 };
+  priorities[kind] += 1;
+  stubPriorities.set(page, priorities);
+  return priorities[kind];
+}
 
 interface GameHarnessState extends E2EGlobalState {
   audioEvents?: string[];
@@ -75,44 +85,25 @@ export async function getAudioClipPaths(page: Page): Promise<string[]> {
 }
 
 /**
- * Settles Web Speech TTS immediately instead of waiting on the real synthesizer.
- *
- * `audioManager` falls back to TTS for any clip with no recorded mp3, and `speakAsync` has no
- * timeout guard on the utterance's `onend`/`onerror` — so a headless Chromium synthesizer that
- * never fires either leaves the round's `resolveAnswer` awaiting forever and the phase never
- * advances. That is a real, pre-existing gap in `audioManager`, recorded as such; it is not what
- * a layout or re-entrancy spec is measuring, and letting it stall one of those specs reports a
- * defect that isn't there. Specs that assert audio *ordering* must not use this — clip
- * `start:`/`finish:` events are recorded around the clip either way, so ordering specs keep
- * exercising the real path.
+ * Delivers deterministic speech completion for behavior and layout checks. Native media,
+ * fallback output and cancellation are exercised separately by real-media/audio-output specs;
+ * ordering checks use explicit held events when the completion boundary matters.
  */
 export async function stubSpeechSynthesis(page: Page): Promise<void> {
-  await page.addInitScript(() => {
-    const synth = window.speechSynthesis;
-    if (!synth) return;
-    const prototype = Object.getPrototypeOf(synth) as SpeechSynthesis;
-    prototype.speak = function speak(utterance: SpeechSynthesisUtterance) {
-      setTimeout(() => utterance.onend?.(new Event('end') as SpeechSynthesisEvent), 0);
-    };
-  });
+  await page.addInitScript(installSpeechStub, nextStubPriority(page, 'speech'));
 }
 
 /** Settles bundled HTML audio immediately, with options to hold selected clips on demand. */
 export async function stubAudioPlayback(
   page: Page,
-  options: { holdPraise?: boolean; holdPaths?: string[] } = {},
+  options: { holdPraise?: boolean; holdPaths?: string[]; holdFirstClip?: boolean } = {},
 ): Promise<void> {
-  await page.addInitScript(({ holdPraise, holdPaths }) => {
-    const testWindow = window as typeof window & { __heldAudio?: HTMLMediaElement[] };
-    HTMLMediaElement.prototype.play = function play() {
-      if ((holdPraise && this.src.includes('/praise/')) || holdPaths.some((path) => this.src.includes(path))) {
-        (testWindow.__heldAudio ??= []).push(this);
-        return Promise.resolve();
-      }
-      setTimeout(() => this.dispatchEvent(new Event('ended')), 0);
-      return Promise.resolve();
-    };
-  }, { holdPraise: options.holdPraise ?? false, holdPaths: options.holdPaths ?? [] });
+  await page.addInitScript(installAudioStub, {
+    holdPraise: options.holdPraise ?? false,
+    holdPaths: options.holdPaths ?? [],
+    holdFirstClip: options.holdFirstClip ?? false,
+    priority: nextStubPriority(page, 'audio'),
+  });
 }
 
 /** Uses the actual visible answer control; it never invokes React handlers directly. */
@@ -140,7 +131,11 @@ function requiredValue<T>(value: T | null | undefined, field: string): T {
  * The test-only oracle only identifies the current answer; it never invokes a
  * component callback or mutates the game state.
  */
-export async function completeCurrentRound(page: Page, gameId: GameId): Promise<void> {
+export async function completeCurrentRound(
+  page: Page,
+  gameId: GameId,
+  completionPhase: GamePhase = 'answered-correctly',
+): Promise<void> {
   switch (gameId) {
     case 'ALPHABET':
     case 'SYLLABLES':
@@ -167,17 +162,17 @@ export async function completeCurrentRound(page: Page, gameId: GameId): Promise<
       return;
     }
     case 'COMPLETE_LETTER': {
-      while (await readGamePhase(page) !== 'answered-correctly') {
+      while (await readGamePhase(page) !== completionPhase) {
         const { correctItemId, filledMissingCount = 0 } = await readCurrentGameState(page);
         // The final blank clears the answer oracle before the verdict phase is
         // published. Wait for that verdict instead of asking for another tile.
         if (correctItemId === null || correctItemId === undefined) {
-          await waitForGamePhase(page, 'answered-correctly');
+          await waitForGamePhase(page, completionPhase);
           return;
         }
         await pressAnswerById(page, correctItemId);
         await expect.poll(async () => {
-          if (await readGamePhase(page) === 'answered-correctly') return true;
+          if (await readGamePhase(page) === completionPhase) return true;
           return (await readCurrentGameState(page)).filledMissingCount! > filledMissingCount;
         }).toBe(true);
       }
@@ -191,7 +186,7 @@ export async function completeCurrentRound(page: Page, gameId: GameId): Promise<
         await expect(tile, `expected visible assembly tile ${tileId}`).toHaveCount(1);
         await tile.click();
         await expect.poll(() => readGamePhase(page)).toBe(
-          index === tileOrder.length - 1 ? 'answered-correctly' : 'awaiting-answer',
+          index === tileOrder.length - 1 ? completionPhase : 'awaiting-answer',
         );
       }
       return;

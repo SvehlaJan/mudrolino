@@ -1,6 +1,7 @@
 node_modules/
 build/
 dist/
+dist-e2e/
 coverage/
 .DS_Store
 *.log
@@ -19,3 +20,4 @@ test-results/
 playwright-report/
 /screenshots/
 artifacts/ui/
+artifacts/verification/

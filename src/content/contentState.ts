@@ -4,6 +4,14 @@ export interface ContentEnvelopeV2<T> { version: 2; items: T[]; }
 export interface MigrationResult<T> { items: T[]; repaired: boolean; persistedDuringLoad: false; }
 export const LAST_PLAYABLE_MESSAGE = 'Aspoň jedna položka musí zostať zapnutá.';
 
+export function summarizeContent<T extends { enabled: boolean; status: string; isDefault: boolean }>(items: T[]) {
+  return {
+    enabled: items.filter(item => item.enabled),
+    disabledDefaults: items.filter(item => item.isDefault && !item.enabled),
+    readyCount: items.filter(item => item.enabled && item.status === 'ready').length,
+  };
+}
+
 export function defaultWordId(locale: string, audioKey: string) { return `default:word:${locale}:${audioKey}`; }
 export function defaultPraiseId(locale: string, audioKey: string) { return `default:praise:${locale}:${audioKey}`; }
 

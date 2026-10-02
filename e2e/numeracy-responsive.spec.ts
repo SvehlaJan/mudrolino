@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
@@ -115,7 +115,7 @@ async function expectStableAnswersOnRetry(page: Page, route: NumeracyRoute): Pro
   expect(Math.abs(after!.height - before!.height)).toBeLessThanOrEqual(1);
 }
 
-test('counting and addition center bounded answer choices at supported sizes and keep them still on retry', async ({ page }) => {
+test('@geometry counting and addition center bounded answer choices at supported sizes and keep them still on retry', async ({ page }) => {
   expect(page.viewportSize()).not.toBeNull();
   for (const route of NUMERACY_ROUTES.filter(item => item.path !== '/compare')) {
     await startRound(page, route);
@@ -132,7 +132,7 @@ test('counting and addition center bounded answer choices at supported sizes and
   }
 });
 
-test('compare quantity cards have equal bounded heights and centered object groups at supported sizes', async ({ page }) => {
+test('@geometry compare quantity cards have equal bounded heights and centered object groups at supported sizes', async ({ page }) => {
   expect(page.viewportSize()).not.toBeNull();
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ compareMode: 'objects', compareRange: { start: 1, end: 10 } })));
   await stubSpeechSynthesis(page);

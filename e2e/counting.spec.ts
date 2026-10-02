@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './support/fixtures';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';
 import { stubSpeechSynthesis } from './support/gameHarness';

@@ -10,11 +10,11 @@
     "build:e2e": "VITE_WEB3FORMS_KEY=e2e-placeholder vite build --mode test",
     "test:e2e": "npm run build:e2e && playwright test --config=e2e/playwright.config.ts",
     "test:e2e:production-guards": "npm run build && playwright test --config=e2e/playwright.production.config.ts e2e/production-guards.spec.ts",
-    "verify:pure": "for file in $(rg --files src e2e -g '*.verify.ts' | sort); do npx tsx \"$file\" || exit 1; done",
+    "verify:pure": "node tools/verification/pure.mjs",
     "test:e2e:release": "npm run build:e2e && playwright test --config=e2e/playwright.release.config.ts",
     "test:e2e:offline": "npm run build && playwright test --config=e2e/playwright.production.config.ts e2e/offline.spec.ts",
     "verify:bundle": "node tools/release/verify-production-bundle.mjs",
-    "verify:release": "npm run verify:pure && npm run lint && npm run test:audio && npm run test:e2e && npm run test:e2e:release && npm run test:e2e:production-guards && npm run test:e2e:offline && npm run build && npm run verify:bundle",
+    "verify:release": "tsx tools/verification/run.ts --profile=release",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && node_modules/.bin/eslint src e2e --ext ts,tsx",
     "test:fonts": "tsx tools/verify_fonts.ts && tsx src/shared/services/appSettingsStore.verify.ts",
@@ -26,7 +26,14 @@
     "avatar:gltf:optimize:body": "gltf-transform optimize public/avatar/modular/male-base-plain.glb public/avatar/modular/male-base-plain.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false && gltf-transform optimize public/avatar/modular/male-base-plain-walking.glb public/avatar/modular/male-base-plain-walking.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false && gltf-transform optimize public/avatar/modular/male-base-plain-running.glb public/avatar/modular/male-base-plain-running.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false",
     "avatar:gltf:optimize:shoes": "gltf-transform optimize public/avatar/garments/shoes_blue_sneakers_v1.glb public/avatar/garments/shoes_blue_sneakers_v1.glb --simplify true --simplify-ratio 0.02 --texture-compress webp --texture-size 512 --compress meshopt --flatten false --join false",
     "avatar:gltf:optimize:hat": "gltf-transform optimize public/avatar/garments/hat_red_cap_v1.glb public/avatar/garments/hat_red_cap_v1.glb --compress meshopt --simplify false --flatten false --join false --texture-compress false",
-    "shots": "tsx tools/screenshots/capture.mjs"
+    "shots": "tsx tools/screenshots/capture.mjs",
+    "preview:e2e": "vite preview --mode test --outDir dist-e2e",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:audio:strict": "tsx public/audio/_review/check_audio.ts --strict",
+    "verify:edit": "tsx tools/verification/run.ts",
+    "verify:integration": "tsx tools/verification/run.ts --profile=integration",
+    "setup:browsers": "playwright install chromium webkit"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.23",
@@ -57,7 +64,7 @@
     "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^9.39.4",
     "@gltf-transform/cli": "^4.3.0",
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "1.60.0",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
@@ -67,13 +74,14 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "gltf-validator": "^2.0.0-dev.3.10",
-    "playwright": "^1.59.1",
+    "playwright": "1.60.0",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.1",
     "vite": "^8.0.7",
-    "vite-plugin-pwa": "^1.3.0"
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^5.0.3"
   }
 }

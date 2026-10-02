@@ -1,3 +1,4 @@
+import { installNativeAudioMute } from './support/nativeAudioMute';
 import { expect, test } from '@playwright/test';
 import { RELEASE_GAME_CASES } from './support/releaseMatrix';
 
@@ -9,6 +10,10 @@ async function waitForOfflineControl(page: import('@playwright/test').Page) {
   }
   await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
 }
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(installNativeAudioMute);
+});
 
 test('installed production shell opens every game and protected routes offline', async ({ page, context }) => {
   await waitForOfflineControl(page);

@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './support/fixtures';
 import type { GameId } from '../src/shared/types';
 import {
   expectNoConsoleErrors,
@@ -13,6 +13,7 @@ import {
   stubSpeechSynthesis,
 } from './support/gameHarness';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
+import { ASSEMBLY_JAHODA, seedSingleAssemblyWord } from './support/literacyHarness';
 
 interface ReleaseOracle {
   gameId?: GameId;
@@ -89,7 +90,7 @@ for (const game of RELEASE_GAME_CASES) {
     await startFromHome(page, game);
 
     for (let round = 0; round < 5; round += 1) {
-      await completeCurrentRound(page, game.id);
+      await completeCurrentRound(page, game.id, round === 4 ? 'session-complete' : 'answered-correctly');
       if (round < 4) {
         await expect.poll(() => readGamePhase(page)).toBe('answered-correctly');
         await page.getByRole('button', { name: 'Pokračovať' }).click();
@@ -113,10 +114,17 @@ test('grid retry: alphabet recovers through a visible correct answer', async ({ 
 });
 
 test('sequence retry: assembly resets a wrong visible tile order', async ({ page }) => {
+  // Swapping repeated syllables can still spell the target word; this retry needs distinct labels.
+  await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
   await stubSpeechSynthesis(page);
   await startGame(page, 'ASSEMBLY');
   const { correctTileOrder } = await readReleaseOracle(page);
   expect(correctTileOrder?.length, 'expected at least two assembly tiles').toBeGreaterThanOrEqual(2);
+  const labels = await Promise.all(correctTileOrder!.map(tileId =>
+    page.locator(`[data-tile-id=${JSON.stringify(tileId)}]:visible`).getAttribute('aria-label'),
+  ));
+  expect(labels, 'every assembly tile must expose its syllable label').not.toContain(null);
+  expect(new Set(labels).size, 'retry fixture must have distinct syllable labels').toBe(labels.length);
   const wrongOrder = [correctTileOrder![1], correctTileOrder![0], ...correctTileOrder!.slice(2)];
   for (const tileId of wrongOrder) {
     await page.locator(`[data-tile-id=${JSON.stringify(tileId)}]:visible`).click();

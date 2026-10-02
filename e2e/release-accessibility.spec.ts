@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';

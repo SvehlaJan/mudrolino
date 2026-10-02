@@ -12,9 +12,7 @@ import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
-import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
-import { TIMING, getItemAnnouncementAudio, getItemAudioClip, getPhraseClip } from '../../shared/contentRegistry';
-import { audioManager } from '../../shared/services/audioManager';
+import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
 import { fisherYatesShuffle } from '../../shared/utils';
@@ -28,6 +26,7 @@ import {
   TactilePiece,
   WordRail,
   useGameSession,
+  useGameSessionAudio,
   type GameShellCompletion,
   type GameShellFeedback,
   type GameState,
@@ -362,7 +361,6 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     state,
     canAnswer,
     replaying,
-    startPrompt,
     replayPrompt,
     resolveAnswer,
     continueAfterFeedback,
@@ -408,28 +406,10 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     target?.focus();
   }, [trayTiles, placedTiles, animatingTileIds]);
 
-  const phaseRef = useRef(state.phase);
-  useEffect(() => {
-    phaseRef.current = state.phase;
-  }, [state.phase]);
-
-  useEffect(() => {
-    if (!targetWord || isEmpty) return;
-    const timer = setTimeout(() => {
-      // A round-start prompt must never invalidate an answer that started resolving first —
-      // invalidate() would stop that answer's own in-flight audio and hang it forever. Only
-      // fire while the round is still untouched; a manual replay or an answer already moved on.
-      if (phaseRef.current !== 'ready') return;
-      void startPrompt(getPromptAudio(locale, targetWord));
-    }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [targetWord, isEmpty, locale, startPrompt]);
-
-  useEffect(() => {
-    if (state.phase !== 'session-complete' || state.paused) return;
-    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
-    return () => audioManager.stop();
-  }, [state.phase, state.paused, locale, completionPraise]);
+  useGameSessionAudio({
+    session, roundKey: targetWord, enabled: !isEmpty && !!targetWord,
+    getPromptAudio: () => getPromptAudio(locale, targetWord!), locale, completionPraise,
+  });
 
   // Every new round, replay, lobby exit, recoverable error, and unmount must kill any
   // in-flight GSAP tween/clone — useGameSession's own invalidate() only knows about audio and

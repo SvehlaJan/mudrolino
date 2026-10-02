@@ -9,9 +9,7 @@ import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
-import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
-import { TIMING, getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
-import { audioManager } from '../../shared/services/audioManager';
+import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
 import { fisherYatesShuffle } from '../../shared/utils';
@@ -25,6 +23,7 @@ import {
   TactilePiece,
   WordRail,
   useGameSession,
+  useGameSessionAudio,
   type GameShellCompletion,
   type GameShellFeedback,
   type GameState,
@@ -190,7 +189,6 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     state,
     canAnswer,
     replaying,
-    startPrompt,
     replayPrompt,
     resolveAnswer,
     continueAfterFeedback,
@@ -215,31 +213,14 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     });
   }, [state, replaying, targetRound, choices]);
 
-  const phaseRef = useRef(state.phase);
-  useEffect(() => {
-    phaseRef.current = state.phase;
-  }, [state.phase]);
   // Set synchronously inside chooseAnswer before any local state update or await — see the
   // comment there for why the React-state-derived `canAnswer` cannot stand in for it.
   const answerLockRef = useRef(false);
 
-  useEffect(() => {
-    if (!targetRound || isEmpty) return;
-    const timer = setTimeout(() => {
-      // A round-start prompt must never invalidate an answer that started resolving first —
-      // invalidate() would stop that answer's own in-flight audio and hang it forever. Only
-      // fire while the round is still untouched; a manual replay or an answer already moved on.
-      if (phaseRef.current !== 'ready') return;
-      void startPrompt(getPromptAudio(locale, targetRound));
-    }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [targetRound, isEmpty, locale, startPrompt]);
-
-  useEffect(() => {
-    if (state.phase !== 'session-complete' || state.paused) return;
-    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
-    return () => audioManager.stop();
-  }, [state.phase, state.paused, locale, completionPraise]);
+  useGameSessionAudio({
+    session, roundKey: targetRound, enabled: !isEmpty && !!targetRound,
+    getPromptAudio: () => getPromptAudio(locale, targetRound!), locale, completionPraise,
+  });
 
   const handleReplay = useCallback(() => {
     if (!targetRound) return;
@@ -254,7 +235,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     if (!targetRound || !canAnswer) return;
     // The praise entry backing this round's visible feedback is picked and committed to local
     // state before resolveAnswer is awaited, so useGameSession's own re-entrancy guard (its
-    // `answeringRef`, mutated synchronously at the top of resolveAnswer) runs too late to
+    // controller answer lock, mutated synchronously at the top of resolveAnswer) runs too late to
     // protect it: a same-tick second tap can overwrite roundPraise while the first tap's
     // verdict audio is already built from the entry it replaced, leaving the spoken praise and
     // the shown praise mismatched. `canAnswer` is React-state-derived and cannot observe that

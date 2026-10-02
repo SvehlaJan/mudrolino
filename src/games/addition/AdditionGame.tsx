@@ -5,14 +5,12 @@ import type { FailureSpec, NumberItem, PraiseEntry, SuccessSpec } from '../../sh
 import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { GameLobby } from '../../shared/components/GameLobby';
-import { getSessionCompleteAudioSpec } from '../../shared/components/sessionCompleteAudio';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
-import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio, TIMING } from '../../shared/contentRegistry';
-import { audioManager } from '../../shared/services/audioManager';
+import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { additionRangeForcesNumerals } from '../../shared/settings/settingsRegistry';
 import { getUiCopy } from '../../shared/uiCopy';
-import { AnswerGroup, GamePrompt, GameShell, PlayTray, QuantityTray, TactilePiece, useGameSession, type GameShellCompletion, type GameShellFeedback, type GameState, type TactilePieceState } from '../../shared/game';
+import { AnswerGroup, GamePrompt, GameShell, PlayTray, QuantityTray, TactilePiece, useGameSession, useGameSessionAudio, type GameShellCompletion, type GameShellFeedback, type GameState, type TactilePieceState } from '../../shared/game';
 import { buildAnswerOptions, createAdditionProblem, pairKey } from './additionLogic';
 
 const MAX_ROUNDS = 5;
@@ -72,19 +70,13 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
   const [completionPraise, setCompletionPraise] = useState(() => pickPraise(praiseEntries));
   const startNewRound = useCallback(() => { setRound(createRound(sumRange, lastPairKeyRef)); setRoundPraise(null); }, [sumRange]);
   const startNewSession = useCallback(() => { lastPairKeyRef.current = null; setCompletionPraise(pickPraise(praiseEntries)); startNewRound(); }, [praiseEntries, startNewRound]);
-  const { state, canAnswer, replaying, startPrompt, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain } = useGameSession({ maxRounds: MAX_ROUNDS, maxAttempts: MAX_ATTEMPTS, onNextRound: startNewRound, onPlayAgain: startNewSession });
+  const session = useGameSession({ maxRounds: MAX_ROUNDS, maxAttempts: MAX_ATTEMPTS, onNextRound: startNewRound, onPlayAgain: startNewSession });
+  const { state, canAnswer, replaying, replayPrompt, resolveAnswer, continueAfterFeedback, playAgain } = session;
 
-  const phaseRef = useRef(state.phase);
-  useEffect(() => { phaseRef.current = state.phase; }, [state.phase]);
-  useEffect(() => {
-    const timer = setTimeout(() => { if (phaseRef.current === 'ready') void startPrompt({ clips: [getPhraseClip(locale, 'howManyTogether')] }); }, TIMING.AUDIO_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [locale, round, startPrompt]);
-  useEffect(() => {
-    if (state.phase !== 'session-complete' || state.paused) return;
-    void audioManager.play(getSessionCompleteAudioSpec(locale, completionPraise));
-    return () => audioManager.stop();
-  }, [completionPraise, locale, state.paused, state.phase]);
+  useGameSessionAudio({
+    session, roundKey: round, enabled: true,
+    getPromptAudio: () => ({ clips: [getPhraseClip(locale, 'howManyTogether')] }), locale, completionPraise,
+  });
   useEffect(() => {
     setE2EState({ gameId: 'ADDITION', phase: state.phase, gamePhase: state.phase, paused: state.paused, overlay: state.phase === 'session-complete' ? 'session-complete' : state.feedback === 'success' ? 'success' : state.feedback === 'failure' ? 'failure' : null, correctSum: round.sum.value, optionValues: round.options.map(option => option.value), roundsPlayed: state.roundsPlayed, totalTaps: state.totalTaps });
   }, [round, state]);

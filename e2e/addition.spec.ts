@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { seedLocalStorage } from './support/persistenceFixtures';
 import { stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';

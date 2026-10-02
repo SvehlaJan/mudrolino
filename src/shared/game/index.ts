@@ -10,3 +10,4 @@ export * from './gameState';
 export * from './materials';
 export * from './useElementSize';
 export * from './useGameSession';
+export * from './useGameSessionAudio';
