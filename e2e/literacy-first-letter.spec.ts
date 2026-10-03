@@ -44,7 +44,7 @@ test('Prvé písmenko announces retry politely without changing the play surface
   const status = page.getByRole('status');
   await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   await expect(status).toContainText('Skús ešte raz');
-  await expect(page.locator(`[data-answer-id="${wrongId}"]`)).toContainText('Skús ešte raz');
+  await expect(page.locator(`[data-answer-id="${wrongId}"]`)).not.toContainText('Skús ešte raz');
 });
 
 test('Prvé písmenko settles the correct magnet before showing success feedback', async ({ page }) => {

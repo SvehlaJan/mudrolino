@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { cva } from 'class-variance-authority';
-import { Check, RefreshCw } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { useReducedMotion } from 'motion/react';
 import { cn } from '../../ui';
 import { getUiCopy } from '../../uiCopy';
@@ -62,7 +62,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
   // group locks input for that same answer — only a plain disabled idle tile falls back
   // to the generic disabled look, so retry/settled semantics never collapse into it.
   const resolvedState = state !== 'idle' ? state : (isEffectiveDisabled ? 'disabled' : 'idle');
-  const showStateNote = resolvedState === 'retry' || resolvedState === 'settled';
+  const showStateNote = resolvedState === 'settled';
 
   if (as === 'button' && !label && import.meta.env.DEV) {
     console.error('TactilePiece as="button" requires a label for its accessible name.');
@@ -80,11 +80,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
       {children}
       {showStateNote && (
         <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-1 rounded-b-[inherit] bg-white/90 px-1 py-0.5 text-[10px] font-bold text-text-main">
-          {resolvedState === 'retry' ? (
-            <RefreshCw aria-hidden="true" size={10} />
-          ) : (
-            <Check aria-hidden="true" size={10} />
-          )}
+          <Check aria-hidden="true" size={10} />
           <span>{stateNoteText}</span>
         </span>
       )}

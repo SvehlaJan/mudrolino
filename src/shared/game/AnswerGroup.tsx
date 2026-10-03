@@ -234,7 +234,7 @@ export function AnswerGroup({
     <div
       ref={outerRef}
       data-testid="game-critical-controls"
-      className={cn('flex min-h-0 w-full flex-1 flex-col items-center justify-center', className)}
+      className={cn('flex min-h-0 w-full flex-1 flex-col items-center justify-center', orientation === 'horizontal' && 'p-3', className)}
     >
       <div
         ref={innerRef}
@@ -266,7 +266,6 @@ export function AnswerGroup({
                 height: choiceLayout === 'stretch' ? '100%' : undefined,
                 flexWrap: 'nowrap',
                 justifyContent: choiceLayout === 'tiles' ? 'center' : undefined,
-                overflowX: 'auto',
                 gap: `${geometry.gap}px`,
               } as React.CSSProperties)
         }

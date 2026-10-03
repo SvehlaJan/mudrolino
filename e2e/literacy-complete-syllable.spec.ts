@@ -50,7 +50,7 @@ test('Doplň slabiku announces retry politely without changing the play surface 
   const status = page.getByRole('status');
   await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   await expect(status).toContainText('Skús ešte raz');
-  await expect(page.locator(`[data-answer-id="${wrongId}"]`)).toContainText('Skús ešte raz');
+  await expect(page.locator(`[data-answer-id="${wrongId}"]`)).not.toContainText('Skús ešte raz');
 
   const rail = page.getByTestId('word-rail');
   await expect(rail.locator('[data-slot-state="active"]')).toHaveCount(1);

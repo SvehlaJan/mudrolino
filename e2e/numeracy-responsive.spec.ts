@@ -132,7 +132,7 @@ test('@geometry counting and addition center bounded answer choices at supported
   }
 });
 
-test('@geometry compare quantity cards have equal bounded heights and centered object groups at supported sizes', async ({ page }) => {
+test('@geometry compare quantity cards have equal bounded heights and contained scattered object groups at supported sizes', async ({ page }) => {
   expect(page.viewportSize()).not.toBeNull();
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ compareMode: 'objects', compareRange: { start: 1, end: 10 } })));
   await stubSpeechSynthesis(page);
@@ -208,8 +208,6 @@ test('@geometry compare quantity cards have equal bounded heights and centered o
     expect(Math.abs((card.top + card.bottom) / 2 - card.innerCenterY!)).toBeLessThanOrEqual(12);
     expect(card.tokenCount).toBeGreaterThan(0);
     expect(card.tokenOverflow).toBe(false);
-    expect(Math.abs((card.tokenLeft + card.tokenRight) / 2 - card.innerCenterX!)).toBeLessThanOrEqual(12);
-    expect(Math.abs((card.tokenTop + card.tokenBottom) / 2 - card.innerCenterY!)).toBeLessThanOrEqual(12);
     for (const token of card.tokenSizes) {
       expect(token.width, JSON.stringify(card)).toBeGreaterThanOrEqual(24);
       expect(token.height, JSON.stringify(card)).toBeGreaterThanOrEqual(24);

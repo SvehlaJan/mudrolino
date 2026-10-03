@@ -170,7 +170,7 @@ function CountingPlayfield({ availableItems, allNumbers, onExit }: CountingPlayf
   return (
     <GameShell gameId="COUNTING_ITEMS" state={state} onBack={onExit} onRetryError={() => { if (!isEmpty) playAgain(); }} prompt={<GamePrompt instruction={INSTRUCTION} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
       <div className="flex min-h-0 flex-1 flex-col gap-2 [@media(max-height:480px)]:gap-1">
-        <QuantityTray count={target?.value ?? 0} emoji={emoji} mode="objects" label="Predmety na spočítanie" interactiveTokens onTokenPress={() => playPopSound()} className="h-[min(30vh,156px)] min-h-[108px] shrink-0 rounded-[28px] border border-dashed border-shadow/25 bg-white/50 p-1" />
+        <QuantityTray count={target?.value ?? 0} emoji={emoji} mode="objects" arrangement="scattered" label="Predmety na spočítanie" interactiveTokens onTokenPress={() => playPopSound()} className="h-[min(30vh,156px)] min-h-[108px] shrink-0 rounded-[28px] border border-dashed border-shadow/25 bg-white/50 p-1" />
         <PlayTray label={getUiCopy(locale, 'game.playArea')} density="compact" sizing="content">
           <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer} orientation="horizontal" choiceLayout="tiles">
             {options.map((item) => (

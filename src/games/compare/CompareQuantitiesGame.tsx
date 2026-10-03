@@ -223,8 +223,8 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
           disabled={!canAnswer}
           leftState={getPieceState(state, 'left')}
           rightState={getPieceState(state, 'right')}
-          left={<QuantityTray count={round.left.value} emoji={round.emoji} mode={mode} label={leftLabel} className="h-full min-h-0 w-full" />}
-          right={<QuantityTray count={round.right.value} emoji={round.emoji} mode={mode} label={rightLabel} className="h-full min-h-0 w-full" />}
+          left={<QuantityTray count={round.left.value} emoji={round.emoji} mode={mode} arrangement="scattered" label={leftLabel} className="h-full min-h-0 w-full" />}
+          right={<QuantityTray count={round.right.value} emoji={round.emoji} mode={mode} arrangement="scattered" label={rightLabel} className="h-full min-h-0 w-full" />}
         />
       )}
     </GameShell>

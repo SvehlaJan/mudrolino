@@ -163,7 +163,7 @@ test.describe('Living Toybox materials', () => {
       await expect(region.locator(`[data-material="${material}"]`).first()).toBeVisible();
     }
     await expect(region.getByRole('button', { name: 'Písmeno A' })).toHaveAttribute('data-piece-state', 'settled');
-    await expect(region.getByRole('button', { name: 'Písmeno B' })).toContainText('Skús ešte raz');
+    await expect(region.getByRole('button', { name: 'Písmeno B' })).not.toContainText('Skús ešte raz');
     await expect(region.getByRole('region', { name: 'Hracia plocha' })).toBeVisible();
     await expect(region.getByRole('region', { name: 'Kompaktné odpovede' })).toBeVisible();
   });
@@ -187,11 +187,12 @@ test.describe('Living Toybox materials', () => {
     await expect(pieceC).toHaveAttribute('data-piece-state', 'disabled');
   });
 
-  test('the retry state stays legible as text under reduced motion', async ({ page }) => {
+  test('the retry state keeps its accessible description without a visible note under reduced motion', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/ui-kit?example=game-materials');
     const region = page.getByRole('region', { name: 'Materiály hier' });
-    await expect(region.getByRole('button', { name: 'Písmeno B' })).toContainText('Skús ešte raz');
+    await expect(region.getByRole('button', { name: 'Písmeno B' })).toHaveAttribute('aria-description', 'Skús ešte raz');
+    await expect(region.getByRole('button', { name: 'Písmeno B' })).not.toContainText('Skús ešte raz');
   });
 
   test('/ui-kit?example=game-materials has no critical or serious axe violations', async ({ page }) => {
@@ -271,7 +272,7 @@ test('audio: visible and spoken praise correspond to the same entry on a correct
   await expect(page.getByRole('status')).toContainText(expectedPraise!.text);
 });
 
-test('answer tiles expose live retry and settled states with matching text', async ({ page }) => {
+test('answer tiles announce retry without card text and expose settled states', async ({ page }) => {
   await page.goto('/alphabet');
   await page.getByRole('button', { name: 'Hrať' }).click();
 
@@ -289,7 +290,7 @@ test('answer tiles expose live retry and settled states with matching text', asy
     { polling: 20 },
   );
   await expect(wrongTile).toHaveAttribute('data-piece-state', 'retry');
-  await expect(wrongTile).toContainText('Skús ešte raz');
+  await expect(wrongTile).not.toContainText('Skús ešte raz');
   await waitForGamePhase(page, 'awaiting-answer');
   await expect(wrongTile).toHaveAttribute('data-piece-state', 'idle');
 

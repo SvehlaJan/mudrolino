@@ -328,7 +328,7 @@ test.describe('Task 7: Rotation preserves focus', () => {
 
 test.describe('Task 7: Assistive contract', () => {
   for (const game of BESPOKE_GAMES) {
-    test(`${game.name}: exposes one main, one heading, visible prompt/replay/progress, roving tabstop, and visible+live retry/correct states`, async ({ page }) => {
+    test(`${game.name}: exposes one main, one heading, visible prompt/replay/progress, roving tabstop, and live retry and visible correct states`, async ({ page }) => {
       await game.enterPlay(page);
 
       await expect(page.getByRole('main')).toHaveCount(1);
@@ -349,7 +349,7 @@ test.describe('Task 7: Assistive contract', () => {
       await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
       await expect(status).toContainText('Skús ešte raz');
       await expect(status).toHaveAttribute('aria-live', 'polite');
-      await expect(actedControl(page, wrongId)).toContainText('Skús ešte raz');
+      await expect(actedControl(page, wrongId)).not.toContainText('Skús ešte raz');
 
       await waitForGamePhase(page, 'awaiting-answer');
 
@@ -379,7 +379,7 @@ test.describe('Task 7: Reduced motion', () => {
 
       const wrongId = await game.answerWrong(page);
       await expect(page.getByRole('status')).toContainText('Skús ešte raz');
-      await expect(actedControl(page, wrongId)).toContainText('Skús ešte raz');
+      await expect(actedControl(page, wrongId)).not.toContainText('Skús ešte raz');
       await waitForGamePhase(page, 'awaiting-answer');
 
       const correctId = await game.answerCorrect(page);

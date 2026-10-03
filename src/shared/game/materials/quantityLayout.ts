@@ -3,6 +3,9 @@ export interface QuantityLayoutInput {
   width: number;
   height: number;
   gap: number;
+  arrangement?: 'grid' | 'scattered';
+  seed?: number;
+  minimumSize?: number;
 }
 
 export interface QuantitySlot {
@@ -39,6 +42,39 @@ export function buildQuantityLayout(input: QuantityLayoutInput): QuantityLayout 
   const gap = nonNegativeFinite(input.gap);
   if (count === 0 || width === 0 || height === 0) {
     return { columns: 0, rows: 0, slotSize: 0, slots: [] };
+  }
+
+  if (input.arrangement === 'scattered') {
+    // Disjoint cells leave room for random positions without rejection loops or
+    // overlapping hit targets. Keep a small gutter for counter shadows/focus.
+    const minimumSize = nonNegativeFinite(input.minimumSize ?? 24);
+    let inset = Math.min(4, width / 2, height / 2);
+    let safe = buildQuantityLayout({ count, width: width - inset * 2, height: height - inset * 2, gap });
+    if (safe.slotSize < minimumSize) {
+      const full = buildQuantityLayout({ count, width, height, gap });
+      if (full.slotSize >= minimumSize) { inset = 0; safe = full; }
+    }
+    const slotSize = Math.min(safe.slotSize, 64, Math.max(minimumSize, Math.floor(safe.slotSize * 0.72)));
+    const cellWidth = Math.max(0, (width - inset * 2 - gap * (safe.columns - 1)) / safe.columns);
+    const cellHeight = Math.max(0, (height - inset * 2 - gap * (safe.rows - 1)) / safe.rows);
+    let seed = (input.seed ?? 0) >>> 0;
+    const random = () => {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      return seed / 0x100000000;
+    };
+    // Degenerate bounds still need count-preserving, zero-size slots.
+    if (safe.slots.length === 0 || slotSize === 0) {
+      return { ...safe, slotSize: 0, slots: Array.from({ length: count }, (_, index) => ({ index, x: width / 2, y: height / 2, size: 0 })) };
+    }
+    return {
+      columns: safe.columns, rows: safe.rows, slotSize,
+      slots: Array.from({ length: count }, (_, index) => ({
+        index,
+        x: inset + (index % safe.columns) * (cellWidth + gap) + random() * (cellWidth - slotSize),
+        y: inset + Math.floor(index / safe.columns) * (cellHeight + gap) + random() * (cellHeight - slotSize),
+        size: slotSize,
+      })),
+    };
   }
 
   const candidates = Array.from({ length: Math.min(count, 6) }, (_, index) => index + 1)

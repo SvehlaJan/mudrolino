@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useRef, type HTMLAttributes } from 'react';
+import { useRef, useState, type HTMLAttributes } from 'react';
 import { cn } from '../../ui';
 import { useElementSize } from '../useElementSize';
 import { TactilePiece } from './TactilePiece';
@@ -13,6 +13,7 @@ export interface QuantityTrayProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   count: number;
   emoji: string;
   mode: 'objects' | 'numerals';
+  arrangement?: 'grid' | 'scattered';
   label: string;
   interactiveTokens?: boolean;
   onTokenPress?: (index: number) => void;
@@ -24,6 +25,7 @@ export function QuantityTray({
   count,
   emoji,
   mode,
+  arrangement = 'grid',
   label,
   interactiveTokens = false,
   onTokenPress,
@@ -32,7 +34,8 @@ export function QuantityTray({
 }: QuantityTrayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const size = useElementSize(containerRef);
-  const layout = buildQuantityLayout({ count, width: size.width, height: size.height, gap: 6 });
+  const [seed] = useState(() => arrangement === 'scattered' ? Math.floor(Math.random() * 0x100000000) : 0);
+  const layout = buildQuantityLayout({ count, width: size.width, height: size.height, gap: 6, arrangement, seed, minimumSize: interactiveTokens ? 48 : 24 });
 
   return (
     <div
@@ -41,6 +44,7 @@ export function QuantityTray({
       role={interactiveTokens ? 'group' : 'img'}
       aria-label={label}
       data-quantity-mode={mode}
+      data-quantity-arrangement={arrangement}
       className={cn('relative min-h-24 overflow-hidden [container-type:inline-size]', className)}
     >
       {mode === 'numerals' ? (

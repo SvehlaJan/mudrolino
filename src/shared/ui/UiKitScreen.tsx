@@ -406,7 +406,7 @@ function UiKitQuantityMaterials() {
         {([1, 7, 10, 20] as const).map((count) => (
           <Card key={count} className="space-y-3">
             <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">{count} predmetov</h3>
-            <QuantityTray count={count} emoji="🍓" mode="objects" label={`${count} predmetov`} className="h-40" />
+            <QuantityTray count={count} emoji="🍓" mode="objects" arrangement="scattered" label={`${count} rozmiestnených predmetov`} className="h-40" />
             <QuantityTray count={count} emoji="🍓" mode="numerals" label={`Číslica ${count}`} className="h-24 bg-bg-light/35" />
           </Card>
         ))}
@@ -432,6 +432,7 @@ function UiKitQuantityMaterials() {
             mode="objects"
             label="Sedem počítadiel"
             interactiveTokens
+            arrangement="scattered"
             onTokenPress={setLastToken}
             className="h-56 min-w-[320px] border border-shadow/15 bg-bg-light/35"
           />
@@ -443,8 +444,8 @@ function UiKitQuantityMaterials() {
         <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Porovnanie, spätná väzba a obmedzený pohyb</h3>
         <div className="grid gap-4 lg:grid-cols-3">
           <BalancePlayfield
-            left={<QuantityTray count={7} emoji="🍓" mode="objects" label="Sedem jahôd" className="h-full min-h-0" />}
-            right={<QuantityTray count={10} emoji="🍓" mode="objects" label="Desať jahôd" className="h-full min-h-0" />}
+            left={<QuantityTray count={7} emoji="🍓" mode="objects" arrangement="scattered" label="Sedem jahôd" className="h-full min-h-0" />}
+            right={<QuantityTray count={10} emoji="🍓" mode="objects" arrangement="scattered" label="Desať jahôd" className="h-full min-h-0" />}
             leftLabel="Sedem jahôd"
             rightLabel="Desať jahôd"
             onChoose={() => undefined}
