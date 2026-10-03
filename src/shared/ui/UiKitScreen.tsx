@@ -27,7 +27,7 @@ import { SwitchControl } from './Switch';
 import { Tabs, TabPanel } from './Tabs';
 import { cx } from './utils';
 import { RecordingListItem } from '../../recordings/RecordingListItem';
-import { GameCard } from '../../home/GameCard';
+import { GameCard, GameIcon } from '../../home/GameCard';
 import { GameLobby } from '../components/GameLobby';
 import { FindItGame } from '../components/FindItGame';
 import { GAME_DEFINITIONS } from '../gameCatalog';
@@ -995,9 +995,9 @@ export function UiKitScreen() {
         <section aria-label="Literárne materiály" className="space-y-6">
           <Card className="space-y-6">
             <div className="grid gap-6 sm:grid-cols-[auto_1fr] sm:items-center">
-              <PictureCard emoji="👩" label="Mama" caption="Mama" />
+              <PictureCard emoji="📺" label="Televízor" caption="Televízor" />
               <WordRail label="Slovo MAMA">
-                <InsetSlot data-testid="inset-slot-active" label="Chýbajúca slabika" state="active" />
+                <InsetSlot data-testid="inset-slot-active" label="Chýbajúca slabika" state="active" fitContents={['MA', 'STRO']} />
                 <InsetSlot data-testid="inset-slot-filled" label="Vyplnená slabika: MA" state="filled">
                   <span aria-hidden="true">MA</span>
                 </InsetSlot>
@@ -1095,6 +1095,15 @@ export function UiKitScreen() {
 
       <Section title="Game Cards & Grouped Home">
         <div className="space-y-6">
+          <div>
+            <h3 className="mb-3 text-lg font-bold text-text-muted">Ikony všetkých hier</h3>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {GAME_DEFINITIONS.map(game=><figure key={game.id} className="flex items-center gap-3 rounded-2xl bg-canvas p-3">
+                <GameIcon icon={game.icon} className="size-10 shrink-0 text-focus" />
+                <figcaption className="text-sm font-bold">{getUiCopy('sk',game.titleKey)}</figcaption>
+              </figure>)}
+            </div>
+          </div>
           <div>
             <h3 className="text-lg font-bold text-text-muted mb-2">Jednotlivá karta (GameCard)</h3>
             <div className="max-w-xs">

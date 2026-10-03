@@ -52,8 +52,8 @@ for (const game of games) {
     expect(distance(samples[0])).toBeGreaterThan(40);
     expect(distance(samples.at(-1)!)).toBeLessThan(10);
     if (game !== 'assembly') {
-      expect(samples.at(-1)!.width).toBeLessThanOrEqual(targetRect.width + 2);
-      expect(samples.at(-1)!.height).toBeLessThanOrEqual(targetRect.height + 2);
+      expect(Math.abs(samples.at(-1)!.width - targetRect.width)).toBeLessThan(2);
+      expect(Math.abs(samples.at(-1)!.height - targetRect.height)).toBeLessThan(2);
     }
     expect(distance(samples.at(-1)!)).toBeLessThan(distance(sourceRect) / 4);
     await expect(flight).toHaveCount(0);
@@ -80,6 +80,90 @@ for (const game of games) {
     await answer.click();
     await expect(page.locator('[data-tile-flight]')).toHaveCount(0);
     await expect(page.getByTestId('word-rail').locator('[data-slot-state="filled"]')).toHaveCount(1);
+  });
+}
+
+for (const game of games) {
+  test(`${game} reserves enough blank width for its longest available answer`, {tag:'@geometry'}, async ({ page }) => {
+    await start(page,game,game==='assembly'?LONG_LABEL_WORDS.assembly:undefined);
+    const state = await getE2EState<AssemblyE2EState | CompleteLetterE2EState | CompleteSyllableE2EState>(page);
+    const labels = state.gameId === 'ASSEMBLY' ? LONG_LABEL_WORDS.assembly.syllables.split('-').map(s=>s.toUpperCase()) : state.answerItemIds;
+    const blank=page.getByTestId('word-rail').locator('[data-slot-state]').filter({hasText:'?'}).first();
+    const fit = await blank.evaluate((slot, choices) => {
+      const css=getComputedStyle(slot);
+      const probe=document.createElement('span');
+      Object.assign(probe.style,{position:'fixed',visibility:'hidden',whiteSpace:'nowrap',font:css.font});
+      document.body.appendChild(probe);
+      const widest=Math.max(...choices.map(text=>{probe.textContent=text;return probe.getBoundingClientRect().width;}));
+      probe.remove();
+      return {available:slot.clientWidth-parseFloat(css.paddingLeft)-parseFloat(css.paddingRight),widest};
+    },labels);
+    expect(fit.available).toBeGreaterThanOrEqual(fit.widest);
+  });
+}
+
+for (const game of ['complete-letter', 'complete-syllable'] as const) {
+  test(`${game} moves a wrong whole card to the blank and back without filling it`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await start(page, game);
+    const state = await getE2EState<CompleteLetterE2EState | CompleteSyllableE2EState>(page);
+    const wrongId = state.answerItemIds.find(id => id !== state.correctItemId)!;
+    const answer = page.locator(`[data-answer-id="${wrongId}"]`);
+    const source = (await answer.boundingBox())!;
+    const target = page.getByTestId('word-rail').locator('[data-slot-state="active"]');
+    const destination = (await target.boundingBox())!;
+    await answer.click();
+    const flight = page.locator('[data-tile-flight]');
+    await expect(flight).toHaveCount(1);
+    await expect(flight).toContainText(wrongId);
+    const points = await flight.evaluate(async node => {
+      const samples: { x: number; y: number; width: number; height: number }[] = [];
+      while (node.isConnected) {
+        const r = node.getBoundingClientRect();
+        samples.push({x:r.x,y:r.y,width:r.width,height:r.height});
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      }
+      return samples;
+    });
+    const nearest = Math.min(...points.map(p=>Math.hypot(p.x-destination.x,p.y-destination.y)));
+    expect(nearest).toBeLessThan(3);
+    const end=points.at(-1)!;
+    expect(Math.hypot(end.x-source.x,end.y-source.y)).toBeLessThan(3);
+    expect(Math.abs(end.width-source.width)).toBeLessThan(3);
+    await expect(page.getByTestId('word-rail').locator('[data-slot-state="filled"]')).toHaveCount(0);
+    await waitForGamePhase(page,'awaiting-answer');
+    await expect(answer).toBeVisible();
+    await expect(answer).toBeEnabled();
+  });
+
+  test(`${game} cancels a wrong return on replay without leaving a hidden answer`,async({page})=>{
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    await start(page,game);
+    const state=await getE2EState<CompleteLetterE2EState|CompleteSyllableE2EState>(page);
+    const wrongId=state.answerItemIds.find(id=>id!==state.correctItemId)!;
+    const answer=page.locator(`[data-answer-id="${wrongId}"]`);
+    await answer.click();
+    const flight=page.locator('[data-tile-flight]');
+    await expect(flight).toHaveCount(1);
+    // Interrupt the return leg, beyond the outward morph and its pause.
+    await flight.evaluate(async node=>{while(node.isConnected&&node.getAnimations().length<2)await new Promise<void>(r=>requestAnimationFrame(()=>r()));});
+    await page.getByRole('button',{name:'Zopakovať zadanie'}).click();
+    await expect(flight).toHaveCount(0);
+    await waitForGamePhase(page,'awaiting-answer');
+    await expect(answer).toBeVisible();
+    await expect(page.getByTestId('word-rail').locator('[data-slot-state="filled"]')).toHaveCount(0);
+    expect((await getE2EState<CompleteLetterE2EState|CompleteSyllableE2EState>(page)).wrongAttempts).toBe(0);
+  });
+
+  test(`${game} keeps wrong reduced-motion choices out of the question`,async({page})=>{
+    await page.emulateMedia({reducedMotion:'reduce'});
+    await start(page,game);
+    const state=await getE2EState<CompleteLetterE2EState|CompleteSyllableE2EState>(page);
+    const wrongId=state.answerItemIds.find(id=>id!==state.correctItemId)!;
+    await page.locator(`[data-answer-id="${wrongId}"]`).click();
+    await expect(page.locator('[data-tile-flight]')).toHaveCount(0);
+    await expect(page.getByTestId('word-rail').locator('[data-slot-state="filled"]')).toHaveCount(0);
+    await waitForGamePhase(page,'awaiting-answer');
   });
 }
 

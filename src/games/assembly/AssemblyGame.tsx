@@ -6,7 +6,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { gsap } from 'gsap';
-import { createFloatingTile } from '../../shared/game/motion/tileTransfer';
+import { createFloatingTile, getTileFontSize } from '../../shared/game/motion/tileTransfer';
 import { useReducedMotion } from 'motion/react';
 import { AudioSpec, PraiseEntry, SuccessSpec, Word } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
@@ -323,6 +323,8 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
         left: destinationRect.left,
         width: destinationRect.width,
         height: destinationRect.height,
+        fontSize: getTileFontSize(destination),
+        borderRadius: getComputedStyle(destination).borderRadius,
         duration: TILE_FLIGHT_DURATION_S,
         ease: 'power2.inOut',
         onComplete: () => {
@@ -555,6 +557,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       className="contents"
       style={{
         '--assembly-tile-size': 'clamp(3rem, min(18vw, 12vh), 8rem)',
+        '--assembly-slot-height': 'clamp(3.375rem, min(12vw, 10vh), 4rem)',
         '--assembly-label-size': 'clamp(1rem, calc(var(--assembly-tile-size) * 0.35), 2rem)',
       } as React.CSSProperties}
     >
@@ -586,8 +589,9 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                           key={`assembly-slot-${index}`}
                           label={tile ? `Slabika ${index + 1}: ${tile.text}` : `Slabika ${index + 1}: prázdne`}
                           state={tile ? 'filled' : 'pending'}
-                          style={{ width: 'var(--assembly-tile-size)', height: 'var(--assembly-tile-size)' }}
-                          className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 shrink-0 grid-cols-1 grid-rows-1 p-0"
+                          fitContents={correctSyllables.map(renderTileLabel)}
+                          style={{ height: 'var(--assembly-slot-height)', fontSize: 'var(--assembly-label-size)' }}
+                          className="min-h-[54px] min-w-[54px] shrink-0 grid-cols-1 grid-rows-1 p-0"
                         >
                           {tile ? (
                             <TactilePiece
@@ -603,14 +607,14 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                               onFocus={() => setRailActiveTileId(tile.id)}
                               onPress={() => returnTile(tile, index)}
                               style={{
-                                width: 'var(--assembly-tile-size)',
-                                height: 'var(--assembly-tile-size)',
+                                width: '100%',
+                                height: '100%',
                                 ...(prefersReducedMotion
                                   ? { opacity: isEntering ? 0 : 1, transition: 'opacity 200ms ease' }
                                   : { transitionProperty: 'transform, box-shadow, opacity', ...(isMoving ? { visibility: 'hidden' as const } : {}) }),
                               }}
                             >
-                              <span className="font-spline text-[length:var(--assembly-label-size)] font-black leading-none">
+                              <span data-tile-label className="font-spline text-[length:var(--assembly-label-size)] font-black leading-none">
                                 {renderTileLabel(tile.text)}
                               </span>
                             </TactilePiece>
@@ -669,7 +673,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                   }}
                   className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 p-0"
                 >
-                  <span className="font-spline text-[length:var(--assembly-label-size)] font-black leading-none">
+                  <span data-tile-label className="font-spline text-[length:var(--assembly-label-size)] font-black leading-none">
                     {renderTileLabel(tile.text)}
                   </span>
                 </TactilePiece>

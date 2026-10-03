@@ -40,6 +40,10 @@ test('Doplň písmeno advances the active inset on the first correct fit and com
   expect(firstState.missingCount).toBe(2);
   expect(firstState.filledMissingCount).toBe(0);
 
+  const rail = page.getByTestId('word-rail');
+  const firstIndex = await rail.locator('[data-slot-state]').evaluateAll(nodes=>nodes.findIndex(node=>node.getAttribute('data-slot-state')==='active'));
+  const firstSlot = rail.locator('[data-slot-state]').nth(firstIndex);
+  const initialSlot = (await firstSlot.boundingBox())!;
   await pressAnswerById(page, firstState.correctItemId!);
   // First fit is a 'progress' outcome: it settles one inset and returns straight to
   // awaiting-answer — it must never end the round on its own.
@@ -53,6 +57,9 @@ test('Doplň písmeno advances the active inset on the first correct fit and com
   expect(midState.roundsPlayed).toBe(0);
   expect(midState.gamePhase).not.toBe('answered-correctly');
   expect(midState.correctItemId).not.toBeNull();
+  const filledSlot = (await firstSlot.boundingBox())!;
+  expect(Math.abs(filledSlot.width-initialSlot.width)).toBeLessThan(1);
+  expect(Math.abs(filledSlot.height-initialSlot.height)).toBeLessThan(1);
 
   await pressAnswerById(page, midState.correctItemId!);
   await waitForGamePhase(page, 'answered-correctly');

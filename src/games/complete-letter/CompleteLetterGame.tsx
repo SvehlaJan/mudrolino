@@ -315,9 +315,16 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       }
 
       const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
-      // Reveal every remaining missing unit before the failure explanation plays.
-      if (exhausted) settleBlank(targetRound.missingIndexes.length);
+      const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
+      const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
+      const returning = moveTile(source, target, false);
       await resolveAnswer({
+        beforeOutcome: async () => {
+          if (!await returning) return false;
+          // Reveal remaining units only after the wrong tile has returned.
+          if (exhausted) settleBlank(targetRound.missingIndexes.length);
+          return true;
+        },
         answerId,
         outcome: 'wrong',
         selectionAudio: getWrongAnswerAudio(locale, 'letters', letter.audioKey, letter.symbol),
@@ -380,6 +387,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
                     <InsetSlot
                       key={slot.index}
                       label={getInsetLabel(slot)}
+                      fitContents={targetRound.missingIndexes.includes(slot.index) ? activeLetters.map(letter => letter.symbol) : undefined}
                       state={slot.state === 'active' && previewPlacement ? 'filled' : slot.state === 'visible' ? 'fixed' : slot.state}
                     >
                       {slot.state === 'active' && previewPlacement ? correctSymbol : slot.state === 'active' || slot.state === 'pending' ? null : slot.text}
@@ -409,7 +417,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
               state={getAnswerPieceState(state, letter.symbol)}
               onPress={() => void chooseAnswer(letter)}
             >
-              <span className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-bold leading-none">
+              <span data-tile-label className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-bold leading-none">
                 {letter.symbol}
               </span>
             </TactilePiece>

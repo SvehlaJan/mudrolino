@@ -17,6 +17,26 @@ test('UI kit exposes the literacy material vocabulary', async ({ page }) => {
   await expectNoHorizontalOverflow(page);
 });
 
+for (const [name,viewport] of Object.entries(INTEGRATION_VIEWPORTS)) {
+  test(`television emoji fits inside its circular question at ${name}`,async ({page})=>{
+    await page.setViewportSize(viewport);
+    await seedSingleLiteracyWord(page,{word:'Televízor',syllables:'te-le-ví-zor',emoji:'📺',audioKey:'televizor'});
+    await page.goto('/first-letter');
+    await page.getByRole('button',{name:'Hrať'}).click();
+    await waitForGamePhase(page,'awaiting-answer');
+    const fits=await page.getByRole('img',{name:'Televízor',exact:true}).evaluate(frame=>{
+      const text=document.createRange();
+      text.selectNodeContents(frame);
+      const glyph=text.getBoundingClientRect();
+      const circle=frame.getBoundingClientRect();
+      const cx=circle.x+circle.width/2,cy=circle.y+circle.height/2;
+      const farthest=Math.max(...[glyph.left,glyph.right].flatMap(x=>[glyph.top,glyph.bottom].map(y=>Math.hypot(x-cx,y-cy))));
+      return {farthest,radius:circle.width/2};
+    });
+    expect(fits.farthest).toBeLessThan(fits.radius);
+  });
+}
+
 test.describe('Task 7: Full viewport matrix', () => {
   const viewportEntries = Object.entries(INTEGRATION_VIEWPORTS) as Array<
     [keyof typeof CANONICAL_VIEWPORTS, (typeof CANONICAL_VIEWPORTS)[keyof typeof CANONICAL_VIEWPORTS]]

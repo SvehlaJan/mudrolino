@@ -10,13 +10,13 @@ function tileFixture() {
   };
   const clone = {
     style: { setProperty: vi.fn() }, removeAttribute: vi.fn(), setAttribute: vi.fn(),
-    querySelectorAll: () => [], remove: vi.fn(), animate: vi.fn(() => animation),
+    querySelectorAll: () => [], remove: vi.fn(), animate: vi.fn((_frames: Keyframe[], _options: KeyframeAnimationOptions) => animation),
   };
   const source = {
     style: { visibility: '', setProperty: vi.fn() }, cloneNode: () => clone, querySelectorAll: () => [],
     getBoundingClientRect: () => ({ top: 300, left: 50, width: 90, height: 90 }),
   };
-  const target = { getBoundingClientRect: () => ({ top: 100, left: 200, width: 60, height: 60 }) };
+  const target = { querySelectorAll: () => [], getBoundingClientRect: () => ({ top: 100, left: 200, width: 120, height: 60 }) };
   vi.stubGlobal('getComputedStyle', () => []);
   vi.stubGlobal('document', { body: { appendChild: vi.fn() } });
   return { source: source as unknown as HTMLElement, target: target as unknown as HTMLElement, clone, animation, complete, reject };
@@ -25,6 +25,57 @@ function tileFixture() {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('tile transfer lifecycle', () => {
+  it('morphs the whole square into the target rectangle without stretching its text', async () => {
+    const fixture = tileFixture();
+    const transfer = transferTile(fixture.source, fixture.target, false);
+    const frames = fixture.clone.animate.mock.calls[0][0] as Keyframe[];
+    expect(frames[0]).toMatchObject({ width: '90px', height: '90px' });
+    expect(frames.at(-1)).toMatchObject({ width: '120px', height: '60px', top: '100px', left: '200px' });
+    fixture.complete();
+    expect(await transfer.finished).toBe(true);
+  });
+
+  it('waits for a wrong card to return and never previews a filled slot', async () => {
+    const fixture = tileFixture();
+    let arrive!: () => void;
+    const back = { finished: new Promise<void>(resolve => { arrive = resolve; }), cancel: vi.fn() };
+    fixture.clone.animate.mockReturnValueOnce(fixture.animation).mockReturnValueOnce(back);
+    const transfer = transferTile(fixture.source, fixture.target, false, true, true);
+    fixture.complete();
+    await Promise.resolve();
+    expect(fixture.clone.animate).toHaveBeenCalledTimes(2);
+    expect(fixture.source.style.visibility).toBe('hidden');
+    expect(transfer.previewPlacement).toBe(false);
+    expect(fixture.clone.animate.mock.calls[1][0].at(-1)).toMatchObject({ width: '90px', height: '90px', top: '300px', left: '50px' });
+    arrive();
+    expect(await transfer.finished).toBe(true);
+    expect(fixture.source.style.visibility).toBe('');
+    expect(fixture.clone.remove).toHaveBeenCalledOnce();
+  });
+
+  it('cancels during the return leg without allowing an outcome', async () => {
+    const fixture = tileFixture();
+    const back = { finished: new Promise<void>(() => undefined), cancel: vi.fn() };
+    fixture.clone.animate.mockReturnValueOnce(fixture.animation).mockReturnValueOnce(back);
+    const transfer = transferTile(fixture.source, fixture.target, false, true, true);
+    fixture.complete();
+    await Promise.resolve();
+    transfer.cancel();
+    expect(await transfer.finished).toBe(false);
+    expect(back.cancel).toHaveBeenCalledOnce();
+    expect(fixture.source.style.visibility).toBe('');
+    expect(fixture.clone.remove).toHaveBeenCalledOnce();
+  });
+
+  it('leaves a reduced-motion wrong card visible without a placement preview', async () => {
+    const fixture = tileFixture();
+    const transfer = transferTile(fixture.source, fixture.target, true, true, true);
+    expect(await transfer.finished).toBe(true);
+    expect(transfer.previewPlacement).toBe(false);
+    expect(fixture.source.style.visibility).toBe('');
+    expect(fixture.clone.animate).not.toHaveBeenCalled();
+  });
+
   it('keeps the answer hidden during travel and restores it only when the transfer lands', async () => {
     const fixture = tileFixture();
     const transfer = transferTile(fixture.source, fixture.target, false);

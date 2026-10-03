@@ -267,7 +267,11 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       }
 
       const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
+      const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
+      const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
+      const returning = moveTile(source, target, false);
       await resolveAnswer({
+        beforeOutcome: () => returning,
         answerId,
         outcome: 'wrong',
         selectionAudio: getWrongAnswerAudio(locale, 'syllables', syllable.audioKey, syllable.symbol),
@@ -337,6 +341,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
                       )}
                       <InsetSlot
                         label={getInsetLabel(slot)}
+                        fitContents={slot.isMissing ? choices.map(choice => choice.symbol) : undefined}
                         state={slot.isMissing ? (revealed ? 'filled' : 'active') : 'fixed'}
                       >
                         {slot.isMissing && !revealed ? null : slot.text}
@@ -367,7 +372,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
               state={getAnswerPieceState(state, syllable.symbol)}
               onPress={() => void chooseAnswer(syllable)}
             >
-              <span className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-bold leading-none">
+              <span data-tile-label className="font-spline text-[clamp(1.25rem,calc(var(--tile-size)*0.38),3rem)] font-bold leading-none">
                 {syllable.symbol}
               </span>
             </TactilePiece>

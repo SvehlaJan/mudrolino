@@ -28,9 +28,9 @@ export function PictureCard({ emoji, label, caption, className = '', ...props }:
       <span
         role="img"
         aria-label={label}
-        className="grid aspect-square size-[clamp(8rem,calc(16vmin+2rem),10rem)] place-items-center rounded-full border border-border-subtle bg-surface text-[clamp(4rem,16vmin,8rem)] leading-none [@media(max-width:380px)]:size-20 [@media(max-width:380px)]:text-[clamp(2.25rem,11vmin,4.5rem)] [@media(max-height:480px)]:size-[clamp(2rem,calc(8vmin+0.25rem),3.5rem)] [@media(max-height:480px)]:text-[clamp(1.5rem,8vmin,3rem)]"
+        className="grid aspect-square size-[clamp(8rem,calc(16vmin+2rem),10rem)] place-items-center rounded-full border border-border-subtle bg-surface leading-none [container-type:inline-size] [@media(max-width:380px)]:size-20 [@media(max-height:480px)]:size-[clamp(2rem,calc(8vmin+0.25rem),3.5rem)]"
       >
-        {emoji}
+        <span aria-hidden="true" className="text-[58cqi] leading-none">{emoji}</span>
       </span>
       {caption ? (
         <figcaption className="text-center font-spline text-xl font-bold text-text-main [@media(max-height:480px)]:text-xs [@media(max-width:380px)]:text-base">

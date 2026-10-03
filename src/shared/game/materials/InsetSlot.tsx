@@ -12,9 +12,10 @@ export interface InsetSlotProps extends Omit<HTMLAttributes<HTMLLIElement>, 'ari
   label: string;
   state: InsetSlotState;
   children?: ReactNode;
+  fitContents?: readonly string[];
 }
 
-export function InsetSlot({ label, state, children, className = '', ...props }: InsetSlotProps) {
+export function InsetSlot({ label, state, children, fitContents = [], className = '', ...props }: InsetSlotProps) {
   return (
     <li
       aria-label={label}
@@ -32,7 +33,11 @@ export function InsetSlot({ label, state, children, className = '', ...props }: 
       )}
       {...props}
     >
-      {children ?? <span aria-hidden="true">?</span>}
+      {fitContents.map(text => <span key={text} aria-hidden="true" data-fit-text={text}
+        className="invisible col-start-1 row-start-1 whitespace-nowrap px-1 before:content-[attr(data-fit-text)]" />)}
+      <span className="col-start-1 row-start-1 grid h-full w-full min-w-0 place-items-center whitespace-nowrap">
+        {children ?? <span aria-hidden="true">?</span>}
+      </span>
     </li>
   );
 }

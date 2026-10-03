@@ -71,7 +71,7 @@ function expectSameRect(actual: Awaited<ReturnType<typeof rect>>, expected: Awai
 }
 
 for (const viewport of VIEWPORTS) {
-  test(`assembly syllable geometry stays stable at ${viewport.name}`, async ({ page }) => {
+  test(`assembly keeps board geometry stable while cards fit their destination at ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await seedWord(page);
 
@@ -102,6 +102,7 @@ for (const viewport of VIEWPORTS) {
       return { fontFamily: style.fontFamily, fontSize: style.fontSize, fontWeight: style.fontWeight };
     });
     const sourceRect = await rect(trayTile);
+    expect(sourceRect.width, 'tray answer remains square before the morph').toBeCloseTo(sourceRect.height, 0);
     const sourceFontSize = Number.parseFloat(sourceStyle.fontSize);
     expect(sourceFontSize).toBeGreaterThanOrEqual(16);
     expect(sourceFontSize).toBeLessThanOrEqual(32);
@@ -139,8 +140,7 @@ for (const viewport of VIEWPORTS) {
     const filledSlotRect = await rect(placedTile.locator('..'));
     expect(filledRect.x, 'placed syllable should align with its rail cell').toBeCloseTo(filledSlotRect.x, 0);
     expect(filledRect.y, 'placed syllable should align with its rail cell').toBeCloseTo(filledSlotRect.y, 0);
-    expect(Math.abs(filledRect.width - sourceRect.width)).toBeLessThanOrEqual(4);
-    expect(Math.abs(filledRect.height - sourceRect.height)).toBeLessThanOrEqual(4);
+    expectSameRect(filledRect, filledSlotRect);
     expectSameRect(await rect(rail), railRect);
     expectSameRect(await rect(tray.locator('[data-testid="game-answer-region"]')), answerRect);
     const movedTrayRects = await tray.locator('[data-tray-index]').evaluateAll((items) => items.map((item) => {
