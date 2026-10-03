@@ -18,7 +18,7 @@ export function WordRail({ label, children, className = '' }: WordRailProps) {
       data-testid="word-rail"
       aria-label={label}
       className={cn(
-        'w-full rounded-[2rem] bg-surface/80 p-3 shadow-card sm:p-5 [@media(max-height:480px)]:p-1 [@media(max-width:380px)]:p-1.5',
+        'w-full rounded-[2rem] bg-surface/80 p-3 sm:p-5 [@media(max-height:480px)]:p-1 [@media(max-width:380px)]:p-1.5',
         className,
       )}
     >

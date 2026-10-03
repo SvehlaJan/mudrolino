@@ -22,6 +22,5 @@ export * from './RoundCounter';
 export * from './Switch';
 export * from './Tabs';
 export * from './TopBar';
-export * from './UiKitScreen';
 export * from './tokens';
 export * from './utils';

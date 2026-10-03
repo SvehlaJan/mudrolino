@@ -17,15 +17,10 @@ export function PictureCard({ emoji, label, caption, className = '', ...props }:
     <figure
       data-testid="picture-card"
       className={cn(
-        'grid min-h-32 place-items-center gap-2 rounded-3xl border border-border-subtle bg-surface p-4 shadow-card',
-        // A short landscape strip (max-height) leaves very little total room once the sibling
-        // WordRail also needs to stay visible below this card — see WordRail/InsetSlot's own
-        // comment on the same breakpoint. This card is decorative next to WordRail's essential
-        // blanks, so it shrinks further here than the width-only case below, which — unlike a
-        // short landscape strip — usually still has ample height to spare (e.g. a narrow but
-        // tall phone) and only needs a mild reduction.
-        '[@media(max-height:480px)]:min-h-8 [@media(max-height:480px)]:gap-0 [@media(max-height:480px)]:p-0.5',
-        '[@media(max-width:380px)]:min-h-20 [@media(max-width:380px)]:gap-1 [@media(max-width:380px)]:p-2',
+        'grid place-items-center gap-2',
+        // The circle replaces the old padded card within the same prompt height budget.
+        // WordRail needs the remaining space, particularly in short landscape layouts.
+        '[@media(max-height:480px)]:gap-0 [@media(max-width:380px)]:gap-1',
         className,
       )}
       {...props}
@@ -33,7 +28,7 @@ export function PictureCard({ emoji, label, caption, className = '', ...props }:
       <span
         role="img"
         aria-label={label}
-        className="text-[clamp(4rem,16vmin,8rem)] leading-none [@media(max-height:480px)]:text-[clamp(1.5rem,8vmin,3rem)] [@media(max-width:380px)]:text-[clamp(2.25rem,11vmin,4.5rem)]"
+        className="grid aspect-square size-[clamp(8rem,calc(16vmin+2rem),10rem)] place-items-center rounded-full border border-border-subtle bg-surface text-[clamp(4rem,16vmin,8rem)] leading-none [@media(max-width:380px)]:size-20 [@media(max-width:380px)]:text-[clamp(2.25rem,11vmin,4.5rem)] [@media(max-height:480px)]:size-[clamp(2rem,calc(8vmin+0.25rem),3.5rem)] [@media(max-height:480px)]:text-[clamp(1.5rem,8vmin,3rem)]"
       >
         {emoji}
       </span>

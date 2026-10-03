@@ -7,6 +7,8 @@ export interface ResolveAnswerInput {
   countTap?: boolean;
   selectionAudio: AudioSpec;
   verdictAudio?: AudioSpec;
+  /** Finish a physical placement after item audio, before publishing progress or a verdict. */
+  beforeOutcome?: () => Promise<boolean>;
 }
 export interface UseGameSessionOptions {
   maxRounds?: number;
@@ -93,6 +95,9 @@ export function createGameSessionController<Timer>(
     const id = invalidate();
     if (state.paused) { publish(); return; }
     replaying = replay;
+    // A replay can interrupt placement/selection; release that cancelled answer before
+    // starting the prompt so PROMPT_FINISHED can return to an answerable question.
+    if (state.phase === 'resolving-answer') dispatch({ type: 'ANSWER_PROGRESS', countTap: false });
     dispatch({ type: 'PROMPT_STARTED' });
     await audio.play(spec);
     if (!isCurrent(id)) return;
@@ -106,6 +111,15 @@ export function createGameSessionController<Timer>(
     dispatch({ type: 'ANSWER_STARTED', answerId: input.answerId });
     await audio.play(input.selectionAudio);
     if (!isCurrent(id)) return 'cancelled';
+    if (input.beforeOutcome) {
+      const placed = await input.beforeOutcome();
+      if (!isCurrent(id)) return 'cancelled';
+      if (!placed) {
+        answering = false;
+        dispatch({ type: 'ANSWER_PROGRESS', countTap: false });
+        return 'cancelled';
+      }
+    }
     if (input.outcome === 'progress') {
       answering = false;
       dispatch({ type: 'ANSWER_PROGRESS', countTap: input.countTap });

@@ -276,6 +276,7 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
               key={letter.symbol}
               as="button"
               material="magnet"
+              visualRole="answer"
               label={`Písmeno ${letter.symbol}`}
               data-answer-id={letter.symbol}
               state={getAnswerPieceState(state, letter.symbol)}

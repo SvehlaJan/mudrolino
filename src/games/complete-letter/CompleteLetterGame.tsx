@@ -12,6 +12,7 @@ import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverl
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useTileTransfer } from '../../shared/game/motion/useTileTransfer';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
   AnswerGroup,
@@ -220,6 +221,9 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
     fail,
   } = session;
 
+  const playfieldRef = useRef<HTMLDivElement>(null);
+  const { moving: tileMoving, move: moveTile, cancel: cancelTileTransfer, previewPlacement } = useTileTransfer(targetRound, state.paused || state.phase === 'recoverable-error', filledCount);
+
   useEffect(() => {
     if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
   }, [isEmpty, fail, locale]);
@@ -250,8 +254,9 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
 
   const handleReplay = useCallback(() => {
     if (!targetRound) return;
+    cancelTileTransfer();
     void replayPrompt(getPromptAudio(locale, targetRound));
-  }, [targetRound, locale, replayPrompt]);
+  }, [targetRound, locale, replayPrompt, cancelTileTransfer]);
 
   const retryAfterError = useCallback(() => {
     if (!isEmpty) playAgain();
@@ -270,6 +275,9 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       const answerId = letter.symbol;
 
       if (letter.symbol === correctSymbol) {
+        const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
+        const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
+        const landing = moveTile(source, target);
         const nextFilledCount = filledCount + 1;
         const isFinalBlank = nextFilledCount >= targetRound.missingIndexes.length;
 
@@ -277,8 +285,12 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
           // activeLetters reflects live settings; a mid-round settings change (rare) could shift
           // distractors for the next blank — the correct answer itself is unaffected.
           const nextChoices = buildLetterChoices(targetRound, activeLetters, nextFilledCount, CHOICE_COUNT);
-          settleBlank(nextFilledCount, nextChoices);
           await resolveAnswer({
+            beforeOutcome: async () => {
+              if (!await landing) return false;
+              settleBlank(nextFilledCount, nextChoices);
+              return true;
+            },
             answerId,
             outcome: 'progress',
             selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
@@ -288,8 +300,12 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
 
         const praise = pickPraise(praiseEntries);
         setRoundPraise(praise);
-        settleBlank(nextFilledCount);
         await resolveAnswer({
+          beforeOutcome: async () => {
+            if (!await landing) return false;
+            settleBlank(nextFilledCount);
+            return true;
+          },
           answerId,
           outcome: 'correct',
           selectionAudio: getItemAnnouncementAudio(locale, 'letters', letter.audioKey, letter.symbol),
@@ -310,7 +326,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
     } finally {
       answerLockRef.current = false;
     }
-  }, [targetRound, correctSymbol, canAnswer, filledCount, activeLetters, locale, praiseEntries, resolveAnswer, settleBlank, state.maxAttempts, state.wrongAttempts]);
+  }, [targetRound, correctSymbol, canAnswer, filledCount, activeLetters, locale, praiseEntries, resolveAnswer, settleBlank, state.maxAttempts, state.wrongAttempts, moveTile]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
     ? {
@@ -342,6 +358,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
   const slots = targetRound ? buildPromptSlots(targetRound, filledCount) : [];
 
   return (
+    <div ref={playfieldRef} className="contents">
     <GameShell
       gameId="COMPLETE_LETTER"
       state={state}
@@ -363,9 +380,9 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
                     <InsetSlot
                       key={slot.index}
                       label={getInsetLabel(slot)}
-                      state={slot.state === 'visible' ? 'fixed' : slot.state}
+                      state={slot.state === 'active' && previewPlacement ? 'filled' : slot.state === 'visible' ? 'fixed' : slot.state}
                     >
-                      {slot.state === 'active' || slot.state === 'pending' ? null : slot.text}
+                      {slot.state === 'active' && previewPlacement ? correctSymbol : slot.state === 'active' || slot.state === 'pending' ? null : slot.text}
                     </InsetSlot>
                   ))}
                 </WordRail>
@@ -380,12 +397,13 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       completion={completion}
     >
       <PlayTray label={getUiCopy(locale, 'game.playArea')}>
-        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer}>
+        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer || tileMoving}>
           {choices.map((letter) => (
             <TactilePiece
               key={letter.symbol}
               as="button"
               material="magnet"
+              visualRole="answer"
               label={`Písmeno ${letter.symbol}`}
               data-answer-id={letter.symbol}
               state={getAnswerPieceState(state, letter.symbol)}
@@ -399,6 +417,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
         </AnswerGroup>
       </PlayTray>
     </GameShell>
+    </div>
   );
 }
 

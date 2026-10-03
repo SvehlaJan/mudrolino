@@ -23,9 +23,13 @@ import { GAME_DEFINITIONS } from './shared/gameCatalog';
 import { GroupedHomeScreen } from './home/GroupedHomeScreen';
 import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
-import { UiKitScreen } from './shared/ui';
 import { CustomContentScreen } from './content/CustomContentScreen';
 import { useAutosaveStatus, type AutosaveStatus } from './shared/hooks/useAutosaveStatus';
+
+// Keep all gallery code and metadata outside the production dependency graph.
+const UiKitScreen = import.meta.env.DEV || import.meta.env.MODE === 'test'
+  ? React.lazy(() => import('./shared/ui/UiKitScreen').then(module => ({ default: module.UiKitScreen })))
+  : null;
 
 // Initialize font attribute immediately on boot
 applyFontFamily(loadAppSettings().fontFamily);
@@ -176,7 +180,11 @@ export default function App() {
             path="/ui-kit"
             element={
               <ErrorBoundary>
-                <UiKitScreen />
+                {UiKitScreen ? (
+                  <React.Suspense fallback={<p role="status" className="p-6">Načítavam knižnicu komponentov…</p>}>
+                    <UiKitScreen />
+                  </React.Suspense>
+                ) : <Navigate to="/" replace />}
               </ErrorBoundary>
             }
           />

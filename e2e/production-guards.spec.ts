@@ -29,3 +29,14 @@ test('release hides the avatar experiment and its preview route', async ({ page 
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
 });
+
+test('production redirects the development component gallery to home', async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  const failedRequests = trackFailedRequests(page);
+  await page.goto('/ui-kit?example=game-materials');
+  await expect(page).toHaveURL('/');
+  await expect(page.getByRole('heading', { name: 'UI Kit', exact: true })).toHaveCount(0);
+  await expect(page.getByTestId('component-gallery')).toHaveCount(0);
+  expectNoConsoleErrors(errors);
+  expectNoFailedRequests(failedRequests);
+});

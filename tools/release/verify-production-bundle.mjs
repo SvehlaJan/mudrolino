@@ -14,6 +14,16 @@ for (const forbidden of ['__E2E__', 'three.module', '@react-three/fiber']) {
 }
 
 const chunks = readdirSync(assets).filter((file) => file.endsWith('.js'));
+// The development-only route must not emit its demos or source inventory at all,
+// even if bundling changes chunk names or combines modules in a shared chunk.
+for (const file of chunks) {
+  const code = readFileSync(new URL(file, assets), 'utf8');
+  for (const marker of ['component-gallery-title', 'tools/ui-gallery/generate.ts', 'ui-piece-press-count']) {
+    if (code.includes(marker)) throw new Error(`Production chunk ${file} contains development gallery code (${marker})`);
+  }
+}
+if (chunks.some(file => /^UiKitScreen-.*\.js$/.test(file))) throw new Error('Production emitted a development gallery chunk');
+
 const avatar = chunks.filter((file) => /^AvatarScene-.*\.js$/.test(file));
 if (avatar.length !== 1) throw new Error(`Expected one lazy AvatarScene chunk; found ${avatar.length}`);
 if (avatar[0] === entry[1]) throw new Error('AvatarScene entered the production entry chunk');

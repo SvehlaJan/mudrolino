@@ -12,6 +12,7 @@ import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverl
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useTileTransfer } from '../../shared/game/motion/useTileTransfer';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
   AnswerGroup,
@@ -196,6 +197,9 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     fail,
   } = session;
 
+  const playfieldRef = useRef<HTMLDivElement>(null);
+  const { moving: tileMoving, move: moveTile, cancel: cancelTileTransfer, previewPlacement } = useTileTransfer(targetRound, state.paused || state.phase === 'recoverable-error', state.feedback);
+
   useEffect(() => {
     if (isEmpty) fail(getUiCopy(locale, 'game.error.emptyPool'));
   }, [isEmpty, fail, locale]);
@@ -224,8 +228,9 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
 
   const handleReplay = useCallback(() => {
     if (!targetRound) return;
+    cancelTileTransfer();
     void replayPrompt(getPromptAudio(locale, targetRound));
-  }, [targetRound, locale, replayPrompt]);
+  }, [targetRound, locale, replayPrompt, cancelTileTransfer]);
 
   const retryAfterError = useCallback(() => {
     if (!isEmpty) playAgain();
@@ -246,9 +251,13 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       const answerId = syllable.symbol;
 
       if (syllable.symbol === targetRound.correctSyllable) {
+        const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
+        const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
+        const landing = moveTile(source, target);
         const praise = pickPraise(praiseEntries);
         setRoundPraise(praise);
         await resolveAnswer({
+          beforeOutcome: () => landing,
           answerId,
           outcome: 'correct',
           selectionAudio: getItemAnnouncementAudio(locale, 'syllables', syllable.audioKey, syllable.symbol),
@@ -267,7 +276,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     } finally {
       answerLockRef.current = false;
     }
-  }, [targetRound, canAnswer, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts]);
+  }, [targetRound, canAnswer, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts, moveTile]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
     ? {
@@ -296,13 +305,13 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     onHome: onExit,
   };
 
-  // `state.feedback` flips to 'success'/'failure' synchronously the moment resolveAnswer
-  // dispatches the terminal event — before its verdict audio plays — so deriving the reveal
-  // straight from it fills the slot exactly on time without any extra local tracking.
-  const revealed = state.feedback !== null;
+  // The controller commits the final reveal before verdict audio. Reduced motion previews
+  // placement immediately while item audio is playing; cancellation clears that preview.
+  const revealed = state.feedback !== null || previewPlacement;
   const slots = targetRound ? buildPromptSlots(targetRound, revealed) : [];
 
   return (
+    <div ref={playfieldRef} className="contents">
     <GameShell
       gameId="COMPLETE_SYLLABLE"
       state={state}
@@ -346,12 +355,13 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       completion={completion}
     >
       <PlayTray label={getUiCopy(locale, 'game.playArea')}>
-        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer}>
+        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer || tileMoving}>
           {choices.map((syllable) => (
             <TactilePiece
               key={syllable.symbol}
               as="button"
               material="felt"
+              visualRole="answer"
               label={`Slabika ${syllable.symbol}`}
               data-answer-id={syllable.symbol}
               state={getAnswerPieceState(state, syllable.symbol)}
@@ -365,6 +375,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
         </AnswerGroup>
       </PlayTray>
     </GameShell>
+    </div>
   );
 }
 

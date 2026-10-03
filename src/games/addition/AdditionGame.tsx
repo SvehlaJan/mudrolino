@@ -120,7 +120,7 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
           <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer} orientation="horizontal" choiceLayout="tiles">
             {round.options.map(option => {
               const answerId = String(option.value);
-              return <TactilePiece key={answerId} as="button" material="wood" label={answerId} data-answer-id={answerId} state={getAnswerPieceState(state, answerId)} onPress={() => void chooseAnswer(option)}><span className="font-spline text-[clamp(1.5rem,calc(var(--tile-size)*0.55),4rem)] leading-none">{option.value}</span></TactilePiece>;
+              return <TactilePiece key={answerId} as="button" material="wood" visualRole="answer" label={answerId} data-answer-id={answerId} state={getAnswerPieceState(state, answerId)} onPress={() => void chooseAnswer(option)}><span className="font-spline text-[clamp(1.5rem,calc(var(--tile-size)*0.55),4rem)] leading-none">{option.value}</span></TactilePiece>;
             })}
           </AnswerGroup>
         </PlayTray>

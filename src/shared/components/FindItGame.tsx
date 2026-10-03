@@ -221,6 +221,7 @@ export function FindItGame<T>({ gameId, descriptor, onExit }: FindItGameProps<T>
                 key={id}
                 as="button"
                 material={descriptor.material}
+                visualRole="answer"
                 label={descriptor.getAccessibleLabel(item)}
                 data-answer-id={id}
                 state={getAnswerPieceState(state, id)}

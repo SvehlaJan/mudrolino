@@ -1,6 +1,7 @@
 import { expect, test, type Locator } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { waitForGamePhase } from './support/gameHarness';
+import { GAME_DEFINITIONS } from '../src/shared/gameCatalog';
 
 async function expectUnclippedShadows(controls: Locator) {
   const clipping = await controls.evaluateAll(elements => elements.flatMap(element => {
@@ -17,6 +18,69 @@ async function expectUnclippedShadows(controls: Locator) {
   }));
   expect(clipping).toEqual([]);
 }
+
+for (const { path } of GAME_DEFINITIONS) {
+  test(`visual roles: ${path} has raised answers and flat task content @geometry`, async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({
+      compareMode: 'objects', additionRepresentation: 'objects', additionSumRange: 5,
+    })));
+    await page.goto(path);
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    await waitForGamePhase(page, 'awaiting-answer');
+    const answers = page.getByTestId('game-answer-region').locator('button');
+    await expect(answers.first()).toBeVisible();
+    const styles = await answers.evaluateAll(buttons => buttons.map(button => {
+      const css = getComputedStyle(button);
+      const box = button.getBoundingClientRect();
+      return { radius: parseFloat(css.borderTopLeftRadius), shadow: css.boxShadow,
+        width: box.width, height: box.height, fill: css.backgroundColor,
+        borderWidths: [css.borderTopWidth, css.borderRightWidth, css.borderBottomWidth, css.borderLeftWidth],
+        borderStyle: css.borderTopStyle };
+    }));
+    for (const style of styles) {
+      expect(style.radius).toBe(22);
+      expect(style.radius).toBeLessThan(Math.min(style.width, style.height) / 2);
+      expect(style.shadow).toContain('0px 5px');
+      expect(style.fill).toBe('rgb(255, 255, 255)');
+      expect(style.borderWidths).toEqual(['1px', '1px', '1px', '1px']);
+      expect(style.borderStyle).toBe('solid');
+      expect(style.width).toBeGreaterThanOrEqual(48);
+      expect(style.height).toBeGreaterThanOrEqual(48);
+    }
+    await expectUnclippedShadows(answers);
+
+    if (['/counting', '/compare', '/addition'].includes(path)) {
+      await expect(page.locator('[data-material="counter"]').first()).toBeVisible();
+    }
+    for (const task of await page.locator('[data-material="counter"], [data-testid="word-rail"], [data-testid="picture-card"]').all()) {
+      await expect(task).toHaveCSS('box-shadow', 'none');
+    }
+    for (const picture of await page.getByTestId('picture-card').getByRole('img').all()) {
+      await expect(picture).toHaveCSS('box-shadow', 'none');
+      const shape = await picture.evaluate(element => {
+        const box = element.getBoundingClientRect();
+        return { width: box.width, height: box.height, radius: parseFloat(getComputedStyle(element).borderTopLeftRadius) };
+      });
+      expect(Math.abs(shape.width - shape.height)).toBeLessThanOrEqual(1);
+      expect(shape.radius).toBeGreaterThanOrEqual(shape.width / 2);
+    }
+  });
+}
+
+test('visual roles: Assembly placed tiles remain raised operable answers @geometry', async ({ page }) => {
+  await page.goto('/assembly');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+  const state = await getE2EState<{ correctTileOrder: string[] }>(page);
+  await page.getByTestId('play-tray').locator(`[data-tile-id="${state.correctTileOrder[0]}"]`).click();
+  const placed = page.getByTestId('word-rail').getByRole('button').first();
+  await expect(placed).toBeVisible();
+  await expect(placed).toBeEnabled();
+  expect(await placed.evaluate(element => getComputedStyle(element).boxShadow)).toContain('0px 5px');
+  await expectUnclippedShadows(placed);
+  await placed.click();
+  await expect(page.getByTestId('word-rail').getByRole('button')).toHaveCount(0);
+});
 
 test('review: number answers keep retry feedback off the card', async ({ page }) => {
   await page.setViewportSize({ width: 1107, height: 853 });

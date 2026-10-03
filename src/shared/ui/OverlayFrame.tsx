@@ -119,7 +119,8 @@ export function OverlayFrame({
         role="status"
         aria-live="polite"
         onClick={event => event.stopPropagation()}
-        initial={enterPreset.initial}
+        // Inline gallery specimens depict a settled state, without an offscreen entrance fade.
+        initial={inline ? false : enterPreset.initial}
         animate={enterPreset.animate}
         transition={motionPreset.transition}
         className={cn(

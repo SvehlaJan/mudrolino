@@ -13,10 +13,12 @@ import { useContentLocale } from '../../contexts/ContentContext';
 
 export type TactileMaterial = 'wood' | 'magnet' | 'felt' | 'picture' | 'counter' | 'paper';
 export type TactilePieceState = 'idle' | 'pressed' | 'retry' | 'settled' | 'disabled';
+export type TactileVisualRole = 'answer' | 'task';
 
 export interface TactilePieceProps extends React.HTMLAttributes<HTMLElement> {
   as?: 'span' | 'button';
   material: TactileMaterial;
+  visualRole: TactileVisualRole;
   state?: TactilePieceState;
   label?: string;
   disabled?: boolean;
@@ -25,16 +27,20 @@ export interface TactilePieceProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const tactileMaterialVariants = cva(
-  'relative flex min-h-12 min-w-12 items-center justify-center font-black text-text-main transition-all focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-50',
+  'relative flex min-h-12 min-w-12 items-center justify-center font-black text-text-main transition-[transform,box-shadow,opacity,background-color,border-color] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       material: {
-        wood: 'rounded-2xl border-b-4 border-r-4 border-black/15 bg-bg-light shadow-block',
-        magnet: 'rounded-full border-4 border-double border-black/20 bg-white shadow-chip',
-        felt: 'rounded-2xl border-2 border-dashed border-black/25 bg-white',
-        picture: 'rounded-[22px] border border-white/70 bg-white p-1 shadow-block',
-        counter: 'rounded-full border border-black/15 bg-white shadow-sm',
-        paper: 'rounded-lg border border-black/10 bg-white shadow-sm [clip-path:polygon(0_0,100%_0,100%_92%,92%_100%,0_100%)]',
+        wood: 'border-b-4 border-r-4 border-black/15 bg-bg-light',
+        magnet: 'border-4 border-double border-black/20 bg-white',
+        felt: 'border-2 border-dashed border-black/25 bg-white',
+        picture: 'border border-white/70 bg-white p-1',
+        counter: 'border border-black/15 bg-white',
+        paper: 'border border-black/10 bg-white',
+      },
+      visualRole: {
+        answer: 'rounded-[22px] border border-white/70 bg-white p-1 shadow-block',
+        task: 'rounded-full',
       },
     },
     defaultVariants: { material: 'wood' },
@@ -45,6 +51,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
   {
     as = 'span',
     material,
+    visualRole,
     state = 'idle',
     label,
     disabled = false,
@@ -92,8 +99,10 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
     ? cn('active:opacity-85', isPressed && 'opacity-85')
     : cn('active:translate-y-1 active:shadow-block-pressed', isPressed && 'translate-y-1 shadow-block-pressed');
   const sharedClassName = cn(
-    tactileMaterialVariants({ material }),
-    !isEffectiveDisabled && pressClassName,
+    // Answers share the Words picture-card appearance; material decoration belongs to tasks.
+    tactileMaterialVariants({ material: visualRole === 'task' ? material : null, visualRole }),
+    as === 'button' && !isEffectiveDisabled &&
+      (visualRole === 'answer' ? pressClassName : 'active:opacity-85'),
     className,
   );
 
@@ -108,6 +117,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
         aria-description={stateNoteText ?? undefined}
         disabled={isEffectiveDisabled}
         data-material={material}
+        data-visual-role={visualRole}
         data-piece-state={resolvedState}
         onClick={(e) => {
           buttonProps.onClick?.(e);
@@ -126,6 +136,7 @@ export const TactilePiece = React.forwardRef<HTMLElement, TactilePieceProps>(fun
       ref={ref as React.Ref<HTMLSpanElement>}
       aria-label={label}
       data-material={material}
+      data-visual-role={visualRole}
       data-piece-state={resolvedState}
       className={sharedClassName}
     >

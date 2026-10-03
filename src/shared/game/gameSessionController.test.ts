@@ -47,6 +47,51 @@ describe('game session controller', () => {
     expect(controller.getSnapshot().state).toMatchObject({ totalTaps: 1, correctRounds: 1, roundsPlayed: 1 });
   });
 
+  it('locks input and waits for placement after item audio before showing success or playing praise', async () => {
+    const { controller, pending, played } = setup();
+    const landing = deferred();
+    const beforeOutcome = vi.fn(async () => { await landing.promise; return true; });
+    const result = controller.resolveAnswer({ ...correct, beforeOutcome });
+    await finishSelection(pending);
+    expect(controller.getSnapshot()).toMatchObject({ canAnswer: false, state: { phase: 'resolving-answer', feedback: null } });
+    expect(played).toEqual(['item']);
+    expect(beforeOutcome).toHaveBeenCalledOnce();
+    landing.resolve();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(played).toEqual(['item', 'praise']);
+    pending[1].resolve();
+    expect(await result).toBe('success');
+  });
+
+  it('a cancelled placement restores an answerable question without recording success or praise', async () => {
+    const { controller, pending, played } = setup();
+    const result = controller.resolveAnswer({ ...correct, beforeOutcome: async () => false });
+    pending[0].resolve();
+    expect(await result).toBe('cancelled');
+    expect(controller.getSnapshot()).toMatchObject({ canAnswer: true, state: { phase: 'awaiting-answer', feedback: null, totalTaps: 0 } });
+    expect(played).toEqual(['item']);
+  });
+
+  it.each(['pause', 'replay', 'exit'] as const)('invalidates placement completion after %s', async (interruption) => {
+    const { controller, pending, played } = setup();
+    const landing = deferred();
+    const result = controller.resolveAnswer({ ...correct, beforeOutcome: async () => { await landing.promise; return true; } });
+    await finishSelection(pending);
+    if (interruption === 'pause') { controller.pause(); controller.resume(); }
+    if (interruption === 'replay') void controller.replayPrompt(audio('replay'));
+    if (interruption === 'exit') controller.dispose();
+    landing.resolve();
+    expect(await result).toBe('cancelled');
+    expect(controller.getSnapshot().state.feedback).toBeNull();
+    expect(played).not.toContain('praise');
+    if (interruption === 'pause') expect(controller.getSnapshot().canAnswer).toBe(true);
+    if (interruption === 'replay') {
+      pending[1].resolve();
+      await vi.advanceTimersByTimeAsync(0);
+      expect(controller.getSnapshot().canAnswer).toBe(true);
+    }
+  });
+
   it('starts the 1000ms advance only after verdict playback finishes', async () => {
     const { controller, pending, onNextRound } = setup();
     const result = controller.resolveAnswer(correct);

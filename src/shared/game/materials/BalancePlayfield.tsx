@@ -44,6 +44,7 @@ export function BalancePlayfield({
       <TactilePiece
         as="button"
         material="wood"
+        visualRole="answer"
         label={leftLabel}
         state={leftState}
         disabled={disabled || leftButtonDisabled}
@@ -58,6 +59,7 @@ export function BalancePlayfield({
       <TactilePiece
         as="button"
         material="wood"
+        visualRole="answer"
         label={rightLabel}
         state={rightState}
         disabled={disabled || rightButtonDisabled}

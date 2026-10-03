@@ -59,6 +59,7 @@ export function QuantityTray({
         const token = (
           <TactilePiece
             material="counter"
+            visualRole="task"
             aria-hidden="true"
             className="h-full w-full min-h-0 min-w-0 text-[clamp(1rem,8cqi,3rem)] leading-none"
           >

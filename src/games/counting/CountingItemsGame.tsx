@@ -174,7 +174,7 @@ function CountingPlayfield({ availableItems, allNumbers, onExit }: CountingPlayf
         <PlayTray label={getUiCopy(locale, 'game.playArea')} density="compact" sizing="content">
           <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer} orientation="horizontal" choiceLayout="tiles">
             {options.map((item) => (
-              <TactilePiece key={item.value} as="button" material="wood" label={String(item.value)} data-answer-id={String(item.value)} state={getAnswerPieceState(state, String(item.value))} onPress={() => void chooseAnswer(item)}>
+              <TactilePiece key={item.value} as="button" material="wood" visualRole="answer" label={String(item.value)} data-answer-id={String(item.value)} state={getAnswerPieceState(state, String(item.value))} onPress={() => void chooseAnswer(item)}>
                 <span className="font-spline text-[clamp(1.5rem,calc(var(--tile-size)*0.55),4rem)] leading-none">{item.value}</span>
               </TactilePiece>
             ))}

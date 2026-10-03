@@ -6,6 +6,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, Download, Loader2, Mic, MoreHorizontal, Play, RefreshCw, Settings, Square, Trash2, Volume2 } from 'lucide-react';
 import { AppScreen } from './AppScreen';
+import { ComponentGallery } from './gallery/ComponentGallery';
 import { BackButton, IconButton } from './IconButton';
 import { IconMenuButton } from './IconMenuButton';
 import { TopBar } from './TopBar';
@@ -40,7 +41,7 @@ import type { SaveResult } from '../services/appSettingsStore';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="space-y-4">
+    <section id={`ui-demo-${title.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-')}`} className="space-y-4">
       <h2 className="text-2xl font-black sm:text-3xl">{title}</h2>
       {children}
     </section>
@@ -356,16 +357,23 @@ function UiKitGameMaterialsDemo() {
   return (
     <div className="p-6">
       <section aria-label="Materiály hier" className="space-y-6">
-        <div className="flex flex-wrap gap-4">
-          {GAME_MATERIALS.map((material) => (
-            <TactilePiece key={material} as="span" material={material} data-material={material}>
-              {material}
-            </TactilePiece>
-          ))}
-        </div>
+        <h1 className="text-2xl font-black">Zadanie a odpoveď</h1>
+        {(['task', 'answer'] as const).map(visualRole => (
+          <div key={visualRole} className="space-y-3" data-testid={`ui-materials-${visualRole}`}>
+            <h2 className="text-lg font-bold">{visualRole === 'task' ? 'Zadanie — ploché predmety' : 'Odpoveď — vyvýšené dlaždice'}</h2>
+            <div className="flex flex-wrap gap-4">
+              {GAME_MATERIALS.map(material => (
+                <TactilePiece key={material} as="span" visualRole={visualRole} material={material} data-material={material} className="p-3">
+                  {material}
+                </TactilePiece>
+              ))}
+            </div>
+          </div>
+        ))}
         <PlayTray label="Hracia plocha">
           <div className="flex flex-wrap items-center justify-center gap-4">
             <TactilePiece
+              visualRole="answer"
               as="button"
               material="wood"
               state="settled"
@@ -374,10 +382,10 @@ function UiKitGameMaterialsDemo() {
             >
               A
             </TactilePiece>
-            <TactilePiece as="button" material="wood" state="retry" label="Písmeno B">
+            <TactilePiece visualRole="answer" as="button" material="wood" state="retry" label="Písmeno B">
               B
             </TactilePiece>
-            <TactilePiece as="button" material="wood" state="disabled" disabled label="Písmeno C">
+            <TactilePiece visualRole="answer" as="button" material="wood" state="disabled" disabled label="Písmeno C">
               C
             </TactilePiece>
           </div>
@@ -385,7 +393,7 @@ function UiKitGameMaterialsDemo() {
         <PlayTray label="Kompaktné odpovede" density="compact" sizing="content">
           <AnswerGroup label="Kompaktné odpovede" orientation="horizontal" choiceLayout="tiles">
             {[1, 2, 3, 4].map(value => (
-              <TactilePiece key={value} as="button" material="wood" label={String(value)}>
+              <TactilePiece key={value} visualRole="answer" as="button" material="wood" label={String(value)}>
                 {value}
               </TactilePiece>
             ))}
@@ -682,9 +690,11 @@ export function UiKitScreen() {
       <header className="space-y-2">
         <h1 className="text-4xl font-black sm:text-6xl">UI Kit</h1>
         <p className="max-w-3xl text-lg font-medium text-text-muted">
-          Interná knižnica komponentov pre Hravé Učenie. Táto stránka je skrytá z detskej navigácie a slúži na kontrolu komponentov a stavov.
+          Vývojová knižnica komponentov pre Hravé Učenie. Dostupná iba pri vývoji a v testovacom zostavení.
         </p>
       </header>
+
+      <ComponentGallery />
 
       <Section title="Actions — typed variants">
         <Card className="space-y-5">
@@ -990,8 +1000,8 @@ export function UiKitScreen() {
             </div>
             <PlayTray label="Slabiky na výber">
               <div className="flex flex-wrap items-center justify-center gap-4">
-                <TactilePiece as="button" material="felt" label="Slabika MA">MA</TactilePiece>
-                <TactilePiece as="button" material="felt" label="Slabika LA">LA</TactilePiece>
+                <TactilePiece visualRole="answer" as="button" material="felt" label="Slabika MA">MA</TactilePiece>
+                <TactilePiece visualRole="answer" as="button" material="felt" label="Slabika LA">LA</TactilePiece>
               </div>
             </PlayTray>
           </Card>
