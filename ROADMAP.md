@@ -64,6 +64,9 @@
 - [x] Track 40 intentionally pending recordings explicitly; development rejects unexpected omissions and shipping requires all recordings.
 - [ ] Record the 40 pending clips before deploying to friends and colleagues.
 
+Integrated into `feature/full-app-ui-redesign` on 2026-10-03 at `2c9bb01`; fresh cheap
+gates and 26 focused browser checks passed. See the development-efficiency handoff for evidence.
+
 ### 1.1 Release Readiness
 > Focus on confidence for a small private audience, not full public-launch polish.
 
