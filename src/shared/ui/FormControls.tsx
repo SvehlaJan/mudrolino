@@ -133,16 +133,23 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
   );
 });
 
+export interface TextAreaControlProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  surface?: 'outlined' | 'flat';
+}
+
 export const TextAreaControl = React.forwardRef<
   HTMLTextAreaElement,
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>
->(function TextAreaControl({ className, ...props }, ref) {
+  TextAreaControlProps
+>(function TextAreaControl({ className, surface = 'outlined', ...props }, ref) {
   return (
     <textarea
       {...props}
       ref={ref}
       className={cx(
-        'w-full resize-none rounded-2xl border border-shadow/15 bg-bg-light/35 p-4 text-base font-medium placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-blue',
+        'w-full resize-none rounded-2xl bg-bg-light/35 p-4 text-base font-medium placeholder:opacity-40 focus:outline-none',
+        surface === 'outlined'
+          ? 'border border-shadow/15 focus:ring-2 focus:ring-accent-blue'
+          : 'border-0 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-focus',
         className,
       )}
     />

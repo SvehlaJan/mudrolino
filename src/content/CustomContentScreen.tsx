@@ -15,7 +15,6 @@ import {
   AppScreen,
   BackButton,
   Button,
-  Card,
   DialogShell,
   PageHeader,
   TabPanel,
@@ -129,10 +128,10 @@ export function CustomContentScreen() {
   } = useContent();
   const navigate = useNavigate();
   const { layout } = useAppScreenLayout();
-  const isSpaciousWidth = useMediaQuery('(min-width: 1280px)');
   const isMediumWidth = useMediaQuery('(min-width: 768px)');
-  const layoutMode: 'spacious' | 'medium' | 'compact' =
-    layout === 'short' ? 'compact' : isSpaciousWidth ? 'spacious' : isMediumWidth ? 'medium' : 'compact';
+  // The centered parent column fits a navigation rail and list; editors use the dialog.
+  const layoutMode: 'medium' | 'compact' =
+    layout === 'short' || !isMediumWidth ? 'compact' : 'medium';
   const navOrientation = layoutMode === 'compact' ? 'horizontal' : 'vertical';
 
   const [activeSection, setActiveSection] = useState<Section>('letters');
@@ -468,10 +467,9 @@ export function CustomContentScreen() {
       : id === 'words' ? wordRows.length
       : praiseRows.length,
   }));
-  const showEditorColumn = activeSection === 'words' || activeSection === 'praise';
 
   return (
-    <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="wide">
+    <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
       <TopBar left={<BackButton onClick={() => navigate(-1)} />} />
       <PageHeader title="Vlastný obsah" description="Nahraj vlastný hlas a uprav slová a pochvaly." />
 
@@ -484,8 +482,6 @@ export function CustomContentScreen() {
       <div
         className={cn(
           'mt-5 sm:mt-6',
-          layoutMode === 'spacious' && showEditorColumn && 'grid grid-cols-[220px_minmax(280px,1fr)_minmax(320px,1fr)] items-start gap-6',
-          layoutMode === 'spacious' && !showEditorColumn && 'grid grid-cols-[220px_minmax(0,1fr)] items-start gap-6',
           layoutMode === 'medium' && 'grid grid-cols-[220px_minmax(0,1fr)] items-start gap-6',
         )}
       >
@@ -535,33 +531,17 @@ export function CustomContentScreen() {
           </TabPanel>
         </ContentCategoryNav>
 
-        {layoutMode === 'spacious' && showEditorColumn && (
-          <div className="sticky top-4">
-            {editor ? (
-              <Card variant="panel">
-                <PageHeader headingLevel="h2" title={editorTitle} />
-                <div className="mt-4">{renderEditor()}</div>
-              </Card>
-            ) : (
-              <div className="rounded-[32px] border-2 border-dashed border-border-subtle p-8 text-center text-sm font-medium text-text-muted">
-                Vyber položku na úpravu alebo pridaj novú.
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
-      {layoutMode !== 'spacious' && (
-        <DialogShell
-          open={editor !== null}
-          onOpenChange={open => { if (!open) setEditor(null); }}
-          title={editorTitle}
-          restoreFocusRef={editorRestoreFocusRef}
-          className={layoutMode === 'compact' ? FULLSCREEN_DIALOG_CLASS : undefined}
-        >
-          <div className="mt-4">{renderEditor()}</div>
-        </DialogShell>
-      )}
+      <DialogShell
+        open={editor !== null}
+        onOpenChange={open => { if (!open) setEditor(null); }}
+        title={editorTitle}
+        restoreFocusRef={editorRestoreFocusRef}
+        className={layoutMode === 'compact' ? FULLSCREEN_DIALOG_CLASS : undefined}
+      >
+        <div className="mt-4">{renderEditor()}</div>
+      </DialogShell>
 
       <AlertDialogShell
         open={pendingDelete !== null}

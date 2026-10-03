@@ -60,7 +60,7 @@ export function GameSettingsOverviewScreen({ settings }: GameSettingsOverviewScr
   const navigate = useNavigate();
 
   return (
-    <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="wide">
+    <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
       <TopBar left={<BackButton onClick={() => navigate('/settings')} />} />
       <PageHeader title="Nastavenia hier" />
       <div className="mt-5 sm:mt-6">

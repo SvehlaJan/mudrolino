@@ -417,14 +417,19 @@ test.describe('Custom content manager', () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test('1280px desktop shows the rail, list, and an inline editor together without a dialog', async ({ page }) => {
+  test('1280px desktop centers content and edits in a dismissible dialog', async ({ page }) => {
     await page.setViewportSize(CANONICAL_VIEWPORTS.desktop);
     await openContent(page);
     await openTab(page, /Slová/);
     await page.getByRole('button', { name: 'Pridať slovo' }).click();
 
-    await expect(page.getByRole('heading', { name: 'Pridať slovo', level: 2 })).toBeVisible();
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    const dialog = page.getByRole('dialog', { name: 'Pridať slovo' });
+    await expect(dialog).toBeVisible();
+    const contentBox = (await page.getByRole('main').locator(':scope > div').first().boundingBox())!;
+    expect(contentBox.width).toBeLessThanOrEqual(672);
+    expect(Math.abs(contentBox.x + contentBox.width / 2 - CANONICAL_VIEWPORTS.desktop.width / 2)).toBeLessThan(1);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('button', { name: 'Pridať slovo' })).toBeFocused();
     await expect(page.getByRole('tab', { name: /Slová/ })).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });

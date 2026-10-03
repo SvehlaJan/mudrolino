@@ -22,6 +22,7 @@ export interface RadioGroupControlProps<T extends string> {
   onValueChange: (value: T) => void;
   ariaLabel?: string;
   tone?: RadioGroupTone;
+  surface?: 'raised' | 'flat';
   columns?: 2 | 3 | 4;
   disabled?: boolean;
   className?: string;
@@ -45,6 +46,7 @@ export function RadioGroupControl<T extends string>({
   onValueChange,
   ariaLabel,
   tone = 'primary',
+  surface = 'raised',
   columns,
   disabled,
   className,
@@ -65,9 +67,11 @@ export function RadioGroupControl<T extends string>({
           value={option.value}
           disabled={option.disabled}
           className={cn(
-            'relative flex min-h-12 min-w-12 items-center justify-center rounded-2xl px-4 py-4 font-bold shadow-block transition-all',
-            'data-[state=unchecked]:bg-surface data-[state=unchecked]:text-text-main',
-            'data-[state=checked]:shadow-chip',
+            'relative flex min-h-12 min-w-12 items-center justify-center rounded-2xl px-4 py-4 font-bold transition-colors',
+            'data-[state=unchecked]:text-text-main',
+            surface === 'raised'
+              ? 'shadow-block data-[state=checked]:shadow-chip data-[state=unchecked]:bg-surface'
+              : 'data-[state=unchecked]:bg-canvas',
             toneCheckedClass[tone],
             'disabled:cursor-not-allowed disabled:opacity-50',
             'focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',

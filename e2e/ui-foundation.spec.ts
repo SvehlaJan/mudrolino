@@ -121,15 +121,16 @@ test.describe('UI foundation: Radix wrappers', () => {
 
   test('radio, switch, tabs and menu support keyboard contracts', async ({ page }) => {
     await page.goto('/ui-kit');
-    const radio = page.getByRole('radio', { name: 'Šesť' });
-    await radio.focus();
-    // Radix's roving-focus radio only commits the arrow-driven selection once
-    // its own keydown-tracking listener has run before keyup resets it; a bare
-    // `.press()` fires both back-to-back with no task-queue turn between them.
-    await page.keyboard.down('ArrowRight');
-    await page.waitForTimeout(50);
-    await page.keyboard.up('ArrowRight');
-    await expect(page.getByRole('radio', { name: 'Osem' })).toBeChecked();
+    for (const name of ['Počet kariet', 'Počet kariet – plochý výber']) {
+      const group = page.getByRole('radiogroup', { name, exact: true });
+      const radio = group.getByRole('radio', { name: 'Šesť' });
+      await radio.focus();
+      // Radix needs a task-queue turn before keyup resets its arrow-key tracking.
+      await page.keyboard.down('ArrowRight');
+      await page.waitForTimeout(50);
+      await page.keyboard.up('ArrowRight');
+      await expect(group.getByRole('radio', { name: 'Osem' })).toBeChecked();
+    }
     await page.getByRole('switch', { name: 'Diakritika' }).press('Space');
     await expect(page.getByRole('switch', { name: 'Diakritika' })).toBeChecked();
   });
@@ -301,14 +302,14 @@ test.describe('UI foundation: overlay landmark hygiene', () => {
     await expect(page.getByRole('main')).toHaveCount(1);
   });
 
-  test('help route shows inline feedback with one main landmark and no dialog or email link', async ({ page }) => {
+  test('help route shows inline feedback and screenshot contact with one main landmark and no dialog', async ({ page }) => {
     await page.goto('/settings/help');
     await unlockParentGate(page);
     await expect(page.getByRole('heading', { level: 1, name: 'Pomoc a spätná väzba' })).toBeVisible();
     await expect(page.getByRole('form', { name: 'Spätná väzba' })).toBeVisible();
     await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.getByRole('dialog')).toHaveCount(0);
-    await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveCount(0);
+    await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveAttribute('href', 'mailto:jan.svehla@pm.me');
   });
 });
 

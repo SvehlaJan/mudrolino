@@ -6,7 +6,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useReducedMotion } from 'motion/react';
-import { Button, Card, DialogShell, IconButton } from '../ui';
+import { Button, DialogShell, IconButton } from '../ui';
 import { exposeParentGateE2E } from '../services/e2eState';
 
 interface ParentsGateProps {
@@ -130,8 +130,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
     >
       <div className="mt-4 grid grid-cols-1 items-stretch gap-4 landscape:mt-2 landscape:grid-cols-[minmax(0,1fr)_minmax(15rem,0.9fr)] landscape:items-center landscape:gap-4">
         <div className="flex w-full flex-col gap-2">
-          <Card
-            variant="panel"
+          <div
             data-testid="parent-gate-equation"
             className={`flex w-full items-center justify-center gap-2 px-2 py-3 text-center text-2xl font-black tracking-wide text-text-main landscape:py-2 landscape:text-3xl sm:portrait:gap-3 sm:portrait:py-4 sm:portrait:text-4xl ${error && !prefersReducedMotion ? 'animate-shake' : ''}`}
           >
@@ -146,11 +145,11 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               role="status"
               aria-label="Vaša odpoveď"
               aria-live="polite"
-              className="inline-flex min-h-12 min-w-14 items-center justify-center rounded-xl border-2 border-accent-blue/50 bg-white px-3 py-1 text-accent-blue shadow-sm sm:portrait:min-h-14 sm:portrait:min-w-16"
+              className="inline-flex min-h-12 min-w-14 items-center justify-center px-3 py-1 text-accent-blue tabular-nums sm:portrait:min-h-14 sm:portrait:min-w-16"
             >
-              {input || <span className="text-text-muted/50">—</span>}
+              {input || <span className="text-text-muted">—</span>}
             </span>
-          </Card>
+          </div>
 
           {error && (
             <p role="alert" className="text-xs landscape:text-[10px] font-bold text-action-danger sm:portrait:text-sm">

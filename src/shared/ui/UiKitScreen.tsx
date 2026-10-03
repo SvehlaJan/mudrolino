@@ -504,6 +504,7 @@ function UiKitInteractionDemo() {
   const [tab, setTab] = useState('words');
   const [customWord, setCustomWord] = useState('');
   const customWordTooLong = customWord.length > 20;
+  const gridOptions = [{ value: '4', label: 'Štyri' }, { value: '6', label: 'Šesť' }, { value: '8', label: 'Osem' }] as const;
 
   return (
     <Card className="space-y-6">
@@ -512,14 +513,18 @@ function UiKitInteractionDemo() {
         <div className="mt-3 max-w-md">
           <RadioGroupControl
             ariaLabel="Počet kariet"
-            options={[
-              { value: '4', label: 'Štyri' },
-              { value: '6', label: 'Šesť' },
-              { value: '8', label: 'Osem' },
-            ]}
+            options={gridOptions}
             value={gridSize}
             onValueChange={setGridSize}
           />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-muted">Plochá rádiová skupina</h3>
+        <div className="mt-3 max-w-md">
+          <RadioGroupControl ariaLabel="Počet kariet – plochý výber" surface="flat"
+            options={gridOptions} value={gridSize} onValueChange={setGridSize} />
         </div>
       </div>
 
@@ -1045,6 +1050,7 @@ export function UiKitScreen() {
           />
           <SearchInput value="mama" onChange={() => undefined} onClear={() => undefined} placeholder="Hľadať..." />
           <TextAreaControl aria-label="Správa pre tím" value="Správa pre tím" onChange={() => undefined} rows={3} />
+          <TextAreaControl surface="flat" aria-label="Plochá správa pre tím" defaultValue="Plochá správa bez okraja." rows={3} />
         </Card>
       </Section>
 
@@ -1063,6 +1069,11 @@ export function UiKitScreen() {
             description="Uprav rozsahy a možnosti pre jednotlivé hry."
             actions={<Button tone="neutral" size="parent">Hotovo</Button>}
           />
+        </Card>
+        <Card className="mt-4">
+          <PageHeader align="center" headingLevel="h2" title="Viac alebo Menej"
+            leading={<BackButton onClick={() => undefined} />}
+            actions={<RoundCounter completed={1} total={5} ariaLabel="Ukážka pokroku" />} />
         </Card>
       </Section>
 

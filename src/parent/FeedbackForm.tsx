@@ -11,6 +11,12 @@ import { Button, Field, RadioGroupControl, TextAreaControl } from '../shared/ui'
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 const MAX_LENGTH = 1000;
 const COUNTER_THRESHOLD = 100;
+const screenshotGuidance = (
+  <p className="text-sm text-text-muted">
+    Snímky obrazovky pošlite e-mailom na{' '}
+    <a href="mailto:jan.svehla@pm.me" className="font-bold text-text-main underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus">jan.svehla@pm.me</a>.
+  </p>
+);
 const CATEGORIES: { value: FeedbackCategory; label: string; emoji: string }[] = [
   { value: 'bug', label: 'Chyba v hre', emoji: '🐛' },
   { value: 'suggestion', label: 'Nápad / návrh', emoji: '💡' },
@@ -44,16 +50,19 @@ export function FeedbackForm({ screen }: { screen: string }) {
     <section role="status" className="mt-5 rounded-3xl bg-surface p-6 text-center">
       <h2 className="text-2xl font-bold text-text-main">Ďakujeme!</h2>
       <p className="mt-2 text-base text-text-muted">Ďakujeme za spätnú väzbu. Tento formulár neposiela e-mailovú adresu a nemôžeme odpovedať priamo.</p>
+      <div className="mt-3">{screenshotGuidance}</div>
     </section>
   ) : (
     <form aria-label="Spätná väzba" className="mt-5 flex min-h-0 flex-1 flex-col rounded-3xl bg-surface p-5"
       onSubmit={event => { event.preventDefault(); void handleSubmit(); }}>
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pb-3">
         <p className="text-sm text-text-muted">Formulár neposiela e-mailovú adresu, preto nemôžeme odpovedať priamo.</p>
+        {screenshotGuidance}
         <Field label="Typ správy" helpText="Vyberte, čo chcete nahlásiť.">
           {() => (
             <RadioGroupControl<FeedbackCategory>
               ariaLabel="Typ správy"
+              surface="flat"
               options={CATEGORIES.map(({ value, label, emoji }) => ({ value, label: `${emoji} ${label}` }))}
               value={category ?? ('' as FeedbackCategory)}
               onValueChange={setCategory}
@@ -66,7 +75,7 @@ export function FeedbackForm({ screen }: { screen: string }) {
           helpText={messageRequired ? 'Povinné pri chybe alebo návrhu.' : 'Voliteľné.'}
           required={messageRequired}>
           {controlProps => (
-            <TextAreaControl {...controlProps} aria-label="Vaša správa"
+            <TextAreaControl {...controlProps} surface="flat" aria-label="Vaša správa"
               aria-required={messageRequired} value={message}
               onChange={event => setMessage(event.target.value.slice(0, MAX_LENGTH))}
               disabled={formState === 'submitting'}
@@ -81,7 +90,7 @@ export function FeedbackForm({ screen }: { screen: string }) {
           )}
         </div>
       </div>
-      <div className="sticky bottom-0 z-10 shrink-0 border-t border-border-subtle bg-surface pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <div className="sticky bottom-0 z-10 shrink-0 bg-surface pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <Button type="submit" tone="primary" size="parent" fullWidth disabled={!canSubmit}
           icon={formState === 'submitting' ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}>
           {formState === 'submitting' ? 'Odosielam…' : 'Odoslať'}

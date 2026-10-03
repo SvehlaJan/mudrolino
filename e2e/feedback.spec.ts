@@ -32,7 +32,8 @@ test('keyboard category selection and optional message retain honest copy', asyn
   await page.getByRole('textbox', { name: /Vaša správa/ }).fill('Návrh: pridať ďalšie hry.');
   await expect(page.getByText(/48 hodín/)).toHaveCount(0);
   await expect(page.getByText(/neposiela|neodpovedáme|nemôžeme odpovedať/i)).toBeVisible();
-  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveAttribute('href', 'mailto:jan.svehla@pm.me');
+  await expect(page.getByText(/Snímky obrazovky pošlite/)).toBeVisible();
 });
 
 test('loading and success stay visible inline', async ({ page }) => {
@@ -56,6 +57,7 @@ test('loading and success stay visible inline', async ({ page }) => {
   await expect(page.getByText('Ďakujeme!')).toBeVisible();
   await expect(page.getByRole('status').filter({ hasText: 'Ďakujeme!' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveAttribute('href', 'mailto:jan.svehla@pm.me');
   expect(submissions).toHaveLength(1);
   expect(submissions[0].method).toBe('POST');
   expect(submissions[0].data).toMatchObject({
@@ -101,10 +103,11 @@ test('bug and suggestion require a non-empty message; praise and other allow an 
   }
 });
 
-test('inline feedback is the only help content and Back returns to settings', async ({ page }) => {
+test('inline feedback includes screenshot contact and Back returns to settings', async ({ page }) => {
   await openFeedback(page);
   await expect(page.getByRole('main')).toHaveCount(1);
-  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveAttribute('href', 'mailto:jan.svehla@pm.me');
+  await expect(page.getByText(/Snímky obrazovky pošlite/)).toBeVisible();
   await page.getByRole('button', { name: 'Späť' }).click();
   await expect(page).toHaveURL(/\/settings$/);
 });

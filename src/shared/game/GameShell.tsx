@@ -87,6 +87,7 @@ export function GameShell({
   return (
     <AppScreen maxWidth="game" height="viewport" scroll="vertical" contentClassName="gap-3 sm:gap-4 [@media(max-height:480px)]:gap-1.5">
       <PageHeader
+        align="center"
         title={title}
         leading={
           <div data-testid="game-critical-controls">
