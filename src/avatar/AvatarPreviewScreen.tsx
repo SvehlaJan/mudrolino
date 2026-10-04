@@ -12,6 +12,7 @@ import {
   SlidersHorizontal,
   Sparkles,
 } from 'lucide-react';
+import { AvatarCatalogPreview } from './AvatarCatalogPreview';
 import { AvatarPresenter } from './AvatarPresenter';
 import { resolveAvatarAssets } from './avatarAssetResolver';
 import { AVATAR_ACCESSORY_ITEMS, AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
@@ -179,6 +180,11 @@ function parseUrlParams(params: URLSearchParams): Partial<{
 }
 
 export function AvatarPreviewScreen() {
+  const [params] = useSearchParams();
+  return import.meta.env.DEV && params.get('agent') !== '1' && params.get('view') !== 'modular' ? <AvatarCatalogPreview /> : <AvatarModularPreviewScreen />;
+}
+
+function AvatarModularPreviewScreen() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const isAgentMode = searchParams.get('agent') === '1';
@@ -277,6 +283,7 @@ export function AvatarPreviewScreen() {
             <h1 className="mt-2 text-3xl font-black leading-none text-text-main sm:text-4xl">
               Modular preview
             </h1>
+            {import.meta.env.DEV && <a href="/avatar-preview" className="mt-3 block text-sm font-bold text-accent-blue">Open catalog models →</a>}
             <p className="mt-3 text-sm font-semibold leading-snug text-text-main/60">
               Develop the current male base and planned customization slots through the real app renderer.
             </p>

@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/B04/B04.blend",
+  "blend_sha256": "e56c16592b0cfa9e111a140ca3f9773d731f5e374c36b91d6c0675378834b011",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "B04_ivory_trousers"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

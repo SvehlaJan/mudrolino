@@ -1,0 +1,56 @@
+{
+  "id": "T01",
+  "stage": "candidate; visual/runtime acceptance pending",
+  "source_geometry": "authored quad loft; catalog_tee_geometry.py",
+  "vertices": 11448,
+  "polygons": 11424,
+  "masked_body_vertices": 11752,
+  "bone_groups": [
+    "Hips",
+    "LeftUpLeg",
+    "LeftLeg",
+    "LeftFoot",
+    "LeftToeBase",
+    "RightUpLeg",
+    "RightLeg",
+    "RightFoot",
+    "RightToeBase",
+    "Spine02",
+    "Spine01",
+    "Spine",
+    "LeftShoulder",
+    "LeftArm",
+    "LeftForeArm",
+    "LeftHand",
+    "RightShoulder",
+    "RightArm",
+    "RightForeArm",
+    "RightHand",
+    "neck",
+    "Head",
+    "head_end",
+    "headfront"
+  ],
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_garment_bvh_overlaps": 0
+    },
+    {
+      "pose": "rest-side",
+      "body_garment_bvh_overlaps": 0
+    },
+    {
+      "pose": "walk-13",
+      "body_garment_bvh_overlaps": 0
+    },
+    {
+      "pose": "run-8",
+      "body_garment_bvh_overlaps": 0
+    },
+    {
+      "pose": "raised-arms",
+      "body_garment_bvh_overlaps": 0
+    }
+  ]
+}

@@ -3,6 +3,8 @@ paths:
   - "src/avatar/**/*.{ts,tsx}"
   - "public/avatar/**"
   - "tools/avatar/**"
+  - "tools/blender/**"
+  - "assets/avatar/**"
 ---
 
 # Avatar
@@ -39,6 +41,11 @@ and `failure` in `AvatarAnimationName` currently resolve to nothing. Garments
 under `public/avatar/garments/` are skinned to the shared 24-bone armature and
 rebound at runtime by `rebindGarmentToBaseSkeleton`.
 
-Generation and cleanup pipelines are documented in `docs/avatar-clothing-pipeline.md`
+For catalog models, Blender tooling or selfie personalization, start with
+`docs/avatar-workflow.md` and the shared Blender skill. Selfies become generated
+2D face textures on a reusable UV-mapped head; fictional head studies are style
+references.
+
+Legacy generation and cleanup pipelines are documented in `docs/avatar-clothing-pipeline.md`
 and `docs/3d-avatar-knowledge-base.md`; the Blender and Meshy steps have their own
 skills. Verify any runtime change in `/avatar-preview` on desktop and mobile.

@@ -1,0 +1,3810 @@
+{
+  "blend": "assets/avatar/catalog-a/F04/F04.blend",
+  "blend_sha256": "865e47158b8bcba5d4117cc32fcabd224310dd657b06ba4e53ed2a19543a77de",
+  "garment": "F04_ankle_boots",
+  "threshold_m": 0.024940207108855247,
+  "samples": 164,
+  "max_cloth_distance_m": 0.021940207108855247,
+  "status": "failed",
+  "surface_materials": [
+    "A orange ankle-boot upper",
+    "A navy ankle-boot elastic gores",
+    "A ivory ankle-boot sole"
+  ],
+  "detail_materials": [
+    "A orange ankle-boot heel loops"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021940207108855247
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663083150982857
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021940207108855247
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.019884958863258362
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012664069421589375
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.019884958863258362
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.020568186417222023
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012664025649428368
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.020568186417222023
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021427934989333153
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01266391109675169
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021427934989333153
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938348188996315
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663770467042923
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938348188996315
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938489750027657
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663393281400204
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938489750027657
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938666701316833
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012662679888308048
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938666701316833
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938644349575043
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01266173180192709
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021938644349575043
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021937930956482887
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012660132721066475
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021937930956482887
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02193600870668888
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012657169252634048
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02193600870668888
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021933360025286674
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01265321671962738
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021933360025286674
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021929800510406494
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012648194096982479
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021929800510406494
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021924300119280815
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012642288580536842
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021924300119280815
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02191823348402977
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012635722756385803
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02191823348402977
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021919067949056625
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01262811291962862
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021919067949056625
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021920479834079742
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012621038593351841
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021920479834079742
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021805234253406525
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012613383121788502
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021805234253406525
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021671084687113762
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012605278752744198
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021671084687113762
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.0216757133603096
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012601560913026333
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.0216757133603096
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021713245660066605
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012598969973623753
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021713245660066605
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021748995408415794
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012596283107995987
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021748995408415794
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021887483075261116
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012599712237715721
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021887483075261116
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02192038670182228
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012606823816895485
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02192038670182228
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021918587386608124
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01261337660253048
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021918587386608124
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021916251629590988
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012624080292880535
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021916251629590988
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02191324159502983
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012637750245630741
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02191324159502983
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021909527480602264
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012645112350583076
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021909527480602264
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02190565876662731
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012645947746932507
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02190565876662731
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02190365642309189
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01264768186956644
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02190365642309189
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021901482716202736
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012643445283174515
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021901482716202736
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021338947117328644
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012631097808480263
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021338947117328644
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.018987247720360756
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01260573510080576
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.018987247720360756
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01668206974864006
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012544603087008
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01668206974864006
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.014509439468383789
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012458243407309055
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.014509439468383789
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012483409605920315
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012483409605920315
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012470445595681667
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012503746896982193
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012503746896982193
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011543495580554008
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012521674856543541
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012521674856543541
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010944077745079994
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012534573674201965
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012534573674201965
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.0105586601421237
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012544387951493263
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012544387951493263
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010343714617192745
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012553056702017784
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012553056702017784
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010177086107432842
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012559544295072556
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012559544295072556
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010010270401835442
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012563786469399929
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012563786469399929
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010062498971819878
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01256762444972992
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01256762444972992
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010014764964580536
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012570804916322231
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012570804916322231
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.009821227751672268
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01257278025150299
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01257278025150299
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.009683553129434586
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012574606575071812
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012574606575071812
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.009536650031805038
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012580049224197865
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012580049224197865
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00938437506556511
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012598790228366852
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012598790228366852
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00923359114676714
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012615032494068146
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012615032494068146
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00909016840159893
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012628807686269283
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012628807686269283
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.008954181335866451
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012640804052352905
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012640804052352905
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.008895178325474262
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012650351971387863
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012650351971387863
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.008905318565666676
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01265727449208498
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01265727449208498
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00892665982246399
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012661240063607693
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012661240063607693
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.009020430035889149
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663295492529869
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663295492529869
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.009173065423965454
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663972564041615
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663972564041615
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00936061143875122
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663785368204117
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663785368204117
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.009624876081943512
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663884088397026
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663884088397026
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.009972833096981049
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663948349654675
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663948349654675
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01032684464007616
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663989327847958
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663989327847958
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010726341046392918
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663735076785088
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663735076785088
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.0112787876278162
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663026340305805
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663026340305805
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011846080422401428
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012888464145362377
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012661819346249104
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012888464145362377
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.014640027657151222
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012661846354603767
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.014640027657151222
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.0165697168558836
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012661813758313656
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.0165697168558836
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01860640197992325
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01266187522560358
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01860640197992325
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.020918868482112885
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012659169733524323
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.020918868482112885
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021916041150689125
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012654208578169346
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021916041150689125
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021915042772889137
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012647358700633049
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021915042772889137
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02191433683037758
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012641314417123795
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02191433683037758
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021913785487413406
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012636205181479454
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021913785487413406
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021913249045610428
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01263054832816124
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021913249045610428
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021913280710577965
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012623648159205914
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021913280710577965
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021914126351475716
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012614882551133633
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021914126351475716
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021914862096309662
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01260522659868002
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021914862096309662
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021915782243013382
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.12312920391559601,
+          0.13667066395282745,
+          0.2014158070087433
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012596248649060726
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021915782243013382
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02049659937620163
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13013038039207458,
+          0.13781322538852692,
+          0.20141345262527466
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012592681683599949
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02049659937620163
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.018853293731808662
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012589077465236187
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.018853293731808662
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.017254609614610672
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01258536521345377
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.017254609614610672
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.016315048560500145
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01259140856564045
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.016315048560500145
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.015397380106151104
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012597238644957542
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.015397380106151104
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01450956892222166
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012602721340954304
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01450956892222166
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.013939031399786472
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01261525321751833
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.013939031399786472
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.013455142267048359
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01262771524488926
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.013455142267048359
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012987418100237846
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012638214975595474
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012987418100237846
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012731538154184818
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012646343559026718
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012731538154184818
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012652632780373096
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012652632780373096
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012609110213816166
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01265749055892229
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01265749055892229
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012487782165408134
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012660526670515537
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012660526670515537
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012481573037803173
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012662116438150406
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012662116438150406
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012648575939238071
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012818258255720139
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663218192756176
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012818258255720139
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.013043319806456566
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01266384031623602
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.013043319806456566
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.013490477576851845
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012664005160331726
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.013490477576851845
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.013951287604868412
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012664055451750755
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.013951287604868412
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.014423525892198086
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663960456848145
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.014423525892198086
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01513572596013546
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663928791880608
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01513572596013546
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.015867929905653
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663879431784153
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.015867929905653
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.016615230590105057
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663841247558594
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.016615230590105057
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01752912811934948
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663942761719227
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01752912811934948
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.018500862643122673
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012664011679589748
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.018500862643122673
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01948731392621994
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012664060108363628
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01948731392621994
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.019884809851646423
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012664063833653927
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.019884809851646423
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.014471359550952911
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012651337310671806
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.014471359550952911
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.016425207257270813
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012643423862755299
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.016425207257270813
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01901015266776085
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01255461759865284
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01901015266776085
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021719248965382576
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012469260022044182
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021719248965382576
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021761702373623848
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012472634203732014
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021761702373623848
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.02005879208445549
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012492883950471878
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.02005879208445549
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.018386194482445717
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012510850094258785
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.018386194482445717
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.016450047492980957
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012526066973805428
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.016450047492980957
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.014137918129563332
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012538519687950611
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.014137918129563332
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012549318373203278
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012549318373203278
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012063313275575638
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012557790614664555
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012557790614664555
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011126887053251266
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012562543153762817
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012562543153762817
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010506374761462212
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012566730380058289
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012566730380058289
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010334473103284836
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012570494785904884
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012570494785904884
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011079750955104828
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012565276585519314
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012565276585519314
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011919739656150341
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012559317983686924
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012559317983686924
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012075779028236866
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012552490457892418
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012552490457892418
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011912109330296516
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012549570761620998
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012549570761620998
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010033472441136837
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012547816149890423
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012547816149890423
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.008712994866073132
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012546146288514137
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012546146288514137
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00770453130826354
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 20
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01256151869893074
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01256151869893074
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.007150653284043074
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 20
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012578819878399372
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012578819878399372
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.006865682080388069
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 30
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012585707940161228
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012585707940161228
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.006582702975720167
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 52
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01258445717394352
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          0.13776162266731262,
+          0.13529513776302338,
+          0.1767946481704712
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01258445717394352
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.006265223491936922
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 47
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012601207010447979
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012601207010447979
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.005926148500293493
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 49
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012621426023542881
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012621426023542881
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.005585426464676857
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 51
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012637918815016747
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012637918815016747
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.005253372248262167
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 51
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012651066295802593
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012651066295802593
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.004935480188578367
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 43
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012659563682973385
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012659563682973385
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.004611676558852196
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 28
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663653120398521
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663653120398521
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.0043005384504795074
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 28
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012662085704505444
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012662085704505444
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.004489090759307146
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 14
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012659164145588875
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012659164145588875
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.0046936823055148125
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012654728256165981
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012654728256165981
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.004911453928798437
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012649466283619404
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012649466283619404
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.0052939895540475845
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012643365189433098
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012643365189433098
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.006049753166735172
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01263603288680315
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01263603288680315
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.007446778938174248
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012629903852939606
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012629903852939606
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00867186114192009
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012624545022845268
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012624545022845268
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.00950351357460022
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012618369422852993
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012618369422852993
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010034793987870216
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012616651132702827
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012616651132702827
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010269565507769585
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012622195295989513
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012622195295989513
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.010706184431910515
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01262731570750475
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01262731570750475
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011947432532906532
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01527657825499773
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012621643021702766
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01527657825499773
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.018226752057671547
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012546020559966564
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.018226752057671547
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021386971697211266
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.0122635867446661
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021386971697211266
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021792523562908173
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01221573818475008
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021792523562908173
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021744944155216217
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012285175733268261
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021744944155216217
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021690169349312782
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012347996234893799
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021690169349312782
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021628474816679955
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012403413653373718
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021628474816679955
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.021727267652750015
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012473193928599358
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.021727267652750015
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.019228415563702583
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.12239577621221542,
+          0.1364334374666214,
+          0.20141522586345673
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012529179453849792
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.019228415563702583
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.014916184358298779
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012613333761692047
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.014916184358298779
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01265798881649971
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01265798881649971
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012643542140722275
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 22
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663979083299637
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012663979083299637
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01188306137919426
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 22
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012656799517571926
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012656799517571926
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01141398400068283
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 55
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01264460664242506
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01264460664242506
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011103330180048943
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 53
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01263759657740593
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01263759657740593
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011045613326132298
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 53
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.01262872014194727
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.01262872014194727
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.01098593883216381
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 56
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012623421847820282
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012623421847820282
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011066497303545475
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 59
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012636765837669373
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.1371784508228302,
+          0.13584618270397186,
+          0.17680397629737854
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012636765837669373
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.011710474267601967
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 36
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.012704490683972836
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012646032497286797
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.012704490683972836
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 22
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A orange ankle-boot heel loops": 0.014471265487372875
+      },
+      "worst_detail_rest_xyz": {
+        "A orange ankle-boot heel loops": [
+          -0.13696788251399994,
+          0.13846226036548615,
+          0.20141515135765076
+        ]
+      },
+      "max_anchor_distance_m": {
+        "A orange ankle-boot heel loops": 0.012651322409510612
+      },
+      "max_free_distance_m": {
+        "A orange ankle-boot heel loops": 0.014471265487372875
+      },
+      "detail_shell_pairs": {
+        "A orange ankle-boot heel loops": 0
+      }
+    }
+  ],
+  "attachment_roles": {
+    "attribute": "F04_loop_attachment",
+    "anchor_threshold_m": 0.012,
+    "max_anchor_distance_m": 0.012664069421589375,
+    "free_rest_extension_m": {
+      "A orange ankle-boot heel loops": 0.021940207108855247
+    },
+    "free_extension_drift_m": 0.003,
+    "max_free_extension_growth_m": 0.0,
+    "counts": {
+      "A orange ankle-boot heel loops": {
+        "anchors": 48,
+        "free": 60
+      }
+    },
+    "samples": 164
+  },
+  "require_detail_clear": true,
+  "max_detail_shell_pairs": 59
+}

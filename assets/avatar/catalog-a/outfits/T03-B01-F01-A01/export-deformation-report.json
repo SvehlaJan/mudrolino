@@ -1,0 +1,181 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/T03-B01-F01-A01/outfit.blend",
+  "glb": "assets/avatar/catalog-a/outfits/T03-B01-F01-A01/outfit.glb",
+  "blend_sha256": "23fe16056c04a23a577e29b059071075cba26b4c9f642c9633e5535dcdcf3dc5",
+  "comparison": "bidirectional rendered vertex distance",
+  "loose_vertex_policy": "Compare all vertices referenced by renderable polygons; coverage/authoring vertices without faces are omitted by GLB and excluded here.",
+  "glb_sha256": "04e306a84a39adb4d7960aff4c1080a8304f8a76340e80334505146c9578199e",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 3.111453850124235e-07,
+        "B01_straight_trousers_outfit": 3.1889877050161886e-07,
+        "body_underlayer_male": 8.025298825486971e-07,
+        "F01_strap_sneakers_outfit": 3.295987198725925e-07,
+        "H01_head": 2.216469425775358e-07,
+        "T03_raglan_tee_outfit": 4.962300295119348e-07
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 6.173650035634637e-07,
+        "B01_straight_trousers_outfit": 4.852038841818285e-07,
+        "body_underlayer_male": 1.0027052894656663e-06,
+        "F01_strap_sneakers_outfit": 2.295709919053479e-06,
+        "H01_head": 5.103511853121745e-07,
+        "T03_raglan_tee_outfit": 1.54485951497918e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 5.339525159797631e-07,
+        "B01_straight_trousers_outfit": 4.110668498924497e-07,
+        "body_underlayer_male": 1.0255041615891969e-06,
+        "F01_strap_sneakers_outfit": 2.186339315812802e-06,
+        "H01_head": 4.989664716958941e-07,
+        "T03_raglan_tee_outfit": 1.5319234307753504e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 5.348484251044283e-07,
+        "B01_straight_trousers_outfit": 3.111453850124235e-07,
+        "body_underlayer_male": 9.794042625799193e-07,
+        "F01_strap_sneakers_outfit": 2.251801561214961e-06,
+        "H01_head": 4.257927059825306e-07,
+        "T03_raglan_tee_outfit": 2.1809848931297893e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 4.858978854827001e-07,
+        "B01_straight_trousers_outfit": 3.7133503383302013e-07,
+        "body_underlayer_male": 9.49941693306755e-07,
+        "F01_strap_sneakers_outfit": 1.6979643078229856e-06,
+        "H01_head": 3.743870422567852e-07,
+        "T03_raglan_tee_outfit": 1.3817563058182714e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 5.097525672681513e-07,
+        "B01_straight_trousers_outfit": 4.789280296790821e-07,
+        "body_underlayer_male": 6.563280408045102e-07,
+        "F01_strap_sneakers_outfit": 3.0096286991465604e-06,
+        "H01_head": 4.110668498924497e-07,
+        "T03_raglan_tee_outfit": 1.9886351765308063e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 5.961192073300481e-07,
+        "B01_straight_trousers_outfit": 4.6695589617229416e-07,
+        "body_underlayer_male": 1.1042957339668646e-06,
+        "F01_strap_sneakers_outfit": 2.2632602849625982e-06,
+        "H01_head": 4.82967777770682e-07,
+        "T03_raglan_tee_outfit": 1.5742426739961957e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 3.1336756478594907e-07,
+        "B01_straight_trousers_outfit": 3.210672900877398e-07,
+        "body_underlayer_male": 1.020702370624349e-06,
+        "F01_strap_sneakers_outfit": 4.1232888179365546e-06,
+        "H01_head": 2.9876736107325996e-07,
+        "T03_raglan_tee_outfit": 3.2146556350198807e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 2.8361179715830076e-07,
+        "B01_straight_trousers_outfit": 3.111453850124235e-07,
+        "body_underlayer_male": 1.0150305342904176e-06,
+        "F01_strap_sneakers_outfit": 4.509343398240162e-06,
+        "H01_head": 2.586328093912016e-07,
+        "T03_raglan_tee_outfit": 3.237635155528551e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 2.9990323469064606e-07,
+        "B01_straight_trousers_outfit": 2.5680196813482326e-07,
+        "body_underlayer_male": 9.848303079706966e-07,
+        "F01_strap_sneakers_outfit": 3.7784654978167964e-06,
+        "H01_head": 3.1700008662483015e-07,
+        "T03_raglan_tee_outfit": 2.5341175842186203e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 4.344397837030556e-07,
+        "B01_straight_trousers_outfit": 4.440446161879663e-07,
+        "body_underlayer_male": 5.213277063376154e-07,
+        "F01_strap_sneakers_outfit": 1.985939661608427e-06,
+        "H01_head": 3.656861622403085e-07,
+        "T03_raglan_tee_outfit": 2.8323281640041387e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 6.096742595218529e-07,
+        "B01_straight_trousers_outfit": 4.110668498924497e-07,
+        "body_underlayer_male": 4.926546921524277e-07,
+        "F01_strap_sneakers_outfit": 4.007304141850909e-06,
+        "H01_head": 5.075152671452088e-07,
+        "T03_raglan_tee_outfit": 3.138914735245635e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 4.053554221172817e-07,
+        "B01_straight_trousers_outfit": 4.182955137821409e-07,
+        "body_underlayer_male": 9.830249609876773e-07,
+        "F01_strap_sneakers_outfit": 6.067700724088354e-06,
+        "H01_head": 4.937660946779943e-07,
+        "T03_raglan_tee_outfit": 2.0545237475744216e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap_outfit": 3.111453850124235e-07,
+        "B01_straight_trousers_outfit": 3.0800740091763146e-07,
+        "body_underlayer_male": 1.0515617532291799e-06,
+        "F01_strap_sneakers_outfit": 4.031610842503142e-06,
+        "H01_head": 2.767767739442206e-07,
+        "T03_raglan_tee_outfit": 3.4457223136996618e-06
+      }
+    }
+  ],
+  "max_error_m": 6.067700724088354e-06,
+  "threshold_m": 3e-05,
+  "status": "passed"
+}

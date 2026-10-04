@@ -1,0 +1,15 @@
+{
+  "source": "assets/avatar/catalog-a/F03/F03.blend",
+  "source_sha256": "0527cd359f0a628fbe484f8964917cc7d5927810b84d94c0742d5d755b46b588",
+  "motion": "run",
+  "frame": 7.25,
+  "cloth": "F03_high_tops",
+  "obstacle": "body_underlayer_male",
+  "pairs": 0,
+  "contact_material_faces": {},
+  "cloth_rest_xyz": [],
+  "cloth_posed_xyz": [],
+  "obstacle_posed_xyz": [],
+  "samples": [],
+  "note": "Nearest normals can face the inside of thick hollow garments; inspect the surface role before projecting targets."
+}

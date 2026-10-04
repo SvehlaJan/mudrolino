@@ -1,0 +1,3299 @@
+{
+  "blend": "assets/avatar/catalog-a/B04/B04.blend",
+  "blend_sha256": "e56c16592b0cfa9e111a140ca3f9773d731f5e374c36b91d6c0675378834b011",
+  "garment": "B04_ivory_trousers",
+  "threshold_m": 0.012,
+  "samples": 164,
+  "max_cloth_distance_m": 0.0047388928942382336,
+  "status": "passed",
+  "surface_materials": [
+    "A ivory tapered trouser fabric",
+    "A ivory tapered trouser trim"
+  ],
+  "detail_materials": [
+    "A ivory tapered trouser pockets and seams",
+    "A navy tapered trouser button"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003394773229956627,
+        "A navy tapered trouser button": 0.004738835617899895
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.15310704708099365,
+          -0.11317982524633408,
+          0.8934476375579834
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00352278770878911,
+        "A navy tapered trouser button": 0.004738858435302973
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034958822652697563,
+        "A navy tapered trouser button": 0.004738842137157917
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003458981402218342,
+        "A navy tapered trouser button": 0.004738822113722563
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034182521048933268,
+        "A navy tapered trouser button": 0.004738836549222469
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003380558453500271,
+        "A navy tapered trouser button": 0.0047388398088514805
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.1399098038673401,
+          -0.11973883956670761,
+          0.9128320217132568
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034010782837867737,
+        "A navy tapered trouser button": 0.004738857503980398
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034286233130842447,
+        "A navy tapered trouser button": 0.004738841205835342
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003451436758041382,
+        "A navy tapered trouser button": 0.0047388640232384205
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003467580070719123,
+        "A navy tapered trouser button": 0.004738854244351387
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034835943952202797,
+        "A navy tapered trouser button": 0.004738843999803066
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034995682071894407,
+        "A navy tapered trouser button": 0.0047388505190610886
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003515995806083083,
+        "A navy tapered trouser button": 0.00473882257938385
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035322485491633415,
+        "A navy tapered trouser button": 0.00473884679377079
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003548375330865383,
+        "A navy tapered trouser button": 0.004738834220916033
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035642443690449,
+        "A navy tapered trouser button": 0.004738857038319111
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035799050237983465,
+        "A navy tapered trouser button": 0.0047388505190610886
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035953924525529146,
+        "A navy tapered trouser button": 0.004738836549222469
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003610906656831503,
+        "A navy tapered trouser button": 0.004738846328109503
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003626256948336959,
+        "A navy tapered trouser button": 0.0047388565726578236
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036413948982954025,
+        "A navy tapered trouser button": 0.004738857503980398
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036603393964469433,
+        "A navy tapered trouser button": 0.004738857503980398
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036816371139138937,
+        "A navy tapered trouser button": 0.004738843999803066
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003702522488310933,
+        "A navy tapered trouser button": 0.004738857503980398
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037264064885675907,
+        "A navy tapered trouser button": 0.004738854244351387
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037547475658357143,
+        "A navy tapered trouser button": 0.004738830961287022
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003782448824495077,
+        "A navy tapered trouser button": 0.004738855175673962
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0038032857701182365,
+        "A navy tapered trouser button": 0.004738864488899708
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.146409809589386,
+          -0.11672405898571014,
+          0.903165340423584
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003798329271376133,
+        "A navy tapered trouser button": 0.004738836083561182
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003793400712311268,
+        "A navy tapered trouser button": 0.004738852381706238
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003788491478189826,
+        "A navy tapered trouser button": 0.004738853313028812
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037517109885811806,
+        "A navy tapered trouser button": 0.004738841205835342
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037139272317290306,
+        "A navy tapered trouser button": 0.004738859366625547
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036751439329236746,
+        "A navy tapered trouser button": 0.004738835617899895
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003627086291089654,
+        "A navy tapered trouser button": 0.004738855175673962
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003575259819626808,
+        "A navy tapered trouser button": 0.004738850984722376
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035218060947954655,
+        "A navy tapered trouser button": 0.004738854710012674
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.14315980672836304,
+          -0.11823146790266037,
+          0.9079986810684204
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034803012385964394,
+        "A navy tapered trouser button": 0.0047388458624482155
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034603807143867016,
+        "A navy tapered trouser button": 0.0047388579696416855
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034401940647512674,
+        "A navy tapered trouser button": 0.00473885890096426
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003415995044633746,
+        "A navy tapered trouser button": 0.004738858435302973
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003385655814781785,
+        "A navy tapered trouser button": 0.0047388398088514805
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0033548164647072554,
+        "A navy tapered trouser button": 0.004738860297948122
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0033364116679877043,
+        "A navy tapered trouser button": 0.004738823510706425
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.15638652443885803,
+          -0.11108211427927017,
+          0.8883570432662964
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0033297056797891855,
+        "A navy tapered trouser button": 0.004738828167319298
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.15638652443885803,
+          -0.11108211427927017,
+          0.8883570432662964
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0033362640533596277,
+        "A navy tapered trouser button": 0.004738840740174055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.15638528764247894,
+          -0.11114238947629929,
+          0.8883726000785828
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0033424734137952328,
+        "A navy tapered trouser button": 0.00473885890096426
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.15638528764247894,
+          -0.11114238947629929,
+          0.8883726000785828
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0033563021570444107,
+        "A navy tapered trouser button": 0.004738861694931984
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.12155968695878983,
+          0.13858310878276825,
+          0.9578431844711304
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003370954655110836,
+        "A navy tapered trouser button": 0.004738857038319111
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.12155968695878983,
+          0.13858310878276825,
+          0.9578431844711304
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003385326126590371,
+        "A navy tapered trouser button": 0.004738862160593271
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.12155968695878983,
+          0.13858310878276825,
+          0.9578431844711304
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003398075234144926,
+        "A navy tapered trouser button": 0.004738834220916033
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.12155968695878983,
+          0.13858310878276825,
+          0.9578431844711304
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003434130921959877,
+        "A navy tapered trouser button": 0.004738849122077227
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0034779696725308895,
+        "A navy tapered trouser button": 0.004738840274512768
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003517609089612961,
+        "A navy tapered trouser button": 0.004738855175673962
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035542689729481936,
+        "A navy tapered trouser button": 0.004738843068480492
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035901686642318964,
+        "A navy tapered trouser button": 0.0047388519160449505
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003621060401201248,
+        "A navy tapered trouser button": 0.004738859832286835
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036452249623835087,
+        "A navy tapered trouser button": 0.004738861229270697
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036689448170363903,
+        "A navy tapered trouser button": 0.0047388505190610886
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036918127443641424,
+        "A navy tapered trouser button": 0.004738861229270697
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003761224914342165,
+        "A navy tapered trouser button": 0.004738866817206144
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0038296368438750505,
+        "A navy tapered trouser button": 0.004738854710012674
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00389658659696579,
+        "A navy tapered trouser button": 0.004738845396786928
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0039391955360770226,
+        "A navy tapered trouser button": 0.0047388747334480286
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003980773035436869,
+        "A navy tapered trouser button": 0.004738829098641872
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004021140281111002,
+        "A navy tapered trouser button": 0.0047388640232384205
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00405183294788003,
+        "A navy tapered trouser button": 0.0047388323582708836
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0040785386227071285,
+        "A navy tapered trouser button": 0.004738857038319111
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0041032168082892895,
+        "A navy tapered trouser button": 0.004738852847367525
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004140686243772507,
+        "A navy tapered trouser button": 0.004738848656415939
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004176076967269182,
+        "A navy tapered trouser button": 0.004738840740174055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004207126330584288,
+        "A navy tapered trouser button": 0.0047388928942382336
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004234631080180407,
+        "A navy tapered trouser button": 0.00473884167149663
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004257707390934229,
+        "A navy tapered trouser button": 0.004738851450383663
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00427651172503829,
+        "A navy tapered trouser button": 0.004738843068480492
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004292002879083157,
+        "A navy tapered trouser button": 0.004738855175673962
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004307398106902838,
+        "A navy tapered trouser button": 0.004738872405141592
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0043200114741921425,
+        "A navy tapered trouser button": 0.004738850984722376
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004329954273998737,
+        "A navy tapered trouser button": 0.004738846328109503
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004312417004257441,
+        "A navy tapered trouser button": 0.004738848190754652
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004292511381208897,
+        "A navy tapered trouser button": 0.0047388519160449505
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004270017612725496,
+        "A navy tapered trouser button": 0.004738865420222282
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004233498126268387,
+        "A navy tapered trouser button": 0.004738859832286835
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004184282850474119,
+        "A navy tapered trouser button": 0.004738850053399801
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0041102818213403225,
+        "A navy tapered trouser button": 0.0047388458624482155
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004024362191557884,
+        "A navy tapered trouser button": 0.004738846328109503
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003930416889488697,
+        "A navy tapered trouser button": 0.004738837946206331
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003838630160316825,
+        "A navy tapered trouser button": 0.004738856106996536
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003760435851290822,
+        "A navy tapered trouser button": 0.004738856106996536
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00370211573317647,
+        "A navy tapered trouser button": 0.004738860297948122
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036521938163787127,
+        "A navy tapered trouser button": 0.004738858435302973
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003616893198341131,
+        "A navy tapered trouser button": 0.004738879390060902
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003611045191064477,
+        "A navy tapered trouser button": 0.00473884679377079
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036110433284193277,
+        "A navy tapered trouser button": 0.004738840740174055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003616398200392723,
+        "A navy tapered trouser button": 0.004738861229270697
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036172778345644474,
+        "A navy tapered trouser button": 0.004738849587738514
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003619266441091895,
+        "A navy tapered trouser button": 0.004738837480545044
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036221477203071117,
+        "A navy tapered trouser button": 0.004738843999803066
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036001296248286963,
+        "A navy tapered trouser button": 0.004738836549222469
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035696865525096655,
+        "A navy tapered trouser button": 0.004738852381706238
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003536733565852046,
+        "A navy tapered trouser button": 0.004738838877528906
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035228312481194735,
+        "A navy tapered trouser button": 0.004738858435302973
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003717934712767601,
+        "A navy tapered trouser button": 0.004738861229270697
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037832902744412422,
+        "A navy tapered trouser button": 0.004738858435302973
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003873825538903475,
+        "A navy tapered trouser button": 0.004738864488899708
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003960374277085066,
+        "A navy tapered trouser button": 0.004738823976367712
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004005341324955225,
+        "A navy tapered trouser button": 0.004738845396786928
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004024751950055361,
+        "A navy tapered trouser button": 0.00473884167149663
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004043749999254942,
+        "A navy tapered trouser button": 0.004738858435302973
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004044655244797468,
+        "A navy tapered trouser button": 0.004738839343190193
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0040179830975830555,
+        "A navy tapered trouser button": 0.004738830029964447
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0039896718226373196,
+        "A navy tapered trouser button": 0.004738833289593458
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003954362589865923,
+        "A navy tapered trouser button": 0.004738865420222282
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003895262721925974,
+        "A navy tapered trouser button": 0.0047388882376253605
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00383368949405849,
+        "A navy tapered trouser button": 0.004738873802125454
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003769844537600875,
+        "A navy tapered trouser button": 0.00473882956430316
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00371936266310513,
+        "A navy tapered trouser button": 0.0047388398088514805
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036676269955933094,
+        "A navy tapered trouser button": 0.004738831892609596
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003614632645621896,
+        "A navy tapered trouser button": 0.004738855641335249
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003605291247367859,
+        "A navy tapered trouser button": 0.004738854244351387
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036070351488888264,
+        "A navy tapered trouser button": 0.004738849587738514
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06972239166498184,
+          0.17070050537586212,
+          0.86972975730896
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003611114574596286,
+        "A navy tapered trouser button": 0.004738844931125641
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036021638661623,
+        "A navy tapered trouser button": 0.004738842137157917
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.06264963746070862,
+          0.17186276614665985,
+          0.8697083592414856
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035920613445341587,
+        "A navy tapered trouser button": 0.004738848190754652
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.0840909406542778,
+          0.16761894524097443,
+          0.8698155879974365
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035820945631712675,
+        "A navy tapered trouser button": 0.004738832823932171
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.0840909406542778,
+          0.16761894524097443,
+          0.8698155879974365
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035229183267802,
+        "A navy tapered trouser button": 0.004738834220916033
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.0840909406542778,
+          0.16761894524097443,
+          0.8698155879974365
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003565284190699458,
+        "A navy tapered trouser button": 0.0047388444654643536
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.0697246640920639,
+          0.17064757645130157,
+          0.869710385799408
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037258509546518326,
+        "A navy tapered trouser button": 0.0047388519160449505
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.06264862418174744,
+          0.17181167006492615,
+          0.8696906566619873
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0038661060389131308,
+        "A navy tapered trouser button": 0.004738891962915659
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003928425256162882,
+        "A navy tapered trouser button": 0.004738854244351387
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003982988186180592,
+        "A navy tapered trouser button": 0.004738880321383476
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004025139845907688,
+        "A navy tapered trouser button": 0.004738878458738327
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004033213946968317,
+        "A navy tapered trouser button": 0.004738835152238607
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00403940724208951,
+        "A navy tapered trouser button": 0.004738823045045137
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004062826279550791,
+        "A navy tapered trouser button": 0.004738829098641872
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0040703434497118,
+        "A navy tapered trouser button": 0.0047388519160449505
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004076491110026836,
+        "A navy tapered trouser button": 0.004738862160593271
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004109606612473726,
+        "A navy tapered trouser button": 0.004738852847367525
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0040844036266207695,
+        "A navy tapered trouser button": 0.0047388141974806786
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004048352595418692,
+        "A navy tapered trouser button": 0.004738819319754839
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.004027747083455324,
+        "A navy tapered trouser button": 0.004738823045045137
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0039929174818098545,
+        "A navy tapered trouser button": 0.004738830495625734
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003935396671295166,
+        "A navy tapered trouser button": 0.004738871473819017
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0038748837541788816,
+        "A navy tapered trouser button": 0.004738854244351387
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0038204852025955915,
+        "A navy tapered trouser button": 0.004738859832286835
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003784341737627983,
+        "A navy tapered trouser button": 0.004738860297948122
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003746509086340666,
+        "A navy tapered trouser button": 0.004738857503980398
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003707063617184758,
+        "A navy tapered trouser button": 0.004738885443657637
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003661452094092965,
+        "A navy tapered trouser button": 0.004738834220916033
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00361368665471673,
+        "A navy tapered trouser button": 0.004738867282867432
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.05543258413672447,
+          0.1729424148797989,
+          0.8696368932723999
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0035855278838425875,
+        "A navy tapered trouser button": 0.004738870542496443
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.14640933275222778,
+          -0.11675040423870087,
+          0.903167724609375
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003578054253011942,
+        "A navy tapered trouser button": 0.004738855175673962
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036108605563640594,
+        "A navy tapered trouser button": 0.004738852847367525
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003642402356490493,
+        "A navy tapered trouser button": 0.0047388579696416855
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036334737669676542,
+        "A navy tapered trouser button": 0.004738852847367525
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003597377799451351,
+        "A navy tapered trouser button": 0.004738830495625734
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.07699425518512726,
+          0.16934850811958313,
+          0.8697724342346191
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0036120014265179634,
+        "A navy tapered trouser button": 0.004738836083561182
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003672312945127487,
+        "A navy tapered trouser button": 0.004738848656415939
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037062051706016064,
+        "A navy tapered trouser button": 0.004738857503980398
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037703965790569782,
+        "A navy tapered trouser button": 0.004738872405141592
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0038312163669615984,
+        "A navy tapered trouser button": 0.004738849122077227
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.00379581400193274,
+        "A navy tapered trouser button": 0.0047388458624482155
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.0037370985373854637,
+        "A navy tapered trouser button": 0.004738852847367525
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          -0.043682657182216644,
+          0.1741991937160492,
+          0.8719199895858765
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory tapered trouser pockets and seams": 0.003717892337590456,
+        "A navy tapered trouser button": 0.004738817922770977
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory tapered trouser pockets and seams": [
+          0.07699462026357651,
+          0.16947785019874573,
+          0.8697956800460815
+        ],
+        "A navy tapered trouser button": [
+          -5.148540003574453e-05,
+          -0.1436740756034851,
+          0.971714437007904
+        ]
+      }
+    }
+  ]
+}

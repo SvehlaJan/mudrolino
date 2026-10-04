@@ -1,0 +1,35 @@
+{
+  "id": "F01",
+  "status": "candidate; dense motion/style/runtime acceptance pending",
+  "vertices": 6184,
+  "polygons": 6076,
+  "groups": 24,
+  "max_influences": 3,
+  "covered_body_vertices": 5669,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": 0
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": 0
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": 0
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": 0
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": 0
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": 0
+    }
+  ]
+}

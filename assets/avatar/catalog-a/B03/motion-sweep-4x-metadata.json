@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/B03/B03.blend",
+  "blend_sha256": "c193c13e3e8e8a121e78e6cbac92154e64f360a528e5498f7d594055eb709b0e",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "B03_casual_shorts"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 338,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

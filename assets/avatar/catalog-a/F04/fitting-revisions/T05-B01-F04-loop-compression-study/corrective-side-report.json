@@ -1,0 +1,62 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "/Users/svehla/.codex/worktrees/avatar-catalog/teo-learn/assets/avatar/catalog-a/B01/fitting-revisions/pull-loop-compression-study/B01.blend",
+      "blend_sha256": "d72e7520c782a62f97d89409df936ab0a8fa757e4128a0e44bddc16ca7024521",
+      "keys": [
+        {
+          "object": "B01_straight_trousers",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 553
+        },
+        {
+          "object": "B01_straight_trousers",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 551
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.blend",
+      "blend_sha256": "b3fe565af52203c3fe769c0315f77aa72c34f9d24e83627865254826eb88ba61",
+      "keys": [
+        {
+          "object": "B01_straight_trousers_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 553
+        },
+        {
+          "object": "B01_straight_trousers_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 551
+        },
+        {
+          "object": "F04_ankle_boots_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 39
+        },
+        {
+          "object": "F04_ankle_boots_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 39
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

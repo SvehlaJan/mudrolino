@@ -6,7 +6,7 @@ import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { AvatarModel } from './AvatarModel';
 import { AvatarSkeletonOverlay } from './AvatarSkeletonOverlay';
 import { AvatarExternalAsset } from './avatarAssetResolver';
-import { AvatarBodyShapeConfig, AvatarSceneData } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
 
 interface AvatarSceneProps {
   className?: string;
@@ -17,6 +17,7 @@ interface AvatarSceneProps {
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
   showSkeleton?: boolean;
+  inspection?: AvatarInspectionControls;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
   onSceneData?: (data: AvatarSceneData) => void;
@@ -26,14 +27,22 @@ interface AvatarSceneProps {
 const CAMERA_POSITION = [0, 1.35, 7.2] as const;
 const CAMERA_TARGET = [0, 1.25, 0] as const;
 
-function AvatarCameraRig() {
-  const { camera } = useThree();
+function inspectionPose(view: AvatarInspectionControls['view'] | undefined, aspect: number) {
+  if (!view) return { position: [...CAMERA_POSITION] as [number, number, number], target: [...CAMERA_TARGET] as [number, number, number] };
+  const distance = Math.max(6, 4.5 / Math.max(aspect, 0.1));
+  const position: [number, number, number] = view === 'side' ? [distance, 1.35, 0] : view === 'back' ? [0, 1.35, -distance] : view === 'three-quarter' ? [distance * .707, 1.35, distance * .707] : [0, 1.35, distance];
+  return { position, target: [0, 1.35, 0] as [number, number, number] };
+}
+
+function AvatarCameraRig({ view }: { view?: AvatarInspectionControls['view'] }) {
+  const { camera, size } = useThree();
 
   useEffect(() => {
-    camera.position.set(...CAMERA_POSITION);
-    camera.lookAt(...CAMERA_TARGET);
+    const pose = inspectionPose(view, size.width / size.height);
+    camera.position.set(...pose.position);
+    camera.lookAt(...pose.target);
     camera.updateProjectionMatrix();
-  }, [camera]);
+  }, [camera, view, size.width, size.height]);
 
   return null;
 }
@@ -41,21 +50,24 @@ function AvatarCameraRig() {
 function CameraResetController({
   onRegister,
   controlsRef,
+  view,
 }: {
   onRegister?: (reset: () => void) => void;
+  view?: AvatarInspectionControls['view'];
   controlsRef: RefObject<OrbitControlsImpl | null>;
 }) {
-  const { camera } = useThree();
+  const { camera, size } = useThree();
 
   const reset = useCallback(() => {
-    camera.position.set(...CAMERA_POSITION);
+    const pose = inspectionPose(view, size.width / size.height);
+    camera.position.set(...pose.position);
     camera.updateProjectionMatrix();
     const controls = controlsRef.current;
     if (controls) {
-      controls.target.set(...CAMERA_TARGET);
+      controls.target.set(...pose.target);
       controls.update();
     }
-  }, [camera, controlsRef]);
+  }, [camera, controlsRef, view, size.width, size.height]);
 
   useEffect(() => {
     onRegister?.(reset);
@@ -73,6 +85,7 @@ export function AvatarScene({
   bodyShape,
   preserveHipsPosition,
   showSkeleton,
+  inspection,
   onAnimationsChange,
   onModelReady,
   onSceneData,
@@ -89,17 +102,18 @@ export function AvatarScene({
         gl={{ alpha: true, antialias: true }}
         style={{ width: '100%', height: '100%', background: 'transparent' }}
       >
-        <AvatarCameraRig />
+        <AvatarCameraRig view={inspection?.view} />
         <CameraResetController
           onRegister={onRegisterCameraReset}
           controlsRef={controlsRef}
+          view={inspection?.view}
         />
         <OrbitControls
           ref={controlsRef}
-          target={[0, 1.25, 0]}
-          enablePan={false}
-          minDistance={2}
-          maxDistance={14}
+          target={[0, inspection ? 1.35 : 1.25, 0]}
+          enablePan={Boolean(inspection)}
+          minDistance={inspection ? .5 : 2}
+          maxDistance={inspection ? 24 : 14}
           minPolarAngle={Math.PI * 0.1}
           maxPolarAngle={Math.PI * 0.85}
         />
@@ -114,6 +128,7 @@ export function AvatarScene({
             externalAssets={externalAssets}
             bodyShape={bodyShape}
             preserveHipsPosition={preserveHipsPosition}
+            inspection={inspection}
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
             onSceneReady={setAvatarScene}

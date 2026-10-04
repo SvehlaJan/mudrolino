@@ -53,3 +53,9 @@ export interface AvatarSceneData {
   bones: Record<string, { x: number; y: number; z: number }>;
   garments: Record<string, AvatarGarmentFit>;
 }
+
+export interface AvatarInspectionControls {
+  paused: boolean;
+  progress?: number;
+  view: 'front' | 'side' | 'back' | 'three-quarter';
+}

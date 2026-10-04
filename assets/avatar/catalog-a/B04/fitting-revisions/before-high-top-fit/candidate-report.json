@@ -1,0 +1,61 @@
+{
+  "id": "B04",
+  "status": "authored candidate; complete motion/style/runtime acceptance pending",
+  "source": "assets/avatar/catalog-a/B04/B04.blend",
+  "object": "B04_ivory_trousers",
+  "vertices": 6512,
+  "polygons": 6496,
+  "groups": 24,
+  "max_influences": 4,
+  "covered_body_vertices": 17351,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    }
+  ],
+  "skinning": {
+    "minimum_exported_influence": 0.0001,
+    "max_influences": 4,
+    "pruned_vertices": 0,
+    "max_discarded_weight": 0
+  }
+}

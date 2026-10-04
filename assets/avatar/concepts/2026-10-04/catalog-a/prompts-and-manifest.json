@@ -1,0 +1,267 @@
+{
+  "date": "2026-10-04",
+  "generator": "Built-in image_gen tool",
+  "approvedPalette": "A \u2014 Bright and friendly",
+  "reference": "../a-bright-friendly.png",
+  "notes": [
+    "2D visual references; no 3D files generated.",
+    "Fictional face studies, not uploaded selfie conversions.",
+    "Generated views need a consistency pass before becoming technical modeling inputs.",
+    "F03 renders three straps; use the rendered design rather than the prompt's two-strap count.",
+    "Expanded to nine sheets: six assembled outfit combinations, six H01 expressions, and a T02 construction turnaround. These add references for existing designs rather than new wearable IDs.",
+    "Expanded to thirteen sheets with F03/F04 construction views, accessories worn on H01, and H02/H03 head turnarounds. Targeted edits restore three F03 straps, original accessory colors, and bare H03 ears.",
+    "Expanded to sixteen sheets with A02 beanie, A05 backpack and A06 loop-scarf construction turnarounds, attachment details and worn views; existing design IDs remain unchanged."
+  ],
+  "boards": [
+    {
+      "id": "01-tops",
+      "title": "Tops",
+      "items": [
+        "T01 Blue crew-neck tee",
+        "T02 Orange pullover hoodie",
+        "T03 Ivory/navy raglan tee",
+        "T04 Navy zip hoodie",
+        "T05 Blue crew sweatshirt",
+        "T06 Ivory long-sleeve henley"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: 2D avatar asset catalog reference board for later Blender modeling.\nInput image 1 is a STYLE REFERENCE, not an edit target. Match its approved soft toy-like 3D art direction: rounded economical forms, smooth matte materials, restrained fabric surface detail, soft even studio lighting, welcoming adult character proportions, a Genmoji-like simplified expressive face when a face is needed. Retain the approved palette A: cornflower blue, warm tangerine orange, muted navy, warm ivory. Use these colors only for wardrobe items, with sensible skin/hair colors for character studies.\nBackground: clean warm ivory; landscape sheet; precise orderly gallery with generous spacing and charcoal-gray sans-serif labels. No busy environment, interface, logos, branding, prints, watermark, photoreal pores, glossy plastic, complicated stitching, tiny decorative hardware or realistic cloth simulation folds. Simple seams and folds only where needed to explain construction. Keep all objects fully visible and clearly separated. Broad readable shapes must remain practical to model in economical 3D geometry.\nTreat paired views as EXACTLY the same object from different angles: identical color panels, openings, seam placement and dimensions. Do not create a different design for its back/profile view. Orthographic-like product views, minimal perspective distortion. These are design reference boards, not final technical blueprints. Do not copy the original sheet's layout or add the original characters unless explicitly requested below.\nCreate the TOPS catalog board: exactly six empty adult-size garments, each shown in a front and back view within its own card. Layout: three columns by two rows of cards; twelve garment views total. Every garment is hollow with neck, sleeve and hem openings, no person, hanger or mannequin.\nT01: cornflower-blue short-sleeve crew-neck tee, the original approved shirt silhouette.\nT02: tangerine-orange pullover hoodie, lowered hood, one kangaroo pocket, no drawstrings.\nT03: warm-ivory raglan tee with navy short sleeves and navy neck ribbing.\nT04: muted-navy zip-front hoodie, simple thick ivory zipper, orange hood lining; no dangling strings.\nT05: cornflower-blue long-sleeve crew sweatshirt with navy ribbed cuffs and hem.\nT06: warm-ivory long-sleeve henley, three large rounded navy buttons, subtle orange collar facing.\nEach front and back must agree in construction and length. Garment design should match the adult body in the reference, without being a body-shaped skin-tight shell. Use comfortable ease and clear rounded garment edges. Title exactly \"A \u00b7 Tops\". Label cards exactly \"T01 \u00b7 Crew tee\", \"T02 \u00b7 Pullover hoodie\", \"T03 \u00b7 Raglan tee\", \"T04 \u00b7 Zip hoodie\", \"T05 \u00b7 Sweatshirt\", \"T06 \u00b7 Henley\". Tiny \"Front\" and \"Back\" labels under the two views. No other items.",
+      "file": "01-tops.png"
+    },
+    {
+      "id": "02-bottoms",
+      "title": "Bottoms",
+      "items": [
+        "B01 Navy straight trousers",
+        "B02 Blue joggers",
+        "B03 Navy shorts",
+        "B04 Ivory casual trousers"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: 2D avatar asset catalog reference board for later Blender modeling.\nInput image 1 is a STYLE REFERENCE, not an edit target. Match its approved soft toy-like 3D art direction: rounded economical forms, smooth matte materials, restrained fabric surface detail, soft even studio lighting, welcoming adult character proportions, a Genmoji-like simplified expressive face when a face is needed. Retain the approved palette A: cornflower blue, warm tangerine orange, muted navy, warm ivory. Use these colors only for wardrobe items, with sensible skin/hair colors for character studies.\nBackground: clean warm ivory; landscape sheet; precise orderly gallery with generous spacing and charcoal-gray sans-serif labels. No busy environment, interface, logos, branding, prints, watermark, photoreal pores, glossy plastic, complicated stitching, tiny decorative hardware or realistic cloth simulation folds. Simple seams and folds only where needed to explain construction. Keep all objects fully visible and clearly separated. Broad readable shapes must remain practical to model in economical 3D geometry.\nTreat paired views as EXACTLY the same object from different angles: identical color panels, openings, seam placement and dimensions. Do not create a different design for its back/profile view. Orthographic-like product views, minimal perspective distortion. These are design reference boards, not final technical blueprints. Do not copy the original sheet's layout or add the original characters unless explicitly requested below.\nCreate the BOTTOMS catalog board: exactly four empty adult-size lower-body garments, each in front and back view. Layout: two columns by two rows of generous cards; eight garment views total. No people, mannequin, legs, shoes or tops.\nB01: muted-navy straight-leg casual trousers, same reference silhouette, simple waistband, rounded pockets, minimal seam detail.\nB02: cornflower-blue relaxed joggers, navy elastic waistband and soft navy ankle cuffs, no dangling drawcords.\nB03: muted-navy knee-length casual shorts, simple rounded front and back pockets, comfortable adult fit, tiny orange waistband facing visible inside only.\nB04: warm-ivory tapered casual trousers, navy simple button, rounded minimal pockets, comfortable fit.\nAll four fit the same stylized adult pelvis/legs of the reference; no child sizes or chibi proportions. No embroidery, branding, fabric grain or cargo clutter. Front and back must have exactly matching lengths, widths and color regions. Title exactly \"A \u00b7 Bottoms\". Card labels exactly \"B01 \u00b7 Straight trousers\", \"B02 \u00b7 Joggers\", \"B03 \u00b7 Casual shorts\", \"B04 \u00b7 Tapered trousers\". Small \"Front\" and \"Back\" beneath each view.",
+      "file": "02-bottoms.png"
+    },
+    {
+      "id": "03-footwear",
+      "title": "Footwear",
+      "items": [
+        "F01 Blue strap sneakers",
+        "F02 Navy slip-ons",
+        "F03 Blue high-tops",
+        "F04 Orange ankle boots"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: 2D avatar asset catalog reference board for later Blender modeling.\nInput image 1 is a STYLE REFERENCE, not an edit target. Match its approved soft toy-like 3D art direction: rounded economical forms, smooth matte materials, restrained fabric surface detail, soft even studio lighting, welcoming adult character proportions, a Genmoji-like simplified expressive face when a face is needed. Retain the approved palette A: cornflower blue, warm tangerine orange, muted navy, warm ivory. Use these colors only for wardrobe items, with sensible skin/hair colors for character studies.\nBackground: clean warm ivory; landscape sheet; precise orderly gallery with generous spacing and charcoal-gray sans-serif labels. No busy environment, interface, logos, branding, prints, watermark, photoreal pores, glossy plastic, complicated stitching, tiny decorative hardware or realistic cloth simulation folds. Simple seams and folds only where needed to explain construction. Keep all objects fully visible and clearly separated. Broad readable shapes must remain practical to model in economical 3D geometry.\nTreat paired views as EXACTLY the same object from different angles: identical color panels, openings, seam placement and dimensions. Do not create a different design for its back/profile view. Orthographic-like product views, minimal perspective distortion. These are design reference boards, not final technical blueprints. Do not copy the original sheet's layout or add the original characters unless explicitly requested below.\nCreate the FOOTWEAR catalog board: four designs in a two-by-two grid of spacious cards. Within EACH card show a shoe pair in front three-quarter view, plus one single shoe in a pure side profile. Shoes only, no feet, legs or people. Shoes have adult-guide proportions, broad rounded toe boxes, simple chunky ivory soles, modest practical thickness, no enormous platform.\nF01: original blue-and-ivory low-top sneakers, one broad ivory velcro strap, navy-free cornflower blue toe/heel panels, rounded ivory rubber sole.\nF02: muted-navy slip-on shoes, broad simple upper, two small concealed stretch side panels, ivory sole, small flat orange heel tab.\nF03: cornflower-blue ankle-height high-top sneakers, two broad ivory velcro straps, navy ankle collar, ivory sole, no laces.\nF04: warm-orange casual ankle boots, simple navy elastic side panel, rounded toe, ivory sole, no buckles or intricate stitching.\nEach profile must match the nearby shoe pair exactly; no tiny laces, logos, narrow fragile bits or cloth grain. Title exactly \"A \u00b7 Footwear\". Labels exactly \"F01 \u00b7 Strap sneakers\", \"F02 \u00b7 Slip-ons\", \"F03 \u00b7 High-tops\", \"F04 \u00b7 Ankle boots\". Small labels \"Three-quarter\" and \"Side\" below the paired views.",
+      "file": "03-footwear.png"
+    },
+    {
+      "id": "04-accessories",
+      "title": "Accessories",
+      "items": [
+        "A01 Orange baseball cap",
+        "A02 Navy beanie",
+        "A03 Navy round glasses",
+        "A04 Blue soft-square glasses",
+        "A05 Orange backpack",
+        "A06 Ivory loop scarf"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: 2D avatar asset catalog reference board for later Blender modeling.\nInput image 1 is a STYLE REFERENCE, not an edit target. Match its approved soft toy-like 3D art direction: rounded economical forms, smooth matte materials, restrained fabric surface detail, soft even studio lighting, welcoming adult character proportions, a Genmoji-like simplified expressive face when a face is needed. Retain the approved palette A: cornflower blue, warm tangerine orange, muted navy, warm ivory. Use these colors only for wardrobe items, with sensible skin/hair colors for character studies.\nBackground: clean warm ivory; landscape sheet; precise orderly gallery with generous spacing and charcoal-gray sans-serif labels. No busy environment, interface, logos, branding, prints, watermark, photoreal pores, glossy plastic, complicated stitching, tiny decorative hardware or realistic cloth simulation folds. Simple seams and folds only where needed to explain construction. Keep all objects fully visible and clearly separated. Broad readable shapes must remain practical to model in economical 3D geometry.\nTreat paired views as EXACTLY the same object from different angles: identical color panels, openings, seam placement and dimensions. Do not create a different design for its back/profile view. Orthographic-like product views, minimal perspective distortion. These are design reference boards, not final technical blueprints. Do not copy the original sheet's layout or add the original characters unless explicitly requested below.\nCreate the ACCESSORIES catalog board: six accessory designs in a three-column by two-row grid of separate cards. Each card contains a clear three-quarter view and a smaller back or side view as appropriate. No characters, heads, mannequin parts, extra clothing or hair.\nA01: tangerine-orange baseball cap with a rounded soft crown, simple blue back adjustment band and navy underside of brim. Views: front three-quarter and back.\nA02: muted-navy smooth folded-cuff beanie with a rounded top, cornflower-blue cuff; no pom-pom and no visible knitted yarn. Views: three-quarter and side.\nA03: rounded navy eyeglasses, moderately thick smooth toy-like frame and transparent lenses. Views: front and side, open arms that could fit the reference adult head.\nA04: cornflower-blue soft-square eyeglasses, generous rounded corners, smooth frame and transparent lenses. Views: front and side.\nA05: small tangerine-orange casual backpack, one large rounded front pocket, navy broad padded straps, large simple ivory zipper pulls. Views: front three-quarter and back revealing both matching shoulder straps. No badges, brands or prints.\nA06: warm-ivory short cozy loop scarf with one broad navy color-block panel, simple rounded volume and no dangling fringe. Views: three-quarter and back.\nKeep every item visually compatible with the stylized adult proportions and easy to translate into simple 3D meshes. Matched colors and details in paired views. Title exactly \"A \u00b7 Accessories\". Card labels exactly \"A01 \u00b7 Baseball cap\", \"A02 \u00b7 Beanie\", \"A03 \u00b7 Round glasses\", \"A04 \u00b7 Soft-square glasses\", \"A05 \u00b7 Backpack\", \"A06 \u00b7 Loop scarf\".",
+      "file": "04-accessories.png"
+    },
+    {
+      "id": "05-character-views",
+      "title": "Character views",
+      "items": [
+        "Front",
+        "Right side",
+        "Back",
+        "Three-quarter"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: 2D avatar asset catalog reference board for later Blender modeling.\nInput image 1 is a STYLE REFERENCE, not an edit target. Match its approved soft toy-like 3D art direction: rounded economical forms, smooth matte materials, restrained fabric surface detail, soft even studio lighting, welcoming adult character proportions, a Genmoji-like simplified expressive face when a face is needed. Retain the approved palette A: cornflower blue, warm tangerine orange, muted navy, warm ivory. Use these colors only for wardrobe items, with sensible skin/hair colors for character studies.\nBackground: clean warm ivory; landscape sheet; precise orderly gallery with generous spacing and charcoal-gray sans-serif labels. No busy environment, interface, logos, branding, prints, watermark, photoreal pores, glossy plastic, complicated stitching, tiny decorative hardware or realistic cloth simulation folds. Simple seams and folds only where needed to explain construction. Keep all objects fully visible and clearly separated. Broad readable shapes must remain practical to model in economical 3D geometry.\nTreat paired views as EXACTLY the same object from different angles: identical color panels, openings, seam placement and dimensions. Do not create a different design for its back/profile view. Orthographic-like product views, minimal perspective distortion. These are design reference boards, not final technical blueprints. Do not copy the original sheet's layout or add the original characters unless explicitly requested below.\nCreate a CHARACTER REFERENCE VIEW sheet with EXACTLY the same fictional adult man shown prominently in the style-reference image: warm medium-light skin, short chestnut-brown wavy hair, subtle brown sculpted beard, kind large brown eyes, thick soft brows, compact rounded nose, gentle closed-mouth smile. Preserve his facial identity and stylized adult proportions, approximately five to six head-heights tall, slightly enlarged head and rounded average adult torso. Not a child and not a chibi.\nFour evenly spaced full-body views across one wide landscape sheet, in this order: straight Front, exact Right side profile, straight Back, Front three-quarter. All views use the same neutral fitting A-pose with both arms relaxed about 25 degrees away from the torso, hands open in a consistent simplified natural pose, legs straight and feet shoulder-width apart. For the side view maintain that same spatial pose as seen from the side, do not invent a separate gesture. Head neutral, no head tilt, no hands in pockets.\nIdentical outfit in every view: original cornflower-blue crew-neck T-shirt, muted-navy straight trousers, original ivory-and-blue low-top sneakers with one wide ivory strap. Identical garment hem, seams, lengths, hair silhouette and shoe panels across angles. Full head and feet visible, characters at the same scale with aligned head-top and ground baseline. Orthographic-like camera, minimal foreshortening, even studio lighting and very subtle ground shadows. Do not show detachable clothes, extra people, face close-ups or accessories.\nTitle exactly \"A \u00b7 Character reference\". Four readable labels below the views: \"Front\", \"Right side\", \"Back\", \"Three-quarter\". This is a practical shape/fit reference, not an expressive posed illustration. The facial design should remain Genmoji-like while the body remains a stylized adult human.",
+      "file": "05-character-views.png"
+    },
+    {
+      "id": "06-face-hair",
+      "title": "Face and hair studies",
+      "items": [
+        "H01 Short waves and beard",
+        "H02 Long smooth hair",
+        "H03 Rounded curls",
+        "H04 Short crop",
+        "H05 Silver waves and glasses",
+        "H06 Bald and glasses"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: 2D avatar asset catalog reference board for later Blender modeling.\nInput image 1 is a STYLE REFERENCE, not an edit target. Match its approved soft toy-like 3D art direction: rounded economical forms, smooth matte materials, restrained fabric surface detail, soft even studio lighting, welcoming adult character proportions, a Genmoji-like simplified expressive face when a face is needed. Retain the approved palette A: cornflower blue, warm tangerine orange, muted navy, warm ivory. Use these colors only for wardrobe items, with sensible skin/hair colors for character studies.\nBackground: clean warm ivory; landscape sheet; precise orderly gallery with generous spacing and charcoal-gray sans-serif labels. No busy environment, interface, logos, branding, prints, watermark, photoreal pores, glossy plastic, complicated stitching, tiny decorative hardware or realistic cloth simulation folds. Simple seams and folds only where needed to explain construction. Keep all objects fully visible and clearly separated. Broad readable shapes must remain practical to model in economical 3D geometry.\nTreat paired views as EXACTLY the same object from different angles: identical color panels, openings, seam placement and dimensions. Do not create a different design for its back/profile view. Orthographic-like product views, minimal perspective distortion. These are design reference boards, not final technical blueprints. Do not copy the original sheet's layout or add the original characters unless explicitly requested below.\nCreate a FACE AND HAIR STYLE catalog board for future selfie-customizable adult avatars. Six FICTIONAL adult identities, arranged in three columns by two rows. Each card shows the same person's head in a larger front three-quarter view and a smaller side profile. Heads plus short neck only, NO full bodies or outfits, no real-person selfie panels, no phone UI, no before/after claims.\nAll six faces use the same approved Genmoji-like recognizability and toy-like style: warm expressive modeled eyes with simple eyelids, clear soft brows, rounded but individually shaped noses, coherent matte skin, compact warm closed-mouth smiles, rounded facial volumes. Preserve adult age cues using shapes rather than photoreal wrinkles or skin pores. Hair is a small number of broad sculpted masses, not thousands of realistic strands. Beard similarly simplified, never photographic stubble.\nH01: the same short chestnut waves and brown rounded beard of the original adult man, warm medium-light skin and brown eyes.\nH02: fictional adult woman with warm light-medium skin, long smooth dark chestnut hair below the jaw with a simple side part, no bangs, brown eyes.\nH03: fictional adult woman with deep warm-brown skin, dark rounded curls in a broad bob silhouette, expressive brown eyes, as in the original reference face study.\nH04: fictional adult man with medium warm-brown skin, short black cropped sculpted hair, clean-shaven, slightly broader nose and rounded jaw.\nH05: fictional older adult woman with warm light-medium skin, short silver-gray wavy hair, rounded navy glasses and brown eyes, as in the original reference face study.\nH06: fictional middle-aged adult man with warm deep-brown skin, bald head, simple compact dark goatee and rounded navy glasses.\nPaired views must agree in identity, hairline, hair volume, glasses, ears and facial hair. Do not reuse the exact same face shape for all identities; preserve a coherent style while showing meaningful variation in recognizable features.\nTitle exactly \"A \u00b7 Face & hair studies\". Card labels exactly \"H01 \u00b7 Short waves + beard\", \"H02 \u00b7 Long smooth hair\", \"H03 \u00b7 Rounded curls\", \"H04 \u00b7 Short crop\", \"H05 \u00b7 Silver waves + glasses\", \"H06 \u00b7 Bald + glasses\". Add a small unobtrusive footer exactly \"Fictional style references\".",
+      "file": "06-face-hair.png"
+    },
+    {
+      "id": "07-outfit-combinations",
+      "title": "Outfit combinations",
+      "file": "07-outfit-combinations.png",
+      "prompt": "Use case: stylized-concept. Create a polished 2D reference sheet for a Blender avatar catalog. Match the supplied approved style A: friendly Genmoji-like adult face, softly rounded toy-like forms, matte materials, broad sculpted hair masses, blue/orange/navy/ivory wardrobe palette, warm ivory background, soft neutral studio light. Keep a clean orderly gallery layout, all subjects fully visible with generous spacing and readable charcoal sans-serif labels. No logos, watermark, photoreal texture, skin pores, realistic cloth wrinkles, dramatic lighting, miniature hardware or busy environment. References are style and identity references, not edit targets. This sheet is design guidance, not an engineering drawing.\nCreate six full-body outfit studies in a spacious 3-column by 2-row landscape grid, each using EXACTLY the same adult man as image 1: same head, chestnut wavy hair, sculpted beard, skin, eye color, adult five-to-six-head proportions, average torso, limb lengths and overall height. Neutral straight-on stance, arms slightly out from torso, feet shoulder-width, no gesturing. Clothes should have comfortable ease and coherent hem positions. Hats and bags should fit that same body. Use the existing designs in images 2\u20135, do not invent new garments. Show these combinations:\nO01: T01 blue tee + B01 navy straight trousers + F01 blue/ivory single-strap low tops.\nO02: T02 orange pullover hoodie, lowered hood and kangaroo pocket + B02 blue joggers with navy waistband/cuffs + F02 navy slip-ons, ivory soles, orange heel tabs.\nO03: T03 ivory/navy raglan tee + B03 navy knee-length shorts + F01 blue/ivory strap low tops + A01 orange cap.\nO04: T04 navy zip hoodie, orange hood lining and ivory zipper + B04 ivory tapered trousers + F03 blue high tops with THREE ivory straps.\nO05: T05 blue sweatshirt with navy cuffs/hem + B01 navy trousers + F04 orange/navy ankle boots + A02 navy beanie with blue cuff.\nO06: T06 ivory henley with FOUR navy buttons + B02 blue joggers/navy cuffs + F02 navy slip-ons + A05 orange backpack with navy straps worn over both shoulders; show front straps and a small separate back-view inset beside this person to explain backpack fit.\nTitle exactly 'A \u00b7 Outfit combinations'. Under each card use only 'O01 \u00b7 Everyday', 'O02 \u00b7 Cozy', 'O03 \u00b7 Warm weather', 'O04 \u00b7 Layered', 'O05 \u00b7 Outdoors', 'O06 \u00b7 Explorer'. No additional characters, garment swatches, objects or palette variation. All six people same scale, no cropped feet.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/02-bottoms.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/04-accessories.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-ec296a02-1550-458c-8b0e-41b53121debc.png",
+      "correction_prompt": "Use case: precise-object-edit. Input image is the edit target. Preserve the complete six-card outfit sheet, style A, all characters, facial identities, proportions, garments, colors, layout, labels, lighting and background. Make ONLY two small corrections to match the original catalog construction: in the lower-left card O04 Layered, BOTH blue high-top shoes must have exactly THREE separate broad ivory horizontal velcro straps across the upper, rather than two. In the lower-right card O06 Explorer, the front-facing character's ivory henley placket must have exactly FOUR distinct vertically stacked navy circular buttons, rather than three. Keep the nearby back-view figure and backpack unchanged. Do not alter any other area. Ensure exactly three straps per O04 shoe and four buttons on O06 front.",
+      "review_file": "review/07-outfit-combinations.png"
+    },
+    {
+      "id": "08-face-expressions",
+      "title": "Face expressions",
+      "file": "08-face-expressions.png",
+      "prompt": "Use case: stylized-concept. Create a polished 2D reference sheet for a Blender avatar catalog. Match the supplied approved style A: friendly Genmoji-like adult face, softly rounded toy-like forms, matte materials, broad sculpted hair masses, blue/orange/navy/ivory wardrobe palette, warm ivory background, soft neutral studio light. Keep a clean orderly gallery layout, all subjects fully visible with generous spacing and readable charcoal sans-serif labels. No logos, watermark, photoreal texture, skin pores, realistic cloth wrinkles, dramatic lighting, miniature hardware or busy environment. References are style and identity references, not edit targets. This sheet is design guidance, not an engineering drawing.\nCreate an expression-reference board with EXACTLY SIX portraits of the SAME H01 adult man (first identity in image 2) in a 3-column by 2-row landscape grid. Heads and short neck only, all front-facing at identical scale and camera with no tilt. Preserve identity through all expressions: identical chestnut waves, hairline, beard silhouette, ear shape, rounded adult face proportions, warm medium-light skin, large brown eyes, soft thick brows and compact rounded nose. Change only eyelids, brows and mouth shapes necessary for expression. Coherent modeled volumes rather than painted emoji stickers. Six expressions: E01 gentle closed-mouth neutral smile, E02 delighted smile with a small clean ivory upper-teeth shape, E03 attentive/listening with softly raised brows and relaxed mouth, E04 encouraging warm smile and slightly lifted brows, E05 mild surprise with rounded small open mouth and widened eyes, E06 amused blink with both eyelids closed and warm small smile. Keep emotions friendly and restrained; no exaggerated giant mouths, tongue, separate floating symbols, hair changes or facial accessories.\nTitle exactly 'A \u00b7 Expression reference'. Card labels exactly 'E01 \u00b7 Neutral', 'E02 \u00b7 Delighted', 'E03 \u00b7 Attentive', 'E04 \u00b7 Encouraging', 'E05 \u00b7 Surprised', 'E06 \u00b7 Blink'. Small footer 'H01 \u00b7 One identity, six expressions'. Not a selfie before/after demo; fictional identity reference only.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/a-bright-friendly.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/06-face-hair.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-1b8a0037-65e3-4244-ae5d-3c2672178aab.png",
+      "review_file": "review/08-face-expressions.png"
+    },
+    {
+      "id": "09-hoodie-construction",
+      "title": "Hoodie construction",
+      "file": "09-hoodie-construction.png",
+      "prompt": "Use case: stylized-concept. Create a polished 2D reference sheet for a Blender avatar catalog. Match the supplied approved style A: friendly Genmoji-like adult face, softly rounded toy-like forms, matte materials, broad sculpted hair masses, blue/orange/navy/ivory wardrobe palette, warm ivory background, soft neutral studio light. Keep a clean orderly gallery layout, all subjects fully visible with generous spacing and readable charcoal sans-serif labels. No logos, watermark, photoreal texture, skin pores, realistic cloth wrinkles, dramatic lighting, miniature hardware or busy environment. References are style and identity references, not edit targets. This sheet is design guidance, not an engineering drawing.\nCreate a detailed construction-reference sheet for ONLY T02, the orange pullover hoodie shown in image 2, top-middle. Spacious landscape composition. Show four large product views in a horizontal row: straight Front, exact Right side, straight Back, Front three-quarter, all identical garment at identical scale with consistent orange tone, sleeve length, hem length, hood volume and placement. Hoodie is hollow without person/mannequin/hanger, sleeves angled down naturally, lowered hood behind the neckline, one rounded kangaroo pocket, no drawstrings, zipper or branding. Use comfortable adult fit matching image 3; dropped rounded shoulders, broad soft fabric volumes, subtle matte ribbed cuff and hem in same orange, no fabric grain. Match front and back hood and sleeve construction exactly. Side view should explain lowered hood depth and slight pocket projection. Show real neck, wrist and bottom openings. Beneath main views, include exactly three larger construction-detail insets: 'Neck & hood' showing orange inner facing and lowered hood opening, 'Pocket opening' showing integrated rounded kangaroo pocket with two hand openings, 'Cuff & hem' showing restrained rounded thickness without fine stitch detail. Insets are closeups of same hoodie, not new designs. Title exactly 'A \u00b7 T02 hoodie reference'. Labels under main views exactly 'Front', 'Right side', 'Back', 'Three-quarter'. Avoid technical dimensions and impossible certainty; no invented mechanisms or text beyond these labels. All details practical for economical 3D modeling.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/a-bright-friendly.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-d8b2d728-d380-4aca-ae48-fcb232cb8108.png",
+      "review_file": "review/09-hoodie-construction.png"
+    },
+    {
+      "id": "10-high-top-construction",
+      "title": "F03 high-top construction",
+      "items": [
+        "F03 Blue high-tops"
+      ],
+      "file": "10-high-top-construction.png",
+      "prompt": "Use case: stylized-concept. Asset type: 2D construction reference board for the approved avatar catalog A, for later Blender modeling. Match the supplied reference style faithfully: friendly Genmoji-like stylized adult, softly rounded economical forms, matte surfaces, broad sculpted hair shapes, soft even studio light. Wardrobe palette is cornflower blue, tangerine orange, muted navy and warm ivory. Clean warm ivory background, generous spacing, restrained charcoal sans-serif captions, fully visible objects. No logos, brand marks, watermark, photoreal textures, tiny stitches, glossy plastic, dramatic lighting or unnecessary decoration. Multiple views must represent the SAME object with identical construction and color panels. Orthographic-like views with minimal perspective. These are visual design references, not dimensioned engineering blueprints.\nInput image 1: approved overall style reference. Image 2: original footwear designs, construction authority. Generate a new landscape sheet focusing ONLY on F03 blue high-tops, the LOWER LEFT item in image 2. Preserve the exact original shoe design: cornflower-blue rounded ankle-high upper, navy integrated collar, exactly THREE broad warm-ivory closure straps per shoe, warm-ivory sole, warm-ivory rubber toe edging. No laces, extra straps, pull tabs, buckles or redesign. Single right shoe repeated at matching scale in four main views: front, outer side, back, three-quarter. The front and three-quarter must show exactly three straps stepping from forefoot to ankle. Main views show an empty shoe with an open collar, no foot or leg. Underneath include three close-up insets of this same shoe: 'Three straps', 'Collar opening', 'Sole & toe'. Show how broad straps attach to the sides and lie over the tongue. Smooth practical shape transitions and gently rounded thin edges. Title exactly 'A \u00b7 F03 high-top reference'. Main view labels exactly 'Front', 'Outer side', 'Back', 'Three-quarter'. Never show a low-top or another footwear design.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/a-bright-friendly.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-581d93d5-6309-487c-b2c6-0094a4ba2212.png",
+      "review_file": "review/10-high-top-construction.png",
+      "correction": {
+        "prompt": "Use case: precise-object-edit. Input image is the edit target. Correct only the closure straps on this F03 reference board. Every complete shoe currently has TWO ivory straps; the approved design requires exactly THREE separate broad ivory straps. Add a distinct third ivory strap across the lower forefoot, above the toe edging, to the Front, Outer side and Three-quarter main views, and show the same added lower strap in the 'Three straps' close-up. Keep the two existing straps in place. Three means three distinct raised rounded rectangular closure bands with visible blue tongue gaps between them: one at ankle, one at mid-instep, one at forefoot. Do not count the ivory toe edging or the sole as a strap. Back view remains unchanged. Preserve the existing title, labels, layout, blue upper, navy collar, ivory sole/toe edging, camera angles, lighting, matte style and all other construction. No other changes.",
+        "edit_target": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-9ad62d81-e76a-4306-9b7f-2b77ff58396c.png",
+        "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-581d93d5-6309-487c-b2c6-0094a4ba2212.png"
+      },
+      "sha256": "d831e8b5604c5ac486215f041f5fd10c1747ca01a7e618789c0151731aec4ddb"
+    },
+    {
+      "id": "11-ankle-boot-construction",
+      "title": "F04 ankle-boot construction",
+      "items": [
+        "F04 Orange ankle boots"
+      ],
+      "file": "11-ankle-boot-construction.png",
+      "prompt": "Use case: stylized-concept. Asset type: 2D construction reference board for the approved avatar catalog A, for later Blender modeling. Match the supplied reference style faithfully: friendly Genmoji-like stylized adult, softly rounded economical forms, matte surfaces, broad sculpted hair shapes, soft even studio light. Wardrobe palette is cornflower blue, tangerine orange, muted navy and warm ivory. Clean warm ivory background, generous spacing, restrained charcoal sans-serif captions, fully visible objects. No logos, brand marks, watermark, photoreal textures, tiny stitches, glossy plastic, dramatic lighting or unnecessary decoration. Multiple views must represent the SAME object with identical construction and color panels. Orthographic-like views with minimal perspective. These are visual design references, not dimensioned engineering blueprints.\nInput image 1: approved overall style. Image 2: authoritative footwear catalog. Generate a new landscape construction sheet for ONLY F04 orange ankle boots, the LOWER RIGHT design in image 2. Preserve its exact rounded Chelsea-style silhouette: smooth tangerine-orange ankle-height upper, broad dark muted-navy elastic side panels on both sides, simple warm-ivory sole, small rounded orange heel pull tab. No laces, buckles, zippers, decorative straps or added hardware. Four main views of the same single right boot at the same scale: Front, Outer side, Back, Three-quarter. No feet, legs or mannequin. Open rounded collar. The side panel should read as one broad soft navy inset, not fine realistic ribbing. The back view makes the modest pull tab and heel seam readable. Three larger close-up insets below main views: 'Side panel', 'Heel tab', 'Collar & sole'. Show visually simple practical material joins matching original. Title exactly 'A \u00b7 F04 ankle-boot reference'. Keep sole proportions and height consistent across views. Empty boot only, no other footwear.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/a-bright-friendly.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-75e61a55-6c34-46ae-8501-01f1d279e790.png",
+      "review_file": "review/11-ankle-boot-construction.png",
+      "sha256": "479b527af3c448ab3db266af8f674bec1f758ef139bffb71f0805470646a53db"
+    },
+    {
+      "id": "12-accessories-worn",
+      "title": "Accessories worn",
+      "items": [
+        "A01 Cap",
+        "A02 Beanie",
+        "A03 Round glasses",
+        "A04 Soft-square glasses",
+        "A05 Backpack",
+        "A06 Loop scarf"
+      ],
+      "file": "12-accessories-worn.png",
+      "prompt": "Use case: stylized-concept. Asset type: 2D construction reference board for the approved avatar catalog A, for later Blender modeling. Match the supplied reference style faithfully: friendly Genmoji-like stylized adult, softly rounded economical forms, matte surfaces, broad sculpted hair shapes, soft even studio light. Wardrobe palette is cornflower blue, tangerine orange, muted navy and warm ivory. Clean warm ivory background, generous spacing, restrained charcoal sans-serif captions, fully visible objects. No logos, brand marks, watermark, photoreal textures, tiny stitches, glossy plastic, dramatic lighting or unnecessary decoration. Multiple views must represent the SAME object with identical construction and color panels. Orthographic-like views with minimal perspective. These are visual design references, not dimensioned engineering blueprints.\nInput image 1 is overall style and H01 identity reference; image 2 is the accessory construction authority; image 3 is the same H01 character proportion reference. Create a landscape accessory-fit reference sheet, exactly six generous cards in a 3-column x 2-row grid. Each card shows one original accessory worn by the SAME H01 adult man: short chestnut waves, compact rounded brown beard, warm medium-light skin, brown eyes. Only head/shoulders for hats/glasses/scarf, waist-up for backpack. Simple blue T01 crew tee when shoulders are shown. Within each card show a larger front three-quarter and smaller right-profile of the SAME accessory on the same head/body proportions. A01: original plain orange baseball cap with gently curved brim, navy underside/back strap; keep hair volume contained naturally. A02: original navy beanie with broad cornflower-blue turned-up cuff. A03: original round navy glasses with two round lenses and simple thick bridge/arms. A04: original cornflower-blue soft-square glasses with rounded rectangular lenses. A05: original orange rounded backpack with orange front pocket and top loop, broad navy shoulder straps; for this card use a larger back three-quarter and smaller front torso view to show strap placement and bag length, keep both hands free and no extra chest straps. A06: original warm-ivory loop scarf with exactly one navy rectangular panel at front, comfortably encircling neck, not dangling. Do not combine accessories across cards. Show glasses arms extending naturally over ears and distinguish frames from brows. Title exactly 'A \u00b7 Accessories worn'. Card labels exactly 'A01 \u00b7 Cap', 'A02 \u00b7 Beanie', 'A03 \u00b7 Round glasses', 'A04 \u00b7 Soft-square glasses', 'A05 \u00b7 Backpack', 'A06 \u00b7 Loop scarf'. Preserve all accessory designs and original adult style, no body size changes.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/a-bright-friendly.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/04-accessories.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-eb7074d0-c6db-4858-8311-6ea094f5b44e.png",
+      "review_file": "review/12-accessories-worn.png",
+      "correction": {
+        "prompt": "Use case: precise-object-edit. Input image is the edit target. Make only these two color corrections to match the original accessory catalog. In the A01 Cap card's smaller right profile, recolor the bright blue rear adjustment strap to muted NAVY (same navy as cap brim underside), preserving its shape. In the A05 Backpack card's back three-quarter view, recolor only the visible dark-blue carry loop at the very top of the orange backpack to the SAME TANGERINE ORANGE as the bag. Keep the two shoulder straps navy. Preserve all six cards, all characters and faces, poses, garments, glasses, scarf, text, layout, lighting, materials, all other colors and details exactly. Do not add or remove any objects.",
+        "edit_target": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-e826824a-9d83-4ea7-b16f-22a8ffc42cba.png",
+        "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-eb7074d0-c6db-4858-8311-6ea094f5b44e.png"
+      },
+      "sha256": "346542182786441fd21540aee36233e599ccd234d49bde754e8a842e0f300677"
+    },
+    {
+      "id": "13-head-turnarounds",
+      "title": "H02\u2013H03 head turnarounds",
+      "items": [
+        "H02 Long smooth hair",
+        "H03 Rounded curls"
+      ],
+      "file": "13-head-turnarounds.png",
+      "prompt": "Use case: stylized-concept. Asset type: 2D construction reference board for the approved avatar catalog A, for later Blender modeling. Match the supplied reference style faithfully: friendly Genmoji-like stylized adult, softly rounded economical forms, matte surfaces, broad sculpted hair shapes, soft even studio light. Wardrobe palette is cornflower blue, tangerine orange, muted navy and warm ivory. Clean warm ivory background, generous spacing, restrained charcoal sans-serif captions, fully visible objects. No logos, brand marks, watermark, photoreal textures, tiny stitches, glossy plastic, dramatic lighting or unnecessary decoration. Multiple views must represent the SAME object with identical construction and color panels. Orthographic-like views with minimal perspective. These are visual design references, not dimensioned engineering blueprints.\nInput image 1: approved overall Genmoji-like style. Image 2: authoritative existing H02 and H03 fictional identities. Generate a new landscape head-turnaround sheet, exactly TWO rows of FOUR head views each. Top row is the SAME H02 fictional adult woman from image 2: warm light-medium skin, brown eyes, softly rounded oval face, long smooth dark chestnut hair to shoulders with a simple side part, no bangs, compact warm closed-mouth smile. Bottom row is the SAME H03 fictional adult woman from image 2: deep warm-brown skin, brown eyes, rounded face and fuller softly modeled nose, dark broad rounded curls in a bob silhouette around jaw, compact warm closed-mouth smile. Within each row show matching-scale 'Front', 'Right side', 'Back', 'Three-quarter' views of the SAME identity. Every view agrees in skull scale, hairline, part/curl shape, hair length, ears, facial features and neck size. Neutral gentle expression in all views; no expression variations. Heads with short neck only, no clothing or full bodies. Preserve adult age and the original large expressive stylized eye proportions without changing to child/chibi faces. Hair is a small number of broad modeled locks or curl masses, never individual realistic strands. Clear head/neck boundaries and unobscured profile silhouette. All eight heads fully visible and generously spaced. Title exactly 'A \u00b7 H02\u2013H03 head turnarounds'. Row labels exactly 'H02 \u00b7 Long smooth hair' and 'H03 \u00b7 Rounded curls'. Small footer exactly 'Fictional style references'. No selfies, before/after panels, actual-person likeness claims or additional identities.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/a-bright-friendly.png",
+        "assets/avatar/concepts/2026-10-04/catalog-a/06-face-hair.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-afb1f879-86f7-406f-805b-2f4242de7c80.png",
+      "review_file": "review/13-head-turnarounds.png",
+      "correction": {
+        "prompt": "Use case: precise-object-edit. Input image is edit target. Remove ONLY the gold earrings from all H03 Rounded curls head views in the bottom row. Replace the earrings with natural bare earlobes matching her existing warm deep-brown matte skin. H03 wears no jewelry in the original approved catalog. Preserve her face, identity, skin color, eyes, eyebrows, smile, curl masses, hair silhouette, neck and camera viewpoints. Keep the entire H02 top row and all text, layout, lighting, background and other details exactly unchanged. No other changes.",
+        "edit_target": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-8c9b80ed-a489-4584-96bc-5710429d12ca.png",
+        "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-afb1f879-86f7-406f-805b-2f4242de7c80.png"
+      },
+      "sha256": "ce04c995eee1f62004650ac9d65687657f0b1dc7db193becd232d1574359457f"
+    },
+    {
+      "id": "14-beanie-construction",
+      "title": "Beanie construction",
+      "items": [
+        "A02"
+      ],
+      "file": "14-beanie-construction.png",
+      "review_file": "review/14-beanie-construction.png",
+      "prompt": "Use case: stylized-concept. Asset type: 2D construction reference catalog sheet for later Blender modeling. Reference image 1 is a style and design reference, not an edit target. Expand ONLY its A02 beanie design. Match the existing soft rounded matte 3D Genmoji-like art direction, navy knit dome and cornflower-blue turned-up cuff, simple broad forms, soft even studio light, warm ivory backdrop. Landscape gallery sheet. Title exactly 'A02 \u00b7 Beanie construction'. Four consistent empty beanie views across the top: Front, Right side, Back, Three-quarter. All four show EXACTLY the same navy rounded dome and blue folded cuff, no pompom, logo, label, stripes or extra decoration; restrained broad ribbing. Lower row: two closeups labeled 'Folded cuff' and 'Head opening', plus two small views labeled 'Worn front' and 'Worn side' of the same original brown wavy-haired bearded adult character from the reference wearing this beanie and blue tee. The beanie sits above eyebrows, covers the crown and contacts the hair without swallowing ears. Clearly explain open underside and thick rounded cuff edge. Empty views contain no heads. Every object fully visible, generous spacing, charcoal-gray sans-serif labels, no watermark. Keep all design details consistent across angles. These are visual modeling references, not measured engineering blueprints.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/catalog-a/review/12-accessories-worn.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-8a73d1c8-6715-43dd-aaf1-1d8e2ab07a83.png",
+      "sha256": "f9c44354c359e6f3d7e14b7c351d397bcfb4740306fdd16d7d4191adaf7e406a"
+    },
+    {
+      "id": "15-backpack-construction",
+      "title": "Backpack construction",
+      "items": [
+        "A05"
+      ],
+      "file": "15-backpack-construction.png",
+      "review_file": "review/15-backpack-construction.png",
+      "prompt": "Use case: stylized-concept. Asset type: 2D construction sheet for later Blender modeling. Image 1 is a STYLE AND DESIGN REFERENCE. Expand only its A05 orange backpack, preserving its rounded orange main bag, orange carry loop, navy shoulder straps, ivory zipper accents and simple rounded front pocket. Match the soft matte Genmoji-like economical 3D style and approved cornflower blue/tangerine/navy/ivory palette. Warm ivory landscape sheet. Title exactly 'A05 \u00b7 Backpack construction'. Four consistent empty bag views across the top labeled Front, Right side, Back, Three-quarter. Exactly the same bag design and proportions in each view, both shoulder straps visible on rear, no chest strap, dangling straps, buckles, logos or new embellishments. Bottom row: closeups labeled 'Carry loop' and 'Shoulder straps', plus two small rear and side views of the same brown wavy-haired bearded original adult character wearing the backpack with the original blue tee and navy trousers, labeled 'Worn back' and 'Worn side'. Bag sits centered high on upper back, straps pass over shoulders and under arms, ears/head unobstructed. Make attachment routes visible and believable without changing anatomy or bag design. Whole objects visible, broad rounded forms, minimal seams, generous spacing, charcoal sans-serif labels, no watermark. These are visual references, not measured engineering blueprints.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/catalog-a/review/12-accessories-worn.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-1f57eb2c-0cfc-4416-bf2c-f47a2f9bafba.png",
+      "sha256": "0f5c8f5ed8cb8f004acb8191c3ea18fa6dba097e443e172445196fd7d2b51b48"
+    },
+    {
+      "id": "16-scarf-construction",
+      "title": "Loop scarf construction",
+      "items": [
+        "A06"
+      ],
+      "file": "16-scarf-construction.png",
+      "review_file": "review/16-scarf-construction.png",
+      "prompt": "Use case: stylized-concept. Asset type: 2D accessory construction sheet for later Blender modeling. Image 1 is a STYLE AND DESIGN REFERENCE. Expand only its A06 ivory loop scarf with the existing navy panel. Preserve its short warm ivory rounded fabric loop and single muted navy front section. Match the soft matte Genmoji-like economical 3D forms, soft even lighting, no fine fabric simulation, no logos. Warm ivory landscape sheet titled exactly 'A06 \u00b7 Loop scarf construction'. Four empty scarf views across top labeled Front, Right side, Back, Three-quarter; views must describe EXACTLY the same closed wearable ring with clear central neck opening and consistent navy front panel location. No loose ends, tassels, extra patterns, extra wraps or new colors. Lower row: two closeups labeled 'Neck opening' and 'Panel join', and front/side views of the same brown wavy-haired bearded original adult character wearing this scarf over his original blue tee, labeled 'Worn front' and 'Worn side'. Scarf sits around base of neck under jaw, leaves mouth and face visible, shoulder and neck proportions match reference. Fully visible objects, broad readable edges, generous spacing, charcoal-gray sans-serif labels, no watermark. Visual modeling reference, not measured engineering blueprint.",
+      "reference_images": [
+        "assets/avatar/concepts/2026-10-04/catalog-a/review/12-accessories-worn.png"
+      ],
+      "generated_source": "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-be02e5df-1900-41d8-8f44-1574cd3c72dc.png",
+      "sha256": "fa282902f233b38689b98314d2cd2bb159f9b4b8700a6ae0e229b370271917d0"
+    }
+  ]
+}

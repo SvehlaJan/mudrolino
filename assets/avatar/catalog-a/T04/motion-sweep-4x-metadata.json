@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/T04/T04.blend",
+  "blend_sha256": "b93e2e1dc04577c3ff2de1774fd14e6a87f9ce71ae5f9c186955e90b1e27cdc1",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T04_zip_hoodie"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

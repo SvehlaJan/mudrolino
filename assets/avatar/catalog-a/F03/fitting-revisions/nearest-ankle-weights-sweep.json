@@ -1,0 +1,1679 @@
+[
+  {
+    "motion": "walk",
+    "frame": 0.8,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 1.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 1.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 1.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 1.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 2.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 2.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 2.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 2.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 3.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 3.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 3.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 3.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 4.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 4.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 4.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 4.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 5.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 5.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 5.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 5.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 6.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 6.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 6.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 6.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 7.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 7.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 7.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 7.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 8.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 8.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 8.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 8.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 9.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 9.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 9.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 9.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 10.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 10.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 10.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 10.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 11.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 11.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 11.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 11.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 12.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 12.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 12.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 12.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 13.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 13.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 13.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 13.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 14.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 14.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 14.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 14.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 15.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 15.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 15.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 15.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 16.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 16.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 16.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 16.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 17.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 17.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 17.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 17.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 18.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 18.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 18.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 18.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 19.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 19.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 19.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 19.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 20.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 20.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 20.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 20.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 21.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 21.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 21.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 21.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 22.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 22.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 22.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 22.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 23.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 23.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 23.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 23.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 24.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 24.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 24.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 24.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 25.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 25.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 25.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "walk",
+    "frame": 25.6,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 0.8,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 1.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 1.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 1.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 1.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 2.0,
+    "triangle_pairs": 6,
+    "body_pairs": {
+      "F03_high_tops": 6
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.056879639625549316,
+        -0.055734239518642426
+      ],
+      [
+        0.47553038597106934,
+        0.47555118799209595
+      ],
+      [
+        0.36815547943115234,
+        0.3694325089454651
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 2.25,
+    "triangle_pairs": 15,
+    "body_pairs": {
+      "F03_high_tops": 15
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.09331202507019043,
+        -0.056120336055755615
+      ],
+      [
+        0.49101242423057556,
+        0.5006989240646362
+      ],
+      [
+        0.3898600935935974,
+        0.4071999788284302
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 2.5,
+    "triangle_pairs": 18,
+    "body_pairs": {
+      "F03_high_tops": 18
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.09476476907730103,
+        -0.057534120976924896
+      ],
+      [
+        0.5044082999229431,
+        0.5134457945823669
+      ],
+      [
+        0.414632648229599,
+        0.4326019287109375
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 2.75,
+    "triangle_pairs": 18,
+    "body_pairs": {
+      "F03_high_tops": 18
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.09896929562091827,
+        -0.06117258593440056
+      ],
+      [
+        0.5143680572509766,
+        0.5225962996482849
+      ],
+      [
+        0.44396132230758667,
+        0.4614594876766205
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.0,
+    "triangle_pairs": 16,
+    "body_pairs": {
+      "F03_high_tops": 16
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.10382425785064697,
+        -0.06550420820713043
+      ],
+      [
+        0.5212931632995605,
+        0.5286811590194702
+      ],
+      [
+        0.4743504524230957,
+        0.49115562438964844
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.25,
+    "triangle_pairs": 16,
+    "body_pairs": {
+      "F03_high_tops": 16
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.10802754014730453,
+        -0.06933435052633286
+      ],
+      [
+        0.5227529406547546,
+        0.5292729735374451
+      ],
+      [
+        0.5044752955436707,
+        0.5206316113471985
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.5,
+    "triangle_pairs": 16,
+    "body_pairs": {
+      "F03_high_tops": 16
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.10740487277507782,
+        -0.0687919408082962
+      ],
+      [
+        0.5110255479812622,
+        0.516893744468689
+      ],
+      [
+        0.532305896282196,
+        0.5486438274383545
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.75,
+    "triangle_pairs": 16,
+    "body_pairs": {
+      "F03_high_tops": 16
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.1067160964012146,
+        -0.06822679191827774
+      ],
+      [
+        0.49367567896842957,
+        0.5003947615623474
+      ],
+      [
+        0.5608283281326294,
+        0.577192485332489
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.0,
+    "triangle_pairs": 16,
+    "body_pairs": {
+      "F03_high_tops": 16
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.1059044748544693,
+        -0.06759118288755417
+      ],
+      [
+        0.4734644293785095,
+        0.4809306561946869
+      ],
+      [
+        0.5850205421447754,
+        0.6013216972351074
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.25,
+    "triangle_pairs": 12,
+    "body_pairs": {
+      "F03_high_tops": 12
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.08617713302373886,
+        -0.06873849779367447
+      ],
+      [
+        0.45388084650039673,
+        0.45647507905960083
+      ],
+      [
+        0.5989447236061096,
+        0.6102473139762878
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.5,
+    "triangle_pairs": 4,
+    "body_pairs": {
+      "F03_high_tops": 4
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.06863310933113098,
+        -0.06863310933113098
+      ],
+      [
+        0.4281183183193207,
+        0.4281183183193207
+      ],
+      [
+        0.6139630079269409,
+        0.6139630079269409
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 5.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 5.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 5.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 5.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 6.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 6.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 6.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 6.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 7.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 7.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 7.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 7.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 8.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 8.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 8.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 8.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 9.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 9.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 9.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 9.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 10.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 10.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 10.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 10.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 11.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 11.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 11.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 11.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 12.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 12.25,
+    "triangle_pairs": 6,
+    "body_pairs": {
+      "F03_high_tops": 6
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.05897441506385803,
+        -0.05785393714904785
+      ],
+      [
+        -0.23754793405532837,
+        -0.23638340830802917
+      ],
+      [
+        0.2220858782529831,
+        0.22250357270240784
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 12.5,
+    "triangle_pairs": 6,
+    "body_pairs": {
+      "F03_high_tops": 6
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.05636625736951828,
+        -0.055284470319747925
+      ],
+      [
+        -0.22787921130657196,
+        -0.22676581144332886
+      ],
+      [
+        0.21739551424980164,
+        0.2178311049938202
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 12.75,
+    "triangle_pairs": 15,
+    "body_pairs": {
+      "F03_high_tops": 15
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.0871526226401329,
+        -0.05236122012138367
+      ],
+      [
+        -0.2184726893901825,
+        -0.1995352953672409
+      ],
+      [
+        0.20535163581371307,
+        0.2136886566877365
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 13.0,
+    "triangle_pairs": 6,
+    "body_pairs": {
+      "F03_high_tops": 6
+    },
+    "garment_layer_pairs": {},
+    "intersection_region_xyz": [
+      [
+        -0.05202433094382286,
+        -0.051025547087192535
+      ],
+      [
+        -0.18068259954452515,
+        -0.17953167855739594
+      ],
+      [
+        0.2075285166501999,
+        0.2080291509628296
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 13.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 13.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 13.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 14.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 14.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 14.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 14.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 15.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 15.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 15.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 15.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  },
+  {
+    "motion": "run",
+    "frame": 16.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "F03_high_tops": 0
+    },
+    "garment_layer_pairs": {}
+  }
+]

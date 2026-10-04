@@ -1,0 +1,20 @@
+{
+  "blend": "assets/avatar/catalog-a/F03/fitting-revisions/rear-compression-outfit/outfit.blend",
+  "blend_sha256": "99d95ddfa7594782433395bfdce0eddac2776081df159a7397244f9d62c023ca",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T04_zip_hoodie_outfit",
+    "B04_ivory_trousers_outfit",
+    "F03_high_tops_outfit",
+    "A01_baseball_cap_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

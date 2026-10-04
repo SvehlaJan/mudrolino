@@ -1,0 +1,150 @@
+{
+  "target": "assets/avatar/catalog-a/outfits/T02-B02-F02-A01/outfit.glb",
+  "sha256": "237b9a664b302995d2640e990ebe5120c88a0f7e9079c4da90215224068431e9",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "H01 rounded face",
+      "material": "A face and stubble",
+      "colorComponents": 18150,
+      "min": 0.049559999257326126,
+      "max": 0.7200000286102295
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm peach skin",
+      "colorComponents": 5148,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A ear warmth",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A eye white",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A brown iris",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A dark pupil",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A eye highlight",
+      "colorComponents": 684,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A chestnut hair",
+      "colorComponents": 75600,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm smile",
+      "colorComponents": 1530,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell.001",
+      "material": "A tangerine hoodie fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell.001",
+      "material": "A tangerine ribbed hems",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell.001",
+      "material": "A warm orange hood lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell.001",
+      "material": "A blue jogger fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell.001",
+      "material": "A navy jogger elastic",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell.001",
+      "material": "A blue jogger pocket openings",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole.001",
+      "material": "A ivory slip-on sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole.001",
+      "material": "A navy slip-on upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole.001",
+      "material": "A navy slip-on collar",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole.001",
+      "material": "A dark slip-on elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole.001",
+      "material": "A orange slip-on heel tabs",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A01 soft cap crown.001",
+      "material": "A tangerine cap fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A01 soft cap crown.001",
+      "material": "A navy brim underside",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A01 soft cap crown.001",
+      "material": "A cap panel seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A01 soft cap crown.001",
+      "material": "A blue cap adjustment band",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.006",
+      "material": "A warm peach skin",
+      "colorComponents": 0
+    }
+  ]
+}

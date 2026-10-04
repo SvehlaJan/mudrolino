@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import validator from 'gltf-validator';
+const outfit=process.argv.find(a=>a.startsWith('--outfit='))?.slice(9)??'T01-B01-F01-A01';
+if(!/^[A-Z0-9-]+$/.test(outfit))throw new Error('Invalid outfit ID');
+const root='assets/avatar/catalog-a',pieces=outfit.split('-');
+const files=['foundation/catalog-body.glb','foundation/catalog-body-walk.glb','foundation/catalog-body-run.glb','H01/H01.glb',...pieces.flatMap(id=>[`${id}/${id}.glb`,`${id}/body-${id}.glb`]),...['body','garments','outfit'].map(name=>`outfits/${outfit}/${name}.glb`)];
+const reports=await Promise.all(files.map(async file=>{const target=path.join(root,file),bytes=fs.readFileSync(target),report=await validator.validateBytes(new Uint8Array(bytes),{uri:target,format:'glb',maxIssues:50});return {file:target,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),issues:report.issues};}));
+const destination=`artifacts/verification/avatar-catalog/outfits/${outfit}/export-validation.json`;fs.mkdirSync(path.dirname(destination),{recursive:true});fs.writeFileSync(destination,JSON.stringify(reports,null,2));
+console.log(JSON.stringify(reports.map(r=>({file:r.file,errors:r.issues.numErrors,warnings:r.issues.numWarnings,infos:r.issues.numInfos,hints:r.issues.numHints})),null,2));
+if(reports.some(r=>r.issues.numErrors||r.issues.numWarnings))process.exitCode=1;

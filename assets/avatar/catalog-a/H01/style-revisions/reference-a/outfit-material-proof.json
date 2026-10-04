@@ -1,0 +1,120 @@
+{
+  "target": "assets/avatar/catalog-a/H01/style-revisions/reference-a/outfit.glb",
+  "sha256": "4ba07ae258875e8c917aa4fdb82760e19dca46e3e626a85eccd18e79c602c670",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T05_crew_sweatshirt quad shell.001",
+      "material": "A blue sweatshirt fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T05_crew_sweatshirt quad shell.001",
+      "material": "A navy sweatshirt ribbing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A ivory ankle-boot sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A orange ankle-boot upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A navy ankle-boot elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A orange ankle-boot heel loops",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A face and stubble",
+      "colorComponents": 18150,
+      "min": 0.06836000084877014,
+      "max": 0.7200000286102295
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm peach skin.001",
+      "colorComponents": 5148,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A ear warmth",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A eye white",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A brown iris",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A dark pupil",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A eye highlight",
+      "colorComponents": 684,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A chestnut hair",
+      "colorComponents": 76974,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm smile",
+      "colorComponents": 1530,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A warm peach skin",
+      "colorComponents": 0
+    }
+  ]
+}

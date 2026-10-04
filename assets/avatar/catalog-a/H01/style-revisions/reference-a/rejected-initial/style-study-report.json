@@ -1,0 +1,29 @@
+{
+  "stage": "isolated face-style study; final style, expression and headwear compatibility pending",
+  "source": "assets/avatar/catalog-a/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.blend",
+  "source_sha256": "b3fe565af52203c3fe769c0315f77aa72c34f9d24e83627865254826eb88ba61",
+  "head_vertices": 38042,
+  "head_polygons": 38438,
+  "unchanged_geometry": {
+    "B01_straight_trousers_outfit": "f23e3ea117f4d3629b6bc044784e710e78f7b772f32554e04c3bc8e3b079986b",
+    "body_underlayer_male": "cd6b4deee7346b1ccaddcdb85285ee3a77440c075980aa309201b658d2c9beb0",
+    "F04_ankle_boots_outfit": "a3b0b80f0af5a863cb086ae92a382408c7a2fcb9b6cf8ea3b78f876de05012b1",
+    "T05_crew_sweatshirt_outfit": "0bcbb594265bddf9971f7dc0c58796e08a588e435c311cb3bff366ff7b078045"
+  },
+  "rig_signature": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+  "body_rig_garments_exact": true,
+  "parameters": {
+    "lower_face_max_lift_m": 0.022,
+    "eye_width_scale": 1.22,
+    "eye_height_scale": 0.83,
+    "eye_depth_scale": 0.85,
+    "upper_hair_height_scale": 0.88,
+    "beard_max_blend": 0.78
+  },
+  "reviews": [
+    "front-review.png",
+    "side-review.png",
+    "back-review.png",
+    "three-quarter-review.png"
+  ]
+}

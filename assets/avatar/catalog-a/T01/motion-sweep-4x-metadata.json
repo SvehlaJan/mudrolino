@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/T01/T01.blend",
+  "blend_sha256": "28cd43b84da46e950a9e89e6e248ef8e2d5609ca1760316ba3cb28dac7a46be6",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T01_crew_tee"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "blend": "assets/avatar/catalog-a/outfits/T02-B02-F02-A01/outfit.blend",
+  "blend_sha256": "c087ecb1945aa09ea5924029f54a82919f515f96756c4a7e11b58f1660a788c9",
+  "glb": "assets/avatar/catalog-a/outfits/T02-B02-F02-A01/outfit.glb",
+  "glb_sha256": "237b9a664b302995d2640e990ebe5120c88a0f7e9079c4da90215224068431e9",
+  "hashes": {
+    "assets/avatar/catalog-a/outfits/T02-B02-F02-A01/export-deformation-report.json": "97d2fd43d999017a4434a2a154fe67e6ce6ed070d479e506a61fbd085c8f3a8b",
+    "assets/avatar/catalog-a/outfits/T02-B02-F02-A01/outfit.glb": "237b9a664b302995d2640e990ebe5120c88a0f7e9079c4da90215224068431e9",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  },
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "maxWeightError": 2.5224227501174923e-7,
+      "maxShapeErrorM": 1.620677526935491e-9,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "maxWeightError": 0.00003861529120052776,
+      "maxShapeErrorM": 4.813658589277773e-7,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "maxWeightError": 0.0000029044597376626236,
+      "maxShapeErrorM": 4.3497082527697306e-8,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "maxWeightError": 0.000014077098501034946,
+      "maxShapeErrorM": 1.739393925347264e-7,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "maxWeightError": 9.352992681593841e-7,
+      "maxShapeErrorM": 1.1556741364696485e-8,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "maxWeightError": 3.194709434495291e-7,
+      "maxShapeErrorM": 3.947445692166012e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "maxWeightError": 4.80677903452742e-7,
+      "maxShapeErrorM": 5.9393505362833754e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "maxWeightError": 0.000001085860111896264,
+      "maxShapeErrorM": 1.526479169700284e-8,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "maxWeightError": 4.730545050679602e-7,
+      "maxShapeErrorM": 5.377207054221528e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "maxWeightError": 2.6852157519741127e-7,
+      "maxShapeErrorM": 3.3179052962420998e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "maxWeightError": 1.9407504353585736e-8,
+      "maxShapeErrorM": 2.3980293365352086e-10,
+      "targets": 10
+    }
+  ],
+  "max_weight_error": 0.00003861529120052776,
+  "max_shape_error_m": 4.813658589277773e-7,
+  "combined_error_bound_m": 0.000005841684341344692,
+  "threshold_m": 0.00003,
+  "bindings": 10,
+  "comparison": "Three.js knee weights versus Blender, propagated through actual exported morph deltas; added to same-value source/export error"
+}

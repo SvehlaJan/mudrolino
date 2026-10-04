@@ -1,0 +1,61 @@
+{
+  "id": "B03",
+  "status": "authored candidate; complete motion/style/runtime acceptance pending",
+  "source": "assets/avatar/catalog-a/B03/B03.blend",
+  "object": "B03_casual_shorts",
+  "vertices": 4592,
+  "polygons": 4576,
+  "groups": 24,
+  "max_influences": 4,
+  "covered_body_vertices": 2317,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": {
+        "body_underlayer_male": 229,
+        "H01_head": 0
+      }
+    }
+  ],
+  "skinning": {
+    "minimum_exported_influence": 0.0001,
+    "max_influences": 4,
+    "pruned_vertices": 1,
+    "max_discarded_weight": 9.419510752195492e-05
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "generator": "Built-in image_gen tool",
+  "date": "2026-10-04",
+  "brief": {
+    "style": "Soft toy-like matte 3D rendered as 2D concept art; rounded stylized adult human; slightly enlarged head; recognizable selfie-inspired faces simplified like Genmoji; cozy casual clothes.",
+    "purpose": "Compare color palettes, then create consistent character turnarounds and isolated garment reference views for later Blender work.",
+    "palettes": [
+      {
+        "id": "a",
+        "name": "Bright and friendly",
+        "colors": "cornflower blue T-shirt, warm tangerine hoodie, muted navy trousers, ivory-and-blue rounded sneakers"
+      },
+      {
+        "id": "b",
+        "name": "Calm and cozy",
+        "colors": "sage green T-shirt, warm oatmeal hoodie, dusty teal trousers, cream-and-sage rounded sneakers"
+      },
+      {
+        "id": "c",
+        "name": "Warm and playful",
+        "colors": "soft coral T-shirt, mellow golden-yellow hoodie, plum-blue trousers, cream-and-coral rounded sneakers"
+      }
+    ]
+  },
+  "images": [
+    {
+      "file": "a-bright-friendly.png",
+      "mode": "generate",
+      "prompt": "Use case: stylized-concept.\nAsset type: 2D art-direction and asset-gallery board for a customizable 3D adult guide in a preschool learning app. First palette direction: A, Bright and friendly.\nPrimary request: A polished landscape character-and-clothing concept sheet, beautifully arranged on a warm ivory seamless background with ample whitespace and clean small labels. This is the first gallery exploration before modeling in Blender.\nStyle: soft toy-like 3D rendered as a 2D picture, smooth matte surfaces, rounded forms, broad simple geometry, soft studio illumination, warm approachable adult personality. Face simplification and recognizability inspired by Genmoji: expressive dark eyes, clearly modeled eyelids and brows, compact rounded nose, warm smile, simple distinctive hair and beard volumes. Faces must be modeled in the same material language as the whole character, with no pasted photograph. No photographic skin pores, photorealism, shiny plastic, knitted microtexture, harsh black outlines, clay fingerprints, or overly realistic wrinkles.\nCharacter: a fictional friendly adult human guide, gender-neutral casual wardrobe. Hero is an adult man with warm medium-light skin, short chestnut-brown sculpted hair, subtle rounded beard/stubble mass, kind brown eyes. Stylized human proportions, approximately five head-heights tall, slightly enlarged head, rounded average torso, adult shoulders, natural-length limbs, clear simplified hands and feet. Not a toddler, not a huge-head chibi figure. Calm open posture, both feet on the floor.\nWardrobe palette A: cornflower-blue plain crew-neck T-shirt, muted navy straight-leg trousers, ivory-and-blue rounded low-top sneakers. Alternate garment: warm tangerine-orange pullover hoodie with a comfortable rounded hood, one simple kangaroo pocket, minimal trim. Thick simple shoe soles and broad velcro strap instead of fine laces. No logos, prints or text on clothing.\nGallery composition: landscape editorial concept sheet. Prominent full-body front three-quarter dressed hero on one side, a smaller back view of exactly the same outfit nearby. A clear face close-up showing the face style. On the other side a tidy separated clothing asset gallery: empty T-shirt, empty pullover hoodie, empty trousers, a sneaker pair, each shown as an independent product-like object with no body/mannequin inside and no overlapping assets. Consistent scale, same style and studio lighting. Near the face close-up, two smaller alternate FICTIONAL adult face studies in the identical style: a woman with dark curly hair and deeper warm brown skin; an older adult with silver hair and round glasses. They illustrate the future range of customizable likenesses, not conversion of any supplied selfie. Show heads only, no extra full-body characters.\nInclude only these short readable labels where useful: \"A · Bright & friendly\", \"Character\", \"Face style\", \"Clothing\". Palette swatches of blue, tangerine, navy and ivory. No UI, no phone, no scenery, no tools, no watermark.\nConstraints: coherent art direction across face/body/clothing; fully visible feet and head; visually separated independent garments; plain clean background; garment forms should be practical to translate into economical 3D geometry."
+    },
+    {
+      "file": "b-calm-cozy.png",
+      "mode": "edit",
+      "reference": "a-bright-friendly.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: second color-direction board in the same avatar concept gallery.\nInput image 1 is the approved exploration template and edit target. Preserve its entire composition, the fictional adult man's identity, all three head studies, proportions, poses, facial features, lighting, ivory background, positions and sizes of every item, garment design, materials, and labels except the title and palette swatches. This must look like the exact same gallery in another clothing color palette, not a newly invented character.\nChange ONLY the outfit colors and corresponding isolated garment colors: cornflower-blue T-shirt -> muted sage green; tangerine-orange hoodie -> warm oatmeal/sand; navy trousers -> muted dusty deep teal; blue sneaker panels -> muted sage green, leaving ivory soles and straps intact. Apply those exact color changes to both the dressed front and back character views and all separate clothing items. Keep skin, eye color, hair, beard, alternate heads, and neutral background identical.\nChange the title to exactly \"B · Calm & cozy\". Change the four round color swatches to sage, oatmeal, dusty teal, ivory. Keep \"Character\", \"Face style\", and \"Clothing\" labels unchanged.\nPreserve the soft toy-like 3D style and Genmoji-like expressive face simplification. No new objects, no pose change, no logos, no glossy materials, no extra fabric texture."
+    },
+    {
+      "file": "c-warm-playful.png",
+      "mode": "edit",
+      "reference": "a-bright-friendly.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: third color-direction board in the same avatar concept gallery.\nInput image 1 is the original blue/orange gallery template and edit target. Preserve the entire composition, the fictional adult man's identity, all three head studies, proportions, poses, facial features, lighting, ivory background, positions and sizes of every item, garment design, materials, and labels except the title and palette swatches. This must be the same consistent gallery in a third clothing palette.\nChange ONLY outfit colors and the corresponding isolated garment colors: cornflower-blue T-shirt -> soft warm coral (not neon); tangerine-orange hoodie -> mellow golden yellow; navy trousers -> muted deep plum-blue; blue sneaker panels -> soft coral, leaving ivory soles and straps intact. Apply the color changes consistently to the front and back dressed characters and every separate clothing asset. Preserve skin, eyes, hair, beard, alternate heads, and neutral background exactly.\nChange the title to exactly \"C · Warm & playful\". Change the four round color swatches to soft coral, golden yellow, deep plum-blue, ivory. Keep \"Character\", \"Face style\", and \"Clothing\" labels unchanged.\nMaintain soft matte toy-like 3D forms and Genmoji-like expressive facial simplification. No additional objects, no pose changes, no logos, no shiny plastic, no new patterns or fabric texture."
+    }
+  ]
+}

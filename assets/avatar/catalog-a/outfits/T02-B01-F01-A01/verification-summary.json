@@ -1,0 +1,433 @@
+{
+  "status": "fit and export candidate checks passed; final style/budget and actual runtime catalog registration pending",
+  "outfit": "T02-B01-F01-A01",
+  "source_blend_sha256": "4ee4bf32c006b43a389e4d9d8f56e424c0fe46f6a395ac845749b957430d86ef",
+  "motion": {
+    "T02": {
+      "blend": "assets/avatar/catalog-a/T02/T02.blend",
+      "blend_sha256": "8e020f69b7bc18cf58cee0658215b6c33438297cef38d7576308f7abeb333a35",
+      "blender": "5.1.1",
+      "body_meshes": [
+        "body_underlayer_male",
+        "H01_head"
+      ],
+      "garment_meshes": [
+        "T02_pullover_hoodie"
+      ],
+      "samples": 163,
+      "substeps": 4,
+      "max_body_pairs": 0,
+      "max_layer_pairs": 0,
+      "review_width": 320
+    },
+    "B01": {
+      "blend": "assets/avatar/catalog-a/B01/B01.blend",
+      "blend_sha256": "13105753e74d5bee658d4db0bc36ef8a3ed4305a5e3197f47268a464668695e3",
+      "blender": "5.1.1",
+      "body_meshes": [
+        "body_underlayer_male",
+        "H01_head"
+      ],
+      "garment_meshes": [
+        "B01_straight_trousers"
+      ],
+      "samples": 163,
+      "substeps": 4,
+      "max_body_pairs": 0,
+      "max_layer_pairs": 0,
+      "review_width": 320
+    },
+    "F01": {
+      "blend": "assets/avatar/catalog-a/F01/F01.blend",
+      "blend_sha256": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee",
+      "blender": "5.1.1",
+      "body_meshes": [
+        "body_underlayer_male",
+        "H01_head"
+      ],
+      "garment_meshes": [
+        "F01_strap_sneakers"
+      ],
+      "samples": 163,
+      "substeps": 4,
+      "max_body_pairs": 0,
+      "max_layer_pairs": 0,
+      "review_width": 320
+    },
+    "A01": {
+      "blend": "assets/avatar/catalog-a/A01/A01.blend",
+      "blend_sha256": "a77ec15f6541f7790970f3f978dbaadf72caa1702876a20dbcdd19923b2c18b9",
+      "blender": "5.1.1",
+      "body_meshes": [
+        "body_underlayer_male",
+        "H01_head"
+      ],
+      "garment_meshes": [
+        "A01_baseball_cap"
+      ],
+      "samples": 163,
+      "substeps": 4,
+      "max_body_pairs": 0,
+      "max_layer_pairs": 0,
+      "review_width": 320
+    },
+    "outfits/T02-B01-F01-A01": {
+      "blend": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/outfit.blend",
+      "blend_sha256": "4ee4bf32c006b43a389e4d9d8f56e424c0fe46f6a395ac845749b957430d86ef",
+      "blender": "5.1.1",
+      "body_meshes": [
+        "body_underlayer_male",
+        "H01_head"
+      ],
+      "garment_meshes": [
+        "T02_pullover_hoodie_outfit",
+        "B01_straight_trousers_outfit",
+        "F01_strap_sneakers_outfit",
+        "A01_baseball_cap_outfit"
+      ],
+      "samples": 163,
+      "substeps": 4,
+      "max_body_pairs": 0,
+      "max_layer_pairs": 0,
+      "review_width": 320
+    }
+  },
+  "export_max_error_m": 6.067700724088354e-06,
+  "export_check_count": 14,
+  "export_glb_sha256": "b6e694f31f26ce107f793d92620d845499a3d952bee7bdae3ce2c3f0c6516359",
+  "validated_exports": [
+    {
+      "file": "assets/avatar/catalog-a/foundation/catalog-body.glb",
+      "sha256": "b5c44d873594bceebff2f400821b42045ccf3b3133dd0b34039e9a5b307b9123",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/foundation/catalog-body-walk.glb",
+      "sha256": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/foundation/catalog-body-run.glb",
+      "sha256": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/H01/H01.glb",
+      "sha256": "1999f41d60a66292e63abc0e15a24c9ded170cff4f291e26f2fe60f3d1e00f3b",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/T02/T02.glb",
+      "sha256": "4cf0086e48fe85e3c553776684d709afccc9941aaee5543f49b460a4a21b2286",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/T02/body-T02.glb",
+      "sha256": "1880b999c2d5af0185b140c2ce5258c251039aff50cd5c153b75a5ab36497438",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/B01/B01.glb",
+      "sha256": "060b28743eba82b162ac4c24a86a3420999d7a6688b6c96b12316cae3027d07e",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/B01/body-B01.glb",
+      "sha256": "fee42fbc98730de56248f3af0267d38bc690f459ef35a8768468122a1ba3de08",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/F01/F01.glb",
+      "sha256": "83c6ca3ab0a5b60ca8243cf360e05acc290f95608533eb3478edfa094d3568f8",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/F01/body-F01.glb",
+      "sha256": "c376ce0a4560d00599b8fc61fa66f74c88e5046d4bfc3279cf1f72d62312b77e",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/A01/A01.glb",
+      "sha256": "aacf6473a6e6664a994cf44d3e162f4d6de38e1cc6432de6cf93d387c9deab56",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/A01/body-A01.glb",
+      "sha256": "b5c44d873594bceebff2f400821b42045ccf3b3133dd0b34039e9a5b307b9123",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/body.glb",
+      "sha256": "4285d0426aa1082178c5f430c7d92e8aee9e0e0447c080dc6965fa6fca7fd487",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/garments.glb",
+      "sha256": "ee07834281e400f121da454d6cbac71b353234c37475f21991be8d85b7574c93",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "file": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/outfit.glb",
+      "sha256": "b6e694f31f26ce107f793d92620d845499a3d952bee7bdae3ce2c3f0c6516359",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    }
+  ],
+  "materials_status": "passed",
+  "attachments": [
+    {
+      "path": "T02/head-clearance-report.json",
+      "blend": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/outfit.blend",
+      "blend_sha256": "4ee4bf32c006b43a389e4d9d8f56e424c0fe46f6a395ac845749b957430d86ef",
+      "object": "H01_head",
+      "bone": "Head",
+      "status": "passed",
+      "checks": [
+        {
+          "pose": "rest",
+          "max_attachment_error_m": 1.080976287167289e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0
+          }
+        },
+        {
+          "pose": "turn-left",
+          "max_attachment_error_m": 1.9687727483695464e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0
+          }
+        },
+        {
+          "pose": "turn-right",
+          "max_attachment_error_m": 2.0047462056687042e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0
+          }
+        },
+        {
+          "pose": "nod",
+          "max_attachment_error_m": 2.4354396952213575e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0
+          }
+        },
+        {
+          "pose": "look-up",
+          "max_attachment_error_m": 2.9839552036674004e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0
+          }
+        },
+        {
+          "pose": "tilt",
+          "max_attachment_error_m": 2.7171645356432305e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0
+          }
+        }
+      ]
+    },
+    {
+      "path": "outfits/T02-B01-F01-A01/cap-attachment-report.json",
+      "blend": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/outfit.blend",
+      "blend_sha256": "4ee4bf32c006b43a389e4d9d8f56e424c0fe46f6a395ac845749b957430d86ef",
+      "object": "A01_baseball_cap_outfit",
+      "bone": "Head",
+      "status": "passed",
+      "checks": [
+        {
+          "pose": "rest",
+          "max_attachment_error_m": 1.1200678630451045e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0,
+            "H01_head": 0,
+            "B01_straight_trousers_outfit": 0,
+            "F01_strap_sneakers_outfit": 0
+          }
+        },
+        {
+          "pose": "turn-left",
+          "max_attachment_error_m": 2.0485709734063626e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0,
+            "H01_head": 0,
+            "B01_straight_trousers_outfit": 0,
+            "F01_strap_sneakers_outfit": 0
+          }
+        },
+        {
+          "pose": "turn-right",
+          "max_attachment_error_m": 2.076828459615462e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0,
+            "H01_head": 0,
+            "B01_straight_trousers_outfit": 0,
+            "F01_strap_sneakers_outfit": 0
+          }
+        },
+        {
+          "pose": "nod",
+          "max_attachment_error_m": 3.0721789479284264e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0,
+            "H01_head": 0,
+            "B01_straight_trousers_outfit": 0,
+            "F01_strap_sneakers_outfit": 0
+          }
+        },
+        {
+          "pose": "look-up",
+          "max_attachment_error_m": 2.9839552036674004e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0,
+            "H01_head": 0,
+            "B01_straight_trousers_outfit": 0,
+            "F01_strap_sneakers_outfit": 0
+          }
+        },
+        {
+          "pose": "tilt",
+          "max_attachment_error_m": 2.7197808452631437e-07,
+          "obstacle_pairs": {
+            "T02_pullover_hoodie_outfit": 0,
+            "H01_head": 0,
+            "B01_straight_trousers_outfit": 0,
+            "F01_strap_sneakers_outfit": 0
+          }
+        }
+      ]
+    }
+  ],
+  "browser_cases": [
+    "desktop-rest",
+    "desktop-walk",
+    "desktop-run",
+    "mobile-run"
+  ],
+  "browser_manifest": {
+    "/avatar/modular/male-base-plain.glb": {
+      "path": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/body.glb",
+      "sha256": "4285d0426aa1082178c5f430c7d92e8aee9e0e0447c080dc6965fa6fca7fd487"
+    },
+    "/avatar/modular/male-base-plain-walking.glb": {
+      "path": "assets/avatar/catalog-a/foundation/catalog-body-walk.glb",
+      "sha256": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe"
+    },
+    "/avatar/modular/male-base-plain-running.glb": {
+      "path": "assets/avatar/catalog-a/foundation/catalog-body-run.glb",
+      "sha256": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+    },
+    "/avatar/garments/top_blue_tshirt_v1.glb": {
+      "path": "assets/avatar/catalog-a/outfits/T02-B01-F01-A01/garments.glb",
+      "sha256": "ee07834281e400f121da454d6cbac71b353234c37475f21991be8d85b7574c93"
+    }
+  },
+  "known_browser_cleanup": "Expected availability HEAD aborts are retained; no failed GETs or page/console errors.",
+  "runtime_limit": "Candidate GLB substitution through the existing top slot; actual bottom/shoes/accessory slot registration and switching remain pending. The current default preview camera can crop feet, especially on mobile; full-body framing remains integration work.",
+  "scope_limit": "Quarter-frame samples of current walk/run on H01, plus the listed head gestures; other motion, head variants and final style are not proven.",
+  "evidence_freshness": "All referenced source/GLB/material/attachment/browser hashes match current files when this summary is written."
+}

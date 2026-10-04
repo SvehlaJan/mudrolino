@@ -436,24 +436,12 @@ Future catalog shape should allow one logical clothing item to map to separate f
 
 ## Face and Body Customization Backlog
 
-Face customization should start with the easier generated-decal path, not head replacement.
-
-Future flow:
-
-1. Parent opens face customization behind the parent gate.
-2. User captures or uploads a selfie.
-3. Browser sends the image to a backend/serverless endpoint.
-4. Backend calls Gemini image generation/editing to transform the selfie into a friendly stylized face PNG.
-5. Backend returns the generated face.
-6. App stores the generated stylized face asset, not the raw selfie by default.
-7. Runtime applies the generated PNG as a decal or texture on `face_anchor`.
-
-Rules:
-
-- Do not expose Gemini API keys in browser code.
-- Do not store raw selfies by default.
-- Provide reset/delete controls for generated face customization.
-- Treat UV-based head texture replacement as a later quality upgrade.
+Current contract (clarified 2026-10-04): a selfie becomes a generated stylized
+**2D face texture** on a reusable UV-mapped head. A face-anchor decal can be a
+placement experiment. The earlier decal-first/UV-later sequence is superseded.
+Read `docs/avatar-workflow.md` for the canonical template, texture-ready head
+requirements, backend credentials, preview/reset and persistence contract.
+The current H01 exports lack UVs and need a separate texture-ready study.
 
 Body-shape customization should be represented in state now but not rendered in the MVP. Safe progression:
 
@@ -780,7 +768,7 @@ Recent modular avatar browser verification:
 - Move from one modular GLB per base toward separate clothing GLBs.
 - Add per-base fitted clothing assets and compatibility metadata.
 - Keep a clean head/neck boundary for future face replacement.
-- Add selfie-to-generated-face decal customization through a backend/serverless Gemini endpoint.
+- Add selfie-to-generated-2D-face-texture customization through a backend/serverless endpoint; follow `docs/avatar-workflow.md`.
 - Add body-shape customization only after asset support exists.
 - Optimize geometry and textures for production delivery.
 - Decide whether avatar assets should be lazy-loaded only on screens where the companion appears.

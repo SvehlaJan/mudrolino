@@ -102,7 +102,9 @@ is a leftover from the starter template and unused. The avatar is behind
 Detailed workflows are skills rather than always-loaded context: Meshy 3D
 generation in `.claude/skills/meshy-3d-generation/` (mirrored for Cursor in
 `.cursor/skills/`), browser verification and the Blender avatar pipeline in
-`.agents/skills/`. Read the matching skill before doing that kind of work.
+`.agents/skills/`. Read the matching skill before doing that kind of work. For catalog
+models or selfie personalization, start with `docs/avatar-workflow.md`; Claude
+has a skill entry point linking to the same Blender instructions.
 
 One rule is here rather than only in the skill, because it spends real money:
 **Meshy commands cost credits — always summarize the expected cost and wait for

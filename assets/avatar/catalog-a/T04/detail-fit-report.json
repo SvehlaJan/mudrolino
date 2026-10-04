@@ -1,0 +1,3299 @@
+{
+  "blend": "assets/avatar/catalog-a/T04/T04.blend",
+  "blend_sha256": "b93e2e1dc04577c3ff2de1774fd14e6a87f9ce71ae5f9c186955e90b1e27cdc1",
+  "garment": "T04_zip_hoodie",
+  "threshold_m": 0.012,
+  "samples": 164,
+  "max_cloth_distance_m": 0.008033069781959057,
+  "status": "passed",
+  "surface_materials": [
+    "A navy zip hoodie fabric",
+    "A navy zip hoodie ribbing"
+  ],
+  "detail_materials": [
+    "A ivory zipper and drawcords",
+    "A navy zip hoodie pockets"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007975742220878601,
+        "A navy zip hoodie pockets": 0.00467413617298007
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008007354103028774,
+        "A navy zip hoodie pockets": 0.004674146417528391
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008006945252418518,
+        "A navy zip hoodie pockets": 0.004674175754189491
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008006601594388485,
+        "A navy zip hoodie pockets": 0.004674172960221767
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008006206713616848,
+        "A navy zip hoodie pockets": 0.004674200899899006
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008006603457033634,
+        "A navy zip hoodie pockets": 0.004674147814512253
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008007541298866272,
+        "A navy zip hoodie pockets": 0.004674149211496115
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008008367381989956,
+        "A navy zip hoodie pockets": 0.004674182739108801
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00800938531756401,
+        "A navy zip hoodie pockets": 0.004674173425883055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008010512217879295,
+        "A navy zip hoodie pockets": 0.004674198105931282
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008011696860194206,
+        "A navy zip hoodie pockets": 0.004674179945141077
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008012599311769009,
+        "A navy zip hoodie pockets": 0.004674170166254044
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008013056591153145,
+        "A navy zip hoodie pockets": 0.004674166906625032
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008013303391635418,
+        "A navy zip hoodie pockets": 0.004674169234931469
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008013647049665451,
+        "A navy zip hoodie pockets": 0.004674187395721674
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008014197461307049,
+        "A navy zip hoodie pockets": 0.004674158990383148
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008014647290110588,
+        "A navy zip hoodie pockets": 0.004674140829592943
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008015114814043045,
+        "A navy zip hoodie pockets": 0.0046741291880607605
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008016606792807579,
+        "A navy zip hoodie pockets": 0.004674160853028297
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008018421940505505,
+        "A navy zip hoodie pockets": 0.0046741776168346405
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008020126260817051,
+        "A navy zip hoodie pockets": 0.004674158059060574
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008021334186196327,
+        "A navy zip hoodie pockets": 0.004674140363931656
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008022422902286053,
+        "A navy zip hoodie pockets": 0.004674199037253857
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.0080232759937644,
+        "A navy zip hoodie pockets": 0.004674183204770088
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008022814057767391,
+        "A navy zip hoodie pockets": 0.0046741897240281105
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008020006120204926,
+        "A navy zip hoodie pockets": 0.004674158059060574
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008016963489353657,
+        "A navy zip hoodie pockets": 0.004674159921705723
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008013835176825523,
+        "A navy zip hoodie pockets": 0.004674158990383148
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008010554127395153,
+        "A navy zip hoodie pockets": 0.004674136638641357
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00800701230764389,
+        "A navy zip hoodie pockets": 0.004674173425883055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008003304712474346,
+        "A navy zip hoodie pockets": 0.004674142226576805
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008002089336514473,
+        "A navy zip hoodie pockets": 0.004674174822866917
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008000829257071018,
+        "A navy zip hoodie pockets": 0.004674153868108988
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007999452762305737,
+        "A navy zip hoodie pockets": 0.004674149677157402
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007998407818377018,
+        "A navy zip hoodie pockets": 0.004674131982028484
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007997367531061172,
+        "A navy zip hoodie pockets": 0.004674156196415424
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007996384985744953,
+        "A navy zip hoodie pockets": 0.004674138501286507
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007996268570423126,
+        "A navy zip hoodie pockets": 0.004674186464399099
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007996637374162674,
+        "A navy zip hoodie pockets": 0.004674166906625032
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007996795699000359,
+        "A navy zip hoodie pockets": 0.004674172028899193
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007997368462383747,
+        "A navy zip hoodie pockets": 0.004674132447689772
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007998385466635227,
+        "A navy zip hoodie pockets": 0.004674173891544342
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007999246008694172,
+        "A navy zip hoodie pockets": 0.004674132913351059
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007999571040272713,
+        "A navy zip hoodie pockets": 0.004674169234931469
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007998165674507618,
+        "A navy zip hoodie pockets": 0.004674162715673447
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007996883243322372,
+        "A navy zip hoodie pockets": 0.004674149677157402
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.0079953046515584,
+        "A navy zip hoodie pockets": 0.004674191121011972
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007991723716259003,
+        "A navy zip hoodie pockets": 0.004674174822866917
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007987857796251774,
+        "A navy zip hoodie pockets": 0.004674138966947794
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00798400305211544,
+        "A navy zip hoodie pockets": 0.004674173891544342
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00798024982213974,
+        "A navy zip hoodie pockets": 0.004674158524721861
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007976548746228218,
+        "A navy zip hoodie pockets": 0.004674141760915518
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007972832769155502,
+        "A navy zip hoodie pockets": 0.004674114286899567
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00797061063349247,
+        "A navy zip hoodie pockets": 0.004674185533076525
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007969561964273453,
+        "A navy zip hoodie pockets": 0.00467414315789938
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007968242280185223,
+        "A navy zip hoodie pockets": 0.004674100782722235
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007968098856508732,
+        "A navy zip hoodie pockets": 0.00467415526509285
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007969234138727188,
+        "A navy zip hoodie pockets": 0.00467413617298007
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00797051377594471,
+        "A navy zip hoodie pockets": 0.004674176685512066
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007971924729645252,
+        "A navy zip hoodie pockets": 0.004674163181334734
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007974039763212204,
+        "A navy zip hoodie pockets": 0.0046741715632379055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007976179011166096,
+        "A navy zip hoodie pockets": 0.00467414828017354
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007978190667927265,
+        "A navy zip hoodie pockets": 0.004674163181334734
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007979871705174446,
+        "A navy zip hoodie pockets": 0.004674156196415424
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007981408387422562,
+        "A navy zip hoodie pockets": 0.004684783518314362
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007983028888702393,
+        "A navy zip hoodie pockets": 0.0047303750179708
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007984891533851624,
+        "A navy zip hoodie pockets": 0.004748939536511898
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007986770942807198,
+        "A navy zip hoodie pockets": 0.004760767798870802
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007988790050148964,
+        "A navy zip hoodie pockets": 0.004772618878632784
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007991173304617405,
+        "A navy zip hoodie pockets": 0.004764993209391832
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00799405574798584,
+        "A navy zip hoodie pockets": 0.0047443644143640995
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007996700704097748,
+        "A navy zip hoodie pockets": 0.0047237020917236805
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007999211549758911,
+        "A navy zip hoodie pockets": 0.004691293928772211
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008001384325325489,
+        "A navy zip hoodie pockets": 0.004674153868108988
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00800332985818386,
+        "A navy zip hoodie pockets": 0.004674139432609081
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008004529401659966,
+        "A navy zip hoodie pockets": 0.004674136638641357
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008002463728189468,
+        "A navy zip hoodie pockets": 0.004674139432609081
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00800032913684845,
+        "A navy zip hoodie pockets": 0.004674157593399286
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00799812562763691,
+        "A navy zip hoodie pockets": 0.0046741473488509655
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007995697669684887,
+        "A navy zip hoodie pockets": 0.004674162715673447
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007993150502443314,
+        "A navy zip hoodie pockets": 0.004674105904996395
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007990618236362934,
+        "A navy zip hoodie pockets": 0.004674165975302458
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00798939447849989,
+        "A navy zip hoodie pockets": 0.004674181342124939
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007988546043634415,
+        "A navy zip hoodie pockets": 0.004674139432609081
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007987425662577152,
+        "A navy zip hoodie pockets": 0.004674155730754137
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007988493889570236,
+        "A navy zip hoodie pockets": 0.0046741836704313755
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00799079891294241,
+        "A navy zip hoodie pockets": 0.004674174357205629
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007993146777153015,
+        "A navy zip hoodie pockets": 0.00467419670894742
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007995503954589367,
+        "A navy zip hoodie pockets": 0.004674152936786413
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007998239248991013,
+        "A navy zip hoodie pockets": 0.004674161784350872
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008000652305781841,
+        "A navy zip hoodie pockets": 0.00467417249456048
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008002839051187038,
+        "A navy zip hoodie pockets": 0.004674145486205816
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00800330750644207,
+        "A navy zip hoodie pockets": 0.004674168769270182
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008003820665180683,
+        "A navy zip hoodie pockets": 0.004674132913351059
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008004341274499893,
+        "A navy zip hoodie pockets": 0.004674158059060574
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008004277013242245,
+        "A navy zip hoodie pockets": 0.004674156662076712
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008004186674952507,
+        "A navy zip hoodie pockets": 0.00467418460175395
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008003996685147285,
+        "A navy zip hoodie pockets": 0.004674168303608894
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008004876784980297,
+        "A navy zip hoodie pockets": 0.004674151539802551
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008005919866263866,
+        "A navy zip hoodie pockets": 0.004674121271818876
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008006881922483444,
+        "A navy zip hoodie pockets": 0.00467414315789938
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008007398806512356,
+        "A navy zip hoodie pockets": 0.004674174822866917
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007906544022262096,
+        "A navy zip hoodie pockets": 0.0046741412952542305
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007898425683379173,
+        "A navy zip hoodie pockets": 0.004674139432609081
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007887543179094791,
+        "A navy zip hoodie pockets": 0.004674142226576805
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00787603110074997,
+        "A navy zip hoodie pockets": 0.0046741594560444355
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007872897200286388,
+        "A navy zip hoodie pockets": 0.004674139898270369
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007875500246882439,
+        "A navy zip hoodie pockets": 0.004674169700592756
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007878133095800877,
+        "A navy zip hoodie pockets": 0.004674182739108801
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007884900085628033,
+        "A navy zip hoodie pockets": 0.004674202296882868
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007897733710706234,
+        "A navy zip hoodie pockets": 0.004674172960221767
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007910234853625298,
+        "A navy zip hoodie pockets": 0.004674166906625032
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007921868935227394,
+        "A navy zip hoodie pockets": 0.004674152471125126
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007931036874651909,
+        "A navy zip hoodie pockets": 0.004674194380640984
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007939891889691353,
+        "A navy zip hoodie pockets": 0.004674149677157402
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007948176003992558,
+        "A navy zip hoodie pockets": 0.004674139898270369
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007948090322315693,
+        "A navy zip hoodie pockets": 0.004674194380640984
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007947511039674282,
+        "A navy zip hoodie pockets": 0.00467413617298007
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007946772500872612,
+        "A navy zip hoodie pockets": 0.004674106370657682
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007943481206893921,
+        "A navy zip hoodie pockets": 0.0046741836704313755
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007939685136079788,
+        "A navy zip hoodie pockets": 0.004674159921705723
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007935510948300362,
+        "A navy zip hoodie pockets": 0.004674192517995834
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007934847846627235,
+        "A navy zip hoodie pockets": 0.004674151074141264
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007936005480587482,
+        "A navy zip hoodie pockets": 0.004674156662076712
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007936959154903889,
+        "A navy zip hoodie pockets": 0.004674153868108988
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007941072806715965,
+        "A navy zip hoodie pockets": 0.0046741715632379055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007949791848659515,
+        "A navy zip hoodie pockets": 0.004674144089221954
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007958072237670422,
+        "A navy zip hoodie pockets": 0.004674192517995834
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007966254837810993,
+        "A navy zip hoodie pockets": 0.004674161784350872
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007974982261657715,
+        "A navy zip hoodie pockets": 0.004674158990383148
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007983343675732613,
+        "A navy zip hoodie pockets": 0.004755923058837652
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007991159334778786,
+        "A navy zip hoodie pockets": 0.004895469173789024
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007995371706783772,
+        "A navy zip hoodie pockets": 0.005018051713705063
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007999311201274395,
+        "A navy zip hoodie pockets": 0.005140842869877815
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00800294242799282,
+        "A navy zip hoodie pockets": 0.005253911018371582
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008004694245755672,
+        "A navy zip hoodie pockets": 0.005295027978718281
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008005893789231777,
+        "A navy zip hoodie pockets": 0.005332061555236578
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008006920106709003,
+        "A navy zip hoodie pockets": 0.005375804379582405
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008008548058569431,
+        "A navy zip hoodie pockets": 0.00539251696318388
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00801057368516922,
+        "A navy zip hoodie pockets": 0.005391143262386322
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008012713864445686,
+        "A navy zip hoodie pockets": 0.005389778409153223
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008015042170882225,
+        "A navy zip hoodie pockets": 0.005369036924093962
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008017795160412788,
+        "A navy zip hoodie pockets": 0.005319111980497837
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00802057608962059,
+        "A navy zip hoodie pockets": 0.005269142799079418
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008022969588637352,
+        "A navy zip hoodie pockets": 0.005205639638006687
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008025432005524635,
+        "A navy zip hoodie pockets": 0.00508792232722044
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008027628995478153,
+        "A navy zip hoodie pockets": 0.004969738889485598
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008029742166399956,
+        "A navy zip hoodie pockets": 0.004851141013205051
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008030888624489307,
+        "A navy zip hoodie pockets": 0.004674152936786413
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00803203321993351,
+        "A navy zip hoodie pockets": 0.004674152005463839
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008033069781959057,
+        "A navy zip hoodie pockets": 0.004674166440963745
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008032436482608318,
+        "A navy zip hoodie pockets": 0.004674139898270369
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008031249977648258,
+        "A navy zip hoodie pockets": 0.00467416737228632
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008029969409108162,
+        "A navy zip hoodie pockets": 0.004674164112657309
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00802566297352314,
+        "A navy zip hoodie pockets": 0.004674151539802551
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00801912322640419,
+        "A navy zip hoodie pockets": 0.004674156662076712
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008012400940060616,
+        "A navy zip hoodie pockets": 0.004674152005463839
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.008003178052604198,
+        "A navy zip hoodie pockets": 0.004674146883189678
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007990224286913872,
+        "A navy zip hoodie pockets": 0.004674180410802364
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00797643605619669,
+        "A navy zip hoodie pockets": 0.004674182739108801
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007961852476000786,
+        "A navy zip hoodie pockets": 0.004674181807786226
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00794458668678999,
+        "A navy zip hoodie pockets": 0.004674138966947794
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007926177233457565,
+        "A navy zip hoodie pockets": 0.004674175288528204
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.007906494662165642,
+        "A navy zip hoodie pockets": 0.004674178548157215
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09808555245399475,
+          1.409627914428711
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ]
+      }
+    }
+  ]
+}

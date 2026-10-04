@@ -1,0 +1,2316 @@
+{
+  "blend": "assets/avatar/catalog-a/F03/F03.blend",
+  "blend_sha256": "52a4bcfeb54aea644088d6e137fb3ab9a2cc16c4c747ab6a474abfac0147bcf5",
+  "garment": "F03_high_tops",
+  "threshold_m": 0.012,
+  "samples": 164,
+  "max_cloth_distance_m": 0.004960193298757076,
+  "status": "passed",
+  "surface_materials": [
+    "A blue high-top upper",
+    "A navy high-top collar",
+    "A ivory high-top sole",
+    "A ivory high-top toe edging"
+  ],
+  "detail_materials": [
+    "A ivory high-top straps"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004499942995607853
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.10382868349552155,
+          0.021023720502853394,
+          0.15819807350635529
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004543042741715908
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045432522892951965
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004543481860309839
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004543657880276442
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045461272820830345
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045499736443161964
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004553625825792551
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004555325955152512
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00455428846180439
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004553184844553471
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004550940822809935
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004543575923889875
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004539292771369219
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004541898611932993
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004542787559330463
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004543676506727934
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004544561728835106
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004542497452348471
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004539748653769493
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004536980763077736
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00452891131862998
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.09808648377656937,
+          -0.03982320800423622,
+          0.09932579845190048
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004528617486357689
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.17339539527893066,
+          -0.00820067897439003,
+          0.12447065114974976
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004538742359727621
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004551377613097429
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00456093018874526
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004566444084048271
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045686629600822926
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004571552388370037
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004600264132022858
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004626112524420023
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004636596888303757
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004644155967980623
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004648911766707897
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00464132335036993
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004630599170923233
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004619427490979433
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00461492408066988
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004614923615008593
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004614648409187794
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004613456316292286
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004610880743712187
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004607770591974258
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004603816196322441
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004598129075020552
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004592166282236576
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004585958085954189
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004580024629831314
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004573481157422066
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004566285293549299
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045578377321362495
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004548405762761831
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004538080655038357
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004528612829744816
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004519707057625055
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045183743350207806
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1775783896446228,
+          0.018811490386724472,
+          0.15858368575572968
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004517757799476385
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.19231131672859192,
+          0.03939288482069969,
+          0.16389666497707367
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004517695866525173
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.19231131672859192,
+          0.03939288482069969,
+          0.16389666497707367
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004517811816185713
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1775783896446228,
+          0.018811490386724472,
+          0.15858368575572968
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004518107511103153
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1775783896446228,
+          0.018811490386724472,
+          0.15858368575572968
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004518894478678703
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1775783896446228,
+          0.018811490386724472,
+          0.15858368575572968
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004520725924521685
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004527093376964331
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004526976030319929
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004534441512078047
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045416513457894325
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004547738470137119
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004553485196083784
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004566933959722519
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004568292293697596
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004566088318824768
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004569079261273146
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004572019912302494
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00457475520670414
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.20506563782691956,
+          0.024845045059919357,
+          0.1184624657034874
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004579163156449795
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004583727568387985
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004583979025483131
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045841168612241745
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004586904309689999
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.18252548575401306,
+          -0.008735071867704391,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00458945706486702
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.18252548575401306,
+          -0.008735071867704391,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045912619680166245
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.18252548575401306,
+          -0.008735071867704391,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004592456854879856
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.18252548575401306,
+          -0.008735071867704391,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00458379415795207
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.18252548575401306,
+          -0.008735071867704391,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004572226200252771
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.18252548575401306,
+          -0.008735071867704391,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004560092929750681
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.18252548575401306,
+          -0.008735071867704391,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004556299187242985
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004561442416161299
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045661116018891335
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004568248055875301
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00456617958843708
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004563385155051947
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0045603299513459206
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004558768589049578
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004557040520012379
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00455500790849328
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004553398583084345
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004551614169031382
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004549681209027767
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00454782135784626
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004545944277197123
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004543893504887819
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00454303715378046
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11845386773347855,
+          -0.013325680047273636,
+          0.11936478316783905
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004642291460186243
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004652928560972214
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004665690939873457
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004686363041400909
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12867921590805054,
+          -0.017506953328847885,
+          0.11957630515098572
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00467698322609067
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004667351488023996
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004831570666283369
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004960193298757076
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004942402243614197
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004924148786813021
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004909890703856945
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0049126544035971165
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004915191326290369
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004917835351079702
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004902674816548824
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00488642044365406
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004869384691119194
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0048363665118813515
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004796502646058798
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004753521643579006
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004722003359347582
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004698912613093853
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004675069358199835
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046535334549844265
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046374062076210976
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004631123039871454
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046261874958872795
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046270159073174
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004627763759344816
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004628558177500963
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046297525987029076
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004630929324775934
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004632127471268177
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004633442964404821
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.12340868264436722,
+          -0.06390859186649323,
+          0.1020599901676178
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046352604404091835
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          -0.1996515840291977,
+          -0.029138635843992233,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004699858371168375
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004738071467727423
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004737928509712219
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004737626761198044
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004739881958812475
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004746047779917717
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004752171225845814
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004756012931466103
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0047510359436273575
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0047459895722568035
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004740839824080467
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004726974293589592
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004712454974651337
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004697203636169434
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004673102404922247
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004645572043955326
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.00461670383810997
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004610916133970022
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.1420847624540329,
+          -0.05404363200068474,
+          0.10761111229658127
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004612332209944725
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.1420847624540329,
+          -0.05404363200068474,
+          0.10761111229658127
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004613739438354969
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.1420847624540329,
+          -0.05404363200068474,
+          0.10761111229658127
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004613406956195831
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.1420847624540329,
+          -0.05404363200068474,
+          0.10761111229658127
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004610469099134207
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.1420847624540329,
+          -0.05404363200068474,
+          0.10761111229658127
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004607468377798796
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.1420847624540329,
+          -0.05404363200068474,
+          0.10761111229658127
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004605427384376526
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.1420847624540329,
+          -0.05404363200068474,
+          0.10761111229658127
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.004610834643244743
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046267262659966946
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory high-top straps": 0.0046421922743320465
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory high-top straps": [
+          0.11967973411083221,
+          -0.043703410774469376,
+          0.10705026984214783
+        ]
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarBodyShapeConfig, AvatarSceneData } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
 import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
 /**
@@ -25,6 +25,7 @@ interface AvatarPresenterProps {
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
   showSkeleton?: boolean;
+  inspection?: AvatarInspectionControls;
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
@@ -43,6 +44,7 @@ export function AvatarPresenter({
   bodyShape,
   preserveHipsPosition,
   showSkeleton,
+  inspection,
   assetStatusOverride,
   onAnimationsChange,
   onModelReady,
@@ -63,6 +65,7 @@ export function AvatarPresenter({
         bodyShape={bodyShape}
         preserveHipsPosition={preserveHipsPosition}
         showSkeleton={showSkeleton}
+        inspection={inspection}
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
         onSceneData={onSceneData}
@@ -83,6 +86,7 @@ export function AvatarPresenter({
       bodyShape={bodyShape}
       preserveHipsPosition={preserveHipsPosition}
       showSkeleton={showSkeleton}
+        inspection={inspection}
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
       onSceneData={onSceneData}
@@ -114,6 +118,7 @@ function AvatarPresenterContent({
   bodyShape,
   preserveHipsPosition,
   showSkeleton,
+  inspection,
   onAnimationsChange,
   onModelReady,
   onSceneData,
@@ -134,6 +139,7 @@ function AvatarPresenterContent({
             bodyShape={bodyShape}
             preserveHipsPosition={preserveHipsPosition}
             showSkeleton={showSkeleton}
+            inspection={inspection}
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
             onSceneData={onSceneData}

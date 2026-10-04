@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
-import { AnimationClip } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { AnimationClip, type AnimationAction } from 'three';
 import { Box3, Group, Object3D, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { AvatarExternalAsset } from './avatarAssetResolver';
 import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarBodyShapeConfig, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
 import { hasSkinnedMesh, rebindGarmentToBaseSkeleton } from './skinnedGarment';
+import { bindGarmentCorrectives } from './garmentCorrectives';
 
 interface AvatarModelProps {
   url?: string;
@@ -15,6 +17,7 @@ interface AvatarModelProps {
   externalAssets?: AvatarExternalAsset[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
+  inspection?: AvatarInspectionControls;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
   onSceneReady?: (scene: Object3D) => void;
@@ -186,6 +189,7 @@ export function AvatarModel({
   externalAssets = [],
   bodyShape,
   preserveHipsPosition,
+  inspection,
   onAnimationsChange,
   onModelReady,
   onSceneReady,
@@ -219,12 +223,12 @@ export function AvatarModel({
       disableMeshFrustumCulling(clonedGarmentScene);
 
       const slot = externalAssets[index]?.slot;
-      if (slot === 'shoes') {
+      if (hasSkinnedMesh(clonedGarmentScene)) {
+        rebindGarmentToBaseSkeleton(clonedGarmentScene, clonedScene);
+      } else if (slot === 'shoes') {
         attachShoeSceneToFootBones(clonedScene, clonedGarmentScene);
       } else if (slot === 'accessory') {
         attachAccessoryToHeadBone(clonedScene, clonedGarmentScene);
-      } else if (slot === 'top' && hasSkinnedMesh(clonedGarmentScene)) {
-        rebindGarmentToBaseSkeleton(clonedGarmentScene, clonedScene);
       }
 
       return clonedGarmentScene;
@@ -243,6 +247,20 @@ export function AvatarModel({
     [animationSource.animations, hipsAnchor, preserveHipsPosition],
   );
   const { actions, names } = useAnimations(animationClips, groupRef);
+  const garmentCorrectives = useMemo(() => bindGarmentCorrectives([scene, ...garmentScenes]), [scene, garmentScenes]);
+  const inspectionAction = useRef<AnimationAction | null>(null);
+  const isInspection = Boolean(inspection);
+  useFrame(() => {
+    const action = inspectionAction.current;
+    if (inspection && action) {
+      action.paused = inspection.paused;
+      if (inspection.paused && inspection.progress !== undefined) {
+        action.time = Math.max(0, Math.min(1, inspection.progress)) * Math.max(0, action.getClip().duration - 1e-6);
+        action.getMixer().update(0);
+      }
+    }
+    garmentCorrectives.update();
+  });
 
   useEffect(() => {
     groupRef.current?.updateMatrixWorld(true);
@@ -262,12 +280,16 @@ export function AvatarModel({
     if (!activeName) return;
 
     const action = actions[activeName];
-    action?.reset().fadeIn(0.2).play();
+    inspectionAction.current = action ?? null;
+    if (isInspection) action?.reset().setEffectiveWeight(1).play();
+    else action?.reset().fadeIn(0.2).play();
 
     return () => {
-      action?.fadeOut(0.2);
+      if (isInspection) action?.stop();
+      else action?.fadeOut(0.2);
+      inspectionAction.current = null;
     };
-  }, [actions, animationName, names]);
+  }, [actions, animationName, names, isInspection]);
 
   return (
     <group ref={groupRef} position={rootPosition} rotation={[0, 0, 0]} scale={rootScale}>

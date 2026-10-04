@@ -1,0 +1,396 @@
+{
+  "checkedAt": "2026-10-04T15:24:23.812Z",
+  "identity": {
+    "mode": "development",
+    "commit": "5b75f9f94f9b33d3fcb11d93291df2393c1bd4ee",
+    "fingerprint": "f7b45c9e5c17d14c446904887e7f897cdb25eba562cf5e200c2df88269f66b23"
+  },
+  "base": "http://127.0.0.1:3004",
+  "records": [
+    {
+      "scene": "study-f04",
+      "view": "front",
+      "file": "study-f04-front-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+      "modelSha256": "3d76c197151328fec29130a455b4b91bbee2f01f95d4a2cc1d97e2d5e9dd1fc2"
+    },
+    {
+      "scene": "study-f04",
+      "view": "side",
+      "file": "study-f04-side-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+      "modelSha256": "3d76c197151328fec29130a455b4b91bbee2f01f95d4a2cc1d97e2d5e9dd1fc2"
+    },
+    {
+      "scene": "study-f04",
+      "view": "back",
+      "file": "study-f04-back-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+      "modelSha256": "3d76c197151328fec29130a455b4b91bbee2f01f95d4a2cc1d97e2d5e9dd1fc2"
+    },
+    {
+      "scene": "study-f04",
+      "view": "three-quarter",
+      "file": "study-f04-three-quarter-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+      "modelSha256": "3d76c197151328fec29130a455b4b91bbee2f01f95d4a2cc1d97e2d5e9dd1fc2"
+    },
+    {
+      "scene": "H01",
+      "view": "front",
+      "file": "H01-front-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/H01.glb",
+      "modelSha256": "1999f41d60a66292e63abc0e15a24c9ded170cff4f291e26f2fe60f3d1e00f3b"
+    },
+    {
+      "scene": "H01",
+      "view": "side",
+      "file": "H01-side-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/H01.glb",
+      "modelSha256": "1999f41d60a66292e63abc0e15a24c9ded170cff4f291e26f2fe60f3d1e00f3b"
+    },
+    {
+      "scene": "H01",
+      "view": "back",
+      "file": "H01-back-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/H01.glb",
+      "modelSha256": "1999f41d60a66292e63abc0e15a24c9ded170cff4f291e26f2fe60f3d1e00f3b"
+    },
+    {
+      "scene": "H01",
+      "view": "three-quarter",
+      "file": "H01-three-quarter-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/H01.glb",
+      "modelSha256": "1999f41d60a66292e63abc0e15a24c9ded170cff4f291e26f2fe60f3d1e00f3b"
+    },
+    {
+      "scene": "study-h01-reference-a",
+      "view": "front",
+      "file": "study-h01-reference-a-front-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+      "modelSha256": "4ba07ae258875e8c917aa4fdb82760e19dca46e3e626a85eccd18e79c602c670"
+    },
+    {
+      "scene": "study-h01-reference-a",
+      "view": "side",
+      "file": "study-h01-reference-a-side-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+      "modelSha256": "4ba07ae258875e8c917aa4fdb82760e19dca46e3e626a85eccd18e79c602c670"
+    },
+    {
+      "scene": "study-h01-reference-a",
+      "view": "back",
+      "file": "study-h01-reference-a-back-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+      "modelSha256": "4ba07ae258875e8c917aa4fdb82760e19dca46e3e626a85eccd18e79c602c670"
+    },
+    {
+      "scene": "study-h01-reference-a",
+      "view": "three-quarter",
+      "file": "study-h01-reference-a-three-quarter-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+      "modelSha256": "4ba07ae258875e8c917aa4fdb82760e19dca46e3e626a85eccd18e79c602c670"
+    },
+    {
+      "scene": "head-style-reference-a",
+      "view": "front",
+      "file": "head-style-reference-a-front-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+      "modelSha256": "eb2cf6fdcfad5ce4f869ec6eb597d1d0a0ca4a51f7d6860de3dc11750fbbb4fc"
+    },
+    {
+      "scene": "head-style-reference-a",
+      "view": "side",
+      "file": "head-style-reference-a-side-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+      "modelSha256": "eb2cf6fdcfad5ce4f869ec6eb597d1d0a0ca4a51f7d6860de3dc11750fbbb4fc"
+    },
+    {
+      "scene": "head-style-reference-a",
+      "view": "back",
+      "file": "head-style-reference-a-back-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+      "modelSha256": "eb2cf6fdcfad5ce4f869ec6eb597d1d0a0ca4a51f7d6860de3dc11750fbbb4fc"
+    },
+    {
+      "scene": "head-style-reference-a",
+      "view": "three-quarter",
+      "file": "head-style-reference-a-three-quarter-review.png",
+      "width": 320,
+      "viewport": {
+        "width": 1100,
+        "height": 900
+      },
+      "seed": null,
+      "modelUrl": "/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+      "modelSha256": "eb2cf6fdcfad5ce4f869ec6eb597d1d0a0ca4a51f7d6860de3dc11750fbbb4fc"
+    },
+    {
+      "scene": "reference",
+      "file": "reference-h01-front-review.png",
+      "source": "assets/avatar/concepts/2026-10-04/catalog-a/06-face-hair.png",
+      "crop": {
+        "left": 15,
+        "top": 75,
+        "width": 260,
+        "height": 380
+      },
+      "width": 320,
+      "sourceSha256": "4331c6f76f95d10da9ccba418333577246125feed24d3555e8ff8bd4784edd14"
+    },
+    {
+      "scene": "reference",
+      "file": "reference-h01-side-review.png",
+      "source": "assets/avatar/concepts/2026-10-04/catalog-a/06-face-hair.png",
+      "crop": {
+        "left": 275,
+        "top": 75,
+        "width": 210,
+        "height": 380
+      },
+      "width": 320,
+      "sourceSha256": "4331c6f76f95d10da9ccba418333577246125feed24d3555e8ff8bd4784edd14"
+    },
+    {
+      "scene": "reference",
+      "file": "reference-character-front-review.png",
+      "source": "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png",
+      "crop": {
+        "left": 15,
+        "top": 70,
+        "width": 395,
+        "height": 885
+      },
+      "width": 320,
+      "sourceSha256": "4a61e4c31dc15be68c26124a0cead7ac71a817161ce29a3b633d6f23ab66db6e"
+    },
+    {
+      "scene": "reference",
+      "file": "reference-o05-review.png",
+      "source": "assets/avatar/concepts/2026-10-04/catalog-a/07-outfit-combinations.png",
+      "crop": {
+        "left": 515,
+        "top": 525,
+        "width": 500,
+        "height": 480
+      },
+      "width": 320,
+      "sourceSha256": "6dba6dc77cf51d6e160f72ffffd463994121b065bfc2b6fe8418498c97999642"
+    },
+    {
+      "scene": "reference",
+      "file": "reference-a-review.png",
+      "source": "assets/avatar/concepts/2026-10-04/a-bright-friendly.png",
+      "crop": null,
+      "width": 320,
+      "sourceSha256": "596f1f0f21cabec9d25c711308a33298f5920523c234e6e5655032137939aacc"
+    },
+    {
+      "scene": "comparison-detail",
+      "file": "H01-front-detail-review.png",
+      "width": 320,
+      "source": "assets/avatar/catalog-a/style-review/2026-10-04T15-24-16-197Z/H01-front-review.png",
+      "crop": {
+        "left": 66,
+        "top": 20,
+        "width": 189,
+        "height": 218
+      }
+    },
+    {
+      "scene": "comparison-detail",
+      "file": "H01-side-detail-review.png",
+      "width": 320,
+      "source": "assets/avatar/catalog-a/style-review/2026-10-04T15-24-16-197Z/H01-side-review.png",
+      "crop": {
+        "left": 71,
+        "top": 18,
+        "width": 185,
+        "height": 220
+      }
+    },
+    {
+      "scene": "comparison-detail",
+      "file": "study-f04-front-detail-review.png",
+      "width": 320,
+      "source": "assets/avatar/catalog-a/style-review/2026-10-04T15-24-16-197Z/study-f04-front-review.png",
+      "crop": {
+        "left": 88,
+        "top": 15,
+        "width": 145,
+        "height": 226
+      }
+    },
+    {
+      "scene": "comparison-detail",
+      "file": "head-style-reference-a-front-detail-review.png",
+      "width": 320,
+      "source": "assets/avatar/catalog-a/style-review/2026-10-04T15-24-16-197Z/head-style-reference-a-front-review.png",
+      "crop": {
+        "left": 44,
+        "top": 18,
+        "width": 232,
+        "height": 220
+      }
+    },
+    {
+      "scene": "comparison-detail",
+      "file": "head-style-reference-a-side-detail-review.png",
+      "width": 320,
+      "source": "assets/avatar/catalog-a/style-review/2026-10-04T15-24-16-197Z/head-style-reference-a-side-review.png",
+      "crop": {
+        "left": 71,
+        "top": 18,
+        "width": 185,
+        "height": 220
+      }
+    },
+    {
+      "scene": "comparison-detail",
+      "file": "study-h01-reference-a-front-detail-review.png",
+      "width": 320,
+      "source": "assets/avatar/catalog-a/style-review/2026-10-04T15-24-16-197Z/study-h01-reference-a-front-review.png",
+      "crop": {
+        "left": 88,
+        "top": 15,
+        "width": 145,
+        "height": 226
+      }
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "cancellations": [
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/manifest.json",
+      "method": "GET",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+      "method": "HEAD",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+      "method": "GET",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/H01.glb",
+      "method": "HEAD",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/H01.glb",
+      "method": "GET",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+      "method": "HEAD",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+      "method": "GET",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+      "method": "HEAD",
+      "reason": "net::ERR_ABORTED"
+    }
+  ],
+  "qualification": "Rest-pose visual review; source-bound loaded-model snapshots. ERR_ABORTED events retained; this capture is not a fitting or transport acceptance gate. Full transport/control proof is in tools/avatar/verify_catalog_inspection.mjs."
+}

@@ -1,0 +1,102 @@
+{
+  "pieces": [
+    "T05",
+    "B01",
+    "F04"
+  ],
+  "status": "combination candidate; motion/runtime acceptance pending",
+  "coverage": {
+    "T05": {
+      "vertices": 16742,
+      "source_rest_delta_m": 0.0
+    },
+    "B01": {
+      "vertices": 17351,
+      "source_rest_delta_m": 0.0
+    },
+    "F04": {
+      "vertices": 7159,
+      "source_rest_delta_m": 0.0
+    }
+  },
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+        "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+        "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+        "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+        "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+        "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+        "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+        "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+        "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+        "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+        "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+        "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+        "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 0
+      }
+    }
+  ]
+}

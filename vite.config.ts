@@ -4,6 +4,7 @@ import path from 'path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { pwaHtmlHeadTags, pwaHtmlTitle, pwaPluginOptions } from './src/pwa/pwaConfig';
+import { catalogPreviewPlugin } from './tools/avatar/catalogPreviewServer';
 import { buildIdentity } from './tools/verification/identity.mjs';
 
 function identityPlugin(mode: string): Plugin {
@@ -30,7 +31,7 @@ function pwaHtmlMetadataPlugin(): Plugin {
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss(), pwaHtmlMetadataPlugin(), VitePWA(pwaPluginOptions), identityPlugin(mode)],
+    plugins: [catalogPreviewPlugin(), react(), tailwindcss(), pwaHtmlMetadataPlugin(), VitePWA(pwaPluginOptions), identityPlugin(mode)],
     build: { outDir: mode === 'test' ? 'dist-e2e' : 'dist' },
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
@@ -44,6 +45,7 @@ export default defineConfig(({mode}) => {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
+      watch: { ignored: ['**/dist/**', '**/dist-e2e/**', '**/artifacts/**'] },
     },
   };
 });

@@ -1,0 +1,75 @@
+{
+  "target": "assets/avatar/catalog-a/outfits/T01-B01/body.glb",
+  "sha256": "10b2db2a62332982d2083d35dc8c227a059241d948c27b9a56a5179afb75f834",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "H01 rounded face",
+      "material": "A face and stubble",
+      "colorComponents": 18150,
+      "min": 0.049559999257326126,
+      "max": 0.7200000286102295
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm peach skin",
+      "colorComponents": 5148,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A ear warmth",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A eye white",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A brown iris",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A dark pupil",
+      "colorComponents": 2892,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A eye highlight",
+      "colorComponents": 684,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A chestnut hair",
+      "colorComponents": 75600,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm smile",
+      "colorComponents": 1530,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "mesh": "char1.004",
+      "material": "A warm peach skin",
+      "colorComponents": 0
+    }
+  ]
+}

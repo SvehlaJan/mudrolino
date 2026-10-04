@@ -1,0 +1,67 @@
+{
+  "pieces": [
+    "T01",
+    "B01"
+  ],
+  "status": "combination candidate; motion/runtime acceptance pending",
+  "coverage": {
+    "T01": {
+      "vertices": 11752,
+      "source_rest_delta_m": 0.0
+    },
+    "B01": {
+      "vertices": 17351,
+      "source_rest_delta_m": 0.0
+    }
+  },
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": [
+        0,
+        0
+      ],
+      "garment_layer_pairs": 0
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": [
+        0,
+        0
+      ],
+      "garment_layer_pairs": 0
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": [
+        0,
+        0
+      ],
+      "garment_layer_pairs": 0
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": [
+        0,
+        0
+      ],
+      "garment_layer_pairs": 0
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": [
+        0,
+        0
+      ],
+      "garment_layer_pairs": 0
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": [
+        0,
+        0
+      ],
+      "garment_layer_pairs": 0
+    }
+  ]
+}

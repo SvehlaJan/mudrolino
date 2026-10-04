@@ -1,0 +1,30 @@
+{
+  "id": "B01",
+  "status": "candidate; full-cycle/style/runtime acceptance pending",
+  "vertices": 8318,
+  "polygons": 8298,
+  "groups": 24,
+  "covered_body_vertices": 17351,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_garment_pairs": 0
+    },
+    {
+      "pose": "rest-back",
+      "body_garment_pairs": 0
+    },
+    {
+      "pose": "rest-side",
+      "body_garment_pairs": 0
+    },
+    {
+      "pose": "walk-13",
+      "body_garment_pairs": 0
+    },
+    {
+      "pose": "run-8",
+      "body_garment_pairs": 0
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/T03/T03.blend",
+  "blend_sha256": "d95296e070c0cfd0056522580f1e7faaeb10e7ac722617b437692d25cd447bdb",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T03_raglan_tee"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

@@ -1,0 +1,19 @@
+{
+  "blend": "assets/avatar/catalog-a/F04/fitting-revisions/T05-B01-F04-study/outfit.blend",
+  "blend_sha256": "847698a85f43ea413eb1de926985fafa013daa643beaf6b1005c7132fc1b8a27",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T05_crew_sweatshirt_outfit",
+    "B01_straight_trousers_outfit",
+    "F04_ankle_boots_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 95,
+  "review_width": 320
+}

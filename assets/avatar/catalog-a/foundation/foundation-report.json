@@ -1,0 +1,36 @@
+{
+  "source": "/Users/svehla/playground/teo-learn/meshy_output/20260501_213818_male-parent-underlayer-image-base-v2-no-_019de50b/rigged.glb",
+  "stage": "canonical fitting foundation; final character art pending",
+  "bones": 24,
+  "vertex_groups": 24,
+  "vertices": 52555,
+  "normalization_max_rest_delta_m": 1.3329305248569582e-07,
+  "object_scales": {
+    "Armature_Catalog": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "body_underlayer_male": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "motions": {
+    "walk": {
+      "frames": [
+        0.8000000715255737,
+        25.60000228881836
+      ],
+      "curves": 96
+    },
+    "run": {
+      "frames": [
+        0.8000000715255737,
+        16.0
+      ],
+      "curves": 96
+    }
+  }
+}

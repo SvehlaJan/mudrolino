@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/F01/F01.blend",
+  "blend_sha256": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "F01_strap_sneakers"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

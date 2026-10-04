@@ -1,0 +1,78 @@
+{
+  "source": "assets/avatar/catalog-a/B03/B03.blend",
+  "source_sha256": "52d3747d4497dbcdf993f218462c26b0cf0facc3892515e0a5ade7eef16d47f4",
+  "shoe_source": "assets/avatar/catalog-a/F01/F01.blend",
+  "shoe_sha256": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee",
+  "output": "assets/avatar/catalog-a/B03/fit-study.blend",
+  "poses": 163,
+  "margin_m": 0.004,
+  "iterations": [
+    {
+      "iteration": 0,
+      "max_body_pairs": 338,
+      "max_shoe_pairs": 436,
+      "total_pairs": 6592,
+      "unresolved_samples": 64,
+      "corrected_vertices": {
+        "knee_clearance_Left": 249,
+        "knee_clearance_Right": 299
+      }
+    },
+    {
+      "iteration": 1,
+      "max_body_pairs": 397,
+      "max_shoe_pairs": 546,
+      "total_pairs": 7853,
+      "unresolved_samples": 24,
+      "corrected_vertices": {
+        "knee_clearance_Left": 162,
+        "knee_clearance_Right": 272
+      }
+    },
+    {
+      "iteration": 2,
+      "max_body_pairs": 408,
+      "max_shoe_pairs": 855,
+      "total_pairs": 9486,
+      "unresolved_samples": 37,
+      "corrected_vertices": {
+        "knee_clearance_Left": 63,
+        "knee_clearance_Right": 260
+      }
+    },
+    {
+      "iteration": 3,
+      "max_body_pairs": 503,
+      "max_shoe_pairs": 1249,
+      "total_pairs": 10491,
+      "unresolved_samples": 79,
+      "corrected_vertices": {
+        "knee_clearance_Left": 22,
+        "knee_clearance_Right": 262
+      }
+    },
+    {
+      "iteration": 4,
+      "max_body_pairs": 592,
+      "max_shoe_pairs": 1475,
+      "total_pairs": 12186,
+      "unresolved_samples": 144,
+      "corrected_vertices": {
+        "knee_clearance_Left": 15,
+        "knee_clearance_Right": 253
+      }
+    },
+    {
+      "iteration": 5,
+      "max_body_pairs": 791,
+      "max_shoe_pairs": 1617,
+      "total_pairs": 13528,
+      "unresolved_samples": 102,
+      "corrected_vertices": {
+        "knee_clearance_Left": 0,
+        "knee_clearance_Right": 253
+      }
+    }
+  ],
+  "status": "study; independent/combined proof and visual review required"
+}
