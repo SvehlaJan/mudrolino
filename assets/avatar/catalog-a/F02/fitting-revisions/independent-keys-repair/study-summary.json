@@ -1,0 +1,184 @@
+{
+  "checked_at": "2026-10-04T20:08:13.973549+00:00",
+  "status": "isolated side repair; own-shell collision remains failing",
+  "id": "F02-independent-keys-repair",
+  "canonical_promoted": false,
+  "fit_verified": false,
+  "accepted": false,
+  "source_preserved": true,
+  "changed_right_key_coordinates": 12,
+  "opposite_side_vertices_before": 12,
+  "opposite_side_vertices_after": 0,
+  "max_opposite_delta_before_m": 0.01136699267530509,
+  "max_opposite_delta_after_m": 0,
+  "independent_motion": {
+    "samples": 163,
+    "max_body_pairs": 0
+  },
+  "outfit_motion": {
+    "pieces": [
+      "T02",
+      "B02",
+      "F02",
+      "A01"
+    ],
+    "samples": 163,
+    "max_body_pairs": 0,
+    "max_layer_pairs": 0
+  },
+  "attachment": {
+    "samples": 164,
+    "threshold_m": 0.012,
+    "before_max_m": 0.006586332339793444,
+    "after_max_m": 0.006258136592805386
+  },
+  "own_shell": {
+    "status": "failed",
+    "samples": 164,
+    "baseline_max_pairs": 178,
+    "revision_max_pairs": 178,
+    "material": "A orange slip-on heel tabs",
+    "worst_motion": "run",
+    "worst_frame": 12.25
+  },
+  "export": {
+    "samples": 16,
+    "max_error_m": 5.360318482416915e-06,
+    "combined_threejs_error_bound_m": 5.799258211390568e-06,
+    "threshold_m": 3e-05
+  },
+  "browser": {
+    "status": "passed",
+    "profile": "production-candidate",
+    "build_identity": {
+      "mode": "production",
+      "commit": "264146266057d2c861490c5ad02eb8d83edf5841",
+      "fingerprint": "35ec07eb3ab7ee834111179b0b401a66fc92413001213b3c53d67c989c81f8c7"
+    },
+    "cases": [
+      {
+        "label": "desktop-rest",
+        "animation": "idle",
+        "completed_candidate_gets": [
+          "/avatar/modular/male-base-plain.glb",
+          "/avatar/garments/top_blue_tshirt_v1.glb"
+        ],
+        "pixels_changed": false,
+        "errors": 0,
+        "failed_gets": 0,
+        "expected_head_aborts_recorded": 2
+      },
+      {
+        "label": "desktop-walk",
+        "animation": "walk",
+        "completed_candidate_gets": [
+          "/avatar/modular/male-base-plain.glb",
+          "/avatar/modular/male-base-plain-walking.glb",
+          "/avatar/garments/top_blue_tshirt_v1.glb"
+        ],
+        "pixels_changed": true,
+        "errors": 0,
+        "failed_gets": 0,
+        "expected_head_aborts_recorded": 3
+      },
+      {
+        "label": "desktop-run",
+        "animation": "run",
+        "completed_candidate_gets": [
+          "/avatar/modular/male-base-plain.glb",
+          "/avatar/modular/male-base-plain-running.glb",
+          "/avatar/garments/top_blue_tshirt_v1.glb"
+        ],
+        "pixels_changed": true,
+        "errors": 0,
+        "failed_gets": 0,
+        "expected_head_aborts_recorded": 3
+      },
+      {
+        "label": "mobile-run",
+        "animation": "run",
+        "completed_candidate_gets": [
+          "/avatar/modular/male-base-plain.glb",
+          "/avatar/modular/male-base-plain-running.glb",
+          "/avatar/garments/top_blue_tshirt_v1.glb"
+        ],
+        "pixels_changed": true,
+        "errors": 0,
+        "failed_gets": 0,
+        "expected_head_aborts_recorded": 3
+      }
+    ],
+    "final_visual_acceptance": false,
+    "framing_observation": "Both inspected desktop rest and mobile run review copies crop the shoes; footwear framing remains open."
+  },
+  "reports": {
+    "before-corrective-side-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/before-corrective-side-report.json",
+      "sha256": "85708713559a43b021c74d267288757ac4fc602c433ccb86ce0bc98c8ca86dcd"
+    },
+    "corrective-side-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/corrective-side-report.json",
+      "sha256": "1f776924e228b69f2c9ab2ca0c88054fcfc64ab1aba5fb1e7ea29da202ac1646"
+    },
+    "repair-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/repair-report.json",
+      "sha256": "7dc88b27fb02882a20d634c11704c9432d27ca7cf45e84ba869ef357c630ab52"
+    },
+    "preservation-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/preservation-report.json",
+      "sha256": "60c59369a68e4d4aa8ecb16d3a71ac999b6a472502b070ae39659fbfcb0a2bd1"
+    },
+    "canonical-preservation-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/canonical-preservation-report.json",
+      "sha256": "ed08c1203b934f6314debab278d15522c57a1a00a23f965c7dd9f4e28df103d7"
+    },
+    "before-detail-own-shell-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/before-detail-own-shell-report.json",
+      "sha256": "7b74bd1b9efd22ce55b127a405ce211f3f47cd000230b6a83e1437a6c6247f46"
+    },
+    "detail-fit-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/detail-fit-report.json",
+      "sha256": "0c1dd5e97ceb6316a9c2ce91a9e2e67b67d71f75e3572bf175535bbc657c9a3a"
+    },
+    "detail-own-shell-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/detail-own-shell-report.json",
+      "sha256": "e44c0d6d405457da51e3d0c290346a18c63215e0b83e16358a064c468dda4f60"
+    },
+    "motion-sweep-4x-metadata.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/motion-sweep-4x-metadata.json",
+      "sha256": "5ea5c516d590370c1650a57bb8140ef4314da007c83e0b11a60a08898f90ffe8"
+    },
+    "outfit/motion-sweep-4x-metadata.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/motion-sweep-4x-metadata.json",
+      "sha256": "69371920d36d5c1bd2d9a8706e43abb035f18a01ed1da5257c52d9dda8f35325"
+    },
+    "outfit/corrective-side-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/corrective-side-report.json",
+      "sha256": "9162a78133606fb97328e29eaabbed712a72054393252728b16d23645b763ff1"
+    },
+    "outfit/export-deformation-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/export-deformation-report.json",
+      "sha256": "463d12a06bf2b3946c0cd1e0b0985e2eae143910ad6ba3e122b963a5ce7c8888"
+    },
+    "outfit/runtime-corrective-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/runtime-corrective-report.json",
+      "sha256": "57697bab230769046d5f6157eab5ebf97c2c0187d70775392c225528200ae0e5"
+    },
+    "outfit/cap-attachment-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/cap-attachment-report.json",
+      "sha256": "e5f4c2c9c11de621db0afb2babe2e892aec30b620ccc4fc655e4c7d576d52b28"
+    },
+    "outfit/material-export-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/material-export-report.json",
+      "sha256": "70cd01f5e4c34ce86136bf680306c6ec3372a0117ea61cf974d75b3b5774f955"
+    },
+    "gate-report.json": {
+      "path": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/gate-report.json",
+      "sha256": "907d0456f7ca97c755cf1f26282dfbbf4c40e07e8b4c158dd794bea295603c27"
+    },
+    "browser/browser-report.json": {
+      "path": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/browser/browser-report.json",
+      "sha256": "65667a0496e29fbf5d78d1e57154db7867063b93d6d9e5a897e7252d86b6fb9d"
+    }
+  }
+}

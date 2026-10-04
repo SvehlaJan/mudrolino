@@ -1,0 +1,316 @@
+{
+  "status": "failed",
+  "checks": [
+    {
+      "gate": "independent-corrective-sides",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+        "--report",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.887,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/independent-corrective-sides.log"
+    },
+    {
+      "gate": "independent-motion",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+        "--garment",
+        "F02_slip_ons",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".12",
+        "--ortho-scale",
+        ".62",
+        "--output-dir",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/F02/independent-keys-repair/independent"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 35.949,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/independent-motion.log"
+    },
+    {
+      "gate": "detail-distance",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_details.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+        "--garment",
+        "F02_slip_ons",
+        "--surface-material",
+        "A navy slip-on upper",
+        "--surface-material",
+        "A navy slip-on collar",
+        "--surface-material",
+        "A ivory slip-on sole",
+        "--detail-material",
+        "A dark slip-on elastic gores",
+        "--detail-material",
+        "A orange slip-on heel tabs",
+        "--threshold",
+        ".012",
+        "--report",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/detail-fit-report.json"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 3.654,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/detail-distance.log"
+    },
+    {
+      "gate": "detail-own-shell",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_details.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+        "--garment",
+        "F02_slip_ons",
+        "--surface-material",
+        "A navy slip-on upper",
+        "--surface-material",
+        "A navy slip-on collar",
+        "--surface-material",
+        "A ivory slip-on sole",
+        "--detail-material",
+        "A dark slip-on elastic gores",
+        "--detail-material",
+        "A orange slip-on heel tabs",
+        "--threshold",
+        ".012",
+        "--require-detail-clear",
+        "--report",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/detail-own-shell-report.json"
+      ],
+      "exit_code": 1,
+      "status": "failed",
+      "elapsed_s": 3.737,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/detail-own-shell.log"
+    },
+    {
+      "gate": "assembly",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/assemble_catalog_outfit.py",
+        "--foundation",
+        "assets/avatar/catalog-a/foundation/catalog-body.blend",
+        "--catalog-dir",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog",
+        "--pieces",
+        "T02,B02,F02,A01",
+        "--output-dir",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/F02/independent-keys-repair/outfit"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 4.921,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/assembly.log"
+    },
+    {
+      "gate": "outfit-corrective-sides",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/T02/T02.blend",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/B02/B02.blend",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/F02/F02.blend",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/A01/A01.blend",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.blend",
+        "--report",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 1.296,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/outfit-corrective-sides.log"
+    },
+    {
+      "gate": "outfit-motion",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.blend",
+        "--garment",
+        "T02_pullover_hoodie_outfit,B02_joggers_outfit,F02_slip_ons_outfit,A01_baseball_cap_outfit",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".92",
+        "--ortho-scale",
+        "2.10",
+        "--output-dir",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/F02/independent-keys-repair/outfit"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 26.074,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/outfit-motion.log"
+    },
+    {
+      "gate": "export-deformation",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_outfit_export.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.blend",
+        "--glb",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.glb",
+        "--report",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/export-deformation-report.json"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 6.658,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/export-deformation.log"
+    },
+    {
+      "gate": "runtime-correctives",
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "tools/avatar/verify_catalog_correctives.ts",
+        "--outfit=T02-B02-F02-A01",
+        "--outfit-dir=assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.303,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/runtime-correctives.log"
+    },
+    {
+      "gate": "cap-attachment",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_attachment.py",
+        "--blend",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.blend",
+        "--object",
+        "A01_baseball_cap_outfit",
+        "--bone",
+        "Head",
+        "--obstacles",
+        "H01_head,T02_pullover_hoodie_outfit,B02_joggers_outfit,F02_slip_ons_outfit",
+        "--report",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/cap-attachment-report.json"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 1.511,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/cap-attachment.log"
+    },
+    {
+      "gate": "export-materials",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.glb",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/material-export-report.json"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.096,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/export-materials.log"
+    },
+    {
+      "gate": "glb-F02.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.glb"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.114,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/glb-F02.glb.log"
+    },
+    {
+      "gate": "glb-body-F02.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/body-F02.glb"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.19,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/glb-body-F02.glb.log"
+    },
+    {
+      "gate": "glb-outfit-body.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/body.glb"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.166,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/glb-outfit-body.glb.log"
+    },
+    {
+      "gate": "glb-outfit-garments.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/garments.glb"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.141,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/glb-outfit-garments.glb.log"
+    },
+    {
+      "gate": "glb-outfit-outfit.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.glb"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.192,
+      "log": "artifacts/verification/avatar-catalog/F02/independent-keys-repair/glb-outfit-outfit.glb.log"
+    }
+  ]
+}

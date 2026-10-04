@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+      "blend_sha256": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+      "keys": [
+        {
+          "object": "F02_slip_ons",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        },
+        {
+          "object": "F02_slip_ons",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

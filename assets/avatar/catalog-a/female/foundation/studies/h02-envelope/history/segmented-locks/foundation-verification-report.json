@@ -1,0 +1,1039 @@
+{
+  "source_blend": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend",
+  "source_sha256": "7b5d718c8bb0cc58e9026a6077c62f99c98a675bb12d54aef71bad953cf812d0",
+  "glb": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb",
+  "glb_sha256": "1a90f095e83c2d397f51877ae804560c41ae55051801de6ced538fceac2b99e0",
+  "verifier_sha256": "66de85822ada5e64499a8328126677ff99e33a0a8f2f455cdec7283870e5aa2d",
+  "threshold_m": 3e-05,
+  "failures": [],
+  "status": "passed",
+  "foundation_invariants": {
+    "body_underlayer_female": {
+      "max_influences": 4,
+      "max_weight_sum_error": 5.21540641784668e-08
+    },
+    "H02_head": {
+      "max_influences": 1,
+      "max_weight_sum_error": 0.0
+    },
+    "H02_hair": {
+      "max_influences": 1,
+      "max_weight_sum_error": 0.0
+    }
+  },
+  "hair_clearance": {
+    "sample_count": 169,
+    "motion_samples": 163,
+    "gesture_samples": 6,
+    "maximum_pairs": 0,
+    "checks": [
+      {
+        "motion": "walk",
+        "frame": 0.8,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.6,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 0.8,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 16.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "pose": "rest",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 1.080976287167289e-07
+      },
+      {
+        "pose": "turn-left",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 1.8907453925087333e-07
+      },
+      {
+        "pose": "turn-right",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.0047462056687042e-07
+      },
+      {
+        "pose": "nod",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.403894931808364e-07
+      },
+      {
+        "pose": "look-up",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.981163415870451e-07
+      },
+      {
+        "pose": "tilt",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.7171645356432305e-07
+      }
+    ]
+  },
+  "face_transport": {
+    "material": "face_surface",
+    "uv_layer": "canonical_face_uv",
+    "face_primitive_count": 1,
+    "embedded_image_matches_source_png": true,
+    "embedded_sha256": "0d7981738b65f3bcbff3579c6974766070587fa6705a8720e24417313b6aa929",
+    "image_mime_type": "image/png",
+    "reimport_uv_max_error": 0.0,
+    "contract_limit": "Diagnostic fictional local texture only; no real selfie or identity proof."
+  },
+  "export_deformation": {
+    "pose_count": 16,
+    "maximum_error_m": 1.0426554126752308e-06,
+    "threshold_m": 3e-05,
+    "comparison": "bidirectional rendered vertices",
+    "checks": [
+      {
+        "motion": "rest",
+        "frame": 0,
+        "max_error_m": {
+          "body_underlayer_female": 7.463979727617698e-07,
+          "H02_head": 1.9039113396956964e-07,
+          "H02_hair": 1.9599417555582477e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 0.8,
+        "max_error_m": {
+          "body_underlayer_female": 9.200185218105617e-07,
+          "H02_head": 5.001332397114311e-07,
+          "H02_hair": 5.094802872918081e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 1,
+        "max_error_m": {
+          "body_underlayer_female": 9.4666364702789e-07,
+          "H02_head": 3.9600379864168644e-07,
+          "H02_hair": 4.953935786033981e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 6.25,
+        "max_error_m": {
+          "body_underlayer_female": 9.039491715157055e-07,
+          "H02_head": 4.1809641970758094e-07,
+          "H02_hair": 4.257927059825306e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 13,
+        "max_error_m": {
+          "body_underlayer_female": 7.782915076859354e-07,
+          "H02_head": 3.696118824336736e-07,
+          "H02_hair": 3.7608830893987033e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 19.5,
+        "max_error_m": {
+          "body_underlayer_female": 6.563280408045102e-07,
+          "H02_head": 3.8921706391192856e-07,
+          "H02_hair": 3.9796145756554324e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 25.6,
+        "max_error_m": {
+          "body_underlayer_female": 1.0426554126752308e-06,
+          "H02_head": 4.771280828208546e-07,
+          "H02_hair": 4.81759400372539e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 0.8,
+        "max_error_m": {
+          "body_underlayer_female": 9.766798712007585e-07,
+          "H02_head": 2.2512591613121913e-07,
+          "H02_hair": 3.776349331019446e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 1,
+        "max_error_m": {
+          "body_underlayer_female": 9.924665391736198e-07,
+          "H02_head": 1.7881393432617188e-07,
+          "H02_hair": 3.607958660722943e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 5,
+        "max_error_m": {
+          "body_underlayer_female": 8.785368663666304e-07,
+          "H02_head": 2.98395519848782e-07,
+          "H02_hair": 4.300734417483909e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "max_error_m": {
+          "body_underlayer_female": 6.188917041072273e-07,
+          "H02_head": 4.018481547518604e-07,
+          "H02_hair": 4.1140430084851687e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 8,
+        "max_error_m": {
+          "body_underlayer_female": 7.185465733527963e-07,
+          "H02_head": 3.3593775583540264e-07,
+          "H02_hair": 3.4699235129664885e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 9.5,
+        "max_error_m": {
+          "body_underlayer_female": 6.00176520038076e-07,
+          "H02_head": 4.874866590398597e-07,
+          "H02_hair": 5.009095502828131e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 12.75,
+        "max_error_m": {
+          "body_underlayer_female": 1.0409770538899465e-06,
+          "H02_head": 4.836792868445627e-07,
+          "H02_hair": 4.858470106228197e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 15.25,
+        "max_error_m": {
+          "body_underlayer_female": 9.996002745538135e-07,
+          "H02_head": 3.6901064959238283e-07,
+          "H02_hair": 3.7608830893987033e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 16,
+        "max_error_m": {
+          "body_underlayer_female": 1.0049172942672158e-06,
+          "H02_head": 2.767767739442206e-07,
+          "H02_hair": 2.731428025981586e-07
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/T02/T02.blend",
+      "blend_sha256": "8e020f69b7bc18cf58cee0658215b6c33438297cef38d7576308f7abeb333a35",
+      "keys": [],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/B02/B02.blend",
+      "blend_sha256": "c96a6f6469f702ed4c94901efd44f8d542c7fc2e01628a2a754b472c99d7964e",
+      "keys": [],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/F02/F02.blend",
+      "blend_sha256": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+      "keys": [
+        {
+          "object": "F02_slip_ons",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        },
+        {
+          "object": "F02_slip_ons",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/staged-catalog/A01/A01.blend",
+      "blend_sha256": "a77ec15f6541f7790970f3f978dbaadf72caa1702876a20dbcdd19923b2c18b9",
+      "keys": [],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.blend",
+      "blend_sha256": "0b8fb4d1d7d2b7cc5d63cb11d238ed82408d1b8f79ff6a53c4e04210f542aaf9",
+      "keys": [
+        {
+          "object": "F02_slip_ons_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        },
+        {
+          "object": "F02_slip_ons_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

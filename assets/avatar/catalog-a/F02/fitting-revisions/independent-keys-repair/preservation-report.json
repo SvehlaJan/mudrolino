@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "source": "assets/avatar/catalog-a/F02/F02.blend",
+  "source_sha256": "a0a4998aea312b2eb9c5ee14d6bc7fd121bb670e80b780f049a34d810a6fa7d7",
+  "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+  "blend_sha256": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+  "changed_coordinates": 12,
+  "checks": {
+    "meshes": true,
+    "rig": true,
+    "gait": true,
+    "materials": true,
+    "drivers": true
+  },
+  "gait_curves": {
+    "walk": 96,
+    "run": 96
+  }
+}

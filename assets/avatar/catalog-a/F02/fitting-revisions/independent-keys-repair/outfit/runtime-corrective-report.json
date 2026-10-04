@@ -1,0 +1,133 @@
+{
+  "status": "passed",
+  "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.blend",
+  "blend_sha256": "0b8fb4d1d7d2b7cc5d63cb11d238ed82408d1b8f79ff6a53c4e04210f542aaf9",
+  "glb": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.glb",
+  "glb_sha256": "8a9b44f7d57e25b7060f120d76f94d564bdd1e4dd06990e2f37c169cd4f61d75",
+  "hashes": {
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/export-deformation-report.json": "463d12a06bf2b3946c0cd1e0b0985e2eae143910ad6ba3e122b963a5ce7c8888",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.glb": "8a9b44f7d57e25b7060f120d76f94d564bdd1e4dd06990e2f37c169cd4f61d75",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  },
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "maxWeightError": 2.5224227501174923e-7,
+      "maxShapeErrorM": 2.867236071182128e-9,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "maxWeightError": 0.00003861529120052776,
+      "maxShapeErrorM": 4.3893972897365363e-7,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "maxWeightError": 0.0000029044597376626236,
+      "maxShapeErrorM": 3.301497231871444e-8,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "maxWeightError": 0.000014077098501034946,
+      "maxShapeErrorM": 1.739393925347264e-7,
+      "targets": 10
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "maxWeightError": 9.352992681593841e-7,
+      "maxShapeErrorM": 1.1556741364696485e-8,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "maxWeightError": 3.194709434495291e-7,
+      "maxShapeErrorM": 3.947445692166012e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "maxWeightError": 4.80677903452742e-7,
+      "maxShapeErrorM": 5.9393505362833754e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "maxWeightError": 0.000001085860111896264,
+      "maxShapeErrorM": 1.2342963846729537e-8,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "maxWeightError": 2.6215572274113086e-7,
+      "maxShapeErrorM": 2.979922158072748e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "maxWeightError": 4.730545050679602e-7,
+      "maxShapeErrorM": 5.377207054221528e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "maxWeightError": 2.6852157519741127e-7,
+      "maxShapeErrorM": 3.3179052962420998e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "maxWeightError": 3.4397636372585083e-7,
+      "maxShapeErrorM": 4.250239475725756e-9,
+      "targets": 10
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "maxWeightError": 1.9407504353585736e-8,
+      "maxShapeErrorM": 2.3980293365352086e-10,
+      "targets": 10
+    }
+  ],
+  "max_weight_error": 0.00003861529120052776,
+  "max_shape_error_m": 4.3893972897365363e-7,
+  "combined_error_bound_m": 0.000005799258211390568,
+  "threshold_m": 0.00003,
+  "bindings": 10,
+  "comparison": "Three.js knee weights versus Blender, propagated through actual exported morph deltas; added to same-value source/export error"
+}

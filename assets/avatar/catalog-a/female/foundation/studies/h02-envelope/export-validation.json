@@ -1,0 +1,61 @@
+{
+  "source_blend": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend",
+  "source_sha256": "f140ec1b4aa50c3e928c679773d23e23d16f07f157f63dcad4512c4acda200fc",
+  "status": "passed",
+  "limits": "Khronos structure/material transport only; retained unused non-face UV informational issues are not hidden.",
+  "results": [
+    {
+      "file": "female-foundation.glb",
+      "sha256": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
+      "bytes": 4373736,
+      "numErrors": 0,
+      "numWarnings": 0,
+      "numInfos": 2,
+      "numHints": 0,
+      "messages": [
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "file": "H02.glb",
+      "sha256": "a6204f1e473845111377ee6a251efd71b0d368d3c8723b87d8acb82ac69e776d",
+      "bytes": 1439292,
+      "numErrors": 0,
+      "numWarnings": 0,
+      "numInfos": 1,
+      "numHints": 0,
+      "messages": [
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "file": "hair-H02.glb",
+      "sha256": "5e36d5ab54e04ffa9fb398759d55c1cb8dcd3972a2193597c30fbc064cc8edae",
+      "bytes": 1293648,
+      "numErrors": 0,
+      "numWarnings": 0,
+      "numInfos": 0,
+      "numHints": 0,
+      "messages": [],
+      "truncated": false
+    }
+  ]
+}

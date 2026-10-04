@@ -21,13 +21,15 @@ Use `foundation/catalog-body.blend` as the fitting source. The original canonica
 
 ## Commands
 
-After building and inspecting a piece, prefer the sequential runner. Start the fixed production preview described below first; a previous build can be reused when app source is unchanged and its identity still matches. Every asset gate runs fresh, saves a stage log, and stops on failure:
+After building and inspecting a piece, wrap the sequential runner once with
+`python3 tools/avatar/blender_queue.py --`. All agents share this per-user lock
+across worktrees; authoring/review may run in parallel while Blender stays sequential. Start the fixed production preview described below first; a previous build can be reused when app source is unchanged and its identity still matches. Every asset gate runs fresh, saves a stage log, and stops on failure:
 
 ```bash
-python3 tools/avatar/verify_catalog_piece.py \
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/verify_catalog_piece.py \
   --id=T05 --garment=T05_crew_sweatshirt --outfit=T05-B01-F01-A01 --head-check
 
-python3 tools/avatar/verify_catalog_piece.py \
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/verify_catalog_piece.py \
   --id=T06 --garment=T06_henley --outfit=T06-B01-F01-A01 --head-check \
   --surface-material='A ivory henley fabric' \
   --surface-material='A ivory henley ribbing' \
@@ -118,7 +120,7 @@ The consolidator requires independent and combined 163-pose gates, all export/ma
 For relaxed bottoms, `catalog_bottom_geometry.py` accepts per-design leg-ring dimensions on the shared quad pelvis/crotch topology. It preserves the measured ankle blend and cuts elastic material boundaries through the actual mesh. `full_trouser_coverage` is for full-length trousers; shorts must define their own coverage and preserve exposed legs. B02's projected pocket openings use surface-interpolated weights and are verified with:
 
 ```bash
-python3 tools/avatar/verify_catalog_piece.py \
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/verify_catalog_piece.py \
   --id=B02 --garment=B02_joggers --outfit=T01-B02-F01-A01 \
   --surface-material='A blue jogger fabric' \
   --surface-material='A navy jogger elastic' \
@@ -217,7 +219,7 @@ checks the actual active inverted mask, original vertices, removed faces and
 current source hash. F03 uses a 185 mm opening and 4 mm safety margin:
 
 ```bash
-python3 tools/avatar/verify_catalog_piece.py \
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/verify_catalog_piece.py \
   --id=F03 --garment=F03_high_tops --outfit=T04-B04-F03-A01 \
   --coverage-opening-z=.185 \
   --surface-material='A blue high-top upper' \
@@ -317,3 +319,25 @@ current progress JSON for source-bound evidence and outstanding work.
 
 The reference gallery now has 16 sheets, adding A02/A05/A06 construction. The
 subsequent female-body/catalog phase remains required after current acceptance.
+
+## Isolated model studies
+
+The female H02 fixture and F02 bounded corrective repair are registered through
+`model_studies`; see `docs/avatar-workflow.md` for the metadata contract and current
+proof limitations. Run their own verifiers before changing stage text. Preserve
+canonical masters and rejected study sources. The F02 repair remains repair-needed
+because its heel tabs touch the shoe shell, despite clean side/body/layer checks.
+The female study proves sampled clearance and UV transport, with final style and
+female-fitted wardrobe still pending.
+
+For source-bound production checks of an isolated outfit:
+
+```bash
+node tools/avatar/verify_catalog_preview.mjs --outfit=T02-B02-F02-A01 \
+  --outfit-dir=assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit \
+  --output-dir=artifacts/verification/avatar-catalog/F02/independent-keys-repair/browser \
+  --preview-url=http://127.0.0.1:3003 --production
+```
+
+Require completed candidate GETs, nonempty canvas and moving walk/run pixels;
+source hashes alone do not establish that the renderer loaded the candidate.

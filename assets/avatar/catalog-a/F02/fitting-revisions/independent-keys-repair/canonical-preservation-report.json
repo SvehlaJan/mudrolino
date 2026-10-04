@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "hashes": {
+    "assets/avatar/catalog-a/F02/F02.blend": "a0a4998aea312b2eb9c5ee14d6bc7fd121bb670e80b780f049a34d810a6fa7d7",
+    "assets/avatar/catalog-a/F02/F02.glb": "cbac369195653f2698a75aa59db8fb3bfd0fea7910a5ad0345ea23839f522d59",
+    "assets/avatar/catalog-a/F02/body-F02.glb": "7c4168a220ad784267cb840e68073d9db3fce2eb0a1a9047fd34ace8ee63bbaa",
+    "assets/avatar/catalog-a/foundation/catalog-body.blend": "43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "stage": "isolated female foundation and H02 hair candidate; no wardrobe fit or acceptance",
+  "source": "assets/avatar/catalog-a/foundation/catalog-body.blend",
+  "source_sha256": "43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897",
+  "builder_sha256": "5130d2f07f5b1daa1bde4f6e032148185e5e40f1d9bc3543ce7de07f9080cf4f",
+  "baseline": {
+    "body_geometry": "b127593ba82a4659033971f4010370429f565d286b8a4e0be6eefbcaa938e0c4",
+    "body_topology": "ba8c7ddd66f16b03b3772efee404b0889f20bf471b651a4b60e016a7d77daaab",
+    "body_weights": "2a207e9c40994221801c2dbf91c70b597a05be58c80863b3733adce50901e1c2",
+    "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+    "motion": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc"
+  },
+  "current": {
+    "body_geometry": "0604b1561d9122f2874813d4d5da76d6689b9e7e16befdbdf2683a5f6d4e016d",
+    "body_topology": "ba8c7ddd66f16b03b3772efee404b0889f20bf471b651a4b60e016a7d77daaab",
+    "body_weights": "2a207e9c40994221801c2dbf91c70b597a05be58c80863b3733adce50901e1c2",
+    "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+    "motion": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc"
+  },
+  "unchanged_rig_and_actions": true,
+  "body_vertices": 45653,
+  "head_vertices": 1986,
+  "hair_vertices": 22932,
+  "bones": 24,
+  "hair_bottom_m": 1.385,
+  "hair_radius_m": 0.19,
+  "hair_side_lift_m": 0.09,
+  "hair_construction": "continuous rear shell with broad sculpted waves",
+  "exports": {
+    "female-foundation.glb": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
+    "H02.glb": "a6204f1e473845111377ee6a251efd71b0d368d3c8723b87d8acb82ac69e776d",
+    "hair-H02.glb": "5e36d5ab54e04ffa9fb398759d55c1cb8dcd3972a2193597c30fbc064cc8edae"
+  },
+  "limitations": [
+    "Average-build contour study; final female silhouette review pending.",
+    "Diagnostic face texture proves transport only after verification; no personalization endpoint.",
+    "No female wardrobe, headwear fit, expressions, runtime registration or acceptance."
+  ]
+}

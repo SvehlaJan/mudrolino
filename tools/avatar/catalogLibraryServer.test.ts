@@ -111,3 +111,39 @@ describe('live avatar library', () => {
     expect(() => buildCatalogLibraryManifest(root)).toThrow(/pieces/);
   });
 });
+
+
+describe('explicit model-study registration', () => {
+  it('pairs isolated studies with design references and enables only declared compatible gait', () => {
+    const { root, file } = fixture();
+    file('assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb');
+    file('assets/avatar/catalog-a/female/foundation/studies/h02-envelope/H02.glb');
+    file('assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend');
+    file('assets/avatar/catalog-a/female/foundation/studies/h02-envelope/study-report.json');
+    file('assets/avatar/catalog-a/female/foundation/studies/h02-envelope/canonical-face-layout.json');
+    file('tools/blender/catalog/repair_catalog_f02_corrective_sides.py');
+    file('assets/avatar/catalog-a/catalog-progress.json', JSON.stringify({pieces:[], accepted_ids:[],model_studies:[
+      {id:'female-foundation-h02-study',label:'Female foundation + H02 study',path:'female/foundation/studies/h02-envelope',model:'female-foundation.glb',kind:'study',base:'female',stage:'isolated foundation; wardrobe fit pending',reference_ids:['T02'],gait_compatible:true,builder:'tools/blender/catalog/repair_catalog_f02_corrective_sides.py'},
+      {id:'female-h02-head-study',label:'H02 head study',path:'female/foundation/studies/h02-envelope',model:'H02.glb',kind:'head',base:'female',stage:'head study',reference_ids:['T02'],gait_compatible:true},
+    ]}));
+    const manifest = buildCatalogLibraryManifest(root);
+    const foundation = manifest.assets.find(a=>a.id==='female-foundation-h02-study')!;
+    expect(foundation).toMatchObject({base:'female',history:false,status:'candidate',fitVerified:false,accepted:false,supportsGait:true});
+    expect(foundation.references.map(r=>r.label)).toContain('female hoodie');
+    expect(foundation.sources.map(source=>source.path)).toEqual(expect.arrayContaining([
+      'assets/avatar/catalog-a/female/foundation/studies/h02-envelope/canonical-face-layout.json',
+      'tools/blender/catalog/repair_catalog_f02_corrective_sides.py',
+    ]));
+    expect(resolveCatalogLibraryFile(root,foundation.model!.modelUrl,manifest)).toBe(join(root,'assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb'));
+    expect(manifest.assets.find(a=>a.id==='female-h02-head-study')?.supportsGait).toBe(false);
+    expect(manifest.assets.filter(a=>a.model?.modelUrl===foundation.model!.modelUrl)).toHaveLength(1);
+  });
+  it('does not register missing exports or paths outside the declared study directory', () => {
+    const { root, file }=fixture();
+    file('assets/avatar/catalog-a/catalog-progress.json',JSON.stringify({pieces:[],model_studies:[
+      {id:'missing-study',label:'Missing',path:'female/missing',model:'not-exported.glb',base:'female',stage:'pending'},
+      {id:'escaping-study',label:'Escaping',path:'T02',model:'../F02/F02.glb',base:'male',stage:'candidate'},
+    ]}));
+    expect(buildCatalogLibraryManifest(root).assets.some(a=>['missing-study','escaping-study'].includes(a.id))).toBe(false);
+  });
+});

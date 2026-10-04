@@ -35,10 +35,12 @@ Authoritative inputs:
 
 At this handoff, eleven wearables retain fitting-candidate status; B03/B04/F02
 need corrective repair. F04's independent checks and isolated T05/B01/F04 core
-have passing proof, while complete O05/A02 and promotion remain open. The H01
+have passing proof, while complete O05/A02 and promotion remain open. The isolated
+F02 study removes bilateral leakage but retains its heel-tab own-shell failure.
+The female H02 study has a compatible rig and reusable UV face fixture. The H01
 revision is a style study, with no facial UV export or expression targets. These
-are useful milestones, not an accepted production catalog. The female base and
-separately fitted wardrobe remain in scope after current catalog acceptance.
+are useful milestones, not an accepted production catalog. The female foundation is an isolated candidate; its separately fitted wardrobe
+and style acceptance remain in scope.
 
 ## Register assets for the gallery
 
@@ -57,11 +59,29 @@ and actual per-base proof. A file being viewable does not establish acceptance.
 Use the source links to reach builders/proof rather than copying model artifacts
 into the frontend. The gallery is an inspection tool; it does not edit metadata.
 
-New female exports currently appear as standalone candidate cards. The logical
-`female-*` milestones stay pending until a fitted export and its per-base proof
-are explicitly registered in the inventory adapter. Extend that registration
-alongside the first female foundation; filenames alone must not imply fit or
-acceptance. The relevant normalization is in `tools/avatar/catalogLibraryServer.ts`.
+Register isolated models through `model_studies` in `catalog-progress.json`:
+
+```json
+{
+  "id": "female-foundation-h02-study",
+  "label": "Female foundation + H02 hair study",
+  "path": "female/foundation/studies/h02-envelope",
+  "model": "female-foundation.glb",
+  "kind": "study",
+  "base": "female",
+  "stage": "State actual proof and remaining work",
+  "reference_ids": ["H02", "T01"],
+  "gait_compatible": true,
+  "builder": "tools/blender/catalog/build_catalog_female_foundation_study.py"
+}
+```
+
+Paths are relative to `assets/avatar/catalog-a`; models stay within their study
+folder. Use `kind: "head"` for head/hair views, `repair_needed: true` for an open
+failure, and `history: true` for superseded attempts. Gait compatibility must be
+proven before enabling playback. Registration always retains candidate status,
+without inferred fitting or acceptance. Logical female wardrobe milestones remain
+pending until separately fitted; filenames alone establish no proof.
 
 See [gallery behavior and verification](avatar-catalog-preview.md) for routes,
 refresh recovery and supported controls. After changing gallery tooling run the
@@ -98,7 +118,18 @@ print a Python exception and still exit successfully. Verification runs preserve
 stage logs and current source hashes; historical reports are not refreshed by
 changing a status label.
 
-Keep Blender jobs sequential. For live MCP work, use one client as scene owner,
+Parallelize authoring, review and documentation; serialize Blender through the
+shared per-user advisory queue across worktrees:
+
+```bash
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py SCRIPT [arguments]
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/verify_catalog_piece.py --id=T05 --garment=T05_crew_sweatshirt --outfit=T05-B01-F01-A01 --head-check
+```
+
+Wrap an entire sequential runner once; nested queue wrappers fail explicitly.
+Unwrapped jobs bypass the lock. The wrapper forwards interrupts, preserves exit
+status and leaves the lock held by its direct child if the wrapper is killed.
+For live MCP work, use one client as scene owner,
 save a revision script and source before handing off, and run the same CLI gates.
 Keep failed studies/reports. Dependency links, Python caches and Blender `.blend1`
 backups are ignored; canonical `.blend` files and deliberate revisions remain visible.
@@ -150,10 +181,17 @@ is an optional placement experiment; the intended finish is a fitted UV surface.
 Only after the neutral texture works, test consistent blink/smile texture variants
 or generic facial morphs. No selfie upload/generation endpoint exists yet.
 
-Next work: prove this texture-ready head; settle its head/hair envelope; author
-A02 and complete O05; repair B03/B04/F02 and refresh affected outfit proofs; then
-expand remaining assets and finish style/budget/runtime acceptance. A fixture-led
-head proof prevents further catalog headwear being fitted to an unsuitable face.
+The new female H02 study supplies `canonical-face-layout.json`, a mask and a
+fictional sample PNG. Its head has a front facial material region, separate hair
+and preserved shared rig/actions. This proves a reusable texture transport fixture;
+it does not prove selfie likeness, a production upload flow or facial expressions.
+Use its canonical coordinates and mask as the next image-generation output contract.
+The original H01 exports remain unchanged and lack this UV surface.
+
+Next: collect feedback on the female proportions/hair, then fit one female
+T02/B01/F01 outfit and check the complete combination. Repair F02 heel-tab
+own-shell contact and B03/B04 corrective leakage. Keep real-selfie generation,
+expressions, headwear compatibility and final acceptance as separate work.
 
 ## Tooling assessment (checked 2026-10-04)
 
@@ -162,8 +200,7 @@ app is retained at `/Applications/Blender 5.1.1.app`. The shared CLI selects the
 standard app; use `BLENDER_BIN` for explicit fallback. Native settings migration
 preserved the existing Blender Lab MCP extension, confirmed configured and loaded
 on a fresh normal startup. See the [upgrade audit](audits/2026-10-04-blender-lts-upgrade.md)
-for checksum/signature, migration and the passing 16-pose export smoke. The UV head
-profile still needs separate proof. [Official LTS support](https://www.blender.org/download/lts/).
+for checksum/signature, migration and the passing 16-pose export smoke. The separate H02 head uses a UV-preserving export profile with its own fixture proof. [Official LTS support](https://www.blender.org/download/lts/).
 
 A later process audit found Claude Desktop's Blender MCP extension running; the
 earlier direct-config inspection missed that extension-based connection. This
@@ -218,3 +255,44 @@ integration browser checks, production build and bundle boundaries. Report:
 `artifacts/verification/2026-10-04T15-34-07-813Z-integration.json`. No release
 profile was run. These checks do not accept unfinished models or implement
 selfie generation; female references are a modeling input.
+
+## Model batch findings (2026-10-04)
+
+- Female foundation/H02: a separate study preserves the shared 24-bone rig,
+  body vertex order, bind pose and walk/run actions. Dense 163-pose gait and six
+  head gestures clear the hair; rejected envelopes remain alongside the final
+  continuous rear shape. Inspect front/back/side views after technical clearance:
+  collision-free hair can still read as separate hanging strips.
+- F02: remove exactly twelve inherited Left deltas from the Right corrective.
+  Canonical masters remain unchanged. Independent/outfit sweeps and export/runtime
+  pass, while 178 heel-tab/shell triangle pairs persist at run 12.25 on both old
+  and repaired sources. Distance-to-shell and own-shell contact are different gates.
+- A repaired helper does not repair saved masters. Audit the saved bilateral keys
+  before dense fitting; bound repairs by exact coordinate differences and compare
+  unchanged source fields. Reproduce new failures on the original source.
+- Bind browser proof to isolated source paths, completed model/gait GETs and changing
+  gait pixels. Use `--outfit-dir`, `--output-dir`, `--preview-url` and `--production`
+  on `verify_catalog_preview.mjs`; source/report symlinks must stay within their roots.
+  The ordinary runtime F02 captures crop shoes; complete framing acceptance remains
+  open even when the gallery inspector can show the full outfit.
+
+Run `node tools/avatar/verify_model_studies.mjs` for registered study playback on
+desktop/phone. Evidence and 320px reviews live under
+`artifacts/verification/avatar-catalog/model-studies/`. Final style remains pending
+until user feedback; no study is promoted to the published avatar by these checks.
+
+Fresh model-batch browser proof: eight desktop/phone gallery cases passed with
+model/gait HTTP byte hashes, parsed models and moving Run pixels. The female
+head/hair correctly disable gaits. Gallery framing includes the complete F02
+outfit; ordinary app runtime framing still crops footwear and remains open.
+The strengthened UV gate also rejects a corner swap that preserves the UV multiset.
+User reviewed the concrete 320px front/back views and chose: keep these
+proportions; fit the first female outfit next. This accepts that direction for
+the next study and leaves complete style/wardrobe acceptance open.
+
+Fresh final repository gate: `npm run verify:edit -- --force` selected integration
+and passed lint (zero errors, known ContentContext warning), 127 unit tests, all
+pure verifiers, audio inventory, 472 browser checks, production build and bundle
+boundaries. Report: `artifacts/verification/2026-10-04T20-43-49-878Z-integration.json`.
+Dedicated gallery desktop/phone and all eight model-study cases passed on current
+model bytes. No release profile or deployment was run.

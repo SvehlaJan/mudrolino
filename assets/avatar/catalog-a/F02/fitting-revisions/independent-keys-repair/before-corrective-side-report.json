@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "failed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/F02/F02.blend",
+      "blend_sha256": "a0a4998aea312b2eb9c5ee14d6bc7fd121bb670e80b780f049a34d810a6fa7d7",
+      "keys": [
+        {
+          "object": "F02_slip_ons",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        },
+        {
+          "object": "F02_slip_ons",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 12,
+          "max_opposite_delta_m": 0.01136699267530509,
+          "intended_vertices_moved": 12
+        }
+      ],
+      "status": "failed"
+    }
+  ]
+}

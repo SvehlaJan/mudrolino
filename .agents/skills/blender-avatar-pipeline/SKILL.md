@@ -15,14 +15,22 @@ status; historical passing reports can be invalidated by a later audit.
 
 Run from the intended checkout. `npm run avatar:blender -- --version` identifies
 the chosen executable; set `BLENDER_BIN` for a side-by-side installation.
-Use `python3 tools/avatar/blender_cli.py SCRIPT [script arguments]` for headless
-work. It uses factory startup and propagates Python failures with
+Use the shared queue for headless work:
+
+```bash
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py SCRIPT [script arguments]
+```
+
+Wrap a sequential gate runner once through that queue; see the workflow for
+process ownership and interruption behavior. The CLI uses factory startup and
+propagates Python failures with
 `--python-exit-code 1`. The catalog runners share this executable resolver.
 
 Keep construction changes in a saved builder or revision script, `.blend`, GLB,
 retrospective and source-bound reports. Preserve rejected studies that explain
 a failure. A dev-viewer entry or an export-fidelity pass is not final acceptance.
-Run Blender import/export jobs sequentially. If macOS Metal initialization fails
+Parallelize code/review work and serialize Blender import/export jobs through the
+shared queue. If macOS Metal initialization fails
 before Python starts in the Codex sandbox, rerun the same command with escalation.
 
 MCP is optional for live scene inspection and visual edits. Availability depends
@@ -36,8 +44,10 @@ change as code, then verify through CLI and the actual Three.js viewer.
   pose and normalized four-influence weights. Coverage masks use those indices.
 - Assign bilateral attachments by anatomical position: world X >= 0 is character
   left; X < 0 is right. Imported viewer-perspective object names can be inverted.
-- Create independent corrective keys with `from_mix=False`. Verify opposite-side
-  isolation, own-shell/detail attachment and full independent/outfit motion.
+- Create independent corrective keys with `from_mix=False`. Audit saved masters
+  separately: changing a helper leaves their old keys intact. Verify opposite-side
+  isolation first, then own-shell/detail attachment and full independent/outfit
+  motion. Compare a newly found failure against the unchanged canonical source.
 - Select export objects explicitly. Remove stale mesh data with
   `bpy.ops.outliner.orphans_purge(do_recursive=True)` before export; old mesh data
   can otherwise survive revisions and contaminate GLB material/surface parity.
@@ -58,8 +68,12 @@ change as code, then verify through CLI and the actual Three.js viewer.
   `export_nla_strips=False`, `export_bake_animation=False`. Standalone generated
   motion GLBs need cleanup; use `tools/blender/export_clean_avatar_clip.py` and
   `docs/3d-avatar-knowledge-base.md` for that branch.
-- The catalog's garment exporter disables texture coordinates. A textured head
-  needs its own UV-preserving export profile; don't silently reuse that profile.
+- The garment exporter disables texture coordinates. Use the separate H02
+  UV-preserving profile and canonical face fixture for textured heads. Reimport
+  proof must match UVs with their rest-position/corner identity, including seams;
+  matching a set of UV values alone can miss reassignment to the wrong corners.
+- Check hair against dense gait and six head gestures, then review its complete
+  silhouette. Preserve rejected geometry and source-bound reports.
 
 ## Completion
 

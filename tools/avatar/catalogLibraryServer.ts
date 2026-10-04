@@ -12,9 +12,9 @@ const sourcePattern = /\.(glb|blend|json|md|py|mjs|js|ts)$/i;
 function isSource(relative: string): boolean {
   const name = path.posix.basename(relative);
   if (/secret|credential|password|token|api[-_]?key|private[-_]key/i.test(name)) return false;
-  if (/\.json$/i.test(name)) return /report|proof|metadata|diagnos|summary|audit|fit|sweep|study|regression|guard|preserv|correct|readiness|coverage|deformation|budget|manifest|prompts|catalog-progress/i.test(name);
+  if (/\.json$/i.test(name)) return /report|proof|metadata|diagnos|summary|audit|fit|sweep|study|regression|guard|preserv|correct|readiness|coverage|deformation|budget|manifest|prompts|catalog-progress|^canonical-face-layout\.json$/i.test(name);
   if (/\.md$/i.test(name)) return /^(retrospective|gallery|readme)(?:[-_].*)?\.md$/i.test(name);
-  if (/\.(py|mjs|js|ts)$/i.test(name)) return /^(build|prepare|assemble|verify|render|fit|diagnose|capture|summarize|catalog)[_-]/i.test(name) && relative.startsWith('tools/');
+  if (/\.(py|mjs|js|ts)$/i.test(name)) return /^(build|prepare|assemble|verify|render|fit|diagnose|capture|summarize|catalog|repair)[_-]/i.test(name) && relative.startsWith('tools/');
   return /\.(glb|blend)$/i.test(name);
 }
 const roots = ['assets/avatar', 'public/avatar', 'tools/avatar', 'tools/blender', 'artifacts/verification'];
@@ -125,6 +125,24 @@ export function buildCatalogLibraryManifest(root: string): CatalogLibraryManifes
       const refs = id === 'body' ? references.filter(r => r.female && !r.history).map(r => r.ref) : matchingRefs(id, true);
       assets.push({ id: `female-${id}`, label: id === 'body' ? 'Female foundation' : `${id} · ${names[id] ?? id} · female fit`, category: id === 'body' ? 'characters' : category(id), base: 'female', status: 'pending', statusDetail: typeof female.stage === 'string' ? female.stage : 'Female 2D references available; fitted 3D model pending', fitVerified: false, accepted: false, history: false, references: refs, previewUrl: refs[0]?.thumbnailUrl, sources: sources([progressPath, ...referencedPaths(female)]) });
     }
+  }
+  // Explicit studies connect reproducible isolated exports to reference IDs.
+  // They remain candidates; compatibility enables gait but never implies acceptance.
+  const studies = progress.model_studies ?? [];
+  if (!Array.isArray(studies) || studies.some(value => ['id', 'label', 'path', 'model', 'stage'].some(key => typeof object(value)[key] !== 'string'))) throw new Error(`Invalid avatar metadata ${progressPath}: model_studies require id, label, path, model and stage`);
+  for (const value of studies) {
+    const study = object(value); const id = study.id as string;
+    const directory = path.posix.normalize(`${catalogRoot}/${study.path}`);
+    const relative = path.posix.normalize(`${directory}/${study.model}`);
+    if (!directory.startsWith(`${catalogRoot}/`) || !relative.startsWith(`${directory}/`) || !relative.endsWith('.glb') || !files.includes(relative) || !safeFile(root, relative) || assets.some(asset => asset.id === id)) continue;
+    const base: CatalogBase = ['male', 'female', 'shared'].includes(String(study.base)) ? study.base as CatalogBase : 'unspecified';
+    const head = study.kind === 'head'; const gait = !head && study.gait_compatible === true;
+    const refs = [...new Map(strings(study.reference_ids).flatMap(referenceId => matchingRefs(referenceId, base === 'female')).map(reference => [reference.id, reference])).values()];
+    const detail = study.stage as string;
+    const model: CatalogPreviewEntry = { id, label: study.label as string, kind: head ? 'head' : 'study', status: detail, modelUrl: fileUrl(relative) };
+    const builder = typeof study.builder === 'string' && study.builder.startsWith('tools/') ? [study.builder] : [];
+    assets.push({ id, label: model.label, category: head ? 'characters' : 'studies', base, status: study.repair_needed === true ? 'repair-needed' : 'candidate', statusDetail: detail, fitVerified: false, accepted: false, history: study.history === true, references: refs, previewUrl: refs[0]?.thumbnailUrl, sources: sources([progressPath, ...files.filter(file => file.startsWith(`${directory}/`) && sourcePattern.test(file)), ...builder]), model, supportsGait: gait });
+    currentModels.add(relative);
   }
   for (const model of preview.entries.filter(e => !assets.some(a => a.id === e.id))) {
     const paths = modelPaths(model); const repair = /repair|contamination/i.test(model.status);

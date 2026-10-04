@@ -1,0 +1,20 @@
+{
+  "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/outfit/outfit.blend",
+  "blend_sha256": "0b8fb4d1d7d2b7cc5d63cb11d238ed82408d1b8f79ff6a53c4e04210f542aaf9",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T02_pullover_hoodie_outfit",
+    "B02_joggers_outfit",
+    "F02_slip_ons_outfit",
+    "A01_baseball_cap_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

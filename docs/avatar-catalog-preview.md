@@ -72,3 +72,17 @@ Chromium can mark Three.js streamed GLB reads `ERR_ABORTED` after consuming the
 complete file. The existing inspector verifier retains the events, requires an
 OK response and successful parsing for the exact model, and checks the full GLB
 header/byte count independently. Other failures and unpaired cancellations fail.
+
+## New model studies
+
+Use `?asset=female-foundation-h02-study` for the female foundation with shared
+gaits, `?asset=female-h02-head-study` for the UV face fixture, and
+`?asset=female-h02-hair-study` for hair alone. `?asset=study-f02-independent-keys`
+shows the bounded F02 repair in its representative outfit. All remain candidates;
+F02 retains its repair-needed label for heel-tab own-shell contact.
+
+`node tools/avatar/verify_model_studies.mjs` checks these four registered models
+on desktop and phone. It completes and hashes actual local model/gait HTTP GETs
+before fulfilling the page request, then requires parsed models and moving gait
+pixels. This avoids confusing Three.js streamed-loader cleanup with a failed
+asset download. Reports retain both HTTP proof and page transport events.

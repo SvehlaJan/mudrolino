@@ -206,7 +206,7 @@
     "F04"
   ],
   "female_phase": {
-    "stage": "female 2D reference pack prepared; female 3D foundation and fitted catalog still pending; final female acceptance follows current catalog acceptance",
+    "stage": "Separate female foundation/H02 candidate authored with sampled motion and texture-ready UV fixture; style acceptance, fitted female wardrobe and real-selfie flow pending.",
     "style": "same approved palette-A rounded matte Genmoji-like art direction",
     "reference_catalog": "../concepts/2026-10-04/catalog-a-female/gallery.md",
     "foundation": null,
@@ -246,7 +246,13 @@
     ],
     "accepted_ids": [],
     "reference_sheet_count": 4,
-    "reference_manifest": "../concepts/2026-10-04/catalog-a-female/prompts-and-manifest.json"
+    "reference_manifest": "../concepts/2026-10-04/catalog-a-female/prompts-and-manifest.json",
+    "foundation_study": {
+      "path": "female/foundation/studies/h02-envelope",
+      "report": "female/foundation/studies/h02-envelope/foundation-verification-report.json",
+      "retrospective": "female/foundation/studies/h02-envelope/retrospective.md",
+      "stage": "Isolated candidate; no canonical promotion or fitted wardrobe acceptance"
+    }
   },
   "corrective_side_audit": "artifacts/verification/avatar-catalog/corrective-side-audit.json",
   "outfit_proofs_requiring_corrective_repair": [
@@ -271,17 +277,86 @@
     "stage": "Isolated face refinement: head motion/reimport and material checks pass; expressions, headwear compatibility and final style pending",
     "retrospective": "H01/style-revisions/reference-a/retrospective.md"
   },
-  "next_work": "Prove a separate UV-mapped texture-ready reusable head, then selfie-to-2D-texture flow; settle head/hair envelope before A02/O05. Repair B03/B04/F02 and refresh affected outfit proof.",
+  "next_work": "Review female proportions/hair and texture fixture; author/refit one female T02/B01/F01 outfit. Repair F02 heel-tab own-shell contacts, B03/B04 corrective leakage; refresh affected proof. Real-selfie generation and headwear compatibility remain open.",
   "personalization": {
     "contract": "selfie -> generated stylized 2D face texture -> reusable UV-mapped 3D head",
-    "stage": "planned; existing H01 exports lack TEXCOORD_0; no selfie generation endpoint or real-selfie proof",
+    "stage": "Separate female H02 UV head and fictional sample face fixture authored; no selfie generation endpoint or real-selfie likeness proof.",
     "workflow": "../../../docs/avatar-workflow.md",
-    "head_studies": "fictional style/hair references; no identity-specific mesh generation required"
+    "head_studies": "fictional style/hair references; no identity-specific mesh generation required",
+    "texture_fixture": "female/foundation/studies/h02-envelope/canonical-face-layout.json"
   },
   "blender_baseline": {
     "version": "5.2.2 LTS",
     "executable": "/Applications/Blender.app/Contents/MacOS/Blender",
     "fallback": "/Applications/Blender 5.1.1.app/Contents/MacOS/Blender",
     "upgrade_audit": "../../../docs/audits/2026-10-04-blender-lts-upgrade.md"
+  },
+  "model_studies": [
+    {
+      "id": "female-foundation-h02-study",
+      "label": "Female foundation + H02 hair study",
+      "path": "female/foundation/studies/h02-envelope",
+      "model": "female-foundation.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Separate foundation study: 163 gait poses and six head gestures clear; compatible rig/actions and 16-pose export pass. Canonical UV face fixture; style, fitted wardrobe and real-selfie proof pending.",
+      "reference_ids": [
+        "T01",
+        "B01",
+        "F01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_foundation_study.py"
+    },
+    {
+      "id": "female-h02-head-study",
+      "label": "Female H02 \u00b7 Texture-ready head study",
+      "path": "female/foundation/studies/h02-envelope",
+      "model": "H02.glb",
+      "kind": "head",
+      "base": "female",
+      "stage": "Reusable UV head with fictional local face texture and separate H02 hair. Neutral atlas transport fixture; likeness, expressions and final style pending.",
+      "reference_ids": [
+        "H02"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_female_foundation_study.py"
+    },
+    {
+      "id": "female-h02-hair-study",
+      "label": "Female H02 \u00b7 Continuous rear hair study",
+      "path": "female/foundation/studies/h02-envelope",
+      "model": "hair-H02.glb",
+      "kind": "head",
+      "base": "female",
+      "stage": "Continuous rear hair candidate; sampled 163-pose gait and six-gesture clearance pass. Final visual acceptance and headwear compatibility pending.",
+      "reference_ids": [
+        "H02"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_female_foundation_study.py"
+    },
+    {
+      "id": "study-f02-independent-keys",
+      "label": "F02 \u00b7 Independent corrective-key repair study",
+      "path": "F02/fitting-revisions/independent-keys-repair",
+      "model": "outfit/outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "repair_needed": true,
+      "stage": "Opposite-side key leakage repaired (12 vertices to zero); body/layer, export and production runtime pass. Existing heel-tab own-shell contacts remain (178 triangle pairs at run 12.25); style and footwear framing pending.",
+      "reference_ids": [
+        "F02",
+        "T02",
+        "B02",
+        "A01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/repair_catalog_f02_corrective_sides.py"
+    }
+  ],
+  "F02_corrective_repair_study": {
+    "path": "F02/fitting-revisions/independent-keys-repair",
+    "summary": "F02/fitting-revisions/independent-keys-repair/study-summary.json",
+    "stage": "12-coordinate bounded repair passes side/body/layer/export/runtime; inherited heel-tab own-shell failure retained; canonical F02 unchanged"
   }
 }
