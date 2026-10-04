@@ -123,7 +123,7 @@ test('Skladaj announces retry without a visible banner on a wrong full rail, pla
 
   await clearAudioEvents(page);
   await tray.locator(`[data-tile-id="${wrongOrder[2]}"]`).click();
-  await waitForGamePhase(page, 'answered-incorrectly');
+  await page.waitForFunction(() => window.__E2E__?.wrongAttempts === 1, undefined, { polling: 20 });
 
   await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
   await expect(status).toContainText('Skús ešte raz');

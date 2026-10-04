@@ -18,7 +18,7 @@ function setup(options: { maxRounds?: number; maxAttempts?: number | null } = {}
   const onPlayAgain = vi.fn();
   const controller = createGameSessionController({ ...options, onNextRound, onPlayAgain }, {
     audio: { stop, play: spec => { played.push(spec.clips[0].path); const next = deferred(); pending.push(next); return next.promise; } },
-    clock: { setTimeout: (callback, ms) => setTimeout(callback, ms), clearTimeout: timer => clearTimeout(timer) },
+    clock: { now: () => Date.now(), setTimeout: (callback, ms) => setTimeout(callback, ms), clearTimeout: timer => clearTimeout(timer) },
     retryDelayMs: 500,
   });
   return { controller, pending, played, stop, onNextRound, onPlayAgain };
@@ -105,6 +105,47 @@ describe('game session controller', () => {
     await vi.advanceTimersByTimeAsync(1);
     expect(onNextRound).toHaveBeenCalledOnce();
     expect(controller.getSnapshot().state.phase).toBe('ready');
+  });
+
+  it('auto-advances a failed round one second after its verdict finishes', async () => {
+    const { controller, pending, onNextRound } = setup({ maxAttempts: 1 });
+    const result = controller.resolveAnswer(wrong);
+    await finishSelection(pending);
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(onNextRound).not.toHaveBeenCalled();
+    pending[1].resolve();
+    expect(await result).toBe('failure');
+    await vi.advanceTimersByTimeAsync(999);
+    expect(onNextRound).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(1);
+    expect(onNextRound).toHaveBeenCalledOnce();
+  });
+
+  it.each(['correct', 'wrong'] as const)('manual dismissal of %s cancels its automatic advance', async outcome => {
+    const { controller, pending, onNextRound } = setup({ maxAttempts: 1 });
+    const result = controller.resolveAnswer({ ...correct, outcome });
+    await finishSelection(pending);
+    pending[1].resolve();
+    await result;
+    controller.continueAfterFeedback();
+    controller.continueAfterFeedback();
+    await vi.runAllTimersAsync();
+    expect(onNextRound).toHaveBeenCalledOnce();
+  });
+
+  it.each(['audio', 'movement'] as const)('overlaps the retry cooldown with held %s and unlocks once both finish', async held => {
+    const { controller, pending } = setup();
+    const movement = deferred();
+    const result = controller.resolveAnswer({ ...wrong, beforeOutcome: async () => { await movement.promise; return true; } });
+    if (held === 'audio') movement.resolve();
+    else await finishSelection(pending);
+    await vi.advanceTimersByTimeAsync(1500);
+    expect(controller.getSnapshot().canAnswer).toBe(false);
+    if (held === 'audio') pending[0].resolve();
+    else movement.resolve();
+    expect(await result).toBe('retry');
+    expect(controller.getSnapshot().canAnswer).toBe(true);
+    expect(controller.getSnapshot().state.wrongAttempts).toBe(1);
   });
 
   it('returns partial progress without verdict or an advance and supports uncounted taps', async () => {
@@ -196,9 +237,9 @@ describe('game session controller', () => {
     expect(controller.getSnapshot().canAnswer).toBe(true);
   });
 
-  it('reschedules an advance interrupted by pause after the verdict', async () => {
-    const { controller, pending, onNextRound } = setup();
-    const result = controller.resolveAnswer(correct);
+  it.each(['correct', 'wrong'] as const)('reschedules a %s advance interrupted by pause after the verdict', async outcome => {
+    const { controller, pending, onNextRound } = setup({ maxAttempts: 1 });
+    const result = controller.resolveAnswer({ ...correct, outcome });
     await finishSelection(pending);
     pending[1].resolve();
     await result;

@@ -28,7 +28,7 @@ export interface UseGameSessionResult extends GameSessionSnapshot {
 export function useGameSession(options: UseGameSessionOptions): UseGameSessionResult {
   const [controller] = useState(() => createGameSessionController(options, {
     audio: audioManager,
-    clock: { setTimeout: (callback, ms) => setTimeout(callback, ms), clearTimeout: timer => clearTimeout(timer) },
+    clock: { now: () => Date.now(), setTimeout: (callback, ms) => setTimeout(callback, ms), clearTimeout: timer => clearTimeout(timer) },
     retryDelayMs: TIMING.FEEDBACK_RESET_MS,
   }));
   useLayoutEffect(() => { controller.updateOptions(options); }, [controller, options]);

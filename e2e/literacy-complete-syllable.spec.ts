@@ -38,14 +38,8 @@ test('Doplň slabiku announces retry politely without changing the play surface 
   expect(wrongId, 'expected at least one non-target syllable piece').toBeDefined();
 
   await pressAnswerById(page, wrongId!);
-  // 'answered-incorrectly' (feedback: null) auto-clears to 'awaiting-answer' after
-  // TIMING.FEEDBACK_RESET_MS — too transient for expect.poll's growing interval, so this
-  // uses a tight fixed-interval wait, matching the established FindIt-game idiom.
-  await page.waitForFunction(
-    () => window.__E2E__?.gamePhase === 'answered-incorrectly',
-    undefined,
-    { polling: 20 },
-  );
+  // Audio and return movement can consume the cooldown, so retry may already be ready.
+  await page.waitForFunction(() => window.__E2E__?.wrongAttempts === 1, undefined, { polling: 20 });
 
   const status = page.getByRole('status');
   await expect(page.getByTestId('game-retry-status')).toHaveClass(/sr-only/);
@@ -108,3 +102,30 @@ test('Doplň slabiku fails only on the third wrong tap and reveals the missing s
   await expect(rail.locator('[data-slot-state="filled"]')).toContainText(initialState.correctItemId!);
   await expect(status).toContainText('Nevadí');
 });
+
+for (const dismissal of ['backdrop', 'automatic'] as const) {
+  test(`Doplň slabiku dismisses exhausted feedback by ${dismissal} like success`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/complete-syllable');
+    await page.getByRole('button', { name: 'Hrať' }).click();
+    const initial = await getE2EState<CompleteSyllableE2EState>(page);
+    const wrongId = initial.answerItemIds.find(id => id !== initial.correctItemId)!;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      await pressAnswerById(page, wrongId);
+      await page.waitForFunction(count => window.__E2E__?.wrongAttempts === count, attempt);
+      if (attempt < 3) await waitForGamePhase(page, 'awaiting-answer');
+    }
+    const feedback = page.getByRole('status').filter({ hasText: 'Nevadí' });
+    await expect(feedback).toBeVisible();
+    if (dismissal === 'backdrop') {
+      await feedback.getByText('Nevadí, poďme ďalej', { exact: true }).click();
+      await expect(feedback).toBeVisible();
+      await page.mouse.click(8, 150);
+      await expect(feedback).toHaveCount(0, { timeout: 500 });
+    } else {
+      await expect(feedback).toHaveCount(0, { timeout: 2500 });
+    }
+    await page.waitForFunction(() => window.__E2E__?.wrongAttempts === 0 && window.__E2E__?.roundsPlayed === 1);
+    await expect(page.locator('[data-answer-id]').first()).toBeEnabled();
+  });
+}

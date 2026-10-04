@@ -1097,6 +1097,7 @@ export function UiKitScreen() {
         <div className="space-y-6">
           <div>
             <h3 className="mb-3 text-lg font-bold text-text-muted">Ikony všetkých hier</h3>
+            <p className="mb-3 text-sm text-text-muted">Veľké znaky a jednoduché obrysy čitateľné aj v malých kartách.</p>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {GAME_DEFINITIONS.map(game=><figure key={game.id} className="flex items-center gap-3 rounded-2xl bg-canvas p-3">
                 <GameIcon icon={game.icon} className="size-10 shrink-0 text-focus" />
@@ -1165,6 +1166,8 @@ export function UiKitScreen() {
           <p className="font-medium text-text-muted">
             Samostatná ukážka hernej obrazovky pokrýva zvukové aj obrazové zadanie, stavy pripravené/počúvanie/opakovanie/úspech/neúspech/pozastavenie/chyba/dokončenie,
             preferenciu obmedzeného pohybu a rozloženia 320×568 aj 667×375.
+            Úspech aj neúspech sa zatvoria kliknutím mimo okna alebo jednu sekundu po skončení hlasu.
+            Pri opakovaní sa krátka ochrana pred dvojklikom prekrýva s hlasom a pohybom karty; nepridáva ďalšie čakanie.
           </p>
           <div className="flex flex-wrap gap-3 text-sm font-black text-action-primary underline">
             {[

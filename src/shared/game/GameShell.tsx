@@ -82,7 +82,8 @@ export function GameShell({
     state.phase === 'recoverable-error' ||
     isFinalRound;
 
-  const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly') && !isFinalRound && !transientFeedback;
+  // Preserve the polite announcement even when movement has already consumed the cooldown.
+  const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly' || (state.phase === 'awaiting-answer' && state.wrongAttempts > 0)) && !isFinalRound && !transientFeedback;
 
   return (
     <AppScreen maxWidth="game" height="viewport" scroll="vertical" contentClassName="gap-3 sm:gap-4 [@media(max-height:480px)]:gap-1.5">
@@ -133,7 +134,7 @@ export function GameShell({
         <OverlayFrame
           show
           tone={feedback.kind === 'success' ? 'success' : 'failure'}
-          onBackdropClick={feedback.kind === 'success' ? feedback.onContinue : undefined}
+          onBackdropClick={feedback.onContinue}
           panelClassName="bg-white shadow-block"
         >
           <div className="text-5xl" aria-hidden="true">

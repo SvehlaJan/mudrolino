@@ -154,8 +154,8 @@ export async function genericAnswerWrong(page: Page): Promise<string> {
   expect(wrongId, 'expected at least one non-target answer').toBeDefined();
   await pressAnswerById(page, wrongId!);
   await page.waitForFunction(
-    () => window.__E2E__?.gamePhase === 'answered-incorrectly',
-    undefined,
+    attempts => window.__E2E__?.wrongAttempts === attempts,
+    state.wrongAttempts + 1,
     { polling: 20 },
   );
   return wrongId!;
@@ -191,13 +191,10 @@ export async function asmAnswerWrong(page: Page): Promise<string> {
   await tray.locator(`[data-tile-id="${wrongOrder[1]}"]`).click();
   await waitForGamePhase(page, 'awaiting-answer');
   await tray.locator(`[data-tile-id="${wrongOrder[2]}"]`).click();
-  // The retry window is only TIMING.FEEDBACK_RESET_MS (500ms) wide, so this uses the tight
-  // fixed-interval wait the three choice games already use rather than `waitForGamePhase`'s
-  // `expect.poll`, whose growing interval can spend a large share of that window before it
-  // even observes the phase.
+  // Retry may unlock immediately after movement; observe the durable attempt counter.
   await page.waitForFunction(
-    () => window.__E2E__?.gamePhase === 'answered-incorrectly',
-    undefined,
+    attempts => window.__E2E__?.wrongAttempts === attempts,
+    state.wrongAttempts + 1,
     { polling: 20 },
   );
   return wrongOrder[2];
@@ -236,7 +233,7 @@ export interface BespokeGameCase {
   /** Navigates, seeds any fixture content Assembly needs for determinism, and starts a round
    * through the real Hrať control. */
   enterPlay(page: Page): Promise<void>;
-  /** Taps/places a wrong answer, landing in the shared 'answered-incorrectly' retry state.
+  /** Taps/places a wrong answer and waits for its recorded attempt.
    * Returns the acted-on control's `data-answer-id`/`data-tile-id`. */
   answerWrong(page: Page): Promise<string>;
   /** Taps/places the correct answer(s), completing exactly one round successfully. Returns the

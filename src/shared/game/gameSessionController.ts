@@ -24,7 +24,7 @@ export interface GameSessionSnapshot {
 }
 export interface GameSessionDependencies<Timer> {
   audio: { play(audio: AudioSpec): Promise<void>; stop(): void };
-  clock: { setTimeout(callback: () => void, ms: number): Timer; clearTimeout(timer: Timer): void };
+  clock: { now(): number; setTimeout(callback: () => void, ms: number): Timer; clearTimeout(timer: Timer): void };
   retryDelayMs: number;
 }
 
@@ -41,8 +41,8 @@ export function createGameSessionController<Timer>(
   let disposed = false;
   let resumeCancelledAnswer = false;
   let resumePendingRetry = false;
-  let resumePendingSuccess = false;
-  let successAdvancePending = false;
+  let resumePendingAdvance = false;
+  let feedbackAdvancePending = false;
   const timers = new Set<Timer>();
   const listeners = new Set<() => void>();
   let snapshot: GameSessionSnapshot = { state, replaying, canAnswer: true };
@@ -61,18 +61,22 @@ export function createGameSessionController<Timer>(
     operationId += 1;
     answering = false;
     replaying = false;
-    successAdvancePending = false;
+    feedbackAdvancePending = false;
     for (const timer of timers) clock.clearTimeout(timer);
     timers.clear();
     audio.stop();
     return operationId;
   };
   const isCurrent = (id: number) => !disposed && id === operationId;
-  const scheduleRetryReady = (id: number) => {
+  const scheduleRetryReady = (id: number, delayMs = retryDelayMs) => {
+    if (delayMs <= 0) {
+      if (isCurrent(id)) dispatch({ type: 'RETRY_READY' });
+      return;
+    }
     const timer = clock.setTimeout(() => {
       timers.delete(timer);
       if (isCurrent(id)) dispatch({ type: 'RETRY_READY' });
-    }, retryDelayMs);
+    }, delayMs);
     timers.add(timer);
   };
   const continueAfterFeedback = () => {
@@ -81,12 +85,12 @@ export function createGameSessionController<Timer>(
     dispatch({ type: 'NEXT_ROUND' });
     options.onNextRound();
   };
-  const scheduleSuccessAdvance = (id: number) => {
-    successAdvancePending = true;
+  const scheduleFeedbackAdvance = (id: number) => {
+    feedbackAdvancePending = true;
     const timer = clock.setTimeout(() => {
       timers.delete(timer);
-      successAdvancePending = false;
-      if (isCurrent(id) && state.feedback === 'success' && state.roundsPlayed < state.maxRounds) continueAfterFeedback();
+      feedbackAdvancePending = false;
+      if (isCurrent(id) && state.feedback !== null && state.roundsPlayed < state.maxRounds) continueAfterFeedback();
     }, 1000);
     timers.add(timer);
   };
@@ -108,6 +112,8 @@ export function createGameSessionController<Timer>(
     if (disposed || answering || !canAcceptAnswer(state)) return 'cancelled';
     const id = invalidate();
     answering = true;
+    // The debounce overlaps playback/placement instead of adding idle time after them.
+    const retryReadyAt = clock.now() + retryDelayMs;
     dispatch({ type: 'ANSWER_STARTED', answerId: input.answerId });
     await audio.play(input.selectionAudio);
     if (!isCurrent(id)) return 'cancelled';
@@ -132,7 +138,7 @@ export function createGameSessionController<Timer>(
     if (input.outcome === 'wrong' && !terminalFailure) {
       answering = false;
       publish();
-      scheduleRetryReady(id);
+      scheduleRetryReady(id, retryReadyAt - clock.now());
       return 'retry';
     }
     if (input.verdictAudio) await audio.play(input.verdictAudio);
@@ -141,7 +147,7 @@ export function createGameSessionController<Timer>(
     if (state.roundsPlayed >= state.maxRounds) dispatch({ type: 'SHOW_SESSION_COMPLETE' });
     else {
       publish();
-      if (input.outcome === 'correct') scheduleSuccessAdvance(id);
+      scheduleFeedbackAdvance(id);
     }
     return input.outcome === 'correct' ? 'success' : 'failure';
   };
@@ -171,7 +177,7 @@ export function createGameSessionController<Timer>(
     playAgain() {
       if (disposed) return;
       invalidate();
-      resumeCancelledAnswer = resumePendingRetry = resumePendingSuccess = false;
+      resumeCancelledAnswer = resumePendingRetry = resumePendingAdvance = false;
       dispatch({ type: 'PLAY_AGAIN' });
       options.onPlayAgain();
     },
@@ -179,7 +185,7 @@ export function createGameSessionController<Timer>(
       if (disposed || state.paused) return;
       resumeCancelledAnswer = state.phase === 'resolving-answer';
       resumePendingRetry = state.phase === 'answered-incorrectly' && state.feedback === null;
-      resumePendingSuccess = successAdvancePending && state.feedback === 'success' && state.roundsPlayed < state.maxRounds;
+      resumePendingAdvance = feedbackAdvancePending && state.feedback !== null && state.roundsPlayed < state.maxRounds;
       invalidate();
       dispatch({ type: 'PAUSE' });
     },
@@ -191,8 +197,8 @@ export function createGameSessionController<Timer>(
       // session on resume instead of leaving its last feedback stranded.
       if (state.roundsPlayed >= state.maxRounds && state.feedback !== null) dispatch({ type: 'SHOW_SESSION_COMPLETE' });
       if (resumePendingRetry) scheduleRetryReady(operationId);
-      if (resumePendingSuccess) scheduleSuccessAdvance(operationId);
-      resumeCancelledAnswer = resumePendingRetry = resumePendingSuccess = false;
+      if (resumePendingAdvance) scheduleFeedbackAdvance(operationId);
+      resumeCancelledAnswer = resumePendingRetry = resumePendingAdvance = false;
     },
     fail(message: string) {
       if (disposed) return;
