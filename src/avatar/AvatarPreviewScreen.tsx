@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { AvatarCatalogPreview } from './AvatarCatalogPreview';
+import { AvatarAssetGallery } from './AvatarAssetGallery';
 import { AvatarPresenter } from './AvatarPresenter';
 import { resolveAvatarAssets } from './avatarAssetResolver';
 import { AVATAR_ACCESSORY_ITEMS, AVATAR_SHOES_ITEMS, AVATAR_TOP_ITEMS } from './avatarCatalog';
@@ -181,7 +182,7 @@ function parseUrlParams(params: URLSearchParams): Partial<{
 
 export function AvatarPreviewScreen() {
   const [params] = useSearchParams();
-  return import.meta.env.DEV && params.get('agent') !== '1' && params.get('view') !== 'modular' ? <AvatarCatalogPreview /> : <AvatarModularPreviewScreen />;
+  return import.meta.env.DEV && params.get('agent') !== '1' && params.get('view') !== 'modular' ? (params.has('model') ? <AvatarCatalogPreview /> : <AvatarAssetGallery />) : <AvatarModularPreviewScreen />;
 }
 
 function AvatarModularPreviewScreen() {

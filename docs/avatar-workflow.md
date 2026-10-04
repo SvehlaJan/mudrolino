@@ -13,7 +13,9 @@ The user requested committing all avatar work on this branch after the Blender
 update and female reference expansion. Check `git log -1` and `git status` before
 resuming; the primary checkout has not been merged or changed by this handoff.
 
-The live development inspector is http://127.0.0.1:3004/avatar-preview.
+The live development gallery is http://127.0.0.1:3004/avatar-preview. Open a card
+for references, model inspection, prompts and source files. The read-only gallery
+refreshes as local asset files change; use Include history for older attempts.
 Use `?model=study-h01-reference-a` for the revised head on the study outfit,
 `?model=head-style-reference-a` for its head alone and `?view=modular` for the
 original runtime workbench. See [viewer controls and checks](avatar-catalog-preview.md).
@@ -37,6 +39,33 @@ have passing proof, while complete O05/A02 and promotion remain open. The H01
 revision is a style study, with no facial UV export or expression targets. These
 are useful milestones, not an accepted production catalog. The female base and
 separately fitted wardrobe remain in scope after current catalog acceptance.
+
+## Register assets for the gallery
+
+After adding references or exporting models, use the live gallery to confirm the
+new files and their status. Images under `assets/avatar/concepts/` are discovered
+without editing React code. Keep authoritative sheets outside `drafts/`; retain
+superseded references there so history identifies them correctly. Existing male
+`boards` and female `sheets`/`outputs` metadata formats are supported. Record the
+actual output filename, shared wardrobe IDs, descriptive title and exact prompt
+in the reference manifest to associate a sheet with the relevant model.
+
+Keep canonical piece exports and their `.blend` sources together. Record stage,
+retrospective and proof paths in `catalog-progress.json`; promote isolated studies
+only after their own acceptance work. Give female fitted variants separate paths
+and actual per-base proof. A file being viewable does not establish acceptance.
+Use the source links to reach builders/proof rather than copying model artifacts
+into the frontend. The gallery is an inspection tool; it does not edit metadata.
+
+New female exports currently appear as standalone candidate cards. The logical
+`female-*` milestones stay pending until a fitted export and its per-base proof
+are explicitly registered in the inventory adapter. Extend that registration
+alongside the first female foundation; filenames alone must not imply fit or
+acceptance. The relevant normalization is in `tools/avatar/catalogLibraryServer.ts`.
+
+See [gallery behavior and verification](avatar-catalog-preview.md) for routes,
+refresh recovery and supported controls. After changing gallery tooling run the
+focused browser verifier as well as the affected repository verification profile.
 
 ## Repeatable asset work
 

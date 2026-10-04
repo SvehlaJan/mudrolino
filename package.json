@@ -36,7 +36,8 @@
     "setup:browsers": "playwright install chromium webkit",
     "avatar:blender": "python3 tools/avatar/blender_cli.py",
     "avatar:catalog:inspect": "node tools/avatar/verify_catalog_inspection.mjs",
-    "avatar:catalog:capture": "node tools/avatar/capture_catalog_style_review.mjs"
+    "avatar:catalog:capture": "node tools/avatar/capture_catalog_style_review.mjs",
+    "avatar:gallery:inspect": "node tools/avatar/verify_asset_gallery.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.23",

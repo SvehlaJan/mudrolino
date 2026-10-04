@@ -41,3 +41,51 @@ describe('development catalog inventory', () => {
     expect(resolveCatalogPreviewFile(root, model.garmentUrl!)).toBeNull();
   });
 });
+
+describe('catalog library HTTP transport', () => {
+  it('serves inventory, allowed native sources, GLB probes and small image thumbnails', async () => {
+    const { root, file } = fixture();
+    file('F04/F04.blend', 'native-source');
+    const { default: sharp } = await import('sharp');
+    const image = join(root, 'assets/avatar/concepts/new-reference.png'); mkdirSync(join(image, '..'), { recursive: true });
+    await sharp({ create: { width: 900, height: 600, channels: 3, background: '#ff8800' } }).png().toFile(image);
+    const { createServer } = await import('node:http');
+    const { catalogPreviewPlugin } = await import('./catalogPreviewServer');
+    let middleware: import('node:http').RequestListener | undefined;
+    const plugin = catalogPreviewPlugin();
+    if (typeof plugin.configureServer !== 'function') throw new Error('Missing dev middleware');
+    plugin.configureServer.call({} as import('vite').MinimalPluginContextWithoutEnvironment, { config: { root }, middlewares: { use: (handler: import('node:http').RequestListener) => { middleware = handler; } } } as unknown as import('vite').ViteDevServer);
+    const server = createServer((req, res) => middleware!(req, res));
+    await new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
+    const address = server.address(); if (!address || typeof address === 'string') throw new Error('Missing server address');
+    const base = `http://127.0.0.1:${address.port}`;
+    try {
+      const response = await fetch(`${base}/__avatar_catalog/library.json`); expect(response.status).toBe(200);
+      const manifest = await response.json() as import('../../src/avatar/catalogLibrary').CatalogLibraryManifest;
+      const reference = manifest.assets.find(a => a.id.endsWith('new-reference.png'))!.references[0];
+      const concurrent = await Promise.all(Array.from({ length: 8 }, async () => {
+        const result = await fetch(base + reference.thumbnailUrl); expect(result.status).toBe(200);
+        return Buffer.from(await result.arrayBuffer());
+      }));
+      expect(concurrent.every(bytes => bytes.equals(concurrent[0]))).toBe(true);
+      const thumbnail = await fetch(base + reference.thumbnailUrl); expect(thumbnail.headers.get('content-type')).toBe('image/png');
+      expect((await sharp(Buffer.from(await thumbnail.arrayBuffer())).metadata()).width).toBe(320);
+      const original = await fetch(base + reference.url, { method: 'HEAD' }); expect(original.status).toBe(200); expect(original.headers.get('content-type')).toBe('image/png'); expect(await original.text()).toBe('');
+      const blend = manifest.assets.find(a => a.id === 'F04')!.sources.find(s => s.role === 'blend')!;
+      expect(await (await fetch(base + blend.url)).text()).toBe('native-source');
+      const model = manifest.assets.find(a => a.id === 'F04')!.model!.modelUrl;
+      const probe = await fetch(base + model, { headers: { Range: 'bytes=0-0' } }); expect(probe.status).toBe(206); expect(probe.headers.get('content-range')).toBe('bytes 0-0/7'); expect(await probe.text()).toBe('f');
+      expect((await fetch(base + model, { headers: { Range: 'bytes=30-40' } })).status).toBe(416);
+      expect((await fetch(base + blend.url, { method: 'POST' })).status).toBe(405);
+      expect((await fetch(`${base}/__avatar_catalog/files/.env`)).status).toBe(404);
+
+      let denied = 0;
+      middleware!({ url: '/__avatar_catalog/library.json', method: 'GET', headers: { host: 'localhost' }, socket: { remoteAddress: '192.168.1.20' } } as unknown as import('node:http').IncomingMessage, { set statusCode(value: number) { denied = value; }, end() {} } as unknown as import('node:http').ServerResponse);
+      expect(denied).toBe(403);
+      denied = 0;
+      middleware!({ url: '/__avatar_catalog/library.json', method: 'GET', headers: { host: 'untrusted.example' }, socket: { remoteAddress: '127.0.0.1' } } as unknown as import('node:http').IncomingMessage, { set statusCode(value: number) { denied = value; }, end() {} } as unknown as import('node:http').ServerResponse);
+      expect(denied).toBe(403);
+      expect((await fetch(`${base}/__avatar_catalog/assets/F04/F04.blend`)).status).toBe(404);
+    } finally { await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())); }
+  });
+});

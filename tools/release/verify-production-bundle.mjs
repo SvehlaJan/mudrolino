@@ -18,7 +18,7 @@ const chunks = readdirSync(assets).filter((file) => file.endsWith('.js'));
 // even if bundling changes chunk names or combines modules in a shared chunk.
 for (const file of chunks) {
   const code = readFileSync(new URL(file, assets), 'utf8');
-  for (const marker of ['component-gallery-title', 'tools/ui-gallery/generate.ts', 'ui-piece-press-count']) {
+  for (const marker of ['component-gallery-title', 'tools/ui-gallery/generate.ts', 'ui-piece-press-count', 'gallery-live-status', 'asset-source', '/__avatar_catalog/library.json']) {
     if (code.includes(marker)) throw new Error(`Production chunk ${file} contains development gallery code (${marker})`);
   }
 }

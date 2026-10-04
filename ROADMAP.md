@@ -141,6 +141,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Avatar companion design spec (`docs/superpowers/specs/`)
 - [x] Local avatar runtime under `src/avatar/`
 - [x] `/avatar-preview` route for asset inspection
+- [x] Build the approved local live avatar gallery with 2D references, accurate model milestones, history and source links (`docs/superpowers/specs/2026-10-04-avatar-live-catalog-design.md`)
 - [x] Home overlay behind `VITE_AVATAR_POC_ENABLED`
 - [x] Historical Meshy POC character and animation provenance captured under `meshy_output/`
 - [x] Historical cleaned success and failure/reaction animation candidates evaluated and replaced as current app-facing preview choices
@@ -446,3 +447,5 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 | 2026-10-04 | Personalize a reusable head with a generated 2D face texture. | User clarified that the selfie becomes a Genmoji-like image. Preserve fictional head studies as style references, prioritize a stable UV template and neutral texture proof, and keep generation credentials server-side. Expressions follow the texture proof. |
 | 2026-10-04 | Share Blender construction and validation between Claude and Codex. | One canonical skill, a Claude entry point and a configurable CLI avoid divergent workflows. MCP is optional for visual iteration; saved scripts, independent fitting gates and source-bound exports remain the handoff. Test Blender LTS alongside the current baseline before switching. |
 | 2026-10-04 | Extend the female references with shared wardrobe IDs and preserve the previous Blender version during the LTS upgrade. | The user requested committing the avatar work and preparing references for Claude. Four female sheets preserve palette A, original construction and corrected colors, with separate fitted sources required per base. Blender 5.2.2 passes a representative 16-pose export smoke; 5.1.1 remains available for rollback. |
+
+| 2026-10-04 | Use a local read-only visual gallery with one lazy model inspector and file-derived live inventory. | The user chose gallery layout A and pre-approved implementation. References and model progress share stable IDs; fit verification remains separate from visual acceptance. Keep female 3D pending until real exports/proof exist, preserve legacy model links and keep unfinished assets out of production. |
