@@ -1,0 +1,77 @@
+{
+  "target": "assets/avatar/catalog-a/H01/style-revisions/painted-face/outfit.glb",
+  "sha256": "b741ea775a0cb205c7092202dee2c3d21f64088cf30ee00301af7d1f2d53639b",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A ivory ankle-boot sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A orange ankle-boot upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A navy ankle-boot elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole.001",
+      "material": "A orange ankle-boot heel loops",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm peach skin.001",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A ear warmth",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A warm peach skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T05_crew_sweatshirt quad shell.001",
+      "material": "A blue sweatshirt fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T05_crew_sweatshirt quad shell.001",
+      "material": "A navy sweatshirt ribbing",
+      "colorComponents": 0
+    }
+  ]
+}

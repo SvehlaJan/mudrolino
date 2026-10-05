@@ -1,8 +1,8 @@
 {
   "source_blend": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend",
-  "source_sha256": "f140ec1b4aa50c3e928c679773d23e23d16f07f157f63dcad4512c4acda200fc",
+  "source_sha256": "6641df23fb90d451cc8a3f0ef2ef0c98fc23204e6c0930338f7acb1893ee8a58",
   "glb": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb",
-  "glb_sha256": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
+  "glb_sha256": "b964b77934ad743c2b125f3f4e785016fdad77366b94fb6c7a8c5f2d471847d5",
   "verifier_sha256": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
   "threshold_m": 3e-05,
   "failures": [],
@@ -875,12 +875,12 @@
     ]
   },
   "face_transport": {
-    "canonical_layout_sha256": "4dd287e13a4f81581bf7ab0844dae2959f7809e50d845591080498960ddcdb81",
+    "canonical_layout_sha256": "cc3b1cbf9bebd816e3fc606d1d6e0166792d999cfd859f6668dc28a4a8cd61ce",
     "material": "face_surface",
     "uv_layer": "canonical_face_uv",
     "face_primitive_count": 1,
     "embedded_image_matches_source_png": true,
-    "embedded_sha256": "0d7981738b65f3bcbff3579c6974766070587fa6705a8720e24417313b6aa929",
+    "embedded_sha256": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
     "image_mime_type": "image/png",
     "reimport_uv_corner_identity": {
       "passed": true,

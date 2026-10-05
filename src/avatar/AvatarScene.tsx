@@ -1,7 +1,7 @@
 import { RefObject, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { Object3D } from 'three';
+import { NoToneMapping, Object3D } from 'three';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { AvatarModel } from './AvatarModel';
 import { AvatarSkeletonOverlay } from './AvatarSkeletonOverlay';
@@ -99,7 +99,7 @@ export function AvatarScene({
       <Canvas
         camera={{ position: [0, 1.35, 7.2], fov: 34 }}
         dpr={[1, 1.5]}
-        gl={{ alpha: true, antialias: true }}
+        gl={{ alpha: true, antialias: true, toneMapping: NoToneMapping }}
         style={{ width: '100%', height: '100%', background: 'transparent' }}
       >
         <AvatarCameraRig view={inspection?.view} />
@@ -117,9 +117,10 @@ export function AvatarScene({
           minPolarAngle={Math.PI * 0.1}
           maxPolarAngle={Math.PI * 0.85}
         />
-        <ambientLight intensity={1.4} />
-        <directionalLight position={[2.5, 4, 4]} intensity={2.4} />
-        <directionalLight position={[-3, 2, 2]} intensity={0.7} />
+        <hemisphereLight args={['#fffaf0', '#d6dde8', 1.3]} />
+        <directionalLight position={[2.5, 4, 4]} intensity={1.3} />
+        <directionalLight position={[-3, 2, 2]} intensity={0.6} />
+        <directionalLight position={[0, 0.2, 5]} intensity={1.1} />
         <Suspense fallback={null}>
           <AvatarModel
             url={modelUrl}

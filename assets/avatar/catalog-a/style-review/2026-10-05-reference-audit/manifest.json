@@ -1,0 +1,556 @@
+{
+  "base": "http://127.0.0.1:3004",
+  "created": "2026-10-05T06:57:51.928Z",
+  "viewport": {
+    "width": 1000,
+    "height": 1300
+  },
+  "records": [
+    {
+      "id": "body",
+      "model": "assets/avatar/catalog-a/foundation/catalog-body.glb",
+      "modelSha256": "b5c44d873594bceebff2f400821b42045ccf3b3133dd0b34039e9a5b307b9123",
+      "pairs": [
+        {
+          "file": "body-front-full.png",
+          "view": "front",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png",
+          "crop": {
+            "left": 15,
+            "top": 70,
+            "width": 395,
+            "height": 885
+          }
+        }
+      ]
+    },
+    {
+      "id": "study-h01-reference-a",
+      "model": "assets/avatar/catalog-a/H01/style-revisions/reference-a/outfit.glb",
+      "modelSha256": "4ba07ae258875e8c917aa4fdb82760e19dca46e3e626a85eccd18e79c602c670",
+      "pairs": [
+        {
+          "file": "study-h01-reference-a-front-full.png",
+          "view": "front",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png",
+          "crop": {
+            "left": 15,
+            "top": 70,
+            "width": 395,
+            "height": 885
+          }
+        },
+        {
+          "file": "study-h01-reference-a-three-quarter-full.png",
+          "view": "three-quarter",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png",
+          "crop": {
+            "left": 1130,
+            "top": 70,
+            "width": 395,
+            "height": 885
+          }
+        }
+      ]
+    },
+    {
+      "id": "head-style-reference-a",
+      "model": "assets/avatar/catalog-a/H01/style-revisions/reference-a/H01.glb",
+      "modelSha256": "eb2cf6fdcfad5ce4f869ec6eb597d1d0a0ca4a51f7d6860de3dc11750fbbb4fc",
+      "pairs": [
+        {
+          "file": "head-style-reference-a-front-full.png",
+          "view": "front",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/06-face-hair.png",
+          "crop": {
+            "left": 15,
+            "top": 75,
+            "width": 260,
+            "height": 380
+          }
+        },
+        {
+          "file": "head-style-reference-a-side-full.png",
+          "view": "side",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/06-face-hair.png",
+          "crop": {
+            "left": 275,
+            "top": 75,
+            "width": 210,
+            "height": 380
+          }
+        }
+      ]
+    },
+    {
+      "id": "female-foundation-h02-study",
+      "model": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb",
+      "modelSha256": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
+      "pairs": [
+        {
+          "file": "female-foundation-h02-study-front-full.png",
+          "view": "front",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a-female/01-character-turnaround.png",
+          "crop": {
+            "left": 15,
+            "top": 70,
+            "width": 395,
+            "height": 885
+          }
+        }
+      ]
+    },
+    {
+      "id": "female-h02-head-study",
+      "model": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/H02.glb",
+      "modelSha256": "a6204f1e473845111377ee6a251efd71b0d368d3c8723b87d8acb82ac69e776d",
+      "pairs": [
+        {
+          "file": "female-h02-head-study-front-full.png",
+          "view": "front",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a-female/01-character-turnaround.png",
+          "crop": {
+            "left": 90,
+            "top": 70,
+            "width": 250,
+            "height": 260
+          }
+        },
+        {
+          "file": "female-h02-head-study-three-quarter-full.png",
+          "view": "three-quarter",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/13-head-turnarounds.png",
+          "crop": {
+            "left": 0,
+            "top": 60,
+            "width": 384,
+            "height": 440
+          }
+        }
+      ]
+    },
+    {
+      "id": "female-outfit-T02-B01-F01-study",
+      "model": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.glb",
+      "modelSha256": "bfb4e2f83310b8aac574b89d59d50d047d280ef4890189db3d322e9c2c1f6002",
+      "pairs": [
+        {
+          "file": "female-outfit-T02-B01-F01-study-front-full.png",
+          "view": "front",
+          "region": "full",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a-female/01-character-turnaround.png",
+          "crop": {
+            "left": 15,
+            "top": 70,
+            "width": 395,
+            "height": 885
+          }
+        },
+        {
+          "file": "female-outfit-T02-B01-F01-study-front-torso.png",
+          "view": "front",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a-female/03-hoodie-fit-turnaround.png",
+          "crop": {
+            "left": 0,
+            "top": 60,
+            "width": 400,
+            "height": 560
+          }
+        },
+        {
+          "file": "female-outfit-T02-B01-F01-study-back-torso.png",
+          "view": "back",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a-female/03-hoodie-fit-turnaround.png",
+          "crop": {
+            "left": 760,
+            "top": 60,
+            "width": 400,
+            "height": 560
+          }
+        }
+      ]
+    },
+    {
+      "id": "T01",
+      "model": "assets/avatar/catalog-a/T01/body-T01.glb",
+      "modelSha256": "64fb230ffa0bf72ffcbca2a932fbeb26cb41cb20218bcf90f43ffe799be6ed0d",
+      "pairs": [
+        {
+          "file": "T01-front-torso.png",
+          "view": "front",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 20,
+            "top": 95,
+            "width": 250,
+            "height": 370
+          }
+        },
+        {
+          "file": "T01-back-torso.png",
+          "view": "back",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 250,
+            "top": 95,
+            "width": 250,
+            "height": 370
+          }
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "model": "assets/avatar/catalog-a/T02/body-T02.glb",
+      "modelSha256": "1880b999c2d5af0185b140c2ce5258c251039aff50cd5c153b75a5ab36497438",
+      "pairs": [
+        {
+          "file": "T02-front-torso.png",
+          "view": "front",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 532,
+            "top": 95,
+            "width": 250,
+            "height": 370
+          }
+        },
+        {
+          "file": "T02-back-torso.png",
+          "view": "back",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 762,
+            "top": 95,
+            "width": 250,
+            "height": 370
+          }
+        }
+      ]
+    },
+    {
+      "id": "T03",
+      "model": "assets/avatar/catalog-a/T03/body-T03.glb",
+      "modelSha256": "1dc53eb11927d25b81e816144acfafa74b75ad9aa21f5d9258c4143bd2abd6a9",
+      "pairs": [
+        {
+          "file": "T03-front-torso.png",
+          "view": "front",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 1044,
+            "top": 95,
+            "width": 250,
+            "height": 370
+          }
+        },
+        {
+          "file": "T03-back-torso.png",
+          "view": "back",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 1274,
+            "top": 95,
+            "width": 250,
+            "height": 370
+          }
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "model": "assets/avatar/catalog-a/T04/body-T04.glb",
+      "modelSha256": "2eea100213fa32c12d824dfc15a045e0e1ec0739e2e8d89edeb6fc804a739c67",
+      "pairs": [
+        {
+          "file": "T04-front-torso.png",
+          "view": "front",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 20,
+            "top": 560,
+            "width": 250,
+            "height": 370
+          }
+        },
+        {
+          "file": "T04-back-torso.png",
+          "view": "back",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 250,
+            "top": 560,
+            "width": 250,
+            "height": 370
+          }
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "model": "assets/avatar/catalog-a/T05/body-T05.glb",
+      "modelSha256": "93cc39f0bd23d943df1432352d7e31b9eadaf8beb9284c40e78a207a2d1d8b25",
+      "pairs": [
+        {
+          "file": "T05-front-torso.png",
+          "view": "front",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 532,
+            "top": 560,
+            "width": 250,
+            "height": 370
+          }
+        },
+        {
+          "file": "T05-back-torso.png",
+          "view": "back",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 762,
+            "top": 560,
+            "width": 250,
+            "height": 370
+          }
+        }
+      ]
+    },
+    {
+      "id": "T06",
+      "model": "assets/avatar/catalog-a/T06/body-T06.glb",
+      "modelSha256": "b2f6621fa990b0ea5546da97e7c3b39a616ae41e4c13398dba1a32220ae9b788",
+      "pairs": [
+        {
+          "file": "T06-front-torso.png",
+          "view": "front",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 1044,
+            "top": 560,
+            "width": 250,
+            "height": 370
+          }
+        },
+        {
+          "file": "T06-back-torso.png",
+          "view": "back",
+          "region": "torso",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/01-tops.png",
+          "crop": {
+            "left": 1274,
+            "top": 560,
+            "width": 250,
+            "height": 370
+          }
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "model": "assets/avatar/catalog-a/B01/body-B01.glb",
+      "modelSha256": "fee42fbc98730de56248f3af0267d38bc690f459ef35a8768468122a1ba3de08",
+      "pairs": [
+        {
+          "file": "B01-front-legs.png",
+          "view": "front",
+          "region": "legs",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/02-bottoms.png",
+          "crop": {
+            "left": 100,
+            "top": 60,
+            "width": 290,
+            "height": 430
+          }
+        },
+        {
+          "file": "B01-back-legs.png",
+          "view": "back",
+          "region": "legs",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/02-bottoms.png",
+          "crop": {
+            "left": 420,
+            "top": 60,
+            "width": 290,
+            "height": 430
+          }
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "model": "assets/avatar/catalog-a/B02/body-B02.glb",
+      "modelSha256": "20b4a0095c4de98b58d87626b8de7958a54b8bdc6730f8a2f8d9f86074dfafd2",
+      "pairs": [
+        {
+          "file": "B02-front-legs.png",
+          "view": "front",
+          "region": "legs",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/02-bottoms.png",
+          "crop": {
+            "left": 860,
+            "top": 60,
+            "width": 290,
+            "height": 430
+          }
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "model": "assets/avatar/catalog-a/B03/body-B03.glb",
+      "modelSha256": "719f49a7cda2ab6fda2b8fd6972356bfb74e253a5cf6c53af1683a5226b4649c",
+      "pairs": [
+        {
+          "file": "B03-front-legs.png",
+          "view": "front",
+          "region": "legs",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/02-bottoms.png",
+          "crop": {
+            "left": 100,
+            "top": 520,
+            "width": 290,
+            "height": 400
+          }
+        }
+      ]
+    },
+    {
+      "id": "B04",
+      "model": "assets/avatar/catalog-a/B04/body-B04.glb",
+      "modelSha256": "3489654af11579c0640bc1961524396bb1394a2886158f0e415d8f466371a127",
+      "pairs": [
+        {
+          "file": "B04-front-legs.png",
+          "view": "front",
+          "region": "legs",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/02-bottoms.png",
+          "crop": {
+            "left": 860,
+            "top": 520,
+            "width": 290,
+            "height": 430
+          }
+        }
+      ]
+    },
+    {
+      "id": "F01",
+      "model": "assets/avatar/catalog-a/F01/body-F01.glb",
+      "modelSha256": "c376ce0a4560d00599b8fc61fa66f74c88e5046d4bfc3279cf1f72d62312b77e",
+      "pairs": [
+        {
+          "file": "F01-three-quarter-feet.png",
+          "view": "three-quarter",
+          "region": "feet",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png",
+          "crop": {
+            "left": 30,
+            "top": 90,
+            "width": 420,
+            "height": 330
+          }
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "model": "assets/avatar/catalog-a/F02/body-F02.glb",
+      "modelSha256": "7c4168a220ad784267cb840e68073d9db3fce2eb0a1a9047fd34ace8ee63bbaa",
+      "pairs": [
+        {
+          "file": "F02-three-quarter-feet.png",
+          "view": "three-quarter",
+          "region": "feet",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png",
+          "crop": {
+            "left": 800,
+            "top": 90,
+            "width": 420,
+            "height": 330
+          }
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "model": "assets/avatar/catalog-a/F03/body-F03.glb",
+      "modelSha256": "7c0395255b112522f45ab7528edee2cb0a9150c431bc35b440e054074e1084a3",
+      "pairs": [
+        {
+          "file": "F03-three-quarter-feet.png",
+          "view": "three-quarter",
+          "region": "feet",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png",
+          "crop": {
+            "left": 30,
+            "top": 560,
+            "width": 420,
+            "height": 350
+          }
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "model": "assets/avatar/catalog-a/F04/body-F04.glb",
+      "modelSha256": "ad79202c4e44bcf47a2de62d6ca4151588259c5d4f72192ec3a0cc93dd4876e1",
+      "pairs": [
+        {
+          "file": "F04-three-quarter-feet.png",
+          "view": "three-quarter",
+          "region": "feet",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png",
+          "crop": {
+            "left": 800,
+            "top": 560,
+            "width": 420,
+            "height": 350
+          }
+        }
+      ]
+    },
+    {
+      "id": "A01",
+      "model": "assets/avatar/catalog-a/A01/body-A01.glb",
+      "modelSha256": "b5c44d873594bceebff2f400821b42045ccf3b3133dd0b34039e9a5b307b9123",
+      "pairs": [
+        {
+          "file": "A01-three-quarter-head.png",
+          "view": "three-quarter",
+          "region": "head",
+          "reference": "assets/avatar/concepts/2026-10-04/catalog-a/04-accessories.png",
+          "crop": {
+            "left": 20,
+            "top": 90,
+            "width": 460,
+            "height": 330
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "note": "Pairs: 2D reference crop left, live-gallery render right. Rendered with NoToneMapping and the 2026-10-05 light rig. lighting-before-after-*.png: previous ACES rig left, new rig right."
+}

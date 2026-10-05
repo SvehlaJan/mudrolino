@@ -45,6 +45,9 @@ for i,v in enumerate(reference):tree.insert(v,i)
 tree.balance();error=max(tree.find(v)[2] for v in points);assert error<.00003,error
 assert copy.vertex_groups.get('Head') is not None
 assert all(len(v.groups)==1 and copy.vertex_groups[v.groups[0].group].name=='Head' and abs(v.groups[0].weight-1)<1e-7 for v in copy.data.vertices)
-assert len(copy.data.color_attributes)>0,'Export lost face/stubble colors'
-report={'source_blend':str(args.blend),'source_sha256':hashlib.sha256(args.blend.read_bytes()).hexdigest(),'glb':str(args.glb),'glb_sha256':hashlib.sha256(args.glb.read_bytes()).hexdigest(),'motion_frames':41,'extreme_poses':3,'checks':results,'reimport_max_nearest_vertex_error_m':error,'reimport_vertices':len(points),'reimport_color_attributes':[c.name for c in copy.data.color_attributes],'all_features_weighted_to':'Head','status':'rigidity and reimport passed; style and full body fit still require review'}
+# Texture-ready heads carry the face in UVs/texture; painted-vertex heads in COLOR_0.
+textured='canonical_face_uv' in head.data.uv_layers
+if textured:assert len(copy.data.uv_layers)>0,'Export lost face texture coordinates'
+else:assert len(copy.data.color_attributes)>0,'Export lost face/stubble colors'
+report={'source_blend':str(args.blend),'source_sha256':hashlib.sha256(args.blend.read_bytes()).hexdigest(),'glb':str(args.glb),'glb_sha256':hashlib.sha256(args.glb.read_bytes()).hexdigest(),'motion_frames':41,'extreme_poses':3,'checks':results,'reimport_max_nearest_vertex_error_m':error,'reimport_vertices':len(points),'reimport_color_attributes':[c.name for c in copy.data.color_attributes],'reimport_uv_layers':[u.name for u in copy.data.uv_layers],'face_transport':'uv' if textured else 'color','all_features_weighted_to':'Head','status':'rigidity and reimport passed; style and full body fit still require review'}
 (args.output_dir/'rigidity-and-reimport-report.json').write_text(json.dumps(report,indent=2));print('HEAD_PROOF',json.dumps({k:v for k,v in report.items() if k!='checks'}))

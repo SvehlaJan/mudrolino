@@ -4,14 +4,39 @@ This isolated candidate establishes an average adult foundation, a reusable text
 
 ## Outputs and source identity
 
-- `female-foundation.blend`: authoritative editable source, SHA-256 `f140ec1b4aa50c3e928c679773d23e23d16f07f157f63dcad4512c4acda200fc`.
-- `female-foundation.glb`: body, head, hair and compatible shared skeleton; SHA-256 `3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f`.
-- `H02.glb`: head and hair attached to Head; SHA-256 `a6204f1e473845111377ee6a251efd71b0d368d3c8723b87d8acb82ac69e776d`.
+- `female-foundation.blend`: authoritative editable source, SHA-256 `6641df23fb90d451cc8a3f0ef2ef0c98fc23204e6c0930338f7acb1893ee8a58`.
+- `female-foundation.glb`: body, head, hair and compatible shared skeleton; SHA-256 `b964b77934ad743c2b125f3f4e785016fdad77366b94fb6c7a8c5f2d471847d5`.
+- `H02.glb`: head and hair attached to Head; SHA-256 `efe33ead4bb0029ae159a7b42f446fb2ef427518701cd284bcf08c9f6ef41d35`.
 - `hair-H02.glb`: separate Head-bound hair; SHA-256 `5e36d5ab54e04ffa9fb398759d55c1cb8dcd3972a2193597c30fbc064cc8edae`.
-- `canonical-face-layout.json`, `canonical-face-mask.png`, `sample-face.png`: reusable UV layout, feathered mask and deterministic fictional diagnostic image. Head material slot 1 is `face_surface`; this slot index refers to the Blender head mesh, not a global GLB material index.
+- `canonical-face-layout.json`, `canonical-face-mask.png`, `sample-face.png`: reusable UV layout, feathered mask and the painted fictional default face (see below). Head material slot 1 is `face_surface`; this slot index refers to the Blender head mesh, not a global GLB material index.
 - `front-review.png`, `side-review.png`, `three-quarter-review.png`, `back-review.png`: 320×400 review views.
 
 The original foundation `assets/avatar/catalog-a/foundation/catalog-body.blend` remains unchanged at SHA-256 `43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897`. The body retains its 45,653 source vertices, original order, face topology, weights, rest/bind matrices and 24-bone metre-scale skeleton. The local torso contour changes are intentionally recorded as a new geometry signature. `female_original_vertex_index` preserves the original body index for later coverage work. Existing shared walk/run actions are unchanged, so the full foundation can use shared gait clips. The standalone head/hair exports have no independent gait role.
+
+## Painted default face (2026-10-05)
+
+The diagnostic fixture (tiny eyes, hairline smile, calibration grid) read as a blank
+mannequin next to the reference. `sample-face.png` is now a painted Genmoji-style
+face from `node tools/avatar/paint_catalog_face.mjs --face=H02`, copied from
+`assets/avatar/catalog-a/faces/H02-default.png` by the builder's `--face-image`.
+Large brown irises with highlights, lash line and outer flicks, arched brows,
+soft nose shading, a salmon closed smile and blush stay inside the face region
+and mask. Geometry, hair, body, rig and actions are byte-identical
+(`hair-H02.glb` unchanged); only the head image and the files that embed it changed.
+
+The first painted pass placed the eyes too low and small; raising the eye line
+15 mm and making the eyes 22% taller fixed the tall-forehead look. Eye width is
+bounded by the face material region (about 54° either side of the front), so
+height, not width, carries the larger eye. The previous outputs are kept in
+`history/diagnostic-face/`.
+
+Fresh proof on the new bytes: the comprehensive verifier passes (163 motion and 6
+gesture hair samples with zero pairs, 16-pose export bound, UV corner identity,
+negative permutation rejected), all three material reports pass, and
+`export-validation.json` has zero Khronos errors or warnings. The female
+T02/B01/F01 outfit was rebuilt on this foundation (garments byte-identical) and
+its runner passed all 15 gates fresh; `verify_model_studies.mjs` passed 6
+desktop/phone cases for the foundation, head and outfit.
 
 ## Fresh verification and exact limits
 
@@ -20,7 +45,7 @@ The original foundation `assets/avatar/catalog-a/foundation/catalog-body.blend` 
 - All 163 quarter-frame walk/run samples, including exact clip endpoints, and six rest/head gestures report zero hair/body triangle intersection pairs. These gates cover the naked foundation's hair/neck/shoulder envelope; they do not establish headwear or wardrobe fit.
 - Hair remains rigidly attached to Head within 20µm under the six gestures. Each head/hair vertex has exactly one Head influence. Body weights have at most four influences and maximum sum error `5.21540641784668e-08` against a `1e-6` limit.
 - All 16 rest/walk/run export poses pass bidirectional rendered-vertex comparison. Maximum error is `1.0426554126752308µm`, below the strict 30µm limit. Loose authoring vertices are excluded from this rendered-surface comparison.
-- The face material retains `TEXCOORD_0`; its embedded PNG exactly matches the diagnostic image SHA-256 `0d7981738b65f3bcbff3579c6974766070587fa6705a8720e24417313b6aa929`. Reimport must preserve reciprocal rest-position plus UV corner identity at 30µm position and `1e-6` UV tolerance. Seams admit only UV values present at that same source position. A negative imported-layer UV swap preserves the UV multiset but must fail this correspondence gate, then the original UV data are restored and rechecked.
+- The face material retains `TEXCOORD_0`; its embedded PNG exactly matches the painted face SHA-256 `2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e`. Reimport must preserve reciprocal rest-position plus UV corner identity at 30µm position and `1e-6` UV tolerance. Seams admit only UV values present at that same source position. A negative imported-layer UV swap preserves the UV multiset but must fail this correspondence gate, then the original UV data are restored and rechecked.
 - All three final GLBs pass Khronos validation with zero errors and zero warnings. Retained informational unused-UV notices are 2/1/0 for foundation/head/hair. UVs on untextured skin are harmless for this study and preserve a reusable layout.
 - All three final GLBs pass exported material verification with no `COLOR_0` tint multiplying the intended material color. `export-validation.json` and the three material reports record exact target hashes.
 

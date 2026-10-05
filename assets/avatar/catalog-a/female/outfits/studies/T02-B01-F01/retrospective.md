@@ -131,3 +131,15 @@ switching and broader ordinary app framing need separate acceptance. The bounded
 representative desktop/phone browser cases show the complete female body and footwear;
 refresh their proof on the final exported bytes. No
 canonical or published avatar asset is promoted by this study.
+
+## Painted face rebuild (2026-10-05)
+
+The frozen H02 foundation now embeds a painted default face instead of the
+diagnostic fixture; its geometry, hair, body, rig and actions are byte-identical.
+The capsule was rebuilt with the recorded parameters (`--opening-relief .009
+--back-relief .03 --back-clearance .0045 --controlled-components`): `garments.glb`
+and every garment-only export came out byte-identical, while the files that embed
+the head changed (`outfit.glb` 412b48ef…f23ec9). The full runner passed all 15
+gates fresh, with the same 2.009 micrometre combined bound, and
+`verify_model_studies.mjs` passed the study on desktop and phone. The hood is
+still the shallow technical baseline; the fuller hood remains open.

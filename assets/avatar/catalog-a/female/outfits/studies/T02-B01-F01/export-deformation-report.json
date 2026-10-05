@@ -1,8 +1,8 @@
 {
   "blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.blend",
-  "blend_sha256": "79d3dbb62e64143932bf56d7ba43046dace4123f51c3393f79cdd6e9bb5a914f",
+  "blend_sha256": "f29a90a74d5d4b9842bf2e9e7d8c99388d03a06ea244174dd5a6b6a3ee7c45b1",
   "glb": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.glb",
-  "glb_sha256": "bfb4e2f83310b8aac574b89d59d50d047d280ef4890189db3d322e9c2c1f6002",
+  "glb_sha256": "412b48efee6e0176ae5ea4838f1ed442a99d931eba93339fbe1c227f40f23ec9",
   "checks": [
     {
       "motion": "rest",

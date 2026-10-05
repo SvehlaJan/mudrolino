@@ -247,6 +247,7 @@ def main():
     parser.add_argument('--hair-bottom', type=float, default=1.385)
     parser.add_argument('--hair-radius', type=float, default=.190)
     parser.add_argument('--hair-side-lift', type=float, default=.090)
+    parser.add_argument('--face-image', type=Path, help='Painted canonical-layout face PNG from tools/avatar/paint_catalog_face.mjs; defaults to the generated diagnostic fixture.')
     args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:])
     args.output_dir.mkdir(parents=True, exist_ok=True); args.review_dir.mkdir(parents=True, exist_ok=True)
     bpy.ops.wm.open_mainfile(filepath=str(args.source.resolve()))
@@ -269,13 +270,20 @@ def main():
     for vertex in body.data.vertices: indices.data[vertex.index].value = vertex.index
     skin = material('A female neutral warm skin', SKIN, .82)
     body.data.materials.clear(); body.data.materials.append(skin)
-    texture_path = args.output_dir / 'sample-face.png'; write_face_fixture(texture_path)
+    texture_path = args.output_dir / 'sample-face.png'
+    if args.face_image:
+        texture_path.write_bytes(args.face_image.read_bytes())
+    else:
+        write_face_fixture(texture_path)
     mask_path = args.output_dir / 'canonical-face-mask.png'; write_face_fixture(mask_path, mask=True)
     image = bpy.data.images.load(str(texture_path.resolve()), check_existing=False)
-    image.name = 'H02 canonical diagnostic face'; image.colorspace_settings.name = 'sRGB'; image.pack()
+    image.name = 'H02 painted default face' if args.face_image else 'H02 canonical diagnostic face'
+    image.colorspace_settings.name = 'sRGB'; image.pack()
     head = build_head(arm, skin, image)
     hair = build_hair(arm, args.hair_bottom, args.hair_radius, args.hair_side_lift)
-    layout = {'schema': 'canonical-latlong-face-v1', 'uv_layer': 'canonical_face_uv', 'u': 'theta/(2*pi), seam at positive X', 'v': '1-phi/pi, top=1', 'front_center_uv': [.75, .5], 'front_direction': '-Y', 'face_material': 'face_surface', 'face_material_slot': 1, 'slot_scope': 'H02_head Blender mesh slots, not global GLB material index', 'mask': 'canonical-face-mask.png', 'mask_sha256': digest(mask_path), 'mask_channel': 'alpha', 'diagnostic_image': 'sample-face.png', 'image_sha256': digest(texture_path), 'image_size': [512, 512], 'face_patch_angular_range_radians': [1.20 * math.pi, 1.80 * math.pi], 'contract': 'Local fictional UV/image round-trip fixture only; no selfie generation or identity proof.'}
+    contract = ('Fictional painted default face in the canonical layout; also the UV/image round-trip fixture. No selfie generation or identity proof.'
+                if args.face_image else 'Local fictional UV/image round-trip fixture only; no selfie generation or identity proof.')
+    layout = {'schema': 'canonical-latlong-face-v1', 'uv_layer': 'canonical_face_uv', 'u': 'theta/(2*pi), seam at positive X', 'v': '1-phi/pi, top=1', 'front_center_uv': [.75, .5], 'front_direction': '-Y', 'face_material': 'face_surface', 'face_material_slot': 1, 'slot_scope': 'H02_head Blender mesh slots, not global GLB material index', 'mask': 'canonical-face-mask.png', 'mask_sha256': digest(mask_path), 'mask_channel': 'alpha', 'diagnostic_image': 'sample-face.png', 'image_sha256': digest(texture_path), 'image_size': list(image.size), 'face_patch_angular_range_radians': [1.20 * math.pi, 1.80 * math.pi], 'contract': contract}
     (args.output_dir / 'canonical-face-layout.json').write_text(json.dumps(layout, indent=2) + '\n')
     camera = setup_render(); reset(arm)
     bpy.ops.wm.save_as_mainfile(filepath=str((args.output_dir / 'female-foundation.blend').resolve()))
@@ -284,7 +292,7 @@ def main():
     assert baseline['body_topology'] == current['body_topology']
     assert baseline['body_weights'] == current['body_weights']
     assert baseline['rig'] == current['rig'] and baseline['motion'] == current['motion']
-    report = {'stage': 'isolated female foundation and H02 hair candidate; no wardrobe fit or acceptance', 'source': str(args.source), 'source_sha256': digest(args.source), 'builder_sha256': digest(__file__), 'baseline': baseline, 'current': current, 'unchanged_rig_and_actions': True, 'body_vertices': len(body.data.vertices), 'head_vertices': len(head.data.vertices), 'hair_vertices': len(hair.data.vertices), 'bones': len(arm.data.bones), 'hair_bottom_m': args.hair_bottom, 'hair_radius_m': args.hair_radius, 'hair_side_lift_m': args.hair_side_lift, 'hair_construction': 'continuous rear shell with broad sculpted waves', 'exports': {name: digest(args.output_dir / name) for name in ('female-foundation.glb', 'H02.glb', 'hair-H02.glb')}, 'limitations': ['Average-build contour study; final female silhouette review pending.', 'Diagnostic face texture proves transport only after verification; no personalization endpoint.', 'No female wardrobe, headwear fit, expressions, runtime registration or acceptance.']}
+    report = {'stage': 'isolated female foundation and H02 hair candidate; no wardrobe fit or acceptance', 'source': str(args.source), 'source_sha256': digest(args.source), 'builder_sha256': digest(__file__), 'baseline': baseline, 'current': current, 'unchanged_rig_and_actions': True, 'body_vertices': len(body.data.vertices), 'head_vertices': len(head.data.vertices), 'hair_vertices': len(hair.data.vertices), 'bones': len(arm.data.bones), 'hair_bottom_m': args.hair_bottom, 'hair_radius_m': args.hair_radius, 'hair_side_lift_m': args.hair_side_lift, 'face_image_source': str(args.face_image) if args.face_image else None, 'face_image_sha256': digest(texture_path), 'hair_construction': 'continuous rear shell with broad sculpted waves', 'exports': {name: digest(args.output_dir / name) for name in ('female-foundation.glb', 'H02.glb', 'hair-H02.glb')}, 'limitations': ['Average-build contour study; final female silhouette review pending.', 'Diagnostic face texture proves transport only after verification; no personalization endpoint.', 'No female wardrobe, headwear fit, expressions, runtime registration or acceptance.']}
     (args.output_dir / 'study-report.json').write_text(json.dumps(report, indent=2) + '\n')
     for label, position in [('front', (0, -3, 1.12)), ('side', (3, 0, 1.12)), ('three-quarter', (2, -3, 1.12)), ('back', (0, 3, 1.12))]:
         camera.data.ortho_scale = 2.03; camera.location = position

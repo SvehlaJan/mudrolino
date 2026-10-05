@@ -1,0 +1,27 @@
+{
+  "target": "assets/avatar/catalog-a/H01/style-revisions/painted-face/H01.glb",
+  "sha256": "a3335412a4e0ff52813d499c5a1b69cfdaf8a9d1d53a790d63ae60ebb0dfe119",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "H01 rounded face",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm peach skin.001",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A ear warmth",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A chestnut hair",
+      "colorComponents": 0
+    }
+  ]
+}

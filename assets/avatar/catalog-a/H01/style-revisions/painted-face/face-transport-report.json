@@ -1,0 +1,32 @@
+{
+  "blend": "assets/avatar/catalog-a/H01/style-revisions/painted-face/H01.blend",
+  "blend_sha256": "a8c0756d16f2842a3f2220b260c6711394638117339b4a3559b8146aee1efec0",
+  "glb": "assets/avatar/catalog-a/H01/style-revisions/painted-face/H01.glb",
+  "glb_sha256": "a3335412a4e0ff52813d499c5a1b69cfdaf8a9d1d53a790d63ae60ebb0dfe119",
+  "verifier_sha256": "90071d35d172a721425552eb0f4c7b1fa07c6c76a6e3ee4434e6ea90370aa128",
+  "face_image_sha256": "46ca6e786cce055e8fc98aeab2c81a51b9984073324ee3aa40c2a5657a03d451",
+  "embedded_sha256": "46ca6e786cce055e8fc98aeab2c81a51b9984073324ee3aa40c2a5657a03d451",
+  "face_primitive_count": 1,
+  "reimport_uv_corner_identity": {
+    "passed": true,
+    "position_tolerance_m": 3e-05,
+    "uv_tolerance": 1e-06,
+    "imported_to_source": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "source_to_imported": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "comparison": "reciprocal rest-position + face-corner UV; seam values accepted only at matching positions"
+  },
+  "negative_uv_permutation_probe": {
+    "rejected": true,
+    "uv_multiset_unchanged": true,
+    "restored_passed": true
+  },
+  "failures": [],
+  "status": "passed",
+  "contract_limit": "Fictional painted default face; no real selfie or identity proof."
+}

@@ -2,7 +2,7 @@
   "stage": "isolated female foundation and H02 hair candidate; no wardrobe fit or acceptance",
   "source": "assets/avatar/catalog-a/foundation/catalog-body.blend",
   "source_sha256": "43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897",
-  "builder_sha256": "5130d2f07f5b1daa1bde4f6e032148185e5e40f1d9bc3543ce7de07f9080cf4f",
+  "builder_sha256": "ce589757dd209d47c30bd199324dba04959feb27b188e1604d65fbe878995eaa",
   "baseline": {
     "body_geometry": "b127593ba82a4659033971f4010370429f565d286b8a4e0be6eefbcaa938e0c4",
     "body_topology": "ba8c7ddd66f16b03b3772efee404b0889f20bf471b651a4b60e016a7d77daaab",
@@ -25,10 +25,12 @@
   "hair_bottom_m": 1.385,
   "hair_radius_m": 0.19,
   "hair_side_lift_m": 0.09,
+  "face_image_source": "assets/avatar/catalog-a/faces/H02-default.png",
+  "face_image_sha256": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
   "hair_construction": "continuous rear shell with broad sculpted waves",
   "exports": {
-    "female-foundation.glb": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
-    "H02.glb": "a6204f1e473845111377ee6a251efd71b0d368d3c8723b87d8acb82ac69e776d",
+    "female-foundation.glb": "b964b77934ad743c2b125f3f4e785016fdad77366b94fb6c7a8c5f2d471847d5",
+    "H02.glb": "efe33ead4bb0029ae159a7b42f446fb2ef427518701cd284bcf08c9f6ef41d35",
     "hair-H02.glb": "5e36d5ab54e04ffa9fb398759d55c1cb8dcd3972a2193597c30fbc064cc8edae"
   },
   "limitations": [

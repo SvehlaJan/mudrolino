@@ -1,0 +1,92 @@
+{
+  "source_blend": "assets/avatar/catalog-a/H01/style-revisions/painted-face/H01.blend",
+  "source_sha256": "a8c0756d16f2842a3f2220b260c6711394638117339b4a3559b8146aee1efec0",
+  "status": "passed",
+  "limits": "Khronos structure/material transport only; informational unused-UV notices are retained, not hidden.",
+  "results": [
+    {
+      "file": "H01.glb",
+      "sha256": "a3335412a4e0ff52813d499c5a1b69cfdaf8a9d1d53a790d63ae60ebb0dfe119",
+      "bytes": 2444012,
+      "numErrors": 0,
+      "numWarnings": 0,
+      "numInfos": 3,
+      "numHints": 0,
+      "messages": [
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "file": "outfit.glb",
+      "sha256": "b741ea775a0cb205c7092202dee2c3d21f64088cf30ee00301af7d1f2d53639b",
+      "bytes": 4431692,
+      "numErrors": 0,
+      "numWarnings": 0,
+      "numInfos": 7,
+      "numHints": 0,
+      "messages": [
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/2/primitives/1/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/2/primitives/2/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/2/primitives/3/attributes/TEXCOORD_0"
+        },
+        {
+          "code": "UNUSED_OBJECT",
+          "message": "This object may be unused.",
+          "severity": 2,
+          "pointer": "/meshes/3/primitives/0/attributes/TEXCOORD_0"
+        }
+      ],
+      "truncated": false
+    }
+  ]
+}

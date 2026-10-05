@@ -1,13 +1,13 @@
 {
   "source_blend": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend",
-  "source_sha256": "f140ec1b4aa50c3e928c679773d23e23d16f07f157f63dcad4512c4acda200fc",
+  "source_sha256": "6641df23fb90d451cc8a3f0ef2ef0c98fc23204e6c0930338f7acb1893ee8a58",
   "status": "passed",
   "limits": "Khronos structure/material transport only; retained unused non-face UV informational issues are not hidden.",
   "results": [
     {
       "file": "female-foundation.glb",
-      "sha256": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
-      "bytes": 4373736,
+      "sha256": "b964b77934ad743c2b125f3f4e785016fdad77366b94fb6c7a8c5f2d471847d5",
+      "bytes": 4408064,
       "numErrors": 0,
       "numWarnings": 0,
       "numInfos": 2,
@@ -30,8 +30,8 @@
     },
     {
       "file": "H02.glb",
-      "sha256": "a6204f1e473845111377ee6a251efd71b0d368d3c8723b87d8acb82ac69e776d",
-      "bytes": 1439292,
+      "sha256": "efe33ead4bb0029ae159a7b42f446fb2ef427518701cd284bcf08c9f6ef41d35",
+      "bytes": 1473624,
       "numErrors": 0,
       "numWarnings": 0,
       "numInfos": 1,

@@ -15,14 +15,14 @@
   "mask_sha256": "bff7da0c3e4a94cdc0f09da9443c27ab7fb6edf36f3dfdc2a17180e491a242b6",
   "mask_channel": "alpha",
   "diagnostic_image": "sample-face.png",
-  "image_sha256": "0d7981738b65f3bcbff3579c6974766070587fa6705a8720e24417313b6aa929",
+  "image_sha256": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
   "image_size": [
-    512,
-    512
+    1024,
+    1024
   ],
   "face_patch_angular_range_radians": [
     3.7699111843077517,
     5.654866776461628
   ],
-  "contract": "Local fictional UV/image round-trip fixture only; no selfie generation or identity proof."
+  "contract": "Fictional painted default face in the canonical layout; also the UV/image round-trip fixture. No selfie generation or identity proof."
 }

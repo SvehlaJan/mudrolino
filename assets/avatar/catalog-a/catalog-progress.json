@@ -296,10 +296,10 @@
     "stage": "Isolated face refinement: head motion/reimport and material checks pass; expressions, headwear compatibility and final style pending",
     "retrospective": "H01/style-revisions/reference-a/retrospective.md"
   },
-  "next_work": "Refine the female T02 hood into a fuller recognizable shape, preserving reviewed proportions/H02 and rerunning affected actual-runtime/native fit gates. Continue female wardrobe only after visual review. F02 heel-tab own-shell repair and B03/B04 corrective leakage remain open; selfie generation and headwear compatibility are separate milestones.",
+  "next_work": "Decide head size (reference is 4.5/3.8 heads tall; models 5.3-5.8/4.6-4.8), then rework hair volume for both heads and refit hoods (T02/T04 male, T02 female) and A01. Independently: chunkier footwear soles/toes, bottom details and rib bands per the 2026-10-05 reference audit. F02 heel-tab own-shell and B03/B04 corrective leakage remain open; selfie generation is a separate milestone.",
   "personalization": {
     "contract": "selfie -> generated stylized 2D face texture -> reusable UV-mapped 3D head",
-    "stage": "Separate female H02 UV head and fictional sample face fixture authored; no selfie generation endpoint or real-selfie likeness proof.",
+    "stage": "Both bases have texture-ready heads with painted fictional default faces in the canonical lat-long layout (H02 face patch, H01 whole head). No selfie generation endpoint or real-selfie likeness proof.",
     "workflow": "../../../docs/avatar-workflow.md",
     "head_studies": "fictional style/hair references; no identity-specific mesh generation required",
     "texture_fixture": "female/foundation/studies/h02-envelope/canonical-face-layout.json"
@@ -335,7 +335,7 @@
       "model": "H02.glb",
       "kind": "head",
       "base": "female",
-      "stage": "Reusable UV head with fictional local face texture and separate H02 hair. Neutral atlas transport fixture; likeness, expressions and final style pending.",
+      "stage": "Reusable UV head with a painted fictional default face (paint_catalog_face.mjs --face=H02) and separate H02 hair. Transport, hair clearance and export proof refreshed 2026-10-05; hair shape, head size, likeness, expressions and final style pending.",
       "reference_ids": [
         "H02"
       ],
@@ -388,11 +388,48 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
+    },
+    {
+      "id": "h01-painted-face-head",
+      "label": "H01 · Painted-face head study",
+      "path": "H01/style-revisions/painted-face",
+      "model": "H01.glb",
+      "kind": "head",
+      "base": "male",
+      "stage": "Texture-ready H01: painted eyes, brows, lips and full short beard on a lat-long UV head; reference-A ears, nose and hair. Rigidity/reimport, UV/image transport, 163-pose T05 clearance, materials, Khronos and desktop/phone playback pass. Head size, hair volume, expressions and headwear pending.",
+      "reference_ids": [
+        "H01"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_head_texture_study.py"
+    },
+    {
+      "id": "study-h01-painted-face",
+      "label": "H01 painted face + T05 / B01 / F04 study",
+      "path": "H01/style-revisions/painted-face",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Painted-face H01 on the unchanged T05/B01/F04 loop-compression outfit; body, rig, garments and gaits exact. Same proof as the head study. Style acceptance pending.",
+      "reference_ids": [
+        "H01",
+        "T05",
+        "B01",
+        "F04"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_head_texture_study.py"
     }
   ],
   "F02_corrective_repair_study": {
     "path": "F02/fitting-revisions/independent-keys-repair",
     "summary": "F02/fitting-revisions/independent-keys-repair/study-summary.json",
     "stage": "12-coordinate bounded repair passes side/body/layer/export/runtime; inherited heel-tab own-shell failure retained; canonical F02 unchanged"
-  }
+  },
+  "H01_painted_face_study": {
+    "path": "H01/style-revisions/painted-face",
+    "stage": "Isolated texture-ready head; proof current at H01.blend a8c0756d. Head size, hair, expressions, headwear and final style pending.",
+    "retrospective": "H01/style-revisions/painted-face/retrospective.md",
+    "face_texture": "faces/H01-default.png"
+  },
+  "reference_audit": "../../../docs/audits/2026-10-05-avatar-reference-audit.md"
 }

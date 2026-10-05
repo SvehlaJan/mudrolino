@@ -1,6 +1,6 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-10-05. This is the entry point for both Codex and Claude. Use
+Updated 2026-10-05 (reference audit). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
 
@@ -19,7 +19,8 @@ proof; run fresh checks for later model or code changes.
 The live development gallery is http://127.0.0.1:3004/avatar-preview. Open a card
 for references, model inspection, prompts and source files. The read-only gallery
 refreshes as local asset files change; use Include history for older attempts.
-Use `?asset=female-outfit-T02-B01-F01-study` for the current female capsule.
+Use `?asset=female-outfit-T02-B01-F01-study` for the current female capsule and
+`?asset=study-h01-painted-face` for the painted-face male head.
 Older `?model=...` links resolve through the gallery; `?view=modular` opens the
 gallery too. The old modular/customization UI and pre-catalog male assets have
 been removed. See [viewer controls and checks](avatar-catalog-preview.md).
@@ -213,10 +214,20 @@ it does not prove selfie likeness, a production upload flow or facial expression
 Use its canonical coordinates and mask as the next image-generation output contract.
 The original H01 exports remain unchanged and lack this UV surface.
 
-Next: make the fitted female T02 hood fuller and more recognizable while
-preserving the reviewed proportions/H02 and refreshing affected proof. Repair F02 heel-tab
-own-shell contact and B03/B04 corrective leakage. Keep real-selfie generation,
-expressions, headwear compatibility and final acceptance as separate work.
+Both bases now have painted default faces (2026-10-05). H02's `sample-face.png`
+and the texture-ready H01 study (`H01/style-revisions/painted-face/`, whole-head
+`face_surface`, no modeled eyes/brows/lips or vertex-color beard) come from
+`node tools/avatar/paint_catalog_face.mjs --face=H02|H01`. The painter draws a front
+view in head millimetres and samples it at each texel's surface point; its head
+functions must match the builders' surface formulas. Pass the PNG to the builder
+with `--face-image`. The H01 transport gate is `verify_catalog_head_texture.py`.
+
+Next: follow the order in `docs/audits/2026-10-05-avatar-reference-audit.md`. Head
+size needs a decision first (it reverses the 2026-10-04 "keep proportions"
+choice), then hair volume, hoods (including the fuller female T02 hood) and A01.
+Footwear, bottoms and rib bands are independent. Repair F02 heel-tab own-shell
+contact and B03/B04 corrective leakage. Keep real-selfie generation, expressions,
+headwear compatibility and final acceptance as separate work.
 
 ## Tooling assessment (checked 2026-10-04)
 
