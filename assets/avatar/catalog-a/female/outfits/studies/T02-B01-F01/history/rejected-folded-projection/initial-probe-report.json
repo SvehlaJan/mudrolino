@@ -1,0 +1,515 @@
+{
+  "stage": "isolated female fitting candidate; not accepted",
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.blend",
+  "blend_sha256": "fb64370dd9d7500383120600f2d4d7c2bafd5fe018af32a57925697b31d2b16d",
+  "glb": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.glb",
+  "glb_sha256": "a5989a254ee3c9bcf7d251c80db754c484d6d63a0994b9ab37a400e91bd0484e",
+  "verifier_sha256": "21508cf1bc0c5e22d9cfdae7f3a64e0c6a3b56066538cdfdaee83fba90a69115",
+  "profile": "diagnostic probe",
+  "status": "failed",
+  "failures": [
+    {
+      "gate": "dense_fit_T02",
+      "details": {
+        "samples": 4,
+        "maximum_pairs": 76
+      }
+    },
+    {
+      "gate": "dense_fit_combined",
+      "details": {
+        "samples": 4,
+        "maximum_pairs": 76
+      }
+    },
+    {
+      "gate": "detail_attachment_and_own_shell",
+      "details": [
+        {
+          "piece": "T02",
+          "role": 2,
+          "motion": "rest",
+          "frame": 0,
+          "sewn_max_distance_m": 0.01131691038608551,
+          "free_max_distance_m": 0.011469519697129726,
+          "free_extension_growth_m": 0.0,
+          "own_shell_pairs": 321
+        },
+        {
+          "piece": "F01",
+          "role": 4,
+          "motion": "rest",
+          "frame": 0,
+          "sewn_max_distance_m": 0.005044441670179367,
+          "free_max_distance_m": 0,
+          "free_extension_growth_m": 0,
+          "own_shell_pairs": 1431
+        }
+      ]
+    }
+  ],
+  "corrective_sides": {
+    "keys": [],
+    "drivers": [],
+    "scope": "No targets is an explicit not-applicable result, not corrective fitting proof."
+  },
+  "opening_anatomy": {
+    "removed_faces": 11008,
+    "covered_vertices": 5412,
+    "opening_z": 0.118,
+    "safety_margin_m": 0.004,
+    "maximum_removed_face_z": 0.11399440467357635,
+    "violations": 0
+  },
+  "motion_fit": {
+    "T02": [
+      {
+        "motion": "rest",
+        "frame": 0,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "walk",
+        "frame": 13,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 76
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "run",
+        "frame": 8,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 26
+          }
+        },
+        "layer_pairs": {}
+      }
+    ],
+    "B01": [
+      {
+        "motion": "rest",
+        "frame": 0,
+        "body_head_hair_pairs": {
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "walk",
+        "frame": 13,
+        "body_head_hair_pairs": {
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "body_head_hair_pairs": {
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "run",
+        "frame": 8,
+        "body_head_hair_pairs": {
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      }
+    ],
+    "F01": [
+      {
+        "motion": "rest",
+        "frame": 0,
+        "body_head_hair_pairs": {
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "walk",
+        "frame": 13,
+        "body_head_hair_pairs": {
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "body_head_hair_pairs": {
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      },
+      {
+        "motion": "run",
+        "frame": 8,
+        "body_head_hair_pairs": {
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {}
+      }
+    ],
+    "combined": [
+      {
+        "motion": "rest",
+        "frame": 0,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          },
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          },
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {
+          "T02_pullover_hoodie/B01_straight_trousers": 0,
+          "T02_pullover_hoodie/F01_strap_sneakers": 0,
+          "B01_straight_trousers/F01_strap_sneakers": 0
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 13,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          },
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          },
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {
+          "T02_pullover_hoodie/B01_straight_trousers": 0,
+          "T02_pullover_hoodie/F01_strap_sneakers": 0,
+          "B01_straight_trousers/F01_strap_sneakers": 0
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 76
+          },
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          },
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {
+          "T02_pullover_hoodie/B01_straight_trousers": 0,
+          "T02_pullover_hoodie/F01_strap_sneakers": 0,
+          "B01_straight_trousers/F01_strap_sneakers": 0
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 8,
+        "body_head_hair_pairs": {
+          "T02_pullover_hoodie": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 26
+          },
+          "B01_straight_trousers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          },
+          "F01_strap_sneakers": {
+            "body_underlayer_female": 0,
+            "H02_head": 0,
+            "H02_hair": 0
+          }
+        },
+        "layer_pairs": {
+          "T02_pullover_hoodie/B01_straight_trousers": 0,
+          "T02_pullover_hoodie/F01_strap_sneakers": 0,
+          "B01_straight_trousers/F01_strap_sneakers": 0
+        }
+      }
+    ]
+  },
+  "detail_attachments": {
+    "checks": [
+      {
+        "piece": "T02",
+        "role": 1,
+        "motion": "rest",
+        "frame": 0,
+        "sewn_max_distance_m": 0.00425003981217742,
+        "free_max_distance_m": 0,
+        "free_extension_growth_m": 0,
+        "own_shell_pairs": 0
+      },
+      {
+        "piece": "T02",
+        "role": 2,
+        "motion": "rest",
+        "frame": 0,
+        "sewn_max_distance_m": 0.01131691038608551,
+        "free_max_distance_m": 0.011469519697129726,
+        "free_extension_growth_m": 0.0,
+        "own_shell_pairs": 321
+      },
+      {
+        "piece": "B01",
+        "role": 3,
+        "motion": "rest",
+        "frame": 0,
+        "sewn_max_distance_m": 0.01024841982871294,
+        "free_max_distance_m": 0,
+        "free_extension_growth_m": 0,
+        "own_shell_pairs": 392
+      },
+      {
+        "piece": "F01",
+        "role": 4,
+        "motion": "rest",
+        "frame": 0,
+        "sewn_max_distance_m": 0.005044441670179367,
+        "free_max_distance_m": 0,
+        "free_extension_growth_m": 0,
+        "own_shell_pairs": 1431
+      }
+    ],
+    "anchor_limit_m": 0.012,
+    "free_growth_limit_m": 0.003,
+    "own_shell_scope": "Measured all roles; strict zero for hoodie pocket/hood and sneaker closure, trousers seam embedding reported separately."
+  },
+  "head_gestures": [
+    {
+      "pose": "rest",
+      "body_head_hair_garment_pairs": {
+        "body_underlayer_female": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_head": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_hair": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        }
+      },
+      "rigid_attachment_error_m": {
+        "H02_head": 1.0623610937296748e-07,
+        "H02_hair": 1.080976287167289e-07
+      }
+    },
+    {
+      "pose": "turn-left",
+      "body_head_hair_garment_pairs": {
+        "body_underlayer_female": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_head": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_hair": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        }
+      },
+      "rigid_attachment_error_m": {
+        "H02_head": 1.8793341898365973e-07,
+        "H02_hair": 1.8907453925087333e-07
+      }
+    },
+    {
+      "pose": "turn-right",
+      "body_head_hair_garment_pairs": {
+        "body_underlayer_female": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_head": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_hair": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        }
+      },
+      "rigid_attachment_error_m": {
+        "H02_head": 1.9227695316916615e-07,
+        "H02_hair": 2.0047462056687042e-07
+      }
+    },
+    {
+      "pose": "nod",
+      "body_head_hair_garment_pairs": {
+        "body_underlayer_female": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_head": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_hair": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        }
+      },
+      "rigid_attachment_error_m": {
+        "H02_head": 2.4027400458748785e-07,
+        "H02_hair": 2.403894931808364e-07
+      }
+    },
+    {
+      "pose": "look-up",
+      "body_head_hair_garment_pairs": {
+        "body_underlayer_female": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_head": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_hair": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        }
+      },
+      "rigid_attachment_error_m": {
+        "H02_head": 2.936133816128676e-07,
+        "H02_hair": 2.981163415870451e-07
+      }
+    },
+    {
+      "pose": "tilt",
+      "body_head_hair_garment_pairs": {
+        "body_underlayer_female": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_head": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        },
+        "H02_hair": {
+          "T02_pullover_hoodie": 0,
+          "B01_straight_trousers": 0,
+          "F01_strap_sneakers": 0
+        }
+      },
+      "rigid_attachment_error_m": {
+        "H02_head": 2.669762502188819e-07,
+        "H02_hair": 2.7171645356432305e-07
+      }
+    }
+  ]
+}

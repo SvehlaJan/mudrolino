@@ -1,0 +1,1 @@
+This folded-vertex projection attempt is rejected:76 hoodie/hair pairs at run7.25,321 hood/shell and1431 closure/shell pairs at rest, and crumpled hood appearance. The fixed female source is unchanged. Reports retain historical original path names and byte hashes; they are not current proof. Later controlled construction replaces only garment components.

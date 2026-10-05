@@ -1,0 +1,42 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit.glb",
+  "sha256": "2494a9c1d0010e024e3ba2afd945b73d9ba07bfd2cf399d0520534b2c1b132ec",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A tangerine hoodie fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A tangerine ribbed hems",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A warm orange hood lining",
+      "colorComponents": 0
+    }
+  ]
+}

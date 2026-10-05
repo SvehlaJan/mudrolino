@@ -341,3 +341,36 @@ node tools/avatar/verify_catalog_preview.mjs --outfit=T02-B02-F02-A01 \
 
 Require completed candidate GETs, nonempty canvas and moving walk/run pixels;
 source hashes alone do not establish that the renderer loaded the candidate.
+
+
+## First female T02/B01/F01 capsule
+
+Use the frozen female H02 study, separate per-piece native sources, recomputed
+coverage and the isolated outfit builder. This capsule is not O02. The user kept
+its reviewed proportions; remaining art review does not authorize changing its
+body/head/hair to accommodate clothes. See the study retrospective for exact
+current proof and rejected attempts.
+
+```bash
+python3 tools/avatar/blender_queue.py -- python3 tools/blender/catalog/run_catalog_female_outfit_study.py \
+  --study-dir assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01 \
+  --report-dir artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01
+```
+
+Use `--probe` during bounded iteration. Full proof checks independent source
+equality (including transforms, active modifiers and driver targets), body/head/
+hair/layers, removed-face opening anatomy, sewn/free details and own-shell pairs,
+closed-component topology, head gestures, both head-bearing UV exports, materials
+and actual Three.js skin math. Browser proof remains separate. `--reuse-native`
+requires a current successful structured native report and records reuse explicitly;
+it cannot reuse a failed or stale result. Keep all prior failed evidence in history.
+
+For folded parts that collapse when projected, construct a regular surface first,
+transfer actual underlying cloth skin, then add thickness. Check sneaker closures
+against each other, not only the upper. Face-safe masking must preserve every
+removed incident face at neck, wrist, waist and ankle boundaries.
+
+The source native quaternion curves and actual glTF interpolation differ between
+keys. Keep shared gait bytes unchanged, distinguish their pose sweeps, and compare
+transport using equivalent actual-runtime bone poses; do not loosen the tolerance
+or replace browser interpolation to make proof pass.

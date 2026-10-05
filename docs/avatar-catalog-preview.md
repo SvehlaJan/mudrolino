@@ -81,8 +81,12 @@ gaits, `?asset=female-h02-head-study` for the UV face fixture, and
 shows the bounded F02 repair in its representative outfit. All remain candidates;
 F02 retains its repair-needed label for heel-tab own-shell contact.
 
-`node tools/avatar/verify_model_studies.mjs` checks these four registered models
-on desktop and phone. It completes and hashes actual local model/gait HTTP GETs
+`node tools/avatar/verify_model_studies.mjs` discovers every explicitly registered
+`model_studies` entry and checks it on desktop and phone. Focus a newly changed
+study with `--asset=<registered-id>` (repeat the option for multiple studies).
+An empty inventory or unregistered ID fails before browser work. Reports and
+320px reviews under `artifacts/verification/avatar-catalog/model-studies/` use
+`all`, the selected ID, or a hash for a multi-study selection. It completes and hashes actual local model/gait HTTP GETs
 before fulfilling the page request, then requires parsed models and moving gait
 pixels. This avoids confusing Three.js streamed-loader cleanup with a failed
 asset download. Reports retain both HTTP proof and page transport events.

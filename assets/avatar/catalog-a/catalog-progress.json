@@ -206,7 +206,7 @@
     "F04"
   ],
   "female_phase": {
-    "stage": "Separate female foundation/H02 candidate authored with sampled motion and texture-ready UV fixture; style acceptance, fitted female wardrobe and real-selfie flow pending.",
+    "stage": "Separate foundation/H02 and first T02/B01/F01 technical fitting candidates have source-bound native/actual-runtime proof; user keeps proportions and requests fuller T02 hood next. Full female wardrobe, art, budgets and real-selfie flow remain pending.",
     "style": "same approved palette-A rounded matte Genmoji-like art direction",
     "reference_catalog": "../concepts/2026-10-04/catalog-a-female/gallery.md",
     "foundation": null,
@@ -252,6 +252,25 @@
       "report": "female/foundation/studies/h02-envelope/foundation-verification-report.json",
       "retrospective": "female/foundation/studies/h02-envelope/retrospective.md",
       "stage": "Isolated candidate; no canonical promotion or fitted wardrobe acceptance"
+    },
+    "visual_feedback": {
+      "proportions": {
+        "decision": "Keep the reviewed foundation proportions",
+        "date": "2026-10-04"
+      },
+      "T02_hood": {
+        "decision": "Make the hood fuller and more recognizable",
+        "date": "2026-10-05",
+        "scope": "Next visual pass after this wrap-up; current shallow hood is not visually accepted."
+      }
+    },
+    "outfit_study": {
+      "path": "female/outfits/studies/T02-B01-F01",
+      "report": "female/outfits/studies/T02-B01-F01/fit-verification-report.json",
+      "runtime_report": "female/outfits/studies/T02-B01-F01/runtime-deformation-report.json",
+      "retrospective": "female/outfits/studies/T02-B01-F01/retrospective.md",
+      "combined_error_bound_m": 2.0089994995466926e-06,
+      "stage": "Technical checks pass; current hood art not accepted, fuller recognizable revision requested."
     }
   },
   "corrective_side_audit": "artifacts/verification/avatar-catalog/corrective-side-audit.json",
@@ -277,7 +296,7 @@
     "stage": "Isolated face refinement: head motion/reimport and material checks pass; expressions, headwear compatibility and final style pending",
     "retrospective": "H01/style-revisions/reference-a/retrospective.md"
   },
-  "next_work": "Review female proportions/hair and texture fixture; author/refit one female T02/B01/F01 outfit. Repair F02 heel-tab own-shell contacts, B03/B04 corrective leakage; refresh affected proof. Real-selfie generation and headwear compatibility remain open.",
+  "next_work": "Refine the female T02 hood into a fuller recognizable shape, preserving reviewed proportions/H02 and rerunning affected actual-runtime/native fit gates. Continue female wardrobe only after visual review. F02 heel-tab own-shell repair and B03/B04 corrective leakage remain open; selfie generation and headwear compatibility are separate milestones.",
   "personalization": {
     "contract": "selfie -> generated stylized 2D face texture -> reusable UV-mapped 3D head",
     "stage": "Separate female H02 UV head and fictional sample face fixture authored; no selfie generation endpoint or real-selfie likeness proof.",
@@ -352,6 +371,23 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/repair_catalog_f02_corrective_sides.py"
+    },
+    {
+      "id": "female-outfit-T02-B01-F01-study",
+      "label": "Female T02 / B01 / F01 outfit study",
+      "path": "female/outfits/studies/T02-B01-F01",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Female technical fitting candidate: native and actual glTF sweeps pass 163 poses per piece/outfit and 164 poses per detail; six head gestures, openings, both face UV exports and 16-pose export/Three.js pass (2.009 micrometre combined bound). Reviewed proportions/H02 fixed. User requests a fuller hood next; art, budgets and full wardrobe/slot acceptance pending.",
+      "reference_ids": [
+        "T02",
+        "B01",
+        "F01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
     }
   ],
   "F02_corrective_repair_study": {

@@ -72,6 +72,18 @@ change as code, then verify through CLI and the actual Three.js viewer.
   UV-preserving profile and canonical face fixture for textured heads. Reimport
   proof must match UVs with their rest-position/corner identity, including seams;
   matching a set of UV values alone can miss reassignment to the wrong corners.
+- For a thick folded detail that collapses during surface projection, construct
+  an ordered surface first, transfer actual underlying garment weights, then add
+  thickness. Keep explicit detail roles and sewn/free anchor attributes. Attachment
+  distance does not replace zero own-shell intersections.
+- Preserve exposed anatomy by checking every removed incident face at garment
+  openings. Validate independent masters against the assembled mesh, including
+  transforms and active modifier/driver configuration. Textured outfits need UV
+  corner/image proof for runtime-consumed `body.glb` as well as `outfit.glb`.
+- Compare source/export skinning under equivalent bone poses. Blender scalar
+  quaternion interpolation can differ from glTF quaternion SLERP between keys.
+  Preserve canonical motion bytes, report that difference separately, and fit
+  the actual runtime poses as well as the saved Blender actions.
 - Check hair against dense gait and six head gestures, then review its complete
   silhouette. Preserve rejected geometry and source-bound reports.
 

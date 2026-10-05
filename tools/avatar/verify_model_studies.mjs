@@ -6,15 +6,26 @@ import { chromium } from 'playwright';
 import { expect } from '@playwright/test';
 import sharp from 'sharp';
 import { buildIdentity } from '../verification/identity.mjs';
+import { selectCatalogStudyIds } from './catalogStudySelection.mjs';
 
 const base = process.env.CATALOG_PREVIEW_URL || 'http://127.0.0.1:3004';
-const output = 'artifacts/verification/avatar-catalog/model-studies';
-const ids = ['female-foundation-h02-study', 'female-h02-head-study', 'female-h02-hair-study', 'study-f02-independent-keys'];
+const requested = process.argv.slice(2).filter(arg => arg.startsWith('--asset=')).map(arg => arg.slice(8));
+const progress = JSON.parse(fs.readFileSync('assets/avatar/catalog-a/catalog-progress.json', 'utf8'));
+const ids = selectCatalogStudyIds(progress, requested);
+const registrations = new Map(progress.model_studies.map(study => [study.id, study]));
+const batch = !requested.length ? 'all' : ids.length === 1 ? ids[0] : 'selection-' + crypto.createHash('sha256').update(ids.join('\n')).digest('hex').slice(0,12);
+const output = 'artifacts/verification/avatar-catalog/model-studies/' + batch;
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 fs.mkdirSync(output, { recursive: true });
-const browser = await chromium.launch({ headless: true, args: ['--enable-unsafe-swiftshader', '--use-gl=angle'] });
 const results = [];
+const report = {status:'running', requestedIds:ids, results};
+fs.writeFileSync(`${output}/report.json`, JSON.stringify(report, null, 2));
+let browser;
+let failure;
 try {
+  report.verifierSha256 = hash(fs.readFileSync(new URL(import.meta.url)));
+  report.identity = buildIdentity('development');
+  browser = await chromium.launch({ headless: true, args: ['--enable-unsafe-swiftshader', '--use-gl=angle'] });
   for (const [name, viewport] of [['desktop', {width:1280,height:900}], ['phone', {width:390,height:844}]]) {
     for (const id of ids) {
       const context = await browser.newContext({ viewport });
@@ -42,8 +53,8 @@ try {
       const manifest = await (await context.request.get(`${base}/__avatar_catalog/library.json`)).json();
       const asset = manifest.assets.find(asset => asset.id === id);
       assert(asset?.model && asset.references.length > 0 && asset.sources.length > 0, `Registered study: ${id}`);
-      assert.equal(asset.accepted, false); assert.equal(asset.fitVerified, false); assert.equal(asset.history, false);
-      assert.equal(asset.status, id.startsWith('study-f02') ? 'repair-needed' : 'candidate');
+      assert.equal(asset.accepted, false); assert.equal(asset.fitVerified, false); assert.equal(asset.history, registrations.get(id).history === true);
+      assert.equal(asset.status, registrations.get(id).repair_needed === true ? 'repair-needed' : 'candidate');
       const relative = decodeURIComponent(new URL(asset.model.modelUrl, base).pathname.replace('/__avatar_catalog/files/', ''));
       const sourceHash = hash(fs.readFileSync(path.resolve(relative)));
       await page.goto(`${base}/avatar-preview?asset=${encodeURIComponent(id)}`);
@@ -97,8 +108,13 @@ try {
       await context.close();
     }
   }
+} catch (error) {
+  failure = error;
+  report.error = String(error);
+  throw error;
 } finally {
-  await browser.close();
-  fs.writeFileSync(`${output}/report.json`, JSON.stringify({identity:buildIdentity('development'), results}, null, 2));
+  try { await browser?.close(); } catch (error) { failure ??= error; report.error ??= String(error); process.exitCode = 1; }
+  report.status = !failure && results.length === ids.length * 2 ? 'passed' : 'failed';
+  fs.writeFileSync(`${output}/report.json`, JSON.stringify(report, null, 2));
 }
 console.log(JSON.stringify({cases:results.length,output}));

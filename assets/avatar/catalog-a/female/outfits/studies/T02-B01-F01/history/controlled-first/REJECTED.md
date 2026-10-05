@@ -1,0 +1,1 @@
+Controlled first attempt retained. Full native failed T02 pocket own-shell (257 pairs at run15.25); runtime failed 195.168 micrometres combined error and 15 unmatched samples at run1. All body/head/hair/layer dense contacts cleared, six head gestures cleared, and 16 native export samples were within 1.106 micrometres. Not accepted.

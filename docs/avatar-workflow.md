@@ -296,3 +296,108 @@ pure verifiers, audio inventory, 472 browser checks, production build and bundle
 boundaries. Report: `artifacts/verification/2026-10-04T20-43-49-878Z-integration.json`.
 Dedicated gallery desktop/phone and all eight model-study cases passed on current
 model bytes. No release profile or deployment was run.
+
+
+## First female outfit continuation
+
+The user chose to keep the reviewed female proportions and fit T02/B01/F01 next.
+The isolated source is `assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/`;
+inspect `?asset=female-outfit-T02-B01-F01-study`. This orange hoodie/navy trouser/
+one-strap sneaker capsule is a technical combination, not reference O02. Keep
+canonical masters and the frozen H02 foundation separate. Final status and exact
+proof pointers are in `catalog-progress.json` and the study retrospective.
+
+Input decision: preserve the reviewed female proportions and fixed H02. This
+T02/B01/F01 capsule uses approved category construction; it is not reference O02.
+
+The untouched garment probe exposed two real issues: T02 collided with H02 hair
+(up to 717 pairs in run 7.25), and incident-face-safe F01 masking exposed roughly
+194 opening-adjacent body pairs that the older vertex mask hid. Preserve the
+114mm face-safe cutoff below the 118mm opening; change the shell/closure instead
+of erasing visible ankle anatomy. B01 and initial garment layers were clear in
+the diagnostic poses, requiring fresh complete proof rather than a refit claim.
+
+Projecting the existing thick, folded hood onto the shirt reduced contacts but
+crumpled its topology. The projected closure also crossed its shoe shell. Fit
+sampled points on a new parameterized surface first, then add controlled
+thickness and transfer actual cloth weights. Keep sewn anchors distinct from
+intentional free portions. Role attributes make joined pocket/hood/tongue/strap
+checks reproducible without changing approved material colors.
+
+The fixed naked body/hair regression samples remained clear. The minimum
+bidirectional vertex-to-surface distance was 11.703mm at run 7.25; it is an upper
+bound on the true triangle minimum, not guaranteed clearance. Remaining contacts
+were exclusively in a narrow central hood region after the shirt-back relief.
+This supports testing a thinner controlled hood, without changing the chosen
+hair or body geometry/binding.
+
+Source preservation alone is insufficient proof: check independently saved piece
+masters against assembled counterparts; validate face UV/image transport in the
+runtime-consumed body.glb as well as outfit.glb; guard all removed-face openings;
+and bind the combined runtime error to a current passing deformation report.
+
+The first complete controlled-component sweep also exposed front-pocket own-shell
+contacts that a four-pose probe missed. Require complete detail sweeps before
+counting fit. The new runner overwrites previous success with running state,
+validates structured native proof and binds reuse to source/verifier hashes and
+exact sample inventories. A skipped runtime is not a pass.
+
+Blender LINEAR scalar quaternion curves normalize component interpolation;
+glTF LINEAR quaternion tracks use SLERP in Three.js. At intermediate samples the
+same saved keys differed by up to 191.39 micrometres at a bone position. This was
+an inherited animation-evaluation difference, not justification to change the
+30 micrometre transport tolerance. Preserve native-action fit and actual-runtime
+pose fit separately, and compare exported skinning under equivalent poses.
+
+For a new model browser proof, use
+`node tools/avatar/verify_model_studies.mjs --asset=<registered-id>`. It discovers
+registered studies instead of maintaining a hard-coded list, rejects duplicates
+and follows explicit repair/history metadata. Scope reports to the changed study
+and retain proof for unchanged source bytes.
+
+User feedback on 2026-10-05: **make the female T02 hood fuller and more
+recognizable in the next visual pass**. The current shallow hood remains a
+technical baseline, not accepted art. Keep the reviewed body/head/hair fixed;
+shape a fuller lower bowl/opening using the controlled surface helper and rerun
+all affected fit/detail/native/runtime gates. Do not restore the rejected folded
+projection or trade exposed anatomy for clearance.
+
+
+### First outfit technical result
+
+Fresh final model runner passed **15/15 gates**. Both the saved native actions
+and actual glTF pose profiles have 163 samples for each independent piece and
+the combined outfit, plus 164 samples for each detail role. Strict body/head/
+hair/layer/pocket/hood/closure contacts are zero; B01's intentional embedded seam
+is reported separately (940 native / 939 runtime pairs). Six head gestures,
+removed-face openings and both fictional-face UV/image exports pass. Sixteen
+equivalent source/export/Three.js poses have a combined 2.009 micrometre bound
+under the unchanged 30 micrometre threshold; all 12 GLBs/material checks pass.
+
+The final report captures 49 catalog Python helpers and 62 dependencies, checking
+unchanged helper bytes at completion. Reuse requires that exact current inventory.
+The final sweep was **fresh**, not a reused interim result. Reports:
+`assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/`; aggregate runner:
+`artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/runner-report.json`.
+
+Fresh `npm run verify:edit -- --force` selected integration and passed zero-error
+lint (known ContentContext warning), 161 unit tests, all pure verifiers, audio
+inventory, 472 browser tests, production build and bundle boundaries. Report:
+`artifacts/verification/2026-10-05T04-58-55-291Z-integration.json`. This is not a
+release profile or deployment; the technical study does not accept the shallow
+hood, implement a real selfie endpoint or promote canonical assets.
+
+
+Final browser refresh on the final candidate bytes passed two scoped study cases
+(desktop/phone), four production-candidate cases (rest/walk/run/phone run), and
+both live-gallery cases with 102 current assets. Candidate GET hashes match
+`outfit.glb` bfb4e2f83310b8aac574b89d59d50d047d280ef4890189db3d322e9c2c1f6002;
+the production fixture independently binds `body.glb` and `garments.glb` hashes.
+No unexpected console errors or failed requests were reported. Review copies
+were inspected at 320px width. Reports: `artifacts/verification/avatar-catalog/
+model-studies/female-outfit-T02-B01-F01-study/report.json`,
+`female-outfits/T02-B01-F01/browser/browser-report.json`, and
+`gallery/report.json` beneath the same avatar-catalog report root. The production
+fixture replaces the body and a combined garment slot for rendering proof;
+per-piece female production slot mapping remains open. The first refresh attempt
+found stopped local servers; both were restarted before these fresh passing runs.

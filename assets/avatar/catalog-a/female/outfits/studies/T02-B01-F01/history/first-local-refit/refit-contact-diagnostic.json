@@ -1,0 +1,142 @@
+[
+  {
+    "pose": "rest",
+    "object": "T02_pullover_hoodie",
+    "pairs": 0,
+    "roles": {},
+    "materials": {},
+    "rest_bounds": []
+  },
+  {
+    "pose": "rest",
+    "object": "F01_strap_sneakers",
+    "pairs": 86,
+    "roles": {
+      "4": 28
+    },
+    "materials": {
+      "A ivory sneaker upper": 25,
+      "A cornflower sneaker panels": 3
+    },
+    "rest_bounds": [
+      [
+        -0.1766006201505661,
+        0.17659154534339905
+      ],
+      [
+        -0.016902554780244827,
+        0.008397105149924755
+      ],
+      [
+        0.10870996117591858,
+        0.11499999463558197
+      ]
+    ]
+  },
+  {
+    "pose": "run",
+    "object": "T02_pullover_hoodie",
+    "pairs": 657,
+    "roles": {
+      "2": 283,
+      "0": 17
+    },
+    "materials": {
+      "A tangerine hoodie fabric": 157,
+      "A warm orange hood lining": 143
+    },
+    "rest_bounds": [
+      [
+        -0.11043386906385422,
+        0.11057793349027634
+      ],
+      [
+        0.12564466893672943,
+        0.16970835626125336
+      ],
+      [
+        1.28164803981781,
+        1.4046542644500732
+      ]
+    ]
+  },
+  {
+    "pose": "run",
+    "object": "F01_strap_sneakers",
+    "pairs": 82,
+    "roles": {
+      "4": 24
+    },
+    "materials": {
+      "A ivory sneaker upper": 21,
+      "A cornflower sneaker panels": 3
+    },
+    "rest_bounds": [
+      [
+        -0.1766006201505661,
+        0.17659154534339905
+      ],
+      [
+        -0.01181742362678051,
+        0.008397105149924755
+      ],
+      [
+        0.10948527604341507,
+        0.11499999463558197
+      ]
+    ]
+  },
+  {
+    "pose": "look-up",
+    "object": "T02_pullover_hoodie",
+    "pairs": 194,
+    "roles": {
+      "0": 2,
+      "2": 78
+    },
+    "materials": {
+      "A tangerine hoodie fabric": 50,
+      "A warm orange hood lining": 30
+    },
+    "rest_bounds": [
+      [
+        -0.03954225778579712,
+        0.039531249552965164
+      ],
+      [
+        0.14908745884895325,
+        0.16970835626125336
+      ],
+      [
+        1.3256394863128662,
+        1.3930344581604004
+      ]
+    ]
+  },
+  {
+    "pose": "look-up",
+    "object": "F01_strap_sneakers",
+    "pairs": 86,
+    "roles": {
+      "4": 28
+    },
+    "materials": {
+      "A ivory sneaker upper": 25,
+      "A cornflower sneaker panels": 3
+    },
+    "rest_bounds": [
+      [
+        -0.1766006201505661,
+        0.17659154534339905
+      ],
+      [
+        -0.016902554780244827,
+        0.008397105149924755
+      ],
+      [
+        0.10870996117591858,
+        0.11499999463558197
+      ]
+    ]
+  }
+]

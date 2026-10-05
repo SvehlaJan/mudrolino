@@ -1,0 +1,413 @@
+{
+  "status": "passed",
+  "source_blend_sha256": "9a9de2f7bf58f984ae8a65ce16e71eabb3f0c8bbc3700062e037f65a164497ed",
+  "checks": [
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/body.glb",
+      "sha256": "88c9307e3b5c1dad8b2d1ee2712031a20f0cb87fccee3fdec57b9a9fd28c104a",
+      "bytes": 1899720,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 2,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/garments.glb",
+      "sha256": "7f75e509968ae5a4296ad5900ff7aca2e49416afe5b6f225657e9501bbfaebce",
+      "bytes": 1650340,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 6,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/1/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/2/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/3/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.glb",
+      "sha256": "9499ac91f65c559a95f0a3876752e55363a251c35114555304bfaa013bece82e",
+      "bytes": 3541828,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 8,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/1/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/2/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/3/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/3/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/4/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/body.glb",
+      "sha256": "5074b64805a7e9033aadcc0de3abdc74dcd494f811ab86732de74671d86a1c16",
+      "bytes": 3289836,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 2,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/garments.glb",
+      "sha256": "33e63429da1979e726b963ed1438fa2bc5d5a4997f98bbef7549fb7d370b12f2",
+      "bytes": 401100,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit.glb",
+      "sha256": "2494a9c1d0010e024e3ba2afd945b73d9ba07bfd2cf399d0520534b2c1b132ec",
+      "bytes": 3682716,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 2,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/body.glb",
+      "sha256": "79433e784fa0cb99a9b6e15c0f6ced1e5bb4f6a08751c3361493cb3f78cc3eca",
+      "bytes": 3313408,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 2,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/garments.glb",
+      "sha256": "4fe1d879fbdf6d4fa5483c676e2b902dd8aa0ddcb4c1dd703e16186ffb88bbf6",
+      "bytes": 633520,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 2,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/outfit.glb",
+      "sha256": "1e3a25886ef3bc33c40148fe183f57a81e08ca4174997c1e905fe10a4cf8ecc5",
+      "bytes": 3938696,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 4,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/3/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/body.glb",
+      "sha256": "d3927588763d3cd9e8209836c534cd9ddd52c0288377fac12fc35d6b007dd334",
+      "bytes": 4026256,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 2,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/garments.glb",
+      "sha256": "947eae445243de8d30f1e7b97dbfd07d19164e5b391b17913af54ed5a9687fa8",
+      "bytes": 632152,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 4,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/outfit.glb",
+      "sha256": "7a69d4168007593695571350e62e56d0ff51ad955e76f15a8bcf89ba8677101f",
+      "bytes": 4650176,
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 6,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/3/primitives/0/attributes/TEXCOORD_0"
+          }
+        ],
+        "truncated": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "stage": "isolated candidate; acceptance remains separate",
+  "profile": "probe",
+  "status": "passed",
+  "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.blend",
+  "source_sha256": "9a9de2f7bf58f984ae8a65ce16e71eabb3f0c8bbc3700062e037f65a164497ed",
+  "outfit_glb_sha256": "9499ac91f65c559a95f0a3876752e55363a251c35114555304bfaa013bece82e",
+  "runner_sha256": "db8f05a8dcf3a54e1c57092da0089f586c4f010ec4e651ea335fff71d65d2f53",
+  "gates": [
+    {
+      "gate": "native-probe",
+      "command": [
+        "python3",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_female_outfit_study.py",
+        "--study-dir",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01",
+        "--probe"
+      ],
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfits/T02-B01-F01/native-probe.log"
+    }
+  ]
+}
