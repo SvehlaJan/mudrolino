@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-10-04T14:46:27.111Z",
+  "results": [
+    {
+      "width": 736,
+      "tab": "Face",
+      "imagesLoaded": 3,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 736,
+      "tab": "Profile",
+      "imagesLoaded": 3,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 736,
+      "tab": "Outfit",
+      "imagesLoaded": 3,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "tab": "Face",
+      "imagesLoaded": 3,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "tab": "Profile",
+      "imagesLoaded": 3,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "tab": "Outfit",
+      "imagesLoaded": 3,
+      "horizontalOverflow": false
+    }
+  ]
+}

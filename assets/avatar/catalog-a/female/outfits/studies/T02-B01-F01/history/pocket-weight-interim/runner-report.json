@@ -1,0 +1,231 @@
+{
+  "stage": "isolated candidate; acceptance remains separate",
+  "profile": "complete native/export/material/Three.js skin math; browser separate",
+  "status": "failed",
+  "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.blend",
+  "source_sha256": "79d3dbb62e64143932bf56d7ba43046dace4123f51c3393f79cdd6e9bb5a914f",
+  "outfit_glb_sha256": "bfb4e2f83310b8aac574b89d59d50d047d280ef4890189db3d322e9c2c1f6002",
+  "runner_sha256": "d926bb1265cbc392163cca31235592372360d4a49681fa464caf099482039d4c",
+  "gates": [
+    {
+      "gate": "native-complete",
+      "command": [
+        "python3",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_female_outfit_study.py",
+        "--study-dir",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01"
+      ],
+      "execution": "fresh",
+      "status": "failed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/native-complete.log",
+      "reason": "Native dependency inventory mismatch",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/fit-verification-report.json"
+    },
+    {
+      "gate": "explicit-export-validation",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_catalog_female_outfit_exports.mjs",
+        "--study-dir=assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/explicit-export-validation.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/export-validation.json",
+      "report_sha256": "8a3a08eab26473e5202f51971e5ff773a8b45a148f8f46c526a463b033f72b88"
+    },
+    {
+      "gate": "material-combined-body",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/body.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/body-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-combined-body.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/body-material-report.json",
+      "report_sha256": "bd5f62c0a5b5cb52d31938a5ddb834be76ad126ebfd1e228575b45cb199e9e21"
+    },
+    {
+      "gate": "material-combined-garments",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/garments.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/garments-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-combined-garments.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/garments-material-report.json",
+      "report_sha256": "5fbadfa761efdac9f25d428e5857ada43606cb8534c4f3d89608bfb11a948ee1"
+    },
+    {
+      "gate": "material-combined-outfit",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-combined-outfit.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit-material-report.json",
+      "report_sha256": "d7430ad873bfb46dfb986ffe2c87e8869b69e7be55951c008466972180d802bd"
+    },
+    {
+      "gate": "material-T02-body",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/body.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/body-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-T02-body.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/body-material-report.json",
+      "report_sha256": "e21fab36a9c4921a3d14d51af4dad0a9c27941d43ce6f22659e7325d46a1ef00"
+    },
+    {
+      "gate": "material-T02-garments",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/garments.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/garments-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-T02-garments.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/garments-material-report.json",
+      "report_sha256": "1cd7c76e7e6ee14ff1c6fce9a69d05d7bc416ed356c930802b638643ac5076c4"
+    },
+    {
+      "gate": "material-T02-outfit",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-T02-outfit.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit-material-report.json",
+      "report_sha256": "07ef02f26af7b8a6fb165a0fc09dc9b86d863e193777b3b2db8053c274722262"
+    },
+    {
+      "gate": "material-B01-body",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/body.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/body-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-B01-body.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/body-material-report.json",
+      "report_sha256": "b2aa933403219f967d04fadb24d55f3c8b0323cf2b3d22bb526e8aede22d421c"
+    },
+    {
+      "gate": "material-B01-garments",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/garments.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/garments-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-B01-garments.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/garments-material-report.json",
+      "report_sha256": "833913bb95f1b32e89299b7d5425f82c79b891957622b971c2e1ff7080c054a0"
+    },
+    {
+      "gate": "material-B01-outfit",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/outfit.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/outfit-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-B01-outfit.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/B01/outfit-material-report.json",
+      "report_sha256": "2b5ba77a755d8d512643f0deffc371b16a1995a79d42e346885205df4a055546"
+    },
+    {
+      "gate": "material-F01-body",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/body.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/body-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-F01-body.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/body-material-report.json",
+      "report_sha256": "519ec3668e7b771d10e10847bfe73cd0454fe86dc3b02889f54dc2dcf3542a40"
+    },
+    {
+      "gate": "material-F01-garments",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/garments.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/garments-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-F01-garments.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/garments-material-report.json",
+      "report_sha256": "e6ae9ee0622f5133a47412d30e371c3a6b7984757d138612e470ced75003651b"
+    },
+    {
+      "gate": "material-F01-outfit",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/outfit.glb",
+        "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/outfit-material-report.json"
+      ],
+      "execution": "fresh",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/material-F01-outfit.log",
+      "report": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/F01/outfit-material-report.json",
+      "report_sha256": "5a0017b4c79ebe3903e34cb1016272d9188db96dddcb0c5b4d190308e2e18ba7"
+    },
+    {
+      "gate": "actual-three-skinning",
+      "status": "skipped",
+      "reason": "No current successful native/export parity",
+      "parity": {
+        "status": "passed",
+        "deformation_report_sha256": "404a684a69fb537444be4c7515d3520d26ae178adf1c12ef100cd85b61f48575",
+        "runtime_samples_sha256": "a97071045c5e21632947b07189cd29e9d37a57161c8d53d9aae880fadd0ee41b"
+      }
+    }
+  ]
+}

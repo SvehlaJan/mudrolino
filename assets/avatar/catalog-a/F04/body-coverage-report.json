@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/F04/F04.blend",
+  "blend_sha256": "0b1cd9c787f5c35ef9241d589aebd58cfe02d5c49739838d49d0fd4ffb1a35fc",
+  "piece": "F04",
+  "body_mesh": "body_underlayer_male",
+  "coverage_group": "covered_F04",
+  "original_body_vertices": 45653,
+  "covered_vertices": 7159,
+  "removed_faces": 14493,
+  "opening_z": 0.185,
+  "margin_m": 0.004,
+  "coverage_boundary_z": 0.181,
+  "maximum_removed_face_z": 0.1809985637664795,
+  "removed_faces_above_boundary": 0,
+  "status": "passed",
+  "scope": "Rest-space opening anatomy preservation; dense animated body/layer fit remains a separate gate."
+}

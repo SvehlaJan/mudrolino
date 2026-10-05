@@ -1,0 +1,48 @@
+{
+  "blend_sha256": "79d3dbb62e64143932bf56d7ba43046dace4123f51c3393f79cdd6e9bb5a914f",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "pairs": 0,
+      "distance_m": 0.00425003981217742
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "pairs": 0,
+      "distance_m": 0.004777062684297562
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "pairs": 0,
+      "distance_m": 0.004743804223835468
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "pairs": 0,
+      "distance_m": 0.004755633883178234
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "pairs": 0,
+      "distance_m": 0.0047945729456841946
+    },
+    {
+      "motion": "run",
+      "frame": 18.75,
+      "pairs": 0,
+      "distance_m": 0.00477707851678133
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "pairs": 0,
+      "distance_m": 0.0042748525738716125
+    }
+  ],
+  "status": "passed"
+}

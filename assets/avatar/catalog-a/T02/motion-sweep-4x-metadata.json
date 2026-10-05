@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/T02/T02.blend",
+  "blend_sha256": "8e020f69b7bc18cf58cee0658215b6c33438297cef38d7576308f7abeb333a35",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T02_pullover_hoodie"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

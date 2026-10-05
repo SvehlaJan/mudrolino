@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/F03/F03.blend",
+  "blend_sha256": "0527cd359f0a628fbe484f8964917cc7d5927810b84d94c0742d5d755b46b588",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "F03_high_tops"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 18,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

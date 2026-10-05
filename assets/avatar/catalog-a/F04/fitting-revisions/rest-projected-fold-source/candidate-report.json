@@ -1,0 +1,65 @@
+{
+  "id": "F04",
+  "status": "authored candidate; complete motion/style/runtime acceptance pending",
+  "source": "assets/avatar/catalog-a/F04/F04.blend",
+  "object": "F04_ankle_boots",
+  "vertices": 8428,
+  "polygons": 8348,
+  "groups": 24,
+  "max_influences": 3,
+  "covered_body_vertices": 7159,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    }
+  ],
+  "skinning": {
+    "minimum_exported_influence": 0.0001,
+    "max_influences": 4,
+    "pruned_vertices": 56,
+    "max_discarded_weight": 9.796411177376285e-05
+  },
+  "review_framing": {
+    "target_z": 0.15,
+    "ortho_scale": 0.67
+  }
+}

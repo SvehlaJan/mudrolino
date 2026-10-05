@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/F04/F04.blend",
+      "blend_sha256": "0b1cd9c787f5c35ef9241d589aebd58cfe02d5c49739838d49d0fd4ffb1a35fc",
+      "keys": [
+        {
+          "object": "F04_ankle_boots",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 39
+        },
+        {
+          "object": "F04_ankle_boots",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 39
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

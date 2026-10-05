@@ -1,0 +1,398 @@
+{
+  "reference_catalog": "../concepts/2026-10-04/catalog-a/gallery.md",
+  "scope": "Phase 1: 20 wearables/accessories, six head/hair studies, shared styled current body/rig. Phase 2: female-character reference catalog, female body/rig and corresponding female-fitted wardrobe/accessory assets with animated-fit and runtime proof.",
+  "accepted_ids": [],
+  "pieces": [
+    {
+      "id": "T01",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "T01/retrospective.md",
+      "motion_proof": "T01/motion-sweep-4x.json"
+    },
+    {
+      "id": "T02",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "T02/retrospective.md",
+      "motion_proof": "T02/motion-sweep-4x.json"
+    },
+    {
+      "id": "T03",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "T03/retrospective.md",
+      "motion_proof": "T03/motion-sweep-4x.json"
+    },
+    {
+      "id": "T04",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "T04/retrospective.md",
+      "motion_proof": "T04/motion-sweep-4x.json",
+      "detail_proof": "T04/detail-fit-report.json"
+    },
+    {
+      "id": "T05",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "T05/retrospective.md",
+      "motion_proof": "T05/motion-sweep-4x.json"
+    },
+    {
+      "id": "T06",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "T06/retrospective.md",
+      "motion_proof": "T06/motion-sweep-4x.json",
+      "detail_proof": "T06/detail-fit-report.json"
+    },
+    {
+      "id": "B01",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "B01/retrospective.md",
+      "motion_proof": "B01/motion-sweep-4x.json"
+    },
+    {
+      "id": "B02",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "B02/retrospective.md",
+      "motion_proof": "B02/motion-sweep-4x.json",
+      "detail_proof": "B02/detail-fit-report.json"
+    },
+    {
+      "id": "B03",
+      "stage": "authored prototype; opposite-side corrective contamination discovered in addition to open body/shoe contacts; repair and fresh fitting proof required",
+      "retrospective": "B03/retrospective.md",
+      "fitting_diagnostics": "B03/motion-sweep-4x-metadata.json",
+      "export_diagnostics": "outfits/T01-B03-F01-A01/export-deformation-report.json",
+      "corrective_diagnostics": "outfits/T01-B03-F01-A01/runtime-corrective-report.json",
+      "rejected_fitting_study": "B03/fitting-revisions/animated-fit-study.json",
+      "fitting_guard_proof": "B03/fitting-revisions/animated-fit-study-monotonic.json"
+    },
+    {
+      "id": "B04",
+      "stage": "previous body/layer fit evidence retained; opposite-side corrective contamination discovered; repair and fresh combination/export/runtime proof required",
+      "retrospective": "B04/retrospective.md",
+      "motion_proof": "B04/motion-sweep-4x.json",
+      "detail_proof": "B04/detail-fit-report.json",
+      "corrective_proof": "outfits/T01-B04-F01-A01/runtime-corrective-report.json"
+    },
+    {
+      "id": "F01",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "F01/retrospective.md",
+      "motion_proof": "F01/motion-sweep-4x.json"
+    },
+    {
+      "id": "F02",
+      "stage": "previous body/layer fit evidence retained; opposite-side corrective contamination discovered; repair and fresh combination/export/runtime proof required",
+      "retrospective": "F02/retrospective.md",
+      "motion_proof": "F02/motion-sweep-4x.json",
+      "detail_proof": "F02/detail-fit-report.json",
+      "corrective_proof": "outfits/T02-B02-F02-A01/runtime-corrective-report.json",
+      "final_art_notes": "Refine collar edge, inspect folded-tab own-shell clearance, and complete shared style/budget/runtime catalog registration."
+    },
+    {
+      "id": "F03",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "F03/retrospective.md",
+      "motion_proof": "F03/motion-sweep-4x.json",
+      "detail_proof": "F03/detail-fit-report.json",
+      "corrective_proof": "outfits/T04-B04-F03-A01/runtime-corrective-report.json",
+      "coverage_proof": "F03/body-coverage-report.json",
+      "coverage_regression": "artifacts/verification/avatar-catalog/F03/coverage-regression/regression-summary.json",
+      "pose_review": "artifacts/verification/avatar-catalog/outfits/T04-B04-F03-A01/deep-kick/pose-review.json"
+    },
+    {
+      "id": "F04",
+      "stage": "authored candidate; independent body/loop/own-shell/side checks pass; intended outfit, export/runtime and final acceptance pending",
+      "retrospective": "F04/retrospective.md",
+      "motion_proof": "F04/motion-sweep-4x.json",
+      "detail_proof": "F04/loop-attachment-fit-report.json",
+      "corrective_side_proof": "F04/corrective-side-report.json",
+      "coverage_proof": "F04/body-coverage-report.json",
+      "corrective_side_regression": "artifacts/verification/avatar-catalog/F04/corrective-side-regression.json"
+    },
+    {
+      "id": "A01",
+      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "retrospective": "A01/retrospective.md",
+      "motion_proof": "A01/motion-sweep-4x.json"
+    },
+    {
+      "id": "A02",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "A03",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "A04",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "A05",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "A06",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "H01",
+      "stage": "candidate; style refinement pending",
+      "retrospective": "H01/retrospective.md"
+    },
+    {
+      "id": "H02",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "H03",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "H04",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "H05",
+      "stage": "not started",
+      "retrospective": null
+    },
+    {
+      "id": "H06",
+      "stage": "not started",
+      "retrospective": null
+    }
+  ],
+  "foundation": "styled H01 candidate; normalized 24-bone rig, explicit four-influence skinning, corrected walk/run; final art/expressions pending",
+  "fit_verified_ids": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "B01",
+    "B02",
+    "F01",
+    "F03",
+    "A01"
+  ],
+  "outfit_proof": "outfits/T04-B04-F03-A01/verification-summary.json",
+  "next_piece": "A02",
+  "outfit_proofs": [
+    "outfits/T01-B01-F01-A01/verification-summary.json",
+    "outfits/T02-B01-F01-A01/verification-summary.json",
+    "outfits/T03-B01-F01-A01/verification-summary.json",
+    "outfits/T04-B01-F01-A01/verification-summary.json",
+    "outfits/T05-B01-F01-A01/verification-summary.json",
+    "outfits/T06-B01-F01-A01/verification-summary.json",
+    "outfits/T01-B02-F01-A01/verification-summary.json",
+    "outfits/T01-B04-F01-A01/verification-summary.json",
+    "outfits/T02-B02-F02-A01/verification-summary.json",
+    "outfits/T04-B04-F03-A01/verification-summary.json"
+  ],
+  "runtime_corrective_integration_report": "artifacts/verification/2026-10-04T03-54-15-350Z-integration.json",
+  "open_deformation_work": [
+    "B03",
+    "B04",
+    "F02",
+    "F04"
+  ],
+  "female_phase": {
+    "stage": "Separate foundation/H02 and first T02/B01/F01 technical fitting candidates have source-bound native/actual-runtime proof; user keeps proportions and requests fuller T02 hood next. Full female wardrobe, art, budgets and real-selfie flow remain pending.",
+    "style": "same approved palette-A rounded matte Genmoji-like art direction",
+    "reference_catalog": "../concepts/2026-10-04/catalog-a-female/gallery.md",
+    "foundation": null,
+    "wardrobe_ids": [
+      "T01",
+      "T02",
+      "T03",
+      "T04",
+      "T05",
+      "T06",
+      "B01",
+      "B02",
+      "B03",
+      "B04",
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "A06"
+    ],
+    "head_reference_candidates": [
+      "H02",
+      "H03",
+      "H05"
+    ],
+    "requirements": [
+      "Generate a consistent female reference catalog with body proportions and worn fit views.",
+      "Author a separate female body/rig and default styled head, using current feminine head studies as references.",
+      "Author or refit each wardrobe/accessory asset to the female base; preserve shared item IDs with per-base fitted sources and exports.",
+      "Write a retrospective after each piece and apply its workflow improvement.",
+      "Verify reference/style/material/budget, openings, attachments, complete animation/body/layer fit, export fidelity and actual runtime switching/framing on the female base."
+    ],
+    "accepted_ids": [],
+    "reference_sheet_count": 4,
+    "reference_manifest": "../concepts/2026-10-04/catalog-a-female/prompts-and-manifest.json",
+    "foundation_study": {
+      "path": "female/foundation/studies/h02-envelope",
+      "report": "female/foundation/studies/h02-envelope/foundation-verification-report.json",
+      "retrospective": "female/foundation/studies/h02-envelope/retrospective.md",
+      "stage": "Isolated candidate; no canonical promotion or fitted wardrobe acceptance"
+    },
+    "visual_feedback": {
+      "proportions": {
+        "decision": "Keep the reviewed foundation proportions",
+        "date": "2026-10-04"
+      },
+      "T02_hood": {
+        "decision": "Make the hood fuller and more recognizable",
+        "date": "2026-10-05",
+        "scope": "Next visual pass after this wrap-up; current shallow hood is not visually accepted."
+      }
+    },
+    "outfit_study": {
+      "path": "female/outfits/studies/T02-B01-F01",
+      "report": "female/outfits/studies/T02-B01-F01/fit-verification-report.json",
+      "runtime_report": "female/outfits/studies/T02-B01-F01/runtime-deformation-report.json",
+      "retrospective": "female/outfits/studies/T02-B01-F01/retrospective.md",
+      "combined_error_bound_m": 2.0089994995466926e-06,
+      "stage": "Technical checks pass; current hood art not accepted, fuller recognizable revision requested."
+    }
+  },
+  "corrective_side_audit": "artifacts/verification/avatar-catalog/corrective-side-audit.json",
+  "outfit_proofs_requiring_corrective_repair": [
+    "outfits/T01-B04-F01-A01/verification-summary.json",
+    "outfits/T04-B04-F03-A01/verification-summary.json",
+    "outfits/T02-B02-F02-A01/verification-summary.json"
+  ],
+  "reference_sheet_count": 16,
+  "B01_fitting_studies": [
+    "B01/fitting-revisions/tall-footwear-study",
+    "B01/fitting-revisions/pull-loop-envelope-study",
+    "B01/fitting-revisions/pull-loop-compression-study"
+  ],
+  "F04_core_outfit_study": {
+    "path": "F04/fitting-revisions/T05-B01-F04-loop-compression-study",
+    "stage": "isolated B01 revision; 163-pose body/layer and side checks pass; 16-pose export/actual Three.js checks pass; canonical promotion, browser and full O05/A02 pending",
+    "export_max_error_m": 5.7396555348532274e-06,
+    "combined_error_bound_m": 7.6228509482001774e-06
+  },
+  "H01_style_study": {
+    "path": "H01/style-revisions/reference-a",
+    "stage": "Isolated face refinement: head motion/reimport and material checks pass; expressions, headwear compatibility and final style pending",
+    "retrospective": "H01/style-revisions/reference-a/retrospective.md"
+  },
+  "next_work": "Refine the female T02 hood into a fuller recognizable shape, preserving reviewed proportions/H02 and rerunning affected actual-runtime/native fit gates. Continue female wardrobe only after visual review. F02 heel-tab own-shell repair and B03/B04 corrective leakage remain open; selfie generation and headwear compatibility are separate milestones.",
+  "personalization": {
+    "contract": "selfie -> generated stylized 2D face texture -> reusable UV-mapped 3D head",
+    "stage": "Separate female H02 UV head and fictional sample face fixture authored; no selfie generation endpoint or real-selfie likeness proof.",
+    "workflow": "../../../docs/avatar-workflow.md",
+    "head_studies": "fictional style/hair references; no identity-specific mesh generation required",
+    "texture_fixture": "female/foundation/studies/h02-envelope/canonical-face-layout.json"
+  },
+  "blender_baseline": {
+    "version": "5.2.2 LTS",
+    "executable": "/Applications/Blender.app/Contents/MacOS/Blender",
+    "fallback": "/Applications/Blender 5.1.1.app/Contents/MacOS/Blender",
+    "upgrade_audit": "../../../docs/audits/2026-10-04-blender-lts-upgrade.md"
+  },
+  "model_studies": [
+    {
+      "id": "female-foundation-h02-study",
+      "label": "Female foundation + H02 hair study",
+      "path": "female/foundation/studies/h02-envelope",
+      "model": "female-foundation.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Separate foundation study: 163 gait poses and six head gestures clear; compatible rig/actions and 16-pose export pass. Canonical UV face fixture; style, fitted wardrobe and real-selfie proof pending.",
+      "reference_ids": [
+        "T01",
+        "B01",
+        "F01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_foundation_study.py"
+    },
+    {
+      "id": "female-h02-head-study",
+      "label": "Female H02 \u00b7 Texture-ready head study",
+      "path": "female/foundation/studies/h02-envelope",
+      "model": "H02.glb",
+      "kind": "head",
+      "base": "female",
+      "stage": "Reusable UV head with fictional local face texture and separate H02 hair. Neutral atlas transport fixture; likeness, expressions and final style pending.",
+      "reference_ids": [
+        "H02"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_female_foundation_study.py"
+    },
+    {
+      "id": "female-h02-hair-study",
+      "label": "Female H02 \u00b7 Continuous rear hair study",
+      "path": "female/foundation/studies/h02-envelope",
+      "model": "hair-H02.glb",
+      "kind": "head",
+      "base": "female",
+      "stage": "Continuous rear hair candidate; sampled 163-pose gait and six-gesture clearance pass. Final visual acceptance and headwear compatibility pending.",
+      "reference_ids": [
+        "H02"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_female_foundation_study.py"
+    },
+    {
+      "id": "study-f02-independent-keys",
+      "label": "F02 \u00b7 Independent corrective-key repair study",
+      "path": "F02/fitting-revisions/independent-keys-repair",
+      "model": "outfit/outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "repair_needed": true,
+      "stage": "Opposite-side key leakage repaired (12 vertices to zero); body/layer, export and production runtime pass. Existing heel-tab own-shell contacts remain (178 triangle pairs at run 12.25); style and footwear framing pending.",
+      "reference_ids": [
+        "F02",
+        "T02",
+        "B02",
+        "A01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/repair_catalog_f02_corrective_sides.py"
+    },
+    {
+      "id": "female-outfit-T02-B01-F01-study",
+      "label": "Female T02 / B01 / F01 outfit study",
+      "path": "female/outfits/studies/T02-B01-F01",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Female technical fitting candidate: native and actual glTF sweeps pass 163 poses per piece/outfit and 164 poses per detail; six head gestures, openings, both face UV exports and 16-pose export/Three.js pass (2.009 micrometre combined bound). Reviewed proportions/H02 fixed. User requests a fuller hood next; art, budgets and full wardrobe/slot acceptance pending.",
+      "reference_ids": [
+        "T02",
+        "B01",
+        "F01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
+    }
+  ],
+  "F02_corrective_repair_study": {
+    "path": "F02/fitting-revisions/independent-keys-repair",
+    "summary": "F02/fitting-revisions/independent-keys-repair/study-summary.json",
+    "stage": "12-coordinate bounded repair passes side/body/layer/export/runtime; inherited heel-tab own-shell failure retained; canonical F02 unchanged"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "source": "assets/avatar/catalog-a/F03/F03.blend",
+  "contact_vertices": 29,
+  "worst": [
+    {
+      "vertex": 8632,
+      "rest_xyz": [
+        -0.11521051079034805,
+        0.11473096162080765,
+        0.1805991679430008
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.9307668805122375,
+        "RightFoot": 0.06923311203718185
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.8882076339328009,
+        "RightFoot": 0.11179233098865285
+      },
+      "max_weight_difference": 0.04255924657943666
+    },
+    {
+      "vertex": 7112,
+      "rest_xyz": [
+        -0.11862976849079132,
+        0.11599031835794449,
+        0.1773659586906433
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.863686203956604,
+        "RightFoot": 0.136313796043396
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.9043897877427645,
+        "RightFoot": 0.09561092975813179
+      },
+      "max_weight_difference": 0.04070358378616046
+    },
+    {
+      "vertex": 7229,
+      "rest_xyz": [
+        -0.13897112011909485,
+        0.12154032289981842,
+        0.18504102528095245
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.8746331334114075,
+        "RightFoot": 0.12536685168743134
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.9097401907221094,
+        "RightFoot": 0.09025977297695542
+      },
+      "max_weight_difference": 0.035107078710475914
+    },
+    {
+      "vertex": 8594,
+      "rest_xyz": [
+        -0.10417371243238449,
+        0.10339207947254181,
+        0.17409181594848633
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.8335126638412476,
+        "RightFoot": 0.16648732125759125
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.8684036997585034,
+        "RightFoot": 0.13159323689746932
+      },
+      "max_weight_difference": 0.034894084360121924
+    },
+    {
+      "vertex": 8227,
+      "rest_xyz": [
+        -0.13897475600242615,
+        0.12152203917503357,
+        0.18446040153503418
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.8746331334114075,
+        "RightFoot": 0.12536685168743134
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.9077571318092854,
+        "RightFoot": 0.09224526067283179
+      },
+      "max_weight_difference": 0.03312399839787794
+    },
+    {
+      "vertex": 7189,
+      "rest_xyz": [
+        -0.13899990916252136,
+        0.12138372659683228,
+        0.18314310908317566
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.8746331334114075,
+        "RightFoot": 0.12536685168743134
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.9034177897629903,
+        "RightFoot": 0.09658224834584717
+      },
+      "max_weight_difference": 0.028784656351582782
+    },
+    {
+      "vertex": 8591,
+      "rest_xyz": [
+        -0.12212283164262772,
+        0.1169155091047287,
+        0.1740729659795761
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.86617112159729,
+        "RightFoot": 0.13382889330387115
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.8883864862349133,
+        "RightFoot": 0.11161214380062345
+      },
+      "max_weight_difference": 0.0222167495032477
+    },
+    {
+      "vertex": 7920,
+      "rest_xyz": [
+        -0.10450050979852676,
+        0.1029156818985939,
+        0.17033396661281586
+      ],
+      "cloth_weights": {
+        "RightLeg": 0.8337273597717285,
+        "RightFoot": 0.16627267003059387
+      },
+      "body_surface_weights": {
+        "RightLeg": 0.8558706243387837,
+        "RightFoot": 0.14412629540220945
+      },
+      "max_weight_difference": 0.022146374628384424
+    }
+  ]
+}

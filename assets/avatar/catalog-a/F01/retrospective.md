@@ -1,0 +1,19 @@
+# F01 — blue/ivory strap sneakers retrospective
+
+Status: authored candidate. Fitting and export evidence are recorded below; final palette-A style/budget acceptance and actual shoes-slot registration remain open.
+
+The reference is F01 in `assets/avatar/concepts/2026-10-04/catalog-a/03-footwear.png`: rounded blue toe/heel panels, ivory side upper, one broad ivory strap and a modest chunky ivory sole. The source is `F01.blend`, with separate `F01.glb` and `body-F01.glb` exports. The pair has 6,184 vertices / 6,076 polygons and at most three normalized influences. Position determines anatomical Left/Right Foot assignment; names never determine the side.
+
+The first loft was too tall and read as ankle footwear. It intersected the trouser cuffs at rest. Lowering the collar restored the reference low-top silhouette. Face-center color thresholds produced stepped panel borders; coherent angular sectors now form broad curved blue/ivory panels. A dense curve collar used thousands of unnecessary vertices: replacing it with an annular loft reduced the pair from 13,524 to 6,184 vertices.
+
+The low opening exposed instep contacts. Diagnostics separated collar/tongue fitting from motion defects: the tongue was too far back/high, the opening was narrow at its front corners, and Foot-only binding disagreed with the ankle's Foot/Leg blend. Moving/lowering the tongue, measuring opening clearance, preserving visible ankle anatomy and borrowing only the nearby ankle region's weights removed the selected-pose body contacts. The toe box/sole still flex between Foot and ToeBase; heel/strap remain controlled rather than acquiring unrelated body weights.
+
+The full outfit exposed two further causes. B01's shin-only cuff rotated differently from the shoe below it; a measured 50% Foot blend at the hem, fading out by z=0.240 m, shares ankle flex without changing the trouser silhouette. The source run also folded a heel into the back of its own trouser leg. A conditional maximum 0.10-radian reduction of deep knee flex moves the heel away; the shared run is baked at quarter-frame sample times. This changes only the two lower-leg quaternion curve sets in addition to the existing arm-spacing correction. Eighty other run curves and 88 walk curves remain byte-for-byte identical; bind pose and duration are retained within float rounding.
+
+Use `motion-sweep-4x.json` for independent full-cycle fitting, and `../outfits/T01-B01-F01-A01/` for combined body/layer fitting and source/export comparison. The actual Three.js preview uses the independently skinned meshes from the assembled garment GLB on desktop and mobile; it is candidate rendering proof, not shoes-slot registration or slot-switching proof.
+
+Apply before the next piece: use low-cost annular geometry for round trims; model panel boundaries in topology; diagnose anatomy/part/pose before changing coverage; check both ankle flex and heel-to-thigh clearance; share the corrected motion foundation with all pieces; copy numeric weight indices before mutating Blender RNA collections. The reviewer now has `--require-clear` and stores a source-hash metadata sidecar, so contact reports can be used as a build gate.
+
+Remaining: final art/reference and geometry-budget review, fitting with the other bottoms/footwear styles, all head/body variants and actual runtime registration. No Meshy generation or spending was used.
+
+Final fitting evidence for this revision: the independent and combined checks each cover 163 walk/run poses with zero body and layer contacts. The combined export agrees with the editable master within 6.07 micrometres across rest and 13 animated poses. Fifteen current GLBs validate with zero errors/warnings/infos/hints, material colors pass, and desktop rest/walk/run plus phone run render without page/console errors or failed GETs. The authoritative hashes and limits are in `../outfits/T01-B01-F01-A01/verification-summary.json`.

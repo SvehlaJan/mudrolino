@@ -1,0 +1,20 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/T02-B02-F02-A01/outfit.blend",
+  "blend_sha256": "f34d03766d7dae44617e5038af8fec262cccc350f28ac9753dff4b6d86c5864d",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T02_pullover_hoodie_outfit",
+    "B02_joggers_outfit",
+    "F02_slip_ons_outfit",
+    "A01_baseball_cap_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 28,
+  "review_width": 320
+}

@@ -1,0 +1,864 @@
+{
+  "source_blend": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend",
+  "source_sha256": "f140ec1b4aa50c3e928c679773d23e23d16f07f157f63dcad4512c4acda200fc",
+  "glb": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb",
+  "glb_sha256": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
+  "verifier_sha256": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
+  "status": "passed",
+  "report_origin": "extract of fresh comprehensive Blender verification; no independent rerun",
+  "comprehensive_report": "foundation-verification-report.json",
+  "comprehensive_report_sha256": "554c417d1c2ea341d947ad0d25f15415f5237205388ec6f1864b4f0d77dc6257",
+  "hair_clearance": {
+    "sample_count": 169,
+    "motion_samples": 163,
+    "gesture_samples": 6,
+    "maximum_pairs": 0,
+    "checks": [
+      {
+        "motion": "walk",
+        "frame": 0.8,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.6,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 0.8,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.25,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.5,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.75,
+        "hair_body_pairs": 0
+      },
+      {
+        "motion": "run",
+        "frame": 16.0,
+        "hair_body_pairs": 0
+      },
+      {
+        "pose": "rest",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 1.080976287167289e-07
+      },
+      {
+        "pose": "turn-left",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 1.8907453925087333e-07
+      },
+      {
+        "pose": "turn-right",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.0047462056687042e-07
+      },
+      {
+        "pose": "nod",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.403894931808364e-07
+      },
+      {
+        "pose": "look-up",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.981163415870451e-07
+      },
+      {
+        "pose": "tilt",
+        "hair_body_pairs": 0,
+        "attachment_error_m": 2.7171645356432305e-07
+      }
+    ]
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "status": "failed",
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.blend",
+  "blend_sha256": "9a9de2f7bf58f984ae8a65ce16e71eabb3f0c8bbc3700062e037f65a164497ed",
+  "glb": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.glb",
+  "glb_sha256": "9499ac91f65c559a95f0a3876752e55363a251c35114555304bfaa013bece82e",
+  "runtime_verifier_sha256": "094838332efefc69a63268a7efe9108451a74194b079a7a1070c4246b81d9d0b",
+  "foundation_sha256": "f140ec1b4aa50c3e928c679773d23e23d16f07f157f63dcad4512c4acda200fc",
+  "runtime_samples_sha256": "c8518b2e54d1e79bd36d5218c30d5d369070dcf08b8b00a44cb96b329c01a11a",
+  "deformation_report_sha256": "b2605b39f75ffd3c96e18fcf1b6012e0630f2c319515c8cdfb0f2d44c8eb4e99",
+  "sampling": "about96 deterministic rendered GLB rest-index vertices per mesh per pose",
+  "axis_conversion": "Blender Z-up (x,y,z) to glTF Y-up (x,z,-y)",
+  "texture_scope": "Node skin math only; synthetic bitmap handle. Actual texture transport and browser rendering are separate gates.",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 4.836378679738584e-7
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 5.156387898645973e-7
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.00003140898153755012
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.0000044365841958624
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.000005205755357806487
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.000011328522899876397
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 7.498474911155744e-7
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 7.562789504094402e-7
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "samples": 583,
+      "unmatched": 15,
+      "max_imported_vertex_error_m": 0.00019406160732511369
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.00003534126975110236
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.00003606861079552801
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 4.831561619170824e-7
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.00004194119406980001
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.000017516755356368026
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 0.00008749941665460196
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "samples": 583,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 6.8544924611719e-7
+    }
+  ],
+  "max_three_import_error_m": 0.00019406160732511369,
+  "source_export_error_m": 0.0000011060035376431188,
+  "combined_error_bound_m": 0.0001951676108627568,
+  "threshold_m": 0.00003,
+  "unmatched_samples": 15,
+  "gait_hashes": {
+    "walk": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "run": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  }
+}

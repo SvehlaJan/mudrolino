@@ -51,7 +51,8 @@ seed, commit/build identity, scene, viewport, errors and failed requests.
 
 ## Repository etiquette
 
-- Work on a branch; never commit to `main`.
+- Work on a branch; never commit to `main` unless the user explicitly requests merging into it.
+- Use the primary checkout by default. Obtain explicit user authorization before creating or using any worktree; never do either silently.
 - Commit messages are `type: imperative summary` (`fix:`, `feat:`, `perf:`, `docs:`, `test:`, `chore:`) with a body explaining why, not what.
 - Update `ROADMAP.md` in the same change when you finish, add, or drop a task, and add a Decisions Log row for a significant choice.
 - Do not open a pull request unless asked.
@@ -94,15 +95,19 @@ component consistency over preserving old one-off spacing, color, or radii.
 ## Environment
 
 `GEMINI_API_KEY` is exposed in `vite.config.ts` (see `.env.example`); `APP_URL`
-is a leftover from the starter template and unused. The avatar is behind
-`VITE_AVATAR_POC_ENABLED`, and the feedback form needs `VITE_WEB3FORMS_KEY`.
+is a leftover from the starter template and unused. The avatar gallery is development-only;
+`VITE_AVATAR_POC_ENABLED` enables its tool-only candidate rendering fixture.
+Product avatar integration awaits accepted catalog assets. The feedback form
+needs `VITE_WEB3FORMS_KEY`.
 
 ## Skills
 
 Detailed workflows are skills rather than always-loaded context: Meshy 3D
 generation in `.claude/skills/meshy-3d-generation/` (mirrored for Cursor in
 `.cursor/skills/`), browser verification and the Blender avatar pipeline in
-`.agents/skills/`. Read the matching skill before doing that kind of work.
+`.agents/skills/`. Read the matching skill before doing that kind of work. For catalog
+models or selfie personalization, start with `docs/avatar-workflow.md`; Claude
+has a skill entry point linking to the same Blender instructions.
 
 One rule is here rather than only in the skill, because it spends real money:
 **Meshy commands cost credits — always summarize the expected cost and wait for

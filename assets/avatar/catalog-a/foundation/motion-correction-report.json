@@ -1,0 +1,52 @@
+{
+  "source": "assets/avatar/catalog-a/H01/H01.blend",
+  "status": "motion candidate; all-frame garment/body verification pending",
+  "motions": {
+    "walk": {
+      "angle_radians": 0.1,
+      "angle_degrees": 5.729577951308233,
+      "max_deep_knee_relief_radians": 0,
+      "changed_bones": [
+        "LeftArm",
+        "RightArm"
+      ],
+      "samples": 51,
+      "frame_range": [
+        0.8000000715255737,
+        25.60000228881836
+      ],
+      "preserved": "all non-corrected quaternion curves; rest rig; root translation policy"
+    },
+    "run": {
+      "angle_radians": 0.4,
+      "angle_degrees": 22.918311805232932,
+      "max_deep_knee_relief_radians": 0.1,
+      "changed_bones": [
+        "LeftArm",
+        "RightArm",
+        "LeftLeg",
+        "RightLeg"
+      ],
+      "samples": 77,
+      "frame_range": [
+        0.8000000715255737,
+        16.0
+      ],
+      "preserved": "all non-corrected quaternion curves; rest rig; root translation policy"
+    }
+  },
+  "skinning": {
+    "body_underlayer_male": {
+      "vertices": 45653,
+      "vertices_pruned_to_four": 22,
+      "max_discarded_weight": 0.0396902933716774,
+      "policy": "four largest normalized influences before fitting and export"
+    },
+    "H01_head": {
+      "vertices": 37560,
+      "vertices_pruned_to_four": 0,
+      "max_discarded_weight": 0,
+      "policy": "four largest normalized influences before fitting and export"
+    }
+  }
+}

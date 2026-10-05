@@ -1,6 +1,11 @@
 # Avatar Clothing Pipeline Notes
 
+> Historical record: the pre-catalog male assets and modular/customization UI were removed on 2026-10-05. Examples below retain prior findings and may reference removed files. For current gallery, modeling and verification commands, use [avatar-workflow.md](avatar-workflow.md).
+
 Date: 2026-05-02
+
+The [2026-10-03 workflow audit](audits/2026-10-03-avatar-workflow.md) records
+measured assets and Blender findings before the catalog replacement.
 
 This document captures the current modular clothing experiment workflow so later
 sessions do not repeat avoidable mistakes.

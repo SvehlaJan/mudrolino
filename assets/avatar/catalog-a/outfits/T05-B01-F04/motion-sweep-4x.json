@@ -1,0 +1,2447 @@
+[
+  {
+    "motion": "walk",
+    "frame": 0.8,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 381
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 385
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 385
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 385
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 383
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 378
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 382
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 376
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 376
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 368
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 358
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 348
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 345
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 345
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 348
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 334
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 329
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 323
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 325
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 325
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 332
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 348
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 353
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 374
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 388
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 431
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 451
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 462
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 478
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 481
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 510
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 528
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 514
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 520
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 518
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 511
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 519
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 490
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 490
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 476
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 460
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 434
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 425
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 405
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 405
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 396
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 394
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 388
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 371
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 363
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 358
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 354
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 337
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 333
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 311
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 299
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 305
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 307
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 309
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 324
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 332
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 336
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 338
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 340
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 340
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 357
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 363
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 368
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 383
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 385
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 383
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 393
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 412
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 431
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 456
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 458
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 460
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 462
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 474
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 476
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 482
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 476
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 502
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 478
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 464
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 454
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 447
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 438
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 428
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 430
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 400
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 399
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 395
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 391
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 399
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 389
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 389
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 383
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 381
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 383
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.6,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 381
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 0.8,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 389
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 438
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 486
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 538
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 564
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 556
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 549
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 545
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 526
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 518
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 511
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 508
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 498
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 503
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 505
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 512
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 526
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 506
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 501
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 496
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 482
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 6.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 454
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 6.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 422
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 6.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 396
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 6.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 412
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 7.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 524
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 7.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 510
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 7.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 442
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 7.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 318
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 8.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 282
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 8.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 337
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 8.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 373
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 8.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 431
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 456
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 484
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 498
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 507
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 499
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 505
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 499
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 495
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 493
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 511
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 528
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 550
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 564
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 569
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 580
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 584
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 566
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 516
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 424
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 371
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 330
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 304
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 288
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 310
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 342
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 357
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 346
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 341
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 16.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T05_crew_sweatshirt_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T05_crew_sweatshirt_outfit/B01_straight_trousers_outfit": 0,
+      "T05_crew_sweatshirt_outfit/F04_ankle_boots_outfit": 0,
+      "B01_straight_trousers_outfit/F04_ankle_boots_outfit": 389
+    }
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "target": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/hair-H02.glb",
+  "sha256": "5e36d5ab54e04ffa9fb398759d55c1cb8dcd3972a2193597c30fbc064cc8edae",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    }
+  ]
+}

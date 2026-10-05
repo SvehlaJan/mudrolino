@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/B02/B02.blend",
+  "blend_sha256": "c96a6f6469f702ed4c94901efd44f8d542c7fc2e01628a2a754b472c99d7964e",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "B02_joggers"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

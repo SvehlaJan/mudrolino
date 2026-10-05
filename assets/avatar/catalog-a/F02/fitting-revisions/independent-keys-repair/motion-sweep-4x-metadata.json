@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+  "blend_sha256": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "F02_slip_ons"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

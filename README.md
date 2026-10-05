@@ -36,7 +36,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `react-router-dom`
 - Lucide React
 - `vite-plugin-pwa`
-- React Three Fiber / Three.js for the avatar preview and companion runtime
+- React Three Fiber / Three.js for the development avatar asset gallery
 
 ## Architecture
 
@@ -52,7 +52,7 @@ Hravé Učenie is a Slovak-language educational web app for preschoolers. It is 
 - `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
 - `src/content/CustomContentScreen.tsx` is the parent-facing local content and recording surface.
 - `src/pwa/` owns the PWA manifest metadata, install/update prompt state, and home-screen PWA control.
-- `src/avatar/` owns the local avatar runtime, preview route, clothing catalog, and avatar persistence. The three.js renderer is lazy-loaded from `AvatarPresenter`, so it stays out of the main bundle.
+- `src/avatar/` owns the development asset gallery and catalog renderer. The old male companion/customization experiment is retired; accepted catalog assets will be integrated into the app later. The three.js renderer is lazy-loaded from `AvatarPresenter`, so it stays out of the main bundle.
 - `src/shared/gameCatalog.tsx` defines every game's id, route, home-screen card, and lobby metadata.
 
 ## UI Component Library

@@ -1,0 +1,118 @@
+{
+  "walk": {
+    "unchanged_curves": 88,
+    "modified_curves": [
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        0
+      ],
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        1
+      ],
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        2
+      ],
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        3
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        0
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        1
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        2
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        3
+      ]
+    ],
+    "frame_range": [
+      0.800000011920929,
+      25.60000228881836
+    ],
+    "max_endpoint_delta_frames": 5.960464477539063e-08
+  },
+  "run": {
+    "unchanged_curves": 80,
+    "modified_curves": [
+      [
+        "pose.bones[\"LeftLeg\"].rotation_quaternion",
+        0
+      ],
+      [
+        "pose.bones[\"LeftLeg\"].rotation_quaternion",
+        1
+      ],
+      [
+        "pose.bones[\"LeftLeg\"].rotation_quaternion",
+        2
+      ],
+      [
+        "pose.bones[\"LeftLeg\"].rotation_quaternion",
+        3
+      ],
+      [
+        "pose.bones[\"RightLeg\"].rotation_quaternion",
+        0
+      ],
+      [
+        "pose.bones[\"RightLeg\"].rotation_quaternion",
+        1
+      ],
+      [
+        "pose.bones[\"RightLeg\"].rotation_quaternion",
+        2
+      ],
+      [
+        "pose.bones[\"RightLeg\"].rotation_quaternion",
+        3
+      ],
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        0
+      ],
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        1
+      ],
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        2
+      ],
+      [
+        "pose.bones[\"LeftArm\"].rotation_quaternion",
+        3
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        0
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        1
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        2
+      ],
+      [
+        "pose.bones[\"RightArm\"].rotation_quaternion",
+        3
+      ]
+    ],
+    "frame_range": [
+      0.800000011920929,
+      16.0
+    ],
+    "max_endpoint_delta_frames": 5.960464477539063e-08
+  }
+}

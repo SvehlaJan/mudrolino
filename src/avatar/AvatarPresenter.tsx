@@ -1,8 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
-import { AvatarExternalAsset } from './avatarAssetResolver';
-import { AVATAR_MODEL_URL } from './avatarConstants';
-import { AvatarBodyShapeConfig, AvatarSceneData } from './avatarTypes';
+import type { AvatarExternalAsset } from './avatarTypes';
+import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
 import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
 /**
@@ -17,7 +16,7 @@ const AvatarScene = lazy(() =>
 interface AvatarPresenterProps {
   className?: string;
   label?: string;
-  modelUrl?: string;
+  modelUrl: string;
   animationUrl?: string;
   animationName?: string | null;
   externalAssets?: AvatarExternalAsset[];
@@ -25,6 +24,7 @@ interface AvatarPresenterProps {
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
   showSkeleton?: boolean;
+  inspection?: AvatarInspectionControls;
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
@@ -35,7 +35,7 @@ interface AvatarPresenterProps {
 export function AvatarPresenter({
   className,
   label = 'Animovaný sprievodca',
-  modelUrl = AVATAR_MODEL_URL,
+  modelUrl,
   animationUrl,
   animationName,
   externalAssets,
@@ -43,6 +43,7 @@ export function AvatarPresenter({
   bodyShape,
   preserveHipsPosition,
   showSkeleton,
+  inspection,
   assetStatusOverride,
   onAnimationsChange,
   onModelReady,
@@ -63,6 +64,7 @@ export function AvatarPresenter({
         bodyShape={bodyShape}
         preserveHipsPosition={preserveHipsPosition}
         showSkeleton={showSkeleton}
+        inspection={inspection}
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
         onSceneData={onSceneData}
@@ -83,6 +85,7 @@ export function AvatarPresenter({
       bodyShape={bodyShape}
       preserveHipsPosition={preserveHipsPosition}
       showSkeleton={showSkeleton}
+        inspection={inspection}
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
       onSceneData={onSceneData}
@@ -93,7 +96,7 @@ export function AvatarPresenter({
 
 function CheckedAvatarPresenter(props: Omit<AvatarPresenterProps, 'assetStatusOverride'>) {
   const assetStatus = useAvatarAssetsAvailability(
-    props.requiredUrls ?? [props.modelUrl ?? AVATAR_MODEL_URL],
+    props.requiredUrls ?? [props.modelUrl],
   );
 
   return <AvatarPresenterContent {...props} assetStatus={assetStatus} />;
@@ -107,13 +110,14 @@ function AvatarPresenterContent({
   assetStatus,
   className,
   label = 'Animovaný sprievodca',
-  modelUrl = AVATAR_MODEL_URL,
+  modelUrl,
   animationUrl,
   animationName,
   externalAssets,
   bodyShape,
   preserveHipsPosition,
   showSkeleton,
+  inspection,
   onAnimationsChange,
   onModelReady,
   onSceneData,
@@ -134,6 +138,7 @@ function AvatarPresenterContent({
             bodyShape={bodyShape}
             preserveHipsPosition={preserveHipsPosition}
             showSkeleton={showSkeleton}
+            inspection={inspection}
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
             onSceneData={onSceneData}

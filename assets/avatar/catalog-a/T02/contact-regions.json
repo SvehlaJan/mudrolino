@@ -1,0 +1,350 @@
+{
+  "blend": "assets/avatar/catalog-a/T02/T02.blend",
+  "garment": "T02_pullover_hoodie",
+  "total_pairs_by_body_bone": {
+    "LeftForeArm": 33,
+    "LeftArm": 30
+  },
+  "contact_vertices": [
+    {
+      "index": 8034,
+      "rest_xyz": [
+        0.25197699666023254,
+        0.09814879298210144,
+        1.058477759361267
+      ],
+      "bone": "LeftArm",
+      "weight": 0.5118339657783508,
+      "frames_in_contact": 5
+    },
+    {
+      "index": 11017,
+      "rest_xyz": [
+        0.24487927556037903,
+        0.08747030794620514,
+        1.0515350103378296
+      ],
+      "bone": "LeftForeArm",
+      "weight": 0.5195725560188293,
+      "frames_in_contact": 5
+    },
+    {
+      "index": 9259,
+      "rest_xyz": [
+        0.2487976998090744,
+        0.09533229470252991,
+        1.0581589937210083
+      ],
+      "bone": "LeftArm",
+      "weight": 0.5229702591896057,
+      "frames_in_contact": 5
+    },
+    {
+      "index": 9707,
+      "rest_xyz": [
+        0.25038158893585205,
+        0.09425616264343262,
+        1.0521302223205566
+      ],
+      "bone": "LeftForeArm",
+      "weight": 0.5389864444732666,
+      "frames_in_contact": 5
+    },
+    {
+      "index": 9712,
+      "rest_xyz": [
+        0.24614867568016052,
+        0.09325636923313141,
+        1.059527039527893
+      ],
+      "bone": "LeftArm",
+      "weight": 0.5468873381614685,
+      "frames_in_contact": 5
+    },
+    {
+      "index": 10550,
+      "rest_xyz": [
+        0.2469901740550995,
+        0.09100671857595444,
+        1.0532095432281494
+      ],
+      "bone": "LeftForeArm",
+      "weight": 0.5170261263847351,
+      "frames_in_contact": 5
+    },
+    {
+      "index": 10551,
+      "rest_xyz": [
+        0.24384669959545135,
+        0.08999325335025787,
+        1.058295488357544
+      ],
+      "bone": "LeftArm",
+      "weight": 0.5471786260604858,
+      "frames_in_contact": 5
+    }
+  ],
+  "frames": [
+    {
+      "motion": "walk",
+      "frame": 1,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 2,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 3,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 4,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 5,
+      "pairs": 9,
+      "dominant_body_bones": {
+        "LeftForeArm": 6,
+        "LeftArm": 3
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6,
+      "pairs": 14,
+      "dominant_body_bones": {
+        "LeftForeArm": 8,
+        "LeftArm": 6
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7,
+      "pairs": 14,
+      "dominant_body_bones": {
+        "LeftForeArm": 8,
+        "LeftArm": 6
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8,
+      "pairs": 14,
+      "dominant_body_bones": {
+        "LeftForeArm": 6,
+        "LeftArm": 8
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9,
+      "pairs": 12,
+      "dominant_body_bones": {
+        "LeftArm": 7,
+        "LeftForeArm": 5
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 11,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 12,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 14,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 15,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 16,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 17,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 18,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 19,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 20,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 21,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 22,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 23,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 24,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "walk",
+      "frame": 25,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 2,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 3,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 4,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 6,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 7,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 9,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 10,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 11,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 12,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 13,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 14,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 15,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "pairs": 0,
+      "dominant_body_bones": {}
+    }
+  ]
+}

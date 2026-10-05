@@ -1,0 +1,19 @@
+{
+  "blend": "assets/avatar/catalog-a/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.blend",
+  "blend_sha256": "b3fe565af52203c3fe769c0315f77aa72c34f9d24e83627865254826eb88ba61",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T05_crew_sweatshirt_outfit",
+    "B01_straight_trousers_outfit",
+    "F04_ankle_boots_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

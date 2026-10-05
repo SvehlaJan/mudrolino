@@ -1,0 +1,27 @@
+{
+  "source": "assets/avatar/catalog-a/outfits/T02-B02-F02-A01/outfit.blend",
+  "sha256": "cffec98d8acdb2fc2be10320d2afb773a46ecfd730315ac2fdb077185c5b0bb2",
+  "checks": [
+    {
+      "frame": 7,
+      "layer_pairs": 0
+    },
+    {
+      "frame": 7.25,
+      "layer_pairs": 0
+    },
+    {
+      "frame": 7.5,
+      "layer_pairs": 0
+    },
+    {
+      "frame": 8,
+      "layer_pairs": 0
+    },
+    {
+      "frame": 13.75,
+      "layer_pairs": 0
+    }
+  ],
+  "scope": "focused failure probe; full independent/outfit proof still required"
+}

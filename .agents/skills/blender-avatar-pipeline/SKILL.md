@@ -1,212 +1,99 @@
 ---
 name: blender-avatar-pipeline
-description: Use when working on the teo-learn 3D avatar in Blender, especially importing Meshy GLBs, running Blender headlessly from the CLI on macOS, cleaning rigs and animations, retargeting or baking clips, and exporting clean animated GLB assets for the React Three Fiber preview and app runtime.
+description: Author, fit, inspect or export teo-learn avatar models in Blender, including catalog clothing, rigged GLBs, motion cleanup and texture-ready heads. Use for Blender CLI or MCP work; ordinary React UI changes use the avatar area rules instead.
 ---
 
-# Blender Avatar Pipeline
+# Blender avatar pipeline
 
-Use Blender CLI directly on this machine:
+Read `docs/avatar-workflow.md` from the repository root first. It gives the shared
+Codex/Claude handoff, active sources, next work and selfie texture contract.
+For catalog authoring or fitting, then read `tools/blender/catalog/README.md`
+and the affected piece's retrospective. Read `catalog-progress.json` for current
+status; historical passing reports can be invalidated by a later audit.
 
-```bash
-'/Applications/Blender.app/Contents/MacOS/Blender'
-```
+## Execute and preserve evidence
 
-Key flags confirmed from the Blender CLI:
-
-- `--background` / `-b`: run headless
-- `--python <file>` / `-P <file>`: run a Python script
-- `--python-expr <expr>`: run a small inline expression
-- `--python-text <name>`: run a text block from a `.blend`
-- `--enable-autoexec` / `-y`: allow scripts and drivers
-- `--addons <names>`: enable add-ons for the session
-
-## Repo context
-
-- Generated Meshy assets live under `public/avatar/meshy/`
-- Raw Meshy task outputs live under `meshy_output/`
-- Runtime avatar entrypoint is `src/avatar/`
-- Default avatar URL is in `src/avatar/avatarConstants.ts`
-
-Current Meshy files of interest:
-
-- `public/avatar/meshy/neutral-parent-rigged.glb`
-- `public/avatar/meshy/neutral-parent-success-cheer-clean.glb`
-- `public/avatar/meshy/neutral-parent-victory-cheer.glb`
-- `public/avatar/meshy/neutral-parent-walking.glb`
-- `public/avatar/meshy/neutral-parent-running.glb`
-
-## Default workflow
-
-1. Use `neutral-parent-rigged.glb` as the base character.
-2. Import a Meshy animation GLB only as motion reference.
-3. In Blender, retarget or copy usable motion onto the base rig.
-4. Bake a clean in-place action.
-5. Export a clean `.glb` from Blender for the app.
-
-Do not treat Meshy’s standalone animated GLBs as runtime-ready final assets. They contain baked transform tracks that are not reliable enough for direct use in this app.
-
-## Current working tools
-
-Use these repo-local Blender scripts before inventing new one-off commands:
-
-- `tools/blender/inspect_avatar_glb.py`: imports a GLB and reports objects, armatures, actions, f-curve counts, and action API shape.
-- `tools/blender/export_clean_avatar_clip.py`: imports the rigged base plus a reference animation GLB, copies matching bone quaternion curves onto the base rig, removes source actions, and exports an active-action-only cleaned GLB.
-
-Example clean cheer export:
+Run from the intended checkout. `npm run avatar:blender -- --version` identifies
+the chosen executable; set `BLENDER_BIN` for a side-by-side installation.
+Use the shared queue for headless work:
 
 ```bash
-'/Applications/Blender.app/Contents/MacOS/Blender' \
-  --background \
-  --factory-startup \
-  --enable-autoexec \
-  --python tools/blender/export_clean_avatar_clip.py \
-  -- \
-  --base public/avatar/meshy/neutral-parent-rigged.glb \
-  --reference public/avatar/meshy/neutral-parent-victory-cheer.glb \
-  --output public/avatar/meshy/neutral-parent-success-cheer-clean.glb \
-  --action-name success_cheer
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py SCRIPT [script arguments]
 ```
 
-## CLI pattern
+Wrap a sequential gate runner once through that queue; see the workflow for
+process ownership and interruption behavior. The CLI uses factory startup and
+propagates Python failures with
+`--python-exit-code 1`. The catalog runners share this executable resolver.
 
-Open a file in the UI:
+Keep construction changes in a saved builder or revision script, `.blend`, GLB,
+retrospective and source-bound reports. Preserve rejected studies that explain
+a failure. A dev-viewer entry or an export-fidelity pass is not final acceptance.
+Parallelize code/review work and serialize Blender import/export jobs through the
+shared queue. If macOS Metal initialization fails
+before Python starts in the Codex sandbox, rerun the same command with escalation.
 
-```bash
-'/Applications/Blender.app/Contents/MacOS/Blender' /absolute/path/to/file.blend
-```
+MCP is optional for live scene inspection and visual edits. Availability depends
+on the client's configured tools; current upstream supports Claude and Codex.
+Use one client to own the live Blender scene at a time, save the construction
+change as code, then verify through CLI and the actual Three.js viewer.
 
-Run a headless automation script:
+## Blender invariants
 
-```bash
-'/Applications/Blender.app/Contents/MacOS/Blender' \
-  --background \
-  --factory-startup \
-  --enable-autoexec \
-  --python /absolute/path/to/script.py \
-  -- /extra/script/args
-```
+- Preserve the shared body topology/original vertex indices, metre scale, bind
+  pose and normalized four-influence weights. Coverage masks use those indices.
+- Assign bilateral attachments by anatomical position: world X >= 0 is character
+  left; X < 0 is right. Imported viewer-perspective object names can be inverted.
+- Create independent corrective keys with `from_mix=False`. Audit saved masters
+  separately: changing a helper leaves their old keys intact. Verify opposite-side
+  isolation first, then own-shell/detail attachment and full independent/outfit
+  motion. Compare a newly found failure against the unchanged canonical source.
+- Select export objects explicitly. Remove stale mesh data with
+  `bpy.ops.outliner.orphans_purge(do_recursive=True)` before export; old mesh data
+  can otherwise survive revisions and contaminate GLB material/surface parity.
+- Clear background objects through `bpy.data.objects.remove(obj, do_unlink=True)`;
+  context-dependent deletion can silently retain them.
+- Imported actions may be layered. Read legacy fcurves or layers/strips/channel
+  bags as appropriate. Assign a new action before writing with
+  `action.fcurve_ensure_for_datablock(...)` and bind its slot:
 
-On this machine, Blender 5.1 can crash inside Codex's default sandbox during Metal backend initialization. If a background Blender command crashes before Python output and the crash log mentions GPU/Metal backend detection, rerun the same Blender command outside the sandbox with escalation instead of debugging the Python script.
-
-Avoid parallel Blender invocations for import/export work; run inspections/exports one at a time unless there is a clear reason.
-
-Enable glTF support explicitly if needed:
-
-```bash
-'/Applications/Blender.app/Contents/MacOS/Blender' \
-  --background \
-  --addons io_scene_gltf2 \
-  --python /absolute/path/to/script.py
-```
-
-## Blender Python expectations
-
-For GLB automation scripts:
-
-- import with `bpy.ops.import_scene.gltf(filepath=...)`
-- export with `bpy.ops.export_scene.gltf(filepath=..., export_format='GLB')`
-- parse script args after Blender's `--` separator; Blender leaves its own CLI flags in `sys.argv`
-- select objects explicitly; do not rely on UI state
-- clear the default scene before importing unless keeping it is intentional — in background mode use `bpy.data.objects.remove(obj, do_unlink=True)` for each object rather than `bpy.ops.object.delete()`, which requires active context and silently fails headlessly
-- before exporting a GLB, call `bpy.ops.outliner.orphans_purge(do_recursive=True)` to remove stale mesh data blocks from previous iterations; orphan data blocks (old mesh versions left over from multiple `obj.data = ...` reassignments) can be silently included in the exported GLB even when not linked to any scene object
-- bake final actions before export when retargeting is involved
-
-Blender 5.1 action API notes:
-
-- Do not assume `action.fcurves` exists. Imported glTF actions may be layered actions using slots, layers, strips, and channel bags.
-- To read f-curves, support both legacy `action.fcurves` and layered `action.layers -> strips -> strip.channelbag(slot).fcurves`.
-- To write f-curves, assign the new action to the target armature first, then use `action.fcurve_ensure_for_datablock(...)`.
-- **After assigning an action, bind its slot or the armature evaluates a static rest pose:**
   ```python
   armature.animation_data.action = action
-  if hasattr(armature.animation_data, "action_slot") and len(action.slots) > 0:
+  if hasattr(armature.animation_data, 'action_slot') and action.slots:
       armature.animation_data.action_slot = action.slots[0]
   ```
-  This is mandatory for all MCP sessions and CLI scripts that import walk/run GLBs.
-- When exporting a cleaned GLB, remove unrelated source actions and use:
-  - `export_animation_mode="ACTIVE_ACTIONS"`
-  - `export_force_sampling=False`
-  - `export_nla_strips=False`
-  - `export_bake_animation=False`
 
-Without those export options, Blender can re-export extra source actions and sample location/scale tracks back into the GLB.
+- For legacy Meshy clip cleanup, remove unrelated source actions and export with
+  `export_animation_mode='ACTIVE_ACTIONS'`, `export_force_sampling=False`,
+  `export_nla_strips=False`, `export_bake_animation=False`. Standalone generated
+  motion GLBs need cleanup; use `tools/blender/export_clean_avatar_clip.py` and
+  `docs/3d-avatar-knowledge-base.md` for that branch.
+- The garment exporter disables texture coordinates. Use the separate H02
+  UV-preserving profile and canonical face fixture for textured heads. Reimport
+  proof must match UVs with their rest-position/corner identity, including seams;
+  matching a set of UV values alone can miss reassignment to the wrong corners.
+- For a thick folded detail that collapses during surface projection, construct
+  an ordered surface first, transfer actual underlying garment weights, then add
+  thickness. Keep explicit detail roles and sewn/free anchor attributes. Attachment
+  distance does not replace zero own-shell intersections.
+- Preserve exposed anatomy by checking every removed incident face at garment
+  openings. Validate independent masters against the assembled mesh, including
+  transforms and active modifier/driver configuration. Textured outfits need UV
+  corner/image proof for runtime-consumed `body.glb` as well as `outfit.glb`.
+- Compare source/export skinning under equivalent bone poses. Blender scalar
+  quaternion interpolation can differ from glTF quaternion SLERP between keys.
+  Preserve canonical motion bytes, report that difference separately, and fit
+  the actual runtime poses as well as the saved Blender actions.
+- Check hair against dense gait and six head gestures, then review its complete
+  silhouette. Preserve rejected geometry and source-bound reports.
 
-## Slot item authoring and bone attachment
+## Completion
 
-When attaching a garment GLB to the base avatar armature, always use
-**position-based bone assignment**, not name-based:
+For a piece, follow the catalog runner and required additional gates in its
+README. For renderer/asset changes, read the browser-verification skill and
+inspect desktop and phone; review images must be <= 320px wide. Preserve the
+lazy renderer boundary described in `.claude/rules/avatar.md`.
 
-| Garment root world X | Assigned bone |
-| --- | --- |
-| `>= 0` | `LeftFoot` (character's anatomical left) |
-| `< 0` | `RightFoot` (character's anatomical right) |
-
-Shoe GLBs use viewer-perspective naming (the object `shoes_blue_sneaker_left`
-sits at `X = -0.158` = viewer's left = character's anatomical right). The
-skeleton uses anatomical naming. Name-based matching creates a 30 cm cross-body
-error that is invisible in Blender rest-pose previews but causes wrong-foot
-animation in Three.js.
-
-The same convention applies to any bilateral slot (wrists, shoulders, knees).
-
-## Blender MCP availability
-
-The Blender MCP connector provides native `execute_blender_code`,
-`render_thumbnail_to_path`, and related tools inside **Claude Code** sessions.
-It is **not available in Codex**. Use the CLI scripts above as the portable,
-agent-neutral path:
-
-- `tools/blender/inspect_slot_fit.py` — fit diagnostics and QA renders for any garment
-- `tools/blender/render_avatar_runtime_slots.py` — animation frame renders with garment attached
-
-## Runtime verification
-
-The preview route is `/avatar-preview`. Use Playwright after avatar runtime or asset changes:
-
-```bash
-npm run dev
-npx playwright install chromium
-```
-
-Then run Playwright outside Codex's sandbox on macOS if Chromium fails with a `MachPortRendezvousServer` permission error.
-
-For canvas verification, wait for:
-
-- `Status: available`
-- `Clips:` not equal to `none found yet`
-- a nonzero canvas `toDataURL("image/png").length`
-
-For this repo, `playwright` is installed as a dev dependency.
-
-Runtime gotchas already fixed once:
-
-- Call `clonedScene.updateMatrixWorld(true)` before measuring bounds in `AvatarModel`.
-- Disable frustum culling on avatar mesh/skinned-mesh objects; Meshy skinned mesh bounds can otherwise produce a loaded-but-invisible canvas.
-- Give the preview viewport an explicit responsive height. Mobile previously rendered a `318 x 150` canvas.
-
-## App-oriented export target
-
-Prefer one clean base avatar GLB with:
-
-- one armature
-- stable bind pose
-- in-place actions only
-- no baked per-bone scale tracks unless truly required
-- no baked locomotion translation for feedback gestures
-
-For this app, the first target clip set should be:
-
-- `idle`
-- `success_cheer`
-- `sad_react`
-
-## When to stop patching runtime code
-
-If an imported animation GLB requires repeated runtime fixes for:
-
-- foot-only framing
-- extreme root drift
-- distorted proportions
-- oversized shoes or limbs
-
-stop patching the React/Three.js preview and move the cleanup into Blender. That is the correct fix layer for this repo.
+Update progress, retrospective and ROADMAP with exact proof scope. Final style,
+budgets, compatible combinations and real slot switching remain separate gates.
+Meshy generation goes through its skill and the root credit-approval rule.

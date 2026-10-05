@@ -1,0 +1,4729 @@
+[
+  {
+    "motion": "walk",
+    "frame": 0.8,
+    "triangle_pairs": 341,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 341
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1489650309085846,
+        0.15383084118366241
+      ],
+      [
+        -0.01664065755903721,
+        0.0740603506565094
+      ],
+      [
+        0.10757483541965485,
+        0.18241755664348602
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 1.0,
+    "triangle_pairs": 342,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 342
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14950907230377197,
+        0.15324774384498596
+      ],
+      [
+        -0.005555580835789442,
+        0.049662500619888306
+      ],
+      [
+        0.10687004774808884,
+        0.17241376638412476
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 1.25,
+    "triangle_pairs": 343,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 343
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15004341304302216,
+        0.15259599685668945
+      ],
+      [
+        -0.016666211187839508,
+        0.044359780848026276
+      ],
+      [
+        0.10638768970966339,
+        0.1622174233198166
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 1.5,
+    "triangle_pairs": 342,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 342
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1504143923521042,
+        0.15202417969703674
+      ],
+      [
+        -0.050713758915662766,
+        0.058279797434806824
+      ],
+      [
+        0.10634914040565491,
+        0.15458348393440247
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 1.75,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15089669823646545,
+        0.15209996700286865
+      ],
+      [
+        -0.08503936231136322,
+        0.0720599889755249
+      ],
+      [
+        0.10711144655942917,
+        0.14730164408683777
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 2.0,
+    "triangle_pairs": 338,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 338
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15137052536010742,
+        0.1526932567358017
+      ],
+      [
+        -0.11980749666690826,
+        0.08573256433010101
+      ],
+      [
+        0.1084224209189415,
+        0.14183861017227173
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 2.25,
+    "triangle_pairs": 333,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 333
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15164470672607422,
+        0.1534009873867035
+      ],
+      [
+        -0.15463827550411224,
+        0.09937437623739243
+      ],
+      [
+        0.11000999063253403,
+        0.1399550437927246
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 2.5,
+    "triangle_pairs": 331,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 331
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15233515202999115,
+        0.15499532222747803
+      ],
+      [
+        -0.18826985359191895,
+        0.11332275718450546
+      ],
+      [
+        0.11226999759674072,
+        0.14203260838985443
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 2.75,
+    "triangle_pairs": 327,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 327
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15363459289073944,
+        0.1575353443622589
+      ],
+      [
+        -0.2204437106847763,
+        0.1276867538690567
+      ],
+      [
+        0.1153949722647667,
+        0.1472938507795334
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 3.0,
+    "triangle_pairs": 332,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 332
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15456855297088623,
+        0.15964138507843018
+      ],
+      [
+        -0.2521591782569885,
+        0.14190475642681122
+      ],
+      [
+        0.11877968907356262,
+        0.15470661222934723
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 3.25,
+    "triangle_pairs": 325,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 325
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15539215505123138,
+        0.1618632972240448
+      ],
+      [
+        -0.28225454688072205,
+        0.15626442432403564
+      ],
+      [
+        0.12246721982955933,
+        0.1639496386051178
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 3.5,
+    "triangle_pairs": 329,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 329
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15679937601089478,
+        0.16575545072555542
+      ],
+      [
+        -0.3080170750617981,
+        0.17166930437088013
+      ],
+      [
+        0.126636803150177,
+        0.1736692488193512
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 3.75,
+    "triangle_pairs": 328,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 328
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15771999955177307,
+        0.1689930260181427
+      ],
+      [
+        -0.3332899808883667,
+        0.18690341711044312
+      ],
+      [
+        0.13108883798122406,
+        0.18459701538085938
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 4.0,
+    "triangle_pairs": 331,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 331
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15815487504005432,
+        0.17158707976341248
+      ],
+      [
+        -0.3579781651496887,
+        0.20194706320762634
+      ],
+      [
+        0.13581052422523499,
+        0.19804470241069794
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 4.25,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15928524732589722,
+        0.17289137840270996
+      ],
+      [
+        -0.37282437086105347,
+        0.21730053424835205
+      ],
+      [
+        0.1404646337032318,
+        0.20807711780071259
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 4.5,
+    "triangle_pairs": 349,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 349
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16011016070842743,
+        0.1739443838596344
+      ],
+      [
+        -0.38735514879226685,
+        0.23255042731761932
+      ],
+      [
+        0.14541330933570862,
+        0.21845881640911102
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 4.75,
+    "triangle_pairs": 342,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 342
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16062867641448975,
+        0.17475247383117676
+      ],
+      [
+        -0.4015673100948334,
+        0.24768447875976562
+      ],
+      [
+        0.15065106749534607,
+        0.22935354709625244
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 5.0,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.161608025431633,
+        0.17335818707942963
+      ],
+      [
+        -0.4056445360183716,
+        0.26196733117103577
+      ],
+      [
+        0.15517400205135345,
+        0.23168706893920898
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 5.25,
+    "triangle_pairs": 335,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 335
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16261737048625946,
+        0.17144685983657837
+      ],
+      [
+        -0.40722060203552246,
+        0.2759893536567688
+      ],
+      [
+        0.15972839295864105,
+        0.23170149326324463
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 5.5,
+    "triangle_pairs": 332,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 332
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16348117589950562,
+        0.16953299939632416
+      ],
+      [
+        -0.4087767004966736,
+        0.28992825746536255
+      ],
+      [
+        0.16456151008605957,
+        0.23190751671791077
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 5.75,
+    "triangle_pairs": 337,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 337
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16443876922130585,
+        0.16697822511196136
+      ],
+      [
+        -0.4058862328529358,
+        0.30364280939102173
+      ],
+      [
+        0.16874007880687714,
+        0.22770391404628754
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 6.0,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16551059484481812,
+        0.16399462521076202
+      ],
+      [
+        -0.3997647762298584,
+        0.31717199087142944
+      ],
+      [
+        0.1726279854774475,
+        0.22057323157787323
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 6.25,
+    "triangle_pairs": 329,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 329
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16656538844108582,
+        0.1610104888677597
+      ],
+      [
+        -0.39329633116722107,
+        0.33058851957321167
+      ],
+      [
+        0.17685580253601074,
+        0.21348091959953308
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 6.5,
+    "triangle_pairs": 321,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 321
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16766774654388428,
+        0.15785694122314453
+      ],
+      [
+        -0.3856421411037445,
+        0.3437027931213379
+      ],
+      [
+        0.18051743507385254,
+        0.20589718222618103
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 6.75,
+    "triangle_pairs": 315,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 315
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16883599758148193,
+        0.15446512401103973
+      ],
+      [
+        -0.3763459622859955,
+        0.3564389944076538
+      ],
+      [
+        0.18324828147888184,
+        0.201704740524292
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 7.0,
+    "triangle_pairs": 309,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 309
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 18
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16997313499450684,
+        0.15110164880752563
+      ],
+      [
+        -0.3666552007198334,
+        0.36904212832450867
+      ],
+      [
+        0.17990098893642426,
+        0.2068413496017456
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 7.25,
+    "triangle_pairs": 292,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 292
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 40
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17112517356872559,
+        0.1480472981929779
+      ],
+      [
+        -0.35652244091033936,
+        0.38098227977752686
+      ],
+      [
+        0.17348936200141907,
+        0.21219311654567719
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 7.5,
+    "triangle_pairs": 290,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 290
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 50
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17255428433418274,
+        0.14609959721565247
+      ],
+      [
+        -0.3457602262496948,
+        0.3907904028892517
+      ],
+      [
+        0.16819261014461517,
+        0.21728670597076416
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 7.75,
+    "triangle_pairs": 277,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 277
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 54
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17417049407958984,
+        0.1441214680671692
+      ],
+      [
+        -0.3346043527126312,
+        0.40047943592071533
+      ],
+      [
+        0.16323959827423096,
+        0.22292904555797577
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 8.0,
+    "triangle_pairs": 266,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 266
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 64
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17597696185112,
+        0.14212296903133392
+      ],
+      [
+        -0.3230952024459839,
+        0.41000398993492126
+      ],
+      [
+        0.15792199969291687,
+        0.2291145622730255
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 8.25,
+    "triangle_pairs": 255,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 255
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 42
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17795246839523315,
+        0.14054487645626068
+      ],
+      [
+        -0.3068165183067322,
+        0.4144039750099182
+      ],
+      [
+        0.15565787255764008,
+        0.2355402559041977
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 8.5,
+    "triangle_pairs": 238,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 238
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 16
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18035809695720673,
+        0.1388547718524933
+      ],
+      [
+        -0.29022473096847534,
+        0.418066143989563
+      ],
+      [
+        0.15463821589946747,
+        0.24390661716461182
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 8.75,
+    "triangle_pairs": 228,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 228
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 24
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18322989344596863,
+        0.13707441091537476
+      ],
+      [
+        -0.2734541893005371,
+        0.42078131437301636
+      ],
+      [
+        0.15489178895950317,
+        0.2540874481201172
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 9.0,
+    "triangle_pairs": 239,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 239
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 46
+    },
+    "intersection_region_xyz": [
+      [
+        -0.186369389295578,
+        0.13565890491008759
+      ],
+      [
+        -0.2572994828224182,
+        0.41710323095321655
+      ],
+      [
+        0.1535203754901886,
+        0.26352185010910034
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 9.25,
+    "triangle_pairs": 249,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 249
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 66
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18859033286571503,
+        0.13425558805465698
+      ],
+      [
+        -0.24128387868404388,
+        0.4112071990966797
+      ],
+      [
+        0.15205438435077667,
+        0.27389952540397644
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 9.5,
+    "triangle_pairs": 257,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 257
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 82
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18980395793914795,
+        0.13275526463985443
+      ],
+      [
+        -0.2252655029296875,
+        0.40488502383232117
+      ],
+      [
+        0.15114980936050415,
+        0.2856583893299103
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 9.75,
+    "triangle_pairs": 259,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 259
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 84
+    },
+    "intersection_region_xyz": [
+      [
+        -0.19073161482810974,
+        0.13156895339488983
+      ],
+      [
+        -0.2101786732673645,
+        0.3935633599758148
+      ],
+      [
+        0.14972493052482605,
+        0.2940971553325653
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 10.0,
+    "triangle_pairs": 256,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 256
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 74
+    },
+    "intersection_region_xyz": [
+      [
+        -0.19098496437072754,
+        0.13056880235671997
+      ],
+      [
+        -0.195693701505661,
+        0.37903326749801636
+      ],
+      [
+        0.14795924723148346,
+        0.3004321753978729
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 10.25,
+    "triangle_pairs": 257,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 257
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 64
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1900777667760849,
+        0.129485085606575
+      ],
+      [
+        -0.18120627105236053,
+        0.36411985754966736
+      ],
+      [
+        0.14652866125106812,
+        0.3075564503669739
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 10.5,
+    "triangle_pairs": 259,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 259
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 54
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18870022892951965,
+        0.1287527084350586
+      ],
+      [
+        -0.16701525449752808,
+        0.34676873683929443
+      ],
+      [
+        0.14457231760025024,
+        0.31064295768737793
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 10.75,
+    "triangle_pairs": 265,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 265
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 38
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18768784403800964,
+        0.12857908010482788
+      ],
+      [
+        -0.1532062590122223,
+        0.32614225149154663
+      ],
+      [
+        0.14162373542785645,
+        0.30736243724823
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 11.0,
+    "triangle_pairs": 277,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 277
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 24
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1862802803516388,
+        0.12830901145935059
+      ],
+      [
+        -0.13933107256889343,
+        0.30549299716949463
+      ],
+      [
+        0.1389596164226532,
+        0.3048827350139618
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 11.25,
+    "triangle_pairs": 282,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 282
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 16
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18464615941047668,
+        0.1281631886959076
+      ],
+      [
+        -0.12548963725566864,
+        0.28444981575012207
+      ],
+      [
+        0.13632801175117493,
+        0.30150744318962097
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 11.5,
+    "triangle_pairs": 288,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 288
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 6
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18322643637657166,
+        0.12879255414009094
+      ],
+      [
+        -0.11191026866436005,
+        0.26122403144836426
+      ],
+      [
+        0.13298535346984863,
+        0.29221659898757935
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 11.75,
+    "triangle_pairs": 299,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 299
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18165335059165955,
+        0.12930917739868164
+      ],
+      [
+        -0.09823223203420639,
+        0.23792767524719238
+      ],
+      [
+        0.12996649742126465,
+        0.28389546275138855
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 12.0,
+    "triangle_pairs": 307,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 307
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17988668382167816,
+        0.12971296906471252
+      ],
+      [
+        -0.08447422832250595,
+        0.2144235372543335
+      ],
+      [
+        0.1272754967212677,
+        0.2765595018863678
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 12.25,
+    "triangle_pairs": 304,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 304
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17851905524730682,
+        0.13098907470703125
+      ],
+      [
+        -0.07043831050395966,
+        0.18939191102981567
+      ],
+      [
+        0.124705970287323,
+        0.2662245035171509
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 12.5,
+    "triangle_pairs": 308,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 308
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17678527534008026,
+        0.13208842277526855
+      ],
+      [
+        -0.05632010102272034,
+        0.16391152143478394
+      ],
+      [
+        0.12248986959457397,
+        0.2569742202758789
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 12.75,
+    "triangle_pairs": 314,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 314
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17468564212322235,
+        0.1330098658800125
+      ],
+      [
+        -0.04214050620794296,
+        0.1380530148744583
+      ],
+      [
+        0.12062953412532806,
+        0.24883536994457245
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 13.0,
+    "triangle_pairs": 327,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 327
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17383036017417908,
+        0.13417688012123108
+      ],
+      [
+        -0.027632486075162888,
+        0.11110188812017441
+      ],
+      [
+        0.11877602338790894,
+        0.23929500579833984
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 13.25,
+    "triangle_pairs": 327,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 327
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17303171753883362,
+        0.13522449135780334
+      ],
+      [
+        -0.012993412092328072,
+        0.08337559551000595
+      ],
+      [
+        0.11724366247653961,
+        0.2303880900144577
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 13.5,
+    "triangle_pairs": 331,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 331
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1718868911266327,
+        0.13604000210762024
+      ],
+      [
+        0.0016841808101162314,
+        0.055115699768066406
+      ],
+      [
+        0.11612741649150848,
+        0.222890704870224
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 13.75,
+    "triangle_pairs": 351,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 351
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1716456115245819,
+        0.13697174191474915
+      ],
+      [
+        -0.010094184428453445,
+        0.0513753741979599
+      ],
+      [
+        0.11544343084096909,
+        0.216563880443573
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 14.0,
+    "triangle_pairs": 347,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 347
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1719876527786255,
+        0.13792391121387482
+      ],
+      [
+        -0.04196053743362427,
+        0.06599599123001099
+      ],
+      [
+        0.11517616361379623,
+        0.21059834957122803
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 14.25,
+    "triangle_pairs": 347,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 347
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1720985472202301,
+        0.13866770267486572
+      ],
+      [
+        -0.07414187490940094,
+        0.08061608672142029
+      ],
+      [
+        0.11531178653240204,
+        0.20635226368904114
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 14.5,
+    "triangle_pairs": 356,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 356
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17288081347942352,
+        0.13946174085140228
+      ],
+      [
+        -0.10625793784856796,
+        0.09533187001943588
+      ],
+      [
+        0.11592444032430649,
+        0.20235523581504822
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 14.75,
+    "triangle_pairs": 359,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 359
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.174657940864563,
+        0.14052298665046692
+      ],
+      [
+        -0.13841640949249268,
+        0.1102319210767746
+      ],
+      [
+        0.11703570932149887,
+        0.19783572852611542
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 15.0,
+    "triangle_pairs": 362,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 362
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1759980171918869,
+        0.14149728417396545
+      ],
+      [
+        -0.1709618866443634,
+        0.12514403462409973
+      ],
+      [
+        0.11852698028087616,
+        0.19534528255462646
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 15.25,
+    "triangle_pairs": 362,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 362
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17723999917507172,
+        0.1424766331911087
+      ],
+      [
+        -0.2030562162399292,
+        0.14019165933132172
+      ],
+      [
+        0.12043778598308563,
+        0.19389721751213074
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 15.5,
+    "triangle_pairs": 363,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 363
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17934748530387878,
+        0.14372409880161285
+      ],
+      [
+        -0.23283037543296814,
+        0.1557694673538208
+      ],
+      [
+        0.12289595603942871,
+        0.19061927497386932
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 15.75,
+    "triangle_pairs": 359,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 359
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1807824820280075,
+        0.14484626054763794
+      ],
+      [
+        -0.2627517879009247,
+        0.17129969596862793
+      ],
+      [
+        0.12574809789657593,
+        0.18977497518062592
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 16.0,
+    "triangle_pairs": 360,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 360
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18149113655090332,
+        0.14583918452262878
+      ],
+      [
+        -0.29250502586364746,
+        0.1867683380842209
+      ],
+      [
+        0.12899085879325867,
+        0.19158387184143066
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 16.25,
+    "triangle_pairs": 358,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 358
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.181677907705307,
+        0.14698942005634308
+      ],
+      [
+        -0.3115001916885376,
+        0.20271216332912445
+      ],
+      [
+        0.13308270275592804,
+        0.19186918437480927
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 16.5,
+    "triangle_pairs": 356,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 356
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18153706192970276,
+        0.14790424704551697
+      ],
+      [
+        -0.33008643984794617,
+        0.21856960654258728
+      ],
+      [
+        0.13749900460243225,
+        0.19418548047542572
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 16.75,
+    "triangle_pairs": 357,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 357
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18104027211666107,
+        0.1485813707113266
+      ],
+      [
+        -0.34805214405059814,
+        0.23432914912700653
+      ],
+      [
+        0.14223454892635345,
+        0.19837000966072083
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 17.0,
+    "triangle_pairs": 353,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 353
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17975157499313354,
+        0.1494138091802597
+      ],
+      [
+        -0.3591136932373047,
+        0.24936608970165253
+      ],
+      [
+        0.14655166864395142,
+        0.1995782107114792
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 17.25,
+    "triangle_pairs": 340,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 340
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1780589520931244,
+        0.15030159056186676
+      ],
+      [
+        -0.3680352568626404,
+        0.26417380571365356
+      ],
+      [
+        0.15110790729522705,
+        0.2012181282043457
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 17.5,
+    "triangle_pairs": 342,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 342
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17607510089874268,
+        0.15116435289382935
+      ],
+      [
+        -0.37636619806289673,
+        0.27889442443847656
+      ],
+      [
+        0.15609759092330933,
+        0.20435479283332825
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 17.75,
+    "triangle_pairs": 343,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 343
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17369399964809418,
+        0.15221735835075378
+      ],
+      [
+        -0.3782995343208313,
+        0.29351145029067993
+      ],
+      [
+        0.16117146611213684,
+        0.2045747935771942
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 18.0,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17120003700256348,
+        0.15335401892662048
+      ],
+      [
+        -0.37627607583999634,
+        0.30802565813064575
+      ],
+      [
+        0.1663917601108551,
+        0.20221340656280518
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 18.25,
+    "triangle_pairs": 337,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 337
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16872940957546234,
+        0.15442128479480743
+      ],
+      [
+        -0.37419331073760986,
+        0.32242485880851746
+      ],
+      [
+        0.1719743311405182,
+        0.19988179206848145
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 18.5,
+    "triangle_pairs": 338,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 338
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16633561253547668,
+        0.1554780751466751
+      ],
+      [
+        -0.3704507052898407,
+        0.3363802433013916
+      ],
+      [
+        0.1770315170288086,
+        0.19663596153259277
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 18.75,
+    "triangle_pairs": 336,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 336
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16405194997787476,
+        0.15658889710903168
+      ],
+      [
+        -0.36407148838043213,
+        0.34974658489227295
+      ],
+      [
+        0.18071232736110687,
+        0.19601330161094666
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 19.0,
+    "triangle_pairs": 337,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 337
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16180944442749023,
+        0.1576850414276123
+      ],
+      [
+        -0.3574713170528412,
+        0.3629877269268036
+      ],
+      [
+        0.17788290977478027,
+        0.20199716091156006
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 19.25,
+    "triangle_pairs": 331,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 331
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15965494513511658,
+        0.1585882604122162
+      ],
+      [
+        -0.34982991218566895,
+        0.3756563663482666
+      ],
+      [
+        0.17516016960144043,
+        0.20784586668014526
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 19.5,
+    "triangle_pairs": 333,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 333
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1577223241329193,
+        0.15880334377288818
+      ],
+      [
+        -0.33863335847854614,
+        0.3865292966365814
+      ],
+      [
+        0.17199844121932983,
+        0.21219627559185028
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 19.75,
+    "triangle_pairs": 331,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 331
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1558920294046402,
+        0.15909455716609955
+      ],
+      [
+        -0.32695943117141724,
+        0.39735686779022217
+      ],
+      [
+        0.16973362863063812,
+        0.21697120368480682
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 20.0,
+    "triangle_pairs": 326,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 326
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15418776869773865,
+        0.15946489572525024
+      ],
+      [
+        -0.31493085622787476,
+        0.40810340642929077
+      ],
+      [
+        0.16839385032653809,
+        0.22222694754600525
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 20.25,
+    "triangle_pairs": 310,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 310
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15229569375514984,
+        0.15982170403003693
+      ],
+      [
+        -0.30196309089660645,
+        0.4160803258419037
+      ],
+      [
+        0.16540102660655975,
+        0.22767585515975952
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 20.5,
+    "triangle_pairs": 303,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 303
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1503520905971527,
+        0.1603313535451889
+      ],
+      [
+        -0.2888754606246948,
+        0.4229980409145355
+      ],
+      [
+        0.16292200982570648,
+        0.23557934165000916
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 20.75,
+    "triangle_pairs": 293,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 293
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14836430549621582,
+        0.16108939051628113
+      ],
+      [
+        -0.27569979429244995,
+        0.4285615384578705
+      ],
+      [
+        0.16097363829612732,
+        0.24574914574623108
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 21.0,
+    "triangle_pairs": 307,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 307
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14648811519145966,
+        0.162207692861557
+      ],
+      [
+        -0.2604292035102844,
+        0.42793798446655273
+      ],
+      [
+        0.1581868827342987,
+        0.25346076488494873
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 21.25,
+    "triangle_pairs": 298,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 298
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 18
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1444946825504303,
+        0.16356782615184784
+      ],
+      [
+        -0.24462734162807465,
+        0.4252323508262634
+      ],
+      [
+        0.15552034974098206,
+        0.262094110250473
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 21.5,
+    "triangle_pairs": 289,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 289
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 46
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14233654737472534,
+        0.16521266102790833
+      ],
+      [
+        -0.2288236916065216,
+        0.421610563993454
+      ],
+      [
+        0.15331050753593445,
+        0.27265262603759766
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 21.75,
+    "triangle_pairs": 289,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 289
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 52
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1406148374080658,
+        0.16665057837963104
+      ],
+      [
+        -0.2142503708600998,
+        0.4126908481121063
+      ],
+      [
+        0.15098707377910614,
+        0.28053638339042664
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 22.0,
+    "triangle_pairs": 292,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 292
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 50
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13918069005012512,
+        0.16745606064796448
+      ],
+      [
+        -0.2004682868719101,
+        0.40005847811698914
+      ],
+      [
+        0.1485978066921234,
+        0.28677430748939514
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 22.25,
+    "triangle_pairs": 297,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 297
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 50
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13764804601669312,
+        0.16784635186195374
+      ],
+      [
+        -0.18666474521160126,
+        0.38695162534713745
+      ],
+      [
+        0.14648732542991638,
+        0.2941754162311554
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 22.5,
+    "triangle_pairs": 298,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 298
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 48
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13669154047966003,
+        0.16769814491271973
+      ],
+      [
+        -0.17337334156036377,
+        0.3713187575340271
+      ],
+      [
+        0.14409737288951874,
+        0.2982715368270874
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 22.75,
+    "triangle_pairs": 307,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 307
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 26
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1366787850856781,
+        0.16694895923137665
+      ],
+      [
+        -0.16081470251083374,
+        0.3523615300655365
+      ],
+      [
+        0.14111505448818207,
+        0.29664286971092224
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 23.0,
+    "triangle_pairs": 309,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 309
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 16
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13661174476146698,
+        0.16581110656261444
+      ],
+      [
+        -0.14818769693374634,
+        0.3333626985549927
+      ],
+      [
+        0.13836640119552612,
+        0.2958186864852905
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 23.25,
+    "triangle_pairs": 319,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 319
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13675135374069214,
+        0.16429075598716736
+      ],
+      [
+        -0.13548338413238525,
+        0.31388193368911743
+      ],
+      [
+        0.1355554163455963,
+        0.2937009632587433
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 23.5,
+    "triangle_pairs": 328,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 328
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13788354396820068,
+        0.16250351071357727
+      ],
+      [
+        -0.12261618673801422,
+        0.2923176884651184
+      ],
+      [
+        0.1318388432264328,
+        0.2839842438697815
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 23.75,
+    "triangle_pairs": 330,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 330
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13896581530570984,
+        0.16052860021591187
+      ],
+      [
+        -0.10964002460241318,
+        0.27053114771842957
+      ],
+      [
+        0.12844723463058472,
+        0.27510741353034973
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 24.0,
+    "triangle_pairs": 336,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 336
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1399971842765808,
+        0.15836025774478912
+      ],
+      [
+        -0.0965711772441864,
+        0.24847589433193207
+      ],
+      [
+        0.12538482248783112,
+        0.2670917212963104
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 24.25,
+    "triangle_pairs": 336,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 336
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14156480133533478,
+        0.15704390406608582
+      ],
+      [
+        -0.0840085968375206,
+        0.2240002602338791
+      ],
+      [
+        0.12174499034881592,
+        0.2526974081993103
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 24.5,
+    "triangle_pairs": 330,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 330
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1430577039718628,
+        0.1554851531982422
+      ],
+      [
+        -0.07132881879806519,
+        0.19869720935821533
+      ],
+      [
+        0.11851274967193604,
+        0.23944061994552612
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 24.75,
+    "triangle_pairs": 342,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 342
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14447283744812012,
+        0.15367749333381653
+      ],
+      [
+        -0.05855307728052139,
+        0.17263922095298767
+      ],
+      [
+        0.11569343507289886,
+        0.2273750603199005
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 25.0,
+    "triangle_pairs": 342,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 342
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.145917147397995,
+        0.15363484621047974
+      ],
+      [
+        -0.04623284190893173,
+        0.14510230720043182
+      ],
+      [
+        0.11281844973564148,
+        0.2123846411705017
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 25.25,
+    "triangle_pairs": 340,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 340
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14727380871772766,
+        0.1538788080215454
+      ],
+      [
+        -0.03395166993141174,
+        0.116228386759758
+      ],
+      [
+        0.11029671132564545,
+        0.19798700511455536
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 25.5,
+    "triangle_pairs": 342,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 342
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14850807189941406,
+        0.1538914293050766
+      ],
+      [
+        -0.021597152575850487,
+        0.08629758656024933
+      ],
+      [
+        0.10825610160827637,
+        0.18649481236934662
+      ]
+    ]
+  },
+  {
+    "motion": "walk",
+    "frame": 25.6,
+    "triangle_pairs": 341,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 341
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14896678924560547,
+        0.15382800996303558
+      ],
+      [
+        -0.016640037298202515,
+        0.07406338304281235
+      ],
+      [
+        0.10757526010274887,
+        0.1824188530445099
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 0.8,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.11693680286407471,
+        0.16343656182289124
+      ],
+      [
+        0.15891841053962708,
+        0.3236059248447418
+      ],
+      [
+        0.18056802451610565,
+        0.5444941520690918
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 1.0,
+    "triangle_pairs": 333,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 333
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1181916892528534,
+        0.16601359844207764
+      ],
+      [
+        0.13625644147396088,
+        0.3544479310512543
+      ],
+      [
+        0.18068480491638184,
+        0.498277485370636
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 1.25,
+    "triangle_pairs": 278,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 278
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12021520733833313,
+        0.16906706988811493
+      ],
+      [
+        0.0946657583117485,
+        0.3924425542354584
+      ],
+      [
+        0.1853133887052536,
+        0.443950355052948
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 1.5,
+    "triangle_pairs": 238,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 238
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 64
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12271600216627121,
+        0.1712249368429184
+      ],
+      [
+        0.040419675409793854,
+        0.4291381239891052
+      ],
+      [
+        0.19501399993896484,
+        0.396416038274765
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 1.75,
+    "triangle_pairs": 225,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 225
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 104
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12499638646841049,
+        0.17178112268447876
+      ],
+      [
+        -0.0064688026905059814,
+        0.46054816246032715
+      ],
+      [
+        0.2117837518453598,
+        0.35443902015686035
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 2.0,
+    "triangle_pairs": 230,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 230
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 114
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1248965710401535,
+        0.17168733477592468
+      ],
+      [
+        -0.04761640354990959,
+        0.4893120527267456
+      ],
+      [
+        0.233155757188797,
+        0.3158895671367645
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 2.25,
+    "triangle_pairs": 240,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 240
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 116
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1261671781539917,
+        0.17102645337581635
+      ],
+      [
+        -0.09219881147146225,
+        0.5169165134429932
+      ],
+      [
+        0.254406601190567,
+        0.28796687722206116
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 2.5,
+    "triangle_pairs": 244,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 244
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 124
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1250382512807846,
+        0.17026874423027039
+      ],
+      [
+        -0.13456538319587708,
+        0.5410419702529907
+      ],
+      [
+        0.2314223349094391,
+        0.3142155408859253
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 2.75,
+    "triangle_pairs": 252,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 252
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 124
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12597140669822693,
+        0.16901305317878723
+      ],
+      [
+        -0.17063936591148376,
+        0.5614383220672607
+      ],
+      [
+        0.21071171760559082,
+        0.3458654284477234
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.0,
+    "triangle_pairs": 259,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 259
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 124
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12990552186965942,
+        0.16571584343910217
+      ],
+      [
+        -0.20694279670715332,
+        0.5794632434844971
+      ],
+      [
+        0.19630643725395203,
+        0.37953102588653564
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.25,
+    "triangle_pairs": 260,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 260
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 122
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13196852803230286,
+        0.16117599606513977
+      ],
+      [
+        -0.23909991979599,
+        0.5921821594238281
+      ],
+      [
+        0.18814504146575928,
+        0.4138873517513275
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.5,
+    "triangle_pairs": 260,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 260
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 122
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1322677880525589,
+        0.15825781226158142
+      ],
+      [
+        -0.2591995298862457,
+        0.5934803485870361
+      ],
+      [
+        0.18177072703838348,
+        0.4472278952598572
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 3.75,
+    "triangle_pairs": 262,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 262
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 122
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13282296061515808,
+        0.15457439422607422
+      ],
+      [
+        -0.27876174449920654,
+        0.5897341966629028
+      ],
+      [
+        0.17760592699050903,
+        0.48324036598205566
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.0,
+    "triangle_pairs": 254,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 254
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 122
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13348771631717682,
+        0.1502811312675476
+      ],
+      [
+        -0.29723796248435974,
+        0.580708920955658
+      ],
+      [
+        0.1755252331495285,
+        0.5214221477508545
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.25,
+    "triangle_pairs": 258,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 258
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 114
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13730265200138092,
+        0.14357413351535797
+      ],
+      [
+        -0.29134541749954224,
+        0.561116099357605
+      ],
+      [
+        0.17035727202892303,
+        0.5554459691047668
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.5,
+    "triangle_pairs": 262,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 262
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 112
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13837896287441254,
+        0.13632747530937195
+      ],
+      [
+        -0.2861365079879761,
+        0.5367037057876587
+      ],
+      [
+        0.16578616201877594,
+        0.5897521376609802
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 4.75,
+    "triangle_pairs": 262,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 262
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 104
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13675211369991302,
+        0.1286177933216095
+      ],
+      [
+        -0.28172409534454346,
+        0.5077857971191406
+      ],
+      [
+        0.16182559728622437,
+        0.6231458187103271
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 5.0,
+    "triangle_pairs": 265,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 265
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 90
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1389191597700119,
+        0.12337414920330048
+      ],
+      [
+        -0.25397515296936035,
+        0.4735674560070038
+      ],
+      [
+        0.1573370099067688,
+        0.6494932174682617
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 5.25,
+    "triangle_pairs": 268,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 268
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 64
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13856257498264313,
+        0.1182955801486969
+      ],
+      [
+        -0.21981823444366455,
+        0.4361528158187866
+      ],
+      [
+        0.15445363521575928,
+        0.6712867617607117
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 5.5,
+    "triangle_pairs": 269,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 269
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 26
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13601598143577576,
+        0.11276723444461823
+      ],
+      [
+        -0.1855345368385315,
+        0.39641737937927246
+      ],
+      [
+        0.15467733144760132,
+        0.6926382780075073
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 5.75,
+    "triangle_pairs": 288,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 288
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 14
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13719944655895233,
+        0.11025802791118622
+      ],
+      [
+        -0.14543947577476501,
+        0.3544599413871765
+      ],
+      [
+        0.1543394774198532,
+        0.6994544863700867
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 6.0,
+    "triangle_pairs": 300,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 300
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14038562774658203,
+        0.11027946323156357
+      ],
+      [
+        -0.101377472281456,
+        0.312450110912323
+      ],
+      [
+        0.1569087952375412,
+        0.7006999254226685
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 6.25,
+    "triangle_pairs": 326,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 326
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14199811220169067,
+        0.11068334430456161
+      ],
+      [
+        -0.05761129781603813,
+        0.27090051770210266
+      ],
+      [
+        0.16269288957118988,
+        0.7066278457641602
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 6.5,
+    "triangle_pairs": 328,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 328
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 42
+    },
+    "intersection_region_xyz": [
+      [
+        -0.144926980137825,
+        0.11239126324653625
+      ],
+      [
+        -0.01112496666610241,
+        0.23651087284088135
+      ],
+      [
+        0.16758540272712708,
+        0.7048949599266052
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 6.75,
+    "triangle_pairs": 336,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 336
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 150
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1508958637714386,
+        0.11429853737354279
+      ],
+      [
+        0.04020889103412628,
+        0.20959314703941345
+      ],
+      [
+        0.17011329531669617,
+        0.6886806488037109
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.0,
+    "triangle_pairs": 328,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 328
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 254
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15586337447166443,
+        0.11420045793056488
+      ],
+      [
+        0.09120165556669235,
+        0.1808689832687378
+      ],
+      [
+        0.17659759521484375,
+        0.6763489246368408
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.25,
+    "triangle_pairs": 340,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 340
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 310
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15979741513729095,
+        0.11299049854278564
+      ],
+      [
+        0.13439646363258362,
+        0.17873573303222656
+      ],
+      [
+        0.18448714911937714,
+        0.6634076833724976
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.5,
+    "triangle_pairs": 355,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 355
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 38
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16386845707893372,
+        0.11406858265399933
+      ],
+      [
+        0.13141769170761108,
+        0.2296006679534912
+      ],
+      [
+        0.18658463656902313,
+        0.6328789591789246
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.75,
+    "triangle_pairs": 362,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 362
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16858133673667908,
+        0.11427865922451019
+      ],
+      [
+        0.12269900739192963,
+        0.28060182929039
+      ],
+      [
+        0.1930556744337082,
+        0.6021749377250671
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 8.0,
+    "triangle_pairs": 361,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 361
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1736656278371811,
+        0.113686703145504
+      ],
+      [
+        0.10879342257976532,
+        0.3311381936073303
+      ],
+      [
+        0.20395216345787048,
+        0.5719627737998962
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 8.25,
+    "triangle_pairs": 363,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 363
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17573314905166626,
+        0.10785023868083954
+      ],
+      [
+        0.09415866434574127,
+        0.38088855147361755
+      ],
+      [
+        0.21001248061656952,
+        0.5356600880622864
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 8.5,
+    "triangle_pairs": 346,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 346
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17781969904899597,
+        0.10176342725753784
+      ],
+      [
+        0.0738438293337822,
+        0.43052518367767334
+      ],
+      [
+        0.22196023166179657,
+        0.500248908996582
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 8.75,
+    "triangle_pairs": 343,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 343
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17983697354793549,
+        0.09554138779640198
+      ],
+      [
+        0.048000480979681015,
+        0.4790608286857605
+      ],
+      [
+        0.23987078666687012,
+        0.4665479063987732
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 9.0,
+    "triangle_pairs": 310,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 310
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.18046444654464722,
+        0.09324844181537628
+      ],
+      [
+        0.019206993281841278,
+        0.513775110244751
+      ],
+      [
+        0.2596583366394043,
+        0.4261161684989929
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 9.25,
+    "triangle_pairs": 280,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 280
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 14
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17973443865776062,
+        0.09214851260185242
+      ],
+      [
+        -0.014448083005845547,
+        0.544201672077179
+      ],
+      [
+        0.28193193674087524,
+        0.3866337537765503
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 9.5,
+    "triangle_pairs": 271,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 271
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 66
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17792680859565735,
+        0.09132841229438782
+      ],
+      [
+        -0.052855949848890305,
+        0.5736080408096313
+      ],
+      [
+        0.30745336413383484,
+        0.3514805734157562
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 9.75,
+    "triangle_pairs": 266,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 266
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 74
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17584237456321716,
+        0.08928238600492477
+      ],
+      [
+        -0.090126633644104,
+        0.596622109413147
+      ],
+      [
+        0.2864319682121277,
+        0.37640494108200073
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 10.0,
+    "triangle_pairs": 257,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 257
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 84
+    },
+    "intersection_region_xyz": [
+      [
+        -0.17223916947841644,
+        0.09036656469106674
+      ],
+      [
+        -0.12738588452339172,
+        0.6143649816513062
+      ],
+      [
+        0.25667768716812134,
+        0.40593013167381287
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 10.25,
+    "triangle_pairs": 253,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 253
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 88
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16611652076244354,
+        0.0960967093706131
+      ],
+      [
+        -0.16623620688915253,
+        0.6297403573989868
+      ],
+      [
+        0.23219835758209229,
+        0.43733328580856323
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 10.5,
+    "triangle_pairs": 249,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 249
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 92
+    },
+    "intersection_region_xyz": [
+      [
+        -0.16063371300697327,
+        0.10088445246219635
+      ],
+      [
+        -0.20375874638557434,
+        0.6410830020904541
+      ],
+      [
+        0.21073246002197266,
+        0.4689609408378601
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 10.75,
+    "triangle_pairs": 251,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 251
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 106
+    },
+    "intersection_region_xyz": [
+      [
+        -0.15701532363891602,
+        0.10037562251091003
+      ],
+      [
+        -0.23946359753608704,
+        0.6434035301208496
+      ],
+      [
+        0.19212603569030762,
+        0.5010898113250732
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 11.0,
+    "triangle_pairs": 251,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 251
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 106
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1504458487033844,
+        0.10218872874975204
+      ],
+      [
+        -0.27438199520111084,
+        0.6410614252090454
+      ],
+      [
+        0.18125176429748535,
+        0.5347343683242798
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 11.25,
+    "triangle_pairs": 251,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 251
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 104
+    },
+    "intersection_region_xyz": [
+      [
+        -0.14231133460998535,
+        0.10554364323616028
+      ],
+      [
+        -0.30524933338165283,
+        0.6337311267852783
+      ],
+      [
+        0.1747146099805832,
+        0.5687707662582397
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 11.5,
+    "triangle_pairs": 221,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 221
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 110
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1373898684978485,
+        0.10691104829311371
+      ],
+      [
+        -0.3294023275375366,
+        0.6215460896492004
+      ],
+      [
+        0.17429284751415253,
+        0.6025891304016113
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 11.75,
+    "triangle_pairs": 194,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 194
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 158
+    },
+    "intersection_region_xyz": [
+      [
+        -0.13267956674098969,
+        0.10823117196559906
+      ],
+      [
+        -0.3542836606502533,
+        0.6051970720291138
+      ],
+      [
+        0.17731830477714539,
+        0.6359917521476746
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 12.0,
+    "triangle_pairs": 190,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 190
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 178
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12825694680213928,
+        0.10945437848567963
+      ],
+      [
+        -0.3768947124481201,
+        0.584854006767273
+      ],
+      [
+        0.18358802795410156,
+        0.6681913137435913
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 12.25,
+    "triangle_pairs": 189,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 189
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 176
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12698888778686523,
+        0.11250325292348862
+      ],
+      [
+        -0.36395883560180664,
+        0.5562628507614136
+      ],
+      [
+        0.17336317896842957,
+        0.6906346082687378
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 12.5,
+    "triangle_pairs": 207,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 207
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 166
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12660060822963715,
+        0.11589318513870239
+      ],
+      [
+        -0.3511025905609131,
+        0.5247776508331299
+      ],
+      [
+        0.16276073455810547,
+        0.7126039266586304
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 12.75,
+    "triangle_pairs": 209,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 209
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 144
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12571154534816742,
+        0.11944177001714706
+      ],
+      [
+        -0.3381016254425049,
+        0.4907030761241913
+      ],
+      [
+        0.15296225249767303,
+        0.7334789037704468
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 13.0,
+    "triangle_pairs": 224,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 224
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 110
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12453387677669525,
+        0.12156279385089874
+      ],
+      [
+        -0.29700252413749695,
+        0.4560225009918213
+      ],
+      [
+        0.140547975897789,
+        0.7497419118881226
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 13.25,
+    "triangle_pairs": 258,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 258
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 54
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12329208105802536,
+        0.12209614366292953
+      ],
+      [
+        -0.2463243007659912,
+        0.41974568367004395
+      ],
+      [
+        0.13560894131660461,
+        0.7640058398246765
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 13.5,
+    "triangle_pairs": 334,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 334
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12040241807699203,
+        0.12153477966785431
+      ],
+      [
+        -0.1952299326658249,
+        0.38181954622268677
+      ],
+      [
+        0.14021766185760498,
+        0.7768517732620239
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 13.75,
+    "triangle_pairs": 361,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 361
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.11987610906362534,
+        0.12525402009487152
+      ],
+      [
+        -0.14535722136497498,
+        0.3505902886390686
+      ],
+      [
+        0.14339028298854828,
+        0.7761794924736023
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 14.0,
+    "triangle_pairs": 353,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 353
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12018702924251556,
+        0.1305500864982605
+      ],
+      [
+        -0.09582614153623581,
+        0.32358843088150024
+      ],
+      [
+        0.1445668637752533,
+        0.7691104412078857
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 14.25,
+    "triangle_pairs": 359,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 359
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.11947360634803772,
+        0.133765310049057
+      ],
+      [
+        -0.047333501279354095,
+        0.29587334394454956
+      ],
+      [
+        0.1497018039226532,
+        0.764397144317627
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 14.5,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.11964832246303558,
+        0.13817477226257324
+      ],
+      [
+        -7.831848779460415e-05,
+        0.272236704826355
+      ],
+      [
+        0.1546420305967331,
+        0.7532348036766052
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 14.75,
+    "triangle_pairs": 333,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 333
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12121334671974182,
+        0.14627529680728912
+      ],
+      [
+        0.04699060320854187,
+        0.25333672761917114
+      ],
+      [
+        0.1569979190826416,
+        0.731093168258667
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 15.0,
+    "triangle_pairs": 330,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 330
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.12116847932338715,
+        0.1535683274269104
+      ],
+      [
+        0.09365543723106384,
+        0.232185959815979
+      ],
+      [
+        0.1625385731458664,
+        0.7113627195358276
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 15.25,
+    "triangle_pairs": 337,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 337
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.11982908099889755,
+        0.15903744101524353
+      ],
+      [
+        0.14076226949691772,
+        0.21403758227825165
+      ],
+      [
+        0.1683407723903656,
+        0.6884767413139343
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 15.5,
+    "triangle_pairs": 337,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 337
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.11901494860649109,
+        0.16035139560699463
+      ],
+      [
+        0.19314627349376678,
+        0.2220974862575531
+      ],
+      [
+        0.1671294867992401,
+        0.6413931846618652
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 15.75,
+    "triangle_pairs": 329,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 329
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.1180342584848404,
+        0.16199913620948792
+      ],
+      [
+        0.18130402266979218,
+        0.2732366621494293
+      ],
+      [
+        0.17123770713806152,
+        0.5927206873893738
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 16.0,
+    "triangle_pairs": 339,
+    "body_pairs": {
+      "T01_crew_tee_outfit": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F01_strap_sneakers_outfit": 339
+    },
+    "garment_layer_pairs": {
+      "T01_crew_tee_outfit/B01_straight_trousers_outfit": 0,
+      "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B01_straight_trousers_outfit/F01_strap_sneakers_outfit": 0
+    },
+    "intersection_region_xyz": [
+      [
+        -0.11693671345710754,
+        0.16343466937541962
+      ],
+      [
+        0.15893934667110443,
+        0.3236139714717865
+      ],
+      [
+        0.18057391047477722,
+        0.5444995164871216
+      ]
+    ]
+  }
+]

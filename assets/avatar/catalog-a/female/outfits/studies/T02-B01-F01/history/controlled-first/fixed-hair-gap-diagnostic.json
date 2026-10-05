@@ -1,0 +1,184 @@
+{
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/outfit.blend",
+  "blend_sha256": "fb64370dd9d7500383120600f2d4d7c2bafd5fe018af32a57925697b31d2b16d",
+  "status": "diagnostic",
+  "scope": "Five demonstrated regression poses; sampled vertices to opposing triangle surfaces in both directions. Values upper-bound true minimum triangle gap and do not establish continuous/allmotion distance. Body unmasked, fixed hair geometry/binding unchanged.",
+  "checks": [
+    {
+      "pose": "rest",
+      "frame": 0,
+      "hair_body_triangle_pairs": 0,
+      "minimum_bidirectional_vertex_to_surface_m": 0.05217739939689636,
+      "hair_vertex_to_body_m": 0.05217739939689636,
+      "body_vertex_to_hair_m": 0.05360034853219986,
+      "nearest_hair_vertex": 13791,
+      "nearest_hair_world_xyz": [
+        0.011266671121120453,
+        0.1262115091085434,
+        1.5005794763565063
+      ],
+      "nearest_body_world_xyz": [
+        0.006422259379178286,
+        0.07433662563562393,
+        1.4977494478225708
+      ],
+      "hoodie_hair_pairs": 0,
+      "contact_cloth_role_faces": {},
+      "contact_region_hair_vertex_to_body_min_m": null,
+      "cloth_contact_rest_bounds": [],
+      "hair_contact_world_bounds": []
+    },
+    {
+      "pose": "walk",
+      "frame": 13,
+      "hair_body_triangle_pairs": 0,
+      "minimum_bidirectional_vertex_to_surface_m": 0.05220137536525726,
+      "hair_vertex_to_body_m": 0.05220137536525726,
+      "body_vertex_to_hair_m": 0.05360035225749016,
+      "nearest_hair_vertex": 13791,
+      "nearest_hair_world_xyz": [
+        0.012038096785545349,
+        0.10464724898338318,
+        1.4983891248703003
+      ],
+      "nearest_body_world_xyz": [
+        0.009537833742797375,
+        0.05255754664540291,
+        1.4960663318634033
+      ],
+      "hoodie_hair_pairs": 0,
+      "contact_cloth_role_faces": {},
+      "contact_region_hair_vertex_to_body_min_m": null,
+      "cloth_contact_rest_bounds": [],
+      "hair_contact_world_bounds": []
+    },
+    {
+      "pose": "run",
+      "frame": 7.25,
+      "hair_body_triangle_pairs": 0,
+      "minimum_bidirectional_vertex_to_surface_m": 0.011703419499099255,
+      "hair_vertex_to_body_m": 0.011703419499099255,
+      "body_vertex_to_hair_m": 0.012057130225002766,
+      "nearest_hair_vertex": 4793,
+      "nearest_hair_world_xyz": [
+        -0.0038076420314610004,
+        0.029538512229919434,
+        1.3353368043899536
+      ],
+      "nearest_body_world_xyz": [
+        -0.004769165068864822,
+        0.019443675875663757,
+        1.3294938802719116
+      ],
+      "hoodie_hair_pairs": 76,
+      "contact_cloth_role_faces": {
+        "2": 22
+      },
+      "contact_region_hair_vertex_to_body_min_m": 0.011703419499099255,
+      "cloth_contact_rest_bounds": [
+        [
+          -0.02046937681734562,
+          0.01190127432346344
+        ],
+        [
+          0.1359662413597107,
+          0.15300339460372925
+        ],
+        [
+          1.3072562217712402,
+          1.3500654697418213
+        ]
+      ],
+      "hair_contact_world_bounds": [
+        [
+          -0.017772987484931946,
+          0.014553784392774105
+        ],
+        [
+          0.02573150396347046,
+          0.042139142751693726
+        ],
+        [
+          1.3305221796035767,
+          1.355234146118164
+        ]
+      ]
+    },
+    {
+      "pose": "run",
+      "frame": 8,
+      "hair_body_triangle_pairs": 0,
+      "minimum_bidirectional_vertex_to_surface_m": 0.015590806491672993,
+      "hair_vertex_to_body_m": 0.015590806491672993,
+      "body_vertex_to_hair_m": 0.01632685586810112,
+      "nearest_hair_vertex": 4793,
+      "nearest_hair_world_xyz": [
+        -0.003063490614295006,
+        0.040339112281799316,
+        1.3450496196746826
+      ],
+      "nearest_body_world_xyz": [
+        -0.006082151550799608,
+        0.027633149176836014,
+        1.336533784866333
+      ],
+      "hoodie_hair_pairs": 26,
+      "contact_cloth_role_faces": {
+        "2": 10
+      },
+      "contact_region_hair_vertex_to_body_min_m": 0.015590806491672993,
+      "cloth_contact_rest_bounds": [
+        [
+          -0.0317763015627861,
+          -0.0159242432564497
+        ],
+        [
+          0.14036154747009277,
+          0.15319544076919556
+        ],
+        [
+          1.3087916374206543,
+          1.3365368843078613
+        ]
+      ],
+      "hair_contact_world_bounds": [
+        [
+          -0.012871739454567432,
+          0.008417444303631783
+        ],
+        [
+          0.037847667932510376,
+          0.047854602336883545
+        ],
+        [
+          1.3410080671310425,
+          1.3525251150131226
+        ]
+      ]
+    },
+    {
+      "pose": "look-up",
+      "frame": 0,
+      "hair_body_triangle_pairs": 0,
+      "minimum_bidirectional_vertex_to_surface_m": 0.03139842301607132,
+      "hair_vertex_to_body_m": 0.03139842301607132,
+      "body_vertex_to_hair_m": 0.0316290408372879,
+      "nearest_hair_vertex": 4793,
+      "nearest_hair_world_xyz": [
+        -0.0029020083602517843,
+        0.1551535725593567,
+        1.334169864654541
+      ],
+      "nearest_body_world_xyz": [
+        -0.0036082847509533167,
+        0.1252211481332779,
+        1.3247140645980835
+      ],
+      "hoodie_hair_pairs": 0,
+      "contact_cloth_role_faces": {},
+      "contact_region_hair_vertex_to_body_min_m": null,
+      "cloth_contact_rest_bounds": [],
+      "hair_contact_world_bounds": []
+    }
+  ]
+}

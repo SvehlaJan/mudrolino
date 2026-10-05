@@ -1,0 +1,15 @@
+{
+  "source": "assets/avatar/catalog-a/F04/fitting-revisions/T05-B01-F04-loop-envelope-study/outfit.blend",
+  "source_sha256": "a1f8509996a862e0076ec6e08ea3f23f601d5d5275987a7e67e3a1f2f99f4069",
+  "motion": "walk",
+  "frame": 8.5,
+  "cloth": "B01_straight_trousers_outfit",
+  "obstacle": "F04_ankle_boots_outfit",
+  "pairs": 0,
+  "contact_material_faces": {},
+  "cloth_rest_xyz": [],
+  "cloth_posed_xyz": [],
+  "obstacle_posed_xyz": [],
+  "samples": [],
+  "note": "Nearest normals can face the inside of thick hollow garments; inspect the surface role before projecting targets."
+}

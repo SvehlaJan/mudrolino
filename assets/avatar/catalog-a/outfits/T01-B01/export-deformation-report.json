@@ -1,0 +1,150 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/T01-B01/outfit.blend",
+  "glb": "assets/avatar/catalog-a/outfits/T01-B01/outfit.glb",
+  "glb_sha256": "2ade92d0868374456994f1fd40fce767ae42340d833715034a865b2963d61aef",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 2.9690352221223293e-07,
+        "body_underlayer_male": 8.025298825486971e-07,
+        "H01_head": 2.216469425775358e-07,
+        "T01_crew_tee_outfit": 4.962300295119348e-07
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 4.564354867397924e-07,
+        "body_underlayer_male": 1.0027052894656663e-06,
+        "H01_head": 5.103511853121745e-07,
+        "T01_crew_tee_outfit": 1.54485951497918e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 4.045328978463658e-07,
+        "body_underlayer_male": 1.0255041615891969e-06,
+        "H01_head": 4.989664716958941e-07,
+        "T01_crew_tee_outfit": 1.5319234307753504e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 3.2373608860325476e-07,
+        "body_underlayer_male": 9.794042625799193e-07,
+        "H01_head": 4.257927059825306e-07,
+        "T01_crew_tee_outfit": 2.1809848931297893e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 3.5515520835360803e-07,
+        "body_underlayer_male": 9.49941693306755e-07,
+        "H01_head": 3.743870422567852e-07,
+        "T01_crew_tee_outfit": 1.3817563058182714e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 4.5417996830110496e-07,
+        "body_underlayer_male": 6.563280408045102e-07,
+        "H01_head": 4.110668498924497e-07,
+        "T01_crew_tee_outfit": 1.9886351765308063e-06
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 4.5905795786893577e-07,
+        "body_underlayer_male": 1.1042957339668646e-06,
+        "H01_head": 4.82967777770682e-07,
+        "T01_crew_tee_outfit": 1.5742426739961957e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 2.9124052502993436e-07,
+        "body_underlayer_male": 1.020702370624349e-06,
+        "H01_head": 2.9876736107325996e-07,
+        "T01_crew_tee_outfit": 3.2146556350198807e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 3.111453850124235e-07,
+        "body_underlayer_male": 1.0150305342904176e-06,
+        "H01_head": 2.586328093912016e-07,
+        "T01_crew_tee_outfit": 3.237635155528551e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 2.494554109944147e-07,
+        "body_underlayer_male": 9.924665391736198e-07,
+        "H01_head": 3.1700008662483015e-07,
+        "T01_crew_tee_outfit": 2.5341175842186203e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 4.512370708198432e-07,
+        "body_underlayer_male": 5.397430413722759e-07,
+        "H01_head": 3.656861622403085e-07,
+        "T01_crew_tee_outfit": 2.8323281640041387e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 3.686343745812337e-07,
+        "body_underlayer_male": 5.543552674680541e-07,
+        "H01_head": 5.075152671452088e-07,
+        "T01_crew_tee_outfit": 3.138914735245635e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 4.578925825171609e-07,
+        "body_underlayer_male": 1.087784767150879e-06,
+        "H01_head": 4.937660946779943e-07,
+        "T01_crew_tee_outfit": 2.0545237475744216e-06
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "max_nearest_vertex_error_m": {
+        "B01_straight_trousers_outfit": 3.0800740091763146e-07,
+        "body_underlayer_male": 1.027207872539293e-06,
+        "H01_head": 2.767767739442206e-07,
+        "T01_crew_tee_outfit": 3.4457223136996618e-06
+      }
+    }
+  ],
+  "max_error_m": 3.4457223136996618e-06,
+  "threshold_m": 3e-05,
+  "status": "passed"
+}

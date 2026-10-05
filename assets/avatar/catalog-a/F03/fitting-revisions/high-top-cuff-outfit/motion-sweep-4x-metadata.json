@@ -1,0 +1,20 @@
+{
+  "blend": "assets/avatar/catalog-a/F03/fitting-revisions/high-top-cuff-outfit/outfit.blend",
+  "blend_sha256": "52e777c08c7ecaded4378cbb17b7f0a3701e3b921c691423359ee9d132c39d63",
+  "blender": "5.1.1",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T04_zip_hoodie_outfit",
+    "B04_ivory_trousers_outfit",
+    "F03_high_tops_outfit",
+    "A01_baseball_cap_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 176,
+  "review_width": 320
+}

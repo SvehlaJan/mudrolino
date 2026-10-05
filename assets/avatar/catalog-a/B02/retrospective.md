@@ -1,0 +1,13 @@
+# B02 — blue joggers retrospective
+
+Status: fit-verified candidate; final reference/style/budget/compatibility and runtime registration remain open.
+
+The reference's relaxed blue legs, navy elastic waistband and ankle cuffs are authored against the shared body. The independent master contains 9,562 vertices / 9,536 polygons, 24 bone groups and at most four normalized influences. Fuller thigh/calf lofts distinguish it from B01; the hem retains B01's measured shoe-following envelope and ankle blend. Actual horizontal mesh cuts define the elastic color boundaries. Two front pocket openings are projected onto the finished cloth and inherit triangle-interpolated weights. No belt loops, fly hardware or dangling drawcords are added to the joggers.
+
+No new fit failures were found. Independent and T01/B02/F01/A01 sweeps pass 163 quarter-frame walk/run poses with zero body/head/layer contacts. The pocket-detail gate passes 164 poses with a maximum surface separation of 3.844 mm under a 12 mm cap. Six cap gestures pass. Fifteen GLBs validate cleanly, materials pass and 14-pose bidirectional exported-surface comparison remains within 6.07 micrometres. Fresh desktop rest/walk/run and phone run render without page/console errors or failed GETs on the unchanged identity-matched production build. Current proof: `../outfits/T01-B02-F01-A01/verification-summary.json`.
+
+Workflow improvement applied: `catalog_bottom_geometry.py` extracts the pelvis/crotch/leg loft, numeric-index ankle weight blend, real trim cuts and full-length coverage from the proven B01 construction. It accepts explicit per-design ring dimensions rather than editing the earlier master. B02 also uses the shared independent-master driver, barycentric detail weights and sequential fail-fast verification runner. B01 sources and existing proofs were preserved.
+
+Apply before B03: reuse the shared crotch/pelvis topology with knee-length leg rings, create a shorts-specific conservative body mask that preserves exposed knees/lower legs, and keep finished-surface weights for pocket detail. Test the new hem against actual animated skin and the tee; the full-trouser coverage function is unsuitable for shorts. Final silhouette review should also compare cuff gathering and relaxed ease against the 2D catalog.
+
+Still open: remaining compatible tops/shoes/heads and motions, final art/material/geometry budget, expressions, full-body mobile framing and actual slot registration/switching. Candidate substitution proves skinned rendering only. No new app build or release gate is claimed; no published GLBs were replaced and no Meshy credits were spent.

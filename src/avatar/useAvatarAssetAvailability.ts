@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { AVATAR_MODEL_URL } from './avatarConstants';
 
 export type AssetStatus = 'checking' | 'available' | 'missing';
 
@@ -27,10 +26,6 @@ async function checkAsset(url: string, signal: AbortSignal): Promise<boolean> {
   } catch {
     return false;
   }
-}
-
-export function useAvatarAssetAvailability(url = AVATAR_MODEL_URL): AssetStatus {
-  return useAvatarAssetsAvailability([url]);
 }
 
 export function useAvatarAssetsAvailability(urls: string[]): AssetStatus {

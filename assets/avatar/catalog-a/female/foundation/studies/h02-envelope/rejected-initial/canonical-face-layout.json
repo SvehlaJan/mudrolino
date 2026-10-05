@@ -1,0 +1,24 @@
+{
+  "schema": "canonical-latlong-face-v1",
+  "uv_layer": "canonical_face_uv",
+  "u": "theta/(2*pi), seam at positive X",
+  "v": "1-phi/pi, top=1",
+  "front_center_uv": [
+    0.75,
+    0.5
+  ],
+  "front_direction": "-Y",
+  "face_material": "face_surface",
+  "face_material_slot": 1,
+  "diagnostic_image": "sample-face.png",
+  "image_sha256": "0d7981738b65f3bcbff3579c6974766070587fa6705a8720e24417313b6aa929",
+  "image_size": [
+    512,
+    512
+  ],
+  "face_patch_angular_range_radians": [
+    3.7699111843077517,
+    5.654866776461628
+  ],
+  "contract": "Local fictional UV/image round-trip fixture only; no selfie generation or identity proof."
+}

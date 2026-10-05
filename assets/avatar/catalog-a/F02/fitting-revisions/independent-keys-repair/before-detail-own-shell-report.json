@@ -1,0 +1,3959 @@
+{
+  "blend": "assets/avatar/catalog-a/F02/F02.blend",
+  "blend_sha256": "a0a4998aea312b2eb9c5ee14d6bc7fd121bb670e80b780f049a34d810a6fa7d7",
+  "garment": "F02_slip_ons",
+  "threshold_m": 0.012,
+  "samples": 164,
+  "max_cloth_distance_m": 0.006586332339793444,
+  "status": "failed",
+  "surface_materials": [
+    "A navy slip-on upper",
+    "A navy slip-on collar",
+    "A ivory slip-on sole"
+  ],
+  "detail_materials": [
+    "A dark slip-on elastic gores",
+    "A orange slip-on heel tabs"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.00159993686247617,
+        "A orange slip-on heel tabs": 0.006258136592805386
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.08150529861450195,
+          0.0181855671107769,
+          0.09643909335136414
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016536131734028459,
+        "A orange slip-on heel tabs": 0.005729550030082464
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 16
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016510593704879284,
+        "A orange slip-on heel tabs": 0.0059043774381279945
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016506182728335261,
+        "A orange slip-on heel tabs": 0.006124596111476421
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001650167047046125,
+        "A orange slip-on heel tabs": 0.006255386862903833
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016450709663331509,
+        "A orange slip-on heel tabs": 0.006255566608160734
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016478832112625241,
+        "A orange slip-on heel tabs": 0.006255874875932932
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.00165260536596179,
+        "A orange slip-on heel tabs": 0.00625596521422267
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016536865150555968,
+        "A orange slip-on heel tabs": 0.006255552172660828
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016493157017976046,
+        "A orange slip-on heel tabs": 0.006254157051444054
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016448944807052612,
+        "A orange slip-on heel tabs": 0.00625223433598876
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001643149764277041,
+        "A orange slip-on heel tabs": 0.006249683443456888
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016526156105101109,
+        "A orange slip-on heel tabs": 0.006245958618819714
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016614465275779366,
+        "A orange slip-on heel tabs": 0.006241609342396259
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016696443781256676,
+        "A orange slip-on heel tabs": 0.006236576940864325
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016764204483479261,
+        "A orange slip-on heel tabs": 0.0062309931963682175
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001682847272604704,
+        "A orange slip-on heel tabs": 0.0062134829349815845
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016889172839000821,
+        "A orange slip-on heel tabs": 0.0061932774260640144
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001693999976851046,
+        "A orange slip-on heel tabs": 0.006194705609232187
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016987624112516642,
+        "A orange slip-on heel tabs": 0.006201538257300854
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017032889882102609,
+        "A orange slip-on heel tabs": 0.0062079355120658875
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017060688696801662,
+        "A orange slip-on heel tabs": 0.006231762934476137
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001707753399387002,
+        "A orange slip-on heel tabs": 0.006230068858712912
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017093655187636614,
+        "A orange slip-on heel tabs": 0.006217223592102528
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017098590033128858,
+        "A orange slip-on heel tabs": 0.006216790527105331
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017087499145418406,
+        "A orange slip-on heel tabs": 0.006224818993359804
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.21468982100486755,
+          0.04167335107922554,
+          0.09643932431936264
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017339575570076704,
+        "A orange slip-on heel tabs": 0.006228734739124775
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017577066319063306,
+        "A orange slip-on heel tabs": 0.006228534039109945
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017681592144072056,
+        "A orange slip-on heel tabs": 0.0062245256267488
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017780882772058249,
+        "A orange slip-on heel tabs": 0.006216543726623058
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 34
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001787440967746079,
+        "A orange slip-on heel tabs": 0.00606496911495924
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 61
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018022856675088406,
+        "A orange slip-on heel tabs": 0.005453377962112427
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018231540452688932,
+        "A orange slip-on heel tabs": 0.004855046514421701
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018413442885503173,
+        "A orange slip-on heel tabs": 0.004293063189834356
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001855910406447947,
+        "A orange slip-on heel tabs": 0.0037697202060371637
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018690800061449409,
+        "A orange slip-on heel tabs": 0.003334918525069952
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018812436610460281,
+        "A orange slip-on heel tabs": 0.0033133707474917173
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 53
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018820742843672633,
+        "A orange slip-on heel tabs": 0.003437529318034649
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 57
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001875338377431035,
+        "A orange slip-on heel tabs": 0.0035404269583523273
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 40
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018679561326280236,
+        "A orange slip-on heel tabs": 0.0036426810547709465
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 16
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018596189329400659,
+        "A orange slip-on heel tabs": 0.0037179107312113047
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018501683371141553,
+        "A orange slip-on heel tabs": 0.0037536132149398327
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 17
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018398902611806989,
+        "A orange slip-on heel tabs": 0.00378909963183105
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 11
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018299887888133526,
+        "A orange slip-on heel tabs": 0.0038154926151037216
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 11
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001824823091737926,
+        "A orange slip-on heel tabs": 0.0038065230473876
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 9
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001819372409954667,
+        "A orange slip-on heel tabs": 0.0037976442836225033
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 5
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018136996077373624,
+        "A orange slip-on heel tabs": 0.0037895613349974155
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 5
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018039451679214835,
+        "A orange slip-on heel tabs": 0.0037601147778332233
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017936828080564737,
+        "A orange slip-on heel tabs": 0.00373069173656404
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017829128773882985,
+        "A orange slip-on heel tabs": 0.003701278008520603
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017733735730871558,
+        "A orange slip-on heel tabs": 0.003651905106380582
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017639183206483722,
+        "A orange slip-on heel tabs": 0.0035974406637251377
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017541238339617848,
+        "A orange slip-on heel tabs": 0.003542985999956727
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017453227192163467,
+        "A orange slip-on heel tabs": 0.003474275581538677
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001737157697789371,
+        "A orange slip-on heel tabs": 0.003403056412935257
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017287954688072205,
+        "A orange slip-on heel tabs": 0.0033319515641778708
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017235352424904704,
+        "A orange slip-on heel tabs": 0.003253290196880698
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 0
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001723178313113749,
+        "A orange slip-on heel tabs": 0.003162974491715431
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 6
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001722835935652256,
+        "A orange slip-on heel tabs": 0.0030770727898925543
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 14
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017236527055501938,
+        "A orange slip-on heel tabs": 0.003078274894505739
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 18
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001729169161990285,
+        "A orange slip-on heel tabs": 0.003414717735722661
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017345944652333856,
+        "A orange slip-on heel tabs": 0.0038411044515669346
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.00173997285310179,
+        "A orange slip-on heel tabs": 0.004265171941369772
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017399166245013475,
+        "A orange slip-on heel tabs": 0.004698540549725294
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017398549243807793,
+        "A orange slip-on heel tabs": 0.005130509380251169
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017398258205503225,
+        "A orange slip-on heel tabs": 0.00555811682716012
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001750537776388228,
+        "A orange slip-on heel tabs": 0.00602503027766943
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017634030664339662,
+        "A orange slip-on heel tabs": 0.006227201782166958
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017757851164788008,
+        "A orange slip-on heel tabs": 0.006221048533916473
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001778512611053884,
+        "A orange slip-on heel tabs": 0.006218733265995979
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017749329563230276,
+        "A orange slip-on heel tabs": 0.006218882277607918
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017712831031531096,
+        "A orange slip-on heel tabs": 0.00621830252930522
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001766858040355146,
+        "A orange slip-on heel tabs": 0.006216907873749733
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017612191149964929,
+        "A orange slip-on heel tabs": 0.0062142410315573215
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001755432691425085,
+        "A orange slip-on heel tabs": 0.006214937195181847
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017504314891994,
+        "A orange slip-on heel tabs": 0.006218881346285343
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017495716456323862,
+        "A orange slip-on heel tabs": 0.005950405728071928
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017486573196947575,
+        "A orange slip-on heel tabs": 0.0056197247467935085
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001747727976180613,
+        "A orange slip-on heel tabs": 0.005282229278236628
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017403940437361598,
+        "A orange slip-on heel tabs": 0.005073405336588621
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12925206124782562,
+          0.13972128927707672,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017328000394627452,
+        "A orange slip-on heel tabs": 0.004560450091958046
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017248899675905704,
+        "A orange slip-on heel tabs": 0.004337706603109837
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017109282780438662,
+        "A orange slip-on heel tabs": 0.00419711833819747
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016949179116636515,
+        "A orange slip-on heel tabs": 0.004078188445419073
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001711535849608481,
+        "A orange slip-on heel tabs": 0.003962324932217598
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017200883012264967,
+        "A orange slip-on heel tabs": 0.0038995121140033007
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017200801521539688,
+        "A orange slip-on heel tabs": 0.0038701663725078106
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017198568675667048,
+        "A orange slip-on heel tabs": 0.003840679069980979
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017162855947390199,
+        "A orange slip-on heel tabs": 0.0038401680067181587
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 16
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017076206859201193,
+        "A orange slip-on heel tabs": 0.003883744589984417
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016987931448966265,
+        "A orange slip-on heel tabs": 0.0039278604090213776
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 14
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016905870288610458,
+        "A orange slip-on heel tabs": 0.003985926508903503
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 14
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016858871094882488,
+        "A orange slip-on heel tabs": 0.004100475925952196
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 14
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016810571542009711,
+        "A orange slip-on heel tabs": 0.004218171816319227
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 16
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016761922743171453,
+        "A orange slip-on heel tabs": 0.0043386174365878105
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016730622155591846,
+        "A orange slip-on heel tabs": 0.004519832320511341
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016699183033779263,
+        "A orange slip-on heel tabs": 0.004706081934273243
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001666714670136571,
+        "A orange slip-on heel tabs": 0.00489613926038146
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016629977617412806,
+        "A orange slip-on heel tabs": 0.005128771532326937
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016591028543189168,
+        "A orange slip-on heel tabs": 0.005376371089369059
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016551755834370852,
+        "A orange slip-on heel tabs": 0.005628025624901056
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016535932663828135,
+        "A orange slip-on heel tabs": 0.0057295141741633415
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 16
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001715453458018601,
+        "A orange slip-on heel tabs": 0.005248810164630413
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017371783033013344,
+        "A orange slip-on heel tabs": 0.004842738155275583
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 26
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017617351841181517,
+        "A orange slip-on heel tabs": 0.005464624147862196
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018113317200914025,
+        "A orange slip-on heel tabs": 0.006055700127035379
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 62
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018583142664283514,
+        "A orange slip-on heel tabs": 0.005987630225718021
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 85
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001891393680125475,
+        "A orange slip-on heel tabs": 0.005518206395208836
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 133
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0019171055173501372,
+        "A orange slip-on heel tabs": 0.003706821706146002
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 125
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001928485929965973,
+        "A orange slip-on heel tabs": 0.0036242667119950056
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 125
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0019268265459686518,
+        "A orange slip-on heel tabs": 0.0035563032142817974
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 119
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0019251243211328983,
+        "A orange slip-on heel tabs": 0.0034893820993602276
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 121
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0019236986991018057,
+        "A orange slip-on heel tabs": 0.0034445400815457106
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 120
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001923724659718573,
+        "A orange slip-on heel tabs": 0.003479409497231245
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 114
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0019237108062952757,
+        "A orange slip-on heel tabs": 0.0035154421348124743
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 114
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001923687756061554,
+        "A orange slip-on heel tabs": 0.003539466066285968
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 116
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001917631016112864,
+        "A orange slip-on heel tabs": 0.0036386763677001
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 117
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0019093472510576248,
+        "A orange slip-on heel tabs": 0.0037383001763373613
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 115
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018987158546224236,
+        "A orange slip-on heel tabs": 0.003850875422358513
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.13545778393745422,
+          0.1402837038040161,
+          0.11575216799974442
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 100
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018761411774903536,
+        "A orange slip-on heel tabs": 0.004245074465870857
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 76
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001843252801336348,
+        "A orange slip-on heel tabs": 0.004966882523149252
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 42
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018014147644862533,
+        "A orange slip-on heel tabs": 0.005384527146816254
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 14
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017603395972400904,
+        "A orange slip-on heel tabs": 0.005690600257366896
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 17
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017200539587065578,
+        "A orange slip-on heel tabs": 0.005901094991713762
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 17
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001674254541285336,
+        "A orange slip-on heel tabs": 0.006102570332586765
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 17
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001660254318267107,
+        "A orange slip-on heel tabs": 0.006161567289382219
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.08272776752710342,
+          0.009144071489572525,
+          0.09664910286664963
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 17
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016609496669843793,
+        "A orange slip-on heel tabs": 0.006020734552294016
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20715364813804626,
+          0.02532511204481125,
+          0.10915803164243698
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 17
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016677285311743617,
+        "A orange slip-on heel tabs": 0.005882584024220705
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20715364813804626,
+          0.02532511204481125,
+          0.10915803164243698
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 17
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016723201842978597,
+        "A orange slip-on heel tabs": 0.005753442645072937
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20715364813804626,
+          0.02532511204481125,
+          0.10915803164243698
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 19
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016724736196920276,
+        "A orange slip-on heel tabs": 0.005644075572490692
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20715364813804626,
+          0.02532511204481125,
+          0.10915803164243698
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 19
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016726995818316936,
+        "A orange slip-on heel tabs": 0.005529508460313082
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20715364813804626,
+          0.02532511204481125,
+          0.10915803164243698
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 18
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001673139980994165,
+        "A orange slip-on heel tabs": 0.0054101767018437386
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20715364813804626,
+          0.02532511204481125,
+          0.10915803164243698
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 18
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001672736369073391,
+        "A orange slip-on heel tabs": 0.005132792983204126
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20859815180301666,
+          0.034745268523693085,
+          0.10900445282459259
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 18
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016665123403072357,
+        "A orange slip-on heel tabs": 0.004841939080506563
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.20859815180301666,
+          0.034745268523693085,
+          0.10900445282459259
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 20
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016933138249441981,
+        "A orange slip-on heel tabs": 0.004544673953205347
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 18
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017431817250326276,
+        "A orange slip-on heel tabs": 0.0045103393495082855
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 16
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017876311903819442,
+        "A orange slip-on heel tabs": 0.004555072635412216
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 16
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018234372837468982,
+        "A orange slip-on heel tabs": 0.0042394655756652355
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 44
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018346712458878756,
+        "A orange slip-on heel tabs": 0.00391575088724494
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 68
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018333314219489694,
+        "A orange slip-on heel tabs": 0.00373671343550086
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 72
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018318216316401958,
+        "A orange slip-on heel tabs": 0.0036314581520855427
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 76
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001831144792959094,
+        "A orange slip-on heel tabs": 0.003549730870872736
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 92
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001831916393712163,
+        "A orange slip-on heel tabs": 0.003171307733282447
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12306429445743561,
+          0.13814811408519745,
+          0.11575261503458023
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 122
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018326910212635994,
+        "A orange slip-on heel tabs": 0.003612771863117814
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 132
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018328775186091661,
+        "A orange slip-on heel tabs": 0.004527933895587921
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 128
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001830240129493177,
+        "A orange slip-on heel tabs": 0.005249359179288149
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 127
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018454972887411714,
+        "A orange slip-on heel tabs": 0.005999241955578327
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 98
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018615403678268194,
+        "A orange slip-on heel tabs": 0.006038937252014875
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 151
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018757731886580586,
+        "A orange slip-on heel tabs": 0.00596155459061265
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 178
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001886888174340129,
+        "A orange slip-on heel tabs": 0.0049091181717813015
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 152
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001895032124593854,
+        "A orange slip-on heel tabs": 0.0040021962486207485
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.1230621337890625,
+          0.13815997540950775,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 134
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0018712809542194009,
+        "A orange slip-on heel tabs": 0.005932644009590149
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 136
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001808274770155549,
+        "A orange slip-on heel tabs": 0.005462796427309513
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          -0.12855733931064606,
+          0.14021854102611542,
+          0.1238868236541748
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017081581754609942,
+        "A orange slip-on heel tabs": 0.005024728365242481
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20588789880275726,
+          0.02135562151670456,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 30
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016530218999832869,
+        "A orange slip-on heel tabs": 0.005523021798580885
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 28
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016152544412761927,
+        "A orange slip-on heel tabs": 0.0058522578328847885
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.08743248879909515,
+          0.018837936222553253,
+          0.108859121799469
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 27
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016205145511776209,
+        "A orange slip-on heel tabs": 0.006191234104335308
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.09671986848115921,
+          0.0016993097960948944,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 27
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016287537291646004,
+        "A orange slip-on heel tabs": 0.0064285811968147755
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.09671986848115921,
+          0.0016993097960948944,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 27
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016238972311839461,
+        "A orange slip-on heel tabs": 0.006506995297968388
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.09671986848115921,
+          0.0016993097960948944,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 23
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.001618529437109828,
+        "A orange slip-on heel tabs": 0.006586332339793444
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.09671986848115921,
+          0.0016993097960948944,
+          0.10924409329891205
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 23
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016191060421988368,
+        "A orange slip-on heel tabs": 0.006558939814567566
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          -0.20842799544334412,
+          0.03556846082210541,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 23
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016468060202896595,
+        "A orange slip-on heel tabs": 0.0061079105362296104
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 23
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0016828998923301697,
+        "A orange slip-on heel tabs": 0.00566919706761837
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 23
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A dark slip-on elastic gores": 0.0017156123649328947,
+        "A orange slip-on heel tabs": 0.005249066278338432
+      },
+      "worst_detail_rest_xyz": {
+        "A dark slip-on elastic gores": [
+          0.08951884508132935,
+          0.014213379472494125,
+          0.10900513827800751
+        ],
+        "A orange slip-on heel tabs": [
+          0.12342951446771622,
+          0.1367056667804718,
+          0.12288638949394226
+        ]
+      },
+      "detail_shell_pairs": {
+        "A dark slip-on elastic gores": 0,
+        "A orange slip-on heel tabs": 24
+      }
+    }
+  ],
+  "attachment_roles": null,
+  "require_detail_clear": true,
+  "max_detail_shell_pairs": 178
+}

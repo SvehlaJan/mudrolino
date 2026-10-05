@@ -38,7 +38,6 @@ function preview(component: GalleryComponent): { href: string; label: string; li
   const section = Object.entries(liveSections).find(([, names]) => names.includes(component.name))?.[0];
   if (section) return { href: `#ui-demo-${section.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-')}`, label: 'Živá ukážka na tejto stránke', live: true };
   if (component.usages.length === 0) return null;
-  if (component.name === 'HomeAvatarOverlay') return { href: '/', label: 'Otvoriť domov (vyžaduje zapnutý avatar experiment)', live: false };
   if (component.category === 'games') return { href: `/${component.source.split('/')[2]}`, label: 'Otvoriť hru (celý priebeh)', live: false };
   if (component.category === 'content') return { href: '/content', label: 'Otvoriť obsah (rodičovská brána)', live: false };
   if (component.category === 'home' || component.name === 'App') return { href: '/', label: 'Otvoriť domov', live: false };

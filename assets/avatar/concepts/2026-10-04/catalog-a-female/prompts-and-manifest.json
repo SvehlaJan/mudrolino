@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-04",
+  "mode": "built-in image_gen",
+  "style": "Palette A; rounded matte Genmoji-like adult companion",
+  "selfie_contract": "fictional reference faces; actual personalization is a generated 2D texture on a reusable UV-mapped head",
+  "base": {
+    "prompt": "Use case: stylized-concept. Create a NEW female character reference sheet in exactly the palette-A rounded matte Genmoji-like style of the provided references. Image 1 is the existing male full-body proportion/material/color style guide; Image 2 is the H02/H03 hair and face style guide, not edit targets. Landscape white/ivory studio sheet, professional Blender modeling reference. Title 'A \u00b7 Female character reference'. Four evenly spaced full body views of THE SAME fictional adult woman: Front, Right side, Back, Three-quarter, matching scale and level baseline. Use H02-like warm medium skin, friendly large brown eyes, understated brows/smile, brown smooth shoulder-length hair in broad sculpted masses; no earrings, jewelry or makeup. Adult companion proportions, enlarged head comparable to male reference, average build, gently shaped shoulders/waist/hips without exaggeration; comfortable casual fit, flat standing relaxed A-pose with fingers visible. She wears the EXISTING T01 cornflower blue crew tee, B01 muted navy straight trousers, F01 blue/ivory strap sneakers, same designs and palette as male guide; one broad ivory strap on each sneaker, no laces. Preserve garment ease and tee hem at high hip, straight leg silhouette; no crop top or tight clothing. Soft even studio illumination, broad rounded forms, subtle fabric texture, readable seam edges, no glossy plastic. Keep head/body/foot scale and face/hair/outfit identical across all views. No extra accessories, no added skirts/dresses, no extra color accents. At bottom small caption 'Fictional style reference \u00b7 refit shared wardrobe IDs'. This is a 2D design reference, not a rig diagram. Entire head and both shoes fully visible in every view.",
+    "inputs": [
+      "../catalog-a/05-character-views.png",
+      "../catalog-a/13-head-turnarounds.png"
+    ],
+    "output": "01-character-turnaround.png",
+    "generated_source": "exec-0e05ea5a-8815-444a-8e5b-48b70e6c6475.png"
+  },
+  "sheets": [
+    {
+      "key": "femaleOutfits",
+      "file": "02-outfit-combinations.png",
+      "prompt": "Use case: stylized-concept. NEW female reference sheet for Blender in exactly approved palette A. Image 1 is the canonical fictional female character: keep her warm medium skin, brown eyes, friendly neutral smile, shoulder-length smooth brown H02 hair, average adult build and enlarged head proportions IDENTICAL across panels. Rounded matte Genmoji-like shapes and soft even studio lighting, ivory background, cornflower blue/tangerine orange/muted navy/ivory palette. Comfortable relaxed garments, restrained broad seam/fold detail. No jewelry, makeup, heels, tight clothing or extra colors. Keep complete heads and feet visible where full body is requested. These are 2D art references, not measured blueprints. Image 2 is the existing shared catalog outfit construction guide: reproduce exactly the same wardrobe IDs on the female base, preserving the designs rather than inventing new garments. Landscape sheet title 'A \u00b7 Female outfit combinations', 3 columns x 2 rows, six equally scaled full-body standing front or slight three-quarter relaxed A-pose views. O01: T01 blue crew tee, B01 navy straight trousers, F01 blue/ivory sneakers each with ONE broad ivory strap. O02: T02 orange pullover hoodie with lowered hood/kangaroo pocket, B02 blue joggers with navy cuffs, F02 navy slip-ons with orange heel tabs, NO straps. O03: T03 ivory body/navy short raglan sleeves, B03 navy comfortable knee-above shorts, F01 one-strap sneakers, A01 orange cap. O04: T04 navy ZIP hoodie with orange hood lining, zipper fully visible, B04 ivory straight trousers, F03 blue high-tops with EXACTLY THREE broad ivory horizontal straps per shoe. O05: T05 blue crew sweatshirt/navy rib trim, B01 navy trousers, F04 orange ankle boots/navy elastic side panels/ivory soles, A02 navy dome beanie with blue folded cuff. O06: T06 ivory long-sleeve henley with EXACTLY FOUR visible navy buttons on short front placket, B02 blue joggers/navy cuffs, F02 navy slip-ons/orange heel tabs, A05 orange backpack with navy shoulder straps and orange carry loop. Include a small seventh rear detail inset ONLY in O06 cell showing the same backpack worn. Clear labels under each cell: 'O01 \u00b7 T01 B01 F01', 'O02 \u00b7 T02 B02 F02', 'O03 \u00b7 T03 B03 F01 A01', 'O04 \u00b7 T04 B04 F03', 'O05 \u00b7 T05 B01 F04 A02', 'O06 \u00b7 T06 B02 F02 A05'. Match wardrobe designs in image 2, while gently refitting tee/waist/hips to image1's female base. Full coverage high-hip hems, no cropped tops. No added scarves or glasses.",
+      "input_images": [
+        "catalog-a-female/01-character-turnaround.png",
+        "catalog-a/07-outfit-combinations.png"
+      ]
+    },
+    {
+      "key": "femaleHoodie",
+      "file": "03-hoodie-fit-turnaround.png",
+      "prompt": "Use case: stylized-concept. NEW female reference sheet for Blender in exactly approved palette A. Image 1 is the canonical fictional female character: keep her warm medium skin, brown eyes, friendly neutral smile, shoulder-length smooth brown H02 hair, average adult build and enlarged head proportions IDENTICAL across panels. Rounded matte Genmoji-like shapes and soft even studio lighting, ivory background, cornflower blue/tangerine orange/muted navy/ivory palette. Comfortable relaxed garments, restrained broad seam/fold detail. No jewelry, makeup, heels, tight clothing or extra colors. Keep complete heads and feet visible where full body is requested. These are 2D art references, not measured blueprints. Image 2 is the ORIGINAL T02 hoodie construction baseline. Landscape sheet title 'A \u00b7 Female T02 fit reference'. TOP: four evenly spaced full-body views of the same woman, Front, Right side, Back, Three-quarter, relaxed A-pose, same scale and baseline. She wears the existing T02 tangerine orange pullover hoodie with ONE joined kangaroo pocket, rounded ribbed cuffs and high-hip ribbed hem, lowered rounded hood lying on upper back, no zipper, no drawstrings, no logos. Same B02 cornflower joggers with navy ankle cuffs and F02 navy slip-on shoes with ivory soles and orange rear heel tabs, NO shoe straps. Match female body fit with comfortable shoulder/chest/waist ease, no tight waist or crop hem. Same H02 hair: place the broad hair masses in front of shoulders where useful and above/around lowered hood with readable separation, no interpenetration. BOTTOM: three construction close-ups of THIS worn hoodie: shoulder/neck/hood with hair separation, joined pocket openings, cuff and hem thickness. Use clean captions 'Shoulder + hood', 'Pocket opening', 'Cuff + hem'. No measurement arrows or numerical dimensions. Maintain same garment construction in every view and original category reference; the hood is clearly visible below hair in the back view. Tiny footnote 'T02 / B02 / F02 \u00b7 female refit \u00b7 fit proof required'.",
+      "input_images": [
+        "catalog-a-female/01-character-turnaround.png",
+        "catalog-a/09-hoodie-construction.png"
+      ]
+    },
+    {
+      "key": "femaleAccessories",
+      "file": "04-accessories-worn.png",
+      "prompt": "Use case: stylized-concept. NEW female reference sheet for Blender in exactly approved palette A. Image 1 is the canonical fictional female character: keep her warm medium skin, brown eyes, friendly neutral smile, shoulder-length smooth brown H02 hair, average adult build and enlarged head proportions IDENTICAL across panels. Rounded matte Genmoji-like shapes and soft even studio lighting, ivory background, cornflower blue/tangerine orange/muted navy/ivory palette. Comfortable relaxed garments, restrained broad seam/fold detail. No jewelry, makeup, heels, tight clothing or extra colors. Keep complete heads and feet visible where full body is requested. These are 2D art references, not measured blueprints. Image 2 is the ORIGINAL A01-A06 accessory design baseline. Landscape sheet title 'A \u00b7 Female accessory fit'. Six tidy labeled cells in 3 columns x 2 rows. Show the SAME woman in blue T01 tee with shoulders and enough torso for each accessory. TWO matching views in each cell, front and right-side or rear as specified. A01 orange baseball cap on H02 hair, front and rear views; cap rear adjustment strap NAVY, no ponytail/hair redesign. A02 navy dome beanie with CORNFLOWER BLUE folded cuff, front and right side views; hair sits below cuff, not cutting through. A03 navy ROUND glasses, front and right side views, thin temples reach ears over/under broad hair; no sunglasses. A04 cornflower blue SOFT-SQUARE glasses, front and right side views, matching original. A05 orange rounded backpack with NAVY shoulder straps and ORANGE carry loop, female upper body front and rear views to show both shoulder strap path and backpack height; orange outside, ivory zip pulls, no extra chest buckle. A06 ivory LOOP scarf with ONE muted NAVY FRONT panel, front and right side views, neck opening fits above tee and below chin with hair routed cleanly around collar; scarf does not cover mouth. Labels exactly 'A01 \u00b7 Cap', 'A02 \u00b7 Beanie', 'A03 \u00b7 Round glasses', 'A04 \u00b7 Square glasses', 'A05 \u00b7 Backpack', 'A06 \u00b7 Loop scarf'. Only one accessory per cell so fitting is clear; no mixed glasses/hat/scarf or jewelry. Preserve accessory geometry and color from original rather than changing fashion designs. Bottom caption 'Shared accessory IDs \u00b7 female hair / head / shoulder fit'.",
+      "input_images": [
+        "catalog-a-female/01-character-turnaround.png",
+        "catalog-a/04-accessories.png"
+      ]
+    }
+  ],
+  "corrections": [
+    {
+      "key": "femaleHoodieCorrected",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the trouser colors in the provided female T02 fit reference sheet. Across ALL FOUR full-body views, change the B02 jogger main fabric from muted dark navy to the same vivid CORNFLOWER BLUE as the B02 blue joggers in reference image2 O02 and O06; keep the short ankle cuffs contrasting MUTED NAVY. Preserve the orange T02 hoodie, exact female identity/hair, all garment geometry and pose, navy shoes, orange shoe heel tabs, ivory soles, all text, layout, white background and every bottom closeup unchanged. No straps or extra accessories. This is one correction of B02 colors, not a redesign.",
+      "input_images": [
+        "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-208a48db-88ca-4b11-aa7f-36e505edb01a.png",
+        "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-a0de5269-d3a4-4808-8ea6-5e0c30541150.png"
+      ]
+    },
+    {
+      "key": "femaleAccessoriesCorrected",
+      "prompt": "Use case: precise-object-edit. Make only these exact catalog consistency corrections to image1, the female accessory-fit sheet. (1) In A01 top-left REAR cap view, recolor the adjustment strap MUTED NAVY, rather than cornflower blue; preserve orange cap. (2) In A05 lower-center REAR backpack view, recolor ONLY the top carry loop ORANGE matching backpack body; shoulder straps and buckles stay muted navy. (3) In A04 lower-left, make the blue eyeglass lens frame outlines SOFT SQUARE with rounded rectangular corners in both front and side views, matching image2's original A04 design, rather than circular rings; keep their cornflower blue color, clear lenses and same fit. Preserve A03 dark navy ROUND frames, all other accessories, SAME female face/eyes/body/hair, captions, panels, lighting and proportions exactly. No additions, earrings or jewelry.",
+      "input_images": [
+        "/Users/svehla/.codex/generated_images/01a103bc-b3ed-78a3-90e2-8a405aff01ec/exec-065195ee-f92f-45d3-b8d9-ef95a334fe7c.png",
+        "/Users/svehla/.codex/worktrees/avatar-catalog/teo-learn/assets/avatar/concepts/2026-10-04/catalog-a/04-accessories.png"
+      ]
+    }
+  ],
+  "qualification": "Generated visual references require dimensional reconciliation and animated fitting in Blender. Original catalog category geometry wins over small multi-view drift. No female 3D model or likeness pipeline was authored by generating these sheets.",
+  "outputs": [
+    {
+      "file": "01-character-turnaround.png",
+      "sha256": "3b20ee6f6e7a86830ed8371410a2535e0f3a19ebca6bdd4d411da1b19e681330",
+      "bytes": 1665489,
+      "role": "canonical reference"
+    },
+    {
+      "file": "02-outfit-combinations.png",
+      "sha256": "fb63421eb1d145d1bf12ca77808c1bbff32caddf41ee345e1d67b996c28c4934",
+      "bytes": 1540553,
+      "role": "canonical reference"
+    },
+    {
+      "file": "03-hoodie-fit-turnaround.png",
+      "sha256": "b697fb724ee2bc7bbc99f2077002826e44fce451600510422f219d30bb32d8a5",
+      "bytes": 1719515,
+      "role": "canonical reference"
+    },
+    {
+      "file": "04-accessories-worn.png",
+      "sha256": "305411fee68c5ac4134539b2d9a47e0cb2e586e72c9c1ddcc09de17b890d2841",
+      "bytes": 1913896,
+      "role": "canonical reference"
+    },
+    {
+      "file": "drafts/03-hoodie-fit-before-color-correction.png",
+      "sha256": "0e43a1980aa3d261f738b508a21466426eb82ad5e650a62c5b9c935b321ebd51",
+      "bytes": 1762743,
+      "role": "archived draft"
+    },
+    {
+      "file": "drafts/04-accessories-before-corrections.png",
+      "sha256": "2f4907208f40c57bfff59e83867384fca4cf24d914929bf55979357c7267cd7a",
+      "bytes": 1919268,
+      "role": "archived draft"
+    }
+  ],
+  "source_reference_hashes": [
+    {
+      "file": "assets/avatar/concepts/2026-10-04/catalog-a/05-character-views.png",
+      "sha256": "4a61e4c31dc15be68c26124a0cead7ac71a817161ce29a3b633d6f23ab66db6e"
+    },
+    {
+      "file": "assets/avatar/concepts/2026-10-04/catalog-a/13-head-turnarounds.png",
+      "sha256": "ce04c995eee1f62004650ac9d65687657f0b1dc7db193becd232d1574359457f"
+    },
+    {
+      "file": "assets/avatar/concepts/2026-10-04/catalog-a/07-outfit-combinations.png",
+      "sha256": "6dba6dc77cf51d6e160f72ffffd463994121b065bfc2b6fe8418498c97999642"
+    },
+    {
+      "file": "assets/avatar/concepts/2026-10-04/catalog-a/09-hoodie-construction.png",
+      "sha256": "f5c9cf655e54a5eb965cbe4d189eb7474cea4387cdda7b6b8111bbac145f963d"
+    },
+    {
+      "file": "assets/avatar/concepts/2026-10-04/catalog-a/04-accessories.png",
+      "sha256": "6da1b77ac89a5198cdd88c31547d0dded21a1b491ca0a2e0141ac0dba35e45aa"
+    }
+  ]
+}

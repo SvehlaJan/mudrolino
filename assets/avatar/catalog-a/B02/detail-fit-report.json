@@ -1,0 +1,2314 @@
+{
+  "blend": "assets/avatar/catalog-a/B02/B02.blend",
+  "blend_sha256": "c96a6f6469f702ed4c94901efd44f8d542c7fc2e01628a2a754b472c99d7964e",
+  "garment": "B02_joggers",
+  "threshold_m": 0.012,
+  "samples": 164,
+  "max_cloth_distance_m": 0.003843945451080799,
+  "status": "passed",
+  "surface_materials": [
+    "A blue jogger fabric",
+    "A navy jogger elastic"
+  ],
+  "detail_materials": [
+    "A blue jogger pocket openings"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003419869812205434
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13197511434555054,
+          -0.12301819026470184,
+          0.9234417080879211
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033560902811586857
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033618928864598274
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003377586370334029
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.137498140335083,
+          -0.12110305577516556,
+          0.9153572916984558
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033972628880292177
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13776227831840515,
+          -0.12098273634910583,
+          0.9149649739265442
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034141703508794308
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13776227831840515,
+          -0.12098273634910583,
+          0.9149649739265442
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034298147074878216
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13801731169223785,
+          -0.12086407095193863,
+          0.914585292339325
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034485820215195417
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14226575195789337,
+          -0.11888118088245392,
+          0.9082584381103516
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034718760289251804
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14253723621368408,
+          -0.11875610053539276,
+          0.9078546762466431
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003488752990961075
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.142824187874794,
+          -0.11862388253211975,
+          0.9074279069900513
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035055403131991625
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.142824187874794,
+          -0.11862388253211975,
+          0.9074279069900513
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035224340390414
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14313042163848877,
+          -0.1184827908873558,
+          0.906972348690033
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003539610654115677
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14313042163848877,
+          -0.1184827908873558,
+          0.906972348690033
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003556640353053808
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14313042163848877,
+          -0.1184827908873558,
+          0.906972348690033
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035736560821533203
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14343667030334473,
+          -0.11834169924259186,
+          0.906516969203949
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035902748350054026
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14343667030334473,
+          -0.11834169924259186,
+          0.906516969203949
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003606679616495967
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14343667030334473,
+          -0.11834169924259186,
+          0.906516969203949
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036229968536645174
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14372360706329346,
+          -0.11820949614048004,
+          0.906090259552002
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036393480841070414
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14372360706329346,
+          -0.11820949614048004,
+          0.906090259552002
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036555181723088026
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14372360706329346,
+          -0.11820949614048004,
+          0.906090259552002
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036714638117700815
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14372360706329346,
+          -0.11820949614048004,
+          0.906090259552002
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036915841046720743
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003714178688824177
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037364203017205
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037617904599756002
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037920146714895964
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14425496757030487,
+          -0.11796467751264572,
+          0.9053000211715698
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0038217087276279926
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14425496757030487,
+          -0.11796467751264572,
+          0.9053000211715698
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003843945451080799
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14425496757030487,
+          -0.11796467751264572,
+          0.9053000211715698
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0038386990781873465
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14425496757030487,
+          -0.11796467751264572,
+          0.9053000211715698
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0038334422279149294
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14425496757030487,
+          -0.11796467751264572,
+          0.9053000211715698
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0038281858433037996
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14425496757030487,
+          -0.11796467751264572,
+          0.9053000211715698
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003788819769397378
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003748585470020771
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003707299241796136
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036563274916261435
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14372360706329346,
+          -0.11820949614048004,
+          0.906090259552002
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036016812082380056
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14343667030334473,
+          -0.11834169924259186,
+          0.906516969203949
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035458297934383154
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14313042163848877,
+          -0.1184827908873558,
+          0.906972348690033
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034903886262327433
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14253723621368408,
+          -0.11875610053539276,
+          0.9078546762466431
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034377542324364185
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13826707005500793,
+          -0.120745949447155,
+          0.9142127633094788
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034064538776874542
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13776227831840515,
+          -0.12098273634910583,
+          0.9149649739265442
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033792820759117603
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13197511434555054,
+          -0.12301819026470184,
+          0.9234417080879211
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003357943147420883
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13197511434555054,
+          -0.12301819026470184,
+          0.9234417080879211
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033432883210480213
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.11683393269777298,
+          -0.1254148781299591,
+          0.946007490158081
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003327429061755538
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.11683393269777298,
+          -0.1254148781299591,
+          0.946007490158081
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003309200517833233
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.11796057224273682,
+          -0.12525206804275513,
+          0.9443166851997375
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0032970195170491934
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.11821336299180984,
+          -0.12521593272686005,
+          0.9439370632171631
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003303932026028633
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003314180998131633
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033238385803997517
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033329594880342484
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003341568633913994
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033496201504021883
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003357026493176818
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003364564385265112
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033770555164664984
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003388733370229602
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003399551147595048
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1319749504327774,
+          -0.12302226573228836,
+          0.9234395623207092
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034106678795069456
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14876510202884674,
+          -0.11595124751329422,
+          0.8985729217529297
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003435954451560974
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14876510202884674,
+          -0.11595124751329422,
+          0.8985729217529297
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034607071429491043
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003484924789518118
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003508703550323844
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035320711322128773
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003548314794898033
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003564392449334264
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035802486818283796
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003601859323680401
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003625122830271721
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036480282433331013
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036677769385278225
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036854292266070843
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003702893853187561
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037182732485234737
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003730600932613015
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037428608629852533
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037518504541367292
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037482844199985266
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037446622736752033
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003740982385352254
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003694723593071103
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036469302140176296
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035983470734208822
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003552620764821768
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035067324060946703
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14876510202884674,
+          -0.11595124751329422,
+          0.8985729217529297
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034605071414262056
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14876510202884674,
+          -0.11595124751329422,
+          0.8985729217529297
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003416170598939061
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1319749504327774,
+          -0.12302226573228836,
+          0.9234395623207092
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034005052875727415
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1319749504327774,
+          -0.12302226573228836,
+          0.9234395623207092
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.00338373938575387
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033669425174593925
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033491249196231365
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033339534420520067
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1168324202299118,
+          -0.12541867792606354,
+          0.9460074305534363
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033271133434027433
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1179591566324234,
+          -0.12525717914104462,
+          0.9443164467811584
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033215628936886787
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1179591566324234,
+          -0.12525717914104462,
+          0.9443164467811584
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033078580163419247
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1179591566324234,
+          -0.12525717914104462,
+          0.9443164467811584
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0032963519915938377
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.11821194738149643,
+          -0.12522131204605103,
+          0.943936824798584
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0032972977496683598
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003309433115646243
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033208855893462896
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003332053543999791
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003342603100463748
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033523968886584044
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033560902811586857
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035399780608713627
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003607601160183549
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14425496757030487,
+          -0.11796467751264572,
+          0.9053000211715698
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003686698852106929
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003759334795176983
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14475543797016144,
+          -0.11773409694433212,
+          0.9045557379722595
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037917345762252808
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14475543797016144,
+          -0.11773409694433212,
+          0.9045557379722595
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003800505306571722
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14475543797016144,
+          -0.11773409694433212,
+          0.9045557379722595
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0038091542664915323
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14475543797016144,
+          -0.11773409694433212,
+          0.9045557379722595
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0038120197132229805
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14475543797016144,
+          -0.11773409694433212,
+          0.9045557379722595
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0038061626255512238
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14475543797016144,
+          -0.11773409694433212,
+          0.9045557379722595
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003800224279984832
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14475543797016144,
+          -0.11773409694433212,
+          0.9045557379722595
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003792770439758897
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003779385006055236
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003765867790207267
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037522243801504374
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003712899750098586
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036723606754094362
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003630619263276458
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14450713992118835,
+          -0.11784850060939789,
+          0.9049250483512878
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035617428366094828
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003483606968075037
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14343667030334473,
+          -0.11834169924259186,
+          0.906516969203949
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034209811128675938
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13801731169223785,
+          -0.12086407095193863,
+          0.914585292339325
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033649473916739225
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13197511434555054,
+          -0.12301819026470184,
+          0.9234417080879211
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003312797285616398
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0032706931233406067
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0032861223444342613
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003305495483800769
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033213768620043993
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033343969844281673
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003345924662426114
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033559564035385847
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.15637482702732086,
+          -0.11130160838365555,
+          0.88734370470047
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033802862744778395
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003411280456930399
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1319749504327774,
+          -0.12302226573228836,
+          0.9234395623207092
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003482799744233489
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003560445038601756
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036066051106899977
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036455930676311255
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036835470236837864
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003707977943122387
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003722736146301031
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.00373685616068542
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14774669706821442,
+          -0.11641000956296921,
+          0.9000928401947021
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003741311375051737
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14551450312137604,
+          -0.11741212010383606,
+          0.9034262299537659
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0037205431144684553
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14551450312137604,
+          -0.11741212010383606,
+          0.9034262299537659
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036995699629187584
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14551450312137604,
+          -0.11741212010383606,
+          0.9034262299537659
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036806464195251465
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14551450312137604,
+          -0.11741212010383606,
+          0.9034262299537659
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003671585116535425
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003662882139906287
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036541083827614784
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036360800731927156
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0036178070586174726
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003599298419430852
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1479957550764084,
+          -0.11630126088857651,
+          0.8997191786766052
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003550509689375758
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.14824597537517548,
+          -0.11619029939174652,
+          0.899344801902771
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003492597257718444
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034329798072576523
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1485011726617813,
+          -0.11607449501752853,
+          0.8989644050598145
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003396384185180068
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1319749504327774,
+          -0.12302226573228836,
+          0.9234395623207092
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033568027429282665
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.13224224746227264,
+          -0.12297419458627701,
+          0.9230425357818604
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003328220685943961
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.1179591566324234,
+          -0.12525717914104462,
+          0.9443164467811584
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0032992346677929163
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          0.11821194738149643,
+          -0.12522131204605103,
+          0.943936824798584
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0032997794914990664
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.003324445802718401
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033472420182079077
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0033716359175741673
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.15637868642807007,
+          -0.11122149974107742,
+          0.8873274922370911
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0034291683696210384
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.13801731169223785,
+          -0.12086407095193863,
+          0.914585292339325
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A blue jogger pocket openings": 0.0035399883054196835
+      },
+      "worst_detail_rest_xyz": {
+        "A blue jogger pocket openings": [
+          -0.14399509131908417,
+          -0.11808441579341888,
+          0.9056864976882935
+        ]
+      }
+    }
+  ]
+}

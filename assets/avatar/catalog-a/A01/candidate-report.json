@@ -1,0 +1,34 @@
+{
+  "id": "A01",
+  "status": "candidate; head/hair clearance, motion and style acceptance pending",
+  "vertices": 4364,
+  "polygons": 4272,
+  "attachment": "Head, weight 1",
+  "covered_body_vertices": 0,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "head_hair_pairs": 0
+    },
+    {
+      "pose": "rest-back",
+      "head_hair_pairs": 0
+    },
+    {
+      "pose": "rest-side",
+      "head_hair_pairs": 0
+    },
+    {
+      "pose": "three-quarter",
+      "head_hair_pairs": 0
+    },
+    {
+      "pose": "walk-13",
+      "head_hair_pairs": 0
+    },
+    {
+      "pose": "run-8",
+      "head_hair_pairs": 0
+    }
+  ]
+}

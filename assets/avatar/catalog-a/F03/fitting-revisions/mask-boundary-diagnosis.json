@@ -1,0 +1,7 @@
+{
+  "covered_vertices": 7343,
+  "removed_faces": 14864,
+  "removed_faces_above_opening": 196,
+  "max_removed_face_z": 0.19871068000793457,
+  "opening_z": 0.185
+}

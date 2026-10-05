@@ -1,0 +1,872 @@
+{
+  "checkedAt": "2026-10-04T14:40:07.130Z",
+  "base": "http://127.0.0.1:3004",
+  "defaultModel": "study-h01-reference-a",
+  "identity": {
+    "mode": "development",
+    "commit": "5b75f9f94f9b33d3fcb11d93291df2393c1bd4ee",
+    "fingerprint": "c1244638f8f624f1f096a3320afaf004e46396186ba992ed11bc85dc4c35035f"
+  },
+  "results": [
+    {
+      "label": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scene": "catalog-inspection",
+      "seed": null,
+      "initial": "87082a2a0b6bb1338cef1c404410450221d5cf92b5f37cb7c30beca47af87490",
+      "inspected": [
+        "body",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "B01",
+        "B02",
+        "B03",
+        "B04",
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "A01",
+        "H01",
+        "outfit-T01-B01-F01-A01",
+        "outfit-T04-B04-F03-A01",
+        "study-f04",
+        "head-style-reference-a",
+        "study-h01-reference-a"
+      ],
+      "walk_changes": true,
+      "animation_changes": true,
+      "pause_freezes": true,
+      "scrub_changes": true,
+      "camera_changes": true,
+      "skeleton_changes": true,
+      "zoom_changes": true,
+      "reset_restores": true,
+      "errors": [],
+      "failed": [],
+      "cleanupAborts": [
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/manifest.json",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-walk.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T01/body-T01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T01/T01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T01/body-T01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T01/T01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T03/body-T03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T03/T03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T03/body-T03.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T03/T03.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T04/body-T04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T04/T04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T04/body-T04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T04/T04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T05/body-T05.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T05/T05.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T05/body-T05.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T05/T05.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T06/body-T06.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T06/T06.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T06/body-T06.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T06/T06.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B01/body-B01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B01/B01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B01/body-B01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B01/B01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B02/body-B02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B02/B02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B02/body-B02.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/B03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/B03.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B04/body-B04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B04/B04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B04/body-B04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B04/B04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F01/body-F01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F01/F01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F01/body-F01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F01/F01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F02/body-F02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F02/F02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F02/body-F02.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F02/F02.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F03/body-F03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F03/F03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F03/body-F03.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F03/F03.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/A01/body-A01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/A01/A01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/A01/body-A01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/A01/A01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/H01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/H01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T01-B01-F01-A01/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T01-B01-F01-A01/outfit.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T04-B04-F03-A01/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T04-B04-F03-A01/outfit.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        }
+      ],
+      "fullTransport": [
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "bytes": 4415964,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+          "bytes": 5110640,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body.glb",
+          "bytes": 5093388,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T01/body-T01.glb",
+          "bytes": 4431324,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T01/T01.glb",
+          "bytes": 712128,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+          "bytes": 4152236,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+          "bytes": 502564,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T03/body-T03.glb",
+          "bytes": 4431324,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T03/T03.glb",
+          "bytes": 712940,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T04/body-T04.glb",
+          "bytes": 4152236,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T04/T04.glb",
+          "bytes": 564536,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T05/body-T05.glb",
+          "bytes": 4152236,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T05/T05.glb",
+          "bytes": 335620,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T06/body-T06.glb",
+          "bytes": 4152236,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T06/T06.glb",
+          "bytes": 365876,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B01/body-B01.glb",
+          "bytes": 4119428,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B01/B01.glb",
+          "bytes": 547028,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B02/body-B02.glb",
+          "bytes": 4119428,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+          "bytes": 4961248,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/B03.glb",
+          "bytes": 372388,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B04/body-B04.glb",
+          "bytes": 4119428,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B04/B04.glb",
+          "bytes": 461316,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F01/body-F01.glb",
+          "bytes": 4774768,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F01/F01.glb",
+          "bytes": 452968,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F02/body-F02.glb",
+          "bytes": 4774768,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F02/F02.glb",
+          "bytes": 336400,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F03/body-F03.glb",
+          "bytes": 4691400,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F03/F03.glb",
+          "bytes": 544976,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+          "bytes": 4691400,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+          "bytes": 556452,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/A01/body-A01.glb",
+          "bytes": 5093388,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/A01/A01.glb",
+          "bytes": 274248,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/H01.glb",
+          "bytes": 2537288,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T01-B01-F01-A01/outfit.glb",
+          "bytes": 5110328,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T04-B04-F03-A01/outfit.glb",
+          "bytes": 4686480,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb",
+          "bytes": 2568408,
+          "validGlb": true
+        }
+      ],
+      "parsedModels": [
+        "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-walk.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T01/body-T01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T01/T01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T03/body-T03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T03/T03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T04/body-T04.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T04/T04.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T05/body-T05.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T05/T05.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T06/body-T06.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T06/T06.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B01/body-B01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B01/B01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B02/body-B02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B02/B02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B03/B03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B04/body-B04.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B04/B04.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F01/body-F01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F01/F01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F02/body-F02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F02/F02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F03/body-F03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F03/F03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/A01/body-A01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/A01/A01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/H01/H01.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T01-B01-F01-A01/outfit.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/outfits/T04-B04-F03-A01/outfit.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F04/fitting-revisions/T05-B01-F04-loop-compression-study/outfit.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/H01.glb"
+      ],
+      "completedGetCount": 140
+    },
+    {
+      "label": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scene": "catalog-inspection",
+      "seed": null,
+      "initial": "f4866e1fc1932c572f353728608b33117c34c42674f76dec7c8daaaba991e0f5",
+      "inspected": [
+        "T02",
+        "B03",
+        "F04"
+      ],
+      "walk_changes": true,
+      "animation_changes": true,
+      "pause_freezes": true,
+      "scrub_changes": true,
+      "camera_changes": true,
+      "skeleton_changes": true,
+      "zoom_changes": true,
+      "reset_restores": true,
+      "errors": [],
+      "failed": [],
+      "cleanupAborts": [
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/manifest.json",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-walk.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-walk.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/B03.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+          "method": "HEAD",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+          "method": "GET",
+          "reason": "net::ERR_ABORTED"
+        }
+      ],
+      "fullTransport": [
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-walk.glb",
+          "bytes": 5111956,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+          "bytes": 5110640,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+          "bytes": 4152236,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+          "bytes": 502564,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+          "bytes": 4961248,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+          "bytes": 4691400,
+          "validGlb": true
+        },
+        {
+          "url": "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb",
+          "bytes": 556452,
+          "validGlb": true
+        }
+      ],
+      "parsedModels": [
+        "http://127.0.0.1:3004/__avatar_catalog/assets/H01/style-revisions/reference-a/outfit.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-walk.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/foundation/catalog-body-run.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T02/body-T02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/T02/T02.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B03/body-B03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/B03/B03.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F04/body-F04.glb",
+        "http://127.0.0.1:3004/__avatar_catalog/assets/F04/F04.glb"
+      ],
+      "completedGetCount": 139
+    },
+    {
+      "label": "existing-modular-workbench",
+      "status": "passed"
+    }
+  ]
+}

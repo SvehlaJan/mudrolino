@@ -1,0 +1,27 @@
+{
+  "target": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb",
+  "sha256": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "char1.001",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    }
+  ]
+}

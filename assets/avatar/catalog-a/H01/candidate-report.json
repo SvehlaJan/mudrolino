@@ -1,0 +1,20 @@
+{
+  "id": "H01",
+  "status": "candidate; visual/style acceptance pending",
+  "head_vertices": 37560,
+  "head_polygons": 37926,
+  "materials": [
+    "A face and stubble",
+    "A warm peach skin",
+    "A ear warmth",
+    "A eye white",
+    "A brown iris",
+    "A dark pupil",
+    "A eye highlight",
+    "A chestnut hair",
+    "A warm smile"
+  ],
+  "bone": "Head",
+  "weight": 1,
+  "source": "authored Blender geometry; build_catalog_head.py"
+}

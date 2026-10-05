@@ -1,0 +1,51 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/T06-B01-F01-A01/outfit.blend",
+  "blend_sha256": "41cd20aee163ad0ca7c8bcf9e20feaa960475144fb7dc73b57b41b2b448088be",
+  "object": "H01_head",
+  "bone": "Head",
+  "status": "passed",
+  "checks": [
+    {
+      "pose": "rest",
+      "max_attachment_error_m": 1.080976287167289e-07,
+      "obstacle_pairs": {
+        "T06_henley_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-left",
+      "max_attachment_error_m": 1.9687727483695464e-07,
+      "obstacle_pairs": {
+        "T06_henley_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-right",
+      "max_attachment_error_m": 2.0047462056687042e-07,
+      "obstacle_pairs": {
+        "T06_henley_outfit": 0
+      }
+    },
+    {
+      "pose": "nod",
+      "max_attachment_error_m": 2.4354396952213575e-07,
+      "obstacle_pairs": {
+        "T06_henley_outfit": 0
+      }
+    },
+    {
+      "pose": "look-up",
+      "max_attachment_error_m": 2.9839552036674004e-07,
+      "obstacle_pairs": {
+        "T06_henley_outfit": 0
+      }
+    },
+    {
+      "pose": "tilt",
+      "max_attachment_error_m": 2.7171645356432305e-07,
+      "obstacle_pairs": {
+        "T06_henley_outfit": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "T03",
+  "status": "authored candidate; complete motion/style/runtime acceptance pending",
+  "source": "assets/avatar/catalog-a/T03/T03.blend",
+  "object": "T03_raglan_tee",
+  "vertices": 12002,
+  "polygons": 11978,
+  "groups": 24,
+  "max_influences": 4,
+  "covered_body_vertices": 11752,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    }
+  ]
+}

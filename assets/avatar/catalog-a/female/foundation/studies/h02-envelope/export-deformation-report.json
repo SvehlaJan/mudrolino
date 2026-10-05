@@ -1,0 +1,163 @@
+{
+  "source_blend": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend",
+  "source_sha256": "f140ec1b4aa50c3e928c679773d23e23d16f07f157f63dcad4512c4acda200fc",
+  "glb": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb",
+  "glb_sha256": "3d741840e15d34a07cc03cbae05fbae0d9b70438050441f0b72974342679096f",
+  "verifier_sha256": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
+  "status": "passed",
+  "report_origin": "extract of fresh comprehensive Blender verification; no independent rerun",
+  "comprehensive_report": "foundation-verification-report.json",
+  "comprehensive_report_sha256": "554c417d1c2ea341d947ad0d25f15415f5237205388ec6f1864b4f0d77dc6257",
+  "export_deformation": {
+    "pose_count": 16,
+    "maximum_error_m": 1.0426554126752308e-06,
+    "threshold_m": 3e-05,
+    "comparison": "bidirectional rendered vertices",
+    "checks": [
+      {
+        "motion": "rest",
+        "frame": 0,
+        "max_error_m": {
+          "body_underlayer_female": 7.463979727617698e-07,
+          "H02_head": 1.9039113396956964e-07,
+          "H02_hair": 1.9599417555582477e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 0.8,
+        "max_error_m": {
+          "body_underlayer_female": 9.200185218105617e-07,
+          "H02_head": 5.001332397114311e-07,
+          "H02_hair": 5.094802872918081e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 1,
+        "max_error_m": {
+          "body_underlayer_female": 9.4666364702789e-07,
+          "H02_head": 3.9600379864168644e-07,
+          "H02_hair": 4.978526817467355e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 6.25,
+        "max_error_m": {
+          "body_underlayer_female": 9.039491715157055e-07,
+          "H02_head": 4.1809641970758094e-07,
+          "H02_hair": 4.257927059825306e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 13,
+        "max_error_m": {
+          "body_underlayer_female": 7.782915076859354e-07,
+          "H02_head": 3.696118824336736e-07,
+          "H02_hair": 3.7608830893987033e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 19.5,
+        "max_error_m": {
+          "body_underlayer_female": 6.563280408045102e-07,
+          "H02_head": 3.8921706391192856e-07,
+          "H02_hair": 3.9796145756554324e-07
+        }
+      },
+      {
+        "motion": "walk",
+        "frame": 25.6,
+        "max_error_m": {
+          "body_underlayer_female": 1.0426554126752308e-06,
+          "H02_head": 4.771280828208546e-07,
+          "H02_hair": 4.825078008252603e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 0.8,
+        "max_error_m": {
+          "body_underlayer_female": 9.766798712007585e-07,
+          "H02_head": 2.2512591613121913e-07,
+          "H02_hair": 3.776349331019446e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 1,
+        "max_error_m": {
+          "body_underlayer_female": 9.924665391736198e-07,
+          "H02_head": 1.7881393432617188e-07,
+          "H02_hair": 3.632492280303268e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 5,
+        "max_error_m": {
+          "body_underlayer_female": 8.785368663666304e-07,
+          "H02_head": 2.98395519848782e-07,
+          "H02_hair": 4.302186198401614e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "max_error_m": {
+          "body_underlayer_female": 6.188917041072273e-07,
+          "H02_head": 4.018481547518604e-07,
+          "H02_hair": 4.1140430084851687e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 8,
+        "max_error_m": {
+          "body_underlayer_female": 7.185465733527963e-07,
+          "H02_head": 3.3593775583540264e-07,
+          "H02_hair": 3.4699235129664885e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 9.5,
+        "max_error_m": {
+          "body_underlayer_female": 6.00176520038076e-07,
+          "H02_head": 4.874866590398597e-07,
+          "H02_hair": 5.009095502828131e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 12.75,
+        "max_error_m": {
+          "body_underlayer_female": 1.0409770538899465e-06,
+          "H02_head": 4.836792868445627e-07,
+          "H02_hair": 4.875578270002734e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 15.25,
+        "max_error_m": {
+          "body_underlayer_female": 9.996002745538135e-07,
+          "H02_head": 3.6901064959238283e-07,
+          "H02_hair": 3.7608830893987033e-07
+        }
+      },
+      {
+        "motion": "run",
+        "frame": 16,
+        "max_error_m": {
+          "body_underlayer_female": 1.0049172942672158e-06,
+          "H02_head": 2.767767739442206e-07,
+          "H02_hair": 2.731428025981586e-07
+        }
+      }
+    ]
+  }
+}

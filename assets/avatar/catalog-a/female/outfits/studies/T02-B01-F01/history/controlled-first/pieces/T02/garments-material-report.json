@@ -1,0 +1,22 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/garments.glb",
+  "sha256": "33e63429da1979e726b963ed1438fa2bc5d5a4997f98bbef7549fb7d370b12f2",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A tangerine hoodie fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A tangerine ribbed hems",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A warm orange hood lining",
+      "colorComponents": 0
+    }
+  ]
+}
