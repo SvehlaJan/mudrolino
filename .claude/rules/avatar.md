@@ -9,43 +9,39 @@ paths:
 
 # Avatar
 
-An optional 3D companion behind `VITE_AVATAR_POC_ENABLED`, with `/avatar-preview`
-as its workbench. Everything three.js lives under `src/avatar/`.
+`/avatar-preview` is a development-only live asset gallery. Catalog models,
+references, native sources and fitting history live under `assets/avatar/`.
+The old modular workbench, parent customization UI, home overlay and pre-catalog
+male exports are retired. Future product integration needs accepted catalog assets.
 
 ## Bundle boundary
 
-`AvatarPresenter.tsx` lazy-loads `AvatarScene` via `React.lazy`, which is the
-only thing keeping three.js, `@react-three/fiber`, and drei out of the main
-bundle — it is the difference between a 452 kB and a 1,075 kB main chunk. Never
-statically import `AvatarScene`, `AvatarModel`, `AvatarSkeletonOverlay`, or
-`skinnedGarment` from outside this directory; route new renderer work through
-`AvatarPresenter` instead. After any change here, check `npm run build` output:
-three.js belongs in `assets/AvatarScene-*.js`, never in `assets/index-*.js`.
+Keep three.js, React Three Fiber and drei under `src/avatar/`. Route renderer
+work through lazy `AvatarPresenter` so these dependencies stay outside the main
+bundle. Never statically import `AvatarScene`, `AvatarModel`,
+`AvatarSkeletonOverlay` or `skinnedGarment` from outside this directory. Check
+`npm run build` after renderer changes: the dependencies belong in the lazy scene
+chunk. `AvatarRuntimeBoundary` hides a failed renderer load.
 
-A failed chunk load throws during render and is caught by
-`AvatarRuntimeBoundary`, which hides the avatar. That is the intended
-degradation — do not add a loading spinner or an error message in its place.
+The scene chunk and avatar GLBs remain excluded from Workbox precache; preserve
+that boundary when integrating accepted models later.
 
-## Precache
-
-The renderer chunk (`assets/AvatarScene-*.js`) and the GLBs (`avatar/**/*.glb`)
-are both excluded from the workbox precache in `pwaConfig.ts`, because the
-renderer cannot render offline without the models. Keep those two exclusions in
-sync: precaching one without the other is wasted bytes.
-
-## Assets
-
-The app-facing base is `public/avatar/modular/male-base-plain.glb`, with walk and
-run as separate GLBs — the base itself carries no animation clips, so `success`
-and `failure` in `AvatarAnimationName` currently resolve to nothing. Garments
-under `public/avatar/garments/` are skinned to the shared 24-bone armature and
-rebound at runtime by `rebindGarmentToBaseSkeleton`.
+## Current asset workflow
 
 For catalog models, Blender tooling or selfie personalization, start with
 `docs/avatar-workflow.md` and the shared Blender skill. Selfies become generated
 2D face textures on a reusable UV-mapped head; fictional head studies are style
-references.
+references. Retain catalog construction sources, shared rig/gaits and rejected
+fitting attempts until their dependent proof and acceptance are resolved.
 
-Legacy generation and cleanup pipelines are documented in `docs/avatar-clothing-pipeline.md`
-and `docs/3d-avatar-knowledge-base.md`; the Blender and Meshy steps have their own
-skills. Verify any runtime change in `/avatar-preview` on desktop and mobile.
+`/avatar-preview?agent=1` is a tool-only rendering harness behind
+`VITE_AVATAR_POC_ENABLED`. Browser verifiers intercept its four
+`/__avatar_fixture/{body,garments,walk,run}.glb` requests with candidate bytes;
+no public models are shipped. This proves candidate rendering, while per-piece
+production slot integration remains open. Verify renderer changes on desktop
+and mobile with the existing fixture tooling; use the gallery for visual review.
+
+`docs/avatar-clothing-pipeline.md` and `docs/3d-avatar-knowledge-base.md` retain
+historical generation/cleanup context. Their old runtime paths and modular UI
+instructions describe retired experiments; current execution follows the shared
+handoff and `tools/blender/catalog/README.md`.

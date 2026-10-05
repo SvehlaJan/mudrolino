@@ -1,4 +1,4 @@
-import type { ResolvedAvatarAssets } from './avatarAssetResolver';
+import type { ResolvedAvatarAssets } from './avatarTypes';
 import type { AvatarSlot } from './avatarTypes';
 
 export interface CatalogPreviewEntry {

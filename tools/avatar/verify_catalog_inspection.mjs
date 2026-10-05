@@ -6,20 +6,24 @@ import sharp from 'sharp';
 import { buildIdentity } from '../verification/identity.mjs';
 
 const base = process.env.CATALOG_PREVIEW_URL || 'http://127.0.0.1:3004';
-const defaultModel = process.env.CATALOG_INSPECTION_DEFAULT_MODEL || 'study-f04';
-const inspectionUrl = `${base}/avatar-preview?model=${encodeURIComponent(defaultModel)}`;
+const defaultModel = process.env.CATALOG_INSPECTION_DEFAULT_MODEL || 'female-outfit-T02-B01-F01-study';
+const inspectionUrl = `${base}/avatar-preview?asset=${encodeURIComponent(defaultModel)}`;
 const dir = 'artifacts/verification/avatar-catalog/inspection-page';
 fs.mkdirSync(dir, { recursive: true });
-const browser = await chromium.launch({ headless: true, args: ['--enable-unsafe-swiftshader', '--use-gl=angle'] });
-const warmup = await browser.newPage();
-await warmup.goto(inspectionUrl);
-await warmup.getByTestId('catalog-ready').waitFor({ timeout: 60000 });
-await warmup.waitForLoadState('networkidle');
-await warmup.close();
 const results = [];
-const identity = buildIdentity('development');
+let browser, identity, failure;
+let status = 'running';
+const report = () => fs.writeFileSync(`${dir}/browser-report.json`, JSON.stringify({ checkedAt: new Date().toISOString(), status, base, defaultModel, identity, failure, results }, null, 2));
+report();
 const hash = data => crypto.createHash('sha256').update(data).digest('hex');
 try {
+  identity = buildIdentity('development');
+  browser = await chromium.launch({ headless: true, args: ['--enable-unsafe-swiftshader', '--use-gl=angle'] });
+  const warmup = await browser.newPage();
+  await warmup.goto(inspectionUrl);
+  await warmup.getByTestId('catalog-ready').waitFor({ timeout: 60000 });
+  await warmup.waitForLoadState('networkidle');
+  await warmup.close();
   for (const [label, viewport] of [['desktop', { width: 1280, height: 900 }], ['phone', { width: 390, height: 844 }]]) {
     const context = await browser.newContext({ viewport }); const page = await context.newPage();
     const errors = [], failed = [], cleanupAborts = []; const fulfilled = new Set(); const completedGets = new Set(); const parsedModels = new Set();
@@ -30,8 +34,11 @@ try {
     page.on('requestfailed', request => { const row = { url: request.url(), method: request.method(), range: request.headers().range, reason: request.failure()?.errorText }; if (row.reason === 'net::ERR_ABORTED') cleanupAborts.push(row); else failed.push(row); });
     await page.goto(inspectionUrl);
     await page.getByTestId('catalog-ready').waitFor({ timeout: 60000 });
-    assert.equal(await page.getByTestId('catalog-model').inputValue(), defaultModel);
-    const manifest = await (await context.request.get(`${base}/__avatar_catalog/manifest.json`)).json();
+    const library = await (await context.request.get(`${base}/__avatar_catalog/library.json`)).json();
+    const manifest = { animations: library.animations, entries: library.assets.filter(asset => !asset.history && asset.model && !asset.id.startsWith('file:')).map(asset => asset.model) };
+    const initialEntry = manifest.entries.find(entry => entry.id === defaultModel);
+    assert(initialEntry, `Missing current inspection model ${defaultModel}`);
+    assert.equal(await page.getByTestId('catalog-title').textContent(), initialEntry.label);
     const recordParsed = (entry, animation = 'rest') => {
       for (const url of [entry.modelUrl, entry.garmentUrl, animation === 'rest' ? undefined : manifest.animations[animation]]) {
         if (url) parsedModels.add(`${base}${url}`);
@@ -44,7 +51,10 @@ try {
       return hash(bytes);
     };
     const initial = await capture('rest');
-    await sharp(await page.screenshot({ fullPage: true })).resize({ width: 320 }).toFile(`${dir}/${label}-page-review.png`);
+    // Female source/history links can make the narrow page exceed Chromium's
+    // full-page capture limits. Capture its visible overview; canvas proofs and
+    // every behavioral/transport assertion below remain identical on both sizes.
+    await sharp(await page.screenshot({ fullPage: label === 'desktop' })).resize({ width: 320 }).toFile(`${dir}/${label}-page-review.png`);
     await page.getByRole('button', { name: 'Walk', exact: true }).click();
     await page.getByTestId('catalog-ready').waitFor({ timeout: 60000 });
     recordParsed(manifest.entries.find(e => e.id === defaultModel), 'walk');
@@ -77,9 +87,9 @@ try {
     assert.equal(probe.status(), 206); assert.equal((await probe.body()).length, 1);
     const inspected = [];
     // Desktop covers every independent model, and representative complete outfits.
-    const entries = label === 'desktop' ? manifest.entries.filter(e => e.kind !== 'outfit' || ['outfit-T01-B01-F01-A01', 'outfit-T04-B04-F03-A01'].includes(e.id)) : manifest.entries.filter(e => ['F04', 'B03', 'T02'].includes(e.id));
+    const entries = label === 'desktop' ? manifest.entries.filter(e => e.kind !== 'outfit' || ['outfit-T01-B01-F01-A01', 'outfit-T04-B04-F03-A01'].includes(e.id)) : manifest.entries.filter(e => ['F04', 'B03', 'T02', 'female-outfit-T02-B01-F01-study'].includes(e.id));
     for (const entry of entries) {
-      await page.getByTestId('catalog-model').selectOption(entry.id);
+      await page.goto(`${base}/avatar-preview?asset=${encodeURIComponent(entry.id)}`);
       await page.getByTestId('catalog-ready').waitFor({ timeout: 60000 });
       recordParsed(entry);
       assert.equal(await page.getByTestId('catalog-title').textContent(), entry.label);
@@ -87,7 +97,7 @@ try {
       assert(canvas.width > 0 && canvas.height > 0 && canvas.data > 1000);
       inspected.push(entry.id);
     }
-    await page.getByTestId('catalog-model').selectOption('F04');
+    await page.goto(`${base}/avatar-preview?asset=F04`);
     await page.getByTestId('catalog-ready').waitFor();
     await page.getByRole('button', { name: 'front', exact: true }).click();
     const bootsFront = await capture('boots-front');
@@ -119,11 +129,22 @@ try {
       assert.equal(Number(response.headers()['content-length']), bytes.length);
       fullTransport.push({ url, bytes: bytes.length, validGlb: true });
     }
-    results.push({ label, viewport, scene: 'catalog-inspection', seed: null, initial, inspected, walk_changes: true, animation_changes: true, pause_freezes: true, scrub_changes: true, camera_changes: true, skeleton_changes: true, zoom_changes: true, reset_restores: true, errors, failed, cleanupAborts, fullTransport, parsedModels: [...parsedModels], completedGetCount: completedGets.size });
+    results.push({ label, viewport, overviewFullPage: label === 'desktop', scene: 'catalog-inspection', seed: null, initial, inspected, walk_changes: true, animation_changes: true, pause_freezes: true, scrub_changes: true, camera_changes: true, skeleton_changes: true, zoom_changes: true, reset_restores: true, errors, failed, cleanupAborts, fullTransport, parsedModels: [...parsedModels], completedGetCount: completedGets.size });
     await context.close();
   }
   const page = await browser.newPage();
-  await page.goto(`${base}/avatar-preview?view=modular`); await page.getByText('Modular preview', { exact: true }).waitFor();
-  results.push({ label: 'existing-modular-workbench', status: 'passed' });
-} finally { await browser.close(); fs.writeFileSync(`${dir}/browser-report.json`, JSON.stringify({ checkedAt: new Date().toISOString(), base, defaultModel, identity, results }, null, 2)); }
-console.log(JSON.stringify({ status: 'passed', results }, null, 2));
+  await page.goto(`${base}/avatar-preview?view=modular`);
+  await page.getByRole('heading', { name: 'From reference to reality.', exact: true }).waitFor();
+  assert.equal(await page.getByRole('link', { name: /Modular workbench/ }).count(), 0);
+  results.push({ label: 'retired-modular-link-opens-gallery', status: 'passed' });
+  status = 'passed';
+} catch (error) {
+  status = 'failed';
+  failure = error instanceof Error ? error.stack : String(error);
+  throw error;
+} finally {
+  try { await browser?.close(); }
+  catch (error) { status = 'failed'; failure ??= error instanceof Error ? error.stack : String(error); process.exitCode = 1; }
+  report();
+}
+console.log(JSON.stringify({ status, results }, null, 2));

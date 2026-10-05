@@ -27,17 +27,17 @@ export function resolveCatalogPreviewFixture(root, args) {
   const preview = new URL(option('preview-url') ?? 'http://127.0.0.1:3003');
   if (preview.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].includes(preview.hostname) || preview.pathname !== '/' || preview.search || preview.hash || preview.username || preview.password) throw new Error('Preview URL must be a loopback HTTP origin');
   return { outfit, production: args.includes('--production'), previewUrl: preview.origin, outputDir, replacements: {
-    '/avatar/modular/male-base-plain.glb': inside(path.join(outfitDir, 'body.glb'), 'assets/avatar'),
-    '/avatar/modular/male-base-plain-walking.glb': inside('assets/avatar/catalog-a/foundation/catalog-body-walk.glb', 'assets/avatar'),
-    '/avatar/modular/male-base-plain-running.glb': inside('assets/avatar/catalog-a/foundation/catalog-body-run.glb', 'assets/avatar'),
-    '/avatar/garments/top_blue_tshirt_v1.glb': inside(path.join(outfitDir, 'garments.glb'), 'assets/avatar'),
+    '/__avatar_fixture/body.glb': inside(path.join(outfitDir, 'body.glb'), 'assets/avatar'),
+    '/__avatar_fixture/walk.glb': inside('assets/avatar/catalog-a/foundation/catalog-body-walk.glb', 'assets/avatar'),
+    '/__avatar_fixture/run.glb': inside('assets/avatar/catalog-a/foundation/catalog-body-run.glb', 'assets/avatar'),
+    '/__avatar_fixture/garments.glb': inside(path.join(outfitDir, 'garments.glb'), 'assets/avatar'),
   } };
 }
 
 export function assertCatalogPreviewEvidence(result, animation) {
-  const required = ['/avatar/modular/male-base-plain.glb', '/avatar/garments/top_blue_tshirt_v1.glb'];
-  if (animation === 'walk') required.push('/avatar/modular/male-base-plain-walking.glb');
-  if (animation === 'run') required.push('/avatar/modular/male-base-plain-running.glb');
+  const required = ['/__avatar_fixture/body.glb', '/__avatar_fixture/garments.glb'];
+  if (animation === 'walk') required.push('/__avatar_fixture/walk.glb');
+  if (animation === 'run') required.push('/__avatar_fixture/run.glb');
   const missing = required.filter(url => !result.completedCandidateGets.includes(url));
   if (missing.length) throw new Error(`Missing completed candidate GET: ${missing.join(', ')}`);
   if (!(result.canvas.width > 0 && result.canvas.height > 0)) throw new Error('Empty candidate canvas');

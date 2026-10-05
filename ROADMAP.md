@@ -134,7 +134,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Verify feedback submissions from deployed private build
 
 ### 1.5 Avatar Companion and Customization
-> Specs exist in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The historical Meshy character and cleaned animations proved the React Three Fiber runtime and Blender cleanup path, but the app-facing runtime now uses the plain male base at `public/avatar/modular/male-base-plain.glb` plus separate garment GLBs under `public/avatar/garments/`. Old `public/avatar/meshy` POC GLBs are no longer current published assets; related source/provenance remains under `meshy_output/`.
+> Historical specs live in `docs/superpowers/specs/2026-04-19-avatar-companion-design.md` and `docs/superpowers/specs/2026-04-21-avatar-staged-poc-design.md`. The Meshy and modular male POCs proved the renderer/cleanup path, but their pre-catalog models and customization UI were retired on 2026-10-05. The current inspection UI is the live gallery, with retained catalog sources, references and fitting history. Product avatar integration awaits accepted catalog assets.
 >
 > Remaining avatar work is outside the 2026-09 pre-publication UI redesign. The future product direction is a robust friendly buddy that cheers children, after the 3D models and runtime are improved in a dedicated phase.
 
@@ -142,24 +142,24 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Local avatar runtime under `src/avatar/`
 - [x] `/avatar-preview` route for asset inspection
 - [x] Build the approved local live avatar gallery with 2D references, accurate model milestones, history and source links (`docs/superpowers/specs/2026-10-04-avatar-live-catalog-design.md`)
-- [x] Home overlay behind `VITE_AVATAR_POC_ENABLED`
+- [x] Historical home-overlay POC behind `VITE_AVATAR_POC_ENABLED` (retired 2026-10-05)
 - [x] Historical Meshy POC character and animation provenance captured under `meshy_output/`
 - [x] Historical cleaned success and failure/reaction animation candidates evaluated and replaced as current app-facing preview choices
 - [x] Spec: male-coded avatar base, modular clothing, and face-decal readiness (`docs/superpowers/specs/2026-05-01-male-modular-avatar-design.md`)
 - [x] Generate a new male-coded base avatar from scratch as a modest underlayer/mannequin, not an anatomically nude model and not the current clothed Meshy character
 - [x] Keep or retarget to a stable armature with reusable named bones so idle/success/failure animations can drive the base and clothing meshes
 - [x] Export one MVP modular GLB for the male base containing the base body plus named top-slot mesh variants
-- [x] Publish the current app-facing avatar base at `public/avatar/modular/male-base-plain.glb`
+- [x] Historical modular male base publication (pre-catalog exports removed 2026-10-05)
 - [ ] Map idle/success/failure avatar states into runtime-facing names
 - [ ] Add avatar to session-complete/reward screens first
 - [ ] Decide whether per-round success/failure overlays should use the avatar or keep the current lightweight treatment
 - [x] Define the slot-ready avatar state/catalog with multiple future slots but implement only `top` for the MVP
 - [x] Create 2 top variants in the male modular GLB, with stable mesh names suitable for visibility toggles
 - [x] Persist selected top locally in versioned avatar state, migrating from the current `outfitId: "default"` shape
-- [x] Add a simple parent-facing customization screen or section
+- [x] Historical parent-facing customization POC (retired 2026-10-05)
 - [x] Prepare the new head asset for future selfie-based face customization with a named face patch/anchor such as `face_anchor`
-- [x] Complete `/avatar-preview` as the modular avatar workbench for base, top slot, future slots, face state, body shape, diagnostics, persistence, and reset
-- [x] Verify customized avatar on desktop and mobile with Playwright screenshots
+- [x] Historical modular avatar workbench POC (replaced by the live gallery; retired 2026-10-05)
+- [x] Historical desktop/mobile customization POC verification
 
 ### 1.6 Analytics
 > Not required for friends-first sharing. Revisit before public launch if usage telemetry is still desired.
@@ -262,7 +262,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Normalize a 24-bone Blender fitting scaffold and preserve clean walk/run motion.
 - [x] Expand palette-A 2D references to nine sheets, adding six outfit combinations, six H01 expressions and a four-view T02 hoodie construction sheet; preserve exact prompts and original category designs (`assets/avatar/concepts/2026-10-04/catalog-a/gallery.md`).
 - [x] Expand palette-A references to thirteen sheets with F03/F04 construction, accessories worn, and H02/H03 turnarounds; preserve source images, exact prompts and targeted corrections in the catalog manifest.
-- [x] Update the development `/avatar-preview` to inspect real catalog pieces, outfits and the latest fitting study with repair labels, pause/pose controls, camera presets, zoom and skeleton; preserve the original modular workbench and keep model serving development-only (`docs/avatar-catalog-preview.md`).
+- [x] Update the development `/avatar-preview` to inspect real catalog pieces, outfits and the latest fitting study with repair labels, pause/pose controls, camera presets, zoom and skeleton; keep model serving development-only; the original modular workbench was retired on 2026-10-05 (`docs/avatar-catalog-preview.md`).
 - [x] Compare the current H01 and T05/B01/F04 study against reference A using source-bound front/side/back/three-quarter runtime captures; save the face-first refinement review and plan (`docs/audits/2026-10-04-avatar-style-review.md`, `docs/superpowers/plans/2026-10-04-avatar-head-refinement.md`). Art refinement and acceptance remain open.
 - [x] Create a separate H01 reference-A face study on the existing outfit, with exact body/garment/rig/motion preservation, 41-frame head rigidity, three gestures, 163-pose head/T05 clearance, clean exports/materials and desktop/phone inspection proof. Expose both head and outfit studies in the dev viewer; final sculpting, expressions, optimization and headwear compatibility remain open.
 - [x] Expand palette-A references to sixteen sheets with beanie, backpack and loop-scarf construction/attachment views; preserve exact prompts and source hashes.
@@ -273,19 +273,20 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Deliver isolated female foundation/H02 UV and hair study, bounded F02 side repair and shared Blender queue; retain F02 own-shell failure and pending style/female wardrobe acceptance (`docs/superpowers/plans/2026-10-04-avatar-model-improvement-batch.md`).
 - [ ] Make the female T02 hood fuller and more recognizable in a separate visual revision; user feedback on 2026-10-05 rejects the current shallow shape as final art. Preserve reviewed proportions/H02 and all affected fitting gates.
 - [x] Deliver the first female T02/B01/F01 technical fitting candidate on reviewed frozen proportions, with native/actual-runtime sweeps, six head gestures, both UV face exports and 16-pose export/Three.js proof (2.009 micrometre bound); preserve rejected attempts and source-bound helper inventory (`docs/superpowers/plans/2026-10-04-avatar-first-female-outfit.md`). Fuller hood art, budgets, full wardrobe and real slot acceptance remain open.
+- [x] Retire legacy pre-catalog male assets, home overlay and modular/customization UI; retain the live gallery, catalog sources/references/all fitting history and tool-only candidate rendering harness. Future product avatar integration remains open.
 - [x] Update Blender to 5.2.2 LTS with verified checksum/signature, preserved 5.1.1 fallback, native preferences/MCP-extension migration and passing 16-pose export smoke (`docs/audits/2026-10-04-blender-lts-upgrade.md`).
 - [ ] Author and accept the separate female body/rig and female-fitted wardrobe/accessory assets using the prepared references; use per-piece retrospectives and full animated-fit/export/runtime/style/budget proof. Final female catalog acceptance follows current catalog acceptance.
 
 
-**Goal:** Turn the MVP avatar into a small customizable companion system without taking a dependency on accounts or cloud storage.
+**Goal:** Integrate accepted catalog assets into a small customizable companion system without taking a dependency on accounts or cloud storage. Earlier modular UI/model experiments below are historical; future product integration is pending.
 
-- [ ] Expand the MVP top-slot model into practical slots: `top`, `bottom`, `shoes`, `hair`, and `accessory`
+- [ ] Integrate accepted catalog assets into practical slots: `top`, `bottom`, `shoes`, `hair`, and `accessory`
 - [ ] Add a female-coded underlayer base as a separate `baseVariant`, not as a clothing preset
 - [ ] Decide whether male and female bases can share one animation set directly or need per-base Blender retarget/export steps
 - [x] Move from baked combined preview GLBs to runtime-loading separate garment GLBs for static slots
-- [x] Populate the external-GLB `top` slot with first garments (`top_blue_tshirt_v1`, `top_orange_hoodie_v1`) generated via Meshy text-to-3d
-- [x] Skin both tops to the shared 24-bone armature so they deform with idle/walk/run (Blender data-transfer weights + runtime `rebindGarmentToBaseSkeleton`); both verified in `/avatar-preview`
-- [ ] Add body-masking (hide body faces under a worn top) to remove the thin-tee collar/shoulder seam without conforming the garment
+- [x] Historical external-GLB top-slot Meshy prototype (models/UI retired 2026-10-05)
+- [x] Historical two-top shared-armature prototype and desktop/mobile proof; retained catalog fitting uses the shared 24-bone rig
+- [ ] Integrate source-verified per-piece coverage masks for accepted catalog combinations
 - [ ] Make footwear animation-ready without foot poke-through or unacceptable deformation
 - [ ] Design clothing catalog items so one item ID can map to per-base fitted assets, e.g. male and female GLBs for the same shirt
 - [ ] Add compatibility metadata for clothing assets by `baseVariant`, slot, and supported body-shape range
@@ -454,4 +455,5 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 | 2026-10-04 | Use a local read-only visual gallery with one lazy model inspector and file-derived live inventory. | The user chose gallery layout A and pre-approved implementation. References and model progress share stable IDs; fit verification remains separate from visual acceptance. Keep female 3D pending until real exports/proof exist, preserve legacy model links and keep unfinished assets out of production. |
 | 2026-10-04 | Parallelize model authoring and review while serializing Blender jobs across worktrees. | A shared advisory queue avoids concurrent native jobs. Explicit study registration preserves candidate/repair labels. Bound F02 repairs by coordinates; check UVs with spatial corner identity and keep attachment distance, own-shell clearance, export fidelity and art acceptance separate. |
 
+| 2026-10-05 | Retire pre-catalog male assets and modular/customization UI while retaining the live gallery and catalog history. | The user chose cleanup option 1. Preserve shared modeling sources, gaits, references and every fitting attempt; keep a small source-bound browser harness without shipped models so candidate proof survives. Product integration will use accepted catalog assets in a later phase. |
 | 2026-10-05 | Fit a separate female capsule on the reviewed proportions and compare skin transport under equivalent actual-runtime poses. | Ordered surfaces before thickness resolved collapsed hood and sneaker details. Full sweeps exposed pocket own-shell contact and native quaternion interpolation drift; preserve failed sources, mask anatomy and shared gait bytes, with fail-closed source-bound proof and explicit reuse. |

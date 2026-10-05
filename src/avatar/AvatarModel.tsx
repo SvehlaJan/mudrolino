@@ -4,14 +4,13 @@ import { useFrame } from '@react-three/fiber';
 import { AnimationClip, type AnimationAction } from 'three';
 import { Box3, Group, Object3D, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
-import { AvatarExternalAsset } from './avatarAssetResolver';
-import { AVATAR_MODEL_URL } from './avatarConstants';
+import type { AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
 import { hasSkinnedMesh, rebindGarmentToBaseSkeleton } from './skinnedGarment';
 import { bindGarmentCorrectives } from './garmentCorrectives';
 
 interface AvatarModelProps {
-  url?: string;
+  url: string;
   animationUrl?: string;
   animationName?: string | null;
   externalAssets?: AvatarExternalAsset[];
@@ -183,7 +182,7 @@ function computeAvatarSceneData(
 }
 
 export function AvatarModel({
-  url = AVATAR_MODEL_URL,
+  url,
   animationUrl,
   animationName,
   externalAssets = [],

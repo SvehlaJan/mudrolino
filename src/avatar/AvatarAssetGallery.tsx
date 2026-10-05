@@ -75,7 +75,6 @@ export function AvatarAssetGallery() {
       <div className="mx-auto max-w-[1440px]">
         <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs font-bold sm:text-sm" aria-label="Avatar workbench navigation">
           <Link to="/" className="rounded-lg outline-offset-4 focus-visible:outline-2 focus-visible:outline-accent-blue">← Home</Link>
-          <Link to="/avatar-preview?view=modular" className="rounded-lg text-text-muted outline-offset-4 focus-visible:outline-2 focus-visible:outline-accent-blue">Modular workbench →</Link>
         </nav>
         <div data-testid="gallery-live-status" role="status" aria-live="polite" className={`mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-xs ${error ? 'border-amber-300 bg-amber-50 text-amber-900' : 'border-accent-blue/10 bg-white/70 text-text-muted'}`}>
           <span className="flex items-center gap-2"><span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${error ? 'bg-amber-500' : 'bg-emerald-500'}`} />{stale ? `Inventory stale — showing the last successful update. ${error}` : error ? error : manifest ? refreshing ? 'Refreshing local inventory…' : 'Live local inventory · refreshes every 5 seconds while visible' : 'Loading local inventory…'}</span>

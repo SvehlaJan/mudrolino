@@ -1,6 +1,6 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-10-04. This is the entry point for both Codex and Claude. Use
+Updated 2026-10-05. This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
 
@@ -16,9 +16,10 @@ resuming; the primary checkout has not been merged or changed by this handoff.
 The live development gallery is http://127.0.0.1:3004/avatar-preview. Open a card
 for references, model inspection, prompts and source files. The read-only gallery
 refreshes as local asset files change; use Include history for older attempts.
-Use `?model=study-h01-reference-a` for the revised head on the study outfit,
-`?model=head-style-reference-a` for its head alone and `?view=modular` for the
-original runtime workbench. See [viewer controls and checks](avatar-catalog-preview.md).
+Use `?asset=female-outfit-T02-B01-F01-study` for the current female capsule.
+Older `?model=...` links resolve through the gallery; `?view=modular` opens the
+gallery too. The old modular/customization UI and pre-catalog male assets have
+been removed. See [viewer controls and checks](avatar-catalog-preview.md).
 
 Authoritative inputs:
 
@@ -41,6 +42,27 @@ The female H02 study has a compatible rig and reusable UV face fixture. The H01
 revision is a style study, with no facial UV export or expression targets. These
 are useful milestones, not an accepted production catalog. The female foundation is an isolated candidate; its separately fitted wardrobe
 and style acceptance remain in scope.
+
+## Current UI and runtime proof boundary
+
+`/avatar-preview` is the live development gallery. The legacy home overlay,
+parent customization screen, modular workbench and pre-catalog male models are
+retired. Catalog construction sources, shared rig/gaits, references and all
+fitting history remain. Product avatar integration will use accepted catalog
+assets in a future phase.
+
+`/avatar-preview?agent=1` is a small tool-only rendering harness. Browser verifiers
+intercept `/__avatar_fixture/body.glb`, `/__avatar_fixture/garments.glb`,
+`/__avatar_fixture/walk.glb` and `/__avatar_fixture/run.glb` with source-bound
+candidate bytes. This harness ships no public models and is not a wardrobe UI
+or proof of production slot switching. Use `verify_catalog_preview.mjs` for its
+actual candidate rendering checks and the gallery for visual review.
+
+Historical generation context remains in
+[the clothing pipeline](avatar-clothing-pipeline.md) and
+[the 3D knowledge base](3d-avatar-knowledge-base.md). Their old runtime paths and
+customization steps document retired experiments; use this handoff and the
+catalog README for current work.
 
 ## Register assets for the gallery
 
@@ -188,8 +210,8 @@ it does not prove selfie likeness, a production upload flow or facial expression
 Use its canonical coordinates and mask as the next image-generation output contract.
 The original H01 exports remain unchanged and lack this UV surface.
 
-Next: collect feedback on the female proportions/hair, then fit one female
-T02/B01/F01 outfit and check the complete combination. Repair F02 heel-tab
+Next: make the fitted female T02 hood fuller and more recognizable while
+preserving the reviewed proportions/H02 and refreshing affected proof. Repair F02 heel-tab
 own-shell contact and B03/B04 corrective leakage. Keep real-selfie generation,
 expressions, headwear compatibility and final acceptance as separate work.
 
@@ -234,7 +256,12 @@ parts/materials. A new generator service is lower priority than consistent
 references, category construction and fit checks. The subsequent user-authorized Blender update is recorded in the upgrade audit;
 MCP client configuration was preserved.
 
-## Wrap-up verification
+## Historical wrap-up verification (2026-10-04)
+
+This section records the earlier code/assets. Its modular-workbench checks do
+not describe current UI; that workbench and pre-catalog male exports were retired
+on 2026-10-05. The retained catalog sources, references and fitting history are
+still available in the live gallery.
 
 Fresh checks on 2026-10-04: lint passed with zero errors and the known
 ContentContext warning; 96 unit tests passed; all pure verifiers passed after
@@ -256,7 +283,7 @@ integration browser checks, production build and bundle boundaries. Report:
 profile was run. These checks do not accept unfinished models or implement
 selfie generation; female references are a modeling input.
 
-## Model batch findings (2026-10-04)
+## Historical model batch findings (2026-10-04)
 
 - Female foundation/H02: a separate study preserves the shared 24-bone rig,
   body vertex order, bind pose and walk/run actions. Dense 163-pose gait and six
@@ -401,3 +428,15 @@ model-studies/female-outfit-T02-B01-F01-study/report.json`,
 fixture replaces the body and a combined garment slot for rendering proof;
 per-piece female production slot mapping remains open. The first refresh attempt
 found stopped local servers; both were restarted before these fresh passing runs.
+
+
+## Legacy cleanup verification — 2026-10-05
+
+The pre-catalog male assets and modular/customization/home UI are removed. The
+live gallery retains 95 current assets / 41 model previews; catalog construction
+sources, references and fitting history are preserved. See the completed
+[cleanup plan](superpowers/plans/2026-10-05-retire-legacy-avatar.md) for exact
+verification scope and report paths. Final lint, 162 unit tests and pure contracts
+pass; integration's 472 browser tests and production boundaries pass. The migrated
+inspector also passes behavioral and transport checks across 27 desktop/four phone
+models, and the isolated production fixture passes all four candidate cases.

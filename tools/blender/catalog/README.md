@@ -10,13 +10,17 @@ The approved concepts are in `assets/avatar/concepts/2026-10-04/catalog-a/`.
 Current progress and proof pointers are in `assets/avatar/catalog-a/catalog-progress.json`.
 Use `foundation/catalog-body.blend` as the fitting source. The original canonical/H01 files and superseded outfit directories are historical references.
 
+The active review UI is `/avatar-preview`, the live gallery. The old modular
+workbench/customization UI and pre-catalog male exports are retired; shared
+catalog construction sources, references, gaits and fitting history remain.
+
 ## Per-piece loop
 
 1. Author the category topology against the shared metre-scale rest body. Preserve the rig, body topology and original vertex indices. Keep skin weights normalized and limited to four influences; use position for anatomical side assignment. Save the piece separately with a reversible `covered_<id>` body group.
 2. Inspect front, back, side and three-quarter reference views. Review copies must be no wider than 320px. Measure contacts by anatomy/part before changing geometry, motion or coverage. Openings must preserve visible neck, hands and ankles.
 3. Assemble a representative outfit from the independent masters. The assembler checks exact shared body topology/rest coordinates and unions coverage by original vertex index. Extend `OBJECT_NAMES` when adding a new piece.
 4. Run gated independent and combined complete-cycle checks with all body/head obstacles and all garment pairs. Include quarter frames and clip endpoints. A clean selected frame alone is insufficient. Motion metadata binds each sweep to its source SHA-256.
-5. Compare the exported GLB against the evaluated master, validate structure/materials, and render desktop/mobile motion in Three.js. Candidate substitution through the existing top slot proves skinned rendering; actual slot registration/switching needs separate integration checks.
+5. Compare the exported GLB against the evaluated master, validate structure/materials, and render desktop/mobile motion in Three.js. The tool-only body/combined-garment fixture proves skinned rendering; actual per-piece product slot registration/switching needs separate integration checks.
 6. Write the per-piece retrospective, apply its concrete workflow improvement, update progress and ROADMAP, and consolidate proof only while every source/export/browser hash still matches. Changes to foundation motion or geometry require rebuilding and rechecking dependent pieces. Keep the full catalog scope open until final style/budget/runtime acceptance.
 
 ## Commands
@@ -94,7 +98,7 @@ Stop only the server started for this check. Browser reports retain expected ava
 
 B03 is **not** fit-verified. Its rear-hem corrective still intersects in deep kicks; the body/shoe projection study diverged and is rejected. The exporter weight-threshold mismatch is fixed: source/export plus Three.js driving has an 18.284 micrometre bound under the unchanged 30 micrometre gate. Keep the separate fitting failure open; export fidelity does not establish animated fit. Independent work on B04 and other pieces can proceed without accepting B03.
 
-Quarter-frame walk/run sweeps establish the sampled motion fit, not all possible motion. Head gestures are checked separately for rigid head accessories. H02-H06 fitting, full catalog combinations, final face/style/budget review and real bottom/shoes/accessory slot integration remain open. Preserve candidate sources under `assets/` until accepted; do not overwrite published GLBs early. No Meshy spending is authorized by this workflow.
+Quarter-frame walk/run sweeps establish the sampled motion fit, not all possible motion. Head gestures are checked separately for rigid head accessories. H02-H06 fitting, full catalog combinations, final face/style/budget review and real bottom/shoes/accessory slot integration remain open. Preserve candidate sources under `assets/` until accepted; product model publication is a future integration step. No Meshy spending is authorized by this workflow.
 
 ## Evidence consolidation
 
@@ -153,7 +157,7 @@ npm run preview -- --port 3003 --host 127.0.0.1 --strictPort
 node tools/avatar/verify_catalog_preview.mjs --outfit=T04-B01-F01-A01 --production
 ```
 
-The production option verifies the served build identity against `dist/build-identity.json` and records it in the report. Candidate GLBs are still substituted from their independent sources, and no published model is replaced. The build remains outside `dist-e2e`; no release/audio gate is implied by this asset rendering check.
+The production option verifies the served build identity against `dist/build-identity.json` and records it in the report. The tool-only `?agent=1` harness requests `/__avatar_fixture/{body,garments,walk,run}.glb`; the verifier intercepts them with candidate bytes. No public models are shipped or replaced. The build remains outside `dist-e2e`; no release/audio gate is implied by this asset rendering check.
 
 
 ## Fitting studies must improve measured contacts

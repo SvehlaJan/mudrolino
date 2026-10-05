@@ -5,12 +5,12 @@ import { Object3D } from 'three';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { AvatarModel } from './AvatarModel';
 import { AvatarSkeletonOverlay } from './AvatarSkeletonOverlay';
-import { AvatarExternalAsset } from './avatarAssetResolver';
+import type { AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
 
 interface AvatarSceneProps {
   className?: string;
-  modelUrl?: string;
+  modelUrl: string;
   animationUrl?: string;
   animationName?: string | null;
   externalAssets?: AvatarExternalAsset[];

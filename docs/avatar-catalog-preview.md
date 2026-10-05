@@ -2,7 +2,7 @@
 
 Run `npm run dev` in the avatar worktree and open `/avatar-preview`. The default
 development page is a read-only gallery of actual 2D references, current 3D
-models, unbuilt concepts, outfits, studies and runtime assets. Search includes
+models, unbuilt concepts, outfits and studies. Search includes
 IDs, labels and source paths. Category, representation, base, status and history
 filters are stored in the URL; opening and returning from an asset preserves
 them. Older attempts are available through **Include history**.
@@ -15,19 +15,19 @@ ID list is empty. Female references do not establish female 3D completion.
 
 ## Existing inspection links
 
-Explicit model links retain the original model selector and controls:
+Older `?model=...` links resolve to the corresponding asset in the gallery:
 
 - `/avatar-preview?model=study-h01-reference-a`: revised head on the study outfit.
 - `/avatar-preview?model=head-style-reference-a`: head-only style study.
 - `/avatar-preview?model=study-f04`: isolated orange-boot/trouser/sweatshirt study.
-- `/avatar-preview?view=modular`: original runtime workbench.
-- `/avatar-preview?agent=1`: original verification route.
+- `/avatar-preview?view=modular`: gallery; the modular workbench is retired.
+- `/avatar-preview?agent=1`: tool-only candidate rendering harness.
 
 Catalog-compatible models support Rest/Walk/Run, Pause/Resume, pose scrubbing,
 front/side/back/three-quarter views, camera reset and skeleton inspection. Drag
 to rotate and scroll/pinch to zoom. Unrelated standalone exports and head-only
-assets do not use the shared gait clips. This tooling does not save or replace
-the user's app avatar configuration.
+assets do not use the shared gait clips. The legacy parent customization UI and
+home overlay have been removed; product avatar integration remains future work.
 
 ## Inventory, refresh and source access
 
@@ -49,8 +49,11 @@ access on this MacBook despite the app server binding to the network. Only GET
 and HEAD are supported. Card thumbnails are resized to 320px; original reference
 images remain available from the asset inspector.
 
-Production builds do not expose the dev gallery or these endpoints. The renderer
-still loads through `AvatarPresenter`; three.js stays in its lazy scene chunk.
+Production builds do not expose the dev gallery or these endpoints. The small
+`?agent=1` renderer remains for source-bound browser proof when the avatar feature
+flag is enabled. Verifiers intercept its four `/__avatar_fixture/*.glb` requests;
+no public avatar models are shipped. The renderer still loads through
+`AvatarPresenter`; three.js stays in its lazy scene chunk.
 
 ## Verification
 
@@ -61,11 +64,14 @@ live additions/removal and recovery after a failed refresh. Its original capture
 320px review copies and identity/error report are under
 `artifacts/verification/avatar-catalog/gallery/`.
 
-Run `npm run avatar:catalog:inspect` to exercise the existing model selector and
-full controls across representative models on desktop and phone. Reports are
-under `artifacts/verification/avatar-catalog/inspection-page/`. Set
-`CATALOG_INSPECTION_DEFAULT_MODEL=study-h01-reference-a` to use that study for
-the initial animation checks. The reference/original/revised style audit remains
+Run `npm run avatar:catalog:inspect` to exercise gallery asset links on desktop
+and phone. It verifies Walk/Run motion, pause and scrubbing, camera presets,
+skeleton visibility, zoom/reset and source transport across independent models
+and representative outfits, including the current female capsule. Reports remain
+under `artifacts/verification/avatar-catalog/inspection-page/`. The initial model
+is `female-outfit-T02-B01-F01-study`; set
+`CATALOG_INSPECTION_DEFAULT_MODEL=study-h01-reference-a` to use another current
+gait-compatible study for the animation checks. The reference/original/revised style audit remains
 in `docs/audits/2026-10-04-avatar-style-review.md`.
 
 Chromium can mark Three.js streamed GLB reads `ERR_ABORTED` after consuming the

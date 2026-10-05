@@ -1,5 +1,7 @@
 # 3D Avatar Knowledge Base
 
+> Historical record: the pre-catalog male assets and modular/customization UI were removed on 2026-10-05. Examples below retain prior findings and may reference removed files. For current gallery, modeling and verification commands, use [avatar-workflow.md](avatar-workflow.md).
+
 Date: 2026-05-02
 
 This document is the durable project overview for the `teo-learn` 3D avatar work. Use it before changing avatar assets, runtime code, Blender tooling, or the product roadmap.

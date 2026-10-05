@@ -15,13 +15,12 @@ try {
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
   page.on('requestfailed', r => { const row = { url: r.url(), method: r.method(), reason: r.failure()?.errorText }; (row.reason === 'net::ERR_ABORTED' ? cancellations : failed).push(row); });
-  await page.goto(`${base}/avatar-preview`);
-  await page.getByTestId('catalog-ready').waitFor({ timeout: 60000 });
-  const manifest = await (await page.request.get(`${base}/__avatar_catalog/manifest.json`)).json();
+  const manifest = await (await page.request.get(`${base}/__avatar_catalog/library.json`)).json();
   for (const id of ['study-f04', 'H01', 'study-h01-reference-a', 'head-style-reference-a']) {
-    await page.getByTestId('catalog-model').selectOption(id);
+    await page.goto(`${base}/avatar-preview?asset=${encodeURIComponent(id)}`);
     await page.getByTestId('catalog-ready').waitFor({ timeout: 60000 });
-    const entry = manifest.entries.find(e => e.id === id);
+    const entry = manifest.assets.find(e => e.id === id)?.model;
+    assert.ok(entry, `Missing catalog model ${id}`);
     for (const view of ['front', 'side', 'back', 'three-quarter']) {
       await page.getByRole('button', { name: view, exact: true }).click();
       await page.waitForTimeout(100);
@@ -29,7 +28,7 @@ try {
       const pixels = await page.getByTestId('catalog-viewport').screenshot();
       rawCaptures.set(`${id}-${view}`, pixels);
       await sharp(pixels).resize({ width: 320 }).toFile(`${out}/${name}`);
-      records.push({ scene: id, view, file: name, width: 320, viewport: { width: 1100, height: 900 }, seed: null, modelUrl: entry.modelUrl, modelSha256: crypto.createHash('sha256').update(fs.readFileSync(`assets/avatar/catalog-a/${entry.modelUrl.split('/assets/')[1]}`)).digest('hex') });
+      records.push({ scene: id, view, file: name, width: 320, viewport: { width: 1100, height: 900 }, seed: null, modelUrl: entry.modelUrl, modelSha256: crypto.createHash('sha256').update(fs.readFileSync(`assets/avatar/catalog-a/${entry.modelUrl.split('/assets/')[1].split('?')[0]}`)).digest('hex') });
     }
   }
   assert.deepEqual(errors, []); assert.deepEqual(failed, []);

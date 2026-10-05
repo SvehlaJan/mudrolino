@@ -102,6 +102,16 @@ describe('live avatar library', () => {
     expect(after.animations.walk).not.toBe(before.animations.walk);
     expect(after.animations.run).toBe(before.animations.run);
   });
+  it('lists a shared construction reference once when an outfit uses several matching pieces', () => {
+    const { root, file } = fixture();
+    file('assets/avatar/catalog-a/outfits/T02-B01-F02-A01/outfit.glb');
+    file('assets/avatar/concepts/catalog-a/prompts-and-manifest.json', JSON.stringify({ boards: [
+      { title: 'Shared outfit construction', items: ['T02 Orange hoodie', 'F02 Slip-ons'], file: 'hoodie.png', prompt: 'Shared construction sheet' },
+    ] }));
+    const outfit = buildCatalogLibraryManifest(root).assets.find(a => a.id === 'outfit-T02-B01-F02-A01')!;
+    expect(outfit.references).toHaveLength(1);
+    expect(outfit.references[0].prompt).toBe('Shared construction sheet');
+  });
   it('handles missing optional metadata and gives a clear malformed progress error', () => {
     const { root, file } = fixture(); rmSync(join(root, 'assets/avatar/concepts/catalog-a/prompts-and-manifest.json'));
     expect(buildCatalogLibraryManifest(root).assets.length).toBeGreaterThan(0);

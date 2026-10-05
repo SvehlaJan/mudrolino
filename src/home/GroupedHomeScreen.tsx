@@ -10,8 +10,6 @@ import { getUiCopy } from '../shared/uiCopy';
 import { AppScreen } from '../shared/ui/AppScreen';
 import { IconButton } from '../shared/ui/IconButton';
 import { PwaHomeControl } from '../pwa/PwaHomeControl';
-import { AVATAR_POC_ENABLED } from '../avatar/avatarConstants';
-import { HomeAvatarOverlay } from '../avatar/HomeAvatarOverlay';
 import { GameCard } from './GameCard';
 
 export interface GroupedHomeScreenProps {
@@ -103,7 +101,6 @@ export function GroupedHomeScreen({
         aria-hidden="true"
         className="fixed bottom-0 -right-32 w-[500px] h-[500px] rounded-full bg-primary opacity-[0.03] blur-[100px] pointer-events-none"
       />
-      {AVATAR_POC_ENABLED && <HomeAvatarOverlay />}
     </AppScreen>
   );
 }

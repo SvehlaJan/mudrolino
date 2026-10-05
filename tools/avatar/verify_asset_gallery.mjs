@@ -174,7 +174,11 @@ try {
     }
     await page.goto(`${base}/avatar-preview?model=study-h01-reference-a`);
     await page.getByTestId('catalog-ready').waitFor({timeout:60000});
-    assert.equal(await page.getByTestId('catalog-model').inputValue(), 'study-h01-reference-a');
+    await expect(page).toHaveURL(/asset=study-h01-reference-a/);
+    await expect(page.getByTestId('catalog-title')).toContainText('Reference A');
+    await page.goto(`${base}/avatar-preview?view=modular`);
+    await expect(page.getByRole('heading', {name:'From reference to reality.'})).toBeVisible();
+    assert.equal(await page.getByRole('link', {name:/Modular workbench/}).count(), 0);
     // Three's consumed stream can report a cleanup abort even after successful
     // GLB parsing. HEAD probes are also cancelled during unmount. Keep evidence
     // and reject cancellations of non-catalog transport rather than hiding them.

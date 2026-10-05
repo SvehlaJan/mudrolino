@@ -20,7 +20,7 @@ export function CatalogModelInspector({ entry, animations, supportsGait = true, 
   const [skeleton, setSkeleton] = useState(false);
   const [ready, setReady] = useState('');
   const resetCamera = useRef<(() => void) | null>(null);
-  // Selecting another legacy model resets playback while retaining view and skeleton.
+  // Selecting another catalog model resets playback while retaining view and skeleton.
   if (inspectedEntryId !== entry.id) {
     setInspectedEntryId(entry.id);
     setAnimation('rest');
