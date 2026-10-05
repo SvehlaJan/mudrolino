@@ -4,6 +4,9 @@
 
 Date: 2026-05-02
 
+The [2026-10-03 workflow audit](audits/2026-10-03-avatar-workflow.md) records
+measured assets and Blender findings before the catalog replacement.
+
 This document captures the current modular clothing experiment workflow so later
 sessions do not repeat avoidable mistakes.
 

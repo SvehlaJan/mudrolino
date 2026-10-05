@@ -6,12 +6,15 @@ Updated 2026-10-05. This is the entry point for both Codex and Claude. Use
 
 ## Resume in the correct checkout
 
-Current work is on `feature/avatar-catalog` at
-`/Users/svehla/.codex/worktrees/avatar-catalog/teo-learn`. The primary checkout
-has other work; launch Claude in this worktree to continue these assets.
-The user requested committing all avatar work on this branch after the Blender
-update and female reference expansion. Check `git log -1` and `git status` before
-resuming; the primary checkout has not been merged or changed by this handoff.
+Continue from the primary checkout at `/Users/svehla/playground/teo-learn`.
+The user requested merging the avatar catalog into `main` and removing its
+worktree. Check `git log -1` and `git status` before resuming and preserve local
+changes. Follow the checkout authorization rule in `AGENTS.md`; launch Claude
+in the primary checkout.
+
+Verification reports copied from the former avatar worktree retain their
+original commit, build identity and absolute-path provenance. They are historical
+proof; run fresh checks for later model or code changes.
 
 The live development gallery is http://127.0.0.1:3004/avatar-preview. Open a card
 for references, model inspection, prompts and source files. The read-only gallery

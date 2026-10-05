@@ -4,6 +4,9 @@
 
 Date: 2026-05-02
 
+The [2026-10-03 workflow audit](audits/2026-10-03-avatar-workflow.md) records
+measured assets and Blender findings before the catalog replacement.
+
 This document is the durable project overview for the `teo-learn` 3D avatar work. Use it before changing avatar assets, runtime code, Blender tooling, or the product roadmap.
 
 ## Product Direction

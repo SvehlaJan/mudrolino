@@ -51,7 +51,8 @@ seed, commit/build identity, scene, viewport, errors and failed requests.
 
 ## Repository etiquette
 
-- Work on a branch; never commit to `main`.
+- Work on a branch; never commit to `main` unless the user explicitly requests merging into it.
+- Use the primary checkout by default. Obtain explicit user authorization before creating or using any worktree; never do either silently.
 - Commit messages are `type: imperative summary` (`fix:`, `feat:`, `perf:`, `docs:`, `test:`, `chore:`) with a body explaining why, not what.
 - Update `ROADMAP.md` in the same change when you finish, add, or drop a task, and add a Decisions Log row for a significant choice.
 - Do not open a pull request unless asked.
