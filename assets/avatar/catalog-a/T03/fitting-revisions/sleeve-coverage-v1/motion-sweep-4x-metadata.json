@@ -1,6 +1,6 @@
 {
   "blend": "assets/avatar/catalog-a/T03/fitting-revisions/sleeve-coverage-v1/T03.blend",
-  "blend_sha256": "823efe48729eeed8e6ac03d6bda8fb19015af9e0dd7992ea8fe246c1dab205aa",
+  "blend_sha256": "f2b35801fa421e5986f06bdbecfd776c0553c3820d5d0b8b293e2f38b171a1e4",
   "blender": "5.2.2 LTS",
   "body_meshes": [
     "body_underlayer_male",

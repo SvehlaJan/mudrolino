@@ -1,12 +1,18 @@
 {
   "blend": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend",
-  "blend_sha256": "8518864710e370f4d4106cd822fc2f24afd7b6caa2756dd689a078d6fe1eaa75",
-  "verifier_sha256": "970580b962c668525d9a7c3335ae2b68b773b6bdb051b9cf86f47c2c7e8af50a",
+  "blend_sha256": "d196dd2fac124ca57ae58afebb168c83cf9d8088a7cf0dfe335d5f98454f9a09",
+  "verifier_sha256": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
   "removed_faces": 68018,
   "visible_faces": 0,
   "sample": [],
   "accepted_contact_faces": 385,
   "accepted_contact_piece": "T01",
   "cameras": "8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose",
+  "posed": {
+    "stride": 0,
+    "samples": 0,
+    "max_visible_faces": 0,
+    "worst": null
+  },
   "status": "passed"
 }

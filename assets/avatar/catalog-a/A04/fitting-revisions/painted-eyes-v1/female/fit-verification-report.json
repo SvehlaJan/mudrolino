@@ -1,0 +1,30 @@
+{
+  "study_dir": "assets/avatar/catalog-a/A04/fitting-revisions/painted-eyes-v1/female",
+  "study_report_sha256": "95d5f119b7b5ebaafe97e06942d85173f5ceee47febb899149303023990ba3f0",
+  "verifier_sha256": "f63b93038232eeddd38014614d788ade5de4f6859b820f1ba5c3c70224537eb7",
+  "failures": [],
+  "status": "passed",
+  "fit": {
+    "skin_pairs": 0,
+    "hair_pairs": {
+      "H02_hair": 162
+    },
+    "frame_vertices": 1084,
+    "min_frame_gap_m": 0.009185940027236938,
+    "min_frame_gap_required_m": 0.004
+  },
+  "mirror_max_m": 1.3710333632843685e-06,
+  "motion_clearance": {
+    "samples": 168,
+    "gesture_samples": 5,
+    "maximum_pairs": {
+      "body_underlayer_female": 0,
+      "skin": 0
+    },
+    "contacts": []
+  },
+  "export": {
+    "vertices": 1896,
+    "max_rest_error_m": 4.4454438352659054e-07
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "pieces": [
+    "T03",
+    "B03",
+    "F01"
+  ],
+  "foundation": "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/foundation.blend",
+  "foundation_sha256": "b653e05677751c6066ef6d41ab74f3087c1131f7b8358cfbc83ef9a199bf91cd",
+  "status": "combination candidate; motion/runtime acceptance pending",
+  "coverage": {
+    "T03": {
+      "vertices": 10997,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/T03/fitting-revisions/sleeve-coverage-v1/T03.blend",
+      "source_sha256": "f2b35801fa421e5986f06bdbecfd776c0553c3820d5d0b8b293e2f38b171a1e4"
+    },
+    "B03": {
+      "vertices": 8063,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/B03/fitting-revisions/thigh-coverage-v1/B03.blend",
+      "source_sha256": "a67f121929a99597ad161134ed1ab9e42e75b47947260dbd986dcdaa74dccb54"
+    },
+    "F01": {
+      "vertices": 5669,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/F01/F01.blend",
+      "source_sha256": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee"
+    }
+  },
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+        "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+        "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+        "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+        "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+        "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": [
+        0,
+        70,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+        "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 208
+      }
+    }
+  ]
+}

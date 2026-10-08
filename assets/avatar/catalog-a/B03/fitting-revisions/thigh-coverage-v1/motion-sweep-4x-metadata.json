@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/B03/fitting-revisions/thigh-coverage-v1/B03.blend",
+  "blend_sha256": "a67f121929a99597ad161134ed1ab9e42e75b47947260dbd986dcdaa74dccb54",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "B03_casual_shorts"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 338,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

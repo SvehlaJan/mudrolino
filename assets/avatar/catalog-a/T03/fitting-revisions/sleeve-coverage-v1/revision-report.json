@@ -1,17 +1,20 @@
 {
   "stage": "T03 coverage revision; garment unchanged; outfit gates required",
   "id": "T03",
+  "region": "arm",
+  "region_detail": {},
   "source": "assets/avatar/catalog-a/T03/T03.blend",
   "source_sha256": "d95296e070c0cfd0056522580f1e7faaeb10e7ac722617b437692d25cd447bdb",
-  "builder_sha256": "f27eb8764456bd7bcb915a277e8fb6abb79793cddab9cc6aa4e7e701e125617c",
+  "builder_sha256": "c96ce608bdb027d8d19143207dfcbf18a8db6bb35f9aa5830368fb204d538f94",
   "helpers": {
-    "catalog_coverage_visibility.py": "a0058527092f4d1d4f122779b1ee5aa6ad89b3b11634e5820b6465f6602b9bdc",
+    "catalog_coverage_visibility.py": "970713878d08975480f3f55a0350b89fab4a100c6b657c786e74d46529751337",
     "catalog_tee_underarm.py": "b84e1ec14c718a63af703410ce6d4dfe1af3576ec8bb87ce401630eb63ad0786"
   },
   "covered_vertices": {
     "canonical": 11752,
     "revision": 10997,
     "released_arm_vertices": 1588,
+    "posed_released_vertices": 0,
     "contact_vertices": 267
   },
   "visibility": {
@@ -26,8 +29,830 @@
       "accepted_contact_faces": 385
     }
   },
+  "posed_visibility": {
+    "poses": 163,
+    "max_visible_faces": 1110,
+    "visible_contact_faces": 667,
+    "samples": [
+      {
+        "motion": "walk",
+        "frame": 0.8,
+        "visible_faces": 171
+      },
+      {
+        "motion": "walk",
+        "frame": 1.0,
+        "visible_faces": 178
+      },
+      {
+        "motion": "walk",
+        "frame": 1.25,
+        "visible_faces": 182
+      },
+      {
+        "motion": "walk",
+        "frame": 1.5,
+        "visible_faces": 216
+      },
+      {
+        "motion": "walk",
+        "frame": 1.75,
+        "visible_faces": 221
+      },
+      {
+        "motion": "walk",
+        "frame": 2.0,
+        "visible_faces": 240
+      },
+      {
+        "motion": "walk",
+        "frame": 2.25,
+        "visible_faces": 257
+      },
+      {
+        "motion": "walk",
+        "frame": 2.5,
+        "visible_faces": 265
+      },
+      {
+        "motion": "walk",
+        "frame": 2.75,
+        "visible_faces": 284
+      },
+      {
+        "motion": "walk",
+        "frame": 3.0,
+        "visible_faces": 307
+      },
+      {
+        "motion": "walk",
+        "frame": 3.25,
+        "visible_faces": 279
+      },
+      {
+        "motion": "walk",
+        "frame": 3.5,
+        "visible_faces": 261
+      },
+      {
+        "motion": "walk",
+        "frame": 3.75,
+        "visible_faces": 259
+      },
+      {
+        "motion": "walk",
+        "frame": 4.0,
+        "visible_faces": 228
+      },
+      {
+        "motion": "walk",
+        "frame": 4.25,
+        "visible_faces": 233
+      },
+      {
+        "motion": "walk",
+        "frame": 4.5,
+        "visible_faces": 232
+      },
+      {
+        "motion": "walk",
+        "frame": 4.75,
+        "visible_faces": 232
+      },
+      {
+        "motion": "walk",
+        "frame": 5.0,
+        "visible_faces": 229
+      },
+      {
+        "motion": "walk",
+        "frame": 5.25,
+        "visible_faces": 226
+      },
+      {
+        "motion": "walk",
+        "frame": 5.5,
+        "visible_faces": 225
+      },
+      {
+        "motion": "walk",
+        "frame": 5.75,
+        "visible_faces": 222
+      },
+      {
+        "motion": "walk",
+        "frame": 6.0,
+        "visible_faces": 220
+      },
+      {
+        "motion": "walk",
+        "frame": 6.25,
+        "visible_faces": 220
+      },
+      {
+        "motion": "walk",
+        "frame": 6.5,
+        "visible_faces": 219
+      },
+      {
+        "motion": "walk",
+        "frame": 6.75,
+        "visible_faces": 223
+      },
+      {
+        "motion": "walk",
+        "frame": 7.0,
+        "visible_faces": 229
+      },
+      {
+        "motion": "walk",
+        "frame": 7.25,
+        "visible_faces": 230
+      },
+      {
+        "motion": "walk",
+        "frame": 7.5,
+        "visible_faces": 241
+      },
+      {
+        "motion": "walk",
+        "frame": 7.75,
+        "visible_faces": 256
+      },
+      {
+        "motion": "walk",
+        "frame": 8.0,
+        "visible_faces": 258
+      },
+      {
+        "motion": "walk",
+        "frame": 8.25,
+        "visible_faces": 269
+      },
+      {
+        "motion": "walk",
+        "frame": 8.5,
+        "visible_faces": 268
+      },
+      {
+        "motion": "walk",
+        "frame": 8.75,
+        "visible_faces": 264
+      },
+      {
+        "motion": "walk",
+        "frame": 9.0,
+        "visible_faces": 257
+      },
+      {
+        "motion": "walk",
+        "frame": 9.25,
+        "visible_faces": 245
+      },
+      {
+        "motion": "walk",
+        "frame": 9.5,
+        "visible_faces": 241
+      },
+      {
+        "motion": "walk",
+        "frame": 9.75,
+        "visible_faces": 229
+      },
+      {
+        "motion": "walk",
+        "frame": 10.0,
+        "visible_faces": 215
+      },
+      {
+        "motion": "walk",
+        "frame": 10.25,
+        "visible_faces": 205
+      },
+      {
+        "motion": "walk",
+        "frame": 10.5,
+        "visible_faces": 196
+      },
+      {
+        "motion": "walk",
+        "frame": 10.75,
+        "visible_faces": 169
+      },
+      {
+        "motion": "walk",
+        "frame": 11.0,
+        "visible_faces": 158
+      },
+      {
+        "motion": "walk",
+        "frame": 11.25,
+        "visible_faces": 161
+      },
+      {
+        "motion": "walk",
+        "frame": 11.5,
+        "visible_faces": 179
+      },
+      {
+        "motion": "walk",
+        "frame": 11.75,
+        "visible_faces": 178
+      },
+      {
+        "motion": "walk",
+        "frame": 12.0,
+        "visible_faces": 183
+      },
+      {
+        "motion": "walk",
+        "frame": 12.25,
+        "visible_faces": 196
+      },
+      {
+        "motion": "walk",
+        "frame": 12.5,
+        "visible_faces": 213
+      },
+      {
+        "motion": "walk",
+        "frame": 12.75,
+        "visible_faces": 221
+      },
+      {
+        "motion": "walk",
+        "frame": 13.0,
+        "visible_faces": 235
+      },
+      {
+        "motion": "walk",
+        "frame": 13.25,
+        "visible_faces": 235
+      },
+      {
+        "motion": "walk",
+        "frame": 13.5,
+        "visible_faces": 202
+      },
+      {
+        "motion": "walk",
+        "frame": 13.75,
+        "visible_faces": 182
+      },
+      {
+        "motion": "walk",
+        "frame": 14.0,
+        "visible_faces": 191
+      },
+      {
+        "motion": "walk",
+        "frame": 14.25,
+        "visible_faces": 218
+      },
+      {
+        "motion": "walk",
+        "frame": 14.5,
+        "visible_faces": 238
+      },
+      {
+        "motion": "walk",
+        "frame": 14.75,
+        "visible_faces": 271
+      },
+      {
+        "motion": "walk",
+        "frame": 15.0,
+        "visible_faces": 296
+      },
+      {
+        "motion": "walk",
+        "frame": 15.25,
+        "visible_faces": 307
+      },
+      {
+        "motion": "walk",
+        "frame": 15.5,
+        "visible_faces": 325
+      },
+      {
+        "motion": "walk",
+        "frame": 15.75,
+        "visible_faces": 331
+      },
+      {
+        "motion": "walk",
+        "frame": 16.0,
+        "visible_faces": 344
+      },
+      {
+        "motion": "walk",
+        "frame": 16.25,
+        "visible_faces": 346
+      },
+      {
+        "motion": "walk",
+        "frame": 16.5,
+        "visible_faces": 342
+      },
+      {
+        "motion": "walk",
+        "frame": 16.75,
+        "visible_faces": 338
+      },
+      {
+        "motion": "walk",
+        "frame": 17.0,
+        "visible_faces": 333
+      },
+      {
+        "motion": "walk",
+        "frame": 17.25,
+        "visible_faces": 332
+      },
+      {
+        "motion": "walk",
+        "frame": 17.5,
+        "visible_faces": 324
+      },
+      {
+        "motion": "walk",
+        "frame": 17.75,
+        "visible_faces": 325
+      },
+      {
+        "motion": "walk",
+        "frame": 18.0,
+        "visible_faces": 321
+      },
+      {
+        "motion": "walk",
+        "frame": 18.25,
+        "visible_faces": 317
+      },
+      {
+        "motion": "walk",
+        "frame": 18.5,
+        "visible_faces": 312
+      },
+      {
+        "motion": "walk",
+        "frame": 18.75,
+        "visible_faces": 312
+      },
+      {
+        "motion": "walk",
+        "frame": 19.0,
+        "visible_faces": 317
+      },
+      {
+        "motion": "walk",
+        "frame": 19.25,
+        "visible_faces": 318
+      },
+      {
+        "motion": "walk",
+        "frame": 19.5,
+        "visible_faces": 319
+      },
+      {
+        "motion": "walk",
+        "frame": 19.75,
+        "visible_faces": 323
+      },
+      {
+        "motion": "walk",
+        "frame": 20.0,
+        "visible_faces": 327
+      },
+      {
+        "motion": "walk",
+        "frame": 20.25,
+        "visible_faces": 331
+      },
+      {
+        "motion": "walk",
+        "frame": 20.5,
+        "visible_faces": 335
+      },
+      {
+        "motion": "walk",
+        "frame": 20.75,
+        "visible_faces": 339
+      },
+      {
+        "motion": "walk",
+        "frame": 21.0,
+        "visible_faces": 340
+      },
+      {
+        "motion": "walk",
+        "frame": 21.25,
+        "visible_faces": 345
+      },
+      {
+        "motion": "walk",
+        "frame": 21.5,
+        "visible_faces": 337
+      },
+      {
+        "motion": "walk",
+        "frame": 21.75,
+        "visible_faces": 332
+      },
+      {
+        "motion": "walk",
+        "frame": 22.0,
+        "visible_faces": 323
+      },
+      {
+        "motion": "walk",
+        "frame": 22.25,
+        "visible_faces": 310
+      },
+      {
+        "motion": "walk",
+        "frame": 22.5,
+        "visible_faces": 300
+      },
+      {
+        "motion": "walk",
+        "frame": 22.75,
+        "visible_faces": 268
+      },
+      {
+        "motion": "walk",
+        "frame": 23.0,
+        "visible_faces": 251
+      },
+      {
+        "motion": "walk",
+        "frame": 23.25,
+        "visible_faces": 227
+      },
+      {
+        "motion": "walk",
+        "frame": 23.5,
+        "visible_faces": 208
+      },
+      {
+        "motion": "walk",
+        "frame": 23.75,
+        "visible_faces": 180
+      },
+      {
+        "motion": "walk",
+        "frame": 24.0,
+        "visible_faces": 166
+      },
+      {
+        "motion": "walk",
+        "frame": 24.25,
+        "visible_faces": 141
+      },
+      {
+        "motion": "walk",
+        "frame": 24.5,
+        "visible_faces": 138
+      },
+      {
+        "motion": "walk",
+        "frame": 24.75,
+        "visible_faces": 141
+      },
+      {
+        "motion": "walk",
+        "frame": 25.0,
+        "visible_faces": 151
+      },
+      {
+        "motion": "walk",
+        "frame": 25.25,
+        "visible_faces": 162
+      },
+      {
+        "motion": "walk",
+        "frame": 25.5,
+        "visible_faces": 175
+      },
+      {
+        "motion": "walk",
+        "frame": 25.6,
+        "visible_faces": 172
+      },
+      {
+        "motion": "run",
+        "frame": 0.8,
+        "visible_faces": 221
+      },
+      {
+        "motion": "run",
+        "frame": 1.0,
+        "visible_faces": 224
+      },
+      {
+        "motion": "run",
+        "frame": 1.25,
+        "visible_faces": 232
+      },
+      {
+        "motion": "run",
+        "frame": 1.5,
+        "visible_faces": 249
+      },
+      {
+        "motion": "run",
+        "frame": 1.75,
+        "visible_faces": 280
+      },
+      {
+        "motion": "run",
+        "frame": 2.0,
+        "visible_faces": 297
+      },
+      {
+        "motion": "run",
+        "frame": 2.25,
+        "visible_faces": 305
+      },
+      {
+        "motion": "run",
+        "frame": 2.5,
+        "visible_faces": 323
+      },
+      {
+        "motion": "run",
+        "frame": 2.75,
+        "visible_faces": 315
+      },
+      {
+        "motion": "run",
+        "frame": 3.0,
+        "visible_faces": 306
+      },
+      {
+        "motion": "run",
+        "frame": 3.25,
+        "visible_faces": 285
+      },
+      {
+        "motion": "run",
+        "frame": 3.5,
+        "visible_faces": 272
+      },
+      {
+        "motion": "run",
+        "frame": 3.75,
+        "visible_faces": 262
+      },
+      {
+        "motion": "run",
+        "frame": 4.0,
+        "visible_faces": 260
+      },
+      {
+        "motion": "run",
+        "frame": 4.25,
+        "visible_faces": 277
+      },
+      {
+        "motion": "run",
+        "frame": 4.5,
+        "visible_faces": 261
+      },
+      {
+        "motion": "run",
+        "frame": 4.75,
+        "visible_faces": 249
+      },
+      {
+        "motion": "run",
+        "frame": 5.0,
+        "visible_faces": 228
+      },
+      {
+        "motion": "run",
+        "frame": 5.25,
+        "visible_faces": 230
+      },
+      {
+        "motion": "run",
+        "frame": 5.5,
+        "visible_faces": 536
+      },
+      {
+        "motion": "run",
+        "frame": 5.75,
+        "visible_faces": 645
+      },
+      {
+        "motion": "run",
+        "frame": 6.0,
+        "visible_faces": 777
+      },
+      {
+        "motion": "run",
+        "frame": 6.25,
+        "visible_faces": 638
+      },
+      {
+        "motion": "run",
+        "frame": 6.5,
+        "visible_faces": 750
+      },
+      {
+        "motion": "run",
+        "frame": 6.75,
+        "visible_faces": 888
+      },
+      {
+        "motion": "run",
+        "frame": 7.0,
+        "visible_faces": 924
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "visible_faces": 314
+      },
+      {
+        "motion": "run",
+        "frame": 7.5,
+        "visible_faces": 356
+      },
+      {
+        "motion": "run",
+        "frame": 7.75,
+        "visible_faces": 363
+      },
+      {
+        "motion": "run",
+        "frame": 8.0,
+        "visible_faces": 372
+      },
+      {
+        "motion": "run",
+        "frame": 8.25,
+        "visible_faces": 380
+      },
+      {
+        "motion": "run",
+        "frame": 8.5,
+        "visible_faces": 392
+      },
+      {
+        "motion": "run",
+        "frame": 8.75,
+        "visible_faces": 409
+      },
+      {
+        "motion": "run",
+        "frame": 9.0,
+        "visible_faces": 426
+      },
+      {
+        "motion": "run",
+        "frame": 9.25,
+        "visible_faces": 406
+      },
+      {
+        "motion": "run",
+        "frame": 9.5,
+        "visible_faces": 386
+      },
+      {
+        "motion": "run",
+        "frame": 9.75,
+        "visible_faces": 359
+      },
+      {
+        "motion": "run",
+        "frame": 10.0,
+        "visible_faces": 349
+      },
+      {
+        "motion": "run",
+        "frame": 10.25,
+        "visible_faces": 333
+      },
+      {
+        "motion": "run",
+        "frame": 10.5,
+        "visible_faces": 355
+      },
+      {
+        "motion": "run",
+        "frame": 10.75,
+        "visible_faces": 371
+      },
+      {
+        "motion": "run",
+        "frame": 11.0,
+        "visible_faces": 361
+      },
+      {
+        "motion": "run",
+        "frame": 11.25,
+        "visible_faces": 350
+      },
+      {
+        "motion": "run",
+        "frame": 11.5,
+        "visible_faces": 326
+      },
+      {
+        "motion": "run",
+        "frame": 11.75,
+        "visible_faces": 329
+      },
+      {
+        "motion": "run",
+        "frame": 12.0,
+        "visible_faces": 361
+      },
+      {
+        "motion": "run",
+        "frame": 12.25,
+        "visible_faces": 339
+      },
+      {
+        "motion": "run",
+        "frame": 12.5,
+        "visible_faces": 248
+      },
+      {
+        "motion": "run",
+        "frame": 12.75,
+        "visible_faces": 233
+      },
+      {
+        "motion": "run",
+        "frame": 13.0,
+        "visible_faces": 341
+      },
+      {
+        "motion": "run",
+        "frame": 13.25,
+        "visible_faces": 450
+      },
+      {
+        "motion": "run",
+        "frame": 13.5,
+        "visible_faces": 570
+      },
+      {
+        "motion": "run",
+        "frame": 13.75,
+        "visible_faces": 583
+      },
+      {
+        "motion": "run",
+        "frame": 14.0,
+        "visible_faces": 848
+      },
+      {
+        "motion": "run",
+        "frame": 14.25,
+        "visible_faces": 1110
+      },
+      {
+        "motion": "run",
+        "frame": 14.5,
+        "visible_faces": 981
+      },
+      {
+        "motion": "run",
+        "frame": 14.75,
+        "visible_faces": 850
+      },
+      {
+        "motion": "run",
+        "frame": 15.0,
+        "visible_faces": 301
+      },
+      {
+        "motion": "run",
+        "frame": 15.25,
+        "visible_faces": 284
+      },
+      {
+        "motion": "run",
+        "frame": 15.5,
+        "visible_faces": 237
+      },
+      {
+        "motion": "run",
+        "frame": 15.75,
+        "visible_faces": 217
+      },
+      {
+        "motion": "run",
+        "frame": 16.0,
+        "visible_faces": 221
+      }
+    ]
+  },
   "blend": {
-    "assets/avatar/catalog-a/T03/fitting-revisions/sleeve-coverage-v1/T03.blend": "823efe48729eeed8e6ac03d6bda8fb19015af9e0dd7992ea8fe246c1dab205aa"
+    "assets/avatar/catalog-a/T03/fitting-revisions/sleeve-coverage-v1/T03.blend": "f2b35801fa421e5986f06bdbecfd776c0553c3820d5d0b8b293e2f38b171a1e4"
   },
   "exports": {
     "T03.glb": "bc16da578ba4e6d52b902543e34af06cf48b13e5a4983669e6d46966b39738ac",

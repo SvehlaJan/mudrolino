@@ -1,0 +1,19 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01/outfit.blend",
+  "blend_sha256": "d6d7206e3e7b1b17f43e921783cc1e636dab77cd07e77aa92140eaeb65cb012c",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T03_raglan_tee_outfit",
+    "B03_casual_shorts_outfit",
+    "F01_strap_sneakers_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 70,
+  "max_layer_pairs": 436,
+  "review_width": 320
+}

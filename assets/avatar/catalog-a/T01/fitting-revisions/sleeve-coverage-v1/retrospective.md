@@ -81,3 +81,18 @@ The builder takes `--id T03 --garment T03_raglan_tee`
 (`T03/fitting-revisions/sleeve-coverage-v1/`). T03 shares the tee shell and
 coverage rule, so it gives identical numbers: 1,177 visible cut faces down to 13
 hem faces when shown alone, 385 accepted contact faces, and 163-pose motion clear.
+
+## Holes in motion (2026-10-08)
+
+The hole gate checked only the rest pose. With `--pose-stride`, it now also checks
+gait poses. Shown alone, T01 and T03 expose up to 782 hidden upper-arm faces at run
+14.5, and male O01 up to 739: the sleeve opening gapes as the arms swing.
+Long-sleeve outfits (T02, T04, T06, O02, O04) show at most 1 face.
+
+Releasing skin by pose visibility, as for the B03 thighs, made the tee worse. Contact
+skin grew from 385 to 1,308 vertices and rest holes from 0 to 26, while the worst
+pose still showed 922 faces. A loose sleeve moves against the arm: the same skin is
+visible in some poses and touches the cloth in others. Coverage alone can't fix
+this; the sleeve's skinning (sleeves that follow the upper arm more closely in the
+swing) is the next lever. The revision is rebuilt with rest-only release
+(byte-identical coverage) and now reports its posed holes.

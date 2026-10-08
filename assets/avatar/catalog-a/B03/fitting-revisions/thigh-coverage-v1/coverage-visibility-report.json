@@ -1,0 +1,22 @@
+{
+  "blend": "assets/avatar/catalog-a/B03/fitting-revisions/thigh-coverage-v1/B03.blend",
+  "blend_sha256": "a67f121929a99597ad161134ed1ab9e42e75b47947260dbd986dcdaa74dccb54",
+  "verifier_sha256": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
+  "removed_faces": 16607,
+  "visible_faces": 0,
+  "sample": [],
+  "accepted_contact_faces": 0,
+  "accepted_contact_piece": null,
+  "cameras": "8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose and every 1 gait pose(s)",
+  "posed": {
+    "stride": 1,
+    "samples": 163,
+    "max_visible_faces": 5,
+    "worst": {
+      "motion": "run",
+      "frame": 14.75,
+      "visible_faces": 5
+    }
+  },
+  "status": "failed"
+}

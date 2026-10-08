@@ -1,0 +1,20 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01/outfit.blend",
+  "blend_sha256": "d6d7206e3e7b1b17f43e921783cc1e636dab77cd07e77aa92140eaeb65cb012c",
+  "verifier_sha256": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
+  "removed_faces": 49785,
+  "visible_faces": 1,
+  "sample": [
+    11681
+  ],
+  "accepted_contact_faces": 385,
+  "accepted_contact_piece": "T03",
+  "cameras": "8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose",
+  "posed": {
+    "stride": 0,
+    "samples": 0,
+    "max_visible_faces": 0,
+    "worst": null
+  },
+  "status": "failed"
+}

@@ -271,9 +271,10 @@ Head-dependent pieces fit to measured head envelopes, not fixed coordinates: see
 `verify_catalog_headwear.py` (fit gate: no floating, no intersections, gait and
 gestures). Priorities are in `docs/audits/2026-10-07-avatar-fit-and-tooling-audit.md`.
 Done as of 2026-10-08: A02, female T01 and exact O01, hood refits, T06 buttons,
-B04/F02 promoted after measurement, and exact male O02/O04. Next: B03 thigh
-coverage plus a decision on run leg-fold contact, then A03/A04 glasses, A05, A06
-and the rest of the female wardrobe. Compare self and detail contact counts with
+B04/F02 promoted after measurement, exact male O02/O04, B03 thigh coverage and
+A03/A04 glasses on both bases. Open decision: the run leg-fold contact in B03/O03.
+Next: tee-sleeve skinning (see-through arms in motion), A05, A06 and the rest of
+the female wardrobe. Check holes in gait poses too (`--pose-stride`). Compare self and detail contact counts with
 the passing sibling garment (`audit_catalog_detail_shell.py`), not with zero. Keep
 expressions, real-selfie generation and final acceptance separate.
 

@@ -1,0 +1,31 @@
+{
+  "study_dir": "assets/avatar/catalog-a/A04/fitting-revisions/painted-eyes-v1/male",
+  "study_report_sha256": "9fd5b94e650f05cab3c835d3998c00c1ce0053771e4219ce10c0690194d99347",
+  "verifier_sha256": "f63b93038232eeddd38014614d788ade5de4f6859b820f1ba5c3c70224537eb7",
+  "failures": [],
+  "status": "passed",
+  "fit": {
+    "skin_pairs": 0,
+    "hair_pairs": {},
+    "frame_vertices": 1084,
+    "min_frame_gap_m": 0.009692193940281868,
+    "min_frame_gap_required_m": 0.004
+  },
+  "mirror_max_m": 1.475892076996388e-06,
+  "motion_clearance": {
+    "samples": 168,
+    "gesture_samples": 5,
+    "maximum_pairs": {
+      "body_underlayer_male": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0,
+      "T05_crew_sweatshirt_outfit": 0,
+      "skin": 0
+    },
+    "contacts": []
+  },
+  "export": {
+    "vertices": 1896,
+    "max_rest_error_m": 5.22085827014962e-07
+  }
+}

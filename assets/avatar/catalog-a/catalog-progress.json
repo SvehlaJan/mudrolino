@@ -734,6 +734,84 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/assemble_catalog_outfit.py"
+    },
+    {
+      "id": "a03-male",
+      "label": "A03 navy round glasses · male +30% head",
+      "path": "A03/fitting-revisions/painted-eyes-v1/male",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Lenses enclose the painted eyes; frame 6.2 mm clear of the face, temples above the ears. Zero skin contact; clear of body and garments over 163 gait poses and five head gestures; mirror-symmetric; glTF valid. Art review pending.",
+      "reference_ids": [
+        "A03",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_glasses.py"
+    },
+    {
+      "id": "a03-female",
+      "label": "A03 navy round glasses · female +30% head",
+      "path": "A03/fitting-revisions/painted-eyes-v1/female",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Lenses enclose the painted eyes; frame 9.5 mm clear of the face; temples pass into the bob. Zero skin contact; clear over 163 gait poses and five head gestures; mirror-symmetric; glTF valid. Art review pending.",
+      "reference_ids": [
+        "A03",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_glasses.py"
+    },
+    {
+      "id": "a04-male",
+      "label": "A04 blue soft-square glasses · male +30% head",
+      "path": "A04/fitting-revisions/painted-eyes-v1/male",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Soft-square lenses enclose the painted eyes; frame 9.7 mm clear of the face, temples above the ears. Zero skin contact; clear over 163 gait poses and five head gestures; mirror-symmetric; glTF valid. Art review pending.",
+      "reference_ids": [
+        "A04",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_glasses.py"
+    },
+    {
+      "id": "a04-female",
+      "label": "A04 blue soft-square glasses · female +30% head",
+      "path": "A04/fitting-revisions/painted-eyes-v1/female",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Soft-square lenses enclose the painted eyes; frame 9.2 mm clear of the face; temples pass into the bob. Zero skin contact; clear over 163 gait poses and five head gestures; mirror-symmetric; glTF valid. Art review pending.",
+      "reference_ids": [
+        "A04",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_glasses.py"
+    },
+    {
+      "id": "o03-male-head130",
+      "label": "O03 · T03 / B03 thigh coverage / F01 · +30% head (no cap)",
+      "path": "outfits/O03-head130-T03-B03-F01",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "O03 without A01 on the +30% head. Export, side isolation, head clearance and glTF pass. Motion fails only in the run back-kick (heel and shoe into the shorts: up to 70 body and 436 shoe/shorts pairs), the leg-fold class awaiting a decision. Tee sleeves show see-through skin in motion, as in O01.",
+      "reference_ids": [
+        "O03",
+        "T03",
+        "B03",
+        "F01",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/assemble_catalog_outfit.py"
     }
   ],
   "F02_corrective_repair_study": {

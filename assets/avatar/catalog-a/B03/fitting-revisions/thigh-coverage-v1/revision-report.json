@@ -1,0 +1,866 @@
+{
+  "stage": "B03 coverage revision; garment unchanged; outfit gates required",
+  "id": "B03",
+  "region": "thigh",
+  "region_detail": {
+    "hem_plus_margin_z": 0.5718414926528931,
+    "top_z": 0.835,
+    "thigh_vertices": 6434
+  },
+  "source": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/B03.blend",
+  "source_sha256": "f6417b0486823a00ca58a29eb21bc3283a505593eb8002cc26883087200517a7",
+  "builder_sha256": "c96ce608bdb027d8d19143207dfcbf18a8db6bb35f9aa5830368fb204d538f94",
+  "helpers": {
+    "catalog_coverage_visibility.py": "970713878d08975480f3f55a0350b89fab4a100c6b657c786e74d46529751337",
+    "catalog_tee_underarm.py": "b84e1ec14c718a63af703410ce6d4dfe1af3576ec8bb87ce401630eb63ad0786"
+  },
+  "covered_vertices": {
+    "canonical": 2317,
+    "revision": 8063,
+    "released_arm_vertices": 0,
+    "posed_released_vertices": 688,
+    "contact_vertices": 0
+  },
+  "visibility": {
+    "canonical": {
+      "removed_faces": 5027,
+      "visible_faces": 0,
+      "accepted_contact_faces": 0
+    },
+    "revision": {
+      "removed_faces": 16607,
+      "visible_faces": 0,
+      "accepted_contact_faces": 0
+    }
+  },
+  "posed_visibility": {
+    "poses": 163,
+    "max_visible_faces": 2,
+    "visible_contact_faces": 0,
+    "samples": [
+      {
+        "motion": "walk",
+        "frame": 0.8,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 1.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 2.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 3.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 4.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 5.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 6.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 7.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 8.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 9.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 10.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 11.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 12.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 13.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 14.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 15.75,
+        "visible_faces": 1
+      },
+      {
+        "motion": "walk",
+        "frame": 16.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 16.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 17.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 18.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 19.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 20.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 21.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 22.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 23.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 24.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "walk",
+        "frame": 25.6,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 0.8,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 1.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 2.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 3.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 4.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.25,
+        "visible_faces": 1
+      },
+      {
+        "motion": "run",
+        "frame": 5.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 5.75,
+        "visible_faces": 2
+      },
+      {
+        "motion": "run",
+        "frame": 6.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 6.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 7.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 8.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 9.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 10.5,
+        "visible_faces": 1
+      },
+      {
+        "motion": "run",
+        "frame": 10.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 11.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 12.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 13.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 14.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.0,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.25,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.5,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 15.75,
+        "visible_faces": 0
+      },
+      {
+        "motion": "run",
+        "frame": 16.0,
+        "visible_faces": 0
+      }
+    ]
+  },
+  "blend": {
+    "assets/avatar/catalog-a/B03/fitting-revisions/thigh-coverage-v1/B03.blend": "a67f121929a99597ad161134ed1ab9e42e75b47947260dbd986dcdaa74dccb54"
+  },
+  "exports": {
+    "B03.glb": "39dd0091037838d7692d49f0be457a3ef8508317ed76ecb9dad223b4c84594c6",
+    "body-B03.glb": "b5327fdcf820900fc43da9d9cb85bc22b2fd1b34fe8f325fa4e1f08624c1ae14",
+    "outfit.glb": "3d6ac756960824ffdeadcd9ecfefe406bb94099a1726745cfbd566726027d6a1"
+  }
+}

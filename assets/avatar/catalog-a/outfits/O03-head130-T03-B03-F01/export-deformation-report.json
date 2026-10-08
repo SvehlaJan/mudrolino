@@ -1,0 +1,286 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01/outfit.blend",
+  "glb": "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01/outfit.glb",
+  "blend_sha256": "d6d7206e3e7b1b17f43e921783cc1e636dab77cd07e77aa92140eaeb65cb012c",
+  "frames_per_second": 24.0,
+  "comparison": "bidirectional rendered vertex distance",
+  "loose_vertex_policy": "Compare all vertices referenced by renderable polygons; coverage/authoring vertices without faces are omitted by GLB and excluded here.",
+  "glb_sha256": "07a9abb720dac874189a3d70aa0e374586045c238fd02d86208aac62f5771693",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 1.9314111909807252e-07,
+        "body_underlayer_male": 7.418099698952574e-07,
+        "F01_strap_sneakers_outfit": 3.295987198725925e-07,
+        "H01_head": 2.753944556843635e-07,
+        "T03_raglan_tee_outfit": 4.962300295119348e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.1256939792001504e-07,
+        "body_underlayer_male": 9.74403747022734e-07,
+        "F01_strap_sneakers_outfit": 2.295709919053479e-06,
+        "H01_head": 6.160148018352629e-07,
+        "T03_raglan_tee_outfit": 1.54485951497918e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.4678881764411926,
+          "knee_clearance_Right": 0.050613127648830414
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.321989936466707e-07,
+        "body_underlayer_male": 9.826013638303266e-07,
+        "F01_strap_sneakers_outfit": 2.186339315812802e-06,
+        "H01_head": 5.11491975885292e-07,
+        "T03_raglan_tee_outfit": 1.5319234307753504e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.4288250505924225,
+          "knee_clearance_Right": 0.03362070769071579
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 2.5506679435238766e-07,
+        "body_underlayer_male": 9.794042625799193e-07,
+        "F01_strap_sneakers_outfit": 2.251801561214961e-06,
+        "H01_head": 5.335884907253785e-07,
+        "T03_raglan_tee_outfit": 2.1809848931297893e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 2.1696418173178245e-07,
+        "body_underlayer_male": 8.333999517162738e-07,
+        "F01_strap_sneakers_outfit": 1.6979643078229856e-06,
+        "H01_head": 4.815009901903977e-07,
+        "T03_raglan_tee_outfit": 1.3817563058182714e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.154923677444458,
+          "knee_clearance_Right": 0.6418811082839966
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.321989936466707e-07,
+        "body_underlayer_male": 6.447228315664688e-07,
+        "F01_strap_sneakers_outfit": 3.0096286991465604e-06,
+        "H01_head": 4.9556513204152e-07,
+        "T03_raglan_tee_outfit": 1.9886351765308063e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.03415361046791077
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.0538294026882795e-07,
+        "body_underlayer_male": 1.0699822041715379e-06,
+        "F01_strap_sneakers_outfit": 2.2632602849625982e-06,
+        "H01_head": 5.969770313640765e-07,
+        "T03_raglan_tee_outfit": 1.5742426739961957e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.467891126871109,
+          "knee_clearance_Right": 0.05061638355255127
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 2.602375843707705e-07,
+        "body_underlayer_male": 9.766798712007585e-07,
+        "F01_strap_sneakers_outfit": 4.1232888179365546e-06,
+        "H01_head": 3.7814908182554063e-07,
+        "T03_raglan_tee_outfit": 3.2146556350198807e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495590031147003
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.725290298461914e-07,
+        "body_underlayer_male": 1.1022831358786789e-06,
+        "F01_strap_sneakers_outfit": 4.509343398240162e-06,
+        "H01_head": 3.5770545991908875e-07,
+        "T03_raglan_tee_outfit": 3.237635155528551e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.13982167840003967
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 2.7395452661949093e-07,
+        "body_underlayer_male": 8.766392625148001e-07,
+        "F01_strap_sneakers_outfit": 3.7784654978167964e-06,
+        "H01_head": 4.1462999433861114e-07,
+        "T03_raglan_tee_outfit": 2.5341175842186203e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.11015491187572479,
+          "knee_clearance_Right": 0.9436129331588745
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.271475179644767e-07,
+        "body_underlayer_male": 6.490563464467414e-07,
+        "F01_strap_sneakers_outfit": 3.013941750396043e-06,
+        "H01_head": 5.109083076604293e-07,
+        "T03_raglan_tee_outfit": 2.8216363716637716e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.3408380150794983,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.478711221305275e-07,
+        "body_underlayer_male": 6.056547476873675e-07,
+        "F01_strap_sneakers_outfit": 1.985939661608427e-06,
+        "H01_head": 4.257927059825306e-07,
+        "T03_raglan_tee_outfit": 2.8323281640041387e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.2677849531173706,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.375039057118556e-07,
+        "body_underlayer_male": 4.926546921524277e-07,
+        "F01_strap_sneakers_outfit": 4.007304141850909e-06,
+        "H01_head": 6.039107915967179e-07,
+        "T03_raglan_tee_outfit": 3.138914735245635e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 0.08475160598754883,
+          "knee_clearance_Right": 0.9482706785202026
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.911377461918164e-07,
+        "body_underlayer_male": 1.1060035376431188e-06,
+        "F01_strap_sneakers_outfit": 6.067700724088354e-06,
+        "H01_head": 4.976296281711257e-07,
+        "T03_raglan_tee_outfit": 2.0545237475744216e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.3453022751928074e-07,
+        "body_underlayer_male": 9.996002745538135e-07,
+        "F01_strap_sneakers_outfit": 1.929801101141493e-06,
+        "H01_head": 3.8630020071650506e-07,
+        "T03_raglan_tee_outfit": 3.027723778359359e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.3605843782424927
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "max_nearest_vertex_error_m": {
+        "B03_casual_shorts_outfit": 3.268079922236211e-07,
+        "body_underlayer_male": 1.0150305342904176e-06,
+        "F01_strap_sneakers_outfit": 4.031610842503142e-06,
+        "H01_head": 3.0538294026882795e-07,
+        "T03_raglan_tee_outfit": 3.4457223136996618e-06
+      },
+      "corrective_values": {
+        "B03_casual_shorts_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495941698551178
+        }
+      }
+    }
+  ],
+  "max_error_m": 6.067700724088354e-06,
+  "threshold_m": 3e-05,
+  "status": "passed"
+}

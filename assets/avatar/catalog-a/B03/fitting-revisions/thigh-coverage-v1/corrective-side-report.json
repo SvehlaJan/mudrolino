@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/B03/fitting-revisions/thigh-coverage-v1/B03.blend",
+      "blend_sha256": "72b0d9108df60c7a11d908e0520c73591a542fbf41c9d9bc9008086541c823a8",
+      "keys": [
+        {
+          "object": "B03_casual_shorts",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 518
+        },
+        {
+          "object": "B03_casual_shorts",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 504
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

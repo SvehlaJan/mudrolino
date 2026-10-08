@@ -742,6 +742,14 @@
           "references": [],
           "revisions": [
             {
+              "id": "thigh-coverage-v1",
+              "label": "Thigh skin hidden under the shorts (camera- and gait-aware)",
+              "assetId": "file:assets/avatar/catalog-a/B03/fitting-revisions/thigh-coverage-v1/B03.glb",
+              "visualReview": "pending",
+              "technicalReview": "repair-needed",
+              "technicalNote": "Hides thigh skin under the leg tube, then releases any a camera sees at rest or in the 163 gait poses (never the pelvis). Thigh poke-through (run 4.75, 9-10.5) is gone; side isolation and glTF pass; shown alone, 5 waistband faces show in run 14.5-15. Remaining body contact is only the run leg-fold (heel and calf into the rear, up to 338 pairs), pending a decision."
+            },
+            {
               "id": "current",
               "label": "Canonical male fitting candidate",
               "assetId": "B03",
@@ -1533,7 +1541,17 @@
           "label": "Male base",
           "base": "male",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "painted-eyes-v1",
+              "label": "Fitted to the painted eyes, +30% head",
+              "assetId": "a03-male",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A03/fitting-revisions/painted-eyes-v1/male (build_catalog_glasses.py, verify_catalog_glasses.py): zero skin intersections, frame 6.2 mm from the face, temples above the ears, clear of body/garments over 163 gait poses and five gestures, mirror-symmetric, export rest shape exact, glTF valid. Frames only; no lens geometry."
+            }
+          ],
+          "currentRevisionId": "painted-eyes-v1"
         },
         {
           "id": "female",
@@ -1556,7 +1574,17 @@
               "cropSha256": "1595334949e6f8e4d5e365723aeda1e4f3e8ca9c2883a1942c2edafdea43908f"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "painted-eyes-v1",
+              "label": "Fitted to the painted eyes, +30% head",
+              "assetId": "a03-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A03/fitting-revisions/painted-eyes-v1/female: zero skin intersections, frame 9.5 mm from the face, temples into the bob (hair contact intended), clear over 163 gait poses and five gestures, mirror-symmetric, export exact, glTF valid. Frames only."
+            }
+          ],
+          "currentRevisionId": "painted-eyes-v1"
         }
       ],
       "relatedIds": []
@@ -1590,7 +1618,17 @@
           "label": "Male base",
           "base": "male",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "painted-eyes-v1",
+              "label": "Fitted to the painted eyes, +30% head",
+              "assetId": "a04-male",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A04/fitting-revisions/painted-eyes-v1/male: zero skin intersections, frame 9.7 mm from the face, temples above the ears, clear over 163 gait poses and five gestures, mirror-symmetric, export exact, glTF valid. Frames only."
+            }
+          ],
+          "currentRevisionId": "painted-eyes-v1"
         },
         {
           "id": "female",
@@ -1613,7 +1651,17 @@
               "cropSha256": "2d930766a46233e432b05e5dde7756a9c200eef708655cb63170f45f82d8ea05"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "painted-eyes-v1",
+              "label": "Fitted to the painted eyes, +30% head",
+              "assetId": "a04-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A04/fitting-revisions/painted-eyes-v1/female: zero skin intersections, frame 9.2 mm from the face, temples into the bob, clear over 163 gait poses and five gestures, mirror-symmetric, export exact, glTF valid. Frames only."
+            }
+          ],
+          "currentRevisionId": "painted-eyes-v1"
         }
       ],
       "relatedIds": []
@@ -2529,7 +2577,17 @@
               "cropSha256": "e423f551a77f3e3ce96fecfc1d9077ed1726ae2c618a1745272e9eeb6c303b79"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130-no-cap",
+              "label": "T03 / B03 thigh coverage / F01 on the +30% head, no cap",
+              "assetId": "o03-male-head130",
+              "visualReview": "pending",
+              "technicalReview": "repair-needed",
+              "technicalNote": "Fails motion only in the run back-kick: the folding leg and shoe pass into the shorts (up to 70 body and 436 shoe/shorts pairs). The bare body's own lower leg passes through its thigh at the same frames (562 pairs), and B01 trousers fold through themselves there (309 pairs, ungated). Pending a decision on that leg-fold class. A01 is not in the assembly."
+            }
+          ],
+          "currentRevisionId": "head130-no-cap"
         },
         {
           "id": "female",

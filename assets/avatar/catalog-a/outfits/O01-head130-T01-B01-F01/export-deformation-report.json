@@ -1,7 +1,7 @@
 {
   "blend": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend",
   "glb": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.glb",
-  "blend_sha256": "8518864710e370f4d4106cd822fc2f24afd7b6caa2756dd689a078d6fe1eaa75",
+  "blend_sha256": "d196dd2fac124ca57ae58afebb168c83cf9d8088a7cf0dfe335d5f98454f9a09",
   "frames_per_second": 24.0,
   "comparison": "bidirectional rendered vertex distance",
   "loose_vertex_policy": "Compare all vertices referenced by renderable polygons; coverage/authoring vertices without faces are omitted by GLB and excluded here.",

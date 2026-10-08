@@ -156,6 +156,71 @@ def rehide_moving_contacts(body, garment, arm, hidden, released, poses):
     return hidden, rehidden
 
 
+def posed_visible_hidden_faces(body, garments, arm, hidden, poses, select=None):
+    """Hidden faces a standard camera can see in each sampled gait pose (masks disabled).
+
+    `garments` are the occluding objects. Returns per-pose counts and the union of
+    exposed face indices. Loose openings (shorts legs) can show skin in motion that
+    is covered at rest.
+    """
+    import bpy
+    from mathutils import Matrix
+    faces = [tuple(f.vertices) for f in body.data.polygons]
+    masks = [(m, m.show_viewport) for m in body.modifiers if m.type == 'MASK']
+    rows, seen = [], set()
+    try:
+        for modifier, _ in masks:
+            modifier.show_viewport = False
+        for motion, frame in poses:
+            for bone in arm.pose.bones:
+                bone.matrix_basis = Matrix.Identity(4)
+            action = bpy.data.actions[motion]
+            arm.animation_data.action = action
+            arm.animation_data.action_slot = action.slots[0]
+            bpy.context.scene.frame_set(math.floor(frame), subframe=frame - math.floor(frame))
+            bpy.context.view_layer.update()
+            depsgraph = bpy.context.evaluated_depsgraph_get()
+            posed = {}
+            for obj in (body, *garments):
+                mesh = obj.evaluated_get(depsgraph).to_mesh()
+                posed[obj.name] = ([obj.matrix_world @ v.co for v in mesh.vertices], [tuple(f.vertices) for f in mesh.polygons])
+                obj.evaluated_get(depsgraph).to_mesh_clear()
+            occluders = [BVHTree.FromPolygons(*posed[obj.name]) for obj in garments]
+            exposed, _ = visible_hidden_faces(posed[body.name][0], faces, hidden, occluders, select=select)
+            rows.append({'motion': motion, 'frame': frame, 'visible_faces': len(exposed), 'faces': exposed})
+            seen.update(exposed)
+    finally:
+        for modifier, state in masks:
+            modifier.show_viewport = state
+        for bone in arm.pose.bones:
+            bone.matrix_basis = Matrix.Identity(4)
+        arm.animation_data.action = None
+        bpy.context.view_layer.update()
+    return rows, seen
+
+
+def release_posed(body, garment, arm, hidden, contact, select, poses, removable=None, rounds=4):
+    """Unhide skin visible in any of `poses`; re-hide what then touches the garment in the gait.
+
+    Rest-only release misses openings that gape in motion (sleeves as arms swing, shorts
+    legs). Re-hidden skin joins `contact` and is never released again, so the loop
+    converges. `removable` limits which hidden vertices may be released. Returns
+    (hidden, contact, released count).
+    """
+    faces = [tuple(f.vertices) for f in body.data.polygons]
+    hidden, contact, released = set(hidden), set(contact), 0
+    for _ in range(rounds):
+        _, seen = posed_visible_hidden_faces(body, [garment], arm, hidden, poses, select=select)
+        release = {v for i in seen for v in faces[i] if v in hidden and v not in contact and (removable is None or v in removable)}
+        if not release:
+            break
+        hidden -= release
+        released += len(release)
+        hidden, rehidden = rehide_moving_contacts(body, garment, arm, hidden, release, poses)
+        contact |= rehidden
+    return hidden, contact & hidden, released
+
+
 def settle_coverage(body, garment, arm, hidden, select, poses, inside=.004, rounds=4):
     """Alternate camera-visibility release and gait-contact re-hiding until stable.
 

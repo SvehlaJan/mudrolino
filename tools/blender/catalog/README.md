@@ -460,6 +460,16 @@ path differences and leave near-equal shared-seam assignments qualified.
   `contact_<ID>`). The T01 revision builder is `build_catalog_t01_sleeve_coverage.py`.
   The assembler takes `--source ID=path.blend` to use a piece revision and records each
   piece source and the foundation with SHA-256 in `assembly-report.json`.
+- Holes in motion: add `--pose-stride N` to the hole gate to also check every Nth gait pose
+  (1 = all 163). Tee sleeves fail it (up to 739 faces in O01), while long sleeves pass.
+  `build_catalog_t01_sleeve_coverage.py --region thigh` covers shorts thighs and also
+  releases skin that is visible in any pose (`catalog_coverage_visibility.release_posed`).
+  Don't use pose-aware release on sleeves: the same skin is visible in some poses and
+  touching in others, so contact only grows.
+- Glasses: `build_catalog_glasses.py --id A03|A04 --base male|female --output-dir DIR`
+  fits frames to the painted eyes (`catalog_glasses_plan.py`). Gate:
+  `verify_catalog_glasses.py --study-dir DIR` (no skin contact, frame clearance, mirror,
+  gait plus gestures, export rest shape). Temples may pass into hair.
 - Hoods: `build_catalog_hood_revision.py --id T02|T04` builds the fuller hood (`hood-v2`)
   through the canonical builders; the female builder takes the same shape as
   `--hood-shape JSON`. H02 hair: rear locks shorten by 30% (`--rear-shorten

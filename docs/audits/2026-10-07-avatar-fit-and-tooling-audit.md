@@ -269,3 +269,17 @@ The user approved these recommendations, including +30% heads on both bases.
   / 1,531 worst) and is dropped for the same reason. B03 still has real body
   contacts (338 pairs in the run, where the folded leg meets the shorts) and is
   the one bottom that needs rework.
+- **Holes in motion (2026-10-08):** `verify_catalog_coverage_visibility.py --pose-stride N`
+  also checks gait poses. Long-sleeve outfits are clean (at most 1 face). Tee sleeves
+  gape as the arms swing: male O01 shows up to 739 see-through upper-arm faces at run
+  14.5, which the rest gate never saw. Releasing that skin by pose made the tee worse
+  (contact 385 → 1,308 vertices), so the fix belongs in sleeve skinning. For the B03
+  shorts thighs, the same pose-aware release works: zero thigh holes and zero contact.
+- **B03 (2026-10-08):** thigh coverage removes the thigh poke-through. What remains is
+  the run back-kick: the folding leg and shoe pass into the shorts, while the bare body
+  passes through itself (562 pairs) and B01 folds through itself (309, ungated) at the
+  same frames. A decision is needed: accept that leg-fold class, soften the run, or keep
+  deforming the shorts.
+- **A03/A04 glasses (2026-10-08):** built on both bases from the painted eye positions
+  (`build_catalog_glasses.py`, `verify_catalog_glasses.py`). All four pass: zero skin
+  contact, frames 6–10 mm off the face, motion and gestures clear, mirror symmetry.

@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01/outfit.blend",
+      "blend_sha256": "d6d7206e3e7b1b17f43e921783cc1e636dab77cd07e77aa92140eaeb65cb012c",
+      "keys": [
+        {
+          "object": "B03_casual_shorts_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 518
+        },
+        {
+          "object": "B03_casual_shorts_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 504
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

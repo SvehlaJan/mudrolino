@@ -1,12 +1,13 @@
-"""Report coverage holes a standard camera can see in an assembled outfit (rest pose).
+"""Report coverage holes a standard camera can see in an assembled outfit (rest, optionally gait poses).
 
 Usage: blender_cli.py verify_catalog_coverage_visibility.py --blend OUTFIT.blend
   --body body_underlayer_male --garment T01:T01_crew_tee_outfit --garment B01:... --report OUT.json
-  [--accept-contact T01]
+  [--accept-contact T01] [--pose-stride N]
 Each --garment maps a coverage group (covered_<ID>) to its garment object. With
 --accept-contact, visible faces of that piece are
 reported separately instead of failing: faces cut by its contact_<ID> skin (skin that
 touches the tee at rest or in the gait; user-accepted known defect, 2026-10-08).
+--pose-stride N also checks every Nth quarter-frame walk/run pose (1 = all 163).
 """
 import argparse
 import hashlib
@@ -19,7 +20,7 @@ from mathutils.bvhtree import BVHTree
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog_t01 import reset, world_mesh
-from catalog_coverage_visibility import visible_hidden_faces
+from catalog_coverage_visibility import visible_hidden_faces, posed_visible_hidden_faces, gait_samples
 
 
 def main():
@@ -28,6 +29,7 @@ def main():
     parser.add_argument('--body', required=True)
     parser.add_argument('--garment', action='append', required=True, help='ID:object')
     parser.add_argument('--accept-contact', help='Piece ID whose contact_<ID> skin cut edge is an accepted known defect')
+    parser.add_argument('--pose-stride', type=int, default=0, help='Also check every Nth gait pose; 0 = rest only')
     parser.add_argument('--report', type=Path, required=True)
     args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:])
     bpy.ops.wm.open_mainfile(filepath=str(args.blend.resolve()))
@@ -44,22 +46,29 @@ def main():
         covered[piece] = {v.index for v in body.data.vertices if any(w.group == group.index and w.weight > .5 for w in v.groups)}
     trees = {piece: BVHTree.FromPolygons(*world_mesh(obj)) for piece, obj in objects.items()}
     exposed, removed = visible_hidden_faces(points, faces, set().union(*covered.values()), list(trees.values()))
-    accepted = []
+    accepted, contact = [], set()
     if args.accept_contact:
         group = body.vertex_groups['contact_' + args.accept_contact]
         contact = {v.index for v in body.data.vertices if any(w.group == group.index and w.weight > .5 for w in v.groups)}
         accepted = [i for i in exposed if any(v in contact for v in faces[i])]
         exposed = [i for i in exposed if not any(v in contact for v in faces[i])]
+    posed = []
+    if args.pose_stride:
+        rows, _ = posed_visible_hidden_faces(body, list(objects.values()), arm, set().union(*covered.values()), gait_samples()[::args.pose_stride])
+        posed = [{'motion': r['motion'], 'frame': r['frame'], 'visible_faces': sum(1 for i in r['faces'] if not any(v in contact for v in faces[i]))} for r in rows]
+    posed_max = max((r['visible_faces'] for r in posed), default=0)
     report = {'blend': str(args.blend), 'blend_sha256': hashlib.sha256(args.blend.read_bytes()).hexdigest(),
               'verifier_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'removed_faces': removed, 'visible_faces': len(exposed), 'sample': exposed[:12],
               'accepted_contact_faces': len(accepted), 'accepted_contact_piece': args.accept_contact,
-              'cameras': '8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose',
-              'status': 'passed' if not exposed else 'failed'}
+              'cameras': '8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose' + (f' and every {args.pose_stride} gait pose(s)' if args.pose_stride else ''),
+              'posed': {'stride': args.pose_stride, 'samples': len(posed), 'max_visible_faces': posed_max,
+                        'worst': max(posed, key=lambda r: r['visible_faces']) if posed else None},
+              'status': 'passed' if not exposed and not posed_max else 'failed'}
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, indent=2) + '\n')
     print('COVERAGE_VISIBILITY', json.dumps(report))
-    if exposed:
+    if exposed or posed_max:
         raise RuntimeError('Visible coverage holes; see report')
 
 

@@ -1,0 +1,2559 @@
+[
+  {
+    "motion": "walk",
+    "frame": 0.8,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 1.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 2.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 3.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 4.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 5.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 6.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 7.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 8.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 9.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 10.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 11.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 12.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 13.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 14.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 15.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 16.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 17.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 18.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 19.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 20.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 21.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 22.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 23.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 24.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "walk",
+    "frame": 25.6,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 0.8,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 70
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 1.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 2.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 3.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 4.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 5.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 6.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 94
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 6.25,
+    "triangle_pairs": 18,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 18,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 196
+    },
+    "intersection_region_xyz": [
+      [
+        -0.06563634425401688,
+        -0.060931410640478134
+      ],
+      [
+        0.2053958773612976,
+        0.21529671549797058
+      ],
+      [
+        0.7107757329940796,
+        0.7209441065788269
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 6.5,
+    "triangle_pairs": 62,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 62,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 257
+    },
+    "intersection_region_xyz": [
+      [
+        -0.06394046545028687,
+        -0.05887538194656372
+      ],
+      [
+        0.16010551154613495,
+        0.18859969079494476
+      ],
+      [
+        0.6743237376213074,
+        0.719592273235321
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 6.75,
+    "triangle_pairs": 62,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 62,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 301
+    },
+    "intersection_region_xyz": [
+      [
+        -0.06738273054361343,
+        -0.062383368611335754
+      ],
+      [
+        0.14976854622364044,
+        0.1760331094264984
+      ],
+      [
+        0.6586950421333313,
+        0.7003787755966187
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.0,
+    "triangle_pairs": 50,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 50,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 336
+    },
+    "intersection_region_xyz": [
+      [
+        -0.07480795681476593,
+        -0.06583817303180695
+      ],
+      [
+        0.1353563368320465,
+        0.1578856259584427
+      ],
+      [
+        0.6413676738739014,
+        0.6799323558807373
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.25,
+    "triangle_pairs": 23,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 23,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 436
+    },
+    "intersection_region_xyz": [
+      [
+        -0.08105400204658508,
+        -0.06969144195318222
+      ],
+      [
+        0.12439519166946411,
+        0.1394234448671341
+      ],
+      [
+        0.6327494382858276,
+        0.6613008975982666
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.5,
+    "triangle_pairs": 58,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 58,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 344
+    },
+    "intersection_region_xyz": [
+      [
+        -0.08090893924236298,
+        -0.07305248826742172
+      ],
+      [
+        0.10698972642421722,
+        0.12981364130973816
+      ],
+      [
+        0.622471034526825,
+        0.6656208038330078
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 7.75,
+    "triangle_pairs": 66,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 66,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 288
+    },
+    "intersection_region_xyz": [
+      [
+        -0.08412769436836243,
+        -0.0762958973646164
+      ],
+      [
+        0.08410459756851196,
+        0.12344139069318771
+      ],
+      [
+        0.6183785796165466,
+        0.6568419933319092
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 8.0,
+    "triangle_pairs": 70,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 70,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 208
+    },
+    "intersection_region_xyz": [
+      [
+        -0.09671908617019653,
+        -0.07577995955944061
+      ],
+      [
+        0.056415658444166183,
+        0.11969715356826782
+      ],
+      [
+        0.6143475770950317,
+        0.6376550793647766
+      ]
+    ]
+  },
+  {
+    "motion": "run",
+    "frame": 8.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 132
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 8.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 8.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 9.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 10.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 11.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 12.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 0
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 13.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 12
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 180
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 260
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 388
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 14.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 330
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 360
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.25,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 349
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.5,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 259
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 15.75,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 188
+    }
+  },
+  {
+    "motion": "run",
+    "frame": 16.0,
+    "triangle_pairs": 0,
+    "body_pairs": {
+      "T03_raglan_tee_outfit": 0,
+      "B03_casual_shorts_outfit": 0,
+      "F01_strap_sneakers_outfit": 0
+    },
+    "garment_layer_pairs": {
+      "T03_raglan_tee_outfit/B03_casual_shorts_outfit": 0,
+      "T03_raglan_tee_outfit/F01_strap_sneakers_outfit": 0,
+      "B03_casual_shorts_outfit/F01_strap_sneakers_outfit": 70
+    }
+  }
+]
