@@ -95,7 +95,7 @@ since then, except for B04's isolated revisions.
 | A01 cap | Floats, perches high, intersects current H01; no female fit | Rebuild from head envelope (section 1) on both bases | **1 (reported)** |
 | T02 / T04 hoodies | Hood is a flat ridge, unreadable from front | Fuller lowered hood bowl after head scale; T04 orange lining, ivory zip | 2 |
 | T06 henley | Buttons tiny | Four large navy buttons (already decided), wider placket | 2 |
-| T01 / T03 / T05 tees and sweatshirt | Close to reference; edges boxy. **T01 underarm (found while fitting female T01):** the side panel passes through the inner arm in the A-pose, and the coverage rule hides inner-arm skin, leaving a small jagged gap visible inside the sleeve opening on both bases | Rounder hems/ribs; rebuild the T01 sleeve/underarm (and check T03, which shares the coverage rule) on both bases | 2 |
+| T01 / T03 / T05 tees and sweatshirt | Close to reference; edges boxy. **T01 underarm (found while fitting female T01):** the side panel passes through the inner arm in the A-pose, and the coverage rule hides inner-arm skin, leaving a small jagged gap visible inside the sleeve opening on both bases | Rounder hems/ribs. **2026-10-08:** contact-aware coverage releases camera-visible arm skin (canonical 1,177 visible cut faces down to 0 in O01 on both bases). The tee-contact edge (385 faces, including a thin line where the sleeve rests on the arm) is accepted for now and reported separately. T03 shares the rule. | 2 |
 | B01 trousers | Fine; details faint | Readable waistband/pockets; keep construction | 3 |
 | B02 joggers | Fine; gather above cuff weak | More volume above cuffs | 3 |
 | B03 shorts, B04 trousers | Blocked by corrective-key leakage and self-contact after days of repair | **Rebuild from B01's passing construction** (time-boxed) | 2 |
@@ -229,3 +229,8 @@ The user approved these recommendations, including +30% heads on both bases.
   new tee-sleeve occlusion gate exposes the inherited T01 underarm gap on both
   bases. Female hair got 20% shorter rear locks, and the verifier now counts
   visible skin-through-hair rays instead of raw head/hair pairs.
+- **T01 underarm (2026-10-08):** new general hole gate (`verify_catalog_coverage_visibility.py`:
+  hidden faces a camera can see with visible skin behind them). Canonical male T01
+  has 1,177; B01 shown alone has 830 at the ankle. Contact-aware T01 coverage
+  reaches 0 in O01 on both bases; the female complete runner and all male outfit
+  gates pass. The side-panel relief did not converge and was dropped.

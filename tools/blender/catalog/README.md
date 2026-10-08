@@ -450,3 +450,8 @@ path differences and leave near-equal shared-seam assignments qualified.
 - Male outfits on a scaled head: `build_catalog_scaled_male_foundation.py --head-study DIR`,
   then `assemble_catalog_outfit.py --foundation DIR/foundation.blend --uv-export`. The
   plain garment exporter drops texture coordinates and breaks painted faces.
+- Coverage holes: `verify_catalog_coverage_visibility.py --blend OUTFIT --body BODY --garment ID:object ... [--accept-contact T01]`
+  reports hidden body faces a standard camera can see. `catalog_coverage_visibility.settle_coverage`
+  releases such skin and re-hides any that touches the garment over the gait (recorded as
+  `contact_<ID>`). The T01 revision builder is `build_catalog_t01_sleeve_coverage.py`.
+  The assembler takes `--source ID=path.blend` to use a piece revision.
