@@ -16843,7 +16843,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/T02/outfit.blend",
-      "source_blend_sha256": "32959f557f4f122db50981299e8af8c9d9f58657d1f211c1cc877caef31f0ea5"
+      "source_blend_sha256": "d91141362c8f647d40972b924b566c7912f30350465c8709a671d5bfde6f51a0"
     },
     "B02": {
       "source": "assets/avatar/catalog-a/B02/B02.blend",
@@ -33515,7 +33515,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.blend",
-      "source_blend_sha256": "c05ba13edb9d284d7c8b1f69f4bbf676fc2549bde06ae1a685b2bc8a2dd3efa4"
+      "source_blend_sha256": "d267c4887b3e883ae3694c11ab724058fc5483313ea50ee121428ea779fdab8d"
     },
     "F02": {
       "source": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
@@ -39155,12 +39155,6 @@
           "role": 0
         },
         {
-          "dropped_correctives": [
-            "knee_clearance_Left",
-            "knee_clearance_Right"
-          ]
-        },
-        {
           "collar_relief_m": {
             "Left": 0.004146268339653034,
             "Right": 0.004729586960209417
@@ -39168,7 +39162,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.blend",
-      "source_blend_sha256": "22b98498c850095f55364e42e907de52f9de025645a0a0a1ef2d6e8ee29902f8"
+      "source_blend_sha256": "e7cae88b47944144ac2f46b3518dc16c3efa6558ce9f13966b9bcdd24695adb1"
     }
   },
   "hood_offset_m": 0,
@@ -39191,9 +39185,7 @@
   },
   "head_export": "UV-preserving export, unchanged canonical face material/image",
   "collar_relief_m": 0.003,
-  "dropped_correctives": [
-    "F02"
-  ],
+  "dropped_correctives": [],
   "controlled_components": true,
   "tee_underarm": false,
   "hood_shape": {
@@ -39211,9 +39203,9 @@
     "catalog_female_sneaker_closures.py": "6523c11dcd60f90bf895311302cfd5f5b033b8beb8cda6f16bf1fb2f7b4b807e"
   },
   "exports": {
-    "outfit.blend": "9e821c82ebbbec9c793012e936e5dd8a1cd4e9e82dc7b8912f653229dffddc10",
-    "outfit.glb": "6e16e2a5b29e08ea55b816250c381dceec7d3c4901359295bad847cd58ddbb75",
+    "outfit.blend": "24a8a15480f9a64c360503cafa8e96960afdbb27c1d60c40879c6f43b599b28b",
+    "outfit.glb": "55701141b432bacba02429dc8fa75b2ec3063ee80e652dbe565c32cbf7f38bb0",
     "body.glb": "12e7273c418caa7a9166b73d51db1205cac993f1afc5ad6bf22a44d00a9d537a",
-    "garments.glb": "788616db7522b06d50d8be00440729eca060113793937af805d931fc2a906561"
+    "garments.glb": "af29e00a185a406d40874fa791178f0e06d454db3e76c166fd384fb1f58cf055"
   }
 }

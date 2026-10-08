@@ -122,7 +122,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage_visibility.py": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_details.py": "1d85cd73cae205826e0c85cf9b6bb0577302bb680378e9ea9b1c1ab5be388736",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_foundation_study.py": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "bfeedc376d7d4d25d18305fb660e44edfbc0e036e9ed3881803d64578fc936de",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "6ff1806e717255a2d4cbe38ecf7d4b842e718f3801f8c1fd82498c8fc4363357",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_glasses.py": "f63b93038232eeddd38014614d788ade5de4f6859b820f1ba5c3c70224537eb7",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head.py": "d66ceb3961d5487ad2212c7cf96ac3140cc43df1b8d56df057965c6f908770b0",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_scale_study.py": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
@@ -134,43 +134,28 @@
   },
   "stage": "isolated female fitting candidate; not accepted",
   "blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.blend",
-  "blend_sha256": "9e821c82ebbbec9c793012e936e5dd8a1cd4e9e82dc7b8912f653229dffddc10",
+  "blend_sha256": "24a8a15480f9a64c360503cafa8e96960afdbb27c1d60c40879c6f43b599b28b",
   "glb": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.glb",
-  "glb_sha256": "6e16e2a5b29e08ea55b816250c381dceec7d3c4901359295bad847cd58ddbb75",
-  "verifier_sha256": "bfeedc376d7d4d25d18305fb660e44edfbc0e036e9ed3881803d64578fc936de",
+  "glb_sha256": "55701141b432bacba02429dc8fa75b2ec3063ee80e652dbe565c32cbf7f38bb0",
+  "verifier_sha256": "6ff1806e717255a2d4cbe38ecf7d4b842e718f3801f8c1fd82498c8fc4363357",
   "profile": "complete sampled fit/export",
-  "status": "failed",
-  "failures": [
-    {
-      "gate": "native_dense_fit_combined",
-      "details": {
-        "samples": 163,
-        "maximum_pairs": 14
-      }
-    },
-    {
-      "gate": "actual_runtime_dense_fit_combined",
-      "details": {
-        "samples": 163,
-        "maximum_pairs": 14
-      }
-    }
-  ],
+  "status": "passed",
+  "failures": [],
   "dependency_hashes": {
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/assembly-report.json": "8ff157604c5b5174c5ad04c78a7a0d9c2ec42a66eb1f44436228aca04747a8cd",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/assembly-report.json": "ef72333b54bdcbf773e17a7f64725fc46c6bb76e7c1e2d2bc21420b8d67fff34",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "c415ae17e14f8db37d56d757a2045e83646f103168d0ee5ed5fad7345c37726e",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_hood_geometry.py": "48eb4efbf015c8948c27aaed2658fee93ce7a657a53abf3a267308b90fc59746",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_sneaker_closures.py": "6523c11dcd60f90bf895311302cfd5f5b033b8beb8cda6f16bf1fb2f7b4b807e",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/T02/T02.blend": "8e020f69b7bc18cf58cee0658215b6c33438297cef38d7576308f7abeb333a35",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/T02/outfit.blend": "32959f557f4f122db50981299e8af8c9d9f58657d1f211c1cc877caef31f0ea5",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/T02/outfit.blend": "d91141362c8f647d40972b924b566c7912f30350465c8709a671d5bfde6f51a0",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B02/B02.blend": "c96a6f6469f702ed4c94901efd44f8d542c7fc2e01628a2a754b472c99d7964e",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.blend": "c05ba13edb9d284d7c8b1f69f4bbf676fc2549bde06ae1a685b2bc8a2dd3efa4",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.blend": "d267c4887b3e883ae3694c11ab724058fc5483313ea50ee121428ea779fdab8d",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.blend": "22b98498c850095f55364e42e907de52f9de025645a0a0a1ef2d6e8ee29902f8",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.blend": "e7cae88b47944144ac2f46b3518dc16c3efa6558ce9f13966b9bcdd24695adb1",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/body.glb": "12e7273c418caa7a9166b73d51db1205cac993f1afc5ad6bf22a44d00a9d537a",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/garments.glb": "788616db7522b06d50d8be00440729eca060113793937af805d931fc2a906561",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/garments.glb": "af29e00a185a406d40874fa791178f0e06d454db3e76c166fd384fb1f58cf055",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/sample-face.png": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
@@ -292,7 +277,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage_visibility.py": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_details.py": "1d85cd73cae205826e0c85cf9b6bb0577302bb680378e9ea9b1c1ab5be388736",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_foundation_study.py": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "bfeedc376d7d4d25d18305fb660e44edfbc0e036e9ed3881803d64578fc936de",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "6ff1806e717255a2d4cbe38ecf7d4b842e718f3801f8c1fd82498c8fc4363357",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_glasses.py": "f63b93038232eeddd38014614d788ade5de4f6859b820f1ba5c3c70224537eb7",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head.py": "d66ceb3961d5487ad2212c7cf96ac3140cc43df1b8d56df057965c6f908770b0",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_scale_study.py": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
@@ -306,21 +291,21 @@
     {
       "piece": "T02",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/T02/outfit.blend",
-      "sha256": "32959f557f4f122db50981299e8af8c9d9f58657d1f211c1cc877caef31f0ea5",
+      "sha256": "d91141362c8f647d40972b924b566c7912f30350465c8709a671d5bfde6f51a0",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     },
     {
       "piece": "B02",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.blend",
-      "sha256": "c05ba13edb9d284d7c8b1f69f4bbf676fc2549bde06ae1a685b2bc8a2dd3efa4",
+      "sha256": "d267c4887b3e883ae3694c11ab724058fc5483313ea50ee121428ea779fdab8d",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     },
     {
       "piece": "F02",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.blend",
-      "sha256": "22b98498c850095f55364e42e907de52f9de025645a0a0a1ef2d6e8ee29902f8",
+      "sha256": "e7cae88b47944144ac2f46b3518dc16c3efa6558ce9f13966b9bcdd24695adb1",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     }
@@ -338,8 +323,40 @@
     }
   ],
   "corrective_sides": {
-    "keys": [],
-    "drivers": [],
+    "keys": [
+      {
+        "piece": "F02",
+        "key": "knee_clearance_Left",
+        "opposite_vertices_moved": 0
+      },
+      {
+        "piece": "F02",
+        "key": "knee_clearance_Right",
+        "opposite_vertices_moved": 0
+      }
+    ],
+    "drivers": [
+      {
+        "piece": "F02",
+        "target": "Armature_Catalog",
+        "fixed_armature": true
+      },
+      {
+        "piece": "F02",
+        "target": "Armature_Catalog",
+        "fixed_armature": true
+      },
+      {
+        "piece": "F02",
+        "target": "Armature_Catalog",
+        "fixed_armature": true
+      },
+      {
+        "piece": "F02",
+        "target": "Armature_Catalog",
+        "fixed_armature": true
+      }
+    ],
     "scope": "No targets is an explicit not-applicable result, not corrective fitting proof."
   },
   "opening_anatomy": {
@@ -9605,7 +9622,7 @@
         "layer_pairs": {
           "T02_pullover_hoodie/B02_joggers": 0,
           "T02_pullover_hoodie/F02_slip_ons": 0,
-          "B02_joggers/F02_slip_ons": 14
+          "B02_joggers/F02_slip_ons": 0
         }
       },
       {
@@ -23861,7 +23878,7 @@
           "layer_pairs": {
             "T02_pullover_hoodie/B02_joggers": 0,
             "T02_pullover_hoodie/F02_slip_ons": 0,
-            "B02_joggers/F02_slip_ons": 14
+            "B02_joggers/F02_slip_ons": 0
           }
         },
         {

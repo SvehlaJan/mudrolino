@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "source_blend_sha256": "9e821c82ebbbec9c793012e936e5dd8a1cd4e9e82dc7b8912f653229dffddc10",
+  "source_blend_sha256": "24a8a15480f9a64c360503cafa8e96960afdbb27c1d60c40879c6f43b599b28b",
   "checks": [
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/body.glb",
@@ -30,8 +30,8 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/garments.glb",
-      "sha256": "788616db7522b06d50d8be00440729eca060113793937af805d931fc2a906561",
-      "bytes": 1341132,
+      "sha256": "af29e00a185a406d40874fa791178f0e06d454db3e76c166fd384fb1f58cf055",
+      "bytes": 1376584,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -62,8 +62,8 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.glb",
-      "sha256": "6e16e2a5b29e08ea55b816250c381dceec7d3c4901359295bad847cd58ddbb75",
-      "bytes": 3266944,
+      "sha256": "55701141b432bacba02429dc8fa75b2ec3063ee80e652dbe565c32cbf7f38bb0",
+      "bytes": 3302424,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -299,8 +299,8 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/garments.glb",
-      "sha256": "3bef257c1681d8fccc39129452001f789c59c5ddaba9739f46c1ceed867144ac",
-      "bytes": 300932,
+      "sha256": "e6ea59ab8e0b3a77dbaf28105a37ae8950ebc7e97d33e92a108abd33c50a7708",
+      "bytes": 336380,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -312,8 +312,8 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.glb",
-      "sha256": "a814ecc2f4ebef685cda837f34f0b63742e67def51c933b8dd8269fd6a6f2f3a",
-      "bytes": 4353280,
+      "sha256": "754b14208f40319ed4c67644b2b66c274c555fbf8b04f0dc197c50de0fd4f820",
+      "bytes": 4388724,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,

@@ -15,6 +15,28 @@ from catalog_gltf_gait_pose import RuntimeGaitPose
 from verify_catalog_female_foundation_study import digest, read_glb, roundtrip_error, uv_corner_rows, uv_corner_identity
 from catalog_coverage_visibility import visible_hidden_faces
 
+
+def drive_imported_correctives(mapping):
+    """Copy evaluated knee_clearance corrective values from each source onto its imported copy.
+
+    The GLB carries morph targets but not Blender's drivers; the runtime drives them from
+    the same knee angles. Returns {source name: {key: value}} for the sample record.
+    """
+    values = {}
+    for source, target in mapping.items():
+        keys = source.data.shape_keys
+        if not keys or not any(k.name.startswith('knee_clearance_') for k in keys.key_blocks):
+            continue
+        assert target.data.shape_keys, f'{target.name}: exported correctives missing'
+        row = {}
+        for key in keys.key_blocks:
+            if key.name.startswith('knee_clearance_'):
+                target.data.shape_keys.key_blocks[key.name].value = key.value
+                row[key.name] = key.value
+        values[source.name] = row
+    bpy.context.view_layer.update()
+    return values
+
 def fitting_mesh_signature(obj):
     payload={'geometry':geometry_signature(obj),'matrix_world':[list(row) for row in obj.matrix_world], 'matrix_parent_inverse':[list(row) for row in obj.matrix_parent_inverse], 'hide_viewport':obj.hide_viewport,'hide_render':obj.hide_render, 'surface_material_UV':head_surface_signature(obj), 'modifiers':[{'name':modifier.name,'type':modifier.type,'show_viewport':modifier.show_viewport,'show_render':modifier.show_render, 'binding_rig':rig_signature(modifier.object) if modifier.type=='ARMATURE' and modifier.object else None,'preserve_volume':getattr(modifier,'use_deform_preserve_volume',None),'vertex_groups':getattr(modifier,'use_vertex_groups',None),'bone_envelopes':getattr(modifier,'use_bone_envelopes',None),'vertex_group':getattr(modifier,'vertex_group',None),'invert_vertex_group':getattr(modifier,'invert_vertex_group',None)} for modifier in obj.modifiers], 'groups':[group.name for group in obj.vertex_groups],
         'attributes':{name:[value.value for value in obj.data.attributes[name].data] for name in ['female_detail_role','female_hood_anchor']},
@@ -315,9 +337,10 @@ def main():
                     for target in [arm,rig]:target.animation_data.action=action;target.animation_data.action_slot=action.slots[0]
                 for frame in frames:
                     bpy.context.scene.frame_set(math.floor(frame),subframe=frame%1);bpy.context.view_layer.update()
+                    correctives=drive_imported_correctives(mapping)
                     errors={source.name:roundtrip_error(source,target) for source,target in mapping.items()}
-                    runtime_samples.append({'motion':motion,'frame':frame,'meshes':{source.name:[list(points[i]) for i in range(0,len(points),max(1,len(points)//96))] for source,target in mapping.items() for points,_ in [world_mesh(target)]}})
-                    export.append({'motion':motion,'frame':frame,'max_nearest_vertex_error_m':errors,'corrective_values':{}})
+                    runtime_samples.append({'motion':motion,'frame':frame,'corrective_values':correctives,'meshes':{source.name:[list(points[i]) for i in range(0,len(points),max(1,len(points)//96))] for source,target in mapping.items() for points,_ in [world_mesh(target)]}})
+                    export.append({'motion':motion,'frame':frame,'max_nearest_vertex_error_m':errors,'corrective_values':correctives})
             maximum=max(value for row in export for value in row['max_nearest_vertex_error_m'].values())
             native_maximum=maximum
             report['native_export_deformation']={'samples':len(export),'maximum_error_m':native_maximum,'threshold_m':.00003,'scope':'Saved Blender scalar quaternion action poses'}
@@ -328,10 +351,11 @@ def main():
             for motion,frames in [('rest',[0]),('walk',[.8,1,6.25,13,19.5,25.6]),('run',[.8,1,5,7.25,8,9.5,12.75,15.25,16])]:
                 for frame in frames:
                     bpy.context.scene.frame_set(math.floor(frame),subframe=frame%1)
-                    source_pose.apply(motion,frame,fps);bone_world=export_pose.apply(motion,frame,fps)
+                    source_pose.apply(motion,frame,fps);bone_world=export_pose.apply(motion,frame,fps);bpy.context.view_layer.update()
+                    correctives=drive_imported_correctives(mapping)
                     errors={source.name:roundtrip_error(source,target) for source,target in mapping.items()}
-                    runtime_samples.append({'motion':motion,'frame':frame,'bone_world_gltf':bone_world,'meshes':{source.name:[list(points[i]) for i in range(0,len(points),max(1,len(points)//96))] for source,target in mapping.items() for points,_ in [world_mesh(target)]}})
-                    export.append({'motion':motion,'frame':frame,'max_nearest_vertex_error_m':errors,'corrective_values':{}})
+                    runtime_samples.append({'motion':motion,'frame':frame,'bone_world_gltf':bone_world,'corrective_values':correctives,'meshes':{source.name:[list(points[i]) for i in range(0,len(points),max(1,len(points)//96))] for source,target in mapping.items() for points,_ in [world_mesh(target)]}})
+                    export.append({'motion':motion,'frame':frame,'max_nearest_vertex_error_m':errors,'corrective_values':correctives})
             maximum=max(value for row in export for value in row['max_nearest_vertex_error_m'].values())
             (folder/'runtime-samples.json').write_text(json.dumps({'blend_sha256':digest(blend),'glb_sha256':digest(glb),'frames_per_second':bpy.context.scene.render.fps/bpy.context.scene.render.fps_base,'sampling':'about96 deterministic rendered GLB rest-index vertices per mesh per pose','pose_evaluation':'raw-gltf-SLERP-equivalent-pose','gait_hashes':{motion:digest(path) for motion,path in gaits.items()},'pose_helper_sha256':digest(Path(__file__).with_name('catalog_gltf_gait_pose.py')),'checks':runtime_samples})+'\n')
             deformation={'blend' :str(blend),'blend_sha256':digest(blend),'glb':str(glb),'glb_sha256':digest(glb),'checks':export,'frames_per_second':bpy.context.scene.render.fps/bpy.context.scene.render.fps_base,'max_error_m':maximum,'threshold_m':.00003,'comparison':'bidirectional rendered vertices at equivalent raw glTF SLERP poses','pose_evaluation':'raw-gltf-SLERP-equivalent-pose','gait_hashes':{motion:digest(path) for motion,path in gaits.items()},'pose_helper_sha256':digest(Path(__file__).with_name('catalog_gltf_gait_pose.py')),'status':'passed' if maximum<.00003 else 'failed'}

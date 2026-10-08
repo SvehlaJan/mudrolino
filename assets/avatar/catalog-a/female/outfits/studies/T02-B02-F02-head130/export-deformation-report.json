@@ -1,8 +1,8 @@
 {
   "blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.blend",
-  "blend_sha256": "9e821c82ebbbec9c793012e936e5dd8a1cd4e9e82dc7b8912f653229dffddc10",
+  "blend_sha256": "24a8a15480f9a64c360503cafa8e96960afdbb27c1d60c40879c6f43b599b28b",
   "glb": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.glb",
-  "glb_sha256": "6e16e2a5b29e08ea55b816250c381dceec7d3c4901359295bad847cd58ddbb75",
+  "glb_sha256": "55701141b432bacba02429dc8fa75b2ec3063ee80e652dbe565c32cbf7f38bb0",
   "checks": [
     {
       "motion": "rest",
@@ -15,7 +15,12 @@
         "B02_joggers": 3.3618550787650747e-07,
         "F02_slip_ons": 3.365980774105992e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
     },
     {
       "motion": "walk",
@@ -28,7 +33,12 @@
         "B02_joggers": 3.2175813657886465e-07,
         "F02_slip_ons": 3.558383525614772e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.4678870439529419,
+          "knee_clearance_Right": 0.05061182752251625
+        }
+      }
     },
     {
       "motion": "walk",
@@ -41,7 +51,12 @@
         "B02_joggers": 3.875018137478037e-07,
         "F02_slip_ons": 3.668228885089775e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.4287865161895752,
+          "knee_clearance_Right": 0.03361646831035614
+        }
+      }
     },
     {
       "motion": "walk",
@@ -54,7 +69,12 @@
         "B02_joggers": 3.877166534493881e-07,
         "F02_slip_ons": 3.8886034303686756e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
     },
     {
       "motion": "walk",
@@ -67,7 +87,12 @@
         "B02_joggers": 3.705119127062062e-07,
         "F02_slip_ons": 3.5576033496909076e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.1549214869737625,
+          "knee_clearance_Right": 0.641880214214325
+        }
+      }
     },
     {
       "motion": "walk",
@@ -80,7 +105,12 @@
         "B02_joggers": 3.604110077048972e-07,
         "F02_slip_ons": 3.877166534493881e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.03416700288653374
+        }
+      }
     },
     {
       "motion": "walk",
@@ -93,7 +123,12 @@
         "B02_joggers": 3.7460938528965926e-07,
         "F02_slip_ons": 3.788090907619335e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.4678904414176941,
+          "knee_clearance_Right": 0.050618331879377365
+        }
+      }
     },
     {
       "motion": "run",
@@ -106,7 +141,12 @@
         "B02_joggers": 4.3303194274812995e-07,
         "F02_slip_ons": 4.300734417483909e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.194955512881279
+        }
+      }
     },
     {
       "motion": "run",
@@ -119,7 +159,12 @@
         "B02_joggers": 3.86569553256777e-07,
         "F02_slip_ons": 4.182955137821409e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.13982214033603668
+        }
+      }
     },
     {
       "motion": "run",
@@ -132,7 +177,12 @@
         "B02_joggers": 3.6561024785441987e-07,
         "F02_slip_ons": 3.6439357131712313e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.11015491187572479,
+          "knee_clearance_Right": 0.9436127543449402
+        }
+      }
     },
     {
       "motion": "run",
@@ -145,7 +195,12 @@
         "B02_joggers": 3.875018137478037e-07,
         "F02_slip_ons": 3.418347205297323e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.3408374488353729,
+          "knee_clearance_Right": 1.0
+        }
+      }
     },
     {
       "motion": "run",
@@ -158,7 +213,12 @@
         "B02_joggers": 3.039252476355614e-07,
         "F02_slip_ons": 3.5708418977264955e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.2677839696407318,
+          "knee_clearance_Right": 1.0
+        }
+      }
     },
     {
       "motion": "run",
@@ -171,7 +231,12 @@
         "B02_joggers": 3.9789171069060103e-07,
         "F02_slip_ons": 4.339283634635649e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 0.08475160598754883,
+          "knee_clearance_Right": 0.9482706189155579
+        }
+      }
     },
     {
       "motion": "run",
@@ -184,7 +249,12 @@
         "B02_joggers": 4.4529298293127795e-07,
         "F02_slip_ons": 4.777675712830387e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
     },
     {
       "motion": "run",
@@ -197,7 +267,12 @@
         "B02_joggers": 3.6385998214427673e-07,
         "F02_slip_ons": 3.6164107086733566e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.36058464646339417
+        }
+      }
     },
     {
       "motion": "run",
@@ -210,7 +285,12 @@
         "B02_joggers": 3.717085519383545e-07,
         "F02_slip_ons": 3.529405319113721e-07
       },
-      "corrective_values": {}
+      "corrective_values": {
+        "F02_slip_ons": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495823979377747
+        }
+      }
     }
   ],
   "frames_per_second": 24.0,

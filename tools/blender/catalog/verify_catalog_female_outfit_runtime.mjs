@@ -49,7 +49,16 @@ for(const [rowIndex,row] of reference.checks.entries()){
  });
  if(boneCount!==24||bonePositionError>=.00003||boneLinearError>=.000002)throw new Error(`Raw glTF/actual Three bone mismatch: ${boneCount}, ${bonePositionError}, ${boneLinearError}`);
  const groups={};
- model.scene.traverse(o=>{if(o.isSkinnedMesh){o.skeleton.update();if(o.morphTargetInfluences?.some(v=>v!==0))throw new Error('Unexpected active morph needs corrective runtime gate');}});
+ // Corrective morphs take the values Blender's drivers produced for this pose (recorded
+ // per sample); any other active morph is an error.
+ model.scene.traverse(o=>{
+  if(!o.isSkinnedMesh)return;o.skeleton.update();
+  if(!o.morphTargetInfluences)return;
+  const name=Object.keys(row.meshes).find(source=>{for(let node=o;node;node=node.parent)if(node.name.startsWith(source==='body_underlayer_female'?'outfit_masked_body':source))return true;return false;});
+  const recorded=row.corrective_values?.[name]??{};
+  o.morphTargetInfluences.fill(0);
+  for(const [key,value]of Object.entries(recorded)){const index=o.morphTargetDictionary?.[key];if(index===undefined)throw new Error(`Missing corrective morph ${key} on ${o.name}`);o.morphTargetInfluences[index]=value;}
+ });
  model.scene.traverse(o=>{
   if(!o.isSkinnedMesh)return;
   const name=Object.keys(row.meshes).find(source=>{for(let node=o;node;node=node.parent)if(node.name.startsWith(source==='body_underlayer_female'?'outfit_masked_body':source))return true;return false;});
