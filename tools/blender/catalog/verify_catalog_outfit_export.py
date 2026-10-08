@@ -28,7 +28,9 @@ for motion,frames in [(None,[0]),('walk',[.8,1,6.25,13,19.5,25.6]),('run',[.8,1,
   # GLB carries targets, not Blender drivers. Compare identical evaluated
   # morph values here; the Three.js knee driver has a separate gate.
   for source,exported in mapping.items():
-   if source.data.shape_keys:
+   # Only driven knee correctives export as morph targets; inset_<ID> keys are baked
+   # into the exported masked body at their value.
+   if source.data.shape_keys and any(k.name.startswith('knee_clearance_') for k in source.data.shape_keys.key_blocks):
     assert exported.data.shape_keys
     for key in source.data.shape_keys.key_blocks:
      if key.name.startswith('knee_clearance_'):exported.data.shape_keys.key_blocks[key.name].value=key.value

@@ -1,0 +1,23 @@
+{
+  "blend": "assets/avatar/catalog-a/A06/fitting-revisions/o05-head130/male/outfit.blend",
+  "blend_sha256": "60ad580affacdb45e216117108323a9fe96c6b8c8fb65338782d026f888146bc",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T05_crew_sweatshirt_outfit",
+    "B01_straight_trousers_outfit",
+    "F04_ankle_boots_outfit",
+    "A02_folded_beanie",
+    "A06_loop_scarf_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [],
+  "max_accepted_pairs": 0
+}

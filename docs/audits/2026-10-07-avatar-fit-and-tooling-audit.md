@@ -289,3 +289,8 @@ The user approved these recommendations, including +30% heads on both bases.
   Male O01, O02, O04 and O06 pass on the +30% head. O03 passes without its A01 cap.
   O05 exists only as the A02 beanie study, whose cap gates pass but whose outfit gates
   are not recorded.
+- **Tee sleeves, A06, O05 (2026-10-08):** four sleeve approaches failed to reduce the
+  true number of see-through faces (contact counted). The tee shell passes into the
+  shoulder and armpit in motion, so the sleeve construction itself needs rework. The
+  A06 loop scarf passes on O05, and O05 passes as an outfit, so all six male recipes
+  now have a passing assembly on the +30% head (O03 without its cap).

@@ -1,0 +1,51 @@
+{
+  "blend": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/A02.blend",
+  "blend_sha256": "48c2c37669c1267e999079f20d0f05b767c17225672e7276cc0824835b23a343",
+  "object": "H01_head",
+  "bone": "Head",
+  "status": "passed",
+  "checks": [
+    {
+      "pose": "rest",
+      "max_attachment_error_m": 1.1182077988835897e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-left",
+      "max_attachment_error_m": 2.02266454108033e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-right",
+      "max_attachment_error_m": 2.1073424255447017e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    },
+    {
+      "pose": "nod",
+      "max_attachment_error_m": 3.072856460109544e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    },
+    {
+      "pose": "look-up",
+      "max_attachment_error_m": 3.168085082081384e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    },
+    {
+      "pose": "tilt",
+      "max_attachment_error_m": 2.7171645356432305e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    }
+  ]
+}

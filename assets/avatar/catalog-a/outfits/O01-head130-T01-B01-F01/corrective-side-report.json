@@ -3,26 +3,8 @@
   "status": "passed",
   "checks": [
     {
-      "blend": "assets/avatar/catalog-a/T01/T01.blend",
-      "blend_sha256": "28cd43b84da46e950a9e89e6e248ef8e2d5609ca1760316ba3cb28dac7a46be6",
-      "keys": [],
-      "status": "passed"
-    },
-    {
-      "blend": "assets/avatar/catalog-a/B01/B01.blend",
-      "blend_sha256": "13105753e74d5bee658d4db0bc36ef8a3ed4305a5e3197f47268a464668695e3",
-      "keys": [],
-      "status": "passed"
-    },
-    {
-      "blend": "assets/avatar/catalog-a/F01/F01.blend",
-      "blend_sha256": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee",
-      "keys": [],
-      "status": "passed"
-    },
-    {
       "blend": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend",
-      "blend_sha256": "8518864710e370f4d4106cd822fc2f24afd7b6caa2756dd689a078d6fe1eaa75",
+      "blend_sha256": "cb55aa76cddf3db3070465903595fefda1a37a02bfb3b08f053efec4d9d5d8be",
       "keys": [],
       "status": "passed"
     }

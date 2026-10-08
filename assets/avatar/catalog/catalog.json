@@ -1774,7 +1774,17 @@
           "label": "Male base",
           "base": "male",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "o05-head130",
+              "label": "Worn with O05 on the +30% head",
+              "assetId": "a06-o05-male",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A06/fitting-revisions/o05-head130/male (build_catalog_a06.py): tube path refined until 9 mm clear of the top, body and head at rest, in five head gestures and in every gait pose (each centreline point checked through its own blended skin transform). 163 poses with zero body/layer pairs, head gestures clear, export, materials and glTF valid."
+            }
+          ],
+          "currentRevisionId": "o05-head130"
         },
         {
           "id": "female",
@@ -2833,8 +2843,8 @@
               "label": "T05 / B01 / F04 / A02 on the +30% head",
               "assetId": "a02-envelope-male",
               "visualReview": "pending",
-              "technicalReview": "not-verified",
-              "technicalNote": "Recipe-complete review assembly. The beanie is verified against this outfit, but B01 is the separate F04-compatible study, not canonical B01, and the complete outfit has no combined body/layer/export proof yet."
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A02/fitting-revisions/head-envelope-v1/male: T05/B01/F04/A02 on the +30% head. 163 poses with zero body and layer pairs, zero coverage holes, corrective sides, export 5.74 µm, head clearance, materials and glTF valid. In motion one forearm face at the long-sleeve cuff shows for a frame (run 4.75-5.0), as in every long top."
             }
           ],
           "currentRevisionId": "envelope-study"

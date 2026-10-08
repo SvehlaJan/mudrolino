@@ -475,6 +475,10 @@ path differences and leave near-equal shared-seam assignments qualified.
   Project anything onto a top radially from the torso axis through the top only (first hit,
   plus the outer layer within 6 mm), and take weights there. Nearest-point lookups pick
   the inner layer or a hanging sleeve.
+- Scarf: `build_catalog_a06.py --outfit-blend OUTFIT --top TOP_OBJECT --output-dir DIR`. To
+  fit anything rigid-ish against moving obstacles, check each point in every gait pose through
+  its own blended skin transform and map pushes back with the inverse. Mapping obstacles
+  through one bone's frame does not match blended skinning.
 - Glasses: `build_catalog_glasses.py --id A03|A04 --base male|female --output-dir DIR`
   fits frames to the painted eyes (`catalog_glasses_plan.py`). Gate:
   `verify_catalog_glasses.py --study-dir DIR` (no skin contact, frame clearance, mirror,

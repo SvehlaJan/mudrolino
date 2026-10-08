@@ -1,0 +1,41 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/A02.blend",
+      "blend_sha256": "48c2c37669c1267e999079f20d0f05b767c17225672e7276cc0824835b23a343",
+      "keys": [
+        {
+          "object": "B01_straight_trousers_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 553
+        },
+        {
+          "object": "B01_straight_trousers_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 551
+        },
+        {
+          "object": "F04_ankle_boots_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 39
+        },
+        {
+          "object": "F04_ankle_boots_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 39
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

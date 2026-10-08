@@ -1,0 +1,22 @@
+{
+  "blend": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/A02.blend",
+  "blend_sha256": "48c2c37669c1267e999079f20d0f05b767c17225672e7276cc0824835b23a343",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T05_crew_sweatshirt_outfit",
+    "B01_straight_trousers_outfit",
+    "F04_ankle_boots_outfit",
+    "A02_folded_beanie"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [],
+  "max_accepted_pairs": 0
+}

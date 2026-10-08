@@ -831,6 +831,22 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_a05.py"
+    },
+    {
+      "id": "a06-o05-male",
+      "label": "A06 loop scarf on O05 · +30% head",
+      "path": "A06/fitting-revisions/o05-head130/male",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "A06 ivory loop scarf with navy front band on O05 (T05/B01/F04/A02). Chunky tube refined against the top, body and head at rest, in five head gestures and in every gait pose through its own skinning. 163 poses clear; head gestures clear; export, materials and glTF valid. Art review pending.",
+      "reference_ids": [
+        "A06",
+        "O05",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a06.py"
     }
   ],
   "F02_corrective_repair_study": {

@@ -1,6 +1,6 @@
 {
   "blend": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend",
-  "blend_sha256": "d196dd2fac124ca57ae58afebb168c83cf9d8088a7cf0dfe335d5f98454f9a09",
+  "blend_sha256": "cb55aa76cddf3db3070465903595fefda1a37a02bfb3b08f053efec4d9d5d8be",
   "blender": "5.2.2 LTS",
   "body_meshes": [
     "body_underlayer_male",
@@ -15,5 +15,7 @@
   "substeps": 4,
   "max_body_pairs": 0,
   "max_layer_pairs": 0,
-  "review_width": 320
+  "review_width": 320,
+  "accepted_classes": [],
+  "max_accepted_pairs": 0
 }

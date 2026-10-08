@@ -96,3 +96,23 @@ visible in some poses and touches the cloth in others. Coverage alone can't fix
 this; the sleeve's skinning (sleeves that follow the upper arm more closely in the
 swing) is the next lever. The revision is rebuilt with rest-only release
 (byte-identical coverage) and now reports its posed holes.
+
+## Sleeve experiments that did not help (2026-10-08)
+
+Counting every see-through face, contact included, male O01 shows 385 at rest and up
+to 830 in motion (all 163 poses; worst at run 14.25). Each approach below was measured
+on the T01 piece or in O01 and rejected:
+
+| Approach | Rest | Worst pose |
+| --- | --- | --- |
+| v1 (rest-only release) | 385 | 1,033 |
+| Arm and shoulder skin kept as a 4 mm inward shape-key inset instead of masked, re-hidden where it touches the tee | 479 | 1,513 |
+| Sleeve takes the body's skin weights beneath it | 398 | 1,045 |
+| Body-weighted sleeve with all arm and shoulder skin shown, re-hiding contact | 494 | 1,620 |
+
+The tee's two-layer shell passes into the shoulder and armpit as the arm swings. That
+holds even when the sleeve follows the arm's own weights: 1,919 contact vertices. So
+the skin under it is either hidden (and seen through as the opening gapes) or touching.
+A fix needs new sleeve and shoulder construction with more ease at the armhole, or a
+separate sleeve tube on the arm with a gusset to the body. Coverage and weights alone
+won't do it.
