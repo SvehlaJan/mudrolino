@@ -847,6 +847,24 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_a06.py"
+    },
+    {
+      "id": "o02-female-head130",
+      "label": "Female O02 · T02 fuller hood / B02 / F02 · +30% head",
+      "path": "female/outfits/studies/T02-B02-F02-head130",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Exact O02 on the female +30% head with the generalized female tools: T02 fuller hood, B02 joggers, F02 repair with a 3 mm collar relief and no knee correctives (the female runtime gates have no corrective driver). Body, head and hair are clear in all 163 poses and export parity holds; one pose fails: run 7.25, the deepest back-kick, where the slip-on heel meets the back of the joggers (14 pairs, the leg-fold situation). Art review pending.",
+      "reference_ids": [
+        "O02",
+        "T02",
+        "B02",
+        "F02",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
     }
   ],
   "F02_corrective_repair_study": {

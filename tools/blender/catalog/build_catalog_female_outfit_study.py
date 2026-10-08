@@ -16,7 +16,14 @@ from catalog_tee_underarm import arm_skin
 from build_catalog_female_foundation_study import export_uv, topology_signature
 from build_catalog_head_style_study import rig_signature, motion_signature, geometry_signature
 
-NAMES = {'T01': 'T01_crew_tee', 'T02': 'T02_pullover_hoodie', 'B01': 'B01_straight_trousers', 'F01': 'F01_strap_sneakers'}
+NAMES = {'T01': 'T01_crew_tee', 'T02': 'T02_pullover_hoodie', 'T03': 'T03_raglan_tee', 'T04': 'T04_zip_hoodie',
+         'T05': 'T05_crew_sweatshirt', 'T06': 'T06_henley', 'B01': 'B01_straight_trousers', 'B02': 'B02_joggers',
+         'B04': 'B04_ivory_trousers', 'F01': 'F01_strap_sneakers', 'F02': 'F02_slip_ons', 'F03': 'F03_high_tops',
+         'F04': 'F04_ankle_boots'}
+# Piece kinds: coverage rule and the opening limits each kind keeps.
+LONG_TOPS, SHORT_TOPS, FULL_BOTTOMS = ('T02', 'T04', 'T05', 'T06'), ('T01', 'T03'), ('B01', 'B02', 'B04')
+# Footwear coverage height (the male builders' face-safe ankle cut): low tops and tall shoes.
+FOOTWEAR = {'F01': .114, 'F02': .114, 'F03': .181, 'F04': .181}
 DEFAULT_RECIPE = ('T02', 'B01', 'F01')
 # Removed-face boundaries: tops keep the neck, hoodie wrists and tee sleeve hems; trousers keep waist and ankles.
 OPENING_LIMITS = {'top_neck_z': 1.405, 'top_forearm_end': .96, 'top_sleeve_end': .45, 'B01_waist_z': .978, 'B01_ankle_z': .139}
@@ -211,6 +218,51 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
     return rows
 
 
+def footwear_collar_relief(obj, body, arm, clearance, start_z=.090, sectors=48):
+    """Push a shoe's collar zone outward from each ankle axis until it clears the female body.
+
+    Per side, vertices above start_z are binned by angle around the ankle (Foot bone head).
+    Each angular sector moves by the largest push any of its vertices needs to sit
+    `clearance` outside the body, so the shell keeps its thickness and the rim stays smooth;
+    the push fades in over 15 mm above start_z. Returns the largest push per side (m).
+    """
+    import math
+    masks = [m for m in body.modifiers if m.type == 'MASK']
+    for m in masks: m.show_viewport = False
+    bpy.context.view_layer.update()
+    evaluated = body.evaluated_get(bpy.context.evaluated_depsgraph_get()); mesh = evaluated.to_mesh()
+    tree = BVHTree.FromPolygons([body.matrix_world @ v.co for v in mesh.vertices], [tuple(f.vertices) for f in mesh.polygons])
+    evaluated.to_mesh_clear()
+    for m in masks: m.show_viewport = True
+    result = {}
+    for prefix, sign in [('Left', 1), ('Right', -1)]:
+        axis = arm.matrix_world @ arm.data.bones[prefix + 'Foot'].head_local
+        zone = [v for v in obj.data.vertices if (v.co.x > 0) == (sign > 0) and v.co.z > start_z]
+        def sector(v): return int((math.atan2(v.co.y - axis.y, v.co.x - axis.x) + math.pi) / (2 * math.pi) * sectors) % sectors
+        need = [0.0] * sectors
+        for v in zone:
+            p = obj.matrix_world @ v.co
+            q, n, _, d = tree.find_nearest(p)
+            if q is None: continue
+            radial = Vector((p.x - axis.x, p.y - axis.y, 0))
+            if radial.length < 1e-6: continue
+            radial.normalize()
+            signed = (p - q).dot(n)  # Body normals face out: negative means inside the ankle.
+            if signed < clearance:
+                need[sector(v)] = max(need[sector(v)], clearance - signed)
+        smooth = [max(need[(i - 1) % sectors], need[i], need[(i + 1) % sectors]) for i in range(sectors)]
+        keys = obj.data.shape_keys.key_blocks if obj.data.shape_keys else []
+        for v in zone:
+            radial = Vector((v.co.x - axis.x, v.co.y - axis.y, 0))
+            if radial.length < 1e-6: continue
+            delta = radial.normalized() * smooth[sector(v)] * max(0, min(1, (v.co.z - start_z) / .015))
+            v.co += delta
+            for key in keys:  # Corrective targets are absolute positions: move them alike.
+                key.data[v.index].co += delta
+        result[prefix] = max(smooth)
+    return result
+
+
 def normalize_garment(obj):
     changed = 0
     for v in obj.data.vertices:
@@ -225,8 +277,8 @@ def normalize_garment(obj):
 UNDERARM_COVERAGE = {}
 
 def mask(body, obj, arm, id, tee_underarm=False):
-    if id == 'T02': ids = long_top_coverage(body, obj, arm)
-    elif id == 'T01':
+    if id in LONG_TOPS: ids = long_top_coverage(body, obj, arm)
+    elif id in SHORT_TOPS:
         ids = short_top_coverage(body, obj, arm)
         if tee_underarm:
             # Release hidden arm skin a standard camera can see (inside and below the sleeve);
@@ -235,12 +287,12 @@ def mask(body, obj, arm, id, tee_underarm=False):
             hidden, released, contact = settle_coverage(body, obj, arm, set(ids), arm_skin(body, faces), gait_samples())
             group = body.vertex_groups.get('contact_' + id) or body.vertex_groups.new(name='contact_' + id); group.add(sorted(contact), 1.0, 'REPLACE')
             ids = sorted(hidden); UNDERARM_COVERAGE[id] = {'released_arm_vertices': released, 'contact_vertices': len(contact)}
-    elif id == 'B01': ids = full_trouser_coverage(body, obj, arm)
-    else: ids = face_safe_footwear_coverage(body, .114)
-    if id in ['T01','T02','B01']:
+    elif id in FULL_BOTTOMS: ids = full_trouser_coverage(body, obj, arm)
+    else: ids = face_safe_footwear_coverage(body, FOOTWEAR[id])
+    if id in LONG_TOPS + SHORT_TOPS + FULL_BOTTOMS:
         def allowed(vertex):
             p = vertex.co
-            if id == 'B01': return .139 < p.z < .978
+            if id in FULL_BOTTOMS: return .139 < p.z < .978
             if abs(p.x) < .14 and p.z >= 1.405: return False
             for prefix, sign in [('Left',1),('Right',-1)]:
                 if p.x*sign <= .23: continue
@@ -285,6 +337,9 @@ def main():
     p.add_argument('--skip-reviews', action='store_true')
     p.add_argument('--controlled-components', action='store_true')
     p.add_argument('--recipe', default=','.join(DEFAULT_RECIPE), help='Comma-separated piece IDs, e.g. T01,B01,F01 for exact O01')
+    p.add_argument('--source', action='append', default=[], help='ID=path.blend: fit a piece revision instead of the canonical master')
+    p.add_argument('--collar-relief', type=float, default=0, help='Footwear other than F01: push the collar zone this far clear of the female ankle (m)')
+    p.add_argument('--drop-correctives', action='append', default=[], help='Piece ID whose knee_clearance corrective keys and drivers are removed (the female runtime gates have no corrective driver)')
     p.add_argument('--hood-shape', type=json.loads, default=None, help='JSON keyword arguments for catalog_female_hood_geometry.create_lowered_hood')
     p.add_argument('--tee-underarm', action='store_true', help='T01 coverage: release arm skin inside the sleeve that a standard camera would see')
     p.add_argument('--accept-armpit-crease', action='store_true', help='Record the user-accepted T01 armpit crease edge (2026-10-08) as a known minor defect')
@@ -300,9 +355,23 @@ def main():
         current = fixed_signatures(arm)
         if baseline is None: baseline = current
         assert current == baseline
-        source = a.catalog_dir / id / (id + '.blend')
+        overrides = dict(item.split('=', 1) for item in a.source)
+        source = Path(overrides[id]) if id in overrides else a.catalog_dir / id / (id + '.blend')
         obj = load_garment(source, id, arm); original = geometry_signature(obj)
         rows = fitted_parts(obj, id, arm, body, a.hood_offset, a.opening_relief, a.hood_lower, a.back_relief, a.back_clearance, a.controlled_components, a.tee_underarm, a.hood_shape)
+        if id in a.drop_correctives and obj.data.shape_keys:
+            keys = obj.data.shape_keys
+            if keys.animation_data:
+                for driver in list(keys.animation_data.drivers):
+                    keys.driver_remove(driver.data_path, driver.array_index)
+            dropped = [k.name for k in keys.key_blocks if k.name.startswith('knee_clearance_')]
+            for name in dropped:
+                obj.shape_key_remove(keys.key_blocks[name])
+            if obj.data.shape_keys and len(obj.data.shape_keys.key_blocks) == 1:
+                obj.shape_key_remove(obj.data.shape_keys.key_blocks[0])
+            rows.append({'dropped_correctives': dropped})
+        if a.collar_relief and id in FOOTWEAR and id != 'F01':
+            rows.append({'collar_relief_m': footwear_collar_relief(obj, body, arm, a.collar_relief)})
         normalized = normalize_garment(obj)
         indices = mask(body, obj, arm, id, a.tee_underarm)
         assert fixed_signatures(arm) == baseline, 'Fixed female geometry/rig/action changed'
@@ -328,8 +397,9 @@ def main():
         'coverage': 'recomputed on current female original indices; no imported male masks',
         'opening_limits': OPENING_LIMITS,
         'footwear_opening_z': .118, 'footwear_safety_margin_m': .004,
+        'footwear_openings_z': {id: FOOTWEAR[id] + .004 for id in recipe if id in FOOTWEAR},
         'head_export': 'UV-preserving export, unchanged canonical face material/image',
-        'controlled_components':a.controlled_components, 'tee_underarm':a.tee_underarm, 'hood_shape':a.hood_shape, 'underarm_coverage':UNDERARM_COVERAGE, 'accepted_visibility_exemptions':[{'piece':'T01','region':'contact_T01','decision':'User accepted 2026-10-08: the cut edge of arm skin that touches the tee (at rest or in the gait) is a known minor defect; the A-pose arm presses against the torso.'}] if a.accept_armpit_crease and 'T01' in recipe else [], 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py',*(['catalog_coverage_visibility.py','catalog_tee_underarm.py'] if a.tee_underarm else [])]} if a.controlled_components else {},
+        'collar_relief_m':a.collar_relief,'dropped_correctives':a.drop_correctives,'controlled_components':a.controlled_components, 'tee_underarm':a.tee_underarm, 'hood_shape':a.hood_shape, 'underarm_coverage':UNDERARM_COVERAGE, 'accepted_visibility_exemptions':[{'piece':id,'region':'contact_'+id,'decision':'User accepted 2026-10-08: the cut edge of arm skin that touches the tee (at rest or in the gait) is a known minor defect; the A-pose arm presses against the torso.'} for id in recipe if id in SHORT_TOPS] if a.accept_armpit_crease else [], 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py',*(['catalog_coverage_visibility.py','catalog_tee_underarm.py'] if a.tee_underarm else [])]} if a.controlled_components else {},
         'exports': {name: digest(a.output_dir / name) for name in ['outfit.blend', 'outfit.glb', 'body.glb', 'garments.glb']}}
     (a.output_dir / 'assembly-report.json').write_text(json.dumps(report, indent=2) + '\n')
     if not a.skip_reviews:

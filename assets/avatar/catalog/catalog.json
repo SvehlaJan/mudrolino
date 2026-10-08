@@ -2528,7 +2528,17 @@
               "cropSha256": "301948f0f8c14cc000cd68349f151544ad0db3d8ed41eee4a9a28b8d5180fb3c"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130",
+              "label": "Exact O02 on the female +30% head",
+              "assetId": "o02-female-head130",
+              "visualReview": "pending",
+              "technicalReview": "repair-needed",
+              "technicalNote": "female/outfits/studies/T02-B02-F02-head130: complete runner fails one gate only. The slip-on heel meets the back of the joggers at run 7.25 (14 pairs; leg-fold class, not yet accepted for B02). The F02 collar needed a 3 mm relief for the female ankle, and its heel-tab correctives were dropped because the female runtime gates have no corrective driver."
+            }
+          ],
+          "currentRevisionId": "head130"
         }
       ],
       "relatedIds": [

@@ -1,0 +1,22 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/garments.glb",
+  "sha256": "235feefa8c4ec009ff6a471010e3388fa6e59e89f303915313f1d8ef4b242355",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A blue jogger fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A navy jogger elastic",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A blue jogger pocket openings",
+      "colorComponents": 0
+    }
+  ]
+}

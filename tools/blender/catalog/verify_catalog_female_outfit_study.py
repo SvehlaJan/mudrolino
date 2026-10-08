@@ -7,7 +7,7 @@ from mathutils import Quaternion
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog_t01 import reset, bvh, world_mesh
 from mathutils.bvhtree import BVHTree
-from build_catalog_female_outfit_study import fixed_signatures, NAMES, DEFAULT_RECIPE, positions_signature, skin_signature, head_surface_signature, components
+from build_catalog_female_outfit_study import fixed_signatures, NAMES, DEFAULT_RECIPE, positions_signature, skin_signature, head_surface_signature, components, LONG_TOPS, SHORT_TOPS, FULL_BOTTOMS, FOOTWEAR
 from build_catalog_head_style_study import geometry_signature, rig_signature
 from build_catalog_female_foundation_study import topology_signature
 from prepare_catalog_body import action_curves
@@ -132,28 +132,31 @@ def main():
         report['corrective_sides']={'keys':side_keys,'drivers':driver_ids,'scope':'No targets is an explicit not-applicable result, not corrective fitting proof.'}
         # Opening anatomy is measured on actual removed faces, including those
         # deleted when only one incident vertex belongs to the active mask.
-        group=body.vertex_groups['covered_F01'];ids={v.index for v in body.data.vertices if any(w.group==group.index and w.weight>.5 for w in v.groups)}
-        removed=[f for f in body.data.polygons if any(i in ids for i in f.vertices)]
-        cutoff=assembly['footwear_opening_z']-assembly['footwear_safety_margin_m']
-        above=[f.index for f in removed if max(body.data.vertices[i].co.z for i in f.vertices)>=cutoff]
-        report['opening_anatomy']={'removed_faces':len(removed),'covered_vertices':len(ids),'opening_z':assembly['footwear_opening_z'],'safety_margin_m':assembly['footwear_safety_margin_m'],'maximum_removed_face_z':max(body.data.vertices[i].co.z for f in removed for i in f.vertices),'violations':len(above)}
-        check(bool(removed) and not above,'F01_face_safe_opening',report['opening_anatomy'])
+        report['opening_anatomy']={}
+        for shoe in [id for id in garments if id in FOOTWEAR]:
+            group=body.vertex_groups['covered_'+shoe];ids={v.index for v in body.data.vertices if any(w.group==group.index and w.weight>.5 for w in v.groups)}
+            removed=[f for f in body.data.polygons if any(i in ids for i in f.vertices)]
+            opening=assembly.get('footwear_openings_z',{}).get(shoe,assembly['footwear_opening_z'])
+            cutoff=opening-assembly['footwear_safety_margin_m']
+            above=[f.index for f in removed if max(body.data.vertices[i].co.z for i in f.vertices)>=cutoff]
+            report['opening_anatomy'][shoe]={'removed_faces':len(removed),'covered_vertices':len(ids),'opening_z':opening,'safety_margin_m':assembly['footwear_safety_margin_m'],'maximum_removed_face_z':max((body.data.vertices[i].co.z for f in removed for i in f.vertices),default=None)}
+            check(bool(removed) and not above,shoe+'_face_safe_opening',report['opening_anatomy'][shoe])
         opening_limits=dict(assembly.get('opening_limits',{'T02_neck_z':1.405,'T02_forearm_end':.96,'B01_waist_z':.978,'B01_ankle_z':.139}))
         # Older reports name the hoodie limits; newer ones use generic top limits.
         opening_limits.setdefault('top_neck_z',opening_limits.get('T02_neck_z'));opening_limits.setdefault('top_forearm_end',opening_limits.get('T02_forearm_end'))
         other_openings={}
-        for id in [id for id in garments if id in ('T01','T02','B01')]:
+        for id in [id for id in garments if id in LONG_TOPS+SHORT_TOPS+FULL_BOTTOMS]:
             group=body.vertex_groups['covered_'+id];covered={v.index for v in body.data.vertices if any(w.group==group.index and w.weight>.5 for w in v.groups)}
             removed=[face for face in body.data.polygons if any(i in covered for i in face.vertices)];violations=[]
             for face in removed:
                 for i in face.vertices:
                     point=body.data.vertices[i].co
-                    if id=='B01':
+                    if id in FULL_BOTTOMS:
                         if not opening_limits['B01_ankle_z']<point.z<opening_limits['B01_waist_z']:violations.append(face.index);break
                     else:
                         if abs(point.x)<.14 and point.z>=opening_limits['top_neck_z']:violations.append(face.index);break
                         for prefix,sign in [('Left',1),('Right',-1)]:
-                            if id=='T01':continue  # Tee sleeves: see the visibility check below.
+                            if id in SHORT_TOPS:continue  # Tee sleeves: see the visibility check below.
                             if point.x*sign<=.23:continue
                             elbow=arm.data.bones[prefix+'ForeArm'].head_local;wrist=arm.data.bones[prefix+'Hand'].head_local;axis=wrist-elbow
                             if (point-elbow).dot(axis)/axis.length_squared>=opening_limits['top_forearm_end']:violations.append(face.index);break

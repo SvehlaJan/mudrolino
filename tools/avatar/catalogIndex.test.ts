@@ -42,10 +42,10 @@ describe('saved curated avatar catalog', () => {
     expect(hoodie.currentRevisionId).toBe('hood-v2');
     expect(hoodie.revisions.find(revision => revision.id === 'current')).toMatchObject({ visualReview: 'changes-requested', technicalReview: 'recorded-pass', asset: { id: 'file:assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit.glb', supportsGait: true } });
     expect(items.find(item => item.id === 'O02')!.relatedIds).toEqual(['T02', 'B02', 'F02']);
-    // Male O02 is the exact recipe on the +30% head; the female recipe is not built yet.
+    // O02 is the exact recipe on the +30% head on both bases; the female one still needs repair.
     const o02 = items.find(item => item.id === 'O02')!;
     expect(o02.variants.find(variant => variant.base === 'male')!.currentRevisionId).toBe('head130');
-    expect(o02.variants.find(variant => variant.base === 'female')!.revisions).toHaveLength(0);
+    expect(o02.variants.find(variant => variant.base === 'female')!.revisions[0]).toMatchObject({ id: 'head130', technicalReview: 'repair-needed' });
     // The +30% head O01 is current on both bases; the older male assembly stays as history.
     const o01 = items.find(item => item.id === 'O01')!;
     for (const variant of o01.variants) expect(variant.currentRevisionId).toBe('head130');

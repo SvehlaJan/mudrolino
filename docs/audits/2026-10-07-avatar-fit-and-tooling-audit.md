@@ -294,3 +294,12 @@ The user approved these recommendations, including +30% heads on both bases.
   shoulder and armpit in motion, so the sleeve construction itself needs rework. The
   A06 loop scarf passes on O05, and O05 passes as an outfit, so all six male recipes
   now have a passing assembly on the +30% head (O03 without its cap).
+- **Phone budget (2026-10-08):** `tools/avatar/measure_avatar_budget.mjs` measures GLBs against
+  a proposed per-avatar phone budget: at most 100k triangles, 24 draw primitives, 8 skinned
+  meshes, 3 MB gzip, a 2 MP texture and 16 morph targets. Every current outfit exceeds the
+  triangle line (112k–152k); otherwise they fit (12–21 primitives, 1.8–3.0 MB gzip; A06's
+  O05 is just over at 3.04 MB). Head and hair are the cause: the painted H01 head with its
+  modelled hair is 65k triangles (43–51% of male outfits), and H02 hair is 46k (the H02 head
+  itself is 4k). Without them, outfits are 62k–86k. The fix is lighter hair and head
+  geometry, as decimated runtime exports re-verified by the same gates, not garment work.
+  The product's selfie head is the reusable texture head (H02-style, 4k triangles).

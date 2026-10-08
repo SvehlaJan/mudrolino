@@ -1,0 +1,32 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/garments.glb",
+  "sha256": "3bef257c1681d8fccc39129452001f789c59c5ddaba9739f46c1ceed867144ac",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A ivory slip-on sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A navy slip-on upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A navy slip-on collar",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A dark slip-on elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A orange slip-on heel tabs",
+      "colorComponents": 0
+    }
+  ]
+}

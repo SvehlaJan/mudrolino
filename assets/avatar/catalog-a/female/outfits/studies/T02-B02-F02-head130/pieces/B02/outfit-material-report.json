@@ -1,0 +1,42 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.glb",
+  "sha256": "7dff67b513fe96fc6c5796edf8a3cdf8780c431f8f191b86c9e00d382222c5b8",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A blue jogger fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A navy jogger elastic",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A blue jogger pocket openings",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    }
+  ]
+}
