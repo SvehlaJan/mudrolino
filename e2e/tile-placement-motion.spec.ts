@@ -16,6 +16,21 @@ async function start(page: Page, game: typeof games[number], word?: typeof ASSEM
     : page.locator(`[data-answer-id="${state.correctItemId}"]`);
 }
 
+/** Hold the flight before remote assertions can consume its short duration. */
+async function holdNextFlight(page: Page) {
+  await page.evaluate(() => {
+    const observer = new MutationObserver(() => {
+      const flight = document.querySelector<HTMLElement>('[data-tile-flight]');
+      const animation = flight?.getAnimations()[0];
+      if (!animation) return;
+      animation.pause();
+      animation.currentTime = 0;
+      observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+}
+
 for (const game of games) {
   test(`${game} visibly transfers the selected tile toward its empty question slot`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'no-preference' });
@@ -26,6 +41,7 @@ for (const game of games) {
     const sourceRect = (await answer.boundingBox())!;
     const targetRect = (await target.boundingBox())!;
     const label = (await answer.textContent())!.trim();
+    if (game !== 'assembly') await holdNextFlight(page);
     await answer.click();
     const flight = page.locator('[data-tile-flight]');
     await expect(flight).toHaveCount(1);
@@ -35,15 +51,20 @@ for (const game of games) {
     if (game !== 'assembly') expect(await answer.evaluate(node => getComputedStyle(node).visibility)).toBe('hidden');
     if (game !== 'assembly') await expect(target).toHaveAttribute('data-slot-state', 'active');
     await expect(page.getByRole('status')).toHaveCount(0);
-    const samples = await flight.evaluate(async (node) => {
+    const samples = await flight.evaluate(async (node, held) => {
       const points: { x: number; y: number; width: number; height: number }[] = [];
+      if (held) {
+        const animation = node.getAnimations()[0];
+        if (!animation || animation.playState !== 'paused') throw new Error('Flight was not held before observation');
+        animation.play();
+      }
       while (node.isConnected) {
         const rect = node.getBoundingClientRect();
         points.push({ x: rect.x, y: rect.y, width: rect.width, height: rect.height });
         await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
       }
       return points;
-    });
+    }, game !== 'assembly');
     expect(samples.length).toBeGreaterThan(3);
     const distance = (rect: { x: number; y: number; width: number; height: number }) => Math.hypot(
       rect.x + rect.width / 2 - targetRect.x - targetRect.width / 2,
@@ -142,11 +163,22 @@ for (const game of ['complete-letter', 'complete-syllable'] as const) {
     const state=await getE2EState<CompleteLetterE2EState|CompleteSyllableE2EState>(page);
     const wrongId=state.answerItemIds.find(id=>id!==state.correctItemId)!;
     const answer=page.locator(`[data-answer-id="${wrongId}"]`);
+    await holdNextFlight(page);
     await answer.click();
     const flight=page.locator('[data-tile-flight]');
     await expect(flight).toHaveCount(1);
-    // Interrupt the return leg, beyond the outward morph and its pause.
-    await flight.evaluate(async node=>{while(node.isConnected&&node.getAnimations().length<2)await new Promise<void>(r=>requestAnimationFrame(()=>r()));});
+    // Hold the actual return halfway through so replay cannot arrive after it.
+    await flight.evaluate(async node=>{
+      const outward=node.getAnimations()[0];
+      if(!outward||outward.playState!=='paused')throw new Error('Outward flight was not held');
+      outward.play();
+      while(node.isConnected&&node.getAnimations().length<2)await new Promise<void>(r=>requestAnimationFrame(()=>r()));
+      const returning=node.getAnimations().at(-1);
+      if(!node.isConnected||!returning||node.getAnimations().length!==2)throw new Error('Return completed before cancellation observation');
+      returning.pause();
+      const timing=returning.effect!.getTiming();
+      returning.currentTime=(timing.delay??0)+Number(timing.duration)/2;
+    });
     await page.getByRole('button',{name:'Zopakovať zadanie'}).click();
     await expect(flight).toHaveCount(0);
     await waitForGamePhase(page,'awaiting-answer');
