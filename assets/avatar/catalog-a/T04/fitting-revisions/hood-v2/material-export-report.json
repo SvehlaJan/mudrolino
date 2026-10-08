@@ -1,0 +1,32 @@
+{
+  "target": "assets/avatar/catalog-a/T04/fitting-revisions/hood-v2/T04.glb",
+  "sha256": "bababb5dce5bd6b17f15fde72a531be052b07a690348ee7b2392d504fce9a240",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A navy zip hoodie fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A navy zip hoodie ribbing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A ivory zipper and drawcords",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A orange zip hoodie lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A navy zip hoodie pockets",
+      "colorComponents": 0
+    }
+  ]
+}

@@ -6,8 +6,8 @@
     "F01"
   ],
   "foundation": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend",
-  "foundation_sha256": "c542b88a057909ac28d941f7a02e9484a3d8d73bfbcc6e6058cfc641a38a0ea1",
-  "builder_sha256": "674a28c8b15ce2da59572dca912d612a769d68b13e9dccde4242c7df96a7019f",
+  "foundation_sha256": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962",
+  "builder_sha256": "2bf0ed9057588c37a6929eb052bee572bde9136916e044117db889bc603e8d0c",
   "fixed_foundation": {
     "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
     "actions": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
@@ -25,7 +25,7 @@
         "skin": "133ad8da0e50e2cfe4e80c166b5e96db2cd816a18692549a895b9fcb99eb74b0"
       },
       "H02_hair": {
-        "positions": "5a64608b42d75d4059cfb4c5ff38e760ce0a9c4ebb2f3473717db0e70818f0fc",
+        "positions": "7bb0cb27ad385c0e22f50e17c6153d5395401865258b696183e6985f005884df",
         "topology": "eeb8039b4f46e926deecf059f79e37b7368e8d95dea0b1516ed543e577f2a234",
         "skin": "0bc191824c68333e3f70a3bc0e3225580928dc7e72df4bc4bb27ec6e367f0308"
       }
@@ -11055,7 +11055,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/outfit.blend",
-      "source_blend_sha256": "7d40858684ff39365393e5c91afe32a6b264cb0bd344f929ed39868422c7c50f"
+      "source_blend_sha256": "fb1713a3691b3918b963d06d247730eae40a7dca8bb15fd18b5f8865447856f8"
     },
     "B01": {
       "source": "assets/avatar/catalog-a/B01/B01.blend",
@@ -27925,7 +27925,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/B01/outfit.blend",
-      "source_blend_sha256": "7a385d66aab007785a7b5c10ba9b2c4a501e2e8b19bfb713fe4e3dd5b35d9243"
+      "source_blend_sha256": "ea6d576d8097e0f25b2512f530b3071cbe8ec5765fcc89f92d0680bd098c1fe3"
     },
     "F01": {
       "source": "assets/avatar/catalog-a/F01/F01.blend",
@@ -33596,7 +33596,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/F01/outfit.blend",
-      "source_blend_sha256": "6cfc4bcb42f27a7ed32d4418a73e43fe58bf48f70feb6440cee73661a76343f3"
+      "source_blend_sha256": "63c7977d7d87ab65cf9d90c5e9c9086964a725a88931e6e6b09dcbf666c33b86"
     }
   },
   "hood_offset_m": 0,
@@ -33617,6 +33617,7 @@
   "head_export": "UV-preserving export, unchanged canonical face material/image",
   "controlled_components": true,
   "tee_underarm": true,
+  "hood_shape": null,
   "underarm_coverage": {
     "T01": {
       "released_arm_vertices": 1518,
@@ -33631,15 +33632,15 @@
     }
   ],
   "component_helpers": {
-    "catalog_female_hood_geometry.py": "d706c0683f2a5b8e80b6eda464521bca9045196cd3400801b8b3038a941872a3",
+    "catalog_female_hood_geometry.py": "48eb4efbf015c8948c27aaed2658fee93ce7a657a53abf3a267308b90fc59746",
     "catalog_female_sneaker_closures.py": "6523c11dcd60f90bf895311302cfd5f5b033b8beb8cda6f16bf1fb2f7b4b807e",
     "catalog_coverage_visibility.py": "a0058527092f4d1d4f122779b1ee5aa6ad89b3b11634e5820b6465f6602b9bdc",
     "catalog_tee_underarm.py": "b84e1ec14c718a63af703410ce6d4dfe1af3576ec8bb87ce401630eb63ad0786"
   },
   "exports": {
-    "outfit.blend": "f73571f654a1c620188e7ded08a89c3fe224f45e3a991ed088eda0ea2dc29179",
-    "outfit.glb": "079cf4074c80c3c863105f48ef64d3a429813fb149f1de2d0c85bac62989235c",
-    "body.glb": "b668c8b60428d2e70702c63fd5cd4740888deb323f015eab7dbf26ffbcc2f362",
+    "outfit.blend": "ea6448d2d1e4975c49d0028225dad293b36697c6bcfb9ef98e1a60a5dcb300a6",
+    "outfit.glb": "dd3f707326aaa160cc5799af1a5473e951865af0560bdc7007f88a00355378ae",
+    "body.glb": "10548093d4a44310858c8b63e85ddcc375ff612985e364c17f211ff13e6bde8f",
     "garments.glb": "ef96847748646618957c353333fc5df25484f4113988a11c247f069165572697"
   }
 }

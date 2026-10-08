@@ -1,0 +1,65 @@
+{
+  "id": "T04",
+  "status": "authored candidate; complete motion/style/runtime acceptance pending",
+  "source": "assets/avatar/catalog-a/T04/fitting-revisions/hood-v2/T04.blend",
+  "object": "T04_zip_hoodie",
+  "vertices": 8786,
+  "polygons": 8692,
+  "groups": 24,
+  "max_influences": 4,
+  "covered_body_vertices": 16742,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    }
+  ],
+  "skinning": {
+    "minimum_exported_influence": 0.0001,
+    "max_influences": 4,
+    "pruned_vertices": 198,
+    "max_discarded_weight": 0.05294137820601463
+  },
+  "review_framing": {
+    "target_z": 0.92,
+    "ortho_scale": 2.03
+  }
+}

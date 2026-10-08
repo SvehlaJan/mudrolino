@@ -407,13 +407,17 @@ a rendering smoke capture never substitutes for a strict whole-gallery gate.
 ### Whole garment self-clearance and reset-pose capture
 
 Body/layer checks and detail-to-cloth checks do not test the entire cloth shell
-against itself. Require every nonincident garment polygon pair at rest and all
-native/equivalent gait samples, with no implicit contact exemption. B04’s
-source-bound example is `audit_catalog_b04_shell_self.py`; it currently finds
-a real unresolved construction defect. Its passing earlier body/detail/export
-reports must not be relabelled as whole-shell proof. Other garments still need
-this explicit audit. Preserve the fitted silhouette and fix the actual source
-faces; a small liner offset cannot fix outward-surface self-crossings.
+against itself. **2026-10-08 correction:** these self-checks were applied to B04/F02
+only. Measured on every garment with one rule, no passing piece clears them:
+whole-garment self pairs are B01 489 rest / 1,531 worst (B04: 77 / 848), and
+detail-to-shell pairs are B01 392 / 940, F01 2,164 / 2,374 and T02 0 / 257. Most of
+this is deliberate construction: pocket backs sit inside the cloth thickness, and
+soles and collars overlap the upper. Use `audit_catalog_detail_shell.py
+--report OUT NAME:PIECE.blend:OBJECT ...` as a diagnostic and compare a candidate
+with its passing sibling, not with zero. `audit_catalog_b04_shell_self.py` stays as
+B04 history. A self-crossing that shows at runtime is still a defect, so judge it
+in renders. Preserve the fitted silhouette; a small liner offset cannot fix
+outward-surface self-crossings.
 
 Reset the rig before creating **each** RuntimeGaitPose adapter. Capture and
 validate its native rest against bind matrices (`runtime_rest_capture.py`);
@@ -454,4 +458,9 @@ path differences and leave near-equal shared-seam assignments qualified.
   reports hidden body faces a standard camera can see. `catalog_coverage_visibility.settle_coverage`
   releases such skin and re-hides any that touches the garment over the gait (recorded as
   `contact_<ID>`). The T01 revision builder is `build_catalog_t01_sleeve_coverage.py`.
-  The assembler takes `--source ID=path.blend` to use a piece revision.
+  The assembler takes `--source ID=path.blend` to use a piece revision and records each
+  piece source and the foundation with SHA-256 in `assembly-report.json`.
+- Hoods: `build_catalog_hood_revision.py --id T02|T04` builds the fuller hood (`hood-v2`)
+  through the canonical builders; the female builder takes the same shape as
+  `--hood-shape JSON`. H02 hair: rear locks shorten by 30% (`--rear-shorten
+  1.56,.3,.04,.10`) so the tips clear long sleeves in the run.

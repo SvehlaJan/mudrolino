@@ -1,8 +1,8 @@
 {
   "blend": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.blend",
-  "blend_sha256": "f73571f654a1c620188e7ded08a89c3fe224f45e3a991ed088eda0ea2dc29179",
+  "blend_sha256": "ea6448d2d1e4975c49d0028225dad293b36697c6bcfb9ef98e1a60a5dcb300a6",
   "glb": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.glb",
-  "glb_sha256": "079cf4074c80c3c863105f48ef64d3a429813fb149f1de2d0c85bac62989235c",
+  "glb_sha256": "dd3f707326aaa160cc5799af1a5473e951865af0560bdc7007f88a00355378ae",
   "checks": [
     {
       "motion": "rest",
@@ -49,7 +49,7 @@
       "max_nearest_vertex_error_m": {
         "body_underlayer_female": 8.616943318884296e-07,
         "H02_head": 2.9502794518521114e-07,
-        "H02_hair": 4.3213367462158203e-07,
+        "H02_hair": 4.267043323125108e-07,
         "T01_crew_tee": 5.339525159797631e-07,
         "B01_straight_trousers": 3.931196204121079e-07,
         "F01_strap_sneakers": 3.845539140456822e-07
@@ -140,7 +140,7 @@
       "max_nearest_vertex_error_m": {
         "body_underlayer_female": 9.542561656417092e-07,
         "H02_head": 3.588674815091508e-07,
-        "H02_hair": 3.842650926344504e-07,
+        "H02_hair": 3.911377461918164e-07,
         "T01_crew_tee": 5.857123142050114e-07,
         "B01_straight_trousers": 3.837591577848798e-07,
         "F01_strap_sneakers": 3.4142848903684353e-07
@@ -205,7 +205,7 @@
       "max_nearest_vertex_error_m": {
         "body_underlayer_female": 9.766798712007585e-07,
         "H02_head": 3.662928520498099e-07,
-        "H02_hair": 5.024586471336079e-07,
+        "H02_hair": 5.075152671452088e-07,
         "T01_crew_tee": 6.084438268771919e-07,
         "B01_straight_trousers": 3.456298429682647e-07,
         "F01_strap_sneakers": 3.529405319113721e-07

@@ -270,9 +270,12 @@ Head-dependent pieces fit to measured head envelopes, not fixed coordinates: see
 `build_catalog_a01_fitted.py` (under-hat hair key, envelope crown) and
 `verify_catalog_headwear.py` (fit gate: no floating, no intersections, gait and
 gestures). Priorities are in `docs/audits/2026-10-07-avatar-fit-and-tooling-audit.md`.
-In order: A02 beanie, female T01 and exact O01, hood refits, T06 buttons, then
-rebuilding B03/B04/F02 from B01/F01 construction. Keep expressions, real-selfie
-generation and final acceptance separate.
+Done as of 2026-10-08: A02, female T01 and exact O01, hood refits, T06 buttons,
+B04/F02 promoted after measurement, and exact male O02/O04. Next: B03 thigh
+coverage plus a decision on run leg-fold contact, then A03/A04 glasses, A05, A06
+and the rest of the female wardrobe. Compare self and detail contact counts with
+the passing sibling garment (`audit_catalog_detail_shell.py`), not with zero. Keep
+expressions, real-selfie generation and final acceptance separate.
 
 ## Tooling assessment (checked 2026-10-04)
 

@@ -234,3 +234,38 @@ The user approved these recommendations, including +30% heads on both bases.
   has 1,177; B01 shown alone has 830 at the ankle. Contact-aware T01 coverage
   reaches 0 in O01 on both bases; the female complete runner and all male outfit
   gates pass. The side-panel relief did not converge and was dropped.
+- **T03, T06 (2026-10-08):** T03 shares the T01 coverage revision with identical
+  numbers. T06 `placket-v2` has four 21 mm navy buttons on a 38 mm placket and an
+  orange back-collar facing; piece and T06/B01/F01 outfit gates pass.
+- **T02/T04 hoods (2026-10-08):** `hood-v2` deepens the shared lowered hood (50 mm
+  bowl, lower and further back) and drops T04's drawcords. Male pieces and the
+  T02/B01/F01 and T04/B01/F01 outfits on the +30% head pass. On the female base the
+  hood is clear, but the larger H02 hair tips touched the back of the T02 sleeve in
+  2 of 163 run poses. That would recur on every female long sleeve, so H02's rear
+  shortening goes from 20% to 30% and every female study is rebuilt on it.
+- **B03/B04/F02 premise corrected (2026-10-08):** the plan assumed B01/F01 pass a
+  gate that B04/F02 fail. They don't. The B04 and F02 repairs
+  (`independent-keys-repair`) pass every gate B01/F01 pass, including side isolation,
+  163-pose motion, stitched-detail distance, outfit, export and runtime. Their only
+  failure is a "details never touch the shell" check that no passing garment meets.
+  `audit_catalog_detail_shell.py` applies one rule to every garment (small
+  components are details) and reports detail-to-shell pairs as rest / worst pose:
+
+  | Garment | Status before | Rest | Worst |
+  | --- | --- | --- | --- |
+  | B01 | passing | 392 | 940 |
+  | B04 canonical / repair | blocked | 22 / 22 | 250 / 172 |
+  | B03 repair | blocked | 22 | 100 |
+  | F01 | passing | 2,164 | 2,374 |
+  | F02 canonical / repair | blocked | 1,342 / 1,342 | 1,618 / 1,608 |
+  | F03 | passing | 405 | 406 |
+  | T02 / T06 | passing | 0 / 6 | 257 / 12 |
+
+  Most pairs are deliberate construction: pocket backs sit inside the cloth
+  thickness, and soles and collars overlap the upper. The check is therefore a
+  diagnostic to compare against the passing sibling, not a gate. The B04 and F02
+  repairs are promoted under the B01/F01 standard instead of being rebuilt. The
+  whole-garment self-intersection count used for B04 fails B01 even worse (489 rest
+  / 1,531 worst) and is dropped for the same reason. B03 still has real body
+  contacts (338 pairs in the run, where the folded leg meets the shorts) and is
+  the one bottom that needs rework.

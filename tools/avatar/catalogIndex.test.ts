@@ -2,10 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { buildCatalogLibraryManifest, resolveCatalogLibraryFile, resolveCatalogLibraryThumbnail } from './catalogLibraryServer';
 
 describe('saved curated avatar catalog', () => {
-  it('exposes rejected B04 repairs without replacing its preferred model or enabling gait', () => {
+  it('makes the rolled-cuff B04 current and keeps the rejected repairs as history without gait', () => {
     const manifest = buildCatalogLibraryManifest(process.cwd());
     const male = manifest.items!.find(item => item.id === 'B04')!.variants.find(variant => variant.base === 'male')!;
-    expect(male.currentRevisionId).toBe('current');
+    // 2026-10-08: the rolled-cuff repair passes every gate B01 passes; see the detail/shell audit.
+    expect(male.currentRevisionId).toBe('rolled-cuff-v1');
+    expect(male.revisions.find(candidate => candidate.id === 'rolled-cuff-v1')).toMatchObject({ technicalReview: 'recorded-pass' });
     for (const id of ['side-keys-repair', 'detail-offset-1', 'detail-offset-2']) {
       const revision = male.revisions.find(candidate => candidate.id === id);
       expect(revision).toBeDefined();
@@ -36,9 +38,14 @@ describe('saved curated avatar catalog', () => {
       }
     }
     const hoodie = items.find(item => item.id === 'T02')!.variants.find(variant => variant.base === 'female')!;
-    expect(hoodie.revisions[0]).toMatchObject({ visualReview: 'changes-requested', technicalReview: 'recorded-pass', asset: { id: 'file:assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit.glb', supportsGait: true, history: false } });
+    // The fuller hood on the +30% head is current; the rejected shallow hood stays as history.
+    expect(hoodie.currentRevisionId).toBe('hood-v2');
+    expect(hoodie.revisions.find(revision => revision.id === 'current')).toMatchObject({ visualReview: 'changes-requested', technicalReview: 'recorded-pass', asset: { id: 'file:assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit.glb', supportsGait: true } });
     expect(items.find(item => item.id === 'O02')!.relatedIds).toEqual(['T02', 'B02', 'F02']);
-    expect(items.find(item => item.id === 'O02')!.variants.every(variant => variant.revisions.length === 0)).toBe(true);
+    // Male O02 is the exact recipe on the +30% head; the female recipe is not built yet.
+    const o02 = items.find(item => item.id === 'O02')!;
+    expect(o02.variants.find(variant => variant.base === 'male')!.currentRevisionId).toBe('head130');
+    expect(o02.variants.find(variant => variant.base === 'female')!.revisions).toHaveLength(0);
     // The +30% head O01 is current on both bases; the older male assembly stays as history.
     const o01 = items.find(item => item.id === 'O01')!;
     for (const variant of o01.variants) expect(variant.currentRevisionId).toBe('head130');

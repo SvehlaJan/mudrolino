@@ -1,0 +1,51 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/O02-head130-T02-B02-F02/outfit.blend",
+  "blend_sha256": "5a69b43d7a5261b33cd0e3c01254c920fb8b000269a643bf883ef63d686c78ba",
+  "object": "H01_head",
+  "bone": "Head",
+  "status": "passed",
+  "checks": [
+    {
+      "pose": "rest",
+      "max_attachment_error_m": 1.1200678630451045e-07,
+      "obstacle_pairs": {
+        "T02_pullover_hoodie_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-left",
+      "max_attachment_error_m": 2.0485709734063626e-07,
+      "obstacle_pairs": {
+        "T02_pullover_hoodie_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-right",
+      "max_attachment_error_m": 2.1400163496054816e-07,
+      "obstacle_pairs": {
+        "T02_pullover_hoodie_outfit": 0
+      }
+    },
+    {
+      "pose": "nod",
+      "max_attachment_error_m": 3.168085082081384e-07,
+      "obstacle_pairs": {
+        "T02_pullover_hoodie_outfit": 0
+      }
+    },
+    {
+      "pose": "look-up",
+      "max_attachment_error_m": 3.171532847552413e-07,
+      "obstacle_pairs": {
+        "T02_pullover_hoodie_outfit": 0
+      }
+    },
+    {
+      "pose": "tilt",
+      "max_attachment_error_m": 2.7486483373786085e-07,
+      "obstacle_pairs": {
+        "T02_pullover_hoodie_outfit": 0
+      }
+    }
+  ]
+}

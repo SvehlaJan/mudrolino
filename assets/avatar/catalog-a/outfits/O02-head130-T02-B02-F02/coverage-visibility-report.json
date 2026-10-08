@@ -1,0 +1,12 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/O02-head130-T02-B02-F02/outfit.blend",
+  "blend_sha256": "5a69b43d7a5261b33cd0e3c01254c920fb8b000269a643bf883ef63d686c78ba",
+  "verifier_sha256": "970580b962c668525d9a7c3335ae2b68b773b6bdb051b9cf86f47c2c7e8af50a",
+  "removed_faces": 79456,
+  "visible_faces": 0,
+  "sample": [],
+  "accepted_contact_faces": 0,
+  "accepted_contact_piece": null,
+  "cameras": "8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose",
+  "status": "passed"
+}

@@ -1,13 +1,13 @@
 {
   "study_dir": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130",
-  "study_report_sha256": "e6e77586d22c50f5b1e8324f90c9736c878cdfd1c454b679cd49aa9e07ea31a9",
+  "study_report_sha256": "cb7268cf72b37e70b9f26b9e22c407822730813a5251b051bf431c5c4f8b7567",
   "verifier_sha256": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
   "failures": [],
   "status": "passed",
   "skin_in_front_of_hair_rays": {
     "source": 0,
     "scaled": 0,
-    "rest_head_hair_pairs_info": 605
+    "rest_head_hair_pairs_info": 661
   },
   "clearance": {
     "samples": 169,

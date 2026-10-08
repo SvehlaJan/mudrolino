@@ -3,7 +3,7 @@
 Status: technical checks pass; art review pending. Decision: the user chose +30%
 heads on both bases on 2026-10-07.
 
-Builder: `tools/blender/catalog/build_catalog_head_scale_study.py --base female --scale 1.3 --hair-taper 1.56,1.40,1.0 --rear-shorten 1.56,.2,.04,.10`.
+Builder: `tools/blender/catalog/build_catalog_head_scale_study.py --base female --scale 1.3 --hair-taper 1.56,1.40,1.0 --rear-shorten 1.56,.3,.04,.10` (20% until 2026-10-08).
 Verifier: `tools/blender/catalog/verify_catalog_head_scale_study.py`.
 
 Uniform scaling of the shoulder-length hair failed. The hair tips grew 2.5 cm down
@@ -30,7 +30,14 @@ and hair matches the taper and shortening rules; hair/body clear over 163 gait
 poses plus six gestures; zero visible skin-through-hair rays (same as the source);
 UV-corner identity and embedded face image; 16-pose export 0.6 µm.
 
+**2026-10-08, 30% rear shortening:** with the fuller T02 hood, the hood itself was
+clear, but the rear hair tips (rest y 0.19 m, z 1.47 m) touched the back of the
+T02 upper sleeve at run 9.5 and 9.75 (6 pairs, RightArm). Long sleeves are thicker
+than the tee, so this would recur on every female long-sleeve top. Shortening by
+30% instead of 20% raises those tips about 12 mm and clears T02 in all 163
+poses. The back of the bob reads slightly shorter, and the face-framing sides are
+unchanged. The study was rebuilt in place, and every dependent female study (A01,
+A02, O01, T02 capsule) was rebuilt and re-verified on it.
+
 Open: the planned hair redesign (side part, face-framing locks, wavy silhouette
-instead of a cowl). The T02/B01/F01 capsule hood intersects the larger hair
-(271 pairs in 16 run poses), so the hood refit is required before the capsule
-moves to this head.
+instead of a cowl).

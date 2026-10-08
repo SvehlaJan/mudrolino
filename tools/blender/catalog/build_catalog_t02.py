@@ -17,6 +17,9 @@ def mesh_object(name,vertices,faces,mat):
     for p in mesh.polygons:p.use_smooth=True
     return obj
 
+# Hood bowl shape; revisions (build_catalog_hood_revision.py) set a fuller bowl.
+HOOD_SHAPE={'bulge':.025,'bottom_y':.180,'bottom_rise':.055}
+
 def create_hood(orange,inside):
     # Open U-shaped neckline, softly collapsing into the back hanging bowl.
     vertices=[];faces=[];n=40;rows=9
@@ -25,8 +28,8 @@ def create_hood(orange,inside):
         for i in range(n+1):
             angle=-.20+(math.pi+.40)*i/n;s=max(0,math.sin(angle))
             top=Vector((.121*math.cos(angle),.025+.128*math.sin(angle),1.436+.022*s))
-            bottom=Vector((.086*math.cos(angle),.180+.055*s,1.285+.026*(1-s)))
-            p=top.lerp(bottom,t);p.y+=.025*math.sin(math.pi*t)*s
+            bottom=Vector((.086*math.cos(angle),HOOD_SHAPE['bottom_y']+HOOD_SHAPE['bottom_rise']*s,1.285+.026*(1-s)))
+            p=top.lerp(bottom,t);p.y+=HOOD_SHAPE['bulge']*math.sin(math.pi*t)*s
             vertices.append(tuple(p))
     for row in range(rows-1):
         for i in range(n):
@@ -115,7 +118,10 @@ def main():
     group.add(indices,1,'REPLACE');m=body.modifiers.new('Hide body beneath T02','MASK');m.vertex_group=group.name;m.invert_vertex_group=True;m.threshold=.5
     evaluated=body.evaluated_get(bpy.context.evaluated_depsgraph_get());mesh=bpy.data.meshes.new_from_object(evaluated);masked=bpy.data.objects.new('body_underlayer_male_T02',mesh);bpy.context.collection.objects.link(masked)
     m=masked.modifiers.new('Canonical body skin','ARMATURE');m.object=arm;masked.parent=arm
-    export(a.output_dir/'T02.glb',[arm,hoodie]);export(a.output_dir/'body-T02.glb',[arm,masked,*parts]);bpy.data.objects.remove(masked,do_unlink=True)
+    # Painted-face heads need texture coordinates; the garment exporter drops them.
+    textured=any(node.type=='TEX_IMAGE' for part in parts for m in part.data.materials if m and m.use_nodes for node in m.node_tree.nodes)
+    if textured:from build_catalog_female_foundation_study import export_uv
+    export(a.output_dir/'T02.glb',[arm,hoodie]);(export_uv if textured else export)(a.output_dir/'body-T02.glb',[arm,masked,*parts]);bpy.data.objects.remove(masked,do_unlink=True)
     camera=setup_render();camera.data.ortho_scale=2.03;reset(arm);bpy.ops.wm.save_as_mainfile(filepath=str((a.output_dir/'T02.blend').resolve()))
     report={'id':'T02','status':'candidate; complete motion/style/runtime checks pending','vertices':len(hoodie.data.vertices),'polygons':len(hoodie.data.polygons),'groups':len(hoodie.vertex_groups),'max_influences':max(len(v.groups) for v in hoodie.data.vertices),'covered_body_vertices':len(indices),'poses':[]}
     for label,motion,frame,pos in [('rest-front',None,0,(0,-3,.92)),('rest-back',None,0,(0,3,.92)),('rest-side',None,0,(3,0,.92)),('three-quarter',None,0,(2,-3,.92)),('walk-13','walk',13,(0,-3,.92)),('run-8','run',8,(0,-3,.92))]:

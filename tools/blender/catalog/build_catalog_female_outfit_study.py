@@ -82,7 +82,7 @@ def components(obj):
         groups.append(group)
     return groups
 
-def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, back_relief, back_clearance, controlled, tee_underarm=False):
+def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, back_relief, back_clearance, controlled, tee_underarm=False, hood_shape=None):
     groups = [ids for ids in components(obj) if len(ids) > 4]
     roles = obj.data.attributes.new(name='female_detail_role', type='INT', domain='POINT')
     anchors = obj.data.attributes.new(name='female_hood_anchor', type='BOOLEAN', domain='POINT')
@@ -202,7 +202,7 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
         anchors = obj.data.attributes.get('female_hood_anchor')
         if anchors is None: anchors=obj.data.attributes.new(name='female_hood_anchor',type='BOOLEAN',domain='POINT')
         for value in anchors.data:value.value=False
-        hood = create_lowered_hood(obj, arm, obj.data.materials.get('A tangerine hoodie fabric'), obj.data.materials.get('A warm orange hood lining'))
+        hood = create_lowered_hood(obj, arm, obj.data.materials.get('A tangerine hoodie fabric'), obj.data.materials.get('A warm orange hood lining'), **(hood_shape or {}))
         bpy.ops.object.select_all(action='DESELECT');obj.select_set(True);hood.select_set(True)
         bpy.context.view_layer.objects.active=obj;bpy.ops.object.join()
     if controlled and id == 'F01':
@@ -285,6 +285,7 @@ def main():
     p.add_argument('--skip-reviews', action='store_true')
     p.add_argument('--controlled-components', action='store_true')
     p.add_argument('--recipe', default=','.join(DEFAULT_RECIPE), help='Comma-separated piece IDs, e.g. T01,B01,F01 for exact O01')
+    p.add_argument('--hood-shape', type=json.loads, default=None, help='JSON keyword arguments for catalog_female_hood_geometry.create_lowered_hood')
     p.add_argument('--tee-underarm', action='store_true', help='T01 coverage: release arm skin inside the sleeve that a standard camera would see')
     p.add_argument('--accept-armpit-crease', action='store_true', help='Record the user-accepted T01 armpit crease edge (2026-10-08) as a known minor defect')
     a = p.parse_args(sys.argv[sys.argv.index('--') + 1:])
@@ -301,7 +302,7 @@ def main():
         assert current == baseline
         source = a.catalog_dir / id / (id + '.blend')
         obj = load_garment(source, id, arm); original = geometry_signature(obj)
-        rows = fitted_parts(obj, id, arm, body, a.hood_offset, a.opening_relief, a.hood_lower, a.back_relief, a.back_clearance, a.controlled_components, a.tee_underarm)
+        rows = fitted_parts(obj, id, arm, body, a.hood_offset, a.opening_relief, a.hood_lower, a.back_relief, a.back_clearance, a.controlled_components, a.tee_underarm, a.hood_shape)
         normalized = normalize_garment(obj)
         indices = mask(body, obj, arm, id, a.tee_underarm)
         assert fixed_signatures(arm) == baseline, 'Fixed female geometry/rig/action changed'
@@ -328,7 +329,7 @@ def main():
         'opening_limits': OPENING_LIMITS,
         'footwear_opening_z': .118, 'footwear_safety_margin_m': .004,
         'head_export': 'UV-preserving export, unchanged canonical face material/image',
-        'controlled_components':a.controlled_components, 'tee_underarm':a.tee_underarm, 'underarm_coverage':UNDERARM_COVERAGE, 'accepted_visibility_exemptions':[{'piece':'T01','region':'contact_T01','decision':'User accepted 2026-10-08: the cut edge of arm skin that touches the tee (at rest or in the gait) is a known minor defect; the A-pose arm presses against the torso.'}] if a.accept_armpit_crease and 'T01' in recipe else [], 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py',*(['catalog_coverage_visibility.py','catalog_tee_underarm.py'] if a.tee_underarm else [])]} if a.controlled_components else {},
+        'controlled_components':a.controlled_components, 'tee_underarm':a.tee_underarm, 'hood_shape':a.hood_shape, 'underarm_coverage':UNDERARM_COVERAGE, 'accepted_visibility_exemptions':[{'piece':'T01','region':'contact_T01','decision':'User accepted 2026-10-08: the cut edge of arm skin that touches the tee (at rest or in the gait) is a known minor defect; the A-pose arm presses against the torso.'}] if a.accept_armpit_crease and 'T01' in recipe else [], 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py',*(['catalog_coverage_visibility.py','catalog_tee_underarm.py'] if a.tee_underarm else [])]} if a.controlled_components else {},
         'exports': {name: digest(a.output_dir / name) for name in ['outfit.blend', 'outfit.glb', 'body.glb', 'garments.glb']}}
     (a.output_dir / 'assembly-report.json').write_text(json.dumps(report, indent=2) + '\n')
     if not a.skip_reviews:

@@ -1,11 +1,11 @@
 {
   "status": "passed",
-  "source_blend_sha256": "f73571f654a1c620188e7ded08a89c3fe224f45e3a991ed088eda0ea2dc29179",
+  "source_blend_sha256": "ea6448d2d1e4975c49d0028225dad293b36697c6bcfb9ef98e1a60a5dcb300a6",
   "checks": [
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/body.glb",
-      "sha256": "b668c8b60428d2e70702c63fd5cd4740888deb323f015eab7dbf26ffbcc2f362",
-      "bytes": 2304308,
+      "sha256": "10548093d4a44310858c8b63e85ddcc375ff612985e364c17f211ff13e6bde8f",
+      "bytes": 2304312,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -80,7 +80,7 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.glb",
-      "sha256": "079cf4074c80c3c863105f48ef64d3a429813fb149f1de2d0c85bac62989235c",
+      "sha256": "dd3f707326aaa160cc5799af1a5473e951865af0560bdc7007f88a00355378ae",
       "bytes": 4257488,
       "issues": {
         "numErrors": 0,
@@ -142,7 +142,7 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/body.glb",
-      "sha256": "0423bc34f090f014766ba143583684fc7a20da444a82e63400136ad1d6332cb1",
+      "sha256": "a5249bd888801fccb0b118a7a2d7b9d8e2a0b39be59538e349e5496bfe433450",
       "bytes": 3690308,
       "issues": {
         "numErrors": 0,
@@ -181,7 +181,7 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/outfit.glb",
-      "sha256": "861f793d0732ad67c32a003254e880c8468b2481de361c996dc726d1a28dbec8",
+      "sha256": "9b4e89175854acf73a20fef8a20b07ed6ddc378266e93aa0cfd3e5f09553781e",
       "bytes": 4394256,
       "issues": {
         "numErrors": 0,
@@ -207,7 +207,7 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/B01/body.glb",
-      "sha256": "90100ab655095de65124f8c40464a7e440f4f62bee6e469f9e36872cec1cdc2d",
+      "sha256": "f32ef9e025edaa3b5680017364b942d42eae295ecc9c27ac3cb07db3cc18bb82",
       "bytes": 3347732,
       "issues": {
         "numErrors": 0,
@@ -259,8 +259,8 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/B01/outfit.glb",
-      "sha256": "75c986eb64d4f50bc83e10837df00255c06e6cf72a2f0394caf84b1cc1c635d8",
-      "bytes": 3973016,
+      "sha256": "f0a0b367b3f1c1ccb2e0640eb912091d3ffa6ba4aeafbb17d8eed96415e11734",
+      "bytes": 3973020,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -297,7 +297,7 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/F01/body.glb",
-      "sha256": "01f7b0ca588b98cb132a2701278cd991e4b834364de22672dc5c901752cb14b1",
+      "sha256": "c91eae59972c56702fa0b591fd30fbbac4f3da122fa32718e35494625da9cb8b",
       "bytes": 4060580,
       "issues": {
         "numErrors": 0,
@@ -361,7 +361,7 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/F01/outfit.glb",
-      "sha256": "283387779902ef25c1d59218bab37667ca88530c2ac08fe701e53020f60ad756",
+      "sha256": "bbe936940805b45c13a72107ceeda7671952f02ca9b48d0fb1876e20bd7ab89f",
       "bytes": 4684500,
       "issues": {
         "numErrors": 0,

@@ -1,5 +1,5 @@
 """Assemble independent masters and union their reversible body coverage."""
-import argparse,json,sys
+import argparse,hashlib,json,sys
 from pathlib import Path
 import bpy
 from mathutils import Vector,Matrix
@@ -33,7 +33,7 @@ def main():
   if 'contact_'+id in source_body.vertex_groups:
    contact_group=source_body.vertex_groups['contact_'+id];body.vertex_groups.new(name='contact_'+id).add([v.index for v in source_body.data.vertices if any(w.group==contact_group.index and w.weight>.5 for w in v.groups)],1,'REPLACE')
   m=body.modifiers.new('Hide body beneath '+id,'MASK');m.vertex_group=group.name;m.invert_vertex_group=True;m.threshold=.5
-  coverage[id]={'vertices':len(indices),'source_rest_delta_m':delta};garments.append(garment)
+  coverage[id]={'vertices':len(indices),'source_rest_delta_m':delta,'source':str(path),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest()};garments.append(garment)
   for o in list(bpy.data.objects):
    if o not in before and o!=garment:bpy.data.objects.remove(o,do_unlink=True)
  evaluated=body.evaluated_get(bpy.context.evaluated_depsgraph_get());mesh=bpy.data.meshes.new_from_object(evaluated);masked=bpy.data.objects.new('outfit_masked_body',mesh);bpy.context.collection.objects.link(masked)
@@ -42,7 +42,7 @@ def main():
  write=export_uv if args.uv_export else export
  write(args.output_dir/'garments.glb',[arm,*garments]);write(args.output_dir/'body.glb',[arm,masked,*body_parts]);write(args.output_dir/'outfit.glb',[arm,masked,*body_parts,*garments]);bpy.data.objects.remove(masked,do_unlink=True)
  camera=setup_render();camera.data.ortho_scale=2.03;reset(arm);bpy.ops.wm.save_as_mainfile(filepath=str((args.output_dir/'outfit.blend').resolve()))
- report={'pieces':args.pieces.split(','),'status':'combination candidate; motion/runtime acceptance pending','coverage':coverage,'poses':[]}
+ report={'pieces':args.pieces.split(','),'foundation':str(args.foundation),'foundation_sha256':hashlib.sha256(args.foundation.read_bytes()).hexdigest(),'status':'combination candidate; motion/runtime acceptance pending','coverage':coverage,'poses':[]}
  for label,motion,frame,pos in [('rest-front',None,0,(0,-3,.92)),('rest-back',None,0,(0,3,.92)),('rest-side',None,0,(3,0,.92)),('three-quarter',None,0,(2,-3,.92)),('walk-13','walk',13,(0,-3,.92)),('run-8','run',8,(0,-3,.92))]:
   reset(arm)
   if motion:

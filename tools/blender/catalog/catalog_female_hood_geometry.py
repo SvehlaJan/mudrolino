@@ -11,19 +11,21 @@ import math
 
 def hood_sheet_samples(*, seam_z=1.380, bottom_z=1.235, half_width=.100,
                        depth=.015, bowl_start_z=1.300, side_arch=.015,
-                       segments=32, rows=16):
+                       segments=32, rows=16, bottom_bulge=0.0):
     """Return ordered sheet rows with an attached upper seam and low bowl.
 
     Each sample defines x/z, posterior bulge and its attachment role. The lower
     boundary rounds upward at its sides; bowl bulge stays zero in the measured
     upper/central hair contact band. A finite nondegenerate grid is required.
+    bottom_bulge keeps that fraction of the depth at the lower rim, so a full
+    bowl hangs off the back as a pouch instead of tapering into the cloth.
     """
     values = (seam_z, bottom_z, half_width, depth, bowl_start_z, side_arch)
     if not all(math.isfinite(value) for value in values):
         raise ValueError('Hood parameters must be finite')
     if not bottom_z < bowl_start_z < seam_z:
         raise ValueError('Require bottom_z < bowl_start_z < seam_z')
-    if half_width <= 0 or depth < 0 or side_arch < 0:
+    if half_width <= 0 or depth < 0 or side_arch < 0 or not 0 <= bottom_bulge <= 1:
         raise ValueError('Require positive width and nonnegative depth/side arch')
     if not isinstance(segments, int) or not isinstance(rows, int) or segments < 8 or rows < 4:
         raise ValueError('Require at least eight segments and four rows')
@@ -41,7 +43,8 @@ def hood_sheet_samples(*, seam_z=1.380, bottom_z=1.235, half_width=.100,
                 raise ValueError('Side arch must preserve descending sheet rows')
             z = (1 - v) * top + v * bottom
             t = max(0, min(1, (bowl_start_z - z) / (bowl_start_z - bottom_z)))
-            bulge = depth * math.sin(math.pi * t) ** 2 * (1 - edge) ** 2
+            profile = math.sin(math.pi * t) ** 2 if t <= .5 else 1 - (1 - bottom_bulge) * math.sin(math.pi * (t - .5)) ** 2
+            bulge = depth * profile * (1 - edge) ** 2
             samples.append({'x': width * u, 'z': z,
                             'bulge': bulge, 'anchor': row == 0})
         grid.append(samples)
@@ -51,7 +54,7 @@ def hood_sheet_samples(*, seam_z=1.380, bottom_z=1.235, half_width=.100,
 def create_lowered_hood(cloth, arm, outer_material, lining_material, *,
                         seam_z=1.380, bottom_z=1.235, half_width=.100,
                         depth=.015, bowl_start_z=1.300, side_arch=.015,
-                        clearance=.0025, thickness=.002, segments=32, rows=16):
+                        clearance=.0025, thickness=.002, segments=32, rows=16, bottom_bulge=0.0):
     """Return a separate skinned hood with role 2 and explicit seam anchors.
 
     `cloth` must be in identity rest space and carry female_detail_role; role 0
@@ -72,7 +75,7 @@ def create_lowered_hood(cloth, arm, outer_material, lining_material, *,
     grid = hood_sheet_samples(seam_z=seam_z, bottom_z=bottom_z,
                               half_width=half_width, depth=depth,
                               bowl_start_z=bowl_start_z, side_arch=side_arch,
-                              segments=segments, rows=rows)
+                              segments=segments, rows=rows, bottom_bulge=bottom_bulge)
     roles = cloth.data.attributes['female_detail_role']
     if roles.domain != 'POINT' or roles.data_type != 'INT':
         raise ValueError('Cloth role attribute must be POINT/INT')
@@ -164,5 +167,5 @@ def create_lowered_hood(cloth, arm, outer_material, lining_material, *,
     obj['hood_parameters'] = str({'seam_z': seam_z, 'bottom_z': bottom_z, 'half_width': half_width,
                                    'depth': depth, 'bowl_start_z': bowl_start_z, 'side_arch': side_arch,
                                    'clearance': clearance, 'thickness': thickness,
-                                   'segments': segments, 'rows': rows})
+                                   'segments': segments, 'rows': rows, 'bottom_bulge': bottom_bulge})
     return obj

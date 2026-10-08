@@ -1,0 +1,14 @@
+{
+  "blend": "assets/avatar/catalog-a/T02/fitting-revisions/hood-v2/T02.blend",
+  "blend_sha256": "cf0ac8c68cb41ed9f873c7c6fa72cbdf4382a1987f37cd5be45486eb2eab8941",
+  "verifier_sha256": "970580b962c668525d9a7c3335ae2b68b773b6bdb051b9cf86f47c2c7e8af50a",
+  "removed_faces": 33964,
+  "visible_faces": 1,
+  "sample": [
+    67100
+  ],
+  "accepted_contact_faces": 0,
+  "accepted_contact_piece": null,
+  "cameras": "8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose",
+  "status": "failed"
+}

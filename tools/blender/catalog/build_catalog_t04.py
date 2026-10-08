@@ -10,6 +10,9 @@ from catalog_piece import build_piece,long_top_coverage,inherit_detail_weights
 from build_catalog_t02 import create_hood,mesh_object
 from build_catalog_head import material,tube,sphere
 
+# The construction target forbids dangling strings; revisions turn the canonical cords off.
+DRAWCORDS=True
+
 def create_zip_hoodie(arm,body):
     obj=create_long_top(arm,body,'T04_zip_hoodie')
     navy=material('A navy zip hoodie fabric',(.026,.049,.106),.87)
@@ -47,7 +50,7 @@ def create_zip_hoodie(arm,body):
         # Low-resolution seam tubes keep hardware subordinate at runtime scale.
         opening=tube('T04 angled pocket opening',points,.0014,seam);parts.append(opening)
         points=[front(sign*x,z,.006) for x,z in [(.046,1.408),(.050,1.381),(.057,1.350),(.055,1.324)]]
-        cord=tube('T04 ivory drawcord',points,.0017,ivory);parts.append(cord)
+        if DRAWCORDS:cord=tube('T04 ivory drawcord',points,.0017,ivory);parts.append(cord)
     pull=front(0,1.402,.004);parts.append(sphere('T04 rounded zipper pull',pull,(.004,.002,.005),ivory,segments=12,rings=8))
     for part in parts:
         fn=None

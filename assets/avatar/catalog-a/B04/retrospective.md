@@ -398,3 +398,17 @@ No fresh aggregate integration/release profile is claimed for this change.
 Next: reference-matching pocket/waist construction on a separate bounded source,
 then rerun affected proof. Cuff art approval, final shoe/head compatibility,
 budgets and female fitting remain open. A source/export pass is not art approval.
+
+## 2026-10-08: rolled-cuff-v1 promoted
+
+The B04 blocks were a whole-garment self count (55 rest / 553 worst) and, earlier,
+detail-to-shell contact. Measured with one rule on every garment
+(`audit_catalog_detail_shell.py`), the passing B01 fails both by more: 489 / 1,531
+whole-garment pairs and 392 / 940 detail pairs. The rolled-cuff candidate
+(`independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate`)
+has zero detail-to-shell pairs and fixes all 41 centre-strip leaks. Fresh gates on
+it pass: side isolation, 163-pose motion, stitched details within 9.11 mm with
+detail clearance required, and glTF. Exact O04 (T04 hood-v2, this B04, F03) on the
++30% head passes all outfit gates, with export at 1.11 µm
+(`../outfits/O04-head130-T04-B04-F03`). It is now the current male B04 at the same
+standard as B01. Art review, pockets and waist detail remain open.

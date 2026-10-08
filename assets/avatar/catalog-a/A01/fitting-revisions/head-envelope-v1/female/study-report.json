@@ -8,9 +8,9 @@
   "base": "female",
   "head_study": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130",
   "source_hashes": {
-    "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "c542b88a057909ac28d941f7a02e9484a3d8d73bfbcc6e6058cfc641a38a0ea1",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962",
     "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/head-landmarks.json": "49deac7300e5763870ff8e21dc1aafb5ef581b3d978e486bdb9c6c50aaa9cda3",
-    "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/verification-report.json": "dadc26aa3cee2fa9ea08b3ff84632caa1aeae225e0f2613f47d2858e60bcaea4"
+    "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/verification-report.json": "f96c10a0eae05c5d09aa7186349c58c0b25cd295f9c35e46610740234a0f1c2b"
   },
   "builder": "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a01_fitted.py",
   "builder_sha256": "52f102ce8c95ebb5387e368d7bc67d3f62ce3cfdda486995cfc4fa6b7671543c",
@@ -103,17 +103,17 @@
     "motion": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
     "unchanged_basis_geometry": {
       "body_underlayer_female": "0604b1561d9122f2874813d4d5da76d6689b9e7e16befdbdf2683a5f6d4e016d",
-      "H02_hair": "2da00ba411d041c7db57e26ef6b450e0a043ac3abe6d42d3249a105b8623a334",
+      "H02_hair": "90285c33e0ab36f1b9f4a59ee37de9de9230d854855f1d2c7e3439dcbc434818",
       "H02_head": "45568053b6f972f29487a5a2d41fd863caf73f444df0947eb455ad319cddfb8e"
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A01/fitting-revisions/head-envelope-v1/female/A01.blend": "59d45cf3788b5727e8ebedcb4370ac093c280060192451eed99626e7c8d8b5b5"
+    "assets/avatar/catalog-a/A01/fitting-revisions/head-envelope-v1/female/A01.blend": "e01495b4efe39fa724c41589f1a419f1d265677804ba4bc4eb2a1d5ab6de340d"
   },
   "exports": {
-    "A01.glb": "27688dd6102abec9faccc42ed5e2fa2691621183bd145f1f02fa4532df52099e",
-    "head-under-hat.glb": "1c67760d2e46de772c11c8e8591e787884ce9016fe79d25d5b3476a3ccafa2b1",
-    "outfit.glb": "1800ab0d41730a2a00221bf680afa7f93fe6cfbbd48df542d9c5dcfa7519d211"
+    "A01.glb": "8f7686b8fc4fddfee7db6be4a48d976e43e2e17907ae967c8275c6662a4500de",
+    "head-under-hat.glb": "9c0a124efd7e599b04d8d7d0f5ac8577719cdf3f639f4d9a0fb1f71ae0f2bd07",
+    "outfit.glb": "ee99f31b9ceff20900ba226eb7c217596a2ac5685cdb44d2c8c5b9cc2dcb04d5"
   },
   "reviews": {
     "front-full": "assets/avatar/catalog-a/A01/fitting-revisions/head-envelope-v1/female/front-full-review.png",

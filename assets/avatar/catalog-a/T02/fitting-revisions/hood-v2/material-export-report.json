@@ -1,0 +1,22 @@
+{
+  "target": "assets/avatar/catalog-a/T02/fitting-revisions/hood-v2/T02.glb",
+  "sha256": "ccc47dd1db390de73973c8e97664dc09f6cc84ee5f7376ee7bee048e4205b55a",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A tangerine hoodie fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A tangerine ribbed hems",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T02_pullover_hoodie quad shell",
+      "material": "A warm orange hood lining",
+      "colorComponents": 0
+    }
+  ]
+}

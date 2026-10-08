@@ -1,0 +1,19 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/O02-head130-T02-B02-F02/outfit.blend",
+  "blend_sha256": "5a69b43d7a5261b33cd0e3c01254c920fb8b000269a643bf883ef63d686c78ba",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T02_pullover_hoodie_outfit",
+    "B02_joggers_outfit",
+    "F02_slip_ons_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

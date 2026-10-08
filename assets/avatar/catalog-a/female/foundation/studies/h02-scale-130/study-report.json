@@ -16,7 +16,7 @@
   },
   "rear_shorten": {
     "z_from": 1.56,
-    "fraction": 0.2,
+    "fraction": 0.3,
     "y_start": 0.04,
     "y_full": 0.1
   },
@@ -43,7 +43,7 @@
   },
   "scaled_head_geometry": {
     "H02_head": "45568053b6f972f29487a5a2d41fd863caf73f444df0947eb455ad319cddfb8e",
-    "H02_hair": "2da00ba411d041c7db57e26ef6b450e0a043ac3abe6d42d3249a105b8623a334"
+    "H02_hair": "90285c33e0ab36f1b9f4a59ee37de9de9230d854855f1d2c7e3439dcbc434818"
   },
   "landmarks": {
     "head": "H02",
@@ -62,12 +62,12 @@
     "ear_top_z": 1.696559908103943
   },
   "blend": {
-    "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "c542b88a057909ac28d941f7a02e9484a3d8d73bfbcc6e6058cfc641a38a0ea1"
+    "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962"
   },
   "exports": {
-    "female-foundation.glb": "7a83370a889ef25853ee0376af2f784c6331ce60534a2bfbe6c32ac454bed0c2",
-    "H02.glb": "cd60ff5eccf8b8b7707eb7899c60ee886ec647643668f01741aa4c884a89b16e",
-    "hair-H02.glb": "555a5076f2f99fb96e3c0fb7fbac122a5070aa90b191d239f5c28e8184a31f53"
+    "female-foundation.glb": "0d5474a63b632d7c2091fc9870501e14b29883cbcc109efd252360d43cfa1218",
+    "H02.glb": "f34801a9853af32c08f9c47305c04a5126f94924c17422a2b04b8bf77fe4aaa8",
+    "hair-H02.glb": "154d68933e22204a39966e248f76b6e160abecac66379be2d253e186be18d80a"
   },
   "reviews": {
     "front-full": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/front-full-review.png",

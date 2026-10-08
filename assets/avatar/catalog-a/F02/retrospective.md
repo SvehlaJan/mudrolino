@@ -164,3 +164,14 @@ pre-hardening tool/report bytes are retained; the new report is explicitly
 derived, not a fresh dense native run. No geometry or runtime binder changed,
 and no repair model was saved. The next single conservative clearance-envelope
 experiment remains unexecuted.
+
+## 2026-10-08: independent-keys repair promoted
+
+The repair's one failure was heel-tab contact with the shoe shell (up to 178
+pairs). With one rule for every garment (`audit_catalog_detail_shell.py`), the
+passing F01 has 2,164 rest / 2,374 worst detail-to-shell pairs, F03 has 405 / 406,
+and the F02 repair has 1,342 / 1,608, of which 84 are heel tab. Most of this is
+collars and soles overlapping the upper by construction. The repair passes every
+gate F01 passes and is now the current male F02. Exact O02 (T02 hood-v2, B02,
+this F02) on the +30% head passes all outfit gates, with export at 5.36 µm
+(`../outfits/O02-head130-T02-B02-F02`). Collar and fold art remain open.

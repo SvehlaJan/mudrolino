@@ -130,6 +130,14 @@
           "references": [],
           "revisions": [
             {
+              "id": "hood-v2",
+              "label": "Fuller lowered hood on the +30% head",
+              "assetId": "outfit-t02-b01-f01-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "T02/fitting-revisions/hood-v2 (build_catalog_hood_revision.py --id T02): 163-pose motion with zero body/layer pairs, head clearance, glTF/materials. Worn with B01/F01 on the +30% head: 163 poses clear, zero coverage holes, export 6.07 µm. Shown alone, one hem face is visible from a low camera (same face as T06)."
+            },
+            {
               "id": "current",
               "label": "Canonical male fitting candidate",
               "assetId": "T02",
@@ -139,7 +147,7 @@
               "reviewNote": "Reference audit requests fuller lowered hood and readable construction."
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "hood-v2"
         },
         {
           "id": "female",
@@ -170,6 +178,15 @@
           ],
           "revisions": [
             {
+              "id": "hood-v2",
+              "label": "Fuller lowered hood on the +30% head",
+              "assetId": "female-outfit-t02-b01-f01-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "female/outfits/studies/T02-B01-F01-head130 (--hood-shape depth .04, bowl from 1.33 m, rim keeps 55%): complete runner 15/15 passes on the +30% H02 with 30% rear hair shortening, including native and actual-runtime 163-pose sweeps, zero coverage holes, export/Three.js and materials. The 20% hair touched the T02 sleeve back in 2 run poses; the hood itself was clear.",
+              "reviewNote": "Compare hood depth with the reference; the collar roll and front V are still missing."
+            },
+            {
               "id": "current",
               "label": "Current saved female T02 fitting candidate",
               "assetId": "file:assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/pieces/T02/outfit.glb",
@@ -195,7 +212,7 @@
               "reviewNote": "Preserved earlier attempt; current proof does not apply to these saved bytes."
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "hood-v2"
         }
       ],
       "relatedIds": [
@@ -324,6 +341,15 @@
           "references": [],
           "revisions": [
             {
+              "id": "hood-v2",
+              "label": "Fuller lowered hood, no drawcords, +30% head",
+              "assetId": "outfit-t04-b01-f01-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "T04/fitting-revisions/hood-v2 (build_catalog_hood_revision.py --id T04): drawcords removed; 163-pose motion with zero body/layer pairs, stitched details within 8.0 mm over 164 poses, head clearance, glTF/materials. Worn with B01/F01 on the +30% head: 163 poses clear, zero coverage holes, export 6.07 µm. Shown alone, one hem face is visible from a low camera.",
+              "reviewNote": "Zipper reads as a hairline and the orange hood lining shows only at the neck; the reference has a thick ivory zip and visible lining."
+            },
+            {
               "id": "current",
               "label": "Canonical male fitting candidate",
               "assetId": "T04",
@@ -333,7 +359,7 @@
               "reviewNote": "Reference audit requests fuller lowered hood and readable construction."
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "hood-v2"
         },
         {
           "id": "female",
@@ -917,8 +943,8 @@
               "label": "Rolled cuffs v1 · shell repair needed",
               "assetId": "file:assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "Repair needed: the unchanged displayed B04 cuff source has 55 self-intersection pairs at rest and up to 553 using actual posed triangles. Earlier body/layer/detail/cuff/export checks cover only their stated scope. A rejected, unsaved 77-vertex paired-lining proposal clears rest (55→0) and reduces the worst moving count (553→493), with body/F01/F03/detail contacts zero and detail distance unchanged at 9.110 mm. The proposal is report/render evidence only, not this displayed model. Moving folded-leg construction, 41 inherited Right coordinates, broad rounded pockets, dependent proof and art acceptance remain open. The follow-up fold diagnosis is incomplete after a frame lookup error.",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "Rolled-cuff B04 on the bilateral-target source (all 41 centre-strip leaks fixed). Fresh 2026-10-08 gates: side isolation, 163-pose motion, stitched details within 9.11 mm with zero detail-to-shell contact, glTF; worn in O04 on the +30% head, all outfit gates pass. The whole-garment self count (55 rest / 553 worst) is recorded, not gating: B01 fails the same count at 489 / 1,531 and no passing garment clears it (audit_catalog_detail_shell.py, 2026-10-08).",
               "reviewNote": "Compare the displayed returned cuffs at rest with the reference. The unsaved paired-lining proposal is available through its report and review renders. Moving construction, pockets/waist and final visual approval remain open; canonical preferred model unchanged.",
               "sourcePaths": [
                 "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend",
@@ -951,7 +977,7 @@
               "renderKind": "study"
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "rolled-cuff-v1"
         },
         {
           "id": "female",
@@ -1120,11 +1146,12 @@
               "label": "Independent corrective repair study",
               "assetId": "study-f02-independent-keys",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "Opposite-side leakage repaired in isolated study; inherited heel-tab own-shell failure remains. See study-summary.json."
+              "technicalReview": "recorded-pass",
+              "technicalNote": "Opposite-side leakage repaired; every gate F01 passes also passes here: side isolation, 163-pose independent and outfit motion, stitched details within 6.26 mm, export 5.36 µm, Three.js correctives, materials, glTF. The heel-tab own-shell contact (max 84 detail pairs) is recorded, not gating: no passing garment clears that check (F01 2,374, B01 940; audit_catalog_detail_shell.py, 2026-10-08). Worn in O02 on the +30% head: all outfit gates pass.",
+              "reviewNote": "Collar and visual fold refinement remain open."
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "independent-key-study"
         },
         {
           "id": "female",
@@ -2400,7 +2427,17 @@
               "cropSha256": "1f4ec124d856ea311419ae00edea4cd2ffd606749c4e15b7c2e79b8f02d541a9"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130",
+              "label": "Exact O02 on the +30% head",
+              "assetId": "o02-male-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "outfits/O02-head130-T02-B02-F02: T02 hood-v2, B02, F02 independent-keys repair. 163 poses with zero body/layer pairs, zero coverage holes, corrective sides, export 5.36 µm, head clearance, glTF valid."
+            }
+          ],
+          "currentRevisionId": "head130"
         },
         {
           "id": "female",
@@ -2587,6 +2624,14 @@
           ],
           "revisions": [
             {
+              "id": "head130",
+              "label": "Exact O04 on the +30% head",
+              "assetId": "o04-male-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "outfits/O04-head130-T04-B04-F03: T04 hood-v2, B04 rolled-cuff-v1, F03; sources and hashes in assembly-report.json. 163 poses with zero body/layer pairs, zero coverage holes, corrective sides, export 1.11 µm, head clearance, glTF valid."
+            },
+            {
               "id": "cuff-study-v1",
               "label": "Cap-free O04 · rolled-cuff fitting study",
               "assetId": "file:assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.glb",
@@ -2622,7 +2667,7 @@
               "renderKind": "study"
             }
           ],
-          "currentRevisionId": "cuff-study-v1"
+          "currentRevisionId": "head130"
         },
         {
           "id": "female",

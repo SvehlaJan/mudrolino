@@ -1,0 +1,110 @@
+{
+  "pieces": [
+    "T04",
+    "B04",
+    "F03"
+  ],
+  "foundation": "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/foundation.blend",
+  "foundation_sha256": "b653e05677751c6066ef6d41ab74f3087c1131f7b8358cfbc83ef9a199bf91cd",
+  "status": "combination candidate; motion/runtime acceptance pending",
+  "coverage": {
+    "T04": {
+      "vertices": 16742,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/T04/fitting-revisions/hood-v2/T04.blend",
+      "source_sha256": "2e15d897fa26268233fa8097f7846379b1e97bbc850d59ddf2e3241fc8c8ca86"
+    },
+    "B04": {
+      "vertices": 17351,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend",
+      "source_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d"
+    },
+    "F03": {
+      "vertices": 7159,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/F03/F03.blend",
+      "source_sha256": "52a4bcfeb54aea644088d6e137fb3ab9a2cc16c4c747ab6a474abfac0147bcf5"
+    }
+  },
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0,
+        "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0,
+        "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0,
+        "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0,
+        "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0,
+        "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0,
+        "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0,
+        "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0,
+        "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0,
+        "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0,
+        "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0,
+        "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0,
+        "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0
+      }
+    }
+  ]
+}

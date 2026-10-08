@@ -45,3 +45,7 @@ complete runner passes: zero contacts over 163 native and runtime-equivalent pos
 zero visible holes, 385 accepted contact faces reported, and Three.js skinning at
 2.0 µm. The rejected side-panel relief and armpit-selector attempts are recorded in
 the T01 revision retrospective.
+
+2026-10-08: rebuilt on H02 with 30% rear hair shortening (see the H02 study). The
+complete runner passes again, 15/15, with zero visible holes and the same 385
+accepted contact faces.

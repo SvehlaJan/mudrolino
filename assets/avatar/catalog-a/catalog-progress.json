@@ -647,6 +647,93 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_t06_placket.py"
+    },
+    {
+      "id": "outfit-t02-b01-f01-head130",
+      "label": "T02 fuller hood + B01 / F01 · +30% head",
+      "path": "outfits/T02-B01-F01-head130",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "T02 hood-v2 (50 mm hood bowl, lower and further back) with B01/F01 on the +30% head. 163 gait poses clear, zero coverage holes, export 6.07 µm, head clearance, glTF valid. T02 piece: 163 poses clear, head clearance, materials pass. Review combination, not exact O02. Art review pending.",
+      "reference_ids": [
+        "T02",
+        "B01",
+        "F01",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_hood_revision.py"
+    },
+    {
+      "id": "outfit-t04-b01-f01-head130",
+      "label": "T04 fuller hood, no drawcords + B01 / F01 · +30% head",
+      "path": "outfits/T04-B01-F01-head130",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "T04 hood-v2 (fuller hood bowl, ivory drawcords removed per construction target) with B01/F01 on the +30% head. 163 gait poses clear, zero coverage holes, export 6.07 µm, head clearance, glTF valid. T04 piece: details within 8.0 mm over 164 poses. Review combination, not exact O04. Art review pending.",
+      "reference_ids": [
+        "T04",
+        "B01",
+        "F01",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_hood_revision.py"
+    },
+    {
+      "id": "o02-male-head130",
+      "label": "O02 · T02 fuller hood / B02 / F02 repaired · +30% head",
+      "path": "outfits/O02-head130-T02-B02-F02",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Exact O02 recipe on the +30% head: T02 hood-v2, canonical B02 and the F02 independent-keys repair. 163 gait poses with zero body/layer pairs, zero coverage holes, corrective sides isolated, 16-pose export 5.36 µm, head clearance, glTF valid. Art review pending.",
+      "reference_ids": [
+        "O02",
+        "T02",
+        "B02",
+        "F02",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/assemble_catalog_outfit.py"
+    },
+    {
+      "id": "female-outfit-t02-b01-f01-head130",
+      "label": "Female T02 fuller hood + B01 / F01 · +30% head",
+      "path": "female/outfits/studies/T02-B01-F01-head130",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Female T02 with the fuller hood (40 mm bowl, 55% kept at the rim) on the +30% H02 with 30% shorter rear hair. Complete runner 15/15: native and actual-runtime 163-pose sweeps, zero coverage holes, details, export/Three.js and materials. Art review pending.",
+      "reference_ids": [
+        "T02",
+        "B01",
+        "F01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
+    },
+    {
+      "id": "o04-male-head130",
+      "label": "O04 · T04 fuller hood / B04 rolled cuffs / F03 · +30% head",
+      "path": "outfits/O04-head130-T04-B04-F03",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Exact O04 recipe on the +30% head: T04 hood-v2, B04 rolled-cuff-v1 and canonical F03. 163 gait poses with zero body/layer pairs, zero coverage holes, corrective sides isolated, 16-pose export 1.11 µm, head clearance, glTF valid. Art review pending.",
+      "reference_ids": [
+        "O04",
+        "T04",
+        "B04",
+        "F03",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/assemble_catalog_outfit.py"
     }
   ],
   "F02_corrective_repair_study": {
