@@ -1,0 +1,47 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/garments.glb",
+  "sha256": "ef96847748646618957c353333fc5df25484f4113988a11c247f069165572697",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory rubber sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory sneaker upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A cornflower sneaker panels",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A blue collar lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A cornflower blue matte",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A blue collar and hems",
+      "colorComponents": 0
+    }
+  ]
+}

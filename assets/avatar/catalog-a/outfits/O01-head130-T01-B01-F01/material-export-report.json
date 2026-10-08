@@ -1,0 +1,72 @@
+{
+  "target": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.glb",
+  "sha256": "8451650b5e31b938fef7a31b73a150eb486cab439058f8a1627d3b3a1a6b98a6",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers.001",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole.001",
+      "material": "A ivory rubber sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole.001",
+      "material": "A ivory sneaker upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole.001",
+      "material": "A cornflower sneaker panels",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole.001",
+      "material": "A blue collar lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A warm peach skin.001",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A ear warmth",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H01 rounded face",
+      "material": "A chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.005",
+      "material": "A warm peach skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface.001",
+      "material": "A cornflower blue matte",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface.001",
+      "material": "A blue collar and hems",
+      "colorComponents": 0
+    }
+  ]
+}

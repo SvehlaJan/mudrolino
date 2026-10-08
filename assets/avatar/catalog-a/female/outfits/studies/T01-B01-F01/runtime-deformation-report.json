@@ -1,0 +1,189 @@
+{
+  "status": "passed",
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.blend",
+  "blend_sha256": "91cbde1c80edd924c413cf9ee1dfe074fa424e22a494f23b4942925acc2cfd16",
+  "glb": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.glb",
+  "glb_sha256": "d6f93d88594d4c487c6e1a216e04b8ef7914929a1ec12760ee98284a2667fbf1",
+  "runtime_verifier_sha256": "baae745ff0bffb4417a90026321deefae4e763c28c9ea390d4602d557d2e607d",
+  "foundation_sha256": "c542b88a057909ac28d941f7a02e9484a3d8d73bfbcc6e6058cfc641a38a0ea1",
+  "runtime_samples_sha256": "6765cbba1c44c42d1915a423c25b23c850d72eaa0961414fec4d5aba68707a43",
+  "deformation_report_sha256": "dce28f652dd215d0cac5a1a85abbebfb21f99ed6fe8cb175f8de55e95b6a41b3",
+  "sampling": "about96 deterministic rendered GLB rest-index vertices per mesh per pose",
+  "axis_conversion": "Blender Z-up (x,y,z) to glTF Y-up (x,z,-y)",
+  "pose_evaluation": "raw-gltf-SLERP-equivalent-pose",
+  "pose_helper_sha256": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
+  "bone_translation_threshold_m": 0.00003,
+  "bone_linear_matrix_threshold": 0.000002,
+  "texture_scope": "Node skin math only; synthetic bitmap handle. Actual texture transport and browser rendering are separate gates.",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 6.433378606486215e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.1102230246251565e-16,
+      "max_raw_gltf_three_bone_linear_matrix_error": 3.3306690738754696e-16
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 5.951977099144487e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.1102230246251565e-16,
+      "max_raw_gltf_three_bone_linear_matrix_error": 3.3306690738754696e-16
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 5.355818045423875e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.420381115571634e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 8.730654766919699e-7
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 6.97798638984322e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 3.413256451922919e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 9.026951487828283e-7
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 6.012311353369309e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 9.038310011533213e-8,
+      "max_raw_gltf_three_bone_linear_matrix_error": 2.0350386153999978e-7
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 5.064113586416349e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 2.4777607632309184e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 3.284587805352235e-7
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 6.382874159955323e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.479819503602542e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 3.282543120652903e-7
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 7.273682035605057e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.1102230246251565e-16,
+      "max_raw_gltf_three_bone_linear_matrix_error": 2.220446049250313e-16
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 6.413711008730246e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.5844200691728094e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 4.044038514061654e-7
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 7.54563303935498e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 2.868007666495531e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 9.330870251178514e-7
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 7.917817640268557e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 4.08529751250164e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 9.640441586827864e-7
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 5.222894296529628e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.1157688467600124e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 1.6095813482053245e-7
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 5.465613695761437e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 2.0625586821809705e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 7.499616511696949e-7
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 7.569121744109042e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 2.5589493270194996e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 5.348435458407685e-7
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 7.245260748068625e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.1321099642469523e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 2.809312612261916e-7
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "samples": 582,
+      "unmatched": 0,
+      "max_imported_vertex_error_m": 5.113138659305495e-7,
+      "bone_count": 24,
+      "max_raw_gltf_three_bone_translation_error_m": 1.5403381153911155e-7,
+      "max_raw_gltf_three_bone_linear_matrix_error": 2.8048670364100303e-7
+    }
+  ],
+  "max_three_import_error_m": 7.917817640268557e-7,
+  "source_export_error_m": 0.0000012013699688395718,
+  "combined_error_bound_m": 0.0000019931517328664275,
+  "threshold_m": 0.00003,
+  "unmatched_samples": 0,
+  "gait_hashes": {
+    "walk": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "run": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  }
+}

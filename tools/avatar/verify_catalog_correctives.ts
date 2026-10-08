@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { AnimationMixer, SkinnedMesh, Vector3 } from 'three';
+import { AnimationMixer, SkinnedMesh, Vector3, type Texture } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { bindGarmentCorrectives } from '../../src/avatar/garmentCorrectives';
 
@@ -16,7 +16,9 @@ function digest(path: string) {
 }
 async function load(path: string) {
   const bytes = fs.readFileSync(path); hashes[path] = digest(path);
-  return new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+  // Geometry and morph targets only: Node cannot decode embedded face textures.
+  const loader = new GLTFLoader().register(() => ({ name: 'TEO_skip_textures', loadTexture: () => Promise.resolve(null as unknown as Texture) }));
+  return loader.parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
 }
 if (digest(reference.glb) !== reference.glb_sha256 || digest(reference.blend) !== reference.blend_sha256) throw new Error('Stale master/export');
 hashes[deformationPath] = digest(deformationPath);

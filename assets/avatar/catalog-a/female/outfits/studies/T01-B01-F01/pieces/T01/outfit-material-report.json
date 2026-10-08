@@ -1,0 +1,37 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/outfit.glb",
+  "sha256": "a2bfa455d612a9a6d03544b3e056db1b2642caf19551ab47b2ea20563084634e",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A cornflower blue matte",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A blue collar and hems",
+      "colorComponents": 0
+    }
+  ]
+}

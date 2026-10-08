@@ -1,0 +1,17 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/B01/garments.glb",
+  "sha256": "4fe1d879fbdf6d4fa5483c676e2b902dd8aa0ddcb4c1dd703e16186ffb88bbf6",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    }
+  ]
+}

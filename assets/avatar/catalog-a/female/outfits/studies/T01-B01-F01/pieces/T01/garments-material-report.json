@@ -1,0 +1,17 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/garments.glb",
+  "sha256": "817f7d58c46b791424e12e6ecfe6751655e14ee50ce06027e4289a9864ac2e11",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A cornflower blue matte",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A blue collar and hems",
+      "colorComponents": 0
+    }
+  ]
+}

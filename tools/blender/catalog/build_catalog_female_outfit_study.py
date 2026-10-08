@@ -1,4 +1,4 @@
-"""Isolated female T02/B01/F01 study; immutable foundation, fitted garments only."""
+"""Isolated female outfit study (default T02/B01/F01; --recipe for others); immutable foundation, fitted garments only."""
 from __future__ import annotations
 import argparse, hashlib, json, sys, re
 from pathlib import Path
@@ -8,13 +8,16 @@ from mathutils.bvhtree import BVHTree
 from mathutils.geometry import barycentric_transform
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog_t01 import reset, setup_render
-from catalog_piece import long_top_coverage
+from catalog_piece import long_top_coverage, short_top_coverage
 from catalog_bottom_geometry import full_trouser_coverage
 from catalog_footwear_geometry import face_safe_footwear_coverage
 from build_catalog_female_foundation_study import export_uv, topology_signature
 from build_catalog_head_style_study import rig_signature, motion_signature, geometry_signature
 
-NAMES = {'T02': 'T02_pullover_hoodie', 'B01': 'B01_straight_trousers', 'F01': 'F01_strap_sneakers'}
+NAMES = {'T01': 'T01_crew_tee', 'T02': 'T02_pullover_hoodie', 'B01': 'B01_straight_trousers', 'F01': 'F01_strap_sneakers'}
+DEFAULT_RECIPE = ('T02', 'B01', 'F01')
+# Removed-face boundaries: tops keep the neck, hoodie wrists and tee sleeve hems; trousers keep waist and ankles.
+OPENING_LIMITS = {'top_neck_z': 1.405, 'top_forearm_end': .96, 'top_sleeve_end': .45, 'B01_waist_z': .978, 'B01_ankle_z': .139}
 
 def digest(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -219,9 +222,10 @@ def normalize_garment(obj):
 
 def mask(body, obj, arm, id):
     if id == 'T02': ids = long_top_coverage(body, obj, arm)
+    elif id == 'T01': ids = short_top_coverage(body, obj, arm)
     elif id == 'B01': ids = full_trouser_coverage(body, obj, arm)
     else: ids = face_safe_footwear_coverage(body, .114)
-    if id in ['T02','B01']:
+    if id in ['T01','T02','B01']:
         def allowed(vertex):
             p = vertex.co
             if id == 'B01': return .139 < p.z < .978
@@ -268,10 +272,13 @@ def main():
     p.add_argument('--back-clearance', type=float, default=.009)
     p.add_argument('--skip-reviews', action='store_true')
     p.add_argument('--controlled-components', action='store_true')
+    p.add_argument('--recipe', default=','.join(DEFAULT_RECIPE), help='Comma-separated piece IDs, e.g. T01,B01,F01 for exact O01')
     a = p.parse_args(sys.argv[sys.argv.index('--') + 1:])
+    recipe = a.recipe.split(',')
+    assert recipe and all(id in NAMES for id in recipe) and len(set(recipe)) == len(recipe), recipe
     a.output_dir.mkdir(parents=True, exist_ok=True); a.review_dir.mkdir(parents=True, exist_ok=True)
     piece_rows = {}; baseline = None
-    for id in NAMES:
+    for id in recipe:
         bpy.ops.wm.open_mainfile(filepath=str(a.foundation.resolve()))
         bpy.context.preferences.filepaths.save_version = 0
         arm = bpy.data.objects['Armature_Catalog']; body = bpy.data.objects['body_underlayer_female']; reset(arm)
@@ -294,17 +301,17 @@ def main():
     bpy.ops.wm.open_mainfile(filepath=str(a.foundation.resolve()))
     arm = bpy.data.objects['Armature_Catalog']; body = bpy.data.objects['body_underlayer_female']; reset(arm)
     garments = []
-    for id in NAMES:
+    for id in recipe:
         obj = load_garment(a.output_dir / 'pieces' / id / 'outfit.blend', id, arm)
         mask(body, obj, arm, id); garments.append(obj)
     assert fixed_signatures(arm) == baseline
     camera = setup_render(); camera.data.ortho_scale = 2.10
     export_assembly(a.output_dir, arm, body, garments)
-    report = {'stage': 'isolated female fitting study; no acceptance', 'foundation': str(a.foundation),
+    report = {'stage': 'isolated female fitting study; no acceptance', 'recipe': recipe, 'foundation': str(a.foundation),
         'foundation_sha256': digest(a.foundation), 'builder_sha256': digest(__file__),
         'fixed_foundation': baseline, 'pieces': piece_rows, 'hood_offset_m': a.hood_offset, 'opening_relief_m': a.opening_relief, 'hood_lower_m': a.hood_lower, 'back_relief_m': a.back_relief, 'back_clearance_m': a.back_clearance,
         'coverage': 'recomputed on current female original indices; no imported male masks',
-        'opening_limits': {'T02_neck_z':1.405,'T02_forearm_end':.96,'B01_waist_z':.978,'B01_ankle_z':.139},
+        'opening_limits': OPENING_LIMITS,
         'footwear_opening_z': .118, 'footwear_safety_margin_m': .004,
         'head_export': 'UV-preserving export, unchanged canonical face material/image',
         'controlled_components':a.controlled_components, 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py']} if a.controlled_components else {},
@@ -320,6 +327,6 @@ def main():
             camera.data.ortho_scale = .55 if label.startswith('hood') else .52 if label.startswith('shoes') else 2.10
             camera.location=pos; camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
             bpy.context.scene.render.filepath=str((a.review_dir/(label+'-review.png')).resolve()); bpy.ops.render.render(write_still=True)
-    print('FEMALE_OUTFIT_ASSEMBLY', json.dumps({'pieces': list(NAMES), 'hood_offset_m': a.hood_offset, 'opening_relief_m': a.opening_relief, 'hood_lower_m': a.hood_lower, 'back_relief_m': a.back_relief, 'back_clearance_m': a.back_clearance, 'foundation_unchanged': True}))
+    print('FEMALE_OUTFIT_ASSEMBLY', json.dumps({'pieces': recipe, 'hood_offset_m': a.hood_offset, 'opening_relief_m': a.opening_relief, 'hood_lower_m': a.hood_lower, 'back_relief_m': a.back_relief, 'back_clearance_m': a.back_clearance, 'foundation_unchanged': True}))
 
 if __name__ == '__main__': main()

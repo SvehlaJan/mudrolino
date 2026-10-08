@@ -7,7 +7,7 @@ from mathutils import Quaternion
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog_t01 import reset, bvh, world_mesh
 from mathutils.bvhtree import BVHTree
-from build_catalog_female_outfit_study import fixed_signatures, NAMES, positions_signature, skin_signature, head_surface_signature, components
+from build_catalog_female_outfit_study import fixed_signatures, NAMES, DEFAULT_RECIPE, positions_signature, skin_signature, head_surface_signature, components
 from build_catalog_head_style_study import geometry_signature, rig_signature
 from build_catalog_female_foundation_study import topology_signature
 from prepare_catalog_body import action_curves
@@ -41,7 +41,8 @@ def main():
     try:
         bpy.ops.wm.open_mainfile(filepath=str(blend.resolve()));arm=bpy.data.objects['Armature_Catalog'];reset(arm)
         body=bpy.data.objects['body_underlayer_female'];head=bpy.data.objects['H02_head'];hair=bpy.data.objects['H02_hair']
-        garments={id:bpy.data.objects[name] for id,name in NAMES.items()};bodies=[body,head,hair]
+        recipe=assembly.get('recipe',list(DEFAULT_RECIPE));top=next((id for id in recipe if id.startswith('T')),None)
+        garments={id:bpy.data.objects[NAMES[id]] for id in recipe};bodies=[body,head,hair]
         check(digest(assembly['foundation'])==assembly['foundation_sha256'],'fixed_foundation_file_unchanged')
         check(digest(Path(__file__).with_name('build_catalog_female_outfit_study.py'))==assembly['builder_sha256'],'saved_builder_current')
         for name,expected in assembly.get('component_helpers',{}).items():check(digest(Path(__file__).with_name(name))==expected,'saved_component_helper_current',name)
@@ -92,7 +93,7 @@ def main():
         report['dependency_hashes'].update(gate_helpers)
         report['independent_source_equivalence']=independent
         topology_rows=[];closure_components=[]
-        for id,role,expected in [('T02',2,1),('F01',4,4)]:
+        for id,role,expected in [(id,role,expected) for id,role,expected in [('T02',2,1),('F01',4,4)] if id in garments]:
             obj=garments[id];attribute=obj.data.attributes['female_detail_role']
             groups=[ids for ids in components(obj) if ids and all(attribute.data[i].value==role for i in ids)]
             check(len(groups)==expected,'controlled_component_count',{'piece':id,'role':role,'components':len(groups),'expected':expected})
@@ -136,9 +137,11 @@ def main():
         above=[f.index for f in removed if max(body.data.vertices[i].co.z for i in f.vertices)>=cutoff]
         report['opening_anatomy']={'removed_faces':len(removed),'covered_vertices':len(ids),'opening_z':assembly['footwear_opening_z'],'safety_margin_m':assembly['footwear_safety_margin_m'],'maximum_removed_face_z':max(body.data.vertices[i].co.z for f in removed for i in f.vertices),'violations':len(above)}
         check(bool(removed) and not above,'F01_face_safe_opening',report['opening_anatomy'])
-        opening_limits=assembly.get('opening_limits',{'T02_neck_z':1.405,'T02_forearm_end':.96,'B01_waist_z':.978,'B01_ankle_z':.139})
+        opening_limits=dict(assembly.get('opening_limits',{'T02_neck_z':1.405,'T02_forearm_end':.96,'B01_waist_z':.978,'B01_ankle_z':.139}))
+        # Older reports name the hoodie limits; newer ones use generic top limits.
+        opening_limits.setdefault('top_neck_z',opening_limits.get('T02_neck_z'));opening_limits.setdefault('top_forearm_end',opening_limits.get('T02_forearm_end'))
         other_openings={}
-        for id in ['T02','B01']:
+        for id in [id for id in garments if id in ('T01','T02','B01')]:
             group=body.vertex_groups['covered_'+id];covered={v.index for v in body.data.vertices if any(w.group==group.index and w.weight>.5 for w in v.groups)}
             removed=[face for face in body.data.polygons if any(i in covered for i in face.vertices)];violations=[]
             for face in removed:
@@ -147,14 +150,35 @@ def main():
                     if id=='B01':
                         if not opening_limits['B01_ankle_z']<point.z<opening_limits['B01_waist_z']:violations.append(face.index);break
                     else:
-                        if abs(point.x)<.14 and point.z>=opening_limits['T02_neck_z']:violations.append(face.index);break
+                        if abs(point.x)<.14 and point.z>=opening_limits['top_neck_z']:violations.append(face.index);break
                         for prefix,sign in [('Left',1),('Right',-1)]:
+                            if id=='T01':continue  # Tee sleeves: see the visibility check below.
                             if point.x*sign<=.23:continue
                             elbow=arm.data.bones[prefix+'ForeArm'].head_local;wrist=arm.data.bones[prefix+'Hand'].head_local;axis=wrist-elbow
-                            if (point-elbow).dot(axis)/axis.length_squared>=opening_limits['T02_forearm_end']:violations.append(face.index);break
+                            if (point-elbow).dot(axis)/axis.length_squared>=opening_limits['top_forearm_end']:violations.append(face.index);break
             other_openings[id]={'removed_faces':len(removed),'violations':len(set(violations)),'limits':opening_limits,'scope':'Actual removed incident faces preserve declared neck/wrist or waistband/ankle boundaries.'}
             check(bool(removed) and not violations,'opening_anatomy_'+id,other_openings[id])
         report['top_bottom_opening_anatomy']=other_openings
+        if 'T01' in garments:
+            # Short sleeves end on the upper arm. Hidden arm faces beyond the measured hem
+            # (the armpit crease, removed because they touch covered torso skin) must stay
+            # occluded: a ray along the face normal has to reach the tee or visible body.
+            tee=garments['T01'];group=body.vertex_groups['covered_T01']
+            covered={v.index for v in body.data.vertices if any(w.group==group.index and w.weight>.5 for w in v.groups)}
+            dominant=lambda obj,vertex:obj.vertex_groups[max(vertex.groups,key=lambda w:w.weight).group].name
+            for m in masks:m.show_viewport=m.vertex_group!='covered_T01'
+            bpy.context.view_layer.update();visible_body=bvh(body)[0];tee_tree=bvh(tee)[0]
+            for m in masks:m.show_viewport=True
+            sleeve={}
+            for prefix in ['Left','Right']:
+                shoulder=arm.data.bones[prefix+'Arm'].head_local;elbow=arm.data.bones[prefix+'ForeArm'].head_local;axis=elbow-shoulder
+                along=lambda p:(p-shoulder).dot(axis)/axis.length_squared;bones={prefix+'Arm',prefix+'ForeArm'}
+                hem=max(along(v.co) for v in tee.data.vertices if dominant(tee,v) in bones)
+                beyond=[face for face in body.data.polygons if any(i in covered for i in face.vertices) and any(dominant(body,body.data.vertices[i]) in bones and along(body.data.vertices[i].co)>hem+.03 for i in face.vertices)]
+                exposed=[face.index for face in beyond if tee_tree.ray_cast(face.center+face.normal*.0005,face.normal,.10)[0] is None and visible_body.ray_cast(face.center+face.normal*.0005,face.normal,.10)[0] is None]
+                sleeve[prefix]={'hem_t':hem,'hidden_faces_beyond_hem':len(beyond),'exposed_faces':len(exposed),'sample':exposed[:12]}
+                check(not exposed,'tee_sleeve_hidden_faces_occluded',{prefix:sleeve[prefix]})
+            report['tee_sleeve_openings']={**sleeve,'scope':'Rest pose; hem from arm-weighted tee vertices; rays limited to 10 cm.'}
         fps=bpy.context.scene.render.fps/bpy.context.scene.render.fps_base
         for pose_scope in (['native'] if a.probe else ['native','actual_runtime']):
             reset(arm)
@@ -166,7 +190,7 @@ def main():
                 for motion in ['walk','run']:
                     start,end=bpy.data.actions[motion].frame_range
                     samples += [(motion,frame) for frame in sorted({round(start,5),round(end,5)}|{i/4 for i in range(math.ceil(start*4),math.floor(end*4)+1)})]
-            sweeps={name:[] for name in [*NAMES,'combined']}
+            sweeps={name:[] for name in [*recipe,'combined']}
             for case in sweeps:
                 for m in masks:m.show_viewport=case=='combined' or m.vertex_group=='covered_'+case
                 active=list(garments.values()) if case=='combined' else [garments[case]]
@@ -184,7 +208,7 @@ def main():
                 check(maximum==0,pose_scope+'_dense_fit_'+case,{'samples':len(samples),'maximum_pairs':maximum})
             scope_report['motion_fit']=sweeps
             if not a.probe:
-                worst=max(sweeps['T02'],key=lambda row:row['body_head_hair_pairs'][NAMES['T02']]['H02_hair'])
+                worst=max(sweeps[top],key=lambda row:row['body_head_hair_pairs'][NAMES[top]]['H02_hair'])
                 reset(arm);action=bpy.data.actions[worst['motion']];arm.animation_data.action=action;arm.animation_data.action_slot=action.slots[0]
                 bpy.context.scene.frame_set(math.floor(worst['frame']),subframe=worst['frame']%1)
                 if pose_adapter:pose_adapter.apply(worst['motion'],worst['frame'],fps)
@@ -193,7 +217,7 @@ def main():
                 measured=[(tree.find_nearest(point)[3],i,point) for i,point in enumerate(hair_points)]
                 distance,index,point=min(measured,key=lambda row:row[0])
                 nearest,normal,_,_=tree.find_nearest(point)
-                scope_report['fixed_hair_body_gap']={'motion':worst['motion'],'frame':worst['frame'],'hoodie_hair_pairs':worst['body_head_hair_pairs'][NAMES['T02']]['H02_hair'],'hair_vertex_sample_min_distance_m':distance,'hair_original_vertex':index,'hair_world_xyz':list(point),'body_nearest_xyz':list(nearest),'body_surface_normal':list(normal),'scope':'All hair vertices to unmasked body surface at the worst sampled hoodie/hair pose; vertex sampling is a bound on available clearance, not a complete triangle minimum.'}
+                scope_report['fixed_hair_body_gap']={'motion':worst['motion'],'frame':worst['frame'],'top':top,'top_hair_pairs':worst['body_head_hair_pairs'][NAMES[top]]['H02_hair'],'hair_vertex_sample_min_distance_m':distance,'hair_original_vertex':index,'hair_world_xyz':list(point),'body_nearest_xyz':list(nearest),'body_surface_normal':list(normal),'scope':'All hair vertices to unmasked body surface at the worst sampled hoodie/hair pose; vertex sampling is a bound on available clearance, not a complete triangle minimum.'}
             
             for m in masks:m.show_viewport=True
             detail_rows=[]; closure_pair_rows=[]; free_baseline={}
@@ -204,7 +228,7 @@ def main():
                     action=bpy.data.actions[motion];arm.animation_data.action=action;arm.animation_data.action_slot=action.slots[0]
                 bpy.context.scene.frame_set(math.floor(frame),subframe=frame%1);bpy.context.view_layer.update()
                 if pose_adapter:pose_adapter.apply(motion,frame,fps)
-                shoe_points,_=world_mesh(garments['F01']);closure_trees=[BVHTree.FromPolygons(shoe_points,faces) for faces in closure_components]
+                shoe_points=world_mesh(garments['F01'])[0] if 'F01' in garments else [];closure_trees=[BVHTree.FromPolygons(shoe_points,faces) for faces in closure_components]
                 closure_pairs={str(i)+'/'+str(j):len(left.overlap(right)) for i,left in enumerate(closure_trees) for j,right in enumerate(closure_trees) if j>i}
                 closure_pair_rows.append({'motion':motion,'frame':frame,'component_pairs':closure_pairs})
                 for id,obj in garments.items():

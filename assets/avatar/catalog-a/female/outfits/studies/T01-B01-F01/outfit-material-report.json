@@ -1,0 +1,67 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.glb",
+  "sha256": "d6f93d88594d4c487c6e1a216e04b8ef7914929a1ec12760ee98284a2667fbf1",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory rubber sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory sneaker upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A cornflower sneaker panels",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A blue collar lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A cornflower blue matte",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T01 tailored quad surface",
+      "material": "A blue collar and hems",
+      "colorComponents": 0
+    }
+  ]
+}

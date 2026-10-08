@@ -6,11 +6,12 @@ from mathutils import Vector,Matrix
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from build_catalog_t01 import reset,select,export,setup_render,bvh
 from catalog_correctives import attach_knee_correctives
+from build_catalog_female_foundation_study import export_uv
 
 OBJECT_NAMES={'T05':'T05_crew_sweatshirt','T06':'T06_henley','T04':'T04_zip_hoodie','T03':'T03_raglan_tee','T02':'T02_pullover_hoodie','T01':'T01_crew_tee','B01':'B01_straight_trousers','B02':'B02_joggers','B03':'B03_casual_shorts','B04':'B04_ivory_trousers','F01':'F01_strap_sneakers','F02':'F02_slip_ons','F03':'F03_high_tops','F04':'F04_ankle_boots','A01':'A01_baseball_cap'}
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--foundation',type=Path,required=True);p.add_argument('--catalog-dir',type=Path,required=True);p.add_argument('--pieces',required=True);p.add_argument('--output-dir',type=Path,required=True);p.add_argument('--review-dir',type=Path,required=True)
+ p=argparse.ArgumentParser();p.add_argument('--foundation',type=Path,required=True);p.add_argument('--catalog-dir',type=Path,required=True);p.add_argument('--pieces',required=True);p.add_argument('--uv-export',action='store_true',help='Keep texture coordinates (painted-face heads)');p.add_argument('--output-dir',type=Path,required=True);p.add_argument('--review-dir',type=Path,required=True)
  args=p.parse_args(sys.argv[sys.argv.index('--')+1:]);args.output_dir.mkdir(parents=True,exist_ok=True);args.review_dir.mkdir(parents=True,exist_ok=True)
  bpy.ops.wm.open_mainfile(filepath=str(args.foundation.resolve()));bpy.context.preferences.filepaths.save_version=0;arm=bpy.data.objects['Armature_Catalog'];body=bpy.data.objects['body_underlayer_male'];reset(arm);body_parts=[o for o in bpy.data.objects if o.type=='MESH' and o!=body];garments=[];coverage={}
  for id in args.pieces.split(','):
@@ -35,7 +36,8 @@ def main():
  evaluated=body.evaluated_get(bpy.context.evaluated_depsgraph_get());mesh=bpy.data.meshes.new_from_object(evaluated);masked=bpy.data.objects.new('outfit_masked_body',mesh);bpy.context.collection.objects.link(masked)
  assert [g.name for g in masked.vertex_groups]==[g.name for g in body.vertex_groups]
  m=masked.modifiers.new('Shared body skin','ARMATURE');m.object=arm;masked.parent=arm
- export(args.output_dir/'garments.glb',[arm,*garments]);export(args.output_dir/'body.glb',[arm,masked,*body_parts]);export(args.output_dir/'outfit.glb',[arm,masked,*body_parts,*garments]);bpy.data.objects.remove(masked,do_unlink=True)
+ write=export_uv if args.uv_export else export
+ write(args.output_dir/'garments.glb',[arm,*garments]);write(args.output_dir/'body.glb',[arm,masked,*body_parts]);write(args.output_dir/'outfit.glb',[arm,masked,*body_parts,*garments]);bpy.data.objects.remove(masked,do_unlink=True)
  camera=setup_render();camera.data.ortho_scale=2.03;reset(arm);bpy.ops.wm.save_as_mainfile(filepath=str((args.output_dir/'outfit.blend').resolve()))
  report={'pieces':args.pieces.split(','),'status':'combination candidate; motion/runtime acceptance pending','coverage':coverage,'poses':[]}
  for label,motion,frame,pos in [('rest-front',None,0,(0,-3,.92)),('rest-back',None,0,(0,3,.92)),('rest-side',None,0,(3,0,.92)),('three-quarter',None,0,(2,-3,.92)),('walk-13','walk',13,(0,-3,.92)),('run-8','run',8,(0,-3,.92))]:

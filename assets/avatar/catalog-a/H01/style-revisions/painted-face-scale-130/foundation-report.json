@@ -1,0 +1,18 @@
+{
+  "stage": "Male fitting foundation with the verified +30% painted head",
+  "sources": {
+    "assets/avatar/catalog-a/foundation/catalog-body.blend": "43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897",
+    "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/H01.blend": "2de1952f6c35a700d580ed1ba9a28a2e8806458f10fd4369f3c842e2d52f066c",
+    "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/verification-report.json": "60cd1bba0fe65c4c103d1ddd59dd23fa1bd16cdd065c2bffb9f08768c697b669"
+  },
+  "builder_sha256": "1d3b3a47f174fa30bafd0f7be99ec64c386c27407144609c3acd13ba266fc6d9",
+  "invariants": {
+    "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+    "motion": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+    "body_geometry": "b127593ba82a4659033971f4010370429f565d286b8a4e0be6eefbcaa938e0c4",
+    "head_geometry": "d9c3921c3914ce329119fa6d8af98bccc9add59f7a38cea751a383b2f05099ae"
+  },
+  "foundation": {
+    "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/foundation.blend": "b653e05677751c6066ef6d41ab74f3087c1131f7b8358cfbc83ef9a199bf91cd"
+  }
+}

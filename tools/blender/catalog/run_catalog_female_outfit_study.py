@@ -30,6 +30,12 @@ def expected_dependencies(study):
     return {str(path.resolve()):digest(path) for path in paths}
 
 
+def recipe_of(study):
+    return json.loads((study/'assembly-report.json').read_text()).get('recipe',['T02','B01','F01'])
+
+# Detail roles each piece contributes: hoodie pocket/hood, trouser seams, sneaker closures.
+DETAIL_ROLES=[('T02',1),('T02',2),('B01',3),('F01',4)]
+
 def validate_output(path, kind, study, target=None):
     try:
         data=json.loads(path.read_text());assert data['status']=='passed', 'Output proof did not pass'
@@ -38,8 +44,9 @@ def validate_output(path, kind, study, target=None):
             assert data['primitives'], 'No validated material primitives'
         elif kind=='exports':
             assert data['source_blend_sha256']==digest(study/'outfit.blend'), 'Export source mismatch'
-            expected={str(folder/(name+'.glb')) for folder in [study,*[study/'pieces'/id for id in ['T02','B01','F01']]] for name in ['body','garments','outfit']}
-            assert {row['target'] for row in data['checks']}==expected and len(data['checks'])==12, 'Incomplete export inventory'
+            recipe=recipe_of(study)
+            expected={str(folder/(name+'.glb')) for folder in [study,*[study/'pieces'/id for id in recipe]] for name in ['body','garments','outfit']}
+            assert {row['target'] for row in data['checks']}==expected and len(data['checks'])==3*(1+len(recipe)), 'Incomplete export inventory'
             assert all(row['sha256']==digest(row['target']) and row['issues']['numErrors']==0 and row['issues']['numWarnings']==0 for row in data['checks']), 'Stale or invalid exported GLB'
         elif kind=='runtime':
             assert data['blend_sha256']==digest(study/'outfit.blend') and data['glb_sha256']==digest(study/'outfit.glb'), 'Runtime source mismatch'
@@ -60,15 +67,16 @@ def validate_native(path, study, verifier, probe):
         assert {str(Path(path).resolve()):value for path,value in data['dependency_hashes'].items()}=={str(Path(path).resolve()):value for path,value in expected_dependencies(study).items()}, 'Native dependency inventory mismatch'
         if not probe:
             assert data['profile']=='complete sampled fit/export', 'Wrong native profile'
-            assert set(data['motion_fit'])=={'T02','B01','F01','combined'} and all(len(rows)==163 for rows in data['motion_fit'].values()), 'Wrong dense sample counts'
+            recipe=recipe_of(study);roles=[(piece,role) for piece,role in DETAIL_ROLES if piece in recipe]
+            assert set(data['motion_fit'])=={*recipe,'combined'} and all(len(rows)==163 for rows in data['motion_fit'].values()), 'Wrong dense sample counts'
             assert len(data['head_gestures'])==6 and data['export_deformation']['samples']==16, 'Wrong head/export counts'
             actual=data['actual_runtime_fit']
-            assert actual['pose_evaluation']=='raw-gltf-SLERP-equivalent-pose' and set(actual['motion_fit'])=={'T02','B01','F01','combined'} and all(len(rows)==163 for rows in actual['motion_fit'].values()), 'Wrong actual runtime fit samples'
+            assert actual['pose_evaluation']=='raw-gltf-SLERP-equivalent-pose' and set(actual['motion_fit'])=={*recipe,'combined'} and all(len(rows)==163 for rows in actual['motion_fit'].values()), 'Wrong actual runtime fit samples'
             assert actual['helper_sha256']==digest('tools/blender/catalog/catalog_gltf_gait_pose.py') and actual['gait_hashes']=={motion:digest('assets/avatar/catalog-a/foundation/catalog-body-'+motion+'.glb') for motion in ['walk','run']}, 'Actual runtime dependency mismatch'
             actual_rows=actual['detail_attachments']['checks']
-            assert all(sum(row['piece']==piece and row['role']==role for row in actual_rows)==164 for piece,role in [('T02',1),('T02',2),('B01',3),('F01',4)]), 'Wrong actual runtime detail sample counts'
+            assert all(sum(row['piece']==piece and row['role']==role for row in actual_rows)==164 for piece,role in roles), 'Wrong actual runtime detail sample counts'
             rows=data['detail_attachments']['checks']
-            assert all(sum(row['piece']==piece and row['role']==role for row in rows)==164 for piece,role in [('T02',1),('T02',2),('B01',3),('F01',4)]), 'Wrong detail sample counts'
+            assert all(sum(row['piece']==piece and row['role']==role for row in rows)==164 for piece,role in roles), 'Wrong detail sample counts'
         return {'status':'passed','report':str(path),'report_sha256':digest(path)}
     except (OSError,ValueError,KeyError,AssertionError,TypeError) as error:
         return {'status':'failed','reason':str(error),'report':str(path)}
@@ -123,7 +131,7 @@ def main():
         if not args.probe:
             (args.study_dir/'export-validation.json').unlink(missing_ok=True)
             run('explicit-export-validation',['node','tools/blender/catalog/verify_catalog_female_outfit_exports.mjs','--study-dir='+str(args.study_dir)],lambda:validate_output(args.study_dir/'export-validation.json','exports',args.study_dir))
-            for label,folder in [('combined',args.study_dir),*[(id,args.study_dir/'pieces'/id) for id in ['T02','B01','F01']]]:
+            for label,folder in [('combined',args.study_dir),*[(id,args.study_dir/'pieces'/id) for id in recipe_of(args.study_dir)]]:
                 for name in ['body','garments','outfit']:
                     output=folder/(name+'-material-report.json');output.unlink(missing_ok=True)
                     run('material-'+label+'-'+name,['node','tools/blender/catalog/verify_exported_materials.mjs',folder/(name+'.glb'),output],lambda:validate_output(output,'material',args.study_dir,folder/(name+'.glb')))
