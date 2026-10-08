@@ -1,0 +1,80 @@
+{
+  "stage": "Isolated head-scale revision; fit, art and acceptance are separate gates",
+  "decision": "User chose +30% heads on both bases, 2026-10-07",
+  "base": "female",
+  "head_id": "H02",
+  "scale": 1.3,
+  "pivot_world_m": [
+    -2.218708459622576e-06,
+    -0.0071271746419370174,
+    1.4688003063201904
+  ],
+  "hair_taper": {
+    "z_full": 1.56,
+    "z_tip": 1.4,
+    "tip_scale": 1.0
+  },
+  "rear_shorten": {
+    "z_from": 1.56,
+    "fraction": 0.2,
+    "y_start": 0.04,
+    "y_full": 0.1
+  },
+  "source": "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend",
+  "source_hashes": {
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend": "6641df23fb90d451cc8a3f0ef2ef0c98fc23204e6c0930338f7acb1893ee8a58",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/sample-face.png": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/canonical-face-layout.json": "cc3b1cbf9bebd816e3fc606d1d6e0166792d999cfd859f6668dc28a4a8cd61ce",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/canonical-face-mask.png": "bff7da0c3e4a94cdc0f09da9443c27ab7fb6edf36f3dfdc2a17180e491a242b6"
+  },
+  "builder_sha256": "3bd9db17cb87f3723a9a79fbdadf2a866aa61818d5832f88e3848629a7c2c0ad",
+  "plan_sha256": "e5585b563ebe6440e1df2b45282fe6adac1f086488527446518d55a7a90800f6",
+  "blender": "5.2.2 LTS",
+  "baseline": {
+    "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+    "motion": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+    "unchanged_geometry": {
+      "body_underlayer_female": "0604b1561d9122f2874813d4d5da76d6689b9e7e16befdbdf2683a5f6d4e016d"
+    },
+    "source_head_geometry": {
+      "H02_head": "4db30a4796705f6cd399224fb99ba794968cfd7c3ce3e8dc117e4793cf64ce63",
+      "H02_hair": "6fcdad88f39bef94caf75b6727669ec371f8bbef26bcbcd42891def751d1a33b"
+    }
+  },
+  "scaled_head_geometry": {
+    "H02_head": "45568053b6f972f29487a5a2d41fd863caf73f444df0947eb455ad319cddfb8e",
+    "H02_hair": "2da00ba411d041c7db57e26ef6b450e0a043ac3abe6d42d3249a105b8623a334"
+  },
+  "landmarks": {
+    "head": "H02",
+    "scale": 1.3,
+    "pivot": [
+      -2.218708459622576e-06,
+      -0.0071271746419370174,
+      1.4688003063201904
+    ],
+    "skull_centre": [
+      6.656125378867729e-07,
+      0.017738152392581107,
+      1.649759908103943
+    ],
+    "brow_z": 1.6744599081039429,
+    "ear_top_z": 1.696559908103943
+  },
+  "blend": {
+    "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "c542b88a057909ac28d941f7a02e9484a3d8d73bfbcc6e6058cfc641a38a0ea1"
+  },
+  "exports": {
+    "female-foundation.glb": "7a83370a889ef25853ee0376af2f784c6331ce60534a2bfbe6c32ac454bed0c2",
+    "H02.glb": "cd60ff5eccf8b8b7707eb7899c60ee886ec647643668f01741aa4c884a89b16e",
+    "hair-H02.glb": "555a5076f2f99fb96e3c0fb7fbac122a5070aa90b191d239f5c28e8184a31f53"
+  },
+  "reviews": {
+    "front-full": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/front-full-review.png",
+    "side-full": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/side-full-review.png",
+    "front-head": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/front-head-review.png",
+    "side-head": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/side-head-review.png",
+    "three-quarter-head": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/three-quarter-head-review.png",
+    "back-head": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/back-head-review.png"
+  }
+}

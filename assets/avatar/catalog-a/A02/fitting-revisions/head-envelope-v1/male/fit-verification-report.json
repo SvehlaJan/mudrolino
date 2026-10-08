@@ -1,0 +1,69 @@
+{
+  "study_dir": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male",
+  "study_report_sha256": "48009a443ec99480c1b9196439ce8d9058c88d4710d0a651abc263beed2bde46",
+  "verifier_sha256": "bdd0a188afcacabce8bba9ba9b64dabda47f46681ba1aa3b2afbe248f5521be5",
+  "failures": [],
+  "status": "passed",
+  "fit_gate": {
+    "passed": true,
+    "failures": [],
+    "crown": {
+      "samples": 3124,
+      "share_within_max": 1.0,
+      "p50_mm": 4.83,
+      "p90_mm": 8.94,
+      "max_mm": 9.05,
+      "min_mm": 2.53
+    },
+    "band": {
+      "samples": 91,
+      "p90_mm": 3.44,
+      "max_mm": 3.55,
+      "min_mm": 2.55
+    },
+    "thresholds": {
+      "max_gap_mm": 12.0,
+      "min_share": 0.9,
+      "band_p90_mm": 5.0,
+      "band_max_mm": 15.0,
+      "min_gap_mm": -0.5
+    },
+    "intersections": {
+      "H01_head": 0,
+      "body_underlayer_male": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0,
+      "T05_crew_sweatshirt_outfit": 0
+    }
+  },
+  "motion_clearance": {
+    "samples": 168,
+    "gesture_samples": 5,
+    "maximum_pairs": {
+      "H01_head": 0,
+      "body_underlayer_male": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0,
+      "T05_crew_sweatshirt_outfit": 0
+    },
+    "contacts": []
+  },
+  "under_key_export": {
+    "key": "under_A02",
+    "meshes": [
+      [
+        [
+          "under_A02"
+        ],
+        [
+          1
+        ]
+      ]
+    ]
+  },
+  "export_fidelity": {
+    "poses": 16,
+    "maximum_error_m": 6.160148018352629e-07,
+    "threshold_m": 3e-05
+  }
+}

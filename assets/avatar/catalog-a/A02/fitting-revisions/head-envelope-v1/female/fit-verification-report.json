@@ -1,0 +1,69 @@
+{
+  "study_dir": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/female",
+  "study_report_sha256": "e6829c259c7a5e088ad08e48e381ec043c1cd08f887bc98bc3aff5ff5be3094e",
+  "verifier_sha256": "bdd0a188afcacabce8bba9ba9b64dabda47f46681ba1aa3b2afbe248f5521be5",
+  "failures": [],
+  "status": "passed",
+  "fit_gate": {
+    "passed": true,
+    "failures": [],
+    "crown": {
+      "samples": 3498,
+      "share_within_max": 1.0,
+      "p50_mm": 5.35,
+      "p90_mm": 9.06,
+      "max_mm": 11.64,
+      "min_mm": 2.65
+    },
+    "band": {
+      "samples": 68,
+      "p90_mm": 3.67,
+      "max_mm": 11.39,
+      "min_mm": 2.84
+    },
+    "thresholds": {
+      "max_gap_mm": 12.0,
+      "min_share": 0.9,
+      "band_p90_mm": 5.0,
+      "band_max_mm": 15.0,
+      "min_gap_mm": -0.5
+    },
+    "intersections": {
+      "H02_hair": 0,
+      "H02_head": 0,
+      "body_underlayer_female": 0
+    }
+  },
+  "motion_clearance": {
+    "samples": 168,
+    "gesture_samples": 5,
+    "maximum_pairs": {
+      "H02_hair": 0,
+      "H02_head": 0,
+      "body_underlayer_female": 0
+    },
+    "contacts": []
+  },
+  "under_key_export": {
+    "key": "under_A02",
+    "meshes": [
+      [
+        [
+          "under_A02"
+        ],
+        [
+          1
+        ]
+      ],
+      [
+        [],
+        []
+      ]
+    ]
+  },
+  "export_fidelity": {
+    "poses": 16,
+    "maximum_error_m": 6.178593707772961e-07,
+    "threshold_m": 3e-05
+  }
+}

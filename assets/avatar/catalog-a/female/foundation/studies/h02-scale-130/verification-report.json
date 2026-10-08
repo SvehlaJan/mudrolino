@@ -1,0 +1,39 @@
+{
+  "study_dir": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130",
+  "study_report_sha256": "e6e77586d22c50f5b1e8324f90c9736c878cdfd1c454b679cd49aa9e07ea31a9",
+  "verifier_sha256": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
+  "failures": [],
+  "status": "passed",
+  "skin_in_front_of_hair_rays": {
+    "source": 0,
+    "scaled": 0,
+    "rest_head_hair_pairs_info": 605
+  },
+  "clearance": {
+    "samples": 169,
+    "gesture_samples": 6,
+    "maximum_pairs": {
+      "hair_body_pairs": 0
+    },
+    "contacts": []
+  },
+  "uv_corner_identity": {
+    "passed": true,
+    "position_tolerance_m": 3e-05,
+    "uv_tolerance": 1e-06,
+    "imported_to_source": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "source_to_imported": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "comparison": "reciprocal rest-position + face-corner UV; seam values accepted only at matching positions"
+  },
+  "export_fidelity": {
+    "poses": 16,
+    "maximum_error_m": 6.184430958455778e-07,
+    "threshold_m": 3e-05
+  }
+}

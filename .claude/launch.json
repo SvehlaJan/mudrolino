@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "avatar-catalog",
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["DISABLE_HMR=true", "npm", "run", "dev", "--", "--host", "127.0.0.1", "--port", "3004", "--strictPort"],
+      "port": 3004
     }
   ]
 }

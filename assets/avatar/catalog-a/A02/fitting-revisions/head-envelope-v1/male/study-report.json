@@ -1,0 +1,113 @@
+{
+  "stage": "Envelope-fitted A02 revision; run verify_catalog_headwear.py for fit/motion gates. Art review pending.",
+  "item": "A02",
+  "object": "A02_folded_beanie",
+  "crown_materials": [
+    "A02 knit"
+  ],
+  "base": "male",
+  "head_study": "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130",
+  "source_hashes": {
+    "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/H01.blend": "2de1952f6c35a700d580ed1ba9a28a2e8806458f10fd4369f3c842e2d52f066c",
+    "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/head-landmarks.json": "c1683996a68bd9c4e7be8c898d0dc745b4dd3cb3503b5b6ff8b7407e6bef1bf3",
+    "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/verification-report.json": "60cd1bba0fe65c4c103d1ddd59dd23fa1bd16cdd065c2bffb9f08768c697b669"
+  },
+  "builder": "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a02.py",
+  "builder_sha256": "90c75bbac77ccee64a2d72b8c45ffdf82cd36232b122d3d3c1763d00f6135ed4",
+  "geometry_sha256": "691f4c668d4c2b3b82efcb6dc5543829d9728ddad83d9072485b9ba291f51664",
+  "plan_sha256": "e5585b563ebe6440e1df2b45282fe6adac1f086488527446518d55a7a90800f6",
+  "blender": "5.2.2 LTS",
+  "design": {
+    "hair_layer": 0.008,
+    "tuck": 0.006,
+    "release": 0.02,
+    "band_hug": 0.015,
+    "front_above_brow": 0.02,
+    "side_above_ear": 0.006,
+    "back_above_centre": -0.02,
+    "front_rise_over_side": 0.01,
+    "ease": 0.0025,
+    "dome": 0.005,
+    "knit": 0.004,
+    "cuff_thickness": 0.011,
+    "cuff_height": 0.055,
+    "fold_rise": 0.003,
+    "cuff_bulge": 0.0012,
+    "sectors": 128,
+    "rows": 30,
+    "top_gap_rad": 0.05,
+    "colors": {
+      "knit": [
+        0.028,
+        0.052,
+        0.105
+      ],
+      "cuff": [
+        0.12,
+        0.285,
+        0.66
+      ]
+    }
+  },
+  "band_heights_m": {
+    "front": 1.775859908103943,
+    "side": 1.727759855079651,
+    "back": 1.6237599081039429
+  },
+  "landmarks": {
+    "head": "H01",
+    "scale": 1.3,
+    "pivot": [
+      -2.218708459622576e-06,
+      -0.0071271746419370174,
+      1.4688003063201904
+    ],
+    "skull_centre": [
+      6.656125378867729e-07,
+      0.017738152392581107,
+      1.649759908103943
+    ],
+    "brow_z": 1.749859908103943,
+    "ear_top_z": 1.7199598550796509
+  },
+  "cuff_height_m": 0.07150000000000001,
+  "cuff_thickness_m": 0.0143,
+  "under_hat": {
+    "object": "H01_head",
+    "key": "under_A02",
+    "changed_vertices": 14683
+  },
+  "mesh": {
+    "vertices": 11906,
+    "polygons": 11904,
+    "attachment": "Head, weight 1"
+  },
+  "recipe": "T05/B01/F04 + A02 review assembly",
+  "baseline": {
+    "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+    "motion": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+    "unchanged_basis_geometry": {
+      "B01_straight_trousers_outfit": "f23e3ea117f4d3629b6bc044784e710e78f7b772f32554e04c3bc8e3b079986b",
+      "body_underlayer_male": "cd6b4deee7346b1ccaddcdb85285ee3a77440c075980aa309201b658d2c9beb0",
+      "F04_ankle_boots_outfit": "a3b0b80f0af5a863cb086ae92a382408c7a2fcb9b6cf8ea3b78f876de05012b1",
+      "H01_head": "d9c3921c3914ce329119fa6d8af98bccc9add59f7a38cea751a383b2f05099ae",
+      "T05_crew_sweatshirt_outfit": "0bcbb594265bddf9971f7dc0c58796e08a588e435c311cb3bff366ff7b078045"
+    }
+  },
+  "blend": {
+    "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/A02.blend": "48c2c37669c1267e999079f20d0f05b767c17225672e7276cc0824835b23a343"
+  },
+  "exports": {
+    "A02.glb": "407c03b7972ba69d976486c4864897bef47f77efc9826e29572553ec71756b4b",
+    "head-under-hat.glb": "dc60c05943e9ef197748034f55bda129cd731f1eb7cc599ac4f687e1d4b92ce7",
+    "outfit.glb": "979b6aad596b3632fc68a1d127311efcb6f3ae262246f99f1c971e6e5713791b"
+  },
+  "reviews": {
+    "front-full": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/front-full-review.png",
+    "front": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/front-review.png",
+    "side": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/side-review.png",
+    "three-quarter": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/three-quarter-review.png",
+    "back": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/back-review.png",
+    "back-three-quarter": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/back-three-quarter-review.png"
+  }
+}

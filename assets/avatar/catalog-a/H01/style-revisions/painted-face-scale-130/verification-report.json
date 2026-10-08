@@ -1,0 +1,37 @@
+{
+  "study_dir": "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130",
+  "study_report_sha256": "dab9132a10cf15e2fc3b9633ebd5bd3b7b12923aae2326e9915ba818f6bfd287",
+  "verifier_sha256": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
+  "failures": [],
+  "status": "passed",
+  "clearance": {
+    "samples": 169,
+    "gesture_samples": 6,
+    "maximum_pairs": {
+      "hair_body_pairs": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0,
+      "T05_crew_sweatshirt_outfit": 0
+    },
+    "contacts": []
+  },
+  "uv_corner_identity": {
+    "passed": true,
+    "position_tolerance_m": 3e-05,
+    "uv_tolerance": 1e-06,
+    "imported_to_source": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "source_to_imported": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "comparison": "reciprocal rest-position + face-corner UV; seam values accepted only at matching positions"
+  },
+  "export_fidelity": {
+    "poses": 16,
+    "maximum_error_m": 6.160148018352629e-07,
+    "threshold_m": 3e-05
+  }
+}
