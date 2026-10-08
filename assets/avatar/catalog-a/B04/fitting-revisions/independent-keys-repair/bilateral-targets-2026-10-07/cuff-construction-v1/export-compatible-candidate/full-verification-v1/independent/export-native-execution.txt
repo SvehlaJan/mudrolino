@@ -1,0 +1,8 @@
+00:00.510  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+16:27:24 | INFO: Data are loaded, start creating Blender stuff
+16:27:24 | INFO: Blender create Mesh node B04_ivory_trousers quad shell
+16:27:24 | INFO: glTF import finished in 0.04s
+INDEPENDENT_EXPORT {"blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend", "blend_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d", "glb": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb", "glb_sha256": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c", "frames_per_second": 24.0, "status": "passed", "max_error_m": 5.205284878684324e-07, "threshold_m": 3e-05, "comparison": "Bidirectional rendered-vertex distance under identical native poses and morph weights; loose vertices excluded.", "scope": "Independent garment source/export fidelity. Actual Three.js corrective weights and animated fit are separate gates."}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

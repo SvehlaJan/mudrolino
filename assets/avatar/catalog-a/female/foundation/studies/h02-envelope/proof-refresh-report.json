@@ -1,0 +1,46 @@
+{
+  "completed_at_utc": "2026-10-06T21:09:12.326532+00:00",
+  "status": "passed",
+  "native_verification": {
+    "fresh": true,
+    "blender_version": "5.2.2 LTS",
+    "blender_build_hash": "d13f752e3b9c",
+    "exit_code": 0,
+    "log": "history/2026-10-06-proof-refresh/fresh-native-verifier.txt",
+    "log_sha256": "df1fe801040ed8ee7a0a14820f066252c4e2fe1e755a894e85b34b7c04deff36",
+    "comprehensive_report": "foundation-verification-report.json",
+    "comprehensive_report_sha256": "f4721fce82011f74192ba13a9bfd2a2a5d24fa6759f038cff6599a05f33e0e8f",
+    "report_bytes_equal_previous_painted_face_result": true,
+    "original_log": "history/2026-10-06-proof-refresh/fresh-native-verifier.log"
+  },
+  "failed_attempt": {
+    "stage": "Blender sandbox initialization before verification Python",
+    "exit_code": 245,
+    "log": "history/2026-10-06-proof-refresh/sandbox-startup.txt",
+    "log_sha256": "e89e761881884e801c52b806da346c9e63487e72f5f14a8a32f5d21c6f6f9a4f",
+    "fresh_pass": false,
+    "original_log": "history/2026-10-06-proof-refresh/sandbox-startup.log"
+  },
+  "focused_reports": {
+    "origin": "derived from current comprehensive native result; no independent rerun",
+    "extractor": "tools/avatar/extract_catalog_female_foundation_proof.py",
+    "extractor_sha256": "abfda378a85f5f90658c2e3d3098dfbd23adc75965400bf4d0006b2c8f8dabb2",
+    "sha256": {
+      "face-transport-report.json": "e6ea5c6a47358434a1537a45cf56cf688d817036256f6901002e584938ebfec7",
+      "hair-clearance-report.json": "b15904afb55a7231a52250c1f71264127cd8dc5f6be6d54d7e814f1c149735cf",
+      "export-deformation-report.json": "6a5dd220c78200fc034214262c58dd7a64c58c8ba3af022204b07356d6915fad"
+    },
+    "hardening": {
+      "date": "2026-10-06",
+      "history": "history/2026-10-06-extractor-hardening",
+      "changes": [
+        "require exact canonical face material and UV layer",
+        "require finite reciprocal UV errors and fixed proof tolerances",
+        "reject historical symlink/hardlink aliases before any write"
+      ],
+      "proof_origin": "derived again from unchanged current comprehensive report; no additional native rerun"
+    }
+  },
+  "all_preserved_assets_unchanged": true,
+  "historical_limit": "The pre-painted extracts reference comprehensive hash 554c417d1c2ea341d947ad0d25f15415f5237205388ec6f1864b4f0d77dc6257; that exact historical comprehensive report was not found in this study tree. Their original bytes are retained as historical evidence only."
+}

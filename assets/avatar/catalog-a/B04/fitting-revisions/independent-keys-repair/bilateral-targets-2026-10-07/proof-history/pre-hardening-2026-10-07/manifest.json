@@ -1,0 +1,363 @@
+{
+  "status": "exact pre-hardening bytes archived after complete native run",
+  "files": [
+    {
+      "original": "tools/avatar/run_catalog_b04_repair.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/avatar/run_catalog_b04_repair.py",
+      "sha256": "8b3d4ea6852a8893b2fb7923a06e80722479ef29df29019db74ae6644784c545"
+    },
+    {
+      "original": "tools/avatar/blender_cli.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/avatar/blender_cli.py",
+      "sha256": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc"
+    },
+    {
+      "original": "tools/avatar/blender_queue.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/avatar/blender_queue.py",
+      "sha256": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123"
+    },
+    {
+      "original": "tools/blender/catalog/repair_catalog_b04_target_attachment.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/repair_catalog_b04_target_attachment.py",
+      "sha256": "a6f2a84247a1ea9b8075f4e9d177b299c4323adf08a04ae26974713337194d88"
+    },
+    {
+      "original": "tools/blender/catalog/verify_catalog_b04_target_preservation.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/verify_catalog_b04_target_preservation.py",
+      "sha256": "8089501670666d2a31cc215572ddafa6d93fae34df6a0482623b3c6aac471b41"
+    },
+    {
+      "original": "tools/blender/catalog/repair_catalog_b04_left_patch_attachment.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/repair_catalog_b04_left_patch_attachment.py",
+      "sha256": "74111ad9fac86b7ed092d135cb63f8bb4390c3d26516507a05ddf4707c60b602"
+    },
+    {
+      "original": "tools/blender/catalog/verify_catalog_b04_left_patch_preservation.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/verify_catalog_b04_left_patch_preservation.py",
+      "sha256": "a52d149568882230597e85a5525a0a74bedb1382232989fbd53c8d5accddb531"
+    },
+    {
+      "original": "tools/blender/catalog/b04_left_patch_repair_plan.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/b04_left_patch_repair_plan.py",
+      "sha256": "c23f0087398de75c879be85c4f43f70c36f24e3dcc9ca70cc7841e60a212fd99"
+    },
+    {
+      "original": "tools/blender/catalog/b04_target_repair_plan.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/b04_target_repair_plan.py",
+      "sha256": "325341c0fce7f489e6ee03f37849af6a3f715054a90d2f237d67a6c8b2845236"
+    },
+    {
+      "original": "tools/blender/catalog/b04_corrective_repair_plan.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/b04_corrective_repair_plan.py",
+      "sha256": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978"
+    },
+    {
+      "original": "tools/blender/catalog/repair_catalog_b04_corrective_sides.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/repair_catalog_b04_corrective_sides.py",
+      "sha256": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857"
+    },
+    {
+      "original": "tools/blender/catalog/repair_catalog_f02_corrective_sides.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/repair_catalog_f02_corrective_sides.py",
+      "sha256": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8"
+    },
+    {
+      "original": "tools/blender/catalog/prepare_catalog_body.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/prepare_catalog_body.py",
+      "sha256": "805c2f12e74c56eea3e4e569712e7f7ca98e8ebcf024dfd78e6382189f2eee21"
+    },
+    {
+      "original": "tools/blender/catalog/build_catalog_t01.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/build_catalog_t01.py",
+      "sha256": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272"
+    },
+    {
+      "original": "tools/blender/catalog/catalog_tee_geometry.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/catalog_tee_geometry.py",
+      "sha256": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19"
+    },
+    {
+      "original": "tools/blender/catalog/diagnose_catalog_b04_own_shell.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/diagnose_catalog_b04_own_shell.py",
+      "sha256": "d70609df71ab497756a202e452fbba96c5a3d7735380204e6e03e00c4ca69ebc"
+    },
+    {
+      "original": "tools/blender/catalog/b04_detail_components.py",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/tools/blender/catalog/b04_detail_components.py",
+      "sha256": "0e7833e677dac64eaff06c7f174b0d7740a3c7732b695cb1455ceb652c173340"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/left-patch-repair-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/left-patch-repair-report.json",
+      "sha256": "eae37713f8d8e718b84b22317efc0286ea2e72e7deab2e386534e42e300c0404"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/canonical-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/canonical-side-report.json",
+      "sha256": "aefa0876d3cadcfc4e03a70e653d3754cb421b39540de6e09b9e60dede436173"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/preservation-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/preservation-report.json",
+      "sha256": "1d9f9ff5e5fda7e18f11d85dc58e249185346f76f280506d9d59d95532fa1eda"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-own-shell-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-own-shell-report.json",
+      "sha256": "89d38974692b191b7f6c5a0249c018fec959d30954d72b4748ee6e0dc5ae1008"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/corrective-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/corrective-side-report.json",
+      "sha256": "d10723f91d2b0657ed41b7ab2bc49db052fa6518242f57d84f0228ac78c93513"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/gate-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/gate-report.json",
+      "sha256": "d3da8265bd71d867bc6b61b0b4faf99d859f2eb4d997f532432dcb02debe8a31"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/motion-sweep-4x.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/motion-sweep-4x.json",
+      "sha256": "03bc0cb1e4c6597cac1910dab8e4f5585f3263172a6d02518baf1e55ba130df6"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/pre-save-screen-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/pre-save-screen-report.json",
+      "sha256": "edaf82becad93d6c737cb15dd09e762b4117e50bea3a8402788390be3bcc2376"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/motion-sweep-4x-metadata.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/motion-sweep-4x-metadata.json",
+      "sha256": "afdd0091e16defd4ecee63bc60cf43fd498110a1db086d7808e308ea966f2282"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-fit-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-fit-report.json",
+      "sha256": "69ca741ee1dde18e1f587ec142ca31a2ac655c150b53831f74df16377b7aa065"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/runtime-corrective-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/runtime-corrective-report.json",
+      "sha256": "08c88811b7c3a2c6c1c96737b353665ef5dfc366836c6c9b225a81f0e82717fc"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/assembly-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/assembly-report.json",
+      "sha256": "e4742f3c1b9aa5ac6bb7045e50bc9f610cd6c9e35028709f9cfb06670adad506"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/corrective-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/corrective-side-report.json",
+      "sha256": "547061d84f7b4f5edbbd71c0117b0caf0fd0bda17f6995869782951bf46e219d"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/export-deformation-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/export-deformation-report.json",
+      "sha256": "d794bb76fc65d30c7a0d20324caf8b100334375cbd8ed3780d776f47a9d3be43"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/material-export-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/material-export-report.json",
+      "sha256": "67b1d790de973df680b32fe30383ec1c63e78a3943876f40275d6a9104dd0976"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x.json",
+      "sha256": "8e5fcdc43d3e980138d7493e645ede58adff58180e2fa8ebc64d49a5c9bf0a15"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x-metadata.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x-metadata.json",
+      "sha256": "5f22bd0d0760788890ef1a83d8d186530820d1520412eae874238e16f6a814b2"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/cap-attachment-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/cap-attachment-report.json",
+      "sha256": "2fef852bed1f6afffda1a572b2ce54c22bc7d58b31e93ad276199ede9fbc14ce"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/runtime-corrective-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/runtime-corrective-report.json",
+      "sha256": "af28ff20052e5fedb05d27d07c1f6130e6ac88897b1ac2dad3c47b1e92f41995"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/assembly-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/assembly-report.json",
+      "sha256": "173d1f6f23c12f79f4d8e7e9495d0dad2cfb8b25a30db1cbba6ad0a45577960a"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/corrective-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/corrective-side-report.json",
+      "sha256": "99089d61d0b40b7dfb4a5fd2cf5537daf03aa4012cc40c56e5f7c9b0c6d0e03e"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/export-deformation-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/export-deformation-report.json",
+      "sha256": "bdd55093483a739aeef4befac54457852b0bd69caa471d9ee1fc8cc50384313a"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/material-export-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/material-export-report.json",
+      "sha256": "235ad12bb75e4b5cd44ef8c7c6b93516c626d86f9ef6f01d607ed6e6ce05761d"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x.json",
+      "sha256": "6c5468522f7a9ba3ce5695bd44790d46bd62cff93ea035e137a379e6168f8d06"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x-metadata.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x-metadata.json",
+      "sha256": "57d2eabda557f7f4f455ccd21860c2d9ed8a55174a9529aeea2696c2f22237d6"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/cap-attachment-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/cap-attachment-report.json",
+      "sha256": "b14f213c3c43661bf5919b44895270a3481c2fcf3097fa5980bd0500f2589b90"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/canonical-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/canonical-side-report.json",
+      "sha256": "aefa0876d3cadcfc4e03a70e653d3754cb421b39540de6e09b9e60dede436173"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/target-repair-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/target-repair-report.json",
+      "sha256": "bf18c372753537ed247f53adeca392251d16be935919f9c936e779fa034b844c"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/preservation-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/preservation-report.json",
+      "sha256": "5d7f1254eb9f791b627878bbd2d9caa1c8c288ad963769e7258ba7ec3140076f"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/before-detail-own-shell-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/before-detail-own-shell-report.json",
+      "sha256": "d449b5fbaf93a169960570c40c20860156949b4a75331fcbed097a5bd4613823"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/detail-own-shell-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/detail-own-shell-report.json",
+      "sha256": "528b77cb26a8512d7e20d908bd4fdfe36709c75e287ad1155a9358ee114c8f69"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/left-patch-counterfactual-screen.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/left-patch-counterfactual-screen.json",
+      "sha256": "e05fc30a61c66f22a34d4a66ac5521f403b3db160089c76a7fe82f2103d849dc"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/corrective-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/corrective-side-report.json",
+      "sha256": "39ef5f24beffbe8718e908742fa8c0cb6a87a4a96f12f932df156f59e1751db3"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/gate-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/gate-report.json",
+      "sha256": "d695ed5ec65abf11f065b0237865806874bb11dbc6a3411e1ce6a8bb61e02314"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/own-shell-diagnosis.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/own-shell-diagnosis.json",
+      "sha256": "c83af701c61df16f44e1081eb42d4548a7dc890fc2abe6d4763e6b5e3f0e117c"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/motion-sweep-4x.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/motion-sweep-4x.json",
+      "sha256": "03bc0cb1e4c6597cac1910dab8e4f5585f3263172a6d02518baf1e55ba130df6"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/motion-sweep-4x-metadata.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/motion-sweep-4x-metadata.json",
+      "sha256": "fcb15e2db647aa6a1e81e2866d970391b74f1369eaa6687d8c621699fc146c70"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/detail-fit-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/detail-fit-report.json",
+      "sha256": "ae9c579fa5de13a7fe777551ecb1f728259316a88cd639dd6db0842d0ae97b5c"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/runtime-corrective-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/runtime-corrective-report.json",
+      "sha256": "6855b6d3b5a0bcd1474856d9fa537bc5d58d6d4c3c7c885cb0707d73a88e4d6a"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/assembly-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/assembly-report.json",
+      "sha256": "e4742f3c1b9aa5ac6bb7045e50bc9f610cd6c9e35028709f9cfb06670adad506"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/corrective-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/corrective-side-report.json",
+      "sha256": "e6e6dd082ad3e43ac2d229f6eb9afb63ee5cd69d1ad53bff6ad1be63af444a40"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/export-deformation-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/export-deformation-report.json",
+      "sha256": "251a8be4ea2d65745a9918a20020805ee3f1c0766cc27d0d01130309309aa548"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/material-export-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/material-export-report.json",
+      "sha256": "4c588eb98908aae13d77e42cfc5b95888d6440c7d5f9b4fb386ea8cd375c9730"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x.json",
+      "sha256": "8e5fcdc43d3e980138d7493e645ede58adff58180e2fa8ebc64d49a5c9bf0a15"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x-metadata.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x-metadata.json",
+      "sha256": "47d43eb75040e795d4cf30daacafe777ccac3a4b2594db324df58f3f337096a7"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/cap-attachment-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T04-B04-F03-A01/cap-attachment-report.json",
+      "sha256": "c73fa1a1b400a69085de5adca0cd4ff1167e56224eb76a2b3d32cd967d9df5a1"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/runtime-corrective-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/runtime-corrective-report.json",
+      "sha256": "99673733eca2fa7d565f6256c0605df02f53825c74e6f483bd8aeb9c6948873e"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/assembly-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/assembly-report.json",
+      "sha256": "173d1f6f23c12f79f4d8e7e9495d0dad2cfb8b25a30db1cbba6ad0a45577960a"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/corrective-side-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/corrective-side-report.json",
+      "sha256": "68d3b4dc4dd9826017a968ce13917fcba38cf442a92dd2ffdcbc84b51130a23b"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/export-deformation-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/export-deformation-report.json",
+      "sha256": "880c3cb98d4cd119fd1790b8125e85fbd2b0eb53b543966aed02eddece990df8"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/material-export-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/material-export-report.json",
+      "sha256": "1dd049eeb24e43f282e16e76d4f8a8401c99a21f059ec20a9a4a289a20e23e3b"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x.json",
+      "sha256": "6c5468522f7a9ba3ce5695bd44790d46bd62cff93ea035e137a379e6168f8d06"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x-metadata.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x-metadata.json",
+      "sha256": "e488bf6b91137bd61635f45967b3ebc436d071e5a0d1de2cd73abcebbe84ecf3"
+    },
+    {
+      "original": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/cap-attachment-report.json",
+      "archive": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/proof-history/pre-hardening-2026-10-07/files/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/outfits/T01-B04-F01-A01/cap-attachment-report.json",
+      "sha256": "fea63f3199f1db0a3d58b04a3651b86d30f69a25abd8eb65f2e21584111e5e60"
+    }
+  ],
+  "source_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2",
+  "gate_report_sha256": "d3da8265bd71d867bc6b61b0b4faf99d859f2eb4d997f532432dcb02debe8a31",
+  "qualification": "Original construction reports omitted transitive prepare_catalog_body.py and lacked before/after tool drift guards. These archived snapshots cannot retroactively prove omitted tools were bound during execution. Original geometry/native reports are retained unchanged; derived proof will be separate."
+}

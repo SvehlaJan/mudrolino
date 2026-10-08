@@ -1,0 +1,11 @@
+00:00.950  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+B04_PAIRED_LINING_DOMAIN baseline native 164
+B04_PAIRED_LINING_DOMAIN baseline runtime-equivalent 328
+B04_PAIRED_LINING_VARIANT baseline {"full_self": 553, "body": 0, "shoe": 0, "detail": 0, "detail_distance_m": 0.00910972896963358}
+B04_PAIRED_LINING_DOMAIN paired-lining native 164
+B04_PAIRED_LINING_DOMAIN paired-lining runtime-equivalent 328
+B04_PAIRED_LINING_VARIANT paired-lining {"full_self": 493, "body": 0, "shoe": 0, "detail": 0, "detail_distance_m": 0.00910972896963358}
+B04_PAIRED_LINING_RESULT {"status": "failed", "changed_vertices": 77, "source_saved": false}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

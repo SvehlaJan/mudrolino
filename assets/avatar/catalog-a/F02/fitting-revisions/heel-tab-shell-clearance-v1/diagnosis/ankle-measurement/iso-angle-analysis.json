@@ -1,0 +1,298 @@
+{
+  "status": "iso-angle/knee inputs are ambiguous for full tab-shell deformation; no candidate or promotion",
+  "input_hashes": {
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/iso-angle-native-and-equivalent.json": "70607f41464845363e3b177d6a20af4df8d80f3b8b6c021be49a5d2b176e097e",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/iso-angle-actual-three.json": "33f3e81da6d74c55dea4e7273502602d183184dca292764394d03683d3c32da9"
+  },
+  "validated_dependency_hashes": {
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.glb": "47d2e2ba80e756b6d7bb5259c44759c0d381ce3e5985f251813e3a9caf7536aa",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/measure_catalog_f02_ankle_witness.py": "7043626cc270939d7b4ace893a5f736552bb1f8e309514edd21d3b1f64212aeb",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/measure_catalog_f02_ankle.py": "bf63a0becbe8a86eba15f38fe2740a863ad8f5a42f9e024abd975959f37a9a0b",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/f02_ankle_measurement.py": "46737bc746fb0aa102e16c03c15ec9be2c4acf0ea7ff6301eb8fda46de0bfe01",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/f02_ankle_witness_bracket.py": "c32bad8f3e88135c94f3c55adf50fc51a001d7c6cf965c929999ec740cb06c35",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/f02_ankle_fields.py": "146ea5bb31b8283a26350ae9f65ba02cf3c38107dd6ec6d29300b7d509f78ae2",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "/Users/svehla/playground/teo-learn/tools/avatar/measure_catalog_f02_ankle_witness_runtime.mjs": "e11eb6d2f81fb1fabdbde821f9f6180378500f56f37d8dca0c3a2f0ba2857d23",
+    "src/avatar/garmentCorrectives.ts": "ac305c09a35a924d9502635714a02f082ef132be88bb20edb0e650e622f62cf3",
+    "package-lock.json": "15fcf42e66804f9e800356cc7c07402b3aefc3b6da9a8c23a6509dbf0dface4e"
+  },
+  "solution": {
+    "frame": 18.497394180297846,
+    "angle_error_rad": 1.9734417155969908e-09,
+    "target_angle_rad": 0.10869661495594214,
+    "tolerance_rad": 1e-08,
+    "initial_bracket_frames": [
+      18.4,
+      18.6
+    ],
+    "branch": "principal signed twist (-pi,pi], no unwrapping",
+    "evaluations": [
+      {
+        "frame": 18.4,
+        "angle_rad": 0.1188940255557186
+      },
+      {
+        "frame": 18.6,
+        "angle_rad": 0.09795790748148692
+      },
+      {
+        "frame": 18.5,
+        "angle_rad": 0.10842383286651298
+      },
+      {
+        "frame": 18.45,
+        "angle_rad": 0.1136583946832386
+      },
+      {
+        "frame": 18.475,
+        "angle_rad": 0.11104098028116771
+      },
+      {
+        "frame": 18.4875,
+        "angle_rad": 0.10973237321779175
+      },
+      {
+        "frame": 18.49375,
+        "angle_rad": 0.10907809470531891
+      },
+      {
+        "frame": 18.496875,
+        "angle_rad": 0.10875096170197991
+      },
+      {
+        "frame": 18.4984375,
+        "angle_rad": 0.10858739676329637
+      },
+      {
+        "frame": 18.49765625,
+        "angle_rad": 0.10866917910239701
+      },
+      {
+        "frame": 18.497265624999997,
+        "angle_rad": 0.10871007036962761
+      },
+      {
+        "frame": 18.497460937499998,
+        "angle_rad": 0.10868962472787223
+      },
+      {
+        "frame": 18.497363281249996,
+        "angle_rad": 0.108699847546715
+      },
+      {
+        "frame": 18.497412109375,
+        "angle_rad": 0.10869473613678451
+      },
+      {
+        "frame": 18.497387695312497,
+        "angle_rad": 0.10869729184162291
+      },
+      {
+        "frame": 18.497399902343748,
+        "angle_rad": 0.10869601398917188
+      },
+      {
+        "frame": 18.49739379882812,
+        "angle_rad": 0.10869665291538937
+      },
+      {
+        "frame": 18.497396850585936,
+        "angle_rad": 0.10869633345227867
+      },
+      {
+        "frame": 18.49739532470703,
+        "angle_rad": 0.10869649318383356
+      },
+      {
+        "frame": 18.497394561767575,
+        "angle_rad": 0.10869657304961111
+      },
+      {
+        "frame": 18.497394180297846,
+        "angle_rad": 0.10869661298250043
+      }
+    ]
+  },
+  "actual_three_twist_difference_rad": 1.8582822225443607e-09,
+  "raw_gltf_twist_difference_rad": 1.9734417155969908e-09,
+  "max_raw_three_world_matrix_difference": 7.236360091700256e-07,
+  "actual_knee_values": [
+    0,
+    0
+  ],
+  "native_comparison": {
+    "twist_difference_rad": 3.1602190751212067e-06,
+    "knee_value_difference": 0,
+    "local_rotation_difference_rad": 0.16722860622134836,
+    "max_tab_difference_m": 0.007673431880240222,
+    "max_gap_vector_difference_m": 0.000344722362208793
+  },
+  "equivalent_source_comparison": {
+    "twist_difference_rad": 6.5081358704977e-08,
+    "knee_value_difference": 0,
+    "local_rotation_difference_rad": 0.16722457155040243,
+    "max_tab_difference_m": 0.007673263517070338,
+    "max_gap_vector_difference_m": 0.0003447274601056052
+  },
+  "checks": [
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "raw_gltf": {
+        "twist_rad": 0.10869661495594214,
+        "swing_rad": 0.18812537153916478,
+        "delta_leg_local": [
+          [
+            0.9829399506858728,
+            -0.060318526130832446,
+            0.17375520133432942
+          ],
+          [
+            0.04016550951202822,
+            0.9922896220510686,
+            0.11724998806894528
+          ],
+          [
+            -0.17948722937060405,
+            -0.10827041790026076,
+            0.9777843258994849
+          ]
+        ],
+        "axis_leg_local_bind": [
+          -0.995552822444399,
+          3.207156949416473e-08,
+          -0.09420497716676036
+        ],
+        "knee_angle_rad": 0.1896588252004511,
+        "knee_value": 0,
+        "axis_world_bind": [
+          -0.9902498995931924,
+          -0.047206240637987416,
+          0.1310599374351328
+        ]
+      },
+      "actual_three": {
+        "twist_rad": 0.1086966156067739,
+        "swing_rad": 0.1881253728715616,
+        "delta_leg_local": [
+          [
+            0.9829399571117456,
+            -0.06031849443205156,
+            0.17375513164469822
+          ],
+          [
+            0.040165534784388945,
+            0.9922896152050501,
+            0.11724997821160804
+          ],
+          [
+            -0.1794873040236904,
+            -0.10827042842803486,
+            0.9777843260011783
+          ]
+        ],
+        "axis_leg_local_bind": [
+          -0.9955528224443989,
+          3.20715694768175e-08,
+          -0.09420497716676032
+        ],
+        "knee_angle_rad": 0.1896591714309981,
+        "knee_value": 0,
+        "axis_world_bind": [
+          -0.9902498995931923,
+          -0.047206240637987396,
+          0.13105993743513278
+        ]
+      },
+      "actual_existing_knee_binder_value": 0,
+      "native_equivalent_fields": {
+        "twist_rad": 0.10869662994313044,
+        "swing_rad": 0.18812538905532766,
+        "knee_value": 0,
+        "tab_shell_pairs": 10
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.497394180297846,
+      "raw_gltf": {
+        "twist_rad": 0.10869661298250043,
+        "swing_rad": 0.35525035765971286,
+        "delta_leg_local": [
+          [
+            0.938635325215833,
+            -0.1146568650754632,
+            0.3252965863501647
+          ],
+          [
+            0.07540840708105284,
+            0.9885315592323229,
+            0.1308374444499222
+          ],
+          [
+            -0.3365666604266459,
+            -0.09827822382565535,
+            0.9365171786686588
+          ]
+        ],
+        "axis_leg_local_bind": [
+          -0.995552822444399,
+          3.207156949416473e-08,
+          -0.09420497716676036
+        ],
+        "knee_angle_rad": 0.0807277157690404,
+        "knee_value": 0,
+        "axis_world_bind": [
+          -0.9902498995931924,
+          -0.047206240637987416,
+          0.1310599374351328
+        ]
+      },
+      "actual_three": {
+        "twist_rad": 0.10869661374849168,
+        "swing_rad": 0.3552503609302075,
+        "delta_leg_local": [
+          [
+            0.9386353308606369,
+            -0.11465683050745205,
+            0.32529649848499487
+          ],
+          [
+            0.0754084339871002,
+            0.9885315461759137,
+            0.1308374332270617
+          ],
+          [
+            -0.3365667573409189,
+            -0.09827823574790033,
+            0.9365171848655273
+          ]
+        ],
+        "axis_leg_local_bind": [
+          -0.9955528224443989,
+          3.20715694768175e-08,
+          -0.09420497716676032
+        ],
+        "knee_angle_rad": 0.08072749912500067,
+        "knee_value": 0,
+        "axis_world_bind": [
+          -0.9902498995931923,
+          -0.047206240637987396,
+          0.13105993743513278
+        ]
+      },
+      "actual_existing_knee_binder_value": 0,
+      "native_equivalent_fields": {
+        "twist_rad": 0.10869656486177173,
+        "swing_rad": 0.3552503480615968,
+        "knee_value": 0,
+        "tab_shell_pairs": 10
+      }
+    }
+  ],
+  "qualification": "Raw-glTF solution within 1e-8 rad; actual Three agrees within 1e-5 rad, both existing knee values zero. Geometry/contact fields measured only in unchanged native source at native and glTF-equivalent poses; no new exported mesh or Three vertex acceptance gate. Nearest surface vectors can change target triangles and are instrumentation, not sewn attachment identities. Exact same-angle states have distinct local orientation and tab/shell fields; a conservative one-angle clearance envelope has not been tested or disproved."
+}

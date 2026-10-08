@@ -1,7 +1,9 @@
 # F02 — navy slip-ons retrospective
 
-Status: fit-verified candidate; final reference/style/budget and actual shoes-slot
-registration remain open. Source: `F02.blend`; exports: `F02.glb` and
+Status: canonical source requires corrective-side repair; heel-tab own-shell
+clearance also remains failed. Historical passes below do not establish current
+acceptance. Final reference/style/budget and actual shoes-slot registration
+remain open. Source: `F02.blend`; exports: `F02.glb` and
 `body-F02.glb`. Reference: F02 in the palette-A footwear sheet and the O02/O06
 outfit combinations.
 
@@ -53,7 +55,7 @@ Historical direction/pose evidence and the rejected leaning-tab sources remain
 in `fitting-revisions/`. The focused probe is preliminary; the full gates below
 are the acceptance evidence for this candidate.
 
-Fresh verification on the corrected current source: independent and
+Historical verification on the then-current source: independent and
 T02/B02/F02/A01 outfit sweeps each cover 163 quarter-frame walk/run poses with
 zero body/head/layer contacts. Elastic/tab distance checks cover 164 poses and
 pass at a maximum 6.586 mm against the unchanged 12 mm gate. Six cap
@@ -102,3 +104,63 @@ independent deformation defect even where historical body/layer checks passed.
 The shared builders now use explicit neutral-basis shape-key creation. This
 master is preserved pending repair and fresh body/layer/detail/export/Three.js
 proof; previous evidence is historical and does not prove side isolation.
+
+## Model audit clarification — 2026-10-06
+
+The source-bound audit reproduced 12 opposite-side Right coordinates with a
+maximum 11.367 mm displacement. The isolated bounded repair removes that leakage
+without promoting its source. Both original and repaired candidates reproduce
+178 heel-tab/shell pairs at run 12.25. The existing detail contract has a 12 mm
+distance limit and zero prohibited own-shell contacts; no sewn/free attachment
+roles are defined for this asset. Retain the historical T02/B02/F02/A01 summary
+bytes, but do not count that combination as current complete acceptance while
+these defects remain. See `docs/audits/2026-10-06-avatar-model-audit.md` and
+`docs/avatar-construction-targets.md` for the repair order.
+
+## Heel-tab attachment diagnosis — 2026-10-07
+
+Fresh queued native probes from the unchanged isolated side-repair source
+reproduce 20 pairs at rest and 178 at run 12.25. The run failure includes 118
+Right-tab pairs while its knee corrective is zero. The existing tab skin closely
+matches actual underlying rest-shell triangles, so incorrect weight transfer is
+not established. Uniform offsets, larger knee targets, basal-shell rebinding
+and a small skin-blend bracket all fail the unchanged zero-contact gate; some
+also exceed 12 mm. No new model was saved or promoted. Reports, rejected no-save
+scripts, logs, source hashes and measurements are preserved in
+`fitting-revisions/heel-tab-shell-clearance-v1/`.
+
+The next proposed scope is an independently proven ankle-dependent ribbon
+correction with portable native/export/Three.js support, preserving the existing
+knee semantics, shared rig/body/gaits, physically attached base and reference
+shape. It is not implemented or accepted. See that diagnosis retrospective for
+the exact bounded construction/proof contract. A short attachment distance and
+correct underlying skin do not replace full-face shell clearance.
+# Read-only ankle control diagnosis — 2026-10-07
+
+The heel-tab no-save diagnosis now includes neutral bind and all 163 native,
+glTF-equivalent and actual Three gait poses, plus one bounded iso-angle witness.
+Left walk16.25 and walk18.497394180297846 have the same ankle twist within
+1.858282e-9 rad in actual Three and zero existing knee values, yet differ in
+full ankle rotation and source tab/shell fields. A single ankle scalar plus
+the existing knee values cannot reconstruct those states. A conservative
+one-angle clearance envelope remains untested. The portable driver/binder
+convention is proposed for root review in
+[the measurement evidence](fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/portable-convention-proposal.md).
+Native/runtime interpolation differences, exact endpoint behavior and off-axis
+swing are explicit. Sources, model/gait GLBs, weights, knee semantics and strict
+12 mm/zero-contact limits remain unchanged. No candidate or promotion occurred.
+
+
+## Signed control payload and boundary proof — 2026-10-07
+
+Root reviewed the proposed portable bind-relative semantics for an isolated
+experiment. Signed twist/two-swing payload reconstruction passes all measured
+rotations within 5.642e-8 rad; raw/Three component differences remain below
+8.138e-7 rad. Eight exact LoopRepeat/adjacent-time poses were freshly measured;
+dense payloads derive the unchanged earlier measurements. Four payload tests
+pass. Root reproduced seven incomplete/relabelled-inventory false passes, added
+complete ordered dense/endpoint checks, and passed eight proof tests. Exact
+pre-hardening tool/report bytes are retained; the new report is explicitly
+derived, not a fresh dense native run. No geometry or runtime binder changed,
+and no repair model was saved. The next single conservative clearance-envelope
+experiment remains unexecuted.

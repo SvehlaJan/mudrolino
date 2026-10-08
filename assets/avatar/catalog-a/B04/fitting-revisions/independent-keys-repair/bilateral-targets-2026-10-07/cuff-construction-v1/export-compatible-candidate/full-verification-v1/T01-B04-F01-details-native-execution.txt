@@ -1,0 +1,5 @@
+00:00.347  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.blend"
+DETAIL_FIT {"blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.blend", "blend_sha256": "2ac8e97381fbdf9a6dce678a1150064fb820b358e3410e39a1be84526cabf607", "garment": "B04_ivory_trousers_outfit", "threshold_m": 0.012, "samples": 164, "max_cloth_distance_m": 0.00910972896963358, "status": "passed", "surface_materials": ["A ivory tapered trouser fabric", "A ivory tapered trouser trim"], "detail_materials": ["A ivory tapered trouser pockets and seams", "A navy tapered trouser button"], "attachment_roles": null, "require_detail_clear": true, "max_detail_shell_pairs": 0}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

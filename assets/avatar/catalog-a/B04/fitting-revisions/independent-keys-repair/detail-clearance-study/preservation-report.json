@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "source": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/B04.blend",
+  "source_sha256": "b472ea595124968bbad2ad0f0b8ab35581b2b829fe5b7302ae916266c1014055",
+  "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/B04.blend",
+  "blend_sha256": "966c9dbe3758495417aaa1a7d6de20c357cba3262220e905d806b0fddced4e00",
+  "canonical_unchanged": true,
+  "failed_side_study_unchanged": true,
+  "preserved_fields": [
+    "meshes",
+    "mesh_surface",
+    "binding",
+    "rig",
+    "gait",
+    "shape_settings",
+    "drivers",
+    "materials"
+  ],
+  "translated_components": 6,
+  "translated_vertices": 942,
+  "max_coordinate_serialization_error_m": 5.4121017389885395e-09,
+  "scope": "Uniform component translations applied identically to rest/Basis/both keys; no cloth, belt-loop, topology, weight, binding or driver change. Shape and morph deltas remain unchanged."
+}

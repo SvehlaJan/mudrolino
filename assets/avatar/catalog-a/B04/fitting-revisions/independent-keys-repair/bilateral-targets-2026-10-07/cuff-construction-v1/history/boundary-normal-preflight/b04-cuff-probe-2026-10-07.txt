@@ -1,0 +1,17 @@
+00:00.779  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend"
+Traceback (most recent call last):
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b04_rolled_cuff.py", line 156, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b04_rolled_cuff.py", line 42, in main
+    plan = plan_cuffs([list(v.co) for v in obj.data.vertices], [list(v.normal) for v in obj.data.vertices],
+                      [list(obj.data.polygons[i].vertices) for i in cap_ids], centers)
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_rolled_cuff_plan.py", line 22, in plan_cuffs
+    if abs(dot) < .5: raise ValueError('Ambiguous original inner/outer boundary')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Ambiguous original inner/outer boundary
+
+Error: script failed, file: 'tools/blender/catalog/build_catalog_b04_rolled_cuff.py', exiting.
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

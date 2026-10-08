@@ -1,0 +1,17 @@
+{
+  "scope": "Exact execution tools and native log preserved before diagnostic instrumentation; original reports unchanged.",
+  "files": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/b04_corrective_repair_plan.py": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/inspect_catalog_b04_cuff.py": "058399d808c51312e7337be149be725ef4a811f813633cb09a07a63ab3bc9165",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/prepare_catalog_body.py": "805c2f12e74c56eea3e4e569712e7f7ca98e8ebcf024dfd78e6382189f2eee21",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/execution-source/tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/native-execution.txt": "8bed5b8fa3e2b0e99873d87445afb24cc84fab79b61eb0ce048e4fe2abae9bc3",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/inspection/inspection-report.json": "d3ef508b54946b6e2559f0f70ed6ec195aa3e4cd605880fce367795478c0e6a7"
+  }
+}

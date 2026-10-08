@@ -1,0 +1,27 @@
+{
+  "qualification": "Rest construction/art proposal from 320px reference and previously passed browser camera captures; no geometry change, fitting rerun or art acceptance.",
+  "candidate_blend_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2",
+  "candidate_glb_sha256": "4b0b5acf2c7bce392f247d0ecb06c82aa500ddc7a1aedb1ed7e818c3bf038d84",
+  "original_reference": "assets/avatar/catalog/references/B04/design.png",
+  "original_reference_sha256": "c21897623d279f4e265f3be2d7452d4ea44e8371f3fb0204bc64ac1c50566a45",
+  "browser_proof": "artifacts/verification/avatar-catalog/B04/camera-margin-review-2026-10-07/2026-10-07T06-56-06-145Z/report.json",
+  "browser_proof_sha256": "a7ee36814fb391179b5e0c62f9996603a378ec48ca6d741e15d36b640439afc4",
+  "images": {
+    "reference-design-review320.png": {
+      "copied_from": "artifacts/verification/avatar-catalog/B04/reference-design-review320.png",
+      "sha256": "a934acc97ee5c6d8d7552d6e967f2d06cd65d9323552760317e9a8e1b5d4bd80"
+    },
+    "current-front-review320.png": {
+      "copied_from": "artifacts/verification/avatar-catalog/B04/camera-margin-review-2026-10-07/2026-10-07T06-56-06-145Z/desktop-bilateral-targets-repair-front.png",
+      "sha256": "d08df31dce1cdff8712d30c1b54397b8905173489aefdf24c660d1179b4cd2d6"
+    },
+    "current-back-review320.png": {
+      "copied_from": "artifacts/verification/avatar-catalog/B04/camera-margin-review-2026-10-07/2026-10-07T06-56-06-145Z/desktop-bilateral-targets-repair-back.png",
+      "sha256": "ff19bb813ab030442cc5ddf0ab5128b6f71b1120503273ca8a49c558e0bc3650"
+    },
+    "current-side-review320.png": {
+      "copied_from": "artifacts/verification/avatar-catalog/B04/camera-margin-review-2026-10-07/2026-10-07T06-56-06-145Z/desktop-bilateral-targets-repair-side.png",
+      "sha256": "754bd0446eafd125577cafe3da27bef55de9d0cbcc528984c03d09cea704c5dd"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+00:00.940  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend"
+00:03.348  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+B04_CUFF_PRESERVATION {"status": "passed", "source_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2", "candidate_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d", "original_invariant_groups": ["meshes", "mesh_surface", "binding", "rig", "gait", "shape_settings", "drivers", "materials"], "original_vertices_keys_weights_preserved": true, "new_vertices": 1344, "replaced_hem_caps": 96, "closed_shell": true, "max_new_coordinate_serialization_error_m": 0.0, "retained_face_materials_and_smoothing_preserved": true, "retained_uv_corners_preserved": true, "native_cloth_uv_layers": ["UVMap"], "new_skin_export_cutoff": 0.0001, "scope": "Fresh reopened-source preservation. Only hem caps, new cuff topology/skin and same-side new-vertex targets may differ. Fitting, export, runtime and art acceptance remain separate."}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

@@ -1,0 +1,58 @@
+00:00.351  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/foundation/catalog-body.blend"
+Info: Deleted 13 data-block(s)
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+16:24:00 | INFO: Starting glTF 2.0 export
+16:24:00 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:00 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:00 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:00 | INFO: Extracting primitive: B04_ivory_trousers quad shell.001
+16:24:00 | INFO: Primitives created: 4
+16:24:00 | INFO: Extracting primitive: F03 rounded ivory sole.001
+16:24:00 | INFO: Primitives created: 5
+16:24:00 | INFO: Extracting primitive: T04_zip_hoodie quad shell.001
+16:24:00 | INFO: Primitives created: 5
+16:24:00 | INFO: Finished glTF 2.0 export in 0.12665891647338867 s
+
+Info: No orphaned data-blocks to purge
+16:24:00 | INFO: Starting glTF 2.0 export
+16:24:00 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:00 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:00 | INFO: Extracting primitive: H01 rounded face
+16:24:00 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+16:24:01 | INFO: Primitives created: 9
+16:24:01 | INFO: Extracting primitive: char1.005
+16:24:01 | INFO: Primitives created: 1
+16:24:01 | INFO: Finished glTF 2.0 export in 0.16673779487609863 s
+
+Info: No orphaned data-blocks to purge
+16:24:01 | INFO: Starting glTF 2.0 export
+16:24:01 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:01 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:01 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:01 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:01 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:24:01 | INFO: Extracting primitive: B04_ivory_trousers quad shell.001
+16:24:01 | INFO: Primitives created: 4
+16:24:01 | INFO: Extracting primitive: F03 rounded ivory sole.001
+16:24:01 | INFO: Primitives created: 5
+16:24:01 | INFO: Extracting primitive: H01 rounded face
+16:24:01 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+16:24:01 | INFO: Primitives created: 9
+16:24:01 | INFO: Extracting primitive: char1.005
+16:24:01 | INFO: Primitives created: 1
+16:24:01 | INFO: Extracting primitive: T04_zip_hoodie quad shell.001
+16:24:01 | INFO: Primitives created: 5
+16:24:01 | INFO: Finished glTF 2.0 export in 0.3042747974395752 s
+00:02.057  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review/rest-front-review.png'
+00:02.487  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review/rest-back-review.png'
+00:02.883  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review/rest-side-review.png'
+00:03.334  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review/three-quarter-review.png'
+00:03.793  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review/walk-13-review.png'
+00:04.240  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review/run-8-review.png'
+
+Info: Saved as "outfit.blend"
+OUTFIT_ASSEMBLY {"pieces": ["T04", "B04", "F03"], "status": "combination candidate; motion/runtime acceptance pending", "coverage": {"T04": {"vertices": 16742, "source_rest_delta_m": 0.0}, "B04": {"vertices": 17351, "source_rest_delta_m": 0.0}, "F03": {"vertices": 7159, "source_rest_delta_m": 0.0}}, "poses": [{"pose": "rest-front", "body_pairs": [0, 0, 0], "garment_layer_pairs": {"T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0, "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0, "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0}}, {"pose": "rest-back", "body_pairs": [0, 0, 0], "garment_layer_pairs": {"T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0, "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0, "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0}}, {"pose": "rest-side", "body_pairs": [0, 0, 0], "garment_layer_pairs": {"T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0, "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0, "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0}}, {"pose": "three-quarter", "body_pairs": [0, 0, 0], "garment_layer_pairs": {"T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0, "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0, "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0}}, {"pose": "walk-13", "body_pairs": [0, 0, 0], "garment_layer_pairs": {"T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0, "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0, "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0}}, {"pose": "run-8", "body_pairs": [0, 0, 0], "garment_layer_pairs": {"T04_zip_hoodie_outfit/B04_ivory_trousers_outfit": 0, "T04_zip_hoodie_outfit/F03_high_tops_outfit": 0, "B04_ivory_trousers_outfit/F03_high_tops_outfit": 0}}]}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

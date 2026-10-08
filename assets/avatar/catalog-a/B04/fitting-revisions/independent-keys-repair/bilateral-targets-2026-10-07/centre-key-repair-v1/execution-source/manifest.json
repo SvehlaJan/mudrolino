@@ -1,0 +1,38 @@
+{
+  "status": "source-bound current guarded screen and full-shell diagnosis; no model saved",
+  "tool_hashes": {
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_corrective_repair_plan.py": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_detail_components.py": "0e7833e677dac64eaff06c7f174b0d7740a3c7732b695cb1455ceb652c173340",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/inspect_catalog_b04_centre_strip.py": "653ef9a93504f6eff8a5cf7578b8de5822f2ba9df7d13cfad275effd9c1b522f",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/inspect_catalog_b04_pockets.py": "d77e6b249f541567d110437472f0981afc33f8140f00760dccba965e477af8b5",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/prepare_catalog_body.py": "805c2f12e74c56eea3e4e569712e7f7ca98e8ebcf024dfd78e6382189f2eee21",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
+    "tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc",
+    "tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_centre_key_plan.py": "11931ebc003c3473ffb4ea95f45fa24a5564850292d5a1267227846281d62f67",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_left_patch_repair_plan.py": "c23f0087398de75c879be85c4f43f70c36f24e3dcc9ca70cc7841e60a212fd99",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_target_repair_plan.py": "325341c0fce7f489e6ee03f37849af6a3f715054a90d2f237d67a6c8b2845236",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/f02_ankle_measurement.py": "46737bc746fb0aa102e16c03c15ec9be2c4acf0ea7ff6301eb8fda46de0bfe01",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_left_patch_attachment.py": "2ffb86d9ebf14ad32f65f5df41ccc2e19f7077075a3a3ddd2cd0b28674a1881e",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/runtime_rest_capture.py": "c005ea88020f77d6d4753145a96e2f4415abd33e8425e73f57b4eb430ebdc236",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/screen_catalog_b04_centre_repair.py": "eb0bec4c1dd82176b5bfeea61a78202bc49f75f5caca7a65ea8657cd3e248c1c",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_shell_self.py": "c40958bdb2ed920154cfe0be2ada5430265b46dfc0f4dbc9cc8f0c09d410ead2",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/inspect_catalog_b04_cloth_layers.py": "ce5843240e8cd41c174e4f6d6d32205be25e276e517d38a70c621f15fb5bb026"
+  },
+  "report_hashes": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/inspection/complete-key-inventory.json": "fe595c5f8ac81c29454cf29f05f36fccd7a127deffadb965a0e8bf6bd7863539",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/rest-guarded-probe/screen-report.json": "8e7bed136ed8590b291b1686636c562fb9d4fde867ef3c1d7c39cc5077461497",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/full-shell-self-audit.json": "026931ae2d95d9314f19899e7045df22d565d220904300c442313bfef16b13e6",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/cloth-layer-classification.json": "ff13bfaeccd511285e21b567d819f72e2507487d334a3dc2b276d62e34f6ff9a"
+  },
+  "native_log_hashes": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/rest-guarded-probe/native-execution.txt": "b3ab8b566cbcc887dec1120f22a8d483c33a854f5d712be94dce0bb251228675",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/native-execution.txt": "de51bb16adfa8d61cc597d466f75dcf5eba1009689a78f6f99b72ee8aafcd0b2"
+  },
+  "qualification": "Full native logs preserved for both sweeps. Inventory/layer inspection stdout was observed via tools; no separate full log claimed. Initial non-saving-probe is preserved separately and invalid for its second runtime domain."
+}

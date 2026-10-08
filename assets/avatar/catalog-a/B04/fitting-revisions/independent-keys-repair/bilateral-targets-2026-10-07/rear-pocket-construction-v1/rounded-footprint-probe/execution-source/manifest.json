@@ -1,0 +1,35 @@
+{
+  "status": "failed non-saving full screen; exact execution tools preserved",
+  "tool_hashes": {
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_corrective_repair_plan.py": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_detail_components.py": "0e7833e677dac64eaff06c7f174b0d7740a3c7732b695cb1455ceb652c173340",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_left_patch_repair_plan.py": "c23f0087398de75c879be85c4f43f70c36f24e3dcc9ca70cc7841e60a212fd99",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_rear_pocket_plan.py": "07c660c44ae84db0432cc9b8d6fd11fc39737dd4ea14404fdf08323ef4df9b64",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_rolled_cuff_plan.py": "c7dee9a69601d44aaf5a5a76a0071213d951b19969c6df25d218b235aa5fc7f2",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_target_repair_plan.py": "325341c0fce7f489e6ee03f37849af6a3f715054a90d2f237d67a6c8b2845236",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b04_rear_pockets.py": "9d45e6c20f20da8bb431e5fddf351914239c8177ccdf49fa2720540e8c80c4b1",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/f02_ankle_measurement.py": "46737bc746fb0aa102e16c03c15ec9be2c4acf0ea7ff6301eb8fda46de0bfe01",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/inspect_catalog_b04_pockets.py": "d77e6b249f541567d110437472f0981afc33f8140f00760dccba965e477af8b5",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/prepare_catalog_body.py": "805c2f12e74c56eea3e4e569712e7f7ca98e8ebcf024dfd78e6382189f2eee21",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_left_patch_attachment.py": "2ffb86d9ebf14ad32f65f5df41ccc2e19f7077075a3a3ddd2cd0b28674a1881e",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
+    "tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc",
+    "tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123"
+  },
+  "native_execution_summary": "Blender 5.2.2 LTS; native164/runtime-equivalent164; terminal exit0 reports failed; full stdout log not redirected; no candidate save",
+  "input_hashes": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/body-B04.glb": "115665b234e7bd2ddfb376e65a8665ede6d96f679a17f18ca7da2281909fd1ea",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/rear-pocket-construction-v1/inspection/pocket-inspection.json": "d64fd05cfd84c985c459b56df817d5a1e61ddaf9d6e2d55ffacd7446ec1ecb0b",
+    "assets/avatar/catalog-a/F01/F01.blend": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee",
+    "assets/avatar/catalog-a/F03/F03.blend": "52a4bcfeb54aea644088d6e137fb3ab9a2cc16c4c747ab6a474abfac0147bcf5",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe"
+  }
+}

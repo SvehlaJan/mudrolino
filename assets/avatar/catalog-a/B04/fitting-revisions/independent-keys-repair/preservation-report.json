@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": {
+    "meshes": true,
+    "mesh_surface": true,
+    "binding": true,
+    "rig": true,
+    "gait": true,
+    "shape_settings": true,
+    "drivers": true,
+    "materials": true
+  },
+  "source": "assets/avatar/catalog-a/B04/B04.blend",
+  "source_sha256": "e4e14adf9e8da333b0c02e4d4690e56d38e63884de10676864646ba574983624",
+  "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/B04.blend",
+  "blend_sha256": "b472ea595124968bbad2ad0f0b8ab35581b2b829fe5b7302ae916266c1014055",
+  "changed_coordinates": 263,
+  "canonical_unchanged": true,
+  "scope": "All rest mesh/topology/weight/bind/active modifier/driver/gait/material fields; only audited Right coordinates differ."
+}

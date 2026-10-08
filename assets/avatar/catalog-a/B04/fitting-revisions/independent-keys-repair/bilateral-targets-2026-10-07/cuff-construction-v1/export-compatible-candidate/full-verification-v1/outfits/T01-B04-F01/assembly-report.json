@@ -1,0 +1,102 @@
+{
+  "pieces": [
+    "T01",
+    "B04",
+    "F01"
+  ],
+  "status": "combination candidate; motion/runtime acceptance pending",
+  "coverage": {
+    "T01": {
+      "vertices": 11752,
+      "source_rest_delta_m": 0.0
+    },
+    "B04": {
+      "vertices": 17351,
+      "source_rest_delta_m": 0.0
+    },
+    "F01": {
+      "vertices": 5669,
+      "source_rest_delta_m": 0.0
+    }
+  },
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T01_crew_tee_outfit/B04_ivory_trousers_outfit": 0,
+        "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B04_ivory_trousers_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T01_crew_tee_outfit/B04_ivory_trousers_outfit": 0,
+        "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B04_ivory_trousers_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T01_crew_tee_outfit/B04_ivory_trousers_outfit": 0,
+        "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B04_ivory_trousers_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T01_crew_tee_outfit/B04_ivory_trousers_outfit": 0,
+        "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B04_ivory_trousers_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T01_crew_tee_outfit/B04_ivory_trousers_outfit": 0,
+        "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B04_ivory_trousers_outfit/F01_strap_sneakers_outfit": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T01_crew_tee_outfit/B04_ivory_trousers_outfit": 0,
+        "T01_crew_tee_outfit/F01_strap_sneakers_outfit": 0,
+        "B04_ivory_trousers_outfit/F01_strap_sneakers_outfit": 0
+      }
+    }
+  ]
+}

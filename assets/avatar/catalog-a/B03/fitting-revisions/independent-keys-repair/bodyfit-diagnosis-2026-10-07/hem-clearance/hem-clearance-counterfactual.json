@@ -1,0 +1,2457 @@
+{
+  "status": "one measured non-saving construction counterfactual; not a saved or accepted source",
+  "source": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/B03.blend",
+  "source_sha256": "f6417b0486823a00ca58a29eb21bc3283a505593eb8002cc26883087200517a7",
+  "tool_hashes": {
+    "tools/blender/catalog/b04_corrective_repair_plan.py": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978",
+    "tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "tools/blender/catalog/diagnose_catalog_b03_hem_clearance.py": "198c070844d35634e7eea894b763edc82701f0d4ede43a58be2b312f368801d4",
+    "tools/blender/catalog/prepare_catalog_body.py": "805c2f12e74c56eea3e4e569712e7f7ca98e8ebcf024dfd78e6382189f2eee21",
+    "tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
+    "tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc",
+    "tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123"
+  },
+  "source_unchanged": true,
+  "all_recorded_invariants_restored_exactly": true,
+  "construction": "Longitudinal shortening below authored leg/pelvis anchor0.858 m; same per-Basis-vertex Z offset added to mesh, Basis and both keys, preserving intended morph deltas. No new controls, weights or topology.",
+  "old_hem_m": 0.5397302508354187,
+  "proposed_hem_m": 0.6597302508354187,
+  "lift_m": 0.12,
+  "measured_required_lift_m": 0.13490279490744342,
+  "cap_m": 0.12,
+  "desired_clearance_m": 0.006,
+  "highest_required_samples": [
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 961,
+      "required_hem_lift_m": 0.13490279490744342,
+      "world_slope_m_per_m": 0.32075995444880573,
+      "ray_exit_world": [
+        -0.10403313487768173,
+        0.18116064369678497,
+        0.7397500872612
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          945,
+          1,
+          0.32075989999227533
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 962,
+      "required_hem_lift_m": 0.13490279490744342,
+      "world_slope_m_per_m": 0.32075995444880573,
+      "ray_exit_world": [
+        -0.10403313487768173,
+        0.18116064369678497,
+        0.7397500872612
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          945,
+          1,
+          0.32075989999227533
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 1148,
+      "required_hem_lift_m": 0.132284903102871,
+      "world_slope_m_per_m": 0.38992459756747516,
+      "ray_exit_world": [
+        -0.08173982799053192,
+        0.18914367258548737,
+        0.7405025959014893
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1518,
+          0.5,
+          0.4491825691180215
+        ],
+        [
+          990,
+          0.5,
+          0.33066648554621114
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 1151,
+      "required_hem_lift_m": 0.132284903102871,
+      "world_slope_m_per_m": 0.38992459756747516,
+      "ray_exit_world": [
+        -0.08173982799053192,
+        0.18914367258548737,
+        0.7405025959014893
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          990,
+          0.5,
+          0.33066648554621114
+        ],
+        [
+          1518,
+          0.5,
+          0.4491825691180215
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "cloth_face": 1149,
+      "required_hem_lift_m": 0.1302487119207959,
+      "world_slope_m_per_m": 0.5057284846193927,
+      "ray_exit_world": [
+        -0.10259723663330078,
+        0.18709897994995117,
+        0.712709367275238
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1038,
+          0.5,
+          0.5622743579341852
+        ],
+        [
+          1518,
+          0.5,
+          0.4491825691180215
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "cloth_face": 1146,
+      "required_hem_lift_m": 0.12887793451690988,
+      "world_slope_m_per_m": 0.4503427574865491,
+      "ray_exit_world": [
+        -0.07418950647115707,
+        0.18034179508686066,
+        0.7242587208747864
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1036,
+          1,
+          0.45034275093031373
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "cloth_face": 1147,
+      "required_hem_lift_m": 0.12887793451690988,
+      "world_slope_m_per_m": 0.4503427574865491,
+      "ray_exit_world": [
+        -0.07418950647115707,
+        0.18034179508686066,
+        0.7242587208747864
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1036,
+          1,
+          0.45034275093031373
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "cloth_face": 1148,
+      "required_hem_lift_m": 0.12887793451690988,
+      "world_slope_m_per_m": 0.4503427574865491,
+      "ray_exit_world": [
+        -0.07418950647115707,
+        0.18034179508686066,
+        0.7242587208747864
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1036,
+          1,
+          0.45034275093031373
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 2685,
+      "required_hem_lift_m": 0.1279915852288904,
+      "world_slope_m_per_m": 0.5047620642557094,
+      "ray_exit_world": [
+        -0.08349236845970154,
+        0.1961163878440857,
+        0.7440822124481201
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          2651,
+          0.25,
+          0.44853552663836543
+        ],
+        [
+          3133,
+          0.25,
+          0.4475435196876452
+        ],
+        [
+          2653,
+          0.25,
+          0.5615095181405774
+        ],
+        [
+          1941,
+          0.25,
+          0.5614593278700859
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "cloth_face": 1242,
+      "required_hem_lift_m": 0.12769628959337337,
+      "world_slope_m_per_m": 0.6744246871971246,
+      "ray_exit_world": [
+        -0.0775580182671547,
+        0.20141133666038513,
+        0.7268251776695251
+      ],
+      "body_roles": [
+        "RightFoot",
+        "RightLeg"
+      ],
+      "construction_support": [
+        [
+          1084,
+          0.5,
+          0.6755678442179582
+        ],
+        [
+          1541,
+          0.5,
+          0.6756232782480532
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "cloth_face": 1243,
+      "required_hem_lift_m": 0.12769628959337337,
+      "world_slope_m_per_m": 0.6744246871971246,
+      "ray_exit_world": [
+        -0.0775580182671547,
+        0.20141133666038513,
+        0.7268251776695251
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1541,
+          0.5,
+          0.6756232782480532
+        ],
+        [
+          1084,
+          0.5,
+          0.6755678442179582
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "cloth_face": 1242,
+      "required_hem_lift_m": 0.12739808142302916,
+      "world_slope_m_per_m": 0.7779058547407331,
+      "ray_exit_world": [
+        -0.09213105589151382,
+        0.22011440992355347,
+        0.7184981107711792
+      ],
+      "body_roles": [
+        "RightFoot",
+        "RightLeg"
+      ],
+      "construction_support": [
+        [
+          350,
+          1,
+          0.7779058057499505
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "cloth_face": 1339,
+      "required_hem_lift_m": 0.12739808142302916,
+      "world_slope_m_per_m": 0.7779058547407331,
+      "ray_exit_world": [
+        -0.09213105589151382,
+        0.22011440992355347,
+        0.7184981107711792
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          350,
+          1,
+          0.7779058057499505
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "cloth_face": 1151,
+      "required_hem_lift_m": 0.1272905664766915,
+      "world_slope_m_per_m": 0.44870476738618326,
+      "ray_exit_world": [
+        -0.10748910903930664,
+        0.17939719557762146,
+        0.7119152545928955
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1518,
+          0.5,
+          0.4491825691180215
+        ],
+        [
+          991,
+          0.5,
+          0.448226893930269
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 1242,
+      "required_hem_lift_m": 0.12647327038033934,
+      "world_slope_m_per_m": 0.6755679953994983,
+      "ray_exit_world": [
+        -0.0820547416806221,
+        0.2164739966392517,
+        0.7437720894813538
+      ],
+      "body_roles": [
+        "RightFoot",
+        "RightLeg"
+      ],
+      "construction_support": [
+        [
+          1084,
+          1,
+          0.6755678442179582
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 1243,
+      "required_hem_lift_m": 0.12647327038033934,
+      "world_slope_m_per_m": 0.6755679953994983,
+      "ray_exit_world": [
+        -0.0820547416806221,
+        0.2164739966392517,
+        0.7437720894813538
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          1084,
+          1,
+          0.6755678442179582
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 2873,
+      "required_hem_lift_m": 0.1262987070798536,
+      "world_slope_m_per_m": 0.884294893671458,
+      "ray_exit_world": [
+        -0.07405322045087814,
+        0.21145640313625336,
+        0.7400663495063782
+      ],
+      "body_roles": [
+        "RightLeg"
+      ],
+      "construction_support": [
+        [
+          3180,
+          0.5,
+          0.8566093936400906
+        ],
+        [
+          2748,
+          0.5,
+          0.9119801240655844
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 2969,
+      "required_hem_lift_m": 0.126157072534021,
+      "world_slope_m_per_m": 0.9631809026246301,
+      "ray_exit_world": [
+        -0.0781719833612442,
+        0.2230047583580017,
+        0.7385055422782898
+      ],
+      "body_roles": [
+        "RightLeg"
+      ],
+      "construction_support": [
+        [
+          2796,
+          1,
+          0.9683400522848677
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "cloth_face": 3064,
+      "required_hem_lift_m": 0.126157072534021,
+      "world_slope_m_per_m": 0.9631809026246301,
+      "ray_exit_world": [
+        -0.0781719833612442,
+        0.2230047583580017,
+        0.7385055422782898
+      ],
+      "body_roles": [
+        "RightLeg"
+      ],
+      "construction_support": [
+        [
+          2796,
+          1,
+          0.9683400522848677
+        ]
+      ]
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "cloth_face": 2685,
+      "required_hem_lift_m": 0.12612123463428715,
+      "world_slope_m_per_m": 0.5615095314086918,
+      "ray_exit_world": [
+        -0.10621891170740128,
+        0.18944112956523895,
+        0.7129848599433899
+      ],
+      "body_roles": [
+        "RightFoot"
+      ],
+      "construction_support": [
+        [
+          2653,
+          1,
+          0.5615095181405774
+        ]
+      ]
+    }
+  ],
+  "unresolved_support": [],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "body_pairs": 608,
+      "detail_own_shell_pairs": 22,
+      "max_detail_distance_m": 0.004738835617899895,
+      "body_role_pair_counts": {
+        "Hips": 348,
+        "LeftUpLeg": 260
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "body_pairs": 701,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738843068480492,
+      "body_role_pair_counts": {
+        "Hips": 346,
+        "LeftUpLeg": 355
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "body_pairs": 690,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738856106996536,
+      "body_role_pair_counts": {
+        "Hips": 350,
+        "LeftUpLeg": 340
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "body_pairs": 698,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738816060125828,
+      "body_role_pair_counts": {
+        "Hips": 352,
+        "LeftUpLeg": 346
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "body_pairs": 699,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738821182399988,
+      "body_role_pair_counts": {
+        "Hips": 356,
+        "LeftUpLeg": 343
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "body_pairs": 693,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738824907690287,
+      "body_role_pair_counts": {
+        "Hips": 370,
+        "LeftUpLeg": 323
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "body_pairs": 678,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738857038319111,
+      "body_role_pair_counts": {
+        "Hips": 368,
+        "LeftUpLeg": 310
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "body_pairs": 677,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738856106996536,
+      "body_role_pair_counts": {
+        "Hips": 370,
+        "LeftUpLeg": 307
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "body_pairs": 662,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.00473883468657732,
+      "body_role_pair_counts": {
+        "Hips": 369,
+        "LeftUpLeg": 293
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "body_pairs": 661,
+      "detail_own_shell_pairs": 57,
+      "max_detail_distance_m": 0.004738854710012674,
+      "body_role_pair_counts": {
+        "Hips": 373,
+        "LeftUpLeg": 288
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "body_pairs": 656,
+      "detail_own_shell_pairs": 59,
+      "max_detail_distance_m": 0.0047388444654643536,
+      "body_role_pair_counts": {
+        "Hips": 373,
+        "LeftUpLeg": 283
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "body_pairs": 647,
+      "detail_own_shell_pairs": 59,
+      "max_detail_distance_m": 0.004738843999803066,
+      "body_role_pair_counts": {
+        "Hips": 366,
+        "LeftUpLeg": 281
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "body_pairs": 645,
+      "detail_own_shell_pairs": 59,
+      "max_detail_distance_m": 0.004738823510706425,
+      "body_role_pair_counts": {
+        "Hips": 364,
+        "LeftUpLeg": 281
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "body_pairs": 643,
+      "detail_own_shell_pairs": 61,
+      "max_detail_distance_m": 0.004738833289593458,
+      "body_role_pair_counts": {
+        "Hips": 363,
+        "LeftUpLeg": 280
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "body_pairs": 649,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738835617899895,
+      "body_role_pair_counts": {
+        "Hips": 366,
+        "LeftUpLeg": 283
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "body_pairs": 652,
+      "detail_own_shell_pairs": 67,
+      "max_detail_distance_m": 0.004738843068480492,
+      "body_role_pair_counts": {
+        "Hips": 364,
+        "LeftUpLeg": 288
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "body_pairs": 659,
+      "detail_own_shell_pairs": 77,
+      "max_detail_distance_m": 0.004738852381706238,
+      "body_role_pair_counts": {
+        "Hips": 365,
+        "LeftUpLeg": 294
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "body_pairs": 664,
+      "detail_own_shell_pairs": 79,
+      "max_detail_distance_m": 0.004738830961287022,
+      "body_role_pair_counts": {
+        "Hips": 367,
+        "LeftUpLeg": 297
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "body_pairs": 665,
+      "detail_own_shell_pairs": 79,
+      "max_detail_distance_m": 0.004738848190754652,
+      "body_role_pair_counts": {
+        "Hips": 369,
+        "LeftUpLeg": 296
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "body_pairs": 658,
+      "detail_own_shell_pairs": 79,
+      "max_detail_distance_m": 0.004738843999803066,
+      "body_role_pair_counts": {
+        "Hips": 370,
+        "LeftUpLeg": 288
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "body_pairs": 664,
+      "detail_own_shell_pairs": 79,
+      "max_detail_distance_m": 0.004738845396786928,
+      "body_role_pair_counts": {
+        "Hips": 372,
+        "LeftUpLeg": 292
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "body_pairs": 669,
+      "detail_own_shell_pairs": 77,
+      "max_detail_distance_m": 0.004738844931125641,
+      "body_role_pair_counts": {
+        "Hips": 379,
+        "LeftUpLeg": 290
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "body_pairs": 669,
+      "detail_own_shell_pairs": 73,
+      "max_detail_distance_m": 0.0047388537786901,
+      "body_role_pair_counts": {
+        "Hips": 384,
+        "LeftUpLeg": 285
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "body_pairs": 675,
+      "detail_own_shell_pairs": 75,
+      "max_detail_distance_m": 0.004738845396786928,
+      "body_role_pair_counts": {
+        "RightUpLeg": 4,
+        "Hips": 388,
+        "LeftUpLeg": 283
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "body_pairs": 681,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738871473819017,
+      "body_role_pair_counts": {
+        "RightUpLeg": 4,
+        "Hips": 398,
+        "LeftUpLeg": 279
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "body_pairs": 684,
+      "detail_own_shell_pairs": 63,
+      "max_detail_distance_m": 0.004738833289593458,
+      "body_role_pair_counts": {
+        "RightUpLeg": 6,
+        "Hips": 400,
+        "LeftUpLeg": 278
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "body_pairs": 690,
+      "detail_own_shell_pairs": 63,
+      "max_detail_distance_m": 0.00473886588588357,
+      "body_role_pair_counts": {
+        "RightUpLeg": 8,
+        "Hips": 402,
+        "LeftUpLeg": 280
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "body_pairs": 688,
+      "detail_own_shell_pairs": 61,
+      "max_detail_distance_m": 0.004738866351544857,
+      "body_role_pair_counts": {
+        "RightUpLeg": 10,
+        "Hips": 401,
+        "LeftUpLeg": 277
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "body_pairs": 693,
+      "detail_own_shell_pairs": 61,
+      "max_detail_distance_m": 0.0047388384118676186,
+      "body_role_pair_counts": {
+        "RightUpLeg": 10,
+        "Hips": 401,
+        "LeftUpLeg": 282
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "body_pairs": 691,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738854244351387,
+      "body_role_pair_counts": {
+        "RightUpLeg": 10,
+        "Hips": 402,
+        "LeftUpLeg": 279
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "body_pairs": 703,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738840274512768,
+      "body_role_pair_counts": {
+        "RightUpLeg": 10,
+        "Hips": 408,
+        "LeftUpLeg": 285
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "body_pairs": 703,
+      "detail_own_shell_pairs": 63,
+      "max_detail_distance_m": 0.004738842602819204,
+      "body_role_pair_counts": {
+        "RightUpLeg": 10,
+        "Hips": 406,
+        "LeftUpLeg": 287
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "body_pairs": 692,
+      "detail_own_shell_pairs": 63,
+      "max_detail_distance_m": 0.004738861229270697,
+      "body_role_pair_counts": {
+        "RightUpLeg": 8,
+        "Hips": 397,
+        "LeftUpLeg": 287
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "body_pairs": 694,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.00473882257938385,
+      "body_role_pair_counts": {
+        "RightUpLeg": 6,
+        "Hips": 384,
+        "LeftUpLeg": 304
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "body_pairs": 684,
+      "detail_own_shell_pairs": 61,
+      "max_detail_distance_m": 0.0047388565726578236,
+      "body_role_pair_counts": {
+        "RightUpLeg": 4,
+        "Hips": 370,
+        "LeftUpLeg": 310
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "body_pairs": 721,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738847725093365,
+      "body_role_pair_counts": {
+        "Hips": 366,
+        "LeftUpLeg": 355
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "body_pairs": 711,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738841205835342,
+      "body_role_pair_counts": {
+        "Hips": 358,
+        "LeftUpLeg": 353
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "body_pairs": 697,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738850053399801,
+      "body_role_pair_counts": {
+        "Hips": 350,
+        "LeftUpLeg": 347
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "body_pairs": 695,
+      "detail_own_shell_pairs": 65,
+      "max_detail_distance_m": 0.004738843999803066,
+      "body_role_pair_counts": {
+        "Hips": 357,
+        "LeftUpLeg": 338
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "body_pairs": 685,
+      "detail_own_shell_pairs": 59,
+      "max_detail_distance_m": 0.004738844931125641,
+      "body_role_pair_counts": {
+        "Hips": 350,
+        "LeftUpLeg": 335
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "body_pairs": 669,
+      "detail_own_shell_pairs": 59,
+      "max_detail_distance_m": 0.004738873336464167,
+      "body_role_pair_counts": {
+        "Hips": 341,
+        "LeftUpLeg": 328
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "body_pairs": 669,
+      "detail_own_shell_pairs": 63,
+      "max_detail_distance_m": 0.0047388519160449505,
+      "body_role_pair_counts": {
+        "Hips": 339,
+        "LeftUpLeg": 330
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "body_pairs": 649,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738848656415939,
+      "body_role_pair_counts": {
+        "Hips": 334,
+        "LeftUpLeg": 315
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "body_pairs": 654,
+      "detail_own_shell_pairs": 64,
+      "max_detail_distance_m": 0.004738823510706425,
+      "body_role_pair_counts": {
+        "Hips": 337,
+        "LeftUpLeg": 317
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "body_pairs": 630,
+      "detail_own_shell_pairs": 64,
+      "max_detail_distance_m": 0.0047388277016580105,
+      "body_role_pair_counts": {
+        "Hips": 335,
+        "LeftUpLeg": 295
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "body_pairs": 632,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738840274512768,
+      "body_role_pair_counts": {
+        "Hips": 336,
+        "LeftUpLeg": 296
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "body_pairs": 623,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738858435302973,
+      "body_role_pair_counts": {
+        "Hips": 334,
+        "LeftUpLeg": 289
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "body_pairs": 611,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738846328109503,
+      "body_role_pair_counts": {
+        "Hips": 340,
+        "LeftUpLeg": 271
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "body_pairs": 609,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738856106996536,
+      "body_role_pair_counts": {
+        "Hips": 340,
+        "LeftUpLeg": 269
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "body_pairs": 603,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.00473885890096426,
+      "body_role_pair_counts": {
+        "Hips": 337,
+        "LeftUpLeg": 266
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "body_pairs": 577,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738847725093365,
+      "body_role_pair_counts": {
+        "Hips": 337,
+        "LeftUpLeg": 240
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "body_pairs": 560,
+      "detail_own_shell_pairs": 56,
+      "max_detail_distance_m": 0.004738848190754652,
+      "body_role_pair_counts": {
+        "Hips": 334,
+        "LeftUpLeg": 226
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "body_pairs": 563,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738839343190193,
+      "body_role_pair_counts": {
+        "Hips": 340,
+        "LeftUpLeg": 223
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "body_pairs": 580,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738854244351387,
+      "body_role_pair_counts": {
+        "Hips": 345,
+        "RightUpLeg": 17,
+        "LeftUpLeg": 218
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "body_pairs": 601,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.00473884167149663,
+      "body_role_pair_counts": {
+        "Hips": 343,
+        "RightUpLeg": 40,
+        "LeftUpLeg": 218
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "body_pairs": 631,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.0047388505190610886,
+      "body_role_pair_counts": {
+        "Hips": 344,
+        "RightUpLeg": 68,
+        "LeftUpLeg": 219
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "body_pairs": 658,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.004738843534141779,
+      "body_role_pair_counts": {
+        "Hips": 348,
+        "RightUpLeg": 88,
+        "LeftUpLeg": 222
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "body_pairs": 658,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.004738859366625547,
+      "body_role_pair_counts": {
+        "Hips": 346,
+        "RightUpLeg": 96,
+        "LeftUpLeg": 216
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "body_pairs": 679,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.0047388337552547455,
+      "body_role_pair_counts": {
+        "RightUpLeg": 120,
+        "Hips": 346,
+        "LeftUpLeg": 213
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "body_pairs": 710,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.00473885890096426,
+      "body_role_pair_counts": {
+        "RightUpLeg": 134,
+        "Hips": 348,
+        "LeftUpLeg": 228
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "body_pairs": 716,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738864488899708,
+      "body_role_pair_counts": {
+        "RightUpLeg": 137,
+        "Hips": 349,
+        "LeftUpLeg": 230
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "body_pairs": 725,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738837014883757,
+      "body_role_pair_counts": {
+        "RightUpLeg": 142,
+        "Hips": 351,
+        "LeftUpLeg": 232
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "body_pairs": 731,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738842602819204,
+      "body_role_pair_counts": {
+        "RightUpLeg": 148,
+        "Hips": 352,
+        "LeftUpLeg": 231
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "body_pairs": 723,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738857038319111,
+      "body_role_pair_counts": {
+        "RightUpLeg": 148,
+        "Hips": 354,
+        "LeftUpLeg": 221
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "body_pairs": 723,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.004738841205835342,
+      "body_role_pair_counts": {
+        "RightUpLeg": 145,
+        "Hips": 355,
+        "LeftUpLeg": 223
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "body_pairs": 730,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.004738850984722376,
+      "body_role_pair_counts": {
+        "RightUpLeg": 147,
+        "Hips": 357,
+        "LeftUpLeg": 226
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "body_pairs": 753,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.004738843999803066,
+      "body_role_pair_counts": {
+        "RightUpLeg": 156,
+        "Hips": 370,
+        "LeftUpLeg": 227
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "body_pairs": 773,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738854244351387,
+      "body_role_pair_counts": {
+        "RightUpLeg": 160,
+        "Hips": 375,
+        "LeftUpLeg": 238
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "body_pairs": 788,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738849587738514,
+      "body_role_pair_counts": {
+        "RightUpLeg": 172,
+        "Hips": 382,
+        "LeftUpLeg": 234
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "body_pairs": 791,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738830495625734,
+      "body_role_pair_counts": {
+        "RightUpLeg": 169,
+        "Hips": 386,
+        "LeftUpLeg": 236
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "body_pairs": 804,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738852847367525,
+      "body_role_pair_counts": {
+        "RightUpLeg": 176,
+        "Hips": 390,
+        "LeftUpLeg": 238
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "body_pairs": 809,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738873802125454,
+      "body_role_pair_counts": {
+        "RightUpLeg": 178,
+        "Hips": 390,
+        "LeftUpLeg": 241
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "body_pairs": 821,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738838877528906,
+      "body_role_pair_counts": {
+        "RightUpLeg": 179,
+        "Hips": 399,
+        "LeftUpLeg": 243
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "body_pairs": 823,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.0047388565726578236,
+      "body_role_pair_counts": {
+        "RightUpLeg": 183,
+        "Hips": 403,
+        "LeftUpLeg": 237
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "body_pairs": 843,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.0047388398088514805,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 233,
+        "Hips": 423,
+        "RightUpLeg": 187
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "body_pairs": 856,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738837014883757,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 229,
+        "Hips": 439,
+        "RightUpLeg": 188
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "body_pairs": 864,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.0047388686798512936,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 224,
+        "Hips": 453,
+        "RightUpLeg": 187
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "body_pairs": 873,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.0047388626262545586,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 208,
+        "Hips": 487,
+        "RightUpLeg": 178
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "body_pairs": 896,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738843068480492,
+      "body_role_pair_counts": {
+        "Hips": 513,
+        "LeftUpLeg": 207,
+        "RightUpLeg": 176
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "body_pairs": 774,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738845396786928,
+      "body_role_pair_counts": {
+        "Hips": 431,
+        "LeftUpLeg": 194,
+        "RightUpLeg": 149
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "body_pairs": 685,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738834220916033,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 179,
+        "Hips": 397,
+        "RightUpLeg": 109
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "body_pairs": 631,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.0047388626262545586,
+      "body_role_pair_counts": {
+        "RightUpLeg": 76,
+        "Hips": 379,
+        "LeftUpLeg": 176
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "body_pairs": 601,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738857503980398,
+      "body_role_pair_counts": {
+        "RightUpLeg": 63,
+        "Hips": 365,
+        "LeftUpLeg": 173
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "body_pairs": 572,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738833289593458,
+      "body_role_pair_counts": {
+        "RightUpLeg": 42,
+        "Hips": 362,
+        "LeftUpLeg": 168
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "body_pairs": 561,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738858435302973,
+      "body_role_pair_counts": {
+        "RightUpLeg": 27,
+        "Hips": 357,
+        "LeftUpLeg": 177
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "body_pairs": 526,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.00473885890096426,
+      "body_role_pair_counts": {
+        "Hips": 347,
+        "LeftUpLeg": 179
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "body_pairs": 524,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738821182399988,
+      "body_role_pair_counts": {
+        "Hips": 346,
+        "LeftUpLeg": 178
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "body_pairs": 523,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738854244351387,
+      "body_role_pair_counts": {
+        "Hips": 338,
+        "LeftUpLeg": 185
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "body_pairs": 529,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.0047388398088514805,
+      "body_role_pair_counts": {
+        "Hips": 338,
+        "LeftUpLeg": 191
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "body_pairs": 528,
+      "detail_own_shell_pairs": 52,
+      "max_detail_distance_m": 0.004738843999803066,
+      "body_role_pair_counts": {
+        "Hips": 332,
+        "LeftUpLeg": 196
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "body_pairs": 538,
+      "detail_own_shell_pairs": 56,
+      "max_detail_distance_m": 0.004738842602819204,
+      "body_role_pair_counts": {
+        "Hips": 332,
+        "LeftUpLeg": 206
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "body_pairs": 553,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.00473887799307704,
+      "body_role_pair_counts": {
+        "Hips": 331,
+        "LeftUpLeg": 222
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "body_pairs": 573,
+      "detail_own_shell_pairs": 62,
+      "max_detail_distance_m": 0.004738845396786928,
+      "body_role_pair_counts": {
+        "Hips": 328,
+        "LeftUpLeg": 245
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "body_pairs": 609,
+      "detail_own_shell_pairs": 64,
+      "max_detail_distance_m": 0.004738839343190193,
+      "body_role_pair_counts": {
+        "Hips": 332,
+        "LeftUpLeg": 277
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "body_pairs": 622,
+      "detail_own_shell_pairs": 68,
+      "max_detail_distance_m": 0.0047388747334480286,
+      "body_role_pair_counts": {
+        "Hips": 333,
+        "LeftUpLeg": 289
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "body_pairs": 640,
+      "detail_own_shell_pairs": 64,
+      "max_detail_distance_m": 0.0047388337552547455,
+      "body_role_pair_counts": {
+        "Hips": 337,
+        "LeftUpLeg": 303
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "body_pairs": 657,
+      "detail_own_shell_pairs": 66,
+      "max_detail_distance_m": 0.004738830961287022,
+      "body_role_pair_counts": {
+        "Hips": 338,
+        "LeftUpLeg": 319
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "body_pairs": 691,
+      "detail_own_shell_pairs": 64,
+      "max_detail_distance_m": 0.004738843068480492,
+      "body_role_pair_counts": {
+        "Hips": 341,
+        "LeftUpLeg": 350
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "body_pairs": 711,
+      "detail_own_shell_pairs": 64,
+      "max_detail_distance_m": 0.004738836083561182,
+      "body_role_pair_counts": {
+        "Hips": 345,
+        "LeftUpLeg": 366
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "body_pairs": 700,
+      "detail_own_shell_pairs": 58,
+      "max_detail_distance_m": 0.0047388519160449505,
+      "body_role_pair_counts": {
+        "Hips": 347,
+        "LeftUpLeg": 353
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "body_pairs": 702,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738832823932171,
+      "body_role_pair_counts": {
+        "Hips": 348,
+        "LeftUpLeg": 354
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "body_pairs": 701,
+      "detail_own_shell_pairs": 54,
+      "max_detail_distance_m": 0.004738843068480492,
+      "body_role_pair_counts": {
+        "Hips": 346,
+        "LeftUpLeg": 355
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "body_pairs": 758,
+      "detail_own_shell_pairs": 86,
+      "max_detail_distance_m": 0.004738849122077227,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 422,
+        "Hips": 336
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "body_pairs": 762,
+      "detail_own_shell_pairs": 86,
+      "max_detail_distance_m": 0.0047388323582708836,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 420,
+        "Hips": 338,
+        "RightUpLeg": 4
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "body_pairs": 758,
+      "detail_own_shell_pairs": 87,
+      "max_detail_distance_m": 0.004738867748528719,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 384,
+        "Hips": 347,
+        "RightUpLeg": 27
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "body_pairs": 770,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.004738857038319111,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 361,
+        "Hips": 358,
+        "RightUpLeg": 51
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "body_pairs": 804,
+      "detail_own_shell_pairs": 83,
+      "max_detail_distance_m": 0.0047388337552547455,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 367,
+        "Hips": 379,
+        "RightUpLeg": 58
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "body_pairs": 794,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.004738830029964447,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 366,
+        "Hips": 376,
+        "RightUpLeg": 52
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "body_pairs": 773,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.004738860763609409,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 366,
+        "Hips": 376,
+        "RightUpLeg": 31
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "body_pairs": 768,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.0047388565726578236,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 360,
+        "Hips": 385,
+        "RightUpLeg": 23
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "body_pairs": 737,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.004738847259432077,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 350,
+        "Hips": 383,
+        "RightUpLeg": 4
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "body_pairs": 731,
+      "detail_own_shell_pairs": 86,
+      "max_detail_distance_m": 0.0047388505190610886,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 342,
+        "Hips": 385,
+        "RightUpLeg": 4
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "body_pairs": 716,
+      "detail_own_shell_pairs": 91,
+      "max_detail_distance_m": 0.004738867282867432,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 328,
+        "Hips": 388
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "body_pairs": 709,
+      "detail_own_shell_pairs": 90,
+      "max_detail_distance_m": 0.004738877061754465,
+      "body_role_pair_counts": {
+        "Hips": 387,
+        "LeftUpLeg": 322
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "body_pairs": 767,
+      "detail_own_shell_pairs": 90,
+      "max_detail_distance_m": 0.004738872405141592,
+      "body_role_pair_counts": {
+        "RightUpLeg": 40,
+        "Hips": 404,
+        "LeftUpLeg": 323
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "body_pairs": 780,
+      "detail_own_shell_pairs": 84,
+      "max_detail_distance_m": 0.0047388155944645405,
+      "body_role_pair_counts": {
+        "RightUpLeg": 53,
+        "Hips": 418,
+        "LeftUpLeg": 309
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "body_pairs": 793,
+      "detail_own_shell_pairs": 93,
+      "max_detail_distance_m": 0.004738825373351574,
+      "body_role_pair_counts": {
+        "Hips": 430,
+        "RightUpLeg": 74,
+        "LeftUpLeg": 289
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "body_pairs": 782,
+      "detail_own_shell_pairs": 94,
+      "max_detail_distance_m": 0.004738830961287022,
+      "body_role_pair_counts": {
+        "Hips": 421,
+        "RightUpLeg": 78,
+        "LeftUpLeg": 283
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "body_pairs": 828,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.0047388398088514805,
+      "body_role_pair_counts": {
+        "Hips": 443,
+        "RightUpLeg": 104,
+        "LeftUpLeg": 281
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "body_pairs": 792,
+      "detail_own_shell_pairs": 73,
+      "max_detail_distance_m": 0.004738843068480492,
+      "body_role_pair_counts": {
+        "Hips": 407,
+        "RightUpLeg": 101,
+        "LeftUpLeg": 284
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "body_pairs": 765,
+      "detail_own_shell_pairs": 73,
+      "max_detail_distance_m": 0.004738891497254372,
+      "body_role_pair_counts": {
+        "RightUpLeg": 104,
+        "Hips": 380,
+        "LeftUpLeg": 281
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "body_pairs": 761,
+      "detail_own_shell_pairs": 73,
+      "max_detail_distance_m": 0.004738842137157917,
+      "body_role_pair_counts": {
+        "Hips": 367,
+        "LeftUpLeg": 295,
+        "RightUpLeg": 99
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "body_pairs": 758,
+      "detail_own_shell_pairs": 75,
+      "max_detail_distance_m": 0.004738854710012674,
+      "body_role_pair_counts": {
+        "Hips": 359,
+        "LeftUpLeg": 304,
+        "RightUpLeg": 95
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "body_pairs": 742,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.004738830029964447,
+      "body_role_pair_counts": {
+        "RightUpLeg": 77,
+        "Hips": 346,
+        "LeftUpLeg": 319
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "body_pairs": 715,
+      "detail_own_shell_pairs": 91,
+      "max_detail_distance_m": 0.004738829098641872,
+      "body_role_pair_counts": {
+        "RightUpLeg": 35,
+        "Hips": 332,
+        "LeftUpLeg": 348
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "body_pairs": 678,
+      "detail_own_shell_pairs": 84,
+      "max_detail_distance_m": 0.004738830495625734,
+      "body_role_pair_counts": {
+        "Hips": 316,
+        "LeftUpLeg": 362
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "body_pairs": 630,
+      "detail_own_shell_pairs": 87,
+      "max_detail_distance_m": 0.004738824907690287,
+      "body_role_pair_counts": {
+        "Hips": 321,
+        "LeftUpLeg": 309
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "body_pairs": 866,
+      "detail_own_shell_pairs": 85,
+      "max_detail_distance_m": 0.004738833289593458,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 274,
+        "Hips": 314,
+        "RightFoot": 278
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "body_pairs": 941,
+      "detail_own_shell_pairs": 73,
+      "max_detail_distance_m": 0.004738873336464167,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 252,
+        "Hips": 306,
+        "RightUpLeg": 14,
+        "RightFoot": 369
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "body_pairs": 637,
+      "detail_own_shell_pairs": 67,
+      "max_detail_distance_m": 0.004738834220916033,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 240,
+        "Hips": 303,
+        "RightUpLeg": 18,
+        "RightFoot": 76
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "body_pairs": 580,
+      "detail_own_shell_pairs": 64,
+      "max_detail_distance_m": 0.0047388761304318905,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 237,
+        "Hips": 310,
+        "RightUpLeg": 33
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "body_pairs": 584,
+      "detail_own_shell_pairs": 58,
+      "max_detail_distance_m": 0.004738859832286835,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 236,
+        "Hips": 314,
+        "RightUpLeg": 34
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "body_pairs": 632,
+      "detail_own_shell_pairs": 58,
+      "max_detail_distance_m": 0.004738830961287022,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 229,
+        "Hips": 359,
+        "RightUpLeg": 44
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "body_pairs": 707,
+      "detail_own_shell_pairs": 57,
+      "max_detail_distance_m": 0.004738863091915846,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 231,
+        "Hips": 425,
+        "RightUpLeg": 51
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "body_pairs": 726,
+      "detail_own_shell_pairs": 70,
+      "max_detail_distance_m": 0.004738838877528906,
+      "body_role_pair_counts": {
+        "Hips": 450,
+        "LeftUpLeg": 218,
+        "RightUpLeg": 58
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "body_pairs": 748,
+      "detail_own_shell_pairs": 81,
+      "max_detail_distance_m": 0.004738862160593271,
+      "body_role_pair_counts": {
+        "Hips": 458,
+        "LeftUpLeg": 229,
+        "RightUpLeg": 61
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "body_pairs": 780,
+      "detail_own_shell_pairs": 84,
+      "max_detail_distance_m": 0.0047388579696416855,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 228,
+        "Hips": 489,
+        "RightUpLeg": 63
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "body_pairs": 824,
+      "detail_own_shell_pairs": 98,
+      "max_detail_distance_m": 0.004738848656415939,
+      "body_role_pair_counts": {
+        "Hips": 528,
+        "LeftUpLeg": 228,
+        "RightUpLeg": 68
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "body_pairs": 847,
+      "detail_own_shell_pairs": 70,
+      "max_detail_distance_m": 0.004738854710012674,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 236,
+        "Hips": 537,
+        "RightUpLeg": 74
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "body_pairs": 849,
+      "detail_own_shell_pairs": 61,
+      "max_detail_distance_m": 0.004738830029964447,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 248,
+        "Hips": 509,
+        "RightUpLeg": 92
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "body_pairs": 876,
+      "detail_own_shell_pairs": 63,
+      "max_detail_distance_m": 0.0047388337552547455,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 272,
+        "Hips": 501,
+        "RightUpLeg": 103
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "body_pairs": 885,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738811869174242,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 277,
+        "Hips": 502,
+        "RightUpLeg": 106
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "body_pairs": 857,
+      "detail_own_shell_pairs": 56,
+      "max_detail_distance_m": 0.0047388519160449505,
+      "body_role_pair_counts": {
+        "Hips": 490,
+        "LeftUpLeg": 274,
+        "RightUpLeg": 93
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "body_pairs": 831,
+      "detail_own_shell_pairs": 56,
+      "max_detail_distance_m": 0.004738835617899895,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 268,
+        "Hips": 476,
+        "RightUpLeg": 87
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "body_pairs": 819,
+      "detail_own_shell_pairs": 66,
+      "max_detail_distance_m": 0.004738841205835342,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 267,
+        "Hips": 471,
+        "RightUpLeg": 81
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "body_pairs": 829,
+      "detail_own_shell_pairs": 74,
+      "max_detail_distance_m": 0.00473884167149663,
+      "body_role_pair_counts": {
+        "Hips": 463,
+        "LeftUpLeg": 284,
+        "RightUpLeg": 82
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "body_pairs": 859,
+      "detail_own_shell_pairs": 91,
+      "max_detail_distance_m": 0.004738840740174055,
+      "body_role_pair_counts": {
+        "Hips": 457,
+        "LeftUpLeg": 313,
+        "RightUpLeg": 89
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "body_pairs": 872,
+      "detail_own_shell_pairs": 103,
+      "max_detail_distance_m": 0.004738867282867432,
+      "body_role_pair_counts": {
+        "RightUpLeg": 94,
+        "Hips": 463,
+        "LeftUpLeg": 315
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "body_pairs": 902,
+      "detail_own_shell_pairs": 103,
+      "max_detail_distance_m": 0.00473884679377079,
+      "body_role_pair_counts": {
+        "RightUpLeg": 121,
+        "Hips": 470,
+        "LeftUpLeg": 311
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "body_pairs": 945,
+      "detail_own_shell_pairs": 96,
+      "max_detail_distance_m": 0.004738868214190006,
+      "body_role_pair_counts": {
+        "RightUpLeg": 147,
+        "Hips": 478,
+        "LeftUpLeg": 320
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "body_pairs": 979,
+      "detail_own_shell_pairs": 90,
+      "max_detail_distance_m": 0.0047388537786901,
+      "body_role_pair_counts": {
+        "RightUpLeg": 150,
+        "Hips": 505,
+        "LeftUpLeg": 324
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "body_pairs": 951,
+      "detail_own_shell_pairs": 80,
+      "max_detail_distance_m": 0.0047388277016580105,
+      "body_role_pair_counts": {
+        "Hips": 471,
+        "RightUpLeg": 155,
+        "LeftUpLeg": 325
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "body_pairs": 929,
+      "detail_own_shell_pairs": 62,
+      "max_detail_distance_m": 0.004738823045045137,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 326,
+        "Hips": 462,
+        "RightUpLeg": 141
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "body_pairs": 872,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738843534141779,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 313,
+        "Hips": 443,
+        "RightUpLeg": 116
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "body_pairs": 789,
+      "detail_own_shell_pairs": 46,
+      "max_detail_distance_m": 0.004738838877528906,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 321,
+        "Hips": 393,
+        "RightUpLeg": 75
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "body_pairs": 730,
+      "detail_own_shell_pairs": 50,
+      "max_detail_distance_m": 0.004738816991448402,
+      "body_role_pair_counts": {
+        "Hips": 352,
+        "LeftUpLeg": 330,
+        "RightUpLeg": 48
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "body_pairs": 688,
+      "detail_own_shell_pairs": 60,
+      "max_detail_distance_m": 0.004738853313028812,
+      "body_role_pair_counts": {
+        "Hips": 340,
+        "LeftUpLeg": 348
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "body_pairs": 711,
+      "detail_own_shell_pairs": 66,
+      "max_detail_distance_m": 0.004738854710012674,
+      "body_role_pair_counts": {
+        "Hips": 332,
+        "LeftUpLeg": 379
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "body_pairs": 714,
+      "detail_own_shell_pairs": 70,
+      "max_detail_distance_m": 0.0047388458624482155,
+      "body_role_pair_counts": {
+        "Hips": 323,
+        "LeftUpLeg": 391
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "body_pairs": 710,
+      "detail_own_shell_pairs": 66,
+      "max_detail_distance_m": 0.004738860763609409,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 386,
+        "Hips": 324
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "body_pairs": 712,
+      "detail_own_shell_pairs": 80,
+      "max_detail_distance_m": 0.004738842137157917,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 395,
+        "Hips": 317
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "body_pairs": 729,
+      "detail_own_shell_pairs": 81,
+      "max_detail_distance_m": 0.004738834220916033,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 404,
+        "Hips": 325
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "body_pairs": 733,
+      "detail_own_shell_pairs": 84,
+      "max_detail_distance_m": 0.0047388565726578236,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 402,
+        "Hips": 331
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "body_pairs": 758,
+      "detail_own_shell_pairs": 86,
+      "max_detail_distance_m": 0.004738836549222469,
+      "body_role_pair_counts": {
+        "LeftUpLeg": 422,
+        "Hips": 336
+      }
+    }
+  ],
+  "samples": 164,
+  "endpoints": [
+    {
+      "Left": 0,
+      "Right": 0,
+      "body_pairs": 608
+    },
+    {
+      "Left": 1,
+      "Right": 0,
+      "body_pairs": 670
+    },
+    {
+      "Left": 0,
+      "Right": 1,
+      "body_pairs": 674
+    },
+    {
+      "Left": 1,
+      "Right": 1,
+      "body_pairs": 751
+    }
+  ],
+  "max_body_pairs": 979,
+  "total_body_pairs": 117125,
+  "max_detail_distance_m": 0.004738891497254372,
+  "max_detail_own_shell_pairs": 103,
+  "reviews": [
+    "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/bodyfit-diagnosis-2026-10-07/hem-clearance/counterfactual-rest-front-review.png",
+    "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/bodyfit-diagnosis-2026-10-07/hem-clearance/counterfactual-rest-back-review.png",
+    "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/bodyfit-diagnosis-2026-10-07/hem-clearance/counterfactual-rest-right-review.png"
+  ],
+  "review_width": 320,
+  "scope": "One fixed-axis full-leg/foot clearance measurement followed by one in-memory candidate. Complete163 body poses plus rest/details/endpoints; no grid, nearest-normal projection, source/model save or export. Native screen results determine whether to propose the construction."
+}

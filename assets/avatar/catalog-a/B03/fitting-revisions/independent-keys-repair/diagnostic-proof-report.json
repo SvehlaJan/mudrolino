@@ -1,0 +1,141 @@
+{
+  "status": "measured; fitting acceptance remains open",
+  "repair_blend_sha256": "f6417b0486823a00ca58a29eb21bc3283a505593eb8002cc26883087200517a7",
+  "records": [
+    {
+      "name": "canonical-sides",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B03/B03.blend",
+        "--report",
+        "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/canonical-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "log": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/native-proof/canonical-sides.txt",
+      "log_sha256": "edd291277e3509ff799a4f4a998e793947f8159c3119ed79f34fbddb7b9c6d3a",
+      "original_log": "artifacts/verification/avatar-catalog/B03/independent-keys-repair/canonical-sides.txt"
+    },
+    {
+      "name": "repaired-sides",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/B03.blend",
+        "--report",
+        "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/native-proof/repaired-sides.txt",
+      "log_sha256": "b55688da1cd141eec02ad0b4a2340c23ff7d7342210046b7c4de52a4ec666933",
+      "original_log": "artifacts/verification/avatar-catalog/B03/independent-keys-repair/repaired-sides.txt"
+    },
+    {
+      "name": "canonical-motion",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B03/B03.blend",
+        "--garment",
+        "B03_casual_shorts",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--target-z",
+        ".8",
+        "--ortho-scale",
+        "1.2",
+        "--output-dir",
+        "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/canonical-motion",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/B03/independent-keys-repair/canonical-motion"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/native-proof/canonical-motion.txt",
+      "log_sha256": "3a9ae9dd0307e44112516e551808d8d1f1b9857da024c6ac14917cc44a066f63",
+      "original_log": "artifacts/verification/avatar-catalog/B03/independent-keys-repair/canonical-motion.txt"
+    },
+    {
+      "name": "repaired-motion",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/B03.blend",
+        "--garment",
+        "B03_casual_shorts",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--target-z",
+        ".8",
+        "--ortho-scale",
+        "1.2",
+        "--output-dir",
+        "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/repaired-motion",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/B03/independent-keys-repair/repaired-motion"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/native-proof/repaired-motion.txt",
+      "log_sha256": "35d04afd1f7d4a390e513b5a33266c8ae89cfecc7ea643c8b113f946d679da11",
+      "original_log": "artifacts/verification/avatar-catalog/B03/independent-keys-repair/repaired-motion.txt"
+    }
+  ],
+  "measurements": {
+    "canonical-motion": {
+      "blend": "assets/avatar/catalog-a/B03/B03.blend",
+      "blend_sha256": "52d3747d4497dbcdf993f218462c26b0cf0facc3892515e0a5ade7eef16d47f4",
+      "blender": "5.2.2 LTS",
+      "body_meshes": [
+        "body_underlayer_male",
+        "H01_head"
+      ],
+      "garment_meshes": [
+        "B03_casual_shorts"
+      ],
+      "samples": 163,
+      "substeps": 4,
+      "max_body_pairs": 338,
+      "max_layer_pairs": 0,
+      "review_width": 320
+    },
+    "repaired-motion": {
+      "blend": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/B03.blend",
+      "blend_sha256": "f6417b0486823a00ca58a29eb21bc3283a505593eb8002cc26883087200517a7",
+      "blender": "5.2.2 LTS",
+      "body_meshes": [
+        "body_underlayer_male",
+        "H01_head"
+      ],
+      "garment_meshes": [
+        "B03_casual_shorts"
+      ],
+      "samples": 163,
+      "substeps": 4,
+      "max_body_pairs": 338,
+      "max_layer_pairs": 0,
+      "review_width": 320
+    }
+  },
+  "canonical_unchanged": true,
+  "runner": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/native-proof/proof-runner.py",
+  "runner_sha256": "989a54877ce373cdc25a9912e7fe67a96bcd89f18d4c7d124bfc647cae2dd4ec",
+  "original_runner": "/Users/svehla/playground/teo-learn/artifacts/verification/avatar-catalog/B03/independent-keys-repair/proof_runner.py",
+  "provenance_note": "Byte-identical runner/log copies retained with revision; execution occurred at original artifact paths."
+}

@@ -1,5 +1,11 @@
 # Avatar models versus the palette-A references
 
+Historical review. The [2026-10-06 complete model audit](2026-10-06-avatar-model-audit.md)
+supersedes the unfinished-work priorities below: painted H01/H02 faces are now
+preferred, head proportions will be proposed for review before changes, and the
+authoritative hoodie prompts exclude drawstrings. Preserve this dated evidence;
+use the newer per-design matrix and source/proof qualifications for planning.
+
 Reviewed 2026-10-05. Scope: every current (non-history) model in the live gallery,
 both bases. Male: canonical body, H01 and its reference-A style revision, T01–T06,
 B01–B04, F01–F04, A01 and the H01 study outfit. Female: foundation, H02 head and

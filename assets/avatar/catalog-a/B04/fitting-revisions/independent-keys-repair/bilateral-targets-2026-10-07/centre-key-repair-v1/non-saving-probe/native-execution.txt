@@ -1,0 +1,11 @@
+00:00.836  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+B04_CENTRE_SCREEN_DOMAIN native 164
+B04_CENTRE_SCREEN_DOMAIN runtime-equivalent 328
+B04_CENTRE_VARIANT baseline {"body": 0, "shoe": 0, "changed_face_self": 42, "detail_own_shell": 0, "detail_distance_m": 0.00910972896963358}
+B04_CENTRE_SCREEN_DOMAIN native 164
+B04_CENTRE_SCREEN_DOMAIN runtime-equivalent 328
+B04_CENTRE_VARIANT centre-repaired {"body": 2485, "shoe": 3887, "changed_face_self": 229, "detail_own_shell": 97, "detail_distance_m": 0.007303343620151281}
+B04_CENTRE_REPAIR_RESULT {"status": "failed", "source": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend", "source_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d", "source_saved": false, "blender": "5.2.2 LTS", "unchanged_invariant_groups": ["meshes", "mesh_surface", "binding", "rig", "gait", "shape_settings", "drivers", "materials"], "changes_are_right_key_only": true, "side_exclusion_m": 0, "scope": "Baseline versus one bounded Right-key repair; complete screen, no art/pocket/export acceptance."}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

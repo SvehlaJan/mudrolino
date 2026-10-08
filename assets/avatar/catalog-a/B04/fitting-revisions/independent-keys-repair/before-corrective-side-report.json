@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "failed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/B04/B04.blend",
+      "blend_sha256": "e4e14adf9e8da333b0c02e4d4690e56d38e63884de10676864646ba574983624",
+      "keys": [
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 263
+        },
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 263,
+          "max_opposite_delta_m": 0.026239174317096707,
+          "intended_vertices_moved": 263
+        }
+      ],
+      "status": "failed"
+    }
+  ]
+}

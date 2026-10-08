@@ -1,0 +1,5 @@
+00:00.438  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+CORRECTIVE_SIDES {"tolerance_m": 1e-07, "status": "passed", "checks": [{"blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend", "blend_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d", "keys": [{"object": "B04_ivory_trousers", "key": "knee_clearance_Left", "opposite_vertices_moved": 0, "max_opposite_delta_m": 0.0, "intended_vertices_moved": 573}, {"object": "B04_ivory_trousers", "key": "knee_clearance_Right", "opposite_vertices_moved": 0, "max_opposite_delta_m": 0.0, "intended_vertices_moved": 677}], "status": "passed"}]}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

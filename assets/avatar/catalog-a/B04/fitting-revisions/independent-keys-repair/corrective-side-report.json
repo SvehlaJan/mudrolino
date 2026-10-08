@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/B04.blend",
+      "blend_sha256": "b472ea595124968bbad2ad0f0b8ab35581b2b829fe5b7302ae916266c1014055",
+      "keys": [
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 263
+        },
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 263
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

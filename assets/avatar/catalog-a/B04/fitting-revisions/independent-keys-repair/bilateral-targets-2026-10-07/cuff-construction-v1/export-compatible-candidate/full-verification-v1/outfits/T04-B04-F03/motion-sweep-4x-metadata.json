@@ -1,0 +1,19 @@
+{
+  "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.blend",
+  "blend_sha256": "810fd7c6ff2153d11d76bc47a87a6a62a166881525870740df68ee56632d262c",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T04_zip_hoodie_outfit",
+    "B04_ivory_trousers_outfit",
+    "F03_high_tops_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

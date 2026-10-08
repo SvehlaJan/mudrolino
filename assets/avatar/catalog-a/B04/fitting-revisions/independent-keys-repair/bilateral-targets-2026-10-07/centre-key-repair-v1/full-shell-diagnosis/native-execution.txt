@@ -1,0 +1,9 @@
+00:00.622  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+B04_FULL_SHELL_SELF_DOMAIN native 164
+B04_FULL_SHELL_SELF_DOMAIN runtime-equivalent 328
+00:35.009  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/rear-contact-cutaway-review320.png'
+00:35.236  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/underside-contact-cutaway-review320.png'
+B04_FULL_SHELL_SELF_RESULT {"status": "failed", "max_nonincident_pairs": 549, "rest_nonincident_pairs": 55}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

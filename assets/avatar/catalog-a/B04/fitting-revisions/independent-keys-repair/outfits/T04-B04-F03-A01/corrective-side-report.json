@@ -1,0 +1,66 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/staged-catalog/T04/T04.blend",
+      "blend_sha256": "b93e2e1dc04577c3ff2de1774fd14e6a87f9ce71ae5f9c186955e90b1e27cdc1",
+      "keys": [],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/staged-catalog/B04/B04.blend",
+      "blend_sha256": "b472ea595124968bbad2ad0f0b8ab35581b2b829fe5b7302ae916266c1014055",
+      "keys": [
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 263
+        },
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 263
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/staged-catalog/F03/F03.blend",
+      "blend_sha256": "52a4bcfeb54aea644088d6e137fb3ab9a2cc16c4c747ab6a474abfac0147bcf5",
+      "keys": [],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/staged-catalog/A01/A01.blend",
+      "blend_sha256": "a77ec15f6541f7790970f3f978dbaadf72caa1702876a20dbcdd19923b2c18b9",
+      "keys": [],
+      "status": "passed"
+    },
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/outfits/T04-B04-F03-A01/outfit.blend",
+      "blend_sha256": "a47d056132a03f76e5879020a5fb8391f1e706ee0755d4af3d79307ba506063f",
+      "keys": [
+        {
+          "object": "B04_ivory_trousers_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 263
+        },
+        {
+          "object": "B04_ivory_trousers_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 263
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

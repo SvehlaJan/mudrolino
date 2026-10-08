@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend",
+      "blend_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2",
+      "keys": [
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 285
+        },
+        {
+          "object": "B04_ivory_trousers",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 389
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "status": "passed",
+  "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/second-bound/outfits/T04-B04-F03-A01/outfit.blend",
+  "blend_sha256": "10a2c32042963996c0638537e757a6a57a0e0f93f520b4d09d8d73f34bc7e660",
+  "glb": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/second-bound/outfits/T04-B04-F03-A01/outfit.glb",
+  "glb_sha256": "b348800d9d0a2fabe2856a4fe6167f206937691f9d79fb10039edf281125044f",
+  "hashes": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/second-bound/outfits/T04-B04-F03-A01/export-deformation-report.json": "010a172aa007fde3300ca7cd8368e98724a233ad04821a043f85c1293fb458d0",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/second-bound/outfits/T04-B04-F03-A01/outfit.glb": "b348800d9d0a2fabe2856a4fe6167f206937691f9d79fb10039edf281125044f",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  },
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 8
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "maxWeightError": 2.5224227501174923e-7,
+      "maxShapeErrorM": 6.618628997932347e-9,
+      "targets": 8
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "maxWeightError": 0.00003861529120052776,
+      "maxShapeErrorM": 0.0000010998439243972607,
+      "targets": 8
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 8
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "maxWeightError": 0.0000029044597376626236,
+      "maxShapeErrorM": 9.93838700020308e-8,
+      "targets": 8
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "maxWeightError": 0.000014077098501034946,
+      "maxShapeErrorM": 3.718708135930934e-7,
+      "targets": 8
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "maxWeightError": 9.352992681593841e-7,
+      "maxShapeErrorM": 2.470754181182181e-8,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "maxWeightError": 3.194709434495291e-7,
+      "maxShapeErrorM": 8.439375461583594e-9,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "maxWeightError": 4.80677903452742e-7,
+      "maxShapeErrorM": 1.2697935090818032e-8,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "maxWeightError": 0.000001085860111896264,
+      "maxShapeErrorM": 3.487760524299517e-8,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "maxWeightError": 2.6215572274113086e-7,
+      "maxShapeErrorM": 6.878749679955674e-9,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "maxWeightError": 4.730545050679602e-7,
+      "maxShapeErrorM": 1.241255957075196e-8,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "maxWeightError": 2.6852157519741127e-7,
+      "maxShapeErrorM": 7.093460106755593e-9,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "maxWeightError": 0,
+      "maxShapeErrorM": 0,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "maxWeightError": 3.4397636372585083e-7,
+      "maxShapeErrorM": 9.086728364237965e-9,
+      "targets": 8
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "maxWeightError": 1.9407504353585736e-8,
+      "maxShapeErrorM": 5.126826691770915e-10,
+      "targets": 8
+    }
+  ],
+  "max_weight_error": 0.00003861529120052776,
+  "max_shape_error_m": 0.0000010998439243972607,
+  "combined_error_bound_m": 0.0000064601624068141755,
+  "threshold_m": 0.00003,
+  "bindings": 8,
+  "comparison": "Three.js knee weights versus Blender, propagated through actual exported morph deltas; added to same-value source/export error"
+}

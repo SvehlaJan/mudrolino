@@ -1,0 +1,27 @@
+00:00.691  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+Info: Deleted 9 data-block(s)
+Info: No orphaned data-blocks to purge
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+16:12:46 | INFO: Starting glTF 2.0 export
+16:12:46 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:12:46 | INFO: Extracting primitive: B04_ivory_trousers quad shell
+16:12:46 | INFO: Primitives created: 4
+16:12:46 | INFO: Finished glTF 2.0 export in 0.05501890182495117 s
+
+Info: No orphaned data-blocks to purge
+16:12:46 | INFO: Starting glTF 2.0 export
+16:12:46 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:12:46 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+16:12:46 | INFO: Extracting primitive: char1.002
+16:12:46 | INFO: Primitives created: 1
+16:12:46 | INFO: Extracting primitive: H01 rounded face
+16:12:46 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+16:12:46 | INFO: Primitives created: 9
+16:12:46 | INFO: Finished glTF 2.0 export in 0.22720909118652344 s
+
+Info: Deleted 1 data-block(s)
+B04_CUFF_EXPORT {"status": "exported; fidelity and fitting verification pending", "source": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend", "source_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d", "blend_unchanged": true, "tool_hashes": {"tools/blender/catalog/b04_corrective_repair_plan.py": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978", "tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b", "tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272", "tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19", "tools/blender/catalog/inspect_catalog_b04_cuff.py": "058399d808c51312e7337be149be725ef4a811f813633cb09a07a63ab3bc9165", "tools/blender/catalog/prepare_catalog_b04_cuff_exports.py": "046f21a338646be4cf8117478cd5ce3d0775cd43ddc8cbbdc710ad34b14162e7", "tools/blender/catalog/prepare_catalog_body.py": "805c2f12e74c56eea3e4e569712e7f7ca98e8ebcf024dfd78e6382189f2eee21", "tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857", "tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8", "tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc", "tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123"}, "input_hashes": {"assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2", "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d", "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/construction-plan.json": "ad758ac79e3d638d7118753c3d010e6b58ee7d2b822d5a78dc829a181501b97e", "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/pre-save-screen-report.json": "9d75ff453b960dea68a4547def301cc903cecf05647682064148473bcd0c7118", "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/preservation-report.json": "b177ab6b7d2ed5355e0d9f2c8b100545bd504317a17256b49f660b3ae42804fd"}, "output_hashes": {"assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c", "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/body-B04.glb": "115665b234e7bd2ddfb376e65a8665ede6d96f679a17f18ca7da2281909fd1ea"}, "scope": "Fresh explicit garment/body exports from the preserved isolated cuff source. No export-fidelity, outfit, runtime or art acceptance claim."}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

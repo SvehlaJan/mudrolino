@@ -1,0 +1,15 @@
+00:00.940  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend"
+00:03.065  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/compressed-return-candidate/B04.blend"
+Traceback (most recent call last):
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_b04_cuff_preservation.py", line 94, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_b04_cuff_preservation.py", line 59, in main
+    assert before['mesh_surface'][name]['uv_layers'] == after['mesh_surface'][name]['uv_layers'] == {}, 'Unexpected cloth UV change'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Unexpected cloth UV change
+
+Error: script failed, file: 'tools/blender/catalog/verify_catalog_b04_cuff_preservation.py', exiting.
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

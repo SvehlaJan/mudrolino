@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "source_sha256": "a307ae27954787bd6b8ebc9d9242c6c44bef1a933275b6b2d6932e621e4bd395",
+  "blend_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2",
+  "canonical_and_failed_sources_unchanged": true,
+  "preserved_fields": [
+    "meshes",
+    "mesh_surface",
+    "binding",
+    "rig",
+    "gait",
+    "shape_settings",
+    "drivers",
+    "materials"
+  ],
+  "changed_key": "knee_clearance_Left",
+  "changed_vertices": 154,
+  "eligible_vertices": 242,
+  "max_coordinate_serialization_error_m": 2.907472662627697e-08,
+  "pre_save_screen_sha256": "edaf82becad93d6c737cb15dd09e762b4117e50bea3a8402788390be3bcc2376",
+  "tool_hashes": {
+    "tools/blender/catalog/repair_catalog_b04_left_patch_attachment.py": "74111ad9fac86b7ed092d135cb63f8bb4390c3d26516507a05ddf4707c60b602",
+    "tools/blender/catalog/verify_catalog_b04_left_patch_preservation.py": "a52d149568882230597e85a5525a0a74bedb1382232989fbd53c8d5accddb531",
+    "tools/blender/catalog/b04_left_patch_repair_plan.py": "c23f0087398de75c879be85c4f43f70c36f24e3dcc9ca70cc7841e60a212fd99",
+    "tools/blender/catalog/b04_target_repair_plan.py": "325341c0fce7f489e6ee03f37849af6a3f715054a90d2f237d67a6c8b2845236",
+    "tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
+    "tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "tools/blender/catalog/diagnose_catalog_b04_own_shell.py": "d70609df71ab497756a202e452fbba96c5a3d7735380204e6e03e00c4ca69ebc",
+    "tools/avatar/run_catalog_b04_repair.py": "8b3d4ea6852a8893b2fb7923a06e80722479ef29df29019db74ae6644784c545"
+  },
+  "scope": "Only existing Left key targets on anatomical-left back patch component5. Basis/rest/body/cloth, all Right and unaffected Left targets, topology, weights, bind, drivers, gaits and materials unchanged; no roles or limits changed."
+}

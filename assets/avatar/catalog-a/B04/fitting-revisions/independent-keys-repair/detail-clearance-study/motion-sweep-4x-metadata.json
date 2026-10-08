@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/B04.blend",
+  "blend_sha256": "966c9dbe3758495417aaa1a7d6de20c357cba3262220e905d806b0fddced4e00",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "B04_ivory_trousers"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

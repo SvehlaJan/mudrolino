@@ -1,0 +1,13 @@
+00:00.664  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend"
+F02_ANKLE_PROGRESS native 40
+F02_ANKLE_PROGRESS native 80
+F02_ANKLE_PROGRESS native 120
+F02_ANKLE_PROGRESS native 160
+F02_ANKLE_PROGRESS raw-gltf-equivalent 40
+F02_ANKLE_PROGRESS raw-gltf-equivalent 80
+F02_ANKLE_PROGRESS raw-gltf-equivalent 120
+F02_ANKLE_PROGRESS raw-gltf-equivalent 160
+F02_ANKLE_MEASURED 164 164 24.0
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

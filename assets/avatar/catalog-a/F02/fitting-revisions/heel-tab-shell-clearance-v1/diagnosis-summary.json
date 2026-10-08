@@ -1,0 +1,342 @@
+{
+  "status": "diagnosis completed; no accepted or exported repair candidate",
+  "completed_at_utc": "2026-10-07T06:20:19.084577+00:00",
+  "starting_source": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+  "starting_source_sha256": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+  "candidate_saved": false,
+  "promotion": false,
+  "code_freeze": "No repair builder/model candidate. Diagnostic tooling and report-preservation complete.",
+  "contract": {
+    "detail_distance_limit_m": 0.012,
+    "required_max_detail_shell_pairs": 0,
+    "attachment_roles": null,
+    "knee_morph_semantics_changed": false,
+    "gaits_changed": false
+  },
+  "fresh_reproduction": {
+    "rest_pairs": 20,
+    "run_12_25_pairs": 178,
+    "run_12_25_upper_pairs": 141,
+    "run_12_25_collar_pairs": 37,
+    "run_12_25_sole_pairs": 0,
+    "run_12_25_left_pairs": 60,
+    "run_12_25_right_pairs": 118,
+    "run_12_25_right_knee_value": 0,
+    "run_12_75_right_knee_value": 0
+  },
+  "rejected_screens": [
+    {
+      "report": "diagnosis/rejected-no-save-probes/offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 178,
+      "max_distance_m": 0.006258136592805386,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 141,
+      "max_distance_m": 0.006663976237177849,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.002,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 100,
+      "max_distance_m": 0.007186993025243282,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.003,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 80,
+      "max_distance_m": 0.00780366500839591,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.004,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 52,
+      "max_distance_m": 0.008493613451719284,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/larger-offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.005,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 56,
+      "max_distance_m": 0.00924044381827116,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/larger-offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.006,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 42,
+      "max_distance_m": 0.01003145519644022,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/larger-offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.007,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 30,
+      "max_distance_m": 0.010988646186888218,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/target-offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": 0,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 141,
+      "max_distance_m": 0.006663976237177849,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/target-offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": 0.004,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 110,
+      "max_distance_m": 0.008990819565951824,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/target-offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": 0.008,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 110,
+      "max_distance_m": 0.012987061403691769,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/target-offset-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": 0.012,
+      "basal_weight_blend": null,
+      "max_shell_pairs": 110,
+      "max_distance_m": 0.0169852115213871,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/base-weight-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": 1,
+      "max_shell_pairs": 100,
+      "max_distance_m": 0.028207868337631226,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/hybrid-anchor-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": 0.1,
+      "max_shell_pairs": 132,
+      "max_distance_m": 0.008274230174720287,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/hybrid-anchor-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": 0.15,
+      "max_shell_pairs": 136,
+      "max_distance_m": 0.009293540380895138,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/hybrid-anchor-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": 0.2,
+      "max_shell_pairs": 135,
+      "max_distance_m": 0.010328314267098904,
+      "passed": false
+    },
+    {
+      "report": "diagnosis/rejected-no-save-probes/hybrid-anchor-probe-report.json",
+      "samples": 164,
+      "offset_m": 0.001,
+      "own_target_extra_offset_m": null,
+      "basal_weight_blend": 0.25,
+      "max_shell_pairs": 123,
+      "max_distance_m": 0.011374061927199364,
+      "passed": false
+    }
+  ],
+  "original_files_current_hashes": {
+    "assets/avatar/catalog-a/F02/F02.blend": "a0a4998aea312b2eb9c5ee14d6bc7fd121bb670e80b780f049a34d810a6fa7d7",
+    "assets/avatar/catalog-a/F02/F02.glb": "cbac369195653f2698a75aa59db8fb3bfd0fea7910a5ad0345ea23839f522d59",
+    "assets/avatar/catalog-a/F02/body-F02.glb": "7c4168a220ad784267cb840e68073d9db3fce2eb0a1a9047fd34ace8ee63bbaa",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.glb": "47d2e2ba80e756b6d7bb5259c44759c0d381ce3e5985f251813e3a9caf7536aa",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/body-F02.glb": "6c0bc799d3be046ad3a95a0129a66a493654583957ecc0a7c067f7b504f28154",
+    "assets/avatar/catalog-a/foundation/catalog-body.blend": "43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  },
+  "preserved_evidence_hashes": {
+    "diagnosis/rejected-no-save-probes/attachment-weight-diagnosis.json": "4fead87834d7e01dc2d77376cc56baac68b2e399ffb57480d142cece5d529673",
+    "diagnosis/rejected-no-save-probes/attachment-weight-diagnosis.py": "cc3cf6b60a104b968580adac76cefaa06a3351966c18143c0523b97df8cad370",
+    "diagnosis/rejected-no-save-probes/base-weight-probe-report.json": "dd6a9011d51543270038e38f0c9ba1fcfcbeb92ca4ec8c02efaa636bd7324cb2",
+    "diagnosis/rejected-no-save-probes/base-weight-probe.py": "c16836b1c58c1ff89fa474a84fd58ebd93c385bfc4c655739f32397dd76c018c",
+    "diagnosis/rejected-no-save-probes/hybrid-anchor-probe-report.json": "2a9073e5a4be6fd1afdb3c3d5abcb69839667f330dd2a8db127f2cc3487591c8",
+    "diagnosis/rejected-no-save-probes/hybrid-anchor-probe.py": "57daf2f63f7bb45a8df72a20a46d9ed9bbdfa698dc7d59c0b186881e30d69be0",
+    "diagnosis/rejected-no-save-probes/larger-offset-probe-report.json": "ff2ccee1d0a2df125d26aa49189622a7b56171dea1fcc3fd508a3ad47ad310f6",
+    "diagnosis/rejected-no-save-probes/larger-offset-probe.py": "be07bcaa6cdec4cbc5b06ee5ef03fc56e9688a22a5c3ded5da3e35bba56c5e44",
+    "diagnosis/rejected-no-save-probes/offset-probe-report.json": "9c7f16047ecabd875954c006870c64fb30d7870bb5c8044076a8202b4e5e5533",
+    "diagnosis/rejected-no-save-probes/offset-probe.py": "617d875a0dda1f545576dcc786bb076774eb2918cdd1a24dce77f649920edf66",
+    "diagnosis/rejected-no-save-probes/run-12.25-collar-contact-report.json": "fb763fc9480602bb22c9ab53367458a1c5b56c8463295ae30c5fdf8de6290b3e",
+    "diagnosis/rejected-no-save-probes/run-12.25-upper-contact-report.json": "c599d5894bae903b932a43b60d2efc2056f374d2c49cc537b71936a36ddab4be",
+    "diagnosis/rejected-no-save-probes/side-probe-report.json": "33af432a3f4ad29a4e075327a9dc0619ca987b5b08cf918d81df12f3f352d9e9",
+    "diagnosis/rejected-no-save-probes/side-probe.py": "66e7dbf4af594d05516028aac79bc3b5f320f0c90f578959f6ee58dc75e15c24",
+    "diagnosis/rejected-no-save-probes/target-offset-probe-report.json": "b33fa279c4f024357f1272c795114edfc2ab88bb0275995c38e8e8f10277cc82",
+    "diagnosis/rejected-no-save-probes/target-offset-probe.py": "5e9e4e976b9ade90e6a1b778bc7f71bc75f73f59541ba70ba54118f093a32ca3",
+    "diagnosis/rest-contact-report.json": "bb361b022ff7ca40a71f4af9bb3cf1bc423e9e762cc849930c34370af5075c5b",
+    "diagnosis/row-attachment-diagnosis.json": "655979e47cc74185833067b2a4b1ed3dd61237cd56daa540cbd9dc5cbcfd3a98",
+    "diagnosis/run-12.25-contact-report.json": "c8b44fcb2e7f69b496a78b246d6e7eaab348c4ef1494d818fb8a023d5de6b8ce",
+    "diagnosis/native-logs/rest-diagnosis.txt": "565a5a98d353151e3923932e6515260643b64ce05aa9f7b1a53424d8bcd111d6",
+    "diagnosis/native-logs/run-12.25-diagnosis.txt": "93ed5cd969a825762b76ab095065a30c2d67771852ea20edd941a6eae65d489e",
+    "diagnosis/native-logs/upper-diagnosis.txt": "45da411967f78634f706cab01437e015d6d7560efbf5255bed3f4c8fe87bd826",
+    "diagnosis/native-logs/collar-diagnosis.txt": "0bc696a1f7b19abec8719fbb09ef52ae6383803a2f8435a57b688b85ad13e90f",
+    "diagnosis/native-logs/offset-probe.txt": "4551bc0cfca451fb343d9368ebb01433771f8af2dd494bc1d8573edc3e13a6c8",
+    "diagnosis/native-logs/target-offset-probe.txt": "38fbb4dc19fc49d863f5a4f0da91c1a8300ad3dd371a38e22804fd6176382ff4",
+    "diagnosis/native-logs/side-probe.txt": "730ad9f184d627a3fc8622c5a5838d6aaa75822dc020a6e1768ebf59a78b33ca",
+    "diagnosis/native-logs/larger-offset-probe.txt": "fde0d08abc994f86bd82990eefeba7fc485fd8ad80f30d6fbf7df6f2434ac869",
+    "diagnosis/native-logs/row-attachment-diagnosis.txt": "9eae48ed9a497a6cff5709ab00cdd6e88344b0c86ede4ac17973e5a0c78a3749",
+    "diagnosis/native-logs/attachment-weight-diagnosis.txt": "897caf6b3ff30b151d4284c4325132c089cf9967ea3bb0b6dd8a42bec9016854",
+    "diagnosis/native-logs/base-weight-probe.txt": "31f974f04783ba5fd9d420d8fd958a7e81b02221081f8265eb33fd0d5d76251a",
+    "diagnosis/native-logs/hybrid-anchor-probe.txt": "dc3a1e77c46025a54adc1be30d1d1940b5a7be9f7cc87c78ae6278e4e42869ab"
+  },
+  "native_followup_gates": {
+    "saved_reopened_source_invariants": "not run; no model candidate saved",
+    "candidate_body_layer_sweep": "not run; no model candidate passed cheap detail screen",
+    "candidate_export_Three_js": "not run; no model candidate exported"
+  },
+  "limitations": [
+    "All native offset/weight probes are diagnostic, not accepted fitting revisions.",
+    "Ray/nearest-normal instrumentation is not a complete penetration bound.",
+    "No new visual, browser, O02/O06 assembly or product acceptance."
+  ],
+  "historical_canonical_foundation_gait_hashes_verified": true,
+  "tool_hashes": {
+    "tools/blender/catalog/diagnose_catalog_f02_tab_rows.py": "16a008822c2be92e9b85a1458e044333e8240a59fa745bab1ef63972725156d4",
+    "tools/blender/catalog/f02_tab_offset_plan.py": "6af511ba2a486f9d446a1f289f9efd0bf49ac6b999833e6ff3314451ac6329a2",
+    "tools/blender/catalog/f02_tab_anchor_plan.py": "38f5bf12a8f4eed0d79258a91eda8987287acc06664693e8b9c9627f687de10f",
+    "tools/avatar/f02TabOffset.test.ts": "acbdbb97b82118cbac407171d45ae2dfc5e218476e27d29ad4124ee665d1c8a9",
+    "tools/avatar/f02TabAnchorWeights.test.ts": "18e6b8a4f8c19df76b8889637b2d3404f11a8d2dbb3bd733ebaf8b55be3d65ed"
+  },
+  "verification": {
+    "focused_vitest_tests": 6,
+    "focused_vitest_status": "passed",
+    "python_compile": "passed",
+    "broad_browser_integration_run": false
+  },
+  "execution_log_copies": [
+    {
+      "retained": "diagnosis/native-logs/rest-diagnosis.txt",
+      "original": "diagnosis/native-logs/rest-diagnosis.log",
+      "sha256": "565a5a98d353151e3923932e6515260643b64ce05aa9f7b1a53424d8bcd111d6",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/run-12.25-diagnosis.txt",
+      "original": "diagnosis/native-logs/run-12.25-diagnosis.log",
+      "sha256": "93ed5cd969a825762b76ab095065a30c2d67771852ea20edd941a6eae65d489e",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/upper-diagnosis.txt",
+      "original": "diagnosis/native-logs/upper-diagnosis.log",
+      "sha256": "45da411967f78634f706cab01437e015d6d7560efbf5255bed3f4c8fe87bd826",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/collar-diagnosis.txt",
+      "original": "diagnosis/native-logs/collar-diagnosis.log",
+      "sha256": "0bc696a1f7b19abec8719fbb09ef52ae6383803a2f8435a57b688b85ad13e90f",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/offset-probe.txt",
+      "original": "diagnosis/native-logs/offset-probe.log",
+      "sha256": "4551bc0cfca451fb343d9368ebb01433771f8af2dd494bc1d8573edc3e13a6c8",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/target-offset-probe.txt",
+      "original": "diagnosis/native-logs/target-offset-probe.log",
+      "sha256": "38fbb4dc19fc49d863f5a4f0da91c1a8300ad3dd371a38e22804fd6176382ff4",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/side-probe.txt",
+      "original": "diagnosis/native-logs/side-probe.log",
+      "sha256": "730ad9f184d627a3fc8622c5a5838d6aaa75822dc020a6e1768ebf59a78b33ca",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/larger-offset-probe.txt",
+      "original": "diagnosis/native-logs/larger-offset-probe.log",
+      "sha256": "fde0d08abc994f86bd82990eefeba7fc485fd8ad80f30d6fbf7df6f2434ac869",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/row-attachment-diagnosis.txt",
+      "original": "diagnosis/native-logs/row-attachment-diagnosis.log",
+      "sha256": "9eae48ed9a497a6cff5709ab00cdd6e88344b0c86ede4ac17973e5a0c78a3749",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/attachment-weight-diagnosis.txt",
+      "original": "diagnosis/native-logs/attachment-weight-diagnosis.log",
+      "sha256": "897caf6b3ff30b151d4284c4325132c089cf9967ea3bb0b6dd8a42bec9016854",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/base-weight-probe.txt",
+      "original": "diagnosis/native-logs/base-weight-probe.log",
+      "sha256": "31f974f04783ba5fd9d420d8fd958a7e81b02221081f8265eb33fd0d5d76251a",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    },
+    {
+      "retained": "diagnosis/native-logs/hybrid-anchor-probe.txt",
+      "original": "diagnosis/native-logs/hybrid-anchor-probe.log",
+      "sha256": "dc3a1e77c46025a54adc1be30d1d1940b5a7be9f7cc87c78ae6278e4e42869ab",
+      "qualification": "Byte-identical copy of completed execution; no native rerun."
+    }
+  ],
+  "execution_log_copy_note": "Trackable .txt execution logs replace ignored .log pointers. Exact original summary retained in history/pre-trackable-log-copies; original .log files preserved locally."
+}

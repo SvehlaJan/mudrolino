@@ -1,0 +1,15 @@
+00:00.775  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend"
+Traceback (most recent call last):
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b04_rolled_cuff.py", line 208, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b04_rolled_cuff.py", line 76, in main
+    weights = export_skin_weights(weights)
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_rolled_cuff_plan.py", line 11, in export_skin_weights
+    raise ValueError('Finite positive source influences required')
+ValueError: Finite positive source influences required
+
+Error: script failed, file: 'tools/blender/catalog/build_catalog_b04_rolled_cuff.py', exiting.
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

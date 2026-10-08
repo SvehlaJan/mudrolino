@@ -1,0 +1,123 @@
+{
+  "status": "mechanical native gates passed; initial construction provenance qualified; no promotion",
+  "final_source_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2",
+  "canonical_hashes": {
+    "assets/avatar/catalog-a/B04/B04.blend": "e4e14adf9e8da333b0c02e4d4690e56d38e63884de10676864646ba574983624",
+    "assets/avatar/catalog-a/B04/B04.glb": "8bb53813fb172950dffaea869683874530162eaac4bc90383d563ba997465472",
+    "assets/avatar/catalog-a/B04/body-B04.glb": "3489654af11579c0640bc1961524396bb1394a2886158f0e415d8f466371a127"
+  },
+  "retained_revision_sources": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/B04.blend": "b472ea595124968bbad2ad0f0b8ab35581b2b829fe5b7302ae916266c1014055",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/B04.blend": "966c9dbe3758495417aaa1a7d6de20c357cba3262220e905d806b0fddced4e00",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/second-bound/B04.blend": "a9bbea9c54e60db48aade007cbe56e40a6fe2d56b75f0cfe222bc2ca41c16306",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/target-only-2026-10-07/B04.blend": "a307ae27954787bd6b8ebc9d9242c6c44bef1a933275b6b2d6932e621e4bd395",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2"
+  },
+  "owned_code": {
+    "tools/blender/catalog/b04_corrective_repair_plan.py": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978",
+    "tools/blender/catalog/b04_detail_components.py": "0e7833e677dac64eaff06c7f174b0d7740a3c7732b695cb1455ceb652c173340",
+    "tools/blender/catalog/b04_detail_translation_plan.py": "8557a951a954da70a92465c4e5ec5c02a8ec8d67124f68c362658b78de979a0f",
+    "tools/blender/catalog/b04_target_repair_plan.py": "325341c0fce7f489e6ee03f37849af6a3f715054a90d2f237d67a6c8b2845236",
+    "tools/blender/catalog/b04_left_patch_repair_plan.py": "c23f0087398de75c879be85c4f43f70c36f24e3dcc9ca70cc7841e60a212fd99",
+    "tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "tools/blender/catalog/repair_catalog_b04_detail_clearance.py": "49d847996ba108f2ccc78769b00d67b24966ae9cf9bd9ac940bf4b8fc9b59cc8",
+    "tools/blender/catalog/repair_catalog_b04_target_attachment.py": "06237e4a2ff700e447857dd591bb86ed38c46760deb0ffb077e8e1ca6f63e4d1",
+    "tools/blender/catalog/repair_catalog_b04_left_patch_attachment.py": "2ffb86d9ebf14ad32f65f5df41ccc2e19f7077075a3a3ddd2cd0b28674a1881e",
+    "tools/blender/catalog/verify_catalog_b04_repair_preservation.py": "9ff3d26b51ef07df58a8c2b6ee1a2c356f66e43e3b10c16146095f135600b670",
+    "tools/blender/catalog/verify_catalog_b04_detail_preservation.py": "1bcd8e14d55f68430ec7bf01195bdeb32f2715752e5012e6af7720de589745ec",
+    "tools/blender/catalog/verify_catalog_b04_target_preservation.py": "8089501670666d2a31cc215572ddafa6d93fae34df6a0482623b3c6aac471b41",
+    "tools/blender/catalog/verify_catalog_b04_left_patch_preservation.py": "a52d149568882230597e85a5525a0a74bedb1382232989fbd53c8d5accddb531",
+    "tools/blender/catalog/verify_catalog_b04_derived_preservation.py": "d916d7429ae699d6b0f1e5e756ea886287acd1be858dd9b818eafd592d83ee7d",
+    "tools/blender/catalog/diagnose_catalog_b04_own_shell.py": "d70609df71ab497756a202e452fbba96c5a3d7735380204e6e03e00c4ca69ebc",
+    "tools/avatar/run_catalog_b04_repair.py": "8b3d4ea6852a8893b2fb7923a06e80722479ef29df29019db74ae6644784c545",
+    "tools/avatar/verify_catalog_b04_repair_regression.py": "48944327cd1e6c54c4a47d1379825c828bf84dd00ca3dd27abe8c9036aa4f0c4",
+    "tools/avatar/b04CorrectiveRepair.test.ts": "a5d8417240d2447f574644ff5483e0fa187842e2ca60be6538bde29947695bb1",
+    "tools/avatar/b04DetailComponents.test.ts": "6e7e03f3278fe8eb1ef1ed91f208331fb9ca8e1c8ff165462bb91ecc3b6801a8",
+    "tools/avatar/b04DetailTranslationPlan.test.ts": "4880e46d52b0e1a9abc07f6e611c15b40f4bad71f2e2a33c766180e8f21d05e8",
+    "tools/avatar/b04TargetRepair.test.ts": "853838d74def4ce1849621873ff5fb43b5507a869d56895e32d946d7b36d42c5",
+    "tools/avatar/b04LeftPatchRepair.test.ts": "774c0b5409df9059d6429d7d5975c2ef981df6d1a69dd21528b83fbc09b35f30",
+    "tools/avatar/b04ToolInventory.test.ts": "b156d5e015dbd3c307e5b330e21f6895e9170a65651209c959e941915e9d709d"
+  },
+  "report_inventory": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/canonical-side-report.json": "aefa0876d3cadcfc4e03a70e653d3754cb421b39540de6e09b9e60dede436173",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/corrective-side-report.json": "d10723f91d2b0657ed41b7ab2bc49db052fa6518242f57d84f0228ac78c93513",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/derived-preservation-report.json": "5a8c52993d9b228579aa3df1b281344b7bc08fa1dbc0a7cc6e84373fd292848c",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-fit-report.json": "69ca741ee1dde18e1f587ec142ca31a2ac655c150b53831f74df16377b7aa065",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-own-shell-report.json": "89d38974692b191b7f6c5a0249c018fec959d30954d72b4748ee6e0dc5ae1008",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/gate-report.json": "d3da8265bd71d867bc6b61b0b4faf99d859f2eb4d997f532432dcb02debe8a31",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/left-patch-repair-report.json": "eae37713f8d8e718b84b22317efc0286ea2e72e7deab2e386534e42e300c0404",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/motion-sweep-4x-metadata.json": "afdd0091e16defd4ecee63bc60cf43fd498110a1db086d7808e308ea966f2282",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/motion-sweep-4x.json": "03bc0cb1e4c6597cac1910dab8e4f5585f3263172a6d02518baf1e55ba130df6",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/assembly-report.json": "173d1f6f23c12f79f4d8e7e9495d0dad2cfb8b25a30db1cbba6ad0a45577960a",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/cap-attachment-report.json": "b14f213c3c43661bf5919b44895270a3481c2fcf3097fa5980bd0500f2589b90",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/corrective-side-report.json": "99089d61d0b40b7dfb4a5fd2cf5537daf03aa4012cc40c56e5f7c9b0c6d0e03e",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/export-deformation-report.json": "bdd55093483a739aeef4befac54457852b0bd69caa471d9ee1fc8cc50384313a",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/material-export-report.json": "235ad12bb75e4b5cd44ef8c7c6b93516c626d86f9ef6f01d607ed6e6ce05761d",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x-metadata.json": "57d2eabda557f7f4f455ccd21860c2d9ed8a55174a9529aeea2696c2f22237d6",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/motion-sweep-4x.json": "6c5468522f7a9ba3ce5695bd44790d46bd62cff93ea035e137a379e6168f8d06",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/runtime-corrective-report.json": "af28ff20052e5fedb05d27d07c1f6130e6ac88897b1ac2dad3c47b1e92f41995",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/assembly-report.json": "e4742f3c1b9aa5ac6bb7045e50bc9f610cd6c9e35028709f9cfb06670adad506",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/cap-attachment-report.json": "2fef852bed1f6afffda1a572b2ce54c22bc7d58b31e93ad276199ede9fbc14ce",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/corrective-side-report.json": "547061d84f7b4f5edbbd71c0117b0caf0fd0bda17f6995869782951bf46e219d",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/export-deformation-report.json": "d794bb76fc65d30c7a0d20324caf8b100334375cbd8ed3780d776f47a9d3be43",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/material-export-report.json": "67b1d790de973df680b32fe30383ec1c63e78a3943876f40275d6a9104dd0976",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x-metadata.json": "5f22bd0d0760788890ef1a83d8d186530820d1520412eae874238e16f6a814b2",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/motion-sweep-4x.json": "8e5fcdc43d3e980138d7493e645ede58adff58180e2fa8ebc64d49a5c9bf0a15",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/runtime-corrective-report.json": "08c88811b7c3a2c6c1c96737b353665ef5dfc366836c6c9b225a81f0e82717fc",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/pre-save-screen-report.json": "edaf82becad93d6c737cb15dd09e762b4117e50bea3a8402788390be3bcc2376",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/preservation-report.json": "1d9f9ff5e5fda7e18f11d85dc58e249185346f76f280506d9d59d95532fa1eda"
+  },
+  "final_exports": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.glb": "4b0b5acf2c7bce392f247d0ecb06c82aa500ddc7a1aedb1ed7e818c3bf038d84",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/body-B04.glb": "115665b234e7bd2ddfb376e65a8665ede6d96f679a17f18ca7da2281909fd1ea"
+  },
+  "outfits": {
+    "T01-B04-F01-A01": {
+      "source_sha256": "94b329dbf617de2e8346effcaa0d8a2fdfab4641378037dc3cb8ba1c60698e31",
+      "outfit_glb_sha256": "34a519586495accb1ec9b0b3aa768c8e746ed90880015317a9650c1cb1a5ba8e",
+      "combined_error_bound_m": 7.167544648485615e-06,
+      "threshold_m": 3e-05
+    },
+    "T04-B04-F03-A01": {
+      "source_sha256": "5ceaedd60e7d91bd2e897b2e77f0438ee0f65560781384b3ca52349c8f14006d",
+      "outfit_glb_sha256": "0969232885cea7194ed96451ed2ed1cb51a3571a14e22e6986bde8427ccbcd22",
+      "combined_error_bound_m": 6.4601624068141755e-06,
+      "threshold_m": 3e-05
+    }
+  },
+  "original_native_gates": {
+    "profile": "isolated full B04 native/export suite",
+    "count": 29,
+    "all_passed": true,
+    "fresh_before_hardening": true,
+    "repeated_after_hardening": false,
+    "browser_run": false
+  },
+  "derived_preservation": {
+    "status": "passed",
+    "tools": 17,
+    "original_provenance_complete": false,
+    "qualification": "Initial construction omitted transitive helper fingerprints and before/after tool guards. Exact original builder/report bytes are preserved. This fresh derived check binds current complete tools and unchanged sources; it does not retroactively make the initial construction provenance complete or rerun body/export/runtime gates."
+  },
+  "verification": {
+    "owned_behavioral_tests": 19,
+    "all_passed": true,
+    "targeted_eslint": "passed",
+    "python_compilation": "passed"
+  },
+  "sessions": {
+    "right_full_suite": 8110,
+    "right_face_diagnosis": 55423,
+    "unsaved_left_full_screen": 63869,
+    "bilateral_full_suite": 71829,
+    "derived_preservation": 76477,
+    "all_complete": true
+  },
+  "remaining": [
+    "Root registration/review and browser gate",
+    "Final visual/acceptance decision; canonical bytes remain unchanged",
+    "Initial execution provenance gap retained rather than rewritten"
+  ],
+  "retrospective": "assets/avatar/catalog-a/B04/retrospective.md"
+}

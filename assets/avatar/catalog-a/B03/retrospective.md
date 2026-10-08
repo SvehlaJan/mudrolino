@@ -2,6 +2,14 @@
 
 Status: authored prototype; **not fit-verified or accepted**. B03 remains open; independent catalog work can proceed while its deformation approach is redesigned. The complete 20-wearable/six-head catalog remains required.
 
+The 2026-10-06 model audit also confirms inherited Left deltas in the current
+Right target: 518 opposite-side coordinates, up to 288.487 mm. Current-source
+side evidence is `artifacts/verification/avatar-catalog/corrective-side-audit.json`.
+Older motion metadata binds source `c193c13e…`, while the current source begins
+`52d3747d…`; retain those historical failures without presenting them as a fresh
+current-source sweep. Isolate bilateral keys before reproducing and redesigning
+the current rear-hem/body/shoe deformation. See the 2026-10-06 improvement plan.
+
 The independent `B03.blend` / `B03.glb` / `body-B03.glb` contain knee-length navy shorts, restrained hem/waist trim, orange inside facing, projected front openings, rounded back pockets, fly, button and belt loops. Shared quad pelvis/crotch topology and economical eight-sided seam tubes produce 4,592 vertices / 4,576 polygons, 24 groups and at most four normalized influences. The mask now hides only 2,317 permanently concealed pelvis vertices, preserving thighs, knees, shins and feet for the rolled hem.
 
 The original straight-trouser-based loft passed rest views but failed selected walk/run samples (144 / 569 body pairs). Diagnostics traced these to exposed folded shins, then heels. A 26 mm posterior-ease revision did not solve deep kicks. Inflating the rear via morphs looked unnatural and moved contacts rather than resolving them. The current prototype rolls the rear hem upward with knee-driven corrective targets, fits the targets outside the actual thighs, and transfers rear lower-leg influence onto the thigh. The original shared gait and previous garment masters are unchanged. Maximum measured knee flexion is about 73.4 degrees in walk and 145.3 degrees in run; do not reduce the gait just to make this garment pass.
@@ -76,3 +84,41 @@ independent deformation defect even where historical body/layer checks passed.
 The shared builders now use explicit neutral-basis shape-key creation. This
 master is preserved pending repair and fresh body/layer/detail/export/Three.js
 proof; previous evidence is historical and does not prove side isolation.
+
+## Isolated side-only repair — 2026-10-07
+
+The saved `fitting-revisions/independent-keys-repair/B03.blend` resets exactly
+518 inherited Right-key coordinates to Basis and retains all 504 intended
+Right-side coordinates. Reopening the file preserves all eight recorded mesh,
+surface, binding, rig, gait, shape-setting, driver and material invariant groups.
+Canonical source and exports remain unchanged. The original rejects the side
+audit; the repair passes. Both exported GLBs have zero validator errors/warnings.
+The builder reuses the bounded repair planner and refuses an existing destination.
+
+Fresh original/repaired body sweeps each measure 163 poses. Maximum contacts stay
+at **338** at run 7.25; total contacts rise from **2,896 to 4,159**, and failing
+poses rise from 20 to 26. Removing the accidental bilateral coupling exposes
+additional fitting failures. This is a side-only diagnostic repair, not a
+monotonic fitting improvement or an accepted model. The historical 6,592 total
+included shoes and cannot be compared to these body-only totals.
+
+`diagnostic-proof-report.json` binds the source hashes, exact original/repaired
+commands and retained `.txt` execution logs. Full outfit/shoe contact, detail,
+source/export/Three.js fidelity and browser fitting checks remain open. The
+failed garment-only revision is linked in B03's catalog selector for rest review;
+the preferred model remains canonical. Next diagnose the now-independent rear
+hem against the complete bent leg and foot before another deformation proposal.
+
+
+## Complete-leg diagnosis — 2026-10-07
+
+The read-only `bodyfit-diagnosis-2026-10-07/` run reproduces all 163 body-contact
+counts exactly (338 maximum, 4,159 total). At run 7.25, 308 actual intersecting
+body polygons are dominated by RightFoot skin and 30 by RightLeg. The complete
+lower-body views show the folded heel/ankle behind the thigh, crossing the rear
+hem. Separate inner-thigh and crotch/Hips contact families also remain; a rear
+patch offset alone cannot close this gate. Existing knee corrections saturate
+through the worst foot path. All eight source invariant groups and 15 protected
+source/tool hashes are preserved. Root validated those hashes and retained the
+native execution log and four 320px views with a root manifest. This is diagnosis,
+not a new target, source save/export or fitting pass.

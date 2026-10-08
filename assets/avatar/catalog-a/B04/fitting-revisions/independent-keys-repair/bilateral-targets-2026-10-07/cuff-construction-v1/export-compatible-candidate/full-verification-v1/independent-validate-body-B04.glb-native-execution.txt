@@ -1,0 +1,8 @@
+{
+  "asset": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/body-B04.glb",
+  "errors": 0,
+  "warnings": 0,
+  "infos": 0,
+  "hints": 0,
+  "messages": []
+}

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "bindings": 8,
+  "samples": 16,
+  "max_weight_error": 0.00003861529120052776,
+  "combined_error_bound_m": 0.0000064601624068141755
+}
+(node:80326) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

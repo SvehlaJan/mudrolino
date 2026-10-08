@@ -1,0 +1,234 @@
+{
+  "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend",
+  "blend_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+  "glb": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb",
+  "glb_sha256": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c",
+  "frames_per_second": 24.0,
+  "status": "passed",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 3.281640204022551e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 5.205284878684324e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.4678881764411926,
+          "knee_clearance_Right": 0.050613127648830414
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.166999758581369e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.4288250505924225,
+          "knee_clearance_Right": 0.03362070769071579
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 3.3453022751928074e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 3.7477605019375915e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.154923677444458,
+          "knee_clearance_Right": 0.6418811082839966
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.693274320288765e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.03415361046791077
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.81024301279831e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.467891126871109,
+          "knee_clearance_Right": 0.05061638355255127
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 3.271475179644767e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495590031147003
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 3.111453850124235e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.13982167840003967
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 3.8281777392512595e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.11015491187572479,
+          "knee_clearance_Right": 0.9436129331588745
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.267043323125108e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.3408380150794983,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.549127083919302e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.2677849531173706,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.2903960206785996e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.08475160598754883,
+          "knee_clearance_Right": 0.9482706785202026
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.339283634635649e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 4.282787813281175e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.3605843782424927
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "max_nearest_vertex_error_m": {
+        "B04_ivory_trousers": 3.0538294026882795e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495941698551178
+        }
+      }
+    }
+  ],
+  "max_error_m": 5.205284878684324e-07,
+  "threshold_m": 3e-05,
+  "comparison": "Bidirectional rendered-vertex distance under identical native poses and morph weights; loose vertices excluded.",
+  "scope": "Independent garment source/export fidelity. Actual Three.js corrective weights and animated fit are separate gates.",
+  "tool_hashes": {
+    "tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "tools/blender/catalog/verify_catalog_independent_garment_export.py": "f5daa608f0614cc8c3df8360efa326432410b46c55db7657a6cf9ed9fd0d4552",
+    "tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc",
+    "tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123"
+  },
+  "input_hashes": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c"
+  }
+}

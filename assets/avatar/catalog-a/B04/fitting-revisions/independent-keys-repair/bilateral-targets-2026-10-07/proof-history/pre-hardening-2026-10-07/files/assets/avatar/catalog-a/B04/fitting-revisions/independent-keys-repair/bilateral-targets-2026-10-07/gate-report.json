@@ -1,0 +1,574 @@
+{
+  "status": "passed",
+  "complete": true,
+  "checks": [
+    {
+      "gate": "target-construction",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/repair_catalog_b04_left_patch_attachment.py",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 17.629,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/target-construction.log"
+    },
+    {
+      "gate": "source-preservation",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_b04_left_patch_preservation.py",
+        "--revision",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 8.188,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/source-preservation.log"
+    },
+    {
+      "gate": "canonical-side-rejection",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/B04.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/canonical-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "status": "passed",
+      "elapsed_s": 0.755,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/canonical-side-rejection.log"
+    },
+    {
+      "gate": "independent-corrective-sides",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.764,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/independent-corrective-sides.log"
+    },
+    {
+      "gate": "independent-motion",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend",
+        "--garment",
+        "B04_ivory_trousers",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".53",
+        "--ortho-scale",
+        "1.2",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/independent"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 28.501,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/independent-motion.log"
+    },
+    {
+      "gate": "detail-distance",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_details.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend",
+        "--garment",
+        "B04_ivory_trousers",
+        "--surface-material",
+        "A ivory tapered trouser fabric",
+        "--surface-material",
+        "A ivory tapered trouser trim",
+        "--detail-material",
+        "A ivory tapered trouser pockets and seams",
+        "--detail-material",
+        "A navy tapered trouser button",
+        "--threshold",
+        ".012",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-fit-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 3.335,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/detail-distance.log"
+    },
+    {
+      "gate": "detail-own-shell",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_details.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend",
+        "--garment",
+        "B04_ivory_trousers",
+        "--surface-material",
+        "A ivory tapered trouser fabric",
+        "--surface-material",
+        "A ivory tapered trouser trim",
+        "--detail-material",
+        "A ivory tapered trouser pockets and seams",
+        "--detail-material",
+        "A navy tapered trouser button",
+        "--threshold",
+        ".012",
+        "--require-detail-clear",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/detail-own-shell-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 3.44,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/detail-own-shell.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-assembly",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/assemble_catalog_outfit.py",
+        "--foundation",
+        "assets/avatar/catalog-a/foundation/catalog-body.blend",
+        "--catalog-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog",
+        "--pieces",
+        "T01,B04,F01,A01",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 4.634,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-assembly.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-sides",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/T01/T01.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/B04/B04.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/F01/F01.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/A01/A01.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/outfit.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 1.197,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-sides.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-motion",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/outfit.blend",
+        "--garment",
+        "T01_crew_tee_outfit,B04_ivory_trousers_outfit,F01_strap_sneakers_outfit,A01_baseball_cap_outfit",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".92",
+        "--ortho-scale",
+        "2.10",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 27.782,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-motion.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-export",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_outfit_export.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/outfit.blend",
+        "--glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/outfit.glb",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/export-deformation-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 6.941,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-export.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-runtime",
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "tools/avatar/verify_catalog_correctives.ts",
+        "--outfit=T01-B04-F01-A01",
+        "--outfit-dir=assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.196,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-runtime.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-cap",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_attachment.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/outfit.blend",
+        "--object",
+        "A01_baseball_cap_outfit",
+        "--bone",
+        "Head",
+        "--obstacles",
+        "body_underlayer_male,H01_head,T01_crew_tee_outfit,B04_ivory_trousers_outfit,F01_strap_sneakers_outfit",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/cap-attachment-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 1.555,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-cap.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-materials",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/outfit.glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/material-export-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.087,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-materials.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-validate-body.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/body.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.155,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-validate-body.glb.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-validate-garments.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/garments.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.132,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-validate-garments.glb.log"
+    },
+    {
+      "gate": "T01-B04-F01-A01-validate-outfit.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T01-B04-F01-A01/outfit.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.191,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T01-B04-F01-A01-validate-outfit.glb.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-assembly",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/assemble_catalog_outfit.py",
+        "--foundation",
+        "assets/avatar/catalog-a/foundation/catalog-body.blend",
+        "--catalog-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog",
+        "--pieces",
+        "T04,B04,F03,A01",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 4.464,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-assembly.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-sides",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/T04/T04.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/B04/B04.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/F03/F03.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/staged-catalog/A01/A01.blend",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/outfit.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 1.2,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-sides.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-motion",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/outfit.blend",
+        "--garment",
+        "T04_zip_hoodie_outfit,B04_ivory_trousers_outfit,F03_high_tops_outfit,A01_baseball_cap_outfit",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".92",
+        "--ortho-scale",
+        "2.10",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01",
+        "--review-dir",
+        "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 24.849,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-motion.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-export",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_outfit_export.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/outfit.blend",
+        "--glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/outfit.glb",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/export-deformation-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 6.431,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-export.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-runtime",
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "tools/avatar/verify_catalog_correctives.ts",
+        "--outfit=T04-B04-F03-A01",
+        "--outfit-dir=assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.187,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-runtime.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-cap",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_attachment.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/outfit.blend",
+        "--object",
+        "A01_baseball_cap_outfit",
+        "--bone",
+        "Head",
+        "--obstacles",
+        "body_underlayer_male,H01_head,T04_zip_hoodie_outfit,B04_ivory_trousers_outfit,F03_high_tops_outfit",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/cap-attachment-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 1.456,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-cap.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-materials",
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/outfit.glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/material-export-report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.086,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-materials.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-validate-body.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/body.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.148,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-validate-body.glb.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-validate-garments.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/garments.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.135,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-validate-garments.glb.log"
+    },
+    {
+      "gate": "T04-B04-F03-A01-validate-outfit.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/outfits/T04-B04-F03-A01/outfit.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.187,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/T04-B04-F03-A01-validate-outfit.glb.log"
+    },
+    {
+      "gate": "validate-B04.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.108,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/validate-B04.glb.log"
+    },
+    {
+      "gate": "validate-body-B04.glb",
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/body-B04.glb"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "passed",
+      "elapsed_s": 0.166,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/bilateral-targets-2026-10-07/validate-body-B04.glb.log"
+    }
+  ],
+  "canonical_hashes": {
+    "assets/avatar/catalog-a/B04/B04.blend": "e4e14adf9e8da333b0c02e4d4690e56d38e63884de10676864646ba574983624",
+    "assets/avatar/catalog-a/B04/B04.glb": "8bb53813fb172950dffaea869683874530162eaac4bc90383d563ba997465472",
+    "assets/avatar/catalog-a/B04/body-B04.glb": "3489654af11579c0640bc1961524396bb1394a2886158f0e415d8f466371a127"
+  },
+  "canonical_unchanged": true,
+  "scope": "Isolated technical gates only; no canonical promotion or final art acceptance."
+}

@@ -38,6 +38,46 @@ T02/B01/F01 outfit was rebuilt on this foundation (garments byte-identical) and
 its runner passed all 15 gates fresh; `verify_model_studies.mjs` passed 6
 desktop/phone cases for the foundation, head and outfit.
 
+## Evidence refresh (2026-10-06)
+
+The model audit found the three focused reports still bound to the pre-painted
+source/export (`f140ec1b` / `3d741840`) and an older comprehensive hash. The
+painted-face comprehensive report was current, but the earlier wording that all
+focused files came from that same run was incorrect. Their original bytes and
+the previous painted-face comprehensive result are preserved under
+`history/2026-10-06-proof-refresh/`, with exact hashes in its preservation manifest.
+The old extracts reference comprehensive SHA `554c417d…`; that exact historical
+comprehensive file was not found in the study tree, so those extracts remain
+historical evidence with an incomplete original dependency chain.
+
+A fresh queued Blender 5.2.2 LTS verifier run passed against the unchanged painted
+source and foundation export. It repeated the 163 motion / six gesture hair
+sweep, 16-pose export comparison, source invariants and reciprocal UV/image proof,
+including rejection and restoration of the negative UV permutation. Its report
+bytes equal the previous painted-face result (SHA `f4721fce…`); the completed
+native log establishes the fresh execution. An initial sandbox startup crash
+before verification Python is retained separately and does not count as a pass.
+`proof-refresh-report.json` records both attempts and the fresh/derived boundary.
+
+`tools/avatar/extract_catalog_female_foundation_proof.py` now derives all three
+focused scopes directly from the successful comprehensive bytes. Each focused
+report explicitly says “derived from existing comprehensive Blender verification;
+no independent rerun”, binds the comprehensive and extractor hashes, and records
+13 validated dependency files: current source/export, verifier, builder, original
+foundation, three saved exports, study report, face input/image/layout/mask and
+comprehensive evidence (shared paths count once). Extraction rejects failed or
+incomplete samples, changed bound bytes, missing clip endpoints/deep-kick poses,
+an ineffective negative UV probe and attempted historical overwrite. Six
+behavioral Vitest tests cover those cases, including wrong/missing UV contract
+fields and historical symlink/hardlink aliases. The initial derived outputs
+are preserved under `history/2026-10-06-extractor-hardening/`; their scopes were
+derived again from the unchanged current comprehensive proof after those
+extractor safeguards were corrected. This was not an additional native rerun.
+Fresh and failed native logs have byte-identical `.txt` copies so repository
+ignore rules cannot omit the execution evidence. No source, model, face image or layout
+bytes changed. This refresh establishes no new visual, wardrobe, runtime browser
+or acceptance proof; those gates remain separate.
+
 ## Fresh verification and exact limits
 
 `foundation-verification-report.json` is the source-bound comprehensive result. Focused hair, deformation and face-transport reports are extracts of that same run, not extra independent passes.
@@ -64,11 +104,14 @@ The UV-preserving head export deliberately differs from the garment profile that
 From the repository root, every Blender command must use the shared queue. No nested queue wrapper is needed.
 
 ```bash
-python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py tools/blender/catalog/build_catalog_female_foundation_study.py --source assets/avatar/catalog-a/foundation/catalog-body.blend --output-dir assets/avatar/catalog-a/female/foundation/studies/h02-envelope --review-dir artifacts/verification/avatar-catalog/female-foundation/h02-envelope
+python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py tools/blender/catalog/build_catalog_female_foundation_study.py --source assets/avatar/catalog-a/foundation/catalog-body.blend --output-dir assets/avatar/catalog-a/female/foundation/studies/h02-envelope --review-dir artifacts/verification/avatar-catalog/female-foundation/h02-envelope --face-image assets/avatar/catalog-a/faces/H02-default.png
 python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py tools/blender/catalog/verify_catalog_female_foundation_study.py --blend assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend --glb assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb --output-dir assets/avatar/catalog-a/female/foundation/studies/h02-envelope
+python3 tools/avatar/extract_catalog_female_foundation_proof.py --study-dir assets/avatar/catalog-a/female/foundation/studies/h02-envelope --history-dir assets/avatar/catalog-a/female/foundation/studies/h02-envelope/history/YYYY-MM-DD-HHMMSS-proof-refresh
 node tools/blender/catalog/verify_exported_materials.mjs assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb
 node tools/blender/catalog/verify_exported_materials.mjs assets/avatar/catalog-a/female/foundation/studies/h02-envelope/H02.glb
 node tools/blender/catalog/verify_exported_materials.mjs assets/avatar/catalog-a/female/foundation/studies/h02-envelope/hair-H02.glb
 ```
+
+Choose a new history directory for each refresh; existing historical bytes are immutable. The extractor validates and derives evidence only, so run the queued native verifier first when fresh execution is required.
 
 `study-report.json` records the exact builder hash and parameters; the comprehensive verifier records its own hash. Reports are evidence for these exact source/export bytes and need rerunning after technical asset edits. The final continuous rear hair pass ends this bounded study; further style iterations are deferred to explicit review.

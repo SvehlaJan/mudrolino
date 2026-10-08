@@ -1,0 +1,5 @@
+00:00.315  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/B03.blend"
+CORRECTIVE_SIDES {"tolerance_m": 1e-07, "status": "passed", "checks": [{"blend": "assets/avatar/catalog-a/B03/fitting-revisions/independent-keys-repair/B03.blend", "blend_sha256": "f6417b0486823a00ca58a29eb21bc3283a505593eb8002cc26883087200517a7", "keys": [{"object": "B03_casual_shorts", "key": "knee_clearance_Left", "opposite_vertices_moved": 0, "max_opposite_delta_m": 0.0, "intended_vertices_moved": 518}, {"object": "B03_casual_shorts", "key": "knee_clearance_Right", "opposite_vertices_moved": 0, "max_opposite_delta_m": 0.0, "intended_vertices_moved": 504}], "status": "passed"}]}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

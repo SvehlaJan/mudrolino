@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "source": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/B04.blend",
+  "source_sha256": "b472ea595124968bbad2ad0f0b8ab35581b2b829fe5b7302ae916266c1014055",
+  "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/detail-clearance-study/second-bound/B04.blend",
+  "blend_sha256": "a9bbea9c54e60db48aade007cbe56e40a6fe2d56b75f0cfe222bc2ca41c16306",
+  "canonical_unchanged": true,
+  "failed_side_study_unchanged": true,
+  "preserved_fields": [
+    "meshes",
+    "mesh_surface",
+    "binding",
+    "rig",
+    "gait",
+    "shape_settings",
+    "drivers",
+    "materials"
+  ],
+  "translated_components": 6,
+  "translated_vertices": 942,
+  "tool_hashes": {
+    "tools/blender/catalog/repair_catalog_b04_detail_clearance.py": "49d847996ba108f2ccc78769b00d67b24966ae9cf9bd9ac940bf4b8fc9b59cc8",
+    "tools/blender/catalog/diagnose_catalog_b04_own_shell.py": "d70609df71ab497756a202e452fbba96c5a3d7735380204e6e03e00c4ca69ebc",
+    "tools/blender/catalog/verify_catalog_b04_detail_preservation.py": "1bcd8e14d55f68430ec7bf01195bdeb32f2715752e5012e6af7720de589745ec",
+    "tools/blender/catalog/b04_detail_translation_plan.py": "8557a951a954da70a92465c4e5ec5c02a8ec8d67124f68c362658b78de979a0f",
+    "tools/blender/catalog/b04_detail_components.py": "0e7833e677dac64eaff06c7f174b0d7740a3c7732b695cb1455ceb652c173340",
+    "tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857"
+  },
+  "construction_tools_bound": true,
+  "max_coordinate_serialization_error_m": 6.0796737644253085e-09,
+  "scope": "Uniform component translations applied identically to rest/Basis/both keys; no cloth, belt-loop, topology, weight, binding or driver change. Shape and morph deltas remain unchanged."
+}

@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.blend",
+      "blend_sha256": "810fd7c6ff2153d11d76bc47a87a6a62a166881525870740df68ee56632d262c",
+      "keys": [
+        {
+          "object": "B04_ivory_trousers_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 573
+        },
+        {
+          "object": "B04_ivory_trousers_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 677
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

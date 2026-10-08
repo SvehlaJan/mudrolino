@@ -1,0 +1,7 @@
+{
+  "qualification": "Original derived payload report and exact generating verifier retained before complete-inventory hardening; native/Three measurements not rerun.",
+  "files": {
+    "verify_catalog_f02_ankle_payload.py": "cf7f2d0dcaa7092672829f436d92d4f1ed44b731b41df84f7cbd31dd6139afaa",
+    "payload-report.json": "b4f55a21a8a60ca70509831f0c5d2316e40d549c52cea7284d8871bf7f19c66d"
+  }
+}

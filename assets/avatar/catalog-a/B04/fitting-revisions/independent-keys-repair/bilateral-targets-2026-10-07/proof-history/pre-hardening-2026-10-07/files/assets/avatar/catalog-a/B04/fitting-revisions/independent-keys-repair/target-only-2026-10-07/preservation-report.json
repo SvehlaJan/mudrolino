@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "source_sha256": "a9bbea9c54e60db48aade007cbe56e40a6fe2d56b75f0cfe222bc2ca41c16306",
+  "blend_sha256": "a307ae27954787bd6b8ebc9d9242c6c44bef1a933275b6b2d6932e621e4bd395",
+  "canonical_and_failed_sources_unchanged": true,
+  "preserved_fields": [
+    "meshes",
+    "mesh_surface",
+    "binding",
+    "rig",
+    "gait",
+    "shape_settings",
+    "drivers",
+    "materials"
+  ],
+  "changed_key": "knee_clearance_Right",
+  "changed_vertices": 258,
+  "eligible_vertices": 346,
+  "max_coordinate_serialization_error_m": 2.9744114726781845e-08,
+  "tool_hashes": {
+    "tools/blender/catalog/repair_catalog_b04_target_attachment.py": "a6f2a84247a1ea9b8075f4e9d177b299c4323adf08a04ae26974713337194d88",
+    "tools/blender/catalog/verify_catalog_b04_target_preservation.py": "8089501670666d2a31cc215572ddafa6d93fae34df6a0482623b3c6aac471b41",
+    "tools/blender/catalog/b04_target_repair_plan.py": "325341c0fce7f489e6ee03f37849af6a3f715054a90d2f237d67a6c8b2845236",
+    "tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
+    "tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "tools/blender/catalog/diagnose_catalog_b04_own_shell.py": "d70609df71ab497756a202e452fbba96c5a3d7735380204e6e03e00c4ca69ebc"
+  },
+  "scope": "Only existing Right key targets on two anatomical-right details. Basis/rest, cloth/body, Left key, all other targets, topology, weights, bind, drivers, gaits and materials unchanged."
+}

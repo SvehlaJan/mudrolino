@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "canonical_hashes": {
+    "assets/avatar/catalog-a/B04/B04.blend": "e4e14adf9e8da333b0c02e4d4690e56d38e63884de10676864646ba574983624",
+    "assets/avatar/catalog-a/B04/B04.glb": "8bb53813fb172950dffaea869683874530162eaac4bc90383d563ba997465472",
+    "assets/avatar/catalog-a/B04/body-B04.glb": "3489654af11579c0640bc1961524396bb1394a2886158f0e415d8f466371a127"
+  },
+  "canonical_unchanged": true,
+  "canonical_contaminated_vertices": 263,
+  "repaired_opposite_vertices": 0,
+  "before_report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/before-corrective-side-report.json",
+  "after_report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/corrective-side-report.json",
+  "checks": [
+    {
+      "gate": "canonical-contamination",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/B04.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/before-corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/regression/canonical-contamination.log"
+    },
+    {
+      "gate": "bounded-repair",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/repair_catalog_b04_corrective_sides.py",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/regression/bounded-repair.log"
+    },
+    {
+      "gate": "saved-preservation",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_b04_repair_preservation.py",
+        "--revision",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/regression/saved-preservation.log"
+    },
+    {
+      "gate": "corrected-isolation",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/B04.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "artifacts/verification/avatar-catalog/B04/independent-keys-repair/regression/corrected-isolation.log"
+    }
+  ],
+  "scope": "Real native gate rejects canonical contamination and accepts bounded isolated repair; fitting remains separate."
+}

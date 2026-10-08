@@ -1,0 +1,5 @@
+00:00.385  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend"
+F02_ATTACHMENT_WEIGHTS {"max_weight_difference": 1.16569097157182e-05, "max_posed_attachment_distance_m": 0.00722451067120935}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

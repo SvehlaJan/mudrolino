@@ -1,0 +1,13 @@
+00:00.763  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend"
+00:07.145  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/front-review320.png'
+00:07.510  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/back-review320.png'
+00:07.931  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/side-review320.png'
+00:20.675  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/run-7.25-front-review320.png'
+00:21.189  render           | Saved: '/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/run-7.25-side-review320.png'
+CUFF_SCREEN_MODE native 164
+CUFF_SCREEN_MODE runtime-equivalent 164
+B04_CUFF_SCREEN {"status": "passed", "source": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/B04.blend", "source_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2", "blender": "5.2.2 LTS", "source_saved": false, "samples_per_domain": 164, "domains": ["native", "runtime-equivalent"], "max_visible_body_pairs": 0, "max_shoe_layer_pairs": {"F01": 0, "F03": 0}, "max_nonincident_cuff_self_pairs": 0, "new_vertices": 1344, "removed_hem_caps": 96, "original_vertices_keys_weights_preserved": true, "attachment_method": "surface", "retained_face_materials_and_smoothing_preserved": true, "deep_return_height_m": 0.014, "new_skin_export_cutoff": 0.0001, "scope": "Cheap pre-save continuous-cuff screen. Visible body uses unchanged B04 coverage mask; complete hidden-body contacts are not an acceptance claim. Both independent shoe obstacles are evaluated; full outfit/detail/export/actual-Three/art proof remains required."}
+Info: Saved as "B04.blend"
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

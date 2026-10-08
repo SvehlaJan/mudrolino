@@ -1,0 +1,18 @@
+00:01.062  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend"
+B04_FOLD_DIAGNOSIS {"domain": "native", "motion": "rest", "frame": 0, "cloth_self_face_pairs": 0, "branch_pair_counts": {}, "full_body_polygon_self_pairs": 0, "cloth_full_body_triangle_polygon_pairs": 1089, "corrective_values": {"knee_clearance_Left": 0.0, "knee_clearance_Right": 0.0}}
+B04_FOLD_DIAGNOSIS {"domain": "native", "motion": "walk", "frame": 0.8, "cloth_self_face_pairs": 2, "branch_pair_counts": {"Left/Right": 2}, "full_body_polygon_self_pairs": 0, "cloth_full_body_triangle_polygon_pairs": 1245, "corrective_values": {"knee_clearance_Left": 0.4678881764411926, "knee_clearance_Right": 0.050613127648830414}}
+B04_FOLD_DIAGNOSIS {"domain": "native", "motion": "walk", "frame": 7.25, "cloth_self_face_pairs": 35, "branch_pair_counts": {"Left/Right": 19, "Right/Right": 16}, "full_body_polygon_self_pairs": 0, "cloth_full_body_triangle_polygon_pairs": 1130, "corrective_values": {"knee_clearance_Left": 0.0, "knee_clearance_Right": 0.0}}
+B04_FOLD_DIAGNOSIS {"domain": "native", "motion": "run", "frame": 0.8, "cloth_self_face_pairs": 431, "branch_pair_counts": {"Left/Left": 421, "Right/Right": 10}, "full_body_polygon_self_pairs": 399, "cloth_full_body_triangle_polygon_pairs": 2184, "corrective_values": {"knee_clearance_Left": 1.0, "knee_clearance_Right": 0.19495590031147003}}
+B04_FOLD_DIAGNOSIS {"domain": "native", "motion": "run", "frame": 7.25, "cloth_self_face_pairs": 493, "branch_pair_counts": {"Left/Left": 16, "Right/Right": 477}, "full_body_polygon_self_pairs": 711, "cloth_full_body_triangle_polygon_pairs": 2943, "corrective_values": {"knee_clearance_Left": 0.3408380150794983, "knee_clearance_Right": 1.0}}
+Traceback (most recent call last):
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/diagnose_catalog_b04_paired_fold.py", line 125, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/diagnose_catalog_b04_paired_fold.py", line 80, in main
+    previous=next(r for r in probe['results']['paired-lining']['checks'] if r['domain']==domain and r['motion']==motion and r['frame']==frame)
+StopIteration
+
+Error: script failed, file: 'tools/blender/catalog/diagnose_catalog_b04_paired_fold.py', exiting.
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

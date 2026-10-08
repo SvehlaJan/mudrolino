@@ -1,0 +1,5 @@
+00:00.372  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend"
+F02_OFFSET_PROBE {"offset_m": 0.001, "samples": 164, "maximum_pairs": 100, "max_cloth_distance_m": 0.028207868337631226, "passed": false, "worst": {"motion": "walk", "frame": 8.5, "detail_shell_pairs": {"A orange slip-on heel tabs": 100, "A dark slip-on elastic gores": 0}, "max_cloth_distance_m": {"A orange slip-on heel tabs": 0.018768081441521645, "A dark slip-on elastic gores": 0.0018231540452688932}}}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

@@ -1,0 +1,8 @@
+{
+  "scope": "Non-saving preflight rejected unfiltered interpolation weights. Raw triangle interpolation may include zero/tiny entries; final retained field must be positive, normalized and at most four influences.",
+  "files": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/history/cutoff-preflight/build_catalog_b04_rolled_cuff.py": "6756bec94d230c1cec3c52efadf72a1a56beac15e549dd454e7ca41da86c0be5",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/history/cutoff-preflight/b04_rolled_cuff_plan.py": "cc84aa2478093546b5d8f273abe35394aab3d15057a2a2ddbd5f2b8f184ec5b5",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/history/cutoff-preflight/b04-cuff-export-compatible-candidate-2026-10-07.txt": "0833ad1e8251c103f70e9d2fe0dab411ec054ea4980e7e3596535122eb27b20c"
+  }
+}

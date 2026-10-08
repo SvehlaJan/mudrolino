@@ -1,0 +1,49 @@
+{
+  "status": "FAILED: incomplete diagnostic, no report produced",
+  "tool_hashes": {
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_corrective_repair_plan.py": "718c8e3228920741485342521f38c90316e819e7d02237b7d90050fbbaeac978",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_detail_components.py": "0e7833e677dac64eaff06c7f174b0d7740a3c7732b695cb1455ceb652c173340",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/cloth_branch_distances.py": "50d772a34cff7bdcfc076810683c396a796761ed3a86634d13f1c99517830449",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/diagnose_catalog_b04_paired_fold.py": "1b817ba6951a2d1c4043a8837b929ff19795504c807d7b32cc780e75179dedb7",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/inspect_catalog_b04_pockets.py": "d77e6b249f541567d110437472f0981afc33f8140f00760dccba965e477af8b5",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/prepare_catalog_body.py": "805c2f12e74c56eea3e4e569712e7f7ca98e8ebcf024dfd78e6382189f2eee21",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "3d8401a3a04212f93643c2c6b7d84dedcdbe2f01cc75bce9de1fbd247335a857",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/runtime_rest_capture.py": "c005ea88020f77d6d4753145a96e2f4415abd33e8425e73f57b4eb430ebdc236",
+    "tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc",
+    "tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123"
+  },
+  "input_hashes": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/cloth-layer-classification-report.json": "ff13bfaeccd511285e21b567d819f72e2507487d334a3dc2b276d62e34f6ff9a",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/paired-lining-probe-v1/paired-lining-screen-report.json": "8f032826670fe9b2e7f6c7d8fb7faa663f52f02f81398964fb38177bd72c19d7",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe"
+  },
+  "copied_paths": {
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_corrective_repair_plan.py": "tools/blender/catalog/b04_corrective_repair_plan.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_detail_components.py": "tools/blender/catalog/b04_detail_components.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_tool_inventory.py": "tools/blender/catalog/b04_tool_inventory.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01.py": "tools/blender/catalog/build_catalog_t01.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "tools/blender/catalog/catalog_gltf_gait_pose.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_tee_geometry.py": "tools/blender/catalog/catalog_tee_geometry.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/cloth_branch_distances.py": "tools/blender/catalog/cloth_branch_distances.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/diagnose_catalog_b04_paired_fold.py": "tools/blender/catalog/diagnose_catalog_b04_paired_fold.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/inspect_catalog_b04_pockets.py": "tools/blender/catalog/inspect_catalog_b04_pockets.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/prepare_catalog_body.py": "tools/blender/catalog/prepare_catalog_body.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_corrective_sides.py": "tools/blender/catalog/repair_catalog_b04_corrective_sides.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "tools/blender/catalog/repair_catalog_f02_corrective_sides.py",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/runtime_rest_capture.py": "tools/blender/catalog/runtime_rest_capture.py",
+    "tools/avatar/blender_cli.py": "tools/avatar/blender_cli.py",
+    "tools/avatar/blender_queue.py": "tools/avatar/blender_queue.py"
+  },
+  "native_log": {
+    "path": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/paired-fold-diagnosis-v1/native-execution.txt",
+    "sha256": "12f615f5f065de711086068e495a89e07f3a8332d05933d1adb2448c1fd893cf"
+  }
+}

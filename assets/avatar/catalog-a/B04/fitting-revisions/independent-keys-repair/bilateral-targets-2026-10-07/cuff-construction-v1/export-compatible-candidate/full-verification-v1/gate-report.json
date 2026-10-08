@@ -1,0 +1,525 @@
+{
+  "status": "passed",
+  "complete": true,
+  "scope": "Fresh independent/body/detail and two cap-free outfit/export/actual-Three corrective gates. Current head and shoe geometry only; browser/art/budget/final compatibility remain separate.",
+  "recipes": {
+    "T01-B04-F01": [
+      "T01",
+      "B04",
+      "F01"
+    ],
+    "T04-B04-F03": [
+      "T04",
+      "B04",
+      "F03"
+    ]
+  },
+  "checks": [
+    {
+      "gate": "initial-328-pose-cuff-screen",
+      "status": "reused",
+      "report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/pre-save-screen-report.json"
+    },
+    {
+      "gate": "reopened-source-preservation",
+      "status": "reused",
+      "report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/preservation-report.json"
+    },
+    {
+      "gate": "independent-sides",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "elapsed_s": 0.937,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent-sides-native-execution.txt"
+    },
+    {
+      "gate": "independent-motion",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend",
+        "--garment",
+        "B04_ivory_trousers",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".53",
+        "--ortho-scale",
+        "1.2",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent",
+        "--review-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent/review"
+      ],
+      "elapsed_s": 30.288,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent-motion-native-execution.txt"
+    },
+    {
+      "gate": "independent-details",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_details.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend",
+        "--garment",
+        "B04_ivory_trousers",
+        "--surface-material",
+        "A ivory tapered trouser fabric",
+        "--surface-material",
+        "A ivory tapered trouser trim",
+        "--detail-material",
+        "A ivory tapered trouser pockets and seams",
+        "--detail-material",
+        "A navy tapered trouser button",
+        "--threshold",
+        ".012",
+        "--require-detail-clear",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent/detail-own-shell-report.json"
+      ],
+      "elapsed_s": 3.949,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent-details-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-assembly",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/assemble_catalog_outfit.py",
+        "--foundation",
+        "assets/avatar/catalog-a/foundation/catalog-body.blend",
+        "--catalog-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/staged-catalog",
+        "--pieces",
+        "T01,B04,F01",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01",
+        "--review-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/review"
+      ],
+      "elapsed_s": 4.623,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-assembly-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-sides",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "elapsed_s": 0.856,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-sides-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-motion",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.blend",
+        "--garment",
+        "T01_crew_tee_outfit,B04_ivory_trousers_outfit,F01_strap_sneakers_outfit",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".92",
+        "--ortho-scale",
+        "2.10",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01",
+        "--review-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/review"
+      ],
+      "elapsed_s": 27.431,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-motion-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-details",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_details.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.blend",
+        "--garment",
+        "B04_ivory_trousers_outfit",
+        "--surface-material",
+        "A ivory tapered trouser fabric",
+        "--surface-material",
+        "A ivory tapered trouser trim",
+        "--detail-material",
+        "A ivory tapered trouser pockets and seams",
+        "--detail-material",
+        "A navy tapered trouser button",
+        "--threshold",
+        ".012",
+        "--require-detail-clear",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/detail-own-shell-report.json"
+      ],
+      "elapsed_s": 5.228,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-details-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-export",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_outfit_export.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.blend",
+        "--glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.glb",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/export-deformation-report.json"
+      ],
+      "elapsed_s": 6.996,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-export-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-runtime",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "tools/avatar/verify_catalog_correctives.ts",
+        "--outfit=T01-B04-F01",
+        "--outfit-dir=assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01"
+      ],
+      "elapsed_s": 0.224,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-runtime-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-materials",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/material-export-report.json"
+      ],
+      "elapsed_s": 0.091,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-materials-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-validate-body.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/body.glb"
+      ],
+      "elapsed_s": 0.164,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-validate-body.glb-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-validate-garments.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/garments.glb"
+      ],
+      "elapsed_s": 0.141,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-validate-garments.glb-native-execution.txt"
+    },
+    {
+      "gate": "T01-B04-F01-validate-outfit.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T01-B04-F01/outfit.glb"
+      ],
+      "elapsed_s": 0.198,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T01-B04-F01-validate-outfit.glb-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-assembly",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/assemble_catalog_outfit.py",
+        "--foundation",
+        "assets/avatar/catalog-a/foundation/catalog-body.blend",
+        "--catalog-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/staged-catalog",
+        "--pieces",
+        "T04,B04,F03",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03",
+        "--review-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review"
+      ],
+      "elapsed_s": 4.641,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-assembly-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-sides",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_corrective_sides.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.blend",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/corrective-side-report.json",
+        "--require-clear"
+      ],
+      "elapsed_s": 0.877,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-sides-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-motion",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/review_catalog_motion.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.blend",
+        "--garment",
+        "T04_zip_hoodie_outfit,B04_ivory_trousers_outfit,F03_high_tops_outfit",
+        "--body",
+        "body_underlayer_male,H01_head",
+        "--substeps",
+        "4",
+        "--require-clear",
+        "--target-z",
+        ".92",
+        "--ortho-scale",
+        "2.10",
+        "--output-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03",
+        "--review-dir",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/review"
+      ],
+      "elapsed_s": 24.881,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-motion-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-details",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_details.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.blend",
+        "--garment",
+        "B04_ivory_trousers_outfit",
+        "--surface-material",
+        "A ivory tapered trouser fabric",
+        "--surface-material",
+        "A ivory tapered trouser trim",
+        "--detail-material",
+        "A ivory tapered trouser pockets and seams",
+        "--detail-material",
+        "A navy tapered trouser button",
+        "--threshold",
+        ".012",
+        "--require-detail-clear",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/detail-own-shell-report.json"
+      ],
+      "elapsed_s": 4.657,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-details-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-export",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/avatar/blender_cli.py",
+        "tools/blender/catalog/verify_catalog_outfit_export.py",
+        "--blend",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.blend",
+        "--glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.glb",
+        "--report",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/export-deformation-report.json"
+      ],
+      "elapsed_s": 6.72,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-export-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-runtime",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "tools/avatar/verify_catalog_correctives.ts",
+        "--outfit=T04-B04-F03",
+        "--outfit-dir=assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03"
+      ],
+      "elapsed_s": 0.205,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-runtime-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-materials",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/blender/catalog/verify_exported_materials.mjs",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.glb",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/material-export-report.json"
+      ],
+      "elapsed_s": 0.09,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-materials-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-validate-body.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/body.glb"
+      ],
+      "elapsed_s": 0.157,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-validate-body.glb-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-validate-garments.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/garments.glb"
+      ],
+      "elapsed_s": 0.136,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-validate-garments.glb-native-execution.txt"
+    },
+    {
+      "gate": "T04-B04-F03-validate-outfit.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03/outfit.glb"
+      ],
+      "elapsed_s": 0.193,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/T04-B04-F03-validate-outfit.glb-native-execution.txt"
+    },
+    {
+      "gate": "independent-validate-B04.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb"
+      ],
+      "elapsed_s": 0.125,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent-validate-B04.glb-native-execution.txt"
+    },
+    {
+      "gate": "independent-validate-body-B04.glb",
+      "status": "passed",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "tools/avatar/validate_gltf.js",
+        "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/body-B04.glb"
+      ],
+      "elapsed_s": 0.171,
+      "log": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent-validate-body-B04.glb-native-execution.txt"
+    }
+  ],
+  "tool_hashes": {
+    "tools/blender/catalog/assemble_catalog_outfit.py": "f94ec3b7657d4f39c03b80297bef4d5d07a8b0a6e10ec1d10745f9efe908caa9",
+    "tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "tools/blender/catalog/catalog_correctives.py": "6e3ddcaff946a536e52386870552e15aa4395a714f3accd605ea489b94f9cb9a",
+    "tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "tools/blender/catalog/review_catalog_motion.py": "e8da28ce6e22ff236f859f49e407f48bd423b2e07315752db1f0f3c302a5ffdd",
+    "tools/blender/catalog/verify_catalog_corrective_sides.py": "9eacfa8bd245474cf00eb10f3130cd5c377f01cc89ef8924ec88afc478b2c7c2",
+    "tools/blender/catalog/verify_catalog_details.py": "1d85cd73cae205826e0c85cf9b6bb0577302bb680378e9ea9b1c1ab5be388736",
+    "tools/blender/catalog/verify_catalog_outfit_export.py": "48ffe0a30ba8c314fd5c3ece9add170129aa4280e3d6426ad0537a6b0955a863",
+    "/Users/svehla/playground/teo-learn/tools/avatar/run_catalog_b04_cuff_verification.py": "1fa4a71b1f66cefc4e98fa4c179b559b406ee322a46b0d3a281d96ee3b6096d4",
+    "package-lock.json": "15fcf42e66804f9e800356cc7c07402b3aefc3b6da9a8c23a6509dbf0dface4e",
+    "src/avatar/garmentCorrectives.ts": "ac305c09a35a924d9502635714a02f082ef132be88bb20edb0e650e622f62cf3",
+    "tools/avatar/b04_cuff_verification_plan.py": "0af90c24ee5ae394bd05ea401e574e5715e4a453798ac286b573ce339bb25e87",
+    "tools/avatar/blender_cli.py": "6a0ac1857d911405c352c3bd15981e4a2fb8d08f78d424b5ee20aa6814f343dc",
+    "tools/avatar/blender_queue.py": "abcb249418c03af52796b6b326a0b266c8580b045df65716ca1dd42fe042a123",
+    "tools/avatar/validate_gltf.js": "24417f86a733f6a9fef4e3e0c709afbecbe65189e02a35e4b0fef12e02323c37",
+    "tools/avatar/verify_catalog_correctives.ts": "af7b4b527218d53311fefe74d2ff1e5c586f8670f7b76cc19f97a2ce93863139",
+    "tools/blender/catalog/verify_exported_materials.mjs": "e8684bc6f1cebf4d1857372356a8404b106c121e57c2768797e67cc251115202",
+    "tools/blender/catalog/b04_tool_inventory.py": "16d2ba34c7763b5d41fe8167564164b0f0ba0ba210a307f650696dff9df9586b",
+    "tools/blender/catalog/f02_ankle_measurement.py": "46737bc746fb0aa102e16c03c15ec9be2c4acf0ea7ff6301eb8fda46de0bfe01"
+  },
+  "source_hashes": {
+    "assets/avatar/catalog-a/B04/B04.blend": "e4e14adf9e8da333b0c02e4d4690e56d38e63884de10676864646ba574983624",
+    "assets/avatar/catalog-a/B04/B04.glb": "8bb53813fb172950dffaea869683874530162eaac4bc90383d563ba997465472",
+    "assets/avatar/catalog-a/B04/body-B04.glb": "3489654af11579c0640bc1961524396bb1394a2886158f0e415d8f466371a127",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.glb": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/body-B04.glb": "115665b234e7bd2ddfb376e65a8665ede6d96f679a17f18ca7da2281909fd1ea",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/export-report.json": "75a3053bbce34e1013ff1fa090e4f364444be90022a9b8988b24de0a38c96506",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/pre-save-screen-report.json": "9d75ff453b960dea68a4547def301cc903cecf05647682064148473bcd0c7118",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/preservation-report.json": "b177ab6b7d2ed5355e0d9f2c8b100545bd504317a17256b49f660b3ae42804fd",
+    "assets/avatar/catalog-a/F01/F01.blend": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee",
+    "assets/avatar/catalog-a/F03/F03.blend": "52a4bcfeb54aea644088d6e137fb3ab9a2cc16c4c747ab6a474abfac0147bcf5",
+    "assets/avatar/catalog-a/T01/T01.blend": "28cd43b84da46e950a9e89e6e248ef8e2d5609ca1760316ba3cb28dac7a46be6",
+    "assets/avatar/catalog-a/T04/T04.blend": "b93e2e1dc04577c3ff2de1774fd14e6a87f9ce71ae5f9c186955e90b1e27cdc1",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body.blend": "43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "scope": "Failed non-saving preflight: smooth vertex normals blend the lower cap and cannot reliably classify the two cloth layers. No geometry screen or source/export save ran.",
+  "files": {
+    "b04-cuff-probe-2026-10-07.txt": "9a74979292a7155b63d0f7b03ab2241b8220d23da51bb6dc02a44a4be57ba64a",
+    "build_catalog_b04_rolled_cuff.py": "15de30b7545c3c98f93acd8d1f26fbc1cebd198fa3f85158b49678ed5888255d",
+    "b04_rolled_cuff_plan.py": "28539ea8f9245fc499d9ace5b55c9058f5a78b0e40113d3c213201af10196098"
+  }
+}

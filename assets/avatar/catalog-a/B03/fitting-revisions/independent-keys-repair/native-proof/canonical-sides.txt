@@ -1,0 +1,15 @@
+00:00.315  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B03/B03.blend"
+Traceback (most recent call last):
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_corrective_sides.py", line 39, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_corrective_sides.py", line 37, in main
+    if args.require_clear:assert report['status']=='passed',report
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'tolerance_m': 1e-07, 'status': 'failed', 'checks': [{'blend': 'assets/avatar/catalog-a/B03/B03.blend', 'blend_sha256': '52d3747d4497dbcdf993f218462c26b0cf0facc3892515e0a5ade7eef16d47f4', 'keys': [{'object': 'B03_casual_shorts', 'key': 'knee_clearance_Left', 'opposite_vertices_moved': 0, 'max_opposite_delta_m': 0.0, 'intended_vertices_moved': 518}, {'object': 'B03_casual_shorts', 'key': 'knee_clearance_Right', 'opposite_vertices_moved': 518, 'max_opposite_delta_m': 0.2884874294044722, 'intended_vertices_moved': 504}], 'status': 'failed'}]}
+CORRECTIVE_SIDES {"tolerance_m": 1e-07, "status": "failed", "checks": [{"blend": "assets/avatar/catalog-a/B03/B03.blend", "blend_sha256": "52d3747d4497dbcdf993f218462c26b0cf0facc3892515e0a5ade7eef16d47f4", "keys": [{"object": "B03_casual_shorts", "key": "knee_clearance_Left", "opposite_vertices_moved": 0, "max_opposite_delta_m": 0.0, "intended_vertices_moved": 518}, {"object": "B03_casual_shorts", "key": "knee_clearance_Right", "opposite_vertices_moved": 518, "max_opposite_delta_m": 0.2884874294044722, "intended_vertices_moved": 504}], "status": "failed"}]}
+
+Error: script failed, file: 'tools/blender/catalog/verify_catalog_corrective_sides.py', exiting.
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

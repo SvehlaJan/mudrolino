@@ -1,0 +1,7 @@
+{
+  "scope": "Second verifier assumed untextured cloth had no native UV layer. Preserve original UV corners by retained face/vertex identity instead; no model edited.",
+  "files": {
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/compressed-return-candidate/history/uv-layer-verifier/verify_catalog_b04_cuff_preservation.py": "db82dd994ee30449b62197e031dc589c013710ff71405b5a46bad35d11ea862a",
+    "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/compressed-return-candidate/history/uv-layer-verifier/b04-cuff-preservation-v2-2026-10-07.txt": "27d6f25e5810b8e198d94b0250ee545c96fd6108cb900a7eeb3bb2a92906faf8"
+  }
+}

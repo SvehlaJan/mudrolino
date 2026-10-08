@@ -1,0 +1,18 @@
+{
+  "purpose": "Preserved pre-refresh evidence; focused reports bind the diagnostic-face source, comprehensive report binds painted-face source. No original report bytes changed.",
+  "reports": {
+    "foundation-verification-report.json": "f4721fce82011f74192ba13a9bfd2a2a5d24fa6759f038cff6599a05f33e0e8f",
+    "face-transport-report.json": "a6dbebdc825901275513de797883821d96b2adb21b05a0d358fb53eec094abfc",
+    "hair-clearance-report.json": "85d47016b85ffeb5a75e181082158bb2d2fa3495e513d55d3cdea6d99285ce88",
+    "export-deformation-report.json": "8fe0213488a3fe3ff46622f9f2a74830e1cd7197a2464fa8ccb0ec621d03bbe1"
+  },
+  "preserved_asset_hashes": {
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.blend": "6641df23fb90d451cc8a3f0ef2ef0c98fc23204e6c0930338f7acb1893ee8a58",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/female-foundation.glb": "b964b77934ad743c2b125f3f4e785016fdad77366b94fb6c7a8c5f2d471847d5",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/H02.glb": "efe33ead4bb0029ae159a7b42f446fb2ef427518701cd284bcf08c9f6ef41d35",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/hair-H02.glb": "5e36d5ab54e04ffa9fb398759d55c1cb8dcd3972a2193597c30fbc064cc8edae",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/sample-face.png": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/canonical-face-layout.json": "cc3b1cbf9bebd816e3fc606d1d6e0166792d999cfd859f6668dc28a4a8cd61ce",
+    "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/canonical-face-mask.png": "bff7da0c3e4a94cdc0f09da9443c27ab7fb6edf36f3dfdc2a17180e491a242b6"
+  }
+}

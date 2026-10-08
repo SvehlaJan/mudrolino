@@ -1,0 +1,201 @@
+{
+  "status": "read-only measurement complete; scalar deformation ambiguity established; semantics await root review",
+  "completed_at_utc": "2026-10-07T06:58:03.301026+00:00",
+  "code_freeze": true,
+  "model_saved": false,
+  "runtime_modified": false,
+  "promoted": false,
+  "original_files_current_hashes": {
+    "assets/avatar/catalog-a/F02/F02.blend": "a0a4998aea312b2eb9c5ee14d6bc7fd121bb670e80b780f049a34d810a6fa7d7",
+    "assets/avatar/catalog-a/F02/F02.glb": "cbac369195653f2698a75aa59db8fb3bfd0fea7910a5ad0345ea23839f522d59",
+    "assets/avatar/catalog-a/F02/body-F02.glb": "7c4168a220ad784267cb840e68073d9db3fce2eb0a1a9047fd34ace8ee63bbaa",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.glb": "47d2e2ba80e756b6d7bb5259c44759c0d381ce3e5985f251813e3a9caf7536aa",
+    "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/body-F02.glb": "6c0bc799d3be046ad3a95a0129a66a493654583957ecc0a7c067f7b504f28154",
+    "assets/avatar/catalog-a/foundation/catalog-body.blend": "43f39d4f7530cc3ce569e8c6a37bd1300e5c98cb35d9e5f41e0f7ca46c771897",
+    "assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  },
+  "tool_hashes": {
+    "tools/avatar/f02AnkleMeasurement.test.ts": "25e721e5994da4f1a7f1f46a42f79585fe39c89a2b76975f3897d115232be4e4",
+    "tools/avatar/f02AnkleWitnessBracket.test.ts": "bf722906ed1220aefc72a54156fd3407bbbc19baacb1602db57b9840c5f6fec4",
+    "tools/avatar/analyze_catalog_f02_ankle.py": "c6340f376f03ff2db44492b3e1f34cc2e6b3d4e425b4ba78c58080946da81d91",
+    "tools/avatar/measure_catalog_f02_ankle_runtime.mjs": "4679467de5b3546263381e775b05ae1ecd726e0d2c850b5e28214e9d60bbfb05",
+    "tools/avatar/measure_catalog_f02_ankle_witness_runtime.mjs": "e11eb6d2f81fb1fabdbde821f9f6180378500f56f37d8dca0c3a2f0ba2857d23",
+    "tools/blender/catalog/f02_ankle_measurement.py": "46737bc746fb0aa102e16c03c15ec9be2c4acf0ea7ff6301eb8fda46de0bfe01",
+    "tools/blender/catalog/f02_ankle_fields.py": "146ea5bb31b8283a26350ae9f65ba02cf3c38107dd6ec6d29300b7d509f78ae2",
+    "tools/blender/catalog/f02_ankle_witness_bracket.py": "c32bad8f3e88135c94f3c55adf50fc51a001d7c6cf965c929999ec740cb06c35",
+    "tools/blender/catalog/measure_catalog_f02_ankle.py": "bf63a0becbe8a86eba15f38fe2740a863ad8f5a42f9e024abd975959f37a9a0b",
+    "tools/blender/catalog/measure_catalog_f02_ankle_witness.py": "7043626cc270939d7b4ace893a5f736552bb1f8e309514edd21d3b1f64212aeb"
+  },
+  "evidence_hashes": {
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/actual-three.json": "e6107427ad64cdcc0eaf8e94076721a182507bc52fa099cecf49809d361851f2",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/analysis.json": "e9af1c86d36439d724f0d6209a542b62fc3fccb6c933d4ed95d042e891ba36f0",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/iso-angle-actual-three.json": "33f3e81da6d74c55dea4e7273502602d183184dca292764394d03683d3c32da9",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/iso-angle-analysis.json": "6b024661dc13aea779166bc054934058ec4a06fb003e8cdf18a169c6e84c022c",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/iso-angle-native-and-equivalent.json": "70607f41464845363e3b177d6a20af4df8d80f3b8b6c021be49a5d2b176e097e",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/native-and-equivalent.json": "6e7f9e75a4929977c6bd02d987393c14e0590df9cabe90e2237e40db592fe0b6",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/portable-convention-proposal.md": "88b9576e0811caef0cb495f997ee0a32ba289a56c46fd559c1fc47e6772706e2",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/native-logs/ankle-measurement-sandbox.txt": "e89e761881884e801c52b806da346c9e63487e72f5f14a8a32f5d21c6f6f9a4f",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/native-logs/ankle-measurement-native.txt": "17567cf0001b54ee926d1c36a0b905a9b0b22f5a8b08c9eb53c99eb98808ed4f",
+    "assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/native-logs/ankle-iso-angle-native.txt": "d109942ae0cdd0c85bbed77eac40a39ac09f14f3b92764e51f2685c6e258874e"
+  },
+  "fresh_execution": {
+    "native_source_and_raw_gltf_equivalent_samples": 164,
+    "actual_three_samples": 164,
+    "additional_iso_angle_poses": 2,
+    "native_queue_sessions": {
+      "66300": 0,
+      "80135": 0
+    },
+    "validation_session": {
+      "34619": 0
+    },
+    "sandbox_attempt_exit_code": 245,
+    "sandbox_attempt_scope": "Blender native initialization crashed before Python; authorized queued escalation then passed",
+    "live_sessions": []
+  },
+  "derived_analysis": [
+    "analysis.json",
+    "iso-angle-analysis.json"
+  ],
+  "reused_acceptance_proof": false,
+  "new_tests": 10,
+  "focused_tests_including_prior_f02_tools": 16,
+  "verification": {
+    "focused_vitest": "fresh 16 passed, 4 files",
+    "py_compile": "passed for 6 new Python tools",
+    "scoped_eslint": "passed, zero output",
+    "broad_integration_or_browser": "not run; root owns combined checkpoint"
+  },
+  "maximum_differences": {
+    "raw_three_matrix": 1.3305047806277948e-06,
+    "raw_three_twist_rad": 7.545775341233352e-07,
+    "raw_three_swing_rad": 7.192422346730121e-07,
+    "raw_three_knee_value": 5.433581058145176e-07,
+    "equivalent_native_raw_twist_rad": 3.3069224847359635e-07,
+    "saved_native_raw_twist_rad": 0.0012404968993555698,
+    "saved_native_raw_swing_rad": 0.00017102948678715535,
+    "saved_native_raw_knee_value": 0.00010225407868330594
+  },
+  "iso_angle_witness": {
+    "solution": {
+      "frame": 18.497394180297846,
+      "angle_error_rad": 1.9734417155969908e-09,
+      "target_angle_rad": 0.10869661495594214,
+      "tolerance_rad": 1e-08,
+      "initial_bracket_frames": [
+        18.4,
+        18.6
+      ],
+      "branch": "principal signed twist (-pi,pi], no unwrapping",
+      "evaluations": [
+        {
+          "frame": 18.4,
+          "angle_rad": 0.1188940255557186
+        },
+        {
+          "frame": 18.6,
+          "angle_rad": 0.09795790748148692
+        },
+        {
+          "frame": 18.5,
+          "angle_rad": 0.10842383286651298
+        },
+        {
+          "frame": 18.45,
+          "angle_rad": 0.1136583946832386
+        },
+        {
+          "frame": 18.475,
+          "angle_rad": 0.11104098028116771
+        },
+        {
+          "frame": 18.4875,
+          "angle_rad": 0.10973237321779175
+        },
+        {
+          "frame": 18.49375,
+          "angle_rad": 0.10907809470531891
+        },
+        {
+          "frame": 18.496875,
+          "angle_rad": 0.10875096170197991
+        },
+        {
+          "frame": 18.4984375,
+          "angle_rad": 0.10858739676329637
+        },
+        {
+          "frame": 18.49765625,
+          "angle_rad": 0.10866917910239701
+        },
+        {
+          "frame": 18.497265624999997,
+          "angle_rad": 0.10871007036962761
+        },
+        {
+          "frame": 18.497460937499998,
+          "angle_rad": 0.10868962472787223
+        },
+        {
+          "frame": 18.497363281249996,
+          "angle_rad": 0.108699847546715
+        },
+        {
+          "frame": 18.497412109375,
+          "angle_rad": 0.10869473613678451
+        },
+        {
+          "frame": 18.497387695312497,
+          "angle_rad": 0.10869729184162291
+        },
+        {
+          "frame": 18.497399902343748,
+          "angle_rad": 0.10869601398917188
+        },
+        {
+          "frame": 18.49739379882812,
+          "angle_rad": 0.10869665291538937
+        },
+        {
+          "frame": 18.497396850585936,
+          "angle_rad": 0.10869633345227867
+        },
+        {
+          "frame": 18.49739532470703,
+          "angle_rad": 0.10869649318383356
+        },
+        {
+          "frame": 18.497394561767575,
+          "angle_rad": 0.10869657304961111
+        },
+        {
+          "frame": 18.497394180297846,
+          "angle_rad": 0.10869661298250043
+        }
+      ]
+    },
+    "actual_three_twist_difference_rad": 1.8582822225443607e-09,
+    "raw_gltf_twist_difference_rad": 1.9734417155969908e-09,
+    "actual_knee_values": [
+      0,
+      0
+    ],
+    "equivalent_source_comparison": {
+      "twist_difference_rad": 6.5081358704977e-08,
+      "knee_value_difference": 0,
+      "local_rotation_difference_rad": 0.16722457155040243,
+      "max_tab_difference_m": 0.007673263517070338,
+      "max_gap_vector_difference_m": 0.0003447274601056052
+    }
+  },
+  "limits": {
+    "detail_distance_m": 0.012,
+    "prohibited_own_shell_pairs": 0,
+    "attachment_roles": null,
+    "knee_semantics_changed": false,
+    "gaits_changed": false
+  },
+  "remaining_gates": "Root semantics review before construction/runtime changes; physically attached base, shape review, saved/reopened invariants, native + actual-runtime dense body/layer/detail, source/export/Three deformation gates required before promotion."
+}

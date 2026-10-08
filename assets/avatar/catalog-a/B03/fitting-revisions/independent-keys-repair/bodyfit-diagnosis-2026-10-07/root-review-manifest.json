@@ -1,0 +1,23 @@
+{
+  "qualification": "Root preservation/interpretation of completed read-only native diagnosis; no rerun, fitting repair, saved/exported model or acceptance.",
+  "blender": "5.2.2 LTS, recorded in retained execution log",
+  "files": {
+    "run-7.25-right-review.png": "c7f28aef81ba15cbd6fb1726901e03bc6da69602d7b2c39567b514bdc76c7e34",
+    "rest-0-back-review.png": "40c758d1921ec19810eb3d16046f5f8eb15f82a3f9ac50a79a22f62c8801450a",
+    "rest-0-right-review.png": "ed226a294981e5618bfb0d7123b17060b0cc60b62f6e6feb14c929ed91ba0566",
+    "native-execution.txt": "a41e98e2a4745e5564d4a535e611f506eb60a17e829980bbbf9de389b305e5fe",
+    "run-7.25-back-review.png": "a424b4f1d09afdc97f5adeff001bee56e5813f227da79369250e6863de2c3254",
+    "complete-leg-contact-diagnosis.json": "f8daed98931e637cfccc181debd987215a8fafcd4406298c44b9615c145aa7be"
+  },
+  "original_log": "/private/tmp/b03-complete-leg-diagnosis.log",
+  "sample_count": 163,
+  "max_body_pairs": 338,
+  "total_body_pairs": 4159,
+  "worst_frame": {
+    "motion": "run",
+    "frame": 7.25,
+    "RightFoot_pairs": 308,
+    "RightLeg_pairs": 30
+  },
+  "next_scope": "One bounded proposal must address the folded foot/rear hem plus distinct inner-thigh and crotch contact families. Existing knee targets saturate; extra knee influence is not a discriminating ankle control."
+}

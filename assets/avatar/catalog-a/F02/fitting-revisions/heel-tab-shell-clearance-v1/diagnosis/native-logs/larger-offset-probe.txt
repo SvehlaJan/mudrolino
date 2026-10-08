@@ -1,0 +1,7 @@
+00:00.369  blend            | Read blend: "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend"
+F02_OFFSET_PROBE {"offset_m": 0.005, "samples": 164, "maximum_pairs": 56, "max_cloth_distance_m": 0.00924044381827116, "passed": false, "worst": {"motion": "run", "frame": 12.75, "detail_shell_pairs": {"A orange slip-on heel tabs": 56, "A dark slip-on elastic gores": 0}, "max_cloth_distance_m": {"A orange slip-on heel tabs": 0.008822944946587086, "A dark slip-on elastic gores": 0.001895032124593854}}}
+F02_OFFSET_PROBE {"offset_m": 0.006, "samples": 164, "maximum_pairs": 42, "max_cloth_distance_m": 0.01003145519644022, "passed": false, "worst": {"motion": "run", "frame": 12.75, "detail_shell_pairs": {"A orange slip-on heel tabs": 42, "A dark slip-on elastic gores": 0}, "max_cloth_distance_m": {"A orange slip-on heel tabs": 0.009795474819839, "A dark slip-on elastic gores": 0.001895032124593854}}}
+F02_OFFSET_PROBE {"offset_m": 0.007, "samples": 164, "maximum_pairs": 30, "max_cloth_distance_m": 0.010988646186888218, "passed": false, "worst": {"motion": "run", "frame": 12.75, "detail_shell_pairs": {"A orange slip-on heel tabs": 30, "A dark slip-on elastic gores": 0}, "max_cloth_distance_m": {"A orange slip-on heel tabs": 0.01076907105743885, "A dark slip-on elastic gores": 0.001895032124593854}}}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit
