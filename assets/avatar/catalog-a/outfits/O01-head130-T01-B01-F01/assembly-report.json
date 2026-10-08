@@ -7,7 +7,7 @@
   "status": "combination candidate; motion/runtime acceptance pending",
   "coverage": {
     "T01": {
-      "vertices": 11752,
+      "vertices": 10997,
       "source_rest_delta_m": 0.0
     },
     "B01": {

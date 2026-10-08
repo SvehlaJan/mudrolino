@@ -1,8 +1,9 @@
 # Female O01 (T01 / B01 / F01) retrospective
 
-Status: first female T01 and exact female O01 on the +30% H02 head. Fit and
-export gates pass; the new tee-sleeve occlusion gate fails on an inherited T01
-defect. Art review pending.
+Status: first female T01 and exact female O01 on the +30% H02 head. The complete
+runner passes (2026-10-08) with contact-aware T01 coverage (`--tee-underarm
+--accept-armpit-crease`); see `../../../../T01/fitting-revisions/sleeve-coverage-v1/retrospective.md`.
+Art review pending.
 
 Build: `build_catalog_female_outfit_study.py --recipe T01,B01,F01 --foundation
 female/foundation/studies/h02-scale-130/female-foundation.blend --opening-relief .009
@@ -34,3 +35,13 @@ skips Three.js skinning when the native gate fails; run directly, it passes at
    (131–508 pairs), because in the A-pose the inner arm sits 3–15 mm from the torso,
    leaving no room for fabric. The fix is a T01 sleeve/underarm rebuild on both
    bases (T03 shares the rule).
+
+## 2026-10-08 update
+
+The sleeve-occlusion gate became a general hole gate: hidden faces a standard
+camera can see, with visible skin behind them. T01 coverage now releases
+camera-visible arm skin and keeps tee-contact skin hidden as `contact_T01`. The
+complete runner passes: zero contacts over 163 native and runtime-equivalent poses,
+zero visible holes, 385 accepted contact faces reported, and Three.js skinning at
+2.0 µm. The rejected side-panel relief and armpit-selector attempts are recorded in
+the T01 revision retrospective.

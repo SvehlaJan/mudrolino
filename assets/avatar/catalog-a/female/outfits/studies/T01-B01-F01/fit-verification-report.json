@@ -1,6 +1,6 @@
 {
   "gate_helper_hashes": {
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/assemble_catalog_outfit.py": "f94ec3b7657d4f39c03b80297bef4d5d07a8b0a6e10ec1d10745f9efe908caa9",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/assemble_catalog_outfit.py": "d9de67cc88122b5a49783fb8c7ba0855b53d3c37266a571ab78028de5f1fed97",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_centre_keys.py": "f02f57277810a338794175715e395a660f300ecc1c41918b59820b66a694ee13",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_shell_self.py": "c40958bdb2ed920154cfe0be2ada5430265b46dfc0f4dbc9cc8f0c09d410ead2",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_centre_key_plan.py": "11931ebc003c3473ffb4ea95f45fa24a5564850292d5a1267227846281d62f67",
@@ -30,12 +30,14 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_f03.py": "228ea9dfc7306813de2ffa9dd2866736377312486f43e1b67bc5d9467955a94b",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_f04.py": "a8535e2e13f06094d1885868d6fc7324c564d818685fa9cb6f88f178d8b537ce",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_foundation_study.py": "ce589757dd209d47c30bd199324dba04959feb27b188e1604d65fbe878995eaa",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "d1250a68984c005024e92f25417086f3d2bddae2c450a65e2517c79ec81232ec",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "674a28c8b15ce2da59572dca912d612a769d68b13e9dccde4242c7df96a7019f",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head.py": "9274e96c0e8317d3dc4a14a56e788f682b85a1ac9be208150015837170c28b74",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head_scale_study.py": "3bd9db17cb87f3723a9a79fbdadf2a866aa61818d5832f88e3848629a7c2c0ad",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head_style_study.py": "1eb3a4df16b938daa9658789a9c5fe13a201179d20493521355bf1646a9f5c84",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head_texture_study.py": "697dbb415a3b6abdd97f86df005c610e84a4de925f2309de098cb9570419c538",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_scaled_male_foundation.py": "1d3b3a47f174fa30bafd0f7be99ec64c386c27407144609c3acd13ba266fc6d9",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01_sleeve_coverage.py": "f68b01c62c226c8379733ffc1f1a04c1b4a4d285cec386a8f1232a61fb1dd0e5",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t02.py": "7ec5a72a14dc16fae9574225266c01887c4ab6280e7f987f216df285384ce610",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t03.py": "be92d1f308f52f58227bfaffbe4a1d7687b5c965ead2c8c91fcc6ba37c818e9e",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t04.py": "68b8c400d8baf655554995e1c2c5481a8c6a0e9aba636f48879842e151357a36",
@@ -45,6 +47,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_bottom_details.py": "dd4371bd269c55784ace20428c300915ab260e30aa87cc15b6accb085b116147",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_bottom_geometry.py": "8623342a97787a1450c99f62b442530446f5e7abab7441bfcc8eda84caf9decc",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_correctives.py": "6e3ddcaff946a536e52386870552e15aa4395a714f3accd605ea489b94f9cb9a",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_coverage_visibility.py": "a0058527092f4d1d4f122779b1ee5aa6ad89b3b11634e5820b6465f6602b9bdc",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_hood_geometry.py": "d706c0683f2a5b8e80b6eda464521bca9045196cd3400801b8b3038a941872a3",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_sneaker_closures.py": "6523c11dcd60f90bf895311302cfd5f5b033b8beb8cda6f16bf1fb2f7b4b807e",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_footwear_geometry.py": "d644241e78141ea4e2ea59e6b2f7cc55cd4e359df3bae910824c16d69131b70f",
@@ -53,6 +56,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_headwear_plan.py": "e5585b563ebe6440e1df2b45282fe6adac1f086488527446518d55a7a90800f6",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_piece.py": "0fb9dc6e39e8836cb3840cd4f3fda65eecada1ba883c248f09e83455bdf8ff63",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_tee_underarm.py": "b84e1ec14c718a63af703410ce6d4dfe1af3576ec8bb87ce401630eb63ad0786",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_top_geometry.py": "d7b39f6515c2f21c192df63efe2a716121321deae0f6ddb151ac50327c1ce0ac",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/cloth_branch_distances.py": "50d772a34cff7bdcfc076810683c396a796761ed3a86634d13f1c99517830449",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/cloth_layer_correspondence.py": "c7f1606bab154f15adeda793933ab619ba9281453bb83fdcfd61db2af336e91a",
@@ -108,9 +112,10 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_b04_target_preservation.py": "8089501670666d2a31cc215572ddafa6d93fae34df6a0482623b3c6aac471b41",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_corrective_sides.py": "9eacfa8bd245474cf00eb10f3130cd5c377f01cc89ef8924ec88afc478b2c7c2",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage.py": "d147396ea315032dc1b0a63c614b0aef4879d3ad84a9816c64ddb81fb2743f09",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage_visibility.py": "970580b962c668525d9a7c3335ae2b68b773b6bdb051b9cf86f47c2c7e8af50a",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_details.py": "1d85cd73cae205826e0c85cf9b6bb0577302bb680378e9ea9b1c1ab5be388736",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_foundation_study.py": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "867cf8f3a0ef33965c59b9495d4b1d0344a063473432531c6de942f5938eb06d",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "e90398d334b4f72a436741c3436bf089a3e922a27baf8ccb02beed58dc6217f5",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head.py": "d66ceb3961d5487ad2212c7cf96ac3140cc43df1b8d56df057965c6f908770b0",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_scale_study.py": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_texture.py": "90071d35d172a721425552eb0f4c7b1fa07c6c76a6e3ee4434e6ea90370aa128",
@@ -121,81 +126,34 @@
   },
   "stage": "isolated female fitting candidate; not accepted",
   "blend": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.blend",
-  "blend_sha256": "91cbde1c80edd924c413cf9ee1dfe074fa424e22a494f23b4942925acc2cfd16",
+  "blend_sha256": "f73571f654a1c620188e7ded08a89c3fe224f45e3a991ed088eda0ea2dc29179",
   "glb": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.glb",
-  "glb_sha256": "d6f93d88594d4c487c6e1a216e04b8ef7914929a1ec12760ee98284a2667fbf1",
-  "verifier_sha256": "867cf8f3a0ef33965c59b9495d4b1d0344a063473432531c6de942f5938eb06d",
+  "glb_sha256": "079cf4074c80c3c863105f48ef64d3a429813fb149f1de2d0c85bac62989235c",
+  "verifier_sha256": "e90398d334b4f72a436741c3436bf089a3e922a27baf8ccb02beed58dc6217f5",
   "profile": "complete sampled fit/export",
-  "status": "failed",
-  "failures": [
-    {
-      "gate": "tee_sleeve_hidden_faces_occluded",
-      "details": {
-        "Left": {
-          "hem_t": 0.4643615945279993,
-          "hidden_faces_beyond_hem": 124,
-          "exposed_faces": 90,
-          "sample": [
-            15096,
-            15101,
-            15102,
-            16282,
-            16298,
-            16301,
-            16303,
-            16309,
-            16310,
-            16328,
-            16343,
-            16349
-          ]
-        }
-      }
-    },
-    {
-      "gate": "tee_sleeve_hidden_faces_occluded",
-      "details": {
-        "Right": {
-          "hem_t": 0.46442879964379213,
-          "hidden_faces_beyond_hem": 127,
-          "exposed_faces": 87,
-          "sample": [
-            15097,
-            15098,
-            16280,
-            16295,
-            16296,
-            16317,
-            16318,
-            16338,
-            16339,
-            16397,
-            16402,
-            16403
-          ]
-        }
-      }
-    }
-  ],
+  "status": "passed",
+  "failures": [],
   "dependency_hashes": {
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/assembly-report.json": "6168439167e26972aa2d6bfae8af6eb6b7bfdeb0503a8ea23f992cf485c94186",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/assembly-report.json": "3b39935f68b37e951fa312123b52bee29cf7cd4ce5b48372a98ab40c2403cde1",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "c542b88a057909ac28d941f7a02e9484a3d8d73bfbcc6e6058cfc641a38a0ea1",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "d1250a68984c005024e92f25417086f3d2bddae2c450a65e2517c79ec81232ec",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "674a28c8b15ce2da59572dca912d612a769d68b13e9dccde4242c7df96a7019f",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_hood_geometry.py": "d706c0683f2a5b8e80b6eda464521bca9045196cd3400801b8b3038a941872a3",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_sneaker_closures.py": "6523c11dcd60f90bf895311302cfd5f5b033b8beb8cda6f16bf1fb2f7b4b807e",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_coverage_visibility.py": "a0058527092f4d1d4f122779b1ee5aa6ad89b3b11634e5820b6465f6602b9bdc",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_tee_underarm.py": "b84e1ec14c718a63af703410ce6d4dfe1af3576ec8bb87ce401630eb63ad0786",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/T01/T01.blend": "28cd43b84da46e950a9e89e6e248ef8e2d5609ca1760316ba3cb28dac7a46be6",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/outfit.blend": "3079e90efd3af85f49b932810a8625a8ae230d65f91bdb250edc3a68415c95b7",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/outfit.blend": "7d40858684ff39365393e5c91afe32a6b264cb0bd344f929ed39868422c7c50f",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B01/B01.blend": "13105753e74d5bee658d4db0bc36ef8a3ed4305a5e3197f47268a464668695e3",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/B01/outfit.blend": "353344bda15940b1a8a916f98e8f237a9bde53db39de97dc1d02c2aa1003177c",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/B01/outfit.blend": "7a385d66aab007785a7b5c10ba9b2c4a501e2e8b19bfb713fe4e3dd5b35d9243",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/F01/F01.blend": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/F01/outfit.blend": "4c39aad181b67c1932955b8ba1da387f2677549cf30a733b06c6b3f2a5beb4fa",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/body.glb": "a5574541d508ac5af86f98913d1b8a698bcd093fd7461dd05b61207fe062b0ce",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/F01/outfit.blend": "6cfc4bcb42f27a7ed32d4418a73e43fe58bf48f70feb6440cee73661a76343f3",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/body.glb": "b668c8b60428d2e70702c63fd5cd4740888deb323f015eab7dbf26ffbcc2f362",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/garments.glb": "ef96847748646618957c353333fc5df25484f4113988a11c247f069165572697",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/sample-face.png": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/assemble_catalog_outfit.py": "f94ec3b7657d4f39c03b80297bef4d5d07a8b0a6e10ec1d10745f9efe908caa9",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/assemble_catalog_outfit.py": "d9de67cc88122b5a49783fb8c7ba0855b53d3c37266a571ab78028de5f1fed97",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_centre_keys.py": "f02f57277810a338794175715e395a660f300ecc1c41918b59820b66a694ee13",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_shell_self.py": "c40958bdb2ed920154cfe0be2ada5430265b46dfc0f4dbc9cc8f0c09d410ead2",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/b04_centre_key_plan.py": "11931ebc003c3473ffb4ea95f45fa24a5564850292d5a1267227846281d62f67",
@@ -229,7 +187,9 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head_scale_study.py": "3bd9db17cb87f3723a9a79fbdadf2a866aa61818d5832f88e3848629a7c2c0ad",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head_style_study.py": "1eb3a4df16b938daa9658789a9c5fe13a201179d20493521355bf1646a9f5c84",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head_texture_study.py": "697dbb415a3b6abdd97f86df005c610e84a4de925f2309de098cb9570419c538",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_scaled_male_foundation.py": "1d3b3a47f174fa30bafd0f7be99ec64c386c27407144609c3acd13ba266fc6d9",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t01_sleeve_coverage.py": "f68b01c62c226c8379733ffc1f1a04c1b4a4d285cec386a8f1232a61fb1dd0e5",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t02.py": "7ec5a72a14dc16fae9574225266c01887c4ab6280e7f987f216df285384ce610",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t03.py": "be92d1f308f52f58227bfaffbe4a1d7687b5c965ead2c8c91fcc6ba37c818e9e",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_t04.py": "68b8c400d8baf655554995e1c2c5481a8c6a0e9aba636f48879842e151357a36",
@@ -299,9 +259,10 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_b04_target_preservation.py": "8089501670666d2a31cc215572ddafa6d93fae34df6a0482623b3c6aac471b41",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_corrective_sides.py": "9eacfa8bd245474cf00eb10f3130cd5c377f01cc89ef8924ec88afc478b2c7c2",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage.py": "d147396ea315032dc1b0a63c614b0aef4879d3ad84a9816c64ddb81fb2743f09",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage_visibility.py": "970580b962c668525d9a7c3335ae2b68b773b6bdb051b9cf86f47c2c7e8af50a",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_details.py": "1d85cd73cae205826e0c85cf9b6bb0577302bb680378e9ea9b1c1ab5be388736",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_foundation_study.py": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "867cf8f3a0ef33965c59b9495d4b1d0344a063473432531c6de942f5938eb06d",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "e90398d334b4f72a436741c3436bf089a3e922a27baf8ccb02beed58dc6217f5",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head.py": "d66ceb3961d5487ad2212c7cf96ac3140cc43df1b8d56df057965c6f908770b0",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_scale_study.py": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_texture.py": "90071d35d172a721425552eb0f4c7b1fa07c6c76a6e3ee4434e6ea90370aa128",
@@ -314,21 +275,21 @@
     {
       "piece": "T01",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/T01/outfit.blend",
-      "sha256": "3079e90efd3af85f49b932810a8625a8ae230d65f91bdb250edc3a68415c95b7",
+      "sha256": "7d40858684ff39365393e5c91afe32a6b264cb0bd344f929ed39868422c7c50f",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     },
     {
       "piece": "B01",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/B01/outfit.blend",
-      "sha256": "353344bda15940b1a8a916f98e8f237a9bde53db39de97dc1d02c2aa1003177c",
+      "sha256": "7a385d66aab007785a7b5c10ba9b2c4a501e2e8b19bfb713fe4e3dd5b35d9243",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     },
     {
       "piece": "F01",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/pieces/F01/outfit.blend",
-      "sha256": "4c39aad181b67c1932955b8ba1da387f2677549cf30a733b06c6b3f2a5beb4fa",
+      "sha256": "6cfc4bcb42f27a7ed32d4418a73e43fe58bf48f70feb6440cee73661a76343f3",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     }
@@ -390,7 +351,7 @@
   },
   "top_bottom_opening_anatomy": {
     "T01": {
-      "removed_faces": 24035,
+      "removed_faces": 22651,
       "violations": 0,
       "limits": {
         "top_neck_z": 1.405,
@@ -414,46 +375,43 @@
       "scope": "Actual removed incident faces preserve declared neck/wrist or waistband/ankle boundaries."
     }
   },
-  "tee_sleeve_openings": {
-    "Left": {
-      "hem_t": 0.4643615945279993,
-      "hidden_faces_beyond_hem": 124,
-      "exposed_faces": 90,
+  "hidden_face_visibility": {
+    "combined": {
+      "removed_faces": 66103,
+      "visible_faces": 0,
+      "accepted_contact_faces": 385,
+      "sample": []
+    },
+    "T01": {
+      "removed_faces": 22651,
+      "visible_faces": 398,
       "sample": [
-        15096,
-        15101,
-        15102,
-        16282,
-        16298,
-        16301,
-        16303,
-        16309,
-        16310,
-        16328,
-        16343,
-        16349
+        28223,
+        28774,
+        29371,
+        32048,
+        32219,
+        34240,
+        34402,
+        35469,
+        36845,
+        36846,
+        37715,
+        38458
       ]
     },
-    "Right": {
-      "hem_t": 0.46442879964379213,
-      "hidden_faces_beyond_hem": 127,
-      "exposed_faces": 87,
-      "sample": [
-        15097,
-        15098,
-        16280,
-        16295,
-        16296,
-        16317,
-        16318,
-        16338,
-        16339,
-        16397,
-        16402,
-        16403
-      ]
+    "B01": {
+      "removed_faces": 33435,
+      "visible_faces": 0,
+      "sample": []
     },
-    "scope": "Rest pose; hem from arm-weighted tee vertices; rays limited to 10 cm."
+    "F01": {
+      "removed_faces": 11008,
+      "visible_faces": 0,
+      "sample": []
+    },
+    "cameras": "8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose",
+    "scope": "Combined outfit gated; per-piece reported."
   },
   "motion_fit": {
     "T01": [
@@ -31405,7 +31363,7 @@
   ],
   "body_face_transport": {
     "glb": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/body.glb",
-    "glb_sha256": "a5574541d508ac5af86f98913d1b8a698bcd093fd7461dd05b61207fe062b0ce",
+    "glb_sha256": "b668c8b60428d2e70702c63fd5cd4740888deb323f015eab7dbf26ffbcc2f362",
     "embedded_png_sha256": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
     "corner_identity": {
       "passed": true,

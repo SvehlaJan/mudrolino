@@ -1,11 +1,11 @@
 {
   "blend": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend",
   "glb": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.glb",
-  "blend_sha256": "a19196c10143eb9c074d8a474e945d3e9ff211555aa8863aab0282c50557b099",
+  "blend_sha256": "8518864710e370f4d4106cd822fc2f24afd7b6caa2756dd689a078d6fe1eaa75",
   "frames_per_second": 24.0,
   "comparison": "bidirectional rendered vertex distance",
   "loose_vertex_policy": "Compare all vertices referenced by renderable polygons; coverage/authoring vertices without faces are omitted by GLB and excluded here.",
-  "glb_sha256": "8451650b5e31b938fef7a31b73a150eb486cab439058f8a1627d3b3a1a6b98a6",
+  "glb_sha256": "76cc0baaf583d2dde030331b073c88e3bd4ca062463137fe2e20f6fc1f05630f",
   "checks": [
     {
       "motion": "rest",
@@ -132,7 +132,7 @@
       "frame": 7.25,
       "max_nearest_vertex_error_m": {
         "B01_straight_trousers_outfit": 3.8194673379621236e-07,
-        "body_underlayer_male": 5.535535478884412e-07,
+        "body_underlayer_male": 6.490563464467414e-07,
         "F01_strap_sneakers_outfit": 3.013941750396043e-06,
         "H01_head": 5.109083076604293e-07,
         "T01_crew_tee_outfit": 2.8216363716637716e-06
@@ -144,7 +144,7 @@
       "frame": 8,
       "max_nearest_vertex_error_m": {
         "B01_straight_trousers_outfit": 4.440446161879663e-07,
-        "body_underlayer_male": 5.223914172347577e-07,
+        "body_underlayer_male": 6.056547476873675e-07,
         "F01_strap_sneakers_outfit": 1.985939661608427e-06,
         "H01_head": 4.257927059825306e-07,
         "T01_crew_tee_outfit": 2.8323281640041387e-06

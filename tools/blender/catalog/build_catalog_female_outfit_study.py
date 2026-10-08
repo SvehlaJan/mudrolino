@@ -11,6 +11,8 @@ from build_catalog_t01 import reset, setup_render
 from catalog_piece import long_top_coverage, short_top_coverage
 from catalog_bottom_geometry import full_trouser_coverage
 from catalog_footwear_geometry import face_safe_footwear_coverage
+from catalog_coverage_visibility import settle_coverage, gait_samples
+from catalog_tee_underarm import arm_skin
 from build_catalog_female_foundation_study import export_uv, topology_signature
 from build_catalog_head_style_study import rig_signature, motion_signature, geometry_signature
 
@@ -80,7 +82,7 @@ def components(obj):
         groups.append(group)
     return groups
 
-def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, back_relief, back_clearance, controlled):
+def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, back_relief, back_clearance, controlled, tee_underarm=False):
     groups = [ids for ids in components(obj) if len(ids) > 4]
     roles = obj.data.attributes.new(name='female_detail_role', type='INT', domain='POINT')
     anchors = obj.data.attributes.new(name='female_hood_anchor', type='BOOLEAN', domain='POINT')
@@ -220,9 +222,19 @@ def normalize_garment(obj):
         for i, weight in rows: obj.vertex_groups[i].add([v.index], weight / total, 'REPLACE')
     return changed
 
-def mask(body, obj, arm, id):
+UNDERARM_COVERAGE = {}
+
+def mask(body, obj, arm, id, tee_underarm=False):
     if id == 'T02': ids = long_top_coverage(body, obj, arm)
-    elif id == 'T01': ids = short_top_coverage(body, obj, arm)
+    elif id == 'T01':
+        ids = short_top_coverage(body, obj, arm)
+        if tee_underarm:
+            # Release hidden arm skin a standard camera can see (inside and below the sleeve);
+            # skin that touches the tee at rest or in the gait stays hidden as contact_T01.
+            points = [body.matrix_world @ v.co for v in body.data.vertices]; faces = [tuple(f.vertices) for f in body.data.polygons]
+            hidden, released, contact = settle_coverage(body, obj, arm, set(ids), arm_skin(body, faces), gait_samples())
+            group = body.vertex_groups.get('contact_' + id) or body.vertex_groups.new(name='contact_' + id); group.add(sorted(contact), 1.0, 'REPLACE')
+            ids = sorted(hidden); UNDERARM_COVERAGE[id] = {'released_arm_vertices': released, 'contact_vertices': len(contact)}
     elif id == 'B01': ids = full_trouser_coverage(body, obj, arm)
     else: ids = face_safe_footwear_coverage(body, .114)
     if id in ['T01','T02','B01']:
@@ -273,6 +285,8 @@ def main():
     p.add_argument('--skip-reviews', action='store_true')
     p.add_argument('--controlled-components', action='store_true')
     p.add_argument('--recipe', default=','.join(DEFAULT_RECIPE), help='Comma-separated piece IDs, e.g. T01,B01,F01 for exact O01')
+    p.add_argument('--tee-underarm', action='store_true', help='T01 coverage: release arm skin inside the sleeve that a standard camera would see')
+    p.add_argument('--accept-armpit-crease', action='store_true', help='Record the user-accepted T01 armpit crease edge (2026-10-08) as a known minor defect')
     a = p.parse_args(sys.argv[sys.argv.index('--') + 1:])
     recipe = a.recipe.split(',')
     assert recipe and all(id in NAMES for id in recipe) and len(set(recipe)) == len(recipe), recipe
@@ -287,9 +301,9 @@ def main():
         assert current == baseline
         source = a.catalog_dir / id / (id + '.blend')
         obj = load_garment(source, id, arm); original = geometry_signature(obj)
-        rows = fitted_parts(obj, id, arm, body, a.hood_offset, a.opening_relief, a.hood_lower, a.back_relief, a.back_clearance, a.controlled_components)
+        rows = fitted_parts(obj, id, arm, body, a.hood_offset, a.opening_relief, a.hood_lower, a.back_relief, a.back_clearance, a.controlled_components, a.tee_underarm)
         normalized = normalize_garment(obj)
-        indices = mask(body, obj, arm, id)
+        indices = mask(body, obj, arm, id, a.tee_underarm)
         assert fixed_signatures(arm) == baseline, 'Fixed female geometry/rig/action changed'
         folder = a.output_dir / 'pieces' / id
         export_assembly(folder, arm, body, [obj])
@@ -303,7 +317,7 @@ def main():
     garments = []
     for id in recipe:
         obj = load_garment(a.output_dir / 'pieces' / id / 'outfit.blend', id, arm)
-        mask(body, obj, arm, id); garments.append(obj)
+        mask(body, obj, arm, id, a.tee_underarm); garments.append(obj)
     assert fixed_signatures(arm) == baseline
     camera = setup_render(); camera.data.ortho_scale = 2.10
     export_assembly(a.output_dir, arm, body, garments)
@@ -314,7 +328,7 @@ def main():
         'opening_limits': OPENING_LIMITS,
         'footwear_opening_z': .118, 'footwear_safety_margin_m': .004,
         'head_export': 'UV-preserving export, unchanged canonical face material/image',
-        'controlled_components':a.controlled_components, 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py']} if a.controlled_components else {},
+        'controlled_components':a.controlled_components, 'tee_underarm':a.tee_underarm, 'underarm_coverage':UNDERARM_COVERAGE, 'accepted_visibility_exemptions':[{'piece':'T01','region':'contact_T01','decision':'User accepted 2026-10-08: the cut edge of arm skin that touches the tee (at rest or in the gait) is a known minor defect; the A-pose arm presses against the torso.'}] if a.accept_armpit_crease and 'T01' in recipe else [], 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py',*(['catalog_coverage_visibility.py','catalog_tee_underarm.py'] if a.tee_underarm else [])]} if a.controlled_components else {},
         'exports': {name: digest(a.output_dir / name) for name in ['outfit.blend', 'outfit.glb', 'body.glb', 'garments.glb']}}
     (a.output_dir / 'assembly-report.json').write_text(json.dumps(report, indent=2) + '\n')
     if not a.skip_reviews:

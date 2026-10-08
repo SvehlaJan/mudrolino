@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/T01/fitting-revisions/sleeve-coverage-v1/T01.blend",
+  "blend_sha256": "2bcb6156761c128f06d329c25b7de29803de523548ac7de2cce364adfbfb77b7",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T01_crew_tee"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

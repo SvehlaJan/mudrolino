@@ -305,7 +305,7 @@
     "stage": "Isolated face refinement: head motion/reimport and material checks pass; expressions, headwear compatibility and final style pending",
     "retrospective": "H01/style-revisions/reference-a/retrospective.md"
   },
-  "next_work": "Heads are +30% on both bases (2026-10-07). A01 and A02 are fitted from head envelopes on both bases; exact O01 exists on both bases (female T01 is new). Next: rebuild the T01 sleeve/underarm on both bases (the coverage rule leaves a visible gap; T03 shares it), refit T02/T04 hoods to the larger heads (female T02 hood intersects the larger hair), T06 four buttons, rebuild B03/B04/F02 from B01/F01 construction, then A03/A04 glasses. Other male wardrobe previews still embed the original head.",
+  "next_work": "Heads are +30% on both bases (2026-10-07). A01 and A02 are fitted from head envelopes on both bases; exact O01 exists on both bases (female T01 is new). T01 sleeve-opening cut fixed on both bases with contact-aware coverage (tee-contact edge accepted 2026-10-08). Next: apply the same coverage revision to T03, refit T02/T04 hoods to the larger heads (female T02 hood intersects the larger hair), T06 four buttons, rebuild B03/B04/F02 from B01/F01 construction, then A03/A04 glasses. Other male wardrobe previews still embed the original head.",
   "personalization": {
     "contract": "selfie -> generated stylized 2D face texture -> reusable UV-mapped 3D head",
     "stage": "Both bases have texture-ready heads with painted fictional default faces in the canonical lat-long layout (H02 face patch, H01 whole head). No selfie generation endpoint or real-selfie likeness proof.",
@@ -559,7 +559,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "Exact O01 on the +30% painted H01 (foundation.blend in the head study). Canonical masters unchanged. 163 gait poses with zero body/head/layer pairs, corrective sides, head clearance, UV-preserving glTF validation, materials and 16-pose export (6.07 µm) pass; no active correctives. T01 inherits the sleeve-opening gap found 2026-10-07. Art review pending.",
+      "stage": "Exact male O01 on the +30% painted H01 with the T01 coverage revision. 163 gait poses with zero body/head/layer pairs, corrective sides, head clearance, UV-preserving glTF validation, materials, 16-pose export 6.07 µm, zero visible coverage holes (385 accepted tee-contact faces reported). Art review pending.",
       "reference_ids": [
         "O01",
         "T01",
@@ -577,7 +577,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "First female T01 and exact female O01 on the +30% H02. Native and runtime-equivalent fit over 163 gait poses with zero pairs per piece and combined, openings, six gestures, face UV/image, 16-pose export 1.2 µm, 12 export/material checks and direct Three.js skinning (2.0 µm) pass. Only the new tee-sleeve occlusion gate fails: the T01 coverage hides inner-arm skin visible inside the sleeve (shared with male T01). Art review pending.",
+      "stage": "Exact female O01 on the +30% H02 with the contact-aware T01 coverage. Complete runner passes: native and runtime-equivalent fit over 163 gait poses (zero pairs), openings, six gestures, face UV/image, 16-pose export 1.2 µm, export/material checks, Three.js skinning 2.0 µm, zero visible coverage holes (385 accepted tee-contact faces reported). Art review pending.",
       "reference_ids": [
         "O01",
         "T01",
@@ -595,13 +595,27 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "Independent female T01 master from the O01 study; same proof scope and known sleeve-opening gap as the O01 study.",
+      "stage": "Independent female T01 master from the O01 study (sleeve-coverage release). Same proof as the O01 study.",
       "reference_ids": [
         "T01",
         "H02"
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
+    },
+    {
+      "id": "t01-sleeve-coverage-male",
+      "label": "T01 crew tee · sleeve coverage revision (male)",
+      "path": "T01/fitting-revisions/sleeve-coverage-v1",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Canonical T01 garment with camera-visibility coverage: hidden arm skin a standard camera can see is released; skin touching the tee at rest or in the gait stays hidden as contact_T01 (its cut edge is the user-accepted known defect, 2026-10-08). 163-pose motion clear. Alone: 13 hem faces visible from low cameras; in O01: 0. Preview shows the original head.",
+      "reference_ids": [
+        "T01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_t01_sleeve_coverage.py"
     }
   ],
   "F02_corrective_repair_study": {

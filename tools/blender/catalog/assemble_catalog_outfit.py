@@ -11,11 +11,11 @@ from build_catalog_female_foundation_study import export_uv
 OBJECT_NAMES={'T05':'T05_crew_sweatshirt','T06':'T06_henley','T04':'T04_zip_hoodie','T03':'T03_raglan_tee','T02':'T02_pullover_hoodie','T01':'T01_crew_tee','B01':'B01_straight_trousers','B02':'B02_joggers','B03':'B03_casual_shorts','B04':'B04_ivory_trousers','F01':'F01_strap_sneakers','F02':'F02_slip_ons','F03':'F03_high_tops','F04':'F04_ankle_boots','A01':'A01_baseball_cap'}
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--foundation',type=Path,required=True);p.add_argument('--catalog-dir',type=Path,required=True);p.add_argument('--pieces',required=True);p.add_argument('--uv-export',action='store_true',help='Keep texture coordinates (painted-face heads)');p.add_argument('--output-dir',type=Path,required=True);p.add_argument('--review-dir',type=Path,required=True)
+ p=argparse.ArgumentParser();p.add_argument('--foundation',type=Path,required=True);p.add_argument('--catalog-dir',type=Path,required=True);p.add_argument('--pieces',required=True);p.add_argument('--uv-export',action='store_true',help='Keep texture coordinates (painted-face heads)');p.add_argument('--source',action='append',default=[],help='ID=path.blend: use a piece revision instead of catalog-dir/ID/ID.blend');p.add_argument('--output-dir',type=Path,required=True);p.add_argument('--review-dir',type=Path,required=True)
  args=p.parse_args(sys.argv[sys.argv.index('--')+1:]);args.output_dir.mkdir(parents=True,exist_ok=True);args.review_dir.mkdir(parents=True,exist_ok=True)
  bpy.ops.wm.open_mainfile(filepath=str(args.foundation.resolve()));bpy.context.preferences.filepaths.save_version=0;arm=bpy.data.objects['Armature_Catalog'];body=bpy.data.objects['body_underlayer_male'];reset(arm);body_parts=[o for o in bpy.data.objects if o.type=='MESH' and o!=body];garments=[];coverage={}
  for id in args.pieces.split(','):
-  path=args.catalog_dir/id/(id+'.blend');before=set(bpy.data.objects)
+  overrides=dict(item.split('=',1) for item in args.source);path=Path(overrides[id]) if id in overrides else args.catalog_dir/id/(id+'.blend');before=set(bpy.data.objects)
   with bpy.data.libraries.load(str(path.resolve()),link=False) as (source,data):
    required=[OBJECT_NAMES[id],'body_underlayer_male']
    assert all(name in source.objects for name in required),f'{path}: missing catalog objects {set(required)-set(source.objects)}'
@@ -29,7 +29,10 @@ def main():
   attach_knee_correctives(garment,arm)
   source_group=source_body.vertex_groups['covered_'+id]
   indices=[v.index for v in source_body.data.vertices if any(w.group==source_group.index and w.weight>.5 for w in v.groups)]
-  group=body.vertex_groups.new(name='covered_'+id);group.add(indices,1,'REPLACE');m=body.modifiers.new('Hide body beneath '+id,'MASK');m.vertex_group=group.name;m.invert_vertex_group=True;m.threshold=.5
+  group=body.vertex_groups.new(name='covered_'+id);group.add(indices,1,'REPLACE')
+  if 'contact_'+id in source_body.vertex_groups:
+   contact_group=source_body.vertex_groups['contact_'+id];body.vertex_groups.new(name='contact_'+id).add([v.index for v in source_body.data.vertices if any(w.group==contact_group.index and w.weight>.5 for w in v.groups)],1,'REPLACE')
+  m=body.modifiers.new('Hide body beneath '+id,'MASK');m.vertex_group=group.name;m.invert_vertex_group=True;m.threshold=.5
   coverage[id]={'vertices':len(indices),'source_rest_delta_m':delta};garments.append(garment)
   for o in list(bpy.data.objects):
    if o not in before and o!=garment:bpy.data.objects.remove(o,do_unlink=True)

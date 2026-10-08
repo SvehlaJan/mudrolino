@@ -13,6 +13,7 @@ from build_catalog_female_foundation_study import topology_signature
 from prepare_catalog_body import action_curves
 from catalog_gltf_gait_pose import RuntimeGaitPose
 from verify_catalog_female_foundation_study import digest, read_glb, roundtrip_error, uv_corner_rows, uv_corner_identity
+from catalog_coverage_visibility import visible_hidden_faces
 
 def fitting_mesh_signature(obj):
     payload={'geometry':geometry_signature(obj),'matrix_world':[list(row) for row in obj.matrix_world], 'matrix_parent_inverse':[list(row) for row in obj.matrix_parent_inverse], 'hide_viewport':obj.hide_viewport,'hide_render':obj.hide_render, 'surface_material_UV':head_surface_signature(obj), 'modifiers':[{'name':modifier.name,'type':modifier.type,'show_viewport':modifier.show_viewport,'show_render':modifier.show_render, 'binding_rig':rig_signature(modifier.object) if modifier.type=='ARMATURE' and modifier.object else None,'preserve_volume':getattr(modifier,'use_deform_preserve_volume',None),'vertex_groups':getattr(modifier,'use_vertex_groups',None),'bone_envelopes':getattr(modifier,'use_bone_envelopes',None),'vertex_group':getattr(modifier,'vertex_group',None),'invert_vertex_group':getattr(modifier,'invert_vertex_group',None)} for modifier in obj.modifiers], 'groups':[group.name for group in obj.vertex_groups],
@@ -159,26 +160,25 @@ def main():
             other_openings[id]={'removed_faces':len(removed),'violations':len(set(violations)),'limits':opening_limits,'scope':'Actual removed incident faces preserve declared neck/wrist or waistband/ankle boundaries.'}
             check(bool(removed) and not violations,'opening_anatomy_'+id,other_openings[id])
         report['top_bottom_opening_anatomy']=other_openings
-        if 'T01' in garments:
-            # Short sleeves end on the upper arm. Hidden arm faces beyond the measured hem
-            # (the armpit crease, removed because they touch covered torso skin) must stay
-            # occluded: a ray along the face normal has to reach the tee or visible body.
-            tee=garments['T01'];group=body.vertex_groups['covered_T01']
-            covered={v.index for v in body.data.vertices if any(w.group==group.index and w.weight>.5 for w in v.groups)}
-            dominant=lambda obj,vertex:obj.vertex_groups[max(vertex.groups,key=lambda w:w.weight).group].name
-            for m in masks:m.show_viewport=m.vertex_group!='covered_T01'
-            bpy.context.view_layer.update();visible_body=bvh(body)[0];tee_tree=bvh(tee)[0]
-            for m in masks:m.show_viewport=True
-            sleeve={}
-            for prefix in ['Left','Right']:
-                shoulder=arm.data.bones[prefix+'Arm'].head_local;elbow=arm.data.bones[prefix+'ForeArm'].head_local;axis=elbow-shoulder
-                along=lambda p:(p-shoulder).dot(axis)/axis.length_squared;bones={prefix+'Arm',prefix+'ForeArm'}
-                hem=max(along(v.co) for v in tee.data.vertices if dominant(tee,v) in bones)
-                beyond=[face for face in body.data.polygons if any(i in covered for i in face.vertices) and any(dominant(body,body.data.vertices[i]) in bones and along(body.data.vertices[i].co)>hem+.03 for i in face.vertices)]
-                exposed=[face.index for face in beyond if tee_tree.ray_cast(face.center+face.normal*.0005,face.normal,.10)[0] is None and visible_body.ray_cast(face.center+face.normal*.0005,face.normal,.10)[0] is None]
-                sleeve[prefix]={'hem_t':hem,'hidden_faces_beyond_hem':len(beyond),'exposed_faces':len(exposed),'sample':exposed[:12]}
-                check(not exposed,'tee_sleeve_hidden_faces_occluded',{prefix:sleeve[prefix]})
-            report['tee_sleeve_openings']={**sleeve,'scope':'Rest pose; hem from arm-weighted tee vertices; rays limited to 10 cm.'}
+        # Coverage holes as a viewer sees them: removed body faces visible from 24 standard
+        # camera positions at rest. Gated on the combined outfit; per-piece is reported.
+        points=[body.matrix_world@v.co for v in body.data.vertices];faces=[tuple(f.vertices) for f in body.data.polygons]
+        covered_by={id:{v.index for v in body.data.vertices if any(w.group==body.vertex_groups['covered_'+id].index and w.weight>.5 for w in v.groups)} for id in garments}
+        trees={id:BVHTree.FromPolygons(*world_mesh(obj)) for id,obj in garments.items()}
+        exposed,removed=visible_hidden_faces(points,faces,set().union(*covered_by.values()),list(trees.values()))
+        # A user-accepted exemption is reported separately, never silently dropped.
+        accepted=[]
+        for row in assembly.get('accepted_visibility_exemptions',[]):
+            group=body.vertex_groups.get(row['region'])
+            if group is None:check(False,'accepted_exemption_group_present',row['region']);continue
+            contact={v.index for v in body.data.vertices if any(w.group==group.index and w.weight>.5 for w in v.groups)}
+            accepted+=[i for i in exposed if any(v in contact for v in faces[i])];exposed=[i for i in exposed if not any(v in contact for v in faces[i])]
+        visibility={'combined':{'removed_faces':removed,'visible_faces':len(exposed),'accepted_contact_faces':len(accepted),'sample':exposed[:12]}}
+        for id in garments:
+            piece,piece_removed=visible_hidden_faces(points,faces,covered_by[id],[trees[id]])
+            visibility[id]={'removed_faces':piece_removed,'visible_faces':len(piece),'sample':piece[:12]}
+        report['hidden_face_visibility']={**visibility,'cameras':'8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose','scope':'Combined outfit gated; per-piece reported.'}
+        check(not exposed,'hidden_faces_not_visible',visibility['combined'])
         fps=bpy.context.scene.render.fps/bpy.context.scene.render.fps_base
         for pose_scope in (['native'] if a.probe else ['native','actual_runtime']):
             reset(arm)

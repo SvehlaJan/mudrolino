@@ -1,0 +1,25 @@
+{
+  "blend": "assets/avatar/catalog-a/T01/fitting-revisions/sleeve-coverage-v1/T01.blend",
+  "blend_sha256": "ce29144af2aa32b9e27d16bf2f3ae2714794d98cc77aaf5def5bd284c446ce8f",
+  "verifier_sha256": "59a760f1b9326c738f2201124c27d36e4183ca45181455acc2c03c43eaa62358",
+  "removed_faces": 23998,
+  "visible_faces": 13,
+  "sample": [
+    32048,
+    34240,
+    55167,
+    56385,
+    58321,
+    65659,
+    67100,
+    67735,
+    68621,
+    78070,
+    78071,
+    79214
+  ],
+  "accepted_armpit_faces": 1086,
+  "accepted_armpit_piece": "T01",
+  "cameras": "8 directions at 3 m, heights 0.9/1.5/2.2 m; rest pose",
+  "status": "failed"
+}

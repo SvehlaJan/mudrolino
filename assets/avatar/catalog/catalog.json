@@ -38,16 +38,24 @@
           "references": [],
           "revisions": [
             {
+              "id": "sleeve-coverage-v1",
+              "label": "Contact-aware coverage revision",
+              "assetId": "t01-sleeve-coverage-male",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "T01/fitting-revisions/sleeve-coverage-v1: canonical garment; camera-visible hidden arm skin released (1,177 visible cut faces down to 13 hem faces when shown alone, 0 in O01); skin touching the tee at rest or in the gait stays hidden (accepted contact edge, 385 faces); 163-pose motion clear. A thin contact line remains where the sleeve rests on the top of the arm."
+            },
+            {
               "id": "current",
               "label": "Canonical male fitting candidate",
               "assetId": "T01",
               "visualReview": "pending",
               "technicalReview": "repair-needed",
-              "technicalNote": "Recorded per-piece fitting evidence: assets/avatar/catalog-a/T01/retrospective.md and linked motion/detail reports. Scope is the saved male candidate; final style, compatible combinations, budgets and runtime catalog acceptance remain open. 2026-10-07: the tee coverage hides inner-arm skin beside the torso, leaving a small jagged gap visible inside the sleeve opening (found by the new sleeve-occlusion gate on the female fit; same rule here). Needs the sleeve/underarm rebuild.",
+              "technicalNote": "Recorded per-piece fitting evidence: assets/avatar/catalog-a/T01/retrospective.md and linked motion/detail reports. Scope is the saved male candidate; final style, compatible combinations, budgets and runtime catalog acceptance remain open. 2026-10-07: the tee coverage hides inner-arm skin beside the torso, leaving a small jagged gap visible inside the sleeve opening (found by the new sleeve-occlusion gate on the female fit; same rule here). Superseded by the sleeve-coverage revision.",
               "reviewNote": "Art review against the target remains pending."
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "sleeve-coverage-v1"
         },
         {
           "id": "female",
@@ -76,8 +84,8 @@
               "label": "Female fit from the O01 study",
               "assetId": "female-t01-piece",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "Fits the female +30% foundation over 163 gait poses; sleeve-opening gap shared with male T01 needs the T01 sleeve/underarm rebuild."
+              "technicalReview": "recorded-pass",
+              "technicalNote": "Female O01 complete runner passes with contact-aware coverage; accepted tee-contact edge (385 faces) reported separately; a thin contact line remains where the sleeve rests on the top of the arm."
             }
           ],
           "currentRevisionId": "o01-study"
@@ -2263,7 +2271,7 @@
               "assetId": "o01-male-head130",
               "visualReview": "pending",
               "technicalReview": "recorded-pass",
-              "technicalNote": "outfits/O01-head130-T01-B01-F01: 163 gait poses with zero body/head/layer pairs, corrective sides, head clearance, UV-preserving glTF validation, materials and 16-pose export (6.07 µm). Known T01 sleeve-opening gap (see T01)."
+              "technicalNote": "outfits/O01-head130-T01-B01-F01 with the T01 coverage revision: 163 gait poses clear, corrective sides, head clearance, glTF/material validation, 16-pose export 6.07 µm, zero visible coverage holes; 385 accepted tee-contact faces reported."
             },
             {
               "id": "exact-male",
@@ -2303,8 +2311,8 @@
               "label": "Exact O01 on the +30% head",
               "assetId": "o01-female-head130",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "female/outfits/studies/T01-B01-F01/fit-verification-report.json: all fit, opening, gesture, UV, export, material and Three.js skinning gates pass; only the tee-sleeve occlusion gate fails (inner-arm skin hidden by the T01 coverage rule shows inside the sleeve opening)."
+              "technicalReview": "recorded-pass",
+              "technicalNote": "female/outfits/studies/T01-B01-F01: complete runner passes (fit, openings, gestures, UV, export, materials, Three.js skinning) with zero visible coverage holes; 385 accepted tee-contact faces reported."
             }
           ],
           "currentRevisionId": "head130"
