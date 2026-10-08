@@ -71,6 +71,13 @@ edge beside the torso remains, as accepted.
 
 - Thin contact edge where the sleeve rests on the top of the arm. A few mm of sleeve
   ease near the hem would let that skin show.
-- T03 shares the coverage rule; apply the same revision.
+- T03 shares the coverage rule; done in the same way (see below).
 - Per-piece previews (T01 alone, B01 alone) show hem cuts from low cameras.
 - The male preview in this folder shows the original head; O01 uses the +30% head.
+
+## T03
+
+The builder takes `--id T03 --garment T03_raglan_tee`
+(`T03/fitting-revisions/sleeve-coverage-v1/`). T03 shares the tee shell and
+coverage rule, so it gives identical numbers: 1,177 visible cut faces down to 13
+hem faces when shown alone, 385 accepted contact faces, and 163-pose motion clear.

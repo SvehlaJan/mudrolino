@@ -1,0 +1,3303 @@
+{
+  "blend": "assets/avatar/catalog-a/T06/fitting-revisions/placket-v2/T06.blend",
+  "blend_sha256": "2aae2f8f99436f4033e50d0ceffa26953f9fe00586935ee9b15d2660baccfeb0",
+  "garment": "T06_henley",
+  "threshold_m": 0.012,
+  "samples": 164,
+  "max_cloth_distance_m": 0.011389322578907013,
+  "status": "passed",
+  "surface_materials": [
+    "A ivory henley fabric",
+    "A ivory henley ribbing",
+    "A orange henley collar facing"
+  ],
+  "detail_materials": [
+    "A ivory henley placket",
+    "A navy henley buttons"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002200086135417223,
+        "A navy henley buttons": 0.011332622729241848
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.006387676578015089,
+          -0.09246760606765747,
+          1.406654715538025
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022893385030329227,
+        "A navy henley buttons": 0.01136104017496109
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002290414646267891,
+        "A navy henley buttons": 0.01136084459722042
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022916763555258512,
+        "A navy henley buttons": 0.011360600590705872
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022929839324206114,
+        "A navy henley buttons": 0.011360250413417816
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002294956473633647,
+        "A navy henley buttons": 0.011360830627381802
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022973318118602037,
+        "A navy henley buttons": 0.011361803859472275
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002299725543707609,
+        "A navy henley buttons": 0.011362720280885696
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023017253261059523,
+        "A navy henley buttons": 0.011363900266587734
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023030643351376057,
+        "A navy henley buttons": 0.011365248821675777
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002304395427927375,
+        "A navy henley buttons": 0.011366542428731918
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002305337693542242,
+        "A navy henley buttons": 0.01136758178472519
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023044541012495756,
+        "A navy henley buttons": 0.011368095874786377
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002303601708263159,
+        "A navy henley buttons": 0.011368506588041782
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002302746754139662,
+        "A navy henley buttons": 0.011368966661393642
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023026587441563606,
+        "A navy henley buttons": 0.011369474232196808
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.00230258796364069,
+        "A navy henley buttons": 0.011369981802999973
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023025062400847673,
+        "A navy henley buttons": 0.011370446532964706
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002303952118381858,
+        "A navy henley buttons": 0.011371971108019352
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023058499209582806,
+        "A navy henley buttons": 0.011373522691428661
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002307689981535077,
+        "A navy henley buttons": 0.011375193484127522
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002308944705873728,
+        "A navy henley buttons": 0.01137638557702303
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002309852745383978,
+        "A navy henley buttons": 0.011377319693565369
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002310720970854163,
+        "A navy henley buttons": 0.011378168128430843
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002310130512341857,
+        "A navy henley buttons": 0.011377700604498386
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023072860203683376,
+        "A navy henley buttons": 0.011374966241419315
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023044790141284466,
+        "A navy henley buttons": 0.011372171342372894
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023021113593131304,
+        "A navy henley buttons": 0.011369285173714161
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002301315311342478,
+        "A navy henley buttons": 0.011366069316864014
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023006871342658997,
+        "A navy henley buttons": 0.011362757533788681
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023001080844551325,
+        "A navy henley buttons": 0.011359198950231075
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002301267348229885,
+        "A navy henley buttons": 0.011357965879142284
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002302449429407716,
+        "A navy henley buttons": 0.011356652714312077
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002303680870682001,
+        "A navy henley buttons": 0.011355387978255749
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023023015819489956,
+        "A navy henley buttons": 0.011354324407875538
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002300360007211566,
+        "A navy henley buttons": 0.011353280395269394
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022984042298048735,
+        "A navy henley buttons": 0.01135225035250187
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022963304072618484,
+        "A navy henley buttons": 0.011351937428116798
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022942221257835627,
+        "A navy henley buttons": 0.011352166533470154
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002292068675160408,
+        "A navy henley buttons": 0.01135210320353508
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002290421864017844,
+        "A navy henley buttons": 0.011352465488016605
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002289397642016411,
+        "A navy henley buttons": 0.01135314255952835
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022884272038936615,
+        "A navy henley buttons": 0.011353728361427784
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002287101000547409,
+        "A navy henley buttons": 0.011353875510394573
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002284579211845994,
+        "A navy henley buttons": 0.011352309957146645
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022820746526122093,
+        "A navy henley buttons": 0.011350845918059349
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002279585460200906,
+        "A navy henley buttons": 0.011349229142069817
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002274929778650403,
+        "A navy henley buttons": 0.011345439590513706
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022702428977936506,
+        "A navy henley buttons": 0.011341585777699947
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002265608636662364,
+        "A navy henley buttons": 0.011337541043758392
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002261374844238162,
+        "A navy henley buttons": 0.011333700269460678
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022572074085474014,
+        "A navy henley buttons": 0.011329827830195427
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022531559225171804,
+        "A navy henley buttons": 0.011325854808092117
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022511824499815702,
+        "A navy henley buttons": 0.011323479004204273
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002250584540888667,
+        "A navy henley buttons": 0.011322021484375
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.00225000805221498,
+        "A navy henley buttons": 0.011320454068481922
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022503396030515432,
+        "A navy henley buttons": 0.011319832876324654
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022520238999277353,
+        "A navy henley buttons": 0.01132054440677166
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002253652084618807,
+        "A navy henley buttons": 0.011321316473186016
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022552337031811476,
+        "A navy henley buttons": 0.011322072707116604
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.00225631520152092,
+        "A navy henley buttons": 0.011323610320687294
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022574272006750107,
+        "A navy henley buttons": 0.011324841529130936
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022584942635148764,
+        "A navy henley buttons": 0.011326094157993793
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022589643485844135,
+        "A navy henley buttons": 0.011327060870826244
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022594770416617393,
+        "A navy henley buttons": 0.011328116059303284
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002259914530441165,
+        "A navy henley buttons": 0.011328904889523983
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002262276131659746,
+        "A navy henley buttons": 0.011330172419548035
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002265163464471698,
+        "A navy henley buttons": 0.011331691406667233
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022680272813886404,
+        "A navy henley buttons": 0.011333171278238297
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022718622349202633,
+        "A navy henley buttons": 0.011335357092320919
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022763123270124197,
+        "A navy henley buttons": 0.01133804302662611
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022807568311691284,
+        "A navy henley buttons": 0.011340625584125519
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002284539630636573,
+        "A navy henley buttons": 0.011343025602400303
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002287383424118161,
+        "A navy henley buttons": 0.011345223523676395
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022902418859302998,
+        "A navy henley buttons": 0.011347389779984951
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002292126417160034,
+        "A navy henley buttons": 0.011348900385200977
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002290141535922885,
+        "A navy henley buttons": 0.011347615160048008
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022881419863551855,
+        "A navy henley buttons": 0.01134624145925045
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022861806210130453,
+        "A navy henley buttons": 0.01134487334638834
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022847012151032686,
+        "A navy henley buttons": 0.01134286355227232
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002283217618241906,
+        "A navy henley buttons": 0.011340804398059845
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022817172575742006,
+        "A navy henley buttons": 0.011338703334331512
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002280523767694831,
+        "A navy henley buttons": 0.011338021606206894
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002279417123645544,
+        "A navy henley buttons": 0.011337713338434696
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002278316766023636,
+        "A navy henley buttons": 0.011337142437696457
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022785153705626726,
+        "A navy henley buttons": 0.011338844895362854
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022803260944783688,
+        "A navy henley buttons": 0.011341799050569534
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.00640543457120657,
+          -0.13679444789886475,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002282738918438554,
+        "A navy henley buttons": 0.0113446693867445
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012738768011331558,
+          -0.13658219575881958,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022845917847007513,
+        "A navy henley buttons": 0.01134748850017786
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012703969143331051,
+          -0.13740554451942444,
+          1.3037697076797485
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002285155700519681,
+        "A navy henley buttons": 0.011350579559803009
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012703969143331051,
+          -0.13740554451942444,
+          1.3037697076797485
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002285717986524105,
+        "A navy henley buttons": 0.011353430338203907
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012703969143331051,
+          -0.13740554451942444,
+          1.3037697076797485
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022856362629681826,
+        "A navy henley buttons": 0.011355831287801266
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012703969143331051,
+          -0.13740554451942444,
+          1.3037697076797485
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022828916553407907,
+        "A navy henley buttons": 0.011356600560247898
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012703969143331051,
+          -0.13740554451942444,
+          1.3037697076797485
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002280288841575384,
+        "A navy henley buttons": 0.0113573232665658
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.00640543457120657,
+          -0.13679444789886475,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022777928970754147,
+        "A navy henley buttons": 0.011358060874044895
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.00640543457120657,
+          -0.13679444789886475,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002277594292536378,
+        "A navy henley buttons": 0.011358087882399559
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002277626655995846,
+        "A navy henley buttons": 0.011358046904206276
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002277638530358672,
+        "A navy henley buttons": 0.011357927694916725
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022805617190897465,
+        "A navy henley buttons": 0.011358698830008507
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022841892205178738,
+        "A navy henley buttons": 0.01135973446071148
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.00228786189109087,
+        "A navy henley buttons": 0.011360729113221169
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022893149871379137,
+        "A navy henley buttons": 0.011361080221831799
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          7.21012256690301e-05,
+          -0.13701137900352478,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022080782800912857,
+        "A navy henley buttons": 0.011268037371337414
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13577255606651306,
+          1.3119031190872192
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021959939040243626,
+        "A navy henley buttons": 0.011258822865784168
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019072098657488823,
+          -0.13226547837257385,
+          1.3281697034835815
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021947298664599657,
+        "A navy henley buttons": 0.011246653273701668
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.01906205713748932,
+          -0.1176501139998436,
+          1.3737064599990845
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021938704885542393,
+        "A navy henley buttons": 0.011233557015657425
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.01906205713748932,
+          -0.1176501139998436,
+          1.3737064599990845
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002193969441577792,
+        "A navy henley buttons": 0.011229444295167923
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.01906205713748932,
+          -0.1176501139998436,
+          1.3737064599990845
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021944798063486814,
+        "A navy henley buttons": 0.011231672018766403
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.01906205713748932,
+          -0.1176501139998436,
+          1.3737064599990845
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021948704961687326,
+        "A navy henley buttons": 0.0112337376922369
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.01906205713748932,
+          -0.1176501139998436,
+          1.3737064599990845
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021958057768642902,
+        "A navy henley buttons": 0.011240520514547825
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.01906205713748932,
+          -0.1176501139998436,
+          1.3737064599990845
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021971496753394604,
+        "A navy henley buttons": 0.011253963224589825
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.01906205713748932,
+          -0.1176501139998436,
+          1.3737064599990845
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0021986335050314665,
+        "A navy henley buttons": 0.011266948655247688
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012728724628686905,
+          -0.11231466382741928,
+          1.3818397521972656
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002216516062617302,
+        "A navy henley buttons": 0.011278973892331123
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          0.012728724628686905,
+          -0.11231466382741928,
+          1.3818397521972656
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002230169717222452,
+        "A navy henley buttons": 0.011288978159427643
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.006395391188561916,
+          -0.10972895473241806,
+          1.385906457901001
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022436915896832943,
+        "A navy henley buttons": 0.011298547498881817
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.006395391188561916,
+          -0.10972895473241806,
+          1.385906457901001
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002257120795547962,
+        "A navy henley buttons": 0.011307619512081146
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.006395391188561916,
+          -0.10972895473241806,
+          1.385906457901001
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022528390400111675,
+        "A navy henley buttons": 0.011308464221656322
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.006395391188561916,
+          -0.10972895473241806,
+          1.385906457901001
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022484310902655125,
+        "A navy henley buttons": 0.011308956891298294
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.006395391188561916,
+          -0.10972895473241806,
+          1.385906457901001
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022502816282212734,
+        "A navy henley buttons": 0.011309128254652023
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002253092359751463,
+        "A navy henley buttons": 0.011306813918054104
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002255180850625038,
+        "A navy henley buttons": 0.011303705163300037
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002257231157273054,
+        "A navy henley buttons": 0.01130035798996687
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002260429784655571,
+        "A navy henley buttons": 0.011300025507807732
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022643478587269783,
+        "A navy henley buttons": 0.011301602236926556
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002268239390105009,
+        "A navy henley buttons": 0.01130291074514389
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002271913690492511,
+        "A navy henley buttons": 0.011307048611342907
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022770953364670277,
+        "A navy henley buttons": 0.011315299198031425
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022901955526322126,
+        "A navy henley buttons": 0.011323156766593456
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023024275433272123,
+        "A navy henley buttons": 0.01133060920983553
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002312181983143091,
+        "A navy henley buttons": 0.011338272131979465
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002321723848581314,
+        "A navy henley buttons": 0.011345339938998222
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002331207739189267,
+        "A navy henley buttons": 0.01135197002440691
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023314033169299364,
+        "A navy henley buttons": 0.011355163529515266
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023314019199460745,
+        "A navy henley buttons": 0.011357991024851799
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002331425668671727,
+        "A navy henley buttons": 0.011360568925738335
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002329570706933737,
+        "A navy henley buttons": 0.011361564509570599
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002327432157471776,
+        "A navy henley buttons": 0.011362211778759956
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002325167879462242,
+        "A navy henley buttons": 0.011362711898982525
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023272342514246702,
+        "A navy henley buttons": 0.011364065110683441
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023322291672229767,
+        "A navy henley buttons": 0.011366023682057858
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023373321164399385,
+        "A navy henley buttons": 0.01136798970401287
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002344670705497265,
+        "A navy henley buttons": 0.011370344087481499
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002355587435886264,
+        "A navy henley buttons": 0.011373355984687805
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023664231412112713,
+        "A navy henley buttons": 0.01137608103454113
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023770437110215425,
+        "A navy henley buttons": 0.011378680355846882
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023870228324085474,
+        "A navy henley buttons": 0.011381255462765694
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002396871568635106,
+        "A navy henley buttons": 0.011383580975234509
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002406681887805462,
+        "A navy henley buttons": 0.011385748162865639
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0024104081094264984,
+        "A navy henley buttons": 0.011387046426534653
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002414191607385874,
+        "A navy henley buttons": 0.011388229206204414
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0024178053718060255,
+        "A navy henley buttons": 0.011389322578907013
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002416189992800355,
+        "A navy henley buttons": 0.011388927698135376
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0024132048711180687,
+        "A navy henley buttons": 0.011388102546334267
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0024101550225168467,
+        "A navy henley buttons": 0.011387048289179802
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0024010087363421917,
+        "A navy henley buttons": 0.011383448727428913
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019185302779078484,
+          -0.10918909311294556,
+          1.3859206438064575
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002393404021859169,
+        "A navy henley buttons": 0.011377900838851929
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019072098657488823,
+          -0.1363784670829773,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023887893185019493,
+        "A navy henley buttons": 0.011372126638889313
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019072098657488823,
+          -0.1363784670829773,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002376783173531294,
+        "A navy henley buttons": 0.011363876052200794
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019072098657488823,
+          -0.1363784670829773,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023537385277450085,
+        "A navy henley buttons": 0.01135192345827818
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.019072098657488823,
+          -0.1363784670829773,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023308848030865192,
+        "A navy henley buttons": 0.011339009739458561
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0023063167463988066,
+        "A navy henley buttons": 0.011324930936098099
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022735910024493933,
+        "A navy henley buttons": 0.011307645589113235
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.0022407451178878546,
+        "A navy henley buttons": 0.011288668029010296
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13659539818763733,
+          1.3078364133834839
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory henley placket": 0.002208107616752386,
+        "A navy henley buttons": 0.011267968453466892
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory henley placket": [
+          -0.012738767080008984,
+          -0.13577255606651306,
+          1.3119031190872192
+        ],
+        "A navy henley buttons": [
+          0.00012721777602564543,
+          -0.11138023436069489,
+          1.400036334991455
+        ]
+      }
+    }
+  ],
+  "attachment_roles": null,
+  "require_detail_clear": false,
+  "max_detail_shell_pairs": 0
+}

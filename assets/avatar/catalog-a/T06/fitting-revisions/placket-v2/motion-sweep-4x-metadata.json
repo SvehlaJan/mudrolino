@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/T06/fitting-revisions/placket-v2/T06.blend",
+  "blend_sha256": "2aae2f8f99436f4033e50d0ceffa26953f9fe00586935ee9b15d2660baccfeb0",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T06_henley"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

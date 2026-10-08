@@ -305,7 +305,7 @@
     "stage": "Isolated face refinement: head motion/reimport and material checks pass; expressions, headwear compatibility and final style pending",
     "retrospective": "H01/style-revisions/reference-a/retrospective.md"
   },
-  "next_work": "Heads are +30% on both bases (2026-10-07). A01 and A02 are fitted from head envelopes on both bases; exact O01 exists on both bases (female T01 is new). T01 sleeve-opening cut fixed on both bases with contact-aware coverage (tee-contact edge accepted 2026-10-08). Next: apply the same coverage revision to T03, refit T02/T04 hoods to the larger heads (female T02 hood intersects the larger hair), T06 four buttons, rebuild B03/B04/F02 from B01/F01 construction, then A03/A04 glasses. Other male wardrobe previews still embed the original head.",
+  "next_work": "Heads are +30% on both bases (2026-10-07). A01 and A02 are fitted from head envelopes on both bases; exact O01 exists on both bases (female T01 is new). T01 sleeve-opening cut fixed on both bases with contact-aware coverage (tee-contact edge accepted 2026-10-08). T03 has the same coverage revision; T06 has the broad four-button placket and orange collar facing. Next: refit T02/T04 hoods to the larger heads (female T02 hood intersects the larger hair), T06 four buttons, rebuild B03/B04/F02 from B01/F01 construction, then A03/A04 glasses. Other male wardrobe previews still embed the original head.",
   "personalization": {
     "contract": "selfie -> generated stylized 2D face texture -> reusable UV-mapped 3D head",
     "stage": "Both bases have texture-ready heads with painted fictional default faces in the canonical lat-long layout (H02 face patch, H01 whole head). No selfie generation endpoint or real-selfie likeness proof.",
@@ -616,6 +616,37 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_t01_sleeve_coverage.py"
+    },
+    {
+      "id": "t03-sleeve-coverage-male",
+      "label": "T03 raglan tee · contact-aware coverage (male)",
+      "path": "T03/fitting-revisions/sleeve-coverage-v1",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Canonical T03 garment with the T01 contact-aware coverage: camera-visible arm cut 1,177 faces down to 13 hem faces shown alone; 385 accepted tee-contact faces; 163-pose motion clear. Preview shows the original head.",
+      "reference_ids": [
+        "T03"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_t01_sleeve_coverage.py"
+    },
+    {
+      "id": "outfit-t06-b01-f01-head130",
+      "label": "T06 broad-placket henley + B01 / F01 · +30% head",
+      "path": "outfits/T06-B01-F01-head130",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "T06 placket revision (38 mm placket, four 21 mm navy buttons, orange back-collar facing) with B01/F01 on the +30% head. 163 gait poses clear, zero coverage holes, export 6.07 µm, glTF valid. T06 piece: details within 11.4 mm over 164 poses, head clearance, materials pass. Review combination, not exact O06. Art review pending.",
+      "reference_ids": [
+        "T06",
+        "B01",
+        "F01",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_t06_placket.py"
     }
   ],
   "F02_corrective_repair_study": {

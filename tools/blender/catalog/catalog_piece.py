@@ -95,7 +95,10 @@ def build_piece(id,factory,coverage,review_target_z=.92,review_ortho_scale=2.03)
     masked=bpy.data.objects.new('body_underlayer_male_'+id,mesh);bpy.context.collection.objects.link(masked)
     assert [g.name for g in masked.vertex_groups]==[g.name for g in body.vertex_groups]
     skin=masked.modifiers.new('Shared body skin','ARMATURE');skin.object=arm;masked.parent=arm
-    export(args.output_dir/(id+'.glb'),[arm,obj]);export(args.output_dir/('body-'+id+'.glb'),[arm,masked,*parts]);bpy.data.objects.remove(masked,do_unlink=True)
+    # Painted-face heads need texture coordinates; the garment exporter drops them.
+    textured=any(node.type=='TEX_IMAGE' for part in parts for m in part.data.materials if m and m.use_nodes for node in m.node_tree.nodes)
+    if textured:from build_catalog_female_foundation_study import export_uv
+    export(args.output_dir/(id+'.glb'),[arm,obj]);(export_uv if textured else export)(args.output_dir/('body-'+id+'.glb'),[arm,masked,*parts]);bpy.data.objects.remove(masked,do_unlink=True)
     camera=setup_render();camera.data.ortho_scale=review_ortho_scale;reset(arm)
     source=args.output_dir/(id+'.blend');bpy.ops.wm.save_as_mainfile(filepath=str(source.resolve()))
     report={'id':id,'status':'authored candidate; complete motion/style/runtime acceptance pending','source':str(source),'object':obj.name,'vertices':len(obj.data.vertices),'polygons':len(obj.data.polygons),'groups':len(obj.vertex_groups),'max_influences':max(len(v.groups) for v in obj.data.vertices),'covered_body_vertices':len(indices),'poses':[]}

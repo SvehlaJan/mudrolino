@@ -233,6 +233,14 @@
           "references": [],
           "revisions": [
             {
+              "id": "sleeve-coverage-v1",
+              "label": "Contact-aware coverage revision",
+              "assetId": "t03-sleeve-coverage-male",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "T03/fitting-revisions/sleeve-coverage-v1: canonical garment; camera-visible arm cut released (1,177 to 13 hem faces when shown alone); 385 accepted tee-contact faces; 163-pose motion clear."
+            },
+            {
               "id": "current",
               "label": "Canonical male fitting candidate",
               "assetId": "T03",
@@ -242,7 +250,7 @@
               "reviewNote": "Art review against the target remains pending."
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "sleeve-coverage-v1"
         },
         {
           "id": "female",
@@ -467,6 +475,14 @@
           "references": [],
           "revisions": [
             {
+              "id": "placket-v2",
+              "label": "Broad placket, four large buttons, orange facing",
+              "assetId": "outfit-t06-b01-f01-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "T06/fitting-revisions/placket-v2 on the +30% head: 163-pose motion, stitched details (11.4 mm max over 164 poses), head clearance, glTF/materials; worn with B01/F01: 163 poses clear, zero coverage holes, export 6.07 µm. Shown alone, one hip face at the hem is visible from a low camera."
+            },
+            {
               "id": "current",
               "label": "Canonical male fitting candidate",
               "assetId": "T06",
@@ -476,7 +492,7 @@
               "reviewNote": "Art review against the target remains pending."
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "placket-v2"
         },
         {
           "id": "female",

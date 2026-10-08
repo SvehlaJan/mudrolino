@@ -1,0 +1,32 @@
+{
+  "target": "assets/avatar/catalog-a/T06/fitting-revisions/placket-v2/T06.glb",
+  "sha256": "ebda58419d1d0ef64489ec4a2777a6beaca7f9e1877d9d81e829b964808bca99",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley ribbing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A orange henley collar facing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley placket",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A navy henley buttons",
+      "colorComponents": 0
+    }
+  ]
+}

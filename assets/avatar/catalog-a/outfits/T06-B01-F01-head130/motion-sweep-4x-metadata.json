@@ -1,0 +1,19 @@
+{
+  "blend": "assets/avatar/catalog-a/outfits/T06-B01-F01-head130/outfit.blend",
+  "blend_sha256": "f27b016d0053f9628642a3a2507fca3bc1bbe2964380dd99b51362c08d62765e",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T06_henley_outfit",
+    "B01_straight_trousers_outfit",
+    "F01_strap_sneakers_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

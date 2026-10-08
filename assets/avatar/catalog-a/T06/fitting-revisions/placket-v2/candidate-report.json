@@ -1,0 +1,65 @@
+{
+  "id": "T06",
+  "status": "authored candidate; complete motion/style/runtime acceptance pending",
+  "source": "assets/avatar/catalog-a/T06/fitting-revisions/placket-v2/T06.blend",
+  "object": "T06_henley",
+  "vertices": 6591,
+  "polygons": 6618,
+  "groups": 24,
+  "max_influences": 4,
+  "covered_body_vertices": 16742,
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": {
+        "body_underlayer_male": 0,
+        "H01_head": 0
+      }
+    }
+  ],
+  "skinning": {
+    "minimum_exported_influence": 0.0001,
+    "max_influences": 4,
+    "pruned_vertices": 298,
+    "max_discarded_weight": 0.05294137820601463
+  },
+  "review_framing": {
+    "target_z": 0.92,
+    "ortho_scale": 2.03
+  }
+}

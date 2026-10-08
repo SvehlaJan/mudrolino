@@ -1,0 +1,17 @@
+{
+  "blend": "assets/avatar/catalog-a/T03/fitting-revisions/sleeve-coverage-v1/T03.blend",
+  "blend_sha256": "823efe48729eeed8e6ac03d6bda8fb19015af9e0dd7992ea8fe246c1dab205aa",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T03_raglan_tee"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320
+}

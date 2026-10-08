@@ -1,0 +1,37 @@
+{
+  "stage": "T03 coverage revision; garment unchanged; outfit gates required",
+  "id": "T03",
+  "source": "assets/avatar/catalog-a/T03/T03.blend",
+  "source_sha256": "d95296e070c0cfd0056522580f1e7faaeb10e7ac722617b437692d25cd447bdb",
+  "builder_sha256": "f27eb8764456bd7bcb915a277e8fb6abb79793cddab9cc6aa4e7e701e125617c",
+  "helpers": {
+    "catalog_coverage_visibility.py": "a0058527092f4d1d4f122779b1ee5aa6ad89b3b11634e5820b6465f6602b9bdc",
+    "catalog_tee_underarm.py": "b84e1ec14c718a63af703410ce6d4dfe1af3576ec8bb87ce401630eb63ad0786"
+  },
+  "covered_vertices": {
+    "canonical": 11752,
+    "revision": 10997,
+    "released_arm_vertices": 1588,
+    "contact_vertices": 267
+  },
+  "visibility": {
+    "canonical": {
+      "removed_faces": 24035,
+      "visible_faces": 1177,
+      "accepted_contact_faces": 0
+    },
+    "revision": {
+      "removed_faces": 22648,
+      "visible_faces": 13,
+      "accepted_contact_faces": 385
+    }
+  },
+  "blend": {
+    "assets/avatar/catalog-a/T03/fitting-revisions/sleeve-coverage-v1/T03.blend": "823efe48729eeed8e6ac03d6bda8fb19015af9e0dd7992ea8fe246c1dab205aa"
+  },
+  "exports": {
+    "T03.glb": "bc16da578ba4e6d52b902543e34af06cf48b13e5a4983669e6d46966b39738ac",
+    "body-T03.glb": "28f2eeb12b15603e89316cb8cae4ef720b6808073b4a6b5c4a8b9be48a5f2f21",
+    "outfit.glb": "dee00ca390c3566cfbc248c1f96357a7261562046083b5a1e300a2b175413bd8"
+  }
+}
