@@ -1,0 +1,36 @@
+{
+  "stage": "chosen four-button construction target; model/art fit pending",
+  "tool": "built-in image_gen.imagegen",
+  "generatedAt": "2026-10-06",
+  "userDecision": {
+    "date": "2026-10-06",
+    "buttonCount": 4,
+    "scope": "both bases"
+  },
+  "prompt": "Use case: precise-object-edit. Edit target image 1: the focused T06 Henley front/back reference. Change ONLY the front placket button count from three to EXACTLY FOUR large rounded navy buttons in a straight evenly spaced vertical column. Fit all four visibly within the existing broad ivory placket, preserving practical even spacing; do not add buttons anywhere else. Preserve the exact warm ivory long-sleeve garment body and fit, orange inner collar facing, neckline, broad placket width, cuffs, hem, front/back silhouette, back garment view, lighting, warm ivory background, framing, title 'T06 · Henley', labels 'Front' and 'Back', palette and everything else. No straps, extra accessories, mannequin, hanger, logos, extra text, cords, watermark or redesign. The four-button version is the chosen construction target for matching the corrected outfit references.",
+  "promptSha256": "12600677dee34d4fdf5b5d7934a9e1f813bce013fb0761bf9184328bfd91b458",
+  "inputs": [
+    {
+      "path": "assets/avatar/catalog/references/T06/design.png",
+      "sha256": "8769ff0d9bea1c7fad75fad4de26b10616d0b5ef82a98b39237a555dfc760683",
+      "role": "retained three-button edit target"
+    }
+  ],
+  "output": {
+    "path": "assets/avatar/concepts/2026-10-06/T06-four-buttons/design-v1.png",
+    "sha256": "74608e942070a1e082d06081f613dd53ca572bcdec47db0f9f9fabf951667bd4",
+    "width": 1374,
+    "height": 1145
+  },
+  "review": {
+    "path": "assets/avatar/concepts/2026-10-06/T06-four-buttons/design-v1-review.png",
+    "sha256": "3cce7b24c25cad4a983d6de1be164146c8f5b48a7c094e45c57b3c073502cb27",
+    "width": 320
+  },
+  "constraints": [
+    "exactly four navy front buttons",
+    "preserve ivory body/orange facing",
+    "unchanged design intent and back view",
+    "retain original three-button source"
+  ]
+}

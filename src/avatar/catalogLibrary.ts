@@ -9,6 +9,7 @@ export interface CatalogReference {
   url: string;
   thumbnailUrl: string;
   prompt?: string;
+  provenance?: { sourcePath: string; sourceUrl: string; crop?: { left: number; top: number; width: number; height: number } };
 }
 export interface CatalogSource {
   label: string;
@@ -31,11 +32,42 @@ export interface CatalogLibraryAsset {
   sources: CatalogSource[];
   model?: CatalogPreviewEntry;
   supportsGait?: boolean;
+  animation?: 'walk' | 'run';
+}
+export type CatalogCollection = 'characters' | 'wardrobe' | 'faces-hair' | 'animations';
+export interface CatalogItemRevision {
+  id: string;
+  label: string;
+  asset: CatalogLibraryAsset;
+  visualReview: 'pending' | 'changes-requested' | 'approved';
+  technicalReview: 'not-verified' | 'recorded-pass' | 'repair-needed';
+  reviewNote?: string;
+  technicalNote?: string;
+}
+export interface CatalogItemVariant {
+  id: string;
+  label: string;
+  base: CatalogBase;
+  references: CatalogReference[];
+  revisions: CatalogItemRevision[];
+  currentRevisionId?: string;
+}
+export interface CatalogItem {
+  id: string;
+  label: string;
+  collection: CatalogCollection;
+  category: CatalogCategory;
+  description: string;
+  references: CatalogReference[];
+  variants: CatalogItemVariant[];
+  relatedIds: string[];
+  motion?: { clip: 'walk' | 'run'; description: string; loop: boolean };
 }
 export interface CatalogLibraryManifest {
   version: string;
   generatedAt: string;
   assets: CatalogLibraryAsset[];
+  items?: CatalogItem[];
   animations: CatalogPreviewManifest['animations'];
 }
 export interface CatalogLibraryFilters {

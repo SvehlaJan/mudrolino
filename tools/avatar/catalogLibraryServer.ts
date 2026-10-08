@@ -1,9 +1,10 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from 'node:fs';
 import path from 'node:path';
-import type { CatalogBase, CatalogCategory, CatalogLibraryAsset, CatalogLibraryManifest, CatalogReference, CatalogSource } from '../../src/avatar/catalogLibrary';
+import type { CatalogBase, CatalogCategory, CatalogItem, CatalogLibraryAsset, CatalogLibraryManifest, CatalogReference, CatalogSource } from '../../src/avatar/catalogLibrary';
 import type { CatalogPreviewEntry } from '../../src/avatar/catalogPreview';
 import { buildCatalogPreviewManifest } from './catalogPreviewServer';
+import { catalogIndexPath, catalogItemAssets, catalogItemReferences, hydrateCatalogIndex } from './catalogIndex';
 
 const prefix = '/__avatar_catalog/';
 const catalogRoot = 'assets/avatar/catalog-a';
@@ -12,7 +13,7 @@ const sourcePattern = /\.(glb|blend|json|md|py|mjs|js|ts)$/i;
 function isSource(relative: string): boolean {
   const name = path.posix.basename(relative);
   if (/secret|credential|password|token|api[-_]?key|private[-_]key/i.test(name)) return false;
-  if (/\.json$/i.test(name)) return /report|proof|metadata|diagnos|summary|audit|fit|sweep|study|regression|guard|preserv|correct|readiness|coverage|deformation|budget|manifest|prompts|catalog-progress|^canonical-face-layout\.json$/i.test(name);
+  if (/\.json$/i.test(name)) return /report|proof|metadata|diagnos|summary|audit|fit|sweep|study|regression|guard|preserv|correct|readiness|coverage|deformation|budget|manifest|prompts|catalog-progress|^export-validation\.json$|^canonical-face-layout\.json$/i.test(name);
   if (/\.md$/i.test(name)) return /^(retrospective|gallery|readme)(?:[-_].*)?\.md$/i.test(name);
   if (/\.(py|mjs|js|ts)$/i.test(name)) return /^(build|prepare|assemble|verify|render|fit|diagnose|capture|summarize|catalog|repair)[_-]/i.test(name) && relative.startsWith('tools/');
   return /\.(glb|blend)$/i.test(name);
@@ -153,8 +154,11 @@ export function buildCatalogLibraryManifest(root: string): CatalogLibraryManifes
     const runtime = relative.startsWith('public/avatar/'); const animation = /walk|run|idle|jump|animation/i.test(path.basename(relative));
     const history = !runtime && !animationPaths.has(relative) && (/\/(?:[^/]*revisions|rejected[^/]*|drafts?|history)\//i.test(relative) || (relative.startsWith(`${catalogRoot}/`) && !/\/([TBFAH]\d{2})\/(?:body-)?\1\.glb$/.test(relative)));
     const model: CatalogPreviewEntry = { id: `file:${relative}`, label: path.basename(relative, '.glb'), kind: 'head', status: runtime ? 'Runtime export' : history ? 'Historical export; current fitting/acceptance not implied' : 'Discovered export; fitting/acceptance not implied', modelUrl: fileUrl(relative) };
+    const clip: 'walk' | 'run' | undefined = animationPaths.has(relative) ? relative.endsWith('-walk.glb') ? 'walk' : relative.endsWith('-run.glb') ? 'run' : undefined : undefined;
+    const body = preview.entries.find(entry => entry.id === 'body');
+    if (clip && body) { model.kind = 'body'; model.modelUrl = body.modelUrl; }
     const images = files.filter(p => path.posix.dirname(p) === path.posix.dirname(relative) && imagePattern.test(p)).map(p => ({ id: `reference:${p}`, label: path.basename(p), url: fileUrl(p), thumbnailUrl: thumbnailUrl(p) }));
-    assets.push({ id: model.id, label: model.label, category: animation ? 'animations' : /outfit/i.test(relative) ? 'outfits' : /head|\/H\d{2}\//.test(relative) ? 'characters' : 'studies', base: animationPaths.has(relative) ? 'shared' : /female/i.test(relative) ? 'female' : /male/i.test(relative) ? 'male' : 'unspecified', status: runtime ? 'runtime' : 'candidate', statusDetail: model.status, fitVerified: false, accepted: false, history, references: images, previewUrl: images[0]?.thumbnailUrl, model, supportsGait: false, sources: sources(neighbors(relative)) });
+    assets.push({ id: model.id, label: model.label, category: animation ? 'animations' : /outfit/i.test(relative) ? 'outfits' : /head|\/H\d{2}\//.test(relative) ? 'characters' : 'studies', base: animationPaths.has(relative) ? 'shared' : /female/i.test(relative) ? 'female' : /male/i.test(relative) ? 'male' : 'unspecified', status: runtime ? 'runtime' : 'candidate', statusDetail: model.status, fitVerified: false, accepted: false, history, references: images, previewUrl: images[0]?.thumbnailUrl, model, supportsGait: Boolean(clip && body), ...(clip ? { animation: clip } : {}), sources: sources([relative, ...neighbors(relative)]) });
   }
   // Prefer known captures for model cards, retaining the original design sheets
   // as inspector references. Captures are explicit inventory entries, not a
@@ -169,7 +173,16 @@ export function buildCatalogLibraryManifest(root: string): CatalogLibraryManifes
     if (capture) asset.previewUrl = thumbnailUrl(capture);
   }
   assets.sort((a, b) => Number(a.history) - Number(b.history) || a.id.localeCompare(b.id));
-  const linkedFiles = new Set(assets.flatMap(a => [...a.sources.map(s => s.path), ...a.references.map(r => decodeURIComponent(r.url.slice(`${prefix}files/`.length))), ...(a.previewUrl ? [decodeURIComponent(a.previewUrl.slice(`${prefix}thumbs/`.length))] : [])]));
+  let items: CatalogItem[] = [];
+  if (existsSync(path.join(root, catalogIndexPath))) {
+    if (!safeFile(root, catalogIndexPath)) throw new Error(`Unsafe avatar metadata ${catalogIndexPath}`);
+    items = hydrateCatalogIndex(json(root, catalogIndexPath, true), assets, relative => safeFile(root, relative), fileUrl, thumbnailUrl, sources);
+  }
+  const itemReferences = catalogItemReferences(items);
+  const revisionAssets = catalogItemAssets(items);
+  const linkedFiles = new Set([...assets, ...revisionAssets].flatMap(a => [...a.sources.map(s => s.path), ...a.references.map(r => decodeURIComponent(r.url.slice(`${prefix}files/`.length))), ...(a.previewUrl ? [decodeURIComponent(a.previewUrl.slice(`${prefix}thumbs/`.length))] : [])]));
+  for (const reference of itemReferences) { linkedFiles.add(decodeURIComponent(reference.url.slice(`${prefix}files/`.length))); if (reference.provenance) linkedFiles.add(reference.provenance.sourcePath); }
+  if (items.length) linkedFiles.add(catalogIndexPath);
   for (const relative of currentModels) if (safeFile(root, relative)) linkedFiles.add(relative);
   const stamped = (url: string) => {
     const relative = url.startsWith(`${prefix}assets/`) ? `${catalogRoot}/${url.slice(`${prefix}assets/`.length)}` : decodeURIComponent(url.replace(/^\/__avatar_catalog\/(?:files|thumbs)\//, ''));
@@ -177,18 +190,19 @@ export function buildCatalogLibraryManifest(root: string): CatalogLibraryManifes
     const stat = statSync(real); const stamp = createHash('sha256').update(`${stat.mtimeMs}:${stat.ctimeMs}:${stat.size}`).digest('hex').slice(0, 12);
     return `${url}?v=${stamp}`;
   };
-  for (const asset of assets) {
+  for (const reference of itemReferences) { reference.url = stamped(reference.url); reference.thumbnailUrl = stamped(reference.thumbnailUrl); if (reference.provenance) reference.provenance.sourceUrl = stamped(reference.provenance.sourceUrl); }
+  for (const asset of [...assets, ...revisionAssets]) {
     asset.references = asset.references.map(r => ({ ...r, url: stamped(r.url), thumbnailUrl: stamped(r.thumbnailUrl) }));
     asset.sources = asset.sources.map(source => ({ ...source, url: stamped(source.url) }));
     if (asset.previewUrl) asset.previewUrl = stamped(asset.previewUrl);
     if (asset.model) asset.model = { ...asset.model, modelUrl: stamped(asset.model.modelUrl), ...(asset.model.garmentUrl ? { garmentUrl: stamped(asset.model.garmentUrl) } : {}) };
   }
   const animations = { walk: stamped(preview.animations.walk), run: stamped(preview.animations.run) };
-  const revision = createHash('sha256').update(JSON.stringify({ assets, animations }));
+  const revision = createHash('sha256').update(JSON.stringify({ assets, items, animations }));
   for (const relative of [...linkedFiles].sort()) {
     const real = safeFile(root, relative); if (!real) continue; const stat = statSync(real); revision.update(`${relative}:${stat.size}:${stat.mtimeMs}:${stat.ctimeMs}`);
   }
-  return { version: revision.digest('hex').slice(0, 24), generatedAt: new Date().toISOString(), assets, animations };
+  return { version: revision.digest('hex').slice(0, 24), generatedAt: new Date().toISOString(), assets, items, animations };
 }
 
 function pathname(url: string): string | null {
@@ -197,12 +211,12 @@ function pathname(url: string): string | null {
 export function resolveCatalogLibraryFile(root: string, url: string, manifest = buildCatalogLibraryManifest(root)): string | null {
   const request = pathname(url);
   if (!request?.startsWith(`${prefix}files/`)) return null;
-  const allowed = manifest.assets.flatMap(a => [...a.sources.map(s => s.url), ...a.references.map(r => r.url), ...(a.previewUrl ? [a.previewUrl.replace(`${prefix}thumbs/`, `${prefix}files/`)] : []), ...(a.model ? [a.model.modelUrl, ...(a.model.garmentUrl ? [a.model.garmentUrl] : [])] : [])]);
+  const allowed = [...catalogItemReferences(manifest.items ?? []).flatMap(r => [r.url, ...(r.provenance ? [r.provenance.sourceUrl] : [])]), ...[...manifest.assets, ...catalogItemAssets(manifest.items ?? [])].flatMap(a => [...a.sources.map(s => s.url), ...a.references.map(r => r.url), ...(a.previewUrl ? [a.previewUrl.replace(`${prefix}thumbs/`, `${prefix}files/`)] : []), ...(a.model ? [a.model.modelUrl, ...(a.model.garmentUrl ? [a.model.garmentUrl] : [])] : [])])];
   if (!allowed.some(candidate => pathname(candidate) === request)) return null;
   try { return safeFile(root, decodeURIComponent(request.slice(`${prefix}files/`.length))); } catch { return null; }
 }
 export function resolveCatalogLibraryThumbnail(root: string, url: string, manifest = buildCatalogLibraryManifest(root)): string | null {
   const request = pathname(url);
-  const allowed = manifest.assets.flatMap(a => [...a.references.map(r => r.thumbnailUrl), ...(a.previewUrl ? [a.previewUrl] : [])]);
+  const allowed = [...catalogItemReferences(manifest.items ?? []).map(r => r.thumbnailUrl), ...[...manifest.assets, ...catalogItemAssets(manifest.items ?? [])].flatMap(a => [...a.references.map(r => r.thumbnailUrl), ...(a.previewUrl ? [a.previewUrl] : [])])];
   return request?.startsWith(`${prefix}thumbs/`) && allowed.some(candidate => pathname(candidate) === request) ? resolveCatalogLibraryFile(root, request.replace(`${prefix}thumbs/`, `${prefix}files/`), manifest) : null;
 }

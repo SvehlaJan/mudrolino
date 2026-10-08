@@ -12,9 +12,10 @@ interface Props {
   supportsGait?: boolean;
   modelControl?: ReactNode;
   layout?: 'sidebar' | 'comparison';
+  initialAnimation?: CatalogAnimation;
 }
-export function CatalogModelInspector({ entry, animations, supportsGait = true, modelControl, layout = 'sidebar' }: Props) {
-  const [animation, setAnimation] = useState<CatalogAnimation>('rest');
+export function CatalogModelInspector({ entry, animations, supportsGait = true, modelControl, layout = 'sidebar', initialAnimation = 'rest' }: Props) {
+  const [animation, setAnimation] = useState<CatalogAnimation>(supportsGait && entry.kind !== 'head' ? initialAnimation : 'rest');
   const [inspectedEntryId, setInspectedEntryId] = useState(entry.id);
   const [inspection, setInspection] = useState<AvatarInspectionControls>({ paused: false, view: 'front' });
   const [skeleton, setSkeleton] = useState(false);
@@ -23,7 +24,7 @@ export function CatalogModelInspector({ entry, animations, supportsGait = true, 
   // Selecting another catalog model resets playback while retaining view and skeleton.
   if (inspectedEntryId !== entry.id) {
     setInspectedEntryId(entry.id);
-    setAnimation('rest');
+    setAnimation(supportsGait && entry.kind !== 'head' ? initialAnimation : 'rest');
     setReady('');
     setInspection(current => ({ ...current, paused: false, progress: undefined }));
   }

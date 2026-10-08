@@ -1,17 +1,83 @@
-# Live avatar gallery and model inspection
+# Curated avatar catalog and model inspection
 
-Run `npm run dev` in the avatar worktree and open `/avatar-preview`. The default
-development page is a read-only gallery of actual 2D references, current 3D
-models, unbuilt concepts, outfits and studies. Search includes
-IDs, labels and source paths. Category, representation, base, status and history
-filters are stored in the URL; opening and returning from an asset preserves
-them. Older attempts are available through **Include history**.
+Run `npm run dev` in the primary checkout and open `/avatar-preview`. The
+read-only development catalog contains **43 logical designs**: nine character/
+outfit entries, 20 wardrobe designs, 12 head/hair/expression targets and two motions.
+One card represents one design; male/female fits and model revisions live inside it.
 
-Opening an asset displays its reference sheets, available prompts and source
-links. Model assets also mount one interactive 3D inspector; the gallery grid
-does not create WebGL canvases. Reference-only assets explain that 3D is pending.
-Fit verification and visual acceptance are separate facts; the current accepted
-ID list is empty. Female references do not establish female 3D completion.
+Use **Characters & outfits**, **Wardrobe**, **Faces & hair** and **Animations**.
+Search matches names, IDs and review notes. Collection, category, base,
+representation and review filters are stored in the URL and survive Back.
+Opening a card displays focused references beside one interactive 3D inspector.
+Choose **Character version** and **Model revision** to inspect a fitted base or an
+older attempt. Missing fits explicitly show **3D pending**; they do not borrow the
+other base's model. Related design links preserve the selected character base.
+The card grid creates no WebGL canvases.
+
+Visual review and recorded technical evidence are separate facts. Technical notes
+state the evidence scope; these are not fresh fitting runs. Current art approval,
+full combinations, budgets and product catalog acceptance remain open.
+
+The focused references retain the original sheet, crop rectangle, original/crop
+SHA-256 and exact generation prompt. **Open source sheet** preserves full context.
+Dedicated construction sheets remain additional references. Source links are
+collapsed into construction, technical evidence, exports and historical files.
+**Archive** exposes raw source inventory, with **Include history** for older
+attempts; archive search also matches source paths. Source models and reports
+stay at their original paths to preserve historical proof provenance.
+
+The female **T02/B01/F01 capsule** is distinct from O02's T02/B02/F02 recipe.
+O01 exposes an older matching cap-free assembly with an explicit unverified note;
+other exact outfit recipes remain pending. H01 defaults to the painted-face head
+study, with older heads as revisions. E01–E06 are reference-only expression targets.
+T06's shared target is four buttons, selected by the user on 2026-10-06; the
+original three-button category sheet remains historical. T04 includes a proposed
+dedicated four-view construction guide with three detail views. New sources and
+exact prompts are retained under `assets/avatar/concepts/2026-10-06/`.
+See [construction targets](avatar-construction-targets.md) for every design and
+its outstanding dependencies.
+
+Motion entries describe the intended movement and start the corresponding clip
+on the chosen compatible character. Pause and pose scrubbing remain available.
+
+B04 exposes three isolated repair attempts in its male revision selector. B03
+also exposes its side-only repair, which reveals additional body contacts. These
+are garment-only, rest-only comparisons with links to their source-bound failed
+own-shell reports. Their technical state remains repair-needed and their art
+review remains pending. Selecting an attempt does not replace the preferred
+canonical model or imply that it is ready for animation or product use.
+B04's later bilateral attachment candidate is a separate rest-only revision
+with recorded native/export checks passing and art review pending. Its technical
+note retains the initial construction provenance qualification and distinguishes
+the fresh derived preservation check from the original fitting/export runs.
+
+## Curated index and focused references
+
+`assets/avatar/catalog/catalog.json` is the explicit design index. Items contain
+labels, collection/category, description, references, variants, revisions and
+related IDs. Revisions link raw `assetId` values and declare independent visual
+and technical review states. `currentRevisionId` identifies the preferred model
+per base. Updating art review does not promote a model to the product catalog.
+
+Reference records use repository-relative `path`, optional `sourcePath`, exact
+`prompt`, `sourceSha256`, `crop` (`left`, `top`, `width`, `height`) and `cropSha256`.
+Derived PNGs live under `assets/avatar/catalog/references/<item-id>/`; original
+sheets remain under `assets/avatar/concepts/`.
+
+```bash
+node tools/avatar/crop_catalog_references.mjs --check
+node tools/avatar/crop_catalog_references.mjs --write
+```
+
+Check verifies source/crop bytes and extraction. Write reproduces derived crops
+without modifying the index or original images. It rejects changed hashes and
+unsafe output paths. A deliberate new crop requires updated coordinates and
+source/crop hashes together. Hydration rejects duplicate IDs, missing links,
+invalid current revisions, changed images and out-of-bounds crop rectangles.
+
+Use `?item=T02&variant=female` for the fitted hoodie, `?item=character-female`
+for the whole character and `?item=walk` for motion. Existing `?asset=...` links
+inspect their exact source entry, even when it shares an ID with a design.
 
 ## Existing inspection links
 
@@ -25,16 +91,19 @@ Older `?model=...` links resolve to the corresponding asset in the gallery:
 
 Catalog-compatible models support Rest/Walk/Run, Pause/Resume, pose scrubbing,
 front/side/back/three-quarter views, camera reset and skeleton inspection. Drag
-to rotate and scroll/pinch to zoom. Unrelated standalone exports and head-only
+to rotate and scroll/pinch to zoom. Inspection framing includes the normalized
+model/garment bounds and their depth, with a visible margin in each view; reset
+uses the same framing. Unrelated standalone exports and head-only
 assets do not use the shared gait clips. The legacy parent customization UI and
 home overlay have been removed; product avatar integration remains future work.
 
 ## Inventory, refresh and source access
 
-The Vite-only library endpoint `/__avatar_catalog/library.json` reads reference
-manifests/images, progress metadata and authored/exported assets. See the
+The Vite-only library endpoint `/__avatar_catalog/library.json` reads the explicit
+curated index alongside reference manifests/images, progress metadata and assets. See the
 [shared workflow](avatar-workflow.md) before registering a new asset. New images
-and exports are discovered automatically. The browser refreshes inventory every
+and exports are discovered automatically in Archive; curated designs require an
+explicit index record. The browser refreshes inventory every
 five seconds while visible and refreshes on return; a transient error retains
 the last good library and offers retry. Model files are read locally rather than
 copied to production assets. Build/artifact output remains ignored by the watcher.
@@ -57,10 +126,27 @@ no public avatar models are shipped. The renderer still loads through
 
 ## Verification
 
-Run `npm run avatar:gallery:inspect` against the worktree dev server; override
-its default port 3004 with `CATALOG_PREVIEW_URL`. The development verifier covers
-desktop and phone browsing, reference-only inspection, model controls, deep links,
-live additions/removal and recovery after a failed refresh. Its original captures,
+Use a dedicated server for repeatable gallery verification. Vite queues a full
+reload when source edits occur without a connected browser; delivering it on the
+next connection can cancel initial module requests. Keep the verifier's strict
+request checks and disable hot reload on the verification server:
+
+```bash
+DISABLE_HMR=true npm run dev -- --host 127.0.0.1 --port 3014 --strictPort
+```
+
+In a second terminal:
+
+```bash
+CATALOG_PREVIEW_URL=http://127.0.0.1:3014 npm run avatar:gallery:inspect
+```
+
+Stop that server afterward. Catalog inventory still refreshes through its own
+polling, so live discovery/recovery remain exercised. The existing default port
+is 3004; `CATALOG_PREVIEW_URL` selects the dedicated server. The development verifier covers
+desktop/phone curated browsing, focused/original image access, missing fits,
+female T02 current/older versions, animation playback, Archive/history, model
+controls, legacy links, live discovery and failed-refresh recovery. Its original captures,
 320px review copies and identity/error report are under
 `artifacts/verification/avatar-catalog/gallery/`.
 

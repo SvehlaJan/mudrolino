@@ -50,19 +50,19 @@ try {
     const manifest = await libraryResponse.json();
     const initialCards = await page.getByTestId('gallery-card').count();
     assert(initialCards > 20, 'Discover references, current models and unbuilt concepts');
-    assert.equal(initialCards, manifest.assets.filter(asset => !asset.history).length);
+    assert.equal(initialCards, manifest.items.length, 'Default gallery has one card per explicit design');
     assert.equal(manifest.assets.filter(asset => asset.accepted).length, 0, 'Current catalog has no accepted pieces');
     await screenshot(page, `${name}-gallery`);
     // A POP can return to the same query before React commits the optimistic
     // inspector transition. The visible view must still follow browser history.
     await page.evaluate(() => {
-      const reference = document.querySelector('[data-testid="gallery-card"][data-asset-id^="reference:"]');
+      const reference = document.querySelector('[data-testid="gallery-card"]');
       if (!reference) throw new Error('Expected a reference card for the rapid Back contract');
       reference.click();
       history.back();
     });
     await page.waitForTimeout(250);
-    await expect.poll(() => new URL(page.url()).searchParams.has('asset')).toBe(false);
+    await expect.poll(() => new URL(page.url()).searchParams.has('item')).toBe(false);
     await expect(page.getByLabel('Search assets', {exact:true})).toBeVisible();
     assert.equal(await page.getByTestId('asset-title').count(), 0, 'Rapid Back returns to the gallery view');
     const broken = await page.locator('[data-testid="gallery-card"] img').evaluateAll(images => images.filter(image => image.complete && !image.naturalWidth).map(image => image.src));
@@ -70,28 +70,38 @@ try {
     await page.getByLabel('Character base', {exact:true}).selectOption('female');
     await page.getByLabel('Representation', {exact:true}).selectOption('2d');
     await expect.poll(() => page.getByTestId('gallery-card').count()).toBeGreaterThan(0);
-    const female = manifest.assets.find(asset => !asset.history && asset.base === 'female' && !asset.model && asset.references.length);
+    const female = manifest.items.find(item => item.variants.some(variant => variant.base === 'female' && !variant.revisions.length && (variant.references.length || item.references.length)));
     assert(female, 'Female reference-only asset must exist');
     await card(page, female.id).click();
     await expect(page.getByTestId('asset-title')).toHaveText(female.label);
-    await expect(page.getByText(/3D pending/i).first()).toBeVisible();
+    await expect(page.getByRole('heading', {name:'3D pending',exact:true})).toBeVisible();
     assert.equal(await page.locator('canvas').count(), 0);
     assert(await page.getByTestId('asset-reference').count() > 0);
-    assert(await page.getByTestId('asset-source').count() > 0);
+    assert(await page.getByTestId('reference-original-sheet').count() > 0);
+    const focused = new URL(await page.getByTestId('asset-reference').getAttribute('src'), base);
+    const focusedResponse = await context.request.get(focused.href);
+    assert.equal(focusedResponse.status(), 200);
+    const focusedMeta = await sharp(await focusedResponse.body()).metadata();
+    assert(focusedMeta.width < 1536, 'Focused crop is smaller than its grouped original');
+    const originalSheet = await page.getByTestId('reference-original-sheet').getAttribute('href');
+    assert.equal((await context.request.head(new URL(originalSheet, base).href)).status(), 200);
     await screenshot(page, `${name}-female-reference`);
     await page.getByRole('button', {name:'Back to gallery',exact:true}).click();
     assert.equal(await page.getByLabel('Character base', {exact:true}).inputValue(), 'female');
     assert.equal(await page.getByLabel('Representation', {exact:true}).inputValue(), '2d');
     await page.getByLabel('Character base', {exact:true}).selectOption('');
     await page.getByLabel('Representation', {exact:true}).selectOption('');
-    await page.getByLabel('Status', {exact:true}).selectOption('pending');
+    await page.getByLabel('Status', {exact:true}).selectOption('reference-only');
     assert(await page.getByTestId('gallery-card').count() > 0);
     await page.getByLabel('Status', {exact:true}).selectOption('');
+    await page.getByRole('button', {name:'Archive',exact:true}).click();
+    const currentSources = await page.getByTestId('gallery-card').count();
     await page.getByRole('checkbox', {name:'Include history',exact:true}).click();
     await expect(page.getByRole('checkbox', {name:'Include history',exact:true})).toBeChecked();
-    await expect.poll(() => page.getByTestId('gallery-card').count()).toBeGreaterThan(initialCards);
+    await expect.poll(() => page.getByTestId('gallery-card').count()).toBeGreaterThan(currentSources);
     await page.getByRole('checkbox', {name:'Include history',exact:true}).click();
     await expect(page.getByRole('checkbox', {name:'Include history',exact:true})).not.toBeChecked();
+    await page.getByRole('button', {name:'All designs',exact:true}).click();
     await page.getByLabel('Search assets', {exact:true}).fill('no-such-gallery-asset-zzzz');
     await expect(page.getByTestId('gallery-card')).toHaveCount(0);
     await page.getByLabel('Search assets', {exact:true}).fill('');
@@ -100,6 +110,8 @@ try {
     await card(page, modelAsset.id).click();
     await page.getByTestId('catalog-ready').waitFor({timeout:90000});
     assert.equal(await page.locator('canvas').count(), 1);
+    assert.equal(new URL(page.url()).searchParams.get('item'), 'T02');
+    await expect(page.getByTestId('asset-reference')).toHaveAttribute('src', /catalog\/references\/T02/);
     if (name === 'desktop') {
       const referenceBounds = await page.getByTestId('asset-reference').boundingBox();
       const modelBounds = await page.getByTestId('catalog-viewport').boundingBox();
@@ -140,6 +152,43 @@ try {
     await page.getByRole('button', {name:'Back to gallery',exact:true}).click();
     await expect(page.getByTestId('gallery-card').first()).toBeVisible();
     assert.equal(await page.locator('canvas').count(), 0);
+    // The same design exposes its actual fitted female model and recorded art request.
+    await card(page, 'T02').click();
+    await page.getByTestId('catalog-variant').selectOption('female');
+    await page.getByTestId('catalog-ready').waitFor({timeout:90000});
+    await expect(page.getByTestId('catalog-visual-status')).toHaveText('Changes requested');
+    await expect(page.getByTestId('catalog-technical-status')).toHaveText('Recorded checks pass');
+    await expect(page.getByTestId('catalog-review-note')).toContainText(/hood/i);
+    await expect(page.getByRole('button', {name:'Run',exact:true})).toBeEnabled();
+    const revisionOptions = await page.getByTestId('catalog-revision').locator('option').evaluateAll(options => options.map(option => option.value));
+    const currentRevision = await page.getByTestId('catalog-revision').inputValue();
+    const earlierRevision = revisionOptions.find(value => value !== currentRevision);
+    if (earlierRevision) {
+      await page.getByTestId('catalog-revision').selectOption(earlierRevision);
+      await page.getByTestId('catalog-ready').waitFor({timeout:90000});
+      await expect(page.getByText('You are inspecting an earlier or alternate version.')).toBeVisible();
+      await expect(page.getByText('Earlier attempt / history', {exact:true})).toBeVisible();
+      await page.getByTestId('catalog-revision').selectOption(currentRevision);
+      await page.getByTestId('catalog-ready').waitFor({timeout:90000});
+      await expect(page.getByText('Current', {exact:true})).toBeVisible();
+    }
+    await screenshot(page, `${name}-female-hoodie`);
+    await page.getByRole('button', {name:'Back to gallery',exact:true}).click();
+    await page.getByRole('button', {name:'Animations',exact:true}).click();
+    const walk = manifest.items.find(item => item.motion?.clip === 'walk');
+    assert(walk);
+    await card(page, walk.id).click();
+    await page.getByTestId('catalog-ready').waitFor({timeout:90000});
+    await expect(page.getByTestId('catalog-motion-brief')).toContainText(/loop/i);
+    await expect(page.getByRole('button', {name:'Walk',exact:true})).toHaveAttribute('aria-pressed', 'true');
+    const motionBefore = await page.locator('canvas').screenshot();
+    await page.waitForTimeout(350);
+    assert(!motionBefore.equals(await page.locator('canvas').screenshot()), 'Opening Walk plays visible motion');
+    await page.getByRole('button', {name:'Pause',exact:true}).click();
+    await page.getByTestId('catalog-pose').fill('0.45');
+    await screenshot(page, `${name}-walk`);
+    await page.getByRole('button', {name:'Back to gallery',exact:true}).click();
+    await page.getByRole('button', {name:'Archive',exact:true}).click();
     let live = false, recovery = false;
     if (name === 'desktop') {
       await page.getByLabel('Search assets', {exact:true}).fill(token);
@@ -185,7 +234,7 @@ try {
     assert.deepEqual(cleanupAborts.filter(row => !row.url.includes('/__avatar_catalog/')), []);
     assert.deepEqual(errors, []);
     assert.deepEqual(failed, []);
-    results.push({name,scene:'avatar-asset-gallery',viewport,seed:null,initialCards,referenceOnly:true,modelReady:true,controls:true,legacyDeepLink:true,liveDiscovery:live,refreshRecovery:recovery,errors,failed,cleanupAborts,expectedFaults});
+    results.push({name,scene:'avatar-asset-gallery',viewport,seed:null,initialCards,focusedReferences:true,femaleVariant:true,revisions:!!earlierRevision,animationPlayback:true,archiveHistory:true,referenceOnly:true,modelReady:true,controls:true,legacyDeepLink:true,liveDiscovery:live,refreshRecovery:recovery,errors,failed,cleanupAborts,expectedFaults});
     await context.close();
   }
 } finally {

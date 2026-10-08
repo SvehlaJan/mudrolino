@@ -1,0 +1,38 @@
+{
+  "stage": "proposed construction reference; art and 3D fit remain pending",
+  "tool": "built-in image_gen.imagegen",
+  "generatedAt": "2026-10-06",
+  "prompt": "Use case: stylized-concept. Asset type: dedicated T04 construction reference for economical Blender avatar garment modeling. Input image 1 is the existing authoritative T04 garment design; preserve its exact muted navy body, orange hood lining, warm ivory full-height zipper, long relaxed sleeves, rounded navy ribbed cuffs/hem and paired front pocket divided by zipper. Generate one NEW landscape construction sheet for exactly this garment, empty hollow adult-sized hoodie with no wearer, mannequin or hanger. Four evenly spaced, same-scale orthographic-like views: Front, Right side, Back, Three-quarter. The lowered hood rests on upper back with a rounded opening and continuous navy outer shell/orange inner lining, consistent in all views. Full ivory zipper stays centered and readable; simple rounded zipper pull. Main seams and thickness only; restrained folds. Bottom row shows three larger closeups of THIS SAME construction: Hood + lining, Zipper + pocket, Cuff + hem. Keep design symmetrical and comfortable, never tight. Warm ivory plain background, soft even studio lighting, matte soft toy-like forms and economical broad shapes. Title exactly 'T04 · Zip hoodie construction'. Small view labels exactly 'Front', 'Right side', 'Back', 'Three-quarter'. Closeup captions as stated. No numerical dimensions. No drawstrings, dangling strings, cords, eyelets, extra colors, logos, branding, embellishment, extra garments, characters, watermark or perspective distortion. This is a proposed reference guide, not a measured fit blueprint. Maintain the original design faithfully, including divided pocket and full zipper; do not redesign hood as raised or add cords.",
+  "promptSha256": "6c5630b112c7d7d34c630c46fc2bbb270710d9a36fa70be3c3a92f18fe8e842a",
+  "inputs": [
+    {
+      "path": "assets/avatar/catalog/references/T04/design.png",
+      "sha256": "8f43c07f2deb1fca0f05728bdc92b731116c963ef2db280c93d8358f01230342",
+      "role": "authoritative original construction reference"
+    }
+  ],
+  "output": {
+    "path": "assets/avatar/concepts/2026-10-06/T04-construction/guide-v1.png",
+    "sha256": "1a7bbf7ee13814d749e632e227ab77803af9b42ff46aeacdaaae35df31844225",
+    "width": 1536,
+    "height": 1024
+  },
+  "review": {
+    "path": "assets/avatar/concepts/2026-10-06/T04-construction/guide-v1-review.png",
+    "sha256": "bbba9769a07e1f607b0c04473fbe3f4e5ac9e14179a6b86dc1ebbb12de0326b3",
+    "width": 320
+  },
+  "constraints": [
+    "lowered hood",
+    "navy exterior",
+    "orange lining",
+    "ivory full zipper",
+    "divided front pocket",
+    "no drawstrings or cords"
+  ],
+  "reviewFindings": [
+    "four garment views and three closeups present",
+    "colors and construction preserved",
+    "proposed guide adds side/three-quarter detail; it is not measured or accepted geometry"
+  ]
+}
