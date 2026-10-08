@@ -66,11 +66,12 @@
     },
     {
       "id": "B04",
-      "stage": "previous body/layer fit evidence retained; opposite-side corrective contamination discovered; repair and fresh combination/export/runtime proof required",
+      "stage": "repair-needed; displayed source unchanged; rejected unsaved paired-lining proposal clears rest but moving self-clearance still fails (493 maximum); pockets, independent centre keys and complete dependent proof remain open",
       "retrospective": "B04/retrospective.md",
       "motion_proof": "B04/motion-sweep-4x.json",
       "detail_proof": "B04/detail-fit-report.json",
-      "corrective_proof": "outfits/T01-B04-F01-A01/runtime-corrective-report.json"
+      "corrective_proof": "outfits/T01-B04-F01-A01/runtime-corrective-report.json",
+      "latest_repair_evidence": "B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/retrospective-paired-lining.md"
     },
     {
       "id": "F01",
@@ -110,14 +111,17 @@
     },
     {
       "id": "A01",
-      "stage": "fit-verified candidate; final style/budget/runtime catalog registration pending",
+      "stage": "envelope-fitted revision on both bases (+30% heads): fit gate, 168-pose motion and export pass; art review pending. Original fixed-size cap superseded (floated 9-12 cm, intersected painted H01).",
       "retrospective": "A01/retrospective.md",
-      "motion_proof": "A01/motion-sweep-4x.json"
+      "motion_proof": "A01/motion-sweep-4x.json",
+      "current_revision": "A01/fitting-revisions/head-envelope-v1",
+      "retrospective_current": "A01/fitting-revisions/head-envelope-v1/retrospective.md"
     },
     {
       "id": "A02",
-      "stage": "not started",
-      "retrospective": null
+      "stage": "envelope-fitted first revision on both bases (A02/fitting-revisions/head-envelope-v1); fit gate, 168-pose motion and export pass; art review pending",
+      "retrospective": null,
+      "current_revision": "A02/fitting-revisions/head-envelope-v1"
     },
     {
       "id": "A03",
@@ -141,12 +145,12 @@
     },
     {
       "id": "H01",
-      "stage": "candidate; style refinement pending",
+      "stage": "+30% painted head chosen 2026-10-07 and verified (H01/style-revisions/painted-face-scale-130); hair silhouette and art review pending",
       "retrospective": "H01/retrospective.md"
     },
     {
       "id": "H02",
-      "stage": "not started",
+      "stage": "+30% head with tapered hanging hair verified (female/foundation/studies/h02-scale-130); hair redesign, T02 hood refit and art review pending",
       "retrospective": null
     },
     {
@@ -181,11 +185,10 @@
     "B01",
     "B02",
     "F01",
-    "F03",
-    "A01"
+    "F03"
   ],
   "outfit_proof": "outfits/T04-B04-F03-A01/verification-summary.json",
-  "next_piece": "A02",
+  "next_piece": "A03",
   "outfit_proofs": [
     "outfits/T01-B01-F01-A01/verification-summary.json",
     "outfits/T02-B01-F01-A01/verification-summary.json",
@@ -206,7 +209,7 @@
     "F04"
   ],
   "female_phase": {
-    "stage": "Separate foundation/H02 and first T02/B01/F01 technical fitting candidates have source-bound native/actual-runtime proof; user keeps proportions and requests fuller T02 hood next. Full female wardrobe, art, budgets and real-selfie flow remain pending.",
+    "stage": "Separate foundation/H02 and first T02/B01/F01 technical candidates have source-bound native/actual-runtime proof. User chose reference-matching proportion proposals for review first on 2026-10-06; a final female resize is not yet selected. Fuller T02 hood, full wardrobe, art, budgets and real-selfie flow remain pending.",
     "style": "same approved palette-A rounded matte Genmoji-like art direction",
     "reference_catalog": "../concepts/2026-10-04/catalog-a-female/gallery.md",
     "foundation": null,
@@ -251,12 +254,17 @@
       "path": "female/foundation/studies/h02-envelope",
       "report": "female/foundation/studies/h02-envelope/foundation-verification-report.json",
       "retrospective": "female/foundation/studies/h02-envelope/retrospective.md",
-      "stage": "Isolated candidate; no canonical promotion or fitted wardrobe acceptance"
+      "stage": "Isolated candidate; no canonical promotion or fitted wardrobe acceptance",
+      "proof_refresh": "female/foundation/studies/h02-envelope/proof-refresh-report.json"
     },
     "visual_feedback": {
       "proportions": {
         "decision": "Keep the reviewed foundation proportions",
-        "date": "2026-10-04"
+        "date": "2026-10-04",
+        "superseded_by": {
+          "date": "2026-10-06",
+          "decision": "Propose reference-matching proportions for review first; male/female target choices pending"
+        }
       },
       "T02_hood": {
         "decision": "Make the hood fuller and more recognizable",
@@ -269,9 +277,10 @@
       "report": "female/outfits/studies/T02-B01-F01/fit-verification-report.json",
       "runtime_report": "female/outfits/studies/T02-B01-F01/runtime-deformation-report.json",
       "retrospective": "female/outfits/studies/T02-B01-F01/retrospective.md",
-      "combined_error_bound_m": 2.0089994995466926e-06,
+      "combined_error_bound_m": 0.0000020089994995466926,
       "stage": "Technical checks pass; current hood art not accepted, fuller recognizable revision requested."
-    }
+    },
+    "o01": "female/outfits/studies/T01-B01-F01"
   },
   "corrective_side_audit": "artifacts/verification/avatar-catalog/corrective-side-audit.json",
   "outfit_proofs_requiring_corrective_repair": [
@@ -288,15 +297,15 @@
   "F04_core_outfit_study": {
     "path": "F04/fitting-revisions/T05-B01-F04-loop-compression-study",
     "stage": "isolated B01 revision; 163-pose body/layer and side checks pass; 16-pose export/actual Three.js checks pass; canonical promotion, browser and full O05/A02 pending",
-    "export_max_error_m": 5.7396555348532274e-06,
-    "combined_error_bound_m": 7.6228509482001774e-06
+    "export_max_error_m": 0.0000057396555348532274,
+    "combined_error_bound_m": 0.0000076228509482001774
   },
   "H01_style_study": {
     "path": "H01/style-revisions/reference-a",
     "stage": "Isolated face refinement: head motion/reimport and material checks pass; expressions, headwear compatibility and final style pending",
     "retrospective": "H01/style-revisions/reference-a/retrospective.md"
   },
-  "next_work": "Decide head size (reference is 4.5/3.8 heads tall; models 5.3-5.8/4.6-4.8), then rework hair volume for both heads and refit hoods (T02/T04 male, T02 female) and A01. Independently: chunkier footwear soles/toes, bottom details and rib bands per the 2026-10-05 reference audit. F02 heel-tab own-shell and B03/B04 corrective leakage remain open; selfie generation is a separate milestone.",
+  "next_work": "Heads are +30% on both bases (2026-10-07). A01 and A02 are fitted from head envelopes on both bases; exact O01 exists on both bases (female T01 is new). Next: rebuild the T01 sleeve/underarm on both bases (the coverage rule leaves a visible gap; T03 shares it), refit T02/T04 hoods to the larger heads (female T02 hood intersects the larger hair), T06 four buttons, rebuild B03/B04/F02 from B01/F01 construction, then A03/A04 glasses. Other male wardrobe previews still embed the original head.",
   "personalization": {
     "contract": "selfie -> generated stylized 2D face texture -> reusable UV-mapped 3D head",
     "stage": "Both bases have texture-ready heads with painted fictional default faces in the canonical lat-long layout (H02 face patch, H01 whole head). No selfie generation endpoint or real-selfie likeness proof.",
@@ -330,7 +339,7 @@
     },
     {
       "id": "female-h02-head-study",
-      "label": "Female H02 \u00b7 Texture-ready head study",
+      "label": "Female H02 · Texture-ready head study",
       "path": "female/foundation/studies/h02-envelope",
       "model": "H02.glb",
       "kind": "head",
@@ -343,7 +352,7 @@
     },
     {
       "id": "female-h02-hair-study",
-      "label": "Female H02 \u00b7 Continuous rear hair study",
+      "label": "Female H02 · Continuous rear hair study",
       "path": "female/foundation/studies/h02-envelope",
       "model": "hair-H02.glb",
       "kind": "head",
@@ -356,7 +365,7 @@
     },
     {
       "id": "study-f02-independent-keys",
-      "label": "F02 \u00b7 Independent corrective-key repair study",
+      "label": "F02 · Independent corrective-key repair study",
       "path": "F02/fitting-revisions/independent-keys-repair",
       "model": "outfit/outfit.glb",
       "kind": "study",
@@ -418,6 +427,181 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_head_texture_study.py"
+    },
+    {
+      "id": "h01-scale-130-head",
+      "label": "H01 · +30% painted head",
+      "path": "H01/style-revisions/painted-face-scale-130",
+      "model": "H01.glb",
+      "kind": "head",
+      "base": "male",
+      "stage": "User-chosen +30% head (2026-10-07): painted H01 scaled about the Head bind anchor; UVs/face image, weights, rig, body and gaits exact. Fresh verifier: hair and T05/B01/F04 clear over 163 gait poses + six gestures, UV corner identity, 16-pose export 0.6 µm. Art review pending.",
+      "reference_ids": [
+        "H01"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_head_scale_study.py"
+    },
+    {
+      "id": "study-h01-scale-130",
+      "label": "H01 +30% head + T05 / B01 / F04 study",
+      "path": "H01/style-revisions/painted-face-scale-130",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "+30% painted H01 on the unchanged T05/B01/F04 outfit. Same proof as the +30% head. Other male garment previews still embed the original head.",
+      "reference_ids": [
+        "H01",
+        "T05",
+        "B01",
+        "F04"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_head_scale_study.py"
+    },
+    {
+      "id": "female-h02-scale-130-head",
+      "label": "H02 · +30% head and hair",
+      "path": "female/foundation/studies/h02-scale-130",
+      "model": "H02.glb",
+      "kind": "head",
+      "base": "female",
+      "stage": "User-chosen +30% head (2026-10-07). Hanging hair eases to its original length below the jaw; rear locks are 20% shorter so tips clear the upper back and swinging sleeves. Hair/body clear over 163 gait poses + six gestures; zero visible skin-through-hair rays; UV corner identity; export 0.6 µm. Hair redesign and T02 hood refit pending.",
+      "reference_ids": [
+        "H02"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_head_scale_study.py"
+    },
+    {
+      "id": "female-foundation-h02-scale-130",
+      "label": "Female foundation + H02 +30% head",
+      "path": "female/foundation/studies/h02-scale-130",
+      "model": "female-foundation.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Unclothed female foundation with the +30% H02 head. Same proof as the +30% head. The T02 hood intersects the larger hair (271 pairs in run poses) until refitted.",
+      "reference_ids": [
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_head_scale_study.py"
+    },
+    {
+      "id": "a01-envelope-male",
+      "label": "A01 envelope-fitted cap · male",
+      "path": "A01/fitting-revisions/head-envelope-v1/male",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "A01 rebuilt from the +30% H01 envelope: under_hat hair key, tilted band, arched rear opening and strap, curved brim. Fit gate passes (crown p50 3.3 mm, band p90 4.1 mm, zero intersections); 168 gait/gesture poses clear of head/body/T05/B01/F04; export 0.6 µm. Art review pending.",
+      "reference_ids": [
+        "A01",
+        "H01",
+        "T05",
+        "B01",
+        "F04"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a01_fitted.py"
+    },
+    {
+      "id": "a01-envelope-female",
+      "label": "A01 envelope-fitted cap · female",
+      "path": "A01/fitting-revisions/head-envelope-v1/female",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "First female A01, built from the +30% H02 envelope with the same design. Fit gate passes (crown p50 3.5 mm, band p90 4.5 mm, zero intersections); 168 gait/gesture poses clear; export 0.6 µm. Unclothed review assembly; art review pending.",
+      "reference_ids": [
+        "A01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a01_fitted.py"
+    },
+    {
+      "id": "a02-envelope-male",
+      "label": "A02 folded-cuff beanie · male (O05 recipe)",
+      "path": "A02/fitting-revisions/head-envelope-v1/male",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "First A02, fitted to the +30% H01 envelope with an under_A02 hair key: knit dome and broad folded cuff. Fit gate passes (crown p50 4.83 / p90 8.94 mm, band p90 3.44 mm, zero intersections); 168 gait/gesture poses clear of head/body/T05/B01/F04. Assembly is the O05 recipe on the F04-compatible B01 study. Art review pending.",
+      "reference_ids": [
+        "A02",
+        "O05",
+        "H01",
+        "T05",
+        "B01",
+        "F04"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a02.py"
+    },
+    {
+      "id": "a02-envelope-female",
+      "label": "A02 folded-cuff beanie · female",
+      "path": "A02/fitting-revisions/head-envelope-v1/female",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "First female A02 on the +30% H02 envelope. Fit gate passes (crown p50 5.35 / p90 9.06 mm, band p90 3.67 mm, zero intersections); 168 gait/gesture poses clear. Unclothed review assembly; art review pending.",
+      "reference_ids": [
+        "A02",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a02.py"
+    },
+    {
+      "id": "o01-male-head130",
+      "label": "O01 T01 / B01 / F01 · male +30% head",
+      "path": "outfits/O01-head130-T01-B01-F01",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Exact O01 on the +30% painted H01 (foundation.blend in the head study). Canonical masters unchanged. 163 gait poses with zero body/head/layer pairs, corrective sides, head clearance, UV-preserving glTF validation, materials and 16-pose export (6.07 µm) pass; no active correctives. T01 inherits the sleeve-opening gap found 2026-10-07. Art review pending.",
+      "reference_ids": [
+        "O01",
+        "T01",
+        "B01",
+        "F01",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/assemble_catalog_outfit.py"
+    },
+    {
+      "id": "o01-female-head130",
+      "label": "O01 T01 / B01 / F01 · female +30% head",
+      "path": "female/outfits/studies/T01-B01-F01",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "First female T01 and exact female O01 on the +30% H02. Native and runtime-equivalent fit over 163 gait poses with zero pairs per piece and combined, openings, six gestures, face UV/image, 16-pose export 1.2 µm, 12 export/material checks and direct Three.js skinning (2.0 µm) pass. Only the new tee-sleeve occlusion gate fails: the T01 coverage hides inner-arm skin visible inside the sleeve (shared with male T01). Art review pending.",
+      "reference_ids": [
+        "O01",
+        "T01",
+        "B01",
+        "F01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
+    },
+    {
+      "id": "female-t01-piece",
+      "label": "T01 crew tee · female fit",
+      "path": "female/outfits/studies/T01-B01-F01/pieces/T01",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Independent female T01 master from the O01 study; same proof scope and known sleeve-opening gap as the O01 study.",
+      "reference_ids": [
+        "T01",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
     }
   ],
   "F02_corrective_repair_study": {
@@ -431,5 +615,115 @@
     "retrospective": "H01/style-revisions/painted-face/retrospective.md",
     "face_texture": "faces/H01-default.png"
   },
-  "reference_audit": "../../../docs/audits/2026-10-05-avatar-reference-audit.md"
+  "reference_audit": "../../../docs/audits/2026-10-05-avatar-reference-audit.md",
+  "model_improvement_execution": {
+    "authorized": "2026-10-06",
+    "plan": "docs/superpowers/plans/2026-10-06-avatar-model-improvements.md",
+    "construction_targets": "docs/avatar-construction-targets.md",
+    "proportions": {
+      "stage": "review-only proposals; final targets pending",
+      "manifest": "artifacts/verification/avatar-catalog/proportion-options/2026-10-06-v3/manifest.json",
+      "scales": [
+        1,
+        1.1,
+        1.2,
+        1.3
+      ],
+      "source_files_unchanged": true
+    },
+    "reference_decisions": {
+      "T06": {
+        "date": "2026-10-06",
+        "button_count": 4,
+        "scope": "both bases; historical three-button category sheet retained"
+      },
+      "T04": {
+        "stage": "proposed construction guide; no fit/art acceptance",
+        "manifest": "assets/avatar/concepts/2026-10-06/T04-construction/manifest.json"
+      }
+    },
+    "H02_proof_refresh": {
+      "report": "female/foundation/studies/h02-envelope/proof-refresh-report.json",
+      "stage": "fresh native comprehensive pass; focused scopes explicitly derived; sources unchanged"
+    },
+    "B04_repair": {
+      "stage": "Earlier isolated source clears recorded body/detail/export/runtime gates, with original provenance qualification. Later complete key and whole-shell audits expose additional technical repairs; no current complete fitting acceptance or canonical promotion.",
+      "path": "B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07",
+      "source_sha256": "ec735203dc0379557fde1467abd75bd5dab9f59f47ceaf99cdd254c01fed5ea2",
+      "gate_report": "B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/gate-report.json",
+      "derived_preservation_report": "B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/derived-preservation-report.json",
+      "original_gate_count": 29,
+      "detail_samples": 164,
+      "max_own_shell_pairs": 0,
+      "max_detail_distance_mm": 9.10972896963358,
+      "initial_construction_provenance_complete": false,
+      "canonical_promoted": false,
+      "art_proposal": "B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/retrospective-art-proposal.md"
+    },
+    "B03_repair": {
+      "stage": "isolated side-only correction passes; body fit remains failed and additional contacts exposed",
+      "report": "B03/fitting-revisions/independent-keys-repair/diagnostic-proof-report.json",
+      "body_samples": 163,
+      "body_pair_max": 338,
+      "canonical_total_body_pairs": 2896,
+      "repaired_total_body_pairs": 4159,
+      "canonical_promoted": false,
+      "complete_leg_diagnosis": "B03/fitting-revisions/independent-keys-repair/bodyfit-diagnosis-2026-10-07/complete-leg-contact-diagnosis.json",
+      "next_scope": "Folded feet/rear hem plus distinct inner-thigh and crotch families; knee targets saturate. One bounded construction proposal required before saving."
+    },
+    "F02_repair": {
+      "stage": "17 full-cycle offset/attachment-weight screens rejected; ankle measurement, signed payload and fresh loop boundaries pass; derived inventory proof hardened; no construction candidate or runtime change",
+      "diagnosis_summary": "F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis-summary.json",
+      "candidate_saved": false,
+      "canonical_promoted": false,
+      "ankle_measurement": "F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/measurement-summary.json",
+      "portable_convention": "F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/ankle-measurement/portable-convention-proposal.md",
+      "signed_payload_proof": "F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis/signed-payload-v1/payload-report.json"
+    },
+    "B04_rolled_cuff_study": {
+      "path": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate",
+      "blend_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+      "garment_glb_sha256": "9e843fcf22009ce321ac42a3294547b653bf15c5a3d21cfb766552e14fc0061c",
+      "stage": "Earlier recorded fit/export/runtime checks pass their stated scope; current technical review is repair-needed after complete whole-garment self-audit and centre-key inventory. Art, shell/pocket/waist/final targets/budgets and dependent proof remain open; no acceptance.",
+      "catalog_revision_id": "rolled-cuff-v1",
+      "single_author": true,
+      "accepted": false,
+      "full_gate_report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/gate-report.json",
+      "standalone_export_report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent/export-deformation-report.json",
+      "standalone_runtime_report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/independent/runtime-corrective-report.json",
+      "exact_O04_study": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/full-verification-v1/outfits/T04-B04-F03",
+      "gait_compatible_current_sources": false,
+      "gallery_review": "artifacts/verification/avatar-catalog/B04/rolled-cuff-gallery-v1/report.json",
+      "additional_technical_work": "Complete inventory finds 41 inherited Right coordinates; full shell has 55 rest / 549 run self-pairs. Key-only reset preserves body/shoe/detail clearance but cannot clear shell geometry. Live review is rest-only pending repair."
+    },
+    "B04_rear_pocket_probe": {
+      "path": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/rear-pocket-construction-v1",
+      "stage": "Rejected non-saving broad rounded footprint; 328-pose failure diagnosed. Centre-strip inherited Right deltas need a bounded repair before host-conforming pocket construction.",
+      "source_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+      "candidate_saved": false,
+      "accepted": false,
+      "max_patch_cloth_pairs": 54,
+      "max_detail_distance_mm": 17.23436824977398,
+      "screen_report": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/rear-pocket-construction-v1/rounded-footprint-probe/pre-save-screen-report.json",
+      "binding_diagnosis": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/rear-pocket-construction-v1/binding-diagnosis/binding-diagnosis.json",
+      "centre_key_audit": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/rear-pocket-construction-v1/binding-diagnosis/centre-key-audit.json",
+      "retrospective": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/rear-pocket-construction-v1/retrospective-pocket-probe.md",
+      "next_scope": "Repair underlying outer crotch/deep-fold shell and consistent lining before independent centre keys and the broad reference pocket construction; source unchanged."
+    },
+    "B04_centre_and_shell_audit": {
+      "path": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1",
+      "stage": "Complete key inventory finds 41 inherited Right coordinates. Guarded key-only proposal preserves body/shoe/detail clearance but full baseline garment self-clearance fails (55 rest, up to 549 run). No model saved; shell construction precedes pockets and dependent proof.",
+      "source_sha256": "291d4927ef628ff300a7e3c3ed950776bc32944de6273f5d2fa915b9f7ace42d",
+      "candidate_saved": false,
+      "accepted": false,
+      "inherited_right_coordinates": 41,
+      "full_shell_max_native": 548,
+      "full_shell_max_runtime_equivalent": 549,
+      "full_shell_rest_pairs": 55,
+      "retrospective": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/retrospective-centre-and-shell.md",
+      "key_screen": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/rest-guarded-probe/screen-report.json",
+      "self_audit": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/full-shell-self-audit.json",
+      "layer_classification": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/centre-key-repair-v1/full-shell-diagnosis/cloth-layer-classification.json"
+    }
+  }
 }

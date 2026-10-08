@@ -27,7 +27,7 @@ catalog construction sources, references, gaits and fitting history remain.
 
 After building and inspecting a piece, wrap the sequential runner once with
 `python3 tools/avatar/blender_queue.py --`. All agents share this per-user lock
-across worktrees; authoring/review may run in parallel while Blender stays sequential. Start the fixed production preview described below first; a previous build can be reused when app source is unchanged and its identity still matches. Every asset gate runs fresh, saves a stage log, and stops on failure:
+across authorized checkouts. Use single-agent geometry authoring, one model/change at a time; optional subagents may perform narrow read-only checks of stable artifacts. Start the fixed production preview described below first; a previous build can be reused when app source is unchanged and its identity still matches. Every asset gate runs fresh, saves a stage log, and stops on failure:
 
 ```bash
 python3 tools/avatar/blender_queue.py -- python3 tools/avatar/verify_catalog_piece.py \
@@ -378,3 +378,75 @@ The source native quaternion curves and actual glTF interpolation differ between
 keys. Keep shared gait bytes unchanged, distinguish their pose sweeps, and compare
 transport using equivalent actual-runtime bone poses; do not loosen the tolerance
 or replace browser interpolation to make proof pass.
+
+
+## B04 continuous-cuff proof
+
+Use the isolated cuff source and the saved dependent runner, wrapped once through
+`blender_queue.py`. The verification plan checks the independent source and the
+cap-free T01/B04/F01 and exact O04=T04/B04/F03 combinations. It writes fresh proof
+under a separate, previously nonexistent directory; source/preservation/initial
+screen files stay unchanged. Initial screen/preservation reuse is explicit and
+requires current source/tool hashes plus the complete ordered 328-pose inventory.
+
+New cloth skin must apply the established 0.0001 export cutoff before normalization
+and full-cycle screening. Raw triangle interpolation can contain zero/tiny
+influences; check the final retained field for positive normalized weights and
+at most four bones. Preserve original garment fields outside the stated hem
+boundary. Saved polygon ordering can change: compare new directed face inventories
+with duplicate counts, and retain original UVs by face/corner identity rather
+than assuming untextured garments have no native UV layer.
+
+Standalone export fidelity uses `verify_catalog_independent_garment_export.py`;
+actual Three.js corrective proof remains separate. Browser fixture rendering
+checks can crop feet, so review cuff construction through the gallery's fitted
+camera at <=320px. Preserve request cancellations and state their actual scope;
+a rendering smoke capture never substitutes for a strict whole-gallery gate.
+
+
+### Whole garment self-clearance and reset-pose capture
+
+Body/layer checks and detail-to-cloth checks do not test the entire cloth shell
+against itself. Require every nonincident garment polygon pair at rest and all
+native/equivalent gait samples, with no implicit contact exemption. B04’s
+source-bound example is `audit_catalog_b04_shell_self.py`; it currently finds
+a real unresolved construction defect. Its passing earlier body/detail/export
+reports must not be relabelled as whole-shell proof. Other garments still need
+this explicit audit. Preserve the fitted silhouette and fix the actual source
+faces; a small liner offset cannot fix outward-surface self-crossings.
+
+Reset the rig before creating **each** RuntimeGaitPose adapter. Capture and
+validate its native rest against bind matrices (`runtime_rest_capture.py`);
+otherwise a prior pose can silently become a false rest pose. Keep invalid
+execution evidence separate and rerun guarded proof rather than interpreting
+its artificial collisions as a model regression.
+
+Use the evaluated mesh's actual loop triangles at each pose when testing full
+self-clearance, retaining their source polygon identities. A polygon BVH can
+choose different diagonals for deformed quads: B04's diagnostic run counts 553
+actual-tessellation face pairs versus 548/549 from polygon triangulation. Shared
+vertex incidence is still the only contact exclusion. Preserve older results
+with their original method and scope. For anatomical panel diagnosis, physical
+paths from lower-leg seeds can distinguish branches across X=0; retain measured
+path differences and leave near-equal shared-seam assignments qualified.
+
+## Head scale and headwear (2026-10-07)
+
+- `build_catalog_head_scale_study.py --base male|female --scale 1.3 [--hair-taper z_full,z_tip,tip_scale]`
+  writes an isolated scaled head study with `head-landmarks.json`; verify it with
+  `verify_catalog_head_scale_study.py --study-dir DIR`.
+- `build_catalog_a01_fitted.py --base male|female --output-dir DIR` fits headwear to
+  the verified head: an `under_hat` hair shape key, then a crown offset from the
+  worn skull+hair envelope above a tilted band. `verify_catalog_headwear.py
+  --study-dir DIR` runs the fit gate (crown gap <= 12 mm on 90% of samples, band p90 <= 5 mm and max <= 15 mm,
+  no penetration), intersections over gait plus six gestures, morph export and
+  16-pose export fidelity.
+- Pure rules (scale, landmarks, band, under-hat radius, crown ease, fit gate) live in
+  `catalog_headwear_plan.py` and are tested by `tools/avatar/headwearPlan.test.ts`.
+  Reuse them for A02-A04 rather than hard-coding heights.
+- Female outfits: `build_catalog_female_outfit_study.py --recipe T01,B01,F01` (default
+  T02,B01,F01). The verifier, runner and export check read the recipe from
+  `assembly-report.json`.
+- Male outfits on a scaled head: `build_catalog_scaled_male_foundation.py --head-study DIR`,
+  then `assemble_catalog_outfit.py --foundation DIR/foundation.blend --uv-export`. The
+  plain garment exporter drops texture coordinates and breaks painted faces.

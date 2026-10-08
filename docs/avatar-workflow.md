@@ -1,6 +1,6 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-10-05 (reference audit). This is the entry point for both Codex and Claude. Use
+Updated 2026-10-06 (model audit and authorized improvement execution). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
 
@@ -16,9 +16,12 @@ Verification reports copied from the former avatar worktree retain their
 original commit, build identity and absolute-path provenance. They are historical
 proof; run fresh checks for later model or code changes.
 
-The live development gallery is http://127.0.0.1:3004/avatar-preview. Open a card
-for references, model inspection, prompts and source files. The read-only gallery
-refreshes as local asset files change; use Include history for older attempts.
+The live development catalog is http://127.0.0.1:3004/avatar-preview. One design
+card joins focused references, per-base revisions and separate art/technical review.
+Use `?item=T02&variant=female` for the fitted hoodie or `?item=walk` for motion.
+The explicit design index and focused references are under `assets/avatar/catalog/`;
+originals and source/proof paths stay unchanged. Archive contains raw source
+inventory, with Include history for older attempts. The catalog refreshes as files change.
 Use `?asset=female-outfit-T02-B01-F01-study` for the current female capsule and
 `?asset=study-h01-painted-face` for the painted-face male head.
 Older `?model=...` links resolve through the gallery; `?view=modular` opens the
@@ -38,14 +41,32 @@ Authoritative inputs:
 - Piece `.blend` files, builders and retrospectives: editable construction sources.
   Keep isolated fitting/style revisions separate until their dependent proof passes.
 
-At this handoff, eleven wearables retain fitting-candidate status; B03/B04/F02
-need corrective repair. F04's independent checks and isolated T05/B01/F04 core
+At this handoff, eleven canonical wearables retain fitting-candidate status;
+canonical B03/B04/F02 retain repair-needed status while isolated revisions progress. F04's independent checks and isolated T05/B01/F04 core
 have passing proof, while complete O05/A02 and promotion remain open. The isolated
 F02 study removes bilateral leakage but retains its heel-tab own-shell failure.
-The female H02 study has a compatible rig and reusable UV face fixture. The H01
-revision is a style study, with no facial UV export or expression targets. These
-are useful milestones, not an accepted production catalog. The female foundation is an isolated candidate; its separately fitted wardrobe
-and style acceptance remain in scope.
+Both preferred H01/H02 revisions now have painted UV faces. Female T02/B01/F01
+has separate per-piece and complete capsule proof; the remaining female fits
+and final style acceptance remain open. No expression targets or accepted product
+assets exist. The full 2026-10-06 audit checks all current models/revisions,
+identified stale focused H02 reports and records the missing variants in
+`docs/audits/2026-10-06-avatar-model-audit.md`.
+
+Execution follows the [improvement plan](superpowers/plans/2026-10-06-avatar-model-improvements.md)
+and [per-design construction targets](avatar-construction-targets.md). The user
+chose proportion proposals for review first and four T06 buttons on both bases.
+T04 has a proposed dedicated construction guide with saved prompt and hashes.
+H02's unchanged painted foundation passed a fresh queued native verification;
+its focused reports now explicitly derive that comprehensive result, with old
+bytes preserved. Six behavioral tests and review cover bound files, UV contract
+completeness and immutable historical destinations; native logs have retained
+`.txt` copies. B04's later isolated bilateral attachment source clears all 164
+detail poses and 29 native/export/runtime gates; a fresh derived check binds
+17 current tools while preserving the initial construction provenance qualification.
+B03's side-only repair passes isolation but exposes increased body contacts.
+F02's 17 offset/weight screens failed; read-only ankle measurements motivate
+a separately calibrated correction. None establishes art approval or promotion.
+Keep dependent head/hair/hood fitting gated on the user's chosen targets.
 
 ## Current UI and runtime proof boundary
 
@@ -70,9 +91,13 @@ catalog README for current work.
 
 ## Register assets for the gallery
 
-After adding references or exporting models, use the live gallery to confirm the
+After adding references or exporting models, use Archive to confirm the
 new files and their status. Images under `assets/avatar/concepts/` are discovered
-without editing React code. Keep authoritative sheets outside `drafts/`; retain
+without editing React code. Curated designs require a record in
+`assets/avatar/catalog/catalog.json`, with references, per-base revisions linked
+to raw asset IDs, preferred revision and separate visual/technical review states.
+Use `node tools/avatar/crop_catalog_references.mjs --check` to verify focused
+references and their source/hash/rectangle provenance. Keep authoritative sheets outside `drafts/`; retain
 superseded references there so history identifies them correctly. Existing male
 `boards` and female `sheets`/`outputs` metadata formats are supported. Record the
 actual output filename, shared wardrobe IDs, descriptive title and exact prompt
@@ -109,6 +134,12 @@ proven before enabling playback. Registration always retains candidate status,
 without inferred fitting or acceptance. Logical female wardrobe milestones remain
 pending until separately fitted; filenames alone establish no proof.
 
+Rejected garment-only exports can also be linked directly as alternate revisions
+in `assets/avatar/catalog/catalog.json`, with `sourcePaths` for the actual repair,
+preservation and failed fitting reports. Keep `technicalReview: "repair-needed"`
+and the preferred `currentRevisionId` unchanged. Do not use a playback override
+to bypass the recorded-pass requirement; these comparisons remain rest-only.
+
 See [gallery behavior and verification](avatar-catalog-preview.md) for routes,
 refresh recovery and supported controls. After changing gallery tooling run the
 focused browser verifier as well as the affected repository verification profile.
@@ -121,6 +152,15 @@ Keep style edits separate from rig/body changes. Use the per-piece loop in
 `tools/blender/catalog/README.md`, including openings, bilateral correctives,
 attachments, full-cycle body/layer fit, export/material parity and actual runtime
 rendering. Write a retrospective after each piece and apply the demonstrated fix.
+
+For attachment repair, use diagnosed poses to explain the defect, then screen
+each proposed change without saving across the complete dense own-shell and
+distance sweep. A few cleared poses cannot justify a saved fitting candidate:
+B04's bounded target study cleared five diagnostic poses but left contacts later
+in the run cycle. Preserve rejected studies; run the broader source/export/outfit
+gates when the full cheap screen clears. Shared body weights remain fixed. A
+detail-only attachment revision may transfer real underlying shell weights with
+an explicit changed-vertex inventory and unchanged-field proof.
 
 Prefer these repo commands; `package.json` and each script's `--help` are the
 command reference:
@@ -144,8 +184,10 @@ print a Python exception and still exit successfully. Verification runs preserve
 stage logs and current source hashes; historical reports are not refreshed by
 changing a status label.
 
-Parallelize authoring, review and documentation; serialize Blender through the
-shared per-user advisory queue across worktrees:
+Use one authoring agent, one model and one bounded change at a time. Optional
+subagents are limited to narrow read-only checks of stable artifacts. Serialize
+Blender through the shared per-user advisory queue; checkout/worktree use still
+requires the authorization described in AGENTS.md:
 
 ```bash
 python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py SCRIPT [arguments]
@@ -191,7 +233,7 @@ A front selfie does not recover the person's exact side profile or skull shape.
 Preserve likeness within that deliberate stylization and review front/three-quarter/
 side angles rather than promising an exact 3D scan.
 
-Current H01 combines modeled eyes, nose, lips, beard and hair in rigid Head-weighted
+The original, now earlier H01 combines modeled eyes, nose, lips, beard and hair in rigid Head-weighted
 geometry. Its head GLBs have no TEXCOORD_0. Simply pasting a face image would leave
 duplicate features. Author a **separate texture-ready head study** with one named
 `face_surface` material, a stable UV template/mask, neutral skin material and
@@ -222,12 +264,15 @@ view in head millimetres and samples it at each texel's surface point; its head
 functions must match the builders' surface formulas. Pass the PNG to the builder
 with `--face-image`. The H01 transport gate is `verify_catalog_head_texture.py`.
 
-Next: follow the order in `docs/audits/2026-10-05-avatar-reference-audit.md`. Head
-size needs a decision first (it reverses the 2026-10-04 "keep proportions"
-choice), then hair volume, hoods (including the fuller female T02 hood) and A01.
-Footwear, bottoms and rib bands are independent. Repair F02 heel-tab own-shell
-contact and B03/B04 corrective leakage. Keep real-selfie generation, expressions,
-headwear compatibility and final acceptance as separate work.
+Next: heads are **+30% on both bases** (user decision 2026-10-07): use
+`H01/style-revisions/painted-face-scale-130/` and `female/foundation/studies/h02-scale-130/`.
+Head-dependent pieces fit to measured head envelopes, not fixed coordinates: see
+`build_catalog_a01_fitted.py` (under-hat hair key, envelope crown) and
+`verify_catalog_headwear.py` (fit gate: no floating, no intersections, gait and
+gestures). Priorities are in `docs/audits/2026-10-07-avatar-fit-and-tooling-audit.md`.
+In order: A02 beanie, female T01 and exact O01, hood refits, T06 buttons, then
+rebuilding B03/B04/F02 from B01/F01 construction. Keep expressions, real-selfie
+generation and final acceptance separate.
 
 ## Tooling assessment (checked 2026-10-04)
 
@@ -454,3 +499,23 @@ verification scope and report paths. Final lint, 162 unit tests and pure contrac
 pass; integration's 472 browser tests and production boundaries pass. The migrated
 inspector also passes behavioral and transport checks across 27 desktop/four phone
 models, and the isolated production fixture passes all four candidate cases.
+
+
+### Iteration safeguards established on 2026-10-07
+
+Classify actual contacting body polygons against the complete bent limb,
+including feet, before proposing a garment offset. B03's rear-hem contacts mostly
+come from a folded foot; its separate thigh/crotch families need separate
+construction evidence. Record control saturation as well as pose values: adding
+to an already saturated knee control cannot distinguish the changing ankle path.
+
+Derived measurement reports must validate complete ordered pose inventories
+before paired iteration. Missing endpoints or relabelled frames must fail even
+when the surviving numeric maxima are unchanged. F02's ankle payload proof has
+eight behavioral contracts for this boundary and retains its exact prior tool
+and report. Dense derivation remains distinct from a fresh native run.
+
+For browser captures, use a dedicated `DISABLE_HMR=true` local server as documented
+in `avatar-catalog-preview.md`. Vite can deliver a buffered full reload on the
+next browser connection, cancelling initial modules. Keep strict failure checks;
+catalog polling continues to exercise live discovery without hot reload.
