@@ -1,0 +1,27 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit.blend",
+      "blend_sha256": "1e97f420bbdee8e7ae9f5bade099e2d02a088d0d7c822c37aae411c65809d276",
+      "keys": [
+        {
+          "object": "F02_slip_ons_outfit",
+          "key": "knee_clearance_Left",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        },
+        {
+          "object": "F02_slip_ons_outfit",
+          "key": "knee_clearance_Right",
+          "opposite_vertices_moved": 0,
+          "max_opposite_delta_m": 0.0,
+          "intended_vertices_moved": 12
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

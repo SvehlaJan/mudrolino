@@ -44,3 +44,11 @@ same contact with the shorts (up to 436 pairs). Options: accept leg-fold contact
 a recorded class, as the T01 armpit was; soften the run's 145° back-kick for everyone;
 or keep trying shorts deformation, which earlier inflation and projection loops made
 worse.
+
+## Decision (2026-10-08)
+
+The user accepted leg-fold contact as a known class. `review_catalog_motion.py --accept
+leg-fold:<shorts>` reports pairs between the shorts and lower-leg, foot or shoe faces
+separately, and everything else must stay at zero. B03 passes with up to 338 accepted
+pairs, and O03 (T03/B03/F01) with up to 459. B03 thigh-coverage-v1 is now the current
+male B03.

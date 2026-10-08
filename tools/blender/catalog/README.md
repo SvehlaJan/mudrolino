@@ -466,6 +466,15 @@ path differences and leave near-equal shared-seam assignments qualified.
   releases skin that is visible in any pose (`catalog_coverage_visibility.release_posed`).
   Don't use pose-aware release on sleeves: the same skin is visible in some poses and
   touching in others, so contact only grows.
+- Accepted contact classes (user decisions 2026-10-08): `review_catalog_motion.py --accept
+  leg-fold:<shorts>` (lower leg, foot or shoe faces against the shorts in the run back-kick)
+  and `--accept arm-brush:<garment>` (arm, forearm or hand faces, body or sleeve, against
+  it). The other face's dominant bone decides the class. Accepted pairs are reported as
+  `accepted_pairs`; all other contact must stay at zero.
+- Backpack: `build_catalog_a05.py --outfit-dir OUTFIT --top TOP_OBJECT --output-dir DIR`.
+  Project anything onto a top radially from the torso axis through the top only (first hit,
+  plus the outer layer within 6 mm), and take weights there. Nearest-point lookups pick
+  the inner layer or a hanging sleeve.
 - Glasses: `build_catalog_glasses.py --id A03|A04 --base male|female --output-dir DIR`
   fits frames to the painted eyes (`catalog_glasses_plan.py`). Gate:
   `verify_catalog_glasses.py --study-dir DIR` (no skin contact, frame clearance, mirror,

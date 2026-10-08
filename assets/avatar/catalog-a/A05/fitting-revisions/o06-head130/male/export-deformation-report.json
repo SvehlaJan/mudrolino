@@ -1,0 +1,302 @@
+{
+  "blend": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit.blend",
+  "glb": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit.glb",
+  "blend_sha256": "1e97f420bbdee8e7ae9f5bade099e2d02a088d0d7c822c37aae411c65809d276",
+  "frames_per_second": 24.0,
+  "comparison": "bidirectional rendered vertex distance",
+  "loose_vertex_policy": "Compare all vertices referenced by renderable polygons; coverage/authoring vertices without faces are omitted by GLB and excluded here.",
+  "glb_sha256": "4b974dddd7dc39e66962249758970dc7566f96470846bf5e09ab46e85f917d44",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 4.807789650840277e-07,
+        "B02_joggers_outfit": 3.1889877050161886e-07,
+        "body_underlayer_male": 7.418099698952574e-07,
+        "F02_slip_ons_outfit": 3.295987198725925e-07,
+        "H01_head": 2.753944556843635e-07,
+        "T06_henley_outfit": 7.562981636510813e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.019061073748162e-05,
+        "B02_joggers_outfit": 4.856613031734014e-07,
+        "body_underlayer_male": 9.74403747022734e-07,
+        "F02_slip_ons_outfit": 5.350430001271889e-07,
+        "H01_head": 6.160148018352629e-07,
+        "T06_henley_outfit": 7.51327434045379e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.4678881764411926,
+          "knee_clearance_Right": 0.050613127648830414
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.0078950253955554e-05,
+        "B02_joggers_outfit": 4.2965777424797125e-07,
+        "body_underlayer_male": 9.826013638303266e-07,
+        "F02_slip_ons_outfit": 4.4385703290572565e-07,
+        "H01_head": 5.11491975885292e-07,
+        "T06_henley_outfit": 9.257927331418614e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.4288250505924225,
+          "knee_clearance_Right": 0.03362070769071579
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 9.296846656070556e-06,
+        "B02_joggers_outfit": 3.2175813657886465e-07,
+        "body_underlayer_male": 9.794042625799193e-07,
+        "F02_slip_ons_outfit": 3.7460938528965926e-07,
+        "H01_head": 5.335884907253785e-07,
+        "T06_henley_outfit": 7.845429763619904e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 8.528402759111486e-06,
+        "B02_joggers_outfit": 3.7133503383302013e-07,
+        "body_underlayer_male": 8.333999517162738e-07,
+        "F02_slip_ons_outfit": 3.9059185041878663e-07,
+        "H01_head": 4.815009901903977e-07,
+        "T06_henley_outfit": 7.133906478884455e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.154923677444458,
+          "knee_clearance_Right": 0.6418811082839966
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.0965140972984955e-05,
+        "B02_joggers_outfit": 4.7403494818354375e-07,
+        "body_underlayer_male": 6.447228315664688e-07,
+        "F02_slip_ons_outfit": 5.237180289441312e-07,
+        "H01_head": 4.9556513204152e-07,
+        "T06_henley_outfit": 7.593746431666659e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.03415361046791077
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.0172247129958123e-05,
+        "B02_joggers_outfit": 4.826371764465875e-07,
+        "body_underlayer_male": 1.0699822041715379e-06,
+        "F02_slip_ons_outfit": 4.975877914148441e-07,
+        "H01_head": 5.969770313640765e-07,
+        "T06_henley_outfit": 9.11319034457847e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.467891126871109,
+          "knee_clearance_Right": 0.05061638355255127
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.8097705833497457e-05,
+        "B02_joggers_outfit": 3.2175813657886465e-07,
+        "body_underlayer_male": 9.766798712007585e-07,
+        "F02_slip_ons_outfit": 3.9000070728434366e-07,
+        "H01_head": 3.7814908182554063e-07,
+        "T06_henley_outfit": 9.707508752399008e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495590031147003
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.851777960837353e-05,
+        "B02_joggers_outfit": 3.2098083124765253e-07,
+        "body_underlayer_male": 1.1022831358786789e-06,
+        "F02_slip_ons_outfit": 2.846862798833172e-07,
+        "H01_head": 3.5770545991908875e-07,
+        "T06_henley_outfit": 9.74403747022734e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.13982167840003967
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.3354915608942974e-05,
+        "B02_joggers_outfit": 2.5680196813482326e-07,
+        "body_underlayer_male": 8.766392625148001e-07,
+        "F02_slip_ons_outfit": 4.1140430084851687e-07,
+        "H01_head": 4.1462999433861114e-07,
+        "T06_henley_outfit": 8.710490533303528e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.11015491187572479,
+          "knee_clearance_Right": 0.9436129331588745
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.1775731763918884e-05,
+        "B02_joggers_outfit": 4.023313522338867e-07,
+        "body_underlayer_male": 5.230286319601873e-07,
+        "F02_slip_ons_outfit": 3.872152092299075e-07,
+        "H01_head": 5.109083076604293e-07,
+        "T06_henley_outfit": 6.258487701416016e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.3408380150794983,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.395944127580151e-05,
+        "B02_joggers_outfit": 4.6097363792796386e-07,
+        "body_underlayer_male": 5.062558443569287e-07,
+        "F02_slip_ons_outfit": 4.4901725004820037e-07,
+        "H01_head": 4.257927059825306e-07,
+        "T06_henley_outfit": 5.364418029785156e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.2677849531173706,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.7739970644470304e-05,
+        "B02_joggers_outfit": 4.135575579766737e-07,
+        "body_underlayer_male": 4.926546921524277e-07,
+        "F02_slip_ons_outfit": 5.101335887047753e-07,
+        "H01_head": 6.039107915967179e-07,
+        "T06_henley_outfit": 4.851466428590356e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 0.08475160598754883,
+          "knee_clearance_Right": 0.9482706785202026
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.0784316145873163e-05,
+        "B02_joggers_outfit": 4.182955137821409e-07,
+        "body_underlayer_male": 1.1060035376431188e-06,
+        "F02_slip_ons_outfit": 4.995779363525799e-07,
+        "H01_head": 4.976296281711257e-07,
+        "T06_henley_outfit": 9.732636954140617e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.584946585353464e-05,
+        "B02_joggers_outfit": 3.911377461918164e-07,
+        "body_underlayer_male": 9.996002745538135e-07,
+        "F02_slip_ons_outfit": 4.382563076887891e-07,
+        "H01_head": 3.8630020071650506e-07,
+        "T06_henley_outfit": 7.890583333391987e-07
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.3605843782424927
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "max_nearest_vertex_error_m": {
+        "A05_backpack_outfit": 1.8201561033492908e-05,
+        "B02_joggers_outfit": 3.061998370412766e-07,
+        "body_underlayer_male": 1.0150305342904176e-06,
+        "F02_slip_ons_outfit": 3.223614157832344e-07,
+        "H01_head": 3.0538294026882795e-07,
+        "T06_henley_outfit": 1.0018191005656263e-06
+      },
+      "corrective_values": {
+        "F02_slip_ons_outfit": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495941698551178
+        }
+      }
+    }
+  ],
+  "max_error_m": 1.851777960837353e-05,
+  "threshold_m": 3e-05,
+  "status": "passed"
+}

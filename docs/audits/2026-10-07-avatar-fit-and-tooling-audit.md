@@ -283,3 +283,9 @@ The user approved these recommendations, including +30% heads on both bases.
 - **A03/A04 glasses (2026-10-08):** built on both bases from the painted eye positions
   (`build_catalog_glasses.py`, `verify_catalog_glasses.py`). All four pass: zero skin
   contact, frames 6–10 mm off the face, motion and gestures clear, mirror symmetry.
+- **Accepted classes, A05 and O06 (2026-10-08):** the user accepted leg-fold (B03)
+  and arm-brush (A05) contact. The motion gate reports them under `--accept` and keeps
+  everything else at zero. B03, O03 and exact male O06 with the new A05 backpack pass.
+  Male O01, O02, O04 and O06 pass on the +30% head. O03 passes without its A01 cap.
+  O05 exists only as the A02 beanie study, whose cap gates pass but whose outfit gates
+  are not recorded.

@@ -12,6 +12,7 @@ parser.add_argument('--substeps',type=int,default=1)
 parser.add_argument('--target-z',type=float,default=1.12)
 parser.add_argument('--ortho-scale',type=float)
 parser.add_argument('--require-clear',action='store_true',help='Exit with a failure if any sampled body/layer contacts remain')
+parser.add_argument('--accept',action='append',default=[],help='CLASS:GARMENT user-accepted contact, reported apart: leg-fold (lower leg/foot/toe faces, body or shoes) or arm-brush (arm/forearm/hand faces, body or sleeves)')
 parser.add_argument('--output-dir',type=Path,required=True)
 parser.add_argument('--review-dir',type=Path,required=True)
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:])
@@ -19,6 +20,24 @@ args.output_dir.mkdir(parents=True,exist_ok=True);args.review_dir.mkdir(parents=
 bpy.ops.wm.open_mainfile(filepath=str(args.blend.resolve()))
 arm=bpy.data.objects['Armature_Catalog'];bodies=[bpy.data.objects[name] for name in args.body.split(',')];garments=[bpy.data.objects[name] for name in args.garment.split(',')]
 results=[]
+# Accepted contact classes (user decisions 2026-10-08): the other face's dominant bone decides.
+CLASSES={'leg-fold':lambda b:b.endswith(('Leg','Foot','ToeBase')) and not b.endswith('UpLeg'),'arm-brush':lambda b:b.endswith(('Arm','ForeArm','Hand'))}
+accepted={}
+for item in args.accept:
+ kind,name=item.split(':',1);assert kind in CLASSES and name in [g.name for g in garments],item;accepted[name]=CLASSES[kind]
+def face_bones(obj):
+ # Dominant bone per evaluated face (masked bodies drop faces; topology is pose-independent).
+ evaluated=obj.evaluated_get(bpy.context.evaluated_depsgraph_get());mesh=evaluated.to_mesh();names={g.index:g.name for g in obj.vertex_groups};bones={b.name for b in arm.data.bones};out=[]
+ for poly in mesh.polygons:
+  w={}
+  for i in poly.vertices:
+   for g in mesh.vertices[i].groups:
+    n=names.get(g.group)
+    if n in bones:w[n]=w.get(n,0)+g.weight
+  out.append(max(w,key=w.get) if w else '')
+ evaluated.to_mesh_clear();return out
+reset(arm);bpy.context.view_layer.update()
+bones={o.name:face_bones(o) for o in [*bodies,*garments]} if accepted else {}
 for motion in ('walk','run'):
  action=bpy.data.actions[motion]
  reset(arm);arm.animation_data.action=action;arm.animation_data.action_slot=action.slots[0]
@@ -30,14 +49,30 @@ for motion in ('walk','run'):
  for frame in frames:
   bpy.context.scene.frame_set(math.floor(frame),subframe=frame-math.floor(frame));bpy.context.view_layer.update()
   body_trees=[bvh(o)[0] for o in bodies];trees=[bvh(o)[0] for o in garments]
-  per_body_pairs=[[bt.overlap(tree) for tree in trees] for bt in body_trees]
+  raw_body=[[bt.overlap(tree) for tree in trees] for bt in body_trees]
+  accepted_counts={}
+  def keep(body,garment,pairs,other_first):
+   # Drop accepted pairs: the garment has an accepted class and the other face matches it.
+   test=accepted.get(garment.name)
+   if not test:return pairs
+   kept=[p for p in pairs if not test(bones[body.name][p[0] if other_first else p[1]])]
+   if len(kept)<len(pairs):accepted_counts[f'{body.name}/{garment.name}']=accepted_counts.get(f'{body.name}/{garment.name}',0)+len(pairs)-len(kept)
+   return kept
+  per_body_pairs=[[keep(body,garments[i],per[i],True) for i in range(len(garments))] for body,per in zip(bodies,raw_body)]
   body_pairs=[[pair for per_body in per_body_pairs for pair in per_body[i]] for i in range(len(garments))];pairs=[pair for group in body_pairs for pair in group]
-  layer_counts={f'{garments[a].name}/{garments[b].name}':len(trees[a].overlap(trees[b])) for a in range(len(trees)) for b in range(a+1,len(trees))}
+  layer_counts={}
+  for a in range(len(trees)):
+   for b in range(a+1,len(trees)):
+    found=trees[a].overlap(trees[b])
+    found=keep(garments[a],garments[b],found,True)
+    found=[(y,x) for x,y in keep(garments[b],garments[a],[(y,x) for x,y in found],True)]
+    layer_counts[f'{garments[a].name}/{garments[b].name}']=len(found)
   points=[]
   for body,groups in zip(bodies,per_body_pairs):
    vertices,faces=world_mesh(body)
    points.extend(sum((vertices[i] for i in faces[a]),Vector())/len(faces[a]) for group in groups for a,b in group)
   record={'motion':motion,'frame':frame,'triangle_pairs':len(pairs),'body_pairs':{o.name:len(p) for o,p in zip(garments,body_pairs)},'garment_layer_pairs':layer_counts}
+  if accepted:record['accepted_pairs']=accepted_counts
   if points:record['intersection_region_xyz']=[[min(p[i] for p in points),max(p[i] for p in points)] for i in range(3)]
   results.append(record)
  worst=max([r for r in results if r['motion']==motion],key=lambda r:r['triangle_pairs']+sum(r['garment_layer_pairs'].values()))
@@ -48,6 +83,6 @@ for motion in ('walk','run'):
   camera.rotation_euler=(Vector((0,0,args.target_z))-camera.location).to_track_quat('-Z','Y').to_euler()
   bpy.context.scene.render.filepath=str(args.review_dir/f'{motion}-worst-{label}-review.png');bpy.ops.render.render(write_still=True)
 out=args.output_dir/('motion-sweep.json' if args.substeps==1 else f'motion-sweep-{args.substeps}x.json');out.write_text(json.dumps(results,indent=2));print('SWEEP_WORST',json.dumps(sorted(results,key=lambda r:r['triangle_pairs']+sum(r['garment_layer_pairs'].values()),reverse=True)[:5]))
-metadata={'blend':str(args.blend),'blend_sha256':hashlib.sha256(args.blend.read_bytes()).hexdigest(),'blender':bpy.app.version_string,'body_meshes':[o.name for o in bodies],'garment_meshes':[o.name for o in garments],'samples':len(results),'substeps':args.substeps,'max_body_pairs':max(r['triangle_pairs'] for r in results),'max_layer_pairs':max(sum(r['garment_layer_pairs'].values()) for r in results),'review_width':bpy.context.scene.render.resolution_x}
+metadata={'blend':str(args.blend),'blend_sha256':hashlib.sha256(args.blend.read_bytes()).hexdigest(),'blender':bpy.app.version_string,'body_meshes':[o.name for o in bodies],'garment_meshes':[o.name for o in garments],'samples':len(results),'substeps':args.substeps,'max_body_pairs':max(r['triangle_pairs'] for r in results),'max_layer_pairs':max(sum(r['garment_layer_pairs'].values()) for r in results),'review_width':bpy.context.scene.render.resolution_x,'accepted_classes':args.accept,'max_accepted_pairs':max((sum(r.get('accepted_pairs',{}).values()) for r in results),default=0)}
 out.with_name(out.stem+'-metadata.json').write_text(json.dumps(metadata,indent=2));print('SWEEP_METADATA',json.dumps(metadata))
 if args.require_clear:assert metadata['max_body_pairs']==0 and metadata['max_layer_pairs']==0,metadata

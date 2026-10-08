@@ -802,7 +802,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "O03 without A01 on the +30% head. Export, side isolation, head clearance and glTF pass. Motion fails only in the run back-kick (heel and shoe into the shorts: up to 70 body and 436 shoe/shorts pairs), the leg-fold class awaiting a decision. Tee sleeves show see-through skin in motion, as in O01.",
+      "stage": "O03 without A01 on the +30% head: T03 sleeve coverage, B03 thigh coverage, F01. 163 gait poses clear apart from the accepted leg-fold contact (heel, calf and shoe into the shorts in the run back-kick, up to 459 pairs); export, side isolation, head clearance and glTF pass. Tee sleeves still show see-through skin in motion, as in O01.",
       "reference_ids": [
         "O03",
         "T03",
@@ -812,6 +812,25 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/assemble_catalog_outfit.py"
+    },
+    {
+      "id": "o06-male-head130",
+      "label": "O06 · T06 / B02 / F02 / A05 backpack · +30% head",
+      "path": "A05/fitting-revisions/o06-head130/male",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Exact O06 on the +30% head: T06 placket-v2, B02, F02 repair and the new A05 backpack (tangerine pack, front pocket with ivory zip, carry loop, navy straps projected onto the henley). 163 gait poses clear apart from the accepted arm-brush contact (forearm sleeve against the strap's waist segment, up to 276 pairs); zero coverage holes; corrective sides; export 18.5 µm; head clearance; materials and glTF valid. Art review pending.",
+      "reference_ids": [
+        "O06",
+        "T06",
+        "B02",
+        "F02",
+        "A05",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a05.py"
     }
   ],
   "F02_corrective_repair_study": {

@@ -11,7 +11,11 @@
   ],
   "samples": 163,
   "substeps": 4,
-  "max_body_pairs": 338,
+  "max_body_pairs": 0,
   "max_layer_pairs": 0,
-  "review_width": 320
+  "review_width": 320,
+  "accepted_classes": [
+    "leg-fold:B03_casual_shorts"
+  ],
+  "max_accepted_pairs": 338
 }

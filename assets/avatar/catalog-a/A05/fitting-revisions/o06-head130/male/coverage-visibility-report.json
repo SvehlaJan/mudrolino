@@ -1,0 +1,18 @@
+{
+  "blend": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit.blend",
+  "blend_sha256": "1e97f420bbdee8e7ae9f5bade099e2d02a088d0d7c822c37aae411c65809d276",
+  "verifier_sha256": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
+  "removed_faces": 79456,
+  "visible_faces": 0,
+  "sample": [],
+  "accepted_contact_faces": 0,
+  "accepted_contact_piece": null,
+  "cameras": "8 directions at 3 m, heights 0.9/1.2/1.5/2.2 m; rest pose",
+  "posed": {
+    "stride": 0,
+    "samples": 0,
+    "max_visible_faces": 0,
+    "worst": null
+  },
+  "status": "passed"
+}

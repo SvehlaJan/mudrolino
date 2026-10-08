@@ -746,8 +746,8 @@
               "label": "Thigh skin hidden under the shorts (camera- and gait-aware)",
               "assetId": "file:assets/avatar/catalog-a/B03/fitting-revisions/thigh-coverage-v1/B03.glb",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "Hides thigh skin under the leg tube, then releases any a camera sees at rest or in the 163 gait poses (never the pelvis). Thigh poke-through (run 4.75, 9-10.5) is gone; side isolation and glTF pass; shown alone, 5 waistband faces show in run 14.5-15. Remaining body contact is only the run leg-fold (heel and calf into the rear, up to 338 pairs), pending a decision."
+              "technicalReview": "recorded-pass",
+              "technicalNote": "Thigh skin under the leg tube is hidden, and any a camera sees at rest or in the 163 gait poses is released (never the pelvis). Thigh poke-through is gone; side isolation and glTF pass. Motion is clear apart from the user-accepted leg-fold contact (2026-10-08: heel and calf into the rear in the run back-kick, up to 338 pairs; review_catalog_motion --accept leg-fold). Shown alone, 5 waistband faces show in run 14.5-15."
             },
             {
               "id": "current",
@@ -782,7 +782,7 @@
               ]
             }
           ],
-          "currentRevisionId": "current"
+          "currentRevisionId": "thigh-coverage-v1"
         },
         {
           "id": "female",
@@ -1701,7 +1701,17 @@
           "label": "Male base",
           "base": "male",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "o06-head130",
+              "label": "Worn in O06 on the +30% head",
+              "assetId": "o06-male-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A05/fitting-revisions/o06-head130/male (build_catalog_a05.py): pack with spine-only weights 14 mm off the henley; straps projected onto the henley torso layer with its weights. 163 poses clear apart from the user-accepted arm-brush contact (up to 276 pairs); zero coverage holes; export 18.5 µm; materials and glTF valid."
+            }
+          ],
+          "currentRevisionId": "o06-head130"
         },
         {
           "id": "female",
@@ -2583,8 +2593,8 @@
               "label": "T03 / B03 thigh coverage / F01 on the +30% head, no cap",
               "assetId": "o03-male-head130",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "Fails motion only in the run back-kick: the folding leg and shoe pass into the shorts (up to 70 body and 436 shoe/shorts pairs). The bare body's own lower leg passes through its thigh at the same frames (562 pairs), and B01 trousers fold through themselves there (309 pairs, ungated). Pending a decision on that leg-fold class. A01 is not in the assembly."
+              "technicalReview": "recorded-pass",
+              "technicalNote": "outfits/O03-head130-T03-B03-F01: 163 poses clear apart from the user-accepted leg-fold contact (up to 459 pairs, heel/calf/shoe into the shorts in the run back-kick); export, side isolation, head clearance and glTF pass. A01 is not in the assembly; tee sleeves show see-through skin in motion (open, shared with O01)."
             }
           ],
           "currentRevisionId": "head130-no-cap"
@@ -2920,7 +2930,17 @@
               "cropSha256": "c078a675f26de2c8b08347f962fb5b1fbee1a826d4d9783a3c82057ad0992af1"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130",
+              "label": "Exact O06 on the +30% head",
+              "assetId": "o06-male-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "T06 placket-v2, B02, F02 independent-keys repair, A05. 163 poses clear apart from the accepted arm-brush contact; zero coverage holes; corrective sides; export 18.5 µm; head clearance; materials and glTF valid."
+            }
+          ],
+          "currentRevisionId": "head130"
         },
         {
           "id": "female",

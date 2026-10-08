@@ -1,0 +1,110 @@
+{
+  "pieces": [
+    "T06",
+    "B02",
+    "F02"
+  ],
+  "foundation": "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/foundation.blend",
+  "foundation_sha256": "b653e05677751c6066ef6d41ab74f3087c1131f7b8358cfbc83ef9a199bf91cd",
+  "status": "combination candidate; motion/runtime acceptance pending",
+  "coverage": {
+    "T06": {
+      "vertices": 16742,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/T06/fitting-revisions/placket-v2/T06.blend",
+      "source_sha256": "2aae2f8f99436f4033e50d0ceffa26953f9fe00586935ee9b15d2660baccfeb0"
+    },
+    "B02": {
+      "vertices": 17351,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/B02/B02.blend",
+      "source_sha256": "c96a6f6469f702ed4c94901efd44f8d542c7fc2e01628a2a754b472c99d7964e"
+    },
+    "F02": {
+      "vertices": 5669,
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend",
+      "source_sha256": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f"
+    }
+  },
+  "poses": [
+    {
+      "pose": "rest-front",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T06_henley_outfit/B02_joggers_outfit": 0,
+        "T06_henley_outfit/F02_slip_ons_outfit": 0,
+        "B02_joggers_outfit/F02_slip_ons_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-back",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T06_henley_outfit/B02_joggers_outfit": 0,
+        "T06_henley_outfit/F02_slip_ons_outfit": 0,
+        "B02_joggers_outfit/F02_slip_ons_outfit": 0
+      }
+    },
+    {
+      "pose": "rest-side",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T06_henley_outfit/B02_joggers_outfit": 0,
+        "T06_henley_outfit/F02_slip_ons_outfit": 0,
+        "B02_joggers_outfit/F02_slip_ons_outfit": 0
+      }
+    },
+    {
+      "pose": "three-quarter",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T06_henley_outfit/B02_joggers_outfit": 0,
+        "T06_henley_outfit/F02_slip_ons_outfit": 0,
+        "B02_joggers_outfit/F02_slip_ons_outfit": 0
+      }
+    },
+    {
+      "pose": "walk-13",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T06_henley_outfit/B02_joggers_outfit": 0,
+        "T06_henley_outfit/F02_slip_ons_outfit": 0,
+        "B02_joggers_outfit/F02_slip_ons_outfit": 0
+      }
+    },
+    {
+      "pose": "run-8",
+      "body_pairs": [
+        0,
+        0,
+        0
+      ],
+      "garment_layer_pairs": {
+        "T06_henley_outfit/B02_joggers_outfit": 0,
+        "T06_henley_outfit/F02_slip_ons_outfit": 0,
+        "B02_joggers_outfit/F02_slip_ons_outfit": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "blend": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit.blend",
+  "blend_sha256": "1e97f420bbdee8e7ae9f5bade099e2d02a088d0d7c822c37aae411c65809d276",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_male",
+    "H01_head"
+  ],
+  "garment_meshes": [
+    "T06_henley_outfit",
+    "B02_joggers_outfit",
+    "F02_slip_ons_outfit",
+    "A05_backpack_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [
+    "arm-brush:A05_backpack_outfit"
+  ],
+  "max_accepted_pairs": 276
+}
