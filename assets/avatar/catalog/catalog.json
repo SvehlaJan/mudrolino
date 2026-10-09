@@ -2796,7 +2796,17 @@
               "cropSha256": "8f594e23aa9ceafd1799af2d5872992023d2651138b7e7897d52def4e25ed81b"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130",
+              "label": "Exact O04 on the female +30% head",
+              "assetId": "o04-female-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "female/outfits/studies/T04-B04-F03-head130: complete female runner 15/15 with the female lowered hood on T04 (the male hood-v2 hit the bob in 137 poses). Detail-to-shell contact at the T04 pocket corner (35 pairs in walk poses) matches the male T04 and is recorded as a diagnostic."
+            }
+          ],
+          "currentRevisionId": "head130"
         }
       ],
       "relatedIds": [

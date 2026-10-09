@@ -24,6 +24,8 @@ NAMES = {'T01': 'T01_crew_tee', 'T02': 'T02_pullover_hoodie', 'T03': 'T03_raglan
 LONG_TOPS, SHORT_TOPS, FULL_BOTTOMS = ('T02', 'T04', 'T05', 'T06'), ('T01', 'T03'), ('B01', 'B02', 'B04')
 # Footwear coverage height (the male builders' face-safe ankle cut): low tops and tall shoes.
 FOOTWEAR = {'F01': .114, 'F02': .114, 'F03': .181, 'F04': .181}
+# Hoodies get the female lowered hood (outer fabric, lining) in place of the male one.
+HOODIES = {'T02': ('A tangerine hoodie fabric', 'A warm orange hood lining'), 'T04': ('A navy zip hoodie fabric', 'A orange zip hoodie lining')}
 DEFAULT_RECIPE = ('T02', 'B01', 'F01')
 # Removed-face boundaries: tops keep the neck, hoodie wrists and tee sleeve hems; trousers keep waist and ankles.
 OPENING_LIMITS = {'top_neck_z': 1.405, 'top_forearm_end': .96, 'top_sleeve_end': .45, 'B01_waist_z': .978, 'B01_ankle_z': .139}
@@ -99,7 +101,7 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
         points = [obj.data.vertices[i].co.copy() for i in ids]
         bounds = [[min(p[a] for p in points), max(p[a] for p in points)] for a in range(3)]
         role = 0
-        if id == 'T02' and ids != main: role = 2 if bounds[1][0] > -.02 and bounds[2][0] > 1.20 else 1
+        if id in HOODIES and ids != main: role = 2 if bounds[1][0] > -.02 and bounds[2][0] > 1.20 else 1
         if id == 'B01' and ids != main: role = 3
         if id == 'F01':
             # Small stitched instep closure/tongue components, excluding shells.
@@ -108,7 +110,7 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
             roles.data[i].value = role
             if role == 2: anchors.data[i].value = obj.data.vertices[i].co.z > 1.425
         rows.append({'vertices': len(ids), 'bounds_m': bounds, 'role': role})
-    if id == 'T02' and back_relief:
+    if id in HOODIES and back_relief:
         tree = BVHTree.FromPolygons([v.co for v in body.data.vertices], [tuple(face.vertices) for face in body.data.polygons])
         for v in obj.data.vertices:
             p = v.co
@@ -118,7 +120,7 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
             if normal.y <= .1: continue
             fade = max(0,min(1,(p.z-1.26)/.04)) * max(0,min(1,(1.42-p.z)/.025)) * max(0,min(1,(.15-abs(p.x))/.04))
             p.y -= min(back_relief, max(0,p.y-point.y-back_clearance)) * fade
-    if id == 'T02' and hood_offset and not controlled:
+    if id in HOODIES and hood_offset and not controlled:
         obj.data.calc_loop_triangles()
         triangles = [tuple(t.vertices) for t in obj.data.loop_triangles if all(roles.data[i].value == 0 for i in t.vertices)]
         points = [v.co.copy() for v in obj.data.vertices]
@@ -175,11 +177,17 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
             for i in [group.group for group in v.groups]: obj.vertex_groups[i].remove([v.index])
             for i,weight in weights.items():
                 if weight>1e-7:obj.vertex_groups[i].add([v.index],weight,'REPLACE')
-    if controlled and id == 'T02':
+    if controlled and id in HOODIES:
         # Pocket motion follows the actual fitted shirt surface, preserving its
-        # authored rest coordinates and thickness rather than reprojecting it.
+        # authored rest coordinates and thickness rather than reprojecting it. Only torso
+        # cloth counts: a sleeve hanging beside a pocket corner would make it swing with the arm.
         obj.data.calc_loop_triangles()
-        triangles = [tuple(t.vertices) for t in obj.data.loop_triangles if all(roles.data[i].value == 0 for i in t.vertices)]
+        names = {g.index: g.name for g in obj.vertex_groups}
+        def arm_cloth(i):
+            groups = obj.data.vertices[i].groups
+            top = max(groups, key=lambda g: g.weight).group if len(groups) else None
+            return top is not None and names[top].endswith(('Arm', 'ForeArm', 'Hand'))
+        triangles = [tuple(t.vertices) for t in obj.data.loop_triangles if all(roles.data[i].value == 0 and not arm_cloth(i) for i in t.vertices)]
         points = [v.co.copy() for v in obj.data.vertices]
         tree = BVHTree.FromPolygons(points, triangles, all_triangles=True)
         changed = 0
@@ -199,7 +207,7 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
                 if weight > .0001: obj.vertex_groups[index].add([vertex.index],weight,'REPLACE')
             changed += 1
         rows.append({'pocket_attachment': 'actual fitted shirt triangle weights; rest geometry unchanged', 'vertices':changed})
-    if controlled and id == 'T02':
+    if controlled and id in HOODIES:
         import bmesh
         from catalog_female_hood_geometry import create_lowered_hood
         bm = bmesh.new(); bm.from_mesh(obj.data); bm.verts.ensure_lookup_table()
@@ -209,7 +217,8 @@ def fitted_parts(obj, id, arm, body, hood_offset, opening_relief, hood_lower, ba
         anchors = obj.data.attributes.get('female_hood_anchor')
         if anchors is None: anchors=obj.data.attributes.new(name='female_hood_anchor',type='BOOLEAN',domain='POINT')
         for value in anchors.data:value.value=False
-        hood = create_lowered_hood(obj, arm, obj.data.materials.get('A tangerine hoodie fabric'), obj.data.materials.get('A warm orange hood lining'), **(hood_shape or {}))
+        outer, lining = HOODIES[id]
+        hood = create_lowered_hood(obj, arm, obj.data.materials.get(outer), obj.data.materials.get(lining), **(hood_shape or {}))
         bpy.ops.object.select_all(action='DESELECT');obj.select_set(True);hood.select_set(True)
         bpy.context.view_layer.objects.active=obj;bpy.ops.object.join()
     if controlled and id == 'F01':

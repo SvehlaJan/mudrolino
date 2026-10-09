@@ -1,6 +1,7 @@
 {
   "gate_helper_hashes": {
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/assemble_catalog_outfit.py": "c7b2ade999c791b0724624725d5dd8971a88e7318114def8d75383d0327028af",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/attach_catalog_headwear.py": "fd41fb006cf6aa6918f65377cedca99c8f638c2c37d737e50798803217654b37",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_centre_keys.py": "f02f57277810a338794175715e395a660f300ecc1c41918b59820b66a694ee13",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_shell_self.py": "c40958bdb2ed920154cfe0be2ada5430265b46dfc0f4dbc9cc8f0c09d410ead2",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_detail_shell.py": "609acb0ee0c0ec3f8cf6f917e75e1289514c44a47fbac6e30fb3811862adfb93",
@@ -20,7 +21,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a01.py": "5d0ff505ca2dd636174ee58e4c07ed4215f641e03a59cabdfa0566d50c35d173",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a01_fitted.py": "52f102ce8c95ebb5387e368d7bc67d3f62ce3cfdda486995cfc4fa6b7671543c",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a02.py": "90c75bbac77ccee64a2d72b8c45ffdf82cd36232b122d3d3c1763d00f6135ed4",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a05.py": "8a5e911efbbe4d97752f45c924491f93dbfa516e05926f726b45cb021a3c5546",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a05.py": "1c488294d4e7bd35502f6617a9e032f0f9ea87ca46e281c2c908d2214edc9afe",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a06.py": "c290ba6f05bdb8db2473b3626635c70aeea939ae1200b03d4bcb6652c6c0f743",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b01.py": "34d84d064132251f555a940533c9a4d33459a0f5b78c3333a68924c3ce2b489c",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b02.py": "de1d80e1870d08e5feb095ec24127e06d29b35eaf435ff0c8b39ac2981f589e6",
@@ -33,7 +34,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_f03.py": "228ea9dfc7306813de2ffa9dd2866736377312486f43e1b67bc5d9467955a94b",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_f04.py": "a8535e2e13f06094d1885868d6fc7324c564d818685fa9cb6f88f178d8b537ce",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_foundation_study.py": "ce589757dd209d47c30bd199324dba04959feb27b188e1604d65fbe878995eaa",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "c415ae17e14f8db37d56d757a2045e83646f103168d0ee5ed5fad7345c37726e",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "83a88a9a27fee7fbd0aa5edf6ba3836ce73f4faa6c88bdec0e99f966317e3649",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_glasses.py": "e16d46a67ffc932da6d7d88e271f57855db8489b5c6b5a2e50661b1bb2060395",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head.py": "9274e96c0e8317d3dc4a14a56e788f682b85a1ac9be208150015837170c28b74",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_head_scale_study.py": "3bd9db17cb87f3723a9a79fbdadf2a866aa61818d5832f88e3848629a7c2c0ad",
@@ -105,7 +106,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_target_attachment.py": "06237e4a2ff700e447857dd591bb86ed38c46760deb0ffb077e8e1ca6f63e4d1",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/review_catalog_motion.py": "04674f93422992695f19a9f7b7d7530057484022353a28bf17906096d086497e",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/run_catalog_female_outfit_study.py": "d31e4d55e4e898f4a8fff30ba239ec695659e856b8e2e6ca0c6cdc085e61db99",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/run_catalog_female_outfit_study.py": "c53177378b3db1dea362e5a72432cec00b4773dc4034ecc68e4069a2836ad1cb",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/runtime_rest_capture.py": "c005ea88020f77d6d4753145a96e2f4415abd33e8425e73f57b4eb430ebdc236",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/screen_catalog_b04_centre_repair.py": "eb0bec4c1dd82176b5bfeea61a78202bc49f75f5caca7a65ea8657cd3e248c1c",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/screen_catalog_b04_inseam_separation.py": "1a18a42ec4ee3c1dab9826394fb8a21b989d7671f463d43832e3f1698e1ca2d2",
@@ -122,7 +123,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage_visibility.py": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_details.py": "1d85cd73cae205826e0c85cf9b6bb0577302bb680378e9ea9b1c1ab5be388736",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_foundation_study.py": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "6ff1806e717255a2d4cbe38ecf7d4b842e718f3801f8c1fd82498c8fc4363357",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "e7a28cb1196bdb4467d11032be4bb18870e0bc20bdd68b7aae06d195f19ec103",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_glasses.py": "f63b93038232eeddd38014614d788ade5de4f6859b820f1ba5c3c70224537eb7",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head.py": "d66ceb3961d5487ad2212c7cf96ac3140cc43df1b8d56df057965c6f908770b0",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_scale_study.py": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
@@ -130,36 +131,37 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_headwear.py": "bdd0a188afcacabce8bba9ba9b64dabda47f46681ba1aa3b2afbe248f5521be5",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_independent_garment_export.py": "f5daa608f0614cc8c3df8360efa326432410b46c55db7657a6cf9ed9fd0d4552",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_motion_preservation.py": "0fafa8c9fbf67d7f017292e43014b0217e329d9c34a9d42738052a95bce5e219",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_outfit_export.py": "9b2d5cb65024a375ab2e80d64d855d73c64d118811ea0ed09ad2303a87a5c447"
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_outfit_export.py": "55c5da7ab1547964155ab886147aa4f06f38157d79363f024429b4447bf51b4f"
   },
   "stage": "isolated female fitting candidate; not accepted",
   "blend": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.blend",
-  "blend_sha256": "24a8a15480f9a64c360503cafa8e96960afdbb27c1d60c40879c6f43b599b28b",
+  "blend_sha256": "795544b58dd5cb4e73ada56a6f15ced2653667c1243f303340b7dd4d103190cf",
   "glb": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.glb",
-  "glb_sha256": "55701141b432bacba02429dc8fa75b2ec3063ee80e652dbe565c32cbf7f38bb0",
-  "verifier_sha256": "6ff1806e717255a2d4cbe38ecf7d4b842e718f3801f8c1fd82498c8fc4363357",
+  "glb_sha256": "ba7eb09da587cd729658284f049bec9c449a1bd046d656ba804fab637a77dfbc",
+  "verifier_sha256": "e7a28cb1196bdb4467d11032be4bb18870e0bc20bdd68b7aae06d195f19ec103",
   "profile": "complete sampled fit/export",
   "status": "passed",
   "failures": [],
   "dependency_hashes": {
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/assembly-report.json": "ef72333b54bdcbf773e17a7f64725fc46c6bb76e7c1e2d2bc21420b8d67fff34",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/assembly-report.json": "8427748301f4f5c6c7a9ff599d206c991e843cd6cc9045119ffc5039f9f363ab",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "c415ae17e14f8db37d56d757a2045e83646f103168d0ee5ed5fad7345c37726e",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_female_outfit_study.py": "83a88a9a27fee7fbd0aa5edf6ba3836ce73f4faa6c88bdec0e99f966317e3649",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_gltf_gait_pose.py": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_hood_geometry.py": "48eb4efbf015c8948c27aaed2658fee93ce7a657a53abf3a267308b90fc59746",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/catalog_female_sneaker_closures.py": "6523c11dcd60f90bf895311302cfd5f5b033b8beb8cda6f16bf1fb2f7b4b807e",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/T02/T02.blend": "8e020f69b7bc18cf58cee0658215b6c33438297cef38d7576308f7abeb333a35",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/T02/outfit.blend": "d91141362c8f647d40972b924b566c7912f30350465c8709a671d5bfde6f51a0",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/T02/outfit.blend": "8b5c5c48fe8552993fab4ab07cc654f7b3b65c0447475fd900600d91c1933de2",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/B02/B02.blend": "c96a6f6469f702ed4c94901efd44f8d542c7fc2e01628a2a754b472c99d7964e",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.blend": "d267c4887b3e883ae3694c11ab724058fc5483313ea50ee121428ea779fdab8d",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.blend": "0ff51cc9782cc0adad827989da23391cf6c757b7e8105f9df11610c27926a97a",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/F02/fitting-revisions/independent-keys-repair/F02.blend": "92ffa5913e4eaec9015b8e414f38b757e032375fc3d1194f4932dffd17a25f0f",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.blend": "e7cae88b47944144ac2f46b3518dc16c3efa6558ce9f13966b9bcdd24695adb1",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.blend": "ef9576c95c0829880ef55550a31460fc1985a60fd6d2eb18b69f9f82b8aa8dd3",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/body.glb": "12e7273c418caa7a9166b73d51db1205cac993f1afc5ad6bf22a44d00a9d537a",
-    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/garments.glb": "af29e00a185a406d40874fa791178f0e06d454db3e76c166fd384fb1f58cf055",
+    "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/garments.glb": "c710115b3ede68f7c2244c30c2362029b849b6cbbd2eda0ed4ef896476397e94",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/foundation/catalog-body-walk.glb": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/foundation/catalog-body-run.glb": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f",
     "/Users/svehla/playground/teo-learn/assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/sample-face.png": "2d33776a14f49c09d6be7152f1586fa5a272db303057f8e9233e0000dd67710e",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/assemble_catalog_outfit.py": "c7b2ade999c791b0724624725d5dd8971a88e7318114def8d75383d0327028af",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/attach_catalog_headwear.py": "fd41fb006cf6aa6918f65377cedca99c8f638c2c37d737e50798803217654b37",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_centre_keys.py": "f02f57277810a338794175715e395a660f300ecc1c41918b59820b66a694ee13",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_b04_shell_self.py": "c40958bdb2ed920154cfe0be2ada5430265b46dfc0f4dbc9cc8f0c09d410ead2",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/audit_catalog_detail_shell.py": "609acb0ee0c0ec3f8cf6f917e75e1289514c44a47fbac6e30fb3811862adfb93",
@@ -179,7 +181,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a01.py": "5d0ff505ca2dd636174ee58e4c07ed4215f641e03a59cabdfa0566d50c35d173",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a01_fitted.py": "52f102ce8c95ebb5387e368d7bc67d3f62ce3cfdda486995cfc4fa6b7671543c",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a02.py": "90c75bbac77ccee64a2d72b8c45ffdf82cd36232b122d3d3c1763d00f6135ed4",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a05.py": "8a5e911efbbe4d97752f45c924491f93dbfa516e05926f726b45cb021a3c5546",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a05.py": "1c488294d4e7bd35502f6617a9e032f0f9ea87ca46e281c2c908d2214edc9afe",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a06.py": "c290ba6f05bdb8db2473b3626635c70aeea939ae1200b03d4bcb6652c6c0f743",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b01.py": "34d84d064132251f555a940533c9a4d33459a0f5b78c3333a68924c3ce2b489c",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_b02.py": "de1d80e1870d08e5feb095ec24127e06d29b35eaf435ff0c8b39ac2981f589e6",
@@ -260,7 +262,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_b04_target_attachment.py": "06237e4a2ff700e447857dd591bb86ed38c46760deb0ffb077e8e1ca6f63e4d1",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/repair_catalog_f02_corrective_sides.py": "93c05a3291d45c7dab1b414ab17e790ce58f2d649d40e6d21531b6d5de6530b8",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/review_catalog_motion.py": "04674f93422992695f19a9f7b7d7530057484022353a28bf17906096d086497e",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/run_catalog_female_outfit_study.py": "d31e4d55e4e898f4a8fff30ba239ec695659e856b8e2e6ca0c6cdc085e61db99",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/run_catalog_female_outfit_study.py": "c53177378b3db1dea362e5a72432cec00b4773dc4034ecc68e4069a2836ad1cb",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/runtime_rest_capture.py": "c005ea88020f77d6d4753145a96e2f4415abd33e8425e73f57b4eb430ebdc236",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/screen_catalog_b04_centre_repair.py": "eb0bec4c1dd82176b5bfeea61a78202bc49f75f5caca7a65ea8657cd3e248c1c",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/screen_catalog_b04_inseam_separation.py": "1a18a42ec4ee3c1dab9826394fb8a21b989d7671f463d43832e3f1698e1ca2d2",
@@ -277,7 +279,7 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_coverage_visibility.py": "537a29c5a63f0ea7aa735d359f21e2acd0605228bed19a8559a6998258041d83",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_details.py": "1d85cd73cae205826e0c85cf9b6bb0577302bb680378e9ea9b1c1ab5be388736",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_foundation_study.py": "69d7e5de0bac1013e9277b79eb7864530c800dfb3c932cecf1fd16609b548217",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "6ff1806e717255a2d4cbe38ecf7d4b842e718f3801f8c1fd82498c8fc4363357",
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_female_outfit_study.py": "e7a28cb1196bdb4467d11032be4bb18870e0bc20bdd68b7aae06d195f19ec103",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_glasses.py": "f63b93038232eeddd38014614d788ade5de4f6859b820f1ba5c3c70224537eb7",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head.py": "d66ceb3961d5487ad2212c7cf96ac3140cc43df1b8d56df057965c6f908770b0",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_head_scale_study.py": "aea160eefdd36466b72ef4fe14bd2c4d2b3fd6597a5406b2ba194e7c2ff49914",
@@ -285,27 +287,27 @@
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_headwear.py": "bdd0a188afcacabce8bba9ba9b64dabda47f46681ba1aa3b2afbe248f5521be5",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_independent_garment_export.py": "f5daa608f0614cc8c3df8360efa326432410b46c55db7657a6cf9ed9fd0d4552",
     "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_motion_preservation.py": "0fafa8c9fbf67d7f017292e43014b0217e329d9c34a9d42738052a95bce5e219",
-    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_outfit_export.py": "9b2d5cb65024a375ab2e80d64d855d73c64d118811ea0ed09ad2303a87a5c447"
+    "/Users/svehla/playground/teo-learn/tools/blender/catalog/verify_catalog_outfit_export.py": "55c5da7ab1547964155ab886147aa4f06f38157d79363f024429b4447bf51b4f"
   },
   "independent_source_equivalence": [
     {
       "piece": "T02",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/T02/outfit.blend",
-      "sha256": "d91141362c8f647d40972b924b566c7912f30350465c8709a671d5bfde6f51a0",
+      "sha256": "8b5c5c48fe8552993fab4ab07cc654f7b3b65c0447475fd900600d91c1933de2",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     },
     {
       "piece": "B02",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/B02/outfit.blend",
-      "sha256": "d267c4887b3e883ae3694c11ab724058fc5483313ea50ee121428ea779fdab8d",
+      "sha256": "0ff51cc9782cc0adad827989da23391cf6c757b7e8105f9df11610c27926a97a",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     },
     {
       "piece": "F02",
       "source": "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/pieces/F02/outfit.blend",
-      "sha256": "e7cae88b47944144ac2f46b3518dc16c3efa6558ce9f13966b9bcdd24695adb1",
+      "sha256": "ef9576c95c0829880ef55550a31460fc1985a60fd6d2eb18b69f9f82b8aa8dd3",
       "mesh_geometry_skin_keys_roles_equivalent": true,
       "sweep_policy": "Verified exact master/evaluated-assembly equivalence; activate only this master coverage during independent sweep."
     }
@@ -10868,7 +10870,7 @@
         "role": 1,
         "motion": "walk",
         "frame": 4.25,
-        "sewn_max_distance_m": 0.004263970069587231,
+        "sewn_max_distance_m": 0.004263988696038723,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -10888,7 +10890,7 @@
         "role": 1,
         "motion": "walk",
         "frame": 4.5,
-        "sewn_max_distance_m": 0.004279001150280237,
+        "sewn_max_distance_m": 0.004278997890651226,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -10928,7 +10930,7 @@
         "role": 1,
         "motion": "walk",
         "frame": 5.0,
-        "sewn_max_distance_m": 0.004290563054382801,
+        "sewn_max_distance_m": 0.004290565848350525,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -10948,7 +10950,7 @@
         "role": 1,
         "motion": "walk",
         "frame": 5.25,
-        "sewn_max_distance_m": 0.00428251875564456,
+        "sewn_max_distance_m": 0.004282532259821892,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -10968,7 +10970,7 @@
         "role": 1,
         "motion": "walk",
         "frame": 5.5,
-        "sewn_max_distance_m": 0.004274485167115927,
+        "sewn_max_distance_m": 0.00427450193092227,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -10988,7 +10990,7 @@
         "role": 1,
         "motion": "walk",
         "frame": 5.75,
-        "sewn_max_distance_m": 0.004254514817148447,
+        "sewn_max_distance_m": 0.004254501312971115,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12608,7 +12610,7 @@
         "role": 1,
         "motion": "run",
         "frame": 0.8,
-        "sewn_max_distance_m": 0.004777062684297562,
+        "sewn_max_distance_m": 0.004777118097990751,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12628,7 +12630,7 @@
         "role": 1,
         "motion": "run",
         "frame": 1.0,
-        "sewn_max_distance_m": 0.004743804223835468,
+        "sewn_max_distance_m": 0.004743807949125767,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12648,7 +12650,7 @@
         "role": 1,
         "motion": "run",
         "frame": 1.25,
-        "sewn_max_distance_m": 0.0047019836492836475,
+        "sewn_max_distance_m": 0.004701987374573946,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12668,7 +12670,7 @@
         "role": 1,
         "motion": "run",
         "frame": 1.5,
-        "sewn_max_distance_m": 0.004660055041313171,
+        "sewn_max_distance_m": 0.004660037811845541,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12688,7 +12690,7 @@
         "role": 1,
         "motion": "run",
         "frame": 1.75,
-        "sewn_max_distance_m": 0.004610206466168165,
+        "sewn_max_distance_m": 0.0046102143824100494,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12748,7 +12750,7 @@
         "role": 1,
         "motion": "run",
         "frame": 2.5,
-        "sewn_max_distance_m": 0.0044541750103235245,
+        "sewn_max_distance_m": 0.004454182926565409,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12768,7 +12770,7 @@
         "role": 1,
         "motion": "run",
         "frame": 2.75,
-        "sewn_max_distance_m": 0.004424668848514557,
+        "sewn_max_distance_m": 0.004424645099788904,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12788,7 +12790,7 @@
         "role": 1,
         "motion": "run",
         "frame": 3.0,
-        "sewn_max_distance_m": 0.004395102150738239,
+        "sewn_max_distance_m": 0.004395106341689825,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12848,7 +12850,7 @@
         "role": 1,
         "motion": "run",
         "frame": 3.75,
-        "sewn_max_distance_m": 0.004395121708512306,
+        "sewn_max_distance_m": 0.00439509516581893,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12868,7 +12870,7 @@
         "role": 1,
         "motion": "run",
         "frame": 4.0,
-        "sewn_max_distance_m": 0.004404845181852579,
+        "sewn_max_distance_m": 0.004404849372804165,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -12888,7 +12890,7 @@
         "role": 1,
         "motion": "run",
         "frame": 4.25,
-        "sewn_max_distance_m": 0.004451831802725792,
+        "sewn_max_distance_m": 0.004451839718967676,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -13728,7 +13730,7 @@
         "role": 1,
         "motion": "run",
         "frame": 14.75,
-        "sewn_max_distance_m": 0.0047409627586603165,
+        "sewn_max_distance_m": 0.004740975331515074,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -13748,7 +13750,7 @@
         "role": 1,
         "motion": "run",
         "frame": 15.0,
-        "sewn_max_distance_m": 0.00477150222286582,
+        "sewn_max_distance_m": 0.004771505016833544,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -13768,7 +13770,7 @@
         "role": 1,
         "motion": "run",
         "frame": 15.25,
-        "sewn_max_distance_m": 0.0047945729456841946,
+        "sewn_max_distance_m": 0.004794585518538952,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -13808,7 +13810,7 @@
         "role": 1,
         "motion": "run",
         "frame": 15.75,
-        "sewn_max_distance_m": 0.004782976116985083,
+        "sewn_max_distance_m": 0.004782948177307844,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -13828,7 +13830,7 @@
         "role": 1,
         "motion": "run",
         "frame": 16.0,
-        "sewn_max_distance_m": 0.00477707851678133,
+        "sewn_max_distance_m": 0.004777093883603811,
         "free_max_distance_m": 0,
         "free_extension_growth_m": 0,
         "own_shell_pairs": 0
@@ -14669,6 +14671,10 @@
     "anchor_limit_m": 0.012,
     "free_growth_limit_m": 0.003,
     "own_shell_scope": "Measured all roles; strict zero for hoodie pocket/hood and sneaker closure, trousers seam embedding reported separately."
+  },
+  "detail_own_shell_diagnostic": {
+    "max_pairs": 0,
+    "worst": []
   },
   "actual_runtime_fit": {
     "pose_evaluation": "raw-gltf-SLERP-equivalent-pose",
@@ -25144,7 +25150,7 @@
           "role": 1,
           "motion": "walk",
           "frame": 4.5,
-          "sewn_max_distance_m": 0.004278997890651226,
+          "sewn_max_distance_m": 0.004278984386473894,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -25164,7 +25170,7 @@
           "role": 1,
           "motion": "walk",
           "frame": 4.75,
-          "sewn_max_distance_m": 0.004294002894312143,
+          "sewn_max_distance_m": 0.0042940001003444195,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -25184,7 +25190,7 @@
           "role": 1,
           "motion": "walk",
           "frame": 5.0,
-          "sewn_max_distance_m": 0.004290565848350525,
+          "sewn_max_distance_m": 0.004290549084544182,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -25204,7 +25210,7 @@
           "role": 1,
           "motion": "walk",
           "frame": 5.25,
-          "sewn_max_distance_m": 0.004282527603209019,
+          "sewn_max_distance_m": 0.004282529465854168,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -25244,7 +25250,7 @@
           "role": 1,
           "motion": "walk",
           "frame": 5.75,
-          "sewn_max_distance_m": 0.004254518076777458,
+          "sewn_max_distance_m": 0.004254520870745182,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -26864,7 +26870,7 @@
           "role": 1,
           "motion": "run",
           "frame": 0.8,
-          "sewn_max_distance_m": 0.004777038469910622,
+          "sewn_max_distance_m": 0.004777041729539633,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -26884,7 +26890,7 @@
           "role": 1,
           "motion": "run",
           "frame": 1.0,
-          "sewn_max_distance_m": 0.004743755795061588,
+          "sewn_max_distance_m": 0.004743771627545357,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -26904,7 +26910,7 @@
           "role": 1,
           "motion": "run",
           "frame": 1.25,
-          "sewn_max_distance_m": 0.0047019836492836475,
+          "sewn_max_distance_m": 0.004701987374573946,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -26924,7 +26930,7 @@
           "role": 1,
           "motion": "run",
           "frame": 1.5,
-          "sewn_max_distance_m": 0.004660055972635746,
+          "sewn_max_distance_m": 0.0046600596979260445,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -26944,7 +26950,7 @@
           "role": 1,
           "motion": "run",
           "frame": 1.75,
-          "sewn_max_distance_m": 0.004610234871506691,
+          "sewn_max_distance_m": 0.004610246513038874,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -26964,7 +26970,7 @@
           "role": 1,
           "motion": "run",
           "frame": 2.0,
-          "sewn_max_distance_m": 0.004554972052574158,
+          "sewn_max_distance_m": 0.004554943181574345,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -26984,7 +26990,7 @@
           "role": 1,
           "motion": "run",
           "frame": 2.25,
-          "sewn_max_distance_m": 0.004499421454966068,
+          "sewn_max_distance_m": 0.004499425645917654,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27004,7 +27010,7 @@
           "role": 1,
           "motion": "run",
           "frame": 2.5,
-          "sewn_max_distance_m": 0.004454178735613823,
+          "sewn_max_distance_m": 0.004454195033758879,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27024,7 +27030,7 @@
           "role": 1,
           "motion": "run",
           "frame": 2.75,
-          "sewn_max_distance_m": 0.004424665123224258,
+          "sewn_max_distance_m": 0.004424681421369314,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27104,7 +27110,7 @@
           "role": 1,
           "motion": "run",
           "frame": 3.75,
-          "sewn_max_distance_m": 0.004395082592964172,
+          "sewn_max_distance_m": 0.004395098891109228,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27124,7 +27130,7 @@
           "role": 1,
           "motion": "run",
           "frame": 4.0,
-          "sewn_max_distance_m": 0.004404837265610695,
+          "sewn_max_distance_m": 0.004404841456562281,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27144,7 +27150,7 @@
           "role": 1,
           "motion": "run",
           "frame": 4.25,
-          "sewn_max_distance_m": 0.00445183552801609,
+          "sewn_max_distance_m": 0.004451839718967676,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27164,7 +27170,7 @@
           "role": 1,
           "motion": "run",
           "frame": 4.5,
-          "sewn_max_distance_m": 0.004498798865824938,
+          "sewn_max_distance_m": 0.004498794674873352,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27204,7 +27210,7 @@
           "role": 1,
           "motion": "run",
           "frame": 5.0,
-          "sewn_max_distance_m": 0.004610950127243996,
+          "sewn_max_distance_m": 0.004610953852534294,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -27984,7 +27990,7 @@
           "role": 1,
           "motion": "run",
           "frame": 14.75,
-          "sewn_max_distance_m": 0.0047410158440470695,
+          "sewn_max_distance_m": 0.004741031210869551,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -28024,7 +28030,7 @@
           "role": 1,
           "motion": "run",
           "frame": 15.25,
-          "sewn_max_distance_m": 0.004794594831764698,
+          "sewn_max_distance_m": 0.004794610198587179,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -28044,7 +28050,7 @@
           "role": 1,
           "motion": "run",
           "frame": 15.5,
-          "sewn_max_distance_m": 0.004788761027157307,
+          "sewn_max_distance_m": 0.004788764286786318,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -28064,7 +28070,7 @@
           "role": 1,
           "motion": "run",
           "frame": 15.75,
-          "sewn_max_distance_m": 0.004782948177307844,
+          "sewn_max_distance_m": 0.004782951902598143,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -28084,7 +28090,7 @@
           "role": 1,
           "motion": "run",
           "frame": 16.0,
-          "sewn_max_distance_m": 0.00477708550170064,
+          "sewn_max_distance_m": 0.004777100868523121,
           "free_max_distance_m": 0,
           "free_extension_growth_m": 0,
           "own_shell_pairs": 0
@@ -28925,6 +28931,10 @@
       "anchor_limit_m": 0.012,
       "free_growth_limit_m": 0.003,
       "own_shell_scope": "Measured all roles; strict zero for hoodie pocket/hood and sneaker closure, trousers seam embedding reported separately."
+    },
+    "detail_own_shell_diagnostic": {
+      "max_pairs": 0,
+      "worst": []
     }
   },
   "head_gestures": [

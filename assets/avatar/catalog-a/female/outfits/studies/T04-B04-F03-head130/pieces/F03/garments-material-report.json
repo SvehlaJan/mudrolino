@@ -1,0 +1,32 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/F03/garments.glb",
+  "sha256": "b55d562d4d0987aea0a0d366210ba71c617dc376ab65ecfabe1ef427998bd951",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A blue high-top upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A navy high-top collar",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top toe edging",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top straps",
+      "colorComponents": 0
+    }
+  ]
+}

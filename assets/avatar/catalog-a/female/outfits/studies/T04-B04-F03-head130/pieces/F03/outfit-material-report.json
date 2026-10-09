@@ -1,0 +1,52 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/F03/outfit.glb",
+  "sha256": "b9c96272656d55aba51cd13cd6a57a3a5666307946594b12f148eacd9bb7fdb4",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A blue high-top upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A navy high-top collar",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top toe edging",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top straps",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    }
+  ]
+}

@@ -34,7 +34,7 @@ def recipe_of(study):
     return json.loads((study/'assembly-report.json').read_text()).get('recipe',['T02','B01','F01'])
 
 # Detail roles each piece contributes: hoodie pocket/hood, trouser seams, sneaker closures.
-DETAIL_ROLES=[('T02',1),('T02',2),('B01',3),('F01',4)]
+DETAIL_ROLES=[('T02',1),('T02',2),('T04',1),('T04',2),('B01',3),('F01',4)]
 
 def validate_output(path, kind, study, target=None):
     try:

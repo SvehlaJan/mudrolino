@@ -1,0 +1,77 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/garments.glb",
+  "sha256": "42b74fe3006f65c521848124a4ce8bac34baf063bf4596e7f3d5597f3577ba0b",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A ivory tapered trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A ivory tapered trouser trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A ivory tapered trouser pockets and seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A navy tapered trouser button",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A blue high-top upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A navy high-top collar",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top toe edging",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F03 rounded ivory sole",
+      "material": "A ivory high-top straps",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A navy zip hoodie fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A navy zip hoodie ribbing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A ivory zipper and drawcords",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A orange zip hoodie lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A navy zip hoodie pockets",
+      "colorComponents": 0
+    }
+  ]
+}

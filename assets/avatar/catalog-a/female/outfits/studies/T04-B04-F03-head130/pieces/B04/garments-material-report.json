@@ -1,0 +1,27 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/B04/garments.glb",
+  "sha256": "8125749b390e1c5909b100ddfeaefb87169949e70d42b6295043d6e04f4da288",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A ivory tapered trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A ivory tapered trouser trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A ivory tapered trouser pockets and seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B04_ivory_trousers quad shell",
+      "material": "A navy tapered trouser button",
+      "colorComponents": 0
+    }
+  ]
+}

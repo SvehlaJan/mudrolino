@@ -1,0 +1,307 @@
+{
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.blend",
+  "blend_sha256": "46555806a605a76313fbd05f93639879d4e5d6bef2e6386b881b03910ad2ed15",
+  "glb": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.glb",
+  "glb_sha256": "e77d3653ff17ecffba46dc62e45121ad38da70309c1f518180ed3cafc0490010",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 7.959229151310865e-07,
+        "H02_head": 3.039252476355614e-07,
+        "H02_hair": 4.069954115948349e-07,
+        "T04_zip_hoodie": 6.899736604282225e-07,
+        "B04_ivory_trousers": 3.560722916517989e-07,
+        "F03_high_tops": 3.4305048757232726e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 8.865877703101432e-07,
+        "H02_head": 4.792177037415968e-07,
+        "H02_hair": 4.982985046808608e-07,
+        "T04_zip_hoodie": 8.301966545332107e-07,
+        "B04_ivory_trousers": 3.731989863808849e-07,
+        "F03_high_tops": 3.558383525614772e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.4678870439529419,
+          "knee_clearance_Right": 0.05061182752251625
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 7.697210548940348e-07,
+        "H02_head": 3.129243850708008e-07,
+        "H02_hair": 5.09929520831065e-07,
+        "T04_zip_hoodie": 6.856153618173266e-07,
+        "B04_ivory_trousers": 4.0788100363897684e-07,
+        "F03_high_tops": 3.8857473327880143e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.4287865161895752,
+          "knee_clearance_Right": 0.03361646831035614
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 8.616943318884296e-07,
+        "H02_head": 2.9502794518521114e-07,
+        "H02_hair": 4.267043323125108e-07,
+        "T04_zip_hoodie": 6.690604550385615e-07,
+        "B04_ivory_trousers": 4.045328978463658e-07,
+        "F03_high_tops": 3.9928440287440026e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 8.033163112486363e-07,
+        "H02_head": 3.998401041371835e-07,
+        "H02_hair": 4.940786766383098e-07,
+        "T04_zip_hoodie": 7.087456310728157e-07,
+        "B04_ivory_trousers": 3.7675192743336083e-07,
+        "F03_high_tops": 3.672010109312396e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.1549214869737625,
+          "knee_clearance_Right": 0.641880214214325
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 1.0864571322599659e-06,
+        "H02_head": 4.3456753928694525e-07,
+        "H02_hair": 5.282298616293701e-07,
+        "T04_zip_hoodie": 7.468440799129894e-07,
+        "B04_ivory_trousers": 4.0011767055148084e-07,
+        "F03_high_tops": 3.877166534493881e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.03416700288653374
+        }
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 9.363159847453062e-07,
+        "H02_head": 7.344020218624792e-07,
+        "H02_hair": 7.692611916354508e-07,
+        "T04_zip_hoodie": 7.592649922116834e-07,
+        "B04_ivory_trousers": 3.78442564397119e-07,
+        "F03_high_tops": 3.788090907619335e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.4678904414176941,
+          "knee_clearance_Right": 0.050618331879377365
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 1.2013699688395718e-06,
+        "H02_head": 5.142654799783486e-07,
+        "H02_hair": 6.461419275183289e-07,
+        "T04_zip_hoodie": 9.050538665178465e-07,
+        "B04_ivory_trousers": 4.693274320288765e-07,
+        "F03_high_tops": 4.865177629653772e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.194955512881279
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 9.583195605955552e-07,
+        "H02_head": 3.998401041371835e-07,
+        "H02_hair": 4.5417996830110496e-07,
+        "T04_zip_hoodie": 8.62209560636984e-07,
+        "B04_ivory_trousers": 3.388990705843753e-07,
+        "F03_high_tops": 4.182955137821409e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.13982214033603668
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 1.134447188633203e-06,
+        "H02_head": 2.846862798833172e-07,
+        "H02_hair": 4.032271760934236e-07,
+        "T04_zip_hoodie": 1.038494360727782e-06,
+        "B04_ivory_trousers": 3.775614345613576e-07,
+        "F03_high_tops": 3.637836982761655e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.11015491187572479,
+          "knee_clearance_Right": 0.9436127543449402
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 9.397188023285707e-07,
+        "H02_head": 3.588674815091508e-07,
+        "H02_hair": 3.911377461918164e-07,
+        "T04_zip_hoodie": 9.387731552124023e-07,
+        "B04_ivory_trousers": 3.9516183392152016e-07,
+        "F03_high_tops": 3.3848931479951716e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.3408374488353729,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 8.425417377111444e-07,
+        "H02_head": 3.9257207617993117e-07,
+        "H02_hair": 4.9427177373218e-07,
+        "T04_zip_hoodie": 8.399022135563428e-07,
+        "B04_ivory_trousers": 3.2270563110614603e-07,
+        "F03_high_tops": 3.49542631283839e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.2677839696407318,
+          "knee_clearance_Right": 1.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 8.860867524163041e-07,
+        "H02_head": 3.5894481698051095e-07,
+        "H02_hair": 5.112206054036506e-07,
+        "T04_zip_hoodie": 6.224691446732322e-07,
+        "B04_ivory_trousers": 4.2800326127689914e-07,
+        "F03_high_tops": 4.339283634635649e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 0.08475160598754883,
+          "knee_clearance_Right": 0.9482706189155579
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 8.62209560636984e-07,
+        "H02_head": 3.2544627970310103e-07,
+        "H02_hair": 4.924151539853483e-07,
+        "T04_zip_hoodie": 7.899372462816245e-07,
+        "B04_ivory_trousers": 4.636153221326822e-07,
+        "F03_high_tops": 4.777675712830387e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.0
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 9.166333825305628e-07,
+        "H02_head": 5.044433919465519e-07,
+        "H02_hair": 5.993088052491657e-07,
+        "T04_zip_hoodie": 7.828429602341203e-07,
+        "B04_ivory_trousers": 3.911377461918164e-07,
+        "F03_high_tops": 4.214684850012418e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.36058464646339417
+        }
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "max_nearest_vertex_error_m": {
+        "body_underlayer_female": 9.766798712007585e-07,
+        "H02_head": 3.662928520498099e-07,
+        "H02_hair": 5.075152671452088e-07,
+        "T04_zip_hoodie": 7.638934675924247e-07,
+        "B04_ivory_trousers": 3.816559512870299e-07,
+        "F03_high_tops": 3.686343745812337e-07
+      },
+      "corrective_values": {
+        "B04_ivory_trousers": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495823979377747
+        }
+      }
+    }
+  ],
+  "frames_per_second": 24.0,
+  "max_error_m": 1.2013699688395718e-06,
+  "threshold_m": 3e-05,
+  "comparison": "bidirectional rendered vertices at equivalent raw glTF SLERP poses",
+  "pose_evaluation": "raw-gltf-SLERP-equivalent-pose",
+  "gait_hashes": {
+    "walk": "237ef588534548ef9c990ea2c178306c7dbbfc48f8f8dbda287add7fbcf612fe",
+    "run": "70a3ede13f421524286a85142c8ff34748275ec1be2a75b1a0b0de270dfed32f"
+  },
+  "pose_helper_sha256": "7f3324b608618798da77465a7bdb09ffd2b2269fa357e082b0842b05f0978552",
+  "status": "passed"
+}

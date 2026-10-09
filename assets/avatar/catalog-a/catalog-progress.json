@@ -922,6 +922,24 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/attach_catalog_headwear.py"
+    },
+    {
+      "id": "o04-female-head130",
+      "label": "Female O04 · T04 / B04 / F03 · +30% head",
+      "path": "female/outfits/studies/T04-B04-F03-head130",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Exact O04 on the female +30% head: T04 hood-v2 with the female lowered hood (navy outside, orange lining), B04 rolled-cuff and F03. Complete female runner 15/15. The T04 pocket corner touches its shell in some walk poses (35 pairs), the same as the male T04, recorded as a diagnostic. Art review pending.",
+      "reference_ids": [
+        "O04",
+        "T04",
+        "B04",
+        "F03",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
     }
   ],
   "F02_corrective_repair_study": {
