@@ -1,0 +1,27 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T03-B03-F01-head130/pieces/B03/garments.glb",
+  "sha256": "0881be349443f1f17f32846913d297179c5566840b335f53784c3937fe979f00",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A orange shorts inside facing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts pockets and seams",
+      "colorComponents": 0
+    }
+  ]
+}

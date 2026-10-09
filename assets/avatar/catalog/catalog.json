@@ -2658,7 +2658,17 @@
               "cropSha256": "6e324328ee32b36dee8230d02fdd91b8bcb58b285c17a9e88eedcfea92c39f6a"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130",
+              "label": "Exact O03 on the female +30% head",
+              "assetId": "o03-female-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "female/outfits/studies/T03-B03-F01-head130 passes the female complete runner 15/15 (leg-fold pairs reported apart as accepted); with the A01 cap: 163 poses clear apart from accepted leg-fold (up to 440 pairs), cap gestures clear, export 1.1 µm, materials and glTF valid."
+            }
+          ],
+          "currentRevisionId": "head130"
         }
       ],
       "relatedIds": [

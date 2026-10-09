@@ -11,17 +11,17 @@ from build_catalog_t01 import reset, setup_render
 from catalog_piece import long_top_coverage, short_top_coverage
 from catalog_bottom_geometry import full_trouser_coverage
 from catalog_footwear_geometry import face_safe_footwear_coverage
-from catalog_coverage_visibility import settle_coverage, gait_samples
-from catalog_tee_underarm import arm_skin
+from catalog_coverage_visibility import settle_coverage, gait_samples, release_posed
+from catalog_tee_underarm import arm_skin, dominant
 from build_catalog_female_foundation_study import export_uv, topology_signature
 from build_catalog_head_style_study import rig_signature, motion_signature, geometry_signature
 
 NAMES = {'T01': 'T01_crew_tee', 'T02': 'T02_pullover_hoodie', 'T03': 'T03_raglan_tee', 'T04': 'T04_zip_hoodie',
          'T05': 'T05_crew_sweatshirt', 'T06': 'T06_henley', 'B01': 'B01_straight_trousers', 'B02': 'B02_joggers',
-         'B04': 'B04_ivory_trousers', 'F01': 'F01_strap_sneakers', 'F02': 'F02_slip_ons', 'F03': 'F03_high_tops',
+         'B03': 'B03_casual_shorts', 'B04': 'B04_ivory_trousers', 'F01': 'F01_strap_sneakers', 'F02': 'F02_slip_ons', 'F03': 'F03_high_tops',
          'F04': 'F04_ankle_boots'}
 # Piece kinds: coverage rule and the opening limits each kind keeps.
-LONG_TOPS, SHORT_TOPS, FULL_BOTTOMS = ('T02', 'T04', 'T05', 'T06'), ('T01', 'T03'), ('B01', 'B02', 'B04')
+LONG_TOPS, SHORT_TOPS, FULL_BOTTOMS, SHORTS = ('T02', 'T04', 'T05', 'T06'), ('T01', 'T03'), ('B01', 'B02', 'B04'), ('B03',)
 # Footwear coverage height (the male builders' face-safe ankle cut): low tops and tall shoes.
 FOOTWEAR = {'F01': .114, 'F02': .114, 'F03': .181, 'F04': .181}
 # Hoodies get the female lowered hood (outer fabric, lining) in place of the male one.
@@ -284,6 +284,7 @@ def normalize_garment(obj):
     return changed
 
 UNDERARM_COVERAGE = {}
+SHORTS_COVERAGE = {}
 
 def mask(body, obj, arm, id, tee_underarm=False):
     if id in LONG_TOPS: ids = long_top_coverage(body, obj, arm)
@@ -297,6 +298,21 @@ def mask(body, obj, arm, id, tee_underarm=False):
             group = body.vertex_groups.get('contact_' + id) or body.vertex_groups.new(name='contact_' + id); group.add(sorted(contact), 1.0, 'REPLACE')
             ids = sorted(hidden); UNDERARM_COVERAGE[id] = {'released_arm_vertices': released, 'contact_vertices': len(contact)}
     elif id in FULL_BOTTOMS: ids = full_trouser_coverage(body, obj, arm)
+    elif id in SHORTS:
+        # Shorts: hide hips and thighs inside the shorts from 15 mm above the hem to just below
+        # the waistband, then release any thigh skin a camera sees at rest or in any gait pose
+        # (legs gape as they swing); skin that touches the shorts stays hidden.
+        zs = [(obj.matrix_world @ v.co).z for v in obj.data.vertices]
+        hem = max(z for z in zs if z < min(zs) + .02) + .015
+        waist = max(zs) - .02
+        lower = {v.index for v in body.data.vertices if dominant(body, v) in ('Hips', 'LeftUpLeg', 'RightUpLeg')
+                 and hem < (body.matrix_world @ v.co).z < waist and abs(v.co.x) < .30}
+        thighs = {i for i in lower if (body.matrix_world @ body.data.vertices[i].co).z < waist - .08}
+        faces = [tuple(f.vertices) for f in body.data.polygons]
+        select = lambda index: any(v in thighs for v in faces[index])
+        hidden, released, contact = settle_coverage(body, obj, arm, lower, select, gait_samples(), inside=.0015)
+        hidden, contact, posed = release_posed(body, obj, arm, hidden, contact, select, gait_samples(), removable=thighs)
+        ids = sorted(hidden); SHORTS_COVERAGE[id] = {'candidates': len(lower), 'released': released, 'posed_released': posed, 'contact': len(contact)}
     else: ids = face_safe_footwear_coverage(body, FOOTWEAR[id])
     if id in LONG_TOPS + SHORT_TOPS + FULL_BOTTOMS:
         def allowed(vertex):
@@ -348,6 +364,7 @@ def main():
     p.add_argument('--recipe', default=','.join(DEFAULT_RECIPE), help='Comma-separated piece IDs, e.g. T01,B01,F01 for exact O01')
     p.add_argument('--source', action='append', default=[], help='ID=path.blend: fit a piece revision instead of the canonical master')
     p.add_argument('--collar-relief', type=float, default=0, help='Footwear other than F01: push the collar zone this far clear of the female ankle (m)')
+    p.add_argument('--accept-leg-fold', action='store_true', help='Record the user-accepted leg-fold contact (2026-10-08) for shorts in the recipe')
     p.add_argument('--drop-correctives', action='append', default=[], help='Piece ID whose knee_clearance corrective keys and drivers are removed (the female runtime gates have no corrective driver)')
     p.add_argument('--hood-shape', type=json.loads, default=None, help='JSON keyword arguments for catalog_female_hood_geometry.create_lowered_hood')
     p.add_argument('--tee-underarm', action='store_true', help='T01 coverage: release arm skin inside the sleeve that a standard camera would see')
@@ -408,7 +425,7 @@ def main():
         'footwear_opening_z': .118, 'footwear_safety_margin_m': .004,
         'footwear_openings_z': {id: FOOTWEAR[id] + .004 for id in recipe if id in FOOTWEAR},
         'head_export': 'UV-preserving export, unchanged canonical face material/image',
-        'collar_relief_m':a.collar_relief,'dropped_correctives':a.drop_correctives,'controlled_components':a.controlled_components, 'tee_underarm':a.tee_underarm, 'hood_shape':a.hood_shape, 'underarm_coverage':UNDERARM_COVERAGE, 'accepted_visibility_exemptions':[{'piece':id,'region':'contact_'+id,'decision':'User accepted 2026-10-08: the cut edge of arm skin that touches the tee (at rest or in the gait) is a known minor defect; the A-pose arm presses against the torso.'} for id in recipe if id in SHORT_TOPS] if a.accept_armpit_crease else [], 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py',*(['catalog_coverage_visibility.py','catalog_tee_underarm.py'] if a.tee_underarm else [])]} if a.controlled_components else {},
+        'collar_relief_m':a.collar_relief,'shorts_coverage':SHORTS_COVERAGE,'accepted_contact_classes':[{'class':'leg-fold','piece':id,'decision':'User accepted 2026-10-08: in the run back-kick the folding leg and shoe pass into the rear of shorts; the bare body passes through itself there.'} for id in recipe if id in SHORTS] if a.accept_leg_fold else [],'dropped_correctives':a.drop_correctives,'controlled_components':a.controlled_components, 'tee_underarm':a.tee_underarm, 'hood_shape':a.hood_shape, 'underarm_coverage':UNDERARM_COVERAGE, 'accepted_visibility_exemptions':[{'piece':id,'region':'contact_'+id,'decision':'User accepted 2026-10-08: the cut edge of arm skin that touches the tee (at rest or in the gait) is a known minor defect; the A-pose arm presses against the torso.'} for id in recipe if id in SHORT_TOPS] if a.accept_armpit_crease else [], 'component_helpers':{name:digest(Path(__file__).with_name(name)) for name in ['catalog_female_hood_geometry.py','catalog_female_sneaker_closures.py',*(['catalog_coverage_visibility.py','catalog_tee_underarm.py'] if a.tee_underarm else [])]} if a.controlled_components else {},
         'exports': {name: digest(a.output_dir / name) for name in ['outfit.blend', 'outfit.glb', 'body.glb', 'garments.glb']}}
     (a.output_dir / 'assembly-report.json').write_text(json.dumps(report, indent=2) + '\n')
     if not a.skip_reviews:

@@ -1,0 +1,22 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T03-B03-F01-head130/pieces/T03/garments.glb",
+  "sha256": "eb0cc5a56ff0477f6d745bb1501ea27999591b69e1802109e15a3cd0c01df892",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A ivory raglan fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A navy raglan sleeves",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A ivory raglan hems",
+      "colorComponents": 0
+    }
+  ]
+}

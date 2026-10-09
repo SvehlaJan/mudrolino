@@ -16,6 +16,28 @@ from verify_catalog_female_foundation_study import digest, read_glb, roundtrip_e
 from catalog_coverage_visibility import visible_hidden_faces
 
 
+LEG_FOLD = lambda bone: bone.endswith(('Leg', 'Foot', 'ToeBase')) and not bone.endswith('UpLeg')
+
+
+def face_dominant_bones(obj, arm):
+    """Dominant bone per evaluated face (masked bodies drop faces; topology is pose-independent)."""
+    evaluated = obj.evaluated_get(bpy.context.evaluated_depsgraph_get())
+    mesh = evaluated.to_mesh()
+    names = {g.index: g.name for g in obj.vertex_groups}
+    bones = {b.name for b in arm.data.bones}
+    out = []
+    for poly in mesh.polygons:
+        weights = {}
+        for i in poly.vertices:
+            for g in mesh.vertices[i].groups:
+                name = names.get(g.group)
+                if name in bones:
+                    weights[name] = weights.get(name, 0) + g.weight
+        out.append(max(weights, key=weights.get) if weights else '')
+    evaluated.to_mesh_clear()
+    return out
+
+
 def drive_imported_correctives(mapping):
     """Copy evaluated knee_clearance corrective values from each source onto its imported copy.
 
@@ -216,9 +238,12 @@ def main():
                     start,end=bpy.data.actions[motion].frame_range
                     samples += [(motion,frame) for frame in sorted({round(start,5),round(end,5)}|{i/4 for i in range(math.ceil(start*4),math.floor(end*4)+1)})]
             sweeps={name:[] for name in [*recipe,'combined']}
+            leg_fold={NAMES[row['piece']] for row in assembly.get('accepted_contact_classes',[]) if row['class']=='leg-fold'}
             for case in sweeps:
                 for m in masks:m.show_viewport=case=='combined' or m.vertex_group=='covered_'+case
                 active=list(garments.values()) if case=='combined' else [garments[case]]
+                bpy.context.view_layer.update()
+                fold_bones={obj.name:face_dominant_bones(obj,arm) for obj in [*bodies,*active]} if leg_fold else {}
                 for motion,frame in samples:
                     reset(arm)
                     if motion!='rest':
@@ -226,9 +251,20 @@ def main():
                     bpy.context.scene.frame_set(math.floor(frame),subframe=frame%1);bpy.context.view_layer.update()
                     if pose_adapter:pose_adapter.apply(motion,frame,fps)
                     obstacles={obj.name:bvh(obj)[0] for obj in bodies};trees={obj.name:bvh(obj)[0] for obj in active}
-                    counts={obj.name:{name:len(tree.overlap(trees[obj.name])) for name,tree in obstacles.items()} for obj in active}
-                    layers={left.name+'/'+right.name:len(trees[left.name].overlap(trees[right.name])) for i,left in enumerate(active) for right in active[i+1:]}
-                    sweeps[case].append({'motion':motion,'frame':frame,'body_head_hair_pairs':counts,'layer_pairs':layers})
+                    accepted_pairs={}
+                    def kept(pairs,garment,other,garment_index):
+                        # User-accepted leg-fold (2026-10-08): shorts against lower-leg, foot or shoe faces.
+                        if garment not in leg_fold:return pairs
+                        keep=[pair for pair in pairs if not LEG_FOLD(fold_bones[other][pair[1-garment_index]])]
+                        if len(keep)<len(pairs):accepted_pairs[garment+'/'+other]=accepted_pairs.get(garment+'/'+other,0)+len(pairs)-len(keep)
+                        return keep
+                    counts={obj.name:{name:len(kept(tree.overlap(trees[obj.name]),obj.name,name,1)) for name,tree in obstacles.items()} for obj in active}
+                    layers={}
+                    for i,left in enumerate(active):
+                        for right in active[i+1:]:
+                            pairs=kept(trees[left.name].overlap(trees[right.name]),left.name,right.name,0)
+                            layers[left.name+'/'+right.name]=len(kept(pairs,right.name,left.name,1))
+                    sweeps[case].append({'motion':motion,'frame':frame,'body_head_hair_pairs':counts,'layer_pairs':layers,'accepted_pairs':accepted_pairs})
                 maximum=max(sum(v for counts in row['body_head_hair_pairs'].values() for v in counts.values())+sum(row['layer_pairs'].values()) for row in sweeps[case])
                 check(maximum==0,pose_scope+'_dense_fit_'+case,{'samples':len(samples),'maximum_pairs':maximum})
             scope_report['motion_fit']=sweeps

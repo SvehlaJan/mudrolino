@@ -1,0 +1,62 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T03-B03-F01-head130/garments.glb",
+  "sha256": "f81f36b9075eceaed9d658c4dc61c42b8e54d182f28e389083794452c52f9dad",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A orange shorts inside facing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts pockets and seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory rubber sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory sneaker upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A cornflower sneaker panels",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A blue collar lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A ivory raglan fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A navy raglan sleeves",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A ivory raglan hems",
+      "colorComponents": 0
+    }
+  ]
+}

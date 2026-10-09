@@ -1,0 +1,334 @@
+{
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/O03-head130-with-A01/outfit.blend",
+  "glb": "assets/avatar/catalog-a/female/outfits/studies/O03-head130-with-A01/outfit.glb",
+  "blend_sha256": "865f37a19b4bc722470ad7beff67ac2b5f3b63442612860f5ca83035e61cc032",
+  "frames_per_second": 24.0,
+  "comparison": "bidirectional rendered vertex distance",
+  "loose_vertex_policy": "Compare all vertices referenced by renderable polygons; coverage/authoring vertices without faces are omitted by GLB and excluded here.",
+  "glb_sha256": "8ed6e10663acb3da6fd689920cbb42865cab1ae219caaffb87855786e324247a",
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 3.2344124178962375e-07,
+        "B03_casual_shorts": 1.9314111909807252e-07,
+        "body_underlayer_female": 7.418099698952574e-07,
+        "F01_strap_sneakers": 3.295987198725925e-07,
+        "H02_hair": 2.7452381345938193e-07,
+        "H02_head": 2.1593834276245616e-07,
+        "T03_raglan_tee": 4.962300295119348e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 6.133506644800946e-07,
+        "B03_casual_shorts": 3.1256939792001504e-07,
+        "body_underlayer_female": 9.74403747022734e-07,
+        "F01_strap_sneakers": 5.350430001271889e-07,
+        "H02_hair": 5.162048068996228e-07,
+        "H02_head": 5.053778977526235e-07,
+        "T03_raglan_tee": 5.266248308544164e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.4678881764411926,
+          "knee_clearance_Right": 0.050613127648830414
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 5.356651513466204e-07,
+        "B03_casual_shorts": 3.321989936466707e-07,
+        "body_underlayer_female": 9.826013638303266e-07,
+        "F01_strap_sneakers": 4.4385703290572565e-07,
+        "H02_hair": 5.172656187824032e-07,
+        "H02_head": 5.009649726162024e-07,
+        "T03_raglan_tee": 7.242025503728655e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.4288250505924225,
+          "knee_clearance_Right": 0.03362070769071579
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 5.400000873123645e-07,
+        "B03_casual_shorts": 2.5506679435238766e-07,
+        "body_underlayer_female": 9.794042625799193e-07,
+        "F01_strap_sneakers": 3.7460938528965926e-07,
+        "H02_hair": 5.348484251044283e-07,
+        "H02_head": 4.339923123097833e-07,
+        "T03_raglan_tee": 6.096742595218529e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.0
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 4.833411821891787e-07,
+        "B03_casual_shorts": 2.1696418173178245e-07,
+        "body_underlayer_female": 8.333999517162738e-07,
+        "F01_strap_sneakers": 3.9337942325801123e-07,
+        "H02_hair": 3.852029522022349e-07,
+        "H02_head": 3.772672698687529e-07,
+        "T03_raglan_tee": 5.11491975885292e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.154923677444458,
+          "knee_clearance_Right": 0.6418811082839966
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 5.014771886635572e-07,
+        "B03_casual_shorts": 3.321989936466707e-07,
+        "body_underlayer_female": 6.447228315664688e-07,
+        "F01_strap_sneakers": 5.213410076976288e-07,
+        "H02_hair": 4.951133405484143e-07,
+        "H02_head": 4.053554221172817e-07,
+        "T03_raglan_tee": 5.051032303526881e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.0,
+          "knee_clearance_Right": 0.03415361046791077
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 5.009649726162024e-07,
+        "B03_casual_shorts": 3.0538294026882795e-07,
+        "body_underlayer_female": 1.0699822041715379e-06,
+        "F01_strap_sneakers": 5.002996772418555e-07,
+        "H02_hair": 4.874866590398597e-07,
+        "H02_head": 4.843450369662605e-07,
+        "T03_raglan_tee": 7.315620109693555e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.467891126871109,
+          "knee_clearance_Right": 0.05061638355255127
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 3.272323567671265e-07,
+        "B03_casual_shorts": 2.602375843707705e-07,
+        "body_underlayer_female": 9.766798712007585e-07,
+        "F01_strap_sneakers": 4.248791185545997e-07,
+        "H02_hair": 3.9198835111164954e-07,
+        "H02_head": 2.60024194176367e-07,
+        "T03_raglan_tee": 6.191158945512143e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495590031147003
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 2.788747508475353e-07,
+        "B03_casual_shorts": 3.725290298461914e-07,
+        "body_underlayer_female": 1.1022831358786789e-06,
+        "F01_strap_sneakers": 2.908590488459595e-07,
+        "H02_hair": 3.723054362581024e-07,
+        "H02_head": 1.8491854802960006e-07,
+        "T03_raglan_tee": 6.330801625153981e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.13982167840003967
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 3.8807442592769803e-07,
+        "B03_casual_shorts": 2.7395452661949093e-07,
+        "body_underlayer_female": 8.766392625148001e-07,
+        "F01_strap_sneakers": 4.4229096829440095e-07,
+        "H02_hair": 5.280984964883828e-07,
+        "H02_head": 4.0011767055148084e-07,
+        "T03_raglan_tee": 6.276312660702388e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.11015491187572479,
+          "knee_clearance_Right": 0.9436129331588745
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 5.266248308544164e-07,
+        "B03_casual_shorts": 3.271475179644767e-07,
+        "body_underlayer_female": 6.490563464467414e-07,
+        "F01_strap_sneakers": 3.868566409437335e-07,
+        "H02_hair": 5.11559790083993e-07,
+        "H02_head": 4.172325134277344e-07,
+        "T03_raglan_tee": 6.093554816288815e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.3408380150794983,
+          "knee_clearance_Right": 1.0
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 4.318927437907405e-07,
+        "B03_casual_shorts": 3.478711221305275e-07,
+        "body_underlayer_female": 6.056547476873675e-07,
+        "F01_strap_sneakers": 4.4901725004820037e-07,
+        "H02_hair": 4.227999284012185e-07,
+        "H02_head": 3.4699235129664885e-07,
+        "T03_raglan_tee": 6.02760735546326e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.2677849531173706,
+          "knee_clearance_Right": 1.0
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 6.078619207983138e-07,
+        "B03_casual_shorts": 3.375039057118556e-07,
+        "body_underlayer_female": 4.926546921524277e-07,
+        "F01_strap_sneakers": 5.101335887047753e-07,
+        "H02_hair": 6.023461764925742e-07,
+        "H02_head": 5.051032303526881e-07,
+        "T03_raglan_tee": 4.833698881157034e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 0.08475160598754883,
+          "knee_clearance_Right": 0.9482706785202026
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 4.099850912098191e-07,
+        "B03_casual_shorts": 3.911377461918164e-07,
+        "body_underlayer_female": 1.1060035376431188e-06,
+        "F01_strap_sneakers": 4.995779363525799e-07,
+        "H02_hair": 4.947207798977615e-07,
+        "H02_head": 4.829821023122349e-07,
+        "T03_raglan_tee": 6.336060778266983e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.0
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 4.824502752853732e-07,
+        "B03_casual_shorts": 3.3453022751928074e-07,
+        "body_underlayer_female": 9.996002745538135e-07,
+        "F01_strap_sneakers": 4.382563076887891e-07,
+        "H02_hair": 4.812694669453776e-07,
+        "H02_head": 3.7608830893987033e-07,
+        "T03_raglan_tee": 6.258487701416016e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.3605843782424927
+        },
+        "H02_hair": {}
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16,
+      "max_nearest_vertex_error_m": {
+        "A01_baseball_cap": 2.85950903844423e-07,
+        "B03_casual_shorts": 3.268079922236211e-07,
+        "body_underlayer_female": 1.0150305342904176e-06,
+        "F01_strap_sneakers": 3.351933344220015e-07,
+        "H02_hair": 2.7486484555083734e-07,
+        "H02_head": 2.866537727186369e-07,
+        "T03_raglan_tee": 5.315690145835106e-07
+      },
+      "corrective_values": {
+        "B03_casual_shorts": {
+          "knee_clearance_Left": 1.0,
+          "knee_clearance_Right": 0.19495941698551178
+        },
+        "H02_hair": {}
+      }
+    }
+  ],
+  "max_error_m": 1.1060035376431188e-06,
+  "threshold_m": 3e-05,
+  "status": "passed"
+}

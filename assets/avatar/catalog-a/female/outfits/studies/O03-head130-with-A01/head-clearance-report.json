@@ -1,0 +1,57 @@
+{
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/O03-head130-with-A01/outfit.blend",
+  "blend_sha256": "865f37a19b4bc722470ad7beff67ac2b5f3b63442612860f5ca83035e61cc032",
+  "object": "A01_baseball_cap",
+  "bone": "Head",
+  "status": "passed",
+  "checks": [
+    {
+      "pose": "rest",
+      "max_attachment_error_m": 1.1200678630451045e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T03_raglan_tee": 0
+      }
+    },
+    {
+      "pose": "turn-left",
+      "max_attachment_error_m": 1.999200562387517e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T03_raglan_tee": 0
+      }
+    },
+    {
+      "pose": "turn-right",
+      "max_attachment_error_m": 2.1747528790423905e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T03_raglan_tee": 0
+      }
+    },
+    {
+      "pose": "nod",
+      "max_attachment_error_m": 3.0721789479284264e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T03_raglan_tee": 0
+      }
+    },
+    {
+      "pose": "look-up",
+      "max_attachment_error_m": 3.1680440146540284e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T03_raglan_tee": 0
+      }
+    },
+    {
+      "pose": "tilt",
+      "max_attachment_error_m": 2.7171645356432305e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T03_raglan_tee": 0
+      }
+    }
+  ]
+}

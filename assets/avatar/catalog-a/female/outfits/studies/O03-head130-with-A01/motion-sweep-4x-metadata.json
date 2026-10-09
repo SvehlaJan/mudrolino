@@ -1,0 +1,25 @@
+{
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/O03-head130-with-A01/outfit.blend",
+  "blend_sha256": "865f37a19b4bc722470ad7beff67ac2b5f3b63442612860f5ca83035e61cc032",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_female",
+    "H02_head",
+    "H02_hair"
+  ],
+  "garment_meshes": [
+    "T03_raglan_tee",
+    "B03_casual_shorts",
+    "F01_strap_sneakers",
+    "A01_baseball_cap"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [
+    "leg-fold:B03_casual_shorts"
+  ],
+  "max_accepted_pairs": 440
+}

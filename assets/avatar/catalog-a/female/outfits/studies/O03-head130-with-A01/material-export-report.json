@@ -1,0 +1,102 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/O03-head130-with-A01/outfit.glb",
+  "sha256": "8ed6e10663acb3da6fd689920cbb42865cab1ae219caaffb87855786e324247a",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "A01_baseball_cap",
+      "material": "A01 cap",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A01_baseball_cap",
+      "material": "A01 brim_under",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A01_baseball_cap",
+      "material": "A01 strap",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A01_baseball_cap",
+      "material": "A01 seam",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A orange shorts inside facing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B03_casual_shorts quad shell",
+      "material": "A navy shorts pockets and seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory rubber sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A ivory sneaker upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A cornflower sneaker panels",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F01 rounded ivory sole",
+      "material": "A blue collar lining",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A ivory raglan fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A navy raglan sleeves",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T03 raglan panel surface",
+      "material": "A ivory raglan hems",
+      "colorComponents": 0
+    }
+  ]
+}

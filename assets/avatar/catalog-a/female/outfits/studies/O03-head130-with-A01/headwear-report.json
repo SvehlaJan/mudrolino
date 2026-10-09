@@ -1,0 +1,17 @@
+{
+  "stage": "Headwear added to an assembled outfit; outfit gates required.",
+  "outfit_source": "assets/avatar/catalog-a/female/outfits/studies/T03-B03-F01-head130/outfit.blend",
+  "outfit_source_sha256": "7a2e27c247b92b5e2d3fd7280fbd92ff176459d025c8ab931febf97de1968070",
+  "headwear_source": "assets/avatar/catalog-a/A01/fitting-revisions/head-envelope-v1/female/A01.blend",
+  "headwear_source_sha256": "e01495b4efe39fa724c41589f1a419f1d265677804ba4bc4eb2a1d5ab6de340d",
+  "object": "A01_baseball_cap",
+  "hair": "H02_hair",
+  "key": "under_A01",
+  "builder_sha256": "fd41fb006cf6aa6918f65377cedca99c8f638c2c37d737e50798803217654b37",
+  "blend": {
+    "assets/avatar/catalog-a/female/outfits/studies/O03-head130-with-A01/outfit.blend": "865f37a19b4bc722470ad7beff67ac2b5f3b63442612860f5ca83035e61cc032"
+  },
+  "exports": {
+    "outfit.glb": "8ed6e10663acb3da6fd689920cbb42865cab1ae219caaffb87855786e324247a"
+  }
+}
