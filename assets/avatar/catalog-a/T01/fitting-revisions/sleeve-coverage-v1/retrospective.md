@@ -116,3 +116,6 @@ the skin under it is either hidden (and seen through as the opening gapes) or to
 A fix needs new sleeve and shoulder construction with more ease at the armhole, or a
 separate sleeve tube on the arm with a gusset to the body. Coverage and weights alone
 won't do it.
+
+**Decision (2026-10-09):** the user accepted the see-through upper arm in motion for now,
+like the armpit crease. A sleeve and armhole rebuild can come later.
