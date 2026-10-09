@@ -1,5 +1,8 @@
 """Hoodie revision with a fuller lowered hood (T02 or T04); canonical masters stay unchanged.
 
+With --zip-lining (T04 only) the revision also widens the ivory zip tape to 14 mm with a
+larger pull and binds the front neckline in the orange lining (`zip-lining-v1`).
+
 The audit found the T02/T04 hoods read as a flat ridge. This revision deepens the
 hanging bowl (50 mm bulge, lower and further back) and, for T04, drops the ivory
 drawcords the construction target forbids. Build on the +30% male foundation:
@@ -24,7 +27,15 @@ def main():
     # Strip --id before the canonical entry points parse their own arguments.
     index = sys.argv.index('--id')
     del sys.argv[index:index + 2]
+    zip_lining = '--zip-lining' in sys.argv
+    if zip_lining:
+        sys.argv.remove('--zip-lining')
     build_catalog_t02.HOOD_SHAPE.update(FULLER_HOOD)
+    if zip_lining and piece != 'T04':
+        raise ValueError('--zip-lining applies to T04')
+    if zip_lining:
+        build_catalog_t04.ZIP_HALF_WIDTH, build_catalog_t04.PULL_SCALE = .007, (.006, .0026, .0075)
+        build_catalog_t04.LINING_COLLAR = True
     if piece == 'T02':
         build_catalog_t02.main()
     elif piece == 'T04':

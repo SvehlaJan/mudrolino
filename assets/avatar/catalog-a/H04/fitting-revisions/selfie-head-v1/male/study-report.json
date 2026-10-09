@@ -22,13 +22,13 @@
     "ear_top_z": 1.696559908103943
   },
   "builder_sha256": "9bc72d15e9ff13febd8a38f4f44b3f2bc4788feeb27d3a133b0f23cbc0da68f0",
-  "plan_sha256": "df007c5fedbe77adec6ffd5dbc8bb21392e5ef63a07a28f001ca5574f388fee0",
+  "plan_sha256": "f31c417a251c0c9cbd3dda62a311a7627c6167df65e3b9aa34bd40665a215c4c",
   "head": "H01_head",
   "removed_base_hair_faces": 24094,
   "hair": {
     "object": "H04_hair",
-    "vertices": 15149,
-    "triangles": 29880
+    "vertices": 15079,
+    "triangles": 29732
   },
   "baseline": {
     "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
@@ -41,11 +41,11 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/H04.blend": "ef71bf4f29499fb1a8aecf5989db8610dcfb7184aab13add29fd515a5897c91a"
+    "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/H04.blend": "dd7be2261ae7748bad2e42bc9f4ac8b24ec458ecd28916697fd30f257655ef6b"
   },
   "exports": {
-    "H04.glb": "f286f79432589f79047adbfa7c23f3ce0eb2c71fcc4a2c538f5c779db170774e",
-    "foundation.glb": "af8c1d5b7521693336e736a48057927b139cbcb5b30d6032ea08751e3c8b1c67"
+    "H04.glb": "12d670168253eab17dc0c4f614156c5ca576e7720f43686000c3a759c81e52ba",
+    "foundation.glb": "9d4493525b0e803bb76d1259324acccc05f4f8905956a6e7ecf54ce7d8bb5c98"
   },
   "reviews": {
     "front-full": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/front-full-review.png",

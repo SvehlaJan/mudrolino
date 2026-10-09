@@ -35,8 +35,10 @@ STYLES = {
             'edge': {'front': .024, 'side': .030, 'back': .050},
             'lumps': {'count': 260, 'radius': .150, 'height': .024, 'stretch': 1.0, 'tilt': 0.0, 'jitter': .35, 'profile': 'ball'},
             'color': (.030, .019, .014)},
+    # H04's sides end just above the beanie band (the outer ear reaches .054 and the band
+    # sits at .060), so the band rests on skin rather than across the hair edge.
     'H04': {'label': 'short dark crop', 'base': 'male', 'grid': (300, 110),
-            'hairline': [(0, .108), (30, .100), (55, .076), (75, .046), (82, .046), (88, .060), (100, .060),
+            'hairline': [(0, .108), (30, .100), (55, .076), (75, .046), (82, .046), (88, .068), (100, .068),
                          (115, .045), (140, -.020), (180, -.060)],
             'volume': {'front': .012, 'side': .006, 'back': .007, 'crown': .016},
             'edge': {'front': .010, 'side': .010, 'back': .012},

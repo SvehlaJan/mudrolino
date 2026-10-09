@@ -1,6 +1,6 @@
 {
   "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/garments.glb",
-  "sha256": "42b74fe3006f65c521848124a4ce8bac34baf063bf4596e7f3d5597f3577ba0b",
+  "sha256": "14b9c72818d5582c7bac26ea6775e56c8bb183d6bd24c17dfd7be0058ef22d1f",
   "status": "passed",
   "primitives": [
     {
@@ -71,6 +71,11 @@
     {
       "mesh": "T04_zip_hoodie quad shell",
       "material": "A navy zip hoodie pockets",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T04_zip_hoodie quad shell",
+      "material": "A orange zip hoodie collar lining",
       "colorComponents": 0
     }
   ]

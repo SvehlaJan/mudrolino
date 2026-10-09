@@ -1,6 +1,6 @@
 {
   "blend": "assets/avatar/catalog-a/outfits/O04-head130-T04-B04-F03/outfit.blend",
-  "blend_sha256": "0bbccec62d04b4f85f279e814f78df28d7bb744f45dfda4b234fa9d7e2c11a28",
+  "blend_sha256": "bb79f612a5def4e6bcdad751cc0942ba16cd7e82c744ceaf081f140e79dc3205",
   "object": "H01_head",
   "bone": "Head",
   "status": "passed",

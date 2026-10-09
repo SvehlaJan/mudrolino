@@ -7,7 +7,7 @@
   ],
   "foundation": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend",
   "foundation_sha256": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962",
-  "builder_sha256": "83a88a9a27fee7fbd0aa5edf6ba3836ce73f4faa6c88bdec0e99f966317e3649",
+  "builder_sha256": "652d49b806612d50809c8af73e6f67b6f3fb1aafe1c0d50ccde37d3b9769db3d",
   "fixed_foundation": {
     "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
     "actions": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
@@ -33,10 +33,10 @@
   },
   "pieces": {
     "T04": {
-      "source": "assets/avatar/catalog-a/T04/fitting-revisions/hood-v2/T04.blend",
-      "source_sha256": "2e15d897fa26268233fa8097f7846379b1e97bbc850d59ddf2e3241fc8c8ca86",
-      "original_geometry": "0e1e49c666424a41ee4b9862b9d83b3f721e4ff1470461a2613a2d010ee26b19",
-      "current_geometry": "07e22a9952c745dd1bff68ca7da5f90d97dd772bd6637f0544b79a2d3465bdbd",
+      "source": "assets/avatar/catalog-a/T04/fitting-revisions/zip-lining-v1/T04.blend",
+      "source_sha256": "faed8df7619cd26b6db7fb17618cc6ef4afb1820104710b2130e14679e89068a",
+      "original_geometry": "de69add4eb5b86c87070b3252208df247562255d3b6d69d9dc2fd66f5ba693cc",
+      "current_geometry": "9a09940291017bb23e41c55d3aa0a3092f62215017169b3fb1a97dcff8df2f1a",
       "normalized_vertices": 0,
       "covered_female_indices": [
         515,
@@ -16805,12 +16805,12 @@
           "vertices": 98,
           "bounds_m": [
             [
-              -0.0019346268381923437,
-              0.0019346282351762056
+              -0.0071346270851790905,
+              0.007134628482162952
             ],
             [
-              -0.18456456065177917,
-              -0.08397559076547623
+              -0.18443462252616882,
+              -0.08375129848718643
             ],
             [
               0.9381957054138184,
@@ -16949,27 +16949,63 @@
           "vertices": 86,
           "bounds_m": [
             [
-              -0.0038983533158898354,
-              0.004101647064089775
+              -0.005898353178054094,
+              0.006101646926254034
             ],
             [
-              -0.0993201807141304,
-              -0.0953201875090599
+              -0.09992018342018127,
+              -0.09472018480300903
             ],
             [
-              1.4000085592269897,
-              1.4100085496902466
+              1.3975085020065308,
+              1.4125086069107056
+            ]
+          ],
+          "role": 1
+        },
+        {
+          "vertices": 34,
+          "bounds_m": [
+            [
+              -0.10651958733797073,
+              -0.009601663798093796
+            ],
+            [
+              -0.0912368968129158,
+              -0.012575685977935791
+            ],
+            [
+              1.4035321474075317,
+              1.4230564832687378
+            ]
+          ],
+          "role": 1
+        },
+        {
+          "vertices": 34,
+          "bounds_m": [
+            [
+              0.009601647034287453,
+              0.10651956498622894
+            ],
+            [
+              -0.09125916659832001,
+              -0.012604624032974243
+            ],
+            [
+              1.4035321474075317,
+              1.4230564832687378
             ]
           ],
           "role": 1
         },
         {
           "pocket_attachment": "actual fitted shirt triangle weights; rest geometry unchanged",
-          "vertices": 964
+          "vertices": 1032
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/T04/outfit.blend",
-      "source_blend_sha256": "282631b686681968069e083872ff51652f129b693a6566804d6ce69cbd566a1c"
+      "source_blend_sha256": "06d7f366dfe74e7bf5340cde475d69b42841fff7e12db4406bb6fa9fa6e438f8"
     },
     "B04": {
       "source": "assets/avatar/catalog-a/B04/fitting-revisions/independent-keys-repair/bilateral-targets-2026-10-07/cuff-construction-v1/export-compatible-candidate/B04.blend",
@@ -33731,7 +33767,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/B04/outfit.blend",
-      "source_blend_sha256": "cc27fb0ac0a305fd5f62ca39b1f8718265371747e3a1076403af7e0bd6d33bf2"
+      "source_blend_sha256": "15985472dae2b974da4df94f9c561d3536d1238a1bba6d8d6f117ffcf07c4e83"
     },
     "F03": {
       "source": "assets/avatar/catalog-a/F03/F03.blend",
@@ -41083,7 +41119,7 @@
         }
       ],
       "source_blend": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/F03/outfit.blend",
-      "source_blend_sha256": "1c88a5632bb0c8ae0add2c865bd2d265935ac0176395be3d6436e387ac96425f"
+      "source_blend_sha256": "00d28786d7ad814ea562264839b05acd5ac39e6cd894c5d3ba1f0dad2edaa5eb"
     }
   },
   "hood_offset_m": 0,
@@ -41106,6 +41142,8 @@
   },
   "head_export": "UV-preserving export, unchanged canonical face material/image",
   "collar_relief_m": 0,
+  "shorts_coverage": {},
+  "accepted_contact_classes": [],
   "dropped_correctives": [],
   "controlled_components": true,
   "tee_underarm": false,
@@ -41124,9 +41162,9 @@
     "catalog_female_sneaker_closures.py": "6523c11dcd60f90bf895311302cfd5f5b033b8beb8cda6f16bf1fb2f7b4b807e"
   },
   "exports": {
-    "outfit.blend": "46555806a605a76313fbd05f93639879d4e5d6bef2e6386b881b03910ad2ed15",
-    "outfit.glb": "e77d3653ff17ecffba46dc62e45121ad38da70309c1f518180ed3cafc0490010",
+    "outfit.blend": "6040e7cfc386b2ff38cd2279333db7859cea1d010797d716f2bf25f29500ea9e",
+    "outfit.glb": "62d2ccbf5a9e01101093f875d2bb0274b8c6161978e6f84693830dfe0d91275b",
     "body.glb": "05e4d6cedcca462ea39e3ac5242bb14f68bcf1b151af4d89b3a375e0aeffc26a",
-    "garments.glb": "42b74fe3006f65c521848124a4ce8bac34baf063bf4596e7f3d5597f3577ba0b"
+    "garments.glb": "14b9c72818d5582c7bac26ea6775e56c8bb183d6bd24c17dfd7be0058ef22d1f"
   }
 }

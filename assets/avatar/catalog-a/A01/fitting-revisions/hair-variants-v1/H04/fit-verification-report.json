@@ -1,0 +1,276 @@
+{
+  "study_dir": "assets/avatar/catalog-a/A01/fitting-revisions/hair-variants-v1/H04",
+  "study_report_sha256": "13bb8044b703740563e9a2a8d3dca27c674733f333402fb906e51cfa8f07aaa1",
+  "verifier_sha256": "1cdac10a6c3d831c89ffce4fe8efdd70211ac0ddcb5a4d57fb905551521b1d74",
+  "failures": [
+    {
+      "gate": "headwear_fit_gate",
+      "details": [
+        "intersections: {'H04_hair': 16}"
+      ]
+    },
+    {
+      "gate": "cap_motion_clearance",
+      "details": {
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    }
+  ],
+  "status": "failed",
+  "fit_gate": {
+    "passed": false,
+    "failures": [
+      "intersections: {'H04_hair': 16}"
+    ],
+    "crown": {
+      "samples": 2875,
+      "share_within_max": 0.977,
+      "p50_mm": 3.26,
+      "p90_mm": 8.25,
+      "max_mm": 13.42,
+      "min_mm": 1.46
+    },
+    "band": {
+      "samples": 129,
+      "p90_mm": 3.77,
+      "max_mm": 7.98,
+      "min_mm": 0.49
+    },
+    "thresholds": {
+      "max_gap_mm": 12.0,
+      "min_share": 0.9,
+      "band_p90_mm": 5.0,
+      "band_max_mm": 15.0,
+      "min_gap_mm": -0.5
+    },
+    "intersections": {
+      "H01_head": 0,
+      "H04_hair": 16,
+      "body_underlayer_male": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0,
+      "T05_crew_sweatshirt_outfit": 0
+    }
+  },
+  "motion_clearance": {
+    "samples": 168,
+    "gesture_samples": 5,
+    "maximum_pairs": {
+      "H01_head": 0,
+      "H04_hair": 16,
+      "body_underlayer_male": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0,
+      "T05_crew_sweatshirt_outfit": 0
+    },
+    "contacts": [
+      {
+        "pose": "walk:0.8",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:1.0",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:1.25",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:1.5",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:1.75",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:2.0",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:2.25",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:2.5",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:2.75",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:3.0",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:3.25",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:3.5",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:3.75",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:4.0",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:4.25",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:4.5",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:4.75",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:5.0",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:5.25",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      {
+        "pose": "walk:5.5",
+        "H01_head": 0,
+        "H04_hair": 16,
+        "body_underlayer_male": 0,
+        "B01_straight_trousers_outfit": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      }
+    ]
+  },
+  "under_key_export": {
+    "key": "under_A01",
+    "meshes": [
+      [
+        [],
+        []
+      ],
+      [
+        [
+          "under_A01"
+        ],
+        [
+          1
+        ]
+      ]
+    ]
+  },
+  "export_fidelity": {
+    "poses": 16,
+    "maximum_error_m": 6.006849844197859e-07,
+    "threshold_m": 3e-05
+  }
+}

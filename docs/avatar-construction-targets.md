@@ -11,7 +11,7 @@ Approved palette A and existing references remain the design baseline. Both base
 | T01 | Cornflower blue crew-neck short-sleeve tee; relaxed straight body, rounded collar and hems. | Refine both fits; author female variant. |
 | T02 | Tangerine pullover hoodie; lowered rounded hood, one joined kangaroo pocket, rib cuffs/hem; no zipper or drawstrings. | Fuller hood after approved head/hair envelope. |
 | T03 | Ivory body, navy short raglan sleeves and neck ribbing; broad readable diagonal shoulder seams. | Retain relatively good male silhouette; female fit needed. |
-| T04 | Navy zip hoodie, orange inner hood, ivory full-height zipper, divided front pocket, navy rib cuffs/hem; lowered hood and no dangling strings. | Dedicated construction guide under review; hood after head/hair freeze. |
+| T04 | Navy zip hoodie, orange inner hood, ivory full-height zipper, divided front pocket, navy rib cuffs/hem; lowered hood and no dangling strings. | `zip-lining-v1` (2026-10-09): 14 mm ivory zip and orange neckline lining on the fuller hood; both O04s pass. Lining reveal and art review pending. Earlier: dedicated construction guide under review; hood after head/hair freeze. |
 | T05 | Cornflower long-sleeve crew sweatshirt with navy ribbed collar/cuffs/hem; comfortable ease. | Modest male trim refinement; female fit needed. |
 | T06 | Ivory long-sleeve henley, broad placket, exactly four navy rounded buttons and subtle orange collar facing. | User chose four on 2026-10-06. Male placket-v2 revision (2026-10-08): 38 mm placket, 21 mm buttons, orange back-collar facing; art review pending. Female fit still to author; retain superseded three-button source. |
 | B01 | Navy straight trousers; relaxed leg, broad waistband/pocket detail, clear ankle opening. | Final cuff clearance after F01 dimensions settle; each base separately. |
@@ -23,11 +23,11 @@ Approved palette A and existing references remain the design baseline. Both base
 | F03 | Cornflower high-tops, exactly three broad ivory straps per shoe, navy panels and ivory sole. | Collar/toe/sole refinement; retain 185 mm opening/face-safe coverage contract. |
 | F04 | Tangerine ankle boots, navy elastic side panels, rounded ivory soles and simple rear heel loop. | Refine independent master and B01 compatibility; O05 requires A02. |
 | A01 | Tangerine baseball cap with broad rounded crown and brim. | Rebuilt from head envelopes on both +30% bases with an `under_hat` hair key (2026-10-07); art review and strap colour (blue sheet vs navy female sheet) pending. |
-| A02 | Navy/cornflower knitted beanie; broad folded rim and economical rounded crown. | New master and both fits after head/hair freeze; completes O05. |
+| A02 | Navy/cornflower knitted beanie; broad folded rim and economical rounded crown. | Fitted on both bases and on H03/H05 (2026-10-09); the H04 crop pairing needs a band decision. |
 | A03 | Navy rounded spectacle frames, restrained bridge/temples. | New attachment convention checked against face/ears/hair on both bases. |
 | A04 | Cornflower soft-square spectacle frames. | Reuse proven glasses attachment; separate shape and clearance proof. |
 | A05 | Tangerine rounded backpack, navy shoulder straps and readable simple closure/pocket detail. | New master; top/shoulder/arm/strap checks; completes O06. |
-| A06 | Ivory loop scarf with navy panel; broad soft folds. | New master against settled chin/neck/hood envelopes and head/arm motion. |
+| A06 | Ivory loop scarf with navy panel; broad soft folds. | Built on O05 on both bases (2026-10-08/09); the bob, H03 and H05 drape over it through `over_A06` keys. Art review pending. |
 
 ## Heads, hair and expressions
 

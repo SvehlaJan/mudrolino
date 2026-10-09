@@ -1,6 +1,6 @@
 {
   "blend": "assets/avatar/catalog-a/A06/fitting-revisions/o05-head130/male/outfit.blend",
-  "blend_sha256": "60ad580affacdb45e216117108323a9fe96c6b8c8fb65338782d026f888146bc",
+  "blend_sha256": "337cea1c6e685fb4425a2065dddb590da80affb14ac121a8d1865ada18ce8a57",
   "blender": "5.2.2 LTS",
   "body_meshes": [
     "body_underlayer_male",

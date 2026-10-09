@@ -56,6 +56,18 @@ describe('saved curated avatar catalog', () => {
       expect(variant.currentRevisionId).toBe('selfie-head-v1');
       expect(variant.revisions[0]).toMatchObject({ technicalReview: 'recorded-pass', asset: { id: `${id.toLowerCase()}-selfie-head-${base}` } });
     }
+    // T04 zip-lining-v1 is current; the female A06 drapes the bob and H03/H05 over the scarf (2026-10-09).
+    expect(items.find(item => item.id === 'T04')!.variants.find(variant => variant.base === 'male')!.currentRevisionId).toBe('zip-lining-v1');
+    const scarf = items.find(item => item.id === 'A06')!.variants.find(variant => variant.base === 'female')!;
+    expect(scarf.currentRevisionId).toBe('o05-head130');
+    expect(scarf.revisions.map(revision => revision.id)).toEqual(expect.arrayContaining(['hair-H03', 'hair-H05']));
+    // Caps and beanies on hair variants: the crop (H04) pairings stay repair-needed.
+    for (const id of ['A01', 'A02']) {
+      const male = items.find(item => item.id === id)!.variants.find(variant => variant.base === 'male')!;
+      expect(male.revisions.find(revision => revision.id === 'hair-H04')).toMatchObject({ technicalReview: 'repair-needed' });
+      const female = items.find(item => item.id === id)!.variants.find(variant => variant.base === 'female')!;
+      for (const hair of ['hair-H03', 'hair-H05']) expect(female.revisions.find(revision => revision.id === hair)).toMatchObject({ technicalReview: 'recorded-pass' });
+    }
     expect(items.find(item => item.id === 'capsule-T02-B01-F01')!.relatedIds).toEqual(expect.arrayContaining(['T02', 'B01', 'F01']));
     for (const clip of ['walk', 'run']) {
       const motion = items.find(item => item.id === clip)!; expect(motion.motion).toMatchObject({ clip, loop: true });

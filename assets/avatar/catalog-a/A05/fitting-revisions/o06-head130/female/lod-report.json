@@ -1,7 +1,7 @@
 {
   "source": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/female/outfit.blend",
   "source_sha256": "fc7d40a1758621468bb47eead3868da5c455d4eb20c32cd713ceef76f51a4db2",
-  "builder_sha256": "2e362bbf499d3e7ff2b379794fe26e27c34ad9a9b29ff2bb6f6240ec4d886d63",
+  "builder_sha256": "c0f57aeff97daf7ce2f658f84838a1340268988c949b57d051e3afa8d0b9a17e",
   "budget": 95000,
   "body_floor": 1.0,
   "triangles_before": 113809,
@@ -16,7 +16,7 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/female/outfit-lod.blend": "21a97d7ecafaba078bb4887be65cea7b4da82d4b2de2e828c86e345acf074c15"
+    "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/female/outfit-lod.blend": "529945432f6a28366c685d9cda22b6826d867d35824e454f6085b5b6d7f9acd9"
   },
   "glb_sha256": "b952b3ee026da56c8d22fb1215ae0ffb08db551d9bb00e9146b9b2c57668fe05"
 }

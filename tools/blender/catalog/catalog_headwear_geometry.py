@@ -20,7 +20,7 @@ from build_catalog_t01 import reset, setup_render, world_mesh
 from build_catalog_head import material
 from build_catalog_head_style_study import geometry_signature, rig_signature, motion_signature
 from build_catalog_female_foundation_study import export_uv
-from catalog_headwear_plan import band_heights, band_height, under_hat_radius, smoothstep
+from catalog_headwear_plan import band_heights, band_height, under_hat_radius, pressed_shell_radius, smoothstep
 
 ROOT = Path('assets/avatar/catalog-a')
 HEADS = {
@@ -31,6 +31,21 @@ HEADS = {
                'skull': ('H02_head', None), 'hair': ('H02_hair', None),
                'body': 'body_underlayer_female', 'head_objects': ['H02_head', 'H02_hair']},
 }
+# Hair variants (build_catalog_hair_variant.py) on the same heads: the variant study is the
+# head source, its landmarks are the base head's, and the whole variant hair object is hair.
+# Their shells are pressed flat under the band (pressed_shell_radius), so the band needs
+# less of the ease that clears the base hair's locks: `band_relief` (unscaled metres) comes
+# off the ease at the band and fades out over the lowest BAND_RELIEF_SPAN of the crown.
+for _style, _base in (('H03', 'female'), ('H04', 'male'), ('H05', 'female')):
+    _skull = HEADS[_base]['skull']
+    HEADS[f'{_base}-{_style}'] = dict(HEADS[_base], study=ROOT / f'{_style}/fitting-revisions/selfie-head-v1/{_base}',
+                                      blend=f'{_style}.blend', hair=(f'{_style}_hair', None),
+                                      head_objects=[_skull[0], f'{_style}_hair'],
+                                      landmarks=HEADS[_base]['study'] / 'head-landmarks.json', hair_shell=True,
+                                      band_relief=.0012)
+
+
+BAND_RELIEF_SPAN = .15
 
 
 def digest(path):
@@ -206,8 +221,11 @@ def worn_tree(skull_obj, skull_keyword, hair_obj, hair_keyword):
     return BVHTree.FromPolygons(points, faces)
 
 
-def add_under_key(hair_obj, keyword, env, design, key_name):
+def add_under_key(hair_obj, keyword, env, design, key_name, shell=False):
     """Shape key flattening hair inside and just below the band; returns the changed count.
+
+    `shell` (hair variants: one outer surface, not locks) presses the shell to the layer
+    so curl valleys rise too and the band meets a smooth surface.
 
     design: hair_layer, tuck, release and optional brim_tuck/brim_half_angle,
     which tuck hair deeper beneath a front brim.
@@ -229,9 +247,10 @@ def add_under_key(hair_obj, keyword, env, design, key_name):
         if design.get('brim_tuck'):
             from_front = abs(math.atan2(math.sin(theta + math.pi / 2), math.cos(theta + math.pi / 2)))
             tuck += design['brim_tuck'] * smoothstep((design['brim_half_angle'] + .1 - from_front) / .25)
-        new_radius = under_hat_radius(radius, env.skull_radius(d), env.band_z(theta) - world.z,
-                                      design['hair_layer'], tuck * env.scale, design['release'] * env.scale)
-        if new_radius < radius - 1e-7:
+        rule = pressed_shell_radius if shell else under_hat_radius
+        new_radius = rule(radius, env.skull_radius(d), env.band_z(theta) - world.z,
+                          design['hair_layer'], tuck * env.scale, design['release'] * env.scale)
+        if abs(new_radius - radius) > 1e-7:
             key.data[i].co = inverse @ (env.centre + d * new_radius)
             changed += 1
     key.value = 1.0
@@ -255,15 +274,23 @@ def render_reviews(output_dir, target):
     return reviews
 
 
+def relieved_ease(ease, relief):
+    """The design ease less `relief` at the band, fading to the full ease up the crown."""
+    if not relief:
+        return ease
+    return lambda theta, t: ease(theta, t) - relief * (1 - smoothstep(t / BAND_RELIEF_SPAN))
+
+
 def build_headwear_study(item_id, object_name, design, build_parts, base, output_dir, builder_path, crown_materials):
     """Open the verified head study, fit the design and write every output plus the study report."""
     config = HEADS[base]
     output_dir.mkdir(parents=True, exist_ok=True)
     source = config['study'] / config['blend']
-    landmarks = json.loads((config['study'] / 'head-landmarks.json').read_text())
+    landmarks_path = config.get('landmarks', config['study'] / 'head-landmarks.json')
+    landmarks = json.loads(landmarks_path.read_text())
     if json.loads((config['study'] / 'verification-report.json').read_text())['status'] != 'passed':
         raise RuntimeError('Fit headwear only to a verified head study')
-    source_hashes = {str(p): digest(p) for p in (source, config['study'] / 'head-landmarks.json', config['study'] / 'verification-report.json')}
+    source_hashes = {str(p): digest(p) for p in (source, landmarks_path, config['study'] / 'verification-report.json')}
 
     bpy.ops.wm.open_mainfile(filepath=str(source.resolve()))
     bpy.context.preferences.filepaths.save_version = 0
@@ -277,9 +304,10 @@ def build_headwear_study(item_id, object_name, design, build_parts, base, output
     band = band_heights(landmarks, design['front_above_brow'], design['side_above_ear'], design['back_above_centre'],
                         design['front_rise_over_side'])
     env = Envelope(polygon_tree(skull_obj, config['skull'][1]), landmarks['skull_centre'], band, landmarks['scale'],
-                   design['ease_fn'](landmarks['scale']), design['band_hug'])
+                   relieved_ease(design['ease_fn'](landmarks['scale']), config.get('band_relief', 0.0) * landmarks['scale']),
+                   design['band_hug'])
     key_name = f'under_{item_id}'
-    changed = add_under_key(hair_obj, config['hair'][1], env, design, key_name)
+    changed = add_under_key(hair_obj, config['hair'][1], env, design, key_name, config.get('hair_shell', False))
     env.sample_envelope(worn_tree(skull_obj, config['skull'][1], hair_obj, config['hair'][1]))
     assert all(geometry_signature(bpy.data.objects[n]) == s for n, s in unchanged.items()), 'Basis geometry changed'
 
@@ -312,7 +340,7 @@ def build_headwear_study(item_id, object_name, design, build_parts, base, output
     body = bpy.data.objects[config['body']]
     export_uv(output_dir / f'{item_id}.glb', [arm, item])
     export_uv(output_dir / 'head-under-hat.glb', [arm, *heads])
-    if base == 'male':
+    if config['body'] == 'body_underlayer_male':
         evaluated = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
         masked = bpy.data.objects.new('outfit_masked_body', bpy.data.meshes.new_from_object(evaluated))
         bpy.context.collection.objects.link(masked)
@@ -332,7 +360,7 @@ def build_headwear_study(item_id, object_name, design, build_parts, base, output
     report = {
         'stage': f'Envelope-fitted {item_id} revision; run verify_catalog_headwear.py for fit/motion gates. Art review pending.',
         'item': item_id, 'object': object_name, 'crown_materials': [f'{item_id} {m}' for m in crown_materials],
-        'base': base, 'head_study': str(config['study']), 'source_hashes': source_hashes,
+        'base': base, 'band_relief_m': config.get('band_relief', 0.0), 'head_study': str(config['study']), 'source_hashes': source_hashes,
         'builder': str(builder_path), 'builder_sha256': digest(builder_path),
         'geometry_sha256': digest(here), 'plan_sha256': digest(here.with_name('catalog_headwear_plan.py')),
         'blender': bpy.app.version_string,

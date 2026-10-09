@@ -102,7 +102,17 @@ describe('under-hat hair', () => {
     expect(mid).toBeGreaterThan(0.158);
     expect(mid).toBeLessThan(0.20);
   });
+  it('presses a hair-variant shell flat to the layer, raising curl valleys, and keeps tucked edges', () => {
+    // Thick hair and a curl valley both end up exactly at the layer under the band.
+    expect(run({ op: 'pressed_shell_radius', radius: 0.20, depth_below_band: -0.05, ...rule }).value).toBeCloseTo(0.158, 10);
+    expect(run({ op: 'pressed_shell_radius', radius: 0.153, depth_below_band: -0.05, ...rule }).value).toBeCloseTo(0.158, 10);
+    // Edges tucked under the skin stay where they are.
+    expect(run({ op: 'pressed_shell_radius', radius: 0.149, depth_below_band: -0.05, ...rule }).value).toBe(0.149);
+    // Below the band it eases back to the original shell.
+    expect(run({ op: 'pressed_shell_radius', radius: 0.20, depth_below_band: 0.05, ...rule }).value).toBeCloseTo(0.20, 10);
+  });
   it('rejects a non-positive layer', () => {
+    expect(run({ op: 'pressed_shell_radius', radius: 0.2, depth_below_band: 0, ...rule, layer: 0 }).status).toBe(1);
     expect(run({ op: 'under_hat_radius', radius: 0.2, depth_below_band: 0, ...rule, layer: 0 }).status).toBe(1);
   });
 });

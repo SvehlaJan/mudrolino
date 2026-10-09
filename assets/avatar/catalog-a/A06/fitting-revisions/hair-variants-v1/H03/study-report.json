@@ -1,0 +1,38 @@
+{
+  "stage": "Hair variant draped over the A06 scarf; outfit motion/head/export gates required. Art review pending.",
+  "outfit_source": "assets/avatar/catalog-a/A06/fitting-revisions/o05-head130/female/outfit.blend",
+  "outfit_source_sha256": "65190cac4bd8c989bde4ad2d1e77b82f4a2b57a64c490da03005da7887b3e706",
+  "hair_source": "assets/avatar/catalog-a/H03/fitting-revisions/selfie-head-v1/female/H03.blend",
+  "hair_source_sha256": "e2c6e9e3364aef2ab0e8be8afce8a3e3fde1b68aa0a8e5df54559da4181ac4f5",
+  "hair": "H03_hair",
+  "replaced_hair": "H02_hair",
+  "dropped": [
+    "A02_folded_beanie"
+  ],
+  "builder_sha256": "96fc1d30ad8c1aa4aa7e022600b157e198dba0d763909ebf6689a5bae2a657b6",
+  "drape_builder_sha256": "c40d6d95c209b1c88e98d603333382d96f8653d4b280dd63c830240cc003e960",
+  "hair_over": {
+    "key": "over_A06",
+    "gap_m": 0.008,
+    "spread_m": 0.025,
+    "loop_samples": 123021,
+    "lifted_vertices": 1325,
+    "moved_vertices": 2025,
+    "max_lift_m": 0.08915851555616583,
+    "remaining_within_gap": 0
+  },
+  "blend": {
+    "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/outfit.blend": "f5539428fc3b0b223ac41d1353f3818ee83e732a7cdd3c0bf3491499cb2658e3"
+  },
+  "exports": {
+    "outfit.glb": "7e11eea709b3b5af901653b28e1954cd2aeb502579f1388598d5a4ad3d4f04fc"
+  },
+  "reviews": {
+    "front-full": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/front-full-review.png",
+    "front": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/front-review.png",
+    "side": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/side-review.png",
+    "three-quarter": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/three-quarter-review.png",
+    "back": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/back-review.png",
+    "back-three-quarter": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/back-three-quarter-review.png"
+  }
+}

@@ -30,7 +30,7 @@ What changed the look most:
 | Style | Head + hair triangles (base) | Wardrobe outfits clear | Glasses on hair (info) |
 | --- | --- | --- | --- |
 | H03 | 30,416 (49,820) | 6 female | 48 pairs, skin clear |
-| H04 | 46,776 (65,084) | 7 male, A06 scarf included | 115–120 pairs, skin clear |
+| H04 | 46,628 (65,084) | 7 male, A06 scarf included | 110–112 pairs, skin clear |
 | H05 | 28,468 (49,820) | 6 female | 40–44 pairs, skin clear |
 | H06 | 16,896 (65,084) | — (no hair) | skin clear |
 
@@ -40,10 +40,20 @@ inside the hairline, ears and nose clear (H04), zero contact with body and garme
 169 samples (quarter-frame walk/run plus six gestures) in every outfit on its base,
 canonical face UV corners and image through the GLB, 0.3 µm rest export, valid glTF.
 
+## Follow-up the same day
+
+- **H04 sides:** they end 68 mm above the skull centre, just above the beanie band (60 mm;
+  the outer ear reaches 54 mm). Lowering them to cover the band touched the ears
+  (54 pairs). With the hairline at the band, the band crossed the hair edge.
+- **The A06 scarf:** H03 and H05 reach the female scarf and wear it through drape studies
+  (`A06/fitting-revisions/hair-variants-v1/`), so the wardrobe sweep leaves the female
+  scarf out for them. H04 clears the male scarf as is.
+- **Caps and beanies:** `catalog_headwear_geometry.HEADS` has `female-H03`, `male-H04` and
+  `female-H05`, so A01/A02 fit to each variant (`A0x/fitting-revisions/hair-variants-v1/`)
+  with a pressed under-hat shell key. Results are in that retrospective.
+- **Phone LODs:** `build_catalog_lod.py` culls and decimates the variant hair objects
+  (`HAIR_PREFIXES`).
+
 ## Open
 
-- Caps and beanies (A01/A02) are fitted to the base hair; the wardrobe sweep excludes
-  them. Each needs a refit (crown and under-hat key) per hair, or a restricted pairing.
-- The LOD builder knows the base hair names only; add the variant hair objects before
-  assembling them into phone LODs.
 - Art review in `/avatar-preview` (`h03-selfie-head-female` … `h06-selfie-head-male`).

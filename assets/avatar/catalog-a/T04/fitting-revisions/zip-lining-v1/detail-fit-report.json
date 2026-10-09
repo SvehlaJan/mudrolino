@@ -1,0 +1,4287 @@
+{
+  "blend": "assets/avatar/catalog-a/T04/fitting-revisions/zip-lining-v1/T04.blend",
+  "blend_sha256": "faed8df7619cd26b6db7fb17618cc6ef4afb1820104710b2130e14679e89068a",
+  "garment": "T04_zip_hoodie",
+  "threshold_m": 0.012,
+  "samples": 164,
+  "max_cloth_distance_m": 0.009910332970321178,
+  "status": "passed",
+  "surface_materials": [
+    "A navy zip hoodie fabric",
+    "A navy zip hoodie ribbing"
+  ],
+  "detail_materials": [
+    "A ivory zipper and drawcords",
+    "A navy zip hoodie pockets",
+    "A orange zip hoodie collar lining"
+  ],
+  "checks": [
+    {
+      "motion": "rest",
+      "frame": 0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009862946346402168,
+        "A navy zip hoodie pockets": 0.00467413617298007,
+        "A orange zip hoodie collar lining": 0.0040000444278120995
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.016002802178263664,
+          -0.07847100496292114,
+          1.4223017692565918
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00989451352506876,
+        "A navy zip hoodie pockets": 0.004674146417528391,
+        "A orange zip hoodie collar lining": 0.0045892465859651566
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009894249960780144,
+        "A navy zip hoodie pockets": 0.004674175754189491,
+        "A orange zip hoodie collar lining": 0.004585555754601955
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009893971495330334,
+        "A navy zip hoodie pockets": 0.004674172960221767,
+        "A orange zip hoodie collar lining": 0.004581318236887455
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009893599897623062,
+        "A navy zip hoodie pockets": 0.004674200899899006,
+        "A orange zip hoodie collar lining": 0.0045776874758303165
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009894044138491154,
+        "A navy zip hoodie pockets": 0.004674147814512253,
+        "A orange zip hoodie collar lining": 0.004576726816594601
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009895031340420246,
+        "A navy zip hoodie pockets": 0.004674149211496115,
+        "A orange zip hoodie collar lining": 0.0045779068022966385
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00989590771496296,
+        "A navy zip hoodie pockets": 0.004674182739108801,
+        "A orange zip hoodie collar lining": 0.004581159446388483
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009896891191601753,
+        "A navy zip hoodie pockets": 0.004674173425883055,
+        "A orange zip hoodie collar lining": 0.004590730648487806
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009898184798657894,
+        "A navy zip hoodie pockets": 0.004674198105931282,
+        "A orange zip hoodie collar lining": 0.0046040769666433334
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009899385273456573,
+        "A navy zip hoodie pockets": 0.004674179945141077,
+        "A orange zip hoodie collar lining": 0.004617611411958933
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009900365956127644,
+        "A navy zip hoodie pockets": 0.004674170166254044,
+        "A orange zip hoodie collar lining": 0.004630715120583773
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009900610893964767,
+        "A navy zip hoodie pockets": 0.004674166906625032,
+        "A orange zip hoodie collar lining": 0.0046411301009356976
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009900964796543121,
+        "A navy zip hoodie pockets": 0.004674169234931469,
+        "A orange zip hoodie collar lining": 0.00465172715485096
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009901057928800583,
+        "A navy zip hoodie pockets": 0.004674187395721674,
+        "A orange zip hoodie collar lining": 0.004662542603909969
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009901550598442554,
+        "A navy zip hoodie pockets": 0.004674158990383148,
+        "A orange zip hoodie collar lining": 0.004663822706788778
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009902008809149265,
+        "A navy zip hoodie pockets": 0.004674140829592943,
+        "A orange zip hoodie collar lining": 0.0046654208563268185
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00990237481892109,
+        "A navy zip hoodie pockets": 0.0046741291880607605,
+        "A orange zip hoodie collar lining": 0.004667087458074093
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009903861209750175,
+        "A navy zip hoodie pockets": 0.004674160853028297,
+        "A orange zip hoodie collar lining": 0.004664343316107988
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00990555714815855,
+        "A navy zip hoodie pockets": 0.0046741776168346405,
+        "A orange zip hoodie collar lining": 0.004660686478018761
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00990721583366394,
+        "A navy zip hoodie pockets": 0.004674158059060574,
+        "A orange zip hoodie collar lining": 0.00465709762647748
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009908396750688553,
+        "A navy zip hoodie pockets": 0.004674140363931656,
+        "A orange zip hoodie collar lining": 0.004653892479836941
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00990942120552063,
+        "A navy zip hoodie pockets": 0.004674199037253857,
+        "A orange zip hoodie collar lining": 0.004651185125112534
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009910332970321178,
+        "A navy zip hoodie pockets": 0.004674183204770088,
+        "A orange zip hoodie collar lining": 0.004648400936275721
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009909833781421185,
+        "A navy zip hoodie pockets": 0.0046741897240281105,
+        "A orange zip hoodie collar lining": 0.004642409738153219
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009907098487019539,
+        "A navy zip hoodie pockets": 0.004674158059060574,
+        "A orange zip hoodie collar lining": 0.004631084389984608
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009904090315103531,
+        "A navy zip hoodie pockets": 0.004674159921705723,
+        "A orange zip hoodie collar lining": 0.004619416780769825
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009901164099574089,
+        "A navy zip hoodie pockets": 0.004674158990383148,
+        "A orange zip hoodie collar lining": 0.0046056839637458324
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009897950105369091,
+        "A navy zip hoodie pockets": 0.004674136638641357,
+        "A orange zip hoodie collar lining": 0.0045833829790353775
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009894505143165588,
+        "A navy zip hoodie pockets": 0.004674173425883055,
+        "A orange zip hoodie collar lining": 0.004560484085232019
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009890950284898281,
+        "A navy zip hoodie pockets": 0.004674142226576805,
+        "A orange zip hoodie collar lining": 0.004537310916930437
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08814997971057892,
+          -0.06463770568370819,
+          1.4105321168899536
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009889647364616394,
+        "A navy zip hoodie pockets": 0.004674174822866917,
+        "A orange zip hoodie collar lining": 0.004534649197012186
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009888352826237679,
+        "A navy zip hoodie pockets": 0.004674153868108988,
+        "A orange zip hoodie collar lining": 0.0045346603728830814
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988693442195654,
+        "A navy zip hoodie pockets": 0.004674149677157402,
+        "A orange zip hoodie collar lining": 0.004534848500043154
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988585501909256,
+        "A navy zip hoodie pockets": 0.004674131982028484,
+        "A orange zip hoodie collar lining": 0.0045326463878154755
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009884790517389774,
+        "A navy zip hoodie pockets": 0.004674156196415424,
+        "A orange zip hoodie collar lining": 0.004530075937509537
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009883683174848557,
+        "A navy zip hoodie pockets": 0.004674138501286507,
+        "A orange zip hoodie collar lining": 0.004527604207396507
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988356489688158,
+        "A navy zip hoodie pockets": 0.004674186464399099,
+        "A orange zip hoodie collar lining": 0.004519120790064335
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009883875958621502,
+        "A navy zip hoodie pockets": 0.004674166906625032,
+        "A orange zip hoodie collar lining": 0.004506545607000589
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009884086437523365,
+        "A navy zip hoodie pockets": 0.004674172028899193,
+        "A orange zip hoodie collar lining": 0.004494109191000462
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009884616360068321,
+        "A navy zip hoodie pockets": 0.004674132447689772,
+        "A orange zip hoodie collar lining": 0.004482822958379984
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009885581210255623,
+        "A navy zip hoodie pockets": 0.004674173891544342,
+        "A orange zip hoodie collar lining": 0.004473106935620308
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009886275976896286,
+        "A navy zip hoodie pockets": 0.004674132913351059,
+        "A orange zip hoodie collar lining": 0.004463741555809975
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009886739775538445,
+        "A navy zip hoodie pockets": 0.004674169234931469,
+        "A orange zip hoodie collar lining": 0.004456127993762493
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009885326959192753,
+        "A navy zip hoodie pockets": 0.004674162715673447,
+        "A orange zip hoodie collar lining": 0.004454897250980139
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988386943936348,
+        "A navy zip hoodie pockets": 0.004674149677157402,
+        "A orange zip hoodie collar lining": 0.004453727509826422
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009882347658276558,
+        "A navy zip hoodie pockets": 0.004674191121011972,
+        "A orange zip hoodie collar lining": 0.004453043453395367
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009878535754978657,
+        "A navy zip hoodie pockets": 0.004674174822866917,
+        "A orange zip hoodie collar lining": 0.004454573150724173
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009874620474874973,
+        "A navy zip hoodie pockets": 0.004674138966947794,
+        "A orange zip hoodie collar lining": 0.00445623230189085
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009870491921901703,
+        "A navy zip hoodie pockets": 0.004674173891544342,
+        "A orange zip hoodie collar lining": 0.004458236508071423
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009866801090538502,
+        "A navy zip hoodie pockets": 0.004674158524721861,
+        "A orange zip hoodie collar lining": 0.004465200938284397
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009862917475402355,
+        "A navy zip hoodie pockets": 0.004674141760915518,
+        "A orange zip hoodie collar lining": 0.0044735148549079895
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009858936071395874,
+        "A navy zip hoodie pockets": 0.004674114286899567,
+        "A orange zip hoodie collar lining": 0.0044825696386396885
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009856515564024448,
+        "A navy zip hoodie pockets": 0.004674185533076525,
+        "A orange zip hoodie collar lining": 0.004495527595281601
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009855299256742,
+        "A navy zip hoodie pockets": 0.00467414315789938,
+        "A orange zip hoodie collar lining": 0.004511387553066015
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009854096919298172,
+        "A navy zip hoodie pockets": 0.004674100782722235,
+        "A orange zip hoodie collar lining": 0.004527667537331581
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009853738360106945,
+        "A navy zip hoodie pockets": 0.00467415526509285,
+        "A orange zip hoodie collar lining": 0.004543669987469912
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009854944422841072,
+        "A navy zip hoodie pockets": 0.00467413617298007,
+        "A orange zip hoodie collar lining": 0.004558971151709557
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009856120683252811,
+        "A navy zip hoodie pockets": 0.004674176685512066,
+        "A orange zip hoodie collar lining": 0.004574777092784643
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009857513010501862,
+        "A navy zip hoodie pockets": 0.004674163181334734,
+        "A orange zip hoodie collar lining": 0.004590117838233709
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00985951442271471,
+        "A navy zip hoodie pockets": 0.0046741715632379055,
+        "A orange zip hoodie collar lining": 0.004602090921252966
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009861779399216175,
+        "A navy zip hoodie pockets": 0.00467414828017354,
+        "A orange zip hoodie collar lining": 0.004614406265318394
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009863651357591152,
+        "A navy zip hoodie pockets": 0.004674163181334734,
+        "A orange zip hoodie collar lining": 0.004626959562301636
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009865202009677887,
+        "A navy zip hoodie pockets": 0.004674156196415424,
+        "A orange zip hoodie collar lining": 0.004644126631319523
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009866747073829174,
+        "A navy zip hoodie pockets": 0.004684783518314362,
+        "A orange zip hoodie collar lining": 0.004661741200834513
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 16.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009868226945400238,
+        "A navy zip hoodie pockets": 0.0047303750179708,
+        "A orange zip hoodie collar lining": 0.004679584875702858
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009870042093098164,
+        "A navy zip hoodie pockets": 0.004748939536511898,
+        "A orange zip hoodie collar lining": 0.004702889360487461
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009871989488601685,
+        "A navy zip hoodie pockets": 0.004760767798870802,
+        "A orange zip hoodie collar lining": 0.004727398045361042
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009873824194073677,
+        "A navy zip hoodie pockets": 0.004772618878632784,
+        "A orange zip hoodie collar lining": 0.0047522298991680145
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 17.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009876350872218609,
+        "A navy zip hoodie pockets": 0.004764993209391832,
+        "A orange zip hoodie collar lining": 0.004773455206304789
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009879044257104397,
+        "A navy zip hoodie pockets": 0.0047443644143640995,
+        "A orange zip hoodie collar lining": 0.004791902843862772
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009881805628538132,
+        "A navy zip hoodie pockets": 0.0047237020917236805,
+        "A orange zip hoodie collar lining": 0.004810417536646128
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009884216822683811,
+        "A navy zip hoodie pockets": 0.004691293928772211,
+        "A orange zip hoodie collar lining": 0.0048217992298305035
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 18.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009886227548122406,
+        "A navy zip hoodie pockets": 0.004674153868108988,
+        "A orange zip hoodie collar lining": 0.0048223515041172504
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009888054803013802,
+        "A navy zip hoodie pockets": 0.004674139432609081,
+        "A orange zip hoodie collar lining": 0.004822680726647377
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009889225475490093,
+        "A navy zip hoodie pockets": 0.004674136638641357,
+        "A orange zip hoodie collar lining": 0.004821183159947395
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988693255931139,
+        "A navy zip hoodie pockets": 0.004674139432609081,
+        "A orange zip hoodie collar lining": 0.004811720922589302
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 19.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009884451515972614,
+        "A navy zip hoodie pockets": 0.004674157593399286,
+        "A orange zip hoodie collar lining": 0.004802350420504808
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.0098821260035038,
+        "A navy zip hoodie pockets": 0.0046741473488509655,
+        "A orange zip hoodie collar lining": 0.0047931126318871975
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009879626333713531,
+        "A navy zip hoodie pockets": 0.004674162715673447,
+        "A orange zip hoodie collar lining": 0.004767122212797403
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00987684354186058,
+        "A navy zip hoodie pockets": 0.004674105904996395,
+        "A orange zip hoodie collar lining": 0.004741805139929056
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 20.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009874343872070312,
+        "A navy zip hoodie pockets": 0.004674165975302458,
+        "A orange zip hoodie collar lining": 0.0047170729376375675
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00987308844923973,
+        "A navy zip hoodie pockets": 0.004674181342124939,
+        "A orange zip hoodie collar lining": 0.00470206793397665
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009872253984212875,
+        "A navy zip hoodie pockets": 0.004674139432609081,
+        "A orange zip hoodie collar lining": 0.004689935594797134
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009871351532638073,
+        "A navy zip hoodie pockets": 0.004674155730754137,
+        "A orange zip hoodie collar lining": 0.004678365308791399
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 21.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00987264420837164,
+        "A navy zip hoodie pockets": 0.0046741836704313755,
+        "A orange zip hoodie collar lining": 0.004676632583141327
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009875226765871048,
+        "A navy zip hoodie pockets": 0.004674174357205629,
+        "A orange zip hoodie collar lining": 0.004681618884205818
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009877884760499,
+        "A navy zip hoodie pockets": 0.00467419670894742,
+        "A orange zip hoodie collar lining": 0.00468655489385128
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009880419820547104,
+        "A navy zip hoodie pockets": 0.004674152936786413,
+        "A orange zip hoodie collar lining": 0.004690679255872965
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 22.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988337118178606,
+        "A navy zip hoodie pockets": 0.004674161784350872,
+        "A orange zip hoodie collar lining": 0.004694064613431692
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988611951470375,
+        "A navy zip hoodie pockets": 0.00467417249456048,
+        "A orange zip hoodie collar lining": 0.004697187338024378
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009888539090752602,
+        "A navy zip hoodie pockets": 0.004674145486205816,
+        "A orange zip hoodie collar lining": 0.0046979933977127075
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009889205917716026,
+        "A navy zip hoodie pockets": 0.004674168769270182,
+        "A orange zip hoodie collar lining": 0.0046894000843167305
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 23.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988992303609848,
+        "A navy zip hoodie pockets": 0.004674132913351059,
+        "A orange zip hoodie collar lining": 0.0046808901242911816
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00989062711596489,
+        "A navy zip hoodie pockets": 0.004674158059060574,
+        "A orange zip hoodie collar lining": 0.004672542680054903
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00989074632525444,
+        "A navy zip hoodie pockets": 0.004674156662076712,
+        "A orange zip hoodie collar lining": 0.004656590521335602
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009890809655189514,
+        "A navy zip hoodie pockets": 0.00467418460175395,
+        "A orange zip hoodie collar lining": 0.004640826024115086
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 24.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009890907444059849,
+        "A navy zip hoodie pockets": 0.004674168303608894,
+        "A orange zip hoodie collar lining": 0.004625467583537102
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009891866706311703,
+        "A navy zip hoodie pockets": 0.004674151539802551,
+        "A orange zip hoodie collar lining": 0.004613496828824282
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009893009439110756,
+        "A navy zip hoodie pockets": 0.004674121271818876,
+        "A orange zip hoodie collar lining": 0.004602666944265366
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009894133545458317,
+        "A navy zip hoodie pockets": 0.00467414315789938,
+        "A orange zip hoodie collar lining": 0.004592954181134701
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "walk",
+      "frame": 25.6,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009894637390971184,
+        "A navy zip hoodie pockets": 0.004674174822866917,
+        "A orange zip hoodie collar lining": 0.004589324817061424
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 0.8,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009781761094927788,
+        "A navy zip hoodie pockets": 0.0046741412952542305,
+        "A orange zip hoodie collar lining": 0.005020338576287031
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009773846715688705,
+        "A navy zip hoodie pockets": 0.004674139432609081,
+        "A orange zip hoodie collar lining": 0.005029457155615091
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009763158857822418,
+        "A navy zip hoodie pockets": 0.004674142226576805,
+        "A orange zip hoodie collar lining": 0.005039962474256754
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009751643985509872,
+        "A navy zip hoodie pockets": 0.0046741594560444355,
+        "A orange zip hoodie collar lining": 0.005049388390034437
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 1.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009748538956046104,
+        "A navy zip hoodie pockets": 0.004674139898270369,
+        "A orange zip hoodie collar lining": 0.005047298967838287
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009751476347446442,
+        "A navy zip hoodie pockets": 0.004674169700592756,
+        "A orange zip hoodie collar lining": 0.005038022063672543
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009754564613103867,
+        "A navy zip hoodie pockets": 0.004674182739108801,
+        "A orange zip hoodie collar lining": 0.0050286902114748955
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00976165384054184,
+        "A navy zip hoodie pockets": 0.004674202296882868,
+        "A orange zip hoodie collar lining": 0.005014033056795597
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 2.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009774942882359028,
+        "A navy zip hoodie pockets": 0.004674172960221767,
+        "A orange zip hoodie collar lining": 0.004991402383893728
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009787874296307564,
+        "A navy zip hoodie pockets": 0.004674166906625032,
+        "A orange zip hoodie collar lining": 0.004968112334609032
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009799650870263577,
+        "A navy zip hoodie pockets": 0.004674152471125126,
+        "A orange zip hoodie collar lining": 0.004942350555211306
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009808657690882683,
+        "A navy zip hoodie pockets": 0.004674194380640984,
+        "A orange zip hoodie collar lining": 0.004907041322439909
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 3.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009817385114729404,
+        "A navy zip hoodie pockets": 0.004674149677157402,
+        "A orange zip hoodie collar lining": 0.0048704748041927814
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009825475513935089,
+        "A navy zip hoodie pockets": 0.004674139898270369,
+        "A orange zip hoodie collar lining": 0.004832387901842594
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009824687615036964,
+        "A navy zip hoodie pockets": 0.004674194380640984,
+        "A orange zip hoodie collar lining": 0.0047905659303069115
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009823502972722054,
+        "A navy zip hoodie pockets": 0.00467413617298007,
+        "A orange zip hoodie collar lining": 0.00474716117605567
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 4.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009822077117860317,
+        "A navy zip hoodie pockets": 0.004674106370657682,
+        "A orange zip hoodie collar lining": 0.00470214057713747
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00981813669204712,
+        "A navy zip hoodie pockets": 0.0046741836704313755,
+        "A orange zip hoodie collar lining": 0.004660364240407944
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009813324548304081,
+        "A navy zip hoodie pockets": 0.004674159921705723,
+        "A orange zip hoodie collar lining": 0.004619537387043238
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009808319620788097,
+        "A navy zip hoodie pockets": 0.004674192517995834,
+        "A orange zip hoodie collar lining": 0.004578929860144854
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 5.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009806877933442593,
+        "A navy zip hoodie pockets": 0.004674151074141264,
+        "A orange zip hoodie collar lining": 0.004530551843345165
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00980753917247057,
+        "A navy zip hoodie pockets": 0.004674156662076712,
+        "A orange zip hoodie collar lining": 0.004481160081923008
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009807906113564968,
+        "A navy zip hoodie pockets": 0.004674153868108988,
+        "A orange zip hoodie collar lining": 0.004439433105289936
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009811533614993095,
+        "A navy zip hoodie pockets": 0.0046741715632379055,
+        "A orange zip hoodie collar lining": 0.004397568292915821
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 6.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00982045941054821,
+        "A navy zip hoodie pockets": 0.004674144089221954,
+        "A orange zip hoodie collar lining": 0.0043575516901910305
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009828641079366207,
+        "A navy zip hoodie pockets": 0.004674192517995834,
+        "A orange zip hoodie collar lining": 0.004336957354098558
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009836768731474876,
+        "A navy zip hoodie pockets": 0.004674161784350872,
+        "A orange zip hoodie collar lining": 0.004335712641477585
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009846225380897522,
+        "A navy zip hoodie pockets": 0.004674158990383148,
+        "A orange zip hoodie collar lining": 0.00434363866224885
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 7.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00985516794025898,
+        "A navy zip hoodie pockets": 0.004755923058837652,
+        "A orange zip hoodie collar lining": 0.004368661902844906
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009863478131592274,
+        "A navy zip hoodie pockets": 0.004895469173789024,
+        "A orange zip hoodie collar lining": 0.0044110980816185474
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009868756867945194,
+        "A navy zip hoodie pockets": 0.005018051713705063,
+        "A orange zip hoodie collar lining": 0.004453567788004875
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009873704984784126,
+        "A navy zip hoodie pockets": 0.005140842869877815,
+        "A orange zip hoodie collar lining": 0.004500859882682562
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 8.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009878279641270638,
+        "A navy zip hoodie pockets": 0.005253911018371582,
+        "A orange zip hoodie collar lining": 0.004552528262138367
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009880647994577885,
+        "A navy zip hoodie pockets": 0.005295027978718281,
+        "A orange zip hoodie collar lining": 0.004592858254909515
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14422324299812317,
+          -0.10621721297502518,
+          1.098631739616394
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009882612153887749,
+        "A navy zip hoodie pockets": 0.005332061555236578,
+        "A orange zip hoodie collar lining": 0.0046296631917357445
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009884243831038475,
+        "A navy zip hoodie pockets": 0.005375804379582405,
+        "A orange zip hoodie collar lining": 0.0046665361151099205
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 9.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00988595187664032,
+        "A navy zip hoodie pockets": 0.00539251696318388,
+        "A orange zip hoodie collar lining": 0.004680202342569828
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009887965396046638,
+        "A navy zip hoodie pockets": 0.005391143262386322,
+        "A orange zip hoodie collar lining": 0.004681164864450693
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009889816865324974,
+        "A navy zip hoodie pockets": 0.005389778409153223,
+        "A orange zip hoodie collar lining": 0.0046854568645358086
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009891835041344166,
+        "A navy zip hoodie pockets": 0.005369036924093962,
+        "A orange zip hoodie collar lining": 0.004675176925957203
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 10.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00989377498626709,
+        "A navy zip hoodie pockets": 0.005319111980497837,
+        "A orange zip hoodie collar lining": 0.004646528046578169
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00989550817757845,
+        "A navy zip hoodie pockets": 0.005269142799079418,
+        "A orange zip hoodie collar lining": 0.004629573784768581
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009896941483020782,
+        "A navy zip hoodie pockets": 0.005205639638006687,
+        "A orange zip hoodie collar lining": 0.004620068706572056
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009898667223751545,
+        "A navy zip hoodie pockets": 0.00508792232722044,
+        "A orange zip hoodie collar lining": 0.004608356859534979
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 11.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00990004651248455,
+        "A navy zip hoodie pockets": 0.004969738889485598,
+        "A orange zip hoodie collar lining": 0.004610068630427122
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009901361539959908,
+        "A navy zip hoodie pockets": 0.004851141013205051,
+        "A orange zip hoodie collar lining": 0.004624646157026291
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          -0.14540965855121613,
+          -0.10502666980028152,
+          1.1013127565383911
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009902365505695343,
+        "A navy zip hoodie pockets": 0.004674152936786413,
+        "A orange zip hoodie collar lining": 0.0046346052549779415
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009903416968882084,
+        "A navy zip hoodie pockets": 0.004674152005463839,
+        "A orange zip hoodie collar lining": 0.004652018193155527
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 12.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009904365986585617,
+        "A navy zip hoodie pockets": 0.004674166440963745,
+        "A orange zip hoodie collar lining": 0.004676469601690769
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00990395899862051,
+        "A navy zip hoodie pockets": 0.004674139898270369,
+        "A orange zip hoodie collar lining": 0.004694401286542416
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009903130121529102,
+        "A navy zip hoodie pockets": 0.00467416737228632,
+        "A orange zip hoodie collar lining": 0.004712719935923815
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009902079589664936,
+        "A navy zip hoodie pockets": 0.004674164112657309,
+        "A orange zip hoodie collar lining": 0.004733804147690535
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 13.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009898155927658081,
+        "A navy zip hoodie pockets": 0.004674151539802551,
+        "A orange zip hoodie collar lining": 0.004755415953695774
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009891966357827187,
+        "A navy zip hoodie pockets": 0.004674156662076712,
+        "A orange zip hoodie collar lining": 0.004777091555297375
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009885622188448906,
+        "A navy zip hoodie pockets": 0.004674152005463839,
+        "A orange zip hoodie collar lining": 0.004799650516360998
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009876744821667671,
+        "A navy zip hoodie pockets": 0.004674146883189678,
+        "A orange zip hoodie collar lining": 0.004827335476875305
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 14.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.00986403413116932,
+        "A navy zip hoodie pockets": 0.004674180410802364,
+        "A orange zip hoodie collar lining": 0.004861668683588505
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009850500151515007,
+        "A navy zip hoodie pockets": 0.004674182739108801,
+        "A orange zip hoodie collar lining": 0.0048948898911476135
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.25,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009836151264607906,
+        "A navy zip hoodie pockets": 0.004674181807786226,
+        "A orange zip hoodie collar lining": 0.0049276091158390045
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.5,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009819497354328632,
+        "A navy zip hoodie pockets": 0.004674138966947794,
+        "A orange zip hoodie collar lining": 0.004960653372108936
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 15.75,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009801389649510384,
+        "A navy zip hoodie pockets": 0.004674175288528204,
+        "A orange zip hoodie collar lining": 0.004991691559553146
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    },
+    {
+      "motion": "run",
+      "frame": 16.0,
+      "max_cloth_distance_m": {
+        "A ivory zipper and drawcords": 0.009781662374734879,
+        "A navy zip hoodie pockets": 0.004674178548157215,
+        "A orange zip hoodie collar lining": 0.005020231939852238
+      },
+      "worst_detail_rest_xyz": {
+        "A ivory zipper and drawcords": [
+          0.00010164690320380032,
+          -0.09831516444683075,
+          1.4119375944137573
+        ],
+        "A navy zip hoodie pockets": [
+          0.10970272123813629,
+          -0.14124153554439545,
+          1.028456449508667
+        ],
+        "A orange zip hoodie collar lining": [
+          0.08213689923286438,
+          -0.0685700923204422,
+          1.410453200340271
+        ]
+      }
+    }
+  ],
+  "attachment_roles": null,
+  "require_detail_clear": false,
+  "max_detail_shell_pairs": 0
+}

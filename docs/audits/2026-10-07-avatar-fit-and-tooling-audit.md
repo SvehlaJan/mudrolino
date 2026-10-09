@@ -322,3 +322,14 @@ The user approved these recommendations, including +30% heads on both bases.
   body or any garment in the six female or seven male outfits (hoods, backpack and scarf
   included) over 163 gait poses and six gestures. Headwear is excluded from that sweep:
   caps and beanies are fitted to the base hair and need a refit per variant.
+- **Female wardrobe close-out (2026-10-09):**
+  - **Female A06:** drapes the bob over the scarf with a vertical-lift `over_A06` key.
+    H03 and H05 get their own drape studies.
+  - **Scarf builder:** its pushes had been sliding points along the loop. Female points
+    bunched to 1 mm and left a 140 mm gap whose straight tube cut the shoulder. The builder
+    now relaxes points along the loop between posed refinements and guards the spacing.
+    Two tries failed first: a ring-surface check whose inside test trusted inward garment
+    normals (573 pairs), and pushes restricted to across the loop, which didn't converge.
+  - **T04 `zip-lining-v1`:** widens the zip and adds the neckline lining. The O04 cascade
+    passes on both bases.
+  - **Phone LODs:** `build_catalog_lod.py` handles the variant hair objects.

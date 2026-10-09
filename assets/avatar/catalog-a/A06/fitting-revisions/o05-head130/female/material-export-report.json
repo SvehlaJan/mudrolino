@@ -1,0 +1,92 @@
+{
+  "target": "assets/avatar/catalog-a/A06/fitting-revisions/o05-head130/female/outfit.glb",
+  "sha256": "8dd3afac34070b4b95abf16442bdc521237bdddb42b36791fa8e047bd140da63",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "A02_folded_beanie",
+      "material": "A02 knit",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A02_folded_beanie",
+      "material": "A02 cuff",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A06 loop scarf",
+      "material": "A06 ivory scarf",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A06 loop scarf",
+      "material": "A06 navy scarf band",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A ivory ankle-boot sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A navy ankle-boot elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot heel loops",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T05_crew_sweatshirt quad shell",
+      "material": "A blue sweatshirt fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T05_crew_sweatshirt quad shell",
+      "material": "A navy sweatshirt ribbing",
+      "colorComponents": 0
+    }
+  ]
+}

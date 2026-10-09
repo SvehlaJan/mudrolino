@@ -4,19 +4,27 @@
     "B01",
     "F01"
   ],
+  "foundation": "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/foundation.blend",
+  "foundation_sha256": "b653e05677751c6066ef6d41ab74f3087c1131f7b8358cfbc83ef9a199bf91cd",
   "status": "combination candidate; motion/runtime acceptance pending",
   "coverage": {
     "T04": {
       "vertices": 16742,
-      "source_rest_delta_m": 0.0
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/T04/fitting-revisions/zip-lining-v1/T04.blend",
+      "source_sha256": "faed8df7619cd26b6db7fb17618cc6ef4afb1820104710b2130e14679e89068a"
     },
     "B01": {
       "vertices": 17351,
-      "source_rest_delta_m": 0.0
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/B01/B01.blend",
+      "source_sha256": "13105753e74d5bee658d4db0bc36ef8a3ed4305a5e3197f47268a464668695e3"
     },
     "F01": {
       "vertices": 5669,
-      "source_rest_delta_m": 0.0
+      "source_rest_delta_m": 0.0,
+      "source": "assets/avatar/catalog-a/F01/F01.blend",
+      "source_sha256": "972dad49645ecc187dbb39a8d4c02a025214b192b9be6573b51cba821b844cee"
     }
   },
   "poses": [

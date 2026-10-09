@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "source_blend_sha256": "46555806a605a76313fbd05f93639879d4e5d6bef2e6386b881b03910ad2ed15",
+  "source_blend_sha256": "6040e7cfc386b2ff38cd2279333db7859cea1d010797d716f2bf25f29500ea9e",
   "checks": [
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/body.glb",
@@ -30,12 +30,12 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/garments.glb",
-      "sha256": "42b74fe3006f65c521848124a4ce8bac34baf063bf4596e7f3d5597f3577ba0b",
-      "bytes": 1630180,
+      "sha256": "14b9c72818d5582c7bac26ea6775e56c8bb183d6bd24c17dfd7be0058ef22d1f",
+      "bytes": 1635448,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
-        "numInfos": 9,
+        "numInfos": 10,
         "numHints": 0,
         "messages": [
           {
@@ -91,6 +91,12 @@
             "message": "This object may be unused.",
             "severity": 2,
             "pointer": "/meshes/2/primitives/4/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/2/primitives/5/attributes/TEXCOORD_0"
           }
         ],
         "truncated": false
@@ -98,12 +104,12 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.glb",
-      "sha256": "e77d3653ff17ecffba46dc62e45121ad38da70309c1f518180ed3cafc0490010",
-      "bytes": 3485144,
+      "sha256": "62d2ccbf5a9e01101093f875d2bb0274b8c6161978e6f84693830dfe0d91275b",
+      "bytes": 3490412,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
-        "numInfos": 11,
+        "numInfos": 12,
         "numHints": 0,
         "messages": [
           {
@@ -171,6 +177,12 @@
             "message": "This object may be unused.",
             "severity": 2,
             "pointer": "/meshes/5/primitives/4/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/5/primitives/5/attributes/TEXCOORD_0"
           }
         ],
         "truncated": false
@@ -204,12 +216,12 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/T04/garments.glb",
-      "sha256": "7b40d465af9e7969b8ca7cd0ea2b1f197283db03ec4fbd11330cf597c3c40ac6",
-      "bytes": 484776,
+      "sha256": "60bb610ba33a12a43fe842fe487a0a051400bf1b41d8ac781aedef99ce347057",
+      "bytes": 490028,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
-        "numInfos": 5,
+        "numInfos": 6,
         "numHints": 0,
         "messages": [
           {
@@ -241,6 +253,12 @@
             "message": "This object may be unused.",
             "severity": 2,
             "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/0/primitives/5/attributes/TEXCOORD_0"
           }
         ],
         "truncated": false
@@ -248,12 +266,12 @@
     },
     {
       "target": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/pieces/T04/outfit.glb",
-      "sha256": "5266110e09e44d514392e92c166eced992bbb1d96062d2d4e3ac52cfe533e88a",
-      "bytes": 3800732,
+      "sha256": "24fdf002cd956fbecdd44674a70d1350e01191dda4fb18fe79f406a72b57b247",
+      "bytes": 3805992,
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
-        "numInfos": 7,
+        "numInfos": 8,
         "numHints": 0,
         "messages": [
           {
@@ -297,6 +315,12 @@
             "message": "This object may be unused.",
             "severity": 2,
             "pointer": "/meshes/3/primitives/4/attributes/TEXCOORD_0"
+          },
+          {
+            "code": "UNUSED_OBJECT",
+            "message": "This object may be unused.",
+            "severity": 2,
+            "pointer": "/meshes/3/primitives/5/attributes/TEXCOORD_0"
           }
         ],
         "truncated": false

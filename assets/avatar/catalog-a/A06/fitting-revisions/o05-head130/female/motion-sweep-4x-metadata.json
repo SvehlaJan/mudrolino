@@ -1,0 +1,24 @@
+{
+  "blend": "assets/avatar/catalog-a/A06/fitting-revisions/o05-head130/female/outfit.blend",
+  "blend_sha256": "65190cac4bd8c989bde4ad2d1e77b82f4a2b57a64c490da03005da7887b3e706",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_female",
+    "H02_head",
+    "H02_hair"
+  ],
+  "garment_meshes": [
+    "T05_crew_sweatshirt",
+    "B01_straight_trousers",
+    "F04_ankle_boots",
+    "A02_folded_beanie",
+    "A06_loop_scarf_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [],
+  "max_accepted_pairs": 0
+}

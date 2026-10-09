@@ -1,7 +1,7 @@
 {
   "study_dir": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male",
-  "study_report_sha256": "48009a443ec99480c1b9196439ce8d9058c88d4710d0a651abc263beed2bde46",
-  "verifier_sha256": "bdd0a188afcacabce8bba9ba9b64dabda47f46681ba1aa3b2afbe248f5521be5",
+  "study_report_sha256": "4131b829d31a34f50d40daa81822b8b7b048e15c4c6f8b3d4ba8a6fbfd405b2a",
+  "verifier_sha256": "1cdac10a6c3d831c89ffce4fe8efdd70211ac0ddcb5a4d57fb905551521b1d74",
   "failures": [],
   "status": "passed",
   "fit_gate": {

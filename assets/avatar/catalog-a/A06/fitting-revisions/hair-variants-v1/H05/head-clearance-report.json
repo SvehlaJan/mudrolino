@@ -1,0 +1,57 @@
+{
+  "blend": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H05/outfit.blend",
+  "blend_sha256": "1711767345e73379eb0125c6e10452a320d06948ce0f2ad377f9c1880467ce4e",
+  "object": "H05_hair",
+  "bone": "Head",
+  "status": "passed",
+  "checks": [
+    {
+      "pose": "rest",
+      "max_attachment_error_m": 1.1200678630451045e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt": 0,
+        "A06_loop_scarf_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-left",
+      "max_attachment_error_m": 2.0485709734063626e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt": 0,
+        "A06_loop_scarf_outfit": 0
+      }
+    },
+    {
+      "pose": "turn-right",
+      "max_attachment_error_m": 2.1073424255447017e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt": 0,
+        "A06_loop_scarf_outfit": 0
+      }
+    },
+    {
+      "pose": "nod",
+      "max_attachment_error_m": 3.1195274891455423e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt": 0,
+        "A06_loop_scarf_outfit": 0
+      }
+    },
+    {
+      "pose": "look-up",
+      "max_attachment_error_m": 3.16890631886374e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt": 0,
+        "A06_loop_scarf_outfit": 0
+      }
+    },
+    {
+      "pose": "tilt",
+      "max_attachment_error_m": 2.7314279645418166e-07,
+      "obstacle_pairs": {
+        "T05_crew_sweatshirt": 0,
+        "A06_loop_scarf_outfit": 0
+      }
+    }
+  ]
+}

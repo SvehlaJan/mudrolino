@@ -1,7 +1,7 @@
 {
   "study_dir": "assets/avatar/catalog-a/A01/fitting-revisions/head-envelope-v1/female",
-  "study_report_sha256": "c976fb277bcf0375555a47d49b7ee15f5583de56abf9359cf6d071638d341f9a",
-  "verifier_sha256": "bdd0a188afcacabce8bba9ba9b64dabda47f46681ba1aa3b2afbe248f5521be5",
+  "study_report_sha256": "a1d9dc73ea598c1821792b8fd05e377424a74a907ecf0655923cf3a26209d85c",
+  "verifier_sha256": "1cdac10a6c3d831c89ffce4fe8efdd70211ac0ddcb5a4d57fb905551521b1d74",
   "failures": [],
   "status": "passed",
   "fit_gate": {

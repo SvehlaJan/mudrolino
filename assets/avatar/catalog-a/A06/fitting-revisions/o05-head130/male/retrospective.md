@@ -43,3 +43,11 @@ and a scarf pairs naturally with the sweatshirt and beanie.
 
 - Female A06: H02's bob hangs onto the shoulders where the scarf sits.
 - Art review of thickness and front drape.
+
+## Rebuild (2026-10-09)
+
+Rebuilt with the builder change from the female fit: points relax along the loop between
+posed refinements, and the build fails on a gap over four median spacings. Male spacing is
+9–47 mm. Motion, head gestures, export (5.7 µm), materials and glTF still pass. The
+committed path before this change had the same shape (verified identical before relaxation
+was added).

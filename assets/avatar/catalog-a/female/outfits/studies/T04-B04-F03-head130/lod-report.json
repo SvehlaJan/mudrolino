@@ -1,11 +1,11 @@
 {
   "source": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.blend",
-  "source_sha256": "46555806a605a76313fbd05f93639879d4e5d6bef2e6386b881b03910ad2ed15",
-  "builder_sha256": "2e362bbf499d3e7ff2b379794fe26e27c34ad9a9b29ff2bb6f6240ec4d886d63",
+  "source_sha256": "6040e7cfc386b2ff38cd2279333db7859cea1d010797d716f2bf25f29500ea9e",
+  "builder_sha256": "c0f57aeff97daf7ce2f658f84838a1340268988c949b57d051e3afa8d0b9a17e",
   "budget": 95000,
   "body_floor": 1.0,
-  "triangles_before": 108879,
-  "triangles_after": 94807,
+  "triangles_before": 108943,
+  "triangles_after": 94871,
   "decimated": {
     "H02_hair": {
       "before": 45852,
@@ -14,7 +14,7 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit-lod.blend": "5cbf7a376896fac50bda9cefcdfd69137858aa8e9f2e6ace07ba929dd81a2627"
+    "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit-lod.blend": "17338ddd444d7eff5975429314f6dd5590b0907049f2b62a083491785d3276dc"
   },
-  "glb_sha256": "9b7a3bc574a3544e8302681d410c9cb88e0685f7ea342de84484032c8e42bb49"
+  "glb_sha256": "49becc117110ca228b17f2fd950e586211772aa5c998271dc65daa4bd11aab92"
 }

@@ -341,9 +341,17 @@
           "references": [],
           "revisions": [
             {
+              "id": "zip-lining-v1",
+              "label": "14 mm ivory zip and orange neckline lining, fuller hood",
+              "assetId": "outfit-t04-b01-f01-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "T04/fitting-revisions/zip-lining-v1 (build_catalog_hood_revision.py --id T04 --zip-lining): 163-pose motion with zero pairs, head clearance, details within the attachment gate, glTF/materials; the same single low-camera hem face as hood-v2. With B01/F01, male O04 and female O04 (runner 15/15): all outfit gates; phone LODs 94,999/94,871 triangles."
+            },
+            {
               "id": "hood-v2",
               "label": "Fuller lowered hood, no drawcords, +30% head",
-              "assetId": "outfit-t04-b01-f01-head130",
+              "assetId": "t04-hood-v2-piece",
               "visualReview": "pending",
               "technicalReview": "recorded-pass",
               "technicalNote": "T04/fitting-revisions/hood-v2 (build_catalog_hood_revision.py --id T04): drawcords removed; 163-pose motion with zero body/layer pairs, stitched details within 8.0 mm over 164 poses, head clearance, glTF/materials. Worn with B01/F01 on the +30% head: 163 poses clear, zero coverage holes, export 6.07 µm. Shown alone, one hem face is visible from a low camera.",
@@ -359,7 +367,7 @@
               "reviewNote": "Reference audit requests fuller lowered hood and readable construction."
             }
           ],
-          "currentRevisionId": "hood-v2"
+          "currentRevisionId": "zip-lining-v1"
         },
         {
           "id": "female",
@@ -1374,6 +1382,14 @@
           "references": [],
           "revisions": [
             {
+              "id": "hair-H04",
+              "label": "On H04",
+              "assetId": "a01-h04-male",
+              "visualReview": "pending",
+              "technicalReview": "repair-needed",
+              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): the band touches crop curls just below it, 16 pairs"
+            },
+            {
               "id": "head-envelope-v1",
               "label": "Envelope-fitted cap on the +30% head",
               "assetId": "a01-envelope-male",
@@ -1415,6 +1431,22 @@
             }
           ],
           "revisions": [
+            {
+              "id": "hair-H05",
+              "label": "On H05",
+              "assetId": "a01-h05-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H05 (verify_catalog_headwear.py): crown p50 3.5 mm, band p90 3.2 mm, zero intersections; 163 gait poses and six gestures clear."
+            },
+            {
+              "id": "hair-H03",
+              "label": "On H03",
+              "assetId": "a01-h03-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H03 (verify_catalog_headwear.py): crown p50 3.5 mm, band p90 3.4 mm, zero intersections; 163 gait poses and six gestures clear."
+            },
             {
               "id": "head-envelope-v1",
               "label": "Envelope-fitted cap on the +30% head",
@@ -1466,6 +1498,14 @@
           "references": [],
           "revisions": [
             {
+              "id": "hair-H04",
+              "label": "On H04",
+              "assetId": "a02-h04-male",
+              "visualReview": "pending",
+              "technicalReview": "repair-needed",
+              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): band p90 5.9 mm: the band sits on forehead skin 14 mm under the crop hairline"
+            },
+            {
               "id": "head-envelope-v1",
               "label": "Envelope-fitted beanie on the +30% head",
               "assetId": "a02-envelope-male",
@@ -1498,6 +1538,22 @@
             }
           ],
           "revisions": [
+            {
+              "id": "hair-H05",
+              "label": "On H05",
+              "assetId": "a02-h05-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H05 (verify_catalog_headwear.py): crown p50 5.3 mm, band p90 1.8 mm, zero intersections; 163 gait poses and six gestures clear."
+            },
+            {
+              "id": "hair-H03",
+              "label": "On H03",
+              "assetId": "a02-h03-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H03 (verify_catalog_headwear.py): crown p50 5.3 mm, band p90 4.5 mm, zero intersections; 163 gait poses and six gestures clear."
+            },
             {
               "id": "head-envelope-v1",
               "label": "Envelope-fitted beanie on the +30% head",
@@ -1817,7 +1873,33 @@
               "cropSha256": "0978f72a34254d78d4c51f46c3c6ce9786eaf74b8a1ca9f8ce15138cd636fa42"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "hair-H05",
+              "label": "With H05 silver waves draped over it",
+              "assetId": "a06-h05-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A06/fitting-revisions/hair-variants-v1/H05 (drape_catalog_hair_over_scarf.py): waves lift up to 44 mm; 163 poses and gestures clear; export 1.1 µm."
+            },
+            {
+              "id": "hair-H03",
+              "label": "With H03 curls draped over it",
+              "assetId": "a06-h03-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A06/fitting-revisions/hair-variants-v1/H03 (drape_catalog_hair_over_scarf.py): curls lift up to 89 mm; 163 poses and gestures clear; export 1.1 µm."
+            },
+            {
+              "id": "o05-head130",
+              "label": "Loop scarf on female O05, bob draped over it",
+              "assetId": "a06-o05-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A06/fitting-revisions/o05-head130/female (build_catalog_a06.py --hair-over H02_hair --clearance .015): over_A06 hair key lifts the bob onto the scarf (up to 139 mm); 163 poses and five gestures clear; path spacing 14-34 mm; export 1.1 µm; glTF/materials."
+            }
+          ],
+          "currentRevisionId": "o05-head130"
         }
       ],
       "relatedIds": []

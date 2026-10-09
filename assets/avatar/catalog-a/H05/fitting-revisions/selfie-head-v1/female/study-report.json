@@ -22,7 +22,7 @@
     "ear_top_z": 1.696559908103943
   },
   "builder_sha256": "9bc72d15e9ff13febd8a38f4f44b3f2bc4788feeb27d3a133b0f23cbc0da68f0",
-  "plan_sha256": "df007c5fedbe77adec6ffd5dbc8bb21392e5ef63a07a28f001ca5574f388fee0",
+  "plan_sha256": "f31c417a251c0c9cbd3dda62a311a7627c6167df65e3b9aa34bd40665a215c4c",
   "head": "H02_head",
   "removed_base_hair_faces": 22926,
   "hair": {
@@ -38,7 +38,7 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/H05/fitting-revisions/selfie-head-v1/female/H05.blend": "f93fda90e618220aa76e8b980682966e8358b5b6535e7cc4a353bd68bd88cc95"
+    "assets/avatar/catalog-a/H05/fitting-revisions/selfie-head-v1/female/H05.blend": "4fb4e622cd544a15d5f4a7faa30e6724d3dc5982840e6696551177d3237f84a5"
   },
   "exports": {
     "H05.glb": "6730ed38222044358b6a1ad1f4455aa69ba427048dbd2f17a7cf2cf0822e71bf",

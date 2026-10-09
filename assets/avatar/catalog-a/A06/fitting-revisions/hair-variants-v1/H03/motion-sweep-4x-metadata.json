@@ -1,0 +1,23 @@
+{
+  "blend": "assets/avatar/catalog-a/A06/fitting-revisions/hair-variants-v1/H03/outfit.blend",
+  "blend_sha256": "f5539428fc3b0b223ac41d1353f3818ee83e732a7cdd3c0bf3491499cb2658e3",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_female",
+    "H02_head",
+    "H03_hair"
+  ],
+  "garment_meshes": [
+    "T05_crew_sweatshirt",
+    "B01_straight_trousers",
+    "F04_ankle_boots",
+    "A06_loop_scarf_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [],
+  "max_accepted_pairs": 0
+}

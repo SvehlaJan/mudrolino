@@ -1,0 +1,69 @@
+{
+  "study_dir": "assets/avatar/catalog-a/A02/fitting-revisions/hair-variants-v1/H05",
+  "study_report_sha256": "ddf323e1ca6ee688be8efc9583d2609e66444a4bc85a33b10adbad3a7e4c15ab",
+  "verifier_sha256": "1cdac10a6c3d831c89ffce4fe8efdd70211ac0ddcb5a4d57fb905551521b1d74",
+  "failures": [],
+  "status": "passed",
+  "fit_gate": {
+    "passed": true,
+    "failures": [],
+    "crown": {
+      "samples": 3494,
+      "share_within_max": 1.0,
+      "p50_mm": 5.28,
+      "p90_mm": 9.11,
+      "max_mm": 9.23,
+      "min_mm": 1.52
+    },
+    "band": {
+      "samples": 73,
+      "p90_mm": 1.83,
+      "max_mm": 2.76,
+      "min_mm": 1.33
+    },
+    "thresholds": {
+      "max_gap_mm": 12.0,
+      "min_share": 0.9,
+      "band_p90_mm": 5.0,
+      "band_max_mm": 15.0,
+      "min_gap_mm": -0.5
+    },
+    "intersections": {
+      "H02_head": 0,
+      "H05_hair": 0,
+      "body_underlayer_female": 0
+    }
+  },
+  "motion_clearance": {
+    "samples": 168,
+    "gesture_samples": 5,
+    "maximum_pairs": {
+      "H02_head": 0,
+      "H05_hair": 0,
+      "body_underlayer_female": 0
+    },
+    "contacts": []
+  },
+  "under_key_export": {
+    "key": "under_A02",
+    "meshes": [
+      [
+        [],
+        []
+      ],
+      [
+        [
+          "under_A02"
+        ],
+        [
+          1
+        ]
+      ]
+    ]
+  },
+  "export_fidelity": {
+    "poses": 16,
+    "maximum_error_m": 6.193960189193604e-07,
+    "threshold_m": 3e-05
+  }
+}

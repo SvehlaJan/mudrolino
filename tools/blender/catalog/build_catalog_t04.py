@@ -12,6 +12,22 @@ from build_catalog_head import material,tube,sphere
 
 # The construction target forbids dangling strings; revisions turn the canonical cords off.
 DRAWCORDS=True
+# Canonical zip tape half-width and pull; the zip-lining revision widens the tape so the
+# ivory zip reads at phone size, and adds an orange lining binding along the front neckline.
+ZIP_HALF_WIDTH=.0018
+PULL_SCALE=(.004,.002,.005)
+LINING_COLLAR=False
+COLLAR={'half_span':.105,'zip_gap':.0095,'below_rim':(.003,.017),'samples':16}
+
+def neckline_rim(tree,x,low=1.30,high=1.50,step=.001):
+    """Highest z at which a ray from the front still hits the hoodie's front or neck side."""
+    rim=None;z=low
+    while z<=high:
+        hit=tree.ray_cast(Vector((x,-.45,z)),Vector((0,1,0)))
+        if hit[0] is not None and hit[0].y<.02:rim=z
+        z+=step
+    assert rim is not None,x
+    return rim
 
 def create_zip_hoodie(arm,body):
     obj=create_long_top(arm,body,'T04_zip_hoodie')
@@ -39,7 +55,7 @@ def create_zip_hoodie(arm,body):
     vs=[];fs=[]
     for row in range(49):
         z=1.414-(1.414-.938)*row/48
-        for x in [-.0018,.0018]:vs.append(tuple(front(x,z)))
+        for x in [-ZIP_HALF_WIDTH,ZIP_HALF_WIDTH]:vs.append(tuple(front(x,z)))
     for row in range(48):
         j=row*2;fs.append((j,j+1,j+3,j+2))
     zipper=mesh_object('T04 center zipper',vs,fs,ivory)
@@ -51,7 +67,20 @@ def create_zip_hoodie(arm,body):
         opening=tube('T04 angled pocket opening',points,.0014,seam);parts.append(opening)
         points=[front(sign*x,z,.006) for x,z in [(.046,1.408),(.050,1.381),(.057,1.350),(.055,1.324)]]
         if DRAWCORDS:cord=tube('T04 ivory drawcord',points,.0017,ivory);parts.append(cord)
-    pull=front(0,1.402,.004);parts.append(sphere('T04 rounded zipper pull',pull,(.004,.002,.005),ivory,segments=12,rings=8))
+    pull=front(0,1.402,.004);parts.append(sphere('T04 rounded zipper pull',pull,PULL_SCALE,ivory,segments=12,rings=8))
+    if LINING_COLLAR:
+        # Two ribbons just under the neckline rim, from the zip edge to the hood's lined
+        # ends at the neck sides, so the orange lining frames the neck from the front.
+        lining=material('A orange zip hoodie collar lining',(.90,.245,.045),.88)
+        vs=[];fs=[];n=COLLAR['samples']
+        for sign in [-1,1]:
+            base=len(vs)
+            for i in range(n+1):
+                x=sign*(COLLAR['zip_gap']+(COLLAR['half_span']-COLLAR['zip_gap'])*i/n);rim=neckline_rim(tree,x)
+                for below in COLLAR['below_rim']:vs.append(tuple(front(x,rim-below,.004)))
+            for i in range(n):
+                j=base+2*i;fs.append((j,j+1,j+3,j+2) if sign>0 else (j,j+2,j+3,j+1))
+        parts.append(mesh_object('T04 collar lining',vs,fs,lining))
     for part in parts:
         fn=None
         if part==hood:

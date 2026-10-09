@@ -80,7 +80,9 @@ def main():
         key_name = study['under_hat']['key']
         check(hair.data.shape_keys is not None and hair.data.shape_keys.key_blocks.get(key_name) is not None
               and abs(hair.data.shape_keys.key_blocks[key_name].value - 1) < 1e-9, 'under_key_active')
+        # Base heads by name, plus the study's own hair (hair variants are H03-H05_hair).
         heads = [o for o in bpy.data.objects if o.type == 'MESH' and (o.name.startswith('H01_head') or o.name.startswith('H02_'))]
+        heads += [hair] if hair not in heads else []
         body = next(o for o in bpy.data.objects if o.name.startswith('body_underlayer_'))
         garments = [o for o in bpy.data.objects if o.type == 'MESH' and o.name.endswith('_outfit')]
 

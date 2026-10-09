@@ -489,7 +489,12 @@ path differences and leave near-equal shared-seam assignments qualified.
 - Scarf: `build_catalog_a06.py --outfit-blend OUTFIT --top TOP_OBJECT --output-dir DIR`. To
   fit anything rigid-ish against moving obstacles, check each point in every gait pose through
   its own blended skin transform and map pushes back with the inverse. Mapping obstacles
-  through one bone's frame does not match blended skinning.
+  through one bone's frame does not match blended skinning. Each tube ring shares its
+  centreline point's weights, so the tube moves exactly as the refinement measured it.
+  `--hair-over H02_hair` (female O05) drops the bob from the scarf obstacles and adds an
+  `over_A06` hair key: the hair is rigid on Head, so every posed scarf maps into the Head
+  rest frame, and hair inside that swept tube rises vertically onto its top. Pushing each
+  vertex away from its nearest scarf point shredded the bob.
 - Glasses: `build_catalog_glasses.py --id A03|A04 --base male|female --output-dir DIR`
   fits frames to the painted eyes (`catalog_glasses_plan.py`). Gate:
   `verify_catalog_glasses.py --study-dir DIR` (no skin contact, frame clearance, mirror,
@@ -504,7 +509,18 @@ path differences and leave near-equal shared-seam assignments qualified.
   five cameras, scalp covered, ears/nose clear, gait plus gestures in every outfit with
   headwear excluded, face UVs/image and rest shape through the GLB). Caps and beanies are
   fitted to the base hair and need a refit per hair.
+- Headwear on hair variants: `HEADS` also has `female-H03`, `male-H04` and `female-H05`, so
+  `build_catalog_a01_fitted.py` / `build_catalog_a02.py --base female-H03 ...` fit the cap or
+  beanie to a hair-variant study. The variant's `under_A0x` key presses its single shell flat
+  to the hair layer under the band (`pressed_shell_radius`: curl valleys rise, peaks flatten),
+  and `band_relief` takes 1.2 mm off the band ease that clears the base hair's locks. The
+  verifier measures gaps to the study's own hair object.
+- Hair over the scarf: `drape_catalog_hair_over_scarf.py --outfit-blend A06/.../female/outfit.blend
+  --hair-blend H0x.blend --hair H0x_hair --drop A02_folded_beanie --output-dir DIR` swaps a
+  hair variant into the scarf outfit and gives it its own `over_A06` lift key (same rule as
+  `build_catalog_a06.py --hair-over`). Run the outfit motion/head/export gates on it.
 - Hoods: `build_catalog_hood_revision.py --id T02|T04` builds the fuller hood (`hood-v2`)
   through the canonical builders; the female builder takes the same shape as
-  `--hood-shape JSON`. H02 hair: rear locks shorten by 30% (`--rear-shorten
+  `--hood-shape JSON`. `--zip-lining` (T04) also widens the ivory zip tape to 14 mm and
+  binds the front neckline in the orange lining (`zip-lining-v1`). H02 hair: rear locks shorten by 30% (`--rear-shorten
   1.56,.3,.04,.10`) so the tips clear long sleeves in the run.

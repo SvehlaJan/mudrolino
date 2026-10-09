@@ -1,0 +1,12 @@
+{
+  "tolerance_m": 1e-07,
+  "status": "passed",
+  "checks": [
+    {
+      "blend": "assets/avatar/catalog-a/outfits/T04-B01-F01-head130/outfit.blend",
+      "blend_sha256": "7a4303d01689945dade70e71e3fe4e283d156d741b60541c4dcbc2128a7f5b23",
+      "keys": [],
+      "status": "passed"
+    }
+  ]
+}

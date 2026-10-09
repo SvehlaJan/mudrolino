@@ -1,13 +1,13 @@
 {
   "status": "passed",
   "blend": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.blend",
-  "blend_sha256": "46555806a605a76313fbd05f93639879d4e5d6bef2e6386b881b03910ad2ed15",
+  "blend_sha256": "6040e7cfc386b2ff38cd2279333db7859cea1d010797d716f2bf25f29500ea9e",
   "glb": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.glb",
-  "glb_sha256": "e77d3653ff17ecffba46dc62e45121ad38da70309c1f518180ed3cafc0490010",
+  "glb_sha256": "62d2ccbf5a9e01101093f875d2bb0274b8c6161978e6f84693830dfe0d91275b",
   "runtime_verifier_sha256": "be2c7bbb8f54c02476d49d24e0ee579c674d85e155bbcb8e70cce4e46e3435e4",
   "foundation_sha256": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962",
-  "runtime_samples_sha256": "9630831c34d578950274058d15be40f7b867218cb469b166e1c0eb3a25edf48a",
-  "deformation_report_sha256": "72b9530ecf054a99532316aea1308290042f7648f186dd674cf88f34f7f9ac02",
+  "runtime_samples_sha256": "07a86e778ad2738b2c035b1d028138a38a08d5fb456bc970961b2df6ae96b3fe",
+  "deformation_report_sha256": "dd671073ac4b58467ea1ec01646567cce6cc6b9a95107fee8c0af20bd1ceebea",
   "sampling": "about96 deterministic rendered GLB rest-index vertices per mesh per pose",
   "axis_conversion": "Blender Z-up (x,y,z) to glTF Y-up (x,z,-y)",
   "pose_evaluation": "raw-gltf-SLERP-equivalent-pose",
@@ -21,7 +21,7 @@
       "frame": 0,
       "samples": 581,
       "unmatched": 0,
-      "max_imported_vertex_error_m": 5.09737947635423e-7,
+      "max_imported_vertex_error_m": 6.416690347716716e-7,
       "bone_count": 24,
       "max_raw_gltf_three_bone_translation_error_m": 1.1102230246251565e-16,
       "max_raw_gltf_three_bone_linear_matrix_error": 3.3306690738754696e-16
@@ -31,7 +31,7 @@
       "frame": 0.8,
       "samples": 581,
       "unmatched": 0,
-      "max_imported_vertex_error_m": 6.003817472623551e-7,
+      "max_imported_vertex_error_m": 6.526666426972196e-7,
       "bone_count": 24,
       "max_raw_gltf_three_bone_translation_error_m": 1.1102230246251565e-16,
       "max_raw_gltf_three_bone_linear_matrix_error": 3.3306690738754696e-16
@@ -41,7 +41,7 @@
       "frame": 1,
       "samples": 581,
       "unmatched": 0,
-      "max_imported_vertex_error_m": 4.872265951847991e-7,
+      "max_imported_vertex_error_m": 5.578208507674196e-7,
       "bone_count": 24,
       "max_raw_gltf_three_bone_translation_error_m": 1.420381115571634e-7,
       "max_raw_gltf_three_bone_linear_matrix_error": 8.730654766919699e-7
@@ -101,7 +101,7 @@
       "frame": 1,
       "samples": 581,
       "unmatched": 0,
-      "max_imported_vertex_error_m": 5.622841723869394e-7,
+      "max_imported_vertex_error_m": 6.129622403949517e-7,
       "bone_count": 24,
       "max_raw_gltf_three_bone_translation_error_m": 1.5844200691728094e-7,
       "max_raw_gltf_three_bone_linear_matrix_error": 4.044038514061654e-7

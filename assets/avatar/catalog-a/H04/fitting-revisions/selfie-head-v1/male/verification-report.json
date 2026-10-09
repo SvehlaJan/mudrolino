@@ -1,6 +1,6 @@
 {
   "study_dir": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male",
-  "study_report_sha256": "60abfea2496716dfbe619b890ba72336c8e9889746d64aec1ddd20df81445958",
+  "study_report_sha256": "4ad9a8def45b5451b34da6b05b26b588c0b2579bfc88865b29216e63e959181b",
   "verifier_sha256": "db25a689a877a4205375cd748ca2130f7fc6989b156a175ae2905795f551d1e8",
   "style": "H04",
   "base": "male",
@@ -8,12 +8,12 @@
   "status": "passed",
   "triangles": {
     "base_head_and_hair": 65084,
-    "variant_head_and_hair": 46776,
-    "hair": 29880
+    "variant_head_and_hair": 46628,
+    "hair": 29732
   },
   "hidden_features": [],
   "skin_through_hair": {
-    "rays": 5279,
+    "rays": 5251,
     "skin_first": 0
   },
   "hair_ear_nose_pairs": 0,
@@ -47,11 +47,11 @@
   },
   "glasses": {
     "A03_glasses": {
-      "hair_pairs_info": 120,
+      "hair_pairs_info": 112,
       "head_pairs": 0
     },
     "A04_glasses": {
-      "hair_pairs_info": 115,
+      "hair_pairs_info": 110,
       "head_pairs": 0
     }
   },

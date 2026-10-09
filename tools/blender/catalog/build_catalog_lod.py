@@ -31,7 +31,9 @@ from build_catalog_t01 import reset, world_mesh
 from build_catalog_head_style_study import rig_signature, motion_signature
 from build_catalog_female_foundation_study import export_uv
 
-HEAD_PREFIXES = ('H01_head', 'H02_head', 'H02_hair')
+# Separate hair objects: the H02 bob and the H03-H05 variants on the reusable heads.
+HAIR_PREFIXES = ('H02_hair', 'H03_hair', 'H04_hair', 'H05_hair')
+HEAD_PREFIXES = ('H01_head', 'H02_head', *HAIR_PREFIXES)
 HEADWEAR_PREFIXES = ('A01_', 'A02_')
 MIN_RATIO = .15
 # The glTF exporter drops weights <= 1e-4 that Blender still applies; collapse decimation
@@ -216,7 +218,7 @@ def main():
     # Reduction order and floors: headwear, then heads/hair, then the visible body. Hair that
     # sits under headwear hugs it within millimetres, so it keeps at least half its triangles.
     groups = [(headwear, .6),
-              ([o for o in meshes if o.name.startswith(HEAD_PREFIXES) and counts[o.name] > 8000 and not (headwear and o.name.startswith('H02_hair'))], MIN_RATIO),
+              ([o for o in meshes if o.name.startswith(HEAD_PREFIXES) and counts[o.name] > 8000 and not (headwear and o.name.startswith(HAIR_PREFIXES))], MIN_RATIO),
               # Hair under headwear is only culled, never decimated: the headwear hugs it within
               # millimetres and any surface change pokes through (2026-10-09 trials at 50%).
               ]
@@ -226,7 +228,7 @@ def main():
     # Never-visible hair goes first: removing it moves no surface. world_mesh faces follow the
     # mesh's own polygon order here (hair has no topology-changing modifiers).
     occluders = [o for o in meshes if not o.name.startswith('body_underlayer_')]
-    for obj in [o for o in meshes if o.name.startswith(('H01_head', 'H02_hair'))]:
+    for obj in [o for o in meshes if o.name.startswith(('H01_head', *HAIR_PREFIXES))]:
         culled = cull_invisible(obj, occluders)
         rows[obj.name] = {'before': counts[obj.name], 'culled_faces': culled}
         counts[obj.name] = triangles(obj)
