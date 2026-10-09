@@ -360,6 +360,24 @@ state after the final rebuilds and the evidence for it.
 | 6 | Expressions | Deferred by the user | "Skip expressions for now": the face is the parent's selfie texture, so expressions wait for that texture pipeline. |
 | 7 | Phone runtime budget | Done | LODs for all 12 outfits (0970b32, 216a7f9). Re-run against the final outfits on 2026-10-09: 60/60 gates pass (motion, head clearance, export, glTF, LOD build). 91.6k–95k triangles, 1.6–2.1 MB gzip. |
 
+
+Phone LODs against every line of the phone budget (`measure_avatar_budget.mjs` `PHONE_BUDGET`), measured on 2026-10-09 after the final rebuilds:
+
+| Outfit | Triangles (≤ 100k) | Primitives (≤ 24) | Skinned (≤ 8) | Morphs (≤ 16) | Texture (≤ 2 MP) | Gzip (≤ 3 MB) | Over |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Male O01 | 95,000 | 13 | 5 | 0 | 1.00 MP | 1.95 MB | none |
+| Male O02 | 94,999 | 16 | 5 | 2 | 1.00 MP | 1.84 MB | none |
+| Male O03 | 94,999 | 20 | 6 | 2 | 1.00 MP | 2.14 MB | none |
+| Male O04 | 94,999 | 20 | 5 | 2 | 1.00 MP | 1.94 MB | none |
+| Male O05 | 94,999 | 16 | 6 | 2 | 1.00 MP | 2.03 MB | none |
+| Male O06 | 94,999 | 21 | 6 | 2 | 1.00 MP | 1.86 MB | none |
+| Female O01 | 94,999 | 12 | 6 | 0 | 1.00 MP | 1.67 MB | none |
+| Female O02 | 91,573 | 15 | 6 | 2 | 1.00 MP | 1.56 MB | none |
+| Female O03 | 94,999 | 19 | 7 | 2 | 1.00 MP | 1.68 MB | none |
+| Female O04 | 94,871 | 19 | 6 | 2 | 1.00 MP | 1.67 MB | none |
+| Female O05 | 95,000 | 15 | 7 | 2 | 1.00 MP | 1.72 MB | none |
+| Female O06 | 94,999 | 20 | 7 | 2 | 1.00 MP | 1.60 MB | none |
+
 Accepted by the user rather than fixed:
 - the B03 run leg-fold and the A05 arm-brush contact classes
 - see-through tee sleeves in motion
