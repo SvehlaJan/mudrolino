@@ -28,7 +28,8 @@ describe('saved curated avatar catalog', () => {
         for (const revision of variant.revisions) {
           expect(manifest.assets.some(asset => asset.id === revision.asset.id)).toBe(true);
           expect(new Set(revision.asset.sources.map(source => source.path)).size).toBe(revision.asset.sources.length);
-          expect(revision.visualReview).not.toBe('approved');
+          // Art approval is never inferred: only the user grants it, recorded in a review note.
+          if (revision.visualReview === 'approved') expect(revision.reviewNote).toMatch(/approved for now by the user/i);
           if (revision.technicalReview === 'recorded-pass') expect(revision.technicalNote).toBeTruthy();
         }
       }
@@ -61,6 +62,9 @@ describe('saved curated avatar catalog', () => {
     const scarf = items.find(item => item.id === 'A06')!.variants.find(variant => variant.base === 'female')!;
     expect(scarf.currentRevisionId).toBe('o05-head130');
     expect(scarf.revisions.map(revision => revision.id)).toEqual(expect.arrayContaining(['hair-H03', 'hair-H05']));
+    // The user approved the 2026-10-09 models for now; earlier revisions stay pending.
+    expect(items.find(item => item.id === 'H03')!.variants[0].revisions[0]).toMatchObject({ visualReview: 'approved' });
+    expect(items.find(item => item.id === 'H01')!.variants[0].revisions.every(revision => revision.visualReview !== 'approved')).toBe(true);
     // Caps and beanies are fitted on every hair variant (the crop with its own band settings).
     for (const id of ['A01', 'A02']) {
       const male = items.find(item => item.id === id)!.variants.find(variant => variant.base === 'male')!;

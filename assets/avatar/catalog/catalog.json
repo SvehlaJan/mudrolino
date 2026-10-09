@@ -344,9 +344,10 @@
               "id": "zip-lining-v1",
               "label": "14 mm ivory zip and orange neckline lining, fuller hood",
               "assetId": "outfit-t04-b01-f01-head130",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "T04/fitting-revisions/zip-lining-v1 (build_catalog_hood_revision.py --id T04 --zip-lining): 163-pose motion with zero pairs, head clearance, details within the attachment gate, glTF/materials; the same single low-camera hem face as hood-v2. With B01/F01, male O04 and female O04 (runner 15/15): all outfit gates; phone LODs 94,999/94,871 triangles."
+              "technicalNote": "T04/fitting-revisions/zip-lining-v1 (build_catalog_hood_revision.py --id T04 --zip-lining): 163-pose motion with zero pairs, head clearance, details within the attachment gate, glTF/materials; the same single low-camera hem face as hood-v2. With B01/F01, male O04 and female O04 (runner 15/15): all outfit gates; phone LODs 94,999/94,871 triangles.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "hood-v2",
@@ -1385,9 +1386,10 @@
               "id": "hair-H04",
               "label": "On H04",
               "assetId": "a01-h04-male",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): exact-surface band, ramped pressed shell and 0.9 mm extra band ease for the crop; crown p50 3.3 mm, band p90 4.7 mm, zero intersections; 163 gait poses and six gestures clear."
+              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): exact-surface band, ramped pressed shell and 0.9 mm extra band ease for the crop; crown p50 3.3 mm, band p90 4.7 mm, zero intersections; 163 gait poses and six gestures clear.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "head-envelope-v1",
@@ -1435,17 +1437,19 @@
               "id": "hair-H05",
               "label": "On H05",
               "assetId": "a01-h05-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H05 (verify_catalog_headwear.py): crown p50 3.5 mm, band p90 3.2 mm, zero intersections; 163 gait poses and six gestures clear."
+              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H05 (verify_catalog_headwear.py): crown p50 3.5 mm, band p90 3.2 mm, zero intersections; 163 gait poses and six gestures clear.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "hair-H03",
               "label": "On H03",
               "assetId": "a01-h03-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H03 (verify_catalog_headwear.py): crown p50 3.5 mm, band p90 3.4 mm, zero intersections; 163 gait poses and six gestures clear."
+              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H03 (verify_catalog_headwear.py): crown p50 3.5 mm, band p90 3.4 mm, zero intersections; 163 gait poses and six gestures clear.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "head-envelope-v1",
@@ -1501,9 +1505,10 @@
               "id": "hair-H04",
               "label": "On H04",
               "assetId": "a02-h04-male",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): exact-surface band, ramped pressed shell and 0.9 mm extra band ease for the crop; crown p50 5.1 mm, band p90 4.8 mm, zero intersections; 163 gait poses and six gestures clear."
+              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): exact-surface band, ramped pressed shell and 0.9 mm extra band ease for the crop; crown p50 5.1 mm, band p90 4.8 mm, zero intersections; 163 gait poses and six gestures clear.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "head-envelope-v1",
@@ -1542,17 +1547,19 @@
               "id": "hair-H05",
               "label": "On H05",
               "assetId": "a02-h05-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H05 (verify_catalog_headwear.py): crown p50 5.3 mm, band p90 1.8 mm, zero intersections; 163 gait poses and six gestures clear."
+              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H05 (verify_catalog_headwear.py): crown p50 5.3 mm, band p90 1.8 mm, zero intersections; 163 gait poses and six gestures clear.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "hair-H03",
               "label": "On H03",
               "assetId": "a02-h03-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H03 (verify_catalog_headwear.py): crown p50 5.3 mm, band p90 4.5 mm, zero intersections; 163 gait poses and six gestures clear."
+              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H03 (verify_catalog_headwear.py): crown p50 5.3 mm, band p90 4.5 mm, zero intersections; 163 gait poses and six gestures clear.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "head-envelope-v1",
@@ -1845,9 +1852,10 @@
               "id": "o05-head130",
               "label": "Worn with O05 on the +30% head",
               "assetId": "a06-o05-male",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A06/fitting-revisions/o05-head130/male (build_catalog_a06.py): tube path refined until 9 mm clear of the top, body and head at rest, in five head gestures and in every gait pose (each centreline point checked through its own blended skin transform). 163 poses with zero body/layer pairs, head gestures clear, export, materials and glTF valid."
+              "technicalNote": "A06/fitting-revisions/o05-head130/male (build_catalog_a06.py): tube path refined until 9 mm clear of the top, body and head at rest, in five head gestures and in every gait pose (each centreline point checked through its own blended skin transform). 163 poses with zero body/layer pairs, head gestures clear, export, materials and glTF valid.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             }
           ],
           "currentRevisionId": "o05-head130"
@@ -1878,25 +1886,28 @@
               "id": "hair-H05",
               "label": "With H05 silver waves draped over it",
               "assetId": "a06-h05-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A06/fitting-revisions/hair-variants-v1/H05 (drape_catalog_hair_over_scarf.py): waves lift up to 44 mm; 163 poses and gestures clear; export 1.1 µm."
+              "technicalNote": "A06/fitting-revisions/hair-variants-v1/H05 (drape_catalog_hair_over_scarf.py): waves lift up to 44 mm; 163 poses and gestures clear; export 1.1 µm.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "hair-H03",
               "label": "With H03 curls draped over it",
               "assetId": "a06-h03-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A06/fitting-revisions/hair-variants-v1/H03 (drape_catalog_hair_over_scarf.py): curls lift up to 89 mm; 163 poses and gestures clear; export 1.1 µm."
+              "technicalNote": "A06/fitting-revisions/hair-variants-v1/H03 (drape_catalog_hair_over_scarf.py): curls lift up to 89 mm; 163 poses and gestures clear; export 1.1 µm.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             },
             {
               "id": "o05-head130",
               "label": "Loop scarf on female O05, bob draped over it",
               "assetId": "a06-o05-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "A06/fitting-revisions/o05-head130/female (build_catalog_a06.py --hair-over H02_hair --clearance .015): over_A06 hair key lifts the bob onto the scarf (up to 139 mm); 163 poses and five gestures clear; path spacing 14-34 mm; export 1.1 µm; glTF/materials."
+              "technicalNote": "A06/fitting-revisions/o05-head130/female (build_catalog_a06.py --hair-over H02_hair --clearance .015): over_A06 hair key lifts the bob onto the scarf (up to 139 mm); 163 poses and five gestures clear; path spacing 14-34 mm; export 1.1 µm; glTF/materials.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             }
           ],
           "currentRevisionId": "o05-head130"
@@ -2081,9 +2092,10 @@
               "id": "selfie-head-v1",
               "label": "Curls on the reusable +30% head",
               "assetId": "h03-selfie-head-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "H03/fitting-revisions/selfie-head-v1/female/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, clear of body and garments in all six female outfits over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending."
+              "technicalNote": "H03/fitting-revisions/selfie-head-v1/female/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, clear of body and garments in all six female outfits over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             }
           ],
           "currentRevisionId": "selfie-head-v1"
@@ -2127,9 +2139,10 @@
               "id": "selfie-head-v1",
               "label": "Crop on the reusable +30% head",
               "assetId": "h04-selfie-head-male",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "H04/fitting-revisions/selfie-head-v1/male/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, ears clear, clear of body and garments in all seven male outfits (A06 scarf included) over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending."
+              "technicalNote": "H04/fitting-revisions/selfie-head-v1/male/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, ears clear, clear of body and garments in all seven male outfits (A06 scarf included) over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             }
           ],
           "currentRevisionId": "selfie-head-v1"
@@ -2173,9 +2186,10 @@
               "id": "selfie-head-v1",
               "label": "Silver waves on the reusable +30% head",
               "assetId": "h05-selfie-head-female",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "H05/fitting-revisions/selfie-head-v1/female/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, A03/A04 skin-clear, clear of body and garments in all six female outfits over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending."
+              "technicalNote": "H05/fitting-revisions/selfie-head-v1/female/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, A03/A04 skin-clear, clear of body and garments in all six female outfits over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             }
           ],
           "currentRevisionId": "selfie-head-v1"
@@ -2219,9 +2233,10 @@
               "id": "selfie-head-v1",
               "label": "Bald reusable +30% head",
               "assetId": "h06-selfie-head-male",
-              "visualReview": "pending",
+              "visualReview": "approved",
               "technicalReview": "recorded-pass",
-              "technicalNote": "H06/fitting-revisions/selfie-head-v1/male/verification-report.json (verify_catalog_hair_variant.py): H01 head without hair, vertex-identical, rigid Head binding, A03/A04 skin-clear, UV corners and 0.2 µm rest export. Goatee belongs to the selfie face texture; art review pending."
+              "technicalNote": "H06/fitting-revisions/selfie-head-v1/male/verification-report.json (verify_catalog_hair_variant.py): H01 head without hair, vertex-identical, rigid Head binding, A03/A04 skin-clear, UV corners and 0.2 µm rest export. Goatee belongs to the selfie face texture; art review pending.",
+              "reviewNote": "Approved for now by the user (2026-10-09, art review of the day's models)."
             }
           ],
           "currentRevisionId": "selfie-head-v1"

@@ -672,7 +672,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "T04 zip-lining-v1 (14 mm ivory zip, orange neckline lining, fuller hood, no drawcords) with B01/F01 on the +30% head. 163 gait poses clear, zero coverage holes, export 6.1 µm, head clearance, glTF valid. T04 piece: details within the attachment gate. Review combination, not exact O04. Art review pending.",
+      "stage": "T04 zip-lining-v1 (14 mm ivory zip, orange neckline lining, fuller hood, no drawcords) with B01/F01 on the +30% head. 163 gait poses clear, zero coverage holes, export 6.1 µm, head clearance, glTF valid. T04 piece: details within the attachment gate. Review combination, not exact O04. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "T04",
         "B01",
@@ -839,7 +839,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "A06 ivory loop scarf with navy front band on O05 (T05/B01/F04/A02), rebuilt 2026-10-09 with spacing relaxation between posed refinements (spacing 9-47 mm). 163 poses clear; head gestures clear; export 5.7 µm; materials and glTF valid. Art review pending.",
+      "stage": "A06 ivory loop scarf with navy front band on O05 (T05/B01/F04/A02), rebuilt 2026-10-09 with spacing relaxation between posed refinements (spacing 9-47 mm). 163 poses clear; head gestures clear; export 5.7 µm; materials and glTF valid. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A06",
         "O05",
@@ -967,7 +967,7 @@
       "model": "H03.glb",
       "kind": "head",
       "base": "female",
-      "stage": "Radial curl shell on the reusable H02 head (26k triangles, 39% lighter head+hair than H02). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art review pending.",
+      "stage": "Radial curl shell on the reusable H02 head (26k triangles, 39% lighter head+hair than H02). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "H03",
         "H02"
@@ -981,7 +981,7 @@
       "model": "H04.glb",
       "kind": "head",
       "base": "male",
-      "stage": "Tight crop ending just above the beanie band at the sides on the bald H01 head (head+hair 47k triangles, 28% lighter than H01). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art review pending.",
+      "stage": "Tight crop ending just above the beanie band at the sides on the bald H01 head (head+hair 47k triangles, 28% lighter than H01). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "H04",
         "H01"
@@ -995,7 +995,7 @@
       "model": "H05.glb",
       "kind": "head",
       "base": "female",
-      "stage": "Swept silver waves on the reusable H02 head (25k triangles); pairs with A03 glasses (temples enter the hair, skin clear). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art review pending.",
+      "stage": "Swept silver waves on the reusable H02 head (25k triangles); pairs with A03 glasses (temples enter the hair, skin clear). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "H05",
         "H02"
@@ -1009,7 +1009,7 @@
       "model": "H06.glb",
       "kind": "head",
       "base": "male",
-      "stage": "The H01 head without hair (17k triangles); the goatee belongs to the selfie face texture and A03/A04 glasses stay clear of the skin. Head identity, UV corners and rest export verified. Art review pending.",
+      "stage": "The H01 head without hair (17k triangles); the goatee belongs to the selfie face texture and A03/A04 glasses stay clear of the skin. Head identity, UV corners and rest export verified. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "H06",
         "H01"
@@ -1038,7 +1038,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "A06 loop scarf on female O05 (T05/B01/F04/A02). The bob drapes over it through an over_A06 key that lifts it onto the scarf's swept volume in every pose (up to 139 mm; the back reads shorter). 15 mm clearance for the run's shoulder lift; path spacing 14-34 mm. 163 poses and five head gestures clear; export 1.1 µm; glTF and materials valid. Art review pending.",
+      "stage": "A06 loop scarf on female O05 (T05/B01/F04/A02). The bob drapes over it through an over_A06 key that lifts it onto the scarf's swept volume in every pose (up to 139 mm; the back reads shorter). 15 mm clearance for the run's shoulder lift; path spacing 14-34 mm. 163 poses and five head gestures clear; export 1.1 µm; glTF and materials valid. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A06",
         "O05",
@@ -1054,7 +1054,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "H03 curls swapped into the female O05 scarf outfit (beanie dropped; it is fitted per hair) with their own over_A06 lift key (up to 89 mm). 163 poses and gestures clear; export 1.1 µm. Art review pending.",
+      "stage": "H03 curls swapped into the female O05 scarf outfit (beanie dropped; it is fitted per hair) with their own over_A06 lift key (up to 89 mm). 163 poses and gestures clear; export 1.1 µm. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A06",
         "H03"
@@ -1069,7 +1069,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "H05 silver waves swapped into the female O05 scarf outfit (beanie dropped) with their own over_A06 lift key (up to 44 mm). 163 poses and gestures clear; export 1.1 µm. Art review pending.",
+      "stage": "H05 silver waves swapped into the female O05 scarf outfit (beanie dropped) with their own over_A06 lift key (up to 44 mm). 163 poses and gestures clear; export 1.1 µm. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A06",
         "H05"
@@ -1084,7 +1084,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "Fitted to the H03 hair-variant study with a pressed under-hat shell key. crown p50 3.5 mm, band p90 3.4 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
+      "stage": "Fitted to the H03 hair-variant study with a pressed under-hat shell key. crown p50 3.5 mm, band p90 3.4 mm, zero intersections; 163 gait poses and six gestures clear. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A01",
         "H03"
@@ -1099,7 +1099,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "Fitted to the H05 hair-variant study with a pressed under-hat shell key. crown p50 3.5 mm, band p90 3.2 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
+      "stage": "Fitted to the H05 hair-variant study with a pressed under-hat shell key. crown p50 3.5 mm, band p90 3.2 mm, zero intersections; 163 gait poses and six gestures clear. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A01",
         "H05"
@@ -1114,7 +1114,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "Fitted to the H03 hair-variant study with a pressed under-hat shell key. crown p50 5.3 mm, band p90 4.5 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
+      "stage": "Fitted to the H03 hair-variant study with a pressed under-hat shell key. crown p50 5.3 mm, band p90 4.5 mm, zero intersections; 163 gait poses and six gestures clear. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A02",
         "H03"
@@ -1129,7 +1129,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "female",
-      "stage": "Fitted to the H05 hair-variant study with a pressed under-hat shell key. crown p50 5.3 mm, band p90 1.8 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
+      "stage": "Fitted to the H05 hair-variant study with a pressed under-hat shell key. crown p50 5.3 mm, band p90 1.8 mm, zero intersections; 163 gait poses and six gestures clear. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A02",
         "H05"
@@ -1144,7 +1144,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "Fitted to the H04 crop study: exact-surface band (no envelope dilation), ramped pressed shell key and 0.9 mm extra band ease, because the crop hairline sits just above the band. Crown p50 3.3 mm, band p90 4.7 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
+      "stage": "Fitted to the H04 crop study: exact-surface band (no envelope dilation), ramped pressed shell key and 0.9 mm extra band ease, because the crop hairline sits just above the band. Crown p50 3.3 mm, band p90 4.7 mm, zero intersections; 163 gait poses and six gestures clear. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A01",
         "H04"
@@ -1159,7 +1159,7 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "Fitted to the H04 crop study: exact-surface band (no envelope dilation), ramped pressed shell key and 0.9 mm extra band ease, because the crop hairline sits just above the band. Crown p50 5.1 mm, band p90 4.8 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
+      "stage": "Fitted to the H04 crop study: exact-surface band (no envelope dilation), ramped pressed shell key and 0.9 mm extra band ease, because the crop hairline sits just above the band. Crown p50 5.1 mm, band p90 4.8 mm, zero intersections; 163 gait poses and six gestures clear. Art approved for now by the user (2026-10-09).",
       "reference_ids": [
         "A02",
         "H04"
