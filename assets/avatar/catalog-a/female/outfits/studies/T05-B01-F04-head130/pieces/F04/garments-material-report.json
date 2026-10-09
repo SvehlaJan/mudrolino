@@ -1,0 +1,27 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T05-B01-F04-head130/pieces/F04/garments.glb",
+  "sha256": "4d07f7967794b1f6077a507c4a2442344d9e36b29c986baac24178505e080956",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A ivory ankle-boot sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A navy ankle-boot elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot heel loops",
+      "colorComponents": 0
+    }
+  ]
+}

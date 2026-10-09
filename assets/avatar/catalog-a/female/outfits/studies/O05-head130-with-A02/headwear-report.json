@@ -1,0 +1,17 @@
+{
+  "stage": "Headwear added to an assembled outfit; outfit gates required.",
+  "outfit_source": "assets/avatar/catalog-a/female/outfits/studies/T05-B01-F04-head130/outfit.blend",
+  "outfit_source_sha256": "abdad9625ef245233066064e8040ae3524238c45eab2dcda8c2a9a8ebf00b345",
+  "headwear_source": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/female/A02.blend",
+  "headwear_source_sha256": "22814d8d9819406adc3f3e527ff3736a1927e065fa1ab4f5ae0efe16ac9ea6c4",
+  "object": "A02_folded_beanie",
+  "hair": "H02_hair",
+  "key": "under_A02",
+  "builder_sha256": "fd41fb006cf6aa6918f65377cedca99c8f638c2c37d737e50798803217654b37",
+  "blend": {
+    "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit.blend": "228e3428b65fbb8d07f2feb3c1a7b51943ee3d5cb4d9265ce60940dbd7d47f42"
+  },
+  "exports": {
+    "outfit.glb": "1ab719c801d78a66171d776e1961c2136267758dcce1b70184e369a7e431b2c5"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T05-B01-F04-head130/pieces/F04/outfit.glb",
+  "sha256": "a7186422276a8b2cd6de5c9c6f660aebe300eab81be6c372eae9698c34cd8aca",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A ivory ankle-boot sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A navy ankle-boot elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot heel loops",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    }
+  ]
+}

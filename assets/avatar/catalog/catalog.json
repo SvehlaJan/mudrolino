@@ -2619,6 +2619,14 @@
           ],
           "revisions": [
             {
+              "id": "head130",
+              "label": "Exact O03 on the +30% head",
+              "assetId": "o03-male-head130-a01",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "outfits/O03-head130-T03-B03-F01-A01: the O03 assembly plus the envelope-fitted A01 cap. 163 poses clear apart from the accepted leg-fold contact (up to 459 pairs); cap gestures clear, export, materials and glTF valid."
+            },
+            {
               "id": "head130-no-cap",
               "label": "T03 / B03 thigh coverage / F01 on the +30% head, no cap",
               "assetId": "o03-male-head130",
@@ -2627,7 +2635,7 @@
               "technicalNote": "outfits/O03-head130-T03-B03-F01: 163 poses clear apart from the user-accepted leg-fold contact (up to 459 pairs, heel/calf/shoe into the shorts in the run back-kick); export, side isolation, head clearance and glTF pass. A01 is not in the assembly; tee sleeves show see-through skin in motion (open, shared with O01)."
             }
           ],
-          "currentRevisionId": "head130-no-cap"
+          "currentRevisionId": "head130"
         },
         {
           "id": "female",
@@ -2890,7 +2898,17 @@
               "cropSha256": "c9130374d5b4b0b75e2b8c70c3e70761955a48fd6c49299eb655de04ab8059f2"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130",
+              "label": "Exact O05 on the female +30% head",
+              "assetId": "o05-female-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "female/outfits/studies/T05-B01-F04-head130 (T05, B01 pull-loop-compression revision, F04) passes the female complete runner 15/15; with the A02 beanie added: 163 poses clear, beanie gestures clear, export, materials and glTF valid."
+            }
+          ],
+          "currentRevisionId": "head130"
         }
       ],
       "relatedIds": [

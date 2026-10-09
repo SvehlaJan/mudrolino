@@ -884,6 +884,44 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_a05.py"
+    },
+    {
+      "id": "o05-female-head130",
+      "label": "Female O05 · T05 / B01 / F04 / A02 beanie · +30% head",
+      "path": "female/outfits/studies/O05-head130-with-A02",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Exact O05 on the female +30% head: T05 sweatshirt, the boot-compatible B01 revision (pull-loop compression) and F04 boots pass the female complete runner 15/15; the A02 beanie and its under_A02 hair key are added from the female beanie study. 163 poses clear, beanie gestures clear, export, materials and glTF valid. Art review pending.",
+      "reference_ids": [
+        "O05",
+        "T05",
+        "B01",
+        "F04",
+        "A02",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/attach_catalog_headwear.py"
+    },
+    {
+      "id": "o03-male-head130-a01",
+      "label": "O03 · T03 / B03 / F01 / A01 cap · +30% head",
+      "path": "outfits/O03-head130-T03-B03-F01-A01",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "male",
+      "stage": "Exact O03 on the +30% head with the envelope-fitted A01 cap and its under_A01 hair key. 163 poses clear apart from the accepted leg-fold contact (up to 459 pairs); cap gestures clear, export, materials and glTF valid. Art review pending.",
+      "reference_ids": [
+        "O03",
+        "T03",
+        "B03",
+        "F01",
+        "A01",
+        "H01"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/attach_catalog_headwear.py"
     }
   ],
   "F02_corrective_repair_study": {

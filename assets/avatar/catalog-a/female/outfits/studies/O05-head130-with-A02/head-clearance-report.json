@@ -1,0 +1,57 @@
+{
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit.blend",
+  "blend_sha256": "228e3428b65fbb8d07f2feb3c1a7b51943ee3d5cb4d9265ce60940dbd7d47f42",
+  "object": "A02_folded_beanie",
+  "bone": "Head",
+  "status": "passed",
+  "checks": [
+    {
+      "pose": "rest",
+      "max_attachment_error_m": 1.1200678630451045e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T05_crew_sweatshirt": 0
+      }
+    },
+    {
+      "pose": "turn-left",
+      "max_attachment_error_m": 2.0485709734063626e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T05_crew_sweatshirt": 0
+      }
+    },
+    {
+      "pose": "turn-right",
+      "max_attachment_error_m": 2.1073424255447017e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T05_crew_sweatshirt": 0
+      }
+    },
+    {
+      "pose": "nod",
+      "max_attachment_error_m": 3.119485782466927e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T05_crew_sweatshirt": 0
+      }
+    },
+    {
+      "pose": "look-up",
+      "max_attachment_error_m": 3.0719566066852703e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T05_crew_sweatshirt": 0
+      }
+    },
+    {
+      "pose": "tilt",
+      "max_attachment_error_m": 2.7171645356432305e-07,
+      "obstacle_pairs": {
+        "H02_hair": 0,
+        "T05_crew_sweatshirt": 0
+      }
+    }
+  ]
+}

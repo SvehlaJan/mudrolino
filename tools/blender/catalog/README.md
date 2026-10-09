@@ -475,6 +475,10 @@ path differences and leave near-equal shared-seam assignments qualified.
   Project anything onto a top radially from the torso axis through the top only (first hit,
   plus the outer layer within 6 mm), and take weights there. Nearest-point lookups pick
   the inner layer or a hanging sleeve.
+- Headwear on an outfit: `attach_catalog_headwear.py --outfit-blend OUTFIT --headwear-blend A0x.blend
+  --object NAME --hair H01_head|H02_hair --key under_A0x --output-dir DIR` copies an
+  envelope-fitted cap or beanie and its hair key into an assembled outfit built on the same
+  head study.
 - Scarf: `build_catalog_a06.py --outfit-blend OUTFIT --top TOP_OBJECT --output-dir DIR`. To
   fit anything rigid-ish against moving obstacles, check each point in every gait pose through
   its own blended skin transform and map pushes back with the inverse. Mapping obstacles

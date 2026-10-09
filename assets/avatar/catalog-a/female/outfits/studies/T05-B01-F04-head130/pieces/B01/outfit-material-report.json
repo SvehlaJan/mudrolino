@@ -1,0 +1,42 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T05-B01-F04-head130/pieces/B01/outfit.glb",
+  "sha256": "6048433de873c310acfae0f863403ca1967806176fcd3a1322b94f58be7c9245",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    }
+  ]
+}

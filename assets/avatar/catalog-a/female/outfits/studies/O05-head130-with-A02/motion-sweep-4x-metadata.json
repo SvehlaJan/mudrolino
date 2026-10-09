@@ -1,0 +1,23 @@
+{
+  "blend": "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit.blend",
+  "blend_sha256": "228e3428b65fbb8d07f2feb3c1a7b51943ee3d5cb4d9265ce60940dbd7d47f42",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_female",
+    "H02_head",
+    "H02_hair"
+  ],
+  "garment_meshes": [
+    "T05_crew_sweatshirt",
+    "B01_straight_trousers",
+    "F04_ankle_boots",
+    "A02_folded_beanie"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [],
+  "max_accepted_pairs": 0
+}

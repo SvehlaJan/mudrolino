@@ -1,0 +1,82 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit.glb",
+  "sha256": "1ab719c801d78a66171d776e1961c2136267758dcce1b70184e369a7e431b2c5",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "A02_folded_beanie",
+      "material": "A02 knit",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "A02_folded_beanie",
+      "material": "A02 cuff",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser trim",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B01 tailored quad trousers",
+      "material": "A navy trouser seams",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A ivory ankle-boot sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A navy ankle-boot elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F04 rounded ivory sole",
+      "material": "A orange ankle-boot heel loops",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T05_crew_sweatshirt quad shell",
+      "material": "A blue sweatshirt fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T05_crew_sweatshirt quad shell",
+      "material": "A navy sweatshirt ribbing",
+      "colorComponents": 0
+    }
+  ]
+}
