@@ -307,5 +307,11 @@ The user approved these recommendations, including +30% heads on both bases.
   the generalized female tools; male and female O03/O05 with their caps). Phone-budget
   LODs from `build_catalog_lod.py` pass all outfit gates. They cull never-visible head and
   hair faces (12–14k), then decimate headwear (to 60%) and heads, leaving body and garments
-  exact. Ten fit about 95k triangles. O03 stays over, at 101k (male) and 129k (female),
+  exact. Ten fit about 95k triangles. O03 stayed over, at 101k (male) and 129k (female),
   because bare legs leave 41k triangles of visible body.
+- **O03 body LOD (2026-10-09):** `--body-floor .15` bakes the body to its masked visible
+  surface, drops 16 loose authoring vertices and decimates it (male 86%, female 18%, at most
+  0.42 mm deviation). All 12 LODs were rebuilt with that builder; each passes motion, head
+  clearance, export parity and glTF and fits the phone budget (91.6k–95k triangles). Export
+  parity needed bone weights under 1e-3 pruned: the glTF exporter drops weights at or below
+  1e-4 that Blender still applies, which collapse decimation creates (31 µm drift).

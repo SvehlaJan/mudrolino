@@ -1,10 +1,11 @@
 {
   "source": "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01-A01/outfit.blend",
   "source_sha256": "2e1d857f52baf7acd6636fe445dd3700f05e28dcf93b7984836af4bdbabfcf47",
-  "builder_sha256": "b267239fe0a6ab2c7b7b3625d47cf667ef2bf5ba304236c6548f77e7ae3dc7b6",
+  "builder_sha256": "2e362bbf499d3e7ff2b379794fe26e27c34ad9a9b29ff2bb6f6240ec4d886d63",
   "budget": 95000,
+  "body_floor": 0.15,
   "triangles_before": 170690,
-  "triangles_after": 100792,
+  "triangles_after": 94999,
   "decimated": {
     "H01_head": {
       "before": 65084,
@@ -18,10 +19,17 @@
       "ratio": 0.6,
       "max_deviation_m": 7.833804556867108e-05,
       "after": 11500
+    },
+    "body_underlayer_male": {
+      "before": 41154,
+      "baked": true,
+      "ratio": 0.8592603392136852,
+      "max_deviation_m": 4.902525688521564e-05,
+      "after": 35361
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01-A01/outfit-lod.blend": "53cf883176ec5fe88aa43f060640f27a0e4ca9585321dab0f2e8cc11cf3dcfe2"
+    "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01-A01/outfit-lod.blend": "c64e6134b031e65a2a0bb13a74e862fcfa1ef73c6bbd3045b63e52a83ab518b8"
   },
-  "glb_sha256": "8cd39361bf723aa8ec2d03fd8072f0bfb24b34aac1e8c8dbf61d17d58b15af0a"
+  "glb_sha256": "7c915f1f84a1b07e359a77f873466aa1b87d94f2cb1abd426523446526aba39d"
 }

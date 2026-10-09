@@ -1,8 +1,9 @@
 {
   "source": "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit.blend",
   "source_sha256": "228e3428b65fbb8d07f2feb3c1a7b51943ee3d5cb4d9265ce60940dbd7d47f42",
-  "builder_sha256": "b267239fe0a6ab2c7b7b3625d47cf667ef2bf5ba304236c6548f77e7ae3dc7b6",
+  "builder_sha256": "2e362bbf499d3e7ff2b379794fe26e27c34ad9a9b29ff2bb6f6240ec4d886d63",
   "budget": 95000,
+  "body_floor": 1.0,
   "triangles_before": 129127,
   "triangles_after": 95000,
   "decimated": {
@@ -19,7 +20,7 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit-lod.blend": "798439152273575cc4b284b9cf15f3b1d6c56d6f4c1768b1ca3b5a72ff515e72"
+    "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit-lod.blend": "c4697519cf769b723284778664000233227ed4185ec59694ac3f23a545e3fdc2"
   },
   "glb_sha256": "4e90f6577fab642d4ef23f43721de2667c99db33691cecc2ef1b9e3a835a857c"
 }

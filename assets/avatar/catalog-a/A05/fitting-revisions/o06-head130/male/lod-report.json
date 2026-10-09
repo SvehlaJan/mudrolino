@@ -1,8 +1,9 @@
 {
   "source": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit.blend",
   "source_sha256": "1e97f420bbdee8e7ae9f5bade099e2d02a088d0d7c822c37aae411c65809d276",
-  "builder_sha256": "b267239fe0a6ab2c7b7b3625d47cf667ef2bf5ba304236c6548f77e7ae3dc7b6",
+  "builder_sha256": "2e362bbf499d3e7ff2b379794fe26e27c34ad9a9b29ff2bb6f6240ec4d886d63",
   "budget": 95000,
+  "body_floor": 1.0,
   "triangles_before": 127155,
   "triangles_after": 94999,
   "decimated": {
@@ -15,7 +16,7 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit-lod.blend": "abd4186808578d83fccd566dc83cc7e4811881567ad90a6d0eb3945f9ad1c97e"
+    "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit-lod.blend": "d27a6015ab1d6e7cb94517ccd898e218c742a51390e36225641ab594f90c916c"
   },
   "glb_sha256": "3546fce618f88cf48d67a7efdba88ba62d45ac04fc0555d1893e34e6a4fdf1ec"
 }

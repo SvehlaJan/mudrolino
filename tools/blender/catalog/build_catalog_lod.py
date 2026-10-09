@@ -3,14 +3,16 @@
 Head and hair are 37-51% of every outfit's triangles (measure_avatar_budget.mjs).
 First, head/hair faces that no camera sees at rest are removed (inner layers, hair under
 headwear), which moves no surface. Then headwear, then head and hair are decimated, each
-down to a floor, until the outfit fits the triangle budget; body, garments and other
-accessories stay exact. Decimation keeps weights, UVs and materials. Shape keys (the
+down to a floor, until the outfit fits the triangle budget. With --body-floor < 1, an
+outfit still over budget (bare legs in O03) bakes the body to its masked visible surface
+and decimates that; garments and other accessories stay exact. Decimation keeps weights,
+UVs and materials; slivers under MIN_WEIGHT are pruned. Shape keys (the
 under-hat hair keys) cannot survive a modifier, so each key is rebuilt on the decimated
 mesh by barycentric transfer from the original triangle under each new vertex. The
 source outfit is unchanged: the LOD is saved as outfit-lod.blend / outfit-lod.glb with a
 report of triangle counts and surface deviation. Re-run the outfit motion gate on it.
 
-Usage: blender_cli.py build_catalog_lod.py --outfit-dir DIR [--blend outfit.blend] [--budget 95000]
+Usage: blender_cli.py build_catalog_lod.py --outfit-dir DIR [--blend outfit.blend] [--budget 95000 [--body-floor .15]
 """
 import argparse
 import hashlib
@@ -18,6 +20,7 @@ import json
 import sys
 from pathlib import Path
 
+import bmesh
 import bpy
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
@@ -27,11 +30,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog_t01 import reset, world_mesh
 from build_catalog_head_style_study import rig_signature, motion_signature
 from build_catalog_female_foundation_study import export_uv
-from build_catalog_a05 import limit_influences
 
 HEAD_PREFIXES = ('H01_head', 'H02_head', 'H02_hair')
 HEADWEAR_PREFIXES = ('A01_', 'A02_')
 MIN_RATIO = .15
+# The glTF exporter drops weights <= 1e-4 that Blender still applies; collapse decimation
+# interpolates such slivers, so prune them below this floor before renormalising.
+MIN_WEIGHT = 1e-3
 
 
 def digest(path):
@@ -44,6 +49,19 @@ def triangles(obj):
     count = sum(len(p.vertices) - 2 for p in mesh.polygons)
     evaluated.to_mesh_clear()
     return count
+
+
+def limit_influences(obj, count=4):
+    """Keep each vertex's `count` largest bone weights above MIN_WEIGHT, renormalised."""
+    for v in obj.data.vertices:
+        # Copy first: element references go stale once a group is removed.
+        groups = sorted(((g.group, g.weight) for g in v.groups), key=lambda g: -g[1])
+        kept = [g for g in groups[:count] if g[1] >= MIN_WEIGHT] or groups[:1]
+        for group, _ in groups[len(kept):]:
+            obj.vertex_groups[group].remove([v.index])
+        total = sum(w for _, w in kept)
+        for group, w in kept:
+            obj.vertex_groups[group].add([v.index], w / total, 'REPLACE')
 
 
 def decimate(obj, ratio):
@@ -98,7 +116,6 @@ def cull_invisible(obj, occluders, directions=16, heights=(.9, 1.2, 1.5, 1.9, 2.
     visible when a ray from some camera to its centre reaches it first. Shape keys survive
     because bmesh keeps their layers. Returns the number of faces removed.
     """
-    import bmesh
     import math
     names, points_all, faces_all, owner = [], [], [], []
     for other in occluders:
@@ -135,6 +152,34 @@ def cull_invisible(obj, occluders, directions=16, heights=(.9, 1.2, 1.5, 1.9, 2.
     return len(doomed)
 
 
+def bake_visible_body(body):
+    """Replace the body's mesh with its masked visible surface and drop the mask modifiers.
+
+    Coverage masks are vertex weights; decimating the full base mesh blurs them at the mask
+    edges so hidden skin reappears inside garments. Baking first leaves only visible skin,
+    whose open edges sit under garment hems (collapse decimation weights boundaries heavily).
+    """
+    for modifier in body.modifiers:
+        if modifier.type == 'ARMATURE':
+            modifier.show_viewport = False
+    bpy.context.view_layer.update()
+    evaluated = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
+    baked = bpy.data.meshes.new_from_object(evaluated)
+    # Loose authoring vertices are omitted by the GLB and would skew the deviation measure.
+    bm = bmesh.new()
+    bm.from_mesh(baked)
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+    bm.to_mesh(baked)
+    bm.free()
+    for modifier in list(body.modifiers):
+        if modifier.type == 'MASK':
+            body.modifiers.remove(modifier)
+        elif modifier.type == 'ARMATURE':
+            modifier.show_viewport = True
+    body.data = baked
+    bpy.context.view_layer.update()
+
+
 def basis_tree(mesh):
     mesh.calc_loop_triangles()
     return BVHTree.FromPolygons([v.co for v in mesh.vertices], [tuple(t.vertices) for t in mesh.loop_triangles], all_triangles=True)
@@ -142,9 +187,12 @@ def basis_tree(mesh):
 
 def deviation(original_tree, lod, original):
     """Largest distance from LOD vertices to the original surface and back (rest, metres)."""
-    forward = max(original_tree.find_nearest(v.co)[3] for v in lod.vertices)
+    def rendered(mesh):
+        used = {i for p in mesh.polygons for i in p.vertices}
+        return [v.co for v in mesh.vertices if v.index in used]
+    forward = max(original_tree.find_nearest(co)[3] for co in rendered(lod))
     lod_tree = basis_tree(lod)
-    backward = max(lod_tree.find_nearest(v.co)[3] for v in original.vertices)
+    backward = max(lod_tree.find_nearest(co)[3] for co in rendered(original))
     return max(forward, backward)
 
 
@@ -153,6 +201,7 @@ def main():
     parser.add_argument('--outfit-dir', type=Path, required=True)
     parser.add_argument('--budget', type=int, default=95_000, help='Target triangles for the whole outfit')
     parser.add_argument('--blend', default='outfit.blend', help='Outfit blend inside --outfit-dir')
+    parser.add_argument('--body-floor', type=float, default=1.0, help='Allow baking and decimating the visible body down to this ratio (1 = never)')
     args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:])
     source = args.outfit_dir / args.blend
     bpy.ops.wm.open_mainfile(filepath=str(source.resolve()))
@@ -193,13 +242,20 @@ def main():
         for obj in members:
             rows[obj.name]['after'] = triangles(obj)
         excess -= sum(counts[o.name] - rows[o.name]['after'] for o in members)
+    # Still over: bake the body to its visible surface, then decimate it (O03 shows bare legs).
+    body = next(o for o in meshes if o.name.startswith('body_underlayer_'))
+    if excess > 0 and args.body_floor < 1:
+        before = triangles(body)
+        bake_visible_body(body)
+        ratio = max(args.body_floor, 1 - excess / before)
+        rows[body.name] = {'before': before, 'baked': True, 'ratio': ratio, 'max_deviation_m': decimate(body, ratio), 'after': triangles(body)}
+        excess -= before - rows[body.name]['after']
     for name, row in rows.items():
         row.setdefault('after', triangles(bpy.data.objects[name]))
     assert rig_signature(arm) == rig and motion_signature() == motion, 'Rig or gaits changed'
     after = {o.name: triangles(o) for o in meshes}
     blend_out = args.outfit_dir / 'outfit-lod.blend'
     bpy.ops.wm.save_as_mainfile(filepath=str(blend_out.resolve()))
-    body = next(o for o in meshes if o.name.startswith('body_underlayer_'))
     evaluated = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
     masked = bpy.data.objects.new('outfit_masked_body', bpy.data.meshes.new_from_object(evaluated))
     bpy.context.collection.objects.link(masked)
@@ -207,7 +263,7 @@ def main():
     masked.parent = arm
     export_uv(args.outfit_dir / 'outfit-lod.glb', [arm, masked, *[o for o in meshes if o is not body]])
     bpy.data.objects.remove(masked, do_unlink=True)
-    report = {'source': str(source), 'source_sha256': digest(source), 'builder_sha256': digest(__file__), 'budget': args.budget,
+    report = {'source': str(source), 'source_sha256': digest(source), 'builder_sha256': digest(__file__), 'budget': args.budget, 'body_floor': args.body_floor,
               'triangles_before': total, 'triangles_after': sum(after.values()), 'decimated': rows,
               'blend': {str(blend_out): digest(blend_out)}, 'glb_sha256': digest(args.outfit_dir / 'outfit-lod.glb')}
     (args.outfit_dir / 'lod-report.json').write_text(json.dumps(report, indent=2) + '\n')

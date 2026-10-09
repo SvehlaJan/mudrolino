@@ -1,8 +1,9 @@
 {
   "source": "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/A02.blend",
   "source_sha256": "48c2c37669c1267e999079f20d0f05b767c17225672e7276cc0824835b23a343",
-  "builder_sha256": "b267239fe0a6ab2c7b7b3625d47cf667ef2bf5ba304236c6548f77e7ae3dc7b6",
+  "builder_sha256": "2e362bbf499d3e7ff2b379794fe26e27c34ad9a9b29ff2bb6f6240ec4d886d63",
   "budget": 95000,
+  "body_floor": 1.0,
   "triangles_before": 144391,
   "triangles_after": 94999,
   "decimated": {
@@ -19,7 +20,7 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/outfit-lod.blend": "12c414e3aa9520ce1533f764d1e16f9c3ffdcbb08df47dc23e6a52804897e86d"
+    "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/outfit-lod.blend": "893be4745e588a89670e7290ae3121258eb12e38e40faddf44a8c1d31f24fd6f"
   },
   "glb_sha256": "f8c9f199352a93b51791dbfd7fec0b8ab38397b5033fb3e14b5392d6bb4fa124"
 }
