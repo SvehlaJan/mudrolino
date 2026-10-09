@@ -344,3 +344,26 @@ The user approved these recommendations, including +30% heads on both bases.
   Technical gates are complete. Visual review of these studies is the user's and stays
   pending in the catalog; the review sheet is
   `artifacts/verification/avatar-catalog/review-sheets/2026-10-09-review-sheet.png`.
+
+## Plan close-out (2026-10-09)
+
+The audit plan accepted on 2026-10-07 ("Proceed with the plan"), item by item, with its
+state after the final rebuilds and the evidence for it.
+
+| # | Plan item | State | Evidence |
+| --- | --- | --- | --- |
+| 1 | T02/T04 hood refits | Done | `hood-v2` on both hoodies and the female hood (c1ee98e, 694dbe0); T04 `zip-lining-v1` adds the ivory zip and orange neckline lining (f8a60cd). |
+| 2 | Rebuild B03/B04/F02 | Done | B04 rolled cuffs and F02 promoted after measurement (c1ee98e); B03 thigh coverage (db97b5d). |
+| 3 | A03/A04 glasses, A05 backpack, A06 scarf | Done | Glasses on both bases (db97b5d); A05 (63cb5ee); A06 male (2d10a3b) and female, with the bob, H03 and H05 draped over it (f8a60cd). |
+| 4 | Rest of the female wardrobe | Done | Female O01–O06 all pass (692e53a, 7ea004c, 69ab3f7, 98ffaf4, 994c535, 694dbe0, f25429b, f8a60cd). |
+| 5 | H03–H06 | Done | Hair variants on the reusable selfie heads (91486d5); caps and beanies fitted on each (f8a60cd, 61329a3). |
+| 6 | Expressions | Deferred by the user | "Skip expressions for now": the face is the parent's selfie texture, so expressions wait for that texture pipeline. |
+| 7 | Phone runtime budget | Done | LODs for all 12 outfits (0970b32, 216a7f9). Re-run against the final outfits on 2026-10-09: 60/60 gates pass (motion, head clearance, export, glTF, LOD build). 91.6k–95k triangles, 1.6–2.1 MB gzip. |
+
+Accepted by the user rather than fixed:
+- the B03 run leg-fold and the A05 arm-brush contact classes
+- see-through tee sleeves in motion
+
+Art: the user approved the 2026-10-09 models for now (357d8a1); earlier studies' visual
+review stays pending. Every study touched on 2026-10-09 renders in the gallery on desktop
+and phone (70ef87f).
