@@ -303,3 +303,9 @@ The user approved these recommendations, including +30% heads on both bases.
   itself is 4k). Without them, outfits are 62k–86k. The fix is lighter hair and head
   geometry, as decimated runtime exports re-verified by the same gates, not garment work.
   The product's selfie head is the reusable texture head (H02-style, 4k triangles).
+- **Outfits and LODs (2026-10-09):** all six recipes pass on both bases (female O02–O06 via
+  the generalized female tools; male and female O03/O05 with their caps). Phone-budget
+  LODs from `build_catalog_lod.py` pass all outfit gates. They cull never-visible head and
+  hair faces (12–14k), then decimate headwear (to 60%) and heads, leaving body and garments
+  exact. Ten fit about 95k triangles. O03 stays over, at 101k (male) and 129k (female),
+  because bare legs leave 41k triangles of visible body.

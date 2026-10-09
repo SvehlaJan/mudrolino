@@ -1,0 +1,27 @@
+{
+  "source": "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01-A01/outfit.blend",
+  "source_sha256": "2e1d857f52baf7acd6636fe445dd3700f05e28dcf93b7984836af4bdbabfcf47",
+  "builder_sha256": "b267239fe0a6ab2c7b7b3625d47cf667ef2bf5ba304236c6548f77e7ae3dc7b6",
+  "budget": 95000,
+  "triangles_before": 170690,
+  "triangles_after": 100792,
+  "decimated": {
+    "H01_head": {
+      "before": 65084,
+      "culled_faces": 23122,
+      "ratio": 0.15000000000000002,
+      "max_deviation_m": 0.0014691235264763236,
+      "after": 2854
+    },
+    "A01_baseball_cap": {
+      "before": 19168,
+      "ratio": 0.6,
+      "max_deviation_m": 7.833804556867108e-05,
+      "after": 11500
+    }
+  },
+  "blend": {
+    "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01-A01/outfit-lod.blend": "53cf883176ec5fe88aa43f060640f27a0e4ca9585321dab0f2e8cc11cf3dcfe2"
+  },
+  "glb_sha256": "8cd39361bf723aa8ec2d03fd8072f0bfb24b34aac1e8c8dbf61d17d58b15af0a"
+}

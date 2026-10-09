@@ -1,0 +1,19 @@
+{
+  "source": "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.blend",
+  "source_sha256": "46555806a605a76313fbd05f93639879d4e5d6bef2e6386b881b03910ad2ed15",
+  "builder_sha256": "b267239fe0a6ab2c7b7b3625d47cf667ef2bf5ba304236c6548f77e7ae3dc7b6",
+  "budget": 95000,
+  "triangles_before": 108879,
+  "triangles_after": 94807,
+  "decimated": {
+    "H02_hair": {
+      "before": 45852,
+      "culled_faces": 7036,
+      "after": 31780
+    }
+  },
+  "blend": {
+    "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit-lod.blend": "da6bcfae6de3ab5d53f1fc7cf780e95b5a7450c8893e446b916536211ef4b942"
+  },
+  "glb_sha256": "9b7a3bc574a3544e8302681d410c9cb88e0685f7ea342de84484032c8e42bb49"
+}

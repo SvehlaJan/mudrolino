@@ -1,0 +1,21 @@
+{
+  "source": "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.blend",
+  "source_sha256": "ea6448d2d1e4975c49d0028225dad293b36697c6bcfb9ef98e1a60a5dcb300a6",
+  "builder_sha256": "b267239fe0a6ab2c7b7b3625d47cf667ef2bf5ba304236c6548f77e7ae3dc7b6",
+  "budget": 95000,
+  "triangles_before": 132820,
+  "triangles_after": 94999,
+  "decimated": {
+    "H02_hair": {
+      "before": 45852,
+      "culled_faces": 7036,
+      "ratio": 0.25273757079924486,
+      "max_deviation_m": 0.0014026118442416191,
+      "after": 8031
+    }
+  },
+  "blend": {
+    "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit-lod.blend": "66daf39c42728de14733568d27844e9b4f4c6701ad88a46d8e812da5dc0d5788"
+  },
+  "glb_sha256": "6128d47602c4c7d01fb15032cc6f8ec0fdf523f349f519022bc255f73f0ff7e2"
+}
