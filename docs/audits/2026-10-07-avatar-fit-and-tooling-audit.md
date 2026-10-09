@@ -347,6 +347,8 @@ The user approved these recommendations, including +30% heads on both bases.
 
 ## Plan close-out (2026-10-09)
 
+**Accepted as complete by the user (2026-10-09)**, with expressions deferred to the selfie-texture work.
+
 The audit plan accepted on 2026-10-07 ("Proceed with the plan"), item by item, with its
 state after the final rebuilds and the evidence for it.
 
