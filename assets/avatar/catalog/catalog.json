@@ -1734,7 +1734,17 @@
               "cropSha256": "bc72735bcc16ca3392e35690b661b3cf23cf54724cf7f05062debeb97f5df1c6"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "o06-head130",
+              "label": "Worn in female O06 on the +30% head",
+              "assetId": "o06-female-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A05/fitting-revisions/o06-head130/female (build_catalog_a05.py --body body_underlayer_female): same construction as male; 163 poses clear apart from the accepted arm-brush contact, H02 hair clear, export 18.5 µm, materials and glTF valid."
+            }
+          ],
+          "currentRevisionId": "o06-head130"
         }
       ],
       "relatedIds": []
@@ -2983,7 +2993,17 @@
               "cropSha256": "8776a6e167fb849a8c541cd259fa218790c8f85cfe69fb24db6983c1fffbb03d"
             }
           ],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "head130",
+              "label": "Exact O06 on the female +30% head",
+              "assetId": "o06-female-head130",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "female/outfits/studies/T06-B02-F02-head130 passes the female complete runner 15/15; A05 on it: 163 poses clear apart from the accepted arm-brush contact, no hair contact, export 18.5 µm, materials and glTF valid."
+            }
+          ],
+          "currentRevisionId": "head130"
         }
       ],
       "relatedIds": [

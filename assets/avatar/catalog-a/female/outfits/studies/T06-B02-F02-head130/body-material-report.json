@@ -1,0 +1,27 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T06-B02-F02-head130/body.glb",
+  "sha256": "12e7273c418caa7a9166b73d51db1205cac993f1afc5ad6bf22a44d00a9d537a",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "H02_hair",
+      "material": "A H02 matte chestnut hair",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "H02_head",
+      "material": "face_surface",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "char1.002",
+      "material": "A female neutral warm skin",
+      "colorComponents": 0
+    }
+  ]
+}

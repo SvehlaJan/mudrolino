@@ -10,7 +10,7 @@ sources=[o for o in bpy.data.objects if o.type=='MESH'];actions={n:bpy.data.acti
 bpy.ops.import_scene.gltf(filepath=str(a.glb.resolve()));imported=[o for o in bpy.data.objects if o not in before];rig=next(o for o in imported if o.type=='ARMATURE');rig.animation_data_create()
 mapping={}
 for source in sources:
- prefix='outfit_masked_body' if source.name=='body_underlayer_male' else source.name
+ prefix='outfit_masked_body' if source.name.startswith('body_underlayer_') else source.name
  candidates=[o for o in imported if o.type=='MESH' and o.name.startswith(prefix)]
  assert len(candidates)==1,(source.name,[o.name for o in imported]);mapping[source]=candidates[0]
  if candidates[0].data.shape_keys:

@@ -341,7 +341,7 @@ def main():
     blend_out = args.output_dir / 'outfit.blend'
     bpy.ops.wm.save_as_mainfile(filepath=str(blend_out.resolve()))
     heads = [o for o in bpy.data.objects if o.type == 'MESH' and (o.name.startswith('H01_head') or o.name.startswith('H02_'))]
-    garments = [o for o in bpy.data.objects if o.type == 'MESH' and o.name.endswith('_outfit') and o is not item]
+    garments = [o for o in bpy.data.objects if o.type == 'MESH' and o not in (body, item, *heads)]  # Male garments end in _outfit; female ones keep their piece names.
     evaluated = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
     masked = bpy.data.objects.new('outfit_masked_body', bpy.data.meshes.new_from_object(evaluated))
     bpy.context.collection.objects.link(masked)

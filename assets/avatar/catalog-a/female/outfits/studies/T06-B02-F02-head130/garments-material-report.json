@@ -1,0 +1,72 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T06-B02-F02-head130/garments.glb",
+  "sha256": "807f10f8d335b606f9f55400ac8fccd7df69f6bf1785771007712b036f8e716f",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A blue jogger fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A navy jogger elastic",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "B02_joggers quad shell",
+      "material": "A blue jogger pocket openings",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A ivory slip-on sole",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A navy slip-on upper",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A navy slip-on collar",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A dark slip-on elastic gores",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "F02 rounded ivory sole",
+      "material": "A orange slip-on heel tabs",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley ribbing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A orange henley collar facing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley placket",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A navy henley buttons",
+      "colorComponents": 0
+    }
+  ]
+}

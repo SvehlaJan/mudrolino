@@ -865,6 +865,25 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/build_catalog_female_outfit_study.py"
+    },
+    {
+      "id": "o06-female-head130",
+      "label": "Female O06 · T06 / B02 / F02 / A05 backpack · +30% head",
+      "path": "A05/fitting-revisions/o06-head130/female",
+      "model": "outfit.glb",
+      "kind": "study",
+      "base": "female",
+      "stage": "Exact O06 on the female +30% head. The T06 placket-v2/B02/F02 study passes the female complete runner 15/15 (F02 collar relieved 3 mm, heel-tab correctives driven). The A05 backpack adds only the accepted arm-brush contact (up to 276 pairs) and no hair contact; export 18.5 µm, materials and glTF valid. Art review pending.",
+      "reference_ids": [
+        "O06",
+        "T06",
+        "B02",
+        "F02",
+        "A05",
+        "H02"
+      ],
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a05.py"
     }
   ],
   "F02_corrective_repair_study": {

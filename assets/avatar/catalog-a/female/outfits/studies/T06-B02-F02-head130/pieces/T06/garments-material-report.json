@@ -1,0 +1,32 @@
+{
+  "target": "assets/avatar/catalog-a/female/outfits/studies/T06-B02-F02-head130/pieces/T06/garments.glb",
+  "sha256": "03aff4e67085fdb4bbe109d827052b7a2f9bbc9735969bd1514451aa37646a78",
+  "status": "passed",
+  "primitives": [
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley fabric",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley ribbing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A orange henley collar facing",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A ivory henley placket",
+      "colorComponents": 0
+    },
+    {
+      "mesh": "T06 ivory henley shell",
+      "material": "A navy henley buttons",
+      "colorComponents": 0
+    }
+  ]
+}

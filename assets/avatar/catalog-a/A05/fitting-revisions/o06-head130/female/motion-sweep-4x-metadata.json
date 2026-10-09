@@ -1,0 +1,25 @@
+{
+  "blend": "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/female/outfit.blend",
+  "blend_sha256": "fc7d40a1758621468bb47eead3868da5c455d4eb20c32cd713ceef76f51a4db2",
+  "blender": "5.2.2 LTS",
+  "body_meshes": [
+    "body_underlayer_female",
+    "H02_head",
+    "H02_hair"
+  ],
+  "garment_meshes": [
+    "T06_henley",
+    "B02_joggers",
+    "F02_slip_ons",
+    "A05_backpack_outfit"
+  ],
+  "samples": 163,
+  "substeps": 4,
+  "max_body_pairs": 0,
+  "max_layer_pairs": 0,
+  "review_width": 320,
+  "accepted_classes": [
+    "arm-brush:A05_backpack_outfit"
+  ],
+  "max_accepted_pairs": 276
+}

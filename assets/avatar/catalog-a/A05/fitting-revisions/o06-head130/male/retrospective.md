@@ -46,3 +46,18 @@ exact O06: T06 placket-v2, B02, F02 repair and A05.
 - Pack size against the reference, which spans more of the back.
 - Female A05.
 - Packs with hoodies; the lowered hood occupies the upper back.
+
+## Female (2026-10-08)
+
+`A05/fitting-revisions/o06-head130/female` is built with the same builder (`--body
+body_underlayer_female --top T06_henley`) on the female T06/B02/F02 study
+(`female/outfits/studies/T06-B02-F02-head130`, complete runner 15/15). Female tops
+reuse the male garment geometry, so the pack lands in the same place.
+
+Results:
+- **Motion:** 163 poses clear apart from the accepted arm-brush contact (up to 276
+  pairs); the H02 hair doesn't touch the straps.
+- **Export:** 18.5 µm, once the export check mapped any `body_underlayer_*` to the
+  exported masked body.
+- **Validity:** materials and glTF pass.
+- **Gallery:** passes on desktop and phone.
