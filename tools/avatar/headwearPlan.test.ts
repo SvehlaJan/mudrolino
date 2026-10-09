@@ -111,6 +111,14 @@ describe('under-hat hair', () => {
     // Below the band it eases back to the original shell.
     expect(run({ op: 'pressed_shell_radius', radius: 0.20, depth_below_band: 0.05, ...rule }).value).toBeCloseTo(0.20, 10);
   });
+  it('ramps the pressed height down to a hairline when asked, so no cliff faces the band', () => {
+    const flat = run({ op: 'pressed_shell_radius', radius: 0.1505, depth_below_band: -0.05, ...rule }).value;
+    const ramped = run({ op: 'pressed_shell_radius', radius: 0.1505, depth_below_band: -0.05, ...rule, ramp: true }).value;
+    expect(flat).toBeCloseTo(0.158, 10);
+    expect(ramped).toBeLessThan(0.151);
+    expect(ramped).toBeGreaterThan(0.15);
+    expect(run({ op: 'pressed_shell_radius', radius: 0.20, depth_below_band: -0.05, ...rule, ramp: true }).value).toBeCloseTo(0.158, 10);
+  });
   it('rejects a non-positive layer', () => {
     expect(run({ op: 'pressed_shell_radius', radius: 0.2, depth_below_band: 0, ...rule, layer: 0 }).status).toBe(1);
     expect(run({ op: 'under_hat_radius', radius: 0.2, depth_below_band: 0, ...rule, layer: 0 }).status).toBe(1);

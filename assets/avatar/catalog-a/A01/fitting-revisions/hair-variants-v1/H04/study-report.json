@@ -6,7 +6,11 @@
     "A01 cap"
   ],
   "base": "male-H04",
-  "band_relief_m": 0.0012,
+  "band_relief_m": -0.0009,
+  "band_hug_m": 0.015,
+  "design_overrides": {},
+  "band_dilation": false,
+  "shell_ramp": true,
   "head_study": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male",
   "source_hashes": {
     "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/H04.blend": "dd7be2261ae7748bad2e42bc9f4ac8b24ec458ecd28916697fd30f257655ef6b",
@@ -15,8 +19,8 @@
   },
   "builder": "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a01_fitted.py",
   "builder_sha256": "52f102ce8c95ebb5387e368d7bc67d3f62ce3cfdda486995cfc4fa6b7671543c",
-  "geometry_sha256": "6f442612d75d47083537800f055c9747129490a8e6b2f86e67dfefe5bdd1c6ec",
-  "plan_sha256": "bf3fcd5b7b5f79c838606ba6b5018ee342bb4a89ede23946af5e3278cfafc9bc",
+  "geometry_sha256": "cc2cee5790c0ca9861a390b473da31fc0d555c4b3dac2a65cbe478d330eafd13",
+  "plan_sha256": "78df0866eb2529a8a189e5f18a5460d771c647c5a4854bfac0e988d963bb83e0",
   "blender": "5.2.2 LTS",
   "design": {
     "hair_layer": 0.008,
@@ -87,7 +91,7 @@
     "brow_z": 1.749859908103943,
     "ear_top_z": 1.7199598550796509
   },
-  "brim_length_m": 0.10401622645517283,
+  "brim_length_m": 0.10540271281095867,
   "under_hat": {
     "object": "H04_hair",
     "key": "under_A01",
@@ -112,12 +116,12 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A01/fitting-revisions/hair-variants-v1/H04/A01.blend": "191345d1cda77e6da9a158a7adb27d47c0c435548800b02fe8c9c7a4ab85309b"
+    "assets/avatar/catalog-a/A01/fitting-revisions/hair-variants-v1/H04/A01.blend": "38af2a96bf8156fdddc862efca89bea7fafb426672a7195effd4c4da1d2573c3"
   },
   "exports": {
-    "A01.glb": "e0a80c8e65ffa01581956fedb04190874f106ba699211a9a41bc05bd9c9dcea0",
-    "head-under-hat.glb": "4c5eadf017984b80ff10ebf5614a5762094943b3527f7cad72d4623a4e2bffe6",
-    "outfit.glb": "83a8b41d4827d9ad52575cc60e16eceda1a1ec61e431fbe98250938c9d68c023"
+    "A01.glb": "47fb3c5c5de53a98e9908134eb2bd3d79c8c0f3536b953cd0f5b8e87417c4728",
+    "head-under-hat.glb": "50deedc2f101f883e2632d45500f1944a78f59c5017ad73ddc93824e7970d6fd",
+    "outfit.glb": "6f06f6a8164b1213ca0874fb232c4a9dec1fd6de16dfcdca522e7c794d148148"
   },
   "reviews": {
     "front-full": "assets/avatar/catalog-a/A01/fitting-revisions/hair-variants-v1/H04/front-full-review.png",

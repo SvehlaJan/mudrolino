@@ -43,6 +43,11 @@ for _style, _base in (('H03', 'female'), ('H04', 'male'), ('H05', 'female')):
                                       head_objects=[_skull[0], f'{_style}_hair'],
                                       landmarks=HEADS[_base]['study'] / 'head-landmarks.json', hair_shell=True,
                                       band_relief=.0012)
+# The crop's front and side hairline sits just above both bands. A dilated envelope lifts
+# the band off the forehead skin under it, and a flat press leaves a cliff at the hairline
+# for an undilated band to cut, so the crop hugs the exact surface, ramps its press to the
+# edge, and keeps 0.9 mm more band ease than the designs (trialled 2026-10-09).
+HEADS['male-H04'].update(band_dilation=False, shell_ramp=True, band_relief=-.0009)
 
 
 BAND_RELIEF_SPAN = .15
@@ -79,9 +84,9 @@ class Envelope:
     GRID = (256, 120)
     ELEVATION = (-.9, math.pi / 2)
 
-    def __init__(self, skull, centre, band, scale, ease, band_hug):
+    def __init__(self, skull, centre, band, scale, ease, band_hug, dilate_band=True):
         self.skull, self.centre, self.band, self.scale = skull, Vector(centre), band, scale
-        self.ease, self.band_hug = ease, band_hug
+        self.ease, self.band_hug, self.dilate_band = ease, band_hug, dilate_band
         self.field = None
 
     def skull_radius(self, d):
@@ -105,6 +110,7 @@ class Envelope:
                 hit = worn.ray_cast(self.centre + d, -d, 1.0)[0]
                 row.append((hit - self.centre).length if hit is not None else self.skull_radius(d))
             raw.append(row)
+        exact = raw
         raw = [[max(raw[min(m - 1, max(0, j + dj))][(i + di) % n] for dj in (-1, 0, 1) for di in (-1, 0, 1))
                 for i in range(n)] for j in range(m)]
         field = [row[:] for row in raw]
@@ -119,7 +125,10 @@ class Envelope:
                 theta = 2 * math.pi * i / n - math.pi
                 z = (self.centre + direction(theta, elevation) * raw[j][i]).z
                 weight = smoothstep((z - self.band_z(theta)) / hug)
-                field[j][i] = raw[j][i] + (field[j][i] - raw[j][i]) * weight
+                # Without band dilation the band hugs the exact worn surface: a crop's hair
+                # edge just above the band would otherwise lift it off the skin below.
+                base = raw[j][i] if self.dilate_band else exact[j][i]
+                field[j][i] = base + (field[j][i] - base) * weight
         self.field = field
 
     def envelope_radius(self, theta, elevation):
@@ -221,7 +230,7 @@ def worn_tree(skull_obj, skull_keyword, hair_obj, hair_keyword):
     return BVHTree.FromPolygons(points, faces)
 
 
-def add_under_key(hair_obj, keyword, env, design, key_name, shell=False):
+def add_under_key(hair_obj, keyword, env, design, key_name, shell=False, ramp=False):
     """Shape key flattening hair inside and just below the band; returns the changed count.
 
     `shell` (hair variants: one outer surface, not locks) presses the shell to the layer
@@ -247,9 +256,9 @@ def add_under_key(hair_obj, keyword, env, design, key_name, shell=False):
         if design.get('brim_tuck'):
             from_front = abs(math.atan2(math.sin(theta + math.pi / 2), math.cos(theta + math.pi / 2)))
             tuck += design['brim_tuck'] * smoothstep((design['brim_half_angle'] + .1 - from_front) / .25)
-        rule = pressed_shell_radius if shell else under_hat_radius
-        new_radius = rule(radius, env.skull_radius(d), env.band_z(theta) - world.z,
-                          design['hair_layer'], tuck * env.scale, design['release'] * env.scale)
+        args = (radius, env.skull_radius(d), env.band_z(theta) - world.z,
+                design['hair_layer'], tuck * env.scale, design['release'] * env.scale)
+        new_radius = pressed_shell_radius(*args, ramp=ramp) if shell else under_hat_radius(*args)
         if abs(new_radius - radius) > 1e-7:
             key.data[i].co = inverse @ (env.centre + d * new_radius)
             changed += 1
@@ -284,6 +293,8 @@ def relieved_ease(ease, relief):
 def build_headwear_study(item_id, object_name, design, build_parts, base, output_dir, builder_path, crown_materials):
     """Open the verified head study, fit the design and write every output plus the study report."""
     config = HEADS[base]
+    # A head may move the band (e.g. onto a crop's hair, not across its hairline).
+    design = dict(design, **config.get('design_overrides', {}))
     output_dir.mkdir(parents=True, exist_ok=True)
     source = config['study'] / config['blend']
     landmarks_path = config.get('landmarks', config['study'] / 'head-landmarks.json')
@@ -305,9 +316,10 @@ def build_headwear_study(item_id, object_name, design, build_parts, base, output
                         design['front_rise_over_side'])
     env = Envelope(polygon_tree(skull_obj, config['skull'][1]), landmarks['skull_centre'], band, landmarks['scale'],
                    relieved_ease(design['ease_fn'](landmarks['scale']), config.get('band_relief', 0.0) * landmarks['scale']),
-                   design['band_hug'])
+                   config.get('band_hug', design['band_hug']), config.get('band_dilation', True))
     key_name = f'under_{item_id}'
-    changed = add_under_key(hair_obj, config['hair'][1], env, design, key_name, config.get('hair_shell', False))
+    changed = add_under_key(hair_obj, config['hair'][1], env, design, key_name, config.get('hair_shell', False),
+                            config.get('shell_ramp', False))
     env.sample_envelope(worn_tree(skull_obj, config['skull'][1], hair_obj, config['hair'][1]))
     assert all(geometry_signature(bpy.data.objects[n]) == s for n, s in unchanged.items()), 'Basis geometry changed'
 
@@ -360,7 +372,7 @@ def build_headwear_study(item_id, object_name, design, build_parts, base, output
     report = {
         'stage': f'Envelope-fitted {item_id} revision; run verify_catalog_headwear.py for fit/motion gates. Art review pending.',
         'item': item_id, 'object': object_name, 'crown_materials': [f'{item_id} {m}' for m in crown_materials],
-        'base': base, 'band_relief_m': config.get('band_relief', 0.0), 'head_study': str(config['study']), 'source_hashes': source_hashes,
+        'base': base, 'band_relief_m': config.get('band_relief', 0.0), 'band_hug_m': config.get('band_hug', design['band_hug']), 'design_overrides': config.get('design_overrides', {}), 'band_dilation': config.get('band_dilation', True), 'shell_ramp': config.get('shell_ramp', False), 'head_study': str(config['study']), 'source_hashes': source_hashes,
         'builder': str(builder_path), 'builder_sha256': digest(builder_path),
         'geometry_sha256': digest(here), 'plan_sha256': digest(here.with_name('catalog_headwear_plan.py')),
         'blender': bpy.app.version_string,

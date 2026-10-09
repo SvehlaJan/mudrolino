@@ -1,34 +1,25 @@
 {
   "study_dir": "assets/avatar/catalog-a/A02/fitting-revisions/hair-variants-v1/H04",
-  "study_report_sha256": "6583e8eabee3765f5ee20bbfa4265f227df228e40cbb544852af25718b55e161",
+  "study_report_sha256": "e2b1724cf2226b2fbac3b6a984b5f65f5c4488afce7705f1da8b2288ff8e90bd",
   "verifier_sha256": "1cdac10a6c3d831c89ffce4fe8efdd70211ac0ddcb5a4d57fb905551521b1d74",
-  "failures": [
-    {
-      "gate": "headwear_fit_gate",
-      "details": [
-        "band p90 gap 5.9 mm exceeds 5.0 mm"
-      ]
-    }
-  ],
-  "status": "failed",
+  "failures": [],
+  "status": "passed",
   "fit_gate": {
-    "passed": false,
-    "failures": [
-      "band p90 gap 5.9 mm exceeds 5.0 mm"
-    ],
+    "passed": true,
+    "failures": [],
     "crown": {
-      "samples": 3110,
+      "samples": 3114,
       "share_within_max": 1.0,
-      "p50_mm": 4.96,
+      "p50_mm": 5.13,
       "p90_mm": 8.99,
-      "max_mm": 10.22,
-      "min_mm": 1.12
+      "max_mm": 10.5,
+      "min_mm": 2.78
     },
     "band": {
-      "samples": 76,
-      "p90_mm": 5.87,
-      "max_mm": 10.66,
-      "min_mm": 1.02
+      "samples": 73,
+      "p90_mm": 4.85,
+      "max_mm": 5.67,
+      "min_mm": 2.44
     },
     "thresholds": {
       "max_gap_mm": 12.0,
@@ -78,7 +69,7 @@
   },
   "export_fidelity": {
     "poses": 16,
-    "maximum_error_m": 6.160148018352629e-07,
+    "maximum_error_m": 6.127989422566316e-07,
     "threshold_m": 3e-05
   }
 }

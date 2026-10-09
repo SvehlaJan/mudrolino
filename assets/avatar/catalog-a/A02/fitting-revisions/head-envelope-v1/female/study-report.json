@@ -7,6 +7,10 @@
   ],
   "base": "female",
   "band_relief_m": 0.0,
+  "band_hug_m": 0.015,
+  "design_overrides": {},
+  "band_dilation": true,
+  "shell_ramp": false,
   "head_study": "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130",
   "source_hashes": {
     "assets/avatar/catalog-a/female/foundation/studies/h02-scale-130/female-foundation.blend": "63ed3aa2a1fe6351cc4fbbdeedecdbf2b26d0cb478b84d3296cae6580ecd7962",
@@ -15,8 +19,8 @@
   },
   "builder": "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a02.py",
   "builder_sha256": "90c75bbac77ccee64a2d72b8c45ffdf82cd36232b122d3d3c1763d00f6135ed4",
-  "geometry_sha256": "6f442612d75d47083537800f055c9747129490a8e6b2f86e67dfefe5bdd1c6ec",
-  "plan_sha256": "bf3fcd5b7b5f79c838606ba6b5018ee342bb4a89ede23946af5e3278cfafc9bc",
+  "geometry_sha256": "cc2cee5790c0ca9861a390b473da31fc0d555c4b3dac2a65cbe478d330eafd13",
+  "plan_sha256": "78df0866eb2529a8a189e5f18a5460d771c647c5a4854bfac0e988d963bb83e0",
   "blender": "5.2.2 LTS",
   "design": {
     "hair_layer": 0.008,
@@ -94,7 +98,7 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/female/A02.blend": "327c7d6baba50aa6bcb2f1cbb6589e5cc6a11760915256208e7ec571002a176e"
+    "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/female/A02.blend": "150b4d997ea361fd3be119319e705ff3b3a56585979f096b33d7207cb0e4372c"
   },
   "exports": {
     "A02.glb": "7ee788402cef2961c6c77cb164cde6801c786de360d34bc43af565556ead1910",

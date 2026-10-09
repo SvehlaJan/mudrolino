@@ -23,7 +23,7 @@ Approved palette A and existing references remain the design baseline. Both base
 | F03 | Cornflower high-tops, exactly three broad ivory straps per shoe, navy panels and ivory sole. | Collar/toe/sole refinement; retain 185 mm opening/face-safe coverage contract. |
 | F04 | Tangerine ankle boots, navy elastic side panels, rounded ivory soles and simple rear heel loop. | Refine independent master and B01 compatibility; O05 requires A02. |
 | A01 | Tangerine baseball cap with broad rounded crown and brim. | Rebuilt from head envelopes on both +30% bases with an `under_hat` hair key (2026-10-07); art review and strap colour (blue sheet vs navy female sheet) pending. |
-| A02 | Navy/cornflower knitted beanie; broad folded rim and economical rounded crown. | Fitted on both bases and on H03/H05 (2026-10-09); the H04 crop pairing needs a band decision. |
+| A02 | Navy/cornflower knitted beanie; broad folded rim and economical rounded crown. | Fitted on both bases and on H03, H04 and H05 (2026-10-09). |
 | A03 | Navy rounded spectacle frames, restrained bridge/temples. | New attachment convention checked against face/ears/hair on both bases. |
 | A04 | Cornflower soft-square spectacle frames. | Reuse proven glasses attachment; separate shape and clearance proof. |
 | A05 | Tangerine rounded backpack, navy shoulder straps and readable simple closure/pocket detail. | New master; top/shoulder/arm/strap checks; completes O06. |

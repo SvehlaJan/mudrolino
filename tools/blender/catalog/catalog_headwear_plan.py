@@ -120,21 +120,22 @@ def under_hat_radius(radius, skull_radius, depth_below_band, layer, tuck, blend)
     return limit + (radius - limit) * smoothstep((depth_below_band - tuck) / blend)
 
 
-def pressed_shell_radius(radius, skull_radius, depth_below_band, layer, tuck, blend):
+def pressed_shell_radius(radius, skull_radius, depth_below_band, layer, tuck, blend, ramp=False):
     """Radius of a point on a single hair shell (hair variants) pressed under a hat.
 
     Inside the crown and within `tuck` below the band the shell lies exactly `layer` from
     the skull, so curl valleys rise as peaks flatten and the band meets a smooth surface;
     it eases back to the original shell over `blend`. Edges tucked under the skin stay.
-    (Ramping the pressed height with the original thickness near a hairline made the crop
-    band gaps worse, 5.4 -> 7.6 mm p90, so the press is flat.)
+    With `ramp` the pressed height follows the original thickness near a hairline
+    (smoothstep of thickness/layer), so a hairline under the band has no cliff for the band
+    to cut; only useful with an undilated band (a dilated one floats over the ramp).
     """
     finite(radius, skull_radius, depth_below_band, layer, tuck, blend)
     if layer <= 0 or tuck < 0 or blend <= 0:
         raise ValueError('layer and blend must be positive; tuck non-negative')
     if radius <= skull_radius:
         return radius
-    limit = skull_radius + layer
+    limit = skull_radius + layer * (smoothstep((radius - skull_radius) / layer) if ramp else 1.0)
     if depth_below_band <= tuck:
         return limit
     return limit + (radius - limit) * smoothstep((depth_below_band - tuck) / blend)
@@ -199,7 +200,7 @@ OPERATIONS = {
     'band_heights': lambda r: band_heights(r['landmarks'], r['front_above_brow'], r['side_above_ear'], r['back_above_centre'], r.get('front_rise_over_side', 0.0)),
     'band_height': lambda r: band_height(r['azimuth'], r['front'], r['side'], r['back']),
     'under_hat_radius': lambda r: under_hat_radius(r['radius'], r['skull_radius'], r['depth_below_band'], r['layer'], r['tuck'], r['blend']),
-    'pressed_shell_radius': lambda r: pressed_shell_radius(r['radius'], r['skull_radius'], r['depth_below_band'], r['layer'], r['tuck'], r['blend']),
+    'pressed_shell_radius': lambda r: pressed_shell_radius(r['radius'], r['skull_radius'], r['depth_below_band'], r['layer'], r['tuck'], r['blend'], r.get('ramp', False)),
     'crown_ease': lambda r: crown_ease(r['azimuth'], r['height_fraction'], r['base'], r['front_lift']),
     'fit_gate': lambda r: fit_gate(r['crown_gaps_mm'], r['band_gaps_mm'], r['intersections'], **r.get('thresholds', {})),
 }

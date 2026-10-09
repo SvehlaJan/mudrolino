@@ -7,6 +7,10 @@
   ],
   "base": "female-H05",
   "band_relief_m": 0.0012,
+  "band_hug_m": 0.015,
+  "design_overrides": {},
+  "band_dilation": true,
+  "shell_ramp": false,
   "head_study": "assets/avatar/catalog-a/H05/fitting-revisions/selfie-head-v1/female",
   "source_hashes": {
     "assets/avatar/catalog-a/H05/fitting-revisions/selfie-head-v1/female/H05.blend": "4fb4e622cd544a15d5f4a7faa30e6724d3dc5982840e6696551177d3237f84a5",
@@ -15,8 +19,8 @@
   },
   "builder": "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a01_fitted.py",
   "builder_sha256": "52f102ce8c95ebb5387e368d7bc67d3f62ce3cfdda486995cfc4fa6b7671543c",
-  "geometry_sha256": "6f442612d75d47083537800f055c9747129490a8e6b2f86e67dfefe5bdd1c6ec",
-  "plan_sha256": "bf3fcd5b7b5f79c838606ba6b5018ee342bb4a89ede23946af5e3278cfafc9bc",
+  "geometry_sha256": "cc2cee5790c0ca9861a390b473da31fc0d555c4b3dac2a65cbe478d330eafd13",
+  "plan_sha256": "78df0866eb2529a8a189e5f18a5460d771c647c5a4854bfac0e988d963bb83e0",
   "blender": "5.2.2 LTS",
   "design": {
     "hair_layer": 0.008,
@@ -109,12 +113,12 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A01/fitting-revisions/hair-variants-v1/H05/A01.blend": "10aab5b79634a10e0bd297e660d944f641ff16b3d61700054776780a600d2349"
+    "assets/avatar/catalog-a/A01/fitting-revisions/hair-variants-v1/H05/A01.blend": "ab1c26357721b890be1f01b7e8967432a51706d94f0d249e522c8dc99937e0ab"
   },
   "exports": {
-    "A01.glb": "0d651d23904ba34162f53cd8881898f4208d86c91ba16df4a513ee2ec250cd31",
+    "A01.glb": "9b4255dd9ff660d71e92827859d9a88876e0e76dd6809bb22414dc6af8bb7e74",
     "head-under-hat.glb": "3268a45056c268112e7b92db0c9eefc516f6d451ae110027711e3207091e1bcf",
-    "outfit.glb": "8b1fc0206f44680b063975b751eba43b2531225a4df39641abf47b0a3e0ee19f"
+    "outfit.glb": "ce77e31d74582c6054cb05df510e570f93144b336b927ada30e7dc0fe65d8b20"
   },
   "reviews": {
     "front-full": "assets/avatar/catalog-a/A01/fitting-revisions/hair-variants-v1/H05/front-full-review.png",

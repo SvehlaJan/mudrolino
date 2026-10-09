@@ -514,7 +514,9 @@ path differences and leave near-equal shared-seam assignments qualified.
   beanie to a hair-variant study. The variant's `under_A0x` key presses its single shell flat
   to the hair layer under the band (`pressed_shell_radius`: curl valleys rise, peaks flatten),
   and `band_relief` takes 1.2 mm off the band ease that clears the base hair's locks. The
-  verifier measures gaps to the study's own hair object.
+  H04 crop's hairline sits just above both bands, so its entry fits the band to the exact
+  surface (`band_dilation=False`), ramps the press to the edge (`shell_ramp`) and adds
+  0.9 mm band ease. The verifier measures gaps to the study's own hair object.
 - Hair over the scarf: `drape_catalog_hair_over_scarf.py --outfit-blend A06/.../female/outfit.blend
   --hair-blend H0x.blend --hair H0x_hair --drop A02_folded_beanie --output-dir DIR` swaps a
   hair variant into the scarf outfit and gives it its own `over_A06` lift key (same rule as

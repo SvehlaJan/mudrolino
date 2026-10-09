@@ -61,10 +61,10 @@ describe('saved curated avatar catalog', () => {
     const scarf = items.find(item => item.id === 'A06')!.variants.find(variant => variant.base === 'female')!;
     expect(scarf.currentRevisionId).toBe('o05-head130');
     expect(scarf.revisions.map(revision => revision.id)).toEqual(expect.arrayContaining(['hair-H03', 'hair-H05']));
-    // Caps and beanies on hair variants: the crop (H04) pairings stay repair-needed.
+    // Caps and beanies are fitted on every hair variant (the crop with its own band settings).
     for (const id of ['A01', 'A02']) {
       const male = items.find(item => item.id === id)!.variants.find(variant => variant.base === 'male')!;
-      expect(male.revisions.find(revision => revision.id === 'hair-H04')).toMatchObject({ technicalReview: 'repair-needed' });
+      expect(male.revisions.find(revision => revision.id === 'hair-H04')).toMatchObject({ technicalReview: 'recorded-pass' });
       const female = items.find(item => item.id === id)!.variants.find(variant => variant.base === 'female')!;
       for (const hair of ['hair-H03', 'hair-H05']) expect(female.revisions.find(revision => revision.id === hair)).toMatchObject({ technicalReview: 'recorded-pass' });
     }

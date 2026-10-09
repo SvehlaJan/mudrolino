@@ -277,7 +277,7 @@
       "report": "female/outfits/studies/T02-B01-F01/fit-verification-report.json",
       "runtime_report": "female/outfits/studies/T02-B01-F01/runtime-deformation-report.json",
       "retrospective": "female/outfits/studies/T02-B01-F01/retrospective.md",
-      "combined_error_bound_m": 0.0000020089994995466926,
+      "combined_error_bound_m": 2.0089994995466926e-06,
       "stage": "Technical checks pass; current hood art not accepted, fuller recognizable revision requested."
     },
     "o01": "female/outfits/studies/T01-B01-F01"
@@ -297,8 +297,8 @@
   "F04_core_outfit_study": {
     "path": "F04/fitting-revisions/T05-B01-F04-loop-compression-study",
     "stage": "isolated B01 revision; 163-pose body/layer and side checks pass; 16-pose export/actual Three.js checks pass; canonical promotion, browser and full O05/A02 pending",
-    "export_max_error_m": 0.0000057396555348532274,
-    "combined_error_bound_m": 0.0000076228509482001774
+    "export_max_error_m": 5.7396555348532274e-06,
+    "combined_error_bound_m": 7.6228509482001774e-06
   },
   "H01_style_study": {
     "path": "H01/style-revisions/reference-a",
@@ -1144,14 +1144,13 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "Fitted to the H04 hair-variant study; the band floats over the hairline where it crosses it (the band touches crop curls just below it, 16 pairs). Not offered with H04 until the band envelope is refit.",
+      "stage": "Fitted to the H04 crop study: exact-surface band (no envelope dilation), ramped pressed shell key and 0.9 mm extra band ease, because the crop hairline sits just above the band. Crown p50 3.3 mm, band p90 4.7 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
       "reference_ids": [
         "A01",
         "H04"
       ],
-      "gait_compatible": false,
-      "builder": "tools/blender/catalog/build_catalog_a01_fitted.py",
-      "repair_needed": true
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a01_fitted.py"
     },
     {
       "id": "a02-h04-male",
@@ -1160,14 +1159,13 @@
       "model": "outfit.glb",
       "kind": "study",
       "base": "male",
-      "stage": "Fitted to the H04 hair-variant study; the band floats over the hairline where it crosses it (band p90 5.9 mm: the band sits on forehead skin 14 mm under the crop hairline). Not offered with H04 until the band envelope is refit.",
+      "stage": "Fitted to the H04 crop study: exact-surface band (no envelope dilation), ramped pressed shell key and 0.9 mm extra band ease, because the crop hairline sits just above the band. Crown p50 5.1 mm, band p90 4.8 mm, zero intersections; 163 gait poses and six gestures clear. Art review pending.",
       "reference_ids": [
         "A02",
         "H04"
       ],
-      "gait_compatible": false,
-      "builder": "tools/blender/catalog/build_catalog_a02.py",
-      "repair_needed": true
+      "gait_compatible": true,
+      "builder": "tools/blender/catalog/build_catalog_a02.py"
     }
   ],
   "F02_corrective_repair_study": {

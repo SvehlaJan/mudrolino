@@ -6,7 +6,11 @@
     "A02 knit"
   ],
   "base": "male-H04",
-  "band_relief_m": 0.0012,
+  "band_relief_m": -0.0009,
+  "band_hug_m": 0.015,
+  "design_overrides": {},
+  "band_dilation": false,
+  "shell_ramp": true,
   "head_study": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male",
   "source_hashes": {
     "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/H04.blend": "dd7be2261ae7748bad2e42bc9f4ac8b24ec458ecd28916697fd30f257655ef6b",
@@ -15,8 +19,8 @@
   },
   "builder": "/Users/svehla/playground/teo-learn/tools/blender/catalog/build_catalog_a02.py",
   "builder_sha256": "90c75bbac77ccee64a2d72b8c45ffdf82cd36232b122d3d3c1763d00f6135ed4",
-  "geometry_sha256": "6f442612d75d47083537800f055c9747129490a8e6b2f86e67dfefe5bdd1c6ec",
-  "plan_sha256": "bf3fcd5b7b5f79c838606ba6b5018ee342bb4a89ede23946af5e3278cfafc9bc",
+  "geometry_sha256": "cc2cee5790c0ca9861a390b473da31fc0d555c4b3dac2a65cbe478d330eafd13",
+  "plan_sha256": "78df0866eb2529a8a189e5f18a5460d771c647c5a4854bfac0e988d963bb83e0",
   "blender": "5.2.2 LTS",
   "design": {
     "hair_layer": 0.008,
@@ -97,12 +101,12 @@
     }
   },
   "blend": {
-    "assets/avatar/catalog-a/A02/fitting-revisions/hair-variants-v1/H04/A02.blend": "07fffa3ad5b3539d919977a3441f915c540f63390978b8c2d991e457db9d5367"
+    "assets/avatar/catalog-a/A02/fitting-revisions/hair-variants-v1/H04/A02.blend": "7ef180b438c17c32cd4fd3c863b91184bb385e404343f1d2535284a2faf3eaf5"
   },
   "exports": {
-    "A02.glb": "dd2b46e2d7eb31bf59a17c2c1e59609a467a4ed70e7a730bc69436172626d77d",
-    "head-under-hat.glb": "4c9bc5e69926063ac6244a38ca0a37cf3d0674f1aa76f25003f0416eea467c38",
-    "outfit.glb": "019221880574e368f2a6cc62b6c4d97c7f33bfd916bf829ab44c48d7a292e3cd"
+    "A02.glb": "75f273cd7b2341efebad2f295333773223ab8e0ebd265916a3dc93fd4ad1b6c9",
+    "head-under-hat.glb": "c42d77895ae7bc175ed458133d532893e4d8fc7972d2ea0cd0f5f9615268289e",
+    "outfit.glb": "7efb96943011ba521b64f3c0cfcfa3914206cc67cf26216c4fd27dea4ee0b505"
   },
   "reviews": {
     "front-full": "assets/avatar/catalog-a/A02/fitting-revisions/hair-variants-v1/H04/front-full-review.png",

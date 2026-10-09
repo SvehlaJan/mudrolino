@@ -1386,8 +1386,8 @@
               "label": "On H04",
               "assetId": "a01-h04-male",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): the band touches crop curls just below it, 16 pairs"
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A01/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): exact-surface band, ramped pressed shell and 0.9 mm extra band ease for the crop; crown p50 3.3 mm, band p90 4.7 mm, zero intersections; 163 gait poses and six gestures clear."
             },
             {
               "id": "head-envelope-v1",
@@ -1502,8 +1502,8 @@
               "label": "On H04",
               "assetId": "a02-h04-male",
               "visualReview": "pending",
-              "technicalReview": "repair-needed",
-              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): band p90 5.9 mm: the band sits on forehead skin 14 mm under the crop hairline"
+              "technicalReview": "recorded-pass",
+              "technicalNote": "A02/fitting-revisions/hair-variants-v1/H04 (verify_catalog_headwear.py): exact-surface band, ramped pressed shell and 0.9 mm extra band ease for the crop; crown p50 5.1 mm, band p90 4.8 mm, zero intersections; 163 gait poses and six gestures clear."
             },
             {
               "id": "head-envelope-v1",

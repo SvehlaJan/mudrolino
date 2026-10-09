@@ -18,8 +18,9 @@ female-H05 --output-dir A0x/fitting-revisions/hair-variants-v1/H0x`, gated by
 - **Pressed shell:** the base `under_hat_radius` only flattens hair, so curl valleys stayed
   low under the band and the band bridged them. For a shell, `pressed_shell_radius` sets
   it to the hair layer under the band in both directions; edges tucked under the skin
-  stay. Ramping the press with the original thickness near a hairline made the crop worse
-  (5.4 → 7.6 mm p90), so the press is flat.
+  stay. The press is flat by default: ramping it with the original thickness near a
+  hairline made the crop worse while the band was dilated (5.4 → 7.6 mm p90). The crop
+  uses the ramp with an undilated band (below).
 - **Band relief:** the band ease (2.5 mm) clears the base hair's locks. The pressed shells
   are smooth there, so the variants take 1.2 mm (1.56 mm scaled) off the ease at the band,
   fading out over the lowest 15% of the crown. Base heads are unchanged; their rebuilt
@@ -33,20 +34,25 @@ female-H05 --output-dir A0x/fitting-revisions/hair-variants-v1/H0x`, gated by
 | A01 on H05 | 3.5 mm | 3.2 mm | 0 | clear | pass |
 | A02 on H03 | 5.3 mm | 4.5 mm | 0 | clear | pass |
 | A02 on H05 | 5.3 mm | 1.8 mm | 0 | clear | pass |
-| A01 on H04 | 3.3 mm | 3.8 mm | 16 (crop curls below the band) | 16 pairs | repair needed |
-| A02 on H04 | 5.0 mm | 5.9 mm | 0 | clear | repair needed |
+| A01 on H04 | 3.3 mm | 4.7 mm | 0 | clear | pass |
+| A02 on H04 | 5.1 mm | 4.8 mm | 0 | clear | pass |
 
-## Open: the crop (H04)
+## The crop (H04)
 
-Both H04 pairings fail because of where the crop's front hairline sits. A02's band rests
-on forehead skin about 14 mm under the crop hairline, and the shared envelope blends in
-the hair ramp above it, so the band floats over the skin. A01's band, closer with the
-relief, touches the unpressed curls just below it.
+The crop's front and side hairline sits just above both bands (the band rests on forehead
+and temple skin, then on hair behind the ears). Measured, not guessed:
 
-Two fixes are possible, and each changes the look of the crop with a hat:
+- **Floating band:** the envelope dilates the worn surface by one sample (~7 mm), so
+  the crop's hair edge just above the band lifted the band off the skin below
+  (5.4–5.9 mm p90). A smaller band hug and higher bands only made it worse (5.2–7.3 mm).
+- **Without band dilation** the band hugs the exact surface (3.8/4.1 mm), but it then cut
+  the cliff a flat press leaves at the hairline (41/20 pairs). A deeper press below the
+  band changed nothing.
+- **A ramped press** (pressed height follows the original thickness at the edge) removed
+  the cliff (11/10 pairs left), and 0.9 mm more band ease than the designs cleared the
+  rest.
 
-- a per-hair band height for the crop (the band sitting on hair), or
-- a crop whose front hairline reaches the band.
-
-Lowering the crop sides to cover the band touched the ears; the sides now end just above
-the band. Until one of these is chosen, the crop is not offered with a cap or beanie.
+So `HEADS['male-H04']` sets `band_dilation=False`, `shell_ramp=True` and
+`band_relief=-.0009`. A01 on the crop: crown p50 3.3 mm, band p90 4.7 mm; A02: 5.1 /
+4.8 mm; zero intersections and clear motion for both. Base heads and H03/H05 keep the
+default settings.
