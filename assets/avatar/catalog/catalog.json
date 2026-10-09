@@ -1994,7 +1994,17 @@
           "label": "Female base",
           "base": "female",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "selfie-head-v1",
+              "label": "Curls on the reusable +30% head",
+              "assetId": "h03-selfie-head-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "H03/fitting-revisions/selfie-head-v1/female/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, clear of body and garments in all six female outfits over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending."
+            }
+          ],
+          "currentRevisionId": "selfie-head-v1"
         }
       ],
       "relatedIds": [
@@ -2030,7 +2040,17 @@
           "label": "Male base",
           "base": "male",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "selfie-head-v1",
+              "label": "Crop on the reusable +30% head",
+              "assetId": "h04-selfie-head-male",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "H04/fitting-revisions/selfie-head-v1/male/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, ears clear, clear of body and garments in all seven male outfits (A06 scarf included) over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending."
+            }
+          ],
+          "currentRevisionId": "selfie-head-v1"
         }
       ],
       "relatedIds": [
@@ -2066,7 +2086,17 @@
           "label": "Female base",
           "base": "female",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "selfie-head-v1",
+              "label": "Silver waves on the reusable +30% head",
+              "assetId": "h05-selfie-head-female",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "H05/fitting-revisions/selfie-head-v1/female/verification-report.json (verify_catalog_hair_variant.py): base hair removed, head unchanged, painted features visible, scalp covered, A03/A04 skin-clear, clear of body and garments in all six female outfits over 163 gait poses + six gestures, UV corners and 0.3 µm rest export. Cap/beanie refit and art review pending."
+            }
+          ],
+          "currentRevisionId": "selfie-head-v1"
         }
       ],
       "relatedIds": [
@@ -2102,7 +2132,17 @@
           "label": "Male base",
           "base": "male",
           "references": [],
-          "revisions": []
+          "revisions": [
+            {
+              "id": "selfie-head-v1",
+              "label": "Bald reusable +30% head",
+              "assetId": "h06-selfie-head-male",
+              "visualReview": "pending",
+              "technicalReview": "recorded-pass",
+              "technicalNote": "H06/fitting-revisions/selfie-head-v1/male/verification-report.json (verify_catalog_hair_variant.py): H01 head without hair, vertex-identical, rigid Head binding, A03/A04 skin-clear, UV corners and 0.2 µm rest export. Goatee belongs to the selfie face texture; art review pending."
+            }
+          ],
+          "currentRevisionId": "selfie-head-v1"
         }
       ],
       "relatedIds": [

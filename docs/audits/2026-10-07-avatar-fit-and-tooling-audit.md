@@ -315,3 +315,10 @@ The user approved these recommendations, including +30% heads on both bases.
   clearance, export parity and glTF and fits the phone budget (91.6k–95k triangles). Export
   parity needed bone weights under 1e-3 pruned: the glTF exporter drops weights at or below
   1e-4 that Blender still applies, which collapse decimation creates (31 µm drift).
+- **H03–H06 hair variants (2026-10-09):** `build_catalog_hair_variant.py` removes the base
+  hair and grows each style as a radial shell over the measured scalp
+  (`catalog_hair_plan.py`); H06 is the bald male head. All four pass
+  `verify_catalog_hair_variant.py`, including a wardrobe sweep: no hair contact with the
+  body or any garment in the six female or seven male outfits (hoods, backpack and scarf
+  included) over 163 gait poses and six gestures. Headwear is excluded from that sweep:
+  caps and beanies are fitted to the base hair and need a refit per variant.

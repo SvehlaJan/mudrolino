@@ -37,10 +37,10 @@ Head proportions are chosen independently for the two bases. The review fixtures
 | --- | --- | --- |
 | H01 | Short swept brown waves, rounded friendly face and beard treatment. | Chosen male proportions, then cheek/jaw/nose and broad hair masses. |
 | H02 | Brown shoulder-length smooth hair, readable parting and face-framing locks. | Chosen female proportions, then continuous rear mass and hood separation. Current UV/export/hair proof is refreshed separately. |
-| H03 | Rounded dark curls. | Stable reusable head/UV convention and economical broad curl masses. |
-| H04 | Short dark crop. | Stable head and clear restrained silhouette. |
-| H05 | Silver waves and round glasses. | Stable head plus A03 attachment convention. |
-| H06 | Bald head, goatee and glasses. | Stable head/painted-face convention plus glasses clearance. |
+| H03 | Rounded dark curls. | Built and verified on the female +30% head (`H03/fitting-revisions/selfie-head-v1/female`, 26k-triangle ball-curl shell); cap/beanie refit and art review pending. |
+| H04 | Short dark crop. | Built and verified on the male +30% head (`H04/.../male`, crop above the ears); cap/beanie refit and art review pending. |
+| H05 | Silver waves and round glasses. | Built and verified on the female +30% head (`H05/.../female`, swept wave lumps); A03/A04 stay clear of the skin, temples enter the hair. Cap/beanie refit and art review pending. |
+| H06 | Bald head, goatee and glasses. | The male +30% head without hair (`H06/.../male`); the goatee belongs to the selfie face texture. Art review pending. |
 | E01 | Friendly neutral baseline. | Register approved neutral faces; no expression acceptance from transport proof alone. |
 | E02 | Delighted. | Preserve identity; review readable transition from neutral on both faces. |
 | E03 | Attentive. | Gentle focused brows/eyes; same identity and transition checks. |

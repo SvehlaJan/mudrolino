@@ -1,0 +1,146 @@
+{
+  "study_dir": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male",
+  "study_report_sha256": "60abfea2496716dfbe619b890ba72336c8e9889746d64aec1ddd20df81445958",
+  "verifier_sha256": "db25a689a877a4205375cd748ca2130f7fc6989b156a175ae2905795f551d1e8",
+  "style": "H04",
+  "base": "male",
+  "failures": [],
+  "status": "passed",
+  "triangles": {
+    "base_head_and_hair": 65084,
+    "variant_head_and_hair": 46776,
+    "hair": 29880
+  },
+  "hidden_features": [],
+  "skin_through_hair": {
+    "rays": 5279,
+    "skin_first": 0
+  },
+  "hair_ear_nose_pairs": 0,
+  "study_clearance": {
+    "samples": 169,
+    "maximum_pairs": {
+      "body_underlayer_male": 0,
+      "B01_straight_trousers_outfit": 0,
+      "F04_ankle_boots_outfit": 0,
+      "T05_crew_sweatshirt_outfit": 0
+    },
+    "contacts": []
+  },
+  "uv_corner_identity": {
+    "passed": true,
+    "position_tolerance_m": 3e-05,
+    "uv_tolerance": 1e-06,
+    "imported_to_source": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "source_to_imported": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "comparison": "reciprocal rest-position + face-corner UV; seam values accepted only at matching positions"
+  },
+  "export_rest_error_m": {
+    "H01_head": 2.216469425775358e-07,
+    "H04_hair": 2.8117923989157134e-07
+  },
+  "glasses": {
+    "A03_glasses": {
+      "hair_pairs_info": 120,
+      "head_pairs": 0
+    },
+    "A04_glasses": {
+      "hair_pairs_info": 115,
+      "head_pairs": 0
+    }
+  },
+  "wardrobe": {
+    "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B01_straight_trousers_outfit": 0,
+        "body_underlayer_male": 0,
+        "F01_strap_sneakers_outfit": 0,
+        "T01_crew_tee_outfit": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    },
+    "assets/avatar/catalog-a/outfits/O02-head130-T02-B02-F02/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B02_joggers_outfit": 0,
+        "body_underlayer_male": 0,
+        "F02_slip_ons_outfit": 0,
+        "T02_pullover_hoodie_outfit": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    },
+    "assets/avatar/catalog-a/outfits/O03-head130-T03-B03-F01-A01/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B03_casual_shorts_outfit": 0,
+        "body_underlayer_male": 0,
+        "F01_strap_sneakers_outfit": 0,
+        "T03_raglan_tee_outfit": 0
+      },
+      "contacts": [],
+      "excluded_headwear": [
+        "A01_baseball_cap"
+      ]
+    },
+    "assets/avatar/catalog-a/outfits/O04-head130-T04-B04-F03/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B04_ivory_trousers_outfit": 0,
+        "body_underlayer_male": 0,
+        "F03_high_tops_outfit": 0,
+        "T04_zip_hoodie_outfit": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    },
+    "assets/avatar/catalog-a/A02/fitting-revisions/head-envelope-v1/male/A02.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B01_straight_trousers_outfit": 0,
+        "body_underlayer_male": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      "contacts": [],
+      "excluded_headwear": [
+        "A02_folded_beanie"
+      ]
+    },
+    "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/male/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "A05_backpack_outfit": 0,
+        "B02_joggers_outfit": 0,
+        "body_underlayer_male": 0,
+        "F02_slip_ons_outfit": 0,
+        "T06_henley_outfit": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    },
+    "assets/avatar/catalog-a/A06/fitting-revisions/o05-head130/male/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "A06_loop_scarf_outfit": 0,
+        "B01_straight_trousers_outfit": 0,
+        "body_underlayer_male": 0,
+        "F04_ankle_boots_outfit": 0,
+        "T05_crew_sweatshirt_outfit": 0
+      },
+      "contacts": [],
+      "excluded_headwear": [
+        "A02_folded_beanie"
+      ]
+    }
+  },
+  "headwear": "A01/A02 under-hat keys and crowns are fitted to the base hair; each needs a refit for this hair."
+}

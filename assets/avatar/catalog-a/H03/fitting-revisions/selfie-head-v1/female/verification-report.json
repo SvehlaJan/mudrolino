@@ -1,0 +1,129 @@
+{
+  "study_dir": "assets/avatar/catalog-a/H03/fitting-revisions/selfie-head-v1/female",
+  "study_report_sha256": "5db4108a8cba3e4fbcbf0c2d57f2f484c1833c63711c7eda6a32122d83f0286e",
+  "verifier_sha256": "db25a689a877a4205375cd748ca2130f7fc6989b156a175ae2905795f551d1e8",
+  "style": "H03",
+  "base": "female",
+  "failures": [],
+  "status": "passed",
+  "triangles": {
+    "base_head_and_hair": 49820,
+    "variant_head_and_hair": 30416,
+    "hair": 26448
+  },
+  "hidden_features": [],
+  "skin_through_hair": {
+    "rays": 6653,
+    "skin_first": 0
+  },
+  "hair_ear_nose_pairs": 0,
+  "study_clearance": {
+    "samples": 169,
+    "maximum_pairs": {
+      "body_underlayer_female": 0
+    },
+    "contacts": []
+  },
+  "uv_corner_identity": {
+    "passed": true,
+    "position_tolerance_m": 3e-05,
+    "uv_tolerance": 1e-06,
+    "imported_to_source": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "source_to_imported": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "comparison": "reciprocal rest-position + face-corner UV; seam values accepted only at matching positions"
+  },
+  "export_rest_error_m": {
+    "H02_head": 2.1593834276245616e-07,
+    "H03_hair": 3.1513403087046754e-07
+  },
+  "glasses": {
+    "A03_glasses": {
+      "hair_pairs_info": 48,
+      "head_pairs": 0
+    },
+    "A04_glasses": {
+      "hair_pairs_info": 48,
+      "head_pairs": 0
+    }
+  },
+  "wardrobe": {
+    "assets/avatar/catalog-a/female/outfits/studies/T01-B01-F01/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B01_straight_trousers": 0,
+        "body_underlayer_female": 0,
+        "F01_strap_sneakers": 0,
+        "T01_crew_tee": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    },
+    "assets/avatar/catalog-a/female/outfits/studies/T02-B02-F02-head130/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B02_joggers": 0,
+        "body_underlayer_female": 0,
+        "F02_slip_ons": 0,
+        "T02_pullover_hoodie": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    },
+    "assets/avatar/catalog-a/female/outfits/studies/O03-head130-with-A01/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B03_casual_shorts": 0,
+        "body_underlayer_female": 0,
+        "F01_strap_sneakers": 0,
+        "T03_raglan_tee": 0
+      },
+      "contacts": [],
+      "excluded_headwear": [
+        "A01_baseball_cap"
+      ]
+    },
+    "assets/avatar/catalog-a/female/outfits/studies/T04-B04-F03-head130/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B04_ivory_trousers": 0,
+        "body_underlayer_female": 0,
+        "F03_high_tops": 0,
+        "T04_zip_hoodie": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    },
+    "assets/avatar/catalog-a/female/outfits/studies/O05-head130-with-A02/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "B01_straight_trousers": 0,
+        "body_underlayer_female": 0,
+        "F04_ankle_boots": 0,
+        "T05_crew_sweatshirt": 0
+      },
+      "contacts": [],
+      "excluded_headwear": [
+        "A02_folded_beanie"
+      ]
+    },
+    "assets/avatar/catalog-a/A05/fitting-revisions/o06-head130/female/outfit.blend": {
+      "samples": 169,
+      "maximum_pairs": {
+        "A05_backpack_outfit": 0,
+        "B02_joggers": 0,
+        "body_underlayer_female": 0,
+        "F02_slip_ons": 0,
+        "T06_henley": 0
+      },
+      "contacts": [],
+      "excluded_headwear": []
+    }
+  },
+  "headwear": "A01/A02 under-hat keys and crowns are fitted to the base hair; each needs a refit for this hair."
+}

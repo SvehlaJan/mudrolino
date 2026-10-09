@@ -1,0 +1,43 @@
+{
+  "study_dir": "assets/avatar/catalog-a/H06/fitting-revisions/selfie-head-v1/male",
+  "study_report_sha256": "f68cd02b32809fe73d7c92aa085c627f1d50f6c0314520c671fed2073c7b9016",
+  "verifier_sha256": "db25a689a877a4205375cd748ca2130f7fc6989b156a175ae2905795f551d1e8",
+  "style": "H06",
+  "base": "male",
+  "failures": [],
+  "status": "passed",
+  "triangles": {
+    "base_head_and_hair": 65084,
+    "variant_head_and_hair": 16896,
+    "hair": 0
+  },
+  "uv_corner_identity": {
+    "passed": true,
+    "position_tolerance_m": 3e-05,
+    "uv_tolerance": 1e-06,
+    "imported_to_source": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "source_to_imported": {
+      "unmatched_corners": 0,
+      "maximum_uv_error": 0.0
+    },
+    "comparison": "reciprocal rest-position + face-corner UV; seam values accepted only at matching positions"
+  },
+  "export_rest_error_m": {
+    "H01_head": 2.216469425775358e-07
+  },
+  "glasses": {
+    "A03_glasses": {
+      "hair_pairs_info": 0,
+      "head_pairs": 0
+    },
+    "A04_glasses": {
+      "hair_pairs_info": 0,
+      "head_pairs": 0
+    }
+  },
+  "wardrobe": {},
+  "headwear": "A01/A02 under-hat keys and crowns are fitted to the base hair; each needs a refit for this hair."
+}

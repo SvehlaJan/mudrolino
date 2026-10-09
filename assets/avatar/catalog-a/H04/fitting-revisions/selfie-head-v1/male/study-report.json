@@ -1,0 +1,58 @@
+{
+  "stage": "Hair variant on the reusable selfie head; fit gates, headwear refits and art review pending.",
+  "style": "H04",
+  "label": "short dark crop",
+  "base": "male",
+  "source": "assets/avatar/catalog-a/H01/style-revisions/painted-face-scale-130/H01.blend",
+  "source_sha256": "2de1952f6c35a700d580ed1ba9a28a2e8806458f10fd4369f3c842e2d52f066c",
+  "landmarks": {
+    "head": "H01",
+    "scale": 1.3,
+    "pivot": [
+      -2.218708459622576e-06,
+      -0.0071271746419370174,
+      1.4688003063201904
+    ],
+    "skull_centre": [
+      6.656125378867729e-07,
+      0.017738152392581107,
+      1.649759908103943
+    ],
+    "brow_z": 1.749859908103943,
+    "ear_top_z": 1.696559908103943
+  },
+  "builder_sha256": "9bc72d15e9ff13febd8a38f4f44b3f2bc4788feeb27d3a133b0f23cbc0da68f0",
+  "plan_sha256": "df007c5fedbe77adec6ffd5dbc8bb21392e5ef63a07a28f001ca5574f388fee0",
+  "head": "H01_head",
+  "removed_base_hair_faces": 24094,
+  "hair": {
+    "object": "H04_hair",
+    "vertices": 15149,
+    "triangles": 29880
+  },
+  "baseline": {
+    "rig": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+    "motion": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+    "unchanged_geometry": {
+      "B01_straight_trousers_outfit": "f23e3ea117f4d3629b6bc044784e710e78f7b772f32554e04c3bc8e3b079986b",
+      "body_underlayer_male": "cd6b4deee7346b1ccaddcdb85285ee3a77440c075980aa309201b658d2c9beb0",
+      "F04_ankle_boots_outfit": "a3b0b80f0af5a863cb086ae92a382408c7a2fcb9b6cf8ea3b78f876de05012b1",
+      "T05_crew_sweatshirt_outfit": "0bcbb594265bddf9971f7dc0c58796e08a588e435c311cb3bff366ff7b078045"
+    }
+  },
+  "blend": {
+    "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/H04.blend": "ef71bf4f29499fb1a8aecf5989db8610dcfb7184aab13add29fd515a5897c91a"
+  },
+  "exports": {
+    "H04.glb": "f286f79432589f79047adbfa7c23f3ce0eb2c71fcc4a2c538f5c779db170774e",
+    "foundation.glb": "af8c1d5b7521693336e736a48057927b139cbcb5b30d6032ea08751e3c8b1c67"
+  },
+  "reviews": {
+    "front-full": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/front-full-review.png",
+    "side-full": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/side-full-review.png",
+    "front-head": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/front-head-review.png",
+    "side-head": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/side-head-review.png",
+    "three-quarter-head": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/three-quarter-head-review.png",
+    "back-head": "assets/avatar/catalog-a/H04/fitting-revisions/selfie-head-v1/male/back-head-review.png"
+  }
+}

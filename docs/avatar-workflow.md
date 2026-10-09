@@ -274,7 +274,8 @@ Done as of 2026-10-08: A02, female T01 and exact O01, hood refits, T06 buttons,
 B04/F02 promoted after measurement, exact male O02/O04, B03 thigh coverage and
 A03/A04 glasses on both bases. Open decision: the run leg-fold contact in B03/O03.
 Next: tee-sleeve skinning (see-through arms in motion), A05, A06 and the rest of
-the female wardrobe. Check holes in gait poses too (`--pose-stride`). Compare self and detail contact counts with
+the female wardrobe. Hair variants H03–H06 are radial shells on the same reusable heads
+(`build_catalog_hair_variant.py`, verified per outfit); caps/beanies need a refit per hair. Check holes in gait poses too (`--pose-stride`). Compare self and detail contact counts with
 the passing sibling garment (`audit_catalog_detail_shell.py`), not with zero. Keep
 expressions, real-selfie generation and final acceptance separate.
 

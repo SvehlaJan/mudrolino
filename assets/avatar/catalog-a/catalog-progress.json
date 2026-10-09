@@ -155,22 +155,22 @@
     },
     {
       "id": "H03",
-      "stage": "not started",
+      "stage": "Hair variant on the reusable female head verified (H03/fitting-revisions/selfie-head-v1/female); headwear refit and art review pending",
       "retrospective": null
     },
     {
       "id": "H04",
-      "stage": "not started",
+      "stage": "Hair variant on the reusable male head verified (H04/fitting-revisions/selfie-head-v1/male); headwear refit and art review pending",
       "retrospective": null
     },
     {
       "id": "H05",
-      "stage": "not started",
+      "stage": "Hair variant on the reusable female head verified (H05/fitting-revisions/selfie-head-v1/female); headwear refit and art review pending",
       "retrospective": null
     },
     {
       "id": "H06",
-      "stage": "not started",
+      "stage": "Bald reusable male head verified (H06/fitting-revisions/selfie-head-v1/male); art review pending",
       "retrospective": null
     }
   ],
@@ -959,6 +959,62 @@
       ],
       "gait_compatible": true,
       "builder": "tools/blender/catalog/attach_catalog_headwear.py"
+    },
+    {
+      "id": "h03-selfie-head-female",
+      "label": "H03 · rounded dark curls · female +30% selfie head",
+      "path": "H03/fitting-revisions/selfie-head-v1/female",
+      "model": "H03.glb",
+      "kind": "head",
+      "base": "female",
+      "stage": "Radial curl shell on the reusable H02 head (26k triangles, 39% lighter head+hair than H02). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art review pending.",
+      "reference_ids": [
+        "H03",
+        "H02"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_hair_variant.py"
+    },
+    {
+      "id": "h04-selfie-head-male",
+      "label": "H04 · short dark crop · male +30% selfie head",
+      "path": "H04/fitting-revisions/selfie-head-v1/male",
+      "model": "H04.glb",
+      "kind": "head",
+      "base": "male",
+      "stage": "Tight crop above the ears on the bald H01 head (head+hair 47k triangles, 28% lighter than H01). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art review pending.",
+      "reference_ids": [
+        "H04",
+        "H01"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_hair_variant.py"
+    },
+    {
+      "id": "h05-selfie-head-female",
+      "label": "H05 · silver waves · female +30% selfie head",
+      "path": "H05/fitting-revisions/selfie-head-v1/female",
+      "model": "H05.glb",
+      "kind": "head",
+      "base": "female",
+      "stage": "Swept silver waves on the reusable H02 head (25k triangles); pairs with A03 glasses (temples enter the hair, skin clear). Verified (verify_catalog_hair_variant.py): head equals the base head minus its hair, painted features visible from five cameras, scalp covered, ears/nose clear, clear of body and garments over 163 gait poses + six gestures in every outfit on this base (headwear excluded), UV corners and rest shape through the GLB. Cap/beanie refits per hair and art review pending.",
+      "reference_ids": [
+        "H05",
+        "H02"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_hair_variant.py"
+    },
+    {
+      "id": "h06-selfie-head-male",
+      "label": "H06 · bald · male +30% selfie head",
+      "path": "H06/fitting-revisions/selfie-head-v1/male",
+      "model": "H06.glb",
+      "kind": "head",
+      "base": "male",
+      "stage": "The H01 head without hair (17k triangles); the goatee belongs to the selfie face texture and A03/A04 glasses stay clear of the skin. Head identity, UV corners and rest export verified. Art review pending.",
+      "reference_ids": [
+        "H06",
+        "H01"
+      ],
+      "builder": "tools/blender/catalog/build_catalog_hair_variant.py"
     }
   ],
   "F02_corrective_repair_study": {

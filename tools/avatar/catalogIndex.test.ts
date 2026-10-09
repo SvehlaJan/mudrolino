@@ -50,6 +50,12 @@ describe('saved curated avatar catalog', () => {
     const o01 = items.find(item => item.id === 'O01')!;
     for (const variant of o01.variants) expect(variant.currentRevisionId).toBe('head130');
     expect(o01.variants.find(variant => variant.base === 'male')!.revisions.map(revision => revision.asset.id)).toContain('outfit-T01-B01-F01');
+    // H03–H06 are hair variants on the reusable selfie heads (2026-10-09), current on their base.
+    for (const [id, base] of [['H03', 'female'], ['H04', 'male'], ['H05', 'female'], ['H06', 'male']] as const) {
+      const variant = items.find(item => item.id === id)!.variants.find(candidate => candidate.base === base)!;
+      expect(variant.currentRevisionId).toBe('selfie-head-v1');
+      expect(variant.revisions[0]).toMatchObject({ technicalReview: 'recorded-pass', asset: { id: `${id.toLowerCase()}-selfie-head-${base}` } });
+    }
     expect(items.find(item => item.id === 'capsule-T02-B01-F01')!.relatedIds).toEqual(expect.arrayContaining(['T02', 'B01', 'F01']));
     for (const clip of ['walk', 'run']) {
       const motion = items.find(item => item.id === clip)!; expect(motion.motion).toMatchObject({ clip, loop: true });

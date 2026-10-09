@@ -494,6 +494,16 @@ path differences and leave near-equal shared-seam assignments qualified.
   fits frames to the painted eyes (`catalog_glasses_plan.py`). Gate:
   `verify_catalog_glasses.py --study-dir DIR` (no skin contact, frame clearance, mirror,
   gait plus gestures, export rest shape). Temples may pass into hair.
+- Hair variants: `build_catalog_hair_variant.py --style H03|H04|H05|H06 --output-dir DIR
+  --review-dir DIR` removes the base hair from the +30% head study and grows the style as a
+  radial shell over the measured scalp (`catalog_hair_plan.py`: hairline by angle from the
+  face, front/side/back/crown volume, Fibonacci curl or wave lumps, edges tucked 1.5 mm
+  under the skin), bound rigidly to Head. H06 is the bald head. Gate:
+  `verify_catalog_hair_variant.py --study-dir DIR --glasses BLEND:OBJECT,... --outfits A.blend,...`
+  (head equals base minus hair, no heavier than the base head, painted features visible from
+  five cameras, scalp covered, ears/nose clear, gait plus gestures in every outfit with
+  headwear excluded, face UVs/image and rest shape through the GLB). Caps and beanies are
+  fitted to the base hair and need a refit per hair.
 - Hoods: `build_catalog_hood_revision.py --id T02|T04` builds the fuller hood (`hood-v2`)
   through the canonical builders; the female builder takes the same shape as
   `--hood-shape JSON`. H02 hair: rear locks shorten by 30% (`--rear-shorten
