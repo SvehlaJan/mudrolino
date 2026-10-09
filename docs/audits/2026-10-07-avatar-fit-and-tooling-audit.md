@@ -333,3 +333,14 @@ The user approved these recommendations, including +30% heads on both bases.
   - **T04 `zip-lining-v1`:** widens the zip and adds the neckline lining. The O04 cascade
     passes on both bases.
   - **Phone LODs:** `build_catalog_lod.py` handles the variant hair objects.
+- **Close-out check (2026-10-09):** after the final rebuilds, all 22 studies touched that day
+  render in `/avatar-preview` on desktop and phone (`verify_model_studies.mjs`, every one on
+  the first attempt):
+  - the four hair variants
+  - both scarves and the two scarf drapes
+  - all ten cap and beanie fits (H04 included)
+  - the T04 pieces and outfits
+
+  Technical gates are complete. Visual review of these studies is the user's and stays
+  pending in the catalog; the review sheet is
+  `artifacts/verification/avatar-catalog/review-sheets/2026-10-09-review-sheet.png`.
