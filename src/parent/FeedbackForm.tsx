@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Loader2, Send } from 'lucide-react';
 import { type FeedbackCategory, type FeedbackPayload, submitFeedback } from '../shared/services/feedbackService';
 import { Button, Field, RadioGroupControl, TextAreaControl } from '../shared/ui';
+import { useContentLocale } from '../shared/contexts/ContentContext';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 const MAX_LENGTH = 1000;
@@ -25,6 +26,7 @@ const CATEGORIES: { value: FeedbackCategory; label: string; emoji: string }[] = 
 ];
 
 export function FeedbackForm({ screen }: { screen: string }) {
+  const locale = useContentLocale();
   const [category, setCategory] = useState<FeedbackCategory | null>(null);
   const [message, setMessage] = useState('');
   const [formState, setFormState] = useState<FormState>('idle');
@@ -38,7 +40,7 @@ export function FeedbackForm({ screen }: { screen: string }) {
     if (!canSubmit || !category) return;
     setFormState('submitting');
     try {
-      const payload: FeedbackPayload = { category, message, screen };
+      const payload: FeedbackPayload = { category, message, screen, locale };
       await submitFeedback(payload);
       setFormState('success');
     } catch {

@@ -4,6 +4,8 @@ export interface FeedbackPayload {
   category: FeedbackCategory;
   message: string;
   screen: string;
+  /** App content language, which can differ from the browser language. */
+  locale: string;
 }
 
 const CATEGORY_LABELS: Record<FeedbackCategory, string> = {
@@ -22,9 +24,11 @@ function parseBrowser(ua: string): string {
   return `${browser} / ${os}`;
 }
 
-function collectMetadata(screen: string) {
+function collectMetadata(screen: string, locale: string) {
   return {
     screen,
+    app_version: __APP_VERSION__,
+    app_language: locale,
     browser: parseBrowser(navigator.userAgent),
     language: navigator.language,
     screen_size: `${window.innerWidth}×${window.innerHeight}`,
@@ -45,7 +49,7 @@ export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
     }
     throw new Error('VITE_WEB3FORMS_KEY is not configured');
   }
-  const metadata = collectMetadata(payload.screen);
+  const metadata = collectMetadata(payload.screen, payload.locale);
 
   const res = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',

@@ -95,11 +95,14 @@ component consistency over preserving old one-off spacing, color, or radii.
 
 ## Environment
 
-`GEMINI_API_KEY` is exposed in `vite.config.ts` (see `.env.example`); `APP_URL`
-is a leftover from the starter template and unused. The avatar gallery is development-only;
-`VITE_AVATAR_POC_ENABLED` enables its tool-only candidate rendering fixture.
-Product avatar integration awaits accepted catalog assets. The feedback form
-needs `VITE_WEB3FORMS_KEY`.
+Variables are listed in `.env.example`. Never inline a secret through `define`
+in `vite.config.ts`; anything defined there ships in the public bundle. The avatar
+gallery is development-only; `VITE_AVATAR_POC_ENABLED` enables its tool-only
+candidate rendering fixture. Product avatar integration awaits accepted catalog
+assets. The feedback form needs `VITE_WEB3FORMS_KEY`. Error reports need
+`VITE_SENTRY_DSN` and run only in production builds; source maps upload when
+`SENTRY_AUTH_TOKEN` is set. Vercel Web Analytics loads only on the Vercel
+production deployment.
 
 ## Skills
 

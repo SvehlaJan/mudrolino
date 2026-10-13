@@ -73,10 +73,10 @@
 - [ ] Request persistent storage (`navigator.storage.persist()`) and nudge home-screen install; Safari can delete data of non-installed sites after 7 days without use.
 - [ ] Open Graph title, description and image so shared links show a preview.
 - [ ] Add the app version (build commit) and app language to feedback metadata, and show the version in the parent zone.
-- [ ] Error reporting with Sentry (user, 2026-10-13): an organization in the EU (Frankfurt) region on the free Developer plan, no personal data, no replay or tracing. The SDK reads `VITE_SENTRY_DSN`, so Sentry-compatible EU services (Bugsink, GlitchTip) remain a drop-in alternative.
+- [~] Error reporting with Sentry (user, 2026-10-13): an organization in the EU (Frankfurt) region on the free Developer plan, no personal data, no replay or tracing. The SDK reads `VITE_SENTRY_DSN`, so Sentry-compatible EU services (Bugsink, GlitchTip) remain a drop-in alternative. Code is in place (`src/shared/services/monitoring.ts`, production builds only, every v11 data-collection category off); the user still creates the EU organization and sets `VITE_SENTRY_DSN` (and optionally `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT` for source maps) in Vercel.
 - [ ] Short privacy note in the parent zone (SK/CZ): what stays on the device and what the feedback form sends to Web3Forms.
-- [ ] Analytics with Vercel Web Analytics page views only (user, 2026-10-13; 1.6): cookieless, 50k page views a month on Hobby, loaded only in Vercel builds.
-- [ ] Remove the unused `GEMINI_API_KEY` define (a future reference would publish the key), `APP_URL`, and the unused `express`/`dotenv` dependencies.
+- [~] Analytics with Vercel Web Analytics page views only (user, 2026-10-13; 1.6): cookieless, 50k page views a month on Hobby, loaded only on the Vercel production deployment. Code is in place; the user enables Web Analytics in the Vercel project.
+- [x] Remove the unused `GEMINI_API_KEY` define (a future reference would publish the key), `APP_URL`, and the unused `express`/`dotenv` dependencies.
 - [ ] Message for parents with the link: install steps, where the parent zone is, what feedback is wanted; short survey after a week.
 
 **P2 — after the first F&F feedback, before public launch**
