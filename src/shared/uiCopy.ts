@@ -86,6 +86,20 @@ const SK_COPY = {
   'game.complete-letter.title': 'Doplň písmeno',
   'game.complete-letter.description': 'Doplň písmenko v slove',
   'game.complete-letter.instruction': 'Doplň písmenko, ktoré v slove chýba.',
+
+  'parent.share.title': 'Odporučiť priateľom',
+  'parent.share.description': 'Pošlite odkaz na Mudrolíno ďalším rodičom.',
+  'parent.share.message': 'Mudrolíno – hravé učenie písmen, slabík a čísel pre predškolákov.',
+  'parent.share.copied': 'Odkaz je skopírovaný. Vložte ho do správy.',
+  'parent.share.manual': 'Skopírujte tento odkaz:',
+
+  'parent.about.title': 'O aplikácii',
+  'parent.about.version': 'Verzia',
+  'parent.privacy.title': 'Súkromie',
+  'parent.privacy.local': 'Nastavenia, vlastné slová a nahrávky zostávajú iba v tomto zariadení. Mikrofón sa používa len na nahrávanie vášho hlasu.',
+  'parent.privacy.feedback': 'Spätná väzba sa posiela cez službu Web3Forms spolu s verziou aplikácie, typom prehliadača a veľkosťou obrazovky.',
+  'parent.privacy.errors': 'Keď aplikácia narazí na chybu, odošle technické hlásenie bez osobných údajov (Sentry, servery v EÚ).',
+  'parent.privacy.analytics': 'Návštevnosť meriame anonymne a bez cookies (Vercel Web Analytics).',
 } as const;
 
 export type UiCopyKey = keyof typeof SK_COPY;

@@ -25,6 +25,35 @@ test.describe('Parent dashboard and game settings', () => {
     expectNoFailedRequests(failedRequests);
   });
 
+  test('parents can share the app link, which falls back to copying without a share sheet', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'share', { value: undefined, configurable: true });
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: async (text: string) => { (window as unknown as { copiedText: string }).copiedText = text; } },
+        configurable: true,
+      });
+    });
+
+    await page.goto('/settings');
+    await unlockParentGate(page);
+    await page.getByRole('button', { name: /Odporučiť priateľom/ }).click();
+
+    await expect(page.getByRole('status').filter({ hasText: 'Odkaz je skopírovaný' })).toBeVisible();
+    expect(await page.evaluate(() => (window as unknown as { copiedText: string }).copiedText)).toBe('https://mudrolino.vercel.app');
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('app settings show the privacy note and the build version', async ({ page }) => {
+    await page.goto('/settings/app');
+    await unlockParentGate(page);
+    await expect(page.getByRole('heading', { name: 'Súkromie' })).toBeVisible();
+    await expect(page.getByText(/zostávajú iba v tomto zariadení/)).toBeVisible();
+    await expect(page.getByTestId('app-version')).toHaveText(/^[0-9a-f]{7}$|^dev$/);
+  });
+
   test('game detail renders only catalogued settings', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);

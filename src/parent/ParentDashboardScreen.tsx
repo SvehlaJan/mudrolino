@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Gamepad2, HelpCircle, Mic, Palette } from 'lucide-react';
+import { ChevronRight, Gamepad2, HelpCircle, Mic, Palette, Share2 } from 'lucide-react';
 import { AppScreen, BackButton, PageHeader, TopBar, cn, uiTokens } from '../shared/ui';
+import { pwaBrand } from '../pwa/pwaConfig';
+import { useContentLocale } from '../shared/contexts/ContentContext';
+import { getUiCopy } from '../shared/uiCopy';
 import { useParentZone } from './ParentZoneContext';
+import { shareApp, type ShareAppResult } from './shareApp';
 
 interface DashboardDestination {
   to: string;
@@ -32,7 +36,7 @@ const DESTINATIONS: DashboardDestination[] = [
   {
     to: '/settings/app',
     title: 'Aplikácia a vzhľad',
-    description: 'Štýl písma a ďalšie nastavenia aplikácie.',
+    description: 'Písmo, súkromie a verzia aplikácie.',
     icon: <Palette size={24} className="sm:h-7 sm:w-7" />,
   },
   {
@@ -43,6 +47,59 @@ const DESTINATIONS: DashboardDestination[] = [
   },
 ];
 
+const destinationClassName = cn(
+  uiTokens.card,
+  'flex items-center justify-between gap-4 text-text-main transition-all hover:scale-[1.01] active:translate-y-1 active:shadow-block-pressed focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
+);
+
+function DestinationContent({ title, description, icon }: Omit<DashboardDestination, 'to'>) {
+  return (
+    <div className="flex min-w-0 flex-1 items-center gap-4">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
+        {icon}
+      </div>
+      <div className="min-w-0">
+        <span className="block text-xl font-bold leading-tight sm:text-2xl">{title}</span>
+        <span className="mt-1 block text-sm font-medium leading-snug text-text-muted sm:text-base">
+          {description}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/** Lives behind the parent gate so a child cannot open the share sheet by accident. */
+function ShareAppAction() {
+  const locale = useContentLocale();
+  const [result, setResult] = useState<ShareAppResult | null>(null);
+  const url = pwaBrand.siteUrl;
+
+  async function handleShare() {
+    setResult(await shareApp({ title: pwaBrand.appName, text: getUiCopy(locale, 'parent.share.message'), url }));
+  }
+
+  return (
+    <div>
+      <button type="button" onClick={() => void handleShare()} className={cn(destinationClassName, 'w-full text-left')}>
+        <DestinationContent
+          title={getUiCopy(locale, 'parent.share.title')}
+          description={getUiCopy(locale, 'parent.share.description')}
+          icon={<Share2 size={24} className="sm:h-7 sm:w-7" />}
+        />
+      </button>
+      <p role="status" aria-live="polite" className="mt-2 px-2 text-sm font-medium text-text-muted empty:hidden">
+        {result === 'copied' && getUiCopy(locale, 'parent.share.copied')}
+        {result === 'unavailable' && (
+          <>
+            {getUiCopy(locale, 'parent.share.manual')}{' '}
+            <span className="select-all break-all font-bold text-text-main">{url}</span>
+          </>
+        )}
+      </p>
+    </div>
+  );
+}
+
 export function ParentDashboardScreen() {
   const { closeToChild } = useParentZone();
 
@@ -52,29 +109,15 @@ export function ParentDashboardScreen() {
       <PageHeader title="Rodičovská zóna" description="Nastavenia, obsah a pomoc pre rodičov." />
       <nav aria-label="Rodičovská zóna" className="mt-5 space-y-3 sm:mt-6">
         {DESTINATIONS.map(destination => (
-          <Link
-            key={destination.to}
-            to={destination.to}
-            className={cn(
-              uiTokens.card,
-              'flex items-center justify-between gap-4 text-text-main transition-all hover:scale-[1.01] active:translate-y-1 active:shadow-block-pressed focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus',
-            )}
-          >
-            <div className="flex min-w-0 flex-1 items-center gap-4">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-accent-blue/35 text-text-main sm:h-16 sm:w-16">
-                {destination.icon}
-              </div>
-              <div className="min-w-0">
-                <span className="block text-xl font-bold leading-tight sm:text-2xl">{destination.title}</span>
-                <span className="mt-1 block text-sm font-medium leading-snug text-text-muted sm:text-base">
-                  {destination.description}
-                </span>
-              </div>
-            </div>
+          <Link key={destination.to} to={destination.to} className={destinationClassName}>
+            <DestinationContent title={destination.title} description={destination.description} icon={destination.icon} />
             <ChevronRight size={24} className="shrink-0 text-text-muted sm:h-7 sm:w-7" aria-hidden="true" />
           </Link>
         ))}
       </nav>
+      <div className="mt-3">
+        <ShareAppAction />
+      </div>
     </AppScreen>
   );
 }

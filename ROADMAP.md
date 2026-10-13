@@ -72,9 +72,10 @@
 **P1 — in the F&F build if possible**
 - [ ] Request persistent storage (`navigator.storage.persist()`) and nudge home-screen install; Safari can delete data of non-installed sites after 7 days without use.
 - [ ] Open Graph title, description and image so shared links show a preview.
-- [ ] Add the app version (build commit) and app language to feedback metadata, and show the version in the parent zone.
+- [x] Add the app version (build commit) and app language to feedback metadata, and show the version in the parent zone.
+- [x] "Odporučiť priateľom" in the parent zone (user, 2026-10-13): opens the system share sheet with the app link and copies it where no share sheet exists; it sits behind the parent gate so children cannot trigger it.
 - [~] Error reporting with Sentry (user, 2026-10-13): an organization in the EU (Frankfurt) region on the free Developer plan, no personal data, no replay or tracing. The SDK reads `VITE_SENTRY_DSN`, so Sentry-compatible EU services (Bugsink, GlitchTip) remain a drop-in alternative. Code is in place (`src/shared/services/monitoring.ts`, production builds only, every v11 data-collection category off); the user still creates the EU organization and sets `VITE_SENTRY_DSN` (and optionally `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT` for source maps) in Vercel.
-- [ ] Short privacy note in the parent zone (SK/CZ): what stays on the device and what the feedback form sends to Web3Forms.
+- [x] Short privacy note in the parent zone: what stays on the device and what feedback, error reports and analytics send. No cookie banner is needed: nothing sets cookies, and local storage is strictly necessary for the app (2026-10-13). Czech text arrives with the Czech UI.
 - [~] Analytics with Vercel Web Analytics page views only (user, 2026-10-13; 1.6): cookieless, 50k page views a month on Hobby, loaded only on the Vercel production deployment. Code is in place; the user enables Web Analytics in the Vercel project.
 - [x] Remove the unused `GEMINI_API_KEY` define (a future reference would publish the key), `APP_URL`, and the unused `express`/`dotenv` dependencies.
 - [ ] Message for parents with the link: install steps, where the parent zone is, what feedback is wanted; short survey after a week.
@@ -85,6 +86,7 @@
 - [ ] Verify keyboard access (AC1) against the Phase 8 keyboard checks and tick it.
 
 **P3 — later**
+- [ ] Design a proper Mudrolíno logo and app icon (user, 2026-10-13: the current placeholder face is not good enough). Regenerate every icon and the link-preview image from the new source with `npm run pwa:icons`.
 - Avatar product integration (1.5, Phase 5), further games and gamification (1.7), English and French (Phase 4), accounts (Phase 3), monetization (Phase 6), shared session/timer hook (Tech Debt).
 
 ### Development feedback and agent cost
