@@ -54,7 +54,38 @@
 
 ## Phase 1 — Friends-first Share
 
-**Goal:** Share a useful, local-first Slovak app with trusted friends quickly. No accounts, no payments, no public marketing launch.
+**Goal:** Share a useful, local-first app in Slovak and Czech, named **Mudrolíno**, with trusted friends and family (F&F). No accounts, no payments, no public marketing launch, no avatar.
+
+### 1.0 F&F launch order (re-prioritized 2026-10-13)
+> Finish each tier before the next. Detailed task lists stay in the sections below; this list sets the order. `[?]` marks an open decision for the user.
+
+**P0 — before the first link is shared**
+- [ ] Serve the F&F build at `mudrolino.vercel.app` (user, 2026-10-13): rename the Vercel project and attach the domain before sharing. Installs, settings, custom words and recordings belong to one origin, so a later move to a custom domain means every family exports and re-imports (backup below).
+- [ ] Rename the app to Mudrolíno wherever it is shown: manifest and page title (`src/pwa/pwaConfig.ts`), home title (`src/shared/uiCopy.ts`), feedback emails, README, package name; delete the AI Studio `metadata.json`. Keep the internal `hrave-ucenie-*` storage keys.
+- [ ] Re-sync deployment: local `main` was rewritten for the R2 move and has diverged from `origin/main`, and production still serves `b9bc052` (2026-10-04). The user approved the force-push (2026-10-13); the rewrite differs from the deployed commit only by 30 removed 3D files, and lint, unit tests and the production build pass. A project hook blocks agent pushes, so the user runs it. Optionally set a separate production branch so avatar commits on `main` stop auto-deploying.
+- [ ] Record the 40 pending Slovak clips (see Development feedback). The Phase 8 visual sign-off was given on 2026-10-13.
+- [ ] Czech (1.3 and Phase 4 Czech, pulled forward): content, Czech letter units in game logic (only CH), extraction of the ~250 hard-coded Slovak UI lines in ~40 files, ~190 default clips recorded by the user, language selection with first-run detection and `<html lang>`, review by the user (Czech speaker).
+- [ ] Backup export/import of custom words, praise, settings and recordings (1.2). It also carries the family's existing data from `teo-learn.vercel.app` to the new URL.
+- [ ] Hosting rules in `vercel.json`: immutable `/assets/*`, revalidated `sw.js`, `X-Robots-Tag: noindex` and a real `robots.txt` (it currently returns the app page), `nosniff`, `Referrer-Policy`, `Permissions-Policy` allowing the microphone only for the app, no framing.
+- [ ] Verify the production build and deploy target, then smoke-test on a real iPhone (Safari and installed), Android Chrome and a tablet, including Czech speech fallback. Confirm `VITE_AVATAR_POC_ENABLED` is unset in Vercel.
+
+**P1 — in the F&F build if possible**
+- [ ] Request persistent storage (`navigator.storage.persist()`) and nudge home-screen install; Safari can delete data of non-installed sites after 7 days without use.
+- [ ] Open Graph title, description and image so shared links show a preview.
+- [ ] Add the app version (build commit) and app language to feedback metadata, and show the version in the parent zone.
+- [ ] Error reporting with Sentry (user, 2026-10-13): an organization in the EU (Frankfurt) region on the free Developer plan, no personal data, no replay or tracing. The SDK reads `VITE_SENTRY_DSN`, so Sentry-compatible EU services (Bugsink, GlitchTip) remain a drop-in alternative.
+- [ ] Short privacy note in the parent zone (SK/CZ): what stays on the device and what the feedback form sends to Web3Forms.
+- [ ] Analytics with Vercel Web Analytics page views only (user, 2026-10-13; 1.6): cookieless, 50k page views a month on Hobby, loaded only in Vercel builds.
+- [ ] Remove the unused `GEMINI_API_KEY` define (a future reference would publish the key), `APP_URL`, and the unused `express`/`dotenv` dependencies.
+- [ ] Message for parents with the link: install steps, where the parent zone is, what feedback is wanted; short survey after a week.
+
+**P2 — after the first F&F feedback, before public launch**
+- [ ] [?] Cross-device sync of recordings (1.2), decided from F&F feedback on whether families record on one device and play on another.
+- [ ] Remaining Phase 2 items: full privacy policy, SEO, landing page decision, public smoke test.
+- [ ] Verify keyboard access (AC1) against the Phase 8 keyboard checks and tick it.
+
+**P3 — later**
+- Avatar product integration (1.5, Phase 5), further games and gamification (1.7), English and French (Phase 4), accounts (Phase 3), monetization (Phase 6), shared session/timer hook (Tech Debt).
 
 ### Development feedback and agent cost
 
@@ -77,7 +108,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Pre-launch UI audit across 7 viewports — see `docs/ui-audit/`
 - [x] Approve full-app pre-publication redesign specification (`docs/superpowers/specs/2026-09-14-full-app-ui-redesign-design.md`)
 - [x] Write eight self-contained sequential implementation plans and Antigravity handoff index (`docs/superpowers/plans/2026-09-14-ui-redesign-implementation-index.md`)
-- [ ] Complete full-app UI redesign before publication (all eight sequential phases below)
+- [x] Complete full-app UI redesign before publication (all eight sequential phases below)
   - [x] Phase 1 — baseline, protected-route safety, test-only parent-gate adapter, and regression scaffolding (Codex accepted `a894532`)
   - [x] Phase 2 — Radix-backed component-library, token, responsive, motion, and accessibility foundation (Codex accepted candidate `ac4a40b`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-02.md`)
   - [x] Phase 3 — scalable game catalog, grouped home, and all game lobbies (Codex accepted candidate `481f3e8`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-03.md`)
@@ -85,7 +116,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
   - [x] Phase 5 — shared game shell and Abeceda/Slabiky/Čísla/Slová migration (Codex accepted candidate `c6e8b557f872e39dca9f5fc39429cfd42225eb40`; `4d9afd1261daa0823c793c05049a2b50063b93bc` is superseded; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-05.md`)
   - [x] Phase 6 — Prvé písmenko/Skladaj/Doplň slabiku/Doplň písmeno migration (Codex accepted remediated candidate `779f58e6505dd737cec905a95f25605dc99b1aaa`; the acceptance-record commit is the Phase 7 base; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-06.md`)
   - [x] Phase 7 — Spočítaj/Viac alebo menej/Sčítaj migration (Codex accepted candidate `7f921731ee6cbd835b9cb8ebfa312f175ab2f3b9`; see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-07.md`)
-  - [ ] Phase 8 — release hardening implemented and independently code/spec reviewed; 40 inherited missing bundled audio clips keep the aggregate release gate red, and user visual sign-off remains pending (see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md`)
+  - [x] Phase 8 — release hardening implemented and independently code/spec reviewed; the user verified the UI on 2026-10-13. The 40 inherited missing bundled audio clips still keep the aggregate release gate red and are tracked under Development feedback (see `docs/superpowers/handoffs/2026-09-14-ui-redesign-phase-08.md`)
 - [x] Fix audit ship blockers through redesign phases: parent-gate bypass, landscape `/settings`, unlabelled parent inputs, answer-tile overflow, missing compare prompt
 - [x] Fix audit accessibility findings through redesign phases: `text-muted` token, `prefers-reduced-motion`, modal focus behaviour, 44px touch targets, `<h1>`/`<main>` landmarks
 - [x] Resolve the 2026-09-29 screenshot review findings: explicit comparison prompt, visible pale word choice, parent phrase labels and category navigation, and usable feedback dialog/copy on short screens
@@ -114,7 +145,9 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Record local audio overrides for letters, numbers, phrases, words, and praise
 - [x] `audioManager` plays custom audio before bundled MP3/TTS fallback
 - [x] Harden custom content validation, draft states, default restore, and empty states for Words/Syllables/Assembly
-- [ ] Decide whether friend-share build needs export/import or reset-to-defaults controls
+- [x] Decide whether friend-share build needs export/import or reset-to-defaults controls: default restore already exists; export/import is in the F&F build (1.0, 2026-10-13)
+- [ ] Backup export/import: one file with custom words, praise, settings and WAV recordings (all locales). Share it through the system share sheet where the browser accepts the file type and fall back to a download; import with a file picker and a merge/replace choice
+- [ ] [?] Cross-device sync of recordings. Options researched 2026-10-13, in order of preference: (1) account-free family sync code: a random secret shown as a QR code or words gives a storage path and an encryption key; recordings are encrypted on the device and stored in R2 or Vercel Blob through one signing function, newest recording per clip wins; (2) one-time QR transfer through an expiring encrypted upload, or peer-to-peer over WebRTC; (3) a sync framework with built-in sharing (Jazz: free tier 100 users/10 GB, invite links, files; young v2) or Dexie Cloud (blob support is new, free tier 3 users/100 MB); (4) accounts on Supabase (free projects pause after a week idle) or Firebase (Storage needs a billing account) as in Phase 3; (5) per-user Google Drive app folder, which cannot be shared within a family
 
 ### 1.3 Settings and Locale Foundation
 
@@ -124,7 +157,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Locale-aware content/audio path architecture
 - [x] Slovak content moved into locale module
 - [x] Czech locale stub exists
-- [ ] Add language selection UX only after Czech content is actually populated
+- [ ] Add language selection UX only after Czech content is actually populated (pulled into the F&F build, 1.0)
 
 ### 1.4 Feedback
 > Web3Forms feedback is enough for friends-first. A larger feedback platform can wait until public launch.
@@ -165,7 +198,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 ### 1.6 Analytics
 > Not required for friends-first sharing. Revisit before public launch if usage telemetry is still desired.
 
-- [?] Decide whether private friend testing needs analytics at all
+- [x] Decide whether private friend testing needs analytics at all: yes, Vercel Web Analytics page views only (user, 2026-10-13)
 - [ ] Spec: analytics platform decision + event taxonomy (`docs/superpowers/specs/`)
 - [ ] Decide and set up analytics platform if needed
 - [ ] Instrument screen views and game events if analytics is adopted
@@ -190,7 +223,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 > Open decisions: domain, landing page vs. app-at-root, and analytics. Installable PWA support is implemented for the current app.
 
 - [ ] Synthesize friend feedback into launch blockers vs. later improvements
-- [ ] Decide on domain and configure DNS
+- [ ] Decide on domain and configure DNS (pulled into F&F P0, 1.0: the URL must not change after sharing)
 - [ ] Configure production static hosting if the friends-first deployment is not the final host
 - [ ] Write and publish privacy policy (GDPR-compliant, covers children and local microphone/audio storage)
 - [ ] Decide whether to use analytics for public launch
@@ -210,7 +243,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 
 > Needs its own spec. Firebase remains a candidate, but backend work should not block friends-first or public Slovak launch.
 
-- [ ] Decide whether accounts are needed based on friend/public feedback
+- [ ] Decide whether accounts are needed based on friend/public feedback. Cross-device recording sync may ship earlier without accounts (1.2)
 - [ ] Spec: backend platform choice, auth providers, data model, and cloud migration (`docs/superpowers/specs/`)
 - [ ] Define migration model for local settings, custom words, custom praise, custom audio, and avatar clothing state
 - [ ] Set up Firebase/Supabase/PocketBase or chosen alternative
@@ -239,9 +272,10 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [ ] Validate custom content/audio storage across language switches
 
 ### Czech (`cs`)
+> Pulled forward into the F&F build (1.0, 2026-10-13), together with the UI string translation architecture and language selection above.
 - [ ] Curate Czech alphabet, word dictionary, syllables, praise, and number labels
-- [ ] Record or generate default Czech audio files
-- [ ] Validate content with a native Czech speaker
+- [ ] Record default Czech audio files (the user records them, 2026-10-13)
+- [ ] Validate content with a native Czech speaker (the user reviews it)
 
 ### English (`en`)
 - [ ] Define English syllabification strategy
@@ -372,7 +406,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [ ] Image/emoji asset optimization audit
 
 ### Accessibility
-- [ ] **AC1** — Keyboard navigation (arrow keys, Enter, Space on all child answer patterns) — required by full-app redesign Phases 5–8 before publication
+- [ ] **AC1** — Keyboard navigation (arrow keys, Enter, Space on all child answer patterns) — required by full-app redesign Phases 5–8 before publication. Phase 8 reports keyboard checks on shipping surfaces; verify and tick (1.0 P2)
 - [x] **AC2** — ARIA labels on icon-only/game buttons
 - [x] **AC3** — Emoji text alternatives in SuccessOverlay/session feedback
 > Touch remains the primary child input, but AC1 is no longer deferred: the universal UI contract requires keyboard access before publication.
@@ -535,3 +569,5 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 | 2026-10-09 | Drape long hair over the A06 scarf with a vertical-lift hair key, per hair. | Hair is rigid on Head and the scarf follows the torso, so the hair must clear the scarf's swept volume in the Head frame. Lifting hair vertically onto that volume keeps locks intact; pushing vertices away from the nearest scarf point shredded the bob. The bob, H03 and H05 each get their own `over_A06` key and study. |
 | 2026-10-09 | Grow hair variants as radial shells over the measured scalp of the reusable head. | One parametric shell (hairline by angle from the face, front/side/back/crown volume, Fibonacci curl or wave lumps, edges tucked under the skin) covers curls, crop and waves with one builder and one verifier, keeps the selfie head and its UVs untouched, and gates face visibility, scalp coverage and every outfit on the base. Hand-sculpted hair would need per-style fit work for each garment. |
 | 2026-10-09 | Bring O03 under budget by baking the body to its visible surface before decimating it. | Baking removes the coverage masks from the problem: only visible skin remains and its open edges sit under hems, so nothing hidden can reappear. Quadric collapse keeps the female body within 0.42 mm at 18% of its triangles. Garments and the shared rig stay exact. |
+| 2026-10-13 | Launch friends and family as Mudrolíno in Slovak and Czech, without the avatar; re-prioritize Phase 1 into ordered tiers (1.0). | User decision. The name is the same in both languages, so one manifest and one URL serve both audiences. Czech, the domain and backup export/import move ahead of public-launch work because the shared URL holds every family's data and cannot change after sharing. Cross-device sync waits for F&F evidence that families use several devices. |
+| 2026-10-13 | Serve F&F at `mudrolino.vercel.app`, record the Czech audio in-house, add Sentry (EU region) error reporting and Vercel Web Analytics, and force-push the rewritten `main`. | User decisions. The free Vercel subdomain avoids buying a domain before feedback; a later custom domain is possible through backup export/import. A Czech speaker records and reviews, so no speech service is needed. Sentry's EU organization keeps error data in Frankfurt and its SDK also talks to Sentry-compatible EU services; Vercel Web Analytics counts page views without cookies. The rewrite matches the deployed commit apart from the removed 3D files. |

@@ -2,6 +2,8 @@
 
 Generated 2026-03-29 from codebase analysis.
 
+> **Archived (2026-10-13).** Every item below is resolved except AC1, which is no longer deferred and is tracked in `ROADMAP.md` (Accessibility; launch order in 1.0). Add new work to `ROADMAP.md`, not here.
+
 ---
 
 ## Critical Bugs
