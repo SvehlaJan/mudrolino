@@ -9,6 +9,7 @@ import { AppScreen, BackButton, Card, PageHeader, RadioGroupControl, TopBar } fr
 import { applyFontFamily, type AppFontFamily, type AppSettings } from '../shared/services/appSettingsStore';
 import { useContentLocale } from '../shared/contexts/ContentContext';
 import { getUiCopy, type UiCopyKey } from '../shared/uiCopy';
+import { BackupCard } from './BackupCard';
 
 const PRIVACY_KEYS: UiCopyKey[] = ['parent.privacy.local', 'parent.privacy.feedback', 'parent.privacy.errors', 'parent.privacy.analytics'];
 
@@ -36,6 +37,8 @@ function AboutCards() {
 interface AppSettingsScreenProps {
   appSettings: AppSettings;
   onUpdate(next: AppSettings): void;
+  /** A backup restore rewrote stored settings; reload them into app state. */
+  onDataRestored(): void;
 }
 
 const FONT_OPTIONS: { value: AppFontFamily; label: React.ReactNode }[] = [
@@ -43,7 +46,7 @@ const FONT_OPTIONS: { value: AppFontFamily; label: React.ReactNode }[] = [
   { value: 'shantell', label: <span style={{ fontFamily: '"Shantell Sans", cursive, sans-serif' }}>Hravé (Shantell)</span> },
 ];
 
-export function AppSettingsScreen({ appSettings, onUpdate }: AppSettingsScreenProps) {
+export function AppSettingsScreen({ appSettings, onUpdate, onDataRestored }: AppSettingsScreenProps) {
   const navigate = useNavigate();
 
   return (
@@ -67,6 +70,7 @@ export function AppSettingsScreen({ appSettings, onUpdate }: AppSettingsScreenPr
           />
         </div>
       </Card>
+      <BackupCard onRestored={onDataRestored} />
       <AboutCards />
     </AppScreen>
   );

@@ -41,3 +41,14 @@ falls back to Slovak. Parent-added words and praise live per locale in local
 storage via `localContentRepository.ts`, and recorded overrides in IndexedDB via
 `audioOverrideStore.ts`. `/content` is the parent-facing surface for both;
 validation rules there have their own verifier.
+
+## Family data, backups and future sync
+
+Every change to words, praise, settings and recordings carries a change stamp,
+and deletions leave markers (`src/shared/services/userData/syncMetadata.ts`, in
+local storage so the recordings database keeps its version-1 schema that e2e
+helpers open). Backups serialize the snapshot from `userData/snapshot.ts` and
+restore by merging with `userData/merge.ts`: the newer copy of each item wins,
+ties go to the incoming copy, and a deletion removes anything not newer than it.
+A cross-device sync should exchange the same snapshot and reuse that merge.
+Saving defaults for the first time is not a change and must not be stamped.

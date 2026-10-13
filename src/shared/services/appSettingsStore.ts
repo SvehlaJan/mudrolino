@@ -3,7 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const STORAGE_KEY = 'hrave-ucenie-app-settings';
+import { writeSettingsStamp } from './userData/syncMetadata';
+
+export const APP_SETTINGS_STORAGE_KEY = 'hrave-ucenie-app-settings';
+const STORAGE_KEY = APP_SETTINGS_STORAGE_KEY;
 
 export type SaveResult = { ok: true } | { ok: false; reason: 'storage-unavailable' };
 
@@ -53,7 +56,15 @@ export function saveAppSettings(
 ): SaveResult {
   try {
     if (!storage) return { ok: false, reason: 'storage-unavailable' };
-    storage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    const serialized = JSON.stringify(settings);
+    const previous = storage.getItem(STORAGE_KEY);
+    // Only replacing a stored value moves the change stamp. The first save of
+    // defaults when the app opens is not a change, so a fresh device never looks
+    // newer than a backup or another device.
+    if (previous !== serialized) {
+      storage.setItem(STORAGE_KEY, serialized);
+      if (previous !== null) writeSettingsStamp('appSettings', Date.now(), storage);
+    }
     return { ok: true };
   } catch {
     return { ok: false, reason: 'storage-unavailable' };

@@ -65,12 +65,12 @@
 - [ ] Re-sync deployment: local `main` was rewritten for the R2 move and has diverged from `origin/main`, and production still serves `b9bc052` (2026-10-04). The user approved the force-push (2026-10-13); the rewrite differs from the deployed commit only by 30 removed 3D files, and lint, unit tests and the production build pass. A project hook blocks agent pushes, so the user runs it. Optionally set a separate production branch so avatar commits on `main` stop auto-deploying.
 - [ ] Record the 40 pending Slovak clips (see Development feedback). The Phase 8 visual sign-off was given on 2026-10-13.
 - [ ] Czech (1.3 and Phase 4 Czech, pulled forward): content, Czech letter units in game logic (only CH), extraction of the ~250 hard-coded Slovak UI lines in ~40 files, ~190 default clips recorded by the user, language selection with first-run detection and `<html lang>`, review by the user (Czech speaker).
-- [ ] Backup export/import of custom words, praise, settings and recordings (1.2). It also carries the family's existing data from `teo-learn.vercel.app` to the new URL.
+- [x] Backup export/import of custom words, praise, settings and recordings (1.2). It also carries the family's existing data from `teo-learn.vercel.app` to the new URL.
 - [ ] Hosting rules in `vercel.json`: immutable `/assets/*`, revalidated `sw.js`, `X-Robots-Tag: noindex` and a real `robots.txt` (it currently returns the app page), `nosniff`, `Referrer-Policy`, `Permissions-Policy` allowing the microphone only for the app, no framing.
 - [ ] Verify the production build and deploy target, then smoke-test on a real iPhone (Safari and installed), Android Chrome and a tablet, including Czech speech fallback. Confirm `VITE_AVATAR_POC_ENABLED` is unset in Vercel.
 
 **P1 — in the F&F build if possible**
-- [ ] Request persistent storage (`navigator.storage.persist()`) and nudge home-screen install; Safari can delete data of non-installed sites after 7 days without use.
+- [x] Request persistent storage (`navigator.storage.persist()`) after a parent saves something, and show in the backup card whether the browser protects the data; Safari can delete data of non-installed sites after 7 days without use.
 - [ ] Open Graph title, description and image so shared links show a preview.
 - [x] Add the app version (build commit) and app language to feedback metadata, and show the version in the parent zone.
 - [x] "Odporučiť priateľom" in the parent zone (user, 2026-10-13): opens the system share sheet with the app link and copies it where no share sheet exists; it sits behind the parent gate so children cannot trigger it.
@@ -148,7 +148,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] `audioManager` plays custom audio before bundled MP3/TTS fallback
 - [x] Harden custom content validation, draft states, default restore, and empty states for Words/Syllables/Assembly
 - [x] Decide whether friend-share build needs export/import or reset-to-defaults controls: default restore already exists; export/import is in the F&F build (1.0, 2026-10-13)
-- [ ] Backup export/import: one file with custom words, praise, settings and WAV recordings (all locales). Share it through the system share sheet where the browser accepts the file type and fall back to a download; import with a file picker and a merge/replace choice
+- [x] Backup export/import (2026-10-14): one JSON file with custom words, praise, settings and recordings for every locale, in Rodičovská zóna → Aplikácia a vzhľad. Export uses the system share sheet where it accepts files and downloads otherwise; restore merges, keeping the newer copy of each item. Groundwork for sync: words, praise, settings and recordings now carry change stamps, deletions leave markers, and `src/shared/services/userData/` holds the snapshot shape and the merge rule a future sync reuses
 - [ ] [?] Cross-device sync of recordings. Options researched 2026-10-13, in order of preference: (1) account-free family sync code: a random secret shown as a QR code or words gives a storage path and an encryption key; recordings are encrypted on the device and stored in R2 or Vercel Blob through one signing function, newest recording per clip wins; (2) one-time QR transfer through an expiring encrypted upload, or peer-to-peer over WebRTC; (3) a sync framework with built-in sharing (Jazz: free tier 100 users/10 GB, invite links, files; young v2) or Dexie Cloud (blob support is new, free tier 3 users/100 MB); (4) accounts on Supabase (free projects pause after a week idle) or Firebase (Storage needs a billing account) as in Phase 3; (5) per-user Google Drive app folder, which cannot be shared within a family
 
 ### 1.3 Settings and Locale Foundation

@@ -14,6 +14,7 @@ import type {
 import { deriveSyllableItems, getLocaleContent } from '../contentRegistry';
 import type { ContentRepository } from '../services/contentRepository';
 import { LocalContentRepository } from '../services/localContentRepository';
+import { requestPersistentStorage } from '../services/storagePersistence';
 import { audioOverrideStore } from '../services/audioOverrideStore';
 
 export interface ContentContextValue {
@@ -50,6 +51,8 @@ export interface ContentContextValue {
   ): Promise<void>;
   deletePraise(id: string): Promise<void>;
   setDefaultPraiseEnabled(id: string, enabled: boolean): Promise<void>;
+  /** Re-reads stored content, e.g. after a backup restore wrote it directly. */
+  reloadContent(): Promise<void>;
   restoreAllDefaultPraises(): Promise<void>;
 }
 
@@ -141,6 +144,7 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     async (data: Omit<UserWord, 'id' | 'status' | 'enabled' | 'order' | 'locale'>) => {
       const item = await repoRef.current.addWord(data);
       await reload();
+      void requestPersistentStorage();
       return item;
     },
     [reload],
@@ -186,6 +190,7 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     async (data: Omit<UserPraise, 'id' | 'status' | 'enabled' | 'order' | 'locale'>) => {
       const item = await repoRef.current.addPraise(data);
       await reload();
+      void requestPersistentStorage();
       return item;
     },
     [reload],
@@ -261,6 +266,7 @@ export function ContentProvider({ locale, children }: ContentProviderProps) {
     deletePraise,
     setDefaultPraiseEnabled,
     restoreAllDefaultPraises,
+    reloadContent: reload,
   };
 
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;

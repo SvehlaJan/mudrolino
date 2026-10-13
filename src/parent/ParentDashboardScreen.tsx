@@ -36,7 +36,7 @@ const DESTINATIONS: DashboardDestination[] = [
   {
     to: '/settings/app',
     title: 'Aplikácia a vzhľad',
-    description: 'Písmo, súkromie a verzia aplikácie.',
+    description: 'Písmo, záloha, súkromie a verzia aplikácie.',
     icon: <Palette size={24} className="sm:h-7 sm:w-7" />,
   },
   {

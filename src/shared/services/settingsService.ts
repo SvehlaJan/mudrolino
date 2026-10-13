@@ -1,7 +1,9 @@
 import { GameSettings } from '../types';
 import { additionRangeForcesNumerals as registryAdditionRangeForcesNumerals, createDefaultSettings, DEFAULT_GAME_SETTINGS, SETTINGS_REGISTRY } from '../settings/settingsRegistry';
+import { writeSettingsStamp } from './userData/syncMetadata';
 
-const STORAGE_KEY = 'hrave-ucenie-settings';
+export const GAME_SETTINGS_STORAGE_KEY = 'hrave-ucenie-settings';
+const STORAGE_KEY = GAME_SETTINGS_STORAGE_KEY;
 
 export const DEFAULT_SETTINGS = DEFAULT_GAME_SETTINGS;
 
@@ -39,7 +41,13 @@ export function saveSettings(
 ): { ok: true } | { ok: false; reason: 'storage-unavailable' } {
   try {
     if (!storage) return { ok: false, reason: 'storage-unavailable' };
-    storage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    const serialized = JSON.stringify(settings);
+    const previous = storage.getItem(STORAGE_KEY);
+    // Only replacing a stored value moves the change stamp (see appSettingsStore).
+    if (previous !== serialized) {
+      storage.setItem(STORAGE_KEY, serialized);
+      if (previous !== null) writeSettingsStamp('gameSettings', Date.now(), storage);
+    }
     return { ok: true };
   } catch {
     return { ok: false, reason: 'storage-unavailable' };

@@ -93,6 +93,26 @@ const SK_COPY = {
   'parent.share.copied': 'Odkaz je skopírovaný. Vložte ho do správy.',
   'parent.share.manual': 'Skopírujte tento odkaz:',
 
+  'parent.backup.title': 'Záloha',
+  'parent.backup.description': 'Vlastné slová, pochvaly, nahrávky a nastavenia sú uložené iba v tomto zariadení. Uložte si zálohu a obnovte ju v novom telefóne či tablete.',
+  'parent.backup.persisted': 'Prehliadač tieto údaje chráni pred automatickým vymazaním.',
+  'parent.backup.notPersisted': 'Prehliadač môže údaje pri nedostatku miesta vymazať. Pridajte si aplikáciu na plochu a ukladajte si zálohu.',
+  'parent.backup.export': 'Uložiť zálohu',
+  'parent.backup.preparing': 'Pripravujem zálohu…',
+  'parent.backup.saveFile': 'Odoslať alebo uložiť súbor zálohy',
+  'parent.backup.exported': 'Záloha je uložená.',
+  'parent.backup.exportFailed': 'Zálohu sa nepodarilo vytvoriť. Skúste to znova.',
+  'parent.backup.import': 'Obnoviť zo zálohy',
+  'parent.backup.fileLabel': 'Súbor zálohy',
+  'parent.backup.summary': 'Záloha z {date}: nahrávky {recordings}, vlastné slová {words}, vlastné pochvaly {praises}.',
+  'parent.backup.mergeHint': 'Údaje zo zálohy sa spoja s týmto zariadením. Ak je rovnaká položka na oboch miestach, zostane novšia.',
+  'parent.backup.confirm': 'Obnoviť',
+  'parent.backup.cancel': 'Zrušiť',
+  'parent.backup.restoring': 'Obnovujem zálohu…',
+  'parent.backup.restored': 'Záloha je obnovená.',
+  'parent.backup.invalid': 'Tento súbor nie je záloha Mudrolína.',
+  'parent.backup.restoreFailed': 'Zálohu sa nepodarilo obnoviť. Skúste to znova.',
+
   'parent.about.title': 'O aplikácii',
   'parent.about.version': 'Verzia',
   'parent.privacy.title': 'Súkromie',
@@ -119,4 +139,9 @@ const COPY_BY_LOCALE: Record<string, Partial<Record<UiCopyKey, string>>> = {
 export function getUiCopy(locale: string, key: UiCopyKey): string {
   const localeCopy = COPY_BY_LOCALE[locale];
   return localeCopy?.[key] ?? SK_COPY[key];
+}
+
+/** Like `getUiCopy`, replacing `{name}` placeholders with the given values. */
+export function formatUiCopy(locale: string, key: UiCopyKey, values: Record<string, string | number>): string {
+  return getUiCopy(locale, key).replace(/\{(\w+)\}/g, (match, name: string) => (name in values ? String(values[name]) : match));
 }

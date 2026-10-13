@@ -115,6 +115,11 @@ export default function App() {
     };
   }, []);
 
+  const handleDataRestored = useCallback(() => {
+    setSettings(loadSettings());
+    setAppSettings(loadAppSettings());
+  }, []);
+
   const handleOpenSettings = useCallback(() => {
     homeScrollRef.current = window.scrollY;
     navigate('/settings');
@@ -154,7 +159,7 @@ export default function App() {
               />
               <Route
                 path="/settings/app"
-                element={<AppSettingsScreen appSettings={appSettings} onUpdate={setAppSettings} />}
+                element={<AppSettingsScreen appSettings={appSettings} onUpdate={setAppSettings} onDataRestored={handleDataRestored} />}
               />
               <Route path="/settings/help" element={<HelpFeedbackScreen />} />
               <Route

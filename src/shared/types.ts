@@ -168,6 +168,7 @@ export interface UserWord {
   isDefault: boolean;
   locale: string;
   order: number;
+  updatedAt?: number; // epoch ms of the last change; absent on data saved before change stamps
 }
 
 export interface UserPraise {
@@ -181,6 +182,7 @@ export interface UserPraise {
   isDefault: boolean;
   locale: string;
   order: number;
+  updatedAt?: number;
 }
 
 export interface LocaleContent {
