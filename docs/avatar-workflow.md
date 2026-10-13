@@ -144,6 +144,23 @@ See [gallery behavior and verification](avatar-catalog-preview.md) for routes,
 refresh recovery and supported controls. After changing gallery tooling run the
 focused browser verifier as well as the affected repository verification profile.
 
+## 3D files live outside git
+
+`.blend` sources and every `.glb` export are git-ignored (2026-10-13). Git keeps the
+code, reports, renders and `assets/avatar/asset-manifest.json`: each 3D file's path, size
+and SHA-256, plus relative symlinks. The bytes live in a private Cloudflare R2 bucket,
+content-addressed as `sha256/<hash>`, so renames and duplicates cost nothing and a pulled
+file is checked against its hash. Credentials go in `.env` (see `.env.example`).
+
+- `npm run assets:pull [-- --prefix=assets/avatar/catalog-a/T04]` restores missing or
+  changed files (`--dry-run` previews).
+- After building or changing models: `npm run assets:manifest`, commit the manifest, then
+  `npm run assets:push`. `assets:verify` compares the disk with the manifest.
+
+The production app will need only accepted runtime exports (the phone LODs and the
+walk/run clips, about 2 MB gzip each). Publish those to Vercel Blob when the avatar is
+integrated, not through git.
+
 ## Repeatable asset work
 
 Choose one reference/category and representative outfit. Reuse category geometry

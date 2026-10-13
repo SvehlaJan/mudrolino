@@ -25,3 +25,13 @@ artifacts/verification/
 
 # Blender auto-backups; deliberate revisions use named .blend sources.
 *.blend1
+
+# 3D models (sources, studies, exports) live in the R2 asset store, not in git:
+# `npm run assets:pull` restores them from assets/avatar/asset-manifest.json.
+*.blend
+*.glb
+*.gltf
+*.fbx
+*.obj
+# Meshy downloads stay local (see the meshy-3d-generation skill).
+meshy_output/

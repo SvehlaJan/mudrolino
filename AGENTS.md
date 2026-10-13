@@ -61,6 +61,7 @@ seed, commit/build identity, scene, viewport, errors and failed requests.
 
 - `npm run lint` and every `.verify.ts` need `node_modules` — `typescript` and `tsx` are local deps, not global.
 - `npm run dev` binds to `0.0.0.0`, so the dev server is reachable on the local network.
+- 3D files (`.blend`, `.glb`) are git-ignored and live in a private R2 bucket: `npm run assets:pull` restores them from `assets/avatar/asset-manifest.json`; after changing models run `assets:manifest`, commit the manifest and `assets:push`.
 - e2e specs assert no console errors and no failed requests on every route, so a single unrelated 404 fails tests across many routes. Look for one shared cause before debugging a spec.
 - PWA metadata lives in `src/pwa/pwaConfig.ts`. Editing `index.html` achieves nothing — the build overwrites its title and injects the head tags.
 - **IMPORTANT**: never statically import `AvatarScene`, `AvatarModel`, `AvatarSkeletonOverlay`, or `skinnedGarment` from outside `src/avatar/`. three.js is a lazy chunk behind `AvatarPresenter`; a static import silently puts ~950 kB back into the main bundle.

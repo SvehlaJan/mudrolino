@@ -34,7 +34,11 @@
     "avatar:blender": "python3 tools/avatar/blender_cli.py",
     "avatar:catalog:inspect": "node tools/avatar/verify_catalog_inspection.mjs",
     "avatar:catalog:capture": "node tools/avatar/capture_catalog_style_review.mjs",
-    "avatar:gallery:inspect": "node tools/avatar/verify_asset_gallery.mjs"
+    "avatar:gallery:inspect": "node tools/avatar/verify_asset_gallery.mjs",
+    "assets:manifest": "node tools/avatar/asset_store.mjs manifest",
+    "assets:verify": "node tools/avatar/asset_store.mjs verify",
+    "assets:push": "node --env-file-if-exists=.env tools/avatar/asset_store.mjs push",
+    "assets:pull": "node --env-file-if-exists=.env tools/avatar/asset_store.mjs pull"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.23",
