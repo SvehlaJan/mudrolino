@@ -49,6 +49,18 @@ assert(
   'html head tags include a PNG favicon fallback',
 );
 
+const metaContent = (key: 'name' | 'property', value: string) =>
+  pwaHtmlHeadTags.find((tag) => tag.tag === 'meta' && tag.attrs?.[key] === value)?.attrs?.content;
+assert(pwaBrand.siteUrl.startsWith('https://') && !pwaBrand.siteUrl.endsWith('/'), 'site URL is absolute https without a trailing slash');
+assert(metaContent('property', 'og:title') === pwaBrand.appName, 'link previews show the app name');
+assert(metaContent('property', 'og:description') === pwaBrand.description, 'link previews show the app description');
+assert(metaContent('name', 'description') === pwaBrand.description, 'html head has a description');
+assert(
+  metaContent('property', 'og:image') === `${pwaBrand.siteUrl}${pwaIcons.openGraph}`,
+  'link preview image is an absolute URL, since preview crawlers do not resolve relative paths',
+);
+assert(metaContent('property', 'og:url') === `${pwaBrand.siteUrl}/`, 'link previews point at the app root');
+
 const iconSources = new Set(pwaManifest.icons.map((icon) => icon.src));
 assert(iconSources.has('/pwa/pwa-192x192.png'), 'manifest includes 192 icon');
 assert(iconSources.has('/pwa/pwa-512x512.png'), 'manifest includes 512 icon');

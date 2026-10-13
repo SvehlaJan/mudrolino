@@ -1,0 +1,4 @@
+# The friends-and-family build stays out of search results through the
+# X-Robots-Tag header in vercel.json. Crawling stays allowed so crawlers can see it.
+User-agent: *
+Disallow:

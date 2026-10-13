@@ -20,6 +20,8 @@ export const pwaBrand = {
   description: 'Slovenská predškolská aplikácia s hrami a rodičmi nahratým obsahom.',
   themeColor: '#F53D4C',
   backgroundColor: '#F4F1EA',
+  // Link previews need absolute URLs; this is the friends-and-family address.
+  siteUrl: 'https://mudrolino.vercel.app',
 } as const;
 
 export const pwaIcons = {
@@ -28,7 +30,27 @@ export const pwaIcons = {
   maskable512: '/pwa/pwa-maskable-512x512.png',
   appleTouch: '/pwa/apple-touch-icon.png',
   faviconSvg: '/pwa/teo-icon-source.svg',
+  openGraph: '/pwa/og-image.png',
 } as const;
+
+function meta(attrs: Record<string, string>): HtmlTagDescriptor {
+  return { tag: 'meta', attrs, injectTo: 'head' };
+}
+
+// Shared links (WhatsApp, Messenger, iMessage) render these as a preview card.
+const openGraphTags: HtmlTagDescriptor[] = [
+  meta({ name: 'description', content: pwaBrand.description }),
+  meta({ property: 'og:type', content: 'website' }),
+  meta({ property: 'og:site_name', content: pwaBrand.appName }),
+  meta({ property: 'og:title', content: pwaBrand.appName }),
+  meta({ property: 'og:description', content: pwaBrand.description }),
+  meta({ property: 'og:url', content: `${pwaBrand.siteUrl}/` }),
+  meta({ property: 'og:image', content: `${pwaBrand.siteUrl}${pwaIcons.openGraph}` }),
+  meta({ property: 'og:image:width', content: '1200' }),
+  meta({ property: 'og:image:height', content: '630' }),
+  meta({ property: 'og:locale', content: 'sk_SK' }),
+  meta({ name: 'twitter:card', content: 'summary_large_image' }),
+];
 
 export const pwaHtmlTitle = pwaBrand.appName;
 
@@ -92,6 +114,7 @@ export const pwaHtmlHeadTags: HtmlTagDescriptor[] = [
     },
     injectTo: 'head',
   },
+  ...openGraphTags,
 ];
 
 export const pwaControlCopy = {

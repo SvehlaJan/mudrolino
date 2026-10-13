@@ -41,4 +41,13 @@ await sharp(maskableInner)
   .png()
   .toFile(path.join(outputDir, 'pwa-maskable-512x512.png'));
 
+// Link previews (Open Graph) crop to 1.91:1 or to a centred square, so the icon
+// sits centred on the app background with room on every side.
+const ogIcon = await sharp(source).resize(400, 400).png().toBuffer();
+await sharp({ create: { width: 1200, height: 630, channels: 4, background: '#F4F1EA' } })
+  .composite([{ input: ogIcon, gravity: 'centre' }])
+  .flatten({ background: '#F4F1EA' })
+  .png()
+  .toFile(path.join(outputDir, 'og-image.png'));
+
 console.log('Generated PWA icons in public/pwa');
