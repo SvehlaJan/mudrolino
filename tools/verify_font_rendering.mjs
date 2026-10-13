@@ -29,7 +29,7 @@ async function run() {
   // 1. Home with default font (Nunito)
   console.log('Navigating to Home...');
   await page.goto(`${baseUrl}/`);
-  await page.waitForSelector('text=Hravé Učenie');
+  await page.waitForSelector('text=Mudrolíno');
   await page.waitForTimeout(1000);
 
   const defaultFont = await page.evaluate(() => document.documentElement.dataset.font);
@@ -65,7 +65,7 @@ async function run() {
   // 4. Home with Shantell Sans
   console.log('Navigating to Home with Shantell...');
   await page.goto(`${baseUrl}/`);
-  await page.waitForSelector('text=Hravé Učenie');
+  await page.waitForSelector('text=Mudrolíno');
   await page.waitForTimeout(500);
 
   await page.screenshot({ path: path.join(screenshotDir, 'verified_home_shantell.png') });
@@ -85,7 +85,7 @@ async function run() {
   });
 
   await mobilePage.goto(`${baseUrl}/`);
-  await mobilePage.waitForSelector('text=Hravé Učenie');
+  await mobilePage.waitForSelector('text=Mudrolíno');
   await mobilePage.waitForTimeout(500);
 
   await mobilePage.screenshot({ path: path.join(screenshotDir, 'verified_home_mobile_nunito.png') });

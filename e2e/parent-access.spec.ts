@@ -139,7 +139,7 @@ test.describe('Parent Access Gate', () => {
 
     // Leave to home via in-app back navigation
     await page.getByRole('button', { name: 'Späť' }).click();
-    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
 
     // The in-app close replaced the /settings entry, so browser back cannot resurrect it
     await page.goBack();
@@ -251,7 +251,7 @@ test.describe('Parent Access Gate', () => {
     await page.getByRole('button', { name: 'Späť' }).click();
 
     await expect(page).toHaveURL(/\/$/);
-    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
@@ -382,7 +382,7 @@ test.describe('Parent Gate Dialog', () => {
     await page.keyboard.press('Escape');
 
     await expect(page).toHaveURL(/\/$/);
-    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
   });
 
   test('the physical keyboard drives digits, Backspace and Enter', async ({ page }) => {

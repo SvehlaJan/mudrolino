@@ -27,7 +27,7 @@ test('WebKit renders home, the parent gate, and representative child rounds', as
   await stubSpeechSynthesis(page);
 
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1, name: 'Hravé Učenie' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Mudrolíno' })).toBeVisible();
   await expectNoHorizontalOverflow(page);
   await page.getByRole('button', { name: 'Nastavenia' }).click();
   await expect(page.getByRole('dialog', { name: 'Pre rodičov' })).toBeVisible();

@@ -15,8 +15,8 @@ type PwaManifest = Partial<ManifestOptions> & {
 };
 
 export const pwaBrand = {
-  appName: 'Teo Learn',
-  shortName: 'Teo',
+  appName: 'Mudrolíno',
+  shortName: 'Mudrolíno',
   description: 'Slovenská predškolská aplikácia s hrami a rodičmi nahratým obsahom.',
   themeColor: '#F53D4C',
   backgroundColor: '#F4F1EA',

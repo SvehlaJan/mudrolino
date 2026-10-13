@@ -695,7 +695,7 @@ export function UiKitScreen() {
       <header className="space-y-2">
         <h1 className="text-4xl font-black sm:text-6xl">UI Kit</h1>
         <p className="max-w-3xl text-lg font-medium text-text-muted">
-          Vývojová knižnica komponentov pre Hravé Učenie. Dostupná iba pri vývoji a v testovacom zostavení.
+          Vývojová knižnica komponentov pre Mudrolíno. Dostupná iba pri vývoji a v testovacom zostavení.
         </p>
       </header>
 
@@ -882,13 +882,13 @@ export function UiKitScreen() {
           <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
             <div className="flex items-center gap-2">
               <Download size={18} className="text-text-main/70" />
-              <p className="text-sm font-bold text-text-main">Pridať Teo</p>
+              <p className="text-sm font-bold text-text-main">Pridať Mudrolíno</p>
             </div>
           </Card>
           <Card className="!rounded-2xl !p-3 text-left !shadow-sm">
             <div className="flex items-center gap-2">
               <CheckCircle2 size={18} className="text-green-600" />
-              <p className="text-sm font-bold text-text-main">Teo je pripravený aj offline.</p>
+              <p className="text-sm font-bold text-text-main">Mudrolíno je pripravený aj offline.</p>
             </div>
           </Card>
           <Card className="!rounded-2xl !p-3 text-left !shadow-sm">

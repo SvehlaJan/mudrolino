@@ -1,6 +1,6 @@
-# Hravé Učenie
+# Mudrolíno
 
-Hravé Učenie is a Slovak-language educational web app for preschoolers. It is built around short, touch-friendly mini-games with spoken prompts, encouraging feedback, and a parent-protected settings area.
+Mudrolíno is a Slovak-language educational web app for preschoolers. It is built around short, touch-friendly mini-games with spoken prompts, encouraging feedback, and a parent-protected settings area.
 
 ## Features
 

@@ -1,4 +1,4 @@
-# Hravé Učenie — Product Roadmap
+# Mudrolíno — Product Roadmap
 
 > **Living document.** Update this file whenever a task is completed, a decision is made, or scope changes. See `docs/superpowers/specs/2026-04-05-productization-roadmap-design.md` for the full design rationale behind this roadmap.
 

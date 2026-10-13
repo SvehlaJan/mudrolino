@@ -53,7 +53,7 @@ export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
     body: JSON.stringify({
       access_key: key,
       subject: `Spätná väzba: ${CATEGORY_LABELS[payload.category]}`,
-      from_name: 'Hravé Učenie',
+      from_name: 'Mudrolíno',
       category: CATEGORY_LABELS[payload.category],
       message: payload.message || '(žiadna správa)',
       ...metadata,

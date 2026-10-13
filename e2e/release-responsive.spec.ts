@@ -44,7 +44,7 @@ async function expectControlsInViewport(page: Page, controls: Locator): Promise<
 test('home keeps both game groups and all release cards reachable', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('main')).toHaveCount(1);
-  await expect(page.getByRole('heading', { level: 1, name: 'Hravé Učenie' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Mudrolíno' })).toBeVisible();
   await expect(page.getByRole('heading', { level: 2 })).toHaveCount(2);
   await expect(page.locator('section[aria-labelledby^="category-heading-"]')).toHaveCount(2);
   await expectReachableOrVisible(page.getByTestId('game-card'));

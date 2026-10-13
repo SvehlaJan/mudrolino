@@ -68,7 +68,7 @@ seed, commit/build identity, scene, viewport, errors and failed requests.
 
 ## Architecture
 
-A Slovak-language educational PWA for preschoolers ("Hravé Učenie") with 11
+A Slovak-language educational PWA for preschoolers ("Mudrolíno") with 11
 mini-games. React 19, TypeScript, Vite, Tailwind v4. Local-first: no backend, no
 accounts.
 

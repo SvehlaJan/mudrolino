@@ -11,7 +11,7 @@ test('home: loads without errors', async ({ page }) => {
   const errors = trackConsoleErrors(page);
   const failedRequests = trackFailedRequests(page);
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
 });

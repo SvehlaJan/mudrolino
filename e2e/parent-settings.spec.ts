@@ -127,11 +127,11 @@ test.describe('Parent dashboard and game settings', () => {
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
 
     await page.getByRole('button', { name: 'Späť' }).click();
-    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
 
     await page.goBack();
     await expect(page).not.toHaveURL(/\/settings$/);
-    await expect(page.getByRole('heading', { name: 'Hravé Učenie' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).not.toBeVisible();
 

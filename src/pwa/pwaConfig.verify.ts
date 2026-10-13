@@ -5,8 +5,8 @@ function assert(condition: boolean, message: string) {
   if (!condition) throw new Error(message);
 }
 
-assert(pwaManifest.name === 'Teo Learn', 'manifest name is temporary Teo identity');
-assert(pwaManifest.short_name === 'Teo', 'manifest short_name is Teo');
+assert(pwaManifest.name === 'Mudrolíno', 'manifest name is Mudrolíno');
+assert(pwaManifest.short_name === 'Mudrolíno', 'manifest short_name is Mudrolíno, short enough for a home-screen label');
 assert(pwaManifest.lang === 'sk', 'manifest lang is sk');
 assert(pwaManifest.start_url === '/', 'manifest starts at home');
 assert(pwaManifest.scope === '/', 'manifest scope is root');

@@ -9,7 +9,7 @@
 // the app in this phase — only add fallback plumbing.
 
 const SK_COPY = {
-  'home.title': 'Hravé Učenie',
+  'home.title': 'Mudrolíno',
   'home.subtitle': 'Vyber si hru a poďme na to!',
 
   'lobby.play': 'Hrať',
