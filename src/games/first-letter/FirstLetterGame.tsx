@@ -32,6 +32,7 @@ import {
   buildLetterChoices,
   FirstLetterItem,
   getActiveFirstLetterLetters,
+  multiCharacterLetters,
 } from './firstLetterLogic';
 
 const INSTRUCTION = 'Ktorým písmenom sa začína toto slovo?';
@@ -302,8 +303,8 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
     [letterItems, settings.alphabetAccents],
   );
   const eligibleItems = useMemo(
-    () => buildFirstLetterItems(wordItems, activeLetters),
-    [wordItems, activeLetters],
+    () => buildFirstLetterItems(wordItems, activeLetters, multiCharacterLetters(letterItems)),
+    [wordItems, activeLetters, letterItems],
   );
   const isPlayable = eligibleItems.length > 0 && activeLetters.length >= 4;
 

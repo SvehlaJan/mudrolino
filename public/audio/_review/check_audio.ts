@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Check bundled audio against Slovak locale keys and the pending-recording policy.
+ * Check bundled audio against every shipped locale's keys and the pending-recording policy.
  * Run with --strict in shipping checks; development accepts listed pending clips.
  */
 
@@ -9,6 +9,7 @@ import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { getLocaleContent } from '../../../src/shared/contentRegistry.ts';
+import { SUPPORTED_LOCALES } from '../../../src/shared/i18n.ts';
 import { evaluateAudioInventory } from './audioInventory.ts';
 
 interface PendingRecording {
@@ -30,15 +31,17 @@ if (unexpectedArguments.length > 0) {
   process.exit(2);
 }
 
-const content = getLocaleContent('sk');
-const expected = [
-  ...content.letterItems.map(item => `sk/letters/${item.audioKey}.mp3`),
-  ...content.syllableItems.map(item => `sk/syllables/${item.audioKey}.mp3`),
-  ...content.wordItems.map(item => `sk/words/${item.audioKey}.mp3`),
-  ...content.numberItems.map(item => `sk/numbers/${item.audioKey}.mp3`),
-  ...content.praiseEntries.map(item => `sk/praise/${item.audioKey}.mp3`),
-  ...Object.values(content.audioPhrases).map(item => `sk/phrases/${item.audioKey}.mp3`),
-];
+const expected = SUPPORTED_LOCALES.flatMap(locale => {
+  const content = getLocaleContent(locale);
+  return [
+    ...content.letterItems.map(item => `${locale}/letters/${item.audioKey}.mp3`),
+    ...content.syllableItems.map(item => `${locale}/syllables/${item.audioKey}.mp3`),
+    ...content.wordItems.map(item => `${locale}/words/${item.audioKey}.mp3`),
+    ...content.numberItems.map(item => `${locale}/numbers/${item.audioKey}.mp3`),
+    ...content.praiseEntries.map(item => `${locale}/praise/${item.audioKey}.mp3`),
+    ...Object.values(content.audioPhrases).map(item => `${locale}/phrases/${item.audioKey}.mp3`),
+  ];
+});
 
 function findRecordings(directory: string): string[] {
   const recordings: string[] = [];

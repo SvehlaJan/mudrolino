@@ -53,7 +53,7 @@ export function getLocaleContent(locale: string): LocaleContent {
   if (cached) return cached;
 
   const data = LOCALE_MAP[locale] ?? LOCALE_MAP['sk'];
-  // Fall back to sk if locale has no content yet (e.g. cs stub).
+  // Fall back to sk if a locale has no content yet (a new language before its content exists).
   // Contract: a locale is considered "populated" when letterItems is non-empty.
   // When adding a new locale, populate letterItems first so this gate opens.
   const effective = data.LETTER_ITEMS.length > 0 ? data : LOCALE_MAP['sk'];

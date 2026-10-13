@@ -4,6 +4,7 @@ import {
   buildLetterChoices,
   getActiveFirstLetterLetters,
   getFirstSlovakLetterSymbol,
+  multiCharacterLetters,
 } from './firstLetterLogic';
 
 function assert(condition: boolean, message: string): void {
@@ -81,3 +82,11 @@ assert(
 );
 
 console.log('firstLetterLogic checks passed');
+
+// Czech has CH but no DŽ/DZ: "Džus" starts with D there, while Slovak treats DŽ as one letter.
+const czechAlphabet = ['D', 'Ž', 'U', 'S', 'C', 'H', 'CH'].map((symbol) => ({ symbol, label: '', emoji: '', audioKey: symbol.toLowerCase() }));
+const czechMultiCharacter = multiCharacterLetters(czechAlphabet);
+if (czechMultiCharacter.join() !== 'CH') throw new Error(`Czech multi-character letters should be CH only, got ${czechMultiCharacter.join()}`);
+if (getFirstSlovakLetterSymbol('Džus', ['D', 'Ž', 'U', 'S'], czechMultiCharacter) !== 'D') throw new Error('Czech Džus starts with D');
+if (getFirstSlovakLetterSymbol('Chleba', ['C', 'H', 'CH'], czechMultiCharacter) !== 'CH') throw new Error('Czech Chleba starts with CH');
+console.log('Czech first-letter checks passed');

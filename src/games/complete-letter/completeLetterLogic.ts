@@ -41,7 +41,11 @@ export function getActiveCompleteLetterLetters(letters: Letter[], includeAccents
   return includeAccents ? normalized : normalized.filter((letter) => !hasDiacritic(letter.symbol));
 }
 
-export function parseWordLetterUnits(word: string, activeLetters: Letter[]): string[] | null {
+export function parseWordLetterUnits(
+  word: string,
+  activeLetters: Letter[],
+  alphabetMultiCharacterLetters: string[] = SLOVAK_MULTI_CHARACTER_LETTERS,
+): string[] | null {
   const activeSymbols = new Set(normalizeLetters(activeLetters).map((letter) => letter.symbol));
   const orderedSymbols = Array.from(activeSymbols).sort((a, b) => b.length - a.length);
   const normalizedWord = normalizeLetter(word);
@@ -51,7 +55,7 @@ export function parseWordLetterUnits(word: string, activeLetters: Letter[]): str
   while (index < normalizedWord.length) {
     const rest = normalizedWord.slice(index);
     const match = orderedSymbols.find((symbol) => rest.startsWith(symbol))
-      ?? SLOVAK_MULTI_CHARACTER_LETTERS.find((symbol) => rest.startsWith(symbol));
+      ?? alphabetMultiCharacterLetters.find((symbol) => rest.startsWith(symbol));
 
     if (!match || !activeSymbols.has(match)) {
       return null;
@@ -96,10 +100,11 @@ export function createCompleteLetterRound(
   activeLetters: Letter[],
   missingCountMode: CompleteLetterMissingCount,
   random = Math.random,
+  alphabetMultiCharacterLetters: string[] = SLOVAK_MULTI_CHARACTER_LETTERS,
 ): CompleteLetterRound {
-  const units = parseWordLetterUnits(word.word, activeLetters);
+  const units = parseWordLetterUnits(word.word, activeLetters, alphabetMultiCharacterLetters);
   if (!units) {
-    throw new Error(`Word "${word.word}" cannot be split into active Slovak letter units.`);
+    throw new Error(`Word "${word.word}" cannot be split into active letter units.`);
   }
 
   const missingCount = resolveMissingCount(missingCountMode, units.length);
@@ -165,9 +170,10 @@ export function buildEligibleCompleteLetterWords(
 ): Word[] {
   const activeLetters = getActiveCompleteLetterLetters(letters, includeAccents);
   if (activeLetters.length < choiceCount) return [];
+  const alphabetMultiCharacterLetters = normalizeLetters(letters).map((letter) => letter.symbol).filter((symbol) => symbol.length > 1);
 
   return words.filter((word) => {
-    const units = parseWordLetterUnits(word.word, activeLetters);
+    const units = parseWordLetterUnits(word.word, activeLetters, alphabetMultiCharacterLetters);
     if (!units) return false;
     const missingCount = resolveMissingCount(missingCountMode, units.length);
     return missingCount > 0 && missingCount <= units.length;

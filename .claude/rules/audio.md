@@ -36,8 +36,8 @@ works with no audio at all — and why a typo in an `audioKey` is silent. Trust
 
 ## Custom content
 
-Default Slovak words live in `src/shared/locales/sk.ts`; `cs.ts` is a stub that
-falls back to Slovak. Parent-added words and praise live per locale in local
+Default words live in `src/shared/locales/sk.ts` and `cs.ts`; `npm run test:audio`
+checks both locales, and every Czech clip is listed as pending until recorded. Parent-added words and praise live per locale in local
 storage via `localContentRepository.ts`, and recorded overrides in IndexedDB via
 `audioOverrideStore.ts`. `/content` is the parent-facing surface for both;
 validation rules there have their own verifier.
