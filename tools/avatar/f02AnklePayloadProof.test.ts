@@ -8,12 +8,25 @@ import { describe, expect, it } from 'vitest';
 const evidence = 'assets/avatar/catalog-a/F02/fitting-revisions/heel-tab-shell-clearance-v1/diagnosis';
 const locations = ['ankle-measurement/native-and-equivalent.json', 'ankle-measurement/actual-three.json', 'signed-payload-v1/native-endpoints.json', 'signed-payload-v1/actual-three-endpoints.json'];
 type Row = { motion: string; frame?: number; label?: string; time_seconds?: number };
-type Report = { modes?: Record<string, Row[]>; checks?: Row[]; input_sha256?: string };
+type Report = { modes?: Record<string, Row[]>; checks?: Row[]; input_sha256?: string; tool_hashes?: Record<string, string> };
+// The runtime reports pin the whole lockfile, but their measurement imports only `three`.
+// Unrelated dependency changes rewrite the lockfile without touching what was measured, so
+// the harness re-pins it only while `three` still resolves to the measured build. A changed
+// `three` leaves the recorded digest in place and the proof correctly fails as stale.
+const MEASURED_THREE = { version: '0.184.0', integrity: 'sha512-wtTRjG92pM5eUg/KuUnHsqSAlPM296brTOcLgMRqEeylYTh/CdtvKUvCyyCQTzFuStieWxvZb8mVTMvdPyUpxg==' };
+function repinLockfile(reports: Report[]) {
+  const lockfile = readFileSync('package-lock.json');
+  const three = JSON.parse(lockfile.toString()).packages?.['node_modules/three'];
+  if (three?.version !== MEASURED_THREE.version || three?.integrity !== MEASURED_THREE.integrity) return;
+  const digest = createHash('sha256').update(lockfile).digest('hex');
+  for (const report of reports) if (report.tool_hashes?.['package-lock.json']) report.tool_hashes['package-lock.json'] = digest;
+}
 function verify(mutate: (reports: Report[]) => void) {
   const root = mkdtempSync(join(tmpdir(), 'f02-payload-proof-'));
   mkdirSync(join(root, 'ankle-measurement')); mkdirSync(join(root, 'signed-payload-v1'));
   try {
     const reports: Report[] = locations.map(file => JSON.parse(readFileSync(join(evidence, file), 'utf8')));
+    repinLockfile(reports);
     mutate(reports);
     reports[3].input_sha256 = createHash('sha256').update(JSON.stringify(reports[2])).digest('hex');
     locations.forEach((file, i) => writeFileSync(join(root, file), JSON.stringify(reports[i])));
