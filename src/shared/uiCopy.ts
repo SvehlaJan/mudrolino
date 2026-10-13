@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Locale-aware UI copy keys for the catalog/home/lobby redesign (Phase 3).
-// Slovak is the only populated locale today; `cs` is a stub that falls back
-// to Slovak for every key, matching src/shared/locales/cs.ts. Do not translate
-// the app in this phase — only add fallback plumbing.
+// Keyed UI copy for the home screen, game catalog, lobbies, game shell and the
+// newer parent cards. Every locale translates every key (uiCopy.verify.ts checks
+// it). Other UI text uses Slovak-keyed `t()` from src/shared/i18n.ts.
 
 const SK_COPY = {
   'home.title': 'Mudrolíno',
@@ -124,10 +123,119 @@ const SK_COPY = {
 
 export type UiCopyKey = keyof typeof SK_COPY;
 
-// Czech remains a stub. Translated keys are listed here; every other key
-// falls back to Slovak (see AGENTS.md).
-const CS_COPY: Partial<Record<UiCopyKey, string>> = {
+// Czech DRAFT (2026-10-14): written without native review; the user reviews it.
+const CS_COPY: Record<UiCopyKey, string> = {
+  'home.title': 'Mudrolíno',
+  'home.subtitle': 'Vyber si hru a jdeme na to!',
+
+  'lobby.play': 'Hrát',
+
+  'game.replayPrompt': 'Zopakovat zadání',
+  'game.promptSection': 'Zadání',
+  'game.replayingInstruction': 'Přehrávám zadání…',
+  'game.answerGroup': 'Možnosti odpovědi',
+  'game.playArea': 'Hrací plocha',
+  'game.continue': 'Pokračovat',
+  'game.playAgain': 'Hrát znovu',
+  'game.home': 'Domů',
+  'game.retryError': 'Zkusit znovu',
+  'game.progress': 'Postup ve hře',
+  'game.retryPrompt': 'Zkus to ještě jednou',
+  'game.piece.settledLabel': 'Uloženo',
+  'game.successTitle': 'Výborně!',
+  'game.failureTitle': 'Nevadí, jdeme dál',
+  'game.completionTitle': 'Konec hry',
+  'game.taps': 'klepnutí',
+  'game.paused': 'Hra je pozastavená.',
+  'game.parentPause': 'Rodičovská přestávka',
+  'game.unlock': 'Odemknout',
+
+  'game.retry.detail': 'Nevadí, poslouchej ještě jednou.',
+  'game.failure.detail': 'Správnou odpověď si ukážeme spolu.',
+  'game.error.title': 'Něco se nepovedlo.',
+  'game.error.detail': 'Zkusíme to ještě jednou?',
+  'game.error.emptyPool': 'Žádné položky na hraní.',
+
+  'category.literacy': 'Písmena a slova',
+  'category.numeracy': 'Čísla a počítání',
+
+  'game.alphabet.title': 'Abeceda',
+  'game.alphabet.description': 'Poznávej písmenka hravou formou',
+  'game.alphabet.instruction': 'Najdi správné písmenko.',
+
+  'game.syllables.title': 'Slabiky',
+  'game.syllables.description': 'Spojuj písmenka do slabik',
+  'game.syllables.instruction': 'Najdi správnou slabiku.',
+
+  'game.numbers.title': 'Čísla',
+  'game.numbers.description': 'Počítej s kamarády',
+  'game.numbers.instruction': 'Najdi správné číslo.',
+
+  'game.counting.title': 'Spočítej',
+  'game.counting.description': 'Kolik jablíček vidíš?',
+  'game.counting.instruction': 'Spočítej obrázky a vyber správné číslo.',
+
+  'game.compare.title': 'Víc nebo míň',
+  'game.compare.description': 'Kde je víc předmětů?',
   'game.compare.instruction': 'Kde je více?',
+
+  'game.addition.title': 'Sčítej',
+  'game.addition.description': 'Kolik je to dohromady?',
+  'game.addition.instruction': 'Spočítej, kolik je to dohromady.',
+
+  'game.words.title': 'Slova',
+  'game.words.description': 'Přečti slovo a najdi obrázek',
+  'game.words.instruction': 'Přečti slovo a najdi obrázek.',
+
+  'game.first-letter.title': 'První písmenko',
+  'game.first-letter.description': 'Poslouchej slovo a najdi první písmenko',
+  'game.first-letter.instruction': 'Poslouchej slovo a najdi jeho první písmenko.',
+
+  'game.assembly.title': 'Skládej',
+  'game.assembly.description': 'Poskládej slovo ze slabik',
+  'game.assembly.instruction': 'Poskládej slabiky do správného slova.',
+
+  'game.complete-syllable.title': 'Doplň slabiku',
+  'game.complete-syllable.description': 'Vyber slabiku, která chybí',
+  'game.complete-syllable.instruction': 'Vyber slabiku, která ve slově chybí.',
+
+  'game.complete-letter.title': 'Doplň písmeno',
+  'game.complete-letter.description': 'Doplň písmenko ve slově',
+  'game.complete-letter.instruction': 'Doplň písmenko, které ve slově chybí.',
+
+  'parent.share.title': 'Doporučit přátelům',
+  'parent.share.description': 'Pošlete odkaz na Mudrolíno dalším rodičům.',
+  'parent.share.message': 'Mudrolíno – hravé učení písmen, slabik a čísel pro předškoláky.',
+  'parent.share.copied': 'Odkaz je zkopírovaný. Vložte ho do zprávy.',
+  'parent.share.manual': 'Zkopírujte tento odkaz:',
+
+  'parent.backup.title': 'Záloha',
+  'parent.backup.description': 'Vlastní slova, pochvaly, nahrávky a nastavení jsou uložené jen v tomto zařízení. Uložte si zálohu a obnovte ji v novém telefonu nebo tabletu.',
+  'parent.backup.persisted': 'Prohlížeč tato data chrání před automatickým smazáním.',
+  'parent.backup.notPersisted': 'Prohlížeč může data při nedostatku místa smazat. Přidejte si aplikaci na plochu a ukládejte si zálohu.',
+  'parent.backup.export': 'Uložit zálohu',
+  'parent.backup.preparing': 'Připravuji zálohu…',
+  'parent.backup.saveFile': 'Odeslat nebo uložit soubor zálohy',
+  'parent.backup.exported': 'Záloha je uložená.',
+  'parent.backup.exportFailed': 'Zálohu se nepodařilo vytvořit. Zkuste to znovu.',
+  'parent.backup.import': 'Obnovit ze zálohy',
+  'parent.backup.fileLabel': 'Soubor zálohy',
+  'parent.backup.summary': 'Záloha z {date}: nahrávky {recordings}, vlastní slova {words}, vlastní pochvaly {praises}.',
+  'parent.backup.mergeHint': 'Data ze zálohy se spojí s tímto zařízením. Pokud je stejná položka na obou místech, zůstane novější.',
+  'parent.backup.confirm': 'Obnovit',
+  'parent.backup.cancel': 'Zrušit',
+  'parent.backup.restoring': 'Obnovuji zálohu…',
+  'parent.backup.restored': 'Záloha je obnovená.',
+  'parent.backup.invalid': 'Tento soubor není záloha Mudrolína.',
+  'parent.backup.restoreFailed': 'Zálohu se nepodařilo obnovit. Zkuste to znovu.',
+
+  'parent.about.title': 'O aplikaci',
+  'parent.about.version': 'Verze',
+  'parent.privacy.title': 'Soukromí',
+  'parent.privacy.local': 'Nastavení, vlastní slova a nahrávky zůstávají jen v tomto zařízení. Mikrofon se používá jen k nahrávání vašeho hlasu.',
+  'parent.privacy.feedback': 'Zpětná vazba se posílá přes službu Web3Forms spolu s verzí aplikace, typem prohlížeče a velikostí obrazovky.',
+  'parent.privacy.errors': 'Když aplikace narazí na chybu, odešle technické hlášení bez osobních údajů (Sentry, servery v EU).',
+  'parent.privacy.analytics': 'Návštěvnost měříme anonymně a bez cookies (Vercel Web Analytics).',
 };
 
 const COPY_BY_LOCALE: Record<string, Partial<Record<UiCopyKey, string>>> = {

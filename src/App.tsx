@@ -92,9 +92,13 @@ export default function App() {
     }
   }, [location.pathname]);
 
-  // Sync locale with AudioManager
+  // Sync locale with AudioManager and the document, so screen readers and
+  // hyphenation use the family's language.
   useEffect(() => {
     audioManager.updateLocale(appSettings.locale);
+  }, [appSettings.locale]);
+  useLayoutEffect(() => {
+    document.documentElement.lang = appSettings.locale;
   }, [appSettings.locale]);
 
   // Audio unlocker for browsers that require a user gesture

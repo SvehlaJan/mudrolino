@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { detectLocale, isSupportedLocale } from '../i18n';
 import { writeSettingsStamp } from './userData/syncMetadata';
 
 export const APP_SETTINGS_STORAGE_KEY = 'hrave-ucenie-app-settings';
@@ -18,7 +19,7 @@ export interface AppSettingsStorage {
 export type AppFontFamily = 'nunito' | 'shantell';
 
 export interface AppSettings {
-  locale: string; // BCP 47: 'sk' | 'cs' | 'en' | 'fr' | ...
+  locale: string; // one of SUPPORTED_LOCALES in src/shared/i18n.ts
   fontFamily: AppFontFamily;
 }
 
@@ -35,14 +36,20 @@ function getDefaultStorage(): AppSettingsStorage | null {
   }
 }
 
+/** First start: Czech browsers get Czech, everyone else Slovak. */
+function firstStartSettings(): AppSettings {
+  const languages = typeof navigator === 'undefined' ? [] : navigator.languages ?? [navigator.language];
+  return { ...DEFAULT_APP_SETTINGS, locale: detectLocale(languages) };
+}
+
 export function loadAppSettings(storage: AppSettingsStorage | null = getDefaultStorage()): AppSettings {
   try {
-    if (!storage) return DEFAULT_APP_SETTINGS;
+    if (!storage) return firstStartSettings();
     const raw = storage.getItem(STORAGE_KEY);
-    if (!raw) return DEFAULT_APP_SETTINGS;
+    if (!raw) return firstStartSettings();
     const stored = JSON.parse(raw) as Record<string, unknown>;
     return {
-      locale: typeof stored.locale === 'string' ? stored.locale : DEFAULT_APP_SETTINGS.locale,
+      locale: isSupportedLocale(stored.locale) ? stored.locale : DEFAULT_APP_SETTINGS.locale,
       fontFamily: stored.fontFamily === 'shantell' ? 'shantell' : DEFAULT_APP_SETTINGS.fontFamily,
     };
   } catch {

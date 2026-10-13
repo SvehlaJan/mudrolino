@@ -46,6 +46,34 @@ test.describe('Parent dashboard and game settings', () => {
     expectNoFailedRequests(failedRequests);
   });
 
+  test('parents switch the app language, which persists and changes the whole app', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    await page.goto('/settings/app');
+    await unlockParentGate(page);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'sk');
+
+    await page.getByRole('radio', { name: 'Čeština' }).click();
+    await expect(page.getByText('Aplikace a vzhled', { exact: true })).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'cs');
+
+    await page.goto('/');
+    await expect(page.getByText('Vyber si hru a jdeme na to!')).toBeVisible();
+    expect(await page.evaluate(() => JSON.parse(localStorage.getItem('hrave-ucenie-app-settings') ?? '{}').locale)).toBe('cs');
+    expectNoConsoleErrors(errors);
+  });
+
+  test('a Czech browser starts in Czech on first visit', async ({ browser, baseURL }) => {
+    const context = await browser.newContext({ baseURL, locale: 'cs-CZ' });
+    try {
+      const page = await context.newPage();
+      await page.goto('/');
+      await expect(page.locator('html')).toHaveAttribute('lang', 'cs');
+      await expect(page.getByText('Vyber si hru a jdeme na to!')).toBeVisible();
+    } finally {
+      await context.close();
+    }
+  });
+
   test('app settings show the privacy note and the build version', async ({ page }) => {
     await page.goto('/settings/app');
     await unlockParentGate(page);

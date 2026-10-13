@@ -85,10 +85,18 @@ phrase on a wrong answer. Never reintroduce per-game "Toto je …" phrasing and
 never put praise before the item. Assembly is the one exception and keeps its
 own bespoke wrong-answer audio.
 
-**Content**: Slovak defaults live in `src/shared/locales/sk.ts`; Czech is a stub
-that falls back to Slovak. Parents add words, praise, and recorded audio
-overrides locally through `/content`. Custom audio beats bundled MP3, which
-beats TTS.
+**Content**: Slovak and Czech defaults live in `src/shared/locales/sk.ts` and
+`cs.ts` (Czech is a draft awaiting the user's review and recordings). Parents add
+words, praise, and recorded audio overrides locally per language through
+`/content`. Custom audio beats bundled MP3, which beats TTS.
+
+**UI text**: game and home text uses keys in `src/shared/uiCopy.ts`. Other UI text
+is written in Slovak and wrapped in `t('…')` from `useT()`, or marked with
+`msg('…')` where it is defined outside a component and translated where shown
+(`src/shared/i18n.ts`). Czech goes in `src/shared/locales/cs.ui.ts`, keyed by the
+Slovak text; `src/shared/i18n.test.ts` fails on any marked string without a
+translation. Never build UI text with template literals inside `t()`; use
+`{placeholders}`.
 
 Do not start a broad UI redesign unless the task asks for one. Prefer shared
 component consistency over preserving old one-off spacing, color, or radii.

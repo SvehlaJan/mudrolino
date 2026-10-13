@@ -130,7 +130,7 @@ test.describe('Game lobby semantic contract', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('lobby sources locale from ContentContext and preserves Czech fallback', async ({ page }) => {
+  test('lobby sources locale from ContentContext and shows Czech copy', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
@@ -145,8 +145,9 @@ test.describe('Game lobby semantic contract', () => {
     const main = page.getByRole('main');
     await expect(page.getByTestId('lobby-body')).toHaveAttribute('data-locale', 'cs');
     await expect(main.getByRole('heading', { level: 1 })).toHaveText('Abeceda');
-    await expect(main.getByTestId('lobby-instruction')).toHaveText('Nájdi správne písmenko.');
-    await expect(main.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expect(main.getByTestId('lobby-instruction')).toHaveText('Najdi správné písmenko.');
+    await expect(main.getByRole('button', { name: 'Hrát' })).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'cs');
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

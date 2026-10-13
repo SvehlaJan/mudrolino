@@ -10,4 +10,14 @@
  * marked Slovak string without an entry here and on entries nothing uses.
  */
 export const CS_TRANSLATIONS: Record<string, string> = {
+  // Parent zone: app settings
+  'Rodičovská zóna': 'Rodičovská zóna',
+  'Aplikácia a vzhľad': 'Aplikace a vzhled',
+  'Jazyk': 'Jazyk',
+  'Jazyk hier, zvukov a celej aplikácie. Vlastné slová a nahrávky sa ukladajú pre každý jazyk zvlášť.':
+    'Jazyk her, zvuků a celé aplikace. Vlastní slova a nahrávky se ukládají pro každý jazyk zvlášť.',
+  'Písmo': 'Písmo',
+  'Štýl písma v celej aplikácii.': 'Styl písma v celé aplikaci.',
+  'Zaoblené (Nunito)': 'Zaoblené (Nunito)',
+  'Hravé (Shantell)': 'Hravé (Shantell)',
 };

@@ -1,30 +1,28 @@
 import { GAME_DEFINITIONS } from './gameCatalog';
-import { getUiCopy } from './uiCopy';
+import { formatUiCopy, getUiCopy, type UiCopyKey } from './uiCopy';
 
 if (getUiCopy('sk', 'category.literacy') !== 'Písmená a slová') {
   throw new Error('Slovak literacy label missing');
 }
-if (getUiCopy('cs', 'game.alphabet.title') !== 'Abeceda') {
-  throw new Error('Stub locale must fall back to Slovak');
-}
 
-// Every game definition title, instruction, and play button must resolve and fall back in Czech
+// Every game definition title, description and instruction resolves in both languages.
 for (const game of GAME_DEFINITIONS) {
-  const skTitle = getUiCopy('sk', game.titleKey);
-  const csTitle = getUiCopy('cs', game.titleKey);
-  if (!csTitle || csTitle !== skTitle) {
-    throw new Error(`Czech title fallback missing or mismatch for ${game.id}`);
-  }
-  const skInstruction = getUiCopy('sk', game.instructionKey);
-  const csInstruction = getUiCopy('cs', game.instructionKey);
-  const expectedCsInstruction = game.id === 'COMPARE_QUANTITIES' ? 'Kde je více?' : skInstruction;
-  if (!csInstruction || csInstruction !== expectedCsInstruction) {
-    throw new Error(`Czech instruction fallback missing or mismatch for ${game.id}`);
+  for (const key of [game.titleKey, game.instructionKey] as UiCopyKey[]) {
+    if (!getUiCopy('sk', key) || !getUiCopy('cs', key)) {
+      throw new Error(`Copy missing for ${game.id}: ${key}`);
+    }
   }
 }
 
-if (getUiCopy('cs', 'lobby.play') !== 'Hrať') {
-  throw new Error('Czech lobby.play fallback missing or mismatch');
+// Czech is translated, not a Slovak fallback.
+const czechSamples: Array<[UiCopyKey, string]> = [
+  ['lobby.play', 'Hrát'],
+  ['game.alphabet.instruction', 'Najdi správné písmenko.'],
+  ['game.compare.instruction', 'Kde je více?'],
+  ['game.home', 'Domů'],
+];
+for (const [key, expected] of czechSamples) {
+  if (getUiCopy('cs', key) !== expected) throw new Error(`Czech copy for ${key} should be "${expected}", got "${getUiCopy('cs', key)}"`);
 }
 
 const gameShellCopy = {
@@ -55,14 +53,19 @@ const gameShellCopy = {
 } as const;
 
 for (const [key, expected] of Object.entries(gameShellCopy) as Array<[keyof typeof gameShellCopy, string]>) {
-  if (getUiCopy('sk', key) !== expected || getUiCopy('cs', key) !== expected) {
-    throw new Error(`Game shell copy or Czech fallback missing for ${key}`);
+  if (getUiCopy('sk', key) !== expected) {
+    throw new Error(`Slovak game shell copy changed for ${key}`);
   }
 }
 
-// Arbitrary unknown locale also falls back to Slovak
+// An unknown locale falls back to Slovak.
 if (getUiCopy('unknown-locale', 'game.alphabet.title') !== 'Abeceda') {
   throw new Error('Unknown locale must fall back to Slovak');
 }
 
-console.log('✓ UI copy fallback passed');
+if (formatUiCopy('cs', 'parent.backup.summary', { date: '1. 1.', recordings: 2, words: 3, praises: 4 })
+  !== 'Záloha z 1. 1.: nahrávky 2, vlastní slova 3, vlastní pochvaly 4.') {
+  throw new Error('Placeholders must be filled in the translated text');
+}
+
+console.log('✓ UI copy translation passed');
