@@ -114,6 +114,7 @@ export const AUDIO_PHRASES: Record<AudioPhraseKey, AudioPhrase> = {
   correctAnswerIs:   { text: 'Správna odpoveď je', audioKey: 'spravna-odpoved' },
   whereIsMore:       { text: 'Kde je viac?',        audioKey: 'kde-je-viac' },
   howManyTogether:   { text: 'Koľko je dokopy?',    audioKey: 'kolko-je-dokopy' },
+  whichLetterStarts: { text: 'Na aké písmenko sa začína?', audioKey: 'na-ake-pismenko-sa-zacina' },
 };
 
 export const PRAISE_ENTRIES: PraiseEntry[] = [

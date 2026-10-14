@@ -6,6 +6,7 @@
 import React from 'react';
 import { GameDescriptor, Letter } from '../../shared/types';
 import { getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { translate } from '../../shared/i18n';
 
 export function createAlphabetDescriptor(
   gridSize: 4 | 6 | 8,
@@ -14,11 +15,11 @@ export function createAlphabetDescriptor(
 ): GameDescriptor<Letter> {
   return {
     gridSize,
-    instruction: 'Nájdi písmeno, ktoré počuješ.',
+    instruction: translate(locale, 'Nájdi písmeno, ktoré počuješ.'),
     material: 'wood',
     getItems: () => letterItems,
     getItemId: (l) => l.symbol,
-    getAccessibleLabel: (l) => `Písmeno ${l.symbol}`,
+    getAccessibleLabel: (l) => translate(locale, 'Písmeno {letter}', { letter: l.symbol }),
     renderCard: (l) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{l.symbol}</span>
     ),
@@ -32,15 +33,15 @@ export function createAlphabetDescriptor(
     getCorrectAudio: (l) => getItemAnnouncementAudio(locale, 'letters', l.audioKey, l.symbol),
     getWrongAudio: (_t, s) => getWrongAnswerAudio(locale, 'letters', s.audioKey, s.symbol),
     getSuccessSpec: (l) => ({
-      echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
+      echoLine: translate(locale, '{letter} ako {word} {emoji}', { letter: l.symbol, word: l.label, emoji: l.emoji }),
     }),
     getFailureSpec: (l) => ({
-      echoLine: `${l.symbol} ako ${l.label} ${l.emoji}`,
+      echoLine: translate(locale, '{letter} ako {word} {emoji}', { letter: l.symbol, word: l.label, emoji: l.emoji }),
       audioSpec: {
         clips: [
           getPhraseClip(locale, 'neverMind'),
           getPhraseClip(locale, 'itIs'),
-          { path: `${locale}/letters/${l.audioKey}`, fallbackText: `${l.symbol} ako ${l.label}` },
+          { path: `${locale}/letters/${l.audioKey}`, fallbackText: translate(locale, '{letter} ako {word}', { letter: l.symbol, word: l.label }) },
         ],
       },
     }),

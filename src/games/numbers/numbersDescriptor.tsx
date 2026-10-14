@@ -6,6 +6,7 @@
 import React from 'react';
 import { GameDescriptor, NumberItem } from '../../shared/types';
 import { getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { translate } from '../../shared/i18n';
 
 export function createNumbersDescriptor(
   range: { start: number; end: number },
@@ -14,11 +15,11 @@ export function createNumbersDescriptor(
 ): GameDescriptor<NumberItem> {
   return {
     gridSize: 4,
-    instruction: 'Nájdi číslo, ktoré počuješ.',
+    instruction: translate(locale, 'Nájdi číslo, ktoré počuješ.'),
     material: 'wood',
     getItems: () => numberItems,
     getItemId: (n) => String(n.value),
-    getAccessibleLabel: (n) => `Číslo ${n.value}`,
+    getAccessibleLabel: (n) => translate(locale, 'Číslo {number}', { number: n.value }),
     renderCard: (n) => (
       <span className="text-[clamp(2.25rem,7vw,5rem)] font-bold font-spline leading-none">{n.value}</span>
     ),
@@ -32,15 +33,15 @@ export function createNumbersDescriptor(
     getCorrectAudio: (n) => getItemAnnouncementAudio(locale, 'numbers', n.audioKey, String(n.value)),
     getWrongAudio: (_t, s) => getWrongAnswerAudio(locale, 'numbers', s.audioKey, String(s.value)),
     getSuccessSpec: (n) => ({
-      echoLine: `Číslo ${n.value} 🎉`,
+      echoLine: `${translate(locale, 'Číslo {number}', { number: n.value })} 🎉`,
     }),
     getFailureSpec: (n) => ({
-      echoLine: `Číslo ${n.value} 🎉`,
+      echoLine: `${translate(locale, 'Číslo {number}', { number: n.value })} 🎉`,
       audioSpec: {
         clips: [
           getPhraseClip(locale, 'neverMind'),
           getPhraseClip(locale, 'itIs'),
-          { path: `${locale}/numbers/${n.audioKey}`, fallbackText: `číslo ${n.value}` },
+          { path: `${locale}/numbers/${n.audioKey}`, fallbackText: translate(locale, 'číslo {number}', { number: n.value }) },
         ],
       },
     }),

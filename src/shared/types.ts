@@ -150,7 +150,7 @@ export type AudioPhraseKey =
   | 'findLetter' | 'thisIsLetter' | 'thisIsSyllable' | 'thisIsWord'
   | 'countItems' | 'whatIsWrittenHere' | 'orderSyllables'
   | 'retry' | 'neverMind' | 'itIs' | 'yesThereAre' | 'noThereAre' | 'correctAnswerIs' | 'whereIsMore'
-  | 'howManyTogether';
+  | 'howManyTogether' | 'whichLetterStarts';
 
 // ---------------------------------------------------------------------------
 // User-managed content — stored in LocalContentRepository, seeded from defaults

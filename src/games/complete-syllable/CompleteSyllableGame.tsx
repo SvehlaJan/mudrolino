@@ -12,6 +12,8 @@ import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverl
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useT } from '../../shared/hooks/useT';
+import { msg, type Translate } from '../../shared/i18n';
 import { useTileTransfer } from '../../shared/game/motion/useTileTransfer';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
@@ -39,8 +41,8 @@ import {
   createCompleteSyllableRound,
 } from './completeSyllableLogic';
 
-const INSTRUCTION = 'Doplň chýbajúcu slabiku';
-const ANSWER_GROUP_LABEL = 'Vyber chýbajúcu slabiku';
+const INSTRUCTION = msg('Doplň chýbajúcu slabiku');
+const ANSWER_GROUP_LABEL = msg('Vyber chýbajúcu slabiku');
 const CHOICE_COUNT = 4;
 
 const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
@@ -141,9 +143,9 @@ function getAnswerPieceState(state: GameState, answerId: string): TactilePieceSt
   return undefined;
 }
 
-function getInsetLabel(slot: CompleteSyllableSlot): string {
-  if (slot.isMissing && slot.text === '__') return 'Chýbajúca slabika';
-  return `Slabika ${slot.text}`;
+function getInsetLabel(slot: CompleteSyllableSlot, t: Translate): string {
+  if (slot.isMissing && slot.text === '__') return t('Chýbajúca slabika');
+  return t('Slabika {syllable}', { syllable: slot.text });
 }
 
 interface CompleteSyllablePlayfieldProps {
@@ -154,6 +156,7 @@ interface CompleteSyllablePlayfieldProps {
 
 function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: CompleteSyllablePlayfieldProps) {
   const { locale, praiseEntries } = useContent();
+  const t = useT();
   const isEmpty = eligibleWords.length === 0;
 
   const [{ roundState }, setSession] = useState<{ roundState: RoundState; roundQueue: Word[] }>(() => {
@@ -323,12 +326,12 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       onRetryError={retryAfterError}
       prompt={
         <GamePrompt
-          instruction={INSTRUCTION}
+          instruction={t(INSTRUCTION)}
           visual={
             targetRound ? (
               <div className="flex w-full flex-col items-center gap-3 [@media(max-height:480px)]:gap-0 [@media(max-width:380px)]:gap-1">
                 <PictureCard emoji={targetRound.word.emoji} label={targetRound.word.word} />
-                <WordRail label={`Slovo ${targetRound.word.word}`}>
+                <WordRail label={t('Slovo {word}', { word: targetRound.word.word })}>
                   {slots.map((slot, index) => (
                     <React.Fragment key={`${slot.text}-${index}`}>
                       {index > 0 && (
@@ -340,7 +343,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
                         </li>
                       )}
                       <InsetSlot
-                        label={getInsetLabel(slot)}
+                        label={getInsetLabel(slot, t)}
                         fitContents={slot.isMissing ? choices.map(choice => choice.symbol) : undefined}
                         state={slot.isMissing ? (revealed ? 'filled' : 'active') : 'fixed'}
                       >
@@ -360,14 +363,14 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       completion={completion}
     >
       <PlayTray label={getUiCopy(locale, 'game.playArea')}>
-        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer || tileMoving}>
+        <AnswerGroup label={t(ANSWER_GROUP_LABEL)} disabled={!canAnswer || tileMoving}>
           {choices.map((syllable) => (
             <TactilePiece
               key={syllable.symbol}
               as="button"
               material="felt"
               visualRole="answer"
-              label={`Slabika ${syllable.symbol}`}
+              label={t('Slabika {syllable}', { syllable: syllable.symbol })}
               data-answer-id={syllable.symbol}
               state={getAnswerPieceState(state, syllable.symbol)}
               onPress={() => void chooseAnswer(syllable)}
@@ -386,6 +389,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
 
 export function CompleteSyllableGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, syllableItems } = useContent();
+  const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
   const eligibleWords = useMemo(
@@ -408,7 +412,7 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: GameRuntimeProp
     <GameLobby
       gameId="COMPLETE_SYLLABLE"
       availabilityMessage={
-        isPlayable ? undefined : 'Pridajte slová s dvomi až štyrmi slabikami.'
+        isPlayable ? undefined : t('Pridajte slová s dvomi až štyrmi slabikami.')
       }
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}

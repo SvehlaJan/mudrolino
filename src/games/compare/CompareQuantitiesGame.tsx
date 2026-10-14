@@ -12,6 +12,8 @@ import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverl
 import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useT } from '../../shared/hooks/useT';
+import { msg } from '../../shared/i18n';
 import {
   BalancePlayfield,
   GamePrompt,
@@ -32,7 +34,7 @@ import {
 } from './compareLogic';
 
 const MAX_ROUNDS = 5;
-const RETRY_TITLE = 'Skús druhú skupinu.';
+const RETRY_TITLE = msg('Skús druhú skupinu.');
 const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
 interface RoundState extends ComparisonRound {
@@ -67,6 +69,7 @@ interface ComparePlayfieldProps {
 
 function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProps) {
   const { locale, praiseEntries } = useContent();
+  const t = useT();
   const isEmpty = availableItems.length < 2;
   const lastPairKeyRef = useRef<string | null>(null);
   const [round, setRound] = useState<RoundState | null>(() => {
@@ -190,7 +193,7 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
         onContinue: continueAfterFeedback,
       }
     : state.phase === 'answered-incorrectly' || (state.phase === 'awaiting-answer' && wrongSide !== null)
-    ? { kind: 'retry', title: RETRY_TITLE }
+    ? { kind: 'retry', title: t(RETRY_TITLE) }
     : null;
 
   const completion: GameShellCompletion = {
@@ -202,8 +205,8 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
     onHome: onExit,
   };
 
-  const leftLabel = round ? `Skupina so ${round.left.value} predmetmi` : 'Ľavá skupina';
-  const rightLabel = round ? `Skupina so ${round.right.value} predmetmi` : 'Pravá skupina';
+  const leftLabel = round ? t('Skupina so {count} predmetmi', { count: round.left.value }) : t('Ľavá skupina');
+  const rightLabel = round ? t('Skupina so {count} predmetmi', { count: round.right.value }) : t('Pravá skupina');
 
   return (
     <GameShell

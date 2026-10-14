@@ -6,11 +6,12 @@
 import React from 'react';
 import { GameDescriptor, Word } from '../../shared/types';
 import { getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
+import { translate } from '../../shared/i18n';
 
 export function createWordsDescriptor(wordItems: Word[], locale: string): GameDescriptor<Word> {
   return {
     gridSize: 6,
-    instruction: 'Nájdi obrázok k slovu.',
+    instruction: translate(locale, 'Nájdi obrázok k slovu.'),
     material: 'picture',
     getItems: () => wordItems,
     getItemId: (w) => w.word,

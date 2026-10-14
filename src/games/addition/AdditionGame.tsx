@@ -10,14 +10,16 @@ import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswe
 import { setE2EState } from '../../shared/services/e2eState';
 import { additionRangeForcesNumerals } from '../../shared/settings/settingsRegistry';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useT } from '../../shared/hooks/useT';
+import { msg } from '../../shared/i18n';
 import { AnswerGroup, GamePrompt, GameShell, PlayTray, QuantityTray, TactilePiece, useGameSession, useGameSessionAudio, type GameShellCompletion, type GameShellFeedback, type GameState, type TactilePieceState } from '../../shared/game';
 import { buildAnswerOptions, createAdditionProblem, pairKey } from './additionLogic';
 
 const MAX_ROUNDS = 5;
 const MAX_ATTEMPTS = 3;
 const OPTION_COUNT = 4;
-const INSTRUCTION = 'Koľko je spolu?';
-const ANSWER_GROUP_LABEL = 'Vyber súčet';
+const INSTRUCTION = msg('Koľko je spolu?');
+const ANSWER_GROUP_LABEL = msg('Vyber súčet');
 const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
 interface AdditionRound { a: NumberItem; b: NumberItem; sum: NumberItem; options: NumberItem[]; emoji: string; }
@@ -63,6 +65,7 @@ interface AdditionPlayfieldProps { sumRange: 5 | 10 | 20 | 100; representation: 
 
 function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfieldProps) {
   const { locale, praiseEntries } = useContent();
+  const t = useT();
   const effectiveRepresentation = additionRangeForcesNumerals(sumRange) ? 'numerals' : representation;
   const lastPairKeyRef = useRef<string | null>(null);
   const [round, setRound] = useState<AdditionRound>(() => createRound(sumRange, lastPairKeyRef));
@@ -106,18 +109,18 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
     ? { kind: 'retry', title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
     : null;
   const completion: GameShellCompletion = { praise: completionPraise, correctRounds: state.correctRounds, totalTaps: state.totalTaps, maxRounds: state.maxRounds, onPlayAgain: playAgain, onHome: onExit };
-  const equationLabel = `${round.a.value} plus ${round.b.value} sa rovná koľko?`;
+  const equationLabel = t('{a} plus {b} sa rovná koľko?', { a: round.a.value, b: round.b.value });
 
   return (
-    <GameShell gameId="ADDITION" state={state} onBack={onExit} prompt={<GamePrompt instruction={INSTRUCTION} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
+    <GameShell gameId="ADDITION" state={state} onBack={onExit} prompt={<GamePrompt instruction={t(INSTRUCTION)} replaying={replaying} onReplay={handleReplay} />} feedback={feedback} completion={completion}>
       <div className="flex min-h-0 flex-1 flex-col gap-2 [@media(max-height:480px)]:gap-1">
         <section data-testid="addition-equation" aria-label={equationLabel} className="flex h-[min(29vh,168px)] min-h-[92px] shrink-0 items-stretch justify-center gap-2 rounded-[28px] border border-shadow/15 bg-bg-light/35 p-2 [@media(max-height:480px)]:min-h-[76px] [@media(max-height:480px)]:p-1">
-          <QuantityTray count={round.a.value} emoji={round.emoji} mode={effectiveRepresentation} label={`Prvý sčítanec: ${round.a.value} predmetov`} className="min-w-0 flex-1 rounded-2xl bg-white/60" />
+          <QuantityTray count={round.a.value} emoji={round.emoji} mode={effectiveRepresentation} label={t('Prvý sčítanec: {count} predmetov', { count: round.a.value })} className="min-w-0 flex-1 rounded-2xl bg-white/60" />
           <span data-testid="addition-plus" aria-hidden="true" className="grid shrink-0 place-items-center font-spline text-3xl font-black text-text-main/60 sm:text-5xl">+</span>
-          <QuantityTray count={round.b.value} emoji={round.emoji} mode={effectiveRepresentation} label={`Druhý sčítanec: ${round.b.value} predmetov`} className="min-w-0 flex-1 rounded-2xl bg-white/60" />
+          <QuantityTray count={round.b.value} emoji={round.emoji} mode={effectiveRepresentation} label={t('Druhý sčítanec: {count} predmetov', { count: round.b.value })} className="min-w-0 flex-1 rounded-2xl bg-white/60" />
         </section>
-        <PlayTray label="Odpovede" density="compact" sizing="content">
-          <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer} orientation="horizontal" choiceLayout="tiles">
+        <PlayTray label={t('Odpovede')} density="compact" sizing="content">
+          <AnswerGroup label={t(ANSWER_GROUP_LABEL)} disabled={!canAnswer} orientation="horizontal" choiceLayout="tiles">
             {round.options.map(option => {
               const answerId = String(option.value);
               return <TactilePiece key={answerId} as="button" material="wood" visualRole="answer" label={answerId} data-answer-id={answerId} state={getAnswerPieceState(state, answerId)} onPress={() => void chooseAnswer(option)}><span className="font-spline text-[clamp(1.5rem,calc(var(--tile-size)*0.55),4rem)] leading-none">{option.value}</span></TactilePiece>;

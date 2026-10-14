@@ -7,7 +7,6 @@ import React from 'react';
 import { Volume2 } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { cx } from '../ui/utils';
-import { useT } from '../hooks/useT';
 
 interface AuditoryPromptBadgeProps {
   isPlaying: boolean;
@@ -20,12 +19,10 @@ interface AuditoryPromptBadgeProps {
 export function AuditoryPromptBadge({
   isPlaying,
   onReplay,
-  label,
+  label = 'Počúvaj',
   ariaLabel,
   className,
 }: AuditoryPromptBadgeProps) {
-  const t = useT();
-  const visibleLabel = label ?? t('Počúvaj');
   return (
     <Card
       role="button"
@@ -37,7 +34,7 @@ export function AuditoryPromptBadge({
           onReplay();
         }
       }}
-      aria-label={ariaLabel ?? t('Prehrať zadanie znova')}
+      aria-label={ariaLabel ?? 'Prehrať zadanie znova'}
       className={cx(
         'relative inline-flex items-center gap-3 !rounded-[28px] sm:!rounded-[36px] !px-6 !py-3 sm:!px-8 sm:!py-4 !shadow-block cursor-pointer select-none transition-transform active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40',
         className
@@ -61,7 +58,7 @@ export function AuditoryPromptBadge({
       </div>
 
       <span className="font-spline text-lg sm:text-xl font-bold text-text-main">
-        {visibleLabel}
+        {label}
       </span>
     </Card>
   );

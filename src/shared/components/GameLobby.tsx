@@ -12,6 +12,7 @@ import { getUiCopy } from '../uiCopy';
 import { useContentLocale } from '../contexts/ContentContext';
 import { AppScreen, BackButton, Button, IconButton, TopBar } from '../ui';
 import { useAppScreenLayout } from '../ui/appScreenLayout';
+import { translate } from '../i18n';
 
 export interface GameLobbyProps {
   gameId: GameId;
@@ -137,7 +138,7 @@ export function GameLobby({
     <IconButton
       ref={settingsButtonRef}
       onClick={onOpenSettings}
-      label="Nastavenia"
+      label={translate(locale, 'Nastavenia')}
       tone="neutral"
       size="child"
     >

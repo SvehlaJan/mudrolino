@@ -16,6 +16,8 @@ import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverl
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useT } from '../../shared/hooks/useT';
+import { msg } from '../../shared/i18n';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
   AnswerGroup,
@@ -43,8 +45,8 @@ import {
 } from './assemblyLogic';
 import { getAssemblySelectionAudioDecision } from './assemblyAudioLogic';
 
-const INSTRUCTION = 'Usporiadaj slabiky';
-const ANSWER_GROUP_LABEL = 'Zásobník slabík';
+const INSTRUCTION = msg('Usporiadaj slabiky');
+const ANSWER_GROUP_LABEL = msg('Zásobník slabík');
 const MAX_ROUNDS = 5;
 const TILE_FLIGHT_DURATION_S = 0.62;
 const REDUCED_MOTION_FADE_MS = 220;
@@ -163,6 +165,7 @@ interface AssemblyPlayfieldProps {
 
 function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
   const { locale, praiseEntries } = useContent();
+  const t = useT();
   const isEmpty = eligibleWords.length === 0;
   const prefersReducedMotion = useReducedMotion();
 
@@ -568,7 +571,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       onRetryError={retryAfterError}
       prompt={
         <GamePrompt
-          instruction={INSTRUCTION}
+          instruction={t(INSTRUCTION)}
           visual={
             targetWord ? (
               <div
@@ -580,14 +583,14 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                   className="w-full"
                   onKeyDown={(event) => handleRailKeyDown(event, railRegionRef.current)}
                 >
-                  <WordRail label={`Slovo ${targetWord.word}`}>
+                  <WordRail label={t('Slovo {word}', { word: targetWord.word })}>
                     {placedTiles.map((tile, index) => {
                       const isMoving = tile ? animatingTileIds.includes(tile.id) : false;
                       const isEntering = tile ? enteringTileIds.includes(tile.id) : false;
                       return (
                         <InsetSlot
                           key={`assembly-slot-${index}`}
-                          label={tile ? `Slabika ${index + 1}: ${tile.text}` : `Slabika ${index + 1}: prázdne`}
+                          label={tile ? t('Slabika {position}: {syllable}', { position: index + 1, syllable: tile.text }) : t('Slabika {position}: prázdne', { position: index + 1 })}
                           state={tile ? 'filled' : 'pending'}
                           fitContents={correctSyllables.map(renderTileLabel)}
                           style={{ height: 'var(--assembly-slot-height)', fontSize: 'var(--assembly-label-size)' }}
@@ -599,7 +602,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                               material="felt"
                               visualRole="answer"
                               className="h-full w-full min-h-0 min-w-0 p-0"
-                              label={`Umiestnená slabika ${tile.text}, klepnutím vrátiš do zásobníka`}
+                              label={t('Umiestnená slabika {syllable}, klepnutím vrátiš do zásobníka', { syllable: tile.text })}
                               data-tile-id={tile.id}
                               state={getTilePieceState(state, tile.id)}
                               disabled={!canAnswer || isMoving}
@@ -636,7 +639,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     >
       <div ref={trayRegionRef} className="flex min-h-0 flex-1 flex-col">
         <PlayTray label={getUiCopy(locale, 'game.playArea')}>
-          <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer || animatingTileIds.length > 0}>
+          <AnswerGroup label={t(ANSWER_GROUP_LABEL)} disabled={!canAnswer || animatingTileIds.length > 0}>
             {traySlots.map(({ trayIndex, tile }) => {
               if (!tile) {
                 return (
@@ -658,7 +661,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                   as="button"
                   material="felt"
                   visualRole="answer"
-                  label={`Slabika ${tile.text}`}
+                  label={t('Slabika {syllable}', { syllable: tile.text })}
                   data-tile-id={tile.id}
                   data-tray-index={trayIndex}
                   state={getTilePieceState(state, tile.id)}
@@ -689,6 +692,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
 
 export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems } = useContent();
+  const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
   const eligibleWords = useMemo(
@@ -708,7 +712,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
     <GameLobby
       gameId="ASSEMBLY"
       availabilityMessage={
-        isPlayable ? undefined : 'Pridajte slová so slabikami v sekcii Obsah'
+        isPlayable ? undefined : t('Pridajte slová so slabikami v sekcii Vlastný obsah.')
       }
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}

@@ -43,6 +43,7 @@
 
     { "path": "sk/phrases/kde-je-viac.mp3", "reason": "Recording is pending before deployment." },
     { "path": "sk/phrases/kolko-je-dokopy.mp3", "reason": "Recording is pending before deployment." },
+    { "path": "sk/phrases/na-ake-pismenko-sa-zacina.mp3", "reason": "First-letter prompt, now a tracked phrase; recording is pending before deployment." },
 
     {"path":"cs/letters/a.mp3","reason":"Czech recording pending; the user records it before deployment."},
     {"path":"cs/letters/a-acute.mp3","reason":"Czech recording pending; the user records it before deployment."},
@@ -241,6 +242,7 @@
     {"path":"cs/phrases/ne-je-jich.mp3","reason":"Czech recording pending; the user records it before deployment."},
     {"path":"cs/phrases/spravna-odpoved.mp3","reason":"Czech recording pending; the user records it before deployment."},
     {"path":"cs/phrases/kde-je-vice.mp3","reason":"Czech recording pending; the user records it before deployment."},
-    {"path":"cs/phrases/kolik-je-dohromady.mp3","reason":"Czech recording pending; the user records it before deployment."}
+    {"path":"cs/phrases/kolik-je-dohromady.mp3","reason":"Czech recording pending; the user records it before deployment."},
+    {"path":"cs/phrases/na-jake-pismenko-zacina.mp3","reason":"Czech recording pending; the user records it before deployment."}
   ]
 }

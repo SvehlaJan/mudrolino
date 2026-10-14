@@ -9,6 +9,7 @@ import { FindItGame } from '../../shared/components/FindItGame';
 import { GameLobby } from '../../shared/components/GameLobby';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createWordsDescriptor } from './wordsDescriptor';
+import { translate } from '../../shared/i18n';
 
 export function WordsGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, locale } = useContent();
@@ -22,7 +23,7 @@ export function WordsGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   return (
     <GameLobby
       gameId="WORDS"
-      availabilityMessage={wordItems.length === 0 ? 'Pridajte slová v sekcii Obsah' : undefined}
+      availabilityMessage={wordItems.length === 0 ? translate(locale, 'Pridajte slová v sekcii Vlastný obsah.') : undefined}
       onPlay={() => {
         if (wordItems.length === 0) return;
         setGameState('PLAYING');

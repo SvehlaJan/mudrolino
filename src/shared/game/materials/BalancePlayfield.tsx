@@ -7,6 +7,7 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../ui';
 import { AnswerGroup } from '../AnswerGroup';
 import { TactilePiece, type TactilePieceState } from './TactilePiece';
+import { useT } from '../../hooks/useT';
 
 export interface BalancePlayfieldProps {
   left: ReactNode;
@@ -36,11 +37,12 @@ export function BalancePlayfield({
   rightState = 'idle',
   className,
 }: BalancePlayfieldProps) {
+  const t = useT();
   const { disabled: leftButtonDisabled = false, className: leftButtonClassName, ...leftButtonAttributes } = leftButtonProps ?? {};
   const { disabled: rightButtonDisabled = false, className: rightButtonClassName, ...rightButtonAttributes } = rightButtonProps ?? {};
 
   return (
-    <AnswerGroup label="Porovnanie množstiev" orientation="horizontal" choiceLayout="stretch" className={cn('min-h-0 my-auto h-[min(36vh,320px)] max-h-full flex-none', className)}>
+    <AnswerGroup label={t('Porovnanie množstiev')} orientation="horizontal" choiceLayout="stretch" className={cn('min-h-0 my-auto h-[min(36vh,320px)] max-h-full flex-none', className)}>
       <TactilePiece
         as="button"
         material="wood"

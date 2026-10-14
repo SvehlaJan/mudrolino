@@ -12,6 +12,8 @@ import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverl
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useT } from '../../shared/hooks/useT';
+import { msg, translate } from '../../shared/i18n';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
   AnswerGroup,
@@ -35,8 +37,8 @@ import {
   multiCharacterLetters,
 } from './firstLetterLogic';
 
-const INSTRUCTION = 'Ktorým písmenom sa začína toto slovo?';
-const ANSWER_GROUP_LABEL = 'Vyber prvé písmeno';
+const INSTRUCTION = msg('Ktorým písmenom sa začína toto slovo?');
+const ANSWER_GROUP_LABEL = msg('Vyber prvé písmeno');
 
 const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
@@ -48,21 +50,25 @@ function getPromptAudio(locale: string, item: FirstLetterItem) {
   return {
     clips: [
       { path: `${locale}/words/${item.word.audioKey}`, fallbackText: item.word.word },
-      { path: `${locale}/phrases/na-ake-pismenko-sa-zacina`, fallbackText: 'Na aké písmenko sa začína?' },
+      getPhraseClip(locale, 'whichLetterStarts'),
     ],
   };
 }
 
-function getRelationshipLine(item: FirstLetterItem): string {
-  return `${item.word.word} začína na ${item.firstLetter.symbol}. ${item.word.emoji}`;
+function getRelationshipSentence(locale: string, item: FirstLetterItem): string {
+  return translate(locale, '{word} začína na {letter}.', { word: item.word.word, letter: item.firstLetter.symbol });
+}
+
+function getRelationshipLine(locale: string, item: FirstLetterItem): string {
+  return `${getRelationshipSentence(locale, item)} ${item.word.emoji}`;
 }
 
 function getSuccessSpec(locale: string, item: FirstLetterItem): SuccessSpec {
   return {
-    echoLine: getRelationshipLine(item),
+    echoLine: getRelationshipLine(locale, item),
     audioSpec: {
       clips: [
-        getItemAudioClip(locale, 'words', item.word.audioKey, `${item.word.word} začína na ${item.firstLetter.symbol}.`),
+        getItemAudioClip(locale, 'words', item.word.audioKey, getRelationshipSentence(locale, item)),
       ],
     },
   };
@@ -70,11 +76,11 @@ function getSuccessSpec(locale: string, item: FirstLetterItem): SuccessSpec {
 
 function getFailureSpec(locale: string, item: FirstLetterItem): FailureSpec {
   return {
-    echoLine: getRelationshipLine(item),
+    echoLine: getRelationshipLine(locale, item),
     audioSpec: {
       clips: [
         getPhraseClip(locale, 'neverMind'),
-        { path: `${locale}/words/${item.word.audioKey}`, fallbackText: `${item.word.word} začína na ${item.firstLetter.symbol}.` },
+        { path: `${locale}/words/${item.word.audioKey}`, fallbackText: getRelationshipSentence(locale, item) },
       ],
     },
   };
@@ -110,6 +116,7 @@ interface FirstLetterPlayfieldProps {
 
 function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLetterPlayfieldProps) {
   const { locale, praiseEntries } = useContent();
+  const t = useT();
   const isEmpty = eligibleItems.length === 0 || activeLetters.length < 4;
 
   const [{ roundState }, setSession] = useState<{ roundState: RoundState; roundQueue: FirstLetterItem[] }>(() => {
@@ -261,7 +268,7 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
       onRetryError={retryAfterError}
       prompt={
         <GamePrompt
-          instruction={INSTRUCTION}
+          instruction={t(INSTRUCTION)}
           visual={targetItem ? <PictureCard emoji={targetItem.word.emoji} label={targetItem.word.word} /> : null}
           replaying={replaying}
           onReplay={handleReplay}
@@ -271,14 +278,14 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
       completion={completion}
     >
       <PlayTray label={getUiCopy(locale, 'game.playArea')}>
-        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer}>
+        <AnswerGroup label={t(ANSWER_GROUP_LABEL)} disabled={!canAnswer}>
           {choices.map((letter) => (
             <TactilePiece
               key={letter.symbol}
               as="button"
               material="magnet"
               visualRole="answer"
-              label={`Písmeno ${letter.symbol}`}
+              label={t('Písmeno {letter}', { letter: letter.symbol })}
               data-answer-id={letter.symbol}
               state={getAnswerPieceState(state, letter.symbol)}
               onPress={() => void chooseAnswer(letter)}
@@ -296,6 +303,7 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
 
 export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, letterItems } = useContent();
+  const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
   const activeLetters = useMemo(
@@ -322,7 +330,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
     <GameLobby
       gameId="FIRST_LETTER"
       availabilityMessage={
-        isPlayable ? undefined : 'Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.'
+        isPlayable ? undefined : t('Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.')
       }
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}

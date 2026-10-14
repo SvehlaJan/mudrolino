@@ -159,7 +159,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Locale-aware content/audio path architecture
 - [x] Slovak content moved into locale module
 - [x] Czech locale stub exists
-- [x] Add language selection UX only after Czech content is actually populated (pulled into the F&F build, 1.0): Slovenčina/Čeština in Rodičovská zóna → Aplikácia a vzhľad, Czech browsers start in Czech, `<html lang>` follows (2026-10-14). Remaining: move the hard-coded Slovak parent, content, game and PWA text into `t()` with Czech drafts (`src/shared/locales/cs.ui.ts`)
+- [x] Add language selection UX only after Czech content is actually populated (pulled into the F&F build, 1.0): Slovenčina/Čeština in Rodičovská zóna → Aplikácia a vzhľad, Czech browsers start in Czech, `<html lang>` follows (2026-10-14). All shipped UI text is now translated through `t()`/`uiCopy` with Czech drafts (2026-10-14); `e2e/czech.spec.ts` plays a Czech game and walks the Czech parent zone
 
 ### 1.4 Feedback
 > Web3Forms feedback is enough for friends-first. A larger feedback platform can wait until public launch.
@@ -269,8 +269,8 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [x] Czech locale stub
 - [x] Locale-prefixed audio paths
 - [x] Locale-aware app settings storage
-- [ ] UI string translation architecture
-- [ ] Language selection UX in Settings or onboarding
+- [x] UI string translation architecture: keyed `uiCopy` for game/home text, Slovak-keyed `t()`/`msg()` with `locales/cs.ui.ts` for the rest, guarded by `src/shared/i18n.test.ts`
+- [x] Language selection UX in Settings or onboarding
 - [ ] Validate custom content/audio storage across language switches
 
 ### Czech (`cs`)

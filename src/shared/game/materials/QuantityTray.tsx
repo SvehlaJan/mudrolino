@@ -8,6 +8,7 @@ import { cn } from '../../ui';
 import { useElementSize } from '../useElementSize';
 import { TactilePiece } from './TactilePiece';
 import { buildQuantityLayout } from './quantityLayout';
+import { useT } from '../../hooks/useT';
 
 export interface QuantityTrayProps extends Omit<HTMLAttributes<HTMLDivElement>, 'aria-label' | 'children' | 'role'> {
   count: number;
@@ -32,6 +33,7 @@ export function QuantityTray({
   className,
   ...props
 }: QuantityTrayProps) {
+  const t = useT();
   const containerRef = useRef<HTMLDivElement>(null);
   const size = useElementSize(containerRef);
   const [seed] = useState(() => arrangement === 'scattered' ? Math.floor(Math.random() * 0x100000000) : 0);
@@ -73,7 +75,7 @@ export function QuantityTray({
               key={slot.index}
               type="button"
               data-quantity-token
-              aria-label={`Predmet ${slot.index + 1} z ${count}`}
+              aria-label={t('Predmet {position} z {count}', { position: slot.index + 1, count })}
               onClick={() => onTokenPress?.(slot.index)}
               style={style}
               className="absolute grid min-h-12 min-w-12 place-items-center rounded-xl focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus"

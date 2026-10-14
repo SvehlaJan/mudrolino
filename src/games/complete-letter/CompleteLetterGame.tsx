@@ -12,6 +12,8 @@ import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverl
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
 import { getUiCopy } from '../../shared/uiCopy';
+import { useT } from '../../shared/hooks/useT';
+import { msg, type Translate } from '../../shared/i18n';
 import { useTileTransfer } from '../../shared/game/motion/useTileTransfer';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
@@ -41,8 +43,8 @@ import {
   getActiveMissingIndex,
 } from './completeLetterLogic';
 
-const INSTRUCTION = 'Doplň chýbajúce písmeno';
-const ANSWER_GROUP_LABEL = 'Vyber chýbajúce písmeno';
+const INSTRUCTION = msg('Doplň chýbajúce písmeno');
+const ANSWER_GROUP_LABEL = msg('Vyber chýbajúce písmeno');
 const CHOICE_COUNT = 4;
 
 const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
@@ -149,10 +151,10 @@ function getAnswerPieceState(state: GameState, answerId: string): TactilePieceSt
   return undefined;
 }
 
-function getInsetLabel(slot: CompleteLetterSlot): string {
-  if (slot.state === 'active') return `Chýbajúce písmeno ${slot.index + 1}, aktívne`;
-  if (slot.state === 'pending') return `Chýbajúce písmeno ${slot.index + 1}, čaká`;
-  return `Písmeno ${slot.text}`;
+function getInsetLabel(slot: CompleteLetterSlot, t: Translate): string {
+  if (slot.state === 'active') return t('Chýbajúce písmeno {position}, aktívne', { position: slot.index + 1 });
+  if (slot.state === 'pending') return t('Chýbajúce písmeno {position}, čaká', { position: slot.index + 1 });
+  return t('Písmeno {letter}', { letter: slot.text });
 }
 
 interface CompleteLetterPlayfieldProps {
@@ -164,6 +166,7 @@ interface CompleteLetterPlayfieldProps {
 
 function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMode, onExit }: CompleteLetterPlayfieldProps) {
   const { locale, praiseEntries } = useContent();
+  const t = useT();
   const isEmpty = eligibleWords.length === 0 || activeLetters.length < CHOICE_COUNT;
 
   const [{ roundState }, setSession] = useState<{ roundState: RoundState; roundQueue: Word[] }>(() => {
@@ -373,7 +376,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       onRetryError={retryAfterError}
       prompt={
         <GamePrompt
-          instruction={INSTRUCTION}
+          instruction={t(INSTRUCTION)}
           visual={
             targetRound ? (
               // A very short landscape strip or narrow phone leaves little room for this
@@ -382,11 +385,11 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
               // visible and the tray still gets its needed 48px; see their own comments.
               <div className="flex w-full flex-col items-center gap-3 [@media(max-height:480px)]:gap-0 [@media(max-width:380px)]:gap-1">
                 <PictureCard emoji={targetRound.word.emoji} label={targetRound.word.word} />
-                <WordRail label={`Slovo ${targetRound.word.word}`}>
+                <WordRail label={t('Slovo {word}', { word: targetRound.word.word })}>
                   {slots.map((slot) => (
                     <InsetSlot
                       key={slot.index}
-                      label={getInsetLabel(slot)}
+                      label={getInsetLabel(slot, t)}
                       fitContents={targetRound.missingIndexes.includes(slot.index) ? activeLetters.map(letter => letter.symbol) : undefined}
                       state={slot.state === 'active' && previewPlacement ? 'filled' : slot.state === 'visible' ? 'fixed' : slot.state}
                     >
@@ -405,14 +408,14 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       completion={completion}
     >
       <PlayTray label={getUiCopy(locale, 'game.playArea')}>
-        <AnswerGroup label={ANSWER_GROUP_LABEL} disabled={!canAnswer || tileMoving}>
+        <AnswerGroup label={t(ANSWER_GROUP_LABEL)} disabled={!canAnswer || tileMoving}>
           {choices.map((letter) => (
             <TactilePiece
               key={letter.symbol}
               as="button"
               material="magnet"
               visualRole="answer"
-              label={`Písmeno ${letter.symbol}`}
+              label={t('Písmeno {letter}', { letter: letter.symbol })}
               data-answer-id={letter.symbol}
               state={getAnswerPieceState(state, letter.symbol)}
               onPress={() => void chooseAnswer(letter)}
@@ -431,6 +434,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
 
 export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
   const { wordItems, letterItems } = useContent();
+  const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
   const activeLetters = useMemo(
@@ -465,7 +469,7 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRun
     <GameLobby
       gameId="COMPLETE_LETTER"
       availabilityMessage={
-        isPlayable ? undefined : 'Pridajte slová z aktívnych písmen alebo upravte nastavenia písmen.'
+        isPlayable ? undefined : t('Pridajte slová z aktívnych písmen alebo upravte nastavenia písmen.')
       }
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}

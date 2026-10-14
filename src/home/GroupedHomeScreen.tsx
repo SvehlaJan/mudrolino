@@ -7,6 +7,7 @@ import React from 'react';
 import { Settings } from 'lucide-react';
 import { GAME_CATEGORIES, GAME_DEFINITIONS, GameDefinition } from '../shared/gameCatalog';
 import { getUiCopy } from '../shared/uiCopy';
+import { translate } from '../shared/i18n';
 import { AppScreen } from '../shared/ui/AppScreen';
 import { IconButton } from '../shared/ui/IconButton';
 import { PwaHomeControl } from '../pwa/PwaHomeControl';
@@ -50,7 +51,7 @@ export function GroupedHomeScreen({
 
         <div className="flex shrink-0 flex-col items-end gap-2">
           <IconButton
-            label="Nastavenia"
+            label={translate(locale, 'Nastavenia')}
             onClick={onOpenSettings}
             size="child"
             tone="neutral"

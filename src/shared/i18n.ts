@@ -39,6 +39,9 @@ export function msg<T extends string>(text: T): T {
 
 export type TranslationValues = Record<string, string | number>;
 
+/** The `t` function from `useT`, for helpers that format text outside a component. */
+export type Translate = (text: string, values?: TranslationValues) => string;
+
 function interpolate(text: string, values: TranslationValues): string {
   return text.replace(/\{(\w+)\}/g, (match, name: string) => (name in values ? String(values[name]) : match));
 }
