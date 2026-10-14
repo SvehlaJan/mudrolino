@@ -9,6 +9,7 @@ import { RadioGroupControl, type RadioGroupTone } from './RadioGroup';
 import { toSegmentedChoiceKey, resolveSegmentedChoiceOption } from './segmentedChoiceKey';
 import { SwitchControl, type SwitchTone } from './Switch';
 import { cx } from './utils';
+import { useT } from '../hooks/useT';
 
 export interface ToggleControlProps {
   label: string;
@@ -93,13 +94,14 @@ interface SearchInputProps
 export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(function SearchInput(
   {
     className,
-    clearLabel = 'Vymazať',
+    clearLabel,
     onClear,
     value,
     ...props
   },
   ref,
 ) {
+  const t = useT();
   const showClear = onClear && value !== undefined && String(value).length > 0;
 
   return (
@@ -123,7 +125,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
         <button
           type="button"
           onClick={onClear}
-          aria-label={clearLabel}
+          aria-label={clearLabel ?? t('Vymazať')}
           className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-text-main/55 transition-colors hover:bg-bg-light hover:text-text-main"
         >
           <X size={18} />

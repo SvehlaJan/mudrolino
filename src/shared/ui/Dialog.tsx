@@ -7,6 +7,7 @@ import React, { useId } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
 import { cn } from './utils';
+import { useT } from '../hooks/useT';
 
 export interface DialogShellProps {
   open: boolean;
@@ -52,6 +53,7 @@ export function DialogShell({
   titleClassName,
   descriptionClassName,
 }: DialogShellProps) {
+  const t = useT();
   const descriptionId = useId();
 
   return (
@@ -85,7 +87,7 @@ export function DialogShell({
               <Dialog.Close asChild>
                 <button
                   type="button"
-                  aria-label="Zavrieť dialóg"
+                  aria-label={t('Zavrieť dialóg')}
                   className="-mr-2 -mt-2 flex size-11 shrink-0 items-center justify-center rounded-full text-text-muted transition-colors hover:bg-surface-muted hover:text-text-main focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
                 >
                   <X size={22} aria-hidden="true" />

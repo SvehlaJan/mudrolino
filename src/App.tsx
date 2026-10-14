@@ -25,6 +25,7 @@ import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
 import { CustomContentScreen } from './content/CustomContentScreen';
 import { useAutosaveStatus, type AutosaveStatus } from './shared/hooks/useAutosaveStatus';
+import { useT } from './shared/hooks/useT';
 
 // Keep all gallery code and metadata outside the production dependency graph.
 const UiKitScreen = import.meta.env.DEV || import.meta.env.MODE === 'test'
@@ -35,13 +36,14 @@ const UiKitScreen = import.meta.env.DEV || import.meta.env.MODE === 'test'
 applyFontFamily(loadAppSettings().fontFamily);
 
 function AutosaveNotice({ status }: { status: AutosaveStatus }) {
+  const t = useT();
   if (status === 'idle') return null;
 
   const message = status === 'saving'
-    ? 'Ukladám nastavenia…'
+    ? t('Ukladám nastavenia…')
     : status === 'saved'
-      ? 'Nastavenia sú uložené.'
-      : 'Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.';
+      ? t('Nastavenia sú uložené.')
+      : t('Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.');
 
   return (
     <p

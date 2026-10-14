@@ -11,6 +11,7 @@ import { useContent } from '../contexts/ContentContext';
 import { audioManager } from '../services/audioManager';
 import { IconButton, OverlayFrame } from '../ui';
 import { getSuccessOverlayAudioSpec } from './successOverlayAudio';
+import { useT } from '../hooks/useT';
 
 interface SuccessOverlayProps {
   show: boolean;
@@ -19,6 +20,7 @@ interface SuccessOverlayProps {
 }
 
 export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) {
+  const t = useT();
   const { praiseEntries, locale } = useContent();
   const [praise, setPraise] = useState<PraiseEntry>(praiseEntries[0] ?? { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' });
   const [paused, setPaused] = useState(false);
@@ -66,7 +68,7 @@ export function SuccessOverlay({ show, spec, onComplete }: SuccessOverlayProps) 
       panelClassName="bg-[linear-gradient(150deg,#fff8f0_0%,#ffecd2_100%)] shadow-[0_8px_0_#f0c99a,0_20px_60px_rgba(0,0,0,.10)]"
     >
       <IconButton
-        label={paused ? 'Zavrieť' : 'Pauza'}
+        label={paused ? t('Zavrieť') : t('Pauza')}
         onClick={paused ? onComplete : handlePause}
         className="absolute right-4 top-4 h-10 w-10 !bg-white !shadow-[0_2px_8px_rgba(0,0,0,.10)] text-[#aaa] transition-colors hover:text-[#666] sm:h-10 sm:w-10"
       >

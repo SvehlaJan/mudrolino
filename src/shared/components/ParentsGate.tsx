@@ -8,6 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useReducedMotion } from 'motion/react';
 import { Button, DialogShell, IconButton } from '../ui';
 import { exposeParentGateE2E } from '../services/e2eState';
+import { useT } from '../hooks/useT';
 
 interface ParentsGateProps {
   onSuccess: () => void;
@@ -31,6 +32,7 @@ function generateQuestion(): { a: number; b: number; op: '+' | '-'; answer: numb
 }
 
 export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
+  const t = useT();
   const [question, setQuestion] = useState(generateQuestion);
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
@@ -115,15 +117,15 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
       onOpenChange={open => {
         if (!open) onCancel();
       }}
-      title="Pre rodičov"
+      title={t('Pre rodičov')}
       titleClassName="text-xl landscape:text-lg sm:portrait:text-3xl"
-      description="Vyriešte príklad pre vstup."
+      description={t('Vyriešte príklad pre vstup.')}
       descriptionClassName="text-sm landscape:text-xs sm:portrait:text-base"
       initialFocusRef={firstDigitRef}
       restoreFocusRef={restoreFocusRef}
       className="portrait:max-w-sm landscape:max-w-2xl landscape:p-3"
       headerAction={(
-        <IconButton label="Späť" tone="neutral" size="parent" onClick={onCancel}>
+        <IconButton label={t('Späť')} tone="neutral" size="parent" onClick={onCancel}>
           <ArrowLeft size={20} />
         </IconButton>
       )}
@@ -135,7 +137,9 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
             className={`flex w-full items-center justify-center gap-2 px-2 py-3 text-center text-2xl font-black tracking-wide text-text-main landscape:py-2 landscape:text-3xl sm:portrait:gap-3 sm:portrait:py-4 sm:portrait:text-4xl ${error && !prefersReducedMotion ? 'animate-shake' : ''}`}
           >
             <span className="sr-only">
-              {question.a} {question.op === '+' ? 'plus' : 'mínus'} {question.b} sa rovná
+              {question.op === '+'
+                ? t('{a} plus {b} sa rovná', { a: question.a, b: question.b })
+                : t('{a} mínus {b} sa rovná', { a: question.a, b: question.b })}
             </span>
             <span aria-hidden="true" className="flex items-center gap-2 sm:portrait:gap-3">
               <span>{question.a} {question.op} {question.b} =</span>
@@ -143,7 +147,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
             <span
               id="parent-gate-answer"
               role="status"
-              aria-label="Vaša odpoveď"
+              aria-label={t('Vaša odpoveď')}
               aria-live="polite"
               className="inline-flex min-h-12 min-w-14 items-center justify-center px-3 py-1 text-accent-blue tabular-nums sm:portrait:min-h-14 sm:portrait:min-w-16"
             >
@@ -153,7 +157,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
 
           {error && (
             <p role="alert" className="text-xs landscape:text-[10px] font-bold text-action-danger sm:portrait:text-sm">
-              Skús to ešte raz
+              {t('Skús to ešte raz')}
             </p>
           )}
         </div>
@@ -176,7 +180,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               tone="neutral"
               size="parent"
               onClick={handleBackspace}
-              aria-label="Zmazať"
+              aria-label={t('Zmazať')}
               className="min-h-12 py-2 text-lg sm:portrait:min-h-14 sm:portrait:py-3 sm:portrait:text-2xl"
             >
               ⌫
@@ -194,7 +198,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
               size="parent"
               onClick={handleConfirm}
               disabled={!input || error}
-              aria-label="Potvrdiť"
+              aria-label={t('Potvrdiť')}
               className="min-h-12 py-2 text-lg font-black sm:portrait:min-h-14 sm:portrait:py-3 sm:portrait:text-2xl"
             >
               ✓

@@ -7,6 +7,7 @@ import React, { useEffect, useRef } from 'react';
 import { FailureSpec } from '../types';
 import { audioManager } from '../services/audioManager';
 import { OverlayFrame } from '../ui';
+import { useT } from '../hooks/useT';
 
 const FAILURE_DURATION_MS = 2500;
 
@@ -17,6 +18,7 @@ interface FailureOverlayProps {
 }
 
 export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) {
+  const t = useT();
   const cancelledRef = useRef(false);
 
   useEffect(() => {
@@ -49,14 +51,14 @@ export function FailureOverlay({ show, spec, onComplete }: FailureOverlayProps) 
       }}
       panelClassName="bg-[linear-gradient(150deg,#eef2ff_0%,#dde6ff_100%)] shadow-[0_8px_0_#b0c0f0,0_20px_60px_rgba(0,0,0,.15)]"
     >
-      <div role="img" aria-label="Nevadí" className="text-[100px] sm:text-[140px] leading-none mb-2">
+      <div role="img" aria-label={t('Nevadí')} className="text-[100px] sm:text-[140px] leading-none mb-2">
         🤗
       </div>
       <h3 className="text-[#3a4a8a] text-4xl sm:text-6xl font-black tracking-tighter leading-none">
-        Nevadí!
+        {t('Nevadí!')}
       </h3>
       <p className="text-xl sm:text-2xl font-bold mt-3 text-[#5566aa]">
-        Je to:
+        {t('Je to:')}
       </p>
       <p className="text-2xl sm:text-4xl font-extrabold mt-2" style={{ color: '#3a4a8a' }}>
         {spec.echoLine}

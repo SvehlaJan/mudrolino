@@ -55,6 +55,7 @@ export const appComponentInventory = [
   {"name":"DialogShell","source":"src/shared/ui/Dialog.tsx","category":"ui","exported":true,"usages":["src/content/CustomContentScreen.tsx","src/shared/components/ParentsGate.tsx"]},
   {"name":"DropdownMenu","source":"src/shared/ui/DropdownMenu.tsx","category":"ui","exported":true,"usages":["src/shared/ui/IconMenuButton.tsx"]},
   {"name":"ErrorBoundary","source":"src/shared/components/ErrorBoundary.tsx","category":"game-shell","exported":true,"usages":["src/App.tsx","src/shared/components/GameRoute.tsx"]},
+  {"name":"ErrorFallback","source":"src/shared/components/ErrorBoundary.tsx","category":"game-shell","exported":false,"usages":["src/shared/components/ErrorBoundary.tsx"]},
   {"name":"FailureOverlay","source":"src/shared/components/FailureOverlay.tsx","category":"game-shell","exported":true,"usages":[]},
   {"name":"FeedbackForm","source":"src/parent/FeedbackForm.tsx","category":"parent","exported":true,"usages":["src/parent/HelpFeedbackScreen.tsx"]},
   {"name":"Field","source":"src/shared/ui/Field.tsx","category":"ui","exported":true,"usages":["src/avatar/AvatarAssetGallery.tsx","src/avatar/CatalogItemInspector.tsx","src/avatar/CatalogModelInspector.tsx","src/content/PraiseEditor.tsx","src/content/WordEditor.tsx","src/parent/FeedbackForm.tsx"]},

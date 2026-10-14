@@ -7,6 +7,7 @@ import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { cn } from './utils';
 import { iconButtonVariants, type IconButtonVariantProps } from './variants';
+import { useT } from '../hooks/useT';
 import type { ButtonDensity } from './Button';
 
 const ICON_DENSITY_CLASSES: Record<ButtonDensity, string> = {
@@ -49,9 +50,10 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(f
   );
 });
 
-export function BackButton({ onClick, label = 'Späť' }: { onClick: () => void; label?: string }) {
+export function BackButton({ onClick, label }: { onClick: () => void; label?: string }) {
+  const t = useT();
   return (
-    <IconButton label={label} onClick={onClick}>
+    <IconButton label={label ?? t('Späť')} onClick={onClick}>
       <ArrowLeft size={24} className="sm:h-7 sm:w-7" />
     </IconButton>
   );

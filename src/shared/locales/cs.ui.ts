@@ -20,4 +20,36 @@ export const CS_TRANSLATIONS: Record<string, string> = {
   'Štýl písma v celej aplikácii.': 'Styl písma v celé aplikaci.',
   'Zaoblené (Nunito)': 'Zaoblené (Nunito)',
   'Hravé (Shantell)': 'Hravé (Shantell)',
+
+  // Parent gate
+  'Pre rodičov': 'Pro rodiče',
+  'Vyriešte príklad pre vstup.': 'Vyřešte příklad pro vstup.',
+  'Späť': 'Zpět',
+  '{a} plus {b} sa rovná': '{a} plus {b} se rovná',
+  '{a} mínus {b} sa rovná': '{a} minus {b} se rovná',
+  'Vaša odpoveď': 'Vaše odpověď',
+  'Skús to ešte raz': 'Zkus to ještě jednou',
+  'Zmazať': 'Smazat',
+  'Potvrdiť': 'Potvrdit',
+
+  // Shared controls and overlays
+  'Zavrieť': 'Zavřít',
+  'Pauza': 'Pauza',
+  'Nevadí': 'Nevadí',
+  'Nevadí!': 'Nevadí!',
+  'Je to:': 'Je to:',
+  'Počúvaj': 'Poslouchej',
+  'Prehrať zadanie znova': 'Přehrát zadání znovu',
+  '{current} z {total} {label}': '{current} z {total} {label}',
+  'kolá': 'kol',
+  'Vymazať': 'Vymazat',
+  'Zavrieť dialóg': 'Zavřít dialog',
+
+  // Settings autosave and error screen
+  'Ukladám nastavenia…': 'Ukládám nastavení…',
+  'Nastavenia sú uložené.': 'Nastavení je uložené.',
+  'Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.': 'Nastavení se nepodařilo uložit. Zkontrolujte úložiště prohlížeče.',
+  'Niečo sa pokazilo': 'Něco se pokazilo',
+  'Skús to znova.': 'Zkus to znovu.',
+  'Skúsiť znova': 'Zkusit znovu',
 };
