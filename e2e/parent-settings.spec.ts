@@ -90,7 +90,7 @@ test.describe('Parent dashboard and game settings', () => {
     await unlockParentGate(page);
     const detail = page.getByTestId('game-settings-detail');
     await expect(page.getByText('Nastavenia hry', { exact: true })).toBeVisible();
-    await expect(page.getByRole('heading', { level: 1, name: 'Abeceda' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Čítaj písmenká' })).toBeVisible();
     await expect(page.getByText('Hra s písmenami', { exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toHaveCount(0);
     await expect(page.getByRole('navigation', { name: 'Nastavenia hier' })).toHaveCount(0);
@@ -115,7 +115,7 @@ test.describe('Parent dashboard and game settings', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Nastavenia hier' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toHaveCount(0);
     await expect(page.getByText('Vyberte hru zo zoznamu a upravte jej nastavenia.')).toHaveCount(0);
-    await expect(page.getByRole('link', { name: /Abeceda/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Čítaj písmenká/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /^Slová/ })).toHaveCount(0);
 
     expectNoConsoleErrors(errors);
@@ -137,7 +137,7 @@ test.describe('Parent dashboard and game settings', () => {
     await expect(overviewLink).toBeVisible();
     await overviewLink.click();
     await expect(page).toHaveURL(/\/settings\/games$/);
-    await expect(page.getByRole('link', { name: /Abeceda/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Čítaj písmenká/ })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

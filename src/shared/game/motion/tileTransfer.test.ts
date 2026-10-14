@@ -25,6 +25,43 @@ function tileFixture() {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('tile transfer lifecycle', () => {
+  it('continues from the dragged preview without creating a second floating tile', async () => {
+    const fixture = tileFixture();
+    const preview = { ...fixture.clone, getBoundingClientRect: () => ({ top: 125, left: 180, width: 90, height: 90 }) };
+    const transfer = transferTile(fixture.source, fixture.target, false, true, false, preview as unknown as HTMLElement);
+    expect(document.body.appendChild).not.toHaveBeenCalled();
+    expect(preview.animate.mock.calls[0][0][0]).toMatchObject({ top: '125px', left: '180px' });
+    fixture.complete();
+    expect(await transfer.finished).toBe(true);
+    transfer.release();
+    expect(preview.remove).toHaveBeenCalledOnce();
+    expect(fixture.source.style.visibility).toBe('');
+  });
+
+  it('returns a wrong dragged card to the original tray position rather than its release position', async () => {
+    const fixture = tileFixture();
+    const preview = { ...fixture.clone, getBoundingClientRect: () => ({ top: 125, left: 180, width: 90, height: 90 }) };
+    const back = { finished: Promise.resolve(), cancel: vi.fn() };
+    preview.animate.mockReturnValueOnce(fixture.animation).mockReturnValueOnce(back);
+    const transfer = transferTile(fixture.source, fixture.target, false, true, true, preview as unknown as HTMLElement);
+    expect(preview.animate.mock.calls[0][0][0]).toMatchObject({ top: '125px', left: '180px' });
+    fixture.complete();
+    await transfer.finished;
+    expect(preview.animate.mock.calls[1][0].at(-1)).toMatchObject({ top: '300px', left: '50px' });
+    expect(transfer.previewPlacement).toBe(false);
+    expect(fixture.source.style.visibility).toBe('');
+  });
+
+  it('disposes a dragged preview immediately under reduced motion', async () => {
+    const fixture = tileFixture();
+    const transfer = transferTile(fixture.source, fixture.target, true, true, false, fixture.clone as unknown as HTMLElement);
+    expect(await transfer.finished).toBe(true);
+    expect(fixture.clone.remove).toHaveBeenCalledOnce();
+    expect(fixture.clone.animate).not.toHaveBeenCalled();
+    transfer.release();
+    expect(fixture.source.style.visibility).toBe('');
+  });
+
   it('morphs the whole square into the target rectangle without stretching its text', async () => {
     const fixture = tileFixture();
     const transfer = transferTile(fixture.source, fixture.target, false);

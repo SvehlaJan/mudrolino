@@ -67,7 +67,7 @@ for (const { path } of GAME_DEFINITIONS) {
   });
 }
 
-test('visual roles: Assembly placed tiles remain raised operable answers @geometry', async ({ page }) => {
+test('visual roles: Assembly placed tiles fit flush in the rail and remain operable answers @geometry', async ({ page }) => {
   await page.goto('/assembly');
   await page.getByRole('button', { name: 'Hrať' }).click();
   await waitForGamePhase(page, 'awaiting-answer');
@@ -76,8 +76,8 @@ test('visual roles: Assembly placed tiles remain raised operable answers @geomet
   const placed = page.getByTestId('word-rail').getByRole('button').first();
   await expect(placed).toBeVisible();
   await expect(placed).toBeEnabled();
-  expect(await placed.evaluate(element => getComputedStyle(element).boxShadow)).toContain('0px 5px');
-  await expectUnclippedShadows(placed);
+  await expect(placed).toHaveAttribute('data-visual-role', 'answer');
+  expect(await placed.evaluate(element => getComputedStyle(element).boxShadow)).toBe('none');
   await placed.click();
   await expect(page.getByTestId('word-rail').getByRole('button')).toHaveCount(0);
 });

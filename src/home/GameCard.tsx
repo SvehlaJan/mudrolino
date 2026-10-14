@@ -34,7 +34,6 @@ export function GameIcon({ icon, className }: { icon: GameIconId; className?: st
 export interface GameCardProps {
   game: GameDefinition;
   title?: string;
-  description?: string;
   locale?: string;
   onClick?: () => void;
   className?: string;
@@ -43,13 +42,11 @@ export interface GameCardProps {
 export function GameCard({
   game,
   title,
-  description,
   locale = 'sk',
   onClick,
   className,
 }: GameCardProps) {
   const resolvedTitle = title ?? getUiCopy(locale, game.titleKey);
-  const resolvedDescription = description ?? getUiCopy(locale, game.descriptionKey);
 
   return (
     <Link
@@ -81,9 +78,6 @@ export function GameCard({
           <h3 className="text-base sm:text-lg font-black text-text-main leading-tight tracking-tight">
             {resolvedTitle}
           </h3>
-          <p className="text-xs sm:text-sm font-medium text-text-muted leading-snug line-clamp-2">
-            {resolvedDescription}
-          </p>
         </div>
       </div>
     </Link>

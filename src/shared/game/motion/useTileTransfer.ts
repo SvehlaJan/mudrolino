@@ -24,9 +24,9 @@ export function useTileTransfer(roundKey: unknown, interrupted: boolean, committ
     active.current.release();
     active.current = null;
   }, [committedKey]);
-  const move = useCallback(async (source: HTMLElement | null, target: HTMLElement | null, correct = true) => {
+  const move = useCallback(async (source: HTMLElement | null, target: HTMLElement | null, correct = true, dragPreview?: HTMLElement) => {
     cancel();
-    const operation = transferTile(source, target, !!reducedMotion, true, !correct);
+    const operation = transferTile(source, target, !!reducedMotion, true, !correct, dragPreview);
     active.current = operation;
     operation.released.then(() => {
       if (mounted.current && (active.current === operation || active.current === null)) {

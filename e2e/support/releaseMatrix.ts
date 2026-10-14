@@ -23,15 +23,15 @@ export interface ReleaseGameCase {
 }
 
 export const RELEASE_GAME_CASES: readonly ReleaseGameCase[] = [
-  { id: 'ALPHABET', path: '/alphabet', title: 'Abeceda', category: 'literacy', answerPattern: 'grid' },
-  { id: 'SYLLABLES', path: '/syllables', title: 'Slabiky', category: 'literacy', answerPattern: 'grid' },
-  { id: 'NUMBERS', path: '/numbers', title: 'Čísla', category: 'numeracy', answerPattern: 'grid' },
-  { id: 'WORDS', path: '/words', title: 'Slová', category: 'literacy', answerPattern: 'grid' },
+  { id: 'ALPHABET', path: '/alphabet', title: 'Čítaj písmenká', category: 'literacy', answerPattern: 'grid' },
+  { id: 'SYLLABLES', path: '/syllables', title: 'Čítaj slabiky', category: 'literacy', answerPattern: 'grid' },
+  { id: 'NUMBERS', path: '/numbers', title: 'Čítaj čísla', category: 'numeracy', answerPattern: 'grid' },
+  { id: 'WORDS', path: '/words', title: 'Čítaj slová', category: 'literacy', answerPattern: 'grid' },
   { id: 'FIRST_LETTER', path: '/first-letter', title: 'Prvé písmenko', category: 'literacy', answerPattern: 'grid' },
-  { id: 'ASSEMBLY', path: '/assembly', title: 'Skladaj', category: 'literacy', answerPattern: 'sequence' },
+  { id: 'ASSEMBLY', path: '/assembly', title: 'Skladaj slabiky', category: 'literacy', answerPattern: 'sequence' },
   { id: 'COMPLETE_SYLLABLE', path: '/complete-syllable', title: 'Doplň slabiku', category: 'literacy', answerPattern: 'grid' },
   { id: 'COMPLETE_LETTER', path: '/complete-letter', title: 'Doplň písmeno', category: 'literacy', answerPattern: 'sequence' },
-  { id: 'COUNTING_ITEMS', path: '/counting', title: 'Spočítaj', category: 'numeracy', answerPattern: 'counting' },
+  { id: 'COUNTING_ITEMS', path: '/counting', title: 'Spočítaj predmety', category: 'numeracy', answerPattern: 'counting' },
   { id: 'COMPARE_QUANTITIES', path: '/compare', title: 'Viac alebo Menej', category: 'numeracy', answerPattern: 'comparison' },
   { id: 'ADDITION', path: '/addition', title: 'Sčítaj', category: 'numeracy', answerPattern: 'addition' },
 ] as const;

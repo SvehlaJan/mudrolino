@@ -403,10 +403,10 @@ test('alphabet: completion actions stay absent until session-complete after a fi
 });
 
 const EXPECTED_GAMES = [
-  { path: '/alphabet', title: 'Abeceda', instruction: 'Nájdi písmeno, ktoré počuješ.', material: 'wood' },
-  { path: '/syllables', title: 'Slabiky', instruction: 'Nájdi slabiku, ktorú počuješ.', material: 'magnet' },
-  { path: '/numbers', title: 'Čísla', instruction: 'Nájdi číslo, ktoré počuješ.', material: 'wood' },
-  { path: '/words', title: 'Slová', instruction: 'Nájdi obrázok k slovu.', material: 'picture' },
+  { path: '/alphabet', title: 'Čítaj písmenká', instruction: 'Nájdi písmeno, ktoré počuješ.', material: 'wood' },
+  { path: '/syllables', title: 'Čítaj slabiky', instruction: 'Nájdi slabiku, ktorú počuješ.', material: 'magnet' },
+  { path: '/numbers', title: 'Čítaj čísla', instruction: 'Nájdi číslo, ktoré počuješ.', material: 'wood' },
+  { path: '/words', title: 'Čítaj slová', instruction: 'Nájdi obrázok k slovu.', material: 'picture' },
 ] as const;
 
 for (const exp of EXPECTED_GAMES) {

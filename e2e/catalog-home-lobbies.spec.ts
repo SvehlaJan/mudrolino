@@ -17,7 +17,7 @@ test.describe('Catalog, home, and lobbies', () => {
     const main = page.getByRole('main');
     await expect(main.getByRole('heading', { name: 'Písmená a slová' })).toBeVisible();
     await expect(main.getByRole('heading', { name: 'Čísla a počítanie' })).toBeVisible();
-    await expect(main.getByRole('link', { name: /Abeceda/ })).toHaveCount(1);
+    await expect(main.getByRole('link', { name: /Čítaj písmenká/ })).toHaveCount(1);
     await expect(main.getByTestId('game-card')).toHaveCount(11);
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
@@ -25,7 +25,7 @@ test.describe('Catalog, home, and lobbies', () => {
 
   test('home cards support keyboard focus', async ({ page }) => {
     await page.goto('/');
-    const firstCard = page.getByRole('link', { name: /Abeceda/ });
+    const firstCard = page.getByRole('link', { name: /Čítaj písmenká/ });
     await firstCard.focus();
     await expect(firstCard).toBeFocused();
   });
@@ -109,7 +109,7 @@ test.describe('Game lobby semantic contract', () => {
     await expect(page).toHaveURL(/\/settings\/games\/ALPHABET$/);
     const main = page.getByRole('main');
     await expect(main).toBeVisible();
-    await expect(main.getByRole('heading', { name: 'Abeceda' })).toBeVisible();
+    await expect(main.getByRole('heading', { name: 'Čítaj písmenká' })).toBeVisible();
     await expect(main.getByText('Hra s písmenami')).toBeVisible();
     await expect(main.getByRole('heading', { name: 'Počet kariet' })).toBeVisible();
     await expect(main.getByRole('heading', { name: 'Písmená s dĺžňami a mäkčeňmi' })).toBeVisible();
@@ -144,7 +144,7 @@ test.describe('Game lobby semantic contract', () => {
     await page.goto('/alphabet');
     const main = page.getByRole('main');
     await expect(page.getByTestId('lobby-body')).toHaveAttribute('data-locale', 'cs');
-    await expect(main.getByRole('heading', { level: 1 })).toHaveText('Abeceda');
+    await expect(main.getByRole('heading', { level: 1 })).toHaveText('Čti písmenka');
     await expect(main.getByTestId('lobby-instruction')).toHaveText('Najdi správné písmenko.');
     await expect(main.getByRole('button', { name: 'Hrát' })).toBeVisible();
     await expect(page.locator('html')).toHaveAttribute('lang', 'cs');

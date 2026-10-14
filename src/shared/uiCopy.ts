@@ -42,19 +42,19 @@ const SK_COPY = {
   'category.literacy': 'Písmená a slová',
   'category.numeracy': 'Čísla a počítanie',
 
-  'game.alphabet.title': 'Abeceda',
+  'game.alphabet.title': 'Čítaj písmenká',
   'game.alphabet.description': 'Spoznávaj písmenká hravou formou',
   'game.alphabet.instruction': 'Nájdi správne písmenko.',
 
-  'game.syllables.title': 'Slabiky',
+  'game.syllables.title': 'Čítaj slabiky',
   'game.syllables.description': 'Spájaj písmenká do slabík',
   'game.syllables.instruction': 'Nájdi správnu slabiku.',
 
-  'game.numbers.title': 'Čísla',
+  'game.numbers.title': 'Čítaj čísla',
   'game.numbers.description': 'Počítaj s kamarátmi',
   'game.numbers.instruction': 'Nájdi správne číslo.',
 
-  'game.counting.title': 'Spočítaj',
+  'game.counting.title': 'Spočítaj predmety',
   'game.counting.description': 'Koľko jabĺčok vidíš?',
   'game.counting.instruction': 'Spočítaj obrázky a vyber správne číslo.',
 
@@ -66,7 +66,7 @@ const SK_COPY = {
   'game.addition.description': 'Koľko je to dokopy?',
   'game.addition.instruction': 'Spočítaj, koľko je to dokopy.',
 
-  'game.words.title': 'Slová',
+  'game.words.title': 'Čítaj slová',
   'game.words.description': 'Prečítaj slovo a nájdi obrázok',
   'game.words.instruction': 'Prečítaj slovo a nájdi obrázok.',
 
@@ -74,7 +74,7 @@ const SK_COPY = {
   'game.first-letter.description': 'Počúvaj slovo a nájdi prvé písmenko',
   'game.first-letter.instruction': 'Počúvaj slovo a nájdi jeho prvé písmenko.',
 
-  'game.assembly.title': 'Skladaj',
+  'game.assembly.title': 'Skladaj slabiky',
   'game.assembly.description': 'Poskladaj slovo zo slabík',
   'game.assembly.instruction': 'Poskladaj slabiky do správneho slova.',
 
@@ -159,19 +159,19 @@ const CS_COPY: Record<UiCopyKey, string> = {
   'category.literacy': 'Písmena a slova',
   'category.numeracy': 'Čísla a počítání',
 
-  'game.alphabet.title': 'Abeceda',
+  'game.alphabet.title': 'Čti písmenka',
   'game.alphabet.description': 'Poznávej písmenka hravou formou',
   'game.alphabet.instruction': 'Najdi správné písmenko.',
 
-  'game.syllables.title': 'Slabiky',
+  'game.syllables.title': 'Čti slabiky',
   'game.syllables.description': 'Spojuj písmenka do slabik',
   'game.syllables.instruction': 'Najdi správnou slabiku.',
 
-  'game.numbers.title': 'Čísla',
+  'game.numbers.title': 'Čti čísla',
   'game.numbers.description': 'Počítej s kamarády',
   'game.numbers.instruction': 'Najdi správné číslo.',
 
-  'game.counting.title': 'Spočítej',
+  'game.counting.title': 'Spočítej předměty',
   'game.counting.description': 'Kolik jablíček vidíš?',
   'game.counting.instruction': 'Spočítej obrázky a vyber správné číslo.',
 
@@ -183,7 +183,7 @@ const CS_COPY: Record<UiCopyKey, string> = {
   'game.addition.description': 'Kolik je to dohromady?',
   'game.addition.instruction': 'Spočítej, kolik je to dohromady.',
 
-  'game.words.title': 'Slova',
+  'game.words.title': 'Čti slova',
   'game.words.description': 'Přečti slovo a najdi obrázek',
   'game.words.instruction': 'Přečti slovo a najdi obrázek.',
 
@@ -191,7 +191,7 @@ const CS_COPY: Record<UiCopyKey, string> = {
   'game.first-letter.description': 'Poslouchej slovo a najdi první písmenko',
   'game.first-letter.instruction': 'Poslouchej slovo a najdi jeho první písmenko.',
 
-  'game.assembly.title': 'Skládej',
+  'game.assembly.title': 'Skládej slabiky',
   'game.assembly.description': 'Poskládej slovo ze slabik',
   'game.assembly.instruction': 'Poskládej slabiky do správného slova.',
 

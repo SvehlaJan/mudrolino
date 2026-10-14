@@ -37,7 +37,7 @@ test.describe('shared shell and answer group contract', () => {
     await page.goto('/ui-kit?example=game-shell');
 
     await expect(page.getByRole('main')).toHaveCount(1);
-    await expect(page.getByRole('heading', { level: 1, name: 'Abeceda' })).toHaveCount(1);
+    await expect(page.getByRole('heading', { level: 1, name: 'Čítaj písmenká' })).toHaveCount(1);
     await expect(page.getByRole('progressbar', { name: 'Postup v hre' })).toHaveAttribute('aria-valuenow', '1');
     await expect(page.getByTestId('game-visible-instruction')).toHaveText('Nájdi písmeno, ktoré počuješ.');
     await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
@@ -301,7 +301,8 @@ test('answer tiles announce retry without card text and expose settled states', 
 
   await pressAnswerById(page, success.correctItemId!);
   await expect(correctTile).toHaveAttribute('data-piece-state', 'settled');
-  await expect(correctTile).toContainText('Uložené');
+  await expect(correctTile).toHaveAttribute('aria-description', 'Uložené');
+  await expect(correctTile).not.toContainText('Uložené');
 });
 
 test('audio: alphabet serializes wrong, correct, and terminal-failure answer clips', async ({ page }) => {

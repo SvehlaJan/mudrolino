@@ -15,6 +15,7 @@ import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg, type Translate } from '../../shared/i18n';
 import { useTileTransfer } from '../../shared/game/motion/useTileTransfer';
+import { useTileDrag } from '../../shared/game/motion/useTileDrag';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
   AnswerGroup,
@@ -255,17 +256,11 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
     getPromptAudio: () => getPromptAudio(locale, targetRound!), locale, completionPraise,
   });
 
-  const handleReplay = useCallback(() => {
-    if (!targetRound) return;
-    cancelTileTransfer();
-    void replayPrompt(getPromptAudio(locale, targetRound));
-  }, [targetRound, locale, replayPrompt, cancelTileTransfer]);
-
   const retryAfterError = useCallback(() => {
     if (!isEmpty) playAgain();
   }, [isEmpty, playAgain]);
 
-  const chooseAnswer = useCallback(async (letter: Letter) => {
+  const chooseAnswer = useCallback(async (letter: Letter, dragPreview?: HTMLElement) => {
     if (!targetRound || correctSymbol === null || !canAnswer) return;
     // Unlike a single-shot choice, this round settles local state (filledCount/choices) before
     // calling resolveAnswer, so useGameSession's own re-entrancy guard (its controller answer lock,
@@ -280,7 +275,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       if (letter.symbol === correctSymbol) {
         const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
         const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
-        const landing = moveTile(source, target);
+        const landing = moveTile(source, target, true, dragPreview);
         const nextFilledCount = filledCount + 1;
         const isFinalBlank = nextFilledCount >= targetRound.missingIndexes.length;
 
@@ -320,7 +315,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
       const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
       const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
-      const returning = moveTile(source, target, false);
+      const returning = moveTile(source, target, false, dragPreview);
       await resolveAnswer({
         beforeOutcome: async () => {
           if (!await returning) return false;
@@ -337,6 +332,32 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
       answerLockRef.current = false;
     }
   }, [targetRound, correctSymbol, canAnswer, filledCount, activeLetters, locale, praiseEntries, resolveAnswer, settleBlank, state.maxAttempts, state.wrongAttempts, moveTile]);
+
+  const { handlers: dragHandlers, cancelDrag } = useTileDrag({
+    enabled: canAnswer && !tileMoving && !replaying,
+    roundKey: targetRound,
+    targetSelector: '[data-slot-state="active"]',
+    onDrop: (tileId, _target, clone) => {
+      if (!canAnswer || tileMoving || replaying || answerLockRef.current) return false;
+      const choice = choices.find(candidate => candidate.symbol === tileId);
+      if (!choice) return false;
+      void chooseAnswer(choice, clone);
+      return true;
+    },
+  });
+
+  const handleReplay = useCallback(() => {
+    if (!targetRound) return;
+    cancelDrag();
+    cancelTileTransfer();
+    void replayPrompt(getPromptAudio(locale, targetRound));
+  }, [targetRound, locale, replayPrompt, cancelTileTransfer, cancelDrag]);
+
+  const handleExit = useCallback(() => {
+    cancelDrag();
+    cancelTileTransfer();
+    onExit();
+  }, [cancelDrag, cancelTileTransfer, onExit]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
     ? {
@@ -362,17 +383,17 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
     totalTaps: state.totalTaps,
     maxRounds: state.maxRounds,
     onPlayAgain: playAgain,
-    onHome: onExit,
+    onHome: handleExit,
   };
 
   const slots = targetRound ? buildPromptSlots(targetRound, filledCount) : [];
 
   return (
-    <div ref={playfieldRef} className="contents">
+    <div {...dragHandlers} ref={playfieldRef} className="contents">
     <GameShell
       gameId="COMPLETE_LETTER"
       state={state}
-      onBack={onExit}
+      onBack={handleExit}
       onRetryError={retryAfterError}
       prompt={
         <GamePrompt
@@ -390,6 +411,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
                     <InsetSlot
                       key={slot.index}
                       label={getInsetLabel(slot, t)}
+                      className="data-[drag-over=true]:bg-selected-surface"
                       fitContents={targetRound.missingIndexes.includes(slot.index) ? activeLetters.map(letter => letter.symbol) : undefined}
                       state={slot.state === 'active' && previewPlacement ? 'filled' : slot.state === 'visible' ? 'fixed' : slot.state}
                     >
@@ -417,6 +439,8 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
               visualRole="answer"
               label={t('Písmeno {letter}', { letter: letter.symbol })}
               data-answer-id={letter.symbol}
+              data-tile-id={letter.symbol}
+              className="touch-none select-none cursor-grab"
               state={getAnswerPieceState(state, letter.symbol)}
               onPress={() => void chooseAnswer(letter)}
             >

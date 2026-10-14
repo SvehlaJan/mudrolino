@@ -12,6 +12,8 @@ export interface AnswerGroupProps {
   disabled?: boolean;
   orientation?: 'grid' | 'horizontal';
   choiceLayout?: 'tiles' | 'stretch';
+  /** Cap grid tracks when a game uses smaller pieces than the available answer area. */
+  maxTileSize?: string;
   children: React.ReactNode;
   className?: string;
 }
@@ -98,6 +100,7 @@ export function AnswerGroup({
   disabled = false,
   orientation = 'grid',
   choiceLayout = 'tiles',
+  maxTileSize,
   children,
   className,
 }: AnswerGroupProps) {
@@ -248,7 +251,7 @@ export function AnswerGroup({
             ? ({
                 ['--grid-cols' as string]: String(geometry.cols),
                 ['--grid-rows' as string]: String(geometry.rows),
-                ['--tile-size' as string]: `${geometry.tileSize}px`,
+                ['--tile-size' as string]: maxTileSize ? `min(${geometry.tileSize}px, ${maxTileSize})` : `${geometry.tileSize}px`,
                 ['--grid-gap' as string]: `${geometry.gap}px`,
                 display: 'grid',
                 gridTemplateColumns: `repeat(${geometry.cols}, var(--tile-size))`,

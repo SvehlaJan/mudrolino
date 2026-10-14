@@ -33,8 +33,8 @@ test('WebKit renders home, the parent gate, and representative child rounds', as
   await expect(page.getByRole('dialog', { name: 'Pre rodičov' })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
-  await startFromHome(page, 'Abeceda');
-  await startFromHome(page, 'Spočítaj');
+  await startFromHome(page, 'Čítaj písmenká');
+  await startFromHome(page, 'Spočítaj predmety');
 
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);

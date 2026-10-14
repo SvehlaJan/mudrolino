@@ -19,7 +19,7 @@ interface NumeracyRoute {
 const NUMERACY_ROUTES: NumeracyRoute[] = [
   {
     path: '/counting',
-    heading: 'Spočítaj',
+    heading: 'Spočítaj predmety',
     answerGroup: 'Vyber počet',
     playfield: page => page.getByRole('group', { name: 'Predmety na spočítanie' }),
   },

@@ -10,7 +10,7 @@ test('Skladaj uses the shared literacy shell with a tap-to-place felt tray and w
   await page.getByRole('button', { name: 'Hrať' }).click();
 
   await expect(page.getByRole('main')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Skladaj' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Skladaj slabiky' })).toBeVisible();
   await expect(page.getByText('Usporiadaj slabiky')).toBeVisible();
   await expect(page.getByTestId('picture-card')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();

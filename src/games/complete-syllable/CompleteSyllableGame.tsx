@@ -15,6 +15,7 @@ import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg, type Translate } from '../../shared/i18n';
 import { useTileTransfer } from '../../shared/game/motion/useTileTransfer';
+import { useTileDrag } from '../../shared/game/motion/useTileDrag';
 import { fisherYatesShuffle } from '../../shared/utils';
 import {
   AnswerGroup,
@@ -229,17 +230,11 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     getPromptAudio: () => getPromptAudio(locale, targetRound!), locale, completionPraise,
   });
 
-  const handleReplay = useCallback(() => {
-    if (!targetRound) return;
-    cancelTileTransfer();
-    void replayPrompt(getPromptAudio(locale, targetRound));
-  }, [targetRound, locale, replayPrompt, cancelTileTransfer]);
-
   const retryAfterError = useCallback(() => {
     if (!isEmpty) playAgain();
   }, [isEmpty, playAgain]);
 
-  const chooseAnswer = useCallback(async (syllable: Syllable) => {
+  const chooseAnswer = useCallback(async (syllable: Syllable, dragPreview?: HTMLElement) => {
     if (!targetRound || !canAnswer) return;
     // The praise entry backing this round's visible feedback is picked and committed to local
     // state before resolveAnswer is awaited, so useGameSession's own re-entrancy guard (its
@@ -256,7 +251,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       if (syllable.symbol === targetRound.correctSyllable) {
         const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
         const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
-        const landing = moveTile(source, target);
+        const landing = moveTile(source, target, true, dragPreview);
         const praise = pickPraise(praiseEntries);
         setRoundPraise(praise);
         await resolveAnswer({
@@ -272,7 +267,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       const exhausted = state.maxAttempts !== null && state.wrongAttempts + 1 >= state.maxAttempts;
       const source = playfieldRef.current?.querySelector<HTMLElement>(`[data-answer-id="${CSS.escape(answerId)}"]`) ?? null;
       const target = playfieldRef.current?.querySelector<HTMLElement>('[data-slot-state="active"]') ?? null;
-      const returning = moveTile(source, target, false);
+      const returning = moveTile(source, target, false, dragPreview);
       await resolveAnswer({
         beforeOutcome: () => returning,
         answerId,
@@ -284,6 +279,32 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
       answerLockRef.current = false;
     }
   }, [targetRound, canAnswer, locale, praiseEntries, resolveAnswer, state.maxAttempts, state.wrongAttempts, moveTile]);
+
+  const { handlers: dragHandlers, cancelDrag } = useTileDrag({
+    enabled: canAnswer && !tileMoving && !replaying,
+    roundKey: targetRound,
+    targetSelector: '[data-slot-state="active"]',
+    onDrop: (tileId, _target, clone) => {
+      if (!canAnswer || tileMoving || replaying || answerLockRef.current) return false;
+      const choice = choices.find(candidate => candidate.symbol === tileId);
+      if (!choice) return false;
+      void chooseAnswer(choice, clone);
+      return true;
+    },
+  });
+
+  const handleReplay = useCallback(() => {
+    if (!targetRound) return;
+    cancelDrag();
+    cancelTileTransfer();
+    void replayPrompt(getPromptAudio(locale, targetRound));
+  }, [targetRound, locale, replayPrompt, cancelTileTransfer, cancelDrag]);
+
+  const handleExit = useCallback(() => {
+    cancelDrag();
+    cancelTileTransfer();
+    onExit();
+  }, [cancelDrag, cancelTileTransfer, onExit]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
     ? {
@@ -309,7 +330,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
     totalTaps: state.totalTaps,
     maxRounds: state.maxRounds,
     onPlayAgain: playAgain,
-    onHome: onExit,
+    onHome: handleExit,
   };
 
   // The controller commits the final reveal before verdict audio. Reduced motion previews
@@ -318,11 +339,11 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
   const slots = targetRound ? buildPromptSlots(targetRound, revealed) : [];
 
   return (
-    <div ref={playfieldRef} className="contents">
+    <div {...dragHandlers} ref={playfieldRef} className="contents">
     <GameShell
       gameId="COMPLETE_SYLLABLE"
       state={state}
-      onBack={onExit}
+      onBack={handleExit}
       onRetryError={retryAfterError}
       prompt={
         <GamePrompt
@@ -344,6 +365,7 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
                       )}
                       <InsetSlot
                         label={getInsetLabel(slot, t)}
+                        className="data-[drag-over=true]:bg-selected-surface"
                         fitContents={slot.isMissing ? choices.map(choice => choice.symbol) : undefined}
                         state={slot.isMissing ? (revealed ? 'filled' : 'active') : 'fixed'}
                       >
@@ -372,6 +394,8 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
               visualRole="answer"
               label={t('Slabika {syllable}', { syllable: syllable.symbol })}
               data-answer-id={syllable.symbol}
+              data-tile-id={syllable.symbol}
+              className="touch-none select-none cursor-grab"
               state={getAnswerPieceState(state, syllable.symbol)}
               onPress={() => void chooseAnswer(syllable)}
             >

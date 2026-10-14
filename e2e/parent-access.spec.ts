@@ -103,7 +103,7 @@ test.describe('Parent Access Gate', () => {
         route === '/settings/games'
           ? 'Nastavenia hier'
           : route === '/settings/games/ALPHABET'
-            ? 'Abeceda'
+            ? 'Čítaj písmenká'
             : route === '/settings/help'
               ? 'Pomoc a spätná väzba'
             : 'Rodičovská zóna';

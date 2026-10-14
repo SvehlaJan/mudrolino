@@ -358,6 +358,13 @@ function UiKitGameMaterialsDemo() {
     <div className="p-6">
       <section aria-label="Materiály hier" className="space-y-6">
         <h1 className="text-2xl font-black">Zadanie a odpoveď</h1>
+        <nav className="flex flex-wrap gap-3" aria-label={getUiCopy('sk', 'category.literacy')} data-testid="ui-tile-drag-examples">
+          {GAME_DEFINITIONS.filter(game => ['ASSEMBLY', 'COMPLETE_LETTER', 'COMPLETE_SYLLABLE'].includes(game.id)).map(game => (
+            <a key={game.id} href={game.path} className="rounded-2xl border border-border-subtle bg-white p-3 font-bold text-focus underline focus-visible:outline">
+              {getUiCopy('sk', game.titleKey)}
+            </a>
+          ))}
+        </nav>
         {(['task', 'answer'] as const).map(visualRole => (
           <div key={visualRole} className="space-y-3" data-testid={`ui-materials-${visualRole}`}>
             <h2 className="text-lg font-bold">{visualRole === 'task' ? 'Zadanie — ploché predmety' : 'Odpoveď — vyvýšené dlaždice'}</h2>
@@ -1117,7 +1124,6 @@ export function UiKitScreen() {
               <GameCard
                 game={GAME_DEFINITIONS[0]}
                 title="Mimoriadne dlhý názov hry na viac riadkov pre overenie zalamovania"
-                description="Detailný popis hry s dlhším textom, ktorý otestuje správanie textových kontajnerov a zachovanie stabilnej základne."
               />
             </div>
           </div>

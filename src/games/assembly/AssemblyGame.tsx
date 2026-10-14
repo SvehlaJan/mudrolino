@@ -41,9 +41,11 @@ import {
   createAssemblyBoard,
   getCorrectTileOrder,
   moveTileToFirstOpenSlot,
+  moveTileToSlot,
   returnTileToTray,
 } from './assemblyLogic';
 import { getAssemblySelectionAudioDecision } from './assemblyAudioLogic';
+import { useTileDrag } from '../../shared/game/motion/useTileDrag';
 
 const INSTRUCTION = msg('Usporiadaj slabiky');
 const ANSWER_GROUP_LABEL = msg('Zásobník slabík');
@@ -261,10 +263,11 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
    * immediately after). Reduced motion mutates the board immediately and only ever animates
    * opacity, never position — see the plan's reduced-motion contract.
    */
-  const animateTilesMove = useCallback((tileIds: string[], mutateBoard: () => void) => {
+  const animateTilesMove = useCallback((tileIds: string[], mutateBoard: () => void, dragClone?: HTMLElement) => {
     tileIds.forEach(cleanupFloatingTile);
 
     if (prefersReducedMotion) {
+      dragClone?.remove();
       mutateBoard();
       setAnimatingTileIds((prev) => Array.from(new Set([...prev, ...tileIds])));
       setEnteringTileIds((prev) => Array.from(new Set([...prev, ...tileIds])));
@@ -285,6 +288,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
 
     const root = boardRootRef.current;
     if (!root) {
+      dragClone?.remove();
       mutateBoard();
       return Promise.resolve(true);
     }
@@ -295,6 +299,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       if (source) sourceRects.set(tileId, source.getBoundingClientRect());
     });
     if (sourceRects.size === 0) {
+      dragClone?.remove();
       mutateBoard();
       return Promise.resolve(true);
     }
@@ -302,7 +307,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     const clones = new Map<string, HTMLElement>();
     sourceRects.forEach((_rect, tileId) => {
       const source = root.querySelector(`[data-tile-id="${tileId}"]`) as HTMLElement;
-      const clone = createFloatingTile(source);
+      const clone = dragClone ?? createFloatingTile(source);
       floatingTilesRef.current.set(tileId, clone);
       clones.set(tileId, clone);
     });
@@ -321,13 +326,18 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       }
       flights.push(new Promise<boolean>((resolve) => flightResolversRef.current.set(tileId, resolve)));
       const destinationRect = destination.getBoundingClientRect();
+      const destinationStyle = getComputedStyle(destination);
       const tween = gsap.to(clone, {
         top: destinationRect.top,
         left: destinationRect.left,
         width: destinationRect.width,
         height: destinationRect.height,
         fontSize: getTileFontSize(destination),
-        borderRadius: getComputedStyle(destination).borderRadius,
+        borderRadius: destinationStyle.borderRadius,
+        borderWidth: destinationStyle.borderWidth,
+        borderColor: destinationStyle.borderColor,
+        boxShadow: destinationStyle.boxShadow,
+        backgroundColor: destinationStyle.backgroundColor,
         duration: TILE_FLIGHT_DURATION_S,
         ease: 'power2.inOut',
         onComplete: () => {
@@ -424,17 +434,6 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     if (state.paused || state.phase === 'recoverable-error') cleanupAllFloatingTiles();
   }, [state.paused, state.phase, cleanupAllFloatingTiles]);
 
-  const handleReplay = useCallback(() => {
-    if (!targetWord) return;
-    cleanupAllFloatingTiles();
-    void replayPrompt(getReplayAudio(locale, targetWord));
-  }, [targetWord, locale, replayPrompt, cleanupAllFloatingTiles]);
-
-  const handleExit = useCallback(() => {
-    cleanupAllFloatingTiles();
-    onExit();
-  }, [cleanupAllFloatingTiles, onExit]);
-
   const retryAfterError = useCallback(() => {
     if (!isEmpty) playAgain();
   }, [isEmpty, playAgain]);
@@ -455,7 +454,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     );
   }, [animateTilesMove]);
 
-  const placeTile = useCallback(async (tile: AssemblyTile) => {
+  const placeTile = useCallback(async (tile: AssemblyTile, slotIndex?: number, dragClone?: HTMLElement) => {
     if (!targetWord || !canAnswer) return;
     if (animatingTileIds.includes(tile.id)) return;
     if (answerLockRef.current) return;
@@ -463,11 +462,11 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     try {
       const emptySlotCount = board.placedTiles.filter((slot) => slot === null).length;
       const placingLastTile = emptySlotCount === 1;
-      const nextBoard = moveTileToFirstOpenSlot(board, tile.id);
+      const nextBoard = slotIndex === undefined ? moveTileToFirstOpenSlot(board, tile.id) : moveTileToSlot(board, tile.id, slotIndex);
       if (nextBoard === board) return;
 
       pendingFocusTileIdRef.current = findNextTrayFocusId(nextBoard.trayTiles, tile.trayIndex);
-      const landing = animateTilesMove([tile.id], () => setRoundState((prev) => ({ ...prev, board: nextBoard })))
+      const landing = animateTilesMove([tile.id], () => setRoundState((prev) => ({ ...prev, board: nextBoard })), dragClone)
         .then((landed) => {
           if (!landed && mountedRef.current) setRoundState((prev) => prev.word === targetWord ? { ...prev, board } : prev);
           return landed && mountedRef.current;
@@ -526,13 +525,47 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     praiseEntries, resetCompleteBoardToTray, resolveAnswer, targetWord,
   ]);
 
-  const returnTile = useCallback((tile: AssemblyTile, slotIndex: number) => {
+  const returnTile = useCallback((tile: AssemblyTile, slotIndex: number, dragClone?: HTMLElement) => {
     if (!canAnswer || answerLockRef.current || animatingTileIds.includes(tile.id)) return;
     const nextBoard = returnTileToTray(board, slotIndex);
     if (nextBoard === board) return;
     pendingFocusTileIdRef.current = tile.id;
-    animateTilesMove([tile.id], () => setRoundState((prev) => ({ ...prev, board: nextBoard })));
+    animateTilesMove([tile.id], () => setRoundState((prev) => ({ ...prev, board: nextBoard })), dragClone);
   }, [animateTilesMove, animatingTileIds, board, canAnswer]);
+
+  const { handlers: dragHandlers, cancelDrag } = useTileDrag({
+    enabled: canAnswer && !replaying && animatingTileIds.length === 0,
+    roundKey: targetWord,
+    targetSelector: '[data-assembly-slot][data-slot-state="pending"], [data-assembly-tray]',
+    onDrop: (tileId, target, clone) => {
+      const slotIndex = target.dataset.assemblySlot === undefined ? null : Number(target.dataset.assemblySlot);
+      if (!canAnswer || answerLockRef.current || animatingTileIds.length > 0) return false;
+      if (slotIndex !== null) {
+        const tile = trayTiles.find(candidate => candidate.id === tileId);
+        if (!tile || moveTileToSlot(board, tileId, slotIndex) === board) return false;
+        void placeTile(tile, slotIndex, clone);
+      } else {
+        const index = placedTiles.findIndex(candidate => candidate?.id === tileId);
+        const tile = placedTiles[index];
+        if (!tile) return false;
+        returnTile(tile, index, clone);
+      }
+      return true;
+    },
+  });
+
+  const handleReplay = useCallback(() => {
+    if (!targetWord) return;
+    cancelDrag();
+    cleanupAllFloatingTiles();
+    void replayPrompt(getReplayAudio(locale, targetWord));
+  }, [targetWord, locale, replayPrompt, cleanupAllFloatingTiles, cancelDrag]);
+
+  const handleExit = useCallback(() => {
+    cancelDrag();
+    cleanupAllFloatingTiles();
+    onExit();
+  }, [cleanupAllFloatingTiles, onExit, cancelDrag]);
 
   const feedback: GameShellFeedback | null = state.feedback === 'success'
     ? {
@@ -556,6 +589,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
 
   return (
     <div
+      {...dragHandlers}
       ref={boardRootRef}
       className="contents"
       style={{
@@ -590,18 +624,19 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                       return (
                         <InsetSlot
                           key={`assembly-slot-${index}`}
+                          data-assembly-slot={index}
                           label={tile ? t('Slabika {position}: {syllable}', { position: index + 1, syllable: tile.text }) : t('Slabika {position}: prázdne', { position: index + 1 })}
                           state={tile ? 'filled' : 'pending'}
                           fitContents={correctSyllables.map(renderTileLabel)}
                           style={{ height: 'var(--assembly-slot-height)', fontSize: 'var(--assembly-label-size)' }}
-                          className="min-h-[54px] min-w-[54px] shrink-0 grid-cols-1 grid-rows-1 p-0"
+                          className="min-h-[54px] min-w-[54px] shrink-0 grid-cols-1 grid-rows-1 p-0 data-[drag-over=true]:border-focus data-[drag-over=true]:bg-selected-surface"
                         >
                           {tile ? (
                             <TactilePiece
                               as="button"
                               material="felt"
                               visualRole="answer"
-                              className="h-full w-full min-h-0 min-w-0 p-0"
+                              className="h-full w-full min-h-0 min-w-0 touch-none select-none cursor-grab rounded-[13px] border-0 p-0 shadow-none active:shadow-none"
                               label={t('Umiestnená slabika {syllable}, klepnutím vrátiš do zásobníka', { syllable: tile.text })}
                               data-tile-id={tile.id}
                               state={getTilePieceState(state, tile.id)}
@@ -612,6 +647,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                               style={{
                                 width: '100%',
                                 height: '100%',
+                                boxShadow: 'none',
                                 ...(prefersReducedMotion
                                   ? { opacity: isEntering ? 0 : 1, transition: 'opacity 200ms ease' }
                                   : { transitionProperty: 'transform, box-shadow, opacity', ...(isMoving ? { visibility: 'hidden' as const } : {}) }),
@@ -638,8 +674,8 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
       completion={completion}
     >
       <div ref={trayRegionRef} className="flex min-h-0 flex-1 flex-col">
-        <PlayTray label={getUiCopy(locale, 'game.playArea')}>
-          <AnswerGroup label={t(ANSWER_GROUP_LABEL)} disabled={!canAnswer || animatingTileIds.length > 0}>
+        <PlayTray label={getUiCopy(locale, 'game.playArea')} data-assembly-tray="true" className="data-[drag-over=true]:border-focus">
+          <AnswerGroup label={t(ANSWER_GROUP_LABEL)} maxTileSize="var(--assembly-tile-size)" disabled={!canAnswer || animatingTileIds.length > 0}>
             {traySlots.map(({ trayIndex, tile }) => {
               if (!tile) {
                 return (
@@ -674,7 +710,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
                       ? { opacity: isEntering ? 0 : 1, transition: 'opacity 200ms ease' }
                       : { transitionProperty: 'transform, box-shadow, opacity', ...(isMoving ? { visibility: 'hidden' as const } : {}) }),
                   }}
-                  className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 p-0"
+                  className="h-[var(--assembly-tile-size)] w-[var(--assembly-tile-size)] min-h-0 min-w-0 touch-none select-none cursor-grab p-0"
                 >
                   <span data-tile-label className="font-spline text-[length:var(--assembly-label-size)] font-black leading-none">
                     {renderTileLabel(tile.text)}

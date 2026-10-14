@@ -41,9 +41,10 @@ export interface TileTransfer {
 }
 
 /** Explicit cancellation aborts placement; unsupported/failed animation falls back to immediate placement. */
-export function transferTile(source: HTMLElement | null, target: HTMLElement | null, reducedMotion: boolean, retainUntilRelease = false, returnToSource = false): TileTransfer {
+export function transferTile(source: HTMLElement | null, target: HTMLElement | null, reducedMotion: boolean, retainUntilRelease = false, returnToSource = false, dragPreview?: HTMLElement): TileTransfer {
   const originalVisibility = source?.style.visibility ?? '';
   if (!source || !target || reducedMotion) {
+    dragPreview?.remove();
     let resolveReleased!: () => void;
     const released = new Promise<void>((resolve) => { resolveReleased = resolve; });
     if (source && retainUntilRelease && !returnToSource) source.style.visibility = 'hidden';
@@ -51,8 +52,9 @@ export function transferTile(source: HTMLElement | null, target: HTMLElement | n
     if (!retainUntilRelease || returnToSource) restore();
     return { finished: Promise.resolve(true), released, previewPlacement: !returnToSource, cancel: restore, release: restore };
   }
-  const clone = createFloatingTile(source);
+  const clone = dragPreview ?? createFloatingTile(source);
   const from = source.getBoundingClientRect();
+  const releasedFrom = dragPreview?.getBoundingClientRect() ?? from;
   const to = target.getBoundingClientRect();
   source.style.visibility = 'hidden';
   let resolveFinished!: (completed: boolean) => void;
@@ -78,14 +80,15 @@ export function transferTile(source: HTMLElement | null, target: HTMLElement | n
     resolveFinished(completed);
   };
   try {
-    const start: Keyframe = { top: `${from.top}px`, left: `${from.left}px`, width: `${from.width}px`, height: `${from.height}px`, fontSize: getTileFontSize(source), borderRadius: getComputedStyle(source).borderRadius || '22px' };
+    const original: Keyframe = { top: `${from.top}px`, left: `${from.left}px`, width: `${from.width}px`, height: `${from.height}px`, fontSize: getTileFontSize(source), borderRadius: getComputedStyle(source).borderRadius || '22px' };
+    const start: Keyframe = { ...original, top: `${releasedFrom.top}px`, left: `${releasedFrom.left}px`, width: `${releasedFrom.width}px`, height: `${releasedFrom.height}px` };
     const end: Keyframe = { top: `${to.top}px`, left: `${to.left}px`, width: `${to.width}px`, height: `${to.height}px`, fontSize: getTileFontSize(target), borderRadius: getComputedStyle(target).borderRadius || '16px' };
     animation = clone.animate([start, end], { duration: 620, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'forwards' });
     animation.finished.then(() => {
       if (cleaned) return;
       if (!returnToSource) { finish(true, retainUntilRelease); return; }
       try {
-        animation = clone.animate([end, start], { duration: 420, delay: 140, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'forwards' });
+        animation = clone.animate([end, original], { duration: 420, delay: 140, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'forwards' });
         animation.finished.then(() => finish(true), () => finish(true));
       } catch { finish(true); }
     }, () => { removeFloating(); finish(true, retainUntilRelease && !returnToSource); });

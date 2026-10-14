@@ -38,7 +38,7 @@ function toAxeParams(page: Page): ConstructorParameters<typeof AxeBuilder>[0] {
 const NUMERACY_ROUTES: NumeracyRoute[] = [
   {
     path: '/counting',
-    heading: 'Spočítaj',
+    heading: 'Spočítaj predmety',
     answerGroup: 'Vyber počet',
     retryTitle: 'Skús ešte raz',
     chooseWrongAnswer: (page, state) => {

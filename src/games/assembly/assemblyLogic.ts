@@ -28,9 +28,14 @@ export function createAssemblyBoard(
 }
 
 export function moveTileToFirstOpenSlot(board: AssemblyBoard, tileId: string): AssemblyBoard {
-  const tile = board.trayTiles.find(candidate => candidate.id === tileId);
   const slotIndex = board.placedTiles.findIndex(candidate => candidate === null);
-  if (!tile || slotIndex < 0) return board;
+  return moveTileToSlot(board, tileId, slotIndex);
+}
+
+export function moveTileToSlot(board: AssemblyBoard, tileId: string, slotIndex: number): AssemblyBoard {
+  const tile = board.trayTiles.find(candidate => candidate.id === tileId);
+  if (!tile || !Number.isInteger(slotIndex) || slotIndex < 0
+    || slotIndex >= board.placedTiles.length || board.placedTiles[slotIndex] !== null) return board;
   const placedTiles = [...board.placedTiles];
   placedTiles[slotIndex] = tile;
   return {

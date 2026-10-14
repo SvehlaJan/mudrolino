@@ -59,7 +59,7 @@ for (const [key, expected] of Object.entries(gameShellCopy) as Array<[keyof type
 }
 
 // An unknown locale falls back to Slovak.
-if (getUiCopy('unknown-locale', 'game.alphabet.title') !== 'Abeceda') {
+if (getUiCopy('unknown-locale', 'game.alphabet.title') !== 'Čítaj písmenká') {
   throw new Error('Unknown locale must fall back to Slovak');
 }
 
