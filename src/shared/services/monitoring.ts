@@ -5,9 +5,18 @@
 
 import * as Sentry from '@sentry/react';
 import type { RootOptions } from 'react-dom/client';
-import { sentryDsnFor, shouldCountPageViews } from './monitoringPolicy';
+import { sentryDsnFor, shouldCountPageViews, type MonitoringEnv } from './monitoringPolicy';
 
-export const pageViewsEnabled = shouldCountPageViews(import.meta.env);
+// Read single properties: passing `import.meta.env` as a whole makes Vite inline
+// every build variable into the bundle, including Vercel's commit author name.
+const monitoringEnv: MonitoringEnv = {
+  MODE: import.meta.env.MODE,
+  PROD: import.meta.env.PROD,
+  VITE_SENTRY_DSN: import.meta.env.VITE_SENTRY_DSN,
+  VITE_VERCEL_ENV: import.meta.env.VITE_VERCEL_ENV,
+};
+
+export const pageViewsEnabled = shouldCountPageViews(monitoringEnv);
 
 /**
  * Starts error reporting when this build has a DSN and returns the React root
@@ -15,7 +24,7 @@ export const pageViewsEnabled = shouldCountPageViews(import.meta.env);
  * catches. Returns undefined, leaving React's default logging, when reporting is off.
  */
 export function initMonitoring(): RootOptions | undefined {
-  const dsn = sentryDsnFor(import.meta.env);
+  const dsn = sentryDsnFor(monitoringEnv);
   if (!dsn) return undefined;
   Sentry.init({
     dsn,
