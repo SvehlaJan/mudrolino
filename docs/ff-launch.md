@@ -60,9 +60,10 @@ Uploading source maps is optional but makes stack traces readable.
    you prefer one switch for all projects. The app already sends no IP or
    personal data; this makes Sentry discard the address it sees on the
    connection too.
-7. Also under **Security & Privacy** (recommended): leave **Data Scrubber** and
-   **Use Default Scrubbers** on, and set **Allowed Domains** to
-   `mudrolino.vercel.app` so the public DSN only accepts events from the app.
+7. Recommended: under **Security & Privacy** leave **Data Scrubber** and **Use
+   Default Scrubbers** on, and under the project's **General Settings → Client
+   Security → Allowed Domains** enter `mudrolino.vercel.app`, so the public DSN
+   only accepts browser events sent from the app.
 8. Check after the first production deploy: open `https://mudrolino.vercel.app`
    and run `setTimeout(() => { throw new Error('Sentry test') })` in the browser
    console. The issue appears in Sentry within a minute, with the release set to
