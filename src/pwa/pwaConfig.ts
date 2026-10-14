@@ -17,7 +17,9 @@ type PwaManifest = Partial<ManifestOptions> & {
 export const pwaBrand = {
   appName: 'Mudrolíno',
   shortName: 'Mudrolíno',
-  description: 'Slovenská predškolská aplikácia s hrami a rodičmi nahratým obsahom.',
+  // Install sheets and link previews show one description to Slovak and Czech
+  // families alike; this line reads naturally in both languages.
+  description: 'Písmenká, slabiky a čísla hrou.',
   themeColor: '#F53D4C',
   backgroundColor: '#F4F1EA',
   // Link previews need absolute URLs; this is the friends-and-family address.

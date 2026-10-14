@@ -309,7 +309,7 @@ test.describe('UI foundation: overlay landmark hygiene', () => {
     await expect(page.getByRole('form', { name: 'Spätná väzba' })).toBeVisible();
     await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.getByRole('dialog')).toHaveCount(0);
-    await expect(page.getByRole('link', { name: /jan\.svehla@pm\.me/ })).toHaveAttribute('href', 'mailto:jan.svehla@pm.me');
+    await expect(page.getByRole('link', { name: /mudrolino@pm\.me/ })).toHaveAttribute('href', 'mailto:mudrolino@pm.me');
   });
 });
 

@@ -56,6 +56,7 @@ seed, commit/build identity, scene, viewport, errors and failed requests.
 - Commit messages are `type: imperative summary` (`fix:`, `feat:`, `perf:`, `docs:`, `test:`, `chore:`) with a body explaining why, not what.
 - Update `ROADMAP.md` in the same change when you finish, add, or drop a task, and add a Decisions Log row for a significant choice.
 - Do not open a pull request unless asked.
+- Production deploys from the `release` branch (Vercel production branch); pushes to `main` and feature branches only create preview deployments. Ship by fast-forwarding `release` to a reviewed `main` commit, and only when the user asks.
 
 ## Gotchas
 

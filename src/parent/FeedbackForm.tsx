@@ -19,7 +19,7 @@ function ScreenshotGuidance() {
   return (
     <p className="text-sm text-text-muted">
       {t('Snímky obrazovky pošlite e-mailom na')}{' '}
-      <a href="mailto:jan.svehla@pm.me" className="font-bold text-text-main underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus">jan.svehla@pm.me</a>.
+      <a href="mailto:mudrolino@pm.me" className="font-bold text-text-main underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus">mudrolino@pm.me</a>.
     </p>
   );
 }

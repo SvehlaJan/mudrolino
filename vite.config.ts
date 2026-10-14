@@ -63,9 +63,14 @@ export default defineConfig(({mode}) => {
           org: env.SENTRY_ORG,
           project: env.SENTRY_PROJECT,
           authToken: env.SENTRY_AUTH_TOKEN,
+          // EU organizations upload to https://de.sentry.io/; unset means the US server.
+          url: env.SENTRY_URL || undefined,
           release: { name: version },
           sourcemaps: { filesToDeleteAfterUpload: ['./dist/**/*.map'] },
           telemetry: false,
+          // A failed upload (say, a mistyped token) must not block a deploy; errors still
+          // reach Sentry, only without readable stack traces.
+          errorHandler: error => console.warn(`[sentry] Source map upload failed: ${error.message}`),
         })]
         : []),
     ],
