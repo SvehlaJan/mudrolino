@@ -35,7 +35,7 @@
 - [x] Add assembly game to `App.tsx` game registry and home screen grid
 - [x] Browser review polish: explicit reading/counting game names, home cards with icon and title only, no settled-card banners, centered syllable tray, flush morphing rail pieces and mouse/touch dragging to empty slots and back.
 - [x] Extend mouse/touch dragging to Doplň slabiku and Doplň písmeno through the shared pointer gesture and tile-transfer flow; preserve guided blanks, answer audio, wrong-card returns and cancellation.
-- [~] Release the reviewed home and drag-and-drop improvements (requested 2026-10-14): merged to `main`; the user explicitly approved releasing with the existing TTS fallback despite 41 pending Slovak and 199 pending Czech recordings. The exception applies to this release only; recording work and the general strict-audio policy remain open.
+- [x] Release the reviewed home and drag-and-drop improvements (2026-10-14): merged to `main`, fast-forwarded `release` to `61c2a42`, and deployed to https://mudrolino.vercel.app. Live production checks passed for the renamed home cards, assembly placement and return, and mouse/touch dragging in the completion games. The user explicitly approved the existing TTS fallback despite 41 pending Slovak and 199 pending Czech recordings for this release only; recording work and the general strict-audio policy remain open.
 - [x] Stabilize the release assembly-retry journey by checking the recorded attempt and reset board instead of polling a transient incorrect-answer phase after tile travel.
 
 ### Bug fixes (from `docs/BACKLOG.md`)
