@@ -6,6 +6,7 @@
 import React from 'react';
 import type { SettingDefinition, SettingValue } from '../shared/settings/settingsRegistry';
 import { RadioGroupControl, SwitchControl } from '../shared/ui';
+import { useT } from '../shared/hooks/useT';
 
 interface SettingFieldProps {
   definition: SettingDefinition;
@@ -24,11 +25,13 @@ function optionKey(value: SettingValue): string {
  * IDs, storage, or cross-field dependencies — those live in the registry.
  */
 export function SettingField({ definition, value, onValueChange }: SettingFieldProps) {
+  // Registry text is Slovak marked with msg(); translate it here, where it is shown.
+  const t = useT();
   if (definition.kind === 'switch') {
     return (
       <SwitchControl
-        label={definition.label}
-        description={definition.description}
+        label={t(definition.label)}
+        description={t(definition.description)}
         checked={value === true}
         onCheckedChange={onValueChange}
         tone="accent"
@@ -41,11 +44,11 @@ export function SettingField({ definition, value, onValueChange }: SettingFieldP
   return (
     <div className="space-y-3">
       <div>
-        <h3 className="text-lg font-bold text-text-main sm:text-xl">{definition.label}</h3>
-        <p className="mt-1 text-sm font-medium text-text-muted sm:text-base">{definition.description}</p>
+        <h3 className="text-lg font-bold text-text-main sm:text-xl">{t(definition.label)}</h3>
+        <p className="mt-1 text-sm font-medium text-text-muted sm:text-base">{t(definition.description)}</p>
       </div>
       <RadioGroupControl
-        ariaLabel={definition.label}
+        ariaLabel={t(definition.label)}
         tone="accent"
         columns={columns}
         value={optionKey(value)}
@@ -53,7 +56,7 @@ export function SettingField({ definition, value, onValueChange }: SettingFieldP
           const option = definition.options.find(candidate => optionKey(candidate.value) === key);
           if (option) onValueChange(option.value);
         }}
-        options={definition.options.map(option => ({ value: optionKey(option.value), label: option.label }))}
+        options={definition.options.map(option => ({ value: optionKey(option.value), label: t(option.label) }))}
       />
     </div>
   );

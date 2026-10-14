@@ -95,6 +95,7 @@ export const appComponentInventory = [
   {"name":"RecordingListItem","source":"src/recordings/RecordingListItem.tsx","category":"recordings","exported":true,"usages":["src/content/ContentItemList.tsx"]},
   {"name":"RetryAnnouncement","source":"src/shared/game/GameShell.tsx","category":"game-shell","exported":false,"usages":["src/shared/game/GameShell.tsx"]},
   {"name":"RoundCounter","source":"src/shared/ui/RoundCounter.tsx","category":"ui","exported":true,"usages":["src/shared/game/GameShell.tsx"]},
+  {"name":"ScreenshotGuidance","source":"src/parent/FeedbackForm.tsx","category":"parent","exported":false,"usages":["src/parent/FeedbackForm.tsx"]},
   {"name":"SearchInput","source":"src/shared/ui/FormControls.tsx","category":"ui","exported":true,"usages":["src/content/ContentItemList.tsx"]},
   {"name":"SegmentedChoice","source":"src/shared/ui/FormControls.tsx","category":"ui","exported":true,"usages":[]},
   {"name":"SessionCompleteOverlay","source":"src/shared/components/SessionCompleteOverlay.tsx","category":"game-shell","exported":true,"usages":[]},

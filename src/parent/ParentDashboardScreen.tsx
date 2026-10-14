@@ -12,6 +12,8 @@ import { useContentLocale } from '../shared/contexts/ContentContext';
 import { getUiCopy } from '../shared/uiCopy';
 import { useParentZone } from './ParentZoneContext';
 import { shareApp, type ShareAppResult } from './shareApp';
+import { useT } from '../shared/hooks/useT';
+import { msg } from '../shared/i18n';
 
 interface DashboardDestination {
   to: string;
@@ -23,26 +25,26 @@ interface DashboardDestination {
 const DESTINATIONS: DashboardDestination[] = [
   {
     to: '/settings/games',
-    title: 'Nastavenia hier',
-    description: 'Rozsahy, obtiažnosť a zobrazenie pre jednotlivé hry.',
+    title: msg('Nastavenia hier'),
+    description: msg('Rozsahy, obtiažnosť a zobrazenie pre jednotlivé hry.'),
     icon: <Gamepad2 size={24} className="sm:h-7 sm:w-7" />,
   },
   {
     to: '/content',
-    title: 'Vlastný obsah',
-    description: 'Nahraj vlastný hlas pre písmená, slová a frázy.',
+    title: msg('Vlastný obsah'),
+    description: msg('Nahrajte vlastný hlas pre písmená, slová a frázy.'),
     icon: <Mic size={24} className="sm:h-7 sm:w-7" />,
   },
   {
     to: '/settings/app',
-    title: 'Aplikácia a vzhľad',
-    description: 'Písmo, záloha, súkromie a verzia aplikácie.',
+    title: msg('Aplikácia a vzhľad'),
+    description: msg('Jazyk, písmo, záloha, súkromie a verzia aplikácie.'),
     icon: <Palette size={24} className="sm:h-7 sm:w-7" />,
   },
   {
     to: '/settings/help',
-    title: 'Pomoc a spätná väzba',
-    description: 'Pomôžte nám zlepšiť aplikáciu.',
+    title: msg('Pomoc a spätná väzba'),
+    description: msg('Pomôžte nám zlepšiť aplikáciu.'),
     icon: <HelpCircle size={24} className="sm:h-7 sm:w-7" />,
   },
 ];
@@ -102,15 +104,16 @@ function ShareAppAction() {
 
 export function ParentDashboardScreen() {
   const { closeToChild } = useParentZone();
+  const t = useT();
 
   return (
     <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
       <TopBar left={<BackButton onClick={() => closeToChild({ replace: true })} />} />
-      <PageHeader title="Rodičovská zóna" description="Nastavenia, obsah a pomoc pre rodičov." />
-      <nav aria-label="Rodičovská zóna" className="mt-5 space-y-3 sm:mt-6">
+      <PageHeader title={t('Rodičovská zóna')} description={t('Nastavenia, obsah a pomoc pre rodičov.')} />
+      <nav aria-label={t('Rodičovská zóna')} className="mt-5 space-y-3 sm:mt-6">
         {DESTINATIONS.map(destination => (
           <Link key={destination.to} to={destination.to} className={destinationClassName}>
-            <DestinationContent title={destination.title} description={destination.description} icon={destination.icon} />
+            <DestinationContent title={t(destination.title)} description={t(destination.description)} icon={destination.icon} />
             <ChevronRight size={24} className="shrink-0 text-text-muted sm:h-7 sm:w-7" aria-hidden="true" />
           </Link>
         ))}

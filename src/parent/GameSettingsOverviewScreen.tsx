@@ -12,6 +12,7 @@ import { SETTINGS_BY_ID } from '../shared/settings/settingsRegistry';
 import { getUiCopy } from '../shared/uiCopy';
 import { useContentLocale } from '../shared/contexts/ContentContext';
 import { AppScreen, BackButton, PageHeader, TopBar, cn, uiTokens } from '../shared/ui';
+import { useT } from '../shared/hooks/useT';
 
 const GAMES_WITH_SETTINGS = GAME_DEFINITIONS.filter(game => game.settings.length > 0);
 
@@ -22,12 +23,13 @@ interface GameSettingsListProps {
 /** List of catalogued games with settings shown on the overview page. */
 function GameSettingsList({ settings }: GameSettingsListProps) {
   const locale = useContentLocale();
+  const t = useT();
 
   return (
-    <nav aria-label="Nastavenia hier" className="space-y-2.5">
+    <nav aria-label={t('Nastavenia hier')} className="space-y-2.5">
       {GAMES_WITH_SETTINGS.map(game => {
         const summary = game.settings
-          .map(id => `${SETTINGS_BY_ID[id].label}: ${SETTINGS_BY_ID[id].summarize(settings)}`)
+          .map(id => `${t(SETTINGS_BY_ID[id].label)}: ${t(SETTINGS_BY_ID[id].summarize(settings))}`)
           .join(' · ');
         return (
           <Link
@@ -58,11 +60,12 @@ interface GameSettingsOverviewScreenProps {
 
 export function GameSettingsOverviewScreen({ settings }: GameSettingsOverviewScreenProps) {
   const navigate = useNavigate();
+  const t = useT();
 
   return (
     <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
       <TopBar left={<BackButton onClick={() => navigate('/settings')} />} />
-      <PageHeader title="Nastavenia hier" />
+      <PageHeader title={t('Nastavenia hier')} />
       <div className="mt-5 sm:mt-6">
         <GameSettingsList settings={settings} />
       </div>
