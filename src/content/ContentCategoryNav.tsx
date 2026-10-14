@@ -6,6 +6,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Tabs, cn } from '../shared/ui';
+import { useT } from '../shared/hooks/useT';
 
 export interface ContentCategoryNavItem<T extends string> {
   id: T;
@@ -37,6 +38,7 @@ export function ContentCategoryNav<T extends string>({
   children,
   className,
 }: ContentCategoryNavProps<T>) {
+  const t = useT();
   const isHorizontal = orientation === 'horizontal';
   const listElRef = useRef<HTMLDivElement | null>(null);
   const [canScrollStart, setCanScrollStart] = useState(false);
@@ -79,7 +81,7 @@ export function ContentCategoryNav<T extends string>({
       items={items.map(item => ({ value: item.id, label: `${item.label} (${item.count})` }))}
       value={value}
       onValueChange={next => onValueChange(next as T)}
-      ariaLabel="Kategórie vlastného obsahu"
+      ariaLabel={t('Kategórie vlastného obsahu')}
       orientation={orientation}
       className={cn(
         'gap-3',
@@ -104,7 +106,7 @@ export function ContentCategoryNav<T extends string>({
           <>
             <button
               type="button"
-              aria-label="Posunúť kategórie doľava"
+              aria-label={t('Posunúť kategórie doľava')}
               data-testid="content-tabs-scroll-left"
               disabled={!canScrollStart}
               onClick={() => scrollList(-1)}
@@ -114,7 +116,7 @@ export function ContentCategoryNav<T extends string>({
             </button>
             <button
               type="button"
-              aria-label="Posunúť kategórie doprava"
+              aria-label={t('Posunúť kategórie doprava')}
               data-testid="content-tabs-scroll-right"
               disabled={!canScrollEnd}
               onClick={() => scrollList(1)}

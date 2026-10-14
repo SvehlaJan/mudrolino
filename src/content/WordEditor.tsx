@@ -9,6 +9,7 @@ import { cn } from '../shared/ui';
 import { validateWordForm } from './customContentValidation';
 import type { WordFormErrors, WordFormValues } from './customContentValidation';
 import type { UserWord } from '../shared/types';
+import { useT } from '../shared/hooks/useT';
 
 const INPUT_BASE = 'w-full rounded-xl border-2 bg-bg-light px-4 py-2 text-lg font-medium outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus';
 
@@ -22,6 +23,7 @@ interface WordEditorProps {
 }
 
 export function WordEditor({ mode, initialValues, existingWords, editingId, onSubmit, onCancel }: WordEditorProps) {
+  const t = useT();
   const [word, setWord] = useState(initialValues?.word ?? '');
   const [syllables, setSyllables] = useState(initialValues?.syllables ?? '');
   const [emoji, setEmoji] = useState(initialValues?.emoji ?? '');
@@ -58,16 +60,16 @@ export function WordEditor({ mode, initialValues, existingWords, editingId, onSu
           tabIndex={-1}
           className="rounded-2xl border-2 border-action-danger/40 bg-action-danger/10 p-4 focus-visible:outline-none"
         >
-          <p className="font-bold text-action-danger">Opravte, prosím, tieto polia:</p>
+          <p className="font-bold text-action-danger">{t('Opravte, prosím, tieto polia:')}</p>
           <ul className="mt-1 list-disc space-y-0.5 pl-5 text-sm text-action-danger">
             {errorMessages.map((message, index) => (
-              <li key={index}>{message}</li>
+              <li key={index}>{t(message)}</li>
             ))}
           </ul>
         </div>
       )}
 
-      <Field label="Slovo" errorText={errors.word} helpText="Napríklad Jahoda." required>
+      <Field label={t('Slovo')} errorText={errors.word && t(errors.word)} helpText={t('Napríklad Jahoda.')} required>
         {controlProps => (
           <input
             {...controlProps}
@@ -79,7 +81,7 @@ export function WordEditor({ mode, initialValues, existingWords, editingId, onSu
         )}
       </Field>
 
-      <Field label="Slabiky" errorText={errors.syllables} helpText="Slabiky oddeľ pomlčkou, napríklad ja-ho-da." required>
+      <Field label={t('Slabiky')} errorText={errors.syllables && t(errors.syllables)} helpText={t('Slabiky oddeľte pomlčkou, napríklad ja-ho-da.')} required>
         {controlProps => (
           <input
             {...controlProps}
@@ -90,7 +92,7 @@ export function WordEditor({ mode, initialValues, existingWords, editingId, onSu
         )}
       </Field>
 
-      <Field label="Emoji" errorText={errors.emoji} helpText="Napríklad 🍓." required>
+      <Field label={t('Emoji')} errorText={errors.emoji && t(errors.emoji)} helpText={t('Napríklad 🍓.')} required>
         {controlProps => (
           <input
             {...controlProps}
@@ -103,10 +105,10 @@ export function WordEditor({ mode, initialValues, existingWords, editingId, onSu
 
       <div className="flex gap-2 pt-1">
         <Button type="submit" tone="primary" size="parent" fullWidth>
-          {mode === 'edit' ? 'Uložiť' : 'Pridať'}
+          {mode === 'edit' ? t('Uložiť') : t('Pridať')}
         </Button>
         <Button type="button" tone="neutral" size="parent" fullWidth onClick={onCancel}>
-          Zrušiť
+          {t('Zrušiť')}
         </Button>
       </div>
     </form>

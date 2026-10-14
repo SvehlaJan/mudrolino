@@ -9,6 +9,7 @@ import { cn } from '../shared/ui';
 import { validatePraiseForm } from './customContentValidation';
 import type { PraiseFormErrors, PraiseFormValues } from './customContentValidation';
 import type { UserPraise } from '../shared/types';
+import { useT } from '../shared/hooks/useT';
 
 const INPUT_BASE = 'w-full rounded-xl border-2 bg-bg-light px-4 py-2 text-lg font-medium outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus';
 
@@ -22,6 +23,7 @@ interface PraiseEditorProps {
 }
 
 export function PraiseEditor({ mode, initialValues, existingPraises, editingId, onSubmit, onCancel }: PraiseEditorProps) {
+  const t = useT();
   const [text, setText] = useState(initialValues?.text ?? '');
   const [emoji, setEmoji] = useState(initialValues?.emoji ?? '');
   const [errors, setErrors] = useState<PraiseFormErrors>({});
@@ -57,16 +59,16 @@ export function PraiseEditor({ mode, initialValues, existingPraises, editingId, 
           tabIndex={-1}
           className="rounded-2xl border-2 border-action-danger/40 bg-action-danger/10 p-4 focus-visible:outline-none"
         >
-          <p className="font-bold text-action-danger">Opravte, prosím, tieto polia:</p>
+          <p className="font-bold text-action-danger">{t('Opravte, prosím, tieto polia:')}</p>
           <ul className="mt-1 list-disc space-y-0.5 pl-5 text-sm text-action-danger">
             {errorMessages.map((message, index) => (
-              <li key={index}>{message}</li>
+              <li key={index}>{t(message)}</li>
             ))}
           </ul>
         </div>
       )}
 
-      <Field label="Text pochvaly" errorText={errors.text} helpText="Napríklad Výborne!" required>
+      <Field label={t('Text pochvaly')} errorText={errors.text && t(errors.text)} helpText={t('Napríklad Výborne!')} required>
         {controlProps => (
           <input
             {...controlProps}
@@ -78,7 +80,7 @@ export function PraiseEditor({ mode, initialValues, existingPraises, editingId, 
         )}
       </Field>
 
-      <Field label="Emoji" errorText={errors.emoji} helpText="Napríklad 🌟." required>
+      <Field label={t('Emoji')} errorText={errors.emoji && t(errors.emoji)} helpText={t('Napríklad 🌟.')} required>
         {controlProps => (
           <input
             {...controlProps}
@@ -91,10 +93,10 @@ export function PraiseEditor({ mode, initialValues, existingPraises, editingId, 
 
       <div className="flex gap-2 pt-1">
         <Button type="submit" tone="primary" size="parent" fullWidth>
-          {mode === 'edit' ? 'Uložiť' : 'Pridať'}
+          {mode === 'edit' ? t('Uložiť') : t('Pridať')}
         </Button>
         <Button type="button" tone="neutral" size="parent" fullWidth onClick={onCancel}>
-          Zrušiť
+          {t('Zrušiť')}
         </Button>
       </div>
     </form>

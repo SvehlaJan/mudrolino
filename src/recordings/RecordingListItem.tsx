@@ -8,6 +8,7 @@ import { Mic, Trash2, Play, Square } from 'lucide-react';
 import type { RecorderState } from '../shared/hooks/useRecorder';
 import type { IconMenuAction } from '../shared/ui';
 import { Button, Card, IconButton, IconMenuButton } from '../shared/ui';
+import { useT } from '../shared/hooks/useT';
 
 export interface AudioItem {
   key: string;
@@ -62,6 +63,7 @@ export function RecordingListItem({
   onPlay,
   onDelete,
 }: RecordingListItemProps) {
+  const t = useT();
   const isRequesting = isActive && recorderState === 'requesting';
   const isRecording = isActive && recorderState === 'recording';
   const isProcessing = isActive && recorderState === 'processing';
@@ -86,10 +88,10 @@ export function RecordingListItem({
   const rowClass = 'flex flex-wrap items-center justify-between gap-2 transition-colors';
 
   let statusText: string | null = null;
-  if (isRequesting) statusText = 'Čakám na povolenie mikrofónu…';
-  else if (isRecording) statusText = speaking ? 'Nahrávam — počujem hlas.' : 'Nahrávam — hovorte do mikrofónu.';
-  else if (isProcessing) statusText = 'Spracovávam…';
-  else if (isSavedFlash) statusText = 'Uložené';
+  if (isRequesting) statusText = t('Čakám na povolenie mikrofónu…');
+  else if (isRecording) statusText = speaking ? t('Nahrávam — počujem hlas.') : t('Nahrávam — hovorte do mikrofónu.');
+  else if (isProcessing) statusText = t('Spracovávam…');
+  else if (isSavedFlash) statusText = t('Uložené');
 
   const customStatusClass = statusTone === 'draft'
     ? 'bg-amber-100 text-amber-700'
@@ -144,7 +146,7 @@ export function RecordingListItem({
                 <button
                   onClick={onStop}
                   className="min-w-11 min-h-11 rounded-full bg-action-danger flex items-center justify-center focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus"
-                  aria-label="Zastaviť"
+                  aria-label={t('Zastaviť')}
                 >
                   <Square size={12} className="text-white fill-white" />
                 </button>
@@ -152,7 +154,7 @@ export function RecordingListItem({
             )}
             {(isRequesting || isRecording || isProcessing) && (
               <Button tone="neutral" size="parent" onClick={onCancel}>
-                Zrušiť nahrávanie
+                {t('Zrušiť nahrávanie')}
               </Button>
             )}
           </>
@@ -166,7 +168,7 @@ export function RecordingListItem({
                   density="compact"
                   onClick={onDelete}
                   className={`${compactActionClass} !bg-shadow/20 text-text-main/70`}
-                  label="Zmazať nahrávku"
+                  label={t('Zmazať nahrávku')}
                 >
                   <Trash2 size={16} />
                 </IconButton>
@@ -181,7 +183,7 @@ export function RecordingListItem({
                   density="compact"
                   onClick={onPlay}
                   className={`${compactActionClass} !bg-accent-blue/45 text-text-main`}
-                  label="Prehrať"
+                  label={t('Prehrať')}
                 >
                   <Play size={16} />
                 </IconButton>
@@ -195,7 +197,7 @@ export function RecordingListItem({
                 density="compact"
                 onClick={onRecord}
                 className={`${compactActionClass} ${recordClass}`}
-                label="Nahrať"
+                label={t('Nahrať')}
                 disabled={disabled || (!isActive && ['requesting', 'recording', 'processing'].includes(recorderState))}
               >
                 <Mic size={16} />
@@ -205,7 +207,7 @@ export function RecordingListItem({
             {menuActions && menuActions.length > 0 && (
               <div className="flex w-11 shrink-0 items-center justify-center">
                 <IconMenuButton
-                  label="Ďalšie možnosti"
+                  label={t('Ďalšie možnosti')}
                   actions={menuActions}
                   className={`${compactActionClass} !bg-transparent !shadow-none text-text-main/70`}
                 />

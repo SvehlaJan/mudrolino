@@ -29,15 +29,17 @@ import { WordEditor } from './WordEditor';
 import { PraiseEditor } from './PraiseEditor';
 import { canDisableOrDelete, LAST_PLAYABLE_MESSAGE, summarizeContent } from './contentState';
 import type { UserPraise, UserWord } from '../shared/types';
+import { useT } from '../shared/hooks/useT';
+import { msg, type TranslationValues } from '../shared/i18n';
 
 type Section = 'letters' | 'numbers' | 'phrases' | 'words' | 'praise';
 
 const SECTION_LABELS: Record<Section, string> = {
-  letters: 'Písmená',
-  numbers: 'Čísla',
-  phrases: 'Frázy',
-  words: 'Slová',
-  praise: 'Pochvaly',
+  letters: msg('Písmená'),
+  numbers: msg('Čísla'),
+  phrases: msg('Frázy'),
+  words: msg('Slová'),
+  praise: msg('Pochvaly'),
 };
 
 const SECTIONS: Section[] = ['letters', 'numbers', 'phrases', 'words', 'praise'];
@@ -100,13 +102,14 @@ function buildSystemRows(locale: string, section: 'letters' | 'numbers' | 'phras
   }));
 }
 
-function describePendingDelete(pending: PendingDelete): string {
+function describePendingDelete(pending: PendingDelete, t: (text: string, values?: TranslationValues) => string): string {
   const label = pending.kind === 'word' ? pending.item.word : pending.item.text;
-  return `„${label}“ sa odstráni zo zoznamu aj s nahraným zvukom. Túto akciu môžeš hneď potom vrátiť späť.`;
+  return t('„{label}“ sa odstráni zo zoznamu aj s nahraným zvukom. Túto akciu môžete hneď potom vrátiť späť.', { label });
 }
 
 function currentMenuTrigger(): HTMLElement | null {
-  return document.querySelector<HTMLElement>('button[aria-label="Ďalšie možnosti"][data-state="open"]')
+  // Radix marks every menu trigger, so this works in any language.
+  return document.querySelector<HTMLElement>('button[aria-haspopup="menu"][data-state="open"]')
     ?? document.activeElement as HTMLElement | null;
 }
 
@@ -127,6 +130,7 @@ export function CustomContentScreen() {
     restoreAllDefaultPraises,
   } = useContent();
   const navigate = useNavigate();
+  const t = useT();
   const { layout } = useAppScreenLayout();
   const isMediumWidth = useMediaQuery('(min-width: 768px)');
   // The centered parent column fits a navigation rail and list; editors use the dialog.
@@ -164,29 +168,29 @@ export function CustomContentScreen() {
   const requestDisableWord = useCallback(async (word: UserWord) => {
     try {
       await setDefaultWordEnabled(word.id, false);
-      setActionNotice(`Slovo „${word.word}“ je vypnuté.`);
+      setActionNotice(t('Slovo „{word}“ je vypnuté.', { word: word.word }));
     } catch {
-      setActionNotice('Slovo sa nepodarilo vypnúť. Skúste to znova.');
+      setActionNotice(t('Slovo sa nepodarilo vypnúť. Skúste to znova.'));
     }
-  }, [setDefaultWordEnabled]);
+  }, [setDefaultWordEnabled, t]);
 
   const requestRestoreWord = useCallback(async (id: string) => {
     try {
       await setDefaultWordEnabled(id, true);
       setActionNotice(null);
     } catch {
-      setActionNotice('Slovo sa nepodarilo obnoviť. Skúste to znova.');
+      setActionNotice(t('Slovo sa nepodarilo obnoviť. Skúste to znova.'));
     }
-  }, [setDefaultWordEnabled]);
+  }, [setDefaultWordEnabled, t]);
 
   const requestRestoreAllWords = useCallback(async () => {
     try {
       await restoreAllDefaultWords();
-      setActionNotice('Predvolené slová boli obnovené.');
+      setActionNotice(t('Predvolené slová boli obnovené.'));
     } catch {
-      setActionNotice('Predvolené slová sa nepodarilo obnoviť. Skúste to znova.');
+      setActionNotice(t('Predvolené slová sa nepodarilo obnoviť. Skúste to znova.'));
     }
-  }, [restoreAllDefaultWords]);
+  }, [restoreAllDefaultWords, t]);
 
   const requestDeleteWord = useCallback((word: UserWord) => {
     deleteRestoreFocusRef.current = currentMenuTrigger();
@@ -202,16 +206,16 @@ export function CustomContentScreen() {
     const canRemove = canDisableOrDelete(allUserWords, word.id);
     const menuActions: IconMenuAction[] = word.isDefault
       ? [{
-          label: 'Vypnúť',
+          label: t('Vypnúť'),
           icon: <EyeOff size={16} />,
           tone: 'danger',
           disabled: !canRemove,
           onSelect: () => void requestDisableWord(word),
         }]
       : [
-          { label: 'Upraviť', icon: <Edit3 size={16} />, onSelect: () => requestEditWord(word) },
+          { label: t('Upraviť'), icon: <Edit3 size={16} />, onSelect: () => requestEditWord(word) },
           {
-            label: 'Zmazať',
+            label: t('Zmazať'),
             icon: <Trash2 size={16} />,
             tone: 'danger',
             disabled: !canRemove,
@@ -223,14 +227,14 @@ export function CustomContentScreen() {
       storeKey: `${locale}/words/${word.audioKey}`,
       label: `${word.word} ${word.emoji}${word.status === 'draft' ? ' ·' : ''}`,
       secondaryLabel: word.syllables.toUpperCase(),
-      statusLabel: word.isDefault ? 'Predvolené' : word.status === 'draft' ? 'Koncept' : 'Vlastné',
+      statusLabel: word.isDefault ? t('Predvolené') : word.status === 'draft' ? t('Koncept') : t('Vlastné'),
       statusTone: word.status === 'draft' ? 'draft' : word.isDefault ? 'default' : 'ready',
       allowPlay: word.status === 'ready',
       recordEmphasis: word.status === 'draft',
       menuActions,
       searchText: `${word.word} ${word.syllables}`,
     };
-  }, [allUserWords, locale, requestDisableWord, requestEditWord, requestDeleteWord]);
+  }, [allUserWords, locale, requestDisableWord, requestEditWord, requestDeleteWord, t]);
 
   const wordRows = enabledWords.map(buildWordRow);
   const disabledWordRows: ContentRow[] = disabledWords.map(word => ({
@@ -247,29 +251,29 @@ export function CustomContentScreen() {
   const requestDisablePraise = useCallback(async (praise: UserPraise) => {
     try {
       await setDefaultPraiseEnabled(praise.id, false);
-      setActionNotice(`Pochvala „${praise.text}“ je vypnutá.`);
+      setActionNotice(t('Pochvala „{praise}“ je vypnutá.', { praise: praise.text }));
     } catch {
-      setActionNotice('Pochvalu sa nepodarilo vypnúť. Skúste to znova.');
+      setActionNotice(t('Pochvalu sa nepodarilo vypnúť. Skúste to znova.'));
     }
-  }, [setDefaultPraiseEnabled]);
+  }, [setDefaultPraiseEnabled, t]);
 
   const requestRestorePraise = useCallback(async (id: string) => {
     try {
       await setDefaultPraiseEnabled(id, true);
       setActionNotice(null);
     } catch {
-      setActionNotice('Pochvalu sa nepodarilo obnoviť. Skúste to znova.');
+      setActionNotice(t('Pochvalu sa nepodarilo obnoviť. Skúste to znova.'));
     }
-  }, [setDefaultPraiseEnabled]);
+  }, [setDefaultPraiseEnabled, t]);
 
   const requestRestoreAllPraises = useCallback(async () => {
     try {
       await restoreAllDefaultPraises();
-      setActionNotice('Predvolené pochvaly boli obnovené.');
+      setActionNotice(t('Predvolené pochvaly boli obnovené.'));
     } catch {
-      setActionNotice('Predvolené pochvaly sa nepodarilo obnoviť. Skúste to znova.');
+      setActionNotice(t('Predvolené pochvaly sa nepodarilo obnoviť. Skúste to znova.'));
     }
-  }, [restoreAllDefaultPraises]);
+  }, [restoreAllDefaultPraises, t]);
 
   const requestDeletePraise = useCallback((praise: UserPraise) => {
     deleteRestoreFocusRef.current = currentMenuTrigger();
@@ -285,16 +289,16 @@ export function CustomContentScreen() {
     const canRemove = canDisableOrDelete(allUserPraises, praise.id);
     const menuActions: IconMenuAction[] = praise.isDefault
       ? [{
-          label: 'Vypnúť',
+          label: t('Vypnúť'),
           icon: <EyeOff size={16} />,
           tone: 'danger',
           disabled: !canRemove,
           onSelect: () => void requestDisablePraise(praise),
         }]
       : [
-          { label: 'Upraviť', icon: <Edit3 size={16} />, onSelect: () => requestEditPraise(praise) },
+          { label: t('Upraviť'), icon: <Edit3 size={16} />, onSelect: () => requestEditPraise(praise) },
           {
-            label: 'Zmazať',
+            label: t('Zmazať'),
             icon: <Trash2 size={16} />,
             tone: 'danger',
             disabled: !canRemove,
@@ -305,14 +309,14 @@ export function CustomContentScreen() {
       id: praise.id,
       storeKey: `${locale}/praise/${praise.audioKey}`,
       label: `${praise.emoji} ${praise.text}${praise.status === 'draft' ? ' ·' : ''}`,
-      statusLabel: praise.isDefault ? 'Predvolené' : praise.status === 'draft' ? 'Koncept' : 'Vlastné',
+      statusLabel: praise.isDefault ? t('Predvolené') : praise.status === 'draft' ? t('Koncept') : t('Vlastné'),
       statusTone: praise.status === 'draft' ? 'draft' : praise.isDefault ? 'default' : 'ready',
       allowPlay: praise.status === 'ready',
       recordEmphasis: praise.status === 'draft',
       menuActions,
       searchText: praise.text,
     };
-  }, [allUserPraises, locale, requestDisablePraise, requestEditPraise, requestDeletePraise]);
+  }, [allUserPraises, locale, requestDisablePraise, requestEditPraise, requestDeletePraise, t]);
 
   const praiseRows = enabledPraises.map(buildPraiseRow);
   const disabledPraiseRows: ContentRow[] = disabledPraises.map(praise => ({
@@ -336,9 +340,9 @@ export function CustomContentScreen() {
         await audioOverrideStore.delete(`${locale}/words/${audioKey}`).catch(() => undefined);
         await deleteWord(restored.id).catch(() => undefined);
       }
-      setActionNotice('Obnovenie položky sa nepodarilo dokončiť. Skúste to znova.');
+      setActionNotice(t('Obnovenie položky sa nepodarilo dokončiť. Skúste to znova.'));
     }
-  }, [addWord, deleteWord, locale, updateWord]);
+  }, [addWord, deleteWord, locale, updateWord, t]);
 
   const restoreUndoPraise = useCallback(async (praise: UserPraise, audioBlob: Blob | null) => {
     let restored: UserPraise | null = null;
@@ -354,9 +358,9 @@ export function CustomContentScreen() {
         await audioOverrideStore.delete(`${locale}/praise/${audioKey}`).catch(() => undefined);
         await deletePraise(restored.id).catch(() => undefined);
       }
-      setActionNotice('Obnovenie položky sa nepodarilo dokončiť. Skúste to znova.');
+      setActionNotice(t('Obnovenie položky sa nepodarilo dokončiť. Skúste to znova.'));
     }
-  }, [addPraise, deletePraise, locale, updatePraise]);
+  }, [addPraise, deletePraise, locale, updatePraise, t]);
 
   // ── Deletion confirm + undo ─────────────────────────────────────────────
   const confirmPendingDelete = useCallback(async () => {
@@ -369,9 +373,9 @@ export function CustomContentScreen() {
       try {
         const audioBlob = await audioOverrideStore.get(storeKey);
         await deleteWord(word.id);
-        scheduleUndo(`Slovo „${word.word}“ bolo zmazané.`, () => { void restoreUndoWord(word, audioBlob); });
+        scheduleUndo(t('Slovo „{word}“ bolo zmazané.', { word: word.word }), () => { void restoreUndoWord(word, audioBlob); });
       } catch {
-        setActionNotice('Položku sa nepodarilo zmazať. Skúste to znova.');
+        setActionNotice(t('Položku sa nepodarilo zmazať. Skúste to znova.'));
         return;
       }
     } else {
@@ -380,13 +384,13 @@ export function CustomContentScreen() {
       try {
         const audioBlob = await audioOverrideStore.get(storeKey);
         await deletePraise(praise.id);
-        scheduleUndo(`Pochvala „${praise.text}“ bola zmazaná.`, () => { void restoreUndoPraise(praise, audioBlob); });
+        scheduleUndo(t('Pochvala „{praise}“ bola zmazaná.', { praise: praise.text }), () => { void restoreUndoPraise(praise, audioBlob); });
       } catch {
-        setActionNotice('Položku sa nepodarilo zmazať. Skúste to znova.');
+        setActionNotice(t('Položku sa nepodarilo zmazať. Skúste to znova.'));
         return;
       }
     }
-  }, [pendingDelete, locale, deleteWord, deletePraise, restoreUndoWord, restoreUndoPraise, scheduleUndo]);
+  }, [pendingDelete, locale, deleteWord, deletePraise, restoreUndoWord, restoreUndoPraise, scheduleUndo, t]);
 
   // ── Editor ───────────────────────────────────────────────────────────────
   const editingWord = editor?.kind === 'word' && editor.mode === 'edit'
@@ -399,8 +403,8 @@ export function CustomContentScreen() {
   const editorTitle = !editor
     ? ''
     : editor.kind === 'word'
-      ? (editor.mode === 'edit' ? 'Upraviť slovo' : 'Pridať slovo')
-      : (editor.mode === 'edit' ? 'Upraviť pochvalu' : 'Pridať pochvalu');
+      ? (editor.mode === 'edit' ? t('Upraviť slovo') : t('Pridať slovo'))
+      : (editor.mode === 'edit' ? t('Upraviť pochvalu') : t('Pridať pochvalu'));
 
   function renderEditor() {
     if (!editor) return null;
@@ -424,7 +428,7 @@ export function CustomContentScreen() {
               setEditor(null);
               setActionNotice(null);
             } catch {
-              setActionNotice('Slovo sa nepodarilo uložiť. Skúste to znova.');
+              setActionNotice(t('Slovo sa nepodarilo uložiť. Skúste to znova.'));
             }
           }}
         />
@@ -449,7 +453,7 @@ export function CustomContentScreen() {
             setEditor(null);
             setActionNotice(null);
           } catch {
-            setActionNotice('Pochvalu sa nepodarilo uložiť. Skúste to znova.');
+            setActionNotice(t('Pochvalu sa nepodarilo uložiť. Skúste to znova.'));
           }
         }}
       />
@@ -460,7 +464,7 @@ export function CustomContentScreen() {
   const content = getLocaleContent(locale);
   const sections = SECTIONS.map(id => ({
     id,
-    label: SECTION_LABELS[id],
+    label: t(SECTION_LABELS[id]),
     count: id === 'letters' ? content.letterItems.length
       : id === 'numbers' ? content.numberItems.length
       : id === 'phrases' ? Object.keys(content.audioPhrases).length
@@ -471,7 +475,7 @@ export function CustomContentScreen() {
   return (
     <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
       <TopBar left={<BackButton onClick={() => navigate(-1)} />} />
-      <PageHeader title="Vlastný obsah" description="Nahraj vlastný hlas a uprav slová a pochvaly." />
+      <PageHeader title={t('Vlastný obsah')} description={t('Nahrajte vlastný hlas a upravte slová a pochvaly.')} />
 
       {actionNotice && (
         <p role="status" className="mt-3 rounded-2xl bg-selected-surface px-4 py-3 text-sm font-bold text-text-main">
@@ -487,13 +491,13 @@ export function CustomContentScreen() {
       >
         <ContentCategoryNav items={sections} value={activeSection} onValueChange={setActiveSection} orientation={navOrientation}>
           <TabPanel value="letters">
-            <ContentItemList rows={buildSystemRows(locale, 'letters')} searchLabel="Hľadať písmeno" emptyMessage="Žiadne písmená." />
+            <ContentItemList rows={buildSystemRows(locale, 'letters')} searchLabel={t('Hľadať písmeno')} emptyMessage={t('Žiadne písmená.')} />
           </TabPanel>
           <TabPanel value="numbers">
-            <ContentItemList rows={buildSystemRows(locale, 'numbers')} searchLabel="Hľadať číslo" emptyMessage="Žiadne čísla." />
+            <ContentItemList rows={buildSystemRows(locale, 'numbers')} searchLabel={t('Hľadať číslo')} emptyMessage={t('Žiadne čísla.')} />
           </TabPanel>
           <TabPanel value="phrases">
-            <ContentItemList rows={buildSystemRows(locale, 'phrases')} searchLabel="Hľadať frázu" emptyMessage="Žiadne frázy." />
+            <ContentItemList rows={buildSystemRows(locale, 'phrases')} searchLabel={t('Hľadať frázu')} emptyMessage={t('Žiadne frázy.')} />
           </TabPanel>
           <TabPanel value="words">
             <ContentItemList
@@ -506,10 +510,10 @@ export function CustomContentScreen() {
                 const word = allUserWords.find(item => item.id === row.id);
                 return word ? updateWord(row.id, { status: word.isDefault ? 'ready' : 'draft' }) : undefined;
               }}
-              addAction={{ label: 'Pridať slovo', onClick: () => { editorRestoreFocusRef.current = document.activeElement as HTMLElement | null; setEditor({ kind: 'word', mode: 'add' }); } }}
-              searchLabel="Hľadať slovo"
-              emptyMessage="Zatiaľ žiadne slová."
-              noticeMessage={readyWordCount <= 1 ? LAST_PLAYABLE_MESSAGE : null}
+              addAction={{ label: t('Pridať slovo'), onClick: () => { editorRestoreFocusRef.current = document.activeElement as HTMLElement | null; setEditor({ kind: 'word', mode: 'add' }); } }}
+              searchLabel={t('Hľadať slovo')}
+              emptyMessage={t('Zatiaľ žiadne slová.')}
+              noticeMessage={readyWordCount <= 1 ? t(LAST_PLAYABLE_MESSAGE) : null}
             />
           </TabPanel>
           <TabPanel value="praise">
@@ -523,10 +527,10 @@ export function CustomContentScreen() {
                 const praise = allUserPraises.find(item => item.id === row.id);
                 return praise ? updatePraise(row.id, { status: praise.isDefault ? 'ready' : 'draft' }) : undefined;
               }}
-              addAction={{ label: 'Pridať pochvalu', onClick: () => { editorRestoreFocusRef.current = document.activeElement as HTMLElement | null; setEditor({ kind: 'praise', mode: 'add' }); } }}
-              searchLabel="Hľadať pochvalu"
-              emptyMessage="Zatiaľ žiadne pochvaly."
-              noticeMessage={readyPraiseCount <= 1 ? LAST_PLAYABLE_MESSAGE : null}
+              addAction={{ label: t('Pridať pochvalu'), onClick: () => { editorRestoreFocusRef.current = document.activeElement as HTMLElement | null; setEditor({ kind: 'praise', mode: 'add' }); } }}
+              searchLabel={t('Hľadať pochvalu')}
+              emptyMessage={t('Zatiaľ žiadne pochvaly.')}
+              noticeMessage={readyPraiseCount <= 1 ? t(LAST_PLAYABLE_MESSAGE) : null}
             />
           </TabPanel>
         </ContentCategoryNav>
@@ -546,10 +550,10 @@ export function CustomContentScreen() {
       <AlertDialogShell
         open={pendingDelete !== null}
         onOpenChange={open => { if (!open) setPendingDelete(null); }}
-        title={pendingDelete?.kind === 'word' ? 'Zmazať slovo?' : 'Zmazať pochvalu?'}
-        description={pendingDelete ? describePendingDelete(pendingDelete) : undefined}
-        cancelLabel="Zrušiť"
-        actionLabel="Zmazať"
+        title={pendingDelete?.kind === 'word' ? t('Zmazať slovo?') : t('Zmazať pochvalu?')}
+        description={pendingDelete ? describePendingDelete(pendingDelete, t) : undefined}
+        cancelLabel={t('Zrušiť')}
+        actionLabel={t('Zmazať')}
         actionTone="danger"
         onAction={() => void confirmPendingDelete()}
         restoreFocusRef={deleteRestoreFocusRef}
@@ -567,7 +571,7 @@ export function CustomContentScreen() {
             density="compact"
             onClick={() => { undoNotice.onUndo(); dismissUndo(); }}
           >
-            Vrátiť späť
+            {t('Vrátiť späť')}
           </Button>
         </div>
       )}

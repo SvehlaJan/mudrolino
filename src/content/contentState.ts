@@ -1,8 +1,9 @@
 import type { UserPraise, UserWord } from '../shared/types';
+import { msg } from '../shared/i18n';
 
 export interface ContentEnvelopeV2<T> { version: 2; items: T[]; }
 export interface MigrationResult<T> { items: T[]; repaired: boolean; persistedDuringLoad: false; }
-export const LAST_PLAYABLE_MESSAGE = 'Aspoň jedna položka musí zostať zapnutá.';
+export const LAST_PLAYABLE_MESSAGE = msg('Aspoň jedna položka musí zostať zapnutá.');
 
 export function summarizeContent<T extends { enabled: boolean; status: string; isDefault: boolean }>(items: T[]) {
   return {

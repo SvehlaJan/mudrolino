@@ -1,4 +1,5 @@
 import type { UserPraise, UserWord } from '../shared/types';
+import { msg } from '../shared/i18n';
 
 export interface WordFormInput {
   word: string;
@@ -78,22 +79,22 @@ export function validateWordForm(
   const errors: WordFormErrors = {};
 
   if (!word) {
-    errors.word = 'Zadajte slovo.';
+    errors.word = msg('Zadajte slovo.');
   } else if (hasDuplicateWord(word, existingWords, currentId)) {
-    errors.word = 'Toto slovo už v zozname je.';
+    errors.word = msg('Toto slovo už v zozname je.');
   }
 
   const syllableParts = syllables.split('-');
   if (!input.syllables.trim()) {
-    errors.syllables = 'Zadajte slabiky.';
+    errors.syllables = msg('Zadajte slabiky.');
   } else if (syllableParts.length < 2 || syllableParts.length > 4) {
-    errors.syllables = 'Použite 2 až 4 slabiky oddelené pomlčkou.';
+    errors.syllables = msg('Použite 2 až 4 slabiky oddelené pomlčkou.');
   } else if (syllableParts.some((part) => part.length === 0)) {
-    errors.syllables = 'Každá slabika musí obsahovať text.';
+    errors.syllables = msg('Každá slabika musí obsahovať text.');
   }
 
   if (!emoji) {
-    errors.emoji = 'Zadajte emoji.';
+    errors.emoji = msg('Zadajte emoji.');
   }
 
   if (Object.keys(errors).length > 0) {
@@ -113,13 +114,13 @@ export function validatePraiseForm(
   const errors: PraiseFormErrors = {};
 
   if (!text) {
-    errors.text = 'Zadajte text pochvaly.';
+    errors.text = msg('Zadajte text pochvaly.');
   } else if (hasDuplicatePraise(text, existingPraises, currentId)) {
-    errors.text = 'Táto pochvala už v zozname je.';
+    errors.text = msg('Táto pochvala už v zozname je.');
   }
 
   if (!emoji) {
-    errors.emoji = 'Zadajte emoji.';
+    errors.emoji = msg('Zadajte emoji.');
   }
 
   if (Object.keys(errors).length > 0) {

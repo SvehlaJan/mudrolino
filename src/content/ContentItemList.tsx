@@ -14,13 +14,15 @@ import { audioOverrideStore } from '../shared/services/audioOverrideStore';
 import { useRecorder } from '../shared/hooks/useRecorder';
 import type { RecorderError } from '../recordings/recordingState';
 import { normalizeComparableText } from './customContentValidation';
+import { useT } from '../shared/hooks/useT';
+import { msg } from '../shared/i18n';
 
 const SAVED_FLASH_MS = 800;
 
 function recorderErrorText(error: RecorderError | null): string | null {
-  if (error === 'permission-denied') return 'Povoľte mikrofón v nastaveniach prehliadača a skúste nahrať znova.';
-  if (error === 'processing-failed') return 'Spracovanie nahrávky zlyhalo. Skúste nahrať znova.';
-  if (error === 'unavailable') return 'Mikrofón nie je dostupný. Skontrolujte pripojenie a skúste znova.';
+  if (error === 'permission-denied') return msg('Povoľte mikrofón v nastaveniach prehliadača a skúste nahrať znova.');
+  if (error === 'processing-failed') return msg('Spracovanie nahrávky zlyhalo. Skúste nahrať znova.');
+  if (error === 'unavailable') return msg('Mikrofón nie je dostupný. Skontrolujte pripojenie a skúste znova.');
   return null;
 }
 
@@ -58,7 +60,7 @@ export function ContentItemList({
   disabledRows = [],
   onRestoreOne,
   onRestoreAll,
-  restoreAllLabel = 'Obnoviť všetko',
+  restoreAllLabel,
   onAfterRecordSaved,
   onAfterDeleteAudio,
   addAction,
@@ -67,6 +69,7 @@ export function ContentItemList({
   noticeMessage,
 }: ContentItemListProps) {
   const recorder = useRecorder();
+  const t = useT();
   const [overrideKeys, setOverrideKeys] = useState<Set<string>>(new Set());
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
@@ -84,9 +87,9 @@ export function ContentItemList({
 
   useEffect(() => {
     void audioOverrideStore.listKeys().then(keys => setOverrideKeys(new Set(keys))).catch(() => {
-      setRecordingError('Nahrávky sa nepodarilo načítať. Skúste to znova.');
+      setRecordingError(t('Nahrávky sa nepodarilo načítať. Skúste to znova.'));
     });
-  }, [rowsKey, disabledRowsKey]);
+  }, [rowsKey, disabledRowsKey, t]);
 
   const findRow = useCallback(
     (id: string) => rows.find(row => row.id === id) ?? disabledRows.find(row => row.id === id) ?? null,
@@ -126,7 +129,7 @@ export function ContentItemList({
       if (activeIdRef.current !== id) return;
       setOverrideKeys(new Set(await audioOverrideStore.listKeys()));
       setSavedFlash(true);
-      setRecordingError('Nahrávka uložená.');
+      setRecordingError(t('Nahrávka uložená.'));
       savedFlashTimerRef.current = setTimeout(() => {
         setSavedFlash(false);
         setActiveId(null);
@@ -137,7 +140,7 @@ export function ContentItemList({
     } catch (cause) {
       if (activeIdRef.current !== id) return;
       if (!(cause instanceof DOMException && cause.name === 'AbortError')) {
-        setRecordingError('Nahrávku sa nepodarilo uložiť. Skúste to znova.');
+        setRecordingError(t('Nahrávku sa nepodarilo uložiť. Skúste to znova.'));
       }
       savingRef.current = false;
     }
@@ -150,11 +153,12 @@ export function ContentItemList({
       const keys = await audioOverrideStore.listKeys();
       setOverrideKeys(new Set(keys));
     } catch {
-      setRecordingError('Nahrávku sa nepodarilo odstrániť. Skúste to znova.');
+      setRecordingError(t('Nahrávku sa nepodarilo odstrániť. Skúste to znova.'));
     }
   };
 
-  const errorText = recorderErrorText(recorder.error);
+  const errorMessage = recorderErrorText(recorder.error);
+  const errorText = errorMessage ? t(errorMessage) : null;
 
   const normalizedQuery = normalizeComparableText(query);
   const matches = useCallback(
@@ -187,10 +191,10 @@ export function ContentItemList({
         </p>
       )}
       <p role="status" aria-live="polite" className="text-sm font-bold text-text-main">{errorText ?? recordingError}</p>
-      <AlertDialogShell open={deleteRow !== null} onOpenChange={open => { if (!open) setDeleteRow(null); }} title="Zmazať nahrávku?" description="Použije sa pôvodný zvuk alebo hlas prehliadača." cancelLabel="Zrušiť" actionLabel="Zmazať" restoreFocusRef={deleteFocus} onAction={() => { if (deleteRow) void handleDeleteAudio(deleteRow); }} />
+      <AlertDialogShell open={deleteRow !== null} onOpenChange={open => { if (!open) setDeleteRow(null); }} title={t('Zmazať nahrávku?')} description={t('Použije sa pôvodný zvuk alebo hlas prehliadača.')} cancelLabel={t('Zrušiť')} actionLabel={t('Zmazať')} restoreFocusRef={deleteFocus} onAction={() => { if (deleteRow) void handleDeleteAudio(deleteRow); }} />
 
       {searchedWithNoResults && (
-        <p className="px-1 text-sm font-medium text-text-muted">Nič sa nenašlo pre „{query}“.</p>
+        <p className="px-1 text-sm font-medium text-text-muted">{t('Nič sa nenašlo pre „{query}“.', { query })}</p>
       )}
       {rows.length === 0 && disabledRows.length === 0 && (
         <p className="px-1 text-sm font-medium text-text-muted">{emptyMessage}</p>
@@ -221,7 +225,7 @@ export function ContentItemList({
               activeIdRef.current = null;
               setActiveId(null);
               savingRef.current = false;
-              setRecordingError('Nahrávanie zrušené.');
+              setRecordingError(t('Nahrávanie zrušené.'));
               recorder.reset();
             }}
             onPlay={() => audioManager.play({ clips: [{ path: row.storeKey, fallbackText: row.label }] })}
@@ -245,18 +249,18 @@ export function ContentItemList({
                 aria-hidden="true"
                 className={disabledOpen ? 'rotate-180 transition-transform' : 'transition-transform'}
               />
-              {`Vypnuté (${disabledRows.length})`}
+              {t('Vypnuté ({count})', { count: disabledRows.length })}
             </button>
             {disabledRows.length > 1 && onRestoreAll && (
               <Button tone="quiet" size="parent" density="compact" onClick={onRestoreAll}>
-                {restoreAllLabel}
+                {restoreAllLabel ?? t('Obnoviť všetko')}
               </Button>
             )}
           </div>
           {disabledOpen && (
             <div id={disabledSectionId} className="space-y-2 px-3 pb-3">
               {visibleDisabledRows.length === 0 && (
-                <p className="px-1 text-sm font-medium text-text-muted">Nič sa nenašlo.</p>
+                <p className="px-1 text-sm font-medium text-text-muted">{t('Nič sa nenašlo.')}</p>
               )}
               {visibleDisabledRows.map(row => (
                 <div
@@ -278,7 +282,7 @@ export function ContentItemList({
                     onClick={() => onRestoreOne?.(row)}
                     icon={<RotateCcw size={16} aria-hidden="true" />}
                   >
-                    Obnoviť
+                    {t('Obnoviť')}
                   </Button>
                 </div>
               ))}
