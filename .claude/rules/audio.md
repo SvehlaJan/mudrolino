@@ -24,7 +24,11 @@ public/audio/music/background.mp3  # optional, not locale-prefixed
 ```
 
 Run `npm run test:audio` after touching any of these — it catches both missing
-files and orphaned ones.
+files and orphaned ones. The tooling lives in `tools/audio/` (never under
+`public/`, which ships and is precached): `pending-recordings.json`, the check,
+`npm run audio:sessions` to plan short recording takes from the pending list,
+`process_recording.py --session` to split a take into those clips, and
+`npm run audio:sync-pending` to drop recorded clips from the pending list.
 
 ## Resolution order
 

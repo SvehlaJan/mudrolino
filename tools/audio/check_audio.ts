@@ -8,8 +8,8 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { getLocaleContent } from '../../../src/shared/contentRegistry.ts';
-import { SUPPORTED_LOCALES } from '../../../src/shared/i18n.ts';
+import { getLocaleContent } from '../../src/shared/contentRegistry.ts';
+import { SUPPORTED_LOCALES } from '../../src/shared/i18n.ts';
 import { evaluateAudioInventory } from './audioInventory.ts';
 
 interface PendingRecording {
@@ -22,7 +22,9 @@ interface PendingManifest {
   pending: PendingRecording[];
 }
 
-const audioDirectory = fileURLToPath(new URL('..', import.meta.url));
+// Bundled clips live in public/audio; this tooling stays outside public so it never ships.
+const audioDirectory = fileURLToPath(new URL('../../public/audio/', import.meta.url));
+const toolDirectory = fileURLToPath(new URL('.', import.meta.url));
 const strict = process.argv.slice(2).includes('--strict');
 const unexpectedArguments = process.argv.slice(2).filter(argument => argument !== '--strict');
 
@@ -46,7 +48,6 @@ const expected = SUPPORTED_LOCALES.flatMap(locale => {
 function findRecordings(directory: string): string[] {
   const recordings: string[] = [];
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
-    if (entry.name === '_review') continue;
     const fullPath = join(directory, entry.name);
     if (entry.isDirectory()) {
       recordings.push(...findRecordings(fullPath));
@@ -58,7 +59,7 @@ function findRecordings(directory: string): string[] {
 }
 
 const manifest = JSON.parse(
-  readFileSync(join(audioDirectory, '_review', 'pending-recordings.json'), 'utf8')
+  readFileSync(join(toolDirectory, 'pending-recordings.json'), 'utf8')
 ) as PendingManifest;
 const pending = manifest.pending.map(recording => recording.path);
 const result = evaluateAudioInventory({

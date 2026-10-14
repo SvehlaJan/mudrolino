@@ -74,7 +74,7 @@ When changing shared UI, keep three things aligned:
 - Parents can add local custom words and praise entries from `/content`; those are stored per locale in local storage.
 - Parents can record local audio overrides for bundled content and custom entries; custom audio is stored locally in IndexedDB and played before bundled MP3/TTS fallback.
 - Syllable items are derived from ready word items in `src/shared/contentRegistry.ts`.
-- Audio validation lives in `public/audio/_review/check_audio.ts` and can be run with `npm run test:audio`.
+- Audio validation lives in `tools/audio/check_audio.ts` and can be run with `npm run test:audio`; recording sessions are planned with `npm run audio:sessions` (see `docs/ff-launch.md`).
 
 ## PWA and Deployment
 

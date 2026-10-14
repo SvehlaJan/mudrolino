@@ -35,3 +35,7 @@ artifacts/verification/
 *.obj
 # Meshy downloads stay local (see the meshy-3d-generation skill).
 meshy_output/
+
+# Recording sessions: generated scripts and split clips awaiting review.
+tools/audio/_new/
+tools/audio/sessions/

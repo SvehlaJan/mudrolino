@@ -71,20 +71,66 @@ Uploading source maps is optional but makes stack traces readable.
    vzhľad). A source-map upload problem shows up as a `[sentry] Source map upload
    failed` warning in the Vercel build log; it never blocks the deploy.
 
-### 3. Content and devices
+### 3. Czech review
 
-1. Review the Czech drafts (all marked DRAFT):
-   - `src/shared/locales/cs.ts` — alphabet example words, word list and
-     syllable splits, phrases, praise.
-   - `src/shared/uiCopy.ts` (`CS_COPY`) and `src/shared/locales/cs.ui.ts` —
-     every Czech UI text.
-2. Record the clips listed in `public/audio/_review/pending-recordings.json`
-   (41 Slovak, 199 Czech); `npm run test:audio:strict` must pass before
-   deploying.
-3. Smoke-test on a real iPhone (Safari and installed), an Android phone and a
-   tablet, in both languages.
+Review the Czech drafts (all marked DRAFT) before recording, because the clips
+must match the final words and phrases:
+- `src/shared/locales/cs.ts` — alphabet example words, word list and syllable
+  splits, phrases, praise.
+- `src/shared/uiCopy.ts` (`CS_COPY`) and `src/shared/locales/cs.ui.ts` — every
+  Czech UI text.
 
-### 4. Your family's data on the old address
+### 4. Device test (about 10 minutes per device)
+
+Before recording, so problems surface early; missing clips use the phone's own
+voice. On a real iPhone (Safari, then installed to the home screen), an Android
+phone and a tablet:
+
+1. Open `https://mudrolino.vercel.app`; the link preview in a chat shows the
+   icon and "Písmenká, slabiky a čísla hrou."
+2. Install it to the home screen and open it from there; it should open full
+   screen.
+3. Play two rounds of Abeceda and one of Sčítaj: the prompt plays, a wrong
+   answer plays the item then "Skús to znova", a right answer plays the item
+   then praise.
+4. Open the parent zone (gear icon, solve the sum), switch to Čeština, and play
+   a round: Czech prompts and letters (Ř, Ů) appear; switch back.
+5. Vlastný obsah → Slová → Pridať slovo, record it with the microphone (allow
+   access), play it back, then find it in Slová / Skladaj.
+6. Aplikácia a vzhľad → Uložiť zálohu: the share sheet or a download appears.
+   On a second device, Obnoviť zo zálohy with that file: the word and its
+   recording appear.
+7. Odporučiť priateľom opens the share sheet with the link.
+8. Pomoc a spätná väzba: send a test message; it arrives at your Web3Forms
+   address.
+9. Turn on airplane mode and reopen the installed app: home and games still
+   work.
+
+Note anything odd in `docs/ff-launch.md` or send it through the feedback form.
+
+### 5. Recording (last)
+
+All pending clips are listed in `tools/audio/pending-recordings.json` (41
+Slovak, 199 Czech). Record in short takes, one category each, so a missed pause
+only affects one take.
+
+1. `npm run audio:sessions` plans the takes and writes a numbered script per
+   language to `tools/audio/sessions/<locale>-script.md` (open it on a tablet
+   or print it). Re-run it whenever words or phrases change.
+2. Record one take per block (phone voice memo is fine): read the items in
+   order with about a one-second pause; after a mistake, redo the whole block.
+3. For each take run, e.g.:
+   `python3 tools/audio/process_recording.py cs-06.m4a --session tools/audio/sessions/cs-06-words-1.tsv`
+   It splits at pauses, saves the pieces to `tools/audio/_new/` to listen to,
+   shows which clip goes where and asks before writing to `public/audio/`. It
+   writes nothing if the number of pieces does not match the block; then adjust
+   `--silence-dur` (0.8 for more pauses inside words, 0.5 for short pauses) or
+   record the block again.
+4. Writing a take updates the pending list (`npm run audio:sync-pending`) and
+   runs `npm run test:audio`. When everything is recorded,
+   `npm run test:audio:strict` must pass before shipping.
+
+### 6. Your family’s data on the old address
 
 `teo-learn.vercel.app` now redirects, so its stored words and recordings can no
 longer be opened there, and the old build had no backup feature anyway. An

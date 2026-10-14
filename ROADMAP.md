@@ -95,7 +95,7 @@
 - [x] Extract injectable session/audio orchestration and fast controlled-clock tests; share lifecycle effects while games own boards/animations.
 - [x] Isolate build artifacts, aggregate verification reports and reproducible seeded screenshot review (measured results and workflow: `docs/superpowers/handoffs/2026-10-02-development-efficiency.md`).
 - [x] Track 40 intentionally pending recordings explicitly; development rejects unexpected omissions and shipping requires all recordings.
-- [ ] Record the pending clips before deploying to friends and colleagues (41 Slovak and 199 Czech on 2026-10-14; `public/audio/_review/pending-recordings.json`).
+- [ ] Record the pending clips before deploying to friends and colleagues (41 Slovak and 199 Czech on 2026-10-14; `tools/audio/pending-recordings.json`; recorded last, in short takes planned by `npm run audio:sessions`).
 
 Integrated into `feature/full-app-ui-redesign` on 2026-10-03 at `2c9bb01`; fresh cheap
 gates and 26 focused browser checks passed. See the development-efficiency handoff for evidence.
