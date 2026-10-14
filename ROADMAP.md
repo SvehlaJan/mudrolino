@@ -61,29 +61,29 @@
 
 **P0 — before the first link is shared**
 - [ ] Serve the F&F build at `mudrolino.vercel.app` (user, 2026-10-13): rename the Vercel project and attach the domain before sharing. Installs, settings, custom words and recordings belong to one origin, so a later move to a custom domain means every family exports and re-imports (backup below).
-- [ ] Rename the app to Mudrolíno wherever it is shown: manifest and page title (`src/pwa/pwaConfig.ts`), home title (`src/shared/uiCopy.ts`), feedback emails, README, package name; delete the AI Studio `metadata.json`. Keep the internal `hrave-ucenie-*` storage keys.
+- [x] Rename the app to Mudrolíno wherever it is shown: manifest and page title (`src/pwa/pwaConfig.ts`), home title (`src/shared/uiCopy.ts`), feedback emails, README, package name; delete the AI Studio `metadata.json`. Keep the internal `hrave-ucenie-*` storage keys.
 - [ ] Re-sync deployment: local `main` was rewritten for the R2 move and has diverged from `origin/main`, and production still serves `b9bc052` (2026-10-04). The user approved the force-push (2026-10-13); the rewrite differs from the deployed commit only by 30 removed 3D files, and lint, unit tests and the production build pass. A project hook blocks agent pushes, so the user runs it. Optionally set a separate production branch so avatar commits on `main` stop auto-deploying.
-- [ ] Record the 40 pending Slovak clips (see Development feedback). The Phase 8 visual sign-off was given on 2026-10-13.
-- [ ] Czech (1.3 and Phase 4 Czech, pulled forward): content, Czech letter units in game logic (only CH), extraction of the ~250 hard-coded Slovak UI lines in ~40 files, ~190 default clips recorded by the user, language selection with first-run detection and `<html lang>`, review by the user (Czech speaker).
+- [ ] Record the 41 pending Slovak clips (see Development feedback; the first-letter question became a tracked phrase on 2026-10-14). The Phase 8 visual sign-off was given on 2026-10-13.
+- [~] Czech (1.3 and Phase 4 Czech, pulled forward): content, Czech letter units in game logic (only CH), extraction of the ~250 hard-coded Slovak UI lines in ~40 files, ~190 default clips recorded by the user, language selection with first-run detection and `<html lang>`, review by the user (Czech speaker). Done 2026-10-14 except the user's review of the drafts and the 199 Czech recordings (`docs/ff-launch.md`).
 - [x] Backup export/import of custom words, praise, settings and recordings (1.2). It also carries the family's existing data from `teo-learn.vercel.app` to the new URL.
-- [ ] Hosting rules in `vercel.json`: immutable `/assets/*`, revalidated `sw.js`, `X-Robots-Tag: noindex` and a real `robots.txt` (it currently returns the app page), `nosniff`, `Referrer-Policy`, `Permissions-Policy` allowing the microphone only for the app, no framing.
+- [x] Hosting rules in `vercel.json`: immutable `/assets/*`, revalidated `sw.js`, `X-Robots-Tag: noindex` and a real `robots.txt` (it currently returns the app page), `nosniff`, `Referrer-Policy`, `Permissions-Policy` allowing the microphone only for the app, no framing.
 - [ ] Verify the production build and deploy target, then smoke-test on a real iPhone (Safari and installed), Android Chrome and a tablet, including Czech speech fallback. Confirm `VITE_AVATAR_POC_ENABLED` is unset in Vercel.
 
 **P1 — in the F&F build if possible**
 - [x] Request persistent storage (`navigator.storage.persist()`) after a parent saves something, and show in the backup card whether the browser protects the data; Safari can delete data of non-installed sites after 7 days without use.
-- [ ] Open Graph title, description and image so shared links show a preview.
+- [x] Open Graph title, description and image so shared links show a preview.
 - [x] Add the app version (build commit) and app language to feedback metadata, and show the version in the parent zone.
 - [x] "Odporučiť priateľom" in the parent zone (user, 2026-10-13): opens the system share sheet with the app link and copies it where no share sheet exists; it sits behind the parent gate so children cannot trigger it.
 - [~] Error reporting with Sentry (user, 2026-10-13): an organization in the EU (Frankfurt) region on the free Developer plan, no personal data, no replay or tracing. The SDK reads `VITE_SENTRY_DSN`, so Sentry-compatible EU services (Bugsink, GlitchTip) remain a drop-in alternative. Code is in place (`src/shared/services/monitoring.ts`, production builds only, every v11 data-collection category off); the user still creates the EU organization and sets `VITE_SENTRY_DSN` (and optionally `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT` for source maps) in Vercel.
 - [x] Short privacy note in the parent zone: what stays on the device and what feedback, error reports and analytics send. No cookie banner is needed: nothing sets cookies, and local storage is strictly necessary for the app (2026-10-13). Czech text arrives with the Czech UI.
 - [~] Analytics with Vercel Web Analytics page views only (user, 2026-10-13; 1.6): cookieless, 50k page views a month on Hobby, loaded only on the Vercel production deployment. Code is in place; the user enables Web Analytics in the Vercel project.
 - [x] Remove the unused `GEMINI_API_KEY` define (a future reference would publish the key), `APP_URL`, and the unused `express`/`dotenv` dependencies.
-- [ ] Message for parents with the link: install steps, where the parent zone is, what feedback is wanted; short survey after a week.
+- [x] Message for parents with the link: install steps, where the parent zone is, what feedback is wanted; short survey after a week (`docs/ff-launch.md`, SK and CZ, with the user's checklist and open decisions).
 
 **P2 — after the first F&F feedback, before public launch**
 - [ ] [?] Cross-device sync of recordings (1.2), decided from F&F feedback on whether families record on one device and play on another.
 - [ ] Remaining Phase 2 items: full privacy policy, SEO, landing page decision, public smoke test.
-- [ ] Verify keyboard access (AC1) against the Phase 8 keyboard checks and tick it.
+- [x] Verify keyboard access (AC1) against the Phase 8 keyboard checks and tick it.
 
 **P3 — later**
 - [ ] Design a proper Mudrolíno logo and app icon (user, 2026-10-13: the current placeholder face is not good enough). Regenerate every icon and the link-preview image from the new source with `npm run pwa:icons`.
@@ -95,7 +95,7 @@
 - [x] Extract injectable session/audio orchestration and fast controlled-clock tests; share lifecycle effects while games own boards/animations.
 - [x] Isolate build artifacts, aggregate verification reports and reproducible seeded screenshot review (measured results and workflow: `docs/superpowers/handoffs/2026-10-02-development-efficiency.md`).
 - [x] Track 40 intentionally pending recordings explicitly; development rejects unexpected omissions and shipping requires all recordings.
-- [ ] Record the 40 pending clips before deploying to friends and colleagues.
+- [ ] Record the pending clips before deploying to friends and colleagues (41 Slovak and 199 Czech on 2026-10-14; `public/audio/_review/pending-recordings.json`).
 
 Integrated into `feature/full-app-ui-redesign` on 2026-10-03 at `2c9bb01`; fresh cheap
 gates and 26 focused browser checks passed. See the development-efficiency handoff for evidence.
@@ -408,7 +408,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 - [ ] Image/emoji asset optimization audit
 
 ### Accessibility
-- [ ] **AC1** — Keyboard navigation (arrow keys, Enter, Space on all child answer patterns) — required by full-app redesign Phases 5–8 before publication. Phase 8 reports keyboard checks on shipping surfaces; verify and tick (1.0 P2)
+- [x] **AC1** — Keyboard navigation (arrow keys, Enter, Space on all child answer patterns) — required by full-app redesign Phases 5–8 before publication. Verified 2026-10-14 against the integration suite: full keyboard rounds for the four grid games (`find-it-games.spec.ts`), roving focus for the four bespoke literacy games (`literacy-layout.spec.ts`) plus Space activation in Prvé písmenko and two keyboard groups in Skladaj, and keyboard tests for counting, comparison and addition. Missing-letter and missing-syllable answers are native buttons, so Enter and Space activate them without a dedicated test
 - [x] **AC2** — ARIA labels on icon-only/game buttons
 - [x] **AC3** — Emoji text alternatives in SuccessOverlay/session feedback
 > Touch remains the primary child input, but AC1 is no longer deferred: the universal UI contract requires keyboard access before publication.
@@ -573,3 +573,4 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 | 2026-10-09 | Bring O03 under budget by baking the body to its visible surface before decimating it. | Baking removes the coverage masks from the problem: only visible skin remains and its open edges sit under hems, so nothing hidden can reappear. Quadric collapse keeps the female body within 0.42 mm at 18% of its triangles. Garments and the shared rig stay exact. |
 | 2026-10-13 | Launch friends and family as Mudrolíno in Slovak and Czech, without the avatar; re-prioritize Phase 1 into ordered tiers (1.0). | User decision. The name is the same in both languages, so one manifest and one URL serve both audiences. Czech, the domain and backup export/import move ahead of public-launch work because the shared URL holds every family's data and cannot change after sharing. Cross-device sync waits for F&F evidence that families use several devices. |
 | 2026-10-13 | Serve F&F at `mudrolino.vercel.app`, record the Czech audio in-house, add Sentry (EU region) error reporting and Vercel Web Analytics, and force-push the rewritten `main`. | User decisions. The free Vercel subdomain avoids buying a domain before feedback; a later custom domain is possible through backup export/import. A Czech speaker records and reviews, so no speech service is needed. Sentry's EU organization keeps error data in Frankfurt and its SDK also talks to Sentry-compatible EU services; Vercel Web Analytics counts page views without cookies. The rewrite matches the deployed commit apart from the removed 3D files. |
+| 2026-10-14 | Translate UI text with Slovak-keyed `t()`/`msg()` and one Czech table, beside the keyed `uiCopy` for game and home text; restore backups by merging per item. | About 250 hard-coded strings lived in data (settings registry, validation) and components; keying them by their Slovak text kept every definition in place, and a test fails on any marked string without a Czech entry or any unused entry. Restore merges with change stamps (newer item wins, deletions remembered) because overwriting would lose recordings made on the receiving device; the same snapshot and rule are what a later sync exchanges. |

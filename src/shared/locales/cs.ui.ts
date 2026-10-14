@@ -45,7 +45,7 @@ export const CS_TRANSLATIONS: Record<string, string> = {
 
   // Settings autosave and error screen
   'Ukladám nastavenia…': 'Ukládám nastavení…',
-  'Nastavenia sú uložené.': 'Nastavení je uložené.',
+  'Nastavenia sú uložené.': 'Nastavení je uloženo.',
   'Nastavenia sa nepodarilo uložiť. Skontrolujte úložisko prehliadača.': 'Nastavení se nepodařilo uložit. Zkontrolujte úložiště prohlížeče.',
   'Niečo sa pokazilo': 'Něco se pokazilo',
   'Skús to znova.': 'Zkus to znovu.',
@@ -138,7 +138,7 @@ export const CS_TRANSLATIONS: Record<string, string> = {
   'Slová': 'Slova',
   'Pochvaly': 'Pochvaly',
   '„{label}“ sa odstráni zo zoznamu aj s nahraným zvukom. Túto akciu môžete hneď potom vrátiť späť.': '„{label}“ se odstraní ze seznamu i s nahraným zvukem. Tuto akci můžete hned potom vrátit zpět.',
-  'Slovo „{word}“ je vypnuté.': 'Slovo „{word}“ je vypnuté.',
+  'Slovo „{word}“ je vypnuté.': 'Slovo „{word}“ je vypnuto.',
   'Slovo sa nepodarilo vypnúť. Skúste to znova.': 'Slovo se nepodařilo vypnout. Zkuste to znovu.',
   'Slovo sa nepodarilo obnoviť. Skúste to znova.': 'Slovo se nepodařilo obnovit. Zkuste to znovu.',
   'Predvolené slová boli obnovené.': 'Výchozí slova byla obnovena.',

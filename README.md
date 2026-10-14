@@ -1,17 +1,18 @@
 # Mudrolíno
 
-Mudrolíno is a Slovak-language educational web app for preschoolers. It is built around short, touch-friendly mini-games with spoken prompts, encouraging feedback, and a parent-protected settings area.
+Mudrolíno is a Slovak and Czech educational web app for preschoolers. It is built around short, touch-friendly mini-games with spoken prompts, encouraging feedback, and a parent-protected settings area.
 
 ## Features
 
-- Nine mini-games: alphabet, syllables, numbers, counting, words, first-letter sounds, syllable assembly, missing-syllable completion, and missing-letter completion.
-- Audio-first gameplay with recorded `.mp3` clips when present and Slovak TTS fallback when files are missing.
-- Shared success, failure, and session-complete overlays across the grid-based games.
-- Parent-protected settings flow via a 3-second hold gate.
-- Parent-managed local content for custom words, praise, and recorded audio overrides.
-- Parent feedback form backed by Web3Forms on the deployed build.
+- Eleven mini-games: alphabet, syllables, numbers, counting, words, first-letter sounds, syllable assembly, missing-syllable completion, missing-letter completion, quantity comparison, and addition.
+- Slovak and Czech: content, audio paths and UI text per language, switchable in the parent zone and detected from the browser on first start.
+- Audio-first gameplay with recorded `.mp3` clips when present and TTS fallback in the active language when files are missing.
+- Shared success, failure, and session-complete overlays across the games.
+- Parent zone behind an arithmetic gate: game settings, language, custom content, backup, privacy note, feedback, and sharing the app link.
+- Parent-managed local content for custom words, praise, and recorded audio overrides, with backup export and merge-restore across devices.
+- Parent feedback form backed by Web3Forms; production error reports to Sentry and cookieless Vercel Web Analytics page views when configured.
 - Installable PWA support with generated icons, a mobile install prompt, and offline core games.
-- Optional local avatar customization and preview tooling behind the avatar feature flag.
+- Development-only avatar asset gallery behind the avatar feature flag.
 - Mobile-first UI with oversized controls, safe-area spacing, and animated transitions.
 
 ## Games
