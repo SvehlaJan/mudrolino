@@ -36,6 +36,7 @@
 - [x] Browser review polish: explicit reading/counting game names, home cards with icon and title only, no settled-card banners, centered syllable tray, flush morphing rail pieces and mouse/touch dragging to empty slots and back.
 - [x] Extend mouse/touch dragging to Doplň slabiku and Doplň písmeno through the shared pointer gesture and tile-transfer flow; preserve guided blanks, answer audio, wrong-card returns and cancellation.
 - [?] Release the reviewed home and drag-and-drop improvements (requested 2026-10-14): production is blocked by the strict inventory of 41 Slovak and 199 Czech recordings. Merge and verify the reviewed code independently; keep `release` unchanged until the recording requirement is met or the user explicitly grants an exception.
+- [x] Stabilize the release assembly-retry journey by checking the recorded attempt and reset board instead of polling a transient incorrect-answer phase after tile travel.
 
 ### Bug fixes (from `docs/BACKLOG.md`)
 - [x] **B1** — Music toggle has no effect (`audioManager.ts:58`, `App.tsx:73`)

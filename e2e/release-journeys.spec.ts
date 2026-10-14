@@ -21,6 +21,7 @@ interface ReleaseOracle {
   correctSide?: 'left' | 'right' | null;
   correctSum?: number | null;
   correctTileOrder?: string[];
+  wrongAttempts?: number;
 }
 
 interface TrackedPageIssues {
@@ -118,7 +119,7 @@ test('sequence retry: assembly resets a wrong visible tile order', async ({ page
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
   await stubSpeechSynthesis(page);
   await startGame(page, 'ASSEMBLY');
-  const { correctTileOrder } = await readReleaseOracle(page);
+  const { correctTileOrder, wrongAttempts = 0 } = await readReleaseOracle(page);
   expect(correctTileOrder?.length, 'expected at least two assembly tiles').toBeGreaterThanOrEqual(2);
   const labels = await Promise.all(correctTileOrder!.map(tileId =>
     page.locator(`[data-tile-id=${JSON.stringify(tileId)}]:visible`).getAttribute('aria-label'),
@@ -129,8 +130,12 @@ test('sequence retry: assembly resets a wrong visible tile order', async ({ page
   for (const tileId of wrongOrder) {
     await page.locator(`[data-tile-id=${JSON.stringify(tileId)}]:visible`).click();
   }
-  await page.waitForFunction(() => window.__E2E__?.gamePhase === 'answered-incorrectly', undefined, { polling: 20 });
+  // Placement can outlast the retry debounce, so the incorrect phase may finish before
+  // polling starts. Assert the durable attempt and the board reset instead.
+  await expect.poll(async () => (await readReleaseOracle(page)).wrongAttempts).toBe(wrongAttempts + 1);
   await expect.poll(() => readGamePhase(page)).toBe('awaiting-answer');
+  await expect(page.getByTestId('word-rail').locator('[data-slot-state="pending"]')).toHaveCount(correctTileOrder!.length);
+  await expect(page.getByTestId('play-tray').locator('[data-tile-id]')).toHaveCount(correctTileOrder!.length);
   await completeCurrentRound(page, 'ASSEMBLY');
   await expect.poll(() => readGamePhase(page)).toBe('answered-correctly');
 });
