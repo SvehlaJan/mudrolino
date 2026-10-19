@@ -2,8 +2,10 @@
 
 Date: 2026-10-19
 
-Status: conversational design approved by the user. Reference direction B is
-selected; no bear model, dance or game integration has been implemented or verified.
+Status: conversational design approved and written spec reviewed by the user
+(2026-10-19). Reference direction B is selected; no bear model, dance or game
+integration has been implemented or verified. Execute the separate
+[implementation plan](../plans/2026-10-19-bear-companion.md).
 
 ## Purpose
 
@@ -149,7 +151,7 @@ new facial expressions and selfie generation are separate later work.
    required release profile before any requested shipping operation. Report
    actual results and reuse separately; do not count older catalog proof as fresh.
 
-The next implementation plan should deliver the fitted character/dance first,
-then the shared one-shot presentation and game integration, followed by the
-complete browser/asset checks. This document records the approved product design;
-it is not an implementation-completion or production-release record.
+The implementation plan delivers the fitted character/dance first, then the
+shared one-shot presentation and game integration, followed by complete
+browser/asset checks. This document records the approved product design; it is
+not an implementation-completion or production-release record.
