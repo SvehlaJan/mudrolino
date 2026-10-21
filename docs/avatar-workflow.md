@@ -1,8 +1,27 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-10-06 (model audit and authorized improvement execution). This is the entry point for both Codex and Claude. Use
+Updated 2026-10-20 (bear companion candidate; canonical catalog audit below retains its dated scope). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
+
+## Current bear companion lane (2026-10-20)
+
+The success-only bear implementation is on `feature/bear-companion-design` in the
+primary checkout. Start with the [bear handoff](superpowers/handoffs/2026-10-19-bear-companion.md)
+and its portable implementation plan; they override older lane status below.
+Current local candidate is head35 after another requested whole-head reduction;
+its own169-pose/30-view technical proof passed. Final user size/art acceptance
+remains pending. One root author owns coupled modeling; code work uses subagents
+and independent reviews. `assets/avatar/catalog-a/companions/bear-v1/verification-summary.json`
+binds the current source, full outfit/dance, still and technical proof. Read its hash-bound technical status; a changed model invalidates earlier
+proof. Exact art acceptance and private/public storage are separate.
+New bear 3D files are currently local-only because R2 credentials are unavailable.
+Do not infer recoverability from their manifest entries.
+
+The guarded tool fixture accepts `?agent=1&companion=bear&pose=0.5&view=front`.
+It uses one fixed intercepted URL, never an arbitrary query path. Game integration
+uses shared success identity, a one-shot clip, still fallback and no audio delay;
+the product manifest stays disabled until accepted runtime bytes are published.
 
 ## Resume in the correct checkout
 

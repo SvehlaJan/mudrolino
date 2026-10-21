@@ -12,7 +12,7 @@ builders/verifiers do not exist at the planning baseline.
 **Create:** `assets/avatar/catalog-a/companions/bear-v1/source-inventory.json`,
 `bear-design.json`, `retrospective.md` and the implementation handoff.
 
-- [ ] **1.1 Check the toolchain without changing it.**
+- [x] **1.1 Check the toolchain without changing it.**
 
   ```bash
   node --version
@@ -22,7 +22,7 @@ builders/verifiers do not exist at the planning baseline.
   Use local dependencies from `npm ci` if absent. After installing dependencies,
   run `npm run setup:browsers` before browser gates. Read the matching Blender
   executable through the wrapper; do not hardcode an application version.
-- [ ] **1.2 Restore only missing source bytes.** The starting assembly is
+- [x] **1.2 Restore only missing source bytes.** The starting assembly is
   `assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend`, before
   LOD reduction. The planning manifest pins it to
   `cb55aa76cddf3db3070465903595fefda1a37a02bfb3b08f053efec4d9d5d8be`.
@@ -41,7 +41,7 @@ builders/verifiers do not exist at the planning baseline.
   credentials; keep them in the environment/repo-local `.env` and out of output.
   If access is missing, report the exact missing source and continue the pure
   runtime tasks. Do not substitute an unrelated model or paid generation service.
-- [ ] **1.3 Inventory the actual scene.** Use a queued Blender read-only script
+- [x] **1.3 Inventory the actual scene.** Use a queued Blender read-only script
   and save: file SHA-256; armature name, 24 bone names/hierarchy/rest matrices;
   body mesh vertex/polygon indices, masks and weights; garment object names;
   material assignments; head/neck bounds; shoulders, wrists and shoe bounds;
@@ -54,14 +54,14 @@ builders/verifiers do not exist at the planning baseline.
   `F01_strap_sneakers_outfit`; trust the scene inventory if a newer source differs
   and record the mapping explicitly. The bear is gender neutral even though this
   fitting source has a historical male label.
-- [ ] **1.4 Save the construction parameters.** Measure the middle reference B
+- [x] **1.4 Save the construction parameters.** Measure the middle reference B
   in `assets/avatar/concepts/2026-10-19/bear-mascot/comparison-v1.png` and record
   head/body height ratio, head width, ear diameter/offset, muzzle width/projection,
   eye spacing, head/neck attachment and hand silhouette in `bear-design.json`.
   Store dimensions relative to measured head/neck anchors, not screen pixels.
   Include the reference SHA and explicit honey/muzzle/nose/eye material values.
   This is the input to a repeatable builder, not a guess hidden in a live scene.
-- [ ] **1.5 Freeze sources.** Work in the new `companions/bear-v1` directory.
+- [x] **1.5 Freeze sources.** Work in the new `companions/bear-v1` directory.
   Save the immutable inventory and source hashes before construction. Existing
   canonical human sources, bone rest transforms, gaits and coverage vertex
   indices remain unchanged. Record the first unchecked step in the handoff.
@@ -77,7 +77,7 @@ art approval is inferred from this inventory.
 `construction-report.json`, `bear-still.png` and 320px review renders.
 The 3D files are ignored and later stored through `asset-manifest.json`.
 
-- [ ] **2.1 Implement the builder with this CLI contract.** It loads the frozen
+- [x] **2.1 Implement the builder with this CLI contract.** It loads the frozen
   source, reads the explicit design configuration, and refuses to overwrite its
   input. Reuse the catalog's export, material and rig helpers after inspecting
   their current signatures. `build_catalog_t01.export()` disables texture
@@ -90,14 +90,14 @@ The 3D files are ignored and later stored through `asset-manifest.json`.
   The script's required arguments are `--source`, `--design`, `--output-dir`;
   add `--lod` in Task 3. Save a deterministic result given identical inputs and
   builder version, including a report with all input/output hashes.
-- [ ] **2.2 Build the head as bear geometry.** In the cloned scene, replace the
+- [x] **2.2 Build the head as bear geometry.** In the cloned scene, replace the
   human head/hair/face with a rounded head, round ears, lighter muzzle, small dark
   nose, gentle eyes/eyebrows and closed smile. Bind head/face/ear surfaces rigidly
   to `Head`; keep their world-space rest alignment and a covered neck junction.
   Keep the original rig and human files untouched. Use simple matte surfaces
   and geometry/paint appropriate for an approximately 120px feedback character;
   fur strands, dynamic fur and facial animation are outside this version.
-- [ ] **2.3 Fit the visible body to the identity.** Make the copied exposed
+- [x] **2.3 Fit the visible body to the identity.** Make the copied exposed
   neck/arms/hands honey brown with single-user material copies so the human
   material datablocks are preserved. Preserve the shared body topology and mask
   indices. A soft paw silhouette can use bear-specific hand surfaces bound to
@@ -105,7 +105,7 @@ The 3D files are ignored and later stored through `asset-manifest.json`.
   those surfaces through sleeve openings. Preserve semantic separation between
   body/head and the three garments; a combined runtime export is allowed, but
   do not bake the clothes into an inseparable authoring mesh.
-- [ ] **2.4 Match B rather than accepting a bear head on C's silhouette.** Compare
+- [x] **2.4 Match B rather than accepting a bear head on C's silhouette.** Compare
   head/torso/limb ratios against `bear-design.json` in front and three-quarter
   views. First reach the intended balance through the head, muzzle, ears and
   surface shapes around the frozen rig. If it cannot match B within this fitting
@@ -113,19 +113,19 @@ The 3D files are ignored and later stored through `asset-manifest.json`.
   for proportion review. Do not silently alter the shared joint centres or switch
   to concept C. Bear-specific garment/body revisions may be built in the isolated
   directory and require fresh proof; full wardrobe compatibility is not required.
-- [ ] **2.5 Fit T01/B01/F01 explicitly.** Check neck, sleeves, shirt hem, waistband,
+- [x] **2.5 Fit T01/B01/F01 explicitly.** Check neck, sleeves, shirt hem, waistband,
   ankles, shoes and all visible cut boundaries at rest. Preserve source garment
   colours/material roles. The known human tee underarm compromise was accepted
   for particular historical outfits; it is not automatically accepted for this
   bear and new dance. Correct a bear-specific gap or show it as an unresolved
   candidate limitation. A report must not label a visible new gap as a pass.
-- [ ] **2.6 Produce the model review.** Render front, side, back, three-quarter
+- [x] **2.6 Produce the model review.** Render front, side, back, three-quarter
   and a small face/feedback-size view at <=320px width. Use the catalog setup's
   neutral lighting/material pipeline. Export a transparent, still, warmly smiling
   `bear-still.png` from this model, with enough resolution for DPR 2 at its final
   UI size. Keep the canvas framing and foot margins consistent with the runtime.
   This still will be bundled for reduced motion/loading fallback.
-- [ ] **2.7 Save the candidate and retrospective.** Record changed objects,
+- [x] **2.7 Save the candidate and retrospective.** Record changed objects,
   measured ratios, preserved rig/gaits/source hashes, fit findings, rejected
   revisions and output files. Present the actual 320px model captures for
   revision-specific user art review after technical screening. Continue Tasks
@@ -143,7 +143,7 @@ bear-directory `outfit-lod.blend`, `outfit-lod.glb`, dance/export/budget reports
 and `verification-summary.json`.
 **Modify:** `src/avatar/AvatarRuntimeFixture.tsx` for one tool-only bear branch.
 
-- [ ] **3.1 Author a small stationary dance.** Implement the new queued script:
+- [x] **3.1 Author a small stationary dance.** Implement the new queued script:
 
   ```bash
   python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py tools/blender/catalog/build_bear_celebration.py --blend=assets/avatar/catalog-a/companions/bear-v1/outfit.blend --duration=1.4 --fps=30
@@ -157,14 +157,14 @@ and `verification-summary.json`.
   feet on/above the floor with at most 2mm penetration. Bound intended pelvis bob
   to 10mm and side sway to 20mm, and capture that range for camera fitting.
   These are implementation defaults, not instructions to claim art acceptance.
-- [ ] **3.2 Bake the correct transforms.** Inspect local bone axes and produce
+- [x] **3.2 Bake the correct transforms.** Inspect local bone axes and produce
   proper quaternion rotation keys in the existing bone space. Bake any IK into
   the original 24 deformation bones, excluding temporary constraint rigs from
   export. Assign the new action and its layered action slot before writing keys;
   see the Blender skill's `action_slot` example. Keep existing walk/run actions
   intact in the editable source, but export only `celebrate` in this runtime GLB.
   Preserve intentional hip bob in runtime using `preserveHipsPosition`.
-- [ ] **3.3 Produce the phone LOD.** Extend the new bear builder's `--lod` mode
+- [x] **3.3 Produce the phone LOD.** Extend the new bear builder's `--lod` mode
   to use the catalog's culling/decimation primitives on the isolated bear sources.
   The existing `build_catalog_lod.py` only recognizes named H01/H02 heads and
   exports with the gait-oriented profile; calling it unchanged can miss the bear
@@ -181,7 +181,7 @@ and `verification-summary.json`.
   gzip for the model/outfit; report the embedded clip's contribution separately.
   Keep four normalized skin influences, prune sub-export-threshold weights, and
   preserve material/UV assignments. Recheck every reduced surface through dance.
-- [ ] **3.4 Implement fresh dance-specific native/export proof.** New verifier CLI:
+- [x] **3.4 Implement fresh dance-specific native/export proof.** New verifier CLI:
 
   ```bash
   python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py tools/avatar/verify_bear_companion.py --blend=assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend --glb=assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb --substeps=4 --output-dir=assets/avatar/catalog-a/companions/bear-v1
@@ -199,17 +199,17 @@ and `verification-summary.json`.
   Do not simply run `verify_catalog_outfit_export.py`, which samples walk/run.
   Any deliberately joined face surfaces are described explicitly; they are not
   an excuse to exclude head/shirt or sleeve/paw contacts.
-- [ ] **3.5 Extend the guarded agent fixture.** In `AvatarRuntimeFixture.tsx`,
+- [x] **3.5 Extend the guarded agent fixture.** In `AvatarRuntimeFixture.tsx`,
   recognize `?agent=1&companion=bear`. This branch uses the fixed
   `/__avatar_fixture/bear-v1.glb` as the full model with embedded `celebrate`,
   no external garments/animation URLs, and `preserveHipsPosition`. Add bounded
   inspection `pose` (0–1) and a known camera `view` for deterministic captures.
   Keep the existing `agent=1` walk/run fixture unchanged; never accept arbitrary
   file paths/remote URLs from the query. Preserve the route's current dev/POC guard.
-- [ ] **3.6 Implement the actual-renderer proof script.** New CLI:
+- [x] **3.6 Implement the actual-renderer proof script.** New CLI:
 
   ```bash
-  VITE_AVATAR_POC_ENABLED=true npm run dev -- --port=3003 --host=127.0.0.1 --strictPort
+  DISABLE_HMR=true VITE_AVATAR_POC_ENABLED=true npm run dev -- --port=3003 --host=127.0.0.1 --strictPort
   ```
 
   In a separate terminal, once the owned server is ready:

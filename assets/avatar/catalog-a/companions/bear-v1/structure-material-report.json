@@ -1,0 +1,250 @@
+{
+  "status": "passed",
+  "errors": [],
+  "blend": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend",
+  "blend_sha256": "608b7d6c0f5c28299d820fe5812d4aa8c599bbf4f870308b0a05124374f98c7e",
+  "glb": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb",
+  "glb_sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+  "verifier_sha256": "97c3550d841fb0f12dbe866a0de68ee71640f59fa634050c00535fa8be313396",
+  "rig_sha256": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+  "attachments": {
+    "Bear_head": {
+      "bone": "Head",
+      "vertices": 5330,
+      "invalid": []
+    },
+    "Bear_neck": {
+      "bone": "neck",
+      "vertices": 610,
+      "invalid": []
+    },
+    "Bear_left_paw": {
+      "bone": "LeftHand",
+      "vertices": 584,
+      "invalid": []
+    },
+    "Bear_right_paw": {
+      "bone": "RightHand",
+      "vertices": 584,
+      "invalid": []
+    }
+  },
+  "materials": [
+    {
+      "name": "A navy trouser fabric",
+      "base_color": [
+        0.02800000086426735,
+        0.052000001072883606,
+        0.10499999672174454,
+        1.0
+      ],
+      "roughness": 0.800000011920929,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "A navy trouser seams",
+      "base_color": [
+        0.03799999877810478,
+        0.06599999964237213,
+        0.12200000137090683,
+        1.0
+      ],
+      "roughness": 0.800000011920929,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "Bear honey",
+      "base_color": [
+        0.5149176716804504,
+        0.2158605009317398,
+        0.04970656707882881,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "Bear innerEar",
+      "base_color": [
+        0.6938717365264893,
+        0.37123769521713257,
+        0.1384316086769104,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "Bear muzzle",
+      "base_color": [
+        0.8069522380828857,
+        0.533276379108429,
+        0.26635560393333435,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "Bear eyes",
+      "base_color": [
+        0.017641954123973846,
+        0.010960093699395657,
+        0.00802319310605526,
+        1.0
+      ],
+      "roughness": 0.3499999940395355,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "Bear glint",
+      "base_color": [
+        1.0,
+        0.9386857151985168,
+        0.8069522380828857,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "Bear brows",
+      "base_color": [
+        0.16202937066555023,
+        0.061246052384376526,
+        0.016807375475764275,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "Bear nose",
+      "base_color": [
+        0.08865558356046677,
+        0.0382043719291687,
+        0.017641954123973846,
+        1.0
+      ],
+      "roughness": 0.3499999940395355,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "A ivory rubber sole",
+      "base_color": [
+        0.7699999809265137,
+        0.7350000143051147,
+        0.6549999713897705,
+        1.0
+      ],
+      "roughness": 0.800000011920929,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "A ivory sneaker upper",
+      "base_color": [
+        0.8600000143051147,
+        0.8199999928474426,
+        0.7099999785423279,
+        1.0
+      ],
+      "roughness": 0.800000011920929,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "A cornflower sneaker panels",
+      "base_color": [
+        0.11999999731779099,
+        0.2849999964237213,
+        0.6600000262260437,
+        1.0
+      ],
+      "roughness": 0.800000011920929,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "A blue collar lining",
+      "base_color": [
+        0.09000000357627869,
+        0.23000000417232513,
+        0.5799999833106995,
+        1.0
+      ],
+      "roughness": 0.800000011920929,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "A cornflower blue matte",
+      "base_color": [
+        0.11999999731779099,
+        0.2849999964237213,
+        0.6600000262260437,
+        1.0
+      ],
+      "roughness": 0.8500000238418579,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    },
+    {
+      "name": "A blue collar and hems",
+      "base_color": [
+        0.09000000357627869,
+        0.23000000417232513,
+        0.5799999833106995,
+        1.0
+      ],
+      "roughness": 0.8500000238418579,
+      "color_error": 0.0,
+      "roughness_error": 0.0,
+      "metallic_error": 0.0
+    }
+  ],
+  "texture_scope": "All used surfaces are solid Principled colors; existing UVs retained, no texture image transport to prove",
+  "derivation": {
+    "kind": "identical-byte-path-alias",
+    "original_measured_report": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/structure-material-report.json",
+    "original_report_sha256": "568a2b86bff47bf1a5d1c1246af9ac39a5c60e69451cb7d1c326dcc7ce538c72",
+    "aliases": [
+      {
+        "measured_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit-lod.blend",
+        "canonical_identical_copy": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend",
+        "sha256": "608b7d6c0f5c28299d820fe5812d4aa8c599bbf4f870308b0a05124374f98c7e",
+        "bytes": 5229328
+      },
+      {
+        "measured_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit-lod.glb",
+        "canonical_identical_copy": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb",
+        "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+        "bytes": 3347792
+      }
+    ],
+    "note": "Original measured report remains unchanged. Only canonical path fields resolve to verified identical copies; all observed measurements are retained."
+  }
+}

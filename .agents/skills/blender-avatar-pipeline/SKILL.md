@@ -38,6 +38,32 @@ on the client's configured tools; current upstream supports Claude and Codex.
 Use one client to own the live Blender scene at a time, save the construction
 change as code, then verify through CLI and the actual Three.js viewer.
 
+## Cheap screens before full sweeps
+
+For a new character or motion, first save a proxy silhouette and an animated
+export. Preserve each revision's parameter input beside its saved source before
+changing a shared configuration file. Review proportions at <=320px, then sample the actual GLB in Three.js:
+require distinct evaluated poses, intended clip name/duration, exported triangle
+count, compressed bytes and normalized bone weights before a long fit sweep.
+A clean validator, native render or clip entry does not prove moving runtime
+geometry. The bear example and rejected measurements are in
+`assets/avatar/catalog-a/companions/bear-v1/retrospective.md`; its
+`tools/avatar/sample_bear_runtime.mjs` demonstrates an actual skinning probe.
+
+- With skinned export and `export_apply=False`, MASK modifiers can be ignored.
+  Bake coverage on a disposable copy, retaining bone groups and the untouched
+  authoring body. Compare rendered source/export surfaces after export.
+- When deriving each new pose using depsgraph updates, keep its action inactive
+  during calculation; existing curves otherwise overwrite the authored pose.
+  Bind the intended action/slot immediately before inserting its keys, or write
+  curves directly. Reopen and test the exported motion afterward.
+- Weight limiting/normalization must filter groups to deformation bones. Coverage
+  and other semantic groups are not bone weights; never normalize them together.
+
+Contact and opening-visibility checks are independent. A zero-contact mask can
+still cut a visible hole. Use a small bounded pose bracket to locate a fitting
+failure, then sweep the saved revision through native and actual runtime poses.
+
 ## Blender invariants
 
 - Preserve the shared body topology/original vertex indices, metre scale, bind
@@ -90,7 +116,11 @@ change as code, then verify through CLI and the actual Three.js viewer.
 ## Completion
 
 For a piece, follow the catalog runner and required additional gates in its
-README. For renderer/asset changes, read the browser-verification skill and
+README. After changing feedback slot sizes, re-render the fallback still from the
+proven source at least twice the largest CSS dimensions; upscaling old pixels
+does not satisfy that requirement. Bind the still render separately so a
+presentation-only export does not invalidate unchanged geometry proof.
+For renderer/asset changes, read the browser-verification skill and
 inspect desktop and phone; review images must be <= 320px wide. Preserve the
 lazy renderer boundary described in `.claude/rules/avatar.md`.
 

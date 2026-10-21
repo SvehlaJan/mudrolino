@@ -1,0 +1,71 @@
+{
+  "asset": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb",
+  "glb_sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+  "bytes": 3347792,
+  "errors": 0,
+  "warnings": 0,
+  "infos": 17,
+  "hints": 0,
+  "messages": [
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/1/primitives/1/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/1/primitives/2/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/1/primitives/3/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/1/primitives/4/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/1/primitives/5/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/1/primitives/6/attributes/TEXCOORD_0"
+    },
+    {
+      "severity": 2,
+      "code": "UNUSED_OBJECT",
+      "message": "This object may be unused.",
+      "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+    }
+  ]
+}

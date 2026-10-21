@@ -1,0 +1,36 @@
+{
+  "source": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend",
+  "source_sha256": "cb55aa76cddf3db3070465903595fefda1a37a02bfb3b08f053efec4d9d5d8be",
+  "design_sha256": "23dff4e1637783783a8efdb1f7a5ed3e7190019ba5fd5424844548f584962d15",
+  "builder_sha256": "2f47ee1e8f0fa334b0e0c1a54cfcaefb9cdf3e4d2fa908aa4b6cdc6567c4b4c4",
+  "helper_sha256": "7bd3e28abb5292caba7cac53aed34b7fa4ad56181eb241a51cd145c5edcfbf9e",
+  "quality": "proxy",
+  "blender_version": "5.2.2 LTS",
+  "rig_sha256": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+  "gaits_sha256": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+  "body_topology_sha256": "ba8c7ddd66f16b03b3772efee404b0889f20bf471b651a4b60e016a7d77daaab",
+  "preserved_garments": {
+    "B01_straight_trousers_outfit": "03745257ab72fa8359f0cae0fc4e0d59b24357b3a87fe71cf59c8c533d3e53d4",
+    "F01_strap_sneakers_outfit": "137a0ae1ec056d828b55f18e0fe6b9651b5b2d4b41088fbe6688a7bbb8625686",
+    "T01_crew_tee_outfit": "8293a32b4e28a7be977787594d8366d383a8ca448e14a16eeb22f7c0823cc678"
+  },
+  "triangles": {
+    "B01_straight_trousers_outfit": 16476,
+    "Bear_head": 8296,
+    "Bear_left_paw": 1160,
+    "Bear_right_paw": 1160,
+    "body_underlayer_male": 13132,
+    "F01_strap_sneakers_outfit": 12184,
+    "T01_crew_tee_outfit": 22848
+  },
+  "total_triangles": 75256,
+  "ground_z": -0.005,
+  "status": "constructed candidate; fit/art/runtime acceptance pending",
+  "blend_sha256": "5b18cc6e0272857ba708e33c3089e1ade3f9a276c56c4d911fc4fbfdd18bcbd5",
+  "glb_sha256": "21e113845172f14ed0c2b0b3951eb5d119592203c16fe3e8b57e3716423d2455",
+  "reviews": {
+    "front": "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v1/front-review.png",
+    "three-quarter": "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v1/three-quarter-review.png"
+  },
+  "elapsed_seconds": 2.380183625034988
+}

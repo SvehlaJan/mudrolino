@@ -10,6 +10,8 @@ export interface ParentGateE2EState {
 }
 
 export interface E2EGlobalState {
+  /** Enables only the fixed bear model fixture in Vite's test mode. */
+  companionFixture?: boolean;
   overlay?: E2EOverlay;
   parentGate?: ParentGateE2EState;
   /** Logical clip boundaries recorded by AudioManager in Vite's test mode only. */

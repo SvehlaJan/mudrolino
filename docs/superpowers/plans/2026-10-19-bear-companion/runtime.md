@@ -12,7 +12,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
 `avatarSceneLoader.ts`, `companions/bear-v1.json` and `companions/bear-still.png`.
 **Modify:** `src/shared/services/e2eState.ts` only for the guarded fixture flag.
 
-- [ ] **4.1 Write the event-policy tests first.** The complete seed implementation
+- [x] **4.1 Write the event-policy tests first.** The complete seed implementation
   and tests are in [celebration-seed.md](celebration-seed.md). Create the test file
   first and run it to see missing-module failures. Then create the implementation
   and verify the tests pass:
@@ -24,7 +24,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   The input is a small observation of `GameState`; no game-specific callbacks,
   audio promises or Three.js imports belong here. Use a 1600ms maximum visibility
   window for the 1400ms clip. Closing/changing the game may truncate it.
-- [ ] **4.2 Add the React adapter.** `useCompanionCelebration(state)` owns one
+- [x] **4.2 Add the React adapter.** `useCompanionCelebration(state)` owns one
   reducer instance for the lifetime of `GameShell`. In a layout effect dispatch
   an `observe` action with the relevant state fields and `performance.now()`.
   Depend on the primitive fields, not the changing whole state object. When an
@@ -35,7 +35,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   Return the active record only when `isCelebrationVisible` also matches the
   **current** state, so pause/next-round hides immediately before effects run.
   The reducer consumes a success observed while paused; resume does not replay it.
-- [ ] **4.3 Define the disabled publication state and validated config.** Create
+- [x] **4.3 Define the disabled publication state and validated config.** Create
   the initial manifest as a real disabled state, not an invented CDN address:
 
   ```json
@@ -66,20 +66,20 @@ Tasks 4–5 can proceed while the model's art review is pending.
   define this optional field on its interface. A production global with that
   name must have no effect. Add tests for disabled config, incomplete accepted
   config, malformed URLs/hashes, valid publication and the fixed fixture.
-- [ ] **4.4 Bundle the actual still.** Copy the transparent still from Task 3
+- [x] **4.4 Bundle the actual still.** Copy the transparent still from Task 3
   into `src/avatar/companions/bear-still.png`, import it as a normal Vite asset,
   and retain its model/source hash in the retrospective. It may be bundled and
   precached like other small images. This does not change GLB/scene precache
   exclusions. Before Task 3 supplies it, run pure tests without fabricating a
   substitute character; record the component's asset dependency as pending.
-- [ ] **4.5 Extract a shared lazy-scene loader.** In `avatarSceneLoader.ts`,
+- [x] **4.5 Extract a shared lazy-scene loader.** In `avatarSceneLoader.ts`,
   export `loadAvatarSceneModule()` with one memoized dynamic import of
   `./AvatarScene`. Update `AvatarPresenter` to use this same function in its
   existing `lazy(...then(default))` declaration. The helper must not import a
   Three.js/R3F/Drei symbol statically. A rejected import stays failed for this
   page visit; `prepareCompanionResources` catches it. A later full page load can
   retry. Keep the actual lazy chunk named `AvatarScene` for the bundle verifier.
-- [ ] **4.6 Implement preparation with an injectable, testable boundary.** Export:
+- [x] **4.6 Implement preparation with an injectable, testable boundary.** Export:
 
   ```ts
   export interface CompanionPreparationDependencies {
@@ -120,7 +120,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   from an effect. Unmount unsubscribes, but does not cancel a shared preparation
   another mounted consumer may use. Dispose/cancel only work owned exclusively
   by the store. This API keeps the browser-specific code out of Vitest tests.
-- [ ] **4.7 Test resource behavior before enabling it.** With deferred promise
+- [x] **4.7 Test resource behavior before enabling it.** With deferred promise
   fakes, assert: null URL does nothing; concurrent prepares for one URL share
   requests; scene and model preparation can complete in either order; HTTP 404,
   rejected import and invalid GLB all settle failed without unhandled rejection;
@@ -144,7 +144,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
 **Modify:** `avatarTypes.ts`, `AvatarModel.tsx`, `AvatarScene.tsx`,
 `AvatarPresenter.tsx`, `AvatarRuntimeBoundary.tsx`.
 
-- [ ] **5.1 Write a real Three.js action test first.** Keep it in `src/avatar/`
+- [x] **5.1 Write a real Three.js action test first.** Keep it in `src/avatar/`
   so no other area imports the renderer. Use `AnimationMixer`, an `Object3D` and
   a 1.4s `AnimationClip` with a simple quaternion track. Test the new helper
   `applyAvatarPlayback(action, options, elapsedSeconds)` with `mixer.update()`:
@@ -153,7 +153,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   a once event 0.7s late seeks to 0.7s rather than replaying the opening; starting
   after its duration cannot wrap back to the beginning. These tests need no DOM
   or WebGL. Run red before adding the helper.
-- [ ] **5.2 Define and thread the opt-in type.** Add:
+- [x] **5.2 Define and thread the opt-in type.** Add:
 
   ```ts
   export interface AvatarPlaybackOptions {
@@ -168,7 +168,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   the current looping/inspection behavior; `interactive` defaults to true in the
   scene. The companion passes false and OrbitControls are then absent/disabled.
   A decorative canvas has no keyboard stop and cannot capture pointer gestures.
-- [ ] **5.3 Implement the action helper with installed Three.js APIs.**
+- [x] **5.3 Implement the action helper with installed Three.js APIs.**
   `reset()`, `setEffectiveWeight(1)`, `setLoop(LoopOnce, 1)` and
   `clampWhenFinished = true` establish once playback. Set the action time to
   bounded elapsed seconds and evaluate the mixer at zero delta before displaying
@@ -176,7 +176,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   uses `LoopRepeat` and retains the gallery's current fade behavior. Inspect the
   installed typings under `node_modules/@types/three/src/animation/` when writing
   the helper rather than inferring an API from this plan.
-- [ ] **5.4 Integrate the helper in `AvatarModel`'s action effect.** Depend on
+- [x] **5.4 Integrate the helper in `AvatarModel`'s action effect.** Depend on
   primitive playback mode/eventKey/startedAtMs, not a fresh options object or
   callback. A new correct event resets once; a rerender or phase change within
   the same event does not reset it. On remount into a new feedback slot, compute
@@ -184,7 +184,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   original timeline. On cleanup stop the companion action immediately and
   release listeners; retain existing fade-out behavior for gallery loop playback.
   Keep inspection scrubbing separate and preserve intentional hips translation.
-- [ ] **5.5 Make failures local to the companion.** Extend
+- [x] **5.5 Make failures local to the companion.** Extend
   `AvatarRuntimeBoundary` with optional `fallback` and `onError` props. A failed
   lazy module, suspended model load or render produces the supplied still and
   reports failure once to the resource store. Preserve current null fallback and
@@ -194,7 +194,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   nonthrowing too. R3F errors can cross its internal renderer boundary differently
   from ordinary React descendants: test real browser failure paths, not just an
   assumed outer ErrorBoundary catch.
-- [ ] **5.6 Implement the view.** `LearningCompanion` accepts an active event,
+- [x] **5.6 Implement the view.** `LearningCompanion` accepts an active event,
   prepared resource/config and reduced-motion state; it does not create events
   or alter game state. Render a fixed-size wrapper with `aria-hidden="true"`,
   `pointer-events-none` and a stable `data-testid="learning-companion"` plus
@@ -208,7 +208,7 @@ Tasks 4–5 can proceed while the model's art review is pending.
   after the resource's successful validation, avoiding new HEAD probes per mount.
   No active event or no enabled config means no wrapper/canvas. Pause, dismissal
   and expiry unmount the canvas, so no render loop survives active learning.
-- [ ] **5.7 Check playback and old behavior before commit.**
+- [x] **5.7 Check playback and old behavior before commit.**
 
   ```bash
   npm run test:unit -- src/avatar/avatarPlayback.test.ts src/avatar/companionResources.test.ts
@@ -232,7 +232,7 @@ gallery playback remains intact; the view cannot gate learning on rendering.
 `e2e/release-webkit-smoke.spec.ts`, `e2e/production-guards.spec.ts` and
 `e2e/offline.spec.ts` as described below and in main-plan Task 8.
 
-- [ ] **6.1 Write the fixture helper and a failing alphabet wiring test.** Read
+- [x] **6.1 Write the fixture helper and a failing alphabet wiring test.** Read
   `assets/avatar/asset-manifest.json` and compare the local
   `companions/bear-v1/outfit-lod.glb` SHA before fulfilling it. A missing or
   mismatched file is a setup failure with the exact `assets:pull --prefix=...`
@@ -245,7 +245,7 @@ gallery playback remains intact; the view cannot gate learning on rendering.
   fixture see the optional companion disabled, even after publication. Actual
   production-config/CORS/offline behavior is checked in the production tests;
   no existing test should unexpectedly request an external model.
-- [ ] **6.2 Create the common event/resources once per shell.** In `GameShell`,
+- [x] **6.2 Create the common event/resources once per shell.** In `GameShell`,
   call `useCompanionCelebration(state)` and
   `useCompanionResources(modelUrl: string | null)` above conditional render
   branches. Read reduced motion through the existing `motion/react` convention.
@@ -254,7 +254,7 @@ gallery playback remains intact; the view cannot gate learning on rendering.
   in that case. No per-game answer handlers or session-controller
   timing changes are needed. Prepare once during the mounted game, not at the
   moment an answer is tapped. No game awaits resource readiness.
-- [ ] **6.3 Place one companion view for the current event.** In nonfinal success
+- [x] **6.3 Place one companion view for the current event.** In nonfinal success
   feedback, replace the decorative emoji's space with the companion; retain the
   emoji when the config is disabled. In final `answered-correctly` before results,
   use a small pointer-transparent feedback layer, with no modal/text/button.
@@ -272,14 +272,14 @@ gallery playback remains intact; the view cannot gate learning on rendering.
   existing shared primitive rather than hiding controls or shrinking tap targets.
   Keep the region decorative: no new announcement, label, focus target or added
   Continue action. Verify backdrop/panel click behavior is unchanged.
-- [ ] **6.4 Document it in the hidden UI kit.** Add deterministic companion
+- [x] **6.4 Document it in the hidden UI kit.** Add deterministic companion
   examples beside the current game-shell states: ordinary success, final correct,
   final failure, expired event and reduced-motion still. Controls drive the real
   policy/renderer rather than a disconnected animation. Keep fixture-only controls
   under the route's existing dev/test guard and localize any new visible text with
   `t()`/`msg()` plus Czech entries. If text/controls are unnecessary, reuse the
   existing states and add focused links/examples without new product strings.
-- [ ] **6.5 Expand cross-game browser proof.** Import `RELEASE_GAME_CASES` from
+- [x] **6.5 Expand cross-game browser proof.** Import `RELEASE_GAME_CASES` from
   `e2e/support/releaseMatrix.ts`, `completeCurrentRound` and the deterministic media
   helpers; interact with actual controls and use the E2E oracle only to identify
   answers. Parameterize one ordinary correct-answer/one-event check across all
@@ -291,14 +291,14 @@ gallery playback remains intact; the view cannot gate learning on rendering.
   the browser skill's software-GL launch flags, preserving `--mute-audio`.
   Assert an actual animated model is rendered in these normal-motion cases;
   a fallback-only pass is insufficient for the 3D path.
-- [ ] **6.6 Verify lifecycle and pacing.** Add explicit cases for repeated taps,
+- [x] **6.6 Verify lifecycle and pacing.** Add explicit cases for repeated taps,
   React rerenders, early Continue, backdrop dismissal, next round, Play again,
   leaving the route and pausing/resuming during feedback. Preserve original event
   start time across final-panel changes; a second run can celebrate round one
   again. Reuse the existing held-praise contract from `find-it-games.spec.ts` to
   prove item then praise, no bear-driven audio, and unchanged 1000ms post-audio
   advancement. Finishing/interrupting the dance does not advance the round itself.
-- [ ] **6.7 Test reduced motion and failures using the real browser.** With
+- [x] **6.7 Test reduced motion and failures using the real browser.** With
   reduced motion the still appears and no WebGL/3D chunk is needed for that event.
   With a delayed model/scene, early success shows the still, then navigating to
   the next question prevents a late appearance. Inject model 404, invalid GLB,
@@ -306,7 +306,7 @@ gallery playback remains intact; the view cannot gate learning on rendering.
   controls still work and no repeat load happens each round. Capture/assert
   intentional failure details separately, leaving normal console/request checks
   strict. No production fixture global may enable a candidate avatar.
-- [ ] **6.8 Run the new tests and review geometry.**
+- [x] **6.8 Run the new tests and review geometry.**
 
   ```bash
   npm run build:e2e
@@ -328,7 +328,7 @@ gallery playback remains intact; the view cannot gate learning on rendering.
   are needed. Keep the Chromium software-GL override scoped to its companion
   describe block; do not pass Chromium flags to WebKit. Record whether WebKit
   produced 3D or its supported fallback rather than claiming a fallback is 3D proof.
-- [ ] **6.9 Save exact proof and commit.** Re-run the Task 3 browser verifier if
+- [x] **6.9 Save exact proof and commit.** Re-run the Task 3 browser verifier if
   model/renderer bytes changed and consolidate fresh matching hashes. Update the
   handoff, retrospective and roadmap; commit only owned sources/tests/docs. Keep
   the manifest disabled until Task 7's exact publication/acceptance conditions hold.

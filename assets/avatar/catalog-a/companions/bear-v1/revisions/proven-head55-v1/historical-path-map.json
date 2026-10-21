@@ -1,0 +1,90 @@
+{
+  "assets/avatar/catalog-a/companions/bear-v1/dance-review.png": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/dance-review.png",
+    "sha256": "ac6aea6806fe5921b7aa5c87999a3ab0306aaaa86841583ddc0a4f99ae124b80"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/source-inventory.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/source-inventory.json",
+    "sha256": "701d9e51584c299119d0b56850359ad512a35b84b907af454b9bc3703f37c363"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/bear-still.png": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/bear-still.png",
+    "sha256": "08c633fc4708ef9037ae1c6fc0f4a8d0882be43ccbb2ad81113c10a5ff0658cd"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/outfit.glb": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit.glb",
+    "sha256": "fbd4a3f37107b0f3fac6de341789d74952344beeed44a80aaefb926b2c6a3d31"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/budget-report.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/budget-report.json",
+    "sha256": "546b4caa89fea06a6940c667ee49124a7bd772c6f19ac24c64c73f778bb8d336"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/outfit.blend": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit.blend",
+    "sha256": "638b468fc828001896c48956a356415dfa130f644d23ef7b9aa15b44506425cf"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/verification-summary.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/verification-summary.json",
+    "sha256": "1a5b5cbe0fa76fdafbd8f63900d8fd7c6ad115b098bc63c4eefb9040ef4da0c5"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/structure-material-report.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/structure-material-report.json",
+    "sha256": "b922b9bcbec932be39b6176a89289c6ee1d6ffb5d0d83fa30d4e67a5ded7a88c"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/gltf-validation.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/gltf-validation.json",
+    "sha256": "a0e0fa37a41bf5e72bb07121362afc10b807ffd64b3cb721db64ab2a0a994a9b"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/back-review.png": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/back-review.png",
+    "sha256": "1cada0b30bb8f48673c980d2d92c1d6a02c917d44c3ecb4f8bdc25f3c50d911d"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/front-review.png": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/front-review.png",
+    "sha256": "45a97e8d06ce27905e14ddc1dc186ea96bbb322f82060de4abd64297d09e52e1"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/native-dance-report.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/native-dance-report.json",
+    "sha256": "033e3ea0f1191d5d981db3ee09f5b3bef383ab9ff27c2f1ff868135dd55fafd0"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/garments.glb": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/garments.glb",
+    "sha256": "6c9cfddf8d036d6b5d981e36cb9f1fbd6480ffa3f74c16aed48e9f484d73a99d"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/celebration-report.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/celebration-report.json",
+    "sha256": "0f7d4c526c4b0cd1cedc2dab3380d9c73c5cc5730f5f744453d8e36fabb4ac32"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit-lod.blend",
+    "sha256": "488b2f1e6da851aeba91de39f53f5e64cf81ad8cf4331b386ef122caf9678abf"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/body.glb": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/body.glb",
+    "sha256": "b1e639db95838991e956ec79c137fa8983a9c8bb3559ab4166b616ca4fe8b9aa"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/lod-report.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/lod-report.json",
+    "sha256": "ebd19b1396e3dd521109060cc23449c20747637da097600109a7e1dfb8154e97"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/bear-design.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/bear-design.json",
+    "sha256": "d405557af6abfb91c96e0ad6a5c472561586676f84b9ca122c7ba7265c2d14f7"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/side-review.png": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/side-review.png",
+    "sha256": "5eee0af8ac72eddecbf6d0642a0303859b19fef3e90e1c4b8a09ce13756afd12"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/construction-report.json": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/construction-report.json",
+    "sha256": "7508691633d3f03e07e904c5c94a89a7cd7908fd3c3680b7281c8c09b7cae085"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit-lod.glb",
+    "sha256": "fbd4a3f37107b0f3fac6de341789d74952344beeed44a80aaefb926b2c6a3d31"
+  },
+  "assets/avatar/catalog-a/companions/bear-v1/three-quarter-review.png": {
+    "archived": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/three-quarter-review.png",
+    "sha256": "e7e0a81ec05b39413a62d4a1b049e7ad606212f80af9ad472ae220ee4f5238e0"
+  }
+}

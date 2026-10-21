@@ -41,3 +41,9 @@ export interface AvatarInspectionControls {
   progress?: number;
   view: 'front' | 'side' | 'back' | 'three-quarter';
 }
+
+export interface AvatarPlaybackOptions {
+  mode: 'loop' | 'once' | 'still';
+  eventKey?: string;
+  startedAtMs?: number;
+}

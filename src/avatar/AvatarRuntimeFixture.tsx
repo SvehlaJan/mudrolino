@@ -12,6 +12,33 @@ const clips = { walk: '/__avatar_fixture/walk.glb', run: '/__avatar_fixture/run.
 
 export function AvatarRuntimeFixture() {
   const [params] = useSearchParams();
+  if (params.get('companion') === 'bear' || params.get('companion') === 'bear-v1') return <BearRuntimeFixture />;
+  return <CatalogRuntimeFixture />;
+}
+
+function BearRuntimeFixture() {
+  const [params] = useSearchParams();
+  const requestedView = params.get('view');
+  const view = requestedView === 'side' || requestedView === 'back' || requestedView === 'three-quarter' ? requestedView : 'front';
+  const requestedPose = Number(params.get('pose') ?? '0');
+  const progress = Number.isFinite(requestedPose) ? Math.max(0, Math.min(1, requestedPose)) : 0;
+  const [scene, setScene] = useState<AvatarSceneData | null>(null);
+  const [animations, setAnimations] = useState<string[]>([]);
+  const [ready, setReady] = useState(false);
+  return <main className="min-h-[100svh] bg-bg-light p-4">
+    <div className="mx-auto h-[85svh] max-w-6xl overflow-hidden rounded-3xl bg-white">
+      <AvatarPresenter className="h-full w-full" modelUrl="/__avatar_fixture/bear-v1.glb"
+        animationName="celebrate" preserveHipsPosition interactive={false}
+        inspection={{ paused: true, progress, view }}
+        assetStatusOverride="available" onSceneData={setScene}
+        onModelReady={() => setReady(true)} onAnimationsChange={setAnimations} />
+    </div>
+    <pre data-testid="avatar-debug-json" hidden aria-hidden="true">{scene ? JSON.stringify({ ...scene, animations, ready, progress, view }) : ''}</pre>
+  </main>;
+}
+
+function CatalogRuntimeFixture() {
+  const [params] = useSearchParams();
   const requested = params.get('animation');
   const animation = requested === 'walk' || requested === 'run' ? requested : 'rest';
   const assets = useMemo(() => resolveCatalogPreview(entry, animation, clips), [animation]);

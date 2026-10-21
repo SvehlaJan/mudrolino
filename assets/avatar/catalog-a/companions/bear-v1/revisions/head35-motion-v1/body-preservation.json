@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "reference": {
+    "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit-lod.glb",
+    "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4"
+  },
+  "candidate": {
+    "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit-lod.glb",
+    "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4"
+  },
+  "scope": "Exact parsed non-head vertex attributes, world transforms, oriented triangle multisets and all72 animation track times/values. Whole head excluded intentionally. Cyclic rotation/triangle order is ignored; winding and duplicate counts are preserved.",
+  "orderingDiagnosis": "Initial strict index-byte comparison differed for three rigid sphere meshes. Investigation proves the same complete oriented face multisets with identical attributes; only triangle ordering differs. Original strict attempt retained separately.",
+  "meshes": [
+    {
+      "name": "B01_tailored_quad_trousers001",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "B01_tailored_quad_trousers001_1",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "Bear_left_paw",
+      "attributesIdentical": true,
+      "exactIndexOrder": false,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "Bear_neck",
+      "attributesIdentical": true,
+      "exactIndexOrder": false,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "Bear_right_paw",
+      "attributesIdentical": true,
+      "exactIndexOrder": false,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "body_underlayer_male_export",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001_1",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001_2",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001_3",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "T01_tailored_quad_surface001",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    },
+    {
+      "name": "T01_tailored_quad_surface001_1",
+      "attributesIdentical": true,
+      "exactIndexOrder": true,
+      "sameOrientedFaces": true
+    }
+  ],
+  "animationTracks": 72,
+  "errors": []
+}

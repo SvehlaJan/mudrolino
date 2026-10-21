@@ -1226,6 +1226,374 @@
       "sha256": "9fa22c03d7ab2dcf88d66b8d119cbfc9c729863ac838ef6b73f988db53854d0a",
       "size": 4294856
     },
+    "assets/avatar/catalog-a/companions/bear-v1/body.glb": {
+      "sha256": "909fe27df2cd36f76e6c4e77199c22b7a40deec28b013327bc4c97ba28a3928c",
+      "size": 1500312
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/garments.glb": {
+      "sha256": "f43baffd54b2eaf6ecdaa3af7420853dd827ab6316095705a16e7b2200850c90",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend": {
+      "sha256": "608b7d6c0f5c28299d820fe5812d4aa8c599bbf4f870308b0a05124374f98c7e",
+      "size": 5229328
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb": {
+      "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/outfit.blend": {
+      "sha256": "fbcc6793491b0a035e0e9bbaa912078bec060f9b6afebddd9deb62118b34d22d",
+      "size": 5561204
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/outfit.glb": {
+      "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v1/outfit.blend": {
+      "sha256": "5b18cc6e0272857ba708e33c3089e1ade3f9a276c56c4d911fc4fbfdd18bcbd5",
+      "size": 5460966
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v1/outfit.glb": {
+      "sha256": "21e113845172f14ed0c2b0b3951eb5d119592203c16fe3e8b57e3716423d2455",
+      "size": 5191348
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v2/outfit.blend": {
+      "sha256": "5e3dfea3ce98327f4862400290c1ad8c7419c4210e78810cb7ccab0a98ac3697",
+      "size": 5487967
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v2/outfit.glb": {
+      "sha256": "7c7602b6c2cd25c79f510c79b616d33cd72862de3859e70cb1b4046f0832269e",
+      "size": 5226920
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v3/outfit.blend": {
+      "sha256": "966506b723be8f0679cf4ca4ee4ce9fe64cc890868c6e49c0965451bfb7dac83",
+      "size": 5485133
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v3/outfit.glb": {
+      "sha256": "dd86efa13c6669905f1c97fe1d1d2734d883b5da1fd8edffc3fdc849ad333b16",
+      "size": 5235692
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v4/outfit.blend": {
+      "sha256": "5196247402a9132434108c34ced41f114b5f477ef5d1cd02b4c4d9fc497d0eae",
+      "size": 5486918
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/blockout-v4/outfit.glb": {
+      "sha256": "d812e784ba135753c00bef6b0a29188620ab7cc44112fbaa6b39265e6215dffe",
+      "size": 5235696
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-motion-v1/outfit.blend": {
+      "sha256": "1a8c7cbc15f73244c604fb75cce1a548cf8832fe050284bbdeb4fe872b59d0d3",
+      "size": 5512675
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-motion-v1/outfit.glb": {
+      "sha256": "f6915ceb8248657aeba79c3c49821c48eaa6c734b7b61ce3eaf41931718de185",
+      "size": 3265140
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-motion-v2/outfit.blend": {
+      "sha256": "73af47427e3a46cbc7b5243cc957f8ae1b0a29d6cbce635fbbf4a53858099e6b",
+      "size": 5513741
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-motion-v2/outfit.glb": {
+      "sha256": "e91f32afbfaf32eb0ed7319ee77e55ba9d408584df389a24415a9bb0551a9c8f",
+      "size": 3265140
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-motion-v3/outfit.blend": {
+      "sha256": "04467242cf868a069d80757baf30c8005f6b4ab19a4315a3c4f16d2b58ade82e",
+      "size": 5516878
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-motion-v3/outfit.glb": {
+      "sha256": "7d287580263a3fe33e2c8ef9405ad72e876ff76d585e09813450c7a54eff46ea",
+      "size": 3263460
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-v1/outfit.blend": {
+      "sha256": "6c7d9cceea443462c2ba522bb7e1f2e903c92cd13d8f86363455e4c4c24cd10c",
+      "size": 5484470
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-v1/outfit.glb": {
+      "sha256": "9b3673da1ee282f8934d887121aa0c2bdc86199b4e8c5f7f379afd7f25d4d926",
+      "size": 3207540
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-v2/outfit.blend": {
+      "sha256": "18524b5b5d3e56b9a0642b0d220958fe318c6560bdbad4a569b29a9e605c910b",
+      "size": 5485330
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-v2/outfit.glb": {
+      "sha256": "d7b189b91ac76dea71000fbbc841bdf245dbf26d5078e48dff9443f3cf072c52",
+      "size": 3207540
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-v3/outfit.blend": {
+      "sha256": "5d7f42a998d9667558acf875377cdcc0db91a43ff894388c5aac1488a3feebe3",
+      "size": 5487960
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/coverage-v3/outfit.glb": {
+      "sha256": "2543b61e4fa3b9635f73c2da2142129f20e84015b0ed0c24232642bf3042bccb",
+      "size": 3205860
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v1/outfit.blend": {
+      "sha256": "4f8383d1ddc6477e6b767aec685bc73085b05930405bfb72f29dae360af9d78d",
+      "size": 5560965
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v1/outfit.glb": {
+      "sha256": "6b5e304d830c449cc5d4fe030115ab9c07ab26aad5383cea7e01412a674148fe",
+      "size": 2885268
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v2/outfit.blend": {
+      "sha256": "aef40aec5605078e0c89c53f9f86cff34d49ae6a99d6b66f880c8e42e6eaa0b6",
+      "size": 5532062
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v2/outfit.glb": {
+      "sha256": "89fdb89519b7a5580b2afed06a4d47f9493e2c8143b7fffb393e4898dd5f994f",
+      "size": 3290168
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-construction-v1/outfit.blend": {
+      "sha256": "34b641472f9292a00dbc538d76c695c369463c8e7ddf4a049d6d05c988dcf87e",
+      "size": 5532051
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-construction-v1/outfit.glb": {
+      "sha256": "d5410fc13b914810e0e4ee4268f05626009f8a745a45ec1979426ac38be0fea2",
+      "size": 3290196
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/body.glb": {
+      "sha256": "909fe27df2cd36f76e6c4e77199c22b7a40deec28b013327bc4c97ba28a3928c",
+      "size": 1500312
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/garments.glb": {
+      "sha256": "f43baffd54b2eaf6ecdaa3af7420853dd827ab6316095705a16e7b2200850c90",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit-lod.blend": {
+      "sha256": "608b7d6c0f5c28299d820fe5812d4aa8c599bbf4f870308b0a05124374f98c7e",
+      "size": 5229328
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit-lod.glb": {
+      "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit.blend": {
+      "sha256": "fbcc6793491b0a035e0e9bbaa912078bec060f9b6afebddd9deb62118b34d22d",
+      "size": 5561204
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit.glb": {
+      "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-construction-v1/outfit.blend": {
+      "sha256": "70227a512aa1d0c33cb94046b7375031350a8f003da0642672f707dd13061147",
+      "size": 5528620
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-construction-v1/outfit.glb": {
+      "sha256": "c79137751cb4892feeceb467aa0d3849d45f1bde92fcab4287ce2ea41eb14a61",
+      "size": 3283096
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-final-v1/outfit.blend": {
+      "sha256": "0829c096c8625295f8975fcf37a66ce4b49552d311d0ea7680dcbd66c84aaad6",
+      "size": 5529857
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-final-v1/outfit.glb": {
+      "sha256": "384421803b880a433dc3c030d03c290d2865bc008efce06d151e0cebf4ad03ec",
+      "size": 3290192
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-final-v2/outfit.blend": {
+      "sha256": "e2746810c34db3ca81fd1d5c628ff81b7c3fd73cbae9f6a6bbf8963205352dac",
+      "size": 5529554
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-final-v2/outfit.glb": {
+      "sha256": "9befa5e87039101b9a7916c488037800c009f1f016fb921920d7be69084df1ec",
+      "size": 3290192
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/outfit.blend": {
+      "sha256": "712ecfb0dcc772c214f94f94a3716813092fe9ed17d97815c16aba27cae8a98a",
+      "size": 5559880
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/outfit.glb": {
+      "sha256": "873965202273d9b75590fe18da6960f9b00e98d94234639ae87d3c6a1e1c8aad",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/body.glb": {
+      "sha256": "a370dce992d25b9ac95906dc6c8a44a41c94e4657890bfefa368055605b0b3b2",
+      "size": 1500308
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/garments.glb": {
+      "sha256": "f43baffd54b2eaf6ecdaa3af7420853dd827ab6316095705a16e7b2200850c90",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/outfit-lod.blend": {
+      "sha256": "4aa6d047d3695a16a516c57a065954242ee81949f8cec3ef78c2eb69a56fb778",
+      "size": 5226806
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/outfit-lod.glb": {
+      "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/outfit.blend": {
+      "sha256": "97f4498e37f6f8c65a6718c0f0dd4d95fc9353c6c0ca2c38d013674da2021710",
+      "size": 5558707
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/outfit.glb": {
+      "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-construction-v1/outfit.blend": {
+      "sha256": "f6debfce9c0f8a68f480c170234bbbcbe74e784ca5b1acd587b03ba1e6f10b21",
+      "size": 5532478
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-construction-v1/outfit.glb": {
+      "sha256": "210f6a3160ee191050d1893f88b64e9bba0f56848f18724c0e5c3fda23b67ec3",
+      "size": 3290188
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-motion-v1/body.glb": {
+      "sha256": "b1e639db95838991e956ec79c137fa8983a9c8bb3559ab4166b616ca4fe8b9aa",
+      "size": 1500304
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-motion-v1/garments.glb": {
+      "sha256": "6c9cfddf8d036d6b5d981e36cb9f1fbd6480ffa3f74c16aed48e9f484d73a99d",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-motion-v1/outfit-lod.blend": {
+      "sha256": "488b2f1e6da851aeba91de39f53f5e64cf81ad8cf4331b386ef122caf9678abf",
+      "size": 5229513
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-motion-v1/outfit-lod.glb": {
+      "sha256": "fbd4a3f37107b0f3fac6de341789d74952344beeed44a80aaefb926b2c6a3d31",
+      "size": 3347784
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-motion-v1/outfit.blend": {
+      "sha256": "638b468fc828001896c48956a356415dfa130f644d23ef7b9aa15b44506425cf",
+      "size": 5561287
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-motion-v1/outfit.glb": {
+      "sha256": "fbd4a3f37107b0f3fac6de341789d74952344beeed44a80aaefb926b2c6a3d31",
+      "size": 3347784
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-construction-v1/outfit.blend": {
+      "sha256": "a8192390ee1af56be7feb4a5743e0532fc606fe3d75cca82ac629f4c1c920476",
+      "size": 5530479
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-construction-v1/outfit.glb": {
+      "sha256": "739b1e7c5d3a69f60678dc324b4287424aa83deac942bb6c8afa305ef54a7866",
+      "size": 3290184
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-motion-v1/body.glb": {
+      "sha256": "faced5bfc97b1cfc80ac3d852f61332084b1fb566e5713181707b32c93ffb451",
+      "size": 1500304
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-motion-v1/garments.glb": {
+      "sha256": "6c9cfddf8d036d6b5d981e36cb9f1fbd6480ffa3f74c16aed48e9f484d73a99d",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-motion-v1/outfit-lod.blend": {
+      "sha256": "5c3c1fa6c4b9b2bddb16e9df3f405dc3069fafdc747772714afef372ca07ba22",
+      "size": 5227486
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-motion-v1/outfit-lod.glb": {
+      "sha256": "ff8e2b6396cf9eb3af412d315057bf69e6cdabca03282b5a25545326a0e7b5f7",
+      "size": 3347784
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-motion-v1/outfit.blend": {
+      "sha256": "62ec31261f9923ed172ee36a350afba3af0892bda8d5c5f12e92546ae7afafcb",
+      "size": 5559282
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/head75-motion-v1/outfit.glb": {
+      "sha256": "ff8e2b6396cf9eb3af412d315057bf69e6cdabca03282b5a25545326a0e7b5f7",
+      "size": 3347784
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head100-v1/body.glb": {
+      "sha256": "3af534f37aa32ad81aefa74959d607a4e755ec14f596eb32ca5afcd22ff3dc50",
+      "size": 1500284
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head100-v1/garments.glb": {
+      "sha256": "6c9cfddf8d036d6b5d981e36cb9f1fbd6480ffa3f74c16aed48e9f484d73a99d",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head100-v1/outfit-lod.blend": {
+      "sha256": "2ab5dc96a7b4151a116e8339f5422733646b8cc508c1839f0a356c41b02c37df",
+      "size": 5229047
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head100-v1/outfit-lod.glb": {
+      "sha256": "05c9e038427afc38e8e3ceaa9fc62cdf7babb7840e0b243b7864df808229d277",
+      "size": 3347768
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head100-v1/outfit.blend": {
+      "sha256": "4ac90f0fa68b0511fb005ef09f62d00fe27075fc18c0d84ab07e24fc58663e6c",
+      "size": 5560807
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head100-v1/outfit.glb": {
+      "sha256": "05c9e038427afc38e8e3ceaa9fc62cdf7babb7840e0b243b7864df808229d277",
+      "size": 3347768
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/body.glb": {
+      "sha256": "a370dce992d25b9ac95906dc6c8a44a41c94e4657890bfefa368055605b0b3b2",
+      "size": 1500308
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/garments.glb": {
+      "sha256": "f43baffd54b2eaf6ecdaa3af7420853dd827ab6316095705a16e7b2200850c90",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit-lod.blend": {
+      "sha256": "4aa6d047d3695a16a516c57a065954242ee81949f8cec3ef78c2eb69a56fb778",
+      "size": 5226806
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit-lod.glb": {
+      "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit.blend": {
+      "sha256": "97f4498e37f6f8c65a6718c0f0dd4d95fc9353c6c0ca2c38d013674da2021710",
+      "size": 5558707
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit.glb": {
+      "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4",
+      "size": 3347792
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/body.glb": {
+      "sha256": "b1e639db95838991e956ec79c137fa8983a9c8bb3559ab4166b616ca4fe8b9aa",
+      "size": 1500304
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/garments.glb": {
+      "sha256": "6c9cfddf8d036d6b5d981e36cb9f1fbd6480ffa3f74c16aed48e9f484d73a99d",
+      "size": 1912884
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit-lod.blend": {
+      "sha256": "488b2f1e6da851aeba91de39f53f5e64cf81ad8cf4331b386ef122caf9678abf",
+      "size": 5229513
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit-lod.glb": {
+      "sha256": "fbd4a3f37107b0f3fac6de341789d74952344beeed44a80aaefb926b2c6a3d31",
+      "size": 3347784
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit.blend": {
+      "sha256": "638b468fc828001896c48956a356415dfa130f644d23ef7b9aa15b44506425cf",
+      "size": 5561287
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head55-v1/outfit.glb": {
+      "sha256": "fbd4a3f37107b0f3fac6de341789d74952344beeed44a80aaefb926b2c6a3d31",
+      "size": 3347784
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/soft-arms-screen-v1/outfit.blend": {
+      "sha256": "9102cc4f9bca6c81c1b41030ee7f5112d6dcad3c224b6f2d6c3a05a10e1b931f",
+      "size": 5490165
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/soft-arms-screen-v1/outfit.glb": {
+      "sha256": "2255ae05121eba2b52ff5eab17e8e51a1860554a81bdbd522c4aa4051dcd135b",
+      "size": 3214660
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/transport-v1/outfit.blend": {
+      "sha256": "b460e9987ba2a19f7c7bc5f1ec4b4093018b0030416356d65b4eac3d324b4bf6",
+      "size": 5489075
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/transport-v1/outfit.glb": {
+      "sha256": "f54031a857d07f3aeb157093c61589ec97782439e88c935cdabbbd4618efe564",
+      "size": 5292028
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/transport-v2/outfit.blend": {
+      "sha256": "0b19d66a0b8e3c8707c50d3801c28bb92fa3d72e651d0600275f7cfb0eccdb71",
+      "size": 5489044
+    },
+    "assets/avatar/catalog-a/companions/bear-v1/revisions/transport-v2/outfit.glb": {
+      "sha256": "e78e11b336adf65dea6c4f3daa73aa6859ccc7d287f095738edcdc9aace151a0",
+      "size": 2808244
+    },
     "assets/avatar/catalog-a/female/foundation/studies/h02-envelope/H02.glb": {
       "sha256": "efe33ead4bb0029ae159a7b42f446fb2ef427518701cd284bcf08c9f6ef41d35",
       "size": 1473624

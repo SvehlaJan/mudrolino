@@ -1,0 +1,162 @@
+{
+  "status": "failed",
+  "reference": {
+    "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit-lod.glb",
+    "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4"
+  },
+  "candidate": {
+    "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit-lod.glb",
+    "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4"
+  },
+  "scope": "Actual parsed GLB attributes, indices and mesh transforms identical for every non-head mesh; all celebration track names, times and values identical. Excludes head intentionally scaled by .35/.45.",
+  "meshes": [
+    {
+      "name": "B01_tailored_quad_trousers001",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 4446,
+      "identical": true
+    },
+    {
+      "name": "B01_tailored_quad_trousers001_1",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 5624,
+      "identical": true
+    },
+    {
+      "name": "Bear_left_paw",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 694,
+      "identical": false
+    },
+    {
+      "name": "Bear_neck",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 691,
+      "identical": false
+    },
+    {
+      "name": "Bear_right_paw",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 694,
+      "identical": false
+    },
+    {
+      "name": "body_underlayer_male_export",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 14366,
+      "identical": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 320,
+      "identical": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001_1",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 4276,
+      "identical": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001_2",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 3454,
+      "identical": true
+    },
+    {
+      "name": "F01_rounded_ivory_sole001_3",
+      "attributes": [
+        "position",
+        "normal",
+        "uv",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 400,
+      "identical": true
+    },
+    {
+      "name": "T01_tailored_quad_surface001",
+      "attributes": [
+        "position",
+        "normal",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 8835,
+      "identical": true
+    },
+    {
+      "name": "T01_tailored_quad_surface001_1",
+      "attributes": [
+        "position",
+        "normal",
+        "skinIndex",
+        "skinWeight"
+      ],
+      "vertices": 3995,
+      "identical": true
+    }
+  ],
+  "animationTracks": 72,
+  "errors": [
+    "Bear_left_paw/indices",
+    "Bear_neck/indices",
+    "Bear_right_paw/indices"
+  ]
+}

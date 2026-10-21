@@ -1,0 +1,35 @@
+{
+  "source": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-final-v1/outfit.blend",
+  "source_sha256": "0829c096c8625295f8975fcf37a66ce4b49552d311d0ea7680dcbd66c84aaad6",
+  "blend_sha256": "712ecfb0dcc772c214f94f94a3716813092fe9ed17d97815c16aba27cae8a98a",
+  "glb_sha256": "873965202273d9b75590fe18da6960f9b00e98d94234639ae87d3c6a1e1c8aad",
+  "builder_sha256": "2e073ad02a1a075aa01fb337fb50ffffe5a78bda28a086b62e053be05c769e83",
+  "helper_sha256": "f916b3727588e195e528f8c0c78bb4100fa1ab8a91f7fb6f1b17a4e98e1f3dcb",
+  "design_sha256": "c9c1d6ac9fe297fe001a86b6dbf4c12106fbe01143ceb38b9194ccbdb11c3a41",
+  "blender_version": "5.2.2 LTS",
+  "rig_sha256": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+  "gaits_sha256": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+  "animation": "celebrate",
+  "fps": 30,
+  "frames": [
+    0,
+    42
+  ],
+  "duration_seconds": 1.4,
+  "keyframe_samples": 43,
+  "maximum_floor_correction_m": 0.00018840458244085301,
+  "bytes": 3347792,
+  "gzip_bytes": 1673454,
+  "status": "authored motion; clearance/export/runtime/art acceptance pending",
+  "reviews": {
+    "front": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/back-review.png",
+    "three-quarter": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/three-quarter-review.png",
+    "still": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/bear-still.png"
+  },
+  "mid_dance_review": {
+    "dance": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v1/dance-review.png"
+  },
+  "elapsed_seconds": 7.2368002500152215
+}

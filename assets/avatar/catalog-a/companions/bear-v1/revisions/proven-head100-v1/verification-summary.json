@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "bear-v1",
+  "candidate": {
+    "model": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb",
+      "sha256": "05c9e038427afc38e8e3ceaa9fc62cdf7babb7840e0b243b7864df808229d277",
+      "bytes": 3347768
+    },
+    "source": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend",
+      "sha256": "2ab5dc96a7b4151a116e8339f5422733646b8cc508c1839f0a356c41b02c37df"
+    },
+    "still": {
+      "sourcePath": "assets/avatar/catalog-a/companions/bear-v1/bear-still.png",
+      "bundledPath": "src/avatar/companions/bear-still.png",
+      "sha256": "42e461a009f607d4a7cfb8be7aa2f729ac8ed744faf2833d63894fa35c7ae71c"
+    }
+  },
+  "animation": {
+    "name": "celebrate",
+    "durationMs": 1400
+  },
+  "technical": {
+    "status": "passed",
+    "checks": {
+      "native": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/native-dance-report.json",
+        "sha256": "e1a92464051a65735de3dd70814d353f25c81f1b299838c209c6de5345dd4ac7"
+      },
+      "structure": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/structure-material-report.json",
+        "sha256": "b576337d1bb31df8d71ffb24ebbcbb52794d61562ec3cd7cfecb1831977743e7"
+      },
+      "gltf": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/gltf-validation.json",
+        "sha256": "d606d68603b110d9b3b28db60d180ba6723fc3f3b392fbdc018e045ce3c08eaf"
+      },
+      "runtime": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/runtime-report.json",
+        "sha256": "7b4ee6534e4075fd44310c7c7737b02a29342a2d21c6385574c2bc1191935aa6"
+      },
+      "browser": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/browser-report.json",
+        "sha256": "8df346fd844e6ce682f4579a326633764669211f965e15f4981bd9025fe28c86"
+      }
+    },
+    "budget": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/budget-report.json",
+      "sha256": "483bc66288b426db312a5112468e36e6712768a2206e2363a5d129ea2275125e"
+    }
+  },
+  "artReview": {
+    "status": "pending",
+    "approvedModelSha256": null,
+    "date": null
+  },
+  "storage": {
+    "private": "pending",
+    "reason": "R2 credentials unavailable; model bytes are local-only"
+  },
+  "context": {
+    "commit": "f9754188ae9b0bb3db348026c73919f322fdb9d3",
+    "workingTree": "uncommitted implementation",
+    "browser": "Playwright Chromium software GL",
+    "rendererBuild": "Vite development source, guarded POC fixture",
+    "seed": "fixed model and deterministic inspected clip poses",
+    "checkedAt": "2026-10-20T05:10:53.379Z"
+  }
+}

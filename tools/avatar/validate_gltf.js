@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import validator from 'gltf-validator';
 
 const target = process.argv[2];
@@ -8,7 +9,8 @@ if (!target) {
   process.exit(1);
 }
 
-const report = await validator.validateBytes(new Uint8Array(readFileSync(target)), {
+const bytes = readFileSync(target);
+const report = await validator.validateBytes(new Uint8Array(bytes), {
   uri: target,
   format: target.endsWith('.glb') ? 'glb' : undefined,
   maxIssues: 50,
@@ -20,6 +22,8 @@ console.log(
   JSON.stringify(
     {
       asset: target,
+      glb_sha256: createHash('sha256').update(bytes).digest('hex'),
+      bytes: bytes.length,
       errors: numErrors,
       warnings: numWarnings,
       infos: numInfos,

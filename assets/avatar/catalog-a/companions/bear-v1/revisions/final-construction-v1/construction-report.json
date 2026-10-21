@@ -1,0 +1,45 @@
+{
+  "source": "assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend",
+  "source_sha256": "cb55aa76cddf3db3070465903595fefda1a37a02bfb3b08f053efec4d9d5d8be",
+  "design_sha256": "aa8f66143608edf6377e6a2f66b224000a283114508d2b9263346f2ee1fca04d",
+  "builder_sha256": "2aba7f59f4faab3549caa84b151cdee983a7bc75c0cb6df44e9bbc24f50dc261",
+  "helper_sha256": "d72fa537241a2a21b08cb394d8905b26ff77fe175a34b5955d4cc6c4bf8a1955",
+  "quality": "final",
+  "blender_version": "5.2.2 LTS",
+  "rig_sha256": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+  "gaits_sha256": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+  "body_topology_sha256": "ba8c7ddd66f16b03b3772efee404b0889f20bf471b651a4b60e016a7d77daaab",
+  "source_garments": {
+    "B01_straight_trousers_outfit": "03745257ab72fa8359f0cae0fc4e0d59b24357b3a87fe71cf59c8c533d3e53d4",
+    "F01_strap_sneakers_outfit": "137a0ae1ec056d828b55f18e0fe6b9651b5b2d4b41088fbe6688a7bbb8625686",
+    "T01_crew_tee_outfit": "8293a32b4e28a7be977787594d8366d383a8ca448e14a16eeb22f7c0823cc678"
+  },
+  "bear_garments": {
+    "B01_straight_trousers_outfit": "03745257ab72fa8359f0cae0fc4e0d59b24357b3a87fe71cf59c8c533d3e53d4",
+    "F01_strap_sneakers_outfit": "137a0ae1ec056d828b55f18e0fe6b9651b5b2d4b41088fbe6688a7bbb8625686",
+    "T01_crew_tee_outfit": "607f8dccfd4b74a01e705d8966ce9a6a870d80301e7424795d5f993209c861a8"
+  },
+  "triangles": {
+    "B01_straight_trousers_outfit": 16476,
+    "Bear_head": 12568,
+    "Bear_left_paw": 1160,
+    "Bear_neck": 1216,
+    "Bear_right_paw": 1160,
+    "body_underlayer_male": 13132,
+    "F01_strap_sneakers_outfit": 12184,
+    "T01_crew_tee_outfit": 22848
+  },
+  "total_triangles": 80744,
+  "ground_z": -0.005,
+  "status": "constructed candidate; fit/art/runtime acceptance pending",
+  "blend_sha256": "4f8383d1ddc6477e6b767aec685bc73085b05930405bfb72f29dae360af9d78d",
+  "glb_sha256": "6b5e304d830c449cc5d4fe030115ab9c07ab26aad5383cea7e01412a674148fe",
+  "reviews": {
+    "front": "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v1/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v1/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v1/back-review.png",
+    "three-quarter": "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v1/three-quarter-review.png",
+    "still": "assets/avatar/catalog-a/companions/bear-v1/revisions/final-construction-v1/bear-still.png"
+  },
+  "elapsed_seconds": 3.054597417009063
+}

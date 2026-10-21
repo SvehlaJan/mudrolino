@@ -3,8 +3,9 @@
 Date: 2026-10-19
 
 Status: conversational design approved and written spec reviewed by the user
-(2026-10-19). Reference direction B is selected; no bear model, dance or game
-integration has been implemented or verified. Execute the separate
+(2026-10-19). Reference direction B is selected. The model, dance and shared game integration
+are implemented on `feature/bear-companion-design`; current proof and remaining
+art/storage/publication gates are recorded in the handoff. Follow the separate
 [implementation plan](../plans/2026-10-19-bear-companion.md).
 
 ## Purpose
@@ -33,6 +34,16 @@ bear to the shared 24-bone skeleton and clothing proportions, and fit this outfi
 on the actual bear. The reference image establishes an appearance, not proof
 that existing garment meshes fit it. Preserve existing human sources and coverage
 indices; create separate bear construction sources and exports.
+
+Revision instruction (2026-10-20): the user rejected the whole head as too large,
+including after reduction. Scale ears, muzzle and all features with the complete
+head; the concept does not override this feedback. Head45 was still too large
+for the user; head35 is the current local candidate (another22.2% linear
+reduction), pending size confirmation. Separate visual review led to fuller arms,
+rounder paws and a shorter, less flared tee while preserving the shared rig,
+trousers and shoes. Broader arm gestures and a closer companion-only camera make
+the short dance easier to read. Exact model acceptance remains separate from
+implementation and technical proof.
 
 The image is a concept render. Its fur texture does not require expensive fur
 geometry or simulation. Use the catalog's simple rounded material style and
@@ -64,7 +75,7 @@ check that the face reads at the actual feedback size.
 
 ## Presentation and accessibility
 
-Use a small, transparent, noninteractive companion area associated with the
+Use a transparent, noninteractive companion area large enough to read the dance associated with the
 existing success feedback. Do not add a new modal, an extra Continue button or
 a permanent companion beside the activity. Reserve its dimensions before loading
 so the existing text and controls do not jump. Keep all controls visible and

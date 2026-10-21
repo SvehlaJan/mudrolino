@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "glb": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit.glb",
+  "glb_sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+  "sampler_sha256": "84f2f3da997479da36a8ea6459c5a7b17273b8a1ef3715eba615e8cd2fb6df11",
+  "clip": "celebrate",
+  "duration": 1.399999976158142,
+  "substeps": 1,
+  "frame_count": 43,
+  "triangles": 93127,
+  "gzip_bytes": 1674562,
+  "maximum_weight_error": 4.842877388000488e-08,
+  "maximum_motion_m": 0.2448375705337272,
+  "scope": "43 actual Three.js keyframe samples only; full 169 native/runtime proof remains pending for this separate size study",
+  "full_report": "artifacts/verification/bear-companion/head35-runtime-screen/samples.json",
+  "full_report_sha256": "b4610d22b0c9b533693a1ac1c2c60bc0de2d1c15bf0f280fff06492ce495fce4",
+  "native_screen": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/screen/native-screen.json",
+  "native_screen_sha256": "69430b78c4d2fb6ea311a19b539561dd6a38d3e0d52473afdc086884d205634c",
+  "visual_review": "Separate read-only agent inspected 320px front/three-quarter/side/dance: uniform attached-feature scaling; neck visibly connected; no new obvious clipping or gaps. Real game-size readability and user acceptance remain open."
+}

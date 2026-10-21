@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "bear-v1",
+  "technical": {
+    "status": "pending"
+  },
+  "artReview": {
+    "status": "pending",
+    "approvedModelSha256": null,
+    "date": null
+  },
+  "note": "User requested smaller whole head; candidate55%, awaiting renewed dense proof and style review. Prior head100 proof preserved in revisions/proven-head100-v1."
+}

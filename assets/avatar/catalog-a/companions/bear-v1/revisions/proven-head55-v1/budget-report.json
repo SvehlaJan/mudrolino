@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "model": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb",
+  "glb_sha256": "fbd4a3f37107b0f3fac6de341789d74952344beeed44a80aaefb926b2c6a3d31",
+  "verifier_sha256": "0b3bf0caed7e0302dc6db95afef804b6bb288ab5899d20b2666d0f67a7d1b74d",
+  "triangles": 93127,
+  "bytes": 3347784,
+  "gzip_bytes": 1673594,
+  "triangle_budget": 95000,
+  "gzip_budget": 2100000,
+  "clip_payload_buffer_bytes": 41452,
+  "clip_incremental_glb_bytes": 57596,
+  "clip_incremental_gzip_bytes": 18196,
+  "static_reference": "assets/avatar/catalog-a/companions/bear-v1/revisions/head55-construction-v1/outfit.glb",
+  "static_reference_sha256": "210f6a3160ee191050d1893f88b64e9bba0f56848f18724c0e5c3fda23b67ec3",
+  "hips_translation": {
+    "coordinates": "glTF Y-up",
+    "ranges_m": [
+      1.6763806343078613e-8,
+      0.005966484546661377,
+      6.51925802230835e-9
+    ],
+    "endpoint_error_m": 0
+  },
+  "scope": "Raw clip byte contribution and keyed pelvis envelope; all-surface runtime/floor proof is in runtime-report.json and native-dance-report.json"
+}

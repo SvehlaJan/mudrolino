@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "reference": "assets/avatar/concepts/2026-10-19/bear-mascot/comparison-v1.png",
+  "selectedColumn": "B",
+  "head": {
+    "center": [
+      0,
+      0.005,
+      1.82
+    ],
+    "radii": [
+      0.4,
+      0.285,
+      0.39
+    ]
+  },
+  "ears": {
+    "centerX": 0.318,
+    "centerY": 0.015,
+    "centerZ": 2.151,
+    "radii": [
+      0.113,
+      0.075,
+      0.12
+    ]
+  },
+  "muzzle": {
+    "center": [
+      0,
+      -0.27,
+      1.747
+    ],
+    "radii": [
+      0.171,
+      0.105,
+      0.122
+    ]
+  },
+  "eyes": {
+    "centerX": 0.135,
+    "centerZ": 1.901,
+    "radii": [
+      0.032,
+      0.016,
+      0.04
+    ]
+  },
+  "colors": {
+    "honey": "#BE803F",
+    "muzzle": "#E8C18D",
+    "innerEar": "#D9A468",
+    "nose": "#543724",
+    "eyes": "#241B16",
+    "brows": "#704623",
+    "glint": "#FFF8E8"
+  },
+  "relaxedArmDegrees": -4,
+  "body": {
+    "teeHemDrop": 0.12,
+    "teeWidth": 1.1,
+    "teeDepth": 1.1,
+    "teeBackEase": 0.035,
+    "underarmEase": 0,
+    "forearmGirth": 1.2,
+    "pawScale": 1.25,
+    "upperArmInset": 0.22,
+    "pawDepth": 1.4,
+    "underarmDrop": 0.05,
+    "upperBackEase": 0.04,
+    "pawWidth": 1.18,
+    "pawLength": 0.81,
+    "pawLift": 0.018
+  },
+  "groundZ": -0.005,
+  "quality": {
+    "proxy": [
+      24,
+      16
+    ],
+    "final": [
+      48,
+      32
+    ]
+  },
+  "note": "Bear-specific construction parameters around the frozen human rig; dimensions are metres, frontal direction is -Y. Review actual silhouette before treating proportions as accepted.",
+  "headScale": 0.45,
+  "headScaleAnchor": [
+    0,
+    -0.005,
+    1.43
+  ],
+  "celebration": {
+    "armLiftDegrees": 26,
+    "forearmDegrees": 14,
+    "legDegrees": 2.5,
+    "kneeDegrees": 1.2,
+    "torsoDegrees": 4,
+    "headDegrees": 3,
+    "bobMetres": 0.012
+  }
+}

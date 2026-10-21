@@ -1,22 +1,28 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import type { GLTF } from 'three-stdlib';
 import { AnimationClip, type AnimationAction } from 'three';
 import { Box3, Group, Object3D, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
-import type { AvatarExternalAsset } from './avatarTypes';
+import { applyAvatarPlayback } from './avatarPlayback';
+import type { AvatarPlaybackOptions, AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
 import { hasSkinnedMesh, rebindGarmentToBaseSkeleton } from './skinnedGarment';
 import { bindGarmentCorrectives } from './garmentCorrectives';
 
 interface AvatarModelProps {
   url: string;
+  preparedModel?: GLTF;
   animationUrl?: string;
   animationName?: string | null;
   externalAssets?: AvatarExternalAsset[];
   bodyShape?: AvatarBodyShapeConfig;
   preserveHipsPosition?: boolean;
   inspection?: AvatarInspectionControls;
+  playback?: AvatarPlaybackOptions;
+  interactive?: boolean;
+  onError?: (error: unknown) => void;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
   onSceneReady?: (scene: Object3D) => void;
@@ -24,6 +30,8 @@ interface AvatarModelProps {
 }
 
 const TARGET_MODEL_HEIGHT = 2.7;
+const NO_EXTERNAL_ASSETS: AvatarExternalAsset[] = [];
+const NO_EXTERNAL_GLTFS: GLTF[] = [];
 
 function sanitizeAnimationClips(
   clips: AnimationClip[],
@@ -181,27 +189,41 @@ function computeAvatarSceneData(
   return { bones, garments };
 }
 
-export function AvatarModel({
-  url,
-  animationUrl,
+export function AvatarModel(props: AvatarModelProps) {
+  if (props.preparedModel) {
+    return <LoadedAvatarModel {...props} gltf={props.preparedModel}
+      animationSource={props.preparedModel} externalGltfs={NO_EXTERNAL_GLTFS} />;
+  }
+  return <SuspendedAvatarModel {...props} />;
+}
+
+/** Gallery assets retain Drei's normal Suspense/cache behavior. */
+function SuspendedAvatarModel(props: AvatarModelProps) {
+  const gltf = useGLTF(props.url);
+  const animationSource = useGLTF(props.animationUrl ?? props.url);
+  const externalAssets = props.externalAssets ?? NO_EXTERNAL_ASSETS;
+  const externalAssetUrls = useMemo(() => externalAssets.map(asset => asset.url), [externalAssets]);
+  const externalGltfs = useGLTF(externalAssetUrls);
+  return <LoadedAvatarModel {...props} gltf={gltf} animationSource={animationSource} externalGltfs={externalGltfs} />;
+}
+
+function LoadedAvatarModel({
+  gltf,
+  animationSource,
+  externalGltfs,
   animationName,
-  externalAssets = [],
+  externalAssets = NO_EXTERNAL_ASSETS,
   bodyShape,
   preserveHipsPosition,
   inspection,
+  playback,
+  onError,
   onAnimationsChange,
   onModelReady,
   onSceneReady,
   onSceneData,
-}: AvatarModelProps) {
+}: AvatarModelProps & { gltf: GLTF; animationSource: GLTF; externalGltfs: GLTF[] }) {
   const groupRef = useRef<Group>(null);
-  const gltf = useGLTF(url);
-  const animationSource = useGLTF(animationUrl ?? url);
-  const externalAssetUrls = useMemo(
-    () => externalAssets.map((asset) => asset.url),
-    [externalAssets],
-  );
-  const externalGltfs = useGLTF(externalAssetUrls);
   const { scene, garmentScenes, hipsAnchor, rootScale, rootPosition } = useMemo(() => {
     const clonedScene = clone(gltf.scene);
     const hips = clonedScene.getObjectByName('Hips');
@@ -258,7 +280,12 @@ export function AvatarModel({
         action.getMixer().update(0);
       }
     }
-    garmentCorrectives.update();
+    try {
+      garmentCorrectives.update();
+    } catch (error) {
+      if (!onError) throw error;
+      onError(error);
+    }
   });
 
   useEffect(() => {
@@ -272,6 +299,9 @@ export function AvatarModel({
     onAnimationsChange?.(names);
   }, [names, onAnimationsChange]);
 
+  const playbackMode = playback?.mode;
+  const playbackEventKey = playback?.eventKey;
+  const playbackStartedAtMs = playback?.startedAtMs;
   useEffect(() => {
     const preferredName = animationName && names.includes(animationName) ? animationName : undefined;
     const fallbackName = names.find((name) => name.toLowerCase().includes('idle')) ?? names[0];
@@ -280,15 +310,18 @@ export function AvatarModel({
 
     const action = actions[activeName];
     inspectionAction.current = action ?? null;
-    if (isInspection) action?.reset().setEffectiveWeight(1).play();
+    if (action && playbackMode) {
+      const elapsedSeconds = playbackStartedAtMs === undefined ? 0 : (performance.now() - playbackStartedAtMs) / 1000;
+      applyAvatarPlayback(action, { mode: playbackMode }, elapsedSeconds);
+    } else if (isInspection) action?.reset().setEffectiveWeight(1).play();
     else action?.reset().fadeIn(0.2).play();
 
     return () => {
-      if (isInspection) action?.stop();
+      if (playbackMode || isInspection) action?.stop();
       else action?.fadeOut(0.2);
       inspectionAction.current = null;
     };
-  }, [actions, animationName, names, isInspection]);
+  }, [actions, animationName, names, isInspection, playbackMode, playbackEventKey, playbackStartedAtMs]);
 
   return (
     <group ref={groupRef} position={rootPosition} rotation={[0, 0, 0]} scale={rootScale}>

@@ -1,3 +1,4 @@
+import { installCompanionFixture } from './support/companionFixture';
 import { expect, test, type Page } from './support/fixtures';
 import {
   expectNoConsoleErrors,
@@ -5,7 +6,7 @@ import {
   trackConsoleErrors,
   trackFailedRequests,
 } from './support/assertions';
-import { stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
+import { completeCurrentRound, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 
 async function startFromHome(page: Page, title: string): Promise<void> {
@@ -38,4 +39,39 @@ test('WebKit renders home, the parent gate, and representative child rounds', as
 
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
+});
+
+
+test('bear companion succeeds with WebKit', async ({ page }, testInfo) => {
+  const errors = trackConsoleErrors(page);
+  const requests = trackFailedRequests(page);
+  await installCompanionFixture(page);
+  await stubAudioPlayback(page, { holdPraise: true });
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+  let representation = 'still';
+  for (let round = 0; round < 5; round += 1) {
+    await completeCurrentRound(page, 'ALPHABET');
+    await expect(page.getByTestId('learning-companion')).toBeVisible();
+    if (round === 0) {
+      await page.waitForFunction(() => document.querySelector('[data-testid="learning-companion"]')?.getAttribute('data-companion-representation') === 'rendered3D', undefined, { timeout: 1000, polling: 20 }).catch(() => undefined);
+      representation = await page.evaluate(() => document.querySelector('[data-testid="learning-companion"]')?.getAttribute('data-companion-representation') ?? 'expired');
+    }
+    if (round < 4) {
+      await page.getByRole('button', { name: 'Pokračovať' }).click();
+      await waitForGamePhase(page, 'awaiting-answer');
+    }
+  }
+  await page.evaluate(() => {
+    const audio = (window as typeof window & { __heldAudio?: HTMLMediaElement[] }).__heldAudio?.pop();
+    if (!audio) throw new Error('Expected final praise');
+    audio.dispatchEvent(new Event('ended'));
+  });
+  await waitForGamePhase(page, 'session-complete');
+  await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+  await testInfo.attach('companion-representation', { body: representation, contentType: 'text/plain' });
+  expect(errors.filter(error => !/WebGL|Error creating/.test(error))).toEqual([]);
+  expectNoFailedRequests(requests);
 });

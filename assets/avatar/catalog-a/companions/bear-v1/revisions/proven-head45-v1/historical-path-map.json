@@ -1,0 +1,155 @@
+{
+  "scope": "Exact root head45 bytes archived before requested further whole-head reduction. Technical proof applies only to matching archived hashes; user rejected size. Original report paths retain historical provenance.",
+  "files": [
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/back-review.png",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/back-review.png",
+      "sha256": "7bbf1f849221089a8f8f6513dfaca8e28b48dd44271c60d40e42f67081932249",
+      "bytes": 74272
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/bear-design.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/bear-design.json",
+      "sha256": "0aeeafcad87f8ad7a869fa8a6abcda70a3a579f1afc985d4b8a5e4cd636c0927",
+      "bytes": 1801
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/bear-still.png",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/bear-still.png",
+      "sha256": "17a3dac6182a96cef2c09c6b983a6fb0bd55058a728b43c4ce4d5251c4ee450e",
+      "bytes": 79472
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/body.glb",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/body.glb",
+      "sha256": "a370dce992d25b9ac95906dc6c8a44a41c94e4657890bfefa368055605b0b3b2",
+      "bytes": 1500308
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/browser-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/browser-report.json",
+      "sha256": "fd7c349fc063e70e22df50bfd4f9cdf34e52007b3b37418ce37935304510f917",
+      "bytes": 41703
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/budget-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/budget-report.json",
+      "sha256": "c4007083d24426c4bdf1c1ab837ff6998fa5bb68ecd0b01b68c63ad52844b95b",
+      "bytes": 1065
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/celebration-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/celebration-report.json",
+      "sha256": "c7f128ed647abeb2f5d62cdf852ca55b44e1d5d21c5f7affcf480f9f5c5274f2",
+      "bytes": 1881
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/construction-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/construction-report.json",
+      "sha256": "057e04d3570390e2aa824b86ab00040a012d202a5729d30a178c6653ba6ce803",
+      "bytes": 2581
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/dance-review.png",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/dance-review.png",
+      "sha256": "a22a4020c3dacfd5f66406644034d064b0d42dcc95f22a58561c0c1e97639a93",
+      "bytes": 76030
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/front-review.png",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/front-review.png",
+      "sha256": "0fc3cf25576862350e9bee589471aa0c5678efb1bf60da72ea44b18d6ec608c0",
+      "bytes": 75479
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/garments.glb",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/garments.glb",
+      "sha256": "f43baffd54b2eaf6ecdaa3af7420853dd827ab6316095705a16e7b2200850c90",
+      "bytes": 1912884
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/gltf-validation.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/gltf-validation.json",
+      "sha256": "ec285052cf051f6c8a9502c6fedc779895155b6a03f4dc778700bb34dd3f4c28",
+      "bytes": 2020
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/lod-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/lod-report.json",
+      "sha256": "fe44e6643f84ddef8ca75482571a81dd03c5d97f8ffc131629ae65de5437b6ef",
+      "bytes": 3302
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/native-dance-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/native-dance-report.json",
+      "sha256": "418cdb154b4c3140cf71247cb71999e5b5b25ebd532b674475cc101e58a63acf",
+      "bytes": 1019169
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit-lod.blend",
+      "sha256": "4aa6d047d3695a16a516c57a065954242ee81949f8cec3ef78c2eb69a56fb778",
+      "bytes": 5226806
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit-lod.glb",
+      "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4",
+      "bytes": 3347792
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/outfit.blend",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit.blend",
+      "sha256": "97f4498e37f6f8c65a6718c0f0dd4d95fc9353c6c0ca2c38d013674da2021710",
+      "bytes": 5558707
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/outfit.glb",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/outfit.glb",
+      "sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4",
+      "bytes": 3347792
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/runtime-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/runtime-report.json",
+      "sha256": "dda5ab01df401ecb1a9ef5dfb6ace8856567d2f35880568c6ffe505f654ee1b5",
+      "bytes": 57786
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/side-review.png",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/side-review.png",
+      "sha256": "15606c116e9e7d5779c3a4f99ed907fef443137a22439a5f8423f25f0836d9ac",
+      "bytes": 64483
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/source-inventory.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/source-inventory.json",
+      "sha256": "701d9e51584c299119d0b56850359ad512a35b84b907af454b9bc3703f37c363",
+      "bytes": 24654
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/still-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/still-report.json",
+      "sha256": "730e5b4f8e2260675807ed51eeb5f0b52de6123d9f4087dbedfbbd73ee20263a",
+      "bytes": 1827
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/structure-material-report.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/structure-material-report.json",
+      "sha256": "4597a6b3fbc3926aebf9f9fc8851b0f0aa0803fc8e46d6ef33d9cb9763366e33",
+      "bytes": 5550
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/three-quarter-review.png",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/three-quarter-review.png",
+      "sha256": "30051547a1f9598fe6c06f73366c8d9cf491ae53af026d896c7969a1395eb80d",
+      "bytes": 75544
+    },
+    {
+      "historical_path": "assets/avatar/catalog-a/companions/bear-v1/verification-summary.json",
+      "archived_path": "assets/avatar/catalog-a/companions/bear-v1/revisions/proven-head45-v1/verification-summary.json",
+      "sha256": "c5584246c121befb77f223250e05071a57852eb2f4eeb356f8898f00bbc9e722",
+      "bytes": 3047
+    }
+  ]
+}

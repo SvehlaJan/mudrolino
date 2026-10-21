@@ -1,0 +1,53 @@
+{
+  "source": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/outfit.blend",
+  "source_sha256": "97f4498e37f6f8c65a6718c0f0dd4d95fc9353c6c0ca2c38d013674da2021710",
+  "design_sha256": "0aeeafcad87f8ad7a869fa8a6abcda70a3a579f1afc985d4b8a5e4cd636c0927",
+  "builder_sha256": "178249a362bf61ee57f457f5fbb83529911c191456878b6983f1a469fb1877c3",
+  "helper_sha256": "f916b3727588e195e528f8c0c78bb4100fa1ab8a91f7fb6f1b17a4e98e1f3dcb",
+  "quality": "final",
+  "blender_version": "5.2.2 LTS",
+  "rig_sha256": "af1846ebfee2f08690dce3cd9e534a71113a43183074b7580f59ce36d2c6f73b",
+  "gaits_sha256": "ad8780700afcb6276d1769bbd17dd8f504c5236315f4c6540a9e4a6c640a70bc",
+  "body_topology_sha256": "ba8c7ddd66f16b03b3772efee404b0889f20bf471b651a4b60e016a7d77daaab",
+  "source_garments": {
+    "B01_straight_trousers_outfit": "03745257ab72fa8359f0cae0fc4e0d59b24357b3a87fe71cf59c8c533d3e53d4",
+    "Bear_head": "08476f6a5f2153d2f1083897fde51b06c4235fdca0ffc886a8783e782a4ed7de",
+    "Bear_left_paw": "98095ce8a13dbe904ca22d85550c410b53ab76b2b7bad28f7ae2f9046a3697b4",
+    "Bear_neck": "101e3789fde7b03652967c88518a0d44078075aefe70a98d05a7da2467c762cc",
+    "Bear_right_paw": "31faa10c87159e4c6a78421d77f383ed08a35718f0e13ab238b85e410919b83f",
+    "F01_strap_sneakers_outfit": "137a0ae1ec056d828b55f18e0fe6b9651b5b2d4b41088fbe6688a7bbb8625686",
+    "T01_crew_tee_outfit": "9ab0b9bb1b52db632954f9cf7a78f9800d66438995fc9dceee00237d2dd1ae10"
+  },
+  "bear_garments": {
+    "B01_straight_trousers_outfit": "03745257ab72fa8359f0cae0fc4e0d59b24357b3a87fe71cf59c8c533d3e53d4",
+    "Bear_head": "08476f6a5f2153d2f1083897fde51b06c4235fdca0ffc886a8783e782a4ed7de",
+    "Bear_left_paw": "98095ce8a13dbe904ca22d85550c410b53ab76b2b7bad28f7ae2f9046a3697b4",
+    "Bear_neck": "101e3789fde7b03652967c88518a0d44078075aefe70a98d05a7da2467c762cc",
+    "Bear_right_paw": "31faa10c87159e4c6a78421d77f383ed08a35718f0e13ab238b85e410919b83f",
+    "F01_strap_sneakers_outfit": "137a0ae1ec056d828b55f18e0fe6b9651b5b2d4b41088fbe6688a7bbb8625686",
+    "T01_crew_tee_outfit": "9ab0b9bb1b52db632954f9cf7a78f9800d66438995fc9dceee00237d2dd1ae10"
+  },
+  "triangles": {
+    "B01_straight_trousers_outfit": 16476,
+    "Bear_head": 10552,
+    "Bear_left_paw": 1160,
+    "Bear_neck": 1216,
+    "Bear_right_paw": 1160,
+    "body_underlayer_male": 27531,
+    "F01_strap_sneakers_outfit": 12184,
+    "T01_crew_tee_outfit": 22848
+  },
+  "total_triangles": 93127,
+  "ground_z": -0.005,
+  "status": "constructed candidate; fit/art/runtime acceptance pending",
+  "blend_sha256": "4aa6d047d3695a16a516c57a065954242ee81949f8cec3ef78c2eb69a56fb778",
+  "glb_sha256": "ff34c27f34c4504c83303195393366c0c6ee6a0a503ee8c6ce6a21ac4feabea4",
+  "reviews": {
+    "front": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/back-review.png",
+    "three-quarter": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/three-quarter-review.png",
+    "still": "assets/avatar/catalog-a/companions/bear-v1/revisions/head45-soft-motion-v2/bear-still.png"
+  },
+  "elapsed_seconds": 6.560501041938551
+}

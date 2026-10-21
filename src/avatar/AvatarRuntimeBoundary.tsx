@@ -2,6 +2,8 @@ import React from 'react';
 
 interface AvatarRuntimeBoundaryProps {
   children: React.ReactNode;
+  fallback?: React.ReactNode;
+  onError?: (error: unknown) => void;
 }
 
 interface AvatarRuntimeBoundaryState {
@@ -18,11 +20,12 @@ export class AvatarRuntimeBoundary extends React.Component<AvatarRuntimeBoundary
   }
 
   componentDidCatch(error: unknown) {
-    console.warn('Avatar renderer failed; hiding avatar.', error);
+    if (this.props.onError) this.props.onError(error);
+    else console.warn('Avatar renderer failed; hiding avatar.', error);
   }
 
   render() {
-    if (this.state.hasError) return null;
+    if (this.state.hasError) return this.props.fallback ?? null;
     return this.props.children;
   }
 }

@@ -4,12 +4,20 @@
  */
 
 import React from 'react';
+import { useReducedMotion } from 'motion/react';
+import { getCompanionConfig } from '../../avatar/companionConfig';
+import { LearningCompanion } from '../../avatar/LearningCompanion';
+import { useCompanionCelebration } from '../../avatar/useCompanionCelebration';
+import { useCompanionResources } from '../../avatar/useCompanionResources';
+import bearStill from '../../avatar/companions/bear-still.png';
 import type { PraiseEntry, GameId } from '../types';
 import { GAME_DEFINITIONS } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
 import { useContentLocale } from '../contexts/ContentContext';
 import { AppScreen, BackButton, Button, OverlayFrame, PageHeader, RoundCounter, cn } from '../ui';
 import type { GameState } from './gameState';
+
+const COMPANION_FEEDBACK_LAYOUT = 'flex flex-col items-center [@media(max-height:480px)]:flex-row [@media(max-height:480px)]:gap-6 max-sm:[@media(max-height:480px)]:gap-3';
 
 export interface GameShellFeedback {
   kind: 'retry' | 'success' | 'failure';
@@ -37,6 +45,8 @@ export interface GameShellProps {
   feedback?: GameShellFeedback | null;
   completion?: GameShellCompletion | null;
   onRetryError?: () => void;
+  /** Gallery specimens can request a still; this never overrides reduced motion with animation. */
+  companionMotion?: 'system' | 'still';
   children: React.ReactNode;
 }
 
@@ -62,9 +72,25 @@ export function GameShell({
   feedback,
   completion,
   onRetryError,
+  companionMotion = 'system',
   children,
 }: GameShellProps) {
   const locale = useContentLocale();
+  const [companionConfig] = React.useState(getCompanionConfig);
+  const prefersReducedMotion = useReducedMotion();
+  const reducedMotion = companionMotion === 'still' || Boolean(prefersReducedMotion);
+  const celebration = useCompanionCelebration(state);
+  const companionResource = useCompanionResources(reducedMotion ? null : companionConfig?.modelUrl ?? null);
+  const companionSlot = (
+    <div data-testid="companion-feedback-slot" aria-hidden="true" className="mx-auto h-[184px] w-40 shrink-0 max-sm:h-[148px] max-sm:w-32 [@media(max-height:480px)]:h-[148px] [@media(max-height:480px)]:w-32 max-sm:[@media(max-height:480px)]:h-28 max-sm:[@media(max-height:480px)]:w-24">
+      <LearningCompanion event={celebration} config={companionConfig} resource={companionResource}
+        reducedMotion={reducedMotion} stillUrl={bearStill}
+        className="h-full w-full" />
+    </div>
+  );
+  const companionPanelClass = companionConfig
+    ? 'bg-white shadow-block px-8 py-6 sm:px-12 sm:py-8 max-sm:px-6 max-sm:py-5 [@media(max-height:480px)]:px-6 [@media(max-height:480px)]:py-3 max-sm:[@media(max-height:480px)]:px-3'
+    : 'bg-white shadow-block';
 
   const definition = GAME_DEFINITIONS.find((g) => g.id === gameId);
   const title = definition ? getUiCopy(locale, definition.titleKey) : gameId;
@@ -135,11 +161,13 @@ export function GameShell({
           show
           tone={feedback.kind === 'success' ? 'success' : 'failure'}
           onBackdropClick={feedback.onContinue}
-          panelClassName="bg-white shadow-block"
+          panelClassName={feedback.kind === 'success' ? companionPanelClass : 'bg-white shadow-block'}
         >
-          <div className="text-5xl" aria-hidden="true">
+          <div className={companionConfig && feedback.kind === 'success' ? COMPANION_FEEDBACK_LAYOUT : undefined}>
+          {companionConfig && feedback.kind === 'success' ? companionSlot : <div className="text-5xl" aria-hidden="true">
             {feedback.emoji ?? (feedback.kind === 'success' ? '🌟' : '🤗')}
-          </div>
+          </div>}
+          <div className="min-w-0">
           <p className="mt-2 text-3xl font-black text-text-main">{feedback.title}</p>
           {feedback.detail && <p className="mt-2 text-lg font-bold text-text-muted">{feedback.detail}</p>}
           {feedback.onContinue && (
@@ -149,12 +177,22 @@ export function GameShell({
               </Button>
             </div>
           )}
+          </div>
+          </div>
         </OverlayFrame>
       )}
 
+      {companionConfig && celebration && isFinalRound && state.phase === 'answered-correctly' && (
+        <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center" aria-hidden="true">
+          {companionSlot}
+        </div>
+      )}
+
       {completion && state.phase === 'session-complete' && (
-        <OverlayFrame show tone="success" confetti panelClassName="bg-white shadow-block" focusOnShow>
-          <div className="text-6xl" aria-hidden="true">{completion.praise.emoji}</div>
+        <OverlayFrame show tone="success" confetti panelClassName={state.feedback === 'success' ? companionPanelClass : 'bg-white shadow-block'} focusOnShow>
+          <div className={companionConfig && state.feedback === 'success' ? COMPANION_FEEDBACK_LAYOUT : undefined}>
+          {companionConfig && state.feedback === 'success' ? companionSlot : <div className="text-6xl" aria-hidden="true">{completion.praise.emoji}</div>}
+          <div className="min-w-0">
           <p className="mt-2 text-3xl font-black text-text-main">{getUiCopy(locale, 'game.completionTitle')}</p>
           <p className="mt-2 text-xl font-bold text-text-muted">{completion.praise.text}</p>
           <p className="mt-4 text-2xl font-black text-text-main">
@@ -168,6 +206,8 @@ export function GameShell({
             <Button tone="neutral" size="child" onClick={completion.onHome}>
               {getUiCopy(locale, 'game.home')}
             </Button>
+          </div>
+          </div>
           </div>
         </OverlayFrame>
       )}

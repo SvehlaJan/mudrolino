@@ -38,6 +38,8 @@ import type { TactileMaterial } from '../game/materials';
 import type { GameDescriptor } from '../types';
 import { useAutosaveStatus, type AutosaveStatus } from '../hooks/useAutosaveStatus';
 import type { SaveResult } from '../services/appSettingsStore';
+import { useContentLocale } from '../contexts/ContentContext';
+import { useT } from '../hooks/useT';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -208,6 +210,7 @@ function UiKitOverlayCompletionDemo() {
 
 const GAME_SHELL_DEMO_STATES = [
   'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration', 'answer-controls', 'geometry-stress',
+  'companion-success', 'companion-final-correct', 'companion-final-failure', 'companion-expired', 'companion-reduced-motion',
 ] as const;
 
 type GameShellDemoState = typeof GAME_SHELL_DEMO_STATES[number];
@@ -226,7 +229,12 @@ function getGameShellDemoState(example: GameShellDemoState): GameState {
   switch (example) {
     case 'listening': return { ...base, phase: 'listening' };
     case 'retry': return { ...base, phase: 'answered-incorrectly', wrongAttempts: 1 };
-    case 'success': return { ...base, phase: 'answered-correctly', roundsPlayed: 1, correctRounds: 1, feedback: 'success' };
+    case 'success':
+    case 'companion-success':
+    case 'companion-expired':
+    case 'companion-reduced-motion': return { ...base, phase: 'answered-correctly', roundsPlayed: 1, correctRounds: 1, feedback: 'success' };
+    case 'companion-final-correct': return { ...base, phase: 'session-complete', roundsPlayed: 5, correctRounds: 5, feedback: 'success' };
+    case 'companion-final-failure': return { ...base, phase: 'session-complete', roundsPlayed: 5, correctRounds: 4, feedback: 'failure' };
     case 'failure': return { ...base, phase: 'answered-incorrectly', roundsPlayed: 1, feedback: 'failure' };
     case 'paused': return { ...base, paused: true, resumePhase: 'awaiting-answer' };
     case 'error': return { ...base, phase: 'recoverable-error', errorMessage: 'Zvuk sa nepodarilo prehrať.' };
@@ -236,19 +244,22 @@ function getGameShellDemoState(example: GameShellDemoState): GameState {
 }
 
 function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
+  const locale = useContentLocale();
+  const t = useT();
   const [focusDemoPaused, setFocusDemoPaused] = useState(false);
   const [disabledAnswers, setDisabledAnswers] = useState<string[]>([]);
   const [showD, setShowD] = useState(true);
   const [activations, setActivations] = useState(0);
+  const demoState = getGameShellDemoState(stateName);
   const state = stateName === 'focus-restoration'
     ? { ...getGameShellDemoState('ready'), paused: focusDemoPaused, resumePhase: focusDemoPaused ? 'awaiting-answer' as const : null }
-    : getGameShellDemoState(stateName);
+    : { ...demoState, paused: demoState.paused || focusDemoPaused };
   const feedback = stateName === 'retry'
-    ? { kind: 'retry' as const, title: getUiCopy('sk', 'game.retryPrompt'), detail: getUiCopy('sk', 'game.retry.detail') }
-    : stateName === 'success'
-    ? { kind: 'success' as const, title: getUiCopy('sk', 'game.successTitle'), onContinue: () => undefined }
+    ? { kind: 'retry' as const, title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
+    : ['success', 'companion-success', 'companion-expired', 'companion-reduced-motion'].includes(stateName)
+    ? { kind: 'success' as const, title: getUiCopy(locale, 'game.successTitle'), onContinue: () => undefined }
     : stateName === 'failure'
-    ? { kind: 'failure' as const, title: getUiCopy('sk', 'game.failureTitle'), detail: getUiCopy('sk', 'game.failure.detail'), onContinue: () => undefined }
+    ? { kind: 'failure' as const, title: getUiCopy(locale, 'game.failureTitle'), detail: getUiCopy(locale, 'game.failure.detail'), onContinue: () => undefined }
     : undefined;
   const visual = stateName === 'visual' ? <span className="text-6xl" aria-label="Auto">🚗</span> : undefined;
   const answerLetters = stateName === 'geometry-stress'
@@ -259,6 +270,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
     <div data-demo-state={stateName} data-demo-viewports="320x568 667x375" data-demo-motion={stateName === 'reduced-motion' ? 'system-reduced' : 'default'}>
       <GameShell
         gameId="ALPHABET"
+        companionMotion={stateName === 'companion-reduced-motion' ? 'still' : 'system'}
         state={state}
         onBack={() => undefined}
         prompt={<GamePrompt instruction="Nájdi písmeno, ktoré počuješ." visual={visual} replaying={stateName === 'listening' || stateName === 'reduced-motion'} onReplay={() => undefined} />}
@@ -269,7 +281,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
         }}
         onRetryError={() => undefined}
       >
-        <AnswerGroup label={getUiCopy('sk', 'game.answerGroup')} orientation="grid">
+        <AnswerGroup label={getUiCopy(locale, 'game.answerGroup')} orientation="grid">
           {answerLetters.map(letter => (
             <button
               key={letter}
@@ -284,14 +296,19 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
           ))}
         </AnswerGroup>
       </GameShell>
-      {stateName === 'focus-restoration' && (
+      {(stateName === 'focus-restoration' || stateName.startsWith('companion-')) && (
         <button
           type="button"
           data-testid="game-pause-demo-toggle"
           className="sr-only"
           onClick={() => setFocusDemoPaused(paused => !paused)}
         >
-          {focusDemoPaused ? 'Obnoviť ukážku' : 'Pozastaviť ukážku'}
+          {focusDemoPaused ? t('Obnoviť') : t('Pauza')}
+        </button>
+      )}
+      {stateName.startsWith('companion-') && (
+        <button type="button" data-testid="game-companion-rerender" className="sr-only" onClick={() => setActivations(count => count + 1)}>
+          {t('Obnoviť')}
         </button>
       )}
       {stateName === 'answer-controls' && (
@@ -677,6 +694,7 @@ function AutosaveStatusDemo() {
 }
 
 export function UiKitScreen() {
+  const locale = useContentLocale();
   const params = new URLSearchParams(window.location.search);
   if (params.get('example') === 'game-shell') {
     const requestedState = params.get('state');
@@ -1180,6 +1198,11 @@ export function UiKitScreen() {
               ['ready', 'Pripravené'], ['listening', 'Počúvanie'], ['visual', 'Obrazové zadanie'], ['retry', 'Opakovanie'],
               ['success', 'Úspech'], ['failure', 'Neúspech'], ['paused', 'Pozastavené'], ['error', 'Chyba'],
               ['completion', 'Dokončenie'], ['reduced-motion', 'Obmedzený pohyb'], ['focus-restoration', 'Obnovenie fokusu'],
+              ['companion-success', `🐻 ${getUiCopy(locale, 'game.successTitle')}`],
+              ['companion-final-correct', `🐻 ${getUiCopy(locale, 'game.completionTitle')} ✓`],
+              ['companion-final-failure', `🐻 ${getUiCopy(locale, 'game.completionTitle')} ×`],
+              ['companion-expired', `🐻 ${getUiCopy(locale, 'game.successTitle')} ⏱`],
+              ['companion-reduced-motion', `🐻 ${getUiCopy(locale, 'game.successTitle')} ▣`],
             ].map(([state, label]) => (
               <a key={state} href={`/ui-kit?example=game-shell&state=${state}`}>{label}</a>
             ))}

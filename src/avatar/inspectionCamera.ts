@@ -1,8 +1,8 @@
 import type { AvatarInspectionControls } from './avatarTypes';
 
 export interface InspectionBounds { min: [number, number, number]; max: [number, number, number] }
-export function inspectionCameraPose(view: AvatarInspectionControls['view'] | undefined, aspect: number, bounds?: InspectionBounds): { position: [number, number, number]; target: [number, number, number] } {
-  if (!view) return { position: [0, 1.35, 7.2], target: [0, 1.25, 0] };
+export function inspectionCameraPose(view: AvatarInspectionControls['view'] | undefined, aspect: number, bounds?: InspectionBounds, cameraDistance = 7.2): { position: [number, number, number]; target: [number, number, number] } {
+  if (!view) return { position: [0, 1.35, cameraDistance], target: [0, 1.25, 0] };
   const safeAspect = Math.max(aspect, 0.1);
   let distance = Math.max(6, 4.5 / safeAspect);
   const dx = view === 'side' ? 1 : view === 'three-quarter' ? Math.SQRT1_2 : 0;

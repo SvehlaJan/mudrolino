@@ -5,6 +5,11 @@ const views = ['front', 'back', 'side', 'three-quarter'] as const;
 const shorts: InspectionBounds = { min: [-1.345, 0, -1.017], max: [1.345, 2.7, 1.017] };
 
 describe('inspection camera framing', () => {
+  it('can frame the companion closely without changing default or inspection cameras', () => {
+    expect(inspectionCameraPose(undefined, 6 / 7, undefined, 5.2)).toEqual({ position: [0, 1.35, 5.2], target: [0, 1.25, 0] });
+    expect(inspectionCameraPose(undefined, 6 / 7).position[2]).toBe(7.2);
+    expect(inspectionCameraPose('front', 6 / 7, shorts, 5.2)).toEqual(inspectionCameraPose('front', 6 / 7, shorts));
+  });
   it('keeps every corner of a broad short garment inside a visible margin on desktop and phone', () => {
     for (const aspect of [326 / 506.390625, 700 / 540]) for (const view of views) {
       const { position, target } = inspectionCameraPose(view, aspect, shorts);

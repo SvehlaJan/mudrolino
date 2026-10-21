@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "id": "bear-v1",
+  "candidate": {
+    "model": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb",
+      "sha256": "f391a612b80dd63f069cf5f5d9514a585f9f3e1040f2593974762cb8a8ea16d4",
+      "bytes": 3347792
+    },
+    "source": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/outfit-lod.blend",
+      "sha256": "608b7d6c0f5c28299d820fe5812d4aa8c599bbf4f870308b0a05124374f98c7e"
+    },
+    "still": {
+      "sourcePath": "assets/avatar/catalog-a/companions/bear-v1/bear-still.png",
+      "bundledPath": "src/avatar/companions/bear-still.png",
+      "sha256": "b6952545abf32cec8aa74cee9ac68fc80b91646eec9b79cd08f428529944e218"
+    }
+  },
+  "animation": {
+    "name": "celebrate",
+    "durationMs": 1400
+  },
+  "technical": {
+    "status": "passed",
+    "checks": {
+      "native": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/native-dance-report.json",
+        "sha256": "a54daaa1297f315155e8811a6ecf426f735f7bbc3d37016ff11b9d320e80be87"
+      },
+      "structure": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/structure-material-report.json",
+        "sha256": "177db9414c36cedccba72109d5a5af8cd6d02088b15fa6c109bd487cf27b0d1f"
+      },
+      "gltf": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/gltf-validation.json",
+        "sha256": "e36e59fe7918a9cd3f3d1e8af5f37962507421ab6e3bd875b293e7d710f5076f"
+      },
+      "runtime": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/runtime-report.json",
+        "sha256": "fab6e0f497937837055e509769edb30172016d4037f8a1d6dedadfd8fc3b7b86"
+      },
+      "browser": {
+        "path": "assets/avatar/catalog-a/companions/bear-v1/browser-report.json",
+        "sha256": "a67e2b91f9d8b314bc7185185ed560f656416ab9787ff371cc2ee71b30bb4a16"
+      }
+    },
+    "budget": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/budget-report.json",
+      "sha256": "90e1ffde728c3bc2fe132ed70091fc0a5a32ec5cd6553c8a8c0fffc59163386d"
+    },
+    "still": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/still-report.json",
+      "sha256": "e1d8da0524fbe602cb0a3eeb17a35fc6bf35c566cbdf3cd339e7e24c80ad112b"
+    }
+  },
+  "artReview": {
+    "status": "pending",
+    "approvedModelSha256": null,
+    "date": null,
+    "independentReview": "docs/audits/2026-10-20-bear-companion-visual-review.md",
+    "note": "Head35 applies the requested further whole-head reduction; exact size/model user confirmation remains pending. Prior head45 technical proof is archived separately."
+  },
+  "storage": {
+    "private": "pending",
+    "reason": "R2 credentials absent; current native sources and exports remain local-only. No public Blob token available."
+  },
+  "context": {
+    "commit": "f9754188ae9b0bb3db348026c73919f322fdb9d3",
+    "workingTree": "feature/bear-companion-design candidate verified before implementation commit; locate the committed source through the handoff git-log command",
+    "checkedAt": "2026-10-20T19:47:11.810554+00:00",
+    "scope": "Head35 native/runtime169, structure/material, validator, phone budget, still and strict30 actual renderer checks passed; shared-game/head35 integration checks recorded separately in the handoff."
+  }
+}

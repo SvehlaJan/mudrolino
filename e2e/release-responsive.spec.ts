@@ -1,5 +1,6 @@
+import { installCompanionFixture } from './support/companionFixture';
 import { expect, test, type Locator, type Page } from './support/fixtures';
-import { stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
+import { completeCurrentRound, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import {
   expectMinimumTarget,
   expectNoHorizontalOverflow,
@@ -114,5 +115,29 @@ test('parent dashboard and word editor remain reachable in their explicit scroll
 test('ordinary home content avoids horizontal scroll at 200 percent CSS zoom', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => { document.body.style.zoom = '2'; });
+  await expectNoHorizontalOverflow(page);
+});
+
+
+test('bear companion success and completion fit', async ({ page }) => {
+  await installCompanionFixture(page);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+  for (let round = 0; round < 5; round += 1) {
+    await completeCurrentRound(page, 'ALPHABET');
+    if (round < 4) {
+      await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-representation', 'still');
+      await expectWithinViewport(page, page.getByTestId('learning-companion'));
+      await expectControlsInViewport(page, page.getByRole('status').getByRole('button'));
+      await page.getByRole('button', { name: 'Pokračovať' }).click();
+      await waitForGamePhase(page, 'awaiting-answer');
+    }
+  }
+  await waitForGamePhase(page, 'session-complete');
+  await expectWithinViewport(page, page.getByTestId('learning-companion'));
+  await expectControlsInViewport(page, page.getByRole('status').getByRole('button'));
+  await expectNoPairwiseOverlap(page.getByRole('status').getByRole('button'));
   await expectNoHorizontalOverflow(page);
 });

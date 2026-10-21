@@ -40,3 +40,15 @@ test('production redirects the development component gallery to home', async ({ 
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(failedRequests);
 });
+
+
+test('production ignores the candidate companion fixture global', async ({ page }) => {
+  const fixtureRequests: string[] = [];
+  page.on('request', request => { if (request.url().includes('/__avatar_fixture/')) fixtureRequests.push(request.url()); });
+  await page.addInitScript(() => { window.__E2E__ = { companionFixture: true }; });
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  await expect(page.getByTestId('game-answer-region')).toBeVisible();
+  await expect(page.getByTestId('learning-companion')).toHaveCount(0);
+  expect(fixtureRequests).toEqual([]);
+});

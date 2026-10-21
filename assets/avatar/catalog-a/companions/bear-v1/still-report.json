@@ -1,0 +1,46 @@
+{
+  "status": "rendered",
+  "source": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/outfit-lod.blend",
+  "source_sha256": "608b7d6c0f5c28299d820fe5812d4aa8c599bbf4f870308b0a05124374f98c7e",
+  "renderer_sha256": "f0d8fc0fbf96ada6655dedcede9276436cfdcb558d2dcc626921fe8c167d9693",
+  "helper_sha256": "59c4dec5a3cc1cb5dc22c0a44a8478c657fc938033973fbae1e860eb410fab75",
+  "blender_version": "5.2.2 LTS",
+  "frame": 0,
+  "width": 320,
+  "height": 368,
+  "maximum_css_slot": [
+    160,
+    184
+  ],
+  "minimum_pixel_ratio": 2,
+  "camera": {
+    "distance": 5.2,
+    "height": 1.35,
+    "target_height": 1.25,
+    "vertical_fov": 34,
+    "normalized_model_height": 2.7
+  },
+  "reviews": {
+    "front": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/still-dpr2/front-review.png",
+      "sha256": "34888dcb45c3af5ee0c0ee476a8e887b1fd50940aa0fbf63dcfb5d959f8ae6fd"
+    },
+    "side": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/still-dpr2/side-review.png",
+      "sha256": "2ceda08cae8ddad31109ae1533cc9465cf1d7fdb09c3b7cf3c15bbbc4a3d5188"
+    },
+    "back": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/still-dpr2/back-review.png",
+      "sha256": "c08262d388587228263ac81d85bd2444e3e7b8c71a8f78b25dc291b42c2cad9f"
+    },
+    "three-quarter": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/still-dpr2/three-quarter-review.png",
+      "sha256": "ccfb21643503abf75f1f20fdab720831123ebd025d57220094671636f6d3b995"
+    },
+    "still": {
+      "path": "assets/avatar/catalog-a/companions/bear-v1/revisions/head35-motion-v1/still-dpr2/bear-still.png",
+      "sha256": "b6952545abf32cec8aa74cee9ac68fc80b91646eec9b79cd08f428529944e218"
+    }
+  },
+  "scope": "Fallback render only; geometry/motion proof stays bound to the unchanged native source."
+}

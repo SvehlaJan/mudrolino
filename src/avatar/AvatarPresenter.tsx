@@ -1,6 +1,7 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, type ReactNode } from 'react';
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
-import type { AvatarExternalAsset } from './avatarTypes';
+import { loadAvatarSceneModule } from './avatarSceneLoader';
+import type { AvatarPlaybackOptions, AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
 import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
 
@@ -10,7 +11,7 @@ import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvaila
  * render and is swallowed by AvatarRuntimeBoundary, same as any other avatar runtime error.
  */
 const AvatarScene = lazy(() =>
-  import('./AvatarScene').then((module) => ({ default: module.AvatarScene })),
+  loadAvatarSceneModule().then((module) => ({ default: module.AvatarScene })),
 );
 
 interface AvatarPresenterProps {
@@ -25,6 +26,11 @@ interface AvatarPresenterProps {
   preserveHipsPosition?: boolean;
   showSkeleton?: boolean;
   inspection?: AvatarInspectionControls;
+  cameraDistance?: number;
+  playback?: AvatarPlaybackOptions;
+  interactive?: boolean;
+  fallback?: ReactNode;
+  onError?: (error: unknown) => void;
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
@@ -44,6 +50,11 @@ export function AvatarPresenter({
   preserveHipsPosition,
   showSkeleton,
   inspection,
+  cameraDistance,
+  playback,
+  interactive,
+  fallback,
+  onError,
   assetStatusOverride,
   onAnimationsChange,
   onModelReady,
@@ -64,7 +75,12 @@ export function AvatarPresenter({
         bodyShape={bodyShape}
         preserveHipsPosition={preserveHipsPosition}
         showSkeleton={showSkeleton}
-        inspection={inspection}
+      inspection={inspection}
+      cameraDistance={cameraDistance}
+      playback={playback}
+      interactive={interactive}
+      fallback={fallback}
+      onError={onError}
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
         onSceneData={onSceneData}
@@ -85,7 +101,12 @@ export function AvatarPresenter({
       bodyShape={bodyShape}
       preserveHipsPosition={preserveHipsPosition}
       showSkeleton={showSkeleton}
-        inspection={inspection}
+      inspection={inspection}
+      cameraDistance={cameraDistance}
+      playback={playback}
+      interactive={interactive}
+      fallback={fallback}
+      onError={onError}
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
       onSceneData={onSceneData}
@@ -118,6 +139,11 @@ function AvatarPresenterContent({
   preserveHipsPosition,
   showSkeleton,
   inspection,
+  cameraDistance,
+  playback,
+  interactive,
+  fallback,
+  onError,
   onAnimationsChange,
   onModelReady,
   onSceneData,
@@ -126,7 +152,7 @@ function AvatarPresenterContent({
   if (assetStatus !== 'available') return null;
 
   return (
-    <AvatarRuntimeBoundary>
+    <AvatarRuntimeBoundary fallback={fallback} onError={onError}>
       <div className={className} role="img" aria-label={label}>
         <Suspense fallback={null}>
           <AvatarScene
@@ -139,6 +165,10 @@ function AvatarPresenterContent({
             preserveHipsPosition={preserveHipsPosition}
             showSkeleton={showSkeleton}
             inspection={inspection}
+      cameraDistance={cameraDistance}
+            playback={playback}
+            interactive={interactive}
+            onError={onError}
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
             onSceneData={onSceneData}

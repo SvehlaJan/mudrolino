@@ -26,7 +26,9 @@ The user reviewed the written
 correct answers only, one outfit. Proceed with implementation under those choices;
 the actual 3D art still needs its own revision-specific review.
 
-This is a **plan, not a completion report**. Its checkboxes start unchecked.
+Execution status is recorded in the [handoff](../handoffs/2026-10-19-bear-companion.md).
+Checked steps have local evidence; art acceptance, private storage and publication
+remain explicit separate gates. This plan does not declare production readiness.
 Planning baseline: `0cc7fe4` on `feature/bear-companion-design`. The source checkout
 is `/Users/svehla/playground/teo-learn`; on a different machine use the equivalent
 repository root. All paths in this plan are relative to that root.
@@ -127,7 +129,7 @@ only as needed for the tool. Read the resource contracts in the runtime package.
   between machines. If all hashes remain identical, verify that result rather
   than rebuilding the manifest and reuploading needlessly. Private source storage
   does not need final art approval; public runtime publication does.
-- [ ] **7.3 Implement a publication tool.** Use the official
+- [x] **7.3 Implement a publication tool.** Use the official
   [Vercel Blob `put` reference](https://github.com/vercel/storage/blob/main/_autodocs/api-reference/blob-put.md).
   It was checked on 2026-10-19; recheck it when executing after an SDK change.
   Install the upload SDK as a dev dependency only if it is not already present:
@@ -189,13 +191,13 @@ only as needed for the tool. Read the resource contracts in the runtime package.
 **Files:** `e2e/avatar-companion.spec.ts`, `tools/avatar/verify_bear_runtime.mjs`,
 the handoff record, and verification artifacts. Read the browser skill first.
 
-- [ ] **8.1 Install matching browsers if dependencies/Playwright were installed
+- [x] **8.1 Install matching browsers if dependencies/Playwright were installed
   or upgraded.** Run `npm run setup:browsers`. Use the repository's preinstalled
   browser resolver where downloads are unavailable. On macOS launch-permission
   failures, rerun the identical command with the client's normal sandbox
   escalation instead of changing application code. For WebGL proof use the
   browser skill's software-GL flags; record those flags and device/browser.
-- [ ] **8.2 Run focused behavioral proof.** The fixture helper must route the
+- [x] **8.2 Run focused behavioral proof.** The fixture helper must route the
   actual locally hash-verified Task 3 GLB, not a synthetic substitute. Run:
 
   ```bash
@@ -210,7 +212,7 @@ the handoff record, and verification artifacts. Read the browser skill first.
   browser spec imports `support/fixtures`, covers all 11 entries of
   `RELEASE_GAME_CASES`, and runs in normal integration too. A missing source GLB
   fails actionable fixture setup; do not skip the new tests automatically.
-- [ ] **8.3 Review actual rendering and layout.** Inspect only <=320px-wide
+- [x] **8.3 Review actual rendering and layout.** Inspect only <=320px-wide
   copies. Capture normal success, last success before/during results, and reduced
   motion at `narrowPhone`, `shortLandscape` and desktop, in Slovak and Czech.
   Record model SHA, commit/build identity, seed, viewport, browser, elapsed clip
@@ -224,7 +226,7 @@ the handoff record, and verification artifacts. Read the browser skill first.
   ```bash
   npx playwright test --config=e2e/playwright.release.config.ts e2e/release-responsive.spec.ts e2e/release-webkit-smoke.spec.ts --grep='bear companion'
   ```
-- [ ] **8.4 Run the fresh integration profile once the candidate is stable.**
+- [x] **8.4 Run the fresh integration profile once the candidate is stable.**
 
   ```bash
   npm run verify:edit -- --base=0cc7fe4 --dry-run
@@ -238,7 +240,7 @@ the handoff record, and verification artifacts. Read the browser skill first.
   not repeat the same full gate merely to collect another green result. Include
   committed changes when selecting edits. Keep unrelated untracked source reports
   visible in the selection record rather than pretending the checkout is clean.
-- [ ] **8.5 Check production and offline boundaries.** Inspect `dist` and the
+- [x] **8.5 Check production and offline boundaries.** Inspect `dist` and the
   Workbox output: Three.js remains behind `AvatarScene`; test fixture overrides
   and private-source URLs are absent; GLBs and the renderer stay out of precache.
   Run the existing production-guard/offline tests with the proper production
@@ -259,7 +261,7 @@ the handoff record, and verification artifacts. Read the browser skill first.
   Keep targeted failure injection scoped to the expected asset/context failure;
   assert no extra console/request failures. An expected injected failure is
   recorded separately, not erased from the suite's global assertions.
-- [ ] **8.6 Report every gate honestly.** Reused proof, dry-run selection, missing
+- [x] **8.6 Report every gate honestly.** Reused proof, dry-run selection, missing
   publication, unavailable browsers and failing checks are different outcomes.
   The current recording inventory has pending clips; a later executor must report
   its actual inventory result and not inherit the prior one-release recording
@@ -267,17 +269,17 @@ the handoff record, and verification artifacts. Read the browser skill first.
 
 ## Task 9: Close the implementation handoff
 
-- [ ] Create/update `docs/superpowers/handoffs/2026-10-19-bear-companion.md` with
+- [x] Create/update `docs/superpowers/handoffs/2026-10-19-bear-companion.md` with
   the template below. Update `ROADMAP.md` and the avatar workflow entry point so
   another agent can find this lane without reading old fitting history. Leave
   broader wardrobe/selfie tasks open.
-- [ ] Record final art approval and exact runtime URLs/hashes separately from
+- [x] Record final art approval and exact runtime URLs/hashes separately from
   technical passes. If review/publication is still pending, the task is a tested
   candidate, not a finished product integration.
-- [ ] Run lint, unit and affected pure checks for new changes since Task 8's proof,
+- [x] Run lint, unit and affected pure checks for new changes since Task 8's proof,
   then commit only owned files. Use `git diff --check` and inspect the staged
   diff. A docs-only close-out does not require replaying the entire browser gate.
-- [ ] Summarize what shipped in the branch, what actually passed, outstanding
+- [x] Summarize what shipped in the branch, what actually passed, outstanding
   limitations and the next action. Leave PR, merge and production release to the
   user's explicit request.
 

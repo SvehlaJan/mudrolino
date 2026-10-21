@@ -1,6 +1,7 @@
 import { installNativeAudioMute } from './support/nativeAudioMute';
 import { expect, test } from '@playwright/test';
 import { RELEASE_GAME_CASES } from './support/releaseMatrix';
+import { LETTER_ITEMS } from '../src/shared/locales/sk';
 
 async function waitForOfflineControl(page: import('@playwright/test').Page) {
   await page.goto('/');
@@ -56,4 +57,31 @@ test('production manifest and icons are served for installation', async ({ page,
   for (const icon of manifest.icons) {
     expect((await request.get(icon.src)).ok(), `manifest icon ${icon.src}`).toBe(true);
   }
+});
+
+
+test('uncached optional companion cannot block an offline correct answer', async ({ page, context }) => {
+  await page.addInitScript(() => {
+    const heard: string[] = [];
+    (window as typeof window & { offlineHeard?: string[] }).offlineHeard = heard;
+    const nativePlay = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function () {
+      heard.push(this.src);
+      return nativePlay.call(this);
+    };
+  });
+  await waitForOfflineControl(page);
+  await context.setOffline(true);
+  await page.goto('/alphabet');
+  await page.getByRole('button', { name: 'Hrať' }).click();
+  // Observe the actual prompt media; production has no test answer adapter.
+  await page.waitForFunction(() => (window as typeof window & { offlineHeard?: string[] }).offlineHeard?.some(url => url.includes('/letters/')));
+  const clip = await page.evaluate(() => (window as typeof window & { offlineHeard?: string[] }).offlineHeard!.find(url => url.includes('/letters/'))!);
+  const answer = LETTER_ITEMS.find(letter => clip.endsWith(`/letters/${letter.audioKey}.mp3`));
+  expect(answer).toBeDefined();
+  await page.locator(`[data-answer-id=${JSON.stringify(answer!.symbol)}]`).click();
+  await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
+  await page.getByRole('button', { name: 'Pokračovať' }).click();
+  await expect(page.getByTestId('game-answer-region')).toBeVisible();
+  await expect(page.locator('canvas')).toHaveCount(0);
 });
