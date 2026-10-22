@@ -41,7 +41,7 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
 
   return (
     <div
-      className={cn('pointer-events-none relative h-[184px] w-40 shrink-0', className)}
+      className={cn('pointer-events-none relative h-[200px] w-44 shrink-0', className)}
       style={{ pointerEvents: 'none' }}
       aria-hidden="true"
       data-testid="learning-companion"
@@ -56,7 +56,7 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
           modelUrl={modelUrl}
           animationName={config.animationName}
           preserveHipsPosition
-          cameraDistance={5.2}
+          cameraDistance={5.6}
           interactive={false}
           playback={{ mode: 'once', eventKey: event.eventKey, startedAtMs: event.startedAtMs }}
           assetStatusOverride="available"

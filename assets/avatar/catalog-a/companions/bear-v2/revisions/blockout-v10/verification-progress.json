@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-21T18:39:59.380961+00:00",
+  "stage": "unrigged likeness draft, not a runtime asset or art acceptance",
+  "currentRevision": "blockout-v10",
+  "freshChecks": {
+    "native": "Five 320px views rendered fresh in Blender 5.2.2 LTS; root and independent agent inspected all five.",
+    "pythonSyntax": "py_compile passed for builder and replay runner.",
+    "assetManifest": "assets:manifest + assets:verify passed: missing=changed=unlisted=links=0. Adds only10 bear-v2 sources; all prior entries unchanged.",
+    "sourceBinding": "Shared builder equals archived v10 builder; design and native-source hashes match report.",
+    "whitespace": "git diff --check passed",
+    "toolTests": "24 stdlib tests passed:17 Meshy helper +7 snapshot replay.",
+    "snapshotReplay": "Fresh native replay through archived builder; all five raw-pixel buffers exactly equal original renders.",
+    "neutralSource": "Reopened saved v10 native source: head pivot rotations all zero;17 head children;0 armatures.",
+    "historicalRevisionBinding": "All10 revision snapshots match their saved builder/design/native-source report hashes."
+  },
+  "verificationSelection": {
+    "command": "npm run verify:edit -- --files=tools/meshy/meshy_ops.py,tools/meshy/test_meshy_ops.py,tools/blender/catalog/build_bear_reference_blockout.py --dry-run",
+    "result": "dry-run selected integration conservatively for unmapped Python tooling; no integration suites executed",
+    "environment": "Initial sandbox attempt failed tsx IPC EPERM; same dry-run succeeded with escalation"
+  },
+  "notRun": [
+    "No app integration or release run; frontend/runtime source unchanged.",
+    "No new GLB, deformation, animation or fit sweep."
+  ],
+  "blockers": [
+    "User likeness direction pending; shown v7, current v8 refines cuffs.",
+    "Meshy API task creation blocked until user confirms API entitlement enabled;0/500credits spent.",
+    "3D sources local-only; private R2 credentials unavailable."
+  ]
+}

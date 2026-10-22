@@ -1,0 +1,16 @@
+{
+  "relaxedArmDegrees": 16,
+  "relaxedForearmDegrees": 6,
+  "armLiftDegrees": 55,
+  "forearmCurlDegrees": 0,
+  "headTiltDegrees": 4,
+  "direction": "Expressive two-bounce cheer with bent raised forearms rather than an outstretched T; keep gesture within the small product slot.",
+  "thighDegrees": 7,
+  "kneeDegrees": 9,
+  "hopMetres": 0.12,
+  "armAccentDegrees": 8,
+  "handDegrees": 14,
+  "torsoSwayDegrees": 6,
+  "headSwayDegrees": 5,
+  "forearmCheerDegrees": 45
+}

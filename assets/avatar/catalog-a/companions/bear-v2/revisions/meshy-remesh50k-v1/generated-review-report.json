@@ -1,0 +1,66 @@
+{
+  "stage": "generated candidate; art, topology, clothing separation and motion unaccepted",
+  "glb": "meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7/remeshed.glb",
+  "glb_sha256": "f9b873f234194f8a6532a892af074195977b4b2c6fa64c5ceaf8c007f402d36a",
+  "bytes": 19626916,
+  "builder_sha256": "029660249d663002301e0d54666caafe92431a38e862aa812f99c73ea81adc03",
+  "original_bounds": {
+    "min": [
+      -0.8142930269241333,
+      -0.42161694169044495,
+      -0.9518759250640869
+    ],
+    "max": [
+      0.8139479160308838,
+      0.4229300320148468,
+      0.9509089589118958
+    ]
+  },
+  "review_scale": 1.1982437001684623,
+  "meshes": [
+    {
+      "name": "output_unwrapped",
+      "vertices": 41026,
+      "triangles": 51311,
+      "uv_layers": 1,
+      "materials": [
+        "BakedMaterial"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "name": "normal",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "texture_0",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "texture_0_metallic_roughness",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ],
+  "triangles": 51311,
+  "armatures": 0,
+  "blend": "meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7/review-v1/generated-review.blend",
+  "blend_sha256": "d77e69cc1d459d91c9e0f9d275893161c2a87c09e335e0b6022d02742f3ffe4b",
+  "blender_version": "5.2.2 LTS",
+  "review_width": 320,
+  "views": {
+    "three-quarter": "meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7/review-v1/three-quarter-review.png",
+    "front": "meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7/review-v1/front-review.png",
+    "side": "meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7/review-v1/side-review.png",
+    "back": "meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7/review-v1/back-review.png"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "relaxedArmDegrees": 16,
+  "relaxedForearmDegrees": 6,
+  "armLiftDegrees": 14,
+  "forearmCurlDegrees": 20,
+  "headTiltDegrees": 4,
+  "direction": "Keep arms clear of torso throughout the short celebration; two small happy bounces with gentle arm lift and alternating leg motion.",
+  "thighDegrees": 3.5,
+  "kneeDegrees": 4,
+  "hopMetres": 0.025
+}

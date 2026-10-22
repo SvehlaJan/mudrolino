@@ -114,16 +114,17 @@ def record_task(
     )
     metadata["project_name"] = metadata.get("project_name") or project_name
     metadata["updated_at"] = datetime.now().isoformat()
-    task_entry = {
-        "task_id": task_id,
+    task_entry = next((item for item in metadata["tasks"] if item["task_id"] == task_id), None)
+    if task_entry is None:
+        task_entry = {"task_id": task_id, "created_at": datetime.now().isoformat()}
+        metadata["tasks"].append(task_entry)
+    task_entry.update({
         "task_type": task_type,
         "stage": stage,
         "files": files,
-        "created_at": datetime.now().isoformat(),
-    }
+    })
     if extra:
-        task_entry["extra"] = extra
-    metadata["tasks"].append(task_entry)
+        task_entry.setdefault("extra", {}).update(extra)
     write_json(metadata_path, metadata)
 
     history_path = output_root(cwd) / "history.json"
@@ -287,7 +288,6 @@ class MeshyClient:
         raise MeshyCliError(f"Timed out waiting for task {task_id}")
 
     def raise_for_http_error(self, status_code: int, payload: dict[str, Any]) -> None:
-        message = payload.get("message") or payload.get("detail") or json.dumps(payload)
         if status_code == 401:
             raise MeshyCliError("Meshy rejected the API key (401). Check MESHY_API_KEY in env or repo-local .env.")
         if status_code == 402:
@@ -297,7 +297,23 @@ class MeshyClient:
             except MeshyCliError:
                 balance = None
             suffix = f" Current balance: {balance}." if balance is not None else ""
-            raise MeshyCliError(f"Meshy reported insufficient credits (402).{suffix}")
+            details = []
+            for source in (payload, payload.get("error")):
+                if not isinstance(source, dict):
+                    continue
+                for field in ("message", "detail", "code", "error_code", "error"):
+                    value = source.get(field)
+                    if isinstance(value, (str, int, float)) and value != "":
+                        detail = str(value)
+                        if self.api_key:
+                            detail = detail.replace(self.api_key, "[REDACTED]")
+                        details.append(f"{field}: {' '.join(detail.split())[:1000]}")
+            provider_detail = f" Provider error: {'; '.join(details)}." if details else ""
+            message = f"Meshy rejected the request (402).{provider_detail}{suffix}"
+            if self.api_key:
+                message = message.replace(self.api_key, "[REDACTED]")
+            raise MeshyCliError(message)
+        message = payload.get("message") or payload.get("detail") or json.dumps(payload)
         if status_code == 422:
             raise MeshyCliError(f"Meshy could not process the request (422): {message}")
         if status_code == 429:
@@ -401,23 +417,28 @@ def maybe_wait_for_task(
             balance=None,
         )
 
-    task = client.poll_task(endpoint, task_id, args.timeout_seconds)
     project_dir = resolve_project_dir(args, cwd, task_id, project_name)
-    downloads = download_callback(task, project_dir)
-    thumbnail_path = maybe_download_thumbnail(client, task, project_dir)
+    record_details = {
+        "cwd": cwd,
+        "project_dir": project_dir,
+        "task_id": task_id,
+        "task_type": task_type,
+        "stage": stage,
+        "project_name": project_name,
+    }
+    record_task(**record_details, files=[], extra={"endpoint": endpoint, "status": "SUBMITTED"})
+    stderr(f"[SUBMITTED] task={task_id} endpoint={endpoint} project_dir={project_dir}")
+    task = client.poll_task(endpoint, task_id, args.timeout_seconds)
     extra = {
         "endpoint": endpoint,
         "status": task.get("status"),
         "available_formats": sorted(task.get("model_urls", {}).keys()) if isinstance(task.get("model_urls"), dict) else [],
-        "thumbnail": thumbnail_path,
     }
+    record_task(**record_details, files=[], extra=extra)
+    downloads = download_callback(task, project_dir)
+    extra["thumbnail"] = maybe_download_thumbnail(client, task, project_dir)
     record_task(
-        cwd=cwd,
-        project_dir=project_dir,
-        task_id=task_id,
-        task_type=task_type,
-        stage=stage,
-        project_name=project_name,
+        **record_details,
         files=[path.name for path in downloads],
         extra=extra,
     )
@@ -530,8 +551,12 @@ def handle_image_to_3d(args: argparse.Namespace, cwd: Path) -> None:
         "enable_pbr": not args.disable_pbr,
         "ai_model": args.ai_model,
     }
-    if args.image_enhancement:
-        payload["image_enhancement"] = True
+    if args.image_enhancement is not None:
+        payload["image_enhancement"] = args.image_enhancement
+    if args.pose_mode:
+        payload["pose_mode"] = args.pose_mode
+    if args.texture_resolution:
+        payload["texture_resolution"] = args.texture_resolution
     apply_mesh_shaping_flags(payload, args)
     apply_sizing_format_flags(payload, args)
     apply_texture_quality_flags(payload, args)
@@ -562,8 +587,8 @@ def handle_multi_image_to_3d(args: argparse.Namespace, cwd: Path) -> None:
         "enable_pbr": not args.disable_pbr,
         "ai_model": args.ai_model,
     }
-    if args.image_enhancement:
-        payload["image_enhancement"] = True
+    if args.image_enhancement is not None:
+        payload["image_enhancement"] = args.image_enhancement
     apply_mesh_shaping_flags(payload, args)
     apply_sizing_format_flags(payload, args)
     apply_texture_quality_flags(payload, args)
@@ -758,7 +783,7 @@ def add_sizing_format_flags(parser: argparse.ArgumentParser) -> None:
 
 
 def add_mesh_shaping_flags(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--model-type", choices=("standard", "lowpoly"), help="lowpoly yields game/mobile-ready topology.")
+    parser.add_argument("--model-type", choices=("standard", "lowpoly"), help="Generation type; legacy lowpoly retires October 30, 2026.")
     parser.add_argument("--decimation-mode", type=int, choices=(1, 2, 3, 4), help="Adaptive polygon-reduction level (1-4).")
 
 
@@ -777,7 +802,7 @@ def build_parser() -> argparse.ArgumentParser:
     preview = subparsers.add_parser("text-to-3d-preview", help="Create a preview text-to-3d task.")
     add_shared_generation_flags(preview)
     preview.add_argument("--prompt", required=True)
-    preview.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
+    preview.add_argument("--ai-model", default="latest", help="Model ID (default latest, currently Meshy 7.1).")
     preview.add_argument("--topology", choices=("triangle", "quad"))
     preview.add_argument("--target-polycount", type=int)
     preview.add_argument("--should-remesh", action="store_true")
@@ -790,7 +815,7 @@ def build_parser() -> argparse.ArgumentParser:
     refine = subparsers.add_parser("text-to-3d-refine", help="Refine a preview text-to-3d task.")
     add_shared_generation_flags(refine)
     refine.add_argument("--preview-task-id", required=True)
-    refine.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
+    refine.add_argument("--ai-model", default="latest", help="Model ID (default latest, currently Meshy 7.1).")
     refine.add_argument("--texture-prompt")
     refine.add_argument("--texture-image-url", help="URL, data URI, or local image path to guide the texture.")
     refine.add_argument("--disable-pbr", action="store_true")
@@ -801,10 +826,14 @@ def build_parser() -> argparse.ArgumentParser:
     image = subparsers.add_parser("image-to-3d", help="Create a 3D model from one image.")
     add_shared_generation_flags(image)
     image.add_argument("--image", required=True, help="URL, data URI, or local image path.")
-    image.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
+    image.add_argument("--ai-model", default="latest", help="Model ID (default latest, currently Meshy 7.1).")
     image.add_argument("--no-texture", action="store_true")
     image.add_argument("--disable-pbr", action="store_true")
-    image.add_argument("--image-enhancement", action="store_true", help="Pre-clean the input image before generation.")
+    image_enhancement = image.add_mutually_exclusive_group()
+    image_enhancement.add_argument("--image-enhancement", dest="image_enhancement", action="store_true", default=None, help="Pre-clean the input image before generation.")
+    image_enhancement.add_argument("--no-image-enhancement", dest="image_enhancement", action="store_false", help="Preserve the reference appearance without style processing.")
+    image.add_argument("--pose-mode", choices=("a-pose", "t-pose"), help="Request an A or T pose.")
+    image.add_argument("--texture-resolution", choices=("2k", "4k", "8k"), help="Base color texture resolution.")
     add_mesh_shaping_flags(image)
     add_sizing_format_flags(image)
     add_texture_quality_flags(image)
@@ -813,10 +842,12 @@ def build_parser() -> argparse.ArgumentParser:
     multi_image = subparsers.add_parser("multi-image-to-3d", help="Create a 3D model from multiple images.")
     add_shared_generation_flags(multi_image)
     multi_image.add_argument("--image", action="append", required=True, help="Repeat for each image input.")
-    multi_image.add_argument("--ai-model", default="latest", help="meshy-5, meshy-6, or latest (resolves to Meshy 6).")
+    multi_image.add_argument("--ai-model", default="latest", help="Model ID (default latest, currently Meshy 7.1).")
     multi_image.add_argument("--no-texture", action="store_true")
     multi_image.add_argument("--disable-pbr", action="store_true")
-    multi_image.add_argument("--image-enhancement", action="store_true", help="Pre-clean the input images before generation.")
+    multi_image_enhancement = multi_image.add_mutually_exclusive_group()
+    multi_image_enhancement.add_argument("--image-enhancement", dest="image_enhancement", action="store_true", default=None, help="Pre-clean the input images before generation.")
+    multi_image_enhancement.add_argument("--no-image-enhancement", dest="image_enhancement", action="store_false", help="Preserve the reference appearance without style processing.")
     add_mesh_shaping_flags(multi_image)
     add_sizing_format_flags(multi_image)
     add_texture_quality_flags(multi_image)

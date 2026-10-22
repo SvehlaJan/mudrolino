@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 2,
+  "id": "bear-v2",
+  "profile": "generated-fixed-outfit",
+  "candidate": {
+    "model": {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb",
+      "sha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+      "bytes": 2688372
+    },
+    "source": {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/celebration.blend",
+      "sha256": "9376c704dfd46a590153dc9ae406e98e8dbee95993c2ca1eb4f26e50382e144f"
+    },
+    "still": {
+      "sourcePath": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/still-v2/bear-still.png",
+      "bundledPath": "src/avatar/companions/bear-still.png",
+      "sha256": "061a7ae79396dacfb3cd48b471c3a10733f5d7a2d1e52c48131c989bbac6359b"
+    }
+  },
+  "animation": {
+    "name": "celebrate",
+    "durationMs": 1400
+  },
+  "technical": {
+    "status": "passed",
+    "checks": {
+      "native": {
+        "path": "assets/avatar/catalog-a/companions/bear-v2/native-runtime-parity.json",
+        "sha256": "d0889a232694204bb6bb94d25cb23fd4079e3ff1e494fde8a99620694daa2ae7"
+      },
+      "clearance": {
+        "path": "assets/avatar/catalog-a/companions/bear-v2/arm-clearance-audit.json",
+        "sha256": "ce0d116dc2c037ec058687228e4a46e753b701f5af1011eb5fc20c0cb5ece6db"
+      },
+      "optimization": {
+        "path": "assets/avatar/catalog-a/companions/bear-v2/optimization-report.json",
+        "sha256": "a7d6c4003e496d34df2db8ae1a907bb796c5cfa749a8a8124f931ae03c69e300"
+      },
+      "runtime": {
+        "path": "assets/avatar/catalog-a/companions/bear-v2/runtime-report.json",
+        "sha256": "8cc553e4af2b15d76bf087e9d3ddcb8fa091498fe1b1803d49dfd04fad9750f7"
+      },
+      "still": {
+        "path": "assets/avatar/catalog-a/companions/bear-v2/still-report.json",
+        "sha256": "2d9b43f0d1626a7dd9986f7fda9eb2ee974a64a8ce6fc4a28471231b5b389cb4"
+      },
+      "browser": {
+        "path": "assets/avatar/catalog-a/companions/bear-v2/browser-report.json",
+        "sha256": "b1aa8b2b95f23fac5266ccc8d20c08389fbe50b36511bf06ce56b7e072275410"
+      }
+    }
+  },
+  "artReview": {
+    "status": "approved",
+    "approvedModelSha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+    "date": "2026-10-22T04:13:03.995229+00:00",
+    "userAnswer": "Yes, keep this version",
+    "reviewedPreview": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/desktop-actual-clock-figure.gif",
+    "independentReview": "docs/audits/2026-10-22-generated-bear-final-review.md",
+    "note": "User approved this actual-model expressive celebration after earlier Meshy construction-base approval. Remote storage/publication remain explicitly deferred."
+  },
+  "storage": {
+    "private": "deferred",
+    "reason": "User chose finish locally for now. Native/GLB retained locally and indexed in asset manifest; no remote upload or public publication."
+  },
+  "scope": "One generated fixed outfit; no independent garment switching proof. Local game integration uses intercepted exact bytes; public manifest remains disabled.",
+  "integration": {
+    "path": "assets/avatar/catalog-a/companions/bear-v2/integration-report.json",
+    "sha256": "a0ac50443a376e5884bfbf01c1b0b7cdc27d09c851638f49ebfff4d7c52255be"
+  }
+}

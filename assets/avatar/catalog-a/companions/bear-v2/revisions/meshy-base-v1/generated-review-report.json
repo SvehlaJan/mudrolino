@@ -1,0 +1,66 @@
+{
+  "stage": "generated candidate; art, topology, clothing separation and motion unaccepted",
+  "glb": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/model.glb",
+  "glb_sha256": "a637c6d4d27fb2768d0fa6e815b49412145efb4be153c68cd7e4dcd783ac8d17",
+  "bytes": 19839844,
+  "builder_sha256": "029660249d663002301e0d54666caafe92431a38e862aa812f99c73ea81adc03",
+  "original_bounds": {
+    "min": [
+      -0.8143090009689331,
+      -0.42180299758911133,
+      -0.9519550204277039
+    ],
+    "max": [
+      0.8141610026359558,
+      0.4229719936847687,
+      0.950993001461029
+    ]
+  },
+  "review_scale": 1.1981409758827946,
+  "meshes": [
+    {
+      "name": "Mesh_0",
+      "vertices": 224887,
+      "triangles": 420726,
+      "uv_layers": 1,
+      "materials": [
+        "Material_0"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "name": "Image_0",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "Image_1",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "Image_2",
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ],
+  "triangles": 420726,
+  "armatures": 0,
+  "blend": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/review-v1/generated-review.blend",
+  "blend_sha256": "600a796509eef7138ee2e23e6bd28bc1c8a146694c1e65a888c18d64783eca44",
+  "blender_version": "5.2.2 LTS",
+  "review_width": 320,
+  "views": {
+    "three-quarter": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/review-v1/three-quarter-review.png",
+    "front": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/review-v1/front-review.png",
+    "side": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/review-v1/side-review.png",
+    "back": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/review-v1/back-review.png"
+  }
+}

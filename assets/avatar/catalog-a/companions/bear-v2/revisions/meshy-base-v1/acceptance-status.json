@@ -1,0 +1,20 @@
+{
+  "status": "user-approved construction base; final animation/runtime proof pending",
+  "taskId": "01a15fc4-4dc4-7116-aadf-3953ef4a9f1c",
+  "credits": 30,
+  "originalMeshPreserved": true,
+  "reviewNormalizationOnly": true,
+  "independentReview": {
+    "recommendation": "Adopt as primary construction candidate, substantially closer to B than blockout-v10",
+    "remaining": [
+      "Check eye gloss/material response",
+      "Compare lower cheek/chin outline after lowering arms",
+      "Inspect directional fur shading in varied lighting",
+      "Verify ears/muzzle/fingers/cuffs/straps after remeshing"
+    ],
+    "qualification": "Construction recommendation, not final animation readiness or wardrobe compatibility"
+  },
+  "userApproval": "Yes, use this Meshy bear as the base",
+  "artifactOrigin": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4",
+  "storage": "Local-only curated copy; API downloads remain in meshy_output. R2 upload unavailable."
+}

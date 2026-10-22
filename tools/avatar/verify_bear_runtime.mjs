@@ -13,7 +13,22 @@ if (preview.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].include
 }
 const base = preview.origin;
 const directory = argument('output-dir', 'artifacts/verification/bear-companion/browser');
-const modelPath = 'assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb';
+const modelPath = argument('model', 'assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb');
+const companionsPrefix = 'assets/avatar/catalog-a/companions/';
+// Keep the fixed fixture URL while choosing only registered local companion
+// bytes. Reject traversal before normalization, then also contain symlinks.
+if (!modelPath.startsWith(companionsPrefix) || /\\/u.test(modelPath)
+  || modelPath.split('/').some(part => !part || part === '.' || part === '..')
+  || path.extname(modelPath) !== '.glb') {
+  throw new Error('Bear model must be a repository-local companions .glb path without traversal');
+}
+const companionsRoot = fs.realpathSync(companionsPrefix);
+const modelRealPath = fs.realpathSync(modelPath);
+const relativeModelPath = path.relative(companionsRoot, modelRealPath);
+if (!relativeModelPath || relativeModelPath.startsWith(`..${path.sep}`)
+  || relativeModelPath === '..' || path.isAbsolute(relativeModelPath)) {
+  throw new Error('Bear model must resolve inside the repository companions directory');
+}
 const bytes = fs.readFileSync(modelPath);
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const expected = JSON.parse(fs.readFileSync('assets/avatar/asset-manifest.json')).files[modelPath];

@@ -1,0 +1,26 @@
+{
+  "stage": "unrigged reference-likeness blockout; not runtime accepted",
+  "source_human_mesh_used": false,
+  "rigged": false,
+  "design": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/design.json",
+  "design_sha256": "872daf5f2b7f38c168834f9f7646fa296d51f578558636eaa7da9b8679c71ad4",
+  "builder_sha256": "25a276ad7aae97de971974d372cd5666fd5d8e75df69b7413299028b54f3813a",
+  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/bear-blockout.blend",
+  "blend_sha256": "4d2c1a7ecaa9d0014d7b8588b39ef7a3a0085bcc11502d9afa61445326dfc32d",
+  "blender_version": "5.2.2 LTS",
+  "views": {
+    "three-quarter": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/three-quarter-review.png",
+    "front": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/back-review.png",
+    "expression-head-tilt-only": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/expression-review.png"
+  },
+  "review_width": 320,
+  "expression_review_head_tilt_degrees": 5,
+  "saved_source_pose": "neutral; review tilt reset before saving",
+  "limitations": [
+    "Single source view; side/back volumes are reconstruction proposals.",
+    "Procedural fur/cloth bump is review-only and must be baked for glTF.",
+    "Voxel blockout topology needs intentional deformation topology before rigging."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "modelSha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+  "scope": "Copies of actual normal-clock product review outputs, every image at most320px wide; not native asset backup",
+  "files": [
+    {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/product-review/celebration-preview.gif",
+      "source": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/desktop-actual-clock-figure.gif",
+      "sha256": "506a4ad08889a277ec58011799f8e47b5e3266a5d51400e78facd59cf5e9d89c"
+    },
+    {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/product-review/desktop-review.png",
+      "source": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/desktop-600-review.png",
+      "sha256": "53351b4eeb3bf272f86d70aebbb87d3f147d8770502dba8d1f9e3f68b61af337"
+    },
+    {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/product-review/phone-review.png",
+      "source": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/phone-600-review.png",
+      "sha256": "17383217ccbddf7a19f3a8ac5d2f0cfe90ac3d851d44f4a3da953ae6c0815203"
+    },
+    {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/product-review/narrow-review.png",
+      "source": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/narrow-600-review.png",
+      "sha256": "8723a6e5cdb701bfd88d401b08ce2aa59f0cbb9a9018339b983c8b61b84ec1f2"
+    },
+    {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/product-review/short-review.png",
+      "source": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/short-600-review.png",
+      "sha256": "f0b5b462a8a926017906d63a3ec288d3e6184d5d714fcc20e362cad6bfb90d71"
+    },
+    {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/product-review/combined-review.png",
+      "source": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/combined-600-review.png",
+      "sha256": "fe382a63da7cb19fc0f0d74a67ab04a8d082e2b6a51d5ae561fc8a3914438391"
+    }
+  ]
+}

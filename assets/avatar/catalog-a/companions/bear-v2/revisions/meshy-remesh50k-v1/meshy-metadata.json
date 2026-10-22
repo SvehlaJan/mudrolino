@@ -1,0 +1,26 @@
+{
+  "project_name": "bear-b-reference-remesh50k",
+  "folder": "20261021_204712_bear-b-reference-remesh50k_01a15fc7",
+  "root_task_id": "01a15fc7-1930-704d-b191-ce67f048917b",
+  "created_at": "2026-10-21T20:47:14.671144",
+  "updated_at": "2026-10-21T20:47:14.671210",
+  "tasks": [
+    {
+      "task_id": "01a15fc7-1930-704d-b191-ce67f048917b",
+      "task_type": "remesh",
+      "stage": "complete",
+      "files": [
+        "remeshed.glb"
+      ],
+      "created_at": "2026-10-21T20:47:14.671213",
+      "extra": {
+        "endpoint": "/openapi/v1/remesh",
+        "status": "SUCCEEDED",
+        "available_formats": [
+          "glb"
+        ],
+        "thumbnail": "/Users/svehla/playground/teo-learn/meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7/thumbnail.png"
+      }
+    }
+  ]
+}

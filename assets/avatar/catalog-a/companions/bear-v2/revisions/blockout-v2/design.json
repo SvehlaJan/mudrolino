@@ -1,0 +1,36 @@
+{
+  "reference": "assets/avatar/concepts/2026-10-21/bear-rebuild/reference-b-fullbody.png",
+  "direction": "Match selected2D B proportions first; new stocky bear anatomy. Do not reuse human body topology.",
+  "head": {
+    "center": [
+      0,
+      0.012,
+      1.78
+    ],
+    "radii": [
+      0.43,
+      0.32,
+      0.41
+    ]
+  },
+  "colors": {
+    "fur": "#BF8547",
+    "inner": "#D6A46D",
+    "cream": "#E6BF88",
+    "eyes": "#261B13",
+    "nose": "#674329",
+    "brow": "#87572D",
+    "blue": "#618BC1",
+    "blueSeam": "#557EB2",
+    "navy": "#364963",
+    "navySeam": "#30425C",
+    "shoe": "#5985B9",
+    "ivory": "#F2E8D1",
+    "sole": "#D9C9AB"
+  },
+  "scope": "Coarse likeness and body/outfit silhouette only; own rig and mobile-ready topology follow accepted shape.",
+  "revision": "Lower ear roots; continuous shirt shoulders; fit shoe straps to upper surface",
+  "ears": {
+    "centerZ": 2.12
+  }
+}

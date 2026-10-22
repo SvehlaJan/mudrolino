@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-21",
+  "reference": "assets/avatar/concepts/2026-10-21/bear-rebuild/reference-b-fullbody-review.png",
+  "scope": "Historical procedural reviews retained; selected generated candidate review recorded separately",
+  "reviews": [
+    {
+      "revision": "blockout-v4",
+      "readyForLikenessApproval": false,
+      "findings": [
+        "Head-to-total-height ratio close to B; do not continue uniform head shrinking.",
+        "Inflated shoulder balls and segmented thick arms differ from the reference.",
+        "Refine cheeks/muzzle, relaxed trouser and shoe silhouette, then match pose/camera."
+      ],
+      "reportSha256": "abb4579c02ec282942a39db3431429fa99778f857249f1fc0875e3aef605281e"
+    },
+    {
+      "revision": "blockout-v7",
+      "readyForLikenessApproval": false,
+      "improvements": [
+        "Shoulder balls removed; smoother forearm transitions; raised muzzle sits better."
+      ],
+      "findings": [
+        "Sleeves form triangular shoulder wedges; round the cross-section and angle the cuffs.",
+        "Wrist pinch and paw bulb remain; smooth and lengthen the paw transition.",
+        "Trouser legs and footwear too rigid; reference has folds, shaped cuffs, flatter uppers and staggered feet."
+      ],
+      "reportSha256": "fc6eefb2049142a8a30baa1348ada490fe7f034a89804298d0c9daf547c774de"
+    },
+    {
+      "revision": "blockout-v8",
+      "readyForLikenessApproval": false,
+      "reportSha256": "aad5e7354f6ac70895fc573d827d8293d248fa915132b1bd3391d6a87ca372c3",
+      "improvements": [
+        "Rounded sleeves and diagonal cuffs improve v7 triangular wedges.",
+        "No obvious unintended skin leaks or holes in four 320px renders."
+      ],
+      "findings": [
+        "Small humps remain at sleeve-to-torso transitions.",
+        "Trousers and shoes still too rigid.",
+        "Eyes smaller and pose stiffer than B."
+      ]
+    },
+    {
+      "revision": "blockout-v9",
+      "readyForLikenessApproval": false,
+      "scope": "Independent read-only four neutral views plus head-tilt-only expression comparison",
+      "reportSha256": "6eb9e60bad78206cd0d87e38de2fd310fcdd5fa79da4c7d4e74736d0e06adad7",
+      "improvements": [
+        "Larger eyes friendlier, joins less inflated, ankle folds break up straight trouser tubes.",
+        "Head-tilt-only comparison warmer; saved source remains neutral."
+      ],
+      "findings": [
+        "Eye assembly protrudes conspicuously in side view; recess while retaining visible size.",
+        "Sleeve root humps still visible, especially behind.",
+        "Ankle folds resemble matching horizontal rings; need broader irregularity with stance."
+      ]
+    },
+    {
+      "revision": "blockout-v10",
+      "readyForLikenessApproval": false,
+      "scope": "Independent read-only four neutral views plus expression head tilt; all <=320px",
+      "reportSha256": "ba8f34a7a4bed78ccd4eca38cb20ee389bee9eb3294570cc16d659e157338c7e",
+      "improvements": [
+        "Eyes project less in profile after recessing.",
+        "Uneven softer ankle folds look less like rigid cuff rings.",
+        "No obvious unintended skin leaks in reviewed images."
+      ],
+      "findings": [
+        "Raised sleeve-to-torso joins remain.",
+        "Paws and sneaker construction remain simplified.",
+        "Rigid symmetric stance differs from relaxed B pose; fur/fabric finish unfinished."
+      ]
+    }
+  ],
+  "currentRevision": "celebration-v4",
+  "currentRevisionIndependentReview": "completed read-only; art acceptance pending",
+  "userShapeFeedback": "pending; question displayed v7",
+  "runtimeAcceptance": false,
+  "currentReview": "docs/audits/2026-10-22-generated-bear-final-review.md"
+}

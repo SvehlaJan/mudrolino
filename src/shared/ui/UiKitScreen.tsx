@@ -267,7 +267,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
     : ['A', 'B', 'C', ...(showD ? ['D'] : [])];
 
   return (
-    <div data-demo-state={stateName} data-demo-viewports="320x568 667x375" data-demo-motion={stateName === 'reduced-motion' ? 'system-reduced' : 'default'}>
+    <div data-demo-state={stateName} data-demo-viewports="320x568 390x844 568x320 667x375 1280x900" data-demo-motion={stateName === 'reduced-motion' ? 'system-reduced' : 'default'}>
       <GameShell
         gameId="ALPHABET"
         companionMotion={stateName === 'companion-reduced-motion' ? 'still' : 'system'}

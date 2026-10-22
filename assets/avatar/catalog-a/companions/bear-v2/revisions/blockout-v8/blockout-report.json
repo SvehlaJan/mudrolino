@@ -1,0 +1,23 @@
+{
+  "stage": "unrigged reference-likeness blockout; not runtime accepted",
+  "source_human_mesh_used": false,
+  "rigged": false,
+  "design": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v8/design.json",
+  "design_sha256": "040ada3992463d1498bd894955b408e7f6146ec2080056196b199dc284c0d442",
+  "builder_sha256": "a41049249ee720905acc4e369b07390524339356d62dac12a640bee121669219",
+  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v8/bear-blockout.blend",
+  "blend_sha256": "2168a84b504c9602a90026f2d5263bf265b50ef35e3634526e670290531d880d",
+  "blender_version": "5.2.2 LTS",
+  "views": {
+    "three-quarter": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v8/three-quarter-review.png",
+    "front": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v8/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v8/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v8/back-review.png"
+  },
+  "review_width": 320,
+  "limitations": [
+    "Single source view; side/back volumes are reconstruction proposals.",
+    "Procedural fur/cloth bump is review-only and must be baked for glTF.",
+    "Voxel blockout topology needs intentional deformation topology before rigging."
+  ]
+}

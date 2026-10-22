@@ -2,15 +2,50 @@
 
 Updated: 2026-10-21
 
-Status: local implementation, head35 technical model proof, game/profile checks
-and separate asset/UI reviews passed. The candidate is committed for review. Exact user art acceptance, private storage and public publication remain
-open. The product manifest is disabled. This is a tested candidate lane, not a
-production-release record.
+Status: **Expressive generated bear v4 approved locally; full integration passed.**
+The user approved the Meshy construction base, requested stronger motion after
+watching gentle v2, and accepted the actual v4 preview on2026-10-22. Asset/browser/
+UI proof passes. Publication/private storage are explicitly deferred by the user.
+The following accepted-candidate section supersedes the historical evidence below.
 
-Start with the [plan](../plans/2026-10-19-bear-companion.md), approved
+Start with the [current rebuild plan](../plans/2026-10-21-bear-reference-rebuild.md),
+[original implementation plan](../plans/2026-10-19-bear-companion.md), approved
 [design](../specs/2026-10-19-bear-companion-design.md), root AGENTS.md and
 [avatar workflow](../../avatar-workflow.md). These files suffice for Claude Code
 or another agent without access to this chat.
+
+## Current accepted local candidate — 2026-10-22
+
+The user accepted the actual expressive celebration preview: **“Yes, keep this
+version.”** Model: `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb`,
+SHA-256 `598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3`.
+Native source: sibling `../celebration.blend`, SHA-256
+`9376c704dfd46a590153dc9ae406e98e8dbee95993c2ca1eb4f26e50382e144f`.
+The exact paths/hashes, final art approval, six proof descriptors and storage state
+are in `assets/avatar/catalog-a/companions/bear-v2/verification-summary.json`.
+
+One fixed-outfit mesh,24 bones,1.4-second `celebrate`;51,311 triangles,
+2,688,372 bytes/1,910,001 gzip bytes, zero validator errors/warnings. Fresh169-pose
+native/runtime parity has maximum3.482µm error. Arm clearance has zero new
+arm-versus-torso/leg pairs against48 intrinsic bind contacts (maximum62 total),
+not zero contacts or independent wardrobe proof. Strict 30 actual renderer views
+and five-size actual-clock framing/control checks pass. Independent reference,
+asset and UI review: `docs/audits/2026-10-22-generated-bear-final-review.md`.
+
+The more expressive cheer/bounces required a larger reserved area:176×200 desktop,
+144×164 phone/short,112×128 combined, camera 5.6. The fallback is freshly rendered
+352×400 from the same source (`still-v2/`), at least2× the largest CSS slot. The
+still-size test's first failure was entrance-opacity measurement, not undersized
+art; the bounded opacity wait has a reproducing browser regression. Final full
+integration passed:552 browser cases,600 units, lint/pure/audio inventory, both
+builds and bundle guard. See bear-v2/integration-report.json for exact receipts.
+
+The user chose **finish locally for now**. Private backup/publication are deferred;
+ignored `.blend`/`.glb` bytes remain local, the asset manifest is identity only,
+and `src/avatar/companions/bear-v1.json` stays disabled. No public URL, remote
+recovery, PR, push or deployment is claimed. The earlier head35 ZIP excludes the
+Meshy replacement. Preserve this authoring checkout until remote backup is enabled.
+Meshy spend is40/500 approved credits,460 remain; no further paid operation is needed.
 
 ## Checkout and ownership
 
@@ -32,22 +67,84 @@ or another agent without access to this chat.
 | Task | Actual state | Evidence / next action |
 | --- | --- | --- |
 | 1: frozen source | Complete | `bear-v1/source-inventory.json`; canonical source unchanged |
-| 2: bear + fixed outfit | Fitted candidate; art pending | Head35 local candidate; whole-head size feedback pending; independent visual review |
-| 3: dance/LOD/proof | Technical model proof passed; private storage pending | Hash-bound `verification-summary.json`, 169 poses, 30 browser captures |
+| 2: bear + fixed outfit | Meshy base explicitly approved | Preserve exact generated source/hash; review remesh/rig derivatives and retain one fixed outfit |
+| 3: dance/LOD/proof | V4 approved and asset gates passed | Current exact hash/summary above;169 native/runtime poses,30 views,five actual-clock sizes |
 | 4: policy/resources | Implemented; spec/quality passed | Behavioral Vitest and real browser failures/lifecycle cases |
 | 5: one-shot renderer | Implemented; spec/quality passed | Real Three.js playback, parser/WebGL fallback, old gallery regression |
 | 6: common game wiring | Implemented; final integration passed | All11 games, last correct, reduced motion, failure/lifecycle tests, larger slots |
-| 7: publication | Guard tool implemented/tested; execution blocked | Exact art approval + R2/Blob credentials required |
-| 8: whole-branch proof | Local head35 proof passed | Fresh548/495,13 responsive/WebKit,8 production/offline,32 phase-audited captures and actual video |
-| 9: close-out | Local candidate committed | Resolve commit with the git-log command above; external acceptance/publication remain open |
+| 7: publication | Guard implemented/tested; execution deferred | User chose local-only completion; resume storage/publication only when requested |
+| 8: whole-branch proof | Final forced integration passed | 552 browser cases,600 units,lint/pure/audio inventory,both builds,bundle guard |
+| 9: close-out | Local implementation verified | Locate committed close-out with git log -1 -- assets/avatar/catalog-a/companions/bear-v2/verification-summary.json; credentials/publication deferred |
 
-Do not rebuild already proven geometry merely to resume. First verify its hashes,
-inspect current status and restore missing private bytes if storage has since
-been completed. Rebuild only after a requested art change or an actual defect.
+Use the approved Meshy source as primary. Do not resume head35 scaling or make
+procedural blockout-v10 the default without a new decision. Preserve the old
+reports/assets and canonical human inputs/index maps.
 
-## Current model and user feedback
+## Meshy provenance and historical v2 proof
 
-All current paths below begin `assets/avatar/catalog-a/companions/bear-v1/`.
+- Exact selected B crop:
+  `assets/avatar/concepts/2026-10-21/bear-rebuild/reference-b-fullbody.png`;
+  `reference.json` records crop provenance and SHA. Generated side/back volume
+  remains reconstruction, with four-view review now available on actual mesh.
+- Image-to-3D task `01a15fc4-4dc4-7116-aadf-3953ef4a9f1c`: **SUCCEEDED**,
+  30 credits. API access works; observed balance 2,100→2,070. Earlier two 402
+  `NoMorePendingTasks` Free-plan failures are resolved history, not a current block.
+- Primary GLB:
+  `meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/model.glb`,
+  SHA-256 `a637c6d4d27fb2768d0fa6e815b49412145efb4be153c68cd7e4dcd783ac8d17`.
+  It has 420,726 triangles, one mesh/material, three embedded images and no rig.
+  Its `review-v1/generated-review-report.json` binds four 320px actual-mesh renders
+  and saved review source. That report predates the user's construction-base
+  approval; it is not a rigging/motion or final-art acceptance record.
+The remesh and rig tasks both succeeded. Remesh task
+`01a15fc7-1930-704d-b191-ce67f048917b` cost 5 credits and produced **51,311 triangles**
+(the request target was 50,000). Rig task `01a15fca-8ac6-74ad-a7c0-acd3ca841bab`
+cost 5 credits and produced a 24-bone biped. Total session spend is **40/500 credits**,
+460 remain; last observed provider balance is 2,060. Do not resubmit these tasks.
+
+Historical v2 motion is preserved in `bear-v2/revisions/celebration-v2/`: source
+`celebration.blend`, SHA-256 `41bfa7023493474200382a81806a58efdb77f247be373e56b4fe2e3727952df8`;
+runtime `web-v1/model.glb`, SHA-256
+`0e852229403347e96f919627b2e46bb09f97fe771496c47c700f063dbd00afcc`.
+The fixed outfit is one skinned mesh with one 1.4-second `celebrate` clip. The
+runtime is 2,688,372 bytes / 1,909,368 gzip bytes, with 51,311 triangles and zero
+Khronos errors/warnings. Its 1024px WebP textures and packed normals/tangents/UVs
+use `EXT_texture_webp` and `KHR_mesh_quantization`; positions and weights remain
+unquantized.
+
+Fresh actual Three.js skinning and native parity cover 169 poses at 120Hz;
+maximum source/export vertex error is 1.20727 micrometres. The clearance audit
+records 48 intrinsic bind-pose contacts and at most 50 total contacts, with zero
+**new arm-versus-torso/leg** contact pairs throughout the dance. This is not a
+zero-contact or independent-garment/wardrobe claim. The first, more relaxed-arm
+motion candidate caused substantial arm/trouser intersections and is retained
+as rejected `celebration-v1`. Revision v2 uses 16-degree resting arm rotation;
+its more open neutral pose is a visible compromise from reference B.
+
+The exact v2 GLB passed 30 actual browser views, including phone and short
+landscape, with no console/request failures. See
+`artifacts/verification/bear-companion/generated-v2/browser/browser-report.json`.
+A controlled-seek video was inconclusive. The later real correct-answer dance/UI
+probe passed desktop, phone and short landscape:
+`artifacts/verification/bear-companion/generated-v2/product-clock/product-clock-report.json`.
+It preserves the actual animation clock while stubbing audio/speech completion;
+it does not replace the aggregate integration gate. The fallback still was
+freshly rendered from the unchanged source at 320×368 (2× the largest CSS slot).
+The user reviewed that actual v2 clip and requested a more expressive reaction.
+The wider horizontal v3 study was retained; expressive v4 with raised elbows was
+then completed and accepted. Its larger product footprint and all fresh proof
+are listed in the accepted-candidate section above. Do not resume v2 or v3.
+A fresh storage preflight on 2026-10-21 found all four R2 variables
+and `BLOB_READ_WRITE_TOKEN` absent; local models are not remotely backed up.
+
+Root owns coupled 3D authoring; agents handle code and stable-artifact reviews.
+Read the [tool research](../../audits/2026-10-21-reference-to-3d-agent-workflows.md).
+No additional MCP or paid animation operation was required. The current pipeline
+uses source-bound builders and actual exported-motion checks.
+
+## Historical head35 model and user feedback
+
+All historical paths below begin `assets/avatar/catalog-a/companions/bear-v1/`.
 
 - Native runtime source: `outfit-lod.blend`, SHA-256
   `608b7d6c0f5c28299d820fe5812d4aa8c599bbf4f870308b0a05124374f98c7e`.
@@ -59,8 +156,9 @@ All current paths below begin `assets/avatar/catalog-a/companions/bear-v1/`.
   Canonical human input remains
   `assets/avatar/catalog-a/outfits/O01-head130-T01-B01-F01/outfit.blend`, SHA
   `cb55aa76cddf3db3070465903595fefda1a37a02bfb3b08f053efec4d9d5d8be`.
-- `bear-still.png` and `src/avatar/companions/bear-still.png` are identical
-  320×368 transparent renders. Their exact hash is in the summary.
+- At head35 verification, `bear-still.png` and the bundled still were identical
+  320×368 transparent renders. Their exact historical hash is in its summary;
+  the bundled still now follows the Meshy rebuild.
 - Embedded clip: exactly one `celebrate`, 1.4s, 43 keys at30fps, stationary with
   broad arm gestures, gentle sway and6mm pelvis bob. Shared rest rig and retained
   canonical gait key signatures remain unchanged; the bear itself has dance
@@ -70,9 +168,9 @@ The user said the **whole head**, not only the facial features, was too large.
 Every head component scales together around the neck anchor. Head45 was18%
 smaller than head55 and still too large. Current head35 reduces linear head
 size another22.2%, without changing the body/outfit or dance. Head envelope is
-0.29435m of1.72935m total height (17.0%). Its exact size/model question remains
-pending; no elapsed wait, concept selection or independent review grants art
-acceptance. The local candidate has its own full technical proof.
+0.29435m of1.72935m total height (17.0%). The user subsequently rejected its
+likeness on 2026-10-21. Its full technical proof remains scoped to this historical
+candidate; concept selection or independent review never granted art acceptance.
 
 A supplemental actual-GLB comparison proves12 non-head surface attributes,
 world transforms, oriented triangle multisets and all72 animation track values/
@@ -83,7 +181,7 @@ wrist/slim-trouser differences remain style observations. Full previous head100,
 head55 and head45 proof is retained in separate `revisions/proven-head*-v1/`
 namespaces with historical path maps. Earlier report paths are historical evidence.
 
-## Technical model evidence
+## Historical technical model evidence (bear-v1 only)
 
 `verification-summary.json` binds source/model/still and every report by hash:
 
@@ -132,7 +230,7 @@ because pinned R3F9.6 can forward caught render errors to window.reportError.
 
 Success slots reserve160×184 desktop,128×148 narrow phone/standard shortland,
 and96×112 combined narrower-short dimensions. Short screens place the bear beside
-copy. Product camera5.2 fills the slot; gallery remains7.2. Focused4browser checks
+copy. Product camera 5.2 fills the slot; gallery remains7.2. Focused4browser checks
 passed actual colored-character minimum heights and still/3D parity within8%.
 Independent UI review inspected current Slovak phone/short-results/desktop-still
 captures and found readable character and reachable controls. Fresh head35 Slovak/Czech phone success, short-landscape results and desktop
@@ -243,35 +341,93 @@ HMR-disabled viewer passed30 captures. No cancelled run is called a fresh pass.
 
 ## Storage, publication and portable resume
 
-Current bear native/export bytes are **local-only**. On2026-10-20 a fresh check
-found all four R2 variables and BLOB_READ_WRITE_TOKEN absent. Asset inventory
-passed zero missing/changed/unlisted/link mismatches. Private push dry-run stops
-before network with missing credentials. The manifest alone cannot restore these
-new bytes on another machine. Preserve the authoring checkout.
+The user chose **finish locally for now**. Current Meshy native/export bytes are
+local-only; preserve the authoring checkout and original generated source. The
+2026-10-21 preflight found all four R2 variables and `BLOB_READ_WRITE_TOKEN`
+absent. Credentials, private restore proof and public publication are deferred,
+not prerequisites for completing the requested local revision. The asset
+manifest records bytes but cannot restore this rebuild on another machine.
 
-The tested publication CLI validates exact source/model/still/report hashes,
-full169/30 evidence, clip/budgets, user revision approval and private storage;
-then immutable Blob path/URL and downloaded hash before atomic manifest update.
-Fresh head35 preflights are recorded in
+Historical head35 preflights are recorded in
 `artifacts/verification/bear-companion/private-storage-preflight-head35.log` and
 `publication-preflight-head35.log`. Private dry-run exits1 for missingR2 setup;
 publication validation reaches and correctly stops at `Exact model revision
 requires recorded user art approval`. These expected refusals are not passing
-storage/publication results. It does not upload or enable production.
+storage/publication results and do not cover the Meshy replacement.
 
-Next external steps, in order:
+Local close-out:
 
-1. Obtain the user's head-size/final-model approval, or make the requested
-   revision and rerun dependent asset/game proof. Record approval against exact
-   GLB SHA/date; size feedback alone is not publication approval.
-2. Supply R2 credentials, inspect the intended manifest, then `npm run assets:push`
-   and prove restore/hash retrieval. Update summary private storage only after
-   success. Do not upload unrelated fitting work.
-3. Configure the server-side `BLOB_READ_WRITE_TOKEN` and run `node tools/avatar/publish_bear_companion.mjs`.
-   Verify immutable URL/CORS and actual published production behavior as the
-   plan specifies. Keep the private/native files out of git.
-4. Follow the user's separate PR/merge/release instructions. Do not ship with
-   pending recordings or treat feature-branch preview as production.
+The complete integration profile passed:552 browser cases,600 units, all eight
+gates. V4 art and independent visual review are complete. Locate this change with
+`git log -1 -- assets/avatar/catalog-a/companions/bear-v2/verification-summary.json`.
+Owned code, review media, manifest and reports belong to this commit; ignored native
+bytes stay local and unrelated fitting work is preserved. No PR, push or deployment.
+
+When storage/publication is separately requested, inspect the intended asset
+manifest, prove private upload plus restore/hash retrieval, then use the guard
+below with configured server-side Blob credentials. Enabling the manifest needs
+verified immutable public bytes/CORS and accepted matching still. PR, merge,
+push and release require their own user instructions; pending recordings still
+block release.
+
+### Generated publication contract
+
+`tools/avatar/publish_bear_companion.mjs` now supports explicit
+`candidateId: 'bear-v2'` or `--candidate=bear-v2`. With no selection it retains
+the existing bear-v1 guard. The generated summary is
+`assets/avatar/catalog-a/companions/bear-v2/verification-summary.json`, with
+`schemaVersion: 2`, `id: 'bear-v2'`, `profile: 'generated-fixed-outfit'` and
+`technical.status: 'passed'`. Model/source/still paths may select a new revision
+inside that bear-v2 directory; traversal and symlink escapes are rejected.
+Hash-bound descriptors retain the existing `candidate.model` (path/SHA/bytes),
+`candidate.source` (path/SHA) and `candidate.still` (sourcePath/SHA/bundledPath)
+shape. The bundled path is fixed to `src/avatar/companions/bear-still.png` and
+must match the verified source image. Animation remains `celebrate`, 1400ms.
+
+All six report descriptors are under `technical.checks`, each with `path` and
+`sha256`; paths below are relative to the bear-v2 directory:
+
+| Key | Required file |
+| --- | --- |
+| native | `native-runtime-parity.json` |
+| clearance | `arm-clearance-audit.json` |
+| optimization | `optimization-report.json` |
+| runtime | `runtime-report.json` |
+| browser | `browser-report.json` |
+| still | `still-report.json` |
+
+Copy runtime/browser JSON unchanged from their measured revision so embedded
+paths and hashes retain provenance. Native parity binds the current source/GLB,
+all 169 quarter-frame poses, maximum 30µm error, the exact runtime report SHA via
+`samples_sha256`, and its matching `positions_sha256`. The clearance profile is
+`generated-fixed-outfit-arm-clearance`: all 169 poses, zero new arm-versus-torso/
+leg pairs relative to recorded intrinsic bind contacts; no wardrobe-fit claim.
+Optimizer output must match the current GLB path/SHA/bytes with zero errors and
+warnings.
+
+Runtime binds the current GLB and the `runtime.contract` file, whose
+`contract_sha256` and path inside bear-v2 are checked and snapshotted. Both the
+contract and report thresholds require the publisher's exact 24-bone skeleton,
+one `Bear_fixed_outfit` mesh and stationary `Hips` root. Actual report bone/mesh
+names must match. It requires 169 frames at 30fps/four substeps, 1.4s, at most 95k
+triangles/2.1MB gzip, skin motion over 2cm, weight error/root drift/endpoint errors
+at most 1e-5, floor penetration at most 7mm and no failures. Browser retains the
+strict 30-view matching-GET/framing/no-error/no-failed-request requirements.
+Still proof must be `rendered` from the current source/hash at frame 0, 352×400,
+maximum CSS slot [176,200], camera distance5.6, minimum pixel ratio2, with `reviews.still` matching the verified image path/SHA.
+
+Exact model art approval/date and `storage.private: 'stored'` remain required;
+V4 art approval is recorded, while private storage remains deferred. Future authorized invocation is:
+
+```bash
+node tools/avatar/publish_bear_companion.mjs --candidate=bear-v2
+```
+
+Runtime id/manifest and immutable public namespace remain **bear-v1**. The guard
+preserves public GET hash/byte verification, local snapshots and atomic manifest
+replacement. Recorded focused verification: **138 offline tests passed** (47
+legacy, 91 generated), TypeScript and syntax passed. This verifies the guard,
+not an upload, remote backup or production enablement.
 
 Research and reusable process lessons live in
 `docs/audits/2026-10-19-avatar-authoring-process-research.md`, the bear retrospective
@@ -279,35 +435,41 @@ and both repo-local Blender/browser skills. Preserve per-revision inputs, cheap
 actual-export motion screens, independent contact/opening checks, one Blender
 owner and serialized heavy browser/Blender sweeps.
 
-
 ## Local portable asset bundle
 
-`artifacts/verification/bear-companion/bear-v1-local-assets.zip` is a CRC-checked
-local bundle of ignored bear native/GLB files, revision proof/images, and the
-frozen starting outfit. Its JSON sidecar records exact bytes/SHA and current
-model/native/still identities. Extract at a matching feature checkout root and
-follow this handoff. This is a local transfer artifact, not remote backup or art
-approval; other catalog inputs still use normal R2 recovery. Preserve the
-authoring checkout until private storage succeeds.
+`artifacts/verification/bear-companion/bear-v1-local-assets.zip` is the CRC-checked
+**historical head35** transfer bundle: ignored native/GLB files, revision proof/
+images and the frozen starting outfit. Its sidecar binds those historical
+identities. It excludes the new Meshy source and all bear-v2 derivatives. This
+local ZIP is neither remote backup nor art approval; preserve the Meshy
+authoring checkout until a separate rebuild transfer/restore is verified.
 
 The modified repo skills passed frontmatter/body-constraint checks through
 `js-yaml`. The official Python quick-validator was unavailable because PyYAML
 was missing; do not report it as a successful official validation.
 
+## Review capture reliability
+
+The first model-sized still check failed during parent opacity; wait for opaque
+ancestors without relaxing the saturation mask. A later v4 full run550/551 failed
+because a missing Czech praise MP3 returned SPA HTML, decoded as an error and
+released the test's held playback. Trace timing was121ms after answer, not the
+1600ms companion expiry. Review-only media routing now serves a valid existing
+MP3 while preserving hold/release. A single screenshot supplies both review and
+measurement; the helper rejects changed visual/event/representation/rectangles.
+Synthetic capture artifacts are removed in finally. Actual audio/order/fallback
+and product timing code remain unchanged. The failed receipts are retained.
 
 ## Completion audit and remaining requirements
 
-- Local code: shared success integration covers all11 games, final correct,
-  lifecycle/timing/failure/reduced-motion behavior; fresh548/495 integration
-  proves the frozen implementation and head35 model.
-- Local3D: saved builders/parameters/native/exports,169 native/runtime poses,
-  strict30 renderer views,15 materials, validator and phone budgets pass.
-  Independent reference/asset review is recorded in the audit.
-- Success presentation: enlarged responsive slots and closer product camera
-  have actual game captures and separate UI review. Final focused browser/media
-  receipts in the verification close-out must match the current asset.
-- Experience: primary-source research, rejected revisions, per-revision inputs,
-  export/motion/coverage lessons and shared Blender/browser skills are saved.
-- External requirements remain incomplete: user size/model acceptance, private
-  source storage, immutable public model publication/CORS and enabled production
-  behavior. The manifest remains disabled; local tests do not establish those.
+- V4 exact-model art approval and independent reference/asset/UI review are complete.
+- Source/export/still identity,169 native/runtime poses, arm-clearance scope,
+  validator/mobile budget, strict30 views and actual-clock five-size framing pass.
+- Final forced integration passed:552 browser cases,600 units, lint/pure/audio
+  inventory, test/production builds and bundle checks; exact receipts in the candidate integration-report.json.
+- Local completion includes saved research, rejected revisions, reusable builders,
+  CLI task recovery, actual raw-weight/skin probes, publication guard and fade
+  regression. No modified skill or instruction is required to interpret the new
+  generated lane; the shared workflow and this handoff provide the portable entry.
+- Private source backup/publication are explicitly deferred. Keep the product
+  manifest disabled and preserve this checkout's ignored generated model bytes.

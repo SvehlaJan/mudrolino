@@ -1,0 +1,39 @@
+{
+  "glbSha256": "0e852229403347e96f919627b2e46bb09f97fe771496c47c700f063dbd00afcc",
+  "boneNames": [
+    "Head",
+    "Hips",
+    "LeftArm",
+    "LeftFoot",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftLeg",
+    "LeftShoulder",
+    "LeftToeBase",
+    "LeftUpLeg",
+    "RightArm",
+    "RightFoot",
+    "RightForeArm",
+    "RightHand",
+    "RightLeg",
+    "RightShoulder",
+    "RightToeBase",
+    "RightUpLeg",
+    "Spine",
+    "Spine01",
+    "Spine02",
+    "head_end",
+    "headfront",
+    "neck"
+  ],
+  "meshNames": [
+    "Bear_fixed_outfit"
+  ],
+  "clipName": "celebrate",
+  "durationSeconds": 1.4,
+  "maxTriangles": 95000,
+  "maxGzipBytes": 2100000,
+  "minMotionM": 0.02,
+  "maxFloorPenetrationM": 0.007,
+  "stationaryRootBone": "Hips"
+}

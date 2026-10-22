@@ -1,0 +1,276 @@
+{
+  "stage": "Authored proxy motion; runtime, compression, deformation and art checks pending",
+  "input_glb": "meshy_output/20261021_204755_bear-b-reference-rig50k_01a15fca/rigged.glb",
+  "input_sha256": "4a06e501418247b6a220576f2c022c3567310c3ab459b2d96e281487201c5385",
+  "builder_sha256": "9328ce9210dc26a11629f24b0c97f2a5ddf4dbe261268d0bccc270b64648d4c7",
+  "design_sha256": "e4f6da877302acd2c544ddfaf749942912f05c92722726ab81d4be3055789f28",
+  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/celebration.blend",
+  "blend_sha256": "9d663dd91f2538ba0f229d81ae99fc965e25ddfd8bc283362e473fd2f3bd5ac5",
+  "glb": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/celebration.glb",
+  "glb_sha256": "270711cb11f002ee93af464caf7ef91dc3272b612733456c9ec00139302018b0",
+  "bone_names": [
+    "Head",
+    "Hips",
+    "LeftArm",
+    "LeftFoot",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftLeg",
+    "LeftShoulder",
+    "LeftToeBase",
+    "LeftUpLeg",
+    "RightArm",
+    "RightFoot",
+    "RightForeArm",
+    "RightHand",
+    "RightLeg",
+    "RightShoulder",
+    "RightToeBase",
+    "RightUpLeg",
+    "Spine",
+    "Spine01",
+    "Spine02",
+    "head_end",
+    "headfront",
+    "neck"
+  ],
+  "mesh_names": [
+    "Bear_fixed_outfit"
+  ],
+  "animation": "celebrate",
+  "duration_seconds": 1.4,
+  "fps": 30,
+  "keyframes": 43,
+  "floors": [
+    {
+      "frame": 0,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 1,
+      "hips_correction_m": -4.2119063436985016e-07,
+      "floor_m": -3.657303793147548e-08
+    },
+    {
+      "frame": 2,
+      "hips_correction_m": 0.000437818409409374,
+      "floor_m": 3.2540409478087895e-08
+    },
+    {
+      "frame": 3,
+      "hips_correction_m": 0.0011414551408961415,
+      "floor_m": -2.1401792338338055e-08
+    },
+    {
+      "frame": 4,
+      "hips_correction_m": 0.0020722930785268545,
+      "floor_m": 2.9243527599476238e-09
+    },
+    {
+      "frame": 5,
+      "hips_correction_m": 0.003181630279868841,
+      "floor_m": -2.0470469763722576e-08
+    },
+    {
+      "frame": 6,
+      "hips_correction_m": 0.0044301776215434074,
+      "floor_m": -1.654028913833372e-08
+    },
+    {
+      "frame": 7,
+      "hips_correction_m": 0.005851216614246368,
+      "floor_m": -5.88595838735273e-09
+    },
+    {
+      "frame": 8,
+      "hips_correction_m": 0.007274862844496965,
+      "floor_m": -6.556510889765832e-09
+    },
+    {
+      "frame": 9,
+      "hips_correction_m": 0.008637784980237484,
+      "floor_m": -1.352280332156397e-08
+    },
+    {
+      "frame": 10,
+      "hips_correction_m": 0.009882362559437752,
+      "floor_m": -8.381903171539307e-09
+    },
+    {
+      "frame": 11,
+      "hips_correction_m": 0.010958658531308174,
+      "floor_m": -2.6002526354318434e-08
+    },
+    {
+      "frame": 12,
+      "hips_correction_m": 0.011824888177216053,
+      "floor_m": -1.30385160446167e-08
+    },
+    {
+      "frame": 13,
+      "hips_correction_m": 0.01244843564927578,
+      "floor_m": -9.983777360389468e-09
+    },
+    {
+      "frame": 14,
+      "hips_correction_m": 0.01280541718006134,
+      "floor_m": -1.274049221677842e-08
+    },
+    {
+      "frame": 15,
+      "hips_correction_m": 0.01288094837218523,
+      "floor_m": -1.3485550454106487e-08
+    },
+    {
+      "frame": 16,
+      "hips_correction_m": 0.012669169344007969,
+      "floor_m": -2.5406478698641877e-08
+    },
+    {
+      "frame": 17,
+      "hips_correction_m": 0.012173359282314777,
+      "floor_m": 2.6300549293978293e-08
+    },
+    {
+      "frame": 18,
+      "hips_correction_m": 0.011406282894313335,
+      "floor_m": -3.390013958437521e-08
+    },
+    {
+      "frame": 19,
+      "hips_correction_m": 0.010390989482402802,
+      "floor_m": 1.6912817812908543e-08
+    },
+    {
+      "frame": 20,
+      "hips_correction_m": 0.009160245768725872,
+      "floor_m": -1.4230608691434554e-08
+    },
+    {
+      "frame": 21,
+      "hips_correction_m": 0.007756649050861597,
+      "floor_m": 2.9057263262188826e-09
+    },
+    {
+      "frame": 22,
+      "hips_correction_m": 0.00850892998278141,
+      "floor_m": -1.8961726411248492e-08
+    },
+    {
+      "frame": 23,
+      "hips_correction_m": 0.009765490889549255,
+      "floor_m": -1.829117479701381e-08
+    },
+    {
+      "frame": 24,
+      "hips_correction_m": 0.010815050452947617,
+      "floor_m": -2.2724271353524728e-09
+    },
+    {
+      "frame": 25,
+      "hips_correction_m": 0.01162397488951683,
+      "floor_m": 1.7695128917694092e-08
+    },
+    {
+      "frame": 26,
+      "hips_correction_m": 0.012168187648057938,
+      "floor_m": 9.834765890559538e-09
+    },
+    {
+      "frame": 27,
+      "hips_correction_m": 0.012434002943336964,
+      "floor_m": 2.6449560319719012e-09
+    },
+    {
+      "frame": 28,
+      "hips_correction_m": 0.012416776269674301,
+      "floor_m": -1.2703239349320938e-08
+    },
+    {
+      "frame": 29,
+      "hips_correction_m": 0.0121215945109725,
+      "floor_m": -1.3932585751774695e-08
+    },
+    {
+      "frame": 30,
+      "hips_correction_m": 0.011562121100723743,
+      "floor_m": -3.5762786065873797e-09
+    },
+    {
+      "frame": 31,
+      "hips_correction_m": 0.01076128426939249,
+      "floor_m": -2.3767350754155814e-08
+    },
+    {
+      "frame": 32,
+      "hips_correction_m": 0.00975069310516119,
+      "floor_m": -2.149492495107097e-08
+    },
+    {
+      "frame": 33,
+      "hips_correction_m": 0.008570734411478043,
+      "floor_m": -2.5182961493896983e-08
+    },
+    {
+      "frame": 34,
+      "hips_correction_m": 0.00727051729336381,
+      "floor_m": -9.164214276324856e-09
+    },
+    {
+      "frame": 35,
+      "hips_correction_m": 0.005906157195568085,
+      "floor_m": -1.4062970343786674e-08
+    },
+    {
+      "frame": 36,
+      "hips_correction_m": 0.004539851564913988,
+      "floor_m": 1.894310130978738e-08
+    },
+    {
+      "frame": 37,
+      "hips_correction_m": 0.003236314281821251,
+      "floor_m": -1.5273690090467085e-09
+    },
+    {
+      "frame": 38,
+      "hips_correction_m": 0.002060558181256056,
+      "floor_m": -1.1399388100130636e-08
+    },
+    {
+      "frame": 39,
+      "hips_correction_m": 0.0010731614893302321,
+      "floor_m": -1.0840594200089981e-08
+    },
+    {
+      "frame": 40,
+      "hips_correction_m": 0.000364073202945292,
+      "floor_m": 1.4714895968381825e-09
+    },
+    {
+      "frame": 41,
+      "hips_correction_m": 3.864719838020392e-05,
+      "floor_m": 3.383302171755531e-08
+    },
+    {
+      "frame": 42,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    }
+  ],
+  "views": {
+    "neutral": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/neutral-review.png",
+    "front": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/back-review.png",
+    "dance-quarter": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/dance-quarter-review.png",
+    "dance-middle": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/dance-middle-review.png",
+    "dance-three-quarter": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/dance-three-quarter-review.png"
+  },
+  "review_width": 320,
+  "blender_version": "5.2.2 LTS",
+  "limitations": [
+    "One fused fixed outfit; wardrobe swapping unproven.",
+    "Native keyframes do not establish actual glTF interpolation or skinning."
+  ]
+}

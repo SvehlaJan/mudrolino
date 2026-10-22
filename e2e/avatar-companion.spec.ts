@@ -396,7 +396,7 @@ test('companion canvas follows the reserved slot across a live viewport breakpoi
     if (!slot || !canvas) return null;
     return { slotWidth: slot.clientWidth, slotHeight: slot.clientHeight,
       canvasWidth: canvas.clientWidth, canvasHeight: canvas.clientHeight };
-  }), { intervals: [20], timeout: 1000 }).toEqual({ slotWidth: 96, slotHeight: 112, canvasWidth: 96, canvasHeight: 112 });
+  }), { intervals: [20], timeout: 1000 }).toEqual({ slotWidth: 112, slotHeight: 128, canvasWidth: 112, canvasHeight: 128 });
   await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-celebration-key', key!);
   expectNoConsoleErrors(errors);
   expectNoFailedRequests(requests);
@@ -421,20 +421,31 @@ for (const delayed of ['model', 'scene']) test(`late ${delayed} after Continue n
   await expect(page.getByTestId('learning-companion')).toHaveCount(0);
 });
 
+async function expectCompanionControlsFit(page: Page, locale: 'sk' | 'cs') {
+  await installCompanionFixture(page);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await seedLocalStorage(page, { 'hrave-ucenie-app-settings': { locale } });
+  for (const state of ['companion-success', 'companion-final-correct', 'companion-final-failure']) {
+    await page.goto(`/ui-kit?example=game-shell&state=${state}`);
+    await expect(page.getByRole('status')).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+    const controls = page.getByRole('status').getByRole('button');
+    for (const control of await controls.all()) await expectWithinViewport(page, control);
+    await expectNoPairwiseOverlap(controls);
+    if (state !== 'companion-final-failure') await expect(page.getByTestId('learning-companion')).toBeVisible();
+  }
+}
+
 for (const locale of ['sk', 'cs'] as const) {
   test(`@geometry ${locale} companion feedback and completion controls fit`, async ({ page }) => {
-    await installCompanionFixture(page);
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await seedLocalStorage(page, { 'hrave-ucenie-app-settings': { locale } });
-    for (const state of ['companion-success', 'companion-final-correct', 'companion-final-failure']) {
-      await page.goto(`/ui-kit?example=game-shell&state=${state}`);
-      await expect(page.getByRole('status')).toBeVisible();
-      await expectNoHorizontalOverflow(page);
-      const controls = page.getByRole('status').getByRole('button');
-      for (const control of await controls.all()) await expectWithinViewport(page, control);
-      await expectNoPairwiseOverlap(controls);
-      if (state !== 'companion-final-failure') await expect(page.getByTestId('learning-companion')).toBeVisible();
-    }
+    await expectCompanionControlsFit(page, locale);
+  });
+
+  // This combined breakpoint is smaller than the representative short-landscape
+  // profile; exercise its completion buttons once rather than repeating every matrix entry.
+  test(`${locale} companion feedback and completion controls fit a narrow short viewport`, async ({ page }) => {
+    await page.setViewportSize({ width: 568, height: 320 });
+    await expectCompanionControlsFit(page, locale);
   });
 }
 
@@ -444,19 +455,25 @@ for (const locale of ['sk', 'cs'] as const) {
     const requests = trackFailedRequests(page);
     await installCompanionFixture(page);
     await stubAudioPlayback(page, { holdPraise: true });
+    // Missing draft Czech recordings can emit a native decode error even while
+    // play() is held, releasing praise through TTS and remounting the final view.
+    // This visual test controls completion with releasePraise; native audio and
+    // fallback contracts have their own suites.
+    await page.route('**/audio/*/praise/*.mp3', route => route.fulfill({
+      path: 'public/audio/sk/praise/vyborne.mp3', contentType: 'audio/mpeg',
+    }));
     await seedLocalStorage(page, { 'hrave-ucenie-app-settings': { locale } });
     await page.goto('/alphabet');
     await page.getByRole('button', { name: /^(Hrať|Hrát)$/ }).click();
     await waitForGamePhase(page, 'awaiting-answer');
     await completeCurrentRound(page, 'ALPHABET');
     await expect3D(page);
-    const character = await measureCompanionCharacter(page);
+    const character = await captureCompanionReview(page, testInfo, 'success', locale, { errors, failedRequests: requests });
     const viewport = page.viewportSize()!;
     const minimumHeight = viewport.width < 640 && viewport.height <= 480 ? 85 : viewport.width < 640 || viewport.height <= 480 ? 110 : 140;
     expect(character.height, 'the bear itself must be large enough to read, beyond canvas dimensions').toBeGreaterThanOrEqual(minimumHeight);
     expect(character.height).toBeLessThan(character.canvasHeight - 2);
     expect(character.width).toBeLessThan(character.canvasWidth - 2);
-    await captureCompanionReview(page, testInfo, 'success', locale, { errors, failedRequests: requests });
     await page.getByRole('button', { name: /^(Pokračovať|Pokračovat)$/ }).click();
     await waitForGamePhase(page, 'awaiting-answer');
     for (let round = 1; round < 4; round += 1) {

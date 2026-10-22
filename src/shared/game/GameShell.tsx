@@ -82,7 +82,7 @@ export function GameShell({
   const celebration = useCompanionCelebration(state);
   const companionResource = useCompanionResources(reducedMotion ? null : companionConfig?.modelUrl ?? null);
   const companionSlot = (
-    <div data-testid="companion-feedback-slot" aria-hidden="true" className="mx-auto h-[184px] w-40 shrink-0 max-sm:h-[148px] max-sm:w-32 [@media(max-height:480px)]:h-[148px] [@media(max-height:480px)]:w-32 max-sm:[@media(max-height:480px)]:h-28 max-sm:[@media(max-height:480px)]:w-24">
+    <div data-testid="companion-feedback-slot" aria-hidden="true" className="mx-auto h-[200px] w-44 shrink-0 max-sm:h-[164px] max-sm:w-36 [@media(max-height:480px)]:h-[164px] [@media(max-height:480px)]:w-36 max-sm:[@media(max-height:480px)]:h-32 max-sm:[@media(max-height:480px)]:w-28">
       <LearningCompanion event={celebration} config={companionConfig} resource={companionResource}
         reducedMotion={reducedMotion} stillUrl={bearStill}
         className="h-full w-full" />

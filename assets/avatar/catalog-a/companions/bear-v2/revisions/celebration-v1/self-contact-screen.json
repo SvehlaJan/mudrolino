@@ -1,0 +1,135 @@
+{
+  "scope": "Five native key-pose self-contact screen; UV seam duplicates welded in rest coordinates at1micrometre world scale, not full animation proof",
+  "rows": [
+    {
+      "frame": 0,
+      "nonadjacent_triangle_contacts": 1200,
+      "examples": [
+        [
+          50579,
+          50653
+        ],
+        [
+          50579,
+          50654
+        ],
+        [
+          28154,
+          28208
+        ],
+        [
+          46775,
+          46777
+        ],
+        [
+          46776,
+          46798
+        ]
+      ]
+    },
+    {
+      "frame": 10,
+      "nonadjacent_triangle_contacts": 286,
+      "examples": [
+        [
+          40385,
+          40415
+        ],
+        [
+          50579,
+          50654
+        ],
+        [
+          50579,
+          50653
+        ],
+        [
+          28154,
+          28208
+        ],
+        [
+          46775,
+          46777
+        ]
+      ]
+    },
+    {
+      "frame": 21,
+      "nonadjacent_triangle_contacts": 46,
+      "examples": [
+        [
+          50579,
+          50653
+        ],
+        [
+          50579,
+          50654
+        ],
+        [
+          40385,
+          40415
+        ],
+        [
+          28154,
+          28208
+        ],
+        [
+          19099,
+          19208
+        ]
+      ]
+    },
+    {
+      "frame": 31,
+      "nonadjacent_triangle_contacts": 220,
+      "examples": [
+        [
+          40385,
+          40415
+        ],
+        [
+          50579,
+          50653
+        ],
+        [
+          50579,
+          50654
+        ],
+        [
+          28154,
+          28208
+        ],
+        [
+          47892,
+          47907
+        ]
+      ]
+    },
+    {
+      "frame": 42,
+      "nonadjacent_triangle_contacts": 1200,
+      "examples": [
+        [
+          50579,
+          50653
+        ],
+        [
+          50579,
+          50654
+        ],
+        [
+          28154,
+          28208
+        ],
+        [
+          46775,
+          46777
+        ],
+        [
+          46776,
+          46798
+        ]
+      ]
+    }
+  ]
+}

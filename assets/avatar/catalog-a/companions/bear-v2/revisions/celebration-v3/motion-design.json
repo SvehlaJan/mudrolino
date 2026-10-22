@@ -1,0 +1,15 @@
+{
+  "relaxedArmDegrees": 16,
+  "relaxedForearmDegrees": 6,
+  "armLiftDegrees": 55,
+  "forearmCurlDegrees": 28,
+  "headTiltDegrees": 4,
+  "direction": "User requested more expressive dance: broader cheer arms, alternating arm accent and two clearly visible joyful bounces; preserve approved bear proportions.",
+  "thighDegrees": 7,
+  "kneeDegrees": 9,
+  "hopMetres": 0.12,
+  "armAccentDegrees": 8,
+  "handDegrees": 14,
+  "torsoSwayDegrees": 6,
+  "headSwayDegrees": 5
+}

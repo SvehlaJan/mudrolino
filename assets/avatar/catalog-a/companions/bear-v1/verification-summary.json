@@ -55,11 +55,11 @@
     }
   },
   "artReview": {
-    "status": "pending",
+    "status": "rejected",
     "approvedModelSha256": null,
-    "date": null,
+    "date": "2026-10-21",
     "independentReview": "docs/audits/2026-10-20-bear-companion-visual-review.md",
-    "note": "Head35 applies the requested further whole-head reduction; exact size/model user confirmation remains pending. Prior head45 technical proof is archived separately."
+    "note": "User rejected likeness to selected 2D bear B and requested a restart matching the template proportions first. Head35 technical checks remain historical proof of those bytes only; active unrigged rebuild is bear-v2."
   },
   "storage": {
     "private": "pending",

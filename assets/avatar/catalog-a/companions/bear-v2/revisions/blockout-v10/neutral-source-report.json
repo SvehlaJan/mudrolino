@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "scope": "Reopen saved native source and inspect head review-pivot rotation; no rig or motion proof",
+  "source_sha256": "4d2c1a7ecaa9d0014d7b8588b39ef7a3a0085bcc11502d9afa61445326dfc32d",
+  "head_pivot_rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "head_parts": 17,
+  "rigs": 0
+}

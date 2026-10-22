@@ -5,12 +5,12 @@ import sharp from 'sharp';
 import type { Page, TestInfo } from '@playwright/test';
 
 export const BEAR_FIXTURE_URL = '/__avatar_fixture/bear-v1.glb';
-const assetPath = 'assets/avatar/catalog-a/companions/bear-v1/outfit-lod.glb';
+const assetPath = 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb';
 const installedFixtureHashes = new WeakMap<Page, string>();
 
 /** Real catalog bytes only. A missing private asset must never become a fake model. */
 export async function readBearFixture(): Promise<Buffer> {
-  const recovery = 'npm run assets:pull -- --prefix=assets/avatar/catalog-a/companions/bear-v1/';
+  const recovery = 'npm run assets:pull -- --prefix=assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/';
   try {
     const manifest = JSON.parse(await readFile('assets/avatar/asset-manifest.json', 'utf8')) as {
       files: Record<string, { sha256: string }>;
@@ -41,11 +41,46 @@ export async function installCompanionFixture(page: Page): Promise<void> {
   });
 }
 
-/** Measure the colored character, rather than mistaking a large empty canvas for visibility. */
-export async function measureCompanionCharacter(page: Page): Promise<{ width: number; height: number; canvasWidth: number; canvasHeight: number }> {
+interface CompanionCharacter { width: number; height: number; canvasWidth: number; canvasHeight: number }
+interface CompanionReviewState {
+  representation: string | null;
+  eventKey: string | null;
+  visualRect: { x: number; y: number; width: number; height: number };
+}
+
+async function waitForOpaqueCompanion(page: Page) {
   const visual = page.getByTestId('learning-companion').locator('canvas, img');
   await visual.evaluate(async element => { if (element instanceof HTMLImageElement) await element.decode(); });
+  // OverlayFrame fades in even under reduced motion. A partially transparent
+  // screenshot drops pale fur below the color threshold and falsely shrinks it.
+  const element = await visual.elementHandle();
+  if (!element) throw new Error('Expected a companion visual to measure');
+  try {
+    const opaque = await page.waitForFunction(element => {
+      if (!element.isConnected) return false;
+      for (let ancestor: Element | null = element; ancestor; ancestor = ancestor.parentElement) {
+        if (Number(getComputedStyle(ancestor).opacity) !== 1) return false;
+      }
+      return true;
+    }, element, { polling: 'raf', timeout: 1000 });
+    await opaque.dispose();
+  } catch (error) {
+    await element.dispose();
+    throw error;
+  }
+  return element;
+}
+
+/** Measure the colored character, rather than mistaking a large empty canvas for visibility. */
+export async function measureCompanionCharacter(page: Page): Promise<CompanionCharacter> {
+  const element = await waitForOpaqueCompanion(page);
+  await element.dispose();
+  const visual = page.getByTestId('learning-companion').locator('canvas, img');
   const png = await visual.screenshot();
+  return measureCharacterPixels(png);
+}
+
+async function measureCharacterPixels(png: Buffer): Promise<CompanionCharacter> {
   const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   let left = info.width, top = info.height, right = -1, bottom = -1;
   for (let y = 0; y < info.height; y += 1) for (let x = 0; x < info.width; x += 1) {
@@ -62,17 +97,43 @@ export async function measureCompanionCharacter(page: Page): Promise<{ width: nu
 
 /** Persist only <=320px review copies alongside their exact source/build context. */
 export async function captureCompanionReview(page: Page, testInfo: TestInfo, scene: string, locale: string,
-  evidence: { errors: string[]; failedRequests: string[] }): Promise<void> {
+  evidence: { errors: string[]; failedRequests: string[] }): Promise<CompanionCharacter> {
   const outputDirectory = 'artifacts/verification/bear-companion/game-reviews';
   await mkdir(outputDirectory, { recursive: true });
   const name = `${testInfo.project.name}-${locale}-${scene}`;
-  const state = await page.evaluate(() => {
-    const companion = document.querySelector('[data-testid="learning-companion"]');
-    return { representation: companion?.getAttribute('data-companion-representation') ?? null,
-      eventKey: companion?.getAttribute('data-celebration-key') ?? null };
-  });
-  const character = await measureCompanionCharacter(page);
-  const screenshot = await page.screenshot({ animations: 'disabled' });
+  const element = await waitForOpaqueCompanion(page);
+  let state: CompanionReviewState;
+  let screenshot: Buffer;
+  try {
+    state = await element.evaluate(visual => {
+      const companion = visual.closest('[data-testid="learning-companion"]');
+      const { x, y, width, height } = visual.getBoundingClientRect();
+      return { representation: companion?.getAttribute('data-companion-representation') ?? null,
+        eventKey: companion?.getAttribute('data-celebration-key') ?? null,
+        visualRect: { x, y, width, height } };
+    });
+    if (!state.eventKey || !state.representation) throw new Error('Expected an active companion review scene');
+    // One screenshot supplies both the review and its character measurement.
+    // Avoid locator.screenshot's scroll/stability roundtrips during a brief reaction.
+    screenshot = await page.screenshot({ animations: 'disabled', scale: 'css' });
+    const unchanged = await element.evaluate((visual, before) => {
+      const companion = visual.closest('[data-testid="learning-companion"]');
+      const bounds = visual.getBoundingClientRect();
+      return visual.isConnected
+        && companion?.getAttribute('data-celebration-key') === before.eventKey
+        && companion?.getAttribute('data-companion-representation') === before.representation
+        && [[bounds.x, before.visualRect.x], [bounds.y, before.visualRect.y],
+          [bounds.width, before.visualRect.width], [bounds.height, before.visualRect.height]]
+          .every(([after, before]) => Math.abs(after - before) < .5);
+    }, state);
+    if (!unchanged) throw new Error('Companion changed during review capture; refusing mismatched pixels and metadata');
+  } finally {
+    await element.dispose();
+  }
+  const { x, y, width, height } = state.visualRect;
+  const left = Math.floor(x), top = Math.floor(y);
+  const characterPng = await sharp(screenshot).extract({ left, top, width: Math.ceil(x + width) - left, height: Math.ceil(y + height) - top }).png().toBuffer();
+  const character = await measureCharacterPixels(characterPng);
   await sharp(screenshot).resize({ width: 320, withoutEnlargement: true }).png().toFile(join(outputDirectory, `${name}.png`));
   const modelHash = installedFixtureHashes.get(page);
   if (!modelHash) throw new Error('Install the checked bear fixture before capturing its review');
@@ -82,4 +143,5 @@ export async function captureCompanionReview(page: Page, testInfo: TestInfo, sce
     reviewWidth: 320, source: assetPath, sha256: modelHash,
     build, character, errors: [...evidence.errors], failedRequests: [...evidence.failedRequests], ...state,
   }, null, 2)}\n`);
+  return character;
 }

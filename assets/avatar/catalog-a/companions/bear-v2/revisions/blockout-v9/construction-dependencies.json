@@ -1,0 +1,8 @@
+{
+  "helperSha256": {
+    "tools/blender/catalog/bear_companion_common.py": "59c4dec5a3cc1cb5dc22c0a44a8478c657fc938033973fbae1e860eb410fab75",
+    "tools/blender/catalog/build_catalog_t01.py": "768f2a0a86b695edd9b598e6193732bdeb55c8d4e108a57d3ab80f677c5f3272",
+    "tools/blender/catalog/catalog_tee_geometry.py": "6f0430fee406e1dea358c1e202aad703e12f896f7ab8493f2771f328844c9a19"
+  },
+  "note": "Shared helper bytes at Oct21 rebuild. Replay exact saved builder.py; design JSON alone misses hardcoded geometry."
+}

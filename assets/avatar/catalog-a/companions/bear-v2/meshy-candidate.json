@@ -1,0 +1,64 @@
+{
+  "taskId": "01a15fc4-4dc4-7116-aadf-3953ef4a9f1c",
+  "status": "SUCCEEDED",
+  "consumedCredits": 30,
+  "sessionBudget": 500,
+  "remainingSessionCredits": 460,
+  "glb": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/model.glb",
+  "glbSha256": "a637c6d4d27fb2768d0fa6e815b49412145efb4be153c68cd7e4dcd783ac8d17",
+  "bytes": 19839844,
+  "reference": "assets/avatar/concepts/2026-10-21/bear-rebuild/reference-b-fullbody.png",
+  "parameters": {
+    "ai_model": "meshy-7.1",
+    "model_type": "standard",
+    "image_enhancement": false,
+    "pose_mode": "a-pose",
+    "texture_resolution": "2k"
+  },
+  "artAcceptance": true,
+  "runtimeAcceptance": false,
+  "storage": "Original source and all motion candidates retained locally under meshy_output and ignored catalog paths; user deferred remote storage/publication.",
+  "constructionBaseApproval": {
+    "date": "2026-10-21",
+    "answer": "Yes, use this Meshy bear as the base",
+    "approvedSourceSha256": "a637c6d4d27fb2768d0fa6e815b49412145efb4be153c68cd7e4dcd783ac8d17",
+    "scope": "Construction base approval; final remeshed/rigged/animated bytes need their own technical proof and final art status."
+  },
+  "primaryConstructionCandidate": true,
+  "proceduralComparisonRevision": "blockout-v10",
+  "consumedSessionCredits": 40,
+  "remeshTaskId": "01a15fc7-1930-704d-b191-ce67f048917b",
+  "rigTaskId": "01a15fca-8ac6-74ad-a7c0-acd3ca841bab",
+  "remeshTriangles": 51311,
+  "rigBones": 24,
+  "currentMotionRevision": "celebration-v4",
+  "operations": [
+    {
+      "operation": "image-to-3d",
+      "taskId": "01a15fc4-4dc4-7116-aadf-3953ef4a9f1c",
+      "status": "SUCCEEDED",
+      "credits": 30
+    },
+    {
+      "operation": "remesh",
+      "taskId": "01a15fc7-1930-704d-b191-ce67f048917b",
+      "status": "SUCCEEDED",
+      "expectedCredits": 5,
+      "credits": 5,
+      "projectDir": "meshy_output/20261021_204712_bear-b-reference-remesh50k_01a15fc7"
+    },
+    {
+      "operation": "rigging",
+      "taskId": "01a15fca-8ac6-74ad-a7c0-acd3ca841bab",
+      "status": "SUCCEEDED",
+      "credits": 5,
+      "projectDir": "/Users/svehla/playground/teo-learn/meshy_output/20261021_204755_bear-b-reference-rig50k_01a15fca"
+    }
+  ],
+  "artAcceptanceScope": "Construction base approved; final motion approval in verification-summary.json",
+  "finalAnimatedCandidate": {
+    "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb",
+    "sha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+    "artApproved": true
+  }
+}

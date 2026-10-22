@@ -1,0 +1,7 @@
+{
+  "status": "passed-asset-gates-motion-revision-requested",
+  "date": "2026-10-21",
+  "glb_sha256": "0e852229403347e96f919627b2e46bb09f97fe771496c47c700f063dbd00afcc",
+  "user_feedback": "Make the dance more expressive",
+  "scope": "Base likeness remains approved. The gentle celebration passed asset/runtime tests but is superseded for requested motion expressiveness. Full integration 547/548 passed; still measurement mismatch under diagnosis."
+}

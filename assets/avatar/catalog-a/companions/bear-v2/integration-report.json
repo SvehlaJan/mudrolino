@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "profile": "fresh full integration, forced",
+  "checkedAt": "2026-10-22T04:30:19.598265+00:00",
+  "modelSha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+  "pipeline": {
+    "path": "artifacts/verification/2026-10-22T04-23-57-611Z-integration.json",
+    "sha256": "8beae6aebf5264297925b21ed1b356b8c9a06df6588315ad2993a825e11adb6d"
+  },
+  "browser": {
+    "path": "artifacts/verification/integration.json",
+    "sha256": "dd3316b4cc0de21807a0c15397ff8386dae66944c39089956f81ed3021e47cc2"
+  },
+  "browserStats": {
+    "startTime": "2026-10-22T04:24:27.986Z",
+    "duration": 293578.64,
+    "expected": 552,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "unitTests": 600,
+  "gates": [
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "durationMs": 13250
+    },
+    {
+      "name": "unit",
+      "command": [
+        "npm",
+        "run",
+        "test:unit"
+      ],
+      "exitCode": 0,
+      "durationMs": 6128
+    },
+    {
+      "name": "pure",
+      "command": [
+        "npm",
+        "run",
+        "verify:pure"
+      ],
+      "exitCode": 0,
+      "durationMs": 7621
+    },
+    {
+      "name": "audio inventory",
+      "command": [
+        "npm",
+        "run",
+        "test:audio"
+      ],
+      "exitCode": 0,
+      "durationMs": 667
+    },
+    {
+      "name": "test build",
+      "command": [
+        "npm",
+        "run",
+        "build:e2e"
+      ],
+      "exitCode": 0,
+      "durationMs": 2364
+    },
+    {
+      "name": "integration browser",
+      "command": [
+        "/Users/svehla/playground/teo-learn/node_modules/.bin/playwright",
+        "test",
+        "--config=e2e/playwright.config.ts",
+        "--workers=3"
+      ],
+      "exitCode": 0,
+      "durationMs": 293951
+    },
+    {
+      "name": "production build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "durationMs": 2360
+    },
+    {
+      "name": "production bundle",
+      "command": [
+        "npm",
+        "run",
+        "verify:bundle"
+      ],
+      "exitCode": 0,
+      "durationMs": 188
+    }
+  ],
+  "builds": [
+    {
+      "mode": "test",
+      "commit": "584c666f150f13a4a20b62a3fb53833909494fb0",
+      "fingerprint": "5a50b038e8230ffa5fa0dd5f6ec276bdfb69b9f79183b30222556739a89072ca"
+    },
+    {
+      "mode": "production",
+      "commit": "584c666f150f13a4a20b62a3fb53833909494fb0",
+      "fingerprint": "50539c1ac48650819f8b9edc76770a28c1879fc64f94319845ceffe248bdbe63"
+    }
+  ],
+  "scope": "All functional integration contracts and three representative geometry sizes. Separate actual-clock proof covers five sizes. Release-only/WebKit/strict audio matrices not rerun for this local completion; remote activation explicitly deferred."
+}

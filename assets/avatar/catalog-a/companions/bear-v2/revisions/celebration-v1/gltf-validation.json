@@ -1,0 +1,15 @@
+{
+  "asset": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v1/celebration-web-1k-q85.glb",
+  "glb_sha256": "f9648170fad6fac0963ab90b2423d96a9af09e5af629d4e6f33a6994baf88cd4",
+  "bytes": 2853264,
+  "errors": 0,
+  "warnings": 1,
+  "issues": [
+    {
+      "code": "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE",
+      "message": "Material requires a tangent space but the mesh primitive does not provide it. Runtime-generated tangent space may be non-portable across implementations.",
+      "severity": 1,
+      "pointer": "/meshes/0/primitives/0/material"
+    }
+  ]
+}

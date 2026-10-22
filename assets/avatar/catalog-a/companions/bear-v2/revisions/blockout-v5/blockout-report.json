@@ -1,0 +1,23 @@
+{
+  "stage": "unrigged reference-likeness blockout; not runtime accepted",
+  "source_human_mesh_used": false,
+  "rigged": false,
+  "design": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v5/design.json",
+  "design_sha256": "52331e78f8b8365d736800aba924db99263fea0d802ddbb5b462225cc2d80c04",
+  "builder_sha256": "531e6e038d9889e6d521bd325578f84fc365d2e40220eed0063bed692276f348",
+  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v5/bear-blockout.blend",
+  "blend_sha256": "ce7ea0d4b370a3a52860ba10ac0293bc0f91fdc461badcd9fbd394f56d9eaee0",
+  "blender_version": "5.2.2 LTS",
+  "views": {
+    "three-quarter": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v5/three-quarter-review.png",
+    "front": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v5/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v5/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v5/back-review.png"
+  },
+  "review_width": 320,
+  "limitations": [
+    "Single source view; side/back volumes are reconstruction proposals.",
+    "Procedural fur/cloth bump is review-only and must be baked for glTF.",
+    "Voxel blockout topology needs intentional deformation topology before rigging."
+  ]
+}

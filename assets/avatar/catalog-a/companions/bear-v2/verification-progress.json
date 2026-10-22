@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-10-22T04:30:19.598265+00:00",
+  "stage": "User-approved local v4 candidate and implementation verified",
+  "currentRevision": "celebration-v4",
+  "constructionBaseApproved": true,
+  "motionAccepted": true,
+  "creditSpend": 40,
+  "sessionCap": 500,
+  "historicalProceduralProgress": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/verification-progress.json",
+  "model": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb",
+  "modelSha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+  "freshChecks": {
+    "runtime": "169 actual Three.js skinning poses passed",
+    "nativeParity": "169 poses,maximum3.4817735782912433\u00b5m",
+    "armClearance": "169 poses, zero new arm/torso-leg contacts vs48 intrinsic bind contacts; maximum62 total",
+    "validator": "0 errors/0 warnings",
+    "budget": "51311triangles,1910001gzipbytes",
+    "browser": "Strict30 actual renderer captures passed with currentGLB",
+    "productClock": "Five viewports,158\u2013161 visible GPU frames perviewport, whole observed action framed and controlsreachable",
+    "still": "Fresh352x400 source-bound still atcamera5.6 for176x200 maxCSSslot",
+    "unit": "600 passed in fresh complete integration"
+  },
+  "integration": {
+    "status": "passed",
+    "profile": "integration --force",
+    "browserPassed": 552,
+    "unitPassed": 600,
+    "report": "assets/avatar/catalog-a/companions/bear-v2/integration-report.json",
+    "previousFailures": [
+      "547/548: entrance-opacity measurement; fixed with reproducing regression",
+      "550/551: Czech visual-test media fallback remount; fixed valid review media and one-image capture; failed case passed3repeats"
+    ],
+    "scope": "All functional integration contracts and three representative geometry sizes. Separate actual-clock proof covers five sizes. Release-only/WebKit/strict audio matrices not rerun for this local completion; remote activation explicitly deferred."
+  },
+  "deferred": {
+    "privateStorage": "User chose finish locally for now",
+    "publication": "Disabled; no credentials or upload",
+    "productionManifest": "accepted=false"
+  },
+  "commitLookup": "git log -1 -- assets/avatar/catalog-a/companions/bear-v2/verification-summary.json"
+}

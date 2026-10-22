@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "scope": "Fresh native replay via archived builder and hash-checked helpers; exact raw pixel comparison, PNG metadata excluded",
+  "replayOutput": "/tmp/teo-bear-blockout-v10-replay-20261021",
+  "views": [
+    {
+      "view": "front",
+      "pixelsEqual": true,
+      "width": 320,
+      "height": 400,
+      "rawPixelSha256": "d574b35357819f69edebf766451c01bd0339acd07fbad520b27a3ad47bdd6e93"
+    },
+    {
+      "view": "three-quarter",
+      "pixelsEqual": true,
+      "width": 320,
+      "height": 400,
+      "rawPixelSha256": "de63c783e0fdf259b335be84082777e7840af917fe5272e0d7411cea7b879602"
+    },
+    {
+      "view": "side",
+      "pixelsEqual": true,
+      "width": 320,
+      "height": 400,
+      "rawPixelSha256": "525295c801965f4cff22d46a6908d03bdd563da4bfb79d0e0831470576bc1457"
+    },
+    {
+      "view": "back",
+      "pixelsEqual": true,
+      "width": 320,
+      "height": 400,
+      "rawPixelSha256": "e0f2f83a8163c41fbd8afab58d70fb84ef38d135c51db5050e5b4ab1ab47d06c"
+    },
+    {
+      "view": "expression",
+      "pixelsEqual": true,
+      "width": 320,
+      "height": 400,
+      "rawPixelSha256": "ecbfea7649e82a7343ed41b5a061197dbdc0510443a188f58acefc39792d1abf"
+    }
+  ]
+}

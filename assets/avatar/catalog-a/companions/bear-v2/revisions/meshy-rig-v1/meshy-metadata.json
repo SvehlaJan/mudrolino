@@ -1,0 +1,26 @@
+{
+  "project_name": "bear-b-reference-rig50k",
+  "folder": "20261021_204755_bear-b-reference-rig50k_01a15fca",
+  "root_task_id": "01a15fca-8ac6-74ad-a7c0-acd3ca841bab",
+  "created_at": "2026-10-21T20:47:55.144110",
+  "updated_at": "2026-10-21T20:48:26.432553",
+  "tasks": [
+    {
+      "task_id": "01a15fca-8ac6-74ad-a7c0-acd3ca841bab",
+      "created_at": "2026-10-21T20:47:55.144231",
+      "task_type": "rigging",
+      "stage": "complete",
+      "files": [
+        "rigged.glb",
+        "walking.glb",
+        "running.glb"
+      ],
+      "extra": {
+        "endpoint": "/openapi/v1/rigging",
+        "status": "SUCCEEDED",
+        "available_formats": [],
+        "thumbnail": null
+      }
+    }
+  ]
+}

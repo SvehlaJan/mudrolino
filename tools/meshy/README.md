@@ -23,22 +23,35 @@ This repo uses a local Meshy helper instead of the upstream skill pack's inline 
 
 Add `--wait --download-glb` when you want the helper to poll the task to completion and save the resulting `.glb`.
 
-## Best-practice flags (Meshy 6 / 2026 API)
+## Generation flags (2026 API)
 
-`--ai-model latest` resolves to **Meshy 6**. These optional flags map to current API parameters:
+As of October 21, 2026, `--ai-model latest` resolves to **Meshy 7.1**. Pin `--ai-model meshy-7.1` for a reproducible model choice. See the [Image to 3D API](https://docs.meshy.ai/en/api/image-to-3d) and [API pricing](https://docs.meshy.ai/en/api/pricing). These optional flags map to API parameters:
 
 - `--target-formats glb` — only generate the formats we use; skips fbx/obj/stl/usdz and finishes faster.
 - `--auto-size` + `--origin-at {bottom,center}` — Meshy estimates real-world height and sets the mesh origin, cutting manual transform tuning. Use `center` for accessories that pin to a bone, `bottom` for shoes/ground items.
-- `--model-type lowpoly` — game/mobile-ready topology; preferred for this app's bundle size and mobile performance.
+- `--model-type standard` — standard generation. Legacy `lowpoly` retires **October 30, 2026**; use `standard` for new runs and optimize downloaded assets for mobile.
 - `--decimation-mode {1,2,3,4}` — adaptive polygon reduction.
-- `--hd-texture` — 4K textures (meshy-6/latest only), on refine/image/multi/retexture.
+- `--texture-resolution {2k,4k,8k}` — explicit base color texture resolution (image-to-3d only). The API deprecates `hd_texture` in favor of `texture_resolution`; the legacy `--hd-texture` flag remains available.
 - `--keep-lighting` — keep baked lighting (default removes it for a flat, even look).
-- `--image-enhancement` — pre-clean input images (image / multi-image), useful for AI-generated reference plates.
+- `--image-enhancement` / `--no-image-enhancement` — enable preprocessing or send `image_enhancement: false` to preserve the reference appearance without style processing (image / multi-image). Omitting both flags leaves the field absent and preserves the API's default behavior; the flags are mutually exclusive.
+- `--pose-mode {a-pose,t-pose}` — request a character pose (image-to-3d; also available on text preview).
 - `--texture-image-url <path|url>` — guide refine texturing from a reference image.
 
 Deprecated: `--symmetry-mode` (Meshy deprecated it 2026-05-11; the helper warns and may be ignored by current models).
 
-Recommended garment recipe (text-to-3d): `--model-type lowpoly --target-formats glb --auto-size --origin-at center` on preview, then `--target-formats glb` on refine. **Do not pass `--hd-texture` for small avatar garments** — 4K maps bloat the GLB (~17 MB) for no visible gain at avatar scale; a normal refine plus the optimization step below lands well under 1 MB.
+For garments (text-to-3d), use `--model-type standard --target-formats glb --auto-size --origin-at center` on preview, then `--target-formats glb` on refine. Prefer 2K textures for small avatar garments and optimize the downloaded GLB before shipping.
+
+For a single character reference, this prepares Meshy 7.1 standard generation with textures, an A pose, image preprocessing disabled, and GLB-only output:
+
+```bash
+python3 tools/meshy/meshy_ops.py image-to-3d \
+  --image meshy_output/bear-reference.png \
+  --ai-model meshy-7.1 --model-type standard \
+  --no-image-enhancement --pose-mode a-pose --texture-resolution 2k \
+  --target-formats glb --wait --download-glb --project-name bear-reference
+```
+
+Expected cost: **30 credits** for one mesh with 2K textures, using the API's default standard geometry resolution (no Ultra surcharge). This command intentionally stops at the spend guard until the user approves that cost and `--confirm-spend` is added. No generation is submitted without confirmation.
 
 After download, optimize the GLB for the web runtime (the app uses plain `useGLTF` with no Draco/Meshopt decoder, so do **not** compress geometry):
 

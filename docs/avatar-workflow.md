@@ -1,27 +1,46 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-10-20 (bear companion candidate; canonical catalog audit below retains its dated scope). This is the entry point for both Codex and Claude. Use
+Updated 2026-10-21 (bear reference rebuild; canonical catalog audit below retains its dated scope). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
 
-## Current bear companion lane (2026-10-20)
+## Current accepted local candidate — 2026-10-22
 
-The success-only bear implementation is on `feature/bear-companion-design` in the
-primary checkout. Start with the [bear handoff](superpowers/handoffs/2026-10-19-bear-companion.md)
-and its portable implementation plan; they override older lane status below.
-Current local candidate is head35 after another requested whole-head reduction;
-its own169-pose/30-view technical proof passed. Final user size/art acceptance
-remains pending. One root author owns coupled modeling; code work uses subagents
-and independent reviews. `assets/avatar/catalog-a/companions/bear-v1/verification-summary.json`
-binds the current source, full outfit/dance, still and technical proof. Read its hash-bound technical status; a changed model invalidates earlier
-proof. Exact art acceptance and private/public storage are separate.
-New bear 3D files are currently local-only because R2 credentials are unavailable.
-Do not infer recoverability from their manifest entries.
+The user accepted the actual expressive celebration preview: **“Yes, keep this
+version.”** Model: `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb`,
+SHA-256 `598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3`.
+Native source: sibling `../celebration.blend`, SHA-256
+`9376c704dfd46a590153dc9ae406e98e8dbee95993c2ca1eb4f26e50382e144f`.
+The exact paths/hashes, final art approval, six proof descriptors and storage state
+are in `assets/avatar/catalog-a/companions/bear-v2/verification-summary.json`.
 
-The guarded tool fixture accepts `?agent=1&companion=bear&pose=0.5&view=front`.
-It uses one fixed intercepted URL, never an arbitrary query path. Game integration
-uses shared success identity, a one-shot clip, still fallback and no audio delay;
-the product manifest stays disabled until accepted runtime bytes are published.
+One fixed-outfit mesh,24 bones,1.4-second `celebrate`;51,311 triangles,
+2,688,372 bytes/1,910,001 gzip bytes, zero validator errors/warnings. Fresh169-pose
+native/runtime parity has maximum3.482µm error. Arm clearance has zero new
+arm-versus-torso/leg pairs against48 intrinsic bind contacts (maximum62 total),
+not zero contacts or independent wardrobe proof. Strict 30 actual renderer views
+and five-size actual-clock framing/control checks pass. Independent reference,
+asset and UI review: `docs/audits/2026-10-22-generated-bear-final-review.md`.
+
+The more expressive cheer/bounces required a larger reserved area:176×200 desktop,
+144×164 phone/short,112×128 combined, camera 5.6. The fallback is freshly rendered
+352×400 from the same source (`still-v2/`), at least2× the largest CSS slot. The
+still-size test's first failure was entrance-opacity measurement, not undersized
+art; the bounded opacity wait has a reproducing browser regression. Final full
+integration passed:552 browser cases,600 units, lint/pure/audio inventory, both
+builds and bundle guard. See bear-v2/integration-report.json for exact receipts.
+
+The user chose **finish locally for now**. Private backup/publication are deferred;
+ignored `.blend`/`.glb` bytes remain local, the asset manifest is identity only,
+and `src/avatar/companions/bear-v1.json` stays disabled. No public URL, remote
+recovery, PR, push or deployment is claimed. The earlier head35 ZIP excludes the
+Meshy replacement. Preserve this authoring checkout until remote backup is enabled.
+Meshy spend is40/500 approved credits,460 remain; no further paid operation is needed.
+
+Continue with the [portable plan](superpowers/plans/2026-10-21-bear-reference-rebuild.md)
+and [handoff](superpowers/handoffs/2026-10-19-bear-companion.md). Root owns coupled
+3D authoring; use agents for independent code/review. Historical head35 and
+procedural blockouts remain rejected/comparison evidence, not active candidates.
 
 ## Resume in the correct checkout
 
@@ -424,7 +443,6 @@ boundaries. Report: `artifacts/verification/2026-10-04T20-43-49-878Z-integration
 Dedicated gallery desktop/phone and all eight model-study cases passed on current
 model bytes. No release profile or deployment was run.
 
-
 ## First female outfit continuation
 
 The user chose to keep the reviewed female proportions and fit T02/B01/F01 next.
@@ -489,7 +507,6 @@ shape a fuller lower bowl/opening using the controlled surface helper and rerun
 all affected fit/detail/native/runtime gates. Do not restore the rejected folded
 projection or trade exposed anatomy for clearance.
 
-
 ### First outfit technical result
 
 Fresh final model runner passed **15/15 gates**. Both the saved native actions
@@ -514,7 +531,6 @@ inventory, 472 browser tests, production build and bundle boundaries. Report:
 release profile or deployment; the technical study does not accept the shallow
 hood, implement a real selfie endpoint or promote canonical assets.
 
-
 Final browser refresh on the final candidate bytes passed two scoped study cases
 (desktop/phone), four production-candidate cases (rest/walk/run/phone run), and
 both live-gallery cases with 102 current assets. Candidate GET hashes match
@@ -529,7 +545,6 @@ fixture replaces the body and a combined garment slot for rendering proof;
 per-piece female production slot mapping remains open. The first refresh attempt
 found stopped local servers; both were restarted before these fresh passing runs.
 
-
 ## Legacy cleanup verification — 2026-10-05
 
 The pre-catalog male assets and modular/customization/home UI are removed. The
@@ -540,7 +555,6 @@ verification scope and report paths. Final lint, 162 unit tests and pure contrac
 pass; integration's 472 browser tests and production boundaries pass. The migrated
 inspector also passes behavioral and transport checks across 27 desktop/four phone
 models, and the isolated production fixture passes all four candidate cases.
-
 
 ### Iteration safeguards established on 2026-10-07
 

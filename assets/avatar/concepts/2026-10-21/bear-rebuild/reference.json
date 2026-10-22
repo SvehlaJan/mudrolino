@@ -1,0 +1,14 @@
+{
+  "source": "assets/avatar/concepts/2026-10-19/bear-mascot/comparison-v1.png",
+  "sourceSha256": "aab3d42dfa55d736dd71af11ece898723b884f528815816837e146bd55f7e0a3",
+  "crop": {
+    "left": 512,
+    "top": 0,
+    "width": 512,
+    "height": 650
+  },
+  "output": "assets/avatar/concepts/2026-10-21/bear-rebuild/reference-b-fullbody.png",
+  "outputSha256": "bde0d0d95ebc25506a7e8e29cdf7b723645de2aed41f31dc1a43c0d3bc3059e6",
+  "purpose": "Exact selectedB fullbody crop, excluding alternatecharacters, portraitpanel and labels. No generated edits.",
+  "userDirection": "Match2D template proportions first (2026-10-21)."
+}
