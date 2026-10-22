@@ -29,7 +29,9 @@ that boundary when integrating accepted models later.
 ## Current asset workflow
 
 For catalog models, Blender tooling or selfie personalization, start with
-`docs/avatar-workflow.md` and the shared Blender skill. Selfies become generated
+`docs/avatar-workflow.md` and the shared Blender skill. New characters,
+2D-reference reconstruction and revised motion also follow the harness-neutral
+`docs/avatar-authoring.md`. Selfies become generated
 2D face textures on a reusable UV-mapped head; fictional head studies are style
 references. Retain catalog construction sources, shared rig/gaits and rejected
 fitting attempts until their dependent proof and acceptance are resolved.

@@ -3,6 +3,9 @@
 Updated 2026-10-21 (bear reference rebuild; canonical catalog audit below retains its dated scope). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
+For the reusable reference-to-runtime process, read
+[3D authoring guidance](avatar-authoring.md). Current candidate history below
+does not replace its acceptance gates.
 
 ## Current accepted local candidate — 2026-10-22
 

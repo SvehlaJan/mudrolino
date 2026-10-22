@@ -53,14 +53,23 @@ python3 tools/meshy/meshy_ops.py image-to-3d \
 
 Expected cost: **30 credits** for one mesh with 2K textures, using the API's default standard geometry resolution (no Ultra surcharge). This command intentionally stops at the spend guard until the user approves that cost and `--confirm-spend` is added. No generation is submitted without confirmation.
 
-After download, optimize the GLB for the web runtime (the app uses plain `useGLTF` with no Draco/Meshopt decoder, so do **not** compress geometry):
+After download, optimize for the installed web runtime. It has no Draco/Meshopt
+decoder; keep mesh transport decoder-free while optimizing supported textures and
+attributes:
 
 ```bash
 npx --no-install gltf-transform optimize in.glb out.glb \
   --texture-compress webp --texture-size 1024 --compress false
 ```
 
-Then validate with `node tools/avatar/validate_gltf.js out.glb` (a lone `MESH_PRIMITIVE_GENERATED_TANGENT_SPACE` warning is benign) before publishing to `public/avatar/garments/`.
+Then validate with `node tools/avatar/validate_gltf.js out.glb` and follow the
+candidate's warning policy. The generated-bear path uses
+`tools/avatar/optimize_generated_bear.mjs` for texture/attribute packing and
+tangents; its final gate requires zero errors/warnings. Check installed tools
+before reusing version-specific workarounds. Preserve native/runtime parity and
+real-texture proof after optimization. Accepted assets use the storage/publication
+flow in `docs/avatar-workflow.md`; `public/avatar/garments/` is retired. Shared
+operational guidance lives in `.agents/skills/meshy-3d-generation/SKILL.md`.
 
 When `--wait` is set the response now also surfaces `consumed_credits` (actual spend) alongside the updated `balance`.
 

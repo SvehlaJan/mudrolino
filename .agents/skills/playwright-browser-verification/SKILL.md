@@ -5,7 +5,10 @@ description: Use when verifying teo-learn browser UI rendering with Playwright, 
 
 # Playwright Browser Verification
 
-Use this repo-local skill with the global `playwright` skill when a change needs real browser verification, screenshots, canvas checks, or UI-flow debugging.
+Use the repo's Playwright scripts and installed dependencies for browser UI,
+screenshots, canvas checks and debugging. No global skill or harness-specific
+browser tool is required. For animated character acceptance, also read
+`docs/avatar-authoring.md`.
 
 ## Setup
 
@@ -31,9 +34,9 @@ npm run dev
 
 The dev server uses port `3000` when available and otherwise chooses another port, such as `3001`.
 
-## macOS Codex Sandbox Gotcha
+## macOS sandbox browser launches
 
-Playwright Chromium can fail inside Codex's default sandbox with:
+Playwright Chromium can fail inside a restrictive harness sandbox with:
 
 ```text
 MachPortRendezvousServer... Permission denied
@@ -145,3 +148,24 @@ Keep the product's expiry unchanged. Verify actual draw calls stop after removal
 context disposal, retained event time on remount, and failures remain failed on
 later rounds. Serialize heavy software-GL suites with dense Blender verification;
 record interrupted or contention-failed runs separately from fresh passing proof.
+
+## Brief animated feedback and media races
+
+Verify actual game-clock playback as well as settled poses. Record readiness and
+event lifetime; count visible rendered-model frames for motion framing and check
+that loading/still presentation remains usable. Measure the figure, cover the
+full action envelope and combined narrow/short breakpoint. Keep synthetic test
+images separate from source-bound model review receipts.
+
+Wait for inherited entrance opacity before measuring screenshot colors: faded
+pixels can fall below a saturation mask and falsely shrink the figure. Prefer
+one CSS-scale page PNG for both review and cropped pixel measurement. Require the
+same connected visual, event, representation and rectangle across capture;
+another element screenshot can outlive a brief reaction/remount. See
+`e2e/support/companionFixture.ts` and `e2e/companion-measurement.spec.ts`.
+
+When held media still allows a scene to advance, inspect trace response type/body
+and fallback events before blaming expiry. HTTP200 HTML from a missing MP3 can
+cause decode failure and TTS completion. Visual tests may serve an existing valid
+clip while controlling completion; scope that override to visual tests and
+preserve separate real-media/audio-order/fallback coverage.

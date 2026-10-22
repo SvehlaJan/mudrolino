@@ -1,6 +1,6 @@
 ---
 name: blender-avatar-pipeline
-description: Author, fit, inspect or export teo-learn avatar models in Blender, including catalog clothing, rigged GLBs, motion cleanup and texture-ready heads. Use for Blender CLI or MCP work; ordinary React UI changes use the avatar area rules instead.
+description: Use when authoring, fitting, inspecting or exporting teo-learn avatar models in Blender, including generated/reference-based characters, catalog clothing, rigs and motion; ordinary React UI changes use the avatar area rules.
 ---
 
 # Blender avatar pipeline
@@ -10,6 +10,9 @@ Codex/Claude handoff, active sources, next work and selfie texture contract.
 For catalog authoring or fitting, then read `tools/blender/catalog/README.md`
 and the affected piece's retrospective. Read `catalog-progress.json` for current
 status; historical passing reports can be invalidated by a later audit.
+For new characters, 2D-reference reconstruction, generated meshes or revised
+motion, read `docs/avatar-authoring.md` before construction. It covers likeness,
+imported units, raw weights, proof scopes and actual product playback.
 
 ## Execute and preserve evidence
 
@@ -31,7 +34,8 @@ retrospective and source-bound reports. Preserve rejected studies that explain
 a failure. A dev-viewer entry or an export-fidelity pass is not final acceptance.
 Parallelize code/review work and serialize Blender import/export jobs through the
 shared queue. If macOS Metal initialization fails
-before Python starts in the Codex sandbox, rerun the same command with escalation.
+before Python starts in a sandbox, rerun the same command through the harness's
+approved execution/permission mechanism.
 
 MCP is optional for live scene inspection and visual edits. Availability depends
 on the client's configured tools; current upstream supports Claude and Codex.
@@ -66,8 +70,10 @@ failure, then sweep the saved revision through native and actual runtime poses.
 
 ## Blender invariants
 
-- Preserve the shared body topology/original vertex indices, metre scale, bind
-  pose and normalized four-influence weights. Coverage masks use those indices.
+- When editing canonical catalog bodies/garments, preserve shared topology and
+  original vertex indices, metre scale, bind pose and normalized four-influence
+  weights. Coverage masks use those indices. An independent new character gets
+  its own anatomy and rig contract; fit its rig to the accepted shape.
 - Assign bilateral attachments by anatomical position: world X >= 0 is character
   left; X < 0 is right. Imported viewer-perspective object names can be inverted.
 - Create independent corrective keys with `from_mix=False`. Audit saved masters

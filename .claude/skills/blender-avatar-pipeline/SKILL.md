@@ -1,8 +1,8 @@
 ---
 name: blender-avatar-pipeline
-description: Author, fit, inspect or export teo-learn avatar models in Blender, including catalog clothing, rigged GLBs, motion cleanup and texture-ready heads. Use for Blender CLI or MCP work.
+description: Use when authoring, fitting, inspecting or exporting teo-learn avatar models in Blender, including generated/reference-based characters, catalog clothing, rigs and motion.
 ---
 
 Read the shared [Blender avatar pipeline](../../../.agents/skills/blender-avatar-pipeline/SKILL.md)
-and follow it. The file is shared with Codex; edit that source when changing the
+and follow it. This is the harness-neutral source; edit it when changing the
 workflow. All repository-relative paths there are resolved from the checkout root.

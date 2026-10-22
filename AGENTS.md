@@ -115,15 +115,16 @@ production deployment.
 
 ## Skills
 
-Detailed workflows are skills rather than always-loaded context: Meshy 3D
-generation in `.claude/skills/meshy-3d-generation/` (mirrored for Cursor in
-`.cursor/skills/`), browser verification and the Blender avatar pipeline in
-`.agents/skills/`. Read the matching skill before doing that kind of work. For catalog
-models or selfie personalization, start with `docs/avatar-workflow.md`; Claude
-has a skill entry point linking to the same Blender instructions.
+Use the repository Meshy, Blender and browser skills in `.agents/skills/`; Claude
+wrappers and the Cursor Meshy adapter link to these sources. Read the matching
+skill before that work. Start with `docs/avatar-workflow.md` for active assets; for new
+characters, 2D-reference reconstruction or revised motion, read
+`docs/avatar-authoring.md` before construction.
 
 One rule is here rather than only in the skill, because it spends real money:
 **Meshy commands cost credits — always summarize the expected cost and wait for
-the user to approve before passing `--confirm-spend`.** Keep `MESHY_API_KEY` to
+the user to approve before passing `--confirm-spend`.** An existing explicit
+budget covers matching operations within its scope/cap; announce each operation
+and reconcile actual spend. Keep `MESHY_API_KEY` to
 the environment or a repo-local `.env`, and keep downloads under
 `meshy_output/`.
