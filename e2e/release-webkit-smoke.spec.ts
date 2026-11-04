@@ -74,13 +74,27 @@ test('bear companion succeeds with WebKit', async ({ page }, testInfo) => {
   expectNoFailedRequests(requests);
 });
 
-test('a card tap reaches the first prompt recording in WebKit', async ({ page }) => {
-  const messages: string[] = [];
-  page.on('console', (message) => messages.push(message.text()));
+// The deterministic audio stub resolves every play() and fires `ended`, so the audio events and the
+// absence of a TTS-fallback warning cannot tell a recording from the fallback here. What proves the
+// card tap reached the recorded clips is the network: each recording was requested and served
+// (200, or 206 when the media element asks for a byte range).
+test('a card tap fetches and starts the first prompt recording in WebKit', async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  const failedRequests = trackFailedRequests(page);
+  const recordingStatus = new Map<string, number>();
+  page.on('response', (response) => {
+    const { pathname } = new URL(response.url());
+    if (pathname.startsWith('/audio/')) recordingStatus.set(pathname, response.status());
+  });
 
   await startGame(page, '/numbers');
 
   await expect.poll(async () => (await getAudioEvents(page)).includes('finish:sk/phrases/najdi')).toBe(true);
   await expect.poll(async () => (await getAudioEvents(page)).some(event => event.startsWith('finish:sk/numbers/'))).toBe(true);
-  expect(messages.filter(message => message.includes('falling back to TTS'))).toEqual([]);
+  const numberClip = (await getAudioEvents(page)).find(event => event.startsWith('start:sk/numbers/'))!.slice('start:'.length);
+  const isServed = (pathname: string) => () => [200, 206].includes(recordingStatus.get(pathname) ?? 0);
+  await expect.poll(isServed('/audio/sk/phrases/najdi.mp3')).toBe(true);
+  await expect.poll(isServed(`/audio/${numberClip}.mp3`)).toBe(true);
+  expectNoConsoleErrors(errors);
+  expectNoFailedRequests(failedRequests);
 });

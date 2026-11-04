@@ -2,6 +2,7 @@
 import { expect, test } from '@playwright/test';
 import { getAudioEvents, waitForGamePhase } from './support/gameHarness';
 import { startGame } from './support/gameEntry';
+import { expectNoConsoleErrors, expectNoFailedRequests, trackConsoleErrors, trackFailedRequests } from './support/assertions';
 
 interface NativeMediaObservation {
   starts: number;
@@ -58,6 +59,8 @@ test('leaving during native playback cancels media and a fresh game can complete
 });
 
 test('a card tap plays the first prompt from its recording', async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  const failedRequests = trackFailedRequests(page);
   const messages: string[] = [];
   page.on('console', (message) => messages.push(message.text()));
 
@@ -66,4 +69,6 @@ test('a card tap plays the first prompt from its recording', async ({ page }) =>
   await expect.poll(async () => (await getAudioEvents(page)).includes('finish:sk/phrases/najdi')).toBe(true);
   await expect.poll(async () => (await getAudioEvents(page)).some(event => event.startsWith('finish:sk/numbers/'))).toBe(true);
   expect(messages.filter(message => message.includes('falling back to TTS'))).toEqual([]);
+  expectNoConsoleErrors(errors);
+  expectNoFailedRequests(failedRequests);
 });
