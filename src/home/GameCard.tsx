@@ -5,8 +5,9 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import type { GameDefinition, GameIconId } from '../shared/gameCatalog';
+import { GAME_DEFINITIONS, type GameDefinition, type GameIconId } from '../shared/gameCatalog';
 import { getUiCopy } from '../shared/uiCopy';
+import { armSessionEntry } from '../shared/sessionEntry';
 import { cn } from '../shared/ui/utils';
 
 // Large glyphs and simple silhouettes stay legible in the small home-card badges.
@@ -51,8 +52,19 @@ export function GameCard({
   return (
     <Link
       to={game.path}
+      state={{ fromHome: true }}
       data-testid="game-card"
-      onClick={onClick}
+      onClick={(event) => {
+        // The router's location is stale until the lazy game chunk commits, so a repeat tap here
+        // would push a second game entry and Back would land on it. The real URL is already current.
+        if (GAME_DEFINITIONS.some(({ path }) => path === window.location.pathname)) {
+          event.preventDefault();
+          return;
+        }
+        // A tap is the only way into a Session: browsers allow no sound before one.
+        armSessionEntry(game.id);
+        onClick?.();
+      }}
       className={cn(
         'group relative flex flex-col justify-between h-full p-4 sm:p-5 rounded-[24px] sm:rounded-[28px]',
         'bg-white border border-border-subtle shadow-sm',
