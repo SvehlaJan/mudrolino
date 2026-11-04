@@ -3,15 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Keyed UI copy for the home screen, game catalog, lobbies, game shell and the
+// Keyed UI copy for the home screen, game catalog, game shell and the
 // newer parent cards. Every locale translates every key (uiCopy.verify.ts checks
 // it). Other UI text uses Slovak-keyed `t()` from src/shared/i18n.ts.
 
 const SK_COPY = {
   'home.title': 'Mudrolíno',
   'home.subtitle': 'Vyber si hru a poďme na to!',
-
-  'lobby.play': 'Hrať',
 
   'game.replayPrompt': 'Zopakovať zadanie',
   'game.promptSection': 'Zadanie',
@@ -44,19 +42,15 @@ const SK_COPY = {
 
   'game.alphabet.title': 'Čítaj písmenká',
   'game.alphabet.description': 'Spoznávaj písmenká hravou formou',
-  'game.alphabet.instruction': 'Nájdi správne písmenko.',
 
   'game.syllables.title': 'Čítaj slabiky',
   'game.syllables.description': 'Spájaj písmenká do slabík',
-  'game.syllables.instruction': 'Nájdi správnu slabiku.',
 
   'game.numbers.title': 'Čítaj čísla',
   'game.numbers.description': 'Počítaj s kamarátmi',
-  'game.numbers.instruction': 'Nájdi správne číslo.',
 
   'game.counting.title': 'Spočítaj predmety',
   'game.counting.description': 'Koľko jabĺčok vidíš?',
-  'game.counting.instruction': 'Spočítaj obrázky a vyber správne číslo.',
 
   'game.compare.title': 'Viac alebo Menej',
   'game.compare.description': 'Kde je viac predmetov?',
@@ -64,27 +58,21 @@ const SK_COPY = {
 
   'game.addition.title': 'Sčítaj',
   'game.addition.description': 'Koľko je to dokopy?',
-  'game.addition.instruction': 'Spočítaj, koľko je to dokopy.',
 
   'game.words.title': 'Čítaj slová',
   'game.words.description': 'Prečítaj slovo a nájdi obrázok',
-  'game.words.instruction': 'Prečítaj slovo a nájdi obrázok.',
 
   'game.first-letter.title': 'Prvé písmenko',
   'game.first-letter.description': 'Počúvaj slovo a nájdi prvé písmenko',
-  'game.first-letter.instruction': 'Počúvaj slovo a nájdi jeho prvé písmenko.',
 
   'game.assembly.title': 'Skladaj slabiky',
   'game.assembly.description': 'Poskladaj slovo zo slabík',
-  'game.assembly.instruction': 'Poskladaj slabiky do správneho slova.',
 
   'game.complete-syllable.title': 'Doplň slabiku',
   'game.complete-syllable.description': 'Vyber slabiku, ktorá chýba',
-  'game.complete-syllable.instruction': 'Vyber slabiku, ktorá v slove chýba.',
 
   'game.complete-letter.title': 'Doplň písmeno',
   'game.complete-letter.description': 'Doplň písmenko v slove',
-  'game.complete-letter.instruction': 'Doplň písmenko, ktoré v slove chýba.',
 
   'parent.share.title': 'Odporučiť priateľom',
   'parent.share.description': 'Pošlite odkaz na Mudrolíno ďalším rodičom.',
@@ -128,8 +116,6 @@ const CS_COPY: Record<UiCopyKey, string> = {
   'home.title': 'Mudrolíno',
   'home.subtitle': 'Vyber si hru a jdeme na to!',
 
-  'lobby.play': 'Hrát',
-
   'game.replayPrompt': 'Zopakovat zadání',
   'game.promptSection': 'Zadání',
   'game.replayingInstruction': 'Přehrávám zadání…',
@@ -161,19 +147,15 @@ const CS_COPY: Record<UiCopyKey, string> = {
 
   'game.alphabet.title': 'Čti písmenka',
   'game.alphabet.description': 'Poznávej písmenka hravou formou',
-  'game.alphabet.instruction': 'Najdi správné písmenko.',
 
   'game.syllables.title': 'Čti slabiky',
   'game.syllables.description': 'Spojuj písmenka do slabik',
-  'game.syllables.instruction': 'Najdi správnou slabiku.',
 
   'game.numbers.title': 'Čti čísla',
   'game.numbers.description': 'Počítej s kamarády',
-  'game.numbers.instruction': 'Najdi správné číslo.',
 
   'game.counting.title': 'Spočítej předměty',
   'game.counting.description': 'Kolik jablíček vidíš?',
-  'game.counting.instruction': 'Spočítej obrázky a vyber správné číslo.',
 
   'game.compare.title': 'Víc nebo míň',
   'game.compare.description': 'Kde je víc předmětů?',
@@ -181,27 +163,21 @@ const CS_COPY: Record<UiCopyKey, string> = {
 
   'game.addition.title': 'Sčítej',
   'game.addition.description': 'Kolik je to dohromady?',
-  'game.addition.instruction': 'Spočítej, kolik je to dohromady.',
 
   'game.words.title': 'Čti slova',
   'game.words.description': 'Přečti slovo a najdi obrázek',
-  'game.words.instruction': 'Přečti slovo a najdi obrázek.',
 
   'game.first-letter.title': 'První písmenko',
   'game.first-letter.description': 'Poslouchej slovo a najdi první písmenko',
-  'game.first-letter.instruction': 'Poslouchej slovo a najdi jeho první písmenko.',
 
   'game.assembly.title': 'Skládej slabiky',
   'game.assembly.description': 'Poskládej slovo ze slabik',
-  'game.assembly.instruction': 'Poskládej slabiky do správného slova.',
 
   'game.complete-syllable.title': 'Doplň slabiku',
   'game.complete-syllable.description': 'Vyber slabiku, která chybí',
-  'game.complete-syllable.instruction': 'Vyber slabiku, která ve slově chybí.',
 
   'game.complete-letter.title': 'Doplň písmeno',
   'game.complete-letter.description': 'Doplň písmenko ve slově',
-  'game.complete-letter.instruction': 'Doplň písmenko, které ve slově chybí.',
 
   'parent.share.title': 'Doporučit přátelům',
   'parent.share.description': 'Pošlete odkaz na Mudrolíno dalším rodičům.',

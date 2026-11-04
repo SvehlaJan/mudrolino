@@ -39,7 +39,6 @@ export interface GameDefinition {
   order: number;
   titleKey: UiCopyKey;
   descriptionKey: UiCopyKey;
-  instructionKey: UiCopyKey;
   icon: GameIconId;
   tactilePreset: TactilePreset;
   settings: readonly SettingId[];
@@ -64,7 +63,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 1,
     titleKey: 'game.alphabet.title',
     descriptionKey: 'game.alphabet.description',
-    instructionKey: 'game.alphabet.instruction',
     icon: 'letters',
     tactilePreset: 'wood',
     settings: ['alphabetAccents', 'alphabetGridSize'],
@@ -78,7 +76,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 2,
     titleKey: 'game.syllables.title',
     descriptionKey: 'game.syllables.description',
-    instructionKey: 'game.syllables.instruction',
     icon: 'syllables',
     tactilePreset: 'magnet',
     settings: ['syllablesGridSize'],
@@ -92,7 +89,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 1,
     titleKey: 'game.numbers.title',
     descriptionKey: 'game.numbers.description',
-    instructionKey: 'game.numbers.instruction',
     icon: 'numbers',
     tactilePreset: 'wood',
     settings: ['numbersRange'],
@@ -106,7 +102,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 2,
     titleKey: 'game.counting.title',
     descriptionKey: 'game.counting.description',
-    instructionKey: 'game.counting.instruction',
     icon: 'counting',
     tactilePreset: 'counter',
     settings: ['countingRange'],
@@ -120,7 +115,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 3,
     titleKey: 'game.compare.title',
     descriptionKey: 'game.compare.description',
-    instructionKey: 'game.compare.instruction',
     icon: 'compare',
     tactilePreset: 'balance',
     settings: ['compareMode', 'compareRange'],
@@ -134,7 +128,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 4,
     titleKey: 'game.addition.title',
     descriptionKey: 'game.addition.description',
-    instructionKey: 'game.addition.instruction',
     icon: 'addition',
     tactilePreset: 'tray',
     settings: ['additionSumRange', 'additionRepresentation'],
@@ -148,7 +141,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 3,
     titleKey: 'game.words.title',
     descriptionKey: 'game.words.description',
-    instructionKey: 'game.words.instruction',
     icon: 'words',
     tactilePreset: 'picture',
     settings: [],
@@ -162,7 +154,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 4,
     titleKey: 'game.first-letter.title',
     descriptionKey: 'game.first-letter.description',
-    instructionKey: 'game.first-letter.instruction',
     icon: 'first-letter',
     tactilePreset: 'picture',
     settings: ['alphabetAccents'],
@@ -176,7 +167,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 5,
     titleKey: 'game.assembly.title',
     descriptionKey: 'game.assembly.description',
-    instructionKey: 'game.assembly.instruction',
     icon: 'assembly',
     tactilePreset: 'felt',
     settings: [],
@@ -190,7 +180,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 6,
     titleKey: 'game.complete-syllable.title',
     descriptionKey: 'game.complete-syllable.description',
-    instructionKey: 'game.complete-syllable.instruction',
     icon: 'complete-syllable',
     tactilePreset: 'felt',
     settings: [],
@@ -204,7 +193,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
     order: 7,
     titleKey: 'game.complete-letter.title',
     descriptionKey: 'game.complete-letter.description',
-    instructionKey: 'game.complete-letter.instruction',
     icon: 'complete-letter',
     tactilePreset: 'magnet',
     settings: ['alphabetAccents', 'completeLetterMissingCount'],

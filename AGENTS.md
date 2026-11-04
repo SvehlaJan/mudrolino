@@ -74,7 +74,7 @@ mini-games. React 19, TypeScript, Vite, Tailwind v4. Local-first: no backend, no
 accounts.
 
 - `src/App.tsx` owns the routed shell, home screen, parent gate, and settings overlays.
-- `src/shared/gameCatalog.tsx` — `GAME_DEFINITIONS` is the single source for a game's id, route, home card, and lobby metadata. Register a game here rather than hand-wiring the home screen.
+- `src/shared/gameCatalog.tsx` — `GAME_DEFINITIONS` is the single source for a game's id, route, home card, and settings. Register a game here rather than hand-wiring the home screen.
 - `src/shared/components/FindItGame.tsx` — the shared round loop for the 4 grid games (alphabet, syllables, numbers, words), driven by a `GameDescriptor<T>` from `src/shared/types.ts`. The other 7 games are bespoke and own their loops.
 - `src/shared/contentRegistry.ts` — locale-aware content and the shared answer-audio helpers.
 - `src/shared/services/audioManager.ts` — all audio. It falls back per clip to `sk-SK` Web Speech TTS, so a missing file is never an error.

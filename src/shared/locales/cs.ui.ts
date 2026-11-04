@@ -287,6 +287,6 @@ export const CS_TRANSLATIONS: Record<string, string> = {
   // Counting tray
   'Predmety na spočítanie': 'Předměty ke spočítání',
 
-  // Home, lobby and answers tray
+  // Home and answers tray
   'Odpovede': 'Odpovědi',
 };

@@ -1,7 +1,7 @@
 ---
 paths:
   - "src/games/**/*.{ts,tsx}"
-  - "src/shared/components/{FindItGame,SuccessOverlay,FailureOverlay,SessionCompleteOverlay,GameLobby}.tsx"
+  - "src/shared/components/{FindItGame,SuccessOverlay,FailureOverlay,SessionCompleteOverlay}.tsx"
   - "src/shared/{contentRegistry.ts,gameCatalog.tsx,types.ts}"
 ---
 

@@ -5,19 +5,15 @@ if (getUiCopy('sk', 'category.literacy') !== 'Písmená a slová') {
   throw new Error('Slovak literacy label missing');
 }
 
-// Every game definition title, description and instruction resolves in both languages.
+// Every game definition title resolves in both languages.
 for (const game of GAME_DEFINITIONS) {
-  for (const key of [game.titleKey, game.instructionKey] as UiCopyKey[]) {
-    if (!getUiCopy('sk', key) || !getUiCopy('cs', key)) {
-      throw new Error(`Copy missing for ${game.id}: ${key}`);
-    }
+  if (!getUiCopy('sk', game.titleKey) || !getUiCopy('cs', game.titleKey)) {
+    throw new Error(`Copy missing for ${game.id}: ${game.titleKey}`);
   }
 }
 
 // Czech is translated, not a Slovak fallback.
 const czechSamples: Array<[UiCopyKey, string]> = [
-  ['lobby.play', 'Hrát'],
-  ['game.alphabet.instruction', 'Najdi správné písmenko.'],
   ['game.compare.instruction', 'Kde je více?'],
   ['game.home', 'Domů'],
 ];

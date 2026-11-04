@@ -54,7 +54,7 @@ Mudrolíno is a Slovak and Czech educational web app for preschoolers. It is bui
 - `src/content/CustomContentScreen.tsx` is the parent-facing local content and recording surface.
 - `src/pwa/` owns the PWA manifest metadata, install/update prompt state, and home-screen PWA control.
 - `src/avatar/` owns the development asset gallery and catalog renderer. The old male companion/customization experiment is retired; accepted catalog assets will be integrated into the app later. The three.js renderer is lazy-loaded from `AvatarPresenter`, so it stays out of the main bundle.
-- `src/shared/gameCatalog.tsx` defines every game's id, route, home-screen card, and lobby metadata.
+- `src/shared/gameCatalog.tsx` defines every game's id, route, home-screen card, and settings.
 
 ## UI Component Library
 
