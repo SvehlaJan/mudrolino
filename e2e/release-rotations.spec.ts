@@ -2,11 +2,11 @@ import { expect, test } from './support/fixtures';
 import { waitForGamePhase } from './support/gameHarness';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { unlockParentGate } from './support/parentGate';
+import { startGame } from './support/gameEntry';
 
 test('@viewport-loop a portrait to landscape rotation preserves an active round and focused answer', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   await waitForGamePhase(page, 'awaiting-answer');
   const answer = page.getByTestId('game-answer-region').getByRole('button').first();
   await answer.focus();

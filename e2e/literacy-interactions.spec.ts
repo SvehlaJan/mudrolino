@@ -3,6 +3,7 @@ import { getE2EState } from './support/e2eHook';
 import { stubSpeechSynthesis } from './support/gameHarness';
 import { DOUBLE_TAP_GAMES, DOUBLE_TAP_PRAISES, seedTwoPraises, stubAlternatingRandom, waitForPlaySurfaceSettled, GenericChoiceState } from './support/literacyHarness';
 import { clearAudioEvents, getAudioClipPaths } from './support/gameHarness';
+import { startGame } from './support/gameEntry';
 for (const game of DOUBLE_TAP_GAMES) {
   test(`${game.name}: a same-tick double tap on the correct answer cannot desync the shown praise from the spoken one`, async ({ page }) => {
     // The seeded praises have no recorded mp3, so their clips always reach the TTS fallback; this
@@ -11,8 +12,7 @@ for (const game of DOUBLE_TAP_GAMES) {
     await stubAlternatingRandom(page);
     await seedTwoPraises(page);
     await game.seed?.(page);
-    await page.goto(game.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, game.path);
     await waitForPlaySurfaceSettled(page);
 
     const state = await getE2EState<GenericChoiceState>(page);

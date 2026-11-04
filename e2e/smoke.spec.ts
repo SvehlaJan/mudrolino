@@ -6,6 +6,7 @@ import {
   expectNoFailedRequests,
 } from './support/assertions';
 import { GAME_DEFINITIONS } from '../src/shared/gameCatalog';
+import { openGameFromHome } from './support/gameEntry';
 
 test('home: loads without errors', async ({ page }) => {
   const errors = trackConsoleErrors(page);
@@ -20,7 +21,7 @@ for (const game of GAME_DEFINITIONS) {
   test(`${game.path.replace('/', '')}: route loads and lobby renders`, async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
-    await page.goto(game.path);
+    await openGameFromHome(page, game.path);
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

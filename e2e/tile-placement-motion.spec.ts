@@ -2,13 +2,13 @@ import { expect, test, type Page } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { waitForGamePhase } from './support/gameHarness';
 import { ASSEMBLY_JAHODA, LONG_LABEL_WORDS, seedSingleLiteracyWord, type AssemblyE2EState, type CompleteLetterE2EState, type CompleteSyllableE2EState } from './support/literacyHarness';
+import { startGame } from './support/gameEntry';
 
 const games = ['assembly', 'complete-letter', 'complete-syllable'] as const;
 
 async function start(page: Page, game: typeof games[number], word?: typeof ASSEMBLY_JAHODA) {
   await seedSingleLiteracyWord(page, word ?? (game === 'complete-syllable' ? LONG_LABEL_WORDS['complete-syllable'] : ASSEMBLY_JAHODA));
-  await page.goto(`/${game}`);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, `/${game}`);
   await waitForGamePhase(page, 'awaiting-answer');
   const state = await getE2EState<AssemblyE2EState | CompleteLetterE2EState | CompleteSyllableE2EState>(page);
   return state.gameId === 'ASSEMBLY'

@@ -2,10 +2,10 @@ import { expect, test } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { pressAnswerById, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { FirstLetterE2EState } from './support/literacyHarness';
+import { openGameFromHome, startGame } from './support/gameEntry';
 
 test('Prvé písmenko uses the shared literacy shell', async ({ page }) => {
-  await page.goto('/first-letter');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/first-letter');
   await expect(page.getByRole('main')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Prvé písmenko' })).toBeVisible();
   await expect(page.getByText('Ktorým písmenom sa začína toto slovo?')).toBeVisible();
@@ -24,8 +24,7 @@ test('Prvé písmenko uses the shared literacy shell', async ({ page }) => {
 test('Prvé písmenko announces retry politely without changing the play surface', async ({ page }) => {
   await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
-  await page.goto('/first-letter');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/first-letter');
 
   const state = await getE2EState<FirstLetterE2EState>(page);
   const wrongId = state.answerItemIds.find((id) => id !== state.correctItemId);
@@ -48,8 +47,7 @@ test('Prvé písmenko announces retry politely without changing the play surface
 });
 
 test('Prvé písmenko settles the correct magnet before showing success feedback', async ({ page }) => {
-  await page.goto('/first-letter');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/first-letter');
 
   const state = await getE2EState<FirstLetterE2EState>(page);
   await pressAnswerById(page, state.correctItemId!);
@@ -60,7 +58,7 @@ test('Prvé písmenko settles the correct magnet before showing success feedback
 });
 
 test('Prvé písmenko keyboard: Tab enters the answer group, ArrowRight moves focus, and Space activates exactly one choice', async ({ page }) => {
-  await page.goto('/first-letter');
+  await openGameFromHome(page, '/first-letter');
   const playButton = page.getByRole('button', { name: 'Hrať' });
   await playButton.focus();
   await page.keyboard.press('Enter');

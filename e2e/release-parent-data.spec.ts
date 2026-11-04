@@ -15,6 +15,7 @@ import {
   seedIndexedDBAudioFixture,
 } from './support/persistenceFixtures';
 import { solveParentGate } from './support/parentGate';
+import { openGameFromHome } from './support/gameEntry';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const localDataV1 = JSON.parse(
@@ -110,7 +111,7 @@ test('legacy parent data stays editable across protected-route reloads and expir
   await expect(page.getByText(/Super jazda!$/)).toBeVisible();
   expect(await audioHash(page, audioFixture.key)).toBe(replacementAudioHash);
 
-  await page.goto('/numbers');
+  await openGameFromHome(page, '/numbers');
   await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
   await page.goto('/content');
   await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();

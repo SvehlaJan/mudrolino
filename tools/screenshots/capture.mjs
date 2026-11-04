@@ -15,6 +15,14 @@ async function installCaptureRecorder(page) {
   await page.addInitScript({ path: recorderInitPath });
 }
 
+/** Opens the home screen and taps the Game card whose href is `path`, as a child does. This
+ * tool cannot import the TypeScript e2e helper, so it keeps its own copy of the same behavior. */
+async function openGameFromHome(page, baseUrl, path) {
+  await page.goto(`${baseUrl}/`);
+  await page.locator(`[data-testid="game-card"][href="${path}"]`).click();
+  await page.waitForURL((url) => url.pathname === path);
+}
+
 export function parseArgs(args) {
   let base = 'http://127.0.0.1:4173';
   const scenes = [];
@@ -211,47 +219,47 @@ export const SCENES = {
     await page.getByRole('heading', { name: 'Čísla a počítanie' }).waitFor({ state: 'visible' });
   },
   'lobby-alphabet': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/alphabet`);
+    await openGameFromHome(page, baseUrl, '/alphabet');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-syllables': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/syllables`);
+    await openGameFromHome(page, baseUrl, '/syllables');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-numbers': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/numbers`);
+    await openGameFromHome(page, baseUrl, '/numbers');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-counting': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/counting`);
+    await openGameFromHome(page, baseUrl, '/counting');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-compare': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/compare`);
+    await openGameFromHome(page, baseUrl, '/compare');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-addition': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/addition`);
+    await openGameFromHome(page, baseUrl, '/addition');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-words': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/words`);
+    await openGameFromHome(page, baseUrl, '/words');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-first-letter': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/first-letter`);
+    await openGameFromHome(page, baseUrl, '/first-letter');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-assembly': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/assembly`);
+    await openGameFromHome(page, baseUrl, '/assembly');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-complete-syllable': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/complete-syllable`);
+    await openGameFromHome(page, baseUrl, '/complete-syllable');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'lobby-complete-letter': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/complete-letter`);
+    await openGameFromHome(page, baseUrl, '/complete-letter');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
   },
   'game-shell-success': async (page, baseUrl) => {
@@ -282,7 +290,7 @@ export const SCENES = {
     await page.getByRole('heading', { level: 1 }).waitFor({ state: 'visible' });
   },
   'game-words-visual': async (page, baseUrl) => {
-    await page.goto(`${baseUrl}/words`);
+    await openGameFromHome(page, baseUrl, '/words');
     await page.getByRole('button', { name: 'Hrať' }).click();
     await page.locator('main h2').waitFor({ state: 'visible' });
   },
@@ -348,7 +356,7 @@ async function waitForPlaySurfaceSettled(page) {
  */
 function bespokeChoiceScenes(path) {
   async function enterPlay(page, baseUrl) {
-    await page.goto(`${baseUrl}${path}`);
+    await openGameFromHome(page, baseUrl, path);
     await page.getByRole('button', { name: 'Hrať' }).click();
   }
   async function pressAnswer(page, id) {
@@ -429,7 +437,7 @@ for (const [prefix, path] of [
  */
 const assemblyScenes = (() => {
   async function enterPlay(page, baseUrl) {
-    await page.goto(`${baseUrl}/assembly`);
+    await openGameFromHome(page, baseUrl, '/assembly');
     await page.getByRole('button', { name: 'Hrať' }).click();
   }
   async function placeWrongFullRail(page) {
@@ -534,7 +542,7 @@ for (const [scene, word] of [
 }
 SCENES['counting-maximum'] = async (page, baseUrl) => {
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ countingRange: { start: 1, end: 10 } })));
-  await page.goto(`${baseUrl}/counting`);
+  await openGameFromHome(page, baseUrl, '/counting');
   // Place the highest item first in Fisher-Yates, then preserve it. Install after
   // navigation so the generic seed initializer cannot replace this stress fixture.
   await page.evaluate(() => {
@@ -555,7 +563,7 @@ SCENES['assembly-completion'] = assemblyScenes.completion;
  * for the real game session to enter its answer phase; no React handler is invoked directly. */
 async function enterNumeracyRound(page, baseUrl, path) {
   await stubSpeechSynthesis(page);
-  await page.goto(`${baseUrl}${path}`);
+  await openGameFromHome(page, baseUrl, path);
   await page.getByRole('button', { name: 'Hrať' }).click();
   await waitForGamePhaseScene(page, 'awaiting-answer');
   await page.getByTestId('game-answer-region').getByRole('button').first().waitFor({ state: 'visible' });
@@ -582,7 +590,7 @@ SCENES['addition-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, 
  * scenes stop at a settled, answerable first round; feedback is represented separately by the
  * deterministic GameShell examples below. */
 async function enterFindItRound(page, baseUrl, path) {
-  await page.goto(`${baseUrl}${path}`);
+  await openGameFromHome(page, baseUrl, path);
   await page.getByRole('button', { name: 'Hrať' }).click();
   await waitForGamePhaseScene(page, 'awaiting-answer');
   await waitForPlaySurfaceSettled(page);

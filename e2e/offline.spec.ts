@@ -2,6 +2,7 @@ import { installNativeAudioMute } from './support/nativeAudioMute';
 import { expect, test } from '@playwright/test';
 import { RELEASE_GAME_CASES } from './support/releaseMatrix';
 import { LETTER_ITEMS } from '../src/shared/locales/sk';
+import { openGameFromHome, startGame } from './support/gameEntry';
 
 async function waitForOfflineControl(page: import('@playwright/test').Page) {
   await page.goto('/');
@@ -23,7 +24,7 @@ test('installed production shell opens every game and protected routes offline',
   await page.reload();
   await expect(page.getByRole('main')).toBeVisible();
   for (const game of RELEASE_GAME_CASES) {
-    await page.goto(game.path);
+    await openGameFromHome(page, game.path);
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     await page.reload();
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
@@ -39,8 +40,7 @@ test('bundled literacy and numeracy rounds start offline', async ({ page, contex
   await context.setOffline(true);
 
   for (const path of ['/alphabet', '/counting']) {
-    await page.goto(path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, path);
     await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
   }
@@ -72,8 +72,7 @@ test('uncached optional companion cannot block an offline correct answer', async
   });
   await waitForOfflineControl(page);
   await context.setOffline(true);
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   // Observe the actual prompt media; production has no test answer adapter.
   await page.waitForFunction(() => (window as typeof window & { offlineHeard?: string[] }).offlineHeard?.some(url => url.includes('/letters/')));
   const clip = await page.evaluate(() => (window as typeof window & { offlineHeard?: string[] }).offlineHeard!.find(url => url.includes('/letters/'))!);

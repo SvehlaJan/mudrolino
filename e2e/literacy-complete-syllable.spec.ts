@@ -2,10 +2,10 @@ import { expect, test } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { pressAnswerById, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { CompleteSyllableE2EState } from './support/literacyHarness';
+import { startGame } from './support/gameEntry';
 
 test('Doplň slabiku uses the shared literacy shell with a one-blank inset word rail', async ({ page }) => {
-  await page.goto('/complete-syllable');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-syllable');
   await expect(page.getByRole('main')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Doplň slabiku' })).toBeVisible();
   await expect(page.getByText('Doplň chýbajúcu slabiku')).toBeVisible();
@@ -30,8 +30,7 @@ test('Doplň slabiku uses the shared literacy shell with a one-blank inset word 
 test('Doplň slabiku announces retry politely without changing the play surface and leaves the inset unrevealed', async ({ page }) => {
   await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
-  await page.goto('/complete-syllable');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-syllable');
 
   const state = await getE2EState<CompleteSyllableE2EState>(page);
   const wrongId = state.answerItemIds.find((id) => id !== state.correctItemId);
@@ -52,8 +51,7 @@ test('Doplň slabiku announces retry politely without changing the play surface 
 });
 
 test('Doplň slabiku fills the missing slot before showing success', async ({ page }) => {
-  await page.goto('/complete-syllable');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-syllable');
 
   const state = await getE2EState<CompleteSyllableE2EState>(page);
   await pressAnswerById(page, state.correctItemId!);
@@ -69,8 +67,7 @@ test('Doplň slabiku fills the missing slot before showing success', async ({ pa
 });
 
 test('Doplň slabiku fails only on the third wrong tap and reveals the missing syllable first', async ({ page }) => {
-  await page.goto('/complete-syllable');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-syllable');
 
   const initialState = await getE2EState<CompleteSyllableE2EState>(page);
   const wrongId = initialState.answerItemIds.find((id) => id !== initialState.correctItemId);
@@ -106,8 +103,7 @@ test('Doplň slabiku fails only on the third wrong tap and reveals the missing s
 for (const dismissal of ['backdrop', 'automatic'] as const) {
   test(`Doplň slabiku dismisses exhausted feedback by ${dismissal} like success`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/complete-syllable');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/complete-syllable');
     const initial = await getE2EState<CompleteSyllableE2EState>(page);
     const wrongId = initial.answerItemIds.find(id => id !== initial.correctItemId)!;
     for (let attempt = 1; attempt <= 3; attempt++) {

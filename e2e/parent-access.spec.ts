@@ -7,6 +7,7 @@ import {
 } from './support/assertions';
 import { unlockParentGate, solveParentGate } from './support/parentGate';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
+import { openGameFromHome } from './support/gameEntry';
 
 test.describe('Parent Access Gate', () => {
   for (const [name, viewport] of [
@@ -261,7 +262,7 @@ test.describe('Parent Access Gate', () => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await page.goto('/alphabet');
+    await openGameFromHome(page, '/alphabet');
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     await page.evaluate(() => {
       window.history.pushState(
@@ -405,7 +406,7 @@ test.describe('Parent Gate Dialog', () => {
   });
 
   test('closing the gate over a game route restores focus to the settings trigger', async ({ page }) => {
-    await page.goto('/alphabet');
+    await openGameFromHome(page, '/alphabet');
     const trigger = page.getByRole('button', { name: 'Nastavenia' });
     await trigger.click();
 

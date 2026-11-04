@@ -17,6 +17,7 @@ import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { PRAISE_ENTRIES } from '../src/shared/locales/sk';
+import { startGame } from './support/gameEntry';
 
 /**
  * `@axe-core/playwright` declares its `page` param against a `Page` it imports straight from
@@ -246,16 +247,14 @@ function expectEventsInOrder(events: string[], expected: Array<string | RegExp>)
 }
 
 test('audio: records the alphabet prompt as logical clip events', async ({ page }) => {
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
 
   await expect.poll(() => getAudioEvents(page)).toContain('start:sk/phrases/najdi');
   await expect.poll(() => getAudioEvents(page)).toContain('finish:sk/phrases/najdi');
 });
 
 test('audio: visible and spoken praise correspond to the same entry on a correct answer', async ({ page }) => {
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
 
   const state = await getE2EState<AlphabetState>(page);
   await clearAudioEvents(page);
@@ -273,8 +272,7 @@ test('audio: visible and spoken praise correspond to the same entry on a correct
 });
 
 test('answer tiles announce retry without card text and expose settled states', async ({ page }) => {
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
 
   const initial = await getE2EState<AlphabetState>(page);
   const wrongId = initial.gridItemIds.find((id) => id !== initial.correctItemId)!;
@@ -294,8 +292,7 @@ test('answer tiles announce retry without card text and expose settled states', 
   await waitForGamePhase(page, 'awaiting-answer');
   await expect(wrongTile).toHaveAttribute('data-piece-state', 'idle');
 
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   const success = await getE2EState<AlphabetState>(page);
   const correctTile = page.locator(`[data-answer-id="${success.correctItemId}"]`);
 
@@ -306,8 +303,7 @@ test('answer tiles announce retry without card text and expose settled states', 
 });
 
 test('audio: alphabet serializes wrong, correct, and terminal-failure answer clips', async ({ page }) => {
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
 
   const initial = await getE2EState<AlphabetState>(page);
   const wrongId = initial.gridItemIds.find((id) => id !== initial.correctItemId)!;
@@ -326,8 +322,7 @@ test('audio: alphabet serializes wrong, correct, and terminal-failure answer cli
     'finish:sk/phrases/skus-to-znova',
   ]);
 
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   const success = await getE2EState<AlphabetState>(page);
   await clearAudioEvents(page);
   await pressAnswerById(page, success.correctItemId!);
@@ -343,8 +338,7 @@ test('audio: alphabet serializes wrong, correct, and terminal-failure answer cli
     /^finish:sk\/praise\//,
   ]);
 
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   const next = await getE2EState<AlphabetState>(page);
   const thirdWrong = next.gridItemIds.find((id) => id !== next.correctItemId)!;
   await clearAudioEvents(page);

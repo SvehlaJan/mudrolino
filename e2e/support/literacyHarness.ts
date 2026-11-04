@@ -5,6 +5,7 @@ import { pressAnswerById, waitForGamePhase } from './gameHarness';
 import { seedLocalStorage } from './persistenceFixtures';
 import type { E2EGlobalState } from '../../src/shared/services/e2eState';
 import type { GamePhase } from '../../src/shared/game/gameState';
+import { startGame } from './gameEntry';
 
 export function toAxeParams(page: Page): ConstructorParameters<typeof AxeBuilder>[0] {
   return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
@@ -250,8 +251,7 @@ export const BESPOKE_GAMES: BespokeGameCase[] = [
     heading: 'Prvé písmenko',
     instruction: 'Ktorým písmenom sa začína toto slovo?',
     enterPlay: async (page) => {
-      await page.goto('/first-letter');
-      await page.getByRole('button', { name: 'Hrať' }).click();
+      await startGame(page, '/first-letter');
     },
     answerWrong: genericAnswerWrong,
     answerCorrect: genericAnswerCorrect,
@@ -263,8 +263,7 @@ export const BESPOKE_GAMES: BespokeGameCase[] = [
     heading: 'Doplň písmeno',
     instruction: 'Doplň chýbajúce písmeno',
     enterPlay: async (page) => {
-      await page.goto('/complete-letter');
-      await page.getByRole('button', { name: 'Hrať' }).click();
+      await startGame(page, '/complete-letter');
     },
     answerWrong: genericAnswerWrong,
     answerCorrect: genericAnswerCorrect,
@@ -276,8 +275,7 @@ export const BESPOKE_GAMES: BespokeGameCase[] = [
     heading: 'Doplň slabiku',
     instruction: 'Doplň chýbajúcu slabiku',
     enterPlay: async (page) => {
-      await page.goto('/complete-syllable');
-      await page.getByRole('button', { name: 'Hrať' }).click();
+      await startGame(page, '/complete-syllable');
     },
     answerWrong: genericAnswerWrong,
     answerCorrect: genericAnswerCorrect,
@@ -290,8 +288,7 @@ export const BESPOKE_GAMES: BespokeGameCase[] = [
     instruction: 'Usporiadaj slabiky',
     enterPlay: async (page) => {
       await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-      await page.goto('/assembly');
-      await page.getByRole('button', { name: 'Hrať' }).click();
+      await startGame(page, '/assembly');
     },
     answerWrong: asmAnswerWrong,
     answerCorrect: asmAnswerCorrect,

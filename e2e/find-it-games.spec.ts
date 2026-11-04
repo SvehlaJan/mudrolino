@@ -18,6 +18,7 @@ import { CANONICAL_VIEWPORTS } from './support/viewports';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
 import { PRAISE_ENTRIES } from '../src/shared/locales/sk';
+import { openGameFromHome, startGame } from './support/gameEntry';
 
 // One PraiseEntry is picked per success transition (see FindItGame.tsx), so the visible
 // success title is whichever entry's text was chosen, not always the generic default.
@@ -79,8 +80,7 @@ async function waitForOverlaySettled(page: import('@playwright/test').Page): Pro
 
 /** Plays a fresh alphabet session to session-complete via pointer, answering every round correctly. */
 async function completeAlphabetSession(page: import('@playwright/test').Page): Promise<void> {
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   for (let round = 0; round < 5; round += 1) {
     const state = await getE2EState<FindItE2EState>(page);
     await pressAnswerById(page, state.correctItemId!);
@@ -95,8 +95,7 @@ async function completeAlphabetSession(page: import('@playwright/test').Page): P
 
 for (const game of FIND_IT_GAMES) {
   test(`${game.name}: round has one target among unique answer ids`, async ({ page }) => {
-    await page.goto(game.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, game.path);
 
     const state = await getE2EState<FindItE2EState>(page);
     expect(state.gameId).toBe(game.gameId);
@@ -108,8 +107,7 @@ for (const game of FIND_IT_GAMES) {
 
   test(`${game.name}: answers are available while the opening prompt plays`, async ({ page }) => {
     await stubAudioPlayback(page, { holdFirstClip: true });
-    await page.goto(game.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, game.path);
 
     await expect.poll(() => page.evaluate(() => (
       window as typeof window & { __heldAudio?: HTMLMediaElement[] }
@@ -122,8 +120,7 @@ for (const game of FIND_IT_GAMES) {
   test(`${game.name}: correct answer reaches success feedback`, async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
-    await page.goto(game.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, game.path);
 
     const state = await getE2EState<FindItE2EState>(page);
     await pressAnswerById(page, state.correctItemId!);
@@ -135,8 +132,7 @@ for (const game of FIND_IT_GAMES) {
   });
 
   test(`${game.name}: one and two wrong answers stay recoverable and do not count the round`, async ({ page }) => {
-    await page.goto(game.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, game.path);
 
     for (let attempt = 0; attempt < 2; attempt += 1) {
       const wrongId = await findWrongId(page);
@@ -154,8 +150,7 @@ for (const game of FIND_IT_GAMES) {
   test(`${game.name}: three wrong answers reach failure feedback and count the round without crediting it`, async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
-    await page.goto(game.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, game.path);
 
     for (let attempt = 0; attempt < 3; attempt += 1) {
       const wrongId = await findWrongId(page);
@@ -176,8 +171,7 @@ for (const game of FIND_IT_GAMES) {
 test('@geometry FindIt retry announcement does not change prompt or answer geometry', async ({ page }) => {
   await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   const state = await getE2EState<FindItE2EState>(page);
   const geometry = () => page.evaluate(() => {
     const box = (selector: string) => {
@@ -207,8 +201,7 @@ test('@geometry FindIt retry announcement does not change prompt or answer geome
 test('alphabet: a full 5-round session reaches an explicit completion that requires a choice', async ({ page }) => {
   const errors = trackConsoleErrors(page);
   const failedRequests = trackFailedRequests(page);
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
 
   for (let round = 0; round < 5; round += 1) {
     const state = await getE2EState<FindItE2EState>(page);
@@ -251,8 +244,7 @@ async function playUntilPraiseIsHeld(page: import('@playwright/test').Page, prai
 test('alphabet: non-final success advances one second after the full verdict audio finishes', async ({ page }) => {
   await stubAudioPlayback(page, { holdPraise: true });
   await stubSpeechSynthesis(page);
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   const state = await getE2EState<FindItE2EState>(page);
 
   await playUntilPraiseIsHeld(page, 1, state.correctItemId!);
@@ -277,8 +269,7 @@ test('alphabet: non-final success advances one second after the full verdict aud
 test('alphabet: Continue and backdrop advance, while panel clicks do not dismiss success', async ({ page }) => {
   await stubAudioPlayback(page, { holdPraise: true });
   await stubSpeechSynthesis(page);
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   let state = await getE2EState<FindItE2EState>(page);
 
   await playUntilPraiseIsHeld(page, 1, state.correctItemId!);
@@ -319,8 +310,7 @@ test('alphabet: final session recap never auto-advances', async ({ page }) => {
 });
 
 test('alphabet: completion actions stay absent until session-complete after a final correct answer', async ({ page }) => {
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
 
   for (let round = 0; round < 4; round += 1) {
     const state = await getE2EState<FindItE2EState>(page);
@@ -360,8 +350,7 @@ test('alphabet: completion actions stay absent until session-complete after a fi
 });
 
 test('alphabet: completion actions stay absent until session-complete after a final exhausted-failure round', async ({ page }) => {
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
 
   for (let round = 0; round < 4; round += 1) {
     const state = await getE2EState<FindItE2EState>(page);
@@ -414,8 +403,7 @@ for (const exp of EXPECTED_GAMES) {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await page.goto(exp.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, exp.path);
 
     await expect(page.getByRole('heading', { level: 1, name: exp.title })).toBeVisible();
     await expect(page.getByTestId('game-visible-instruction')).toContainText(exp.instruction);
@@ -445,8 +433,7 @@ test.describe('Task 7: Viewport tests for FindIt games', () => {
     for (const viewport of VIEWPORTS) {
       test(`${game.name} meets viewport constraints at ${viewport.width}x${viewport.height}`, async ({ page }) => {
         await page.setViewportSize(viewport);
-        await page.goto(game.path);
-        await page.getByRole('button', { name: 'Hrať' }).click();
+        await startGame(page, game.path);
 
         await expectNoHorizontalOverflow(page);
         await expectWithinViewport(page, page.getByRole('button', { name: 'Zopakovať zadanie' }));
@@ -479,8 +466,7 @@ test.describe('Task 7: Viewport tests for FindIt games', () => {
     for (const viewport of LARGE_VIEWPORTS) {
       test(`${game.name} meets viewport constraints at ${viewport.width}x${viewport.height}`, async ({ page }) => {
         await page.setViewportSize(viewport);
-        await page.goto(game.path);
-        await page.getByRole('button', { name: 'Hrať' }).click();
+        await startGame(page, game.path);
 
         await expectNoHorizontalOverflow(page);
         await expectWithinViewport(page, page.getByRole('button', { name: 'Zopakovať zadanie' }));
@@ -502,8 +488,7 @@ test.describe('Task 7: Viewport tests for FindIt games', () => {
 test.describe('Task 7: Rotation preservation and keyboard control', () => {
   test('rotation preserves round state, answers, and focus without restarting', async ({ page }) => {
     await page.setViewportSize(CANONICAL_VIEWPORTS.phonePortrait);
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/alphabet');
 
     const state1 = await getE2EState<FindItE2EState>(page);
     const firstAnswer = page.locator('[data-testid="game-answer-region"] button').first();
@@ -533,7 +518,7 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
 
   for (const game of FIND_IT_GAMES) {
     test(`${game.name}: full keyboard navigation, activation, and feedback flow`, async ({ page }) => {
-      await page.goto(game.path);
+      await openGameFromHome(page, game.path);
       const playButton = page.getByRole('button', { name: 'Hrať' });
       await playButton.focus();
       await page.keyboard.press('Enter');
@@ -571,7 +556,7 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
       await page.keyboard.press('Enter');
     }
 
-    await page.goto('/alphabet');
+    await openGameFromHome(page, '/alphabet');
     const playButton = page.getByRole('button', { name: 'Hrať' });
     await playButton.focus();
     await page.keyboard.press('Enter');
@@ -615,8 +600,7 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
 test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
   test('reduced motion and axe accessibility on FindIt round and feedback', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/alphabet');
 
     const roundAxe = await new AxeBuilder(toAxeParams(page))
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
@@ -637,8 +621,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
 
   test('reduced motion: retry feedback is announced without card text under reduced motion', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/alphabet');
 
     const wrongId = await findWrongId(page);
     await pressAnswerById(page, wrongId);
@@ -655,8 +638,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
 
   test('reduced motion: exhausted-failure feedback is legible with no serious axe violations', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/alphabet');
 
     for (let attempt = 0; attempt < 3; attempt += 1) {
       const wrongId = await findWrongId(page);
@@ -694,8 +676,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
 
   for (const game of FIND_IT_GAMES) {
     test(`${game.name}: no serious or critical axe violations on the active round`, async ({ page }) => {
-      await page.goto(game.path);
-      await page.getByRole('button', { name: 'Hrať' }).click();
+      await startGame(page, game.path);
 
       const results = await new AxeBuilder(toAxeParams(page))
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
@@ -715,8 +696,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
 
   test('200% zoom maintains accessibility without horizontal scrolling', async ({ page }) => {
     await page.setViewportSize({ width: 640, height: 450 });
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/alphabet');
 
     await expectNoHorizontalOverflow(page);
     await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
@@ -752,8 +732,7 @@ test.describe('Task 7: Active rounds never require scrolling to reveal an answer
     test(`${game.name}: fits the viewport without vertical overflow at narrow and short viewports`, async ({ page }) => {
       for (const viewport of [CANONICAL_VIEWPORTS.narrowPhone, CANONICAL_VIEWPORTS.shortLandscape]) {
         await page.setViewportSize(viewport);
-        await page.goto(game.path);
-        await page.getByRole('button', { name: 'Hrať' }).click();
+        await startGame(page, game.path);
 
         const overflow = await page.evaluate(() => {
           const main = document.querySelector('main');

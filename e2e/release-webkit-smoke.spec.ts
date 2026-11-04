@@ -8,6 +8,7 @@ import {
 } from './support/assertions';
 import { completeCurrentRound, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
+import { startGame } from './support/gameEntry';
 
 async function startFromHome(page: Page, title: string): Promise<void> {
   await page.goto('/');
@@ -47,8 +48,7 @@ test('bear companion succeeds with WebKit', async ({ page }, testInfo) => {
   const requests = trackFailedRequests(page);
   await installCompanionFixture(page);
   await stubAudioPlayback(page, { holdPraise: true });
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   await waitForGamePhase(page, 'awaiting-answer');
   let representation = 'still';
   for (let round = 0; round < 5; round += 1) {

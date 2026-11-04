@@ -6,6 +6,7 @@ import { stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { expectMinimumTarget } from './support/layoutAssertions';
 import { unlockParentGate } from './support/parentGate';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
+import { openGameFromHome, startGame } from './support/gameEntry';
 
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 const INTERACTION_FAMILIES = ['ALPHABET', 'ASSEMBLY', 'COUNTING_ITEMS', 'COMPARE_QUANTITIES', 'ADDITION'] as const;
@@ -31,8 +32,7 @@ async function expectNoSeriousAxeViolations(page: Page): Promise<void> {
 
 async function startRound(page: Page, game: ReleaseGameCase): Promise<void> {
   await stubSpeechSynthesis(page);
-  await page.goto(game.path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, game.path);
   await expect(page.getByRole('heading', { level: 1, name: game.title })).toBeVisible();
   await waitForGamePhase(page, 'awaiting-answer');
 }
@@ -52,7 +52,7 @@ test('home has one main landmark and no serious accessibility violations', async
 
 test('a game lobby exposes its primary action without serious accessibility violations', async ({ page }) => {
   const game = RELEASE_GAME_CASES[0];
-  await page.goto(game.path);
+  await openGameFromHome(page, game.path);
   await expect(page.getByRole('main')).toHaveCount(1);
   await expect(page.getByRole('heading', { level: 1, name: game.title })).toHaveCount(1);
   await expectMinimumTarget(page, page.getByRole('button', { name: 'Hrať' }), 48);

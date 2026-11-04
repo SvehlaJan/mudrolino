@@ -1,6 +1,7 @@
 // Deliberately use native fixtures: the default fast fixture must never wrap this suite.
 import { expect, test } from '@playwright/test';
 import { getAudioEvents, waitForGamePhase } from './support/gameHarness';
+import { startGame } from './support/gameEntry';
 
 interface NativeMediaObservation {
   starts: number;
@@ -29,8 +30,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('bundled media delivers a native ended event and completes a silent game prompt', async ({ page }) => {
-  await page.goto('/numbers');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/numbers');
   await expect.poll(() => page.evaluate(() => (
     window as typeof window & { __nativeMedia: NativeMediaObservation }
   ).__nativeMedia.ends)).toBeGreaterThan(0);
@@ -44,8 +44,7 @@ test('bundled media delivers a native ended event and completes a silent game pr
 });
 
 test('leaving during native playback cancels media and a fresh game can complete its prompt', async ({ page }) => {
-  await page.goto('/numbers');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/numbers');
   await expect.poll(() => page.evaluate(() => (
     window as typeof window & { __nativeMedia: NativeMediaObservation }
   ).__nativeMedia.starts)).toBeGreaterThan(0);
@@ -53,8 +52,7 @@ test('leaving during native playback cancels media and a fresh game can complete
   await expect.poll(() => page.evaluate(() => (
     window as typeof window & { __nativeMedia: NativeMediaObservation }
   ).__nativeMedia.cancellations)).toBeGreaterThan(0);
-  await page.goto('/numbers');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/numbers');
   await expect.poll(async () => (await getAudioEvents(page)).some(event => event.startsWith('finish:sk/numbers/'))).toBe(true);
   await waitForGamePhase(page, 'awaiting-answer');
 });

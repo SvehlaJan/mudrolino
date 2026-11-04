@@ -5,14 +5,14 @@ import {
   trackFailedRequests,
   expectNoFailedRequests,
 } from './support/assertions';
+import { startGame } from './support/gameEntry';
 
 test.describe('UI/UX Enhancements', () => {
   test('replay control: renders in alphabet game and is clickable', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/alphabet');
 
     // Phase 5's shared GamePrompt replaced the audio-only AuditoryPromptBadge with a
     // visible instruction plus this replay control for every FindIt-based game.
@@ -30,8 +30,7 @@ test.describe('UI/UX Enhancements', () => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await page.goto('/counting');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/counting');
 
     const items = page.getByRole('button', { name: /^Predmet \d+ z \d+$/ });
     await expect(items.first()).toBeVisible();
@@ -69,8 +68,7 @@ test.describe('UI/UX Enhancements', () => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await page.goto('/assembly');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, '/assembly');
 
     // Task 6's migration replaced the bespoke PromptBadge/AnswerSlot markup with the shared
     // PictureCard + WordRail/InsetSlot materials (same Phase 5 shell as the other literacy games).

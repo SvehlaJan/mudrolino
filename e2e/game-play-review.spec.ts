@@ -2,6 +2,7 @@ import { expect, test, type Locator } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { waitForGamePhase } from './support/gameHarness';
 import { GAME_DEFINITIONS } from '../src/shared/gameCatalog';
+import { openGameFromHome, startGame } from './support/gameEntry';
 
 async function expectUnclippedShadows(controls: Locator) {
   const clipping = await controls.evaluateAll(elements => elements.flatMap(element => {
@@ -24,8 +25,7 @@ for (const { path } of GAME_DEFINITIONS) {
     await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({
       compareMode: 'objects', additionRepresentation: 'objects', additionSumRange: 5,
     })));
-    await page.goto(path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, path);
     await waitForGamePhase(page, 'awaiting-answer');
     const answers = page.getByTestId('game-answer-region').locator('button');
     await expect(answers.first()).toBeVisible();
@@ -68,8 +68,7 @@ for (const { path } of GAME_DEFINITIONS) {
 }
 
 test('visual roles: Assembly placed tiles fit flush in the rail and remain operable answers @geometry', async ({ page }) => {
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
   await waitForGamePhase(page, 'awaiting-answer');
   const state = await getE2EState<{ correctTileOrder: string[] }>(page);
   await page.getByTestId('play-tray').locator(`[data-tile-id="${state.correctTileOrder[0]}"]`).click();
@@ -84,8 +83,7 @@ test('visual roles: Assembly placed tiles fit flush in the rail and remain opera
 
 test('review: number answers keep retry feedback off the card', async ({ page }) => {
   await page.setViewportSize({ width: 1107, height: 853 });
-  await page.goto('/numbers');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/numbers');
   const state = await getE2EState<{ correctItemId: string; gridItemIds: string[] }>(page);
   const wrong = state.gridItemIds.find(id => id !== state.correctItemId)!;
   const tile = page.locator(`[data-answer-id=${JSON.stringify(wrong)}]`);
@@ -98,7 +96,7 @@ test('review: number answers keep retry feedback off the card', async ({ page })
 test('review: ten counting items remain tappable at narrow and short sizes', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 568 });
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ countingRange: { start: 1, end: 10 } })));
-  await page.goto('/counting');
+  await openGameFromHome(page, '/counting');
   await page.evaluate(() => { let first = true; Math.random = () => { if (first) { first = false; return 0; } return 0.999; }; });
   await page.getByRole('button', { name: 'Hrať' }).click();
   for (const viewport of [{ width: 320, height: 568 }, { width: 667, height: 375 }]) {
@@ -116,8 +114,7 @@ test('review: ten counting items remain tappable at narrow and short sizes', asy
 for (const route of ['/counting', '/compare']) {
   test(`review: ${route} answer shadows are not cut off`, async ({ page }) => {
     await page.setViewportSize({ width: 1107, height: 853 });
-    await page.goto(route);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, route);
     await waitForGamePhase(page, 'awaiting-answer');
     await expectUnclippedShadows(page.locator('[data-testid="game-answer-region"] > button'));
   });
@@ -127,7 +124,7 @@ for (const route of ['/counting', '/compare']) {
     await page.addInitScript(() => {
       localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ countingRange: { start: 1, end: 5 }, compareRange: { start: 1, end: 5 }, compareMode: 'objects' }));
     });
-    await page.goto(route);
+    await openGameFromHome(page, route);
     await page.evaluate(path => {
       let calls = 0;
       Math.random = path === '/counting'

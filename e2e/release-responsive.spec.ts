@@ -10,6 +10,7 @@ import {
 } from './support/layoutAssertions';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
 import { unlockParentGate } from './support/parentGate';
+import { openGameFromHome, startGame } from './support/gameEntry';
 
 const GAMES_WITH_SETTINGS = new Set([
   'ALPHABET', 'SYLLABLES', 'NUMBERS', 'FIRST_LETTER', 'COMPLETE_LETTER',
@@ -18,8 +19,7 @@ const GAMES_WITH_SETTINGS = new Set([
 
 async function startRound(page: Page, game: ReleaseGameCase): Promise<void> {
   await stubSpeechSynthesis(page);
-  await page.goto(game.path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, game.path);
   await expect(page.getByRole('heading', { level: 1, name: game.title })).toBeVisible();
   await waitForGamePhase(page, 'awaiting-answer');
 }
@@ -54,7 +54,7 @@ test('home keeps both game groups and all release cards reachable', async ({ pag
 
 for (const game of RELEASE_GAME_CASES) {
   test(`${game.id} lobby keeps its child actions contained`, async ({ page }) => {
-    await page.goto(game.path);
+    await openGameFromHome(page, game.path);
     await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.getByRole('heading', { level: 1, name: game.title })).toBeVisible();
     await expect(page.getByTestId('lobby-instruction')).toBeVisible();
@@ -122,8 +122,7 @@ test('ordinary home content avoids horizontal scroll at 200 percent CSS zoom', a
 test('bear companion success and completion fit', async ({ page }) => {
   await installCompanionFixture(page);
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   await waitForGamePhase(page, 'awaiting-answer');
   for (let round = 0; round < 5; round += 1) {
     await completeCurrentRound(page, 'ALPHABET');

@@ -8,6 +8,7 @@ import {
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';
+import { openGameFromHome } from './support/gameEntry';
 
 test.describe('Catalog, home, and lobbies', () => {
   test('home renders ordered catalog groups and every game once', async ({ page }) => {
@@ -68,7 +69,7 @@ test.describe('Game lobby semantic contract', () => {
     test(`lobby for ${game.id} (${game.path}) fulfills semantic contract`, async ({ page }) => {
       const errors = trackConsoleErrors(page);
       const failedRequests = trackFailedRequests(page);
-      await page.goto(game.path);
+      await openGameFromHome(page, game.path);
       const main = page.getByRole('main');
       await expect(main.getByRole('heading', { level: 1 })).toHaveCount(1);
       await expect(main.getByTestId('lobby-instruction')).toBeVisible();
@@ -89,7 +90,7 @@ test.describe('Game lobby semantic contract', () => {
   test('alphabet lobby settings flow: cancel returns to /alphabet with focus, unlock opens the routed game settings screen, saves updates, and close returns with focus', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
-    await page.goto('/alphabet');
+    await openGameFromHome(page, '/alphabet');
     const settingsBtn = page.getByRole('button', { name: 'Nastavenia' });
     await expect(settingsBtn).toBeVisible();
 
@@ -141,7 +142,7 @@ test.describe('Game lobby semantic contract', () => {
       );
     });
 
-    await page.goto('/alphabet');
+    await openGameFromHome(page, '/alphabet');
     const main = page.getByRole('main');
     await expect(page.getByTestId('lobby-body')).toHaveAttribute('data-locale', 'cs');
     await expect(main.getByRole('heading', { level: 1 })).toHaveText('Čti písmenka');
@@ -156,7 +157,7 @@ test.describe('Game lobby semantic contract', () => {
   test('lobby renders cleanly at short landscape (667x375) and narrow phone (320x568)', async ({ page }) => {
     // 320x568
     await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
-    await page.goto('/alphabet');
+    await openGameFromHome(page, '/alphabet');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
@@ -164,7 +165,7 @@ test.describe('Game lobby semantic contract', () => {
 
     // 667x375
     await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
-    await page.goto('/alphabet');
+    await openGameFromHome(page, '/alphabet');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);

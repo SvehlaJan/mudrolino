@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';
 import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
+import { startGame } from './support/gameEntry';
 
 const SERIOUS_IMPACTS = ['critical', 'serious'];
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
@@ -74,8 +75,7 @@ const NUMERACY_ROUTES: NumeracyRoute[] = [
 async function startRound(page: Page, route: NumeracyRoute): Promise<void> {
   await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
-  await page.goto(route.path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, route.path);
   await expect(page.getByRole('heading', { name: route.heading })).toBeVisible();
   await waitForGamePhase(page, 'awaiting-answer');
 }

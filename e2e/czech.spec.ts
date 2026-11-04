@@ -5,6 +5,7 @@ import { pressAnswerById, waitForGamePhase } from './support/gameHarness';
 import { unlockParentGate } from './support/parentGate';
 import { PRAISE_ENTRIES } from '../src/shared/locales/cs';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
+import { startGame } from './support/gameEntry';
 
 const CZECH_PRAISE = new RegExp(PRAISE_ENTRIES.map(entry => entry.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
 
@@ -17,8 +18,7 @@ test.beforeEach(async ({ page }) => {
 test('a Czech family plays with Czech prompts, letters and praise', async ({ page }) => {
   const errors = trackConsoleErrors(page);
   const failedRequests = trackFailedRequests(page);
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrát' }).click();
+  await startGame(page, '/alphabet');
 
   await expect(page.getByText('Najdi písmeno, které slyšíš.')).toBeVisible();
   const state = await getE2EState<E2EGlobalState & { correctItemId: string | null; gridItemIds: string[] }>(page);

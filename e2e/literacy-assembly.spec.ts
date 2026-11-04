@@ -3,11 +3,11 @@ import { expectMinimumTarget } from './support/layoutAssertions';
 import { getE2EState } from './support/e2eHook';
 import { clearAudioEvents, getAudioEvents, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { AssemblyE2EState, ASSEMBLY_JAHODA, ASSEMBLY_MAMA, seedSingleAssemblyWord, expectEventsInOrder } from './support/literacyHarness';
+import { startGame } from './support/gameEntry';
 
 test('Skladaj uses the shared literacy shell with a tap-to-place felt tray and word rail', async ({ page }) => {
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   await expect(page.getByRole('main')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Skladaj slabiky' })).toBeVisible();
@@ -37,8 +37,7 @@ test('Skladaj uses the shared literacy shell with a tap-to-place felt tray and w
 
 test('Skladaj fills the first open rail slot on a tray tap and returns the exact tile on a rail tap', async ({ page }) => {
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   const state = await getE2EState<AssemblyE2EState>(page);
   const firstTileId = state.trayTileIds[0];
@@ -66,8 +65,7 @@ test('Skladaj fills the first open rail slot on a tray tap and returns the exact
 
 test('Skladaj settles a correct full rail before success, speaking the final syllable once before praise', async ({ page }) => {
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   const state = await getE2EState<AssemblyE2EState>(page);
   const tray = page.getByTestId('play-tray');
@@ -106,8 +104,7 @@ test('Skladaj announces retry without a visible banner on a wrong full rail, pla
   await stubAudioPlayback(page);
   await stubSpeechSynthesis(page);
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   const state = await getE2EState<AssemblyE2EState>(page);
   const [first, second, third] = state.correctTileOrder;
@@ -157,8 +154,7 @@ test('Skladaj announces retry without a visible banner on a wrong full rail, pla
 
 test('Skladaj keeps repeated syllables independently operable by stable tile ID', async ({ page }) => {
   await seedSingleAssemblyWord(page, ASSEMBLY_MAMA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   const state = await getE2EState<AssemblyE2EState>(page);
   expect(state.trayTileIds).toHaveLength(2);
@@ -191,8 +187,7 @@ test('Skladaj keeps repeated syllables independently operable by stable tile ID'
 
 test('Skladaj tray and rail form two independent roving-tabstop keyboard groups', async ({ page }) => {
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   const state = await getE2EState<AssemblyE2EState>(page);
   const tray = page.getByTestId('play-tray');
@@ -225,8 +220,7 @@ test('Skladaj tray and rail form two independent roving-tabstop keyboard groups'
 test('Skladaj reaches the correct final board under reduced motion with no stale floating tiles', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   const state = await getE2EState<AssemblyE2EState>(page);
   const tray = page.getByTestId('play-tray');
@@ -251,8 +245,7 @@ test('Skladaj reaches the correct final board under reduced motion with no stale
 
 test('Skladaj leaves no stale floating tile clones after a wrong full rail resets', async ({ page }) => {
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
 
   const state = await getE2EState<AssemblyE2EState>(page);
   const [first, second, third] = state.correctTileOrder;

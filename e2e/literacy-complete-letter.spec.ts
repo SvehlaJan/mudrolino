@@ -3,11 +3,11 @@ import { getE2EState } from './support/e2eHook';
 import { pressAnswerById, waitForGamePhase } from './support/gameHarness';
 import { seedLocalStorage } from './support/persistenceFixtures';
 import { CompleteLetterE2EState } from './support/literacyHarness';
+import { startGame } from './support/gameEntry';
 
 test('Doplň písmeno uses the shared literacy shell with a progressive word rail', async ({ page }) => {
   await seedLocalStorage(page, { 'hrave-ucenie-settings': { completeLetterMissingCount: 2 } });
-  await page.goto('/complete-letter');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-letter');
   await expect(page.getByRole('main')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Doplň písmeno' })).toBeVisible();
   await expect(page.getByText('Doplň chýbajúce písmeno')).toBeVisible();
@@ -33,8 +33,7 @@ test('Doplň písmeno uses the shared literacy shell with a progressive word rai
 
 test('Doplň písmeno advances the active inset on the first correct fit and completes on the second', async ({ page }) => {
   await seedLocalStorage(page, { 'hrave-ucenie-settings': { completeLetterMissingCount: 2 } });
-  await page.goto('/complete-letter');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-letter');
 
   const firstState = await getE2EState<CompleteLetterE2EState>(page);
   expect(firstState.missingCount).toBe(2);
@@ -71,8 +70,7 @@ test('Doplň písmeno advances the active inset on the first correct fit and com
 
 test('Doplň písmeno fails only on the third wrong tap across the whole word and reveals every remaining blank first', async ({ page }) => {
   await seedLocalStorage(page, { 'hrave-ucenie-settings': { completeLetterMissingCount: 2 } });
-  await page.goto('/complete-letter');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-letter');
 
   const initialState = await getE2EState<CompleteLetterE2EState>(page);
   expect(initialState.missingCount).toBe(2);
@@ -120,8 +118,7 @@ test('Doplň písmeno fails only on the third wrong tap across the whole word an
 
 test('Doplň písmeno never reports an accented correct answer when accents are disabled', async ({ page }) => {
   await seedLocalStorage(page, { 'hrave-ucenie-settings': { alphabetAccents: false } });
-  await page.goto('/complete-letter');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/complete-letter');
 
   const state = await getE2EState<CompleteLetterE2EState>(page);
   expect(state.correctItemId).not.toBeNull();

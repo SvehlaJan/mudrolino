@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { startGame } from './support/gameEntry';
 
 test('test builds silence fallback speech while still completing the prompt', async ({ page }) => {
   await page.addInitScript(() => {
@@ -17,8 +18,7 @@ test('test builds silence fallback speech while still completing the prompt', as
     };
   });
 
-  await page.goto('/numbers');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/numbers');
   await expect.poll(() => page.evaluate(() => {
     const state = (window as typeof window & { __speechOutput: { volumes: number[] } }).__speechOutput;
     return state.volumes.length > 0 && state.volumes.every(volume => volume === 0);

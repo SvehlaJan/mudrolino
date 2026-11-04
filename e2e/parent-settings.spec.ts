@@ -8,6 +8,7 @@ import {
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';
+import { openGameFromHome } from './support/gameEntry';
 
 test.describe('Parent dashboard and game settings', () => {
   test('dashboard exposes the four parent destinations', async ({ page }) => {
@@ -160,7 +161,7 @@ test.describe('Parent dashboard and game settings', () => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await page.goto('/syllables');
+    await openGameFromHome(page, '/syllables');
     const trigger = page.getByRole('button', { name: 'Nastavenia' });
     await trigger.click();
     await unlockParentGate(page);

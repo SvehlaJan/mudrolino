@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from './support/fixtures';
 import { seedLocalStorage } from './support/persistenceFixtures';
 import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
+import { startGame } from './support/gameEntry';
 
 const WORD = { word: 'Jahoda', syllables: 'ja-ho-da', emoji: '🍓', audioKey: 'jahoda' };
 const LONG_SYLLABLE_WORD = { word: 'Dlhý strom', syllables: 'dlo-hý-stro', emoji: '🌳', audioKey: 'dlhy-strom' };
@@ -28,8 +29,7 @@ async function seedWord(page: Page, word = WORD) {
       }],
     },
   });
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
   await expect(page.getByTestId('word-rail')).toBeVisible();
 }
 

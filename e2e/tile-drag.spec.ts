@@ -4,6 +4,7 @@ import { ASSEMBLY_JAHODA, LONG_LABEL_WORDS, seedSingleLiteracyWord, type Complet
 import { seedLocalStorage } from './support/persistenceFixtures';
 import { clearAudioEvents, getAudioEvents, waitForGamePhase } from './support/gameHarness';
 import { expectNoConsoleErrors, expectNoFailedRequests, trackConsoleErrors, trackFailedRequests } from './support/assertions';
+import { startGame } from './support/gameEntry';
 
 const test = base.extend<{ cleanBrowser: void }>({
   cleanBrowser: [async ({ page }, use) => {
@@ -20,8 +21,7 @@ const games = ['complete-letter', 'complete-syllable'] as const;
 async function start(page: Page, game: typeof games[number], missingCount = 1) {
   await seedSingleLiteracyWord(page, game === 'complete-syllable' ? LONG_LABEL_WORDS['complete-syllable'] : ASSEMBLY_JAHODA);
   await seedLocalStorage(page, { 'hrave-ucenie-settings': { completeLetterMissingCount: missingCount } });
-  await page.goto(`/${game}`);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, `/${game}`);
   await waitForGamePhase(page, 'awaiting-answer');
   return getE2EState<State>(page);
 }

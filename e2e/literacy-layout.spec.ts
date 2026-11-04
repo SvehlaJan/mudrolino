@@ -5,6 +5,7 @@ import { getE2EState } from './support/e2eHook';
 import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { CANONICAL_VIEWPORTS, INTEGRATION_VIEWPORTS } from './support/viewports';
 import { toAxeParams, isSeriousAxeViolation, LONG_LABEL_WORDS, seedSingleLiteracyWord, BespokeRoundState, BespokeGameCase, BESPOKE_GAMES, actedControl, waitForOverlaySettled, AXE_TAGS, expectNotClippedByAncestorOverflow, PLAY_SURFACE_CONTROLS, waitForPlaySurfaceSettled } from './support/literacyHarness';
+import { startGame } from './support/gameEntry';
 
 test('UI kit exposes the literacy material vocabulary', async ({ page }) => {
   await page.goto('/ui-kit');
@@ -21,8 +22,7 @@ for (const [name,viewport] of Object.entries(INTEGRATION_VIEWPORTS)) {
   test(`television emoji fits inside its circular question at ${name}`,async ({page})=>{
     await page.setViewportSize(viewport);
     await seedSingleLiteracyWord(page,{word:'Televízor',syllables:'te-le-ví-zor',emoji:'📺',audioKey:'televizor'});
-    await page.goto('/first-letter');
-    await page.getByRole('button',{name:'Hrať'}).click();
+    await startGame(page, '/first-letter');
     await waitForGamePhase(page,'awaiting-answer');
     const fits=await page.getByRole('img',{name:'Televízor',exact:true}).evaluate(frame=>{
       const text=document.createRange();
@@ -238,8 +238,7 @@ test.describe('Final review: literacy answer labels stay inside their tiles on l
     // DŽ for the two letter games, STRO for missing-syllable, and DLO/STRO in Assembly.
     await page.addInitScript(() => { Math.random = () => 0; });
     await seedSingleLiteracyWord(page, LONG_LABEL_WORDS[game.name]);
-    await page.goto(game.path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, game.path);
   }
 
   for (const game of BESPOKE_GAMES) {

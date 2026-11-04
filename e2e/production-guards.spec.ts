@@ -5,6 +5,7 @@ import {
   expectNoConsoleErrors,
   expectNoFailedRequests,
 } from './support/assertions';
+import { startGame } from './support/gameEntry';
 
 test('production does not expose the parent gate adapter', async ({ page }) => {
   const errors = trackConsoleErrors(page);
@@ -46,8 +47,7 @@ test('production ignores the candidate companion fixture global', async ({ page 
   const fixtureRequests: string[] = [];
   page.on('request', request => { if (request.url().includes('/__avatar_fixture/')) fixtureRequests.push(request.url()); });
   await page.addInitScript(() => { window.__E2E__ = { companionFixture: true }; });
-  await page.goto('/alphabet');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/alphabet');
   await expect(page.getByTestId('game-answer-region')).toBeVisible();
   await expect(page.getByTestId('learning-companion')).toHaveCount(0);
   expect(fixtureRequests).toEqual([]);

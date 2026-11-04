@@ -13,6 +13,7 @@ import {
   waitForOverlay,
 } from './support/assertions';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
+import { startGame } from './support/gameEntry';
 
 interface AdditionE2EState extends E2EGlobalState {
   gameId: 'ADDITION';
@@ -37,8 +38,7 @@ async function tapWrongOption(page: import('@playwright/test').Page): Promise<vo
 }
 
 async function startAddition(page: Page): Promise<void> {
-  await page.goto('/addition');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/addition');
   await expect(page.getByText('Koľko je spolu?')).toBeVisible();
 }
 

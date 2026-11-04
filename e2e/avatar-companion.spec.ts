@@ -7,6 +7,7 @@ import { getE2EState } from './support/e2eHook';
 import { expectNoConsoleErrors, expectNoFailedRequests, trackConsoleErrors, trackFailedRequests } from './support/assertions';
 import { expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
 import { seedLocalStorage } from './support/persistenceFixtures';
+import { startGame } from './support/gameEntry';
 
 // Playwright requires worker-scoped launchOptions at file scope. This companion-only
 // file preserves the normal suite configuration and does not apply flags to WebKit.
@@ -16,8 +17,7 @@ test.use({ launchOptions: {
 } });
 
 async function start(page: Page, path = '/alphabet') {
-  await page.goto(path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, path);
   await waitForGamePhase(page, 'awaiting-answer');
 }
 async function releasePraise(page: Page) {
@@ -463,8 +463,7 @@ for (const locale of ['sk', 'cs'] as const) {
       path: 'public/audio/sk/praise/vyborne.mp3', contentType: 'audio/mpeg',
     }));
     await seedLocalStorage(page, { 'hrave-ucenie-app-settings': { locale } });
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: /^(Hrať|Hrát)$/ }).click();
+    await startGame(page, '/alphabet');
     await waitForGamePhase(page, 'awaiting-answer');
     await completeCurrentRound(page, 'ALPHABET');
     await expect3D(page);
@@ -488,8 +487,7 @@ for (const locale of ['sk', 'cs'] as const) {
     await waitForGamePhase(page, 'session-complete');
     await captureCompanionReview(page, testInfo, 'results', locale, { errors, failedRequests: requests });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/alphabet');
-    await page.getByRole('button', { name: /^(Hrať|Hrát)$/ }).click();
+    await startGame(page, '/alphabet');
     await waitForGamePhase(page, 'awaiting-answer');
     await completeCurrentRound(page, 'ALPHABET');
     await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-representation', 'still');

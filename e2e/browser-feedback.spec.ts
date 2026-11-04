@@ -3,6 +3,7 @@ import { trackConsoleErrors, trackFailedRequests, expectNoConsoleErrors, expectN
 import { seedSingleAssemblyWord, ASSEMBLY_JAHODA, type AssemblyE2EState } from './support/literacyHarness';
 import { getE2EState } from './support/e2eHook';
 import { waitForGamePhase } from './support/gameHarness';
+import { startGame } from './support/gameEntry';
 
 const test = base.extend<{ cleanBrowser: void }>({
   cleanBrowser: [async ({ page }, use) => {
@@ -16,8 +17,7 @@ const test = base.extend<{ cleanBrowser: void }>({
 
 async function assembly(page: Page) {
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
-  await page.goto('/assembly');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/assembly');
   await waitForGamePhase(page, 'awaiting-answer');
   return getE2EState<AssemblyE2EState>(page);
 }

@@ -3,6 +3,7 @@ import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';
 import { stubSpeechSynthesis } from './support/gameHarness';
 import { expectMinimumTarget, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
+import { startGame } from './support/gameEntry';
 
 interface CountingE2EState extends E2EGlobalState {
   gameId: 'COUNTING_ITEMS';
@@ -13,8 +14,7 @@ interface CountingE2EState extends E2EGlobalState {
 }
 
 async function startCounting(page: Page): Promise<void> {
-  await page.goto('/counting');
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, '/counting');
   await expect(page.getByText('Spočítaj predmety.')).toBeVisible();
 }
 

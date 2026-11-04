@@ -14,6 +14,7 @@ import {
 } from './support/gameHarness';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
 import { ASSEMBLY_JAHODA, seedSingleAssemblyWord } from './support/literacyHarness';
+import { startGame } from './support/gameEntry';
 
 interface ReleaseOracle {
   gameId?: GameId;
@@ -54,14 +55,12 @@ async function readReleaseOracle(page: Page): Promise<ReleaseOracle> {
 }
 
 async function startFromHome(page: Page, game: ReleaseGameCase): Promise<void> {
-  await page.goto('/');
-  await page.getByRole('link', { name: new RegExp(game.title, 'i') }).click();
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, game.path);
   await expect(page.getByRole('main')).toBeVisible();
   await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
 }
 
-async function startGame(page: Page, gameId: GameId): Promise<void> {
+async function startGameById(page: Page, gameId: GameId): Promise<void> {
   const game = RELEASE_GAME_CASES.find((candidate) => candidate.id === gameId);
   if (!game) throw new Error(`release matrix does not contain ${gameId}`);
   await startFromHome(page, game);
@@ -109,7 +108,7 @@ for (const game of RELEASE_GAME_CASES) {
 
 test('grid retry: alphabet recovers through a visible correct answer', async ({ page }) => {
   await stubSpeechSynthesis(page);
-  await startGame(page, 'ALPHABET');
+  await startGameById(page, 'ALPHABET');
   await clickVisibleWrongAnswer(page);
   await expectRecoveredRound(page, 'ALPHABET');
 });
@@ -118,7 +117,7 @@ test('sequence retry: assembly resets a wrong visible tile order', async ({ page
   // Swapping repeated syllables can still spell the target word; this retry needs distinct labels.
   await seedSingleAssemblyWord(page, ASSEMBLY_JAHODA);
   await stubSpeechSynthesis(page);
-  await startGame(page, 'ASSEMBLY');
+  await startGameById(page, 'ASSEMBLY');
   const { correctTileOrder, wrongAttempts = 0 } = await readReleaseOracle(page);
   expect(correctTileOrder?.length, 'expected at least two assembly tiles').toBeGreaterThanOrEqual(2);
   const labels = await Promise.all(correctTileOrder!.map(tileId =>
@@ -142,14 +141,14 @@ test('sequence retry: assembly resets a wrong visible tile order', async ({ page
 
 test('counting retry: a visible wrong total remains recoverable', async ({ page }) => {
   await stubSpeechSynthesis(page);
-  await startGame(page, 'COUNTING_ITEMS');
+  await startGameById(page, 'COUNTING_ITEMS');
   await clickVisibleWrongAnswer(page);
   await expectRecoveredRound(page, 'COUNTING_ITEMS');
 });
 
 test('comparison retry: the opposite visible side remains recoverable', async ({ page }) => {
   await stubSpeechSynthesis(page);
-  await startGame(page, 'COMPARE_QUANTITIES');
+  await startGameById(page, 'COMPARE_QUANTITIES');
   const { correctSide } = await readReleaseOracle(page);
   expect(correctSide, 'expected comparison side').not.toBeNull();
   const wrongSide = correctSide === 'left' ? 'right' : 'left';
@@ -159,14 +158,14 @@ test('comparison retry: the opposite visible side remains recoverable', async ({
 
 test('addition retry: a visible wrong sum remains recoverable', async ({ page }) => {
   await stubSpeechSynthesis(page);
-  await startGame(page, 'ADDITION');
+  await startGameById(page, 'ADDITION');
   await clickVisibleWrongAnswer(page);
   await expectRecoveredRound(page, 'ADDITION');
 });
 
 test('replay: audio-first alphabet prompt is available', async ({ page }) => {
   await stubSpeechSynthesis(page);
-  await startGame(page, 'ALPHABET');
+  await startGameById(page, 'ALPHABET');
   const replay = page.getByRole('button', { name: 'Zopakovať zadanie' });
   await expect(replay).toBeVisible();
   await replay.click();
@@ -174,7 +173,7 @@ test('replay: audio-first alphabet prompt is available', async ({ page }) => {
 
 test('replay: visual-and-audio counting prompt is available', async ({ page }) => {
   await stubSpeechSynthesis(page);
-  await startGame(page, 'COUNTING_ITEMS');
+  await startGameById(page, 'COUNTING_ITEMS');
   const replay = page.getByRole('button', { name: 'Zopakovať zadanie' });
   await expect(replay).toBeVisible();
   await replay.click();

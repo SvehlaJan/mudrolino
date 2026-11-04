@@ -10,6 +10,7 @@ import {
   waitForGamePhase,
 } from './support/gameHarness';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
+import { startGame } from './support/gameEntry';
 
 interface AudioOracle {
   correctItemId?: string | null;
@@ -25,9 +26,8 @@ async function readOracle(page: Page): Promise<AudioOracle> {
   return state!;
 }
 
-async function startGame(page: Page, game: ReleaseGameCase): Promise<void> {
-  await page.goto(game.path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+async function startReleaseGame(page: Page, game: ReleaseGameCase): Promise<void> {
+  await startGame(page, game.path);
   await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
 }
 
@@ -141,7 +141,7 @@ for (const game of RELEASE_GAME_CASES) {
     const category = categoryFor(game.id);
     const selection = new RegExp(`^sk/${category}/`);
 
-    await startGame(page, game);
+    await startReleaseGame(page, game);
     await clearAudioEvents(page);
     await chooseWrongAnswer(page, game.id);
     await expectClipOrder(page, game.id === 'ASSEMBLY'

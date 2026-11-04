@@ -8,6 +8,7 @@ import {
   expectNoPairwiseOverlap,
   expectWithinViewport,
 } from './support/layoutAssertions';
+import { openGameFromHome, startGame } from './support/gameEntry';
 
 interface NumeracyRoute {
   path: string;
@@ -39,8 +40,7 @@ const NUMERACY_ROUTES: NumeracyRoute[] = [
 
 async function startRound(page: Page, route: NumeracyRoute): Promise<void> {
   await stubSpeechSynthesis(page);
-  await page.goto(route.path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, route.path);
   await expect(page.getByRole('heading', { name: route.heading })).toBeVisible();
   await waitForGamePhase(page, 'awaiting-answer');
 }
@@ -136,7 +136,7 @@ test('@geometry compare quantity cards have equal bounded heights and contained 
   expect(page.viewportSize()).not.toBeNull();
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ compareMode: 'objects', compareRange: { start: 1, end: 10 } })));
   await stubSpeechSynthesis(page);
-  await page.goto('/compare');
+  await openGameFromHome(page, '/compare');
   await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
   await page.evaluate(() => {
     let calls = 0;
