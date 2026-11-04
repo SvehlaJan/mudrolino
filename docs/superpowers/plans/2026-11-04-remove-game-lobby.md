@@ -18,7 +18,8 @@
   - `npm run lint`: zero errors, allowing only the known ContentContext react-refresh warning;
   - `npm run test:unit`;
   - `npm run verify:pure`.
-- Run `npm run verify:edit` during work. Run `npm run verify:integration` before committing any task that touches routing, sessions, audio or the app shell (Tasks 3–6).
+- The full `npm run verify:integration` gate runs in Task 2, because that task migrates every spec, and in Task 8. It is not run in Tasks 3–6 (user decision, 2026-11-04).
+- Tasks 3–6 verify with the checks above, then a fresh `npm run build:e2e`, then a focused Playwright run: `npx playwright test -c e2e/playwright.config.ts` followed by the specs the task adds or modifies, plus `e2e/smoke.spec.ts`. Do not use `verify:edit` for these tasks: it widens every shared or unmapped file to the full integration profile.
 - Do not run a second unit-test or verification process while a gate is running. Parallel runs caused timeout-only failures on this machine on 2026-11-04.
 - Screenshots need the test-mode preview:
   - run `npm run build:e2e`;
@@ -181,7 +182,7 @@
 - [ ] **Step 3: Make the changes listed under Files**
 - [ ] **Step 4: Run the gates**
 
-  Run `npm run verify:integration`. Expected: PASS.
+  Run the Tasks 3–6 checks from Global Constraints, focused on `parent-settings`, `parent-access`, `catalog-home-lobbies` and `smoke`. Expected: PASS.
 - [ ] **Step 5: Commit**
 
   `feat: keep game settings in the parent zone`. The body notes this supersedes the 2026-09-29 decision.
@@ -229,7 +230,7 @@
   Follow the Interfaces block.
 - [ ] **Step 5: Run the gates**
 
-  Run `npm run test:unit` and `npm run verify:integration`. Expected: PASS.
+  Run the Tasks 3–6 checks from Global Constraints, focused on `session-entry`, `parent-access`, `game-shell` and `smoke`. Expected: PASS.
 - [ ] **Step 6: Commit**
 
   `feat: start sessions only from a tap`. The body says browsers allow no sound before a tap, and a reload already discards the Session.
@@ -281,7 +282,7 @@
   Look at the 320 px review copy and confirm all five reasons are legible without overflowing. Shorten any message that fails, in both locales.
 - [ ] **Step 5: Run the gates**
 
-  Run `npm run verify:integration`. Expected: PASS.
+  Run the Tasks 3–6 checks from Global Constraints, focused on `unplayable-games`, `catalog-home-lobbies`, `ui-foundation` and `smoke`. Expected: PASS.
 - [ ] **Step 6: Commit**
 
   `feat: dim unplayable game cards with their reason`.
@@ -324,7 +325,7 @@
   Run `grep -rn "GameLobby\|lobby-body\|lobby-instruction\|name: 'Hrať' })" src e2e tools/screenshots`. Expected: no output, except the `Hrať znova` button.
 - [ ] **Step 5: Run the gates**
 
-  Run `npm run verify:integration`, then `npx playwright test -c e2e/playwright.release.config.ts --project=release-webkit-phonePortrait`. Expected: PASS.
+  Run the Tasks 3–6 checks from Global Constraints, focused on every spec this task modifies plus `real-media` and `smoke`. Then run `npx playwright test -c e2e/playwright.release.config.ts --project=release-webkit-phonePortrait`. Expected: PASS.
 - [ ] **Step 6: Commit**
 
   `feat: start games straight from the home screen`.
