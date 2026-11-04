@@ -11,6 +11,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
+import { getUnplayableReason } from '../../shared/gamePlayability';
 import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg, type Translate } from '../../shared/i18n';
@@ -457,7 +458,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
 }
 
 export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
-  const { wordItems, letterItems } = useContent();
+  const { wordItems, letterItems, syllableItems } = useContent();
   const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
@@ -476,7 +477,10 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRun
     ),
     [letterItems, settings.alphabetAccents, settings.completeLetterMissingCount, wordItems],
   );
-  const isPlayable = eligibleWords.length > 0 && activeLetters.length >= CHOICE_COUNT;
+  const unplayableReason = useMemo(
+    () => getUnplayableReason('COMPLETE_LETTER', { wordItems, letterItems, syllableItems, settings }),
+    [wordItems, letterItems, syllableItems, settings],
+  );
 
   if (gameState === 'PLAYING') {
     return (
@@ -492,9 +496,7 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRun
   return (
     <GameLobby
       gameId="COMPLETE_LETTER"
-      availabilityMessage={
-        isPlayable ? undefined : t('Pridajte slová z aktívnych písmen alebo upravte nastavenia písmen.')
-      }
+      availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}

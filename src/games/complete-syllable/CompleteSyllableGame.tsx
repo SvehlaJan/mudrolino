@@ -11,6 +11,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
+import { getUnplayableReason } from '../../shared/gamePlayability';
 import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg, type Translate } from '../../shared/i18n';
@@ -411,8 +412,8 @@ function CompleteSyllablePlayfield({ eligibleWords, syllableItems, onExit }: Com
   );
 }
 
-export function CompleteSyllableGame({ onExit, onOpenSettings }: GameRuntimeProps) {
-  const { wordItems, syllableItems } = useContent();
+export function CompleteSyllableGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+  const { wordItems, letterItems, syllableItems } = useContent();
   const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
@@ -420,7 +421,10 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: GameRuntimeProp
     () => buildEligibleCompleteSyllableWords(wordItems, syllableItems, CHOICE_COUNT),
     [wordItems, syllableItems],
   );
-  const isPlayable = eligibleWords.length > 0;
+  const unplayableReason = useMemo(
+    () => getUnplayableReason('COMPLETE_SYLLABLE', { wordItems, letterItems, syllableItems, settings }),
+    [wordItems, letterItems, syllableItems, settings],
+  );
 
   if (gameState === 'PLAYING') {
     return (
@@ -435,9 +439,7 @@ export function CompleteSyllableGame({ onExit, onOpenSettings }: GameRuntimeProp
   return (
     <GameLobby
       gameId="COMPLETE_SYLLABLE"
-      availabilityMessage={
-        isPlayable ? undefined : t('Pridajte slová s dvomi až štyrmi slabikami.')
-      }
+      availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}

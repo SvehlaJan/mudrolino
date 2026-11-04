@@ -15,6 +15,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
+import { getAssemblyEligibleWords, getUnplayableReason } from '../../shared/gamePlayability';
 import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg } from '../../shared/i18n';
@@ -726,19 +727,16 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
   );
 }
 
-export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
-  const { wordItems } = useContent();
+export function AssemblyGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+  const { wordItems, letterItems, syllableItems } = useContent();
   const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
-  const eligibleWords = useMemo(
-    () => wordItems.filter(({ syllables }) => {
-      const syllableCount = syllables.split('-').length;
-      return syllableCount >= 2 && syllableCount <= 3;
-    }),
-    [wordItems],
+  const eligibleWords = useMemo(() => getAssemblyEligibleWords(wordItems), [wordItems]);
+  const unplayableReason = useMemo(
+    () => getUnplayableReason('ASSEMBLY', { wordItems, letterItems, syllableItems, settings }),
+    [wordItems, letterItems, syllableItems, settings],
   );
-  const isPlayable = eligibleWords.length > 0;
 
   if (gameState === 'PLAYING') {
     return <AssemblyPlayfield eligibleWords={eligibleWords} onExit={() => setGameState('HOME')} />;
@@ -747,9 +745,7 @@ export function AssemblyGame({ onExit, onOpenSettings }: GameRuntimeProps) {
   return (
     <GameLobby
       gameId="ASSEMBLY"
-      availabilityMessage={
-        isPlayable ? undefined : t('Pridajte slová so slabikami v sekcii Vlastný obsah.')
-      }
+      availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}

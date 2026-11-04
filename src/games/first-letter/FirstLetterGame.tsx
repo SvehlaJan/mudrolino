@@ -11,6 +11,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
+import { getUnplayableReason } from '../../shared/gamePlayability';
 import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg, translate } from '../../shared/i18n';
@@ -302,7 +303,7 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
 }
 
 export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
-  const { wordItems, letterItems } = useContent();
+  const { wordItems, letterItems, syllableItems } = useContent();
   const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
@@ -314,7 +315,10 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
     () => buildFirstLetterItems(wordItems, activeLetters, multiCharacterLetters(letterItems)),
     [wordItems, activeLetters, letterItems],
   );
-  const isPlayable = eligibleItems.length > 0 && activeLetters.length >= 4;
+  const unplayableReason = useMemo(
+    () => getUnplayableReason('FIRST_LETTER', { wordItems, letterItems, syllableItems, settings }),
+    [wordItems, letterItems, syllableItems, settings],
+  );
 
   if (gameState === 'PLAYING') {
     return (
@@ -329,9 +333,7 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
   return (
     <GameLobby
       gameId="FIRST_LETTER"
-      availabilityMessage={
-        isPlayable ? undefined : t('Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.')
-      }
+      availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
       onOpenSettings={onOpenSettings}
