@@ -31,6 +31,9 @@ import { GameCard, GameIcon } from '../../home/GameCard';
 import { GameLobby } from '../components/GameLobby';
 import { FindItGame } from '../components/FindItGame';
 import { GAME_DEFINITIONS } from '../gameCatalog';
+import { getUnplayableReason } from '../gamePlayability';
+import { translate } from '../i18n';
+import { DEFAULT_GAME_SETTINGS } from '../settings/settingsRegistry';
 import { getUiCopy } from '../uiCopy';
 import { AnswerGroup, BalancePlayfield, GamePrompt, GameShell, InsetSlot, PictureCard, PlayTray, QuantityTray, TactilePiece, WordRail } from '../game';
 import type { GameState } from '../game/gameState';
@@ -49,6 +52,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </section>
   );
 }
+
+// Every game that has something to explain when its pool is empty, each with its real reason.
+const UNPLAYABLE_EXAMPLES = GAME_DEFINITIONS.flatMap((game) => {
+  const reason = getUnplayableReason(game.id, { wordItems: [], letterItems: [], syllableItems: [], settings: DEFAULT_GAME_SETTINGS });
+  return reason ? [{ game, reason }] : [];
+});
 
 const compactActionClass = '!h-9 !w-9 shrink-0 !shadow-sm active:translate-y-0 active:opacity-60 sm:!h-9 sm:!w-9';
 
@@ -1143,6 +1152,21 @@ export function UiKitScreen() {
                 game={GAME_DEFINITIONS[0]}
                 title="Mimoriadne dlhý názov hry na viac riadkov pre overenie zalamovania"
               />
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-text-muted mb-2">Nedostupné karty (GameCard s dôvodom)</h3>
+            <p className="mb-2 text-sm text-text-muted">
+              Hra, ktorá nemá čo sa opýtať, vyzerá neaktívne, uvádza dôvod pre rodiča a po ťuknutí nerobí nič.
+              Je to vypnutý odkaz bez href, ktorý čítačka obrazovky oznámi spolu s dôvodom. Zobrazené sú všetky
+              dôvody v úzkom rozložení 320px.
+            </p>
+            <div className="w-[320px] p-3 bg-canvas border border-border-subtle rounded-2xl">
+              <div className="grid grid-cols-2 gap-2.5">
+                {UNPLAYABLE_EXAMPLES.map(({ game, reason }) => (
+                  <GameCard key={game.id} game={game} locale={locale} unplayableReason={translate(locale, reason)} />
+                ))}
+              </div>
             </div>
           </div>
           <div>

@@ -140,6 +140,7 @@ export default function App() {
             path="/"
             element={
               <GroupedHomeScreen
+                settings={settings}
                 onOpenSettings={handleOpenSettings}
                 onSelectGame={() => {
                   homeScrollRef.current = window.scrollY;

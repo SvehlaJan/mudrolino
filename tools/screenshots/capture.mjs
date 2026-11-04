@@ -222,6 +222,28 @@ export const SCENES = {
     await page.getByRole('heading', { name: 'Písmená a slová' }).waitFor({ state: 'visible' });
     await page.getByRole('heading', { name: 'Čísla a počítanie' }).waitFor({ state: 'visible' });
   },
+  // A family always keeps at least one word, so the thinnest pool is one one-syllable word starting
+  // with an accented letter, with accents off. That dims four of the five word games; the fifth
+  // (Words) never dims, and /ui-kit shows all five reasons side by side at 320px.
+  'home-unplayable': async (page, baseUrl) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ alphabetAccents: false }));
+      localStorage.setItem('hrave-ucenie-seeded-sk', 'true');
+      localStorage.setItem('hrave-ucenie-user-words-sk', JSON.stringify({
+        version: 2,
+        items: [{ word: 'Čaj', syllables: 'čaj', emoji: '🍵', audioKey: 'caj', id: 'capture-caj', status: 'ready', enabled: true, isDefault: false, locale: 'sk', order: 0 }],
+      }));
+    });
+    await page.goto(`${baseUrl}/`);
+    await page.getByRole('heading', { name: 'Písmená a slová' }).waitFor({ state: 'visible' });
+    await page.locator('[data-unplayable="true"]').first().waitFor({ state: 'visible' });
+    // The capture is the viewport, not the whole page: scroll so the reasons of all four dimmed
+    // cards are in view (the first card's icon scrolls off the top, its title and reason stay).
+    await page.locator('[data-game-id="FIRST_LETTER"]').evaluate((card) => {
+      card.scrollIntoView({ block: 'start' });
+      document.scrollingElement?.scrollBy(0, 60);
+    });
+  },
   'lobby-alphabet': async (page, baseUrl) => {
     await openGameFromHome(page, baseUrl, '/alphabet');
     await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });

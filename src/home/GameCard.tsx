@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useId } from 'react';
 import { Link } from 'react-router-dom';
 import { GAME_DEFINITIONS, type GameDefinition, type GameIconId } from '../shared/gameCatalog';
 import { getUiCopy } from '../shared/uiCopy';
+import { preloadGameModule } from '../shared/gameModuleRegistry';
 import { armSessionEntry } from '../shared/sessionEntry';
 import { cn } from '../shared/ui/utils';
 
@@ -36,24 +37,91 @@ export interface GameCardProps {
   game: GameDefinition;
   title?: string;
   locale?: string;
+  /**
+   * Already translated. Set when the game has nothing to ask: the card then looks inactive, says why
+   * for the parent, and does nothing when tapped.
+   */
+  unplayableReason?: string;
   onClick?: () => void;
   className?: string;
+}
+
+/** Warms the game's chunk. A failed download surfaces later, when the route renders it. */
+function warmGameModule(gameId: GameDefinition['id']) {
+  preloadGameModule(gameId).catch(() => undefined);
 }
 
 export function GameCard({
   game,
   title,
   locale = 'sk',
+  unplayableReason,
   onClick,
   className,
 }: GameCardProps) {
   const resolvedTitle = title ?? getUiCopy(locale, game.titleKey);
+  const titleId = useId();
+  const reasonId = useId();
+
+  const badge = (
+    <div
+      className={cn(
+        'w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 transition-transform',
+        unplayableReason
+          ? 'bg-border-subtle/50 text-text-muted'
+          : cn('group-hover:scale-105', game.categoryId === 'literacy' ? 'bg-selected-surface text-focus' : 'bg-success-surface text-[#1f4e3d]'),
+      )}
+      aria-hidden="true"
+    >
+      <GameIcon icon={game.icon} className="size-9 sm:size-10" />
+    </div>
+  );
+
+  if (unplayableReason) {
+    // No href, no navigation, no arming and no preloading: a child tapping here must not reach a
+    // game with nothing to ask. A disabled link stays in the accessibility tree, so a screen reader
+    // announces the title as unavailable and reads the reason. It is not a colour change alone.
+    return (
+      <div
+        role="link"
+        aria-disabled="true"
+        tabIndex={0}
+        aria-labelledby={titleId}
+        aria-describedby={reasonId}
+        data-testid="game-card"
+        data-game-id={game.id}
+        data-unplayable="true"
+        className={cn(
+          'relative flex flex-col justify-between h-full p-4 sm:p-5 rounded-[24px] sm:rounded-[28px]',
+          'bg-canvas border border-dashed border-text-muted/40 text-left min-w-0 cursor-default',
+          'focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-focus outline-offset-2',
+          className,
+        )}
+      >
+        <div className="flex flex-col gap-3 min-w-0">
+          {badge}
+          <div className="min-w-0 flex flex-col gap-1">
+            <h3 id={titleId} className="text-base sm:text-lg font-black text-text-muted leading-tight tracking-tight">
+              {resolvedTitle}
+            </h3>
+            <p id={reasonId} className="text-xs sm:text-sm font-semibold text-text-muted leading-snug break-words">
+              {unplayableReason}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Link
       to={game.path}
       state={{ fromHome: true }}
       data-testid="game-card"
+      data-game-id={game.id}
+      // The lazy game chunk starts downloading as soon as a finger touches the card, so it is
+      // usually ready by the time the tap completes.
+      onPointerDown={() => warmGameModule(game.id)}
       onClick={(event) => {
         // The router's location is stale until the lazy game chunk commits, so a repeat tap here
         // would push a second game entry and Back would land on it. The real URL is already current.
@@ -63,6 +131,7 @@ export function GameCard({
         }
         // A tap is the only way into a Session: browsers allow no sound before one.
         armSessionEntry(game.id);
+        warmGameModule(game.id);
         onClick?.();
       }}
       className={cn(
@@ -75,17 +144,7 @@ export function GameCard({
       )}
     >
       <div className="flex flex-col gap-3 min-w-0">
-        <div
-          className={cn(
-            'w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105',
-            game.categoryId === 'literacy'
-              ? 'bg-selected-surface text-focus'
-              : 'bg-success-surface text-[#1f4e3d]',
-          )}
-          aria-hidden="true"
-        >
-          <GameIcon icon={game.icon} className="size-9 sm:size-10" />
-        </div>
+        {badge}
         <div className="min-w-0 flex flex-col gap-1">
           <h3 className="text-base sm:text-lg font-black text-text-main leading-tight tracking-tight">
             {resolvedTitle}

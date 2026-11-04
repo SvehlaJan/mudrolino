@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Settings } from 'lucide-react';
 import { GAME_CATEGORIES, GAME_DEFINITIONS, GameDefinition } from '../shared/gameCatalog';
+import { getUnplayableReason } from '../shared/gamePlayability';
+import { useContent } from '../shared/contexts/ContentContext';
+import type { GameId, GameSettings } from '../shared/types';
 import { getUiCopy } from '../shared/uiCopy';
 import { translate } from '../shared/i18n';
 import { AppScreen } from '../shared/ui/AppScreen';
@@ -14,16 +17,32 @@ import { PwaHomeControl } from '../pwa/PwaHomeControl';
 import { GameCard } from './GameCard';
 
 export interface GroupedHomeScreenProps {
+  settings: GameSettings;
   onOpenSettings: () => void;
   onSelectGame?: (game: GameDefinition) => void;
   locale?: string;
 }
 
 export function GroupedHomeScreen({
+  settings,
   onOpenSettings,
   onSelectGame,
   locale = 'sk',
 }: GroupedHomeScreenProps) {
+  const { isLoading, wordItems, letterItems, syllableItems } = useContent();
+  // The word list is empty until the content has loaded, so that is no verdict: no card is
+  // Unplayable while loading. Content and settings changed in the Parent area reach this screen
+  // through context and props, so a card dims on return without a reload.
+  const unplayableReasons = useMemo(() => {
+    const reasons: Partial<Record<GameId, string>> = {};
+    if (isLoading) return reasons;
+    for (const { id } of GAME_DEFINITIONS) {
+      const reason = getUnplayableReason(id, { wordItems, letterItems, syllableItems, settings });
+      if (reason) reasons[id] = translate(locale, reason);
+    }
+    return reasons;
+  }, [isLoading, wordItems, letterItems, syllableItems, settings, locale]);
+
   const groupedGames = GAME_CATEGORIES.map(category => ({
     category,
     games: GAME_DEFINITIONS
@@ -85,6 +104,7 @@ export function GroupedHomeScreen({
                   key={game.id}
                   game={game}
                   locale={locale}
+                  unplayableReason={unplayableReasons[game.id]}
                   onClick={() => onSelectGame?.(game)}
                 />
               ))}
