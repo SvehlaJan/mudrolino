@@ -51,17 +51,17 @@ test.describe('Catalog, home, and lobbies', () => {
 });
 
 const LOBBY_CASES = [
-  { id: 'ALPHABET', path: '/alphabet', hasSettings: true },
-  { id: 'SYLLABLES', path: '/syllables', hasSettings: true },
-  { id: 'NUMBERS', path: '/numbers', hasSettings: true },
-  { id: 'COUNTING_ITEMS', path: '/counting', hasSettings: true },
-  { id: 'COMPARE_QUANTITIES', path: '/compare', hasSettings: true },
-  { id: 'ADDITION', path: '/addition', hasSettings: true },
-  { id: 'WORDS', path: '/words', hasSettings: false },
-  { id: 'FIRST_LETTER', path: '/first-letter', hasSettings: true },
-  { id: 'ASSEMBLY', path: '/assembly', hasSettings: false },
-  { id: 'COMPLETE_SYLLABLE', path: '/complete-syllable', hasSettings: false },
-  { id: 'COMPLETE_LETTER', path: '/complete-letter', hasSettings: true },
+  { id: 'ALPHABET', path: '/alphabet' },
+  { id: 'SYLLABLES', path: '/syllables' },
+  { id: 'NUMBERS', path: '/numbers' },
+  { id: 'COUNTING_ITEMS', path: '/counting' },
+  { id: 'COMPARE_QUANTITIES', path: '/compare' },
+  { id: 'ADDITION', path: '/addition' },
+  { id: 'WORDS', path: '/words' },
+  { id: 'FIRST_LETTER', path: '/first-letter' },
+  { id: 'ASSEMBLY', path: '/assembly' },
+  { id: 'COMPLETE_SYLLABLE', path: '/complete-syllable' },
+  { id: 'COMPLETE_LETTER', path: '/complete-letter' },
 ];
 
 test.describe('Game lobby semantic contract', () => {
@@ -75,38 +75,43 @@ test.describe('Game lobby semantic contract', () => {
       await expect(main.getByTestId('lobby-instruction')).toBeVisible();
       await expect(main.getByTestId('lobby-tactile-preview')).toHaveCount(0);
       await expect(main.getByRole('button', { name: 'Hrať' })).toHaveCount(1);
-
-      const settingsBtn = page.getByRole('button', { name: 'Nastavenia' });
-      if (game.hasSettings) {
-        await expect(settingsBtn).toBeVisible();
-      } else {
-        await expect(settingsBtn).toHaveCount(0);
-      }
       expectNoConsoleErrors(errors);
       expectNoFailedRequests(failedRequests);
     });
   }
 
-  test('alphabet lobby settings flow: cancel returns to /alphabet with focus, unlock opens the routed game settings screen, saves updates, and close returns with focus', async ({ page }) => {
+  test('lobbies offer no settings shortcut', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
-    await openGameFromHome(page, '/alphabet');
-    const settingsBtn = page.getByRole('button', { name: 'Nastavenia' });
-    await expect(settingsBtn).toBeVisible();
+    for (const game of LOBBY_CASES) {
+      await openGameFromHome(page, game.path);
+      await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Nastavenia' })).toHaveCount(0);
+    }
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
 
-    // 1. Open settings and cancel gate
-    await settingsBtn.click();
-    await expect(page.getByRole('dialog')).toBeVisible();
+  test('game settings are reached through the Parent area: cancel goes home, unlock drills down to the game, and Back returns to the overview', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+    await page.goto('/');
+    const gear = page.getByRole('button', { name: 'Nastavenia' });
+
+    // 1. Open the Parent gate from the Home screen and cancel it
+    await gear.click();
+    await expect(page.getByRole('dialog', { name: 'Pre rodičov' })).toBeVisible();
     await page.getByRole('button', { name: 'Späť' }).click();
-    await expect(page).toHaveURL('/alphabet');
-    await expect(settingsBtn).toBeFocused();
+    await expect(page).toHaveURL('/');
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
 
-    // 2. Open settings and unlock
-    await settingsBtn.click();
-    await expect(page.getByRole('dialog')).toBeVisible();
+    // 2. Open it again, unlock, and drill down: dashboard, games overview, the game
+    await gear.click();
     await unlockParentGate(page);
-
-    // After unlock, must stay on route /settings/games/ALPHABET and render the routed settings screen for Alphabet
+    await expect(page).toHaveURL(/\/settings$/);
+    await page.getByRole('link', { name: /Nastavenia hier/ }).click();
+    await expect(page).toHaveURL(/\/settings\/games$/);
+    await page.getByRole('link', { name: /Čítaj písmenká/ }).click();
     await expect(page).toHaveURL(/\/settings\/games\/ALPHABET$/);
     const main = page.getByRole('main');
     await expect(main).toBeVisible();
@@ -120,12 +125,10 @@ test.describe('Game lobby semantic contract', () => {
     await option6.click();
     await expect(option6).toBeChecked();
 
-    // 4. Close settings via the back action
+    // 4. Back steps to the games overview, never into a game
     await main.getByRole('button', { name: 'Späť' }).click();
-
-    // Must return to originating lobby and restore focus to Settings button
-    await expect(page).toHaveURL('/alphabet');
-    await expect(settingsBtn).toBeFocused();
+    await expect(page).toHaveURL(/\/settings\/games$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Nastavenia hier' })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

@@ -1,4 +1,4 @@
-import { test, expect } from './support/fixtures';
+import { test, expect, type Page } from './support/fixtures';
 import {
   trackConsoleErrors,
   expectNoConsoleErrors,
@@ -7,7 +7,6 @@ import {
 } from './support/assertions';
 import { unlockParentGate, solveParentGate } from './support/parentGate';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
-import { openGameFromHome } from './support/gameEntry';
 
 test.describe('Parent Access Gate', () => {
   for (const [name, viewport] of [
@@ -258,28 +257,49 @@ test.describe('Parent Access Gate', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('lobby deep-link with a catalogued child returnTo stays guarded and cancels back to that lobby', async ({ page }) => {
+  // Older builds navigated into the Parent area with `{ returnTo: <game path> }` in history state.
+  // Such an entry must now behave like any other: the state is ignored and the Parent area leads home.
+  async function pushLegacyReturnEntry(page: Page, path: string): Promise<void> {
+    await page.goto('/');
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
+    await page.evaluate((target) => {
+      // Continue the router's own history index so the synthetic entry never collides with a real one.
+      const idx = (window.history.state?.idx ?? 0) + 1;
+      window.history.pushState({ usr: { returnTo: '/alphabet' }, key: 'legacy-return', idx }, '', target);
+      window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }));
+    }, path);
+  }
+
+  test('a return path in history state is ignored and cancel goes home', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await openGameFromHome(page, '/alphabet');
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
-    await page.evaluate(() => {
-      window.history.pushState(
-        { usr: { returnTo: '/alphabet' }, key: 'synthetic-return', idx: 1 },
-        '',
-        '/settings',
-      );
-      window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }));
-    });
+    await pushLegacyReturnEntry(page, '/settings/games/ALPHABET');
 
     await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).not.toBeVisible();
 
     await page.getByRole('button', { name: 'Späť' }).click();
 
-    await expect(page).toHaveURL(/\/alphabet$/);
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expect(page).toHaveURL('/');
+    await expect(page.getByRole('heading', { name: 'Mudrolíno' })).toBeVisible();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
+  test('a return path in history state is ignored by game settings Back, which returns to the overview', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+
+    await pushLegacyReturnEntry(page, '/settings/games/ALPHABET');
+    await unlockParentGate(page);
+    await expect(page.getByTestId('game-settings-detail')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Späť' }).click();
+
+    await expect(page).toHaveURL(/\/settings\/games$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Nastavenia hier' })).toBeVisible();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
@@ -403,19 +423,6 @@ test.describe('Parent Gate Dialog', () => {
     await page.keyboard.press('Enter');
 
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
-  });
-
-  test('closing the gate over a game route restores focus to the settings trigger', async ({ page }) => {
-    await openGameFromHome(page, '/alphabet');
-    const trigger = page.getByRole('button', { name: 'Nastavenia' });
-    await trigger.click();
-
-    const dialog = page.getByRole('dialog', { name: 'Pre rodičov' });
-    await expect(dialog).toBeVisible();
-    await page.keyboard.press('Escape');
-
-    await expect(dialog).not.toBeVisible();
-    await expect(trigger).toBeFocused();
   });
 
   test('reduced motion truly disables the wrong-answer shake, not just speeds it up', async ({ page }) => {

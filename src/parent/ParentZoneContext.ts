@@ -6,10 +6,8 @@
 import { createContext, useContext } from 'react';
 
 export interface ParentZoneValue {
-  /** Validated catalogued child destination for this exact protected entry — a lobby path, or '/'. */
-  returnTo: string;
-  /** Locks parent access and navigates to the validated child destination. */
-  closeToChild(options?: { state?: Record<string, unknown>; replace?: boolean }): void;
+  /** Locks parent access and navigates to the Home screen. */
+  closeToChild(options?: { replace?: boolean }): void;
 }
 
 export const ParentZoneContext = createContext<ParentZoneValue | null>(null);

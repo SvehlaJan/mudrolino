@@ -457,7 +457,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
   );
 }
 
-export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function CompleteLetterGame({ settings, onExit }: GameRuntimeProps) {
   const { wordItems, letterItems, syllableItems } = useContent();
   const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
@@ -499,7 +499,6 @@ export function CompleteLetterGame({ settings, onExit, onOpenSettings }: GameRun
       availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
-      onOpenSettings={onOpenSettings}
     />
   );
 }

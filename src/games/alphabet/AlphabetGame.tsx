@@ -10,7 +10,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { createAlphabetDescriptor } from './alphabetDescriptor';
 import { useContent } from '../../shared/contexts/ContentContext';
 
-export function AlphabetGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function AlphabetGame({ settings, onExit }: GameRuntimeProps) {
   const { letterItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
 
@@ -29,7 +29,6 @@ export function AlphabetGame({ settings, onExit, onOpenSettings }: GameRuntimePr
       gameId="ALPHABET"
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
-      onOpenSettings={onOpenSettings}
     />
   );
 }

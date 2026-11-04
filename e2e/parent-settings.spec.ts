@@ -8,7 +8,6 @@ import {
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';
-import { openGameFromHome } from './support/gameEntry';
 
 test.describe('Parent dashboard and game settings', () => {
   test('dashboard exposes the four parent destinations', async ({ page }) => {
@@ -152,24 +151,6 @@ test.describe('Parent dashboard and game settings', () => {
     await unlockParentGate(page);
     await expect(page).toHaveURL(/\/settings$/);
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
-
-    expectNoConsoleErrors(errors);
-    expectNoFailedRequests(failedRequests);
-  });
-
-  test('closing game settings entered from a lobby returns to that lobby with focus restored', async ({ page }) => {
-    const errors = trackConsoleErrors(page);
-    const failedRequests = trackFailedRequests(page);
-
-    await openGameFromHome(page, '/syllables');
-    const trigger = page.getByRole('button', { name: 'Nastavenia' });
-    await trigger.click();
-    await unlockParentGate(page);
-    await expect(page).toHaveURL(/\/settings\/games\/SYLLABLES$/);
-
-    await page.getByRole('button', { name: 'Späť' }).click();
-    await expect(page).toHaveURL('/syllables');
-    await expect(trigger).toBeFocused();
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

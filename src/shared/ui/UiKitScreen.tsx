@@ -1179,7 +1179,6 @@ export function UiKitScreen() {
               gameId="ALPHABET"
               onPlay={() => undefined}
               onBack={() => undefined}
-              onOpenSettings={() => undefined}
             />
           </div>
         </Card>

@@ -3,22 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { Play, Settings } from 'lucide-react';
+import { Play } from 'lucide-react';
 import type { GameId } from '../types';
 import { GAME_DEFINITIONS_BY_ID } from '../gameCatalog';
 import { getUiCopy } from '../uiCopy';
 import { useContentLocale } from '../contexts/ContentContext';
-import { AppScreen, BackButton, Button, IconButton, TopBar } from '../ui';
+import { AppScreen, BackButton, Button, TopBar } from '../ui';
 import { useAppScreenLayout } from '../ui/appScreenLayout';
-import { translate } from '../i18n';
 
 export interface GameLobbyProps {
   gameId: GameId;
   onPlay(): void;
   onBack(): void;
-  onOpenSettings?: () => void;
   availabilityMessage?: string;
   as?: 'main' | 'div';
 }
@@ -116,7 +112,6 @@ export function GameLobby({
   gameId,
   onPlay,
   onBack,
-  onOpenSettings,
   availabilityMessage,
   as = 'main',
 }: GameLobbyProps) {
@@ -125,33 +120,10 @@ export function GameLobby({
   const title = getUiCopy(locale, definition.titleKey);
   const instruction = getUiCopy(locale, definition.instructionKey);
   const playLabel = getUiCopy(locale, 'lobby.play');
-  const location = useLocation();
-  const settingsButtonRef = React.useRef<HTMLButtonElement>(null);
-
-  React.useEffect(() => {
-    if ((location.state as { returnFocus?: unknown } | null)?.returnFocus === 'settings') {
-      settingsButtonRef.current?.focus();
-    }
-  }, [location.state]);
-
-  const settingsButton = onOpenSettings ? (
-    <IconButton
-      ref={settingsButtonRef}
-      onClick={onOpenSettings}
-      label={translate(locale, 'Nastavenia')}
-      tone="neutral"
-      size="child"
-    >
-      <Settings size={24} className="sm:w-7 sm:h-7" />
-    </IconButton>
-  ) : undefined;
 
   return (
     <AppScreen as={as} maxWidth="game" height="viewport" scroll="locked">
-      <TopBar
-        left={<BackButton onClick={onBack} />}
-        right={settingsButton}
-      />
+      <TopBar left={<BackButton onClick={onBack} />} />
       <LobbyBody
         title={title}
         instruction={instruction}

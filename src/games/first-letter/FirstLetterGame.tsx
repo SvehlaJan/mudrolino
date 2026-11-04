@@ -302,7 +302,7 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
   );
 }
 
-export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function FirstLetterGame({ settings, onExit }: GameRuntimeProps) {
   const { wordItems, letterItems, syllableItems } = useContent();
   const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
@@ -336,7 +336,6 @@ export function FirstLetterGame({ settings, onExit, onOpenSettings }: GameRuntim
       availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
-      onOpenSettings={onOpenSettings}
     />
   );
 }

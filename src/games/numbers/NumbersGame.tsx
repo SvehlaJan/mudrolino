@@ -10,7 +10,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createNumbersDescriptor } from './numbersDescriptor';
 
-export function NumbersGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function NumbersGame({ settings, onExit }: GameRuntimeProps) {
   const { numberItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const range = settings.numbersRange;
@@ -32,7 +32,6 @@ export function NumbersGame({ settings, onExit, onOpenSettings }: GameRuntimePro
       gameId="NUMBERS"
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
-      onOpenSettings={onOpenSettings}
     />
   );
 }

@@ -42,11 +42,11 @@ bespoke `assemblyAudioLogic.ts` and a fixed praise clip; leave it alone.
 A game's settings are declared as `SettingId`s on its `GAME_DEFINITIONS` entry
 in `gameCatalog.tsx`; each ID's control, validation, and dependency logic lives
 once in `src/shared/settings/settingsRegistry.ts`. `src/parent/` renders them —
-`SettingsRenderer` maps a game's IDs through `SettingField`, reused unchanged by
-both a lobby's settings trigger (`/settings/games/:gameId`) and the parent
-dashboard's drill-down. To add a per-game setting, add its ID to the game's
-`settings` array and a definition to `SETTINGS_REGISTRY`; no per-game UI code
-is needed.
+`SettingsRenderer` maps a game's IDs through `SettingField` — in the Parent area's
+drill-down only (Home gear, Parent gate, Nastavenia hier, `/settings/games/:gameId`).
+A game screen has no settings shortcut. To add a per-game setting, add its ID to
+the game's `settings` array and a definition to `SETTINGS_REGISTRY`; no per-game
+UI code is needed.
 
 ## Adding a game
 

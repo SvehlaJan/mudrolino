@@ -188,11 +188,11 @@ function CountingPlayfield({ availableItems, allNumbers, onExit }: CountingPlayf
   );
 }
 
-export function CountingItemsGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function CountingItemsGame({ settings, onExit }: GameRuntimeProps) {
   const { numberItems } = useContent();
   const [playing, setPlaying] = useState(false);
   const availableItems = useMemo(() => numberItems.filter(item => item.value >= settings.countingRange.start && item.value <= settings.countingRange.end), [numberItems, settings.countingRange]);
   const allNumbers = useMemo(() => numberItems.filter(item => item.value <= Math.max(settings.countingRange.end, 10)), [numberItems, settings.countingRange.end]);
   if (playing) return <CountingPlayfield availableItems={availableItems} allNumbers={allNumbers} onExit={() => setPlaying(false)} />;
-  return <GameLobby gameId="COUNTING_ITEMS" onPlay={() => setPlaying(true)} onBack={onExit} onOpenSettings={onOpenSettings} />;
+  return <GameLobby gameId="COUNTING_ITEMS" onPlay={() => setPlaying(true)} onBack={onExit} />;
 }

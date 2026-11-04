@@ -1,5 +1,3 @@
-import { GAME_DEFINITIONS } from '../gameCatalog';
-
 export type ParentRouteKind =
   | 'dashboard'
   | 'games'
@@ -28,10 +26,4 @@ export function getParentRouteKind(pathname: string): ParentRouteKind {
 
 export function isProtectedParentPath(pathname: string): boolean {
   return getParentRouteKind(pathname) !== null;
-}
-
-export function sanitizeChildReturnPath(pathname: unknown): string {
-  if (pathname === '/') return '/';
-  if (typeof pathname !== 'string') return '/';
-  return GAME_DEFINITIONS.some(game => game.path === pathname) ? pathname : '/';
 }

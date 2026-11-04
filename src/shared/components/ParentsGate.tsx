@@ -40,7 +40,7 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   const errorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [errorRecoveries, setErrorRecoveries] = useState(0);
   const firstDigitRef = useRef<HTMLButtonElement>(null);
-  // Captured once, at mount: whichever control (e.g. a lobby's "Nastavenia" button) was
+  // Captured once, at mount: whichever control (e.g. the Home screen's "Nastavenia" button) was
   // focused right before this gate opened. See DialogShell's `restoreFocusRef` doc comment
   // for why Radix can't infer this on its own without a `Dialog.Trigger`.
   const restoreFocusRef = useRef<HTMLElement | null>(

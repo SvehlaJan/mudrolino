@@ -12,11 +12,6 @@ import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatri
 import { unlockParentGate } from './support/parentGate';
 import { openGameFromHome, startGame } from './support/gameEntry';
 
-const GAMES_WITH_SETTINGS = new Set([
-  'ALPHABET', 'SYLLABLES', 'NUMBERS', 'FIRST_LETTER', 'COMPLETE_LETTER',
-  'COUNTING_ITEMS', 'COMPARE_QUANTITIES', 'ADDITION',
-]);
-
 async function startRound(page: Page, game: ReleaseGameCase): Promise<void> {
   await stubSpeechSynthesis(page);
   await startGame(page, game.path);
@@ -61,9 +56,7 @@ for (const game of RELEASE_GAME_CASES) {
     await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
     await expect(page.getByRole('button', { name: 'Späť' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
-    const settings = page.getByRole('button', { name: 'Nastavenia' });
-    await expect(settings).toHaveCount(GAMES_WITH_SETTINGS.has(game.id) ? 1 : 0);
-    if (GAMES_WITH_SETTINGS.has(game.id)) await expect(settings).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Nastavenia' })).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
   });
 }

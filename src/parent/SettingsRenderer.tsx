@@ -15,7 +15,7 @@ interface SettingsRendererProps {
   onUpdate(next: GameSettings, notice?: string): void;
 }
 
-/** Host-agnostic: renders exactly the catalogued settings for one game, so the dashboard and a lobby's settings trigger show identical content. */
+/** Renders exactly the catalogued settings for one game, in the Parent area's drill-down. */
 export function SettingsRenderer({ gameId, settings, onUpdate }: SettingsRendererProps) {
   const definition = GAME_DEFINITIONS_BY_ID[gameId];
 

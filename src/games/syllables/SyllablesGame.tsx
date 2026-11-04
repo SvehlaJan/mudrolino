@@ -10,7 +10,7 @@ import { GameLobby } from '../../shared/components/GameLobby';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createSyllablesDescriptor } from './syllablesDescriptor';
 
-export function SyllablesGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function SyllablesGame({ settings, onExit }: GameRuntimeProps) {
   const { syllableItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, syllableItems, locale);
@@ -24,7 +24,6 @@ export function SyllablesGame({ settings, onExit, onOpenSettings }: GameRuntimeP
       gameId="SYLLABLES"
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
-      onOpenSettings={onOpenSettings}
     />
   );
 }

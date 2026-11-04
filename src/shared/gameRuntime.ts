@@ -12,5 +12,4 @@ import { GameSettings } from './types';
 export interface GameRuntimeProps {
   settings: GameSettings;
   onExit(): void;
-  onOpenSettings?: () => void;
 }

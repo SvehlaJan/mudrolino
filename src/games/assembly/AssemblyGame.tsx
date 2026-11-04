@@ -727,7 +727,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
   );
 }
 
-export function AssemblyGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function AssemblyGame({ settings, onExit }: GameRuntimeProps) {
   const { wordItems, letterItems, syllableItems } = useContent();
   const t = useT();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
@@ -748,7 +748,6 @@ export function AssemblyGame({ settings, onExit, onOpenSettings }: GameRuntimePr
       availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
       onPlay={() => setGameState('PLAYING')}
       onBack={onExit}
-      onOpenSettings={onOpenSettings}
     />
   );
 }

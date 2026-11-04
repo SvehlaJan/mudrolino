@@ -132,8 +132,8 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
   );
 }
 
-export function AdditionGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function AdditionGame({ settings, onExit }: GameRuntimeProps) {
   const [playing, setPlaying] = useState(false);
-  if (!playing) return <GameLobby gameId="ADDITION" onPlay={() => setPlaying(true)} onBack={onExit} onOpenSettings={onOpenSettings} />;
+  if (!playing) return <GameLobby gameId="ADDITION" onPlay={() => setPlaying(true)} onBack={onExit} />;
   return <AdditionPlayfield sumRange={settings.additionSumRange} representation={settings.additionRepresentation} onExit={() => setPlaying(false)} />;
 }

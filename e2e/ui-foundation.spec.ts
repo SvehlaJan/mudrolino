@@ -288,8 +288,8 @@ test.describe('UI foundation: universal screen contract', () => {
 });
 
 test.describe('UI foundation: overlay landmark hygiene', () => {
-  test('opening the parent gate over a game route makes the background inert instead of duplicating the main landmark', async ({ page }) => {
-    await openGameFromHome(page, '/alphabet');
+  test('opening the parent gate from the Home screen makes the background inert instead of duplicating the main landmark', async ({ page }) => {
+    await page.goto('/');
     await expect(page.getByRole('main')).toHaveCount(1);
 
     await page.getByRole('button', { name: 'Nastavenia' }).click();

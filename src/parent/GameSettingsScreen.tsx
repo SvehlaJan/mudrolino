@@ -4,16 +4,14 @@
  */
 
 import React, { useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { GameId, GameSettings } from '../shared/types';
 import { GAME_DEFINITIONS_BY_ID } from '../shared/gameCatalog';
 import { getUiCopy } from '../shared/uiCopy';
 import { useContentLocale } from '../shared/contexts/ContentContext';
-import { sanitizeChildReturnPath } from '../shared/services/parentAccessLogic';
 import { getSettingsSubtitle } from '../shared/settings/settingsRegistry';
 import { AppScreen, BackButton, PageHeader, TopBar, cn, uiTokens } from '../shared/ui';
 import { SettingsRenderer } from './SettingsRenderer';
-import { useParentZone } from './ParentZoneContext';
 import { useT } from '../shared/hooks/useT';
 
 interface GameSettingsScreenProps {
@@ -22,34 +20,19 @@ interface GameSettingsScreenProps {
 }
 
 /**
- * Route component for /settings/games/:gameId. Renders the same
- * SettingsRenderer content whether reached from a lobby's settings trigger or
- * from the dashboard's games overview — only the back destination differs:
- * a lobby entry closes the whole parent zone back to that lobby, an
- * in-dashboard entry steps back to the games overview.
+ * Route component for /settings/games/:gameId, reached from the dashboard's
+ * games overview. Back steps to that overview.
  */
 export function GameSettingsScreen({ settings, onUpdate }: GameSettingsScreenProps) {
   const { gameId } = useParams<{ gameId: string }>();
-  const location = useLocation();
   const navigate = useNavigate();
-  const { closeToChild } = useParentZone();
   const locale = useContentLocale();
   const t = useT();
   const [notice, setNotice] = useState<string | null>(null);
 
   const definition = gameId ? GAME_DEFINITIONS_BY_ID[gameId as GameId] : undefined;
 
-  const state = location.state as { returnTo?: unknown } | null;
-  const returnTo = sanitizeChildReturnPath(state?.returnTo);
-  const cameFromLobby = returnTo !== '/';
-
-  const handleBack = () => {
-    if (cameFromLobby) {
-      closeToChild({ state: { returnFocus: 'settings' }, replace: true });
-      return;
-    }
-    navigate('/settings/games', { replace: true });
-  };
+  const handleBack = () => navigate('/settings/games', { replace: true });
 
   if (!definition) {
     return (

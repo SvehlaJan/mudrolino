@@ -1,8 +1,4 @@
-import {
-  getParentRouteKind,
-  isProtectedParentPath,
-  sanitizeChildReturnPath,
-} from './parentAccessLogic';
+import { getParentRouteKind, isProtectedParentPath } from './parentAccessLogic';
 
 const protectedPaths = [
   '/settings',
@@ -28,11 +24,5 @@ if (!isProtectedParentPath('/settings/')) {
 }
 if (getParentRouteKind('/settings/') !== 'dashboard') {
   throw new Error('/settings/ must map to dashboard route kind');
-}
-if (sanitizeChildReturnPath('/alphabet') !== '/alphabet') {
-  throw new Error('Catalogued child path should be accepted');
-}
-if (sanitizeChildReturnPath('/settings') !== '/') {
-  throw new Error('Protected return path must fall back home');
 }
 console.log('✓ parent access route policy passed');

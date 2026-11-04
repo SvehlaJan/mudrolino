@@ -4,9 +4,8 @@
  */
 
 import React, { useCallback, useMemo } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useParentAccess } from '../shared/contexts/useParentAccess';
-import { sanitizeChildReturnPath } from '../shared/services/parentAccessLogic';
 import { ParentZoneContext, type ParentZoneValue } from './ParentZoneContext';
 
 /**
@@ -17,16 +16,13 @@ import { ParentZoneContext, type ParentZoneValue } from './ParentZoneContext';
 export function ParentLayout() {
   const { lock } = useParentAccess();
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state as { returnTo?: unknown } | null;
-  const returnTo = sanitizeChildReturnPath(state?.returnTo);
 
-  const closeToChild = useCallback((options?: { state?: Record<string, unknown>; replace?: boolean }) => {
+  const closeToChild = useCallback((options?: { replace?: boolean }) => {
     lock();
-    navigate(returnTo, { replace: options?.replace ?? false, state: options?.state });
-  }, [lock, navigate, returnTo]);
+    navigate('/', { replace: options?.replace ?? false });
+  }, [lock, navigate]);
 
-  const value = useMemo<ParentZoneValue>(() => ({ returnTo, closeToChild }), [returnTo, closeToChild]);
+  const value = useMemo<ParentZoneValue>(() => ({ closeToChild }), [closeToChild]);
 
   return (
     <ParentZoneContext.Provider value={value}>

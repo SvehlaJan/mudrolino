@@ -6,7 +6,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameId, GameSettings } from '../types';
-import { GAME_DEFINITIONS_BY_ID } from '../gameCatalog';
 import { GAME_MODULES } from '../gameModuleRegistry';
 import { ErrorBoundary } from './ErrorBoundary';
 
@@ -16,28 +15,21 @@ interface GameRouteProps {
 }
 
 /**
- * Resolves a game's catalog definition and lazy module, and supplies the
- * runtime callbacks every game needs: exit-to-home and (only when the game has
- * settings) open-settings navigation. Replaces the per-game static imports and
- * ad hoc onExit/onOpenSettings wiring that used to live in App.tsx.
+ * Resolves a game's lazy module and supplies the runtime callback every game
+ * needs: exit-to-home. Replaces the per-game static imports and ad hoc onExit
+ * wiring that used to live in App.tsx. Game settings are reached only through
+ * the Parent area, so a game receives no way to open them.
  */
 export function GameRoute({ gameId, settings }: GameRouteProps) {
   const navigate = useNavigate();
-  const definition = GAME_DEFINITIONS_BY_ID[gameId];
   const Component = GAME_MODULES[gameId];
 
   const onExit = () => navigate('/');
-  const onOpenSettings = definition.settings.length
-    ? () =>
-        navigate(`/settings/games/${gameId}`, {
-          state: { returnTo: definition.path, returnFocus: 'settings' },
-        })
-    : undefined;
 
   return (
     <ErrorBoundary>
       <React.Suspense fallback={null}>
-        <Component settings={settings} onExit={onExit} onOpenSettings={onOpenSettings} />
+        <Component settings={settings} onExit={onExit} />
       </React.Suspense>
     </ErrorBoundary>
   );

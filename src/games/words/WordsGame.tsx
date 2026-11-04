@@ -12,7 +12,7 @@ import { getUnplayableReason } from '../../shared/gamePlayability';
 import { createWordsDescriptor } from './wordsDescriptor';
 import { translate } from '../../shared/i18n';
 
-export function WordsGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function WordsGame({ settings, onExit }: GameRuntimeProps) {
   const { wordItems, letterItems, syllableItems, locale } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const descriptor = useMemo(() => createWordsDescriptor(wordItems, locale), [wordItems, locale]);
@@ -34,7 +34,6 @@ export function WordsGame({ settings, onExit, onOpenSettings }: GameRuntimeProps
         setGameState('PLAYING');
       }}
       onBack={onExit}
-      onOpenSettings={onOpenSettings}
     />
   );
 }

@@ -234,7 +234,7 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
   );
 }
 
-export function CompareQuantitiesGame({ settings, onExit, onOpenSettings }: GameRuntimeProps) {
+export function CompareQuantitiesGame({ settings, onExit }: GameRuntimeProps) {
   const { numberItems } = useContent();
   const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const availableItems = useMemo(() => {
@@ -243,7 +243,7 @@ export function CompareQuantitiesGame({ settings, onExit, onOpenSettings }: Game
   }, [numberItems, settings.compareRange.end, settings.compareRange.start]);
 
   if (gameState === 'HOME') {
-    return <GameLobby gameId="COMPARE_QUANTITIES" onPlay={() => setGameState('PLAYING')} onBack={onExit} onOpenSettings={onOpenSettings} />;
+    return <GameLobby gameId="COMPARE_QUANTITIES" onPlay={() => setGameState('PLAYING')} onBack={onExit} />;
   }
 
   return <ComparePlayfield availableItems={availableItems} mode={settings.compareMode} onExit={() => setGameState('HOME')} />;
