@@ -243,8 +243,6 @@ test.describe('UI foundation: universal screen contract', () => {
     const viewport = CANONICAL_VIEWPORTS.desktop;
     await page.setViewportSize(viewport);
     await openGameFromHome(page, '/alphabet'); // GameLobby uses a default AppScreen (height="viewport")
-    // The lobby route is a lazy chunk; measure its main, not the home screen that is still showing.
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
     const minHeight = await page
       .getByRole('main')
       .evaluate((el) => parseFloat(getComputedStyle(el).minHeight));

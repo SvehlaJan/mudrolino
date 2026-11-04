@@ -15,12 +15,16 @@ async function installCaptureRecorder(page) {
   await page.addInitScript({ path: recorderInitPath });
 }
 
-/** Opens the home screen and taps the Game card whose href is `path`, as a child does. This
- * tool cannot import the TypeScript e2e helper, so it keeps its own copy of the same behavior. */
+/** Opens the home screen and taps the Game card whose href is `path`, as a child does. Same
+ * contract as `openGameFromHome` in e2e/support/gameEntry.ts, but it takes an explicit `baseUrl`
+ * (the e2e helper relies on the Playwright config's baseURL), so this tool keeps its own copy.
+ * Resolves once the URL is `path` and no Game card remains: the game route is a lazy chunk, so
+ * Home is still rendered for a moment after the URL changes. */
 async function openGameFromHome(page, baseUrl, path) {
   await page.goto(`${baseUrl}/`);
   await page.locator(`[data-testid="game-card"][href="${path}"]`).click();
   await page.waitForURL((url) => url.pathname === path);
+  await page.waitForFunction(() => document.querySelector('[data-testid="game-card"]') === null);
 }
 
 export function parseArgs(args) {
