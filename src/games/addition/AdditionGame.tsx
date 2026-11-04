@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { FailureSpec, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
 import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -133,7 +132,5 @@ function AdditionPlayfield({ sumRange, representation, onExit }: AdditionPlayfie
 }
 
 export function AdditionGame({ settings, onExit }: GameRuntimeProps) {
-  const [playing, setPlaying] = useState(false);
-  if (!playing) return <GameLobby gameId="ADDITION" onPlay={() => setPlaying(true)} onBack={onExit} />;
-  return <AdditionPlayfield sumRange={settings.additionSumRange} representation={settings.additionRepresentation} onExit={() => setPlaying(false)} />;
+  return <AdditionPlayfield sumRange={settings.additionSumRange} representation={settings.additionRepresentation} onExit={onExit} />;
 }

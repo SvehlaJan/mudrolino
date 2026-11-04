@@ -6,7 +6,7 @@ import {
   trackConsoleErrors,
   trackFailedRequests,
 } from './support/assertions';
-import { completeCurrentRound, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
+import { completeCurrentRound, getAudioEvents, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { startGame } from './support/gameEntry';
 
@@ -14,8 +14,6 @@ async function startFromHome(page: Page, title: string): Promise<void> {
   await page.goto('/');
   await page.getByRole('link', { name: new RegExp(title, 'i') }).click();
   await expect(page.getByRole('heading', { level: 1, name: title })).toBeVisible();
-  await expect(page.getByTestId('lobby-instruction')).toBeVisible();
-  await page.getByRole('button', { name: 'Hrať' }).click();
   await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Zopakovať zadanie' })).toBeVisible();
   await expect(page.getByTestId('game-answer-region').getByRole('button')).not.toHaveCount(0);
@@ -74,4 +72,15 @@ test('bear companion succeeds with WebKit', async ({ page }, testInfo) => {
   await testInfo.attach('companion-representation', { body: representation, contentType: 'text/plain' });
   expect(errors.filter(error => !/WebGL|Error creating/.test(error))).toEqual([]);
   expectNoFailedRequests(requests);
+});
+
+test('a card tap reaches the first prompt recording in WebKit', async ({ page }) => {
+  const messages: string[] = [];
+  page.on('console', (message) => messages.push(message.text()));
+
+  await startGame(page, '/numbers');
+
+  await expect.poll(async () => (await getAudioEvents(page)).includes('finish:sk/phrases/najdi')).toBe(true);
+  await expect.poll(async () => (await getAudioEvents(page)).some(event => event.startsWith('finish:sk/numbers/'))).toBe(true);
+  expect(messages.filter(message => message.includes('falling back to TTS'))).toEqual([]);
 });

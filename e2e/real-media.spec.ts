@@ -56,3 +56,14 @@ test('leaving during native playback cancels media and a fresh game can complete
   await expect.poll(async () => (await getAudioEvents(page)).some(event => event.startsWith('finish:sk/numbers/'))).toBe(true);
   await waitForGamePhase(page, 'awaiting-answer');
 });
+
+test('a card tap plays the first prompt from its recording', async ({ page }) => {
+  const messages: string[] = [];
+  page.on('console', (message) => messages.push(message.text()));
+
+  await startGame(page, '/numbers');
+
+  await expect.poll(async () => (await getAudioEvents(page)).includes('finish:sk/phrases/najdi')).toBe(true);
+  await expect.poll(async () => (await getAudioEvents(page)).some(event => event.startsWith('finish:sk/numbers/'))).toBe(true);
+  expect(messages.filter(message => message.includes('falling back to TTS'))).toEqual([]);
+});

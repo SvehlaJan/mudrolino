@@ -10,7 +10,7 @@ import {
 } from './support/layoutAssertions';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
 import { unlockParentGate } from './support/parentGate';
-import { openGameFromHome, startGame } from './support/gameEntry';
+import { startGame } from './support/gameEntry';
 
 async function startRound(page: Page, game: ReleaseGameCase): Promise<void> {
   await stubSpeechSynthesis(page);
@@ -48,20 +48,6 @@ test('home keeps both game groups and all release cards reachable', async ({ pag
 });
 
 for (const game of RELEASE_GAME_CASES) {
-  test(`${game.id} lobby keeps its child actions contained`, async ({ page }) => {
-    await openGameFromHome(page, game.path);
-    await expect(page.getByRole('main')).toHaveCount(1);
-    await expect(page.getByRole('heading', { level: 1, name: game.title })).toBeVisible();
-    await expect(page.getByTestId('lobby-instruction')).toBeVisible();
-    await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
-    await expect(page.getByRole('button', { name: 'Späť' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Nastavenia' })).toHaveCount(0);
-    await expectNoHorizontalOverflow(page);
-  });
-}
-
-for (const game of RELEASE_GAME_CASES) {
   test(`${game.id} active round keeps the prompt and answers contained`, async ({ page }) => {
     await startRound(page, game);
     const answers = page.getByTestId('game-answer-region').getByRole('button');
@@ -70,10 +56,12 @@ for (const game of RELEASE_GAME_CASES) {
     const replay = page.getByRole('button', { name: 'Zopakovať zadanie' });
     const progress = page.getByRole('progressbar', { name: 'Postup v hre' });
 
+    await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
     await expect(replay).toBeVisible();
     await expect(progress).toBeVisible();
     await expect(back).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Nastavenia' })).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
     await expectDocumentFitsViewport(page);
     await expectWithinViewport(page, page.getByTestId('game-visible-instruction'));

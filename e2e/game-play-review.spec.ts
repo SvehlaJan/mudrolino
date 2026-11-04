@@ -2,7 +2,8 @@ import { expect, test, type Locator } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { waitForGamePhase } from './support/gameHarness';
 import { GAME_DEFINITIONS } from '../src/shared/gameCatalog';
-import { openGameFromHome, startGame } from './support/gameEntry';
+import { startGame } from './support/gameEntry';
+import { pinFirstRoundRandom } from './support/firstRoundRandom';
 
 async function expectUnclippedShadows(controls: Locator) {
   const clipping = await controls.evaluateAll(elements => elements.flatMap(element => {
@@ -96,9 +97,8 @@ test('review: number answers keep retry feedback off the card', async ({ page })
 test('review: ten counting items remain tappable at narrow and short sizes', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 568 });
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ countingRange: { start: 1, end: 10 } })));
-  await openGameFromHome(page, '/counting');
-  await page.evaluate(() => { let first = true; Math.random = () => { if (first) { first = false; return 0; } return 0.999; }; });
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await pinFirstRoundRandom(page, '/counting', [0, 0.999]);
+  await startGame(page, '/counting');
   for (const viewport of [{ width: 320, height: 568 }, { width: 667, height: 375 }]) {
     await page.setViewportSize(viewport);
     const counters = page.getByRole('button', { name: /^Predmet \d+ z 10$/ });
@@ -124,14 +124,8 @@ for (const route of ['/counting', '/compare']) {
     await page.addInitScript(() => {
       localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ countingRange: { start: 1, end: 5 }, compareRange: { start: 1, end: 5 }, compareMode: 'objects' }));
     });
-    await openGameFromHome(page, route);
-    await page.evaluate(path => {
-      let calls = 0;
-      Math.random = path === '/counting'
-        ? () => calls++ === 0 ? 0 : 0.999999
-        : () => calls++ === 0 ? 0.999999 : 0;
-    }, route);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await pinFirstRoundRandom(page, route, route === '/counting' ? [0, 0.999999] : [0.999999, 0]);
+    await startGame(page, route);
     await waitForGamePhase(page, 'awaiting-answer');
     const tray = page.locator('[data-quantity-mode="objects"]').first();
     const tokens = tray.locator('[data-quantity-token]');

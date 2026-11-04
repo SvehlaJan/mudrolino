@@ -6,7 +6,7 @@ import { stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { expectMinimumTarget } from './support/layoutAssertions';
 import { unlockParentGate } from './support/parentGate';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
-import { openGameFromHome, startGame } from './support/gameEntry';
+import { startGame } from './support/gameEntry';
 
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 const INTERACTION_FAMILIES = ['ALPHABET', 'ASSEMBLY', 'COUNTING_ITEMS', 'COMPARE_QUANTITIES', 'ADDITION'] as const;
@@ -50,12 +50,11 @@ test('home has one main landmark and no serious accessibility violations', async
   await expectNoSeriousAxeViolations(page);
 });
 
-test('a game lobby exposes its primary action without serious accessibility violations', async ({ page }) => {
+test('a game opened from its card exposes Back as a child-size target without serious accessibility violations', async ({ page }) => {
   const game = RELEASE_GAME_CASES[0];
-  await openGameFromHome(page, game.path);
+  await startRound(page, game);
   await expect(page.getByRole('main')).toHaveCount(1);
   await expect(page.getByRole('heading', { level: 1, name: game.title })).toHaveCount(1);
-  await expectMinimumTarget(page, page.getByRole('button', { name: 'Hrať' }), 48);
   await expectMinimumTarget(page, page.getByRole('button', { name: 'Späť' }), 48);
   await expectNoSeriousAxeViolations(page);
 });

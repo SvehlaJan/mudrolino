@@ -18,7 +18,7 @@ import { CANONICAL_VIEWPORTS } from './support/viewports';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
 import { PRAISE_ENTRIES } from '../src/shared/locales/sk';
-import { openGameFromHome, startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 // One PraiseEntry is picked per success transition (see FindItGame.tsx), so the visible
 // success title is whichever entry's text was chosen, not always the generic default.
@@ -518,10 +518,7 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
 
   for (const game of FIND_IT_GAMES) {
     test(`${game.name}: full keyboard navigation, activation, and feedback flow`, async ({ page }) => {
-      await openGameFromHome(page, game.path);
-      const playButton = page.getByRole('button', { name: 'Hrať' });
-      await playButton.focus();
-      await page.keyboard.press('Enter');
+      await startGame(page, game.path);
 
       const state = await getE2EState<FindItE2EState>(page);
       expect(state.correctItemId).not.toBeNull();
@@ -556,10 +553,7 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
       await page.keyboard.press('Enter');
     }
 
-    await openGameFromHome(page, '/alphabet');
-    const playButton = page.getByRole('button', { name: 'Hrať' });
-    await playButton.focus();
-    await page.keyboard.press('Enter');
+    await startGame(page, '/alphabet');
 
     for (let round = 0; round < 5; round += 1) {
       await playRoundByKeyboard();
@@ -593,7 +587,7 @@ test.describe('Task 7: Rotation preservation and keyboard control', () => {
     const homeBtn = page.getByRole('button', { name: 'Domov' });
     await homeBtn.focus();
     await page.keyboard.press('Enter');
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expectHomeScreen(page);
   });
 });
 

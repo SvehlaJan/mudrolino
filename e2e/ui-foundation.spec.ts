@@ -2,7 +2,7 @@ import { test, expect } from './support/fixtures';
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';
-import { openGameFromHome } from './support/gameEntry';
+import { startGame } from './support/gameEntry';
 
 test.describe('UI foundation: core controls', () => {
   test('quantity materials fit their measured surfaces and expose names', async ({ page }) => {
@@ -242,7 +242,7 @@ test.describe('UI foundation: universal screen contract', () => {
   test('AppScreen height="viewport" (the default) still forces a full-viewport minimum height', async ({ page }) => {
     const viewport = CANONICAL_VIEWPORTS.desktop;
     await page.setViewportSize(viewport);
-    await openGameFromHome(page, '/alphabet'); // GameLobby uses a default AppScreen (height="viewport")
+    await startGame(page, '/alphabet'); // GameShell uses a default AppScreen (height="viewport")
     const minHeight = await page
       .getByRole('main')
       .evaluate((el) => parseFloat(getComputedStyle(el).minHeight));

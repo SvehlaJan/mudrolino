@@ -8,7 +8,8 @@ import {
   expectNoPairwiseOverlap,
   expectWithinViewport,
 } from './support/layoutAssertions';
-import { openGameFromHome, startGame } from './support/gameEntry';
+import { startGame } from './support/gameEntry';
+import { pinFirstRoundRandom } from './support/firstRoundRandom';
 
 interface NumeracyRoute {
   path: string;
@@ -136,13 +137,8 @@ test('@geometry compare quantity cards have equal bounded heights and contained 
   expect(page.viewportSize()).not.toBeNull();
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ compareMode: 'objects', compareRange: { start: 1, end: 10 } })));
   await stubSpeechSynthesis(page);
-  await openGameFromHome(page, '/compare');
-  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
-  await page.evaluate(() => {
-    let calls = 0;
-    Math.random = () => calls++ === 0 ? 0 : 0.999999;
-  });
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await pinFirstRoundRandom(page, '/compare', [0, 0.999999]);
+  await startGame(page, '/compare');
   await expect(page.getByRole('group', { name: 'Porovnanie množstiev' })).toBeVisible();
   await waitForGamePhase(page, 'awaiting-answer');
   const choices = page.locator('[data-answer-side]:visible');

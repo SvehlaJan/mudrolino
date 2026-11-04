@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { AudioClip, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
 import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -236,15 +235,10 @@ function ComparePlayfield({ availableItems, mode, onExit }: ComparePlayfieldProp
 
 export function CompareQuantitiesGame({ settings, onExit }: GameRuntimeProps) {
   const { numberItems } = useContent();
-  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const availableItems = useMemo(() => {
     const inSelectedRange = numberItems.filter(item => item.value >= settings.compareRange.start && item.value <= settings.compareRange.end);
     return inSelectedRange.length >= 2 ? inSelectedRange : numberItems.filter(item => item.value >= 1 && item.value <= 5);
   }, [numberItems, settings.compareRange.end, settings.compareRange.start]);
 
-  if (gameState === 'HOME') {
-    return <GameLobby gameId="COMPARE_QUANTITIES" onPlay={() => setGameState('PLAYING')} onBack={onExit} />;
-  }
-
-  return <ComparePlayfield availableItems={availableItems} mode={settings.compareMode} onExit={() => setGameState('HOME')} />;
+  return <ComparePlayfield availableItems={availableItems} mode={settings.compareMode} onExit={onExit} />;
 }

@@ -13,7 +13,7 @@ import {
   waitForOverlay,
 } from './support/assertions';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
-import { startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 interface AdditionE2EState extends E2EGlobalState {
   gameId: 'ADDITION';
@@ -112,7 +112,7 @@ test('addition uses the shared prompt, shell controls, unique answers, keyboard,
   await expect(page.getByRole('button', { name: 'Späť' })).toBeVisible();
   await expect(page.getByRole('group', { name: 'Vyber súčet' })).toBeVisible();
   await page.getByRole('button', { name: 'Späť' }).click();
-  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+  await expectHomeScreen(page);
   await startAddition(page);
   await expect(page.getByRole('progressbar', { name: 'Postup v hre' })).toHaveAttribute('aria-valuenow', '1');
   await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toHaveCount(0);
@@ -151,7 +151,7 @@ test('addition uses the shared prompt, shell controls, unique answers, keyboard,
   await waitForGamePhase(page, 'session-complete');
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
   await page.getByRole('button', { name: 'Domov' }).click();
-  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+  await expectHomeScreen(page);
 });
 
 for (const [name, viewport] of Object.entries({

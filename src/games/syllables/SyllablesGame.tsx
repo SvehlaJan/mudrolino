@@ -3,27 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { FindItGame } from '../../shared/components/FindItGame';
-import { GameLobby } from '../../shared/components/GameLobby';
 import { useContent } from '../../shared/contexts/ContentContext';
 import { createSyllablesDescriptor } from './syllablesDescriptor';
 
 export function SyllablesGame({ settings, onExit }: GameRuntimeProps) {
   const { syllableItems, locale } = useContent();
-  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
   const descriptor = createSyllablesDescriptor(settings.syllablesGridSize, syllableItems, locale);
 
-  if (gameState === 'PLAYING') {
-    return <FindItGame gameId="SYLLABLES" descriptor={descriptor} onExit={() => setGameState('HOME')} />;
-  }
-
-  return (
-    <GameLobby
-      gameId="SYLLABLES"
-      onPlay={() => setGameState('PLAYING')}
-      onBack={onExit}
-    />
-  );
+  return <FindItGame gameId="SYLLABLES" descriptor={descriptor} onExit={onExit} />;
 }

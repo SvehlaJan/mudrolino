@@ -1,20 +1,28 @@
-import { expect, type Page } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 /**
- * Opens '/' and taps the Game card whose href is `path`; resolves once the URL is `path` and no
- * Game card remains on the page. The game route is a lazy chunk, so the URL changes while the
- * Home screen is still rendered; callers must not query selectors Home shares with the game
- * screen (the main landmark, an h1, the settings button) until Home is gone.
+ * Opens '/' and taps the Game card whose href is `path`. A card tap starts the first Round, so
+ * this resolves once the URL is `path` and the game screen has mounted. The game route is a lazy
+ * chunk: the URL changes while the Home screen is still rendered, and the screen itself appears a
+ * moment later, so the helper waits for both. In a test build it also waits for the game to
+ * publish its `window.__E2E__` state, so callers can read the oracle immediately; the production
+ * build has no oracle, which the project's expected build mode tells apart.
+ *
+ * The first Round is generated as soon as the game mounts, so anything that must shape it (a
+ * `Math.random` patch, an init script; see firstRoundRandom.ts) has to be installed before this call.
  */
-export async function openGameFromHome(page: Page, path: string): Promise<void> {
+export async function startGame(page: Page, path: string): Promise<void> {
   await page.goto('/');
   await page.locator(`[data-testid="game-card"][href="${path}"]`).click();
   await page.waitForURL((url) => url.pathname === path);
-  await expect(page.getByTestId('game-card')).toHaveCount(0);
+  await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
+  if (test.info().config.metadata.expectedBuildMode === 'test') {
+    await page.waitForFunction(() => Boolean((window as { __E2E__?: { gameId?: string } }).__E2E__?.gameId));
+  }
 }
 
-/** openGameFromHome, then taps the lobby's play button (/^(Hrať|Hrát)$/). Task 6 removes that tap. */
-export async function startGame(page: Page, path: string): Promise<void> {
-  await openGameFromHome(page, path);
-  await page.getByRole('button', { name: /^(Hrať|Hrát)$/ }).click();
+/** Asserts the Home screen is showing: the Game cards are back and the URL is '/'. */
+export async function expectHomeScreen(page: Page): Promise<void> {
+  await expect(page.getByTestId('game-card').first()).toBeVisible();
+  expect(new URL(page.url()).pathname).toBe('/');
 }

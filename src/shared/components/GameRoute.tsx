@@ -8,6 +8,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { GameId, GameSettings } from '../types';
 import { GAME_MODULES } from '../gameModuleRegistry';
 import { useContent } from '../contexts/ContentContext';
+import { getUnplayableReason } from '../gamePlayability';
 import { disarmSessionEntry, isSessionEntryArmed } from '../sessionEntry';
 import { ErrorBoundary } from './ErrorBoundary';
 
@@ -24,12 +25,13 @@ interface GameRouteProps {
  *
  * A Session starts only from a tap on a Home-screen card, because browsers play no sound before
  * one. Any other way in (reload, typed URL, history Forward) is sent home; nothing is lost, since a
- * reload already discards the Session.
+ * reload already discards the Session. A game with nothing to ask (an Unplayable card has no link)
+ * is sent home too, once the content has loaded and the rule can be read.
  */
 export function GameRoute({ gameId, settings }: GameRouteProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isLoading } = useContent();
+  const { isLoading, wordItems, letterItems, syllableItems } = useContent();
   // The read is pure because StrictMode runs this initialiser twice in development; the disarm
   // waits for the mount effect, so only a real mount consumes the card's tap.
   const [entered] = useState(() => isSessionEntryArmed(gameId));
@@ -41,6 +43,9 @@ export function GameRoute({ gameId, settings }: GameRouteProps) {
 
   if (!entered) return <Navigate to="/" replace />;
   if (isLoading) return null;
+  if (getUnplayableReason(gameId, { wordItems, letterItems, syllableItems, settings }) !== null) {
+    return <Navigate to="/" replace />;
+  }
 
   // Entered by a card tap: Home is the previous entry, so going back leaves no game ahead of it.
   const enteredFromHome = (location.state as { fromHome?: boolean } | null)?.fromHome === true;

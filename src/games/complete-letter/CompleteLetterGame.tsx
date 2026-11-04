@@ -7,11 +7,9 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CompleteLetterMissingCount, FailureSpec, Letter, PraiseEntry, SuccessSpec, Word } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
-import { getUnplayableReason } from '../../shared/gamePlayability';
 import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg, type Translate } from '../../shared/i18n';
@@ -458,9 +456,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
 }
 
 export function CompleteLetterGame({ settings, onExit }: GameRuntimeProps) {
-  const { wordItems, letterItems, syllableItems } = useContent();
-  const t = useT();
-  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
+  const { wordItems, letterItems } = useContent();
 
   const activeLetters = useMemo(
     () => getActiveCompleteLetterLetters(letterItems, settings.alphabetAccents),
@@ -477,28 +473,13 @@ export function CompleteLetterGame({ settings, onExit }: GameRuntimeProps) {
     ),
     [letterItems, settings.alphabetAccents, settings.completeLetterMissingCount, wordItems],
   );
-  const unplayableReason = useMemo(
-    () => getUnplayableReason('COMPLETE_LETTER', { wordItems, letterItems, syllableItems, settings }),
-    [wordItems, letterItems, syllableItems, settings],
-  );
-
-  if (gameState === 'PLAYING') {
-    return (
-      <CompleteLetterPlayfield
-        eligibleWords={eligibleWords}
-        activeLetters={activeLetters}
-        missingCountMode={settings.completeLetterMissingCount}
-        onExit={() => setGameState('HOME')}
-      />
-    );
-  }
 
   return (
-    <GameLobby
-      gameId="COMPLETE_LETTER"
-      availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
-      onPlay={() => setGameState('PLAYING')}
-      onBack={onExit}
+    <CompleteLetterPlayfield
+      eligibleWords={eligibleWords}
+      activeLetters={activeLetters}
+      missingCountMode={settings.completeLetterMissingCount}
+      onExit={onExit}
     />
   );
 }

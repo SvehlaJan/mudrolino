@@ -223,7 +223,7 @@ test.describe('FindIt empty-pool recovery', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('Home returns to the lobby from an empty-pool recoverable error', async ({ page }) => {
+  test('Home leaves the game from an empty-pool recoverable error', async ({ page }) => {
     await page.goto('/ui-kit?example=game-empty-pool');
     await expect(page.getByRole('alert')).toContainText('Žiadne položky na hranie.');
     await page.getByRole('button', { name: 'Domov' }).click();

@@ -2,7 +2,7 @@ import { expect, test, type Page } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { waitForGamePhase } from './support/gameHarness';
 import { ASSEMBLY_JAHODA, LONG_LABEL_WORDS, seedSingleLiteracyWord, type AssemblyE2EState, type CompleteLetterE2EState, type CompleteSyllableE2EState } from './support/literacyHarness';
-import { startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 const games = ['assembly', 'complete-letter', 'complete-syllable'] as const;
 
@@ -89,7 +89,7 @@ for (const game of games) {
     await expect(page.locator('[data-tile-flight]')).toHaveCount(1);
     await page.getByRole('button', { name: 'Späť', exact: true }).click();
     await expect(page.locator('[data-tile-flight]')).toHaveCount(0);
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expectHomeScreen(page);
     // A cancelled promise must not settle the old question after its component unmounts.
     await page.waitForTimeout(700);
     await expect(page.locator('[data-tile-flight]')).toHaveCount(0);

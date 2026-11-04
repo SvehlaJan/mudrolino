@@ -12,7 +12,7 @@ import {
 } from './support/assertions';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import type { GamePhase } from '../src/shared/game/gameState';
-import { startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 interface CompareE2EState extends E2EGlobalState {
   gameId: 'COMPARE_QUANTITIES';
@@ -102,7 +102,7 @@ test('compare quantities: replay, roving keyboard controls, progress-only header
   await expect(answer(page, 'left')).toBeFocused();
   await page.getByRole('button', { name: 'Zopakovať zadanie' }).click();
   await page.getByRole('button', { name: 'Späť' }).click();
-  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+  await expectHomeScreen(page);
   await startCompare(page);
   await expect(page.getByRole('progressbar', { name: 'Postup v hre' })).toHaveAttribute('aria-valuenow', '1');
   await expect(page.getByRole('button', { name: 'Rodičovská prestávka' })).toHaveCount(0);
@@ -125,7 +125,7 @@ test('compare quantities: replay, roving keyboard controls, progress-only header
   await waitForGamePhase(page, 'session-complete');
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
   await page.getByRole('button', { name: 'Domov' }).click();
-  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+  await expectHomeScreen(page);
 });
 
 for (const [name, viewport] of Object.entries({

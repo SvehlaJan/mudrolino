@@ -8,9 +8,9 @@ import {
 import { expectNoHorizontalOverflow } from './support/layoutAssertions';
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';
-import { openGameFromHome } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
-test.describe('Catalog, home, and lobbies', () => {
+test.describe('Catalog and home', () => {
   test('home renders ordered catalog groups and every game once', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
@@ -50,7 +50,7 @@ test.describe('Catalog, home, and lobbies', () => {
   });
 });
 
-const LOBBY_CASES = [
+const GAME_CASES = [
   { id: 'ALPHABET', path: '/alphabet' },
   { id: 'SYLLABLES', path: '/syllables' },
   { id: 'NUMBERS', path: '/numbers' },
@@ -64,28 +64,29 @@ const LOBBY_CASES = [
   { id: 'COMPLETE_LETTER', path: '/complete-letter' },
 ];
 
-test.describe('Game lobby semantic contract', () => {
-  for (const game of LOBBY_CASES) {
-    test(`lobby for ${game.id} (${game.path}) fulfills semantic contract`, async ({ page }) => {
+test.describe('Game card to game screen contract', () => {
+  for (const game of GAME_CASES) {
+    test(`the ${game.id} card (${game.path}) opens its game screen with the first Round, and Back returns to Home`, async ({ page }) => {
       const errors = trackConsoleErrors(page);
       const failedRequests = trackFailedRequests(page);
-      await openGameFromHome(page, game.path);
+      await startGame(page, game.path);
       const main = page.getByRole('main');
       await expect(main.getByRole('heading', { level: 1 })).toHaveCount(1);
-      await expect(main.getByTestId('lobby-instruction')).toBeVisible();
-      await expect(main.getByTestId('lobby-tactile-preview')).toHaveCount(0);
-      await expect(main.getByRole('button', { name: 'Hrať' })).toHaveCount(1);
+      await expect(main.getByTestId('game-visible-instruction')).toBeVisible();
+      await expect(main.getByRole('button', { name: /^(Hrať|Hrát)$/ })).toHaveCount(0);
+      await page.getByRole('button', { name: 'Späť' }).click();
+      await expectHomeScreen(page);
       expectNoConsoleErrors(errors);
       expectNoFailedRequests(failedRequests);
     });
   }
 
-  test('lobbies offer no settings shortcut', async ({ page }) => {
+  test('the game screen offers no settings shortcut', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
-    for (const game of LOBBY_CASES) {
-      await openGameFromHome(page, game.path);
-      await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    for (const game of GAME_CASES) {
+      await startGame(page, game.path);
+      await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
       await expect(page.getByRole('button', { name: 'Nastavenia' })).toHaveCount(0);
     }
     expectNoConsoleErrors(errors);
@@ -134,7 +135,7 @@ test.describe('Game lobby semantic contract', () => {
     expectNoFailedRequests(failedRequests);
   });
 
-  test('lobby sources locale from ContentContext and shows Czech copy', async ({ page }) => {
+  test('the game screen sources locale from ContentContext and shows Czech copy', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
@@ -145,33 +146,29 @@ test.describe('Game lobby semantic contract', () => {
       );
     });
 
-    await openGameFromHome(page, '/alphabet');
+    await startGame(page, '/alphabet');
     const main = page.getByRole('main');
-    await expect(page.getByTestId('lobby-body')).toHaveAttribute('data-locale', 'cs');
     await expect(main.getByRole('heading', { level: 1 })).toHaveText('Čti písmenka');
-    await expect(main.getByTestId('lobby-instruction')).toHaveText('Najdi správné písmenko.');
-    await expect(main.getByRole('button', { name: 'Hrát' })).toBeVisible();
+    await expect(main.getByTestId('game-visible-instruction')).toHaveText('Najdi písmeno, které slyšíš.');
     await expect(page.locator('html')).toHaveAttribute('lang', 'cs');
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
   });
 
-  test('lobby renders cleanly at short landscape (667x375) and narrow phone (320x568)', async ({ page }) => {
+  test('the game screen renders cleanly at short landscape (667x375) and narrow phone (320x568)', async ({ page }) => {
     // 320x568
     await page.setViewportSize(CANONICAL_VIEWPORTS.narrowPhone);
-    await openGameFromHome(page, '/alphabet');
+    await startGame(page, '/alphabet');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
-    await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
     // 667x375
     await page.setViewportSize(CANONICAL_VIEWPORTS.shortLandscape);
-    await openGameFromHome(page, '/alphabet');
+    await startGame(page, '/alphabet');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
-    await expect(page.getByTestId('lobby-tactile-preview')).toHaveCount(0);
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
 });

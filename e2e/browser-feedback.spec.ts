@@ -3,7 +3,7 @@ import { trackConsoleErrors, trackFailedRequests, expectNoConsoleErrors, expectN
 import { seedSingleAssemblyWord, ASSEMBLY_JAHODA, type AssemblyE2EState } from './support/literacyHarness';
 import { getE2EState } from './support/e2eHook';
 import { waitForGamePhase } from './support/gameHarness';
-import { startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 const test = base.extend<{ cleanBrowser: void }>({
   cleanBrowser: [async ({ page }, use) => {
@@ -171,5 +171,5 @@ test('native touch cancellation leaves the next Back click operable', async ({ p
   await client.send('Input.dispatchTouchEvent', { type: 'touchCancel', touchPoints: [] });
   await expect(page.locator('[data-tile-flight]')).toHaveCount(0);
   await page.getByRole('button', { name: 'Späť', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+  await expectHomeScreen(page);
 });

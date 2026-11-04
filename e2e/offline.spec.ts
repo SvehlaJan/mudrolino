@@ -2,7 +2,7 @@ import { installNativeAudioMute } from './support/nativeAudioMute';
 import { expect, test } from '@playwright/test';
 import { RELEASE_GAME_CASES } from './support/releaseMatrix';
 import { LETTER_ITEMS } from '../src/shared/locales/sk';
-import { openGameFromHome, startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 async function waitForOfflineControl(page: import('@playwright/test').Page) {
   await page.goto('/');
@@ -24,10 +24,11 @@ test('installed production shell opens every game and protected routes offline',
   await page.reload();
   await expect(page.getByRole('main')).toBeVisible();
   for (const game of RELEASE_GAME_CASES) {
-    await openGameFromHome(page, game.path);
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await startGame(page, game.path);
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
+    // A reload discards the Session, so the child lands on the Home screen instead of a silent game.
     await page.reload();
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+    await expectHomeScreen(page);
   }
 
   await page.goto('/settings');

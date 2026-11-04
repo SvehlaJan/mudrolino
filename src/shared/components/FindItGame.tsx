@@ -27,7 +27,7 @@ import { getSuccessOverlayAudioSpec } from './successOverlayAudio';
 interface FindItGameProps<T> {
   gameId: GameId;
   descriptor: GameDescriptor<T>;
-  /** Called when the child taps the back button — typically sets parent gameState back to 'HOME'. */
+  /** Called by the back button and the Completion screen's Domov; leaves the game for the Home screen. */
   onExit: () => void;
 }
 

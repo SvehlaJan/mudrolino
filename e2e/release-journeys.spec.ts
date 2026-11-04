@@ -14,7 +14,7 @@ import {
 } from './support/gameHarness';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
 import { ASSEMBLY_JAHODA, seedSingleAssemblyWord } from './support/literacyHarness';
-import { startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 interface ReleaseOracle {
   gameId?: GameId;
@@ -100,9 +100,7 @@ for (const game of RELEASE_GAME_CASES) {
 
     await expect.poll(() => readGamePhase(page)).toBe('session-complete');
     await page.getByRole('button', { name: 'Domov' }).click();
-    await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
-    await page.getByRole('button', { name: 'Späť' }).click();
-    await expect(page).toHaveURL('/');
+    await expectHomeScreen(page);
   });
 }
 

@@ -11,11 +11,10 @@ import { useReducedMotion } from 'motion/react';
 import { AudioSpec, PraiseEntry, SuccessSpec, Word } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
-import { getAssemblyEligibleWords, getUnplayableReason } from '../../shared/gamePlayability';
+import { getAssemblyEligibleWords } from '../../shared/gamePlayability';
 import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg } from '../../shared/i18n';
@@ -423,7 +422,7 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
     getPromptAudio: () => getPromptAudio(locale, targetWord!), locale, completionPraise,
   });
 
-  // Every new round, replay, lobby exit, recoverable error, and unmount must kill any
+  // Every new round, replay, exit, recoverable error, and unmount must kill any
   // in-flight GSAP tween/clone — useGameSession's own invalidate() only knows about audio and
   // timers, not GSAP, so this game must clean those up itself at each of those points.
   useEffect(() => {
@@ -727,27 +726,9 @@ function AssemblyPlayfield({ eligibleWords, onExit }: AssemblyPlayfieldProps) {
   );
 }
 
-export function AssemblyGame({ settings, onExit }: GameRuntimeProps) {
-  const { wordItems, letterItems, syllableItems } = useContent();
-  const t = useT();
-  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
-
+export function AssemblyGame({ onExit }: GameRuntimeProps) {
+  const { wordItems } = useContent();
   const eligibleWords = useMemo(() => getAssemblyEligibleWords(wordItems), [wordItems]);
-  const unplayableReason = useMemo(
-    () => getUnplayableReason('ASSEMBLY', { wordItems, letterItems, syllableItems, settings }),
-    [wordItems, letterItems, syllableItems, settings],
-  );
 
-  if (gameState === 'PLAYING') {
-    return <AssemblyPlayfield eligibleWords={eligibleWords} onExit={() => setGameState('HOME')} />;
-  }
-
-  return (
-    <GameLobby
-      gameId="ASSEMBLY"
-      availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
-      onPlay={() => setGameState('PLAYING')}
-      onBack={onExit}
-    />
-  );
+  return <AssemblyPlayfield eligibleWords={eligibleWords} onExit={onExit} />;
 }

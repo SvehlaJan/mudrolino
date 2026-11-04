@@ -11,7 +11,7 @@ if (!('assembly-placed' in SCENES)) {
   throw new Error('capture.mjs must register an "assembly-placed" scene for stable slot review');
 }
 
-const REQUIRED_LOBBIES = [
+const REQUIRED_GAMES = [
   'alphabet',
   'syllables',
   'numbers',
@@ -24,12 +24,16 @@ const REQUIRED_LOBBIES = [
   'complete-syllable',
   'complete-letter',
 ];
-for (const slug of REQUIRED_LOBBIES) {
-  if (!(`lobby-${slug}` in SCENES)) {
-    throw new Error(`capture.mjs must permanently register "lobby-${slug}" scene`);
+const registeredScenes: Record<string, unknown> = SCENES;
+for (const slug of REQUIRED_GAMES) {
+  if (!(`${slug}-round` in SCENES)) {
+    throw new Error(`capture.mjs must permanently register "${slug}-round" scene`);
   }
-  if (!(slug in SCENES)) {
-    throw new Error(`capture.mjs must permanently register "${slug}" alias scene`);
+  if (registeredScenes[slug] !== registeredScenes[`${slug}-round`]) {
+    throw new Error(`capture.mjs must alias "${slug}" to its "${slug}-round" scene`);
+  }
+  if (`lobby-${slug}` in SCENES) {
+    throw new Error(`capture.mjs must not register a "lobby-${slug}" scene: games have no lobby`);
   }
 }
 
@@ -70,8 +74,7 @@ const REQUIRED_RELEASE_SCENES = [
   'home',
   'parents-gate',
   'parents-gate-error',
-  ...REQUIRED_LOBBIES.map(slug => `lobby-${slug}`),
-  ...REQUIRED_LOBBIES.map(slug => `${slug}-round`),
+  ...REQUIRED_GAMES.map(slug => `${slug}-round`),
   'game-shell-success',
   'game-shell-failure',
   'game-shell-retry',

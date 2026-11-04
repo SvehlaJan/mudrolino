@@ -2,7 +2,7 @@ import { expect, test } from './support/fixtures';
 import { getE2EState } from './support/e2eHook';
 import { pressAnswerById, stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { FirstLetterE2EState } from './support/literacyHarness';
-import { openGameFromHome, startGame } from './support/gameEntry';
+import { startGame } from './support/gameEntry';
 
 test('Prvé písmenko uses the shared literacy shell', async ({ page }) => {
   await startGame(page, '/first-letter');
@@ -58,10 +58,7 @@ test('Prvé písmenko settles the correct magnet before showing success feedback
 });
 
 test('Prvé písmenko keyboard: Tab enters the answer group, ArrowRight moves focus, and Space activates exactly one choice', async ({ page }) => {
-  await openGameFromHome(page, '/first-letter');
-  const playButton = page.getByRole('button', { name: 'Hrať' });
-  await playButton.focus();
-  await page.keyboard.press('Enter');
+  await startGame(page, '/first-letter');
 
   await getE2EState<FirstLetterE2EState>(page);
 

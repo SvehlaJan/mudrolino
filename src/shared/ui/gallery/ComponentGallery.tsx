@@ -25,7 +25,6 @@ const liveSections: Record<string, readonly string[]> = {
   'Page Header': ['PageHeader'],
   'Overlay Frame': ['OverlayFrame', 'ConfettiLayer'],
   'Game Cards & Grouped Home': ['GameCard', 'GameIcon'],
-  'Game Lobby Shell': ['GameLobby', 'LobbyBody'],
 };
 
 function preview(component: GalleryComponent): { href: string; label: string; live: boolean } | null {

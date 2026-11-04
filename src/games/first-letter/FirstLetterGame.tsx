@@ -7,11 +7,9 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Letter, PraiseEntry, SuccessSpec, FailureSpec } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
-import { getUnplayableReason } from '../../shared/gamePlayability';
 import { getUiCopy } from '../../shared/uiCopy';
 import { useT } from '../../shared/hooks/useT';
 import { msg, translate } from '../../shared/i18n';
@@ -303,9 +301,7 @@ function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLet
 }
 
 export function FirstLetterGame({ settings, onExit }: GameRuntimeProps) {
-  const { wordItems, letterItems, syllableItems } = useContent();
-  const t = useT();
-  const [gameState, setGameState] = useState<'HOME' | 'PLAYING'>('HOME');
+  const { wordItems, letterItems } = useContent();
 
   const activeLetters = useMemo(
     () => getActiveFirstLetterLetters(letterItems, settings.alphabetAccents),
@@ -315,27 +311,6 @@ export function FirstLetterGame({ settings, onExit }: GameRuntimeProps) {
     () => buildFirstLetterItems(wordItems, activeLetters, multiCharacterLetters(letterItems)),
     [wordItems, activeLetters, letterItems],
   );
-  const unplayableReason = useMemo(
-    () => getUnplayableReason('FIRST_LETTER', { wordItems, letterItems, syllableItems, settings }),
-    [wordItems, letterItems, syllableItems, settings],
-  );
 
-  if (gameState === 'PLAYING') {
-    return (
-      <FirstLetterPlayfield
-        eligibleItems={eligibleItems}
-        activeLetters={activeLetters}
-        onExit={() => setGameState('HOME')}
-      />
-    );
-  }
-
-  return (
-    <GameLobby
-      gameId="FIRST_LETTER"
-      availabilityMessage={unplayableReason ? t(unplayableReason) : undefined}
-      onPlay={() => setGameState('PLAYING')}
-      onBack={onExit}
-    />
-  );
+  return <FirstLetterPlayfield eligibleItems={eligibleItems} activeLetters={activeLetters} onExit={onExit} />;
 }

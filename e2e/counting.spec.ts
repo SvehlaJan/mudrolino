@@ -3,7 +3,7 @@ import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';
 import { stubSpeechSynthesis } from './support/gameHarness';
 import { expectMinimumTarget, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
-import { startGame } from './support/gameEntry';
+import { expectHomeScreen, startGame } from './support/gameEntry';
 
 interface CountingE2EState extends E2EGlobalState {
   gameId: 'COUNTING_ITEMS';
@@ -85,7 +85,7 @@ test('counting supports correct answer, retry, failure, five-round completion, r
   await page.getByRole('button', { name: 'Hrať znova' }).click();
   await expect.poll(async () => (await getE2EState<CountingE2EState>(page)).roundsPlayed).toBe(0);
   await page.getByRole('button', { name: 'Späť' }).click();
-  await expect(page.getByRole('button', { name: 'Hrať' })).toBeVisible();
+  await expectHomeScreen(page);
   await startCounting(page);
 
   const counters = page.getByRole('button', { name: /^Predmet \d+ z \d+$/ });

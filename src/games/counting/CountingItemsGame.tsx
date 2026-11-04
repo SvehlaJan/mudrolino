@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { FailureSpec, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
 import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
-import { GameLobby } from '../../shared/components/GameLobby';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -190,9 +189,7 @@ function CountingPlayfield({ availableItems, allNumbers, onExit }: CountingPlayf
 
 export function CountingItemsGame({ settings, onExit }: GameRuntimeProps) {
   const { numberItems } = useContent();
-  const [playing, setPlaying] = useState(false);
   const availableItems = useMemo(() => numberItems.filter(item => item.value >= settings.countingRange.start && item.value <= settings.countingRange.end), [numberItems, settings.countingRange]);
   const allNumbers = useMemo(() => numberItems.filter(item => item.value <= Math.max(settings.countingRange.end, 10)), [numberItems, settings.countingRange.end]);
-  if (playing) return <CountingPlayfield availableItems={availableItems} allNumbers={allNumbers} onExit={() => setPlaying(false)} />;
-  return <GameLobby gameId="COUNTING_ITEMS" onPlay={() => setPlaying(true)} onBack={onExit} />;
+  return <CountingPlayfield availableItems={availableItems} allNumbers={allNumbers} onExit={onExit} />;
 }

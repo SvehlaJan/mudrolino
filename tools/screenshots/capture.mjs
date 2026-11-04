@@ -8,6 +8,7 @@ import { buildIdentity } from '../verification/identity.mjs';
 import { resolveChromiumExecutable } from '../../e2e/browserResolver.ts';
 import { CANONICAL_VIEWPORTS } from '../../e2e/support/viewports.ts';
 import { RELEASE_VIEWPORTS } from '../../e2e/support/releaseMatrix.ts';
+import { pinFirstRoundRandom } from '../../e2e/support/firstRoundRandom.ts';
 
 const recorderInitPath = fileURLToPath(new URL('./fakeRecorderInit.js', import.meta.url));
 
@@ -15,16 +16,17 @@ async function installCaptureRecorder(page) {
   await page.addInitScript({ path: recorderInitPath });
 }
 
-/** Opens the home screen and taps the Game card whose href is `path`, as a child does. Same
- * contract as `openGameFromHome` in e2e/support/gameEntry.ts, but it takes an explicit `baseUrl`
- * (the e2e helper relies on the Playwright config's baseURL), so this tool keeps its own copy.
- * Resolves once the URL is `path` and no Game card remains: the game route is a lazy chunk, so
- * Home is still rendered for a moment after the URL changes. */
-async function openGameFromHome(page, baseUrl, path) {
+/** Opens the home screen and taps the Game card whose href is `path`, as a child does; the tap
+ * starts the first Round. Same contract as `startGame` in e2e/support/gameEntry.ts, but it takes
+ * an explicit `baseUrl` (the e2e helper relies on the Playwright config's baseURL), so this tool
+ * keeps its own copy. Resolves once the URL is `path` and the game screen's prompt is showing: the
+ * game route is a lazy chunk, so Home is still rendered for a moment after the URL changes and
+ * the screen itself appears a moment later. */
+async function startGame(page, baseUrl, path) {
   await page.goto(`${baseUrl}/`);
   await page.locator(`[data-testid="game-card"][href="${path}"]`).click();
   await page.waitForURL((url) => url.pathname === path);
-  await page.waitForFunction(() => document.querySelector('[data-testid="game-card"]') === null);
+  await page.getByTestId('game-visible-instruction').waitFor({ state: 'visible' });
 }
 
 export function parseArgs(args) {
@@ -244,50 +246,6 @@ export const SCENES = {
       document.scrollingElement?.scrollBy(0, 60);
     });
   },
-  'lobby-alphabet': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/alphabet');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-syllables': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/syllables');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-numbers': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/numbers');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-counting': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/counting');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-compare': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/compare');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-addition': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/addition');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-words': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/words');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-first-letter': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/first-letter');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-assembly': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/assembly');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-complete-syllable': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/complete-syllable');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
-  'lobby-complete-letter': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/complete-letter');
-    await page.getByRole('button', { name: 'Hrať' }).waitFor({ state: 'visible' });
-  },
   'game-shell-success': async (page, baseUrl) => {
     await page.goto(`${baseUrl}/ui-kit?example=game-shell&state=success`);
     await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
@@ -316,8 +274,7 @@ export const SCENES = {
     await page.getByRole('heading', { level: 1 }).waitFor({ state: 'visible' });
   },
   'game-words-visual': async (page, baseUrl) => {
-    await openGameFromHome(page, baseUrl, '/words');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, baseUrl, '/words');
     await page.locator('main h2').waitFor({ state: 'visible' });
   },
 };
@@ -327,11 +284,11 @@ export const SCENES = {
 SCENES.dashboard = SCENES.settings;
 
 // Task 7: round/retry/success/failure(-or-reset)/completion scenes for the four bespoke
-// literacy games. Lobby scenes already exist via the LOBBY_SLUGS aliasing below; protected
+// literacy games. The bare game slugs alias their `-round` scenes via GAME_SLUGS below; protected
 // routes keep using the Phase 1 gate adapter above — these four games interact only through the
-// real Hrať control and the answer/tile controls it reveals, reading window.__E2E__ (the Phase
-// 3-6 oracle hook, active in this test-mode build) to find the correct/wrong id rather than
-// guessing from rendered content.
+// answer/tile controls a card tap reveals, reading window.__E2E__ (the Phase 3-6 oracle hook,
+// active in this test-mode build) to find the correct/wrong id rather than guessing from
+// rendered content.
 async function readGameE2E(page) {
   return page.evaluate(() => window.__E2E__);
 }
@@ -382,8 +339,7 @@ async function waitForPlaySurfaceSettled(page) {
  */
 function bespokeChoiceScenes(path) {
   async function enterPlay(page, baseUrl) {
-    await openGameFromHome(page, baseUrl, path);
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, baseUrl, path);
   }
   async function pressAnswer(page, id) {
     await waitForPlaySurfaceSettled(page);
@@ -463,8 +419,7 @@ for (const [prefix, path] of [
  */
 const assemblyScenes = (() => {
   async function enterPlay(page, baseUrl) {
-    await openGameFromHome(page, baseUrl, '/assembly');
-    await page.getByRole('button', { name: 'Hrať' }).click();
+    await startGame(page, baseUrl, '/assembly');
   }
   async function placeWrongFullRail(page) {
     const state = await readGameE2E(page);
@@ -568,14 +523,11 @@ for (const [scene, word] of [
 }
 SCENES['counting-maximum'] = async (page, baseUrl) => {
   await page.addInitScript(() => localStorage.setItem('hrave-ucenie-settings', JSON.stringify({ countingRange: { start: 1, end: 10 } })));
-  await openGameFromHome(page, baseUrl, '/counting');
-  // Place the highest item first in Fisher-Yates, then preserve it. Install after
-  // navigation so the generic seed initializer cannot replace this stress fixture.
-  await page.evaluate(() => {
-    let first = true;
-    Math.random = () => { if (first) { first = false; return 0; } return 0.999; };
-  });
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  // Place the highest item first in Fisher-Yates, then preserve it. The card tap generates the
+  // first Round, so the pin goes in before it; registered after the runner's seed initializer,
+  // it takes over Math.random on the counting route only.
+  await pinFirstRoundRandom(page, '/counting', [0, 0.999]);
+  await startGame(page, baseUrl, '/counting');
   await page.waitForFunction(() => window.__E2E__?.correctItemId === '10');
   await waitForPlaySurfaceSettled(page);
   if (await page.getByRole('button', { name: /^Predmet \d+ z 10$/ }).count() !== 10) throw new Error('Maximum quantity fixture must render ten counters');
@@ -589,8 +541,7 @@ SCENES['assembly-completion'] = assemblyScenes.completion;
  * for the real game session to enter its answer phase; no React handler is invoked directly. */
 async function enterNumeracyRound(page, baseUrl, path) {
   await stubSpeechSynthesis(page);
-  await openGameFromHome(page, baseUrl, path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, baseUrl, path);
   await waitForGamePhaseScene(page, 'awaiting-answer');
   await page.getByTestId('game-answer-region').getByRole('button').first().waitFor({ state: 'visible' });
 }
@@ -616,8 +567,7 @@ SCENES['addition-round'] = (page, baseUrl) => enterNumeracyRound(page, baseUrl, 
  * scenes stop at a settled, answerable first round; feedback is represented separately by the
  * deterministic GameShell examples below. */
 async function enterFindItRound(page, baseUrl, path) {
-  await openGameFromHome(page, baseUrl, path);
-  await page.getByRole('button', { name: 'Hrať' }).click();
+  await startGame(page, baseUrl, path);
   await waitForGamePhaseScene(page, 'awaiting-answer');
   await waitForPlaySurfaceSettled(page);
 }
@@ -628,7 +578,7 @@ SCENES['numbers-round'] = (page, baseUrl) => enterFindItRound(page, baseUrl, '/n
 SCENES['words-round'] = (page, baseUrl) => enterFindItRound(page, baseUrl, '/words');
 
 // Aliases for convenient shorthand targeting (e.g. --scene=alphabet)
-const LOBBY_SLUGS = [
+const GAME_SLUGS = [
   'alphabet',
   'syllables',
   'numbers',
@@ -641,8 +591,8 @@ const LOBBY_SLUGS = [
   'complete-syllable',
   'complete-letter',
 ];
-for (const slug of LOBBY_SLUGS) {
-  SCENES[slug] = SCENES[`lobby-${slug}`];
+for (const slug of GAME_SLUGS) {
+  SCENES[slug] = SCENES[`${slug}-round`];
 }
 
 /** Open a protected parent route through the same test-only gate adapter used by the existing
@@ -779,7 +729,7 @@ SCENES['keyboard-focus'] = async (page, baseUrl) => {
 
 /**
  * A compact, intentional review surface for shipping UI. It covers the home, both parent-gate
- * outcomes, one lobby and one live round for every released game, deterministic feedback
+ * outcomes, one live round for every released game, deterministic feedback
  * states, and every parent-facing destination. The legacy recordings entry is included by name
  * even though it resolves to the consolidated content screen after access is granted.
  */
@@ -787,8 +737,7 @@ export const RELEASE_SCENE_NAMES = [
   'home',
   'parents-gate',
   'parents-gate-error',
-  ...LOBBY_SLUGS.map((slug) => `lobby-${slug}`),
-  ...LOBBY_SLUGS.map((slug) => `${slug}-round`),
+  ...GAME_SLUGS.map((slug) => `${slug}-round`),
   'game-shell-success',
   'game-shell-failure',
   'game-shell-retry',

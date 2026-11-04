@@ -5,7 +5,7 @@ import {
   trackFailedRequests,
   expectNoFailedRequests,
 } from './support/assertions';
-import { openGameFromHome } from './support/gameEntry';
+import { startGame } from './support/gameEntry';
 
 /**
  * Browsers play no sound before a tap, so a Session may only start from a tap on a Home-screen
@@ -17,7 +17,6 @@ const pathname = (page: Page) => new URL(page.url()).pathname;
 async function expectHomeScreen(page: Page): Promise<void> {
   await expect.poll(() => pathname(page)).toBe('/');
   await expect(page.getByRole('heading', { name: 'Písmená a slová' })).toBeVisible();
-  await expect(page.getByRole('button', { name: /^(Hrať|Hrát)$/ })).toHaveCount(0);
 }
 
 test.describe('Sessions start only from a tap', () => {
@@ -36,7 +35,7 @@ test.describe('Sessions start only from a tap', () => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await openGameFromHome(page, '/alphabet');
+    await startGame(page, '/alphabet');
     await page.reload();
 
     await expectHomeScreen(page);
@@ -48,7 +47,7 @@ test.describe('Sessions start only from a tap', () => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await openGameFromHome(page, '/alphabet');
+    await startGame(page, '/alphabet');
     await page.goBack();
     await expectHomeScreen(page);
 
@@ -69,7 +68,7 @@ test.describe('Sessions start only from a tap', () => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
-    await openGameFromHome(page, '/alphabet');
+    await startGame(page, '/alphabet');
     await page.getByRole('button', { name: 'Späť' }).click();
     await expectHomeScreen(page);
 
@@ -88,7 +87,7 @@ test.describe('Sessions start only from a tap', () => {
     await page.goto('/');
     await page.locator('[data-testid="game-card"][href="/alphabet"]').dblclick();
     await page.waitForURL((url) => url.pathname === '/alphabet');
-    await expect(page.getByRole('button', { name: /^(Hrať|Hrát)$/ })).toBeVisible();
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
 
     // A second history entry for the same game would make Späť land back in it.
     await page.getByRole('button', { name: 'Späť' }).click();
@@ -112,7 +111,7 @@ test.describe('Sessions start only from a tap', () => {
       document.querySelector<HTMLElement>('[data-testid="game-card"][href="/syllables"]')?.click();
     });
     await page.waitForURL((url) => url.pathname === '/alphabet');
-    await expect(page.getByRole('button', { name: /^(Hrať|Hrát)$/ })).toBeVisible();
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
 
     await page.getByRole('button', { name: 'Späť' }).click();
     await expectHomeScreen(page);
@@ -130,7 +129,7 @@ test.describe('Sessions start only from a tap', () => {
     await page.keyboard.press('Enter');
 
     await page.waitForURL((url) => url.pathname === '/alphabet');
-    await expect(page.getByRole('button', { name: /^(Hrať|Hrát)$/ })).toBeVisible();
+    await expect(page.getByTestId('game-visible-instruction')).toBeVisible();
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
   });
