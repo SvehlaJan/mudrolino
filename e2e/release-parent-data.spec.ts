@@ -59,6 +59,10 @@ test('legacy parent data stays editable across protected-route reloads and expir
   await openProtectedRoute(page, '/settings/games/NUMBERS');
   await expect(page.getByRole('radio', { name: /^1\s*[-–]\s*20$/ })).toBeChecked();
   await page.getByRole('radio', { name: /^1\s*[-–]\s*10$/ }).click();
+  // The autosave is deferred; wait for the saved value before unloading the document.
+  await expect.poll(() => page.evaluate(() => JSON.parse(
+    localStorage.getItem('hrave-ucenie-settings') ?? '{}',
+  ).numbersRange?.end)).toBe(10);
   await reloadProtectedRoute(page);
   await expect(page.getByRole('radio', { name: /^1\s*[-–]\s*10$/ })).toBeChecked();
 
