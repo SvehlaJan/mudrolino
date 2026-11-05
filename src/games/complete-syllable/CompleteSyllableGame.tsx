@@ -36,6 +36,7 @@ import {
   buildEligibleCompleteSyllableWords,
   buildPromptSlots,
   buildSyllableChoices,
+  COMPLETE_SYLLABLE_CHOICE_COUNT,
   CompleteSyllableRound,
   CompleteSyllableSlot,
   createCompleteSyllableRound,
@@ -43,7 +44,6 @@ import {
 
 const INSTRUCTION = msg('Doplň chýbajúcu slabiku');
 const ANSWER_GROUP_LABEL = msg('Vyber chýbajúcu slabiku');
-const CHOICE_COUNT = 4;
 
 const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
@@ -101,8 +101,8 @@ function findPlayableRound(candidateQueue: Word[], syllableItems: Syllable[]): P
   for (let index = 0; index < candidateQueue.length; index += 1) {
     try {
       const round = createCompleteSyllableRound(candidateQueue[index]);
-      const choices = buildSyllableChoices(round, syllableItems, CHOICE_COUNT);
-      if (choices.length === CHOICE_COUNT) {
+      const choices = buildSyllableChoices(round, syllableItems, COMPLETE_SYLLABLE_CHOICE_COUNT);
+      if (choices.length === COMPLETE_SYLLABLE_CHOICE_COUNT) {
         return { round, choices, remainingQueue: candidateQueue.slice(index + 1) };
       }
     } catch {
@@ -414,7 +414,7 @@ export function CompleteSyllableGame({ onExit }: GameRuntimeProps) {
   const { wordItems, syllableItems } = useContent();
 
   const eligibleWords = useMemo(
-    () => buildEligibleCompleteSyllableWords(wordItems, syllableItems, CHOICE_COUNT),
+    () => buildEligibleCompleteSyllableWords(wordItems, syllableItems, COMPLETE_SYLLABLE_CHOICE_COUNT),
     [wordItems, syllableItems],
   );
 

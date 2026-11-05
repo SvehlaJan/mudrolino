@@ -13,6 +13,9 @@ export interface CompleteSyllableSlot {
   isMissing: boolean;
 }
 
+/** Answer choices a Missing syllable Round shows. */
+export const COMPLETE_SYLLABLE_CHOICE_COUNT = 4;
+
 export function parseWordSyllables(value: string): string[] {
   return value
     .split('-')
@@ -72,7 +75,7 @@ export function buildPromptSlots(round: CompleteSyllableRound, revealMissing: bo
 export function buildSyllableChoices(
   round: CompleteSyllableRound,
   syllableItems: Syllable[],
-  choiceCount = 4,
+  choiceCount = COMPLETE_SYLLABLE_CHOICE_COUNT,
 ): Syllable[] {
   const uniqueSyllables = getUniqueSyllables(syllableItems);
   const correct = uniqueSyllables.find((syllable) => syllable.symbol === round.correctSyllable);
@@ -89,7 +92,7 @@ export function buildSyllableChoices(
 export function buildEligibleCompleteSyllableWords(
   words: Word[],
   syllableItems: Syllable[],
-  choiceCount = 4,
+  choiceCount = COMPLETE_SYLLABLE_CHOICE_COUNT,
 ): Word[] {
   const uniqueSymbols = new Set(getUniqueSyllables(syllableItems).map((syllable) => syllable.symbol));
 

@@ -36,6 +36,9 @@ function normalizeLetters(letters: Letter[]): Letter[] {
   return Array.from(bySymbol.values());
 }
 
+/** Answer choices a Missing letter Round shows; also the fewest active letters a Round needs. */
+export const COMPLETE_LETTER_CHOICE_COUNT = 4;
+
 export function getActiveCompleteLetterLetters(letters: Letter[], includeAccents: boolean): Letter[] {
   const normalized = normalizeLetters(letters);
   return includeAccents ? normalized : normalized.filter((letter) => !hasDiacritic(letter.symbol));
@@ -143,7 +146,7 @@ export function buildLetterChoices(
   round: CompleteLetterRound,
   activeLetters: Letter[],
   filledCount: number,
-  choiceCount = 4,
+  choiceCount = COMPLETE_LETTER_CHOICE_COUNT,
 ): Letter[] {
   const activeMissingIndex = getActiveMissingIndex(round, filledCount);
   if (activeMissingIndex === null) return [];
@@ -166,7 +169,7 @@ export function buildEligibleCompleteLetterWords(
   letters: Letter[],
   includeAccents: boolean,
   missingCountMode: CompleteLetterMissingCount,
-  choiceCount = 4,
+  choiceCount = COMPLETE_LETTER_CHOICE_COUNT,
 ): Word[] {
   const activeLetters = getActiveCompleteLetterLetters(letters, includeAccents);
   if (activeLetters.length < choiceCount) return [];

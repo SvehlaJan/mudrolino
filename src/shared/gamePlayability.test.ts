@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { COMPLETE_LETTER_CHOICE_COUNT } from '../games/complete-letter/completeLetterLogic';
+import { FIRST_LETTER_CHOICE_COUNT } from '../games/first-letter/firstLetterLogic';
 import { GAME_DEFINITIONS } from './gameCatalog';
 import { getLocaleContent } from './contentRegistry';
 import { getAssemblyEligibleWords, getUnplayableReason, type PlayabilityInput } from './gamePlayability';
@@ -56,11 +58,12 @@ describe('getUnplayableReason', () => {
     expect(getUnplayableReason('ASSEMBLY', fits)).toBeNull();
   });
 
-  it('letter games need four active letters', () => {
-    // "Baba" is made of the first letters A, Á, B, so only the letter count can make a game Unplayable.
+  it('letter games need as many active letters as they show choices', () => {
+    // "Baba" uses only B and A, and the first three bundled letters (A, Á, B) still contain both, so
+    // only the letter count can make a game Unplayable.
     const baba = [wordWith('Baba', 'ba-ba')];
     const enoughLetters = { ...bundledInput, wordItems: baba };
-    const fewLetters = { ...enoughLetters, letterItems: content.letterItems.slice(0, 3) };
+    const fewLetters = { ...enoughLetters, letterItems: content.letterItems.slice(0, Math.min(FIRST_LETTER_CHOICE_COUNT, COMPLETE_LETTER_CHOICE_COUNT) - 1) };
 
     expect(getUnplayableReason('FIRST_LETTER', enoughLetters)).toBeNull();
     expect(getUnplayableReason('COMPLETE_LETTER', enoughLetters)).toBeNull();

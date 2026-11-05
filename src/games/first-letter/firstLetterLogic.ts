@@ -48,6 +48,9 @@ export function getFirstSlovakLetterSymbol(
   return activeLetterSymbols.includes(firstCharacter) ? firstCharacter : null;
 }
 
+/** Answer choices a First letter Round shows; also the fewest active letters a Round needs. */
+export const FIRST_LETTER_CHOICE_COUNT = 4;
+
 export function buildFirstLetterItems(
   words: Word[],
   activeLetters: Letter[],
@@ -67,7 +70,7 @@ export function buildFirstLetterItems(
 export function buildLetterChoices(
   target: FirstLetterItem,
   activeLetters: Letter[],
-  choiceCount = 4,
+  choiceCount = FIRST_LETTER_CHOICE_COUNT,
 ): Letter[] {
   const distractors = fisherYatesShuffle(
     activeLetters.filter((letter) => letter.symbol !== target.firstLetter.symbol),

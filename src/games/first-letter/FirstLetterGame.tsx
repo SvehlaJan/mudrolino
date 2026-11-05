@@ -31,6 +31,7 @@ import {
 import {
   buildFirstLetterItems,
   buildLetterChoices,
+  FIRST_LETTER_CHOICE_COUNT,
   FirstLetterItem,
   getActiveFirstLetterLetters,
   multiCharacterLetters,
@@ -92,7 +93,7 @@ interface RoundState {
 
 function buildRound(target: FirstLetterItem | undefined, activeLetters: Letter[]): RoundState {
   if (!target) return { targetItem: null, choices: [] };
-  return { targetItem: target, choices: buildLetterChoices(target, activeLetters, 4) };
+  return { targetItem: target, choices: buildLetterChoices(target, activeLetters, FIRST_LETTER_CHOICE_COUNT) };
 }
 
 /**
@@ -116,7 +117,7 @@ interface FirstLetterPlayfieldProps {
 function FirstLetterPlayfield({ eligibleItems, activeLetters, onExit }: FirstLetterPlayfieldProps) {
   const { locale, praiseEntries } = useContent();
   const t = useT();
-  const isEmpty = eligibleItems.length === 0 || activeLetters.length < 4;
+  const isEmpty = eligibleItems.length === 0 || activeLetters.length < FIRST_LETTER_CHOICE_COUNT;
 
   const [{ roundState }, setSession] = useState<{ roundState: RoundState; roundQueue: FirstLetterItem[] }>(() => {
     const pool = fisherYatesShuffle(eligibleItems);

@@ -3,18 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { buildEligibleCompleteLetterWords, getActiveCompleteLetterLetters } from '../games/complete-letter/completeLetterLogic';
-import { buildEligibleCompleteSyllableWords } from '../games/complete-syllable/completeSyllableLogic';
+import {
+  buildEligibleCompleteLetterWords,
+  COMPLETE_LETTER_CHOICE_COUNT,
+  getActiveCompleteLetterLetters,
+} from '../games/complete-letter/completeLetterLogic';
+import {
+  buildEligibleCompleteSyllableWords,
+  COMPLETE_SYLLABLE_CHOICE_COUNT,
+} from '../games/complete-syllable/completeSyllableLogic';
 import {
   buildFirstLetterItems,
+  FIRST_LETTER_CHOICE_COUNT,
   getActiveFirstLetterLetters,
   multiCharacterLetters,
 } from '../games/first-letter/firstLetterLogic';
 import { msg } from './i18n';
 import type { GameId, GameSettings, Letter, Syllable, Word } from './types';
-
-/** Answer choices the letter and syllable games show per Round. */
-const CHOICE_COUNT = 4;
 
 export interface PlayabilityInput {
   wordItems: Word[];
@@ -42,7 +47,7 @@ export function getUnplayableReason(gameId: GameId, input: PlayabilityInput): st
     case 'FIRST_LETTER': {
       const activeLetters = getActiveFirstLetterLetters(letterItems, settings.alphabetAccents);
       const eligibleItems = buildFirstLetterItems(wordItems, activeLetters, multiCharacterLetters(letterItems));
-      return eligibleItems.length > 0 && activeLetters.length >= CHOICE_COUNT
+      return eligibleItems.length > 0 && activeLetters.length >= FIRST_LETTER_CHOICE_COUNT
         ? null
         : msg('Pridajte alebo nahrajte slová, ktoré začínajú dostupnými písmenkami.');
     }
@@ -53,7 +58,7 @@ export function getUnplayableReason(gameId: GameId, input: PlayabilityInput): st
         : msg('Pridajte slová so slabikami v sekcii Vlastný obsah.');
 
     case 'COMPLETE_SYLLABLE':
-      return buildEligibleCompleteSyllableWords(wordItems, syllableItems, CHOICE_COUNT).length > 0
+      return buildEligibleCompleteSyllableWords(wordItems, syllableItems, COMPLETE_SYLLABLE_CHOICE_COUNT).length > 0
         ? null
         : msg('Pridajte slová s dvomi až štyrmi slabikami.');
 
@@ -64,14 +69,27 @@ export function getUnplayableReason(gameId: GameId, input: PlayabilityInput): st
         letterItems,
         settings.alphabetAccents,
         settings.completeLetterMissingCount,
-        CHOICE_COUNT,
+        COMPLETE_LETTER_CHOICE_COUNT,
       );
-      return eligibleWords.length > 0 && activeLetters.length >= CHOICE_COUNT
+      return eligibleWords.length > 0 && activeLetters.length >= COMPLETE_LETTER_CHOICE_COUNT
         ? null
         : msg('Pridajte slová z aktívnych písmen alebo upravte nastavenia písmen.');
     }
 
-    default:
+    // These games ask about bundled letters, numbers or counts, or read syllables from any enabled
+    // word (at least one is always enabled), so content can never leave them with nothing to ask.
+    case 'ALPHABET':
+    case 'SYLLABLES':
+    case 'NUMBERS':
+    case 'COUNTING_ITEMS':
+    case 'COMPARE_QUANTITIES':
+    case 'ADDITION':
       return null;
+
+    default: {
+      // A new game must decide here whether content can leave it with nothing to ask.
+      const unhandled: never = gameId;
+      return unhandled;
+    }
   }
 }

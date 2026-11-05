@@ -36,6 +36,7 @@ import {
   buildEligibleCompleteLetterWords,
   buildLetterChoices,
   buildPromptSlots,
+  COMPLETE_LETTER_CHOICE_COUNT,
   CompleteLetterRound,
   CompleteLetterSlot,
   createCompleteLetterRound,
@@ -45,7 +46,6 @@ import {
 
 const INSTRUCTION = msg('Doplň chýbajúce písmeno');
 const ANSWER_GROUP_LABEL = msg('Vyber chýbajúce písmeno');
-const CHOICE_COUNT = 4;
 
 const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
@@ -108,8 +108,8 @@ function findPlayableRound(
   for (let index = 0; index < candidateQueue.length; index += 1) {
     try {
       const round = createCompleteLetterRound(candidateQueue[index], activeLetters, missingCountMode);
-      const choices = buildLetterChoices(round, activeLetters, 0, CHOICE_COUNT);
-      if (choices.length === CHOICE_COUNT) {
+      const choices = buildLetterChoices(round, activeLetters, 0, COMPLETE_LETTER_CHOICE_COUNT);
+      if (choices.length === COMPLETE_LETTER_CHOICE_COUNT) {
         return { round, choices, remainingQueue: candidateQueue.slice(index + 1) };
       }
     } catch {
@@ -167,7 +167,7 @@ interface CompleteLetterPlayfieldProps {
 function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMode, onExit }: CompleteLetterPlayfieldProps) {
   const { locale, praiseEntries } = useContent();
   const t = useT();
-  const isEmpty = eligibleWords.length === 0 || activeLetters.length < CHOICE_COUNT;
+  const isEmpty = eligibleWords.length === 0 || activeLetters.length < COMPLETE_LETTER_CHOICE_COUNT;
 
   const [{ roundState }, setSession] = useState<{ roundState: RoundState; roundQueue: Word[] }>(() => {
     const pool = fisherYatesShuffle(eligibleWords);
@@ -281,7 +281,7 @@ function CompleteLetterPlayfield({ eligibleWords, activeLetters, missingCountMod
         if (!isFinalBlank) {
           // activeLetters reflects live settings; a mid-round settings change (rare) could shift
           // distractors for the next blank — the correct answer itself is unaffected.
-          const nextChoices = buildLetterChoices(targetRound, activeLetters, nextFilledCount, CHOICE_COUNT);
+          const nextChoices = buildLetterChoices(targetRound, activeLetters, nextFilledCount, COMPLETE_LETTER_CHOICE_COUNT);
           await resolveAnswer({
             beforeOutcome: async () => {
               if (!await landing) return false;
@@ -469,7 +469,7 @@ export function CompleteLetterGame({ settings, onExit }: GameRuntimeProps) {
       letterItems,
       settings.alphabetAccents,
       settings.completeLetterMissingCount,
-      CHOICE_COUNT,
+      COMPLETE_LETTER_CHOICE_COUNT,
     ),
     [letterItems, settings.alphabetAccents, settings.completeLetterMissingCount, wordItems],
   );
