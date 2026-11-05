@@ -28,6 +28,8 @@ async function startGame(page, baseUrl, path) {
   await page.locator(`[data-testid="game-card"][href="${path}"]`).click();
   await page.waitForURL((url) => url.pathname === path);
   await page.getByTestId('game-visible-instruction').waitFor({ state: 'visible' });
+  // Scenes read the oracle straight after entering, and it is published by a mount effect.
+  await page.waitForFunction(() => Boolean(window.__E2E__?.gameId));
   await page.getByTestId('game-input-shield').waitFor({ state: 'detached' });
 }
 
@@ -383,7 +385,11 @@ function bespokeChoiceScenes(path) {
         const state = await readGameE2E(page);
         const wrongId = state.answerItemIds.find((id) => id !== state.correctItemId);
         await pressAnswer(page, wrongId);
-        if (attempt < 2) await waitForGamePhaseScene(page, 'awaiting-answer');
+        if (attempt < 2) {
+          // The count proves this tap registered; the phase then says the next tap is accepted.
+          await waitForWrongAttemptScene(page, attempt + 1);
+          await waitForGamePhaseScene(page, 'awaiting-answer');
+        }
       }
       await waitForGamePhaseScene(page, 'answered-incorrectly');
       await page.getByRole('button', { name: 'Pokračovať' }).waitFor({ state: 'visible' });
@@ -492,10 +498,10 @@ const assemblyScenes = (() => {
     reset: async (page, baseUrl) => {
       await enterPlay(page, baseUrl);
       await placeWrongFullRail(page);
-      // The wrong-full-rail verdict sequence finishes and the board auto-resets to a full tray
-      // (see resetWrongBoardToTray in AssemblyGame.tsx) well before the shared retry-ready timer
-      // clears the phase back to 'awaiting-answer' — waiting for that phase, then past the GSAP
-      // tile-flight duration, is enough to guarantee a settled, fully-refilled tray.
+      // placeWrongFullRail has already seen the wrong attempt counted. The board then auto-resets to a
+      // full tray (see resetWrongBoardToTray in AssemblyGame.tsx) and the Round accepts answers again;
+      // waiting for 'awaiting-answer', then past the GSAP tile-flight duration, guarantees a settled,
+      // fully-refilled tray.
       await waitForGamePhaseScene(page, 'awaiting-answer');
       await page.waitForTimeout(700);
     },
