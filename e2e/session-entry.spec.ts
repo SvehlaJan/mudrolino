@@ -39,6 +39,9 @@ test.describe('Sessions start only from a tap', () => {
     await page.goto('/alphabet');
 
     await expectHomeScreen(page);
+    // The redirect replaces the game's entry, so going back leaves the app instead of bouncing home.
+    await page.goBack();
+    await expect.poll(() => page.url()).toBe('about:blank');
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);
   });
@@ -127,6 +130,9 @@ test.describe('Sessions start only from a tap', () => {
 
     await page.getByRole('button', { name: 'Späť' }).click();
     await expectHomeScreen(page);
+    // The ignored second tap pushed no entry of its own, so nothing is left ahead of Home.
+    await page.goBack();
+    await expect.poll(() => page.url()).toBe('about:blank');
 
     expectNoConsoleErrors(errors);
     expectNoFailedRequests(failedRequests);

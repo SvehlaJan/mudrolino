@@ -383,11 +383,10 @@ function UiKitGameMaterialsDemo() {
     <div className="p-6">
       <section aria-label="Materiály hier" className="space-y-6">
         <h1 className="text-2xl font-black">Zadanie a odpoveď</h1>
-        <nav className="flex flex-wrap gap-3" aria-label={getUiCopy('sk', 'category.literacy')} data-testid="ui-tile-drag-examples">
+        {/* A game opens only from a tap that arms its session entry, so these are real Game cards. */}
+        <nav className="grid grid-cols-2 gap-3 sm:grid-cols-3" aria-label={getUiCopy('sk', 'category.literacy')} data-testid="ui-tile-drag-examples">
           {GAME_DEFINITIONS.filter(game => ['ASSEMBLY', 'COMPLETE_LETTER', 'COMPLETE_SYLLABLE'].includes(game.id)).map(game => (
-            <a key={game.id} href={game.path} className="rounded-2xl border border-border-subtle bg-white p-3 font-bold text-focus underline focus-visible:outline">
-              {getUiCopy('sk', game.titleKey)}
-            </a>
+            <GameCard key={game.id} game={game} />
           ))}
         </nav>
         {(['task', 'answer'] as const).map(visualRole => (
