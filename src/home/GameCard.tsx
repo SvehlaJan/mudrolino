@@ -123,8 +123,9 @@ export function GameCard({
       // usually ready by the time the tap completes.
       onPointerDown={() => warmGameModule(game.id)}
       onClick={(event) => {
-        // The router's location is stale until the lazy game chunk commits, so a repeat tap here
-        // would push a second game entry and Back would land on it. The real URL is already current.
+        // Once the URL is a game's, a repeat tap on a card still on screen (the pushState-to-commit
+        // window, or Enter auto-repeat on a focused card) would push a second game entry and Back
+        // would land on it. window.location is current the moment pushState runs.
         if (GAME_DEFINITIONS.some(({ path }) => path === window.location.pathname)) {
           event.preventDefault();
           return;

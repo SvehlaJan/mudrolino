@@ -2,13 +2,14 @@
 paths:
   - "src/games/**/*.{ts,tsx}"
   - "src/shared/components/{FindItGame,SuccessOverlay,FailureOverlay,SessionCompleteOverlay}.tsx"
-  - "src/shared/{contentRegistry.ts,gameCatalog.tsx,types.ts}"
+  - "src/shared/{contentRegistry.ts,gameCatalog.tsx,gameModuleRegistry.tsx,gamePlayability.ts,types.ts}"
 ---
 
 # Games
 
-Nine games: alphabet, syllables, numbers, counting, words, first letter,
-syllable assembly, missing syllable, missing letter.
+Eleven games: alphabet, syllables, numbers, words (the shared grid loop), and
+counting, compare, addition, first letter, syllable assembly, missing syllable,
+missing letter (bespoke).
 
 ## Shared grid loop
 
@@ -19,11 +20,13 @@ tap one of N tiles".
 
 ## Bespoke games
 
-The other five own their round loops because a single-tap grid does not fit.
+The other seven own their round loops because a single-tap grid does not fit.
 All but counting keep their round, answer, or audio rules in a sibling
 `*Logic.ts` module with a matching `.verify.ts`:
 
-- `counting/CountingItemsGame.tsx` — count scattered emoji, then pick the number. No logic module; the loop lives in the component.
+- `counting/CountingItemsGame.tsx` — count scattered emoji, then pick the number. The loop lives in the component; `countingGridLogic.ts` only lays out the emoji.
+- `compare/CompareQuantitiesGame.tsx` — pick the side with more.
+- `addition/AdditionGame.tsx` — pick the sum of two numbers.
 - `first-letter/FirstLetterGame.tsx` — hear a word, pick its first Slovak letter unit.
 - `assembly/AssemblyGame.tsx` — order shuffled syllable tiles into the word.
 - `complete-syllable/CompleteSyllableGame.tsx` — pick the one missing syllable.
@@ -53,6 +56,7 @@ UI code is needed.
 1. Create `src/games/<name>/`, keeping round and answer rules in a `*Logic.ts` with a `.verify.ts`.
 2. Reuse `FindItGame<T>` via a `GameDescriptor<T>` if the mechanic fits; otherwise own the loop like the other bespoke games.
 3. Use the shared answer-audio helpers so the game matches the audio contract.
-4. Add it to `GAME_DEFINITIONS` in `gameCatalog.tsx` and add the route in `App.tsx`.
-5. Add the route to `e2e/smoke.spec.ts`, plus an oracle hook and golden-path spec if no shared spec covers it.
-6. Update `ROADMAP.md` if it changes scope or delivery status.
+4. Add it to `GAME_DEFINITIONS` in `gameCatalog.tsx` and its lazy module to `gameModuleRegistry.tsx`. `App.tsx` builds every route from `GAME_DEFINITIONS` (rendered by `GameRoute`), and the Home card links to it, so neither needs hand-wiring.
+5. If the game needs words or letters to ask anything, add its rule to `getUnplayableReason` in `gamePlayability.ts`, with the reason as a `msg('…')` string and its Czech translation in `cs.ui.ts`. Without a rule an empty pool opens a game that cannot ask.
+6. Add the route to `e2e/smoke.spec.ts`, plus an oracle hook and golden-path spec if no shared spec covers it. Enter the game in specs with `startGame` (see `e2e.md`).
+7. Update `ROADMAP.md` if it changes scope or delivery status.

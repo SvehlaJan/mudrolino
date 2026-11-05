@@ -23,6 +23,13 @@ and never in production. Specs read it with `getE2EState()` from
 `support/e2eHook.ts` to learn the correct answer for the current round. Do not
 infer the answer from rendered content.
 
+## Entering a game
+
+Enter a game with `startGame(page, path)` from `support/gameEntry.ts`: it taps the Home
+card, as a child does, and waits for the game screen, the oracle and the end of the brief
+input shield. A direct game URL redirects to the Home screen, so `page.goto('/alphabet')`
+cannot start a game.
+
 ## One failure, many red tests
 
 Every spec asserts no console errors and no failed requests on the route it
