@@ -297,6 +297,13 @@ async function waitForGamePhaseScene(page, phase) {
   await page.waitForFunction((p) => window.__E2E__?.gamePhase === p, phase);
 }
 
+/** A wrong answer that leaves attempts reports 'answered-incorrectly' only for the instant before
+ * the Round returns to 'awaiting-answer', so polling the phase can miss it. The attempt count is
+ * the stable signal, and the e2e harness waits on it too. */
+async function waitForWrongAttemptScene(page, attempts) {
+  await page.waitForFunction((n) => (window.__E2E__?.wrongAttempts ?? 0) >= n, attempts);
+}
+
 /** Every interactive control on a playing surface: AnswerGroup's choice buttons and Assembly's
  * felt tray tiles. */
 const PLAY_SURFACE_CONTROLS =
@@ -356,7 +363,7 @@ function bespokeChoiceScenes(path) {
       const state = await readGameE2E(page);
       const wrongId = state.answerItemIds.find((id) => id !== state.correctItemId);
       await pressAnswer(page, wrongId);
-      await waitForGamePhaseScene(page, 'answered-incorrectly');
+      await waitForWrongAttemptScene(page, 1);
       await page.getByRole('status').waitFor({ state: 'visible' });
       await page.waitForTimeout(250);
     },
@@ -444,7 +451,9 @@ const assemblyScenes = (() => {
     }
     await waitForPlaySurfaceSettled(page);
     await tray.locator(`[data-tile-id="${order[order.length - 1]}"]`).click();
-    await waitForGamePhaseScene(page, finalPhase);
+    // A wrong full rail reports 'answered-incorrectly' only for an instant, so wait on the count.
+    if (finalPhase === 'answered-incorrectly') await waitForWrongAttemptScene(page, 1);
+    else await waitForGamePhaseScene(page, finalPhase);
   }
 
   return {
@@ -837,13 +846,17 @@ async function main() {
     });
     for (const viewportName of targetViewports) {
       const viewport = CANONICAL_VIEWPORTS[viewportName];
-      const context = await browser.newContext({
-        viewport,
-        reducedMotion: 'reduce',
-      });
 
-      try {
-        for (const sceneName of targetScenes) {
+      for (const sceneName of targetScenes) {
+        // Every Scene gets its own context. Scenes that seed storage (home-unplayable, the
+        // assembly stress words, counting-maximum) would otherwise leave it in a shared
+        // per-viewport profile and change every later Scene, so a capture would depend on order.
+        const context = await browser.newContext({
+          viewport,
+          reducedMotion: 'reduce',
+        });
+
+        try {
           const page = await context.newPage();
           await page.addInitScript(({ initialSeed }) => {
             let state = initialSeed >>> 0;
@@ -923,9 +936,9 @@ async function main() {
           } finally {
             await page.close();
           }
+        } finally {
+          await context.close();
         }
-      } finally {
-        await context.close();
       }
     }
   } catch (error) {
