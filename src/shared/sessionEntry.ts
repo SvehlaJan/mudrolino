@@ -24,3 +24,10 @@ export function isSessionEntryArmed(gameId: GameId): boolean {
 export function disarmSessionEntry(): void {
   armedGameId = null;
 }
+
+// A tap that arms but never navigates (a ctrl- or cmd-click opens a new tab) must not leave the entry
+// armed for a later Forward. A card tap uses pushState and fires no popstate; Back, Forward and a
+// game's exit do. The guard keeps Node (Vitest) able to import this module.
+if (typeof window !== 'undefined') {
+  window.addEventListener('popstate', disarmSessionEntry);
+}

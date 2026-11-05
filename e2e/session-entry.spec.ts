@@ -132,6 +132,35 @@ test.describe('Sessions start only from a tap', () => {
     expectNoFailedRequests(failedRequests);
   });
 
+  test('a card tap that opens no game leaves no entry armed for a later Forward', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+    // A ctrl- or cmd-click arms the card but the browser opens a new tab. Close it: only this page matters.
+    page.context().on('page', (opened) => { void opened.close(); });
+
+    await startGame(page, '/alphabet');
+    await page.getByRole('button', { name: 'Späť' }).click();
+    await expectHomeScreen(page);
+
+    await page.locator('[data-testid="game-card"][href="/alphabet"]').click({
+      modifiers: [process.platform === 'darwin' ? 'Meta' : 'Control'],
+    });
+    await expectHomeScreen(page);
+
+    await page.evaluate(() => {
+      (window as unknown as { __popped?: boolean }).__popped = false;
+      window.addEventListener('popstate', () => { (window as unknown as { __popped?: boolean }).__popped = true; });
+    });
+    await page.goForward();
+    await page.waitForFunction(() => (window as unknown as { __popped?: boolean }).__popped === true);
+
+    // Armed by the modified click and never consumed, the entry would let this Forward start a Session.
+    await expectHomeScreen(page);
+    await expect(page.getByTestId('game-visible-instruction')).toHaveCount(0);
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
   test('a card opened from the keyboard starts the game', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
