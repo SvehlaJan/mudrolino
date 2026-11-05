@@ -88,6 +88,8 @@ test.describe('Unplayable Game cards', () => {
   });
 
   test('a dimmed card is a focusable, disabled link that describes why, not only a colour change', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
     await seedLocalStorage(page, THIN_POOL);
     await page.goto('/');
 
@@ -98,9 +100,14 @@ test.describe('Unplayable Game cards', () => {
     await expect(assembly).toHaveAccessibleDescription('Pridajte slová so slabikami v sekcii Vlastný obsah.');
     await assembly.focus();
     await expect(assembly).toBeFocused();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
   });
 
   test('no card is dimmed while the content is still loading', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
     // The word list is empty until the content arrives; that is no reason to dim a card. Watch the
     // DOM from the first render, since the loaded state alone would hide a brief dimmed flash.
     await page.addInitScript(() => {
@@ -114,6 +121,9 @@ test.describe('Unplayable Game cards', () => {
 
     await expect(card(page, 'ASSEMBLY')).toHaveAttribute('href', '/assembly');
     expect(await page.evaluate(() => (window as unknown as { __everDimmed: boolean }).__everDimmed)).toBe(false);
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
   });
 
   test('touching a card starts loading its game before the tap completes', async ({ page }) => {
@@ -138,6 +148,7 @@ test.describe('Unplayable Game cards', () => {
 
   test('a dimmed card does not start loading its game', async ({ page }) => {
     const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
     const requested: string[] = [];
     page.on('request', (request) => requested.push(request.url()));
     await seedLocalStorage(page, THIN_POOL);
@@ -154,6 +165,7 @@ test.describe('Unplayable Game cards', () => {
     expect(requested.filter((url) => /\/AssemblyGame-/.test(url))).toEqual([]);
     await expect(page).toHaveURL(/\/$/);
     expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
   });
 
   for (const [name, seed] of [['a word list emptied by the parent', EMPTIED_WORD_LIST], ['the thinnest pool', THIN_POOL]] as const) {
@@ -175,6 +187,7 @@ test.describe('Unplayable Game cards', () => {
     try {
       const page = await context.newPage();
       const errors = trackConsoleErrors(page);
+      const failedRequests = trackFailedRequests(page);
       await seedLocalStorage(page, {
         'hrave-ucenie-settings': { alphabetAccents: false },
         'hrave-ucenie-seeded-cs': 'true',
@@ -193,6 +206,7 @@ test.describe('Unplayable Game cards', () => {
       await expect(card(page, 'COMPLETE_SYLLABLE')).toContainText('Přidejte slova se dvěma až čtyřmi slabikami.');
       await expect(card(page, 'COMPLETE_LETTER')).toContainText('Přidejte slova z aktivních písmen nebo upravte nastavení písmen.');
       expectNoConsoleErrors(errors);
+      expectNoFailedRequests(failedRequests);
     } finally {
       await context.close();
     }
