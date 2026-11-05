@@ -59,4 +59,19 @@ describe('companion publication configuration', () => {
     vi.stubGlobal('window', { __E2E__: { companionFixture: true } });
     expect(getCompanionConfig()).toBeNull();
   });
+
+  it('shows the local bear in development only when asked', () => {
+    vi.stubEnv('MODE', 'development');
+    vi.stubEnv('VITE_AVATAR_LOCAL_COMPANION', 'false');
+    expect(getCompanionConfig()).toBeNull();
+    vi.stubEnv('VITE_AVATAR_LOCAL_COMPANION', 'true');
+    expect(getCompanionConfig()?.modelUrl).toBe('/__avatar_fixture/bear-v1.glb');
+  });
+
+  it.each(['production', 'test'])('ignores the local bear switch in %s', mode => {
+    vi.stubEnv('MODE', mode);
+    vi.stubEnv('VITE_AVATAR_LOCAL_COMPANION', 'true');
+    vi.stubGlobal('window', {});
+    expect(getCompanionConfig()).toBeNull();
+  });
 });

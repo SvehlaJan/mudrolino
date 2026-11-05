@@ -7,6 +7,7 @@ import { defineConfig, loadEnv, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { pwaHtmlHeadTags, pwaHtmlTitle, pwaPluginOptions } from './src/pwa/pwaConfig';
 import { catalogPreviewPlugin } from './tools/avatar/catalogPreviewServer';
+import { localCompanionPlugin } from './tools/avatar/localCompanionServer';
 import { buildIdentity } from './tools/verification/identity.mjs';
 
 function identityPlugin(mode: string): Plugin {
@@ -53,6 +54,7 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [
       catalogPreviewPlugin(),
+      localCompanionPlugin(),
       react(),
       tailwindcss(),
       pwaHtmlMetadataPlugin(),
