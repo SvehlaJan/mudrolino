@@ -129,6 +129,30 @@ test.describe('Parent Access Gate', () => {
     expectNoFailedRequests(failedRequests);
   });
 
+  test('leaving the parent area gives keyboard focus back to the Home gear', async ({ page }) => {
+    const errors = trackConsoleErrors(page);
+    const failedRequests = trackFailedRequests(page);
+    const gear = page.getByRole('button', { name: 'Nastavenia' });
+
+    await page.goto('/');
+    await gear.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('heading', { name: 'Pre rodičov' })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page).toHaveURL(/\/$/);
+    await expect(gear).toBeFocused();
+
+    await gear.click();
+    await solveParentGate(page);
+    await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
+    await page.getByRole('button', { name: 'Späť' }).click();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(gear).toBeFocused();
+
+    expectNoConsoleErrors(errors);
+    expectNoFailedRequests(failedRequests);
+  });
+
   test('leaving protected route via in-app back navigation replaces history so browser back cannot reopen it', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);

@@ -27,3 +27,6 @@ export function getParentRouteKind(pathname: string): ParentRouteKind {
 export function isProtectedParentPath(pathname: string): boolean {
   return getParentRouteKind(pathname) !== null;
 }
+
+/** Location state for every exit from the Parent area: the Home screen moves focus back to its gear. */
+export const RETURN_FOCUS_TO_SETTINGS = { returnFocus: 'settings' } as const;

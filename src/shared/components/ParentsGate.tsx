@@ -40,9 +40,10 @@ export function ParentsGate({ onSuccess, onCancel }: ParentsGateProps) {
   const errorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [errorRecoveries, setErrorRecoveries] = useState(0);
   const firstDigitRef = useRef<HTMLButtonElement>(null);
-  // Captured once, at mount: whichever control (e.g. the Home screen's "Nastavenia" button) was
-  // focused right before this gate opened. See DialogShell's `restoreFocusRef` doc comment
-  // for why Radix can't infer this on its own without a `Dialog.Trigger`.
+  // Captured once, at mount: whichever control was focused right before this gate opened. See
+  // DialogShell's `restoreFocusRef` doc comment for why Radix can't infer this on its own without
+  // a `Dialog.Trigger`. As a route the gate replaces the Home screen, so this node is detached by
+  // the time it closes; the Home screen refocuses its own gear from `RETURN_FOCUS_TO_SETTINGS`.
   const restoreFocusRef = useRef<HTMLElement | null>(
     typeof document !== 'undefined' ? (document.activeElement as HTMLElement | null) : null,
   );

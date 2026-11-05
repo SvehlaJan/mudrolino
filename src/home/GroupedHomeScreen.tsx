@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Settings } from 'lucide-react';
 import { GAME_CATEGORIES, GAME_DEFINITIONS, GameDefinition } from '../shared/gameCatalog';
 import { getUnplayableReason } from '../shared/gamePlayability';
@@ -30,6 +31,16 @@ export function GroupedHomeScreen({
   locale = 'sk',
 }: GroupedHomeScreenProps) {
   const { isLoading, wordItems, letterItems, syllableItems } = useContent();
+  const location = useLocation();
+  const settingsButtonRef = useRef<HTMLButtonElement>(null);
+  // The Parent area replaces this screen, so its opener is gone by the time an adult leaves it.
+  // Leaving says so in the location state, and keyboard focus comes back to the gear.
+  useEffect(() => {
+    if ((location.state as { returnFocus?: unknown } | null)?.returnFocus === 'settings') {
+      settingsButtonRef.current?.focus({ preventScroll: true });
+    }
+  }, [location.state]);
+
   // The word list is empty until the content has loaded, so that is no verdict: no card is
   // Unplayable while loading. Content and settings changed in the Parent area reach this screen
   // through context and props, so a card dims on return without a reload.
@@ -70,6 +81,7 @@ export function GroupedHomeScreen({
 
         <div className="flex shrink-0 flex-col items-end gap-2">
           <IconButton
+            ref={settingsButtonRef}
             label={translate(locale, 'Nastavenia')}
             onClick={onOpenSettings}
             size="child"

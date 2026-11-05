@@ -6,6 +6,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useParentAccess } from '../shared/contexts/useParentAccess';
+import { RETURN_FOCUS_TO_SETTINGS } from '../shared/services/parentAccessLogic';
 import { ParentZoneContext, type ParentZoneValue } from './ParentZoneContext';
 
 /**
@@ -19,7 +20,7 @@ export function ParentLayout() {
 
   const closeToChild = useCallback((options?: { replace?: boolean }) => {
     lock();
-    navigate('/', { replace: options?.replace ?? false });
+    navigate('/', { replace: options?.replace ?? false, state: RETURN_FOCUS_TO_SETTINGS });
   }, [lock, navigate]);
 
   const value = useMemo<ParentZoneValue>(() => ({ closeToChild }), [closeToChild]);
