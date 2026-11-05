@@ -153,7 +153,7 @@ export default function App() {
             <Route
               key={game.id}
               path={game.path}
-              element={<GameRoute gameId={game.id} settings={settings} />}
+              element={<GameRoute key={game.id} gameId={game.id} settings={settings} />}
             />
           ))}
           <Route element={<ProtectedParentRoute />}>
