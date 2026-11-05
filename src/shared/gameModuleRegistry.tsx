@@ -6,6 +6,7 @@
 import React from 'react';
 import { GameId } from './types';
 import { GameRuntimeProps } from './gameRuntime';
+import { createModuleLoader } from './moduleLoader';
 
 interface GameModuleRoute {
   Component: React.ComponentType<GameRuntimeProps>;
@@ -17,23 +18,14 @@ function lazyRoute<TModule>(
   load: () => Promise<TModule>,
   render: (module: TModule, props: GameRuntimeProps) => React.ReactNode,
 ): GameModuleRoute {
-  // One download per game: a preload and the route's own lazy load share this promise. A failed
-  // download is forgotten so the next attempt can try again.
-  let pending: Promise<TModule> | undefined;
-  const loadOnce = () => {
-    pending ??= load().catch((error: unknown) => {
-      pending = undefined;
-      throw error;
-    });
-    return pending;
-  };
-  return {
-    Component: React.lazy(async () => {
-      const module = await loadOnce();
-      return { default: (props: GameRuntimeProps) => render(module, props) };
-    }),
-    preload: loadOnce,
-  };
+  // A preload and the route share one download. Once it has finished the route renders without
+  // suspending, so a card tap (which preloads on pointerdown) skips React's suspended-screen delay.
+  const loader = createModuleLoader(load);
+  function GameModule(props: GameRuntimeProps) {
+    const module = loader.loaded() ?? React.use(loader.load());
+    return render(module, props);
+  }
+  return { Component: GameModule, preload: loader.load };
 }
 
 const GAME_ROUTES: Record<GameId, GameModuleRoute> = {
