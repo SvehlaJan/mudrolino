@@ -68,6 +68,7 @@ export const appComponentInventory = [
   {"name":"FirstLetterPlayfield","source":"src/games/first-letter/FirstLetterGame.tsx","category":"games","exported":false,"usages":["src/games/first-letter/FirstLetterGame.tsx"]},
   {"name":"GameCard","source":"src/home/GameCard.tsx","category":"home","exported":true,"usages":["src/home/GroupedHomeScreen.tsx"]},
   {"name":"GameIcon","source":"src/home/GameCard.tsx","category":"home","exported":true,"usages":["src/home/GameCard.tsx"]},
+  {"name":"GameInputShield","source":"src/shared/components/GameInputShield.tsx","category":"game-shell","exported":true,"usages":["src/shared/components/GameRoute.tsx"]},
   {"name":"GamePrompt","source":"src/shared/game/GamePrompt.tsx","category":"game-shell","exported":true,"usages":["src/games/addition/AdditionGame.tsx","src/games/assembly/AssemblyGame.tsx","src/games/compare/CompareQuantitiesGame.tsx","src/games/complete-letter/CompleteLetterGame.tsx","src/games/complete-syllable/CompleteSyllableGame.tsx","src/games/counting/CountingItemsGame.tsx","src/games/first-letter/FirstLetterGame.tsx","src/shared/components/FindItGame.tsx"]},
   {"name":"GameRoute","source":"src/shared/components/GameRoute.tsx","category":"game-shell","exported":true,"usages":["src/App.tsx"]},
   {"name":"GameSettingsList","source":"src/parent/GameSettingsOverviewScreen.tsx","category":"parent","exported":false,"usages":["src/parent/GameSettingsOverviewScreen.tsx"]},

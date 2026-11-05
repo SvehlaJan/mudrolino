@@ -20,13 +20,15 @@ async function installCaptureRecorder(page) {
  * starts the first Round. Same contract as `startGame` in e2e/support/gameEntry.ts, but it takes
  * an explicit `baseUrl` (the e2e helper relies on the Playwright config's baseURL), so this tool
  * keeps its own copy. Resolves once the URL is `path` and the game screen's prompt is showing: the
- * game route is a lazy chunk, so Home is still rendered for a moment after the URL changes and
- * the screen itself appears a moment later. */
+ * game route is a lazy chunk, so the screen appears a moment after the URL changes. It then waits
+ * for the game's input shield to leave, because the invisible layer swallows taps for a moment
+ * after a game opens (a double tap's second half) and a scene's first tap would vanish into it. */
 async function startGame(page, baseUrl, path) {
   await page.goto(`${baseUrl}/`);
   await page.locator(`[data-testid="game-card"][href="${path}"]`).click();
   await page.waitForURL((url) => url.pathname === path);
   await page.getByTestId('game-visible-instruction').waitFor({ state: 'visible' });
+  await page.getByTestId('game-input-shield').waitFor({ state: 'detached' });
 }
 
 export function parseArgs(args) {

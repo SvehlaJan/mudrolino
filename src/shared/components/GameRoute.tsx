@@ -11,6 +11,7 @@ import { useContent } from '../contexts/ContentContext';
 import { getUnplayableReason } from '../gamePlayability';
 import { disarmSessionEntry, isSessionEntryArmed } from '../sessionEntry';
 import { ErrorBoundary } from './ErrorBoundary';
+import { GameInputShield } from './GameInputShield';
 
 interface GameRouteProps {
   gameId: GameId;
@@ -58,6 +59,7 @@ export function GameRoute({ gameId, settings }: GameRouteProps) {
     <ErrorBoundary>
       <React.Suspense fallback={null}>
         <Component settings={settings} onExit={onExit} />
+        <GameInputShield />
       </React.Suspense>
     </ErrorBoundary>
   );
