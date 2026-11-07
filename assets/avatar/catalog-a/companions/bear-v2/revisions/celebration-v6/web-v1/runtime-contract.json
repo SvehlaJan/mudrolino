@@ -1,0 +1,126 @@
+{
+  "glbSha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
+  "boneNames": [
+    "Head",
+    "Hips",
+    "LeftArm",
+    "LeftFoot",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftLeg",
+    "LeftShoulder",
+    "LeftToeBase",
+    "LeftUpLeg",
+    "RightArm",
+    "RightFoot",
+    "RightForeArm",
+    "RightHand",
+    "RightLeg",
+    "RightShoulder",
+    "RightToeBase",
+    "RightUpLeg",
+    "Spine",
+    "Spine01",
+    "Spine02",
+    "head_end",
+    "headfront",
+    "neck"
+  ],
+  "meshNames": [
+    "Bear_fixed_outfit"
+  ],
+  "clipName": "celebrate",
+  "durationSeconds": 1.4,
+  "clips": [
+    {
+      "name": "celebrate",
+      "durationSeconds": 1.4,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "wave",
+      "durationSeconds": 2.2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "clap",
+      "durationSeconds": 2.2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "jump",
+      "durationSeconds": 1.4,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "finale",
+      "durationSeconds": 2.8,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "idle",
+      "durationSeconds": 1.4,
+      "minMotionM": 0.015
+    },
+    {
+      "name": "search",
+      "durationSeconds": 2.2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "think",
+      "durationSeconds": 2.2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "listen",
+      "durationSeconds": 2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "encourage",
+      "durationSeconds": 1.8,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "shrug",
+      "durationSeconds": 1.8,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "flex",
+      "durationSeconds": 2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "bow",
+      "durationSeconds": 2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "march",
+      "durationSeconds": 2.4,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "wiggle",
+      "durationSeconds": 2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "peekaboo",
+      "durationSeconds": 2.2,
+      "minMotionM": 0.02
+    },
+    {
+      "name": "stretch",
+      "durationSeconds": 2.2,
+      "minMotionM": 0.02
+    }
+  ],
+  "maxTriangles": 95000,
+  "maxGzipBytes": 2100000,
+  "minMotionM": 0.02,
+  "maxFloorPenetrationM": 0.007,
+  "stationaryRootBone": "Hips"
+}

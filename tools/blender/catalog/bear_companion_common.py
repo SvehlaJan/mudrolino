@@ -82,6 +82,36 @@ def world_rotation(bone, axis, degrees):
     bone.rotation_quaternion = Quaternion(local_axis.normalized(), math.radians(degrees))
 
 
+def add_world_rotation(bone, axis, degrees):
+    if abs(degrees) < 1e-6:
+        return
+    local_axis = bone.bone.matrix_local.to_3x3().inverted() @ Vector(axis)
+    bone.rotation_mode = 'QUATERNION'
+    bone.rotation_quaternion = Quaternion(local_axis.normalized(), math.radians(degrees)) @ bone.rotation_quaternion
+
+
+def rotate_world(arm, bone_name, world_axis, degrees):
+    """Rotate a pose bone around an exact world axis in current posed space."""
+    if abs(degrees) < 1e-6:
+        return
+    pb = arm.pose.bones[bone_name]
+    cur_rot = pb.matrix.to_3x3().normalized()
+    local_axis = cur_rot.inverted() @ Vector(world_axis).normalized()
+    pb.rotation_mode = 'QUATERNION'
+    pb.rotation_quaternion = pb.rotation_quaternion @ Quaternion(local_axis, math.radians(degrees))
+    bpy.context.view_layer.update()
+
+
+def rotate_local(arm, bone_name, local_axis, degrees):
+    """Rotate a pose bone around its own local bone axis in current posed space."""
+    if abs(degrees) < 1e-6:
+        return
+    pb = arm.pose.bones[bone_name]
+    pb.rotation_mode = 'QUATERNION'
+    pb.rotation_quaternion = pb.rotation_quaternion @ Quaternion(Vector(local_axis).normalized(), math.radians(degrees))
+    bpy.context.view_layer.update()
+
+
 def relaxed_pose(arm, degrees):
     reset(arm)
     for side, sign in [('Left', 1), ('Right', -1)]:
@@ -97,8 +127,8 @@ def triangles(obj):
     return count
 
 
-def export_model(path, arm, meshes, animation=False):
-    """Explicit skinned roots, UVs and one active action; no cameras or old gaits."""
+def export_model(path, arm, meshes, animation=False, animation_mode='ACTIVE_ACTIONS'):
+    """Explicit skinned roots, UVs and active/all actions; no cameras or old gaits."""
     # glTF export_apply=False deliberately preserves skinning, but ignores MASK.
     # Bake only the masks on a disposable body copy, with the armature disabled.
     temporary = []
@@ -135,8 +165,8 @@ def export_model(path, arm, meshes, animation=False):
         bpy.ops.export_scene.gltf(
             filepath=str(path), export_format='GLB', use_selection=True,
             export_apply=False, export_texcoords=True, export_image_format='AUTO',
-            export_animations=animation, export_animation_mode='ACTIVE_ACTIONS',
-            export_force_sampling=True, export_frame_range=True, export_frame_step=1,
+            export_animations=animation, export_animation_mode=animation_mode,
+            export_force_sampling=True, export_frame_range=(animation_mode != 'ACTIONS'), export_frame_step=1,
             export_nla_strips=False, export_bake_animation=False,
             export_nla_strips_merged_animation_name='celebrate',
             export_optimize_animation_size=False, export_def_bones=False,

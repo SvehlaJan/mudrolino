@@ -149,3 +149,48 @@ is integration-report.json in this candidate directory.29 Python CLI/replay test
 also passed. The full release-only matrix was not run and publication remains
 explicitly deferred. Commit close-out locates its commit via the handoff git-log
 command; native/export files remain ignored and local-only.
+
+## Multi-clip animation PoC and `celebration-v5` — 2026-11-05
+
+With a 200-credit pre-approved Meshy budget, four stock humanoid animation presets
+were tested on rig `01a15fca-8ac6-74ad-a7c0-acd3ca841bab` (`--action-id` `28`
+`Big_Wave_Hello`, `59` `Victory_Cheer`, `22` `FunnyDancing_01`, `466` `Regular_Jump`;
+3 credits each, **12 / 200 credits spent**, 188 remaining, provider balance 2,048).
+Raw Meshy clips exhibited up to 624 `arm-torso` and 629 `arm-head` triangle
+intersections because stock human mocap drives the clavicles and elbows through
+the bear's wide torso and cheeks. Post-processing the Meshy clips in Blender
+(locking `LeftShoulder`/`RightShoulder` and overriding upper-arm abduction)
+eliminated `arm-torso` contacts on `wave_28` (`367 -> 0`) but still left `297`
+`arm-head` contacts from the human elbow trajectory grazing the bear's cheek.
+
+Procedural Blender multi-clip authoring (`build_generated_bear_celebration.py` +
+`motion-design.json`) using the 3-axis world-rotation helper (`Y` frontal raise
+with `+16°` rest ceiling, `Z` transverse forward swing `-sign * deg`, `X` axial
+palm roll) produced **`celebration-v5/`** with six uniform 1.4-second (`42`-frame)
+clips: refined `celebrate`, `wave`, `clap`, `jump`, `finale`, and `idle`.
+Exporting with `animation_mode='ACTIONS'` and optimizing via `optimize_generated_bear.mjs`
+yielded `celebration-v5/web-v1/model.glb` (`2,955,120` bytes, `1,996,676` gzip bytes,
+SHA-256 `090fcffdaddf805cc495faf4de8c586b1d8449a411566fad31a5285bec931e30`).
+Across all 1,014 sampled 120Hz frames (`6` clips × `169` frames), BVH clearance
+recorded **0 new `arm-torso-leg` pairs and 0 new `arm-head` pairs**, and
+Three.js-vs-Blender vertex parity passed within `9.395 µm`.
+
+## Posed-space `celebration-v6` upgrade and 17-clip + 6-accessory suite — 2026-11-06
+
+Interactive workbench review of `celebration-v5` revealed that `world_rotation`
+and `add_world_rotation` converted world axes via `bone.bone.matrix_local` (the
+unposed rest matrix), skewing child `ForeArm` and `Hand` rotations once parent
+`Shoulder`/`Arm` bones rotated. Adding `rotate_world(arm, bone_name, world_axis, degrees)`
+(which converts `world_axis` via `pb.matrix.to_3x3().normalized().inverted()` in
+current posed space) and `rotate_local(arm, bone_name, local_axis, degrees)` to
+`bear_companion_common.py` enabled 17 procedural clips in **`celebration-v6/`**
+(`celebration-v6/web-v1/model.glb`, `3,552,892` bytes, `2,078,070` gzip bytes,
+SHA-256 `db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a`):
+1. `celebrate` (`1.4s`): standing high overhead V-cheer (`hop = 0`) lifting `Shoulder` (`9.5°`), `Arm` (`82.5°` from rest with `21°` forward pitch), and `ForeArm` (`38°`) so both paws rise to ear height.
+2. `wave` (`2.2s`): standing high right-paw wave (`hop = 0`) with 5 frontal-plane hand waves and a forward-facing palm (`-Y`).
+3. `clap` (`2.2s`): standing 5-beat chest clap (`hop = 0`) held at constant chest height (`plateau_envelope`) where the flat palm normals face inward and meet cleanly without semi-raise phasing.
+4. `jump` (`1.4s`): 3-stage jump with a `16.3 cm` wind-up crouch, `21.5 cm` mid-air star-jump apex, and single-move arm return on landing.
+5. `finale` (`2.8s`): 4-cycle disco/boogie dance with `Hips` pelvic tilt (`±12° Y`) and twist (`±15° Z`) counter-balanced by `Spine02`/`Spine01`/`Spine` S-curve bend and alternating high overhead punch / waist pump.
+6. `idle` (`1.4s`): gentle caregiver breathing sway and warm head nod.
+7. `search` (`2.2s`), `think` (`2.2s`), `listen` (`2.0s`), `encourage` (`1.8s`), `shrug` (`1.8s`), `flex` (`2.0s`), `bow` (`2.0s`), `march` (`2.4s`), `wiggle` (`2.0s`), `peekaboo` (`2.2s`), and `stretch` (`2.2s`): 11 expressive character animations paired with 6 bone-parented 3D accessories (`searchGlass`, `thinkBulb`, `flexMask`, `bowHat`, `marchFlag`, `wiggleLeftMaraca`/`wiggleRightMaraca`) in `src/avatar/companionAccessories.ts` and `tools/blender/catalog/bear_accessories.py`, audited for zero snout/head/paw clipping.
+All 4,121 sampled 120Hz poses pass BVH clearance (`0` `arm-torso-leg` and `0` `arm-head` pairs) and native-vs-runtime parity (`28.02 µm <= 30 µm`).

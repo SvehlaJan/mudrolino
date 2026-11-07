@@ -1770,6 +1770,70 @@
       "sha256": "69b79a7630bd440919be610579069e2bbe470a9143d3758cd2be417e7c49e9f5",
       "size": 2853264
     },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/celebration.blend": {
+      "sha256": "bdc52b580372c4431d5b78c2d291098134dc3ddf4a9b1f79d90be7fdee41c4ca",
+      "size": 21317944
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/celebration.glb": {
+      "sha256": "66c900bdc348df3d7e71af30b7396d094735a6d1aae076f86c3f50458ea5b6dc",
+      "size": 20798772
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/model.glb": {
+      "sha256": "090fcffdaddf805cc495faf4de8c586b1d8449a411566fad31a5285bec931e30",
+      "size": 2955120
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/packed.glb": {
+      "sha256": "40fc15f7b850bdd6716a38a95f3ddaa5975dbe5328d6b7e98c18fb3f4d82a11d",
+      "size": 2955072
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/resized.glb": {
+      "sha256": "2bbc0fc0f4b1b2f910f9d3160f4f24330575bfd6b518a7694645bbaba2c020db",
+      "size": 7298336
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/tangent8.glb": {
+      "sha256": "23728d2513f2ea036e90bb3e7c5654911460aac3cbc45a9fab4f76849c838ed7",
+      "size": 3284252
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/tangents.glb": {
+      "sha256": "f2ab051e9de17b3483524cb2c0f619282ed1ae77bc364b62ec266a435b72f0d7",
+      "size": 3778056
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/webp.glb": {
+      "sha256": "fb545828cf0c2e65a215e9080a2a4452db619332ba578fc4d7f84ae59c7d1c25",
+      "size": 3120004
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.blend": {
+      "sha256": "fd13b4caa012f8af6431683a285c49e5f0c3edc9ea0b01a2698f28065e51207a",
+      "size": 21932839
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.glb": {
+      "sha256": "ea36499cad0e27786cb1a83054d2eafa8c773510af67f307b5f87f3063e8378a",
+      "size": 21543112
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb": {
+      "sha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
+      "size": 3552892
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/packed.glb": {
+      "sha256": "bf8ba4d477c58ca2622aa04856ce25c9f0cbb2170116037fc52836c5068d7399",
+      "size": 3552844
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/resized.glb": {
+      "sha256": "9610852f5ca619b3997da341a240e63f6aec6994e2aa1b95210ce895c6e0ea01",
+      "size": 8021968
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/tangent8.glb": {
+      "sha256": "1344e8227e846666e9942c8ba1f901b51c061af01dfa320f421d9abb86f6a701",
+      "size": 3882024
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/tangents.glb": {
+      "sha256": "f43d094bcaa223ba58f93bba00b9109abad92c9b0cc56a2e52a2edc899ccf196",
+      "size": 4375828
+    },
+    "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/webp.glb": {
+      "sha256": "115e60f9af43f38007282dbd143f201643c4a8c45c76a5183739dc27d6788cee",
+      "size": 3717776
+    },
     "assets/avatar/catalog-a/companions/bear-v2/revisions/meshy-base-v1/original.glb": {
       "sha256": "a637c6d4d27fb2768d0fa6e815b49412145efb4be153c68cd7e4dcd783ac8d17",
       "size": 19839844

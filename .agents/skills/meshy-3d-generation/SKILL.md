@@ -28,6 +28,17 @@ also read `docs/avatar-authoring.md`.
 5. Download/hash/inspect actual geometry, textures and budgets before chaining
    remesh, rig or animation. Use supported endpoint/task lineage. Generation
    success is construction input, not final runtime or art acceptance.
+6. **Meshy `animate` on non-human/mascot proportions**: Preset library animations
+   (3 credits each) are retargeted human mocap. On wide-head, chubby-torso mascots
+   (such as `bear-v2`), raw Meshy animation GLBs re-embed the ~21 MB mesh with a
+   stray helper `Icosphere`, bake location/scale drift onto all bones, rest at
+   human `0°` arm abduction (clipping the belly/hips), and shrug clavicles/elbows
+   straight through wide cheeks and ears. Even with clavicle locking and outward
+   arm offsets in Blender, human elbow trajectories still clip wide mascot heads.
+   Use Meshy `animate` only for cheap motion-rhythm reference (e.g. stepping
+   cadence) or humanoid characters; author production mascot clips procedurally
+   in Blender where `arm-torso-leg` and `arm-head` clearance, floor contact, and
+   exact loop closure are enforced directly.
 
 Use `--wait --download-glb` for a finished GLB. Report task ID, project directory,
 terminal state or recoverable interruption, downloads, actual credits and remaining

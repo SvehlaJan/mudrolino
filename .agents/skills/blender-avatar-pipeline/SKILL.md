@@ -100,6 +100,36 @@ failure, then sweep the saved revision through native and actual runtime poses.
   `export_nla_strips=False`, `export_bake_animation=False`. Standalone generated
   motion GLBs need cleanup; use `tools/blender/export_clean_avatar_clip.py` and
   `docs/3d-avatar-knowledge-base.md` for that branch.
+- For multi-clip mascot authoring (e.g. `bear-v2` with `celebrate`, `wave`, `clap`,
+  `jump`, `finale`, `idle`), pack all actions into **one single `.blend` and `.glb`**
+  (set `action.use_fake_user = True`, stash each action on a muted NLA track, and
+  export with `export_animation_mode='ACTIONS'`). Each extra 43–61 frame quaternion
+  action adds only ~15–20 KB gzipped vs. ~2 MB for a separate GLB.
+- On wide-head, chubby-torso mascots (`bear-v2`, facing `-Y`, left arm `+X`, up `+Z`,
+  `sign = +1` Left / `-1` Right):
+  - **Audit both `{'arm', 'torso-leg'}` AND `{'arm', 'head'}`** in BVH triangle
+    intersection checks. Treating `Head`/`neck` as `'other'` misses paw/forearm
+    clipping into wide cheeks, muzzle and ears during waves and claps.
+  - **3-axis limb rotation law**: For lateral arm/forearm bones, world `Y` `(0, 1, 0)`
+    is frontal raise/lower (`sign * 16°` lowers from the wide A-pose bind to the
+    relaxed side silhouette — **`+16°` is the inward ceiling**, so always use
+    `sign * (16 - lift)` with `lift >= 0` to lift outward/upward and never `> 16°`);
+    world `Z` `(0, 0, 1)` with `-sign * forward_deg` swings arms/forearms **forward
+    in front of the chest** (for `clap`, `wave`, `idle`); world `X` `(1, 0, 0)`
+    rolls the arm shaft (turning palms inward), whereas on vertical bones (`Spine`,
+    `Head`, `UpLeg`, `Leg`) `(1, 0, 0)` pitches forward/backward.
+  - **Posed-space vs. rest-space world rotations (`rotate_world`)**: `world_rotation`
+    and `add_world_rotation` convert `world_axis` via `bone.bone.matrix_local` (the
+    *unposed rest matrix*). Once a parent bone (`Shoulder` or `Arm`) rotates, child
+    bones (`ForeArm`, `Hand`) no longer align with their rest matrix, so rest-space
+    axis conversion skews elbow flex and hand orientation. Always use
+    `rotate_world(arm, bone_name, world_axis, degrees)` (which uses
+    `pb.matrix.to_3x3().normalized().inverted() @ Vector(world_axis)` in current
+    posed space and calls `bpy.context.view_layer.update()`) in strict parent-to-child
+    order (`Hips` → `Spine02` → `Spine01` → `Spine` → `Shoulder` → `Arm` →
+    `ForeArm` → `Hand`), and include `LeftShoulder`/`RightShoulder` whenever lifting
+    the bear's paws above head height (at bind pose `LeftArm`/`RightArm` point ~45°
+    below horizontal).
 - The garment exporter disables texture coordinates. Use the separate H02
   UV-preserving profile and canonical face fixture for textured heads. Reimport
   proof must match UVs with their rest-position/corner identity, including seams;

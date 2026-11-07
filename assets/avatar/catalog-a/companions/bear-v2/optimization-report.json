@@ -1,63 +1,63 @@
 {
   "status": "passed",
-  "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/celebration.glb",
-  "input_sha256": "3cab86c5d77378a14dc718840907a5364bba0b7bcb59bdc5d305f3f14958a393",
-  "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb",
-  "glb_sha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
-  "bytes": 2688372,
-  "gzip_bytes": 1910001,
+  "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.glb",
+  "input_sha256": "ea36499cad0e27786cb1a83054d2eafa8c773510af67f307b5f87f3063e8378a",
+  "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb",
+  "glb_sha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
+  "bytes": 3552892,
+  "gzip_bytes": 2078070,
   "tool": "gltf-transform",
   "tool_version": "4.3.0",
   "node_version": "v26.11.1",
-  "optimizer_sha256": "b3c14e14ecd3cd327407cffe872acab677e8fe05063b560006d0250075f8f853",
+  "optimizer_sha256": "de4278800632e8d044d0070acf90eda6d997ed5195f9443f913b82912425d9df",
   "steps": [
     {
       "command": "resize",
-      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/celebration.glb",
-      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/resized.glb",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/resized.glb",
       "options": [
         "--width",
         "1024",
         "--height",
         "1024"
       ],
-      "sha256": "b19f534ef75eb76059ce2c54b833c3076eb1b359c7bd8889ef5dbb8a997bd11a"
+      "sha256": "9610852f5ca619b3997da341a240e63f6aec6994e2aa1b95210ce895c6e0ea01"
     },
     {
       "command": "webp",
-      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/resized.glb",
-      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/webp.glb",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/resized.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/webp.glb",
       "options": [
         "--quality",
-        "85",
+        "75",
         "--effort",
         "80"
       ],
-      "sha256": "69b79a7630bd440919be610579069e2bbe470a9143d3758cd2be417e7c49e9f5"
+      "sha256": "115e60f9af43f38007282dbd143f201643c4a8c45c76a5183739dc27d6788cee"
     },
     {
       "command": "tangents",
-      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/webp.glb",
-      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/tangents.glb",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/webp.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/tangents.glb",
       "options": [],
-      "sha256": "909b8b921c4ed7cd69b89991da738aa82c1c643d020d4439aaa14779adf5d27c"
+      "sha256": "f43d094bcaa223ba58f93bba00b9109abad92c9b0cc56a2e52a2edc899ccf196"
     },
     {
       "command": "quantize",
-      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/tangents.glb",
-      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/tangent8.glb",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/tangents.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/tangent8.glb",
       "options": [
         "--pattern",
         "TANGENT",
         "--quantize-normal",
         "8"
       ],
-      "sha256": "0ef9edfe3f6c06ca26631d01997359f174de316f9f2798edf6bdc0a321327d1f"
+      "sha256": "1344e8227e846666e9942c8ba1f901b51c061af01dfa320f421d9abb86f6a701"
     },
     {
       "command": "quantize",
-      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/tangent8.glb",
-      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/packed.glb",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/tangent8.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/packed.glb",
       "options": [
         "--pattern",
         "{NORMAL,TEXCOORD_*}",
@@ -66,7 +66,7 @@
         "--quantize-texcoord",
         "14"
       ],
-      "sha256": "629378d9000830c4efe3b388b7df8e12d62224f286d7d82c0bc857a3a3165c92"
+      "sha256": "bf8ba4d477c58ca2622aa04856ce25c9f0cbb2170116037fc52836c5068d7399"
     }
   ],
   "errors": 0,

@@ -1,0 +1,46 @@
+{
+  "status": "rendered",
+  "source": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/celebration.blend",
+  "source_sha256": "bdc52b580372c4431d5b78c2d291098134dc3ddf4a9b1f79d90be7fdee41c4ca",
+  "renderer_sha256": "fa28a7b7517c5d834e1c0f101e353f65f450748ab5e857e9c1847be4f10ee6ab",
+  "helper_sha256": "f13a03f268a671fe8750abb98f09a55a5470f164b2cae4a2275d0aff2ae10684",
+  "blender_version": "5.2.2 LTS",
+  "frame": 0,
+  "width": 352,
+  "height": 400,
+  "maximum_css_slot": [
+    176,
+    200
+  ],
+  "minimum_pixel_ratio": 2,
+  "camera": {
+    "distance": 5.6,
+    "height": 1.35,
+    "target_height": 1.25,
+    "vertical_fov": 34,
+    "normalized_model_height": 2.7
+  },
+  "reviews": {
+    "front": {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/still-v2/front-review.png",
+      "sha256": "f0d85afe424846b1aff9dcaf1e0886a6eb8e9c824b9797366e1fb4e168d7fcf5"
+    },
+    "side": {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/still-v2/side-review.png",
+      "sha256": "bf9f12e0cc2505290a03bf510f9abd825f289104c3f8d8b23c1c427576815655"
+    },
+    "back": {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/still-v2/back-review.png",
+      "sha256": "80da2446468973df3b19785642dfb51724c8391303efdf95bff66067b6d51a84"
+    },
+    "three-quarter": {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/still-v2/three-quarter-review.png",
+      "sha256": "a445dbbe3450240de5ca9bae610490493123736b81d828eeead728e201528f85"
+    },
+    "still": {
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/still-v2/bear-still.png",
+      "sha256": "edb89e4849bbd2ed1ba0e234fea22d6039cdb3a063ad218abf279478b4ed319f"
+    }
+  },
+  "scope": "Fallback render only; geometry/motion proof stays bound to the unchanged native source."
+}

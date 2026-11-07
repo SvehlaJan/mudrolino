@@ -21,6 +21,20 @@ function requireContract(contract, actualHash) {
       || new Set(names).size !== names.length) throw new Error(`Invalid ${key} contract`);
   }
   if (contract.clipName !== 'celebrate' || contract.durationSeconds !== 1.4) throw new Error('Contract must require celebrate, 1.4 seconds');
+  if (contract.clips !== undefined) {
+    if (!Array.isArray(contract.clips) || !contract.clips.length) throw new Error('Invalid clips contract');
+    const seen = new Set();
+    let hasCelebrate = false;
+    for (const item of contract.clips) {
+      if (!item || typeof item.name !== 'string' || !item.name || seen.has(item.name)
+        || !Number.isFinite(item.durationSeconds) || item.durationSeconds <= 0) {
+        throw new Error('Invalid clips contract');
+      }
+      seen.add(item.name);
+      if (item.name === 'celebrate' && Math.abs(item.durationSeconds - 1.4) <= 1e-6) hasCelebrate = true;
+    }
+    if (!hasCelebrate) throw new Error('Clips contract must include celebrate, 1.4 seconds');
+  }
   if (!contract.boneNames.includes(contract.stationaryRootBone)) throw new Error('stationaryRootBone must be an expected bone');
   for (const [key, maximum] of [['maxTriangles', 95000], ['maxGzipBytes', 2100000]]) {
     if (!Number.isInteger(contract[key]) || contract[key] <= 0 || contract[key] > maximum) throw new Error(`Invalid ${key} contract`);
@@ -98,10 +112,23 @@ export async function sampleGeneratedBearRuntime({ glb, contract: contractPath, 
   const state = { maximumWeightError: 0, placeholderTextureCount: 0 };
   const loader = new GLTFLoader().register(cpuProofPlugin(state));
   const gltf = await loader.parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
-  const clip = gltf.animations[0];
-  if (gltf.animations.length !== 1 || clip.name !== contract.clipName || Math.abs(clip.duration - contract.durationSeconds) > 1e-6) {
-    throw new Error('Expected only celebrate, 1.4 seconds');
+
+  const expectedClips = contract.clips ?? [{ name: contract.clipName, durationSeconds: contract.durationSeconds }];
+  if (!contract.clips) {
+    const clip = gltf.animations[0];
+    if (gltf.animations.length !== 1 || clip.name !== contract.clipName || Math.abs(clip.duration - contract.durationSeconds) > 1e-6) {
+      throw new Error('Expected only celebrate, 1.4 seconds');
+    }
+  } else {
+    requireNames(gltf.animations.map(a => a.name), expectedClips.map(c => c.name), 'animation clip');
+    for (const spec of expectedClips) {
+      const found = gltf.animations.find(a => a.name === spec.name);
+      if (!found || Math.abs(found.duration - spec.durationSeconds) > 1e-5) {
+        throw new Error(`Expected clip ${spec.name} duration ${spec.durationSeconds}s, got ${found?.duration}`);
+      }
+    }
   }
+
   const meshes = [], bones = [];
   let offset = 0;
   gltf.scene.traverse(object => {
@@ -130,86 +157,150 @@ export async function sampleGeneratedBearRuntime({ glb, contract: contractPath, 
     item.mesh.getVertexPosition(vertex, point).applyMatrix4(item.mesh.matrixWorld);
     if (point.y <= neutralFloor + .18) item.foot_vertex_ids.push(vertex);
   }
-  const mixer = new AnimationMixer(gltf.scene);
-  const action = mixer.clipAction(clip).setLoop(LoopOnce, 1);
-  action.clampWhenFinished = true;
-  action.play();
-  const stride = offset * 3, firstLocal = new Float32Array(stride);
-  let first, firstBoneMatrices, firstRoot, maximumMotion = 0, maximumSkinMotion = 0, endpointError = 0, endpointBoneError = 0, rootDrift = 0;
-  const frames = [], positionHash = crypto.createHash('sha256');
+
+  const stride = offset * 3;
   fs.mkdirSync(outputDir, { recursive: true });
-  const positionPath = path.join(outputDir, 'positions.bin'), fd = fs.openSync(positionPath, 'w');
-  try {
-    for (let frame = 0; frame < FRAME_COUNT; frame++) {
-      const seconds = frame / (30 * SUBSTEPS);
-      mixer.setTime(Math.min(seconds, clip.duration));
-      gltf.scene.updateMatrixWorld(true);
-      rootBone.getWorldPosition(root);
-      if (![root.x, root.y, root.z].every(Number.isFinite)) throw new Error('Non-finite root position');
-      if (!firstRoot) firstRoot = root.clone();
-      const drift = Math.hypot(root.x - firstRoot.x, root.z - firstRoot.z);
-      rootDrift = Math.max(rootDrift, drift);
-      const values = new Float32Array(stride), min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
-      let floor = Infinity;
-      for (const item of meshes) {
-        linear.setFromMatrix4(item.mesh.matrixWorld);
-        let footIndex = 0;
-        for (let vertex = 0; vertex < item.count; vertex++) {
-          const index = (item.offset_vertices + vertex) * 3;
-          item.mesh.getVertexPosition(vertex, point);
-          if (frame === 0) firstLocal.set([point.x, point.y, point.z], index);
-          else {
-            delta.set(point.x - firstLocal[index], point.y - firstLocal[index + 1], point.z - firstLocal[index + 2]).applyMatrix3(linear);
-            maximumSkinMotion = Math.max(maximumSkinMotion, delta.length());
-          }
-          point.applyMatrix4(item.mesh.matrixWorld);
-          if (![point.x, point.y, point.z].every(Number.isFinite)) throw new Error('Non-finite animated vertex position');
-          // Match the native authoring reports: glTF Y-up -> Blender Z-up.
-          values[index] = point.x; values[index + 1] = -point.z; values[index + 2] = point.y;
-          for (let axis = 0; axis < 3; axis++) {
-            min[axis] = Math.min(min[axis], values[index + axis]); max[axis] = Math.max(max[axis], values[index + axis]);
-          }
-          if (item.foot_vertex_ids[footIndex] === vertex) { floor = Math.min(floor, point.y); footIndex++; }
-          if (first) {
-            const movement = Math.hypot(values[index] - first[index], values[index + 1] - first[index + 1], values[index + 2] - first[index + 2]);
-            maximumMotion = Math.max(maximumMotion, movement);
-            if (frame === FRAME_COUNT - 1) endpointError = Math.max(endpointError, movement);
+
+  function sampleOneClip(clip, binaryFileName) {
+    const frameCount = Math.round(clip.duration * 30 * SUBSTEPS) + 1;
+    const mixer = new AnimationMixer(gltf.scene);
+    const action = mixer.clipAction(clip).setLoop(LoopOnce, 1);
+    action.clampWhenFinished = true;
+    action.play();
+    const firstLocal = new Float32Array(stride);
+    let first, firstBoneMatrices, firstRoot, maximumMotion = 0, maximumSkinMotion = 0, endpointError = 0, endpointBoneError = 0, rootDrift = 0;
+    const frames = [], positionHash = crypto.createHash('sha256');
+    const positionPath = path.join(outputDir, binaryFileName), fd = fs.openSync(positionPath, 'w');
+    try {
+      for (let frame = 0; frame < frameCount; frame++) {
+        const seconds = frame / (30 * SUBSTEPS);
+        mixer.setTime(Math.min(seconds, clip.duration));
+        gltf.scene.updateMatrixWorld(true);
+        rootBone.getWorldPosition(root);
+        if (![root.x, root.y, root.z].every(Number.isFinite)) throw new Error('Non-finite root position');
+        if (!firstRoot) firstRoot = root.clone();
+        const drift = Math.hypot(root.x - firstRoot.x, root.z - firstRoot.z);
+        rootDrift = Math.max(rootDrift, drift);
+        const values = new Float32Array(stride), min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+        let floor = Infinity;
+        for (const item of meshes) {
+          linear.setFromMatrix4(item.mesh.matrixWorld);
+          let footIndex = 0;
+          for (let vertex = 0; vertex < item.count; vertex++) {
+            const index = (item.offset_vertices + vertex) * 3;
+            item.mesh.getVertexPosition(vertex, point);
+            if (frame === 0) firstLocal.set([point.x, point.y, point.z], index);
+            else {
+              delta.set(point.x - firstLocal[index], point.y - firstLocal[index + 1], point.z - firstLocal[index + 2]).applyMatrix3(linear);
+              maximumSkinMotion = Math.max(maximumSkinMotion, delta.length());
+            }
+            point.applyMatrix4(item.mesh.matrixWorld);
+            if (![point.x, point.y, point.z].every(Number.isFinite)) throw new Error('Non-finite animated vertex position');
+            // Match the native authoring reports: glTF Y-up -> Blender Z-up.
+            values[index] = point.x; values[index + 1] = -point.z; values[index + 2] = point.y;
+            for (let axis = 0; axis < 3; axis++) {
+              min[axis] = Math.min(min[axis], values[index + axis]); max[axis] = Math.max(max[axis], values[index + axis]);
+            }
+            if (item.foot_vertex_ids[footIndex] === vertex) { floor = Math.min(floor, point.y); footIndex++; }
+            if (first) {
+              const movement = Math.hypot(values[index] - first[index], values[index + 1] - first[index + 1], values[index + 2] - first[index + 2]);
+              maximumMotion = Math.max(maximumMotion, movement);
+              if (frame === frameCount - 1) endpointError = Math.max(endpointError, movement);
+            }
           }
         }
+        if (!first) {
+          first = values.slice();
+          firstBoneMatrices = bones.map(bone => bone.matrixWorld.elements.slice());
+        }
+        if (frame === frameCount - 1) for (let bone = 0; bone < bones.length; bone++) for (let value = 0; value < 16; value++) {
+          endpointBoneError = Math.max(endpointBoneError, Math.abs(bones[bone].matrixWorld.elements[value] - firstBoneMatrices[bone][value]));
+        }
+        const binary = Buffer.from(values.buffer);
+        fs.writeSync(fd, binary); positionHash.update(binary);
+        frames.push({ frame: frame / SUBSTEPS, seconds, min, max, floor, root: [root.x, -root.z, root.y], root_xy_drift_m: drift });
       }
-      if (!first) {
-        first = values.slice();
-        firstBoneMatrices = bones.map(bone => bone.matrixWorld.elements.slice());
+    } finally { fs.closeSync(fd); mixer.stopAllAction(); mixer.uncacheRoot(gltf.scene); }
+    const floorPenetration = Math.max(0, -Math.min(...frames.map(frame => frame.floor)));
+    const clipFailures = [];
+    if (maximumSkinMotion < contract.minMotionM || maximumMotion < contract.minMotionM) clipFailures.push('Insufficient actual skin motion');
+    if (endpointError > TOLERANCE || endpointBoneError > TOLERANCE) clipFailures.push('Unmatched start/end endpoint poses');
+    if (floorPenetration > contract.maxFloorPenetrationM) clipFailures.push('Excessive fixed-vertex floor penetration');
+    if (rootDrift > TOLERANCE) clipFailures.push('Excessive root XY drift');
+    return {
+      clip: clip.name,
+      duration: clip.duration,
+      frame_count: frameCount,
+      maximum_motion_m: maximumMotion,
+      maximum_skin_motion_m: maximumSkinMotion,
+      maximum_endpoint_error_m: endpointError,
+      maximum_endpoint_bone_matrix_error: endpointBoneError,
+      maximum_root_xy_drift_m: rootDrift,
+      maximum_floor_penetration_m: floorPenetration,
+      positions: positionPath,
+      positions_sha256: positionHash.digest('hex'),
+      failures: clipFailures,
+      frames,
+    };
+  }
+
+  const primaryClip = gltf.animations.find(a => a.name === contract.clipName) ?? gltf.animations[0];
+  const primaryResult = sampleOneClip(primaryClip, 'positions.bin');
+  const clipSummaries = [];
+  const allFailures = [...primaryResult.failures];
+
+  if (contract.clips) {
+    for (const spec of expectedClips) {
+      if (spec.name === primaryClip.name) {
+        clipSummaries.push({
+          clip: primaryResult.clip,
+          duration: primaryResult.duration,
+          frame_count: primaryResult.frame_count,
+          maximum_motion_m: primaryResult.maximum_motion_m,
+          maximum_skin_motion_m: primaryResult.maximum_skin_motion_m,
+          maximum_endpoint_error_m: primaryResult.maximum_endpoint_error_m,
+          maximum_endpoint_bone_matrix_error: primaryResult.maximum_endpoint_bone_matrix_error,
+          maximum_root_xy_drift_m: primaryResult.maximum_root_xy_drift_m,
+          maximum_floor_penetration_m: primaryResult.maximum_floor_penetration_m,
+          positions: primaryResult.positions,
+          positions_sha256: primaryResult.positions_sha256,
+          failures: primaryResult.failures,
+          frames: primaryResult.frames,
+        });
+      } else {
+        const animClip = gltf.animations.find(a => a.name === spec.name);
+        const res = sampleOneClip(animClip, `positions-${spec.name}.bin`);
+        clipSummaries.push(res);
+        for (const f of res.failures) {
+          allFailures.push(`${spec.name}: ${f}`);
+        }
       }
-      if (frame === FRAME_COUNT - 1) for (let bone = 0; bone < bones.length; bone++) for (let value = 0; value < 16; value++) {
-        endpointBoneError = Math.max(endpointBoneError, Math.abs(bones[bone].matrixWorld.elements[value] - firstBoneMatrices[bone][value]));
-      }
-      const binary = Buffer.from(values.buffer);
-      fs.writeSync(fd, binary); positionHash.update(binary);
-      frames.push({ frame: frame / SUBSTEPS, seconds, min, max, floor, root: [root.x, -root.z, root.y], root_xy_drift_m: drift });
     }
-  } finally { fs.closeSync(fd); mixer.stopAllAction(); }
+  }
+
   const triangles = meshes.reduce((sum, item) => sum + item.indices.length / 3, 0), gzipBytes = gzipSync(bytes).length;
-  const floorPenetration = Math.max(0, -Math.min(...frames.map(frame => frame.floor)));
-  const failures = [];
-  if (maximumSkinMotion < contract.minMotionM || maximumMotion < contract.minMotionM) failures.push('Insufficient actual skin motion');
-  if (endpointError > TOLERANCE || endpointBoneError > TOLERANCE) failures.push('Unmatched start/end endpoint poses');
-  if (floorPenetration > contract.maxFloorPenetrationM) failures.push('Excessive fixed-vertex floor penetration');
-  if (rootDrift > TOLERANCE) failures.push('Excessive root XY drift');
-  if (triangles > contract.maxTriangles) failures.push('Triangle budget exceeded');
-  if (gzipBytes > contract.maxGzipBytes) failures.push('Gzip byte budget exceeded');
+  if (triangles > contract.maxTriangles) allFailures.push('Triangle budget exceeded');
+  if (gzipBytes > contract.maxGzipBytes) allFailures.push('Gzip byte budget exceeded');
+  const failures = [...new Set(allFailures)];
+
   const report = {
     status: failures.length ? 'failed' : 'passed', failures, profile: 'generated fixed-outfit bear CPU runtime skinning',
     glb, glb_sha256: sha256(bytes), contract: contractPath, contract_sha256: sha256(contractBytes), thresholds: contract,
     sampler_sha256: sha256(fs.readFileSync(new URL(import.meta.url))), three_revision: REVISION,
-    clip: clip.name, duration: clip.duration, fps: 30, substeps: SUBSTEPS, frame_count: FRAME_COUNT, stride,
+    clip: primaryResult.clip, duration: primaryResult.duration, fps: 30, substeps: SUBSTEPS, frame_count: FRAME_COUNT, stride,
     bones: bones.map(bone => bone.name), triangles, bytes: bytes.length, gzip_bytes: gzipBytes,
-    maximum_weight_error: state.maximumWeightError, maximum_motion_m: maximumMotion, maximum_skin_motion_m: maximumSkinMotion,
-    maximum_endpoint_error_m: endpointError, maximum_endpoint_bone_matrix_error: endpointBoneError,
-    maximum_root_xy_drift_m: rootDrift, maximum_floor_penetration_m: floorPenetration,
+    maximum_weight_error: state.maximumWeightError, maximum_motion_m: primaryResult.maximum_motion_m,
+    maximum_skin_motion_m: primaryResult.maximum_skin_motion_m,
+    maximum_endpoint_error_m: primaryResult.maximum_endpoint_error_m,
+    maximum_endpoint_bone_matrix_error: primaryResult.maximum_endpoint_bone_matrix_error,
+    maximum_root_xy_drift_m: primaryResult.maximum_root_xy_drift_m,
+    maximum_floor_penetration_m: primaryResult.maximum_floor_penetration_m,
     neutral_floor_m: neutralFloor, foot_band_height_m: .18, floor_plane_m: 0,
-    meshes: meshes.map(({ mesh, ...item }) => item), frames,
-    positions: positionPath, positions_sha256: positionHash.digest('hex'), positions_encoding: 'little-endian float32, frame-major, mesh order, XYZ triples',
+    meshes: meshes.map(({ mesh, ...item }) => item),
+    ...(contract.clips ? { clips: clipSummaries } : {}),
+    frames: primaryResult.frames,
+    positions: primaryResult.positions, positions_sha256: primaryResult.positions_sha256,
+    positions_encoding: 'little-endian float32, frame-major, mesh order, XYZ triples',
     coordinates: 'Blender Z-up; actual Three.js GLTFLoader + AnimationMixer + SkinnedMesh.getVertexPosition',
     textures_rendered: false, placeholder_texture_count: state.placeholderTextureCount,
     limitations: ['CPU geometry and skinning only; neutral placeholder textures are not decoded or rendered. Actual browser texture and material proof is required separately.'],
@@ -223,7 +314,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.ar
     const { values } = parseArgs({ options: { glb: { type: 'string' }, contract: { type: 'string' }, 'output-dir': { type: 'string' } } });
     const report = await sampleGeneratedBearRuntime({ glb: values.glb, contract: values.contract, outputDir: values['output-dir'] });
     console.log(JSON.stringify({ status: report.status, report: path.join(values['output-dir'], 'samples.json'), failures: report.failures,
-      frames: report.frame_count, triangles: report.triangles, maximumMotion: report.maximum_motion_m }));
+      frames: report.frame_count, clips: report.clips?.map(c => c.clip) ?? [report.clip], triangles: report.triangles, maximumMotion: report.maximum_motion_m }));
     if (report.status !== 'passed') process.exitCode = 1;
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

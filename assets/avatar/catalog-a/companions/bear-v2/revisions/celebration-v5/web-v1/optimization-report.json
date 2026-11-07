@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/celebration.glb",
+  "input_sha256": "66c900bdc348df3d7e71af30b7396d094735a6d1aae076f86c3f50458ea5b6dc",
+  "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/model.glb",
+  "glb_sha256": "090fcffdaddf805cc495faf4de8c586b1d8449a411566fad31a5285bec931e30",
+  "bytes": 2955120,
+  "gzip_bytes": 1996676,
+  "tool": "gltf-transform",
+  "tool_version": "4.3.0",
+  "node_version": "v26.11.1",
+  "optimizer_sha256": "b3c14e14ecd3cd327407cffe872acab677e8fe05063b560006d0250075f8f853",
+  "steps": [
+    {
+      "command": "resize",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/celebration.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/resized.glb",
+      "options": [
+        "--width",
+        "1024",
+        "--height",
+        "1024"
+      ],
+      "sha256": "2bbc0fc0f4b1b2f910f9d3160f4f24330575bfd6b518a7694645bbaba2c020db"
+    },
+    {
+      "command": "webp",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/resized.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/webp.glb",
+      "options": [
+        "--quality",
+        "85",
+        "--effort",
+        "80"
+      ],
+      "sha256": "fb545828cf0c2e65a215e9080a2a4452db619332ba578fc4d7f84ae59c7d1c25"
+    },
+    {
+      "command": "tangents",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/webp.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/tangents.glb",
+      "options": [],
+      "sha256": "f2ab051e9de17b3483524cb2c0f619282ed1ae77bc364b62ec266a435b72f0d7"
+    },
+    {
+      "command": "quantize",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/tangents.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/tangent8.glb",
+      "options": [
+        "--pattern",
+        "TANGENT",
+        "--quantize-normal",
+        "8"
+      ],
+      "sha256": "23728d2513f2ea036e90bb3e7c5654911460aac3cbc45a9fab4f76849c838ed7"
+    },
+    {
+      "command": "quantize",
+      "input": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/tangent8.glb",
+      "output": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v5/web-v1/packed.glb",
+      "options": [
+        "--pattern",
+        "{NORMAL,TEXCOORD_*}",
+        "--quantize-normal",
+        "12",
+        "--quantize-texcoord",
+        "14"
+      ],
+      "sha256": "40fc15f7b850bdd6716a38a95f3ddaa5975dbe5328d6b7e98c18fb3f4d82a11d"
+    }
+  ],
+  "errors": 0,
+  "warnings": 0,
+  "issues": [],
+  "scope": "Texture resize/WebP and normal/tangent/UV packing; skinning, source parity and actual texture appearance require separate checks."
+}

@@ -83,14 +83,22 @@ repair in the bear retrospective is version-specific, not an unconditional patch
 | Validator/inventory | Format, structure and measured budget; not likeness or deformation |
 | Actual runtime skin samples | Exported motion, weights, root/floor/endpoint metrics |
 | Native/runtime parity | Equivalent surfaces throughout sampled poses; establish one fixed bidirectional correspondence rather than a new nearest match per pose |
-| Contact audit | Only declared mesh pairs, poses and tolerances; record intrinsic bind contacts separately from new contacts |
+| Contact audit | Only declared mesh pairs, poses and tolerances; record intrinsic bind contacts separately from new contacts. On wide-head mascots, always audit both `arm vs torso-leg` and `arm vs head` (cheeks/muzzle/ears) |
 | Opening/silhouette review | Visible holes and shape defects that contact counts can miss |
 | Actual renderer | Real textures/materials and framing in that renderer |
 | Product-clock capture | Observed timing, readability and controls in the game slot |
 
 Cover the full clip and inter-key poses; record cadence, count and tolerances.
-The bear's 169 samples at 120Hz cover its 1.4-second clip, not arbitrary animations.
-Zero new arm/body contacts on a fused mesh is neither zero self-contact nor
+The bear's 169 samples at 120Hz cover a 1.4-second clip (241 samples for a 2.0-second
+finale clip); sample every exported clip in a multi-action GLB (`export_animation_mode='ACTIONS'`).
+Packing multiple procedural actions into one GLB adds ~15–20 KB gzipped per clip
+and avoids duplicate ~2 MB mesh/texture payloads. Human mocap presets (such as
+Meshy `animate`) assume `0°` rest arm abduction and human head width, causing severe
+belly and cheek/ear clipping on mascot proportions even after clavicle locking;
+use procedural Blender world-axis curves bounded by the character's safe inward
+adduction ceiling (`sign * (16 - lift)` on `bear-v2`, using world `Z` `-sign * deg`
+for forward chest gestures).
+Zero new arm/body and arm/head contacts on a fused mesh is neither zero self-contact nor
 independent garment/wardrobe proof.
 
 ## Judge action at product size

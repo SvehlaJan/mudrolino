@@ -38,6 +38,7 @@ describe('decorative learning companion', () => {
     expect(html).toContain('data-testid="learning-companion"');
     expect(html).toContain('aria-hidden="true"');
     expect(html).toContain('data-celebration-key="0:1:1"');
+    expect(html).toContain('data-companion-animation="celebrate"');
     expect(html).toContain('data-companion-representation="still"');
     expect(html).toContain('src="/bear.png"');
     expect(html).toContain('alt=""');

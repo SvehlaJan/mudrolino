@@ -2,6 +2,38 @@ import type { GameState } from '../shared/game/gameState';
 
 export const CELEBRATION_WINDOW_MS = 1600;
 
+export const COMPANION_CLIP_NAMES = [
+  'celebrate',
+  'wave',
+  'clap',
+  'jump',
+  'finale',
+  'idle',
+  'search',
+  'think',
+  'listen',
+  'encourage',
+  'shrug',
+  'flex',
+  'bow',
+  'march',
+  'wiggle',
+  'peekaboo',
+  'stretch',
+] as const;
+export type CompanionClipName = (typeof COMPANION_CLIP_NAMES)[number];
+export const CELEBRATION_CLIPS: readonly CompanionClipName[] = [
+  'celebrate',
+  'wave',
+  'clap',
+  'jump',
+  'finale',
+  'flex',
+  'bow',
+  'march',
+  'wiggle',
+];
+
 export type CelebrationObservation = Pick<GameState,
   'phase' | 'paused' | 'feedback' | 'roundsPlayed' | 'correctRounds'>;
 
@@ -11,6 +43,13 @@ export interface CelebrationEvent {
   correctRounds: number;
   startedAtMs: number;
   expiresAtMs: number;
+  animationName?: CompanionClipName;
+}
+
+export function selectCelebrationClip(observation: CelebrationObservation): CompanionClipName {
+  if (observation.phase === 'session-complete') return 'finale';
+  const index = (Math.max(1, observation.correctRounds) - 1) % CELEBRATION_CLIPS.length;
+  return CELEBRATION_CLIPS[index];
 }
 
 export interface CelebrationState {
@@ -90,6 +129,7 @@ export function celebrationReducer(
       correctRounds: observation.correctRounds,
       startedAtMs: action.nowMs,
       expiresAtMs: action.nowMs + CELEBRATION_WINDOW_MS,
+      animationName: selectCelebrationClip(observation),
     },
   };
 }

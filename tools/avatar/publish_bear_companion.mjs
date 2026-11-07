@@ -68,9 +68,11 @@ function validateGeneratedReports(summary, reports, model, contract) {
   requireProof(clearance.status === 'passed' && clearance.profile === 'generated-fixed-outfit-arm-clearance'
     && clearance.blend === candidate.source.path && clearance.blend_sha256 === candidate.source.sha256
     && clearance.frame_count === 169 && clearance.maximum_new_arm_torso_leg_pairs === 0
+    && (clearance.maximum_new_arm_head_pairs === undefined || clearance.maximum_new_arm_head_pairs === 0)
     && Number.isSafeInteger(clearance.source_bind_contacts) && clearance.source_bind_contacts >= 0
     && Array.isArray(clearance.frames) && clearance.frames.length === 169
-    && clearance.frames.every((frame, index) => near(frame?.frame, index / 4) && frame.new_arm_torso_leg_pairs === 0),
+    && clearance.frames.every((frame, index) => near(frame?.frame, index / 4) && frame.new_arm_torso_leg_pairs === 0
+      && (frame.new_arm_head_pairs === undefined || frame.new_arm_head_pairs === 0)),
   'Generated arm clearance proof does not bind the current source and full dance');
   requireProof(optimization.status === 'passed' && optimization.output === candidate.model.path
     && optimization.glb_sha256 === modelHash && optimization.bytes === model.length
@@ -103,15 +105,20 @@ function validateGeneratedReports(summary, reports, model, contract) {
   'Still render proof does not bind the current source and fallback image');
 }
 
-function requireCelebrate(bytes) {
+function requireCelebrate(bytes, allowMultiClip = false) {
   requireProof(bytes.length >= 20 && bytes.readUInt32LE(0) === 0x46546c67
     && bytes.readUInt32LE(4) === 2 && bytes.readUInt32LE(8) === bytes.length
     && bytes.readUInt32LE(16) === 0x4e4f534a, 'Invalid GLB bytes');
   const end = 20 + bytes.readUInt32LE(12);
   requireProof(end <= bytes.length, 'Invalid GLB JSON bytes');
   const gltf = JSON.parse(bytes.subarray(20, end).toString('utf8'));
-  requireProof(gltf.animations?.length === 1 && gltf.animations[0].name === 'celebrate',
-    'GLB must contain exactly one celebrate animation');
+  if (allowMultiClip) {
+    requireProof(Array.isArray(gltf.animations) && gltf.animations.some(a => a?.name === 'celebrate'),
+      'GLB must contain a celebrate animation');
+  } else {
+    requireProof(gltf.animations?.length === 1 && gltf.animations[0].name === 'celebrate',
+      'GLB must contain exactly one celebrate animation');
+  }
 }
 
 async function validateLocalProof(rootDir, candidateId) {
@@ -150,7 +157,7 @@ async function validateLocalProof(rootDir, candidateId) {
   const model = await checked(candidate?.model, generated
     ? generatedPath(candidate?.model?.path, '.glb') : `${candidateDir}/outfit-lod.glb`);
   requireProof(positiveInteger(candidate.model.bytes) && candidate.model.bytes === model.length, 'Model bytes differ from summary');
-  requireCelebrate(model);
+  requireCelebrate(model, generated);
   await checked(candidate.source, generated
     ? generatedPath(candidate.source?.path, '.blend') : `${candidateDir}/outfit-lod.blend`);
   requireProof((generated ? generatedPath(candidate.still?.sourcePath, '.png') : candidate.still?.sourcePath === `${candidateDir}/bear-still.png`)

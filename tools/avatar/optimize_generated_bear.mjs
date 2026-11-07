@@ -19,7 +19,7 @@ const steps = [];
 let previous = input;
 for (const [name, command, options] of [
   ['resized.glb', 'resize', ['--width', '1024', '--height', '1024']],
-  ['webp.glb', 'webp', ['--quality', '85', '--effort', '80']],
+  ['webp.glb', 'webp', ['--quality', '75', '--effort', '80']],
   ['tangents.glb', 'tangents', []],
   ['tangent8.glb', 'quantize', ['--pattern', 'TANGENT', '--quantize-normal', '8']],
   ['packed.glb', 'quantize', ['--pattern', '{NORMAL,TEXCOORD_*}', '--quantize-normal', '12', '--quantize-texcoord', '14']],

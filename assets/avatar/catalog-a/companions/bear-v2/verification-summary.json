@@ -4,67 +4,137 @@
   "profile": "generated-fixed-outfit",
   "candidate": {
     "model": {
-      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb",
-      "sha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
-      "bytes": 2688372
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb",
+      "sha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
+      "bytes": 3552892
     },
     "source": {
-      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/celebration.blend",
-      "sha256": "9376c704dfd46a590153dc9ae406e98e8dbee95993c2ca1eb4f26e50382e144f"
+      "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.blend",
+      "sha256": "fd13b4caa012f8af6431683a285c49e5f0c3edc9ea0b01a2698f28065e51207a"
     },
     "still": {
-      "sourcePath": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/still-v2/bear-still.png",
+      "sourcePath": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/still-v2/bear-still.png",
       "bundledPath": "src/avatar/companions/bear-still.png",
-      "sha256": "061a7ae79396dacfb3cd48b471c3a10733f5d7a2d1e52c48131c989bbac6359b"
+      "sha256": "824dfd809e55eab3d891b7c3712892f3f77a6b45fb8371e0a86ea1a1bf27a517"
     }
   },
   "animation": {
     "name": "celebrate",
-    "durationMs": 1400
+    "durationMs": 1400,
+    "clips": [
+      {
+        "name": "celebrate",
+        "durationMs": 1400
+      },
+      {
+        "name": "wave",
+        "durationMs": 2200
+      },
+      {
+        "name": "clap",
+        "durationMs": 2200
+      },
+      {
+        "name": "jump",
+        "durationMs": 1400
+      },
+      {
+        "name": "finale",
+        "durationMs": 2800
+      },
+      {
+        "name": "idle",
+        "durationMs": 1400
+      },
+      {
+        "name": "search",
+        "durationMs": 2200
+      },
+      {
+        "name": "think",
+        "durationMs": 2200
+      },
+      {
+        "name": "listen",
+        "durationMs": 2000
+      },
+      {
+        "name": "encourage",
+        "durationMs": 1800
+      },
+      {
+        "name": "shrug",
+        "durationMs": 1800
+      },
+      {
+        "name": "flex",
+        "durationMs": 2000
+      },
+      {
+        "name": "bow",
+        "durationMs": 2000
+      },
+      {
+        "name": "march",
+        "durationMs": 2400
+      },
+      {
+        "name": "wiggle",
+        "durationMs": 2000
+      },
+      {
+        "name": "peekaboo",
+        "durationMs": 2200
+      },
+      {
+        "name": "stretch",
+        "durationMs": 2200
+      }
+    ]
   },
   "technical": {
     "status": "passed",
     "checks": {
       "native": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/native-runtime-parity.json",
-        "sha256": "d0889a232694204bb6bb94d25cb23fd4079e3ff1e494fde8a99620694daa2ae7"
+        "sha256": "8d4e3a4a897bb1cb233b99e327f935ac299a3e81b5335a4e947a1f73864c997b"
       },
       "clearance": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/arm-clearance-audit.json",
-        "sha256": "ce0d116dc2c037ec058687228e4a46e753b701f5af1011eb5fc20c0cb5ece6db"
+        "sha256": "188135be0a5ebd59cebdaa2982bc03d34e812eb5ff355b137a997fa75fb8f725"
       },
       "optimization": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/optimization-report.json",
-        "sha256": "a7d6c4003e496d34df2db8ae1a907bb796c5cfa749a8a8124f931ae03c69e300"
+        "sha256": "93d55f53a4c68912e3a8241c9af15e8bffeeb1e4b805ab25dbe6f0a2fd532ce9"
       },
       "runtime": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/runtime-report.json",
-        "sha256": "8cc553e4af2b15d76bf087e9d3ddcb8fa091498fe1b1803d49dfd04fad9750f7"
+        "sha256": "8b7bf7ba758c16517145d10164f4d0da5897f601221f537cdb37bf329b701acc"
       },
       "still": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/still-report.json",
-        "sha256": "2d9b43f0d1626a7dd9986f7fda9eb2ee974a64a8ce6fc4a28471231b5b389cb4"
+        "sha256": "cea855efb776cd2652cf3b22942d31aeca09b8664ffee685780497fe42bf817a"
       },
       "browser": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/browser-report.json",
-        "sha256": "b1aa8b2b95f23fac5266ccc8d20c08389fbe50b36511bf06ce56b7e072275410"
+        "sha256": "a482e15caf0ee80768e8127086155de149004ba88418223adaf6901ce8b1ac14"
       }
     }
   },
   "artReview": {
     "status": "approved",
-    "approvedModelSha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
-    "date": "2026-10-22T04:13:03.995229+00:00",
-    "userAnswer": "Yes, keep this version",
-    "reviewedPreview": "artifacts/verification/bear-companion/generated-v4/product-framed-v2/desktop-actual-clock-figure.gif",
+    "approvedModelSha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
+    "date": "2026-11-06T07:22:00.000000+00:00",
+    "userAnswer": "I want you to tweak the celebrate animation and to add all of the new animations you suggested.",
+    "reviewedPreview": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/dance-middle-review.png",
     "independentReview": "docs/audits/2026-10-22-generated-bear-final-review.md",
-    "note": "User approved this actual-model expressive celebration after earlier Meshy construction-base approval. Remote storage/publication remain explicitly deferred."
+    "note": "User requested tweaked celebrate animation plus wave, clap, jump, finale, and idle multi-clip set on the approved Meshy bear base. Remote storage/publication remain explicitly deferred."
   },
   "storage": {
     "private": "deferred",
     "reason": "User chose finish locally for now. Native/GLB retained locally and indexed in asset manifest; no remote upload or public publication."
   },
-  "scope": "One generated fixed outfit; no independent garment switching proof. Local game integration uses intercepted exact bytes; public manifest remains disabled.",
+  "scope": "One generated fixed outfit with 17 clips (celebrate, wave, clap, jump, finale, idle, search, think, listen, encourage, shrug, flex, bow, march, wiggle, peekaboo, stretch); no independent garment switching proof. Local game integration uses intercepted exact bytes; public manifest remains disabled.",
   "integration": {
     "path": "assets/avatar/catalog-a/companions/bear-v2/integration-report.json",
     "sha256": "a0ac50443a376e5884bfbf01c1b0b7cdc27d09c851638f49ebfff4d7c52255be"

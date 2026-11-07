@@ -1,0 +1,413 @@
+{
+  "stage": "Authored multi-clip proxy motion; runtime, compression, deformation and art checks pending",
+  "input_glb": "assets/avatar/catalog-a/companions/bear-v2/revisions/meshy-rig-v1/rigged.glb",
+  "input_sha256": "4a06e501418247b6a220576f2c022c3567310c3ab459b2d96e281487201c5385",
+  "builder_sha256": "9860ac9d13b9744a3e1e9c465031e44c41d6687d6612de51c0c76afdaec7b965",
+  "design_sha256": "0b5487166f09dc7d4b48956a7e09baeebe47816a04174ca03b5d56baa7f71270",
+  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.blend",
+  "blend_sha256": "fd13b4caa012f8af6431683a285c49e5f0c3edc9ea0b01a2698f28065e51207a",
+  "glb": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.glb",
+  "glb_sha256": "ea36499cad0e27786cb1a83054d2eafa8c773510af67f307b5f87f3063e8378a",
+  "bone_names": [
+    "Head",
+    "Hips",
+    "LeftArm",
+    "LeftFoot",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftLeg",
+    "LeftShoulder",
+    "LeftToeBase",
+    "LeftUpLeg",
+    "RightArm",
+    "RightFoot",
+    "RightForeArm",
+    "RightHand",
+    "RightLeg",
+    "RightShoulder",
+    "RightToeBase",
+    "RightUpLeg",
+    "Spine",
+    "Spine01",
+    "Spine02",
+    "head_end",
+    "headfront",
+    "neck"
+  ],
+  "mesh_names": [
+    "Bear_fixed_outfit"
+  ],
+  "animation": "celebrate",
+  "duration_seconds": 1.4,
+  "fps": 30,
+  "keyframes": 43,
+  "animations": [
+    {
+      "name": "celebrate",
+      "duration_seconds": 1.4,
+      "keyframes": 43,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "wave",
+      "duration_seconds": 2.2,
+      "keyframes": 67,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "clap",
+      "duration_seconds": 2.2,
+      "keyframes": 67,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "jump",
+      "duration_seconds": 1.4,
+      "keyframes": 43,
+      "min_floor_m": -9.655952482034991e-08,
+      "max_floor_m": 0.21469563245773315
+    },
+    {
+      "name": "finale",
+      "duration_seconds": 2.8,
+      "keyframes": 85,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": 0.08949743956327438
+    },
+    {
+      "name": "idle",
+      "duration_seconds": 1.4,
+      "keyframes": 43,
+      "min_floor_m": -3.561377326377624e-08,
+      "max_floor_m": 3.7923452822496984e-08
+    },
+    {
+      "name": "search",
+      "duration_seconds": 2.2,
+      "keyframes": 67,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "think",
+      "duration_seconds": 2.2,
+      "keyframes": 67,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "listen",
+      "duration_seconds": 2.0,
+      "keyframes": 61,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "encourage",
+      "duration_seconds": 1.8,
+      "keyframes": 55,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "shrug",
+      "duration_seconds": 1.8,
+      "keyframes": 55,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "flex",
+      "duration_seconds": 2.0,
+      "keyframes": 61,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "bow",
+      "duration_seconds": 2.0,
+      "keyframes": 61,
+      "min_floor_m": -3.571301832039353e-08,
+      "max_floor_m": 3.7564056754035846e-08
+    },
+    {
+      "name": "march",
+      "duration_seconds": 2.4,
+      "keyframes": 73,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": 0.029999997466802597
+    },
+    {
+      "name": "wiggle",
+      "duration_seconds": 2.0,
+      "keyframes": 61,
+      "min_floor_m": -1.1026858715013077e-07,
+      "max_floor_m": 4.976987710847425e-08
+    },
+    {
+      "name": "peekaboo",
+      "duration_seconds": 2.2,
+      "keyframes": 67,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    },
+    {
+      "name": "stretch",
+      "duration_seconds": 2.2,
+      "keyframes": 67,
+      "min_floor_m": -5.829133287171828e-10,
+      "max_floor_m": -5.829133287171828e-10
+    }
+  ],
+  "floors": [
+    {
+      "frame": 0,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 1,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 2,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 3,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 4,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 5,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 6,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 7,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 8,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 9,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 10,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 11,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 12,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 13,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 14,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 15,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 16,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 17,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 18,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 19,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 20,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 21,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 22,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 23,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 24,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 25,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 26,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 27,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 28,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 29,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 30,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 31,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 32,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 33,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 34,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 35,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 36,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 37,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 38,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 39,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 40,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 41,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    },
+    {
+      "frame": 42,
+      "hips_correction_m": 3.8205263308555004e-07,
+      "floor_m": -5.829133287171828e-10
+    }
+  ],
+  "views": {
+    "neutral": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/neutral-review.png",
+    "front": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/front-review.png",
+    "side": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/side-review.png",
+    "back": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/back-review.png",
+    "dance-quarter": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/dance-quarter-review.png",
+    "dance-middle": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/dance-middle-review.png",
+    "dance-three-quarter": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/dance-three-quarter-review.png",
+    "wave-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/wave-peak-review.png",
+    "clap-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/clap-peak-review.png",
+    "jump-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/jump-peak-review.png",
+    "finale-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/finale-peak-review.png",
+    "idle-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/idle-peak-review.png",
+    "search-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/search-peak-review.png",
+    "think-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/think-peak-review.png",
+    "listen-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/listen-peak-review.png",
+    "encourage-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/encourage-peak-review.png",
+    "shrug-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/shrug-peak-review.png",
+    "flex-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/flex-peak-review.png",
+    "bow-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/bow-peak-review.png",
+    "march-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/march-peak-review.png",
+    "wiggle-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/wiggle-peak-review.png",
+    "peekaboo-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/peekaboo-peak-review.png",
+    "stretch-peak": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/stretch-peak-review.png"
+  },
+  "review_width": 320,
+  "blender_version": "5.2.2 LTS",
+  "limitations": [
+    "One fused fixed outfit; wardrobe swapping unproven.",
+    "Native keyframes do not establish actual glTF interpolation or skinning."
+  ]
+}

@@ -5,12 +5,12 @@ import sharp from 'sharp';
 import type { Page, TestInfo } from '@playwright/test';
 
 export const BEAR_FIXTURE_URL = '/__avatar_fixture/bear-v1.glb';
-const assetPath = 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb';
+const assetPath = 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb';
 const installedFixtureHashes = new WeakMap<Page, string>();
 
 /** Real catalog bytes only. A missing private asset must never become a fake model. */
 export async function readBearFixture(): Promise<Buffer> {
-  const recovery = 'npm run assets:pull -- --prefix=assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/';
+  const recovery = 'npm run assets:pull -- --prefix=assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/';
   try {
     const manifest = JSON.parse(await readFile('assets/avatar/asset-manifest.json', 'utf8')) as {
       files: Record<string, { sha256: string }>;

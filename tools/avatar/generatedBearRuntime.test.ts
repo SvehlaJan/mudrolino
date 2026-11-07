@@ -154,4 +154,14 @@ describe('generated bear actual runtime skinning', () => {
     const input = fixture(); input.spec.minMotionM = 0; input.saveContract();
     await expect(sampleGeneratedBearRuntime(input)).rejects.toThrow(/minMotionM/);
   });
+
+  it('validates multi-clip contracts when clips array is provided', async () => {
+    const input = fixture();
+    Object.assign(input.spec, { clips: [{ name: 'celebrate', durationSeconds: 1.4 }] });
+    input.saveContract();
+    const report = await sampleGeneratedBearRuntime(input);
+    expect(report.status).toBe('passed');
+    expect(report.clips).toHaveLength(1);
+    expect(report.clips?.[0]?.clip).toBe('celebrate');
+  });
 });

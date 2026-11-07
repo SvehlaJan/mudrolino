@@ -39,6 +39,8 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
     && resource.status === 'ready' && resource.modelUrl === modelUrl;
   const rendered = canRender && modelReady;
 
+  const activeAnimation = event.animationName ?? config.animationName;
+
   return (
     <div
       className={cn('pointer-events-none relative h-[200px] w-44 shrink-0', className)}
@@ -46,6 +48,7 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
       aria-hidden="true"
       data-testid="learning-companion"
       data-celebration-key={event.eventKey}
+      data-companion-animation={activeAnimation}
       data-companion-representation={rendered ? 'rendered3D' : 'still'}
       data-companion-resource-status={resource.status}
     >
@@ -54,7 +57,7 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
         <AvatarPresenter
           className="absolute inset-0 h-full w-full"
           modelUrl={modelUrl}
-          animationName={config.animationName}
+          animationName={activeAnimation}
           preserveHipsPosition
           cameraDistance={5.6}
           interactive={false}

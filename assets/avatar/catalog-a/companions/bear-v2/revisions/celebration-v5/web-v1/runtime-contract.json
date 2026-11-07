@@ -1,0 +1,47 @@
+{
+  "glbSha256": "090fcffdaddf805cc495faf4de8c586b1d8449a411566fad31a5285bec931e30",
+  "boneNames": [
+    "Head",
+    "Hips",
+    "LeftArm",
+    "LeftFoot",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftLeg",
+    "LeftShoulder",
+    "LeftToeBase",
+    "LeftUpLeg",
+    "RightArm",
+    "RightFoot",
+    "RightForeArm",
+    "RightHand",
+    "RightLeg",
+    "RightShoulder",
+    "RightToeBase",
+    "RightUpLeg",
+    "Spine",
+    "Spine01",
+    "Spine02",
+    "head_end",
+    "headfront",
+    "neck"
+  ],
+  "meshNames": [
+    "Bear_fixed_outfit"
+  ],
+  "clipName": "celebrate",
+  "durationSeconds": 1.4,
+  "clips": [
+    { "name": "celebrate", "durationSeconds": 1.4, "minMotionM": 0.02 },
+    { "name": "wave", "durationSeconds": 1.4, "minMotionM": 0.02 },
+    { "name": "clap", "durationSeconds": 1.4, "minMotionM": 0.02 },
+    { "name": "jump", "durationSeconds": 1.4, "minMotionM": 0.02 },
+    { "name": "finale", "durationSeconds": 1.4, "minMotionM": 0.02 },
+    { "name": "idle", "durationSeconds": 1.4, "minMotionM": 0.015 }
+  ],
+  "maxTriangles": 95000,
+  "maxGzipBytes": 2100000,
+  "minMotionM": 0.02,
+  "maxFloorPenetrationM": 0.007,
+  "stationaryRootBone": "Hips"
+}

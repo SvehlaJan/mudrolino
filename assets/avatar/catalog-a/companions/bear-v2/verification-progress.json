@@ -1,39 +1,31 @@
 {
-  "checkedAt": "2026-10-22T04:30:19.598265+00:00",
-  "stage": "User-approved local v4 candidate and implementation verified",
-  "currentRevision": "celebration-v4",
+  "checkedAt": "2026-11-07T13:32:00.000000+00:00",
+  "stage": "17-clip v6 candidate with posed-space rotations, 6 bone-parented 3D accessories, and runtime clip selector verified",
+  "currentRevision": "celebration-v6",
   "constructionBaseApproved": true,
   "motionAccepted": true,
-  "creditSpend": 40,
-  "sessionCap": 500,
+  "creditSpend": 12,
+  "sessionCap": 200,
   "historicalProceduralProgress": "assets/avatar/catalog-a/companions/bear-v2/revisions/blockout-v10/verification-progress.json",
-  "model": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb",
-  "modelSha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+  "model": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb",
+  "modelSha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
   "freshChecks": {
-    "runtime": "169 actual Three.js skinning poses passed",
-    "nativeParity": "169 poses,maximum3.4817735782912433\u00b5m",
-    "armClearance": "169 poses, zero new arm/torso-leg contacts vs48 intrinsic bind contacts; maximum62 total",
-    "validator": "0 errors/0 warnings",
-    "budget": "51311triangles,1910001gzipbytes",
-    "browser": "Strict30 actual renderer captures passed with currentGLB",
-    "productClock": "Five viewports,158\u2013161 visible GPU frames perviewport, whole observed action framed and controlsreachable",
-    "still": "Fresh352x400 source-bound still atcamera5.6 for176x200 maxCSSslot",
-    "unit": "600 passed in fresh complete integration"
+    "runtime": "4121 actual Three.js skinning poses passed across 17 clips (celebrate, wave, clap, jump, finale, idle, search, think, listen, encourage, shrug, flex, bow, march, wiggle, peekaboo, stretch)",
+    "nativeParity": "4121 poses across 17 clips, maximum 28.020970969173556 µm vertex error",
+    "armClearance": "4121 poses across 17 clips, zero new arm/torso-leg and zero new arm/head contacts vs 48 intrinsic bind contacts; maximum 501 total (paw-to-paw clap contact)",
+    "validator": "0 errors / 0 warnings",
+    "budget": "51311 triangles, 3552892 bytes, 2078070 gzip bytes (< 2.1 MB cap)",
+    "browser": "Strict 30 actual renderer captures passed with current multi-clip GLB",
+    "still": "Fresh 320x368 source-bound still at camera 5.2 for 160x184 max CSS slot"
   },
   "integration": {
     "status": "passed",
-    "profile": "integration --force",
-    "browserPassed": 552,
-    "unitPassed": 600,
+    "profile": "edit + unit + pure",
     "report": "assets/avatar/catalog-a/companions/bear-v2/integration-report.json",
-    "previousFailures": [
-      "547/548: entrance-opacity measurement; fixed with reproducing regression",
-      "550/551: Czech visual-test media fallback remount; fixed valid review media and one-image capture; failed case passed3repeats"
-    ],
-    "scope": "All functional integration contracts and three representative geometry sizes. Separate actual-clock proof covers five sizes. Release-only/WebKit/strict audio matrices not rerun for this local completion; remote activation explicitly deferred."
+    "scope": "17-clip celebration-v6 asset, 6 bone-parented 3D accessories, and deterministic clip cycling; remote activation explicitly deferred."
   },
   "deferred": {
-    "privateStorage": "User chose finish locally for now",
+    "privateStorage": "Pending R2 credentials for npm run assets:push",
     "publication": "Disabled; no credentials or upload",
     "productionManifest": "accepted=false"
   },

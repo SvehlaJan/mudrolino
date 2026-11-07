@@ -106,9 +106,11 @@ for (const id of ['ALPHABET', 'ASSEMBLY'] as const) {
     await stubAudioPlayback(page, { holdPraise: true });
     await start(page, id === 'ALPHABET' ? '/alphabet' : '/assembly');
     await observeEvents(page);
+    const expectedClips = ['celebrate', 'wave', 'clap', 'jump', 'finale'] as const;
     for (let round = 0; round < 5; round += 1) {
       await completeCurrentRound(page, id);
       await waitForGamePhase(page, 'answered-correctly');
+      await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', expectedClips[round]);
       if (round < 4) {
         await page.getByRole('button', { name: 'Pokračovať' }).click();
         await waitForGamePhase(page, 'awaiting-answer');
@@ -118,11 +120,13 @@ for (const id of ['ALPHABET', 'ASSEMBLY'] as const) {
     await releasePraise(page);
     await waitForGamePhase(page, 'session-complete');
     await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-celebration-key', key!);
+    await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'finale');
     expect(await eventKeys(page)).toHaveLength(5);
     await page.getByRole('button', { name: 'Hrať znova' }).click();
     await waitForGamePhase(page, 'awaiting-answer');
     await completeCurrentRound(page, id);
     await expect(page.getByTestId('learning-companion')).not.toHaveAttribute('data-celebration-key', key!);
+    await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'celebrate');
     await expect.poll(async () => (await eventKeys(page)).length).toBe(6);
   });
 }

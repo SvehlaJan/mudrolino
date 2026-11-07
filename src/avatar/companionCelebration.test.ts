@@ -99,4 +99,20 @@ describe('completed correct-answer celebration', () => {
     expect(late.active).toBeNull();
     expect(observe(late, success, 5000).active).toBeNull();
   });
+
+  it('cycles through celebrate, wave, clap, jump, and finale across successive correct rounds', () => {
+    let state = createCelebrationState();
+    const expected = ['celebrate', 'wave', 'clap', 'jump', 'finale'] as const;
+    for (let round = 1; round <= 5; round++) {
+      state = observe(state, { ...success, roundsPlayed: round, correctRounds: round }, round * 100);
+      expect(state.active?.animationName).toBe(expected[round - 1]);
+      state = observe(state, { ...ready, roundsPlayed: round, correctRounds: round }, round * 100 + 50);
+    }
+    const finalDirect = observe(
+      createCelebrationState(),
+      { ...success, phase: 'session-complete', roundsPlayed: 3, correctRounds: 2 },
+      900,
+    );
+    expect(finalDirect.active?.animationName).toBe('finale');
+  });
 });

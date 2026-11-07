@@ -1,22 +1,146 @@
 {
   "status": "passed",
   "profile": "generated-fixed-outfit-arm-clearance",
-  "scope": "No new nonadjacent arm-versus-torso/leg triangle contacts relative to the source bind pose; all other contacts recorded, not declared absent. Not independent garment or wardrobe proof.",
-  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/celebration.blend",
-  "blend_sha256": "9376c704dfd46a590153dc9ae406e98e8dbee95993c2ca1eb4f26e50382e144f",
-  "verifier_sha256": "1a1ff3aab1d9ca1a3c5f1e0aeb778fbfcdb7f375c89b1259550cb0cbf4c42506",
+  "scope": "No new nonadjacent arm-versus-torso/leg or arm-versus-head triangle contacts relative to the source bind pose across all authored clips at 120Hz; all other contacts recorded, not declared absent. Not independent garment or wardrobe proof.",
+  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.blend",
+  "blend_sha256": "fd13b4caa012f8af6431683a285c49e5f0c3edc9ea0b01a2698f28065e51207a",
+  "verifier_sha256": "4fa36b5845b1d5ee337c910dfe53363de7c3bd90bb42e6371f6b0a5255119d55",
   "blender_version": "5.2.2 LTS",
   "rest_weld_epsilon_m": 1e-05,
   "source_bind_contacts": 48,
   "frame_count": 169,
+  "total_sampled_frames": 4121,
   "maximum_new_arm_torso_leg_pairs": 0,
-  "maximum_total_contacts": 62,
+  "maximum_new_arm_head_pairs": 0,
+  "maximum_total_contacts": 501,
+  "clips": [
+    {
+      "clip": "celebrate",
+      "frame_count": 169,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 93
+    },
+    {
+      "clip": "bow",
+      "frame_count": 241,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 53
+    },
+    {
+      "clip": "clap",
+      "frame_count": 265,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 501
+    },
+    {
+      "clip": "encourage",
+      "frame_count": 217,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 100
+    },
+    {
+      "clip": "finale",
+      "frame_count": 337,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 87
+    },
+    {
+      "clip": "flex",
+      "frame_count": 241,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 98
+    },
+    {
+      "clip": "idle",
+      "frame_count": 169,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 50
+    },
+    {
+      "clip": "jump",
+      "frame_count": 169,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 72
+    },
+    {
+      "clip": "listen",
+      "frame_count": 241,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 93
+    },
+    {
+      "clip": "march",
+      "frame_count": 289,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 72
+    },
+    {
+      "clip": "peekaboo",
+      "frame_count": 265,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 82
+    },
+    {
+      "clip": "search",
+      "frame_count": 265,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 82
+    },
+    {
+      "clip": "shrug",
+      "frame_count": 217,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 77
+    },
+    {
+      "clip": "stretch",
+      "frame_count": 265,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 114
+    },
+    {
+      "clip": "think",
+      "frame_count": 265,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 71
+    },
+    {
+      "clip": "wave",
+      "frame_count": 265,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 67
+    },
+    {
+      "clip": "wiggle",
+      "frame_count": 241,
+      "maximum_new_arm_torso_leg_pairs": 0,
+      "maximum_new_arm_head_pairs": 0,
+      "maximum_total_contacts": 89
+    }
+  ],
   "frames": [
     {
       "frame": 0.0,
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -24,6 +148,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -31,6 +156,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -38,6 +164,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -45,1084 +172,1239 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 1.25,
-      "nonadjacent_contacts": 44,
+      "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 1.5,
-      "nonadjacent_contacts": 44,
+      "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 1.75,
-      "nonadjacent_contacts": 44,
+      "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 2.0,
-      "nonadjacent_contacts": 44,
+      "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 2.25,
-      "nonadjacent_contacts": 44,
+      "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 2.5,
-      "nonadjacent_contacts": 44,
+      "nonadjacent_contacts": 47,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 2.75,
-      "nonadjacent_contacts": 44,
+      "nonadjacent_contacts": 48,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 3.0,
-      "nonadjacent_contacts": 44,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 50,
+      "new_pairs": 2,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 3.25,
-      "nonadjacent_contacts": 44,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 50,
+      "new_pairs": 2,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 3.5,
-      "nonadjacent_contacts": 44,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 50,
+      "new_pairs": 2,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 3.75,
-      "nonadjacent_contacts": 44,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 50,
+      "new_pairs": 2,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 4.0,
-      "nonadjacent_contacts": 44,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 50,
+      "new_pairs": 2,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 4.25,
-      "nonadjacent_contacts": 44,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 51,
+      "new_pairs": 3,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 4.5,
-      "nonadjacent_contacts": 44,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 51,
+      "new_pairs": 3,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 4.75,
-      "nonadjacent_contacts": 45,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 51,
+      "new_pairs": 3,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 5.0,
-      "nonadjacent_contacts": 45,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 51,
+      "new_pairs": 3,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 5.25,
-      "nonadjacent_contacts": 45,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 52,
+      "new_pairs": 4,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 5.5,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 1,
+      "nonadjacent_contacts": 52,
+      "new_pairs": 4,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 5.75,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 1,
+      "nonadjacent_contacts": 52,
+      "new_pairs": 4,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 6.0,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 1,
+      "nonadjacent_contacts": 52,
+      "new_pairs": 4,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 6.25,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 1,
+      "nonadjacent_contacts": 54,
+      "new_pairs": 6,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 6.5,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 1,
+      "nonadjacent_contacts": 55,
+      "new_pairs": 7,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 6.75,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 1,
+      "nonadjacent_contacts": 55,
+      "new_pairs": 7,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 7.0,
-      "nonadjacent_contacts": 50,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 55,
+      "new_pairs": 7,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 7.25,
-      "nonadjacent_contacts": 51,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 53,
+      "new_pairs": 7,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 7.5,
-      "nonadjacent_contacts": 51,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 53,
+      "new_pairs": 7,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 7.75,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 7,
+      "nonadjacent_contacts": 55,
+      "new_pairs": 9,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 8.0,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 7,
+      "nonadjacent_contacts": 54,
+      "new_pairs": 9,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 8.25,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 7,
+      "nonadjacent_contacts": 56,
+      "new_pairs": 11,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 8.5,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 7,
+      "nonadjacent_contacts": 58,
+      "new_pairs": 13,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 8.75,
-      "nonadjacent_contacts": 54,
-      "new_pairs": 8,
+      "nonadjacent_contacts": 58,
+      "new_pairs": 13,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 9.0,
-      "nonadjacent_contacts": 54,
-      "new_pairs": 8,
+      "nonadjacent_contacts": 57,
+      "new_pairs": 12,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 9.25,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 57,
+      "new_pairs": 12,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 9.5,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 59,
+      "new_pairs": 14,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 9.75,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 59,
+      "new_pairs": 14,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 10.0,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 10.25,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 10.5,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 10.75,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 7,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 11.0,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 7,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 11.25,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 11.5,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 11.75,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 12.0,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 12.25,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 15,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 12.5,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 64,
+      "new_pairs": 19,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 12.75,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 70,
+      "new_pairs": 25,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 13.0,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 67,
+      "new_pairs": 22,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 13.25,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 68,
+      "new_pairs": 23,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 13.5,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 69,
+      "new_pairs": 24,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 13.75,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 14.0,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 75,
+      "new_pairs": 30,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 14.25,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 79,
+      "new_pairs": 34,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 14.5,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 80,
+      "new_pairs": 35,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 14.75,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 80,
+      "new_pairs": 35,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 15.0,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 15.25,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 15.5,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 14,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 15.75,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 16.0,
-      "nonadjacent_contacts": 57,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 84,
+      "new_pairs": 39,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 16.25,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 84,
+      "new_pairs": 39,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 16.5,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 84,
+      "new_pairs": 39,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 16.75,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 84,
+      "new_pairs": 39,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 17.0,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 17.25,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 17.5,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 86,
+      "new_pairs": 41,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 17.75,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 86,
+      "new_pairs": 41,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 18.0,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 93,
+      "new_pairs": 48,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 18.25,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 87,
+      "new_pairs": 42,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 18.5,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 85,
+      "new_pairs": 40,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 18.75,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 19.0,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 79,
+      "new_pairs": 34,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 19.25,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 81,
+      "new_pairs": 36,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 19.5,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 89,
+      "new_pairs": 44,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 19.75,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 90,
+      "new_pairs": 45,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 20.0,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 89,
+      "new_pairs": 44,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 20.25,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 20.5,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 91,
+      "new_pairs": 46,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 20.75,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 93,
+      "new_pairs": 48,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 21.0,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 86,
+      "new_pairs": 41,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 21.25,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 87,
+      "new_pairs": 42,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 21.5,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 21.75,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 82,
+      "new_pairs": 37,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 22.0,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 81,
+      "new_pairs": 36,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 22.25,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 83,
+      "new_pairs": 38,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 22.5,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 81,
+      "new_pairs": 36,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 22.75,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 23.0,
-      "nonadjacent_contacts": 62,
-      "new_pairs": 14,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 23.25,
-      "nonadjacent_contacts": 62,
-      "new_pairs": 14,
+      "nonadjacent_contacts": 80,
+      "new_pairs": 35,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 23.5,
-      "nonadjacent_contacts": 61,
-      "new_pairs": 13,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 23.75,
-      "nonadjacent_contacts": 61,
-      "new_pairs": 13,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 24.0,
-      "nonadjacent_contacts": 61,
-      "new_pairs": 13,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 24.25,
-      "nonadjacent_contacts": 61,
-      "new_pairs": 13,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 24.5,
-      "nonadjacent_contacts": 59,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 24.75,
-      "nonadjacent_contacts": 59,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 25.0,
-      "nonadjacent_contacts": 59,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 25.25,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 25.5,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 25.75,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 26.0,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 26.25,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 26.5,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 26.75,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 75,
+      "new_pairs": 30,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 27.0,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 75,
+      "new_pairs": 30,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 27.25,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 75,
+      "new_pairs": 30,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 27.5,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 73,
+      "new_pairs": 28,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 27.75,
-      "nonadjacent_contacts": 60,
-      "new_pairs": 13,
+      "nonadjacent_contacts": 73,
+      "new_pairs": 28,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 28.0,
-      "nonadjacent_contacts": 61,
-      "new_pairs": 14,
+      "nonadjacent_contacts": 73,
+      "new_pairs": 28,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 28.25,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 11,
+      "nonadjacent_contacts": 71,
+      "new_pairs": 26,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 28.5,
-      "nonadjacent_contacts": 58,
-      "new_pairs": 12,
+      "nonadjacent_contacts": 71,
+      "new_pairs": 26,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 28.75,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 29.0,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 29.25,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 77,
+      "new_pairs": 32,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 29.5,
-      "nonadjacent_contacts": 56,
-      "new_pairs": 10,
+      "nonadjacent_contacts": 75,
+      "new_pairs": 30,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 29.75,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 75,
+      "new_pairs": 30,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 30.0,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 9,
+      "nonadjacent_contacts": 75,
+      "new_pairs": 30,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 30.25,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 8,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 30.5,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 8,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 30.75,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 8,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 31.0,
-      "nonadjacent_contacts": 55,
-      "new_pairs": 8,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 31.25,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 78,
+      "new_pairs": 33,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 31.5,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 31.75,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 76,
+      "new_pairs": 31,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 32.0,
-      "nonadjacent_contacts": 53,
-      "new_pairs": 6,
+      "nonadjacent_contacts": 74,
+      "new_pairs": 29,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 32.25,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 70,
+      "new_pairs": 25,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 32.5,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 71,
+      "new_pairs": 26,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 32.75,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 71,
+      "new_pairs": 26,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 33.0,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 71,
+      "new_pairs": 26,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 33.25,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 5,
+      "nonadjacent_contacts": 70,
+      "new_pairs": 25,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 33.5,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 4,
+      "nonadjacent_contacts": 70,
+      "new_pairs": 25,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 33.75,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 4,
+      "nonadjacent_contacts": 67,
+      "new_pairs": 22,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 34.0,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 4,
+      "nonadjacent_contacts": 68,
+      "new_pairs": 22,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 34.25,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 4,
+      "nonadjacent_contacts": 67,
+      "new_pairs": 21,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 34.5,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 4,
+      "nonadjacent_contacts": 65,
+      "new_pairs": 19,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 34.75,
-      "nonadjacent_contacts": 52,
-      "new_pairs": 4,
+      "nonadjacent_contacts": 63,
+      "new_pairs": 17,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 35.0,
-      "nonadjacent_contacts": 50,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 63,
+      "new_pairs": 17,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 35.25,
-      "nonadjacent_contacts": 50,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 64,
+      "new_pairs": 16,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 35.5,
-      "nonadjacent_contacts": 49,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 64,
+      "new_pairs": 16,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 35.75,
-      "nonadjacent_contacts": 49,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 62,
+      "new_pairs": 14,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 36.0,
-      "nonadjacent_contacts": 48,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 62,
+      "new_pairs": 14,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 36.25,
-      "nonadjacent_contacts": 48,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 12,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 36.5,
-      "nonadjacent_contacts": 48,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 12,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 36.75,
-      "nonadjacent_contacts": 48,
-      "new_pairs": 2,
+      "nonadjacent_contacts": 60,
+      "new_pairs": 12,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 37.0,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 56,
+      "new_pairs": 8,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 37.25,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 54,
+      "new_pairs": 6,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 37.5,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 54,
+      "new_pairs": 6,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 37.75,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 56,
+      "new_pairs": 8,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 38.0,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 55,
+      "new_pairs": 7,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 38.25,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 52,
+      "new_pairs": 4,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 38.5,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 52,
+      "new_pairs": 4,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 38.75,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 51,
+      "new_pairs": 3,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 39.0,
-      "nonadjacent_contacts": 46,
-      "new_pairs": 0,
+      "nonadjacent_contacts": 50,
+      "new_pairs": 2,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 39.25,
-      "nonadjacent_contacts": 46,
+      "nonadjacent_contacts": 48,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
       "frame": 39.5,
-      "nonadjacent_contacts": 46,
+      "nonadjacent_contacts": 47,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1130,6 +1412,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1137,6 +1420,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1144,6 +1428,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1151,6 +1436,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1158,6 +1444,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1165,6 +1452,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1172,6 +1460,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1179,6 +1468,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1186,6 +1476,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     },
     {
@@ -1193,6 +1484,7 @@
       "nonadjacent_contacts": 46,
       "new_pairs": 0,
       "new_arm_torso_leg_pairs": 0,
+      "new_arm_head_pairs": 0,
       "critical_examples": []
     }
   ]

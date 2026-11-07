@@ -10,6 +10,7 @@ import type { AvatarPlaybackOptions, AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
 import { hasSkinnedMesh, rebindGarmentToBaseSkeleton } from './skinnedGarment';
 import { bindGarmentCorrectives } from './garmentCorrectives';
+import { syncCompanionAccessories } from './companionAccessories';
 
 interface AvatarModelProps {
   url: string;
@@ -279,6 +280,13 @@ function LoadedAvatarModel({
         action.time = Math.max(0, Math.min(1, inspection.progress)) * Math.max(0, action.getClip().duration - 1e-6);
         action.getMixer().update(0);
       }
+    }
+    if (action) {
+      const dur = Math.max(1e-6, action.getClip().duration);
+      const norm = ((action.time % dur) + dur) % dur / dur;
+      syncCompanionAccessories(scene, action.getClip().name, norm);
+    } else {
+      syncCompanionAccessories(scene, animationName, 0.5);
     }
     try {
       garmentCorrectives.update();

@@ -1,0 +1,1155 @@
+{
+  "status": "passed",
+  "scope": "Bidirectional fixed vertex correspondence established in first pose, then evaluated across 17 clip(s) (4121 total 120Hz native/runtime poses); not separate-garment fit or wardrobe proof",
+  "blend": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.blend",
+  "blend_sha256": "fd13b4caa012f8af6431683a285c49e5f0c3edc9ea0b01a2698f28065e51207a",
+  "glb": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb",
+  "glb_sha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
+  "samples_sha256": "8b7bf7ba758c16517145d10164f4d0da5897f601221f537cdb37bf329b701acc",
+  "positions_sha256": "aead2e293b9f4cec1a63051c31e42a3482809c67caba3299fbd22e21ec3ac808",
+  "verifier_sha256": "43842c40cf3cfe1840c0b7950cb65c20c4f2113eae5eb174c5244130b523cec8",
+  "blender_version": "5.2.2 LTS",
+  "frame_count": 169,
+  "total_sampled_frames": 4121,
+  "maximum_vertex_error_m": 2.8020970969173556e-05,
+  "tolerance_m": 3e-05,
+  "minimum_floor_m": -0.0010381544707342982,
+  "runtime_vertices": 41152,
+  "clips": [
+    {
+      "clip": "celebrate",
+      "frame_count": 169,
+      "maximum_vertex_error_m": 5.475543149314263e-06,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "aead2e293b9f4cec1a63051c31e42a3482809c67caba3299fbd22e21ec3ac808"
+    },
+    {
+      "clip": "wave",
+      "frame_count": 265,
+      "maximum_vertex_error_m": 2.077170560194866e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "3dfc04d3140ba926864a3033c7601b3fc18be8c97221700616e95aa55726dbdc"
+    },
+    {
+      "clip": "clap",
+      "frame_count": 265,
+      "maximum_vertex_error_m": 1.0708949414003232e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "05b34c5fcb0bd710d9657ef16666559dc10f09759307b378142727b12762183f"
+    },
+    {
+      "clip": "jump",
+      "frame_count": 169,
+      "maximum_vertex_error_m": 2.8020970969173556e-05,
+      "minimum_floor_m": -0.0010381544707342982,
+      "positions_sha256": "5cde809ffdec0e88b93726569f696e296e37b8eb8571c4cb4a4f03ac7c561f3a"
+    },
+    {
+      "clip": "finale",
+      "frame_count": 337,
+      "maximum_vertex_error_m": 2.46086349793583e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "4aad1f4233a717d3f5821a92f2095afcf77e52e77de9696555fec7b5671ac7c8"
+    },
+    {
+      "clip": "idle",
+      "frame_count": 169,
+      "maximum_vertex_error_m": 1.2132327419122979e-06,
+      "minimum_floor_m": -3.167011577673339e-05,
+      "positions_sha256": "3235fe4e92f0bc72bc7c9ed0a5082cd170e2e62b0a7897b29d7158737be00051"
+    },
+    {
+      "clip": "search",
+      "frame_count": 265,
+      "maximum_vertex_error_m": 7.314390971848356e-06,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "a32bf7aeda02d6317d63fcf76c561dda517fb1731c8d3a4209e6c9168bc9d96a"
+    },
+    {
+      "clip": "think",
+      "frame_count": 265,
+      "maximum_vertex_error_m": 1.5229081512369038e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "d71b185716c998ab3a15e15b45d1cf7926fd7f5645a92cfa68d0ce357fa8c0cb"
+    },
+    {
+      "clip": "listen",
+      "frame_count": 241,
+      "maximum_vertex_error_m": 2.638906037006284e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "4813632635fbc99a406166cbb84e31919b637acc07d46c10c377e20b6618b92b"
+    },
+    {
+      "clip": "encourage",
+      "frame_count": 217,
+      "maximum_vertex_error_m": 1.076359053680992e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "568fc1dcc8573b54bd3aabf58af400fe87e2b1e33185e999d1fe3446d003b36d"
+    },
+    {
+      "clip": "shrug",
+      "frame_count": 217,
+      "maximum_vertex_error_m": 1.2731557704981462e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "3651ee5a8e36a02f9c2cb15ab25530e77a8f2973eb4e69951d3e5957034df352"
+    },
+    {
+      "clip": "flex",
+      "frame_count": 241,
+      "maximum_vertex_error_m": 1.3278700987870734e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "aca3f24a37208f2f21b0d211f745c9696b29d2fb9a45e3356f2c3ed4b97ee97c"
+    },
+    {
+      "clip": "bow",
+      "frame_count": 241,
+      "maximum_vertex_error_m": 1.0087458807261814e-05,
+      "minimum_floor_m": -1.0209866327802254e-05,
+      "positions_sha256": "333b1719a4df56b81452019bec3a0c84fb416420f43c30457a5dff801cd79622"
+    },
+    {
+      "clip": "march",
+      "frame_count": 289,
+      "maximum_vertex_error_m": 2.0960844334852075e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "dc1723d99429a5033a37a3e71acbd2e08664f0c685c795ddc2ee898fbe1599cb"
+    },
+    {
+      "clip": "wiggle",
+      "frame_count": 241,
+      "maximum_vertex_error_m": 2.1413668574279882e-05,
+      "minimum_floor_m": -0.000149548941408284,
+      "positions_sha256": "4464ecdd385378750ba046cdfae1c6335563f66cc968fe040a47d4e581a29af3"
+    },
+    {
+      "clip": "peekaboo",
+      "frame_count": 265,
+      "maximum_vertex_error_m": 1.6208299284396925e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "f0a52b9f25897ac0b3c3b288f7ccc58ea1b8c98095b93594a0dc81e5b00aaf1f"
+    },
+    {
+      "clip": "stretch",
+      "frame_count": 265,
+      "maximum_vertex_error_m": 1.208993938577154e-05,
+      "minimum_floor_m": -5.829133287171828e-10,
+      "positions_sha256": "c4d79a8ee399d311d51c12a97ba81a7d4cbb0c52c12f3c6d6aa0a417b6cc4183"
+    }
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "maximum_vertex_error_m": 6.064333243705223e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 0.25,
+      "maximum_vertex_error_m": 7.325857015420112e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 0.5,
+      "maximum_vertex_error_m": 6.95911748089728e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 0.75,
+      "maximum_vertex_error_m": 6.056547591954939e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 1,
+      "maximum_vertex_error_m": 5.947411669336291e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 1.25,
+      "maximum_vertex_error_m": 1.9066920920154204e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 1.5,
+      "maximum_vertex_error_m": 7.761488344136129e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 1.75,
+      "maximum_vertex_error_m": 2.3821360002032e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 2,
+      "maximum_vertex_error_m": 7.215917118074447e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 2.25,
+      "maximum_vertex_error_m": 3.85563766592273e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 2.5,
+      "maximum_vertex_error_m": 5.12687790499206e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 2.75,
+      "maximum_vertex_error_m": 4.1390976128556025e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 3,
+      "maximum_vertex_error_m": 5.299871934586387e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 3.25,
+      "maximum_vertex_error_m": 4.939252043175549e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 3.5,
+      "maximum_vertex_error_m": 7.37478117394137e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 3.75,
+      "maximum_vertex_error_m": 5.017157022928548e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 4,
+      "maximum_vertex_error_m": 5.623090941939713e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 4.25,
+      "maximum_vertex_error_m": 5.333616653320269e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 4.5,
+      "maximum_vertex_error_m": 6.096315501515839e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 4.75,
+      "maximum_vertex_error_m": 5.350180945977488e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 5,
+      "maximum_vertex_error_m": 7.234356459342453e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 5.25,
+      "maximum_vertex_error_m": 4.828367136506275e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 5.5,
+      "maximum_vertex_error_m": 7.00829983729413e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 5.75,
+      "maximum_vertex_error_m": 5.198113689476417e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 6,
+      "maximum_vertex_error_m": 6.447228089804631e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 6.25,
+      "maximum_vertex_error_m": 4.3936194439627386e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 6.5,
+      "maximum_vertex_error_m": 7.587987469404612e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 6.75,
+      "maximum_vertex_error_m": 4.414794365143689e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 7,
+      "maximum_vertex_error_m": 6.492273648722308e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 7.25,
+      "maximum_vertex_error_m": 3.9681878991377816e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 7.5,
+      "maximum_vertex_error_m": 7.633118912497578e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 7.75,
+      "maximum_vertex_error_m": 4.155687812221851e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 8,
+      "maximum_vertex_error_m": 7.396741894478117e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 8.25,
+      "maximum_vertex_error_m": 3.5103859388284447e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 8.5,
+      "maximum_vertex_error_m": 7.545345366699793e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 8.75,
+      "maximum_vertex_error_m": 3.565458977630775e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 9,
+      "maximum_vertex_error_m": 7.183534379717082e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 9.25,
+      "maximum_vertex_error_m": 2.7990394495567235e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 9.5,
+      "maximum_vertex_error_m": 7.426700469480223e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 9.75,
+      "maximum_vertex_error_m": 2.6313948696427483e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 10,
+      "maximum_vertex_error_m": 1.0941958278826368e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 10.25,
+      "maximum_vertex_error_m": 2.2681114185381468e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 10.5,
+      "maximum_vertex_error_m": 9.72122337239986e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 10.75,
+      "maximum_vertex_error_m": 2.3468264487516917e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 11,
+      "maximum_vertex_error_m": 9.867730761160306e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 11.25,
+      "maximum_vertex_error_m": 1.330465929838998e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 11.5,
+      "maximum_vertex_error_m": 1.1246181883879427e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 11.75,
+      "maximum_vertex_error_m": 2.2118062156771985e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 12,
+      "maximum_vertex_error_m": 9.924665573445984e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 12.25,
+      "maximum_vertex_error_m": 1.0925711858167266e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 12.5,
+      "maximum_vertex_error_m": 6.828569911354541e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 12.75,
+      "maximum_vertex_error_m": 1.4054567959966177e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 13,
+      "maximum_vertex_error_m": 7.178896349934282e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 13.25,
+      "maximum_vertex_error_m": 9.670842134706946e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 13.5,
+      "maximum_vertex_error_m": 7.077659420393656e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 13.75,
+      "maximum_vertex_error_m": 7.587896023079166e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 14,
+      "maximum_vertex_error_m": 6.828569911354541e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 14.25,
+      "maximum_vertex_error_m": 1.2320295935031406e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 14.5,
+      "maximum_vertex_error_m": 6.957422214704008e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 14.75,
+      "maximum_vertex_error_m": 1.0409503696306335e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 15,
+      "maximum_vertex_error_m": 9.681168717611305e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 15.25,
+      "maximum_vertex_error_m": 7.30612914093212e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 15.5,
+      "maximum_vertex_error_m": 7.348554137908192e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 15.75,
+      "maximum_vertex_error_m": 9.555351461101412e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 16,
+      "maximum_vertex_error_m": 6.643979790689932e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 16.25,
+      "maximum_vertex_error_m": 9.794042542669167e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 16.5,
+      "maximum_vertex_error_m": 7.348554137908192e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 16.75,
+      "maximum_vertex_error_m": 1.0679050008755277e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 17,
+      "maximum_vertex_error_m": 9.353372351214418e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 17.25,
+      "maximum_vertex_error_m": 9.499417215889232e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 17.5,
+      "maximum_vertex_error_m": 7.492187672839484e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 17.75,
+      "maximum_vertex_error_m": 1.0009321942178407e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 18,
+      "maximum_vertex_error_m": 8.860867468904558e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 18.25,
+      "maximum_vertex_error_m": 9.579520803457148e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 18.5,
+      "maximum_vertex_error_m": 1.1958123831593322e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 18.75,
+      "maximum_vertex_error_m": 9.629425061585611e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 19,
+      "maximum_vertex_error_m": 7.312204925051509e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 19.25,
+      "maximum_vertex_error_m": 7.839767001846972e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 19.5,
+      "maximum_vertex_error_m": 5.619912493777757e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 19.75,
+      "maximum_vertex_error_m": 7.372687385590661e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 20,
+      "maximum_vertex_error_m": 8.134450950596441e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 20.25,
+      "maximum_vertex_error_m": 1.0958180612832448e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 20.5,
+      "maximum_vertex_error_m": 6.251387883246848e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 20.75,
+      "maximum_vertex_error_m": 1.3007612730738637e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 21,
+      "maximum_vertex_error_m": 8.19428389362545e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 21.25,
+      "maximum_vertex_error_m": 1.1026859283447266e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 21.5,
+      "maximum_vertex_error_m": 7.388106320681628e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 21.75,
+      "maximum_vertex_error_m": 1.5837347812159566e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 22,
+      "maximum_vertex_error_m": 1.0897222339381112e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 22.25,
+      "maximum_vertex_error_m": 1.0978424821134724e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 22.5,
+      "maximum_vertex_error_m": 9.689192895298517e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 22.75,
+      "maximum_vertex_error_m": 1.1186793076469576e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 23,
+      "maximum_vertex_error_m": 9.334361412147179e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 23.25,
+      "maximum_vertex_error_m": 1.0699822348961973e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 23.5,
+      "maximum_vertex_error_m": 7.372687385590661e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 23.75,
+      "maximum_vertex_error_m": 7.633118912497578e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 24,
+      "maximum_vertex_error_m": 6.36403456451375e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 24.25,
+      "maximum_vertex_error_m": 7.396741894478117e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 24.5,
+      "maximum_vertex_error_m": 6.081879141412046e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 24.75,
+      "maximum_vertex_error_m": 6.42653067494864e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 25,
+      "maximum_vertex_error_m": 7.330402062087562e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 25.25,
+      "maximum_vertex_error_m": 8.429369702178807e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 25.5,
+      "maximum_vertex_error_m": 9.44785325774393e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 25.75,
+      "maximum_vertex_error_m": 1.2273347545846702e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 26,
+      "maximum_vertex_error_m": 1.3552685977103797e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 26.25,
+      "maximum_vertex_error_m": 1.1954409551698911e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 26.5,
+      "maximum_vertex_error_m": 1.0362469345756596e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 26.75,
+      "maximum_vertex_error_m": 9.780430246247016e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 27,
+      "maximum_vertex_error_m": 7.6563552490861e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 27.25,
+      "maximum_vertex_error_m": 9.485382117533415e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 27.5,
+      "maximum_vertex_error_m": 9.59824497412915e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 27.75,
+      "maximum_vertex_error_m": 1.228781230931777e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 28,
+      "maximum_vertex_error_m": 1.0276400834063689e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 28.25,
+      "maximum_vertex_error_m": 8.09065816432132e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 28.5,
+      "maximum_vertex_error_m": 9.867449480976644e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 28.75,
+      "maximum_vertex_error_m": 1.0761898806850784e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 29,
+      "maximum_vertex_error_m": 9.731496493372735e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 29.25,
+      "maximum_vertex_error_m": 9.991559156322605e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 29.5,
+      "maximum_vertex_error_m": 6.828569911354541e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 29.75,
+      "maximum_vertex_error_m": 1.3407733296396724e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 30,
+      "maximum_vertex_error_m": 1.0679050008755277e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 30.25,
+      "maximum_vertex_error_m": 2.0845121428713092e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 30.5,
+      "maximum_vertex_error_m": 9.176018427813442e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 30.75,
+      "maximum_vertex_error_m": 2.0274342717760742e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 31,
+      "maximum_vertex_error_m": 7.952251472548446e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 31.25,
+      "maximum_vertex_error_m": 2.319225842755284e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 31.5,
+      "maximum_vertex_error_m": 7.952251472548446e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 31.75,
+      "maximum_vertex_error_m": 2.4546695091693403e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 32,
+      "maximum_vertex_error_m": 7.817075877549649e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 32.25,
+      "maximum_vertex_error_m": 3.0100345611572266e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 32.5,
+      "maximum_vertex_error_m": 7.562981570034933e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 32.75,
+      "maximum_vertex_error_m": 2.8785094193666395e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 33,
+      "maximum_vertex_error_m": 6.529361695112778e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 33.25,
+      "maximum_vertex_error_m": 3.5922617192825914e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 33.5,
+      "maximum_vertex_error_m": 7.731391055031327e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 33.75,
+      "maximum_vertex_error_m": 3.2543262707516428e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 34,
+      "maximum_vertex_error_m": 9.612115277570569e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 34.25,
+      "maximum_vertex_error_m": 4.495707743914861e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 34.5,
+      "maximum_vertex_error_m": 1.0477540392426817e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 34.75,
+      "maximum_vertex_error_m": 3.646250507643595e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 35,
+      "maximum_vertex_error_m": 7.86239263908441e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 35.25,
+      "maximum_vertex_error_m": 4.729563774826136e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 35.5,
+      "maximum_vertex_error_m": 7.996802249550068e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 35.75,
+      "maximum_vertex_error_m": 4.493361089566269e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 36,
+      "maximum_vertex_error_m": 7.355685688764196e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 36.25,
+      "maximum_vertex_error_m": 5.377172334928721e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 36.5,
+      "maximum_vertex_error_m": 8.156259169223314e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 36.75,
+      "maximum_vertex_error_m": 5.305901560454629e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 37,
+      "maximum_vertex_error_m": 6.224691442908472e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 37.25,
+      "maximum_vertex_error_m": 5.475543149314263e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 37.5,
+      "maximum_vertex_error_m": 5.094802676820385e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 37.75,
+      "maximum_vertex_error_m": 5.381656019288372e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 38,
+      "maximum_vertex_error_m": 6.951541675180011e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 38.25,
+      "maximum_vertex_error_m": 5.474473484006709e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 38.5,
+      "maximum_vertex_error_m": 7.548655293420555e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 38.75,
+      "maximum_vertex_error_m": 4.323391590243606e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 39,
+      "maximum_vertex_error_m": 1.1936750939028284e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 39.25,
+      "maximum_vertex_error_m": 4.508532487522395e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 39.5,
+      "maximum_vertex_error_m": 6.95911748089728e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 39.75,
+      "maximum_vertex_error_m": 3.900640451236723e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 40,
+      "maximum_vertex_error_m": 7.37419309118904e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 40.25,
+      "maximum_vertex_error_m": 2.3061683323565843e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 40.5,
+      "maximum_vertex_error_m": 5.215539462231794e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 40.75,
+      "maximum_vertex_error_m": 2.1286277471385168e-06,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 41,
+      "maximum_vertex_error_m": 9.504163985447827e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 41.25,
+      "maximum_vertex_error_m": 8.042573045577044e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 41.5,
+      "maximum_vertex_error_m": 6.666604492132843e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 41.75,
+      "maximum_vertex_error_m": 7.293112097533142e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    },
+    {
+      "frame": 42,
+      "maximum_vertex_error_m": 7.577006030230386e-07,
+      "native_floor_m": -5.829133287171828e-10,
+      "runtime_floor_m": 4.3512767316433036e-08
+    }
+  ]
+}

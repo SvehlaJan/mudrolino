@@ -2,8 +2,8 @@
   "taskId": "01a15fc4-4dc4-7116-aadf-3953ef4a9f1c",
   "status": "SUCCEEDED",
   "consumedCredits": 30,
-  "sessionBudget": 500,
-  "remainingSessionCredits": 460,
+  "sessionBudget": 200,
+  "remainingSessionCredits": 188,
   "glb": "meshy_output/20261021_204236_bear-b-reference-rebuild_01a15fc4/model.glb",
   "glbSha256": "a637c6d4d27fb2768d0fa6e815b49412145efb4be153c68cd7e4dcd783ac8d17",
   "bytes": 19839844,
@@ -26,12 +26,12 @@
   },
   "primaryConstructionCandidate": true,
   "proceduralComparisonRevision": "blockout-v10",
-  "consumedSessionCredits": 40,
+  "consumedSessionCredits": 12,
   "remeshTaskId": "01a15fc7-1930-704d-b191-ce67f048917b",
   "rigTaskId": "01a15fca-8ac6-74ad-a7c0-acd3ca841bab",
   "remeshTriangles": 51311,
   "rigBones": 24,
-  "currentMotionRevision": "celebration-v4",
+  "currentMotionRevision": "celebration-v6",
   "operations": [
     {
       "operation": "image-to-3d",
@@ -53,12 +53,44 @@
       "status": "SUCCEEDED",
       "credits": 5,
       "projectDir": "/Users/svehla/playground/teo-learn/meshy_output/20261021_204755_bear-b-reference-rig50k_01a15fca"
+    },
+    {
+      "operation": "animation-poc-wave-28",
+      "taskId": "01a1ad2a-33c6-73b0-b086-fc60a0c94fc0",
+      "actionId": 28,
+      "status": "SUCCEEDED",
+      "credits": 3,
+      "projectDir": "meshy_output/20261105_202307_bear-poc-wave-28_01a1ad2a"
+    },
+    {
+      "operation": "animation-poc-cheer-59",
+      "taskId": "01a1ad35-da51-757c-8157-3abeff49aad3",
+      "actionId": 59,
+      "status": "SUCCEEDED",
+      "credits": 3,
+      "projectDir": "meshy_output/20261105_203550_bear-poc-cheer-59_01a1ad35"
+    },
+    {
+      "operation": "animation-poc-dance-22",
+      "taskId": "01a1ad37-8548-70f9-acbc-3dafcd984984",
+      "actionId": 22,
+      "status": "SUCCEEDED",
+      "credits": 3,
+      "projectDir": "meshy_output/20261105_203739_bear-poc-dance-22_01a1ad37"
+    },
+    {
+      "operation": "animation-poc-jump-466",
+      "taskId": "01a1ad44-877c-75fc-8860-a78bd5901ea4",
+      "actionId": 466,
+      "status": "SUCCEEDED",
+      "credits": 3,
+      "projectDir": "meshy_output/20261105_205152_bear-poc-jump-466_01a1ad44"
     }
   ],
   "artAcceptanceScope": "Construction base approved; final motion approval in verification-summary.json",
   "finalAnimatedCandidate": {
-    "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb",
-    "sha256": "598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3",
+    "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb",
+    "sha256": "7f9ed9d63cd9a9cd61a770b8cd9a1879c6d79a6e3ff945b7ec4b2cea183a2d66",
     "artApproved": true
   }
 }
