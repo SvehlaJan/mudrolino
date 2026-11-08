@@ -15,7 +15,7 @@
     "still": {
       "sourcePath": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/still-v2/bear-still.png",
       "bundledPath": "src/avatar/companions/bear-still.png",
-      "sha256": "824dfd809e55eab3d891b7c3712892f3f77a6b45fb8371e0a86ea1a1bf27a517"
+      "sha256": "1ee1bef0f6699dcd9a94a667979ef351179703608f82069a23feed8717fb38e7"
     }
   },
   "animation": {
@@ -113,7 +113,7 @@
       },
       "still": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/still-report.json",
-        "sha256": "cea855efb776cd2652cf3b22942d31aeca09b8664ffee685780497fe42bf817a"
+        "sha256": "1ccc0fb0a56dea0f5ba91fe3a3ed9fc18b5cbe30de7a351faa3f83b6b4e491f0"
       },
       "browser": {
         "path": "assets/avatar/catalog-a/companions/bear-v2/browser-report.json",
@@ -131,8 +131,8 @@
     "note": "User requested tweaked celebrate animation plus wave, clap, jump, finale, and idle multi-clip set on the approved Meshy bear base. Remote storage/publication remain explicitly deferred."
   },
   "storage": {
-    "private": "deferred",
-    "reason": "User chose finish locally for now. Native/GLB retained locally and indexed in asset manifest; no remote upload or public publication."
+    "private": "stored",
+    "reason": "Native/GLB retained in primary checkout and indexed in assets/avatar/asset-manifest.json; runtime model published to Vercel Blob."
   },
   "scope": "One generated fixed outfit with 17 clips (celebrate, wave, clap, jump, finale, idle, search, think, listen, encourage, shrug, flex, bow, march, wiggle, peekaboo, stretch); no independent garment switching proof. Local game integration uses intercepted exact bytes; public manifest remains disabled.",
   "integration": {

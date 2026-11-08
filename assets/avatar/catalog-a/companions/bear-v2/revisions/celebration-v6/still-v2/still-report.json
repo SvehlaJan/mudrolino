@@ -6,15 +6,15 @@
   "helper_sha256": "878781632320c94dab14c965480e1c4e64dde8cdc7336571d80b04f506998784",
   "blender_version": "5.2.2 LTS",
   "frame": 0,
-  "width": 320,
-  "height": 368,
+  "width": 352,
+  "height": 400,
   "maximum_css_slot": [
-    160,
-    184
+    176,
+    200
   ],
   "minimum_pixel_ratio": 2,
   "camera": {
-    "distance": 5.2,
+    "distance": 5.6,
     "height": 1.35,
     "target_height": 1.25,
     "vertical_fov": 34,
@@ -23,23 +23,23 @@
   "reviews": {
     "front": {
       "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/still-v2/front-review.png",
-      "sha256": "ffa3609200a8fcb6fdbb54db378170f89b4a3ad7c4ef5bde3a98460329668150"
+      "sha256": "c0b2138dc5587fd9f0edaf8482bd26bbd1728b5e862ae0340884b9a260c691e4"
     },
     "side": {
       "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/still-v2/side-review.png",
-      "sha256": "8f5d88c7797fc762089781bcecc07368713afb381e47f39d8b428e1ff8aee726"
+      "sha256": "6c15b2d35dad40f5a50449a5ea632ed6814539d613a0077e02baca36e8a23415"
     },
     "back": {
       "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/still-v2/back-review.png",
-      "sha256": "09787cd1e8fc7fd0d65cb1ff36d1b598a5cc3c6956d13d69f19360d50d51d21d"
+      "sha256": "0ced296a97e96571f74c309f42bf8b1ebf57330efe44acb93c1bf515db38bd9a"
     },
     "three-quarter": {
       "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/still-v2/three-quarter-review.png",
-      "sha256": "8547a2ae4a9dd2096d97fd5f44ce649f710e92554d3d74485371a7a439b2665a"
+      "sha256": "042d8b81b18a89659cf981b51152ec61667b8e39eab8f14317b13324a91dddb2"
     },
     "still": {
       "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/still-v2/bear-still.png",
-      "sha256": "824dfd809e55eab3d891b7c3712892f3f77a6b45fb8371e0a86ea1a1bf27a517"
+      "sha256": "1ee1bef0f6699dcd9a94a667979ef351179703608f82069a23feed8717fb38e7"
     }
   },
   "scope": "Fallback render only; geometry/motion proof stays bound to the unchanged native source."

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "id": "bear-v1",
-  "accepted": false,
-  "modelUrl": null,
-  "sha256": null,
-  "bytes": null,
+  "accepted": true,
+  "modelUrl": "https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a.glb",
+  "sha256": "db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a",
+  "bytes": 3552892,
   "animationName": "celebrate",
   "durationMs": 1400
 }

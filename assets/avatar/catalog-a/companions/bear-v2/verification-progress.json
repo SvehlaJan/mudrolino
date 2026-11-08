@@ -16,18 +16,19 @@
     "validator": "0 errors / 0 warnings",
     "budget": "51311 triangles, 3552892 bytes, 2078070 gzip bytes (< 2.1 MB cap)",
     "browser": "Strict 30 actual renderer captures passed with current multi-clip GLB",
-    "still": "Fresh 320x368 source-bound still at camera 5.2 for 160x184 max CSS slot"
+    "still": "Fresh 352x400 source-bound still at camera 5.6 for 176x200 max CSS slot"
   },
   "integration": {
     "status": "passed",
     "profile": "edit + unit + pure",
     "report": "assets/avatar/catalog-a/companions/bear-v2/integration-report.json",
-    "scope": "17-clip celebration-v6 asset, 6 bone-parented 3D accessories, and deterministic clip cycling; remote activation explicitly deferred."
+    "scope": "17-clip celebration-v6 asset, 6 bone-parented 3D accessories, and deterministic clip cycling; published to Vercel Blob."
   },
-  "deferred": {
-    "privateStorage": "Pending R2 credentials for npm run assets:push",
-    "publication": "Disabled; no credentials or upload",
-    "productionManifest": "accepted=false"
+  "publication": {
+    "status": "published",
+    "storeId": "store_en1SA7u9Gqowved5",
+    "modelUrl": "https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a.glb",
+    "productionManifest": "accepted=true"
   },
   "commitLookup": "git log -1 -- assets/avatar/catalog-a/companions/bear-v2/verification-summary.json"
 }

@@ -12,8 +12,11 @@ const published = {
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 
 describe('companion publication configuration', () => {
-  it('keeps the unpublished manifest disabled', () => {
-    expect(resolveCompanionConfig(manifest)).toBeNull();
+  it('resolves the published manifest', () => {
+    expect(resolveCompanionConfig(manifest)).toEqual({
+      id: 'bear-v1', modelUrl: manifest.modelUrl,
+      animationName: 'celebrate', durationMs: 1400,
+    });
   });
 
   it('resolves accepted and complete publication metadata', () => {
@@ -57,21 +60,24 @@ describe('companion publication configuration', () => {
   it.each(['production', 'development'])('ignores fixture globals in %s', mode => {
     vi.stubEnv('MODE', mode);
     vi.stubGlobal('window', { __E2E__: { companionFixture: true } });
-    expect(getCompanionConfig()).toBeNull();
+    expect(getCompanionConfig()?.modelUrl).toBe(manifest.modelUrl);
   });
 
   it('shows the local bear in development only when asked', () => {
     vi.stubEnv('MODE', 'development');
     vi.stubEnv('VITE_AVATAR_LOCAL_COMPANION', 'false');
-    expect(getCompanionConfig()).toBeNull();
+    expect(getCompanionConfig()?.modelUrl).toBe(manifest.modelUrl);
     vi.stubEnv('VITE_AVATAR_LOCAL_COMPANION', 'true');
     expect(getCompanionConfig()?.modelUrl).toBe('/__avatar_fixture/bear-v1.glb');
   });
 
-  it.each(['production', 'test'])('ignores the local bear switch in %s', mode => {
+  it.each([
+    ['production', manifest.modelUrl],
+    ['test', undefined],
+  ])('ignores the local bear switch in %s', (mode, expectedUrl) => {
     vi.stubEnv('MODE', mode);
     vi.stubEnv('VITE_AVATAR_LOCAL_COMPANION', 'true');
     vi.stubGlobal('window', {});
-    expect(getCompanionConfig()).toBeNull();
+    expect(getCompanionConfig()?.modelUrl).toBe(expectedUrl);
   });
 });
