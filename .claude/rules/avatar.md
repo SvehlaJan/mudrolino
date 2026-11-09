@@ -12,7 +12,9 @@ paths:
 `/avatar-preview` is a development-only live asset gallery. Catalog models,
 references, native sources and fitting history live under `assets/avatar/`.
 The old modular workbench, parent customization UI, home overlay and pre-catalog
-male exports are retired. Future product integration needs accepted catalog assets.
+male exports are retired. The bear learning companion (`src/avatar/companions/bear-v1.json`)
+is live in production across all games via Vercel Blob; customizable human catalog
+integration awaits accepted catalog assets.
 
 ## Bundle boundary
 

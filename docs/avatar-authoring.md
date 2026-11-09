@@ -89,15 +89,20 @@ repair in the bear retrospective is version-specific, not an unconditional patch
 | Product-clock capture | Observed timing, readability and controls in the game slot |
 
 Cover the full clip and inter-key poses; record cadence, count and tolerances.
-The bear's 169 samples at 120Hz cover a 1.4-second clip (241 samples for a 2.0-second
-finale clip); sample every exported clip in a multi-action GLB (`export_animation_mode='ACTIONS'`).
-Packing multiple procedural actions into one GLB adds ~15–20 KB gzipped per clip
-and avoids duplicate ~2 MB mesh/texture payloads. Human mocap presets (such as
-Meshy `animate`) assume `0°` rest arm abduction and human head width, causing severe
-belly and cheek/ear clipping on mascot proportions even after clavicle locking;
-use procedural Blender world-axis curves bounded by the character's safe inward
-adduction ceiling (`sign * (16 - lift)` on `bear-v2`, using world `Z` `-sign * deg`
-for forward chest gestures).
+In `bear-v2` (`celebration-v6`), 4,121 samples at 120Hz cover all 17 exported clips
+(`169` samples for 1.4s clips, `337` for 2.8s `finale`, `289` for 2.4s `idle`);
+sample every exported clip in a multi-action GLB (`export_animation_mode='ACTIONS'`).
+Packing multiple procedural actions and bone-parented rigid 3D accessories
+(`parent_type = 'BONE'`, shared 64×64 `AccessoryAtlas`, `obj["companionAccessoryId"]`
+with `export_extras=True`) into one GLB adds ~15–20 KB gzipped per clip and ~6 KB
+total for 6 accessories, avoiding duplicate ~2 MB mesh/texture payloads. Human mocap
+presets (such as Meshy `animate`) assume `0°` rest arm abduction and human head width,
+causing severe belly and cheek/ear clipping on mascot proportions even after clavicle
+locking; use procedural Blender posed-space world-axis curves (`rotate_world`) bounded
+by the character's safe inward adduction ceiling (`sign * (16 - lift)` on `bear-v2`,
+with `lift <= 81°` to stay below the `82.5°` upper-arm ear-collision ceiling, and
+world `Z` `-sign * deg` for forward chest gestures) and `plateau_envelope` hold
+windows (`0.28–0.78`) for static reaction poses.
 Zero new arm/body and arm/head contacts on a fused mesh is neither zero self-contact nor
 independent garment/wardrobe proof.
 

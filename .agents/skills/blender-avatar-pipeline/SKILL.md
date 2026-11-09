@@ -50,9 +50,9 @@ changing a shared configuration file. Review proportions at <=320px, then sample
 require distinct evaluated poses, intended clip name/duration, exported triangle
 count, compressed bytes and normalized bone weights before a long fit sweep.
 A clean validator, native render or clip entry does not prove moving runtime
-geometry. The bear example and rejected measurements are in
-`assets/avatar/catalog-a/companions/bear-v1/retrospective.md`; its
-`tools/avatar/sample_bear_runtime.mjs` demonstrates an actual skinning probe.
+geometry. The bear companion pipeline and measurements are in
+`assets/avatar/catalog-a/companions/bear-v2/retrospective.md`; its
+`tools/avatar/sample_generated_bear_runtime.mjs` demonstrates a 120Hz multi-clip skinning probe.
 
 - With skinned export and `export_apply=False`, MASK modifiers can be ignored.
   Bake coverage on a disposable copy, retaining bone groups and the untouched
@@ -100,24 +100,48 @@ failure, then sweep the saved revision through native and actual runtime poses.
   `export_nla_strips=False`, `export_bake_animation=False`. Standalone generated
   motion GLBs need cleanup; use `tools/blender/export_clean_avatar_clip.py` and
   `docs/3d-avatar-knowledge-base.md` for that branch.
-- For multi-clip mascot authoring (e.g. `bear-v2` with `celebrate`, `wave`, `clap`,
-  `jump`, `finale`, `idle`), pack all actions into **one single `.blend` and `.glb`**
+- For multi-clip mascot authoring (`bear-v2` `celebration-v6` with 17 clips:
+  `celebrate`, `wave`, `clap`, `jump`, `finale`, `idle`, `search`, `think`,
+  `listen`, `encourage`, `shrug`, `flex`, `bow`, `march`, `wiggle`, `peekaboo`,
+  `stretch`, plus 6 accessories), pack all actions and accessories into **one single `.blend` and `.glb`**
   (set `action.use_fake_user = True`, stash each action on a muted NLA track, and
-  export with `export_animation_mode='ACTIONS'`). Each extra 43–61 frame quaternion
-  action adds only ~15–20 KB gzipped vs. ~2 MB for a separate GLB.
+  export with `export_animation_mode='ACTIONS'` and `export_extras=True`). Each extra
+  43–85 frame quaternion action adds only ~15–20 KB gzipped vs. ~2 MB for a separate GLB.
+- For rigid 3D mascot accessories (`crown`, `cap`, `glasses`, `bowtie`, `cape`, `medal`),
+  use **bone parenting (`parent_type = 'BONE'`)** to `Head` or `Spine02` rather than
+  skinning weights: set `obj.parent = armature`, `obj.parent_type = 'BONE'`,
+  `obj.parent_bone = bone_name`, and
+  `obj.matrix_parent_inverse = (armature.matrix_world @ arm_bone.matrix_local).inverted()`.
+  Share one tiny 64×64 palette texture (`AccessoryAtlas`) across all accessories and tag
+  each object with `obj["companionAccessoryId"] = acc_id` (`export_extras=True`) so
+  Three.js can toggle `child.visible = child.userData?.companionAccessoryId === accessory`
+  with zero extra network requests. In Three.js (`BearCompanionScene.tsx`), always call
+  `mixer.stopAllAction()` before starting a new clip so previous clip bone transforms
+  never bleed into newly switched clips.
 - On wide-head, chubby-torso mascots (`bear-v2`, facing `-Y`, left arm `+X`, up `+Z`,
   `sign = +1` Left / `-1` Right):
   - **Audit both `{'arm', 'torso-leg'}` AND `{'arm', 'head'}`** in BVH triangle
     intersection checks. Treating `Head`/`neck` as `'other'` misses paw/forearm
-    clipping into wide cheeks, muzzle and ears during waves and claps.
-  - **3-axis limb rotation law**: For lateral arm/forearm bones, world `Y` `(0, 1, 0)`
-    is frontal raise/lower (`sign * 16°` lowers from the wide A-pose bind to the
-    relaxed side silhouette — **`+16°` is the inward ceiling**, so always use
-    `sign * (16 - lift)` with `lift >= 0` to lift outward/upward and never `> 16°`);
-    world `Z` `(0, 0, 1)` with `-sign * forward_deg` swings arms/forearms **forward
-    in front of the chest** (for `clap`, `wave`, `idle`); world `X` `(1, 0, 0)`
-    rolls the arm shaft (turning palms inward), whereas on vertical bones (`Spine`,
-    `Head`, `UpLeg`, `Leg`) `(1, 0, 0)` pitches forward/backward.
+    clipping into wide cheeks, muzzle and ears during waves, claps, flexes and stretches.
+  - **3-axis limb rotation law & `82.5°` upper-arm ear ceiling**: For lateral arm/forearm
+    bones, world `Y` `(0, 1, 0)` is frontal raise/lower (`sign * 16°` lowers from the
+    wide A-pose bind to the relaxed side silhouette — **`+16°` is the inward ceiling**,
+    so always use `sign * (16 - lift)` with `lift >= 0` to lift outward/upward and never
+    `> 16°`). **Upper-arm ear-clearance ceiling**: lifting `Arm` above **`82.5°`**
+    (`16 - lift < -66.5°`) drives the upper-arm mesh into the bear's wide lower ear
+    (`arm-head` contact) regardless of forearm angle; for overhead reaches (`stretch`,
+    `jump`, `finale`), cap `Arm` lift at `<= 81°` and get extra paw height by extending
+    `ForeArm` (`+28°..+34°`) and lifting `Shoulder` (`+14°..+19°`), or swing the arm
+    forward in front of the muzzle (`world Z >= 50°`) before bending the elbow (`peekaboo`).
+    World `Z` `(0, 0, 1)` with `-sign * forward_deg` swings arms/forearms **forward
+    in front of the chest**; world `X` `(1, 0, 0)` rolls the arm shaft (turning palms
+    inward), whereas on vertical bones (`Spine`, `Head`, `UpLeg`, `Leg`) `(1, 0, 0)`
+    pitches forward/backward.
+  - **Plateau envelope (`plateau_envelope`) for held reaction poses**: Pure sine bells
+    (`0.5 * (1 - cos(2*pi*u))`) only touch the target silhouette for a single frame at
+    `u = 0.5`. For readable held reactions (`think`, `listen`, `shrug`, `flex`, `bow`,
+    `peekaboo`, `stretch`), use a plateau envelope (ramp-in `0.08–0.28`, sustained hold
+    `0.28–0.78` with subtle secondary micro-motion, smooth return `0.78–0.94`).
   - **Posed-space vs. rest-space world rotations (`rotate_world`)**: `world_rotation`
     and `add_world_rotation` convert `world_axis` via `bone.bone.matrix_local` (the
     *unposed rest matrix*). Once a parent bone (`Shoulder` or `Arm`) rotates, child
@@ -130,6 +154,13 @@ failure, then sweep the saved revision through native and actual runtime poses.
     `ForeArm` → `Hand`), and include `LeftShoulder`/`RightShoulder` whenever lifting
     the bear's paws above head height (at bind pose `LeftArm`/`RightArm` point ~45°
     below horizontal).
+- When rebuilding an active companion revision while a dev server may be running,
+  build into `/tmp/<revision>-build` and atomically swap + write `web-v1/runtime-contract.json`
+  so `/__avatar_fixture/bear-v1.glb` never returns `409 Conflict`. Before running
+  `publish_bear_companion.mjs`, render the fallback still with explicit
+  `--width 352 --height 400 --camera-distance 5.6` (`render_bear_still.py` defaults to
+  `320×368`) and ensure `BLOB_READ_WRITE_TOKEN` points to a Vercel Blob store created
+  with `"access": "public"`.
 - The garment exporter disables texture coordinates. Use the separate H02
   UV-preserving profile and canonical face fixture for textured heads. Reimport
   proof must match UVs with their rest-position/corner identity, including seams;

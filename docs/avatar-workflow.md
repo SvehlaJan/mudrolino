@@ -1,49 +1,41 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-10-21 (bear reference rebuild; canonical catalog audit below retains its dated scope). This is the entry point for both Codex and Claude. Use
+Updated 2026-11-09 (bear companion `celebration-v6` published to Vercel Blob and live in production; canonical human catalog rules below). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
 For the reusable reference-to-runtime process, read
 [3D authoring guidance](avatar-authoring.md). Current candidate history below
 does not replace its acceptance gates.
 
-## Current accepted local candidate — 2026-10-22
+## Published bear learning companion — `celebration-v6` (2026-11-09)
 
-The user accepted the actual expressive celebration preview: **“Yes, keep this
-version.”** Model: `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v4/web-v1/model.glb`,
-SHA-256 `598ac628256d676867067268e96075bce7d47a5d81d2a613d5a7f9b104e56fc3`.
-Native source: sibling `../celebration.blend`, SHA-256
-`9376c704dfd46a590153dc9ae406e98e8dbee95993c2ca1eb4f26e50382e144f`.
-The exact paths/hashes, final art approval, six proof descriptors and storage state
-are in `assets/avatar/catalog-a/companions/bear-v2/verification-summary.json`.
+The bear learning companion (`bear-v2` / runtime id `bear-v1`) is accepted, published on
+Vercel Blob (`mudrolino-public-assets`, `fra1`), and live in production across all 11
+mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`).
 
-One fixed-outfit mesh,24 bones,1.4-second `celebrate`;51,311 triangles,
-2,688,372 bytes/1,910,001 gzip bytes, zero validator errors/warnings. Fresh169-pose
-native/runtime parity has maximum3.482µm error. Arm clearance has zero new
-arm-versus-torso/leg pairs against48 intrinsic bind contacts (maximum62 total),
-not zero contacts or independent wardrobe proof. Strict 30 actual renderer views
-and five-size actual-clock framing/control checks pass. Independent reference,
-asset and UI review: `docs/audits/2026-10-22-generated-bear-final-review.md`.
-
-The more expressive cheer/bounces required a larger reserved area:176×200 desktop,
-144×164 phone/short,112×128 combined, camera 5.6. The fallback is freshly rendered
-352×400 from the same source (`still-v2/`), at least2× the largest CSS slot. The
-still-size test's first failure was entrance-opacity measurement, not undersized
-art; the bounded opacity wait has a reproducing browser regression. Final full
-integration passed:552 browser cases,600 units, lint/pure/audio inventory, both
-builds and bundle guard. See bear-v2/integration-report.json for exact receipts.
-
-The user chose **finish locally for now**. Private backup/publication are deferred;
-ignored `.blend`/`.glb` bytes remain local, the asset manifest is identity only,
-and `src/avatar/companions/bear-v1.json` stays disabled. No public URL, remote
-recovery, PR, push or deployment is claimed. The earlier head35 ZIP excludes the
-Meshy replacement. Preserve this authoring checkout until remote backup is enabled.
-Meshy spend is40/500 approved credits,460 remain; no further paid operation is needed.
-
-Continue with the [portable plan](superpowers/plans/2026-10-21-bear-reference-rebuild.md)
-and [handoff](superpowers/handoffs/2026-10-19-bear-companion.md). Root owns coupled
-3D authoring; use agents for independent code/review. Historical head35 and
-procedural blockouts remain rejected/comparison evidence, not active candidates.
+- **Runtime GLB**: `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb`,
+  SHA-256 `db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a`
+  (`3,552,892` bytes / `2,078,070` gzip bytes, under the `2,100,000` gzip budget).
+- **Public URL**: `https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a.glb`
+- **Native source**: `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.blend`,
+  SHA-256 `20fb2aa84a168ef7560f0d6f20270067d392784fb695b3c4b3f74cf1339a2b20`, built by
+  `tools/blender/catalog/build_generated_bear_celebration.py`.
+- **17 clips + 6 bone-parented 3D accessories in one GLB**:
+  - Clips: `celebrate`, `wave`, `clap`, `jump`, `finale` (`2.8s`), `idle` (`2.4s`),
+    `search`, `think`, `listen`, `encourage`, `shrug`, `flex`, `bow`, `march`,
+    `wiggle`, `peekaboo`, `stretch`.
+  - Accessories (`parent_type = 'BONE'` on `Head` or `Spine02`, shared 64×64
+    `AccessoryAtlas`, toggled via `userData.companionAccessoryId`):
+    `accessory_crown`, `accessory_cap`, `accessory_glasses`, `accessory_bowtie`,
+    `accessory_cape`, `accessory_medal`.
+- **Verification**: 120Hz native/runtime parity across all 17 clips (`4,121` subframes)
+  passed with `28.02 µm` max vertex error (`<= 30 µm` budget) and `0` new
+  `arm-torso-leg` or `arm-head` contacts (`verification-progress.json` and
+  `retrospective.md` under `assets/avatar/catalog-a/companions/bear-v2/`).
+- **Fallback still**: `still-v2/bear-still.png` and `src/avatar/companions/bear-still.png`,
+  rendered at `352×400` (`--camera-distance 5.6`, 2× the largest `176×200` CSS slot).
+- **Asset manifest**: `assets/avatar/asset-manifest.json` tracks all `782` 3D files (`npm run assets:verify`).
+  Historical `head35` (`bear-v1`) and procedural blockouts remain rejected comparison evidence.
 
 ## Resume in the correct checkout
 
@@ -57,7 +49,7 @@ Verification reports copied from the former avatar worktree retain their
 original commit, build identity and absolute-path provenance. They are historical
 proof; run fresh checks for later model or code changes.
 
-The live development catalog is http://127.0.0.1:3004/avatar-preview. One design
+The live development catalog is http://127.0.0.1:3000/avatar-preview. One design
 card joins focused references, per-base revisions and separate art/technical review.
 Use `?item=T02&variant=female` for the fitted hoodie or `?item=walk` for motion.
 The explicit design index and focused references are under `assets/avatar/catalog/`;
@@ -77,45 +69,22 @@ Authoritative inputs:
   turnaround, six outfits, hoodie construction and accessory fit, with Claude
   modeling steps and exact prompts. Female 3D assets still need their own proof.
 - [Progress and proof pointers](../assets/avatar/catalog-a/catalog-progress.json):
-  status of each ID, study paths and outstanding repairs. Accepted IDs are empty.
+  status of each ID, study paths and outstanding repairs.
 - `assets/avatar/catalog-a/foundation/catalog-body.blend`: shared fitting body/rig.
 - Piece `.blend` files, builders and retrospectives: editable construction sources.
   Keep isolated fitting/style revisions separate until their dependent proof passes.
-
-At this handoff, eleven canonical wearables retain fitting-candidate status;
-canonical B03/B04/F02 retain repair-needed status while isolated revisions progress. F04's independent checks and isolated T05/B01/F04 core
-have passing proof, while complete O05/A02 and promotion remain open. The isolated
-F02 study removes bilateral leakage but retains its heel-tab own-shell failure.
-Both preferred H01/H02 revisions now have painted UV faces. Female T02/B01/F01
-has separate per-piece and complete capsule proof; the remaining female fits
-and final style acceptance remain open. No expression targets or accepted product
-assets exist. The full 2026-10-06 audit checks all current models/revisions,
-identified stale focused H02 reports and records the missing variants in
-`docs/audits/2026-10-06-avatar-model-audit.md`.
-
-Execution follows the [improvement plan](superpowers/plans/2026-10-06-avatar-model-improvements.md)
-and [per-design construction targets](avatar-construction-targets.md). The user
-chose proportion proposals for review first and four T06 buttons on both bases.
-T04 has a proposed dedicated construction guide with saved prompt and hashes.
-H02's unchanged painted foundation passed a fresh queued native verification;
-its focused reports now explicitly derive that comprehensive result, with old
-bytes preserved. Six behavioral tests and review cover bound files, UV contract
-completeness and immutable historical destinations; native logs have retained
-`.txt` copies. B04's later isolated bilateral attachment source clears all 164
-detail poses and 29 native/export/runtime gates; a fresh derived check binds
-17 current tools while preserving the initial construction provenance qualification.
-B03's side-only repair passes isolation but exposes increased body contacts.
-F02's 17 offset/weight screens failed; read-only ankle measurements motivate
-a separately calibrated correction. None establishes art approval or promotion.
-Keep dependent head/hair/hood fitting gated on the user's chosen targets.
+- See `ROADMAP.md` (`### 3D avatar — current direction`) and
+  [per-design construction targets](avatar-construction-targets.md) for current
+  human catalog wardrobe status and remaining open items.
 
 ## Current UI and runtime proof boundary
 
 `/avatar-preview` is the live development gallery. The legacy home overlay,
 parent customization screen, modular workbench and pre-catalog male models are
 retired. Catalog construction sources, shared rig/gaits, references and all
-fitting history remain. Product avatar integration will use accepted catalog
-assets in a future phase.
+fitting history remain. The bear learning companion (`src/avatar/companions/bear-v1.json`)
+is integrated in production; customizable human catalog integration awaits final
+wardrobe acceptance.
 
 `/avatar-preview?agent=1` is a small tool-only rendering harness. Browser verifiers
 intercept `/__avatar_fixture/body.glb`, `/__avatar_fixture/garments.glb`,
@@ -337,243 +306,42 @@ the female wardrobe. Hair variants H03–H06 are radial shells on the same reusa
 the passing sibling garment (`audit_catalog_detail_shell.py`), not with zero. Keep
 expressions, real-selfie generation and final acceptance separate.
 
-## Tooling assessment (checked 2026-10-04)
+## Tooling & MCP notes
 
-Blender is now **5.2.2 LTS** at `/Applications/Blender.app`. The previous 5.1.1
-app is retained at `/Applications/Blender 5.1.1.app`. The shared CLI selects the
-standard app; use `BLENDER_BIN` for explicit fallback. Native settings migration
-preserved the existing Blender Lab MCP extension, confirmed configured and loaded
-on a fresh normal startup. See the [upgrade audit](audits/2026-10-04-blender-lts-upgrade.md)
-for checksum/signature, migration and the passing 16-pose export smoke. The separate H02 head uses a UV-preserving export profile with its own fixture proof. [Official LTS support](https://www.blender.org/download/lts/).
+- **Blender**: **5.2.2 LTS** at `/Applications/Blender.app` (with `5.1.1` retained at
+  `/Applications/Blender 5.1.1.app`). The shared CLI (`tools/avatar/blender_cli.py`)
+  selects the standard app; set `BLENDER_BIN` for an explicit override.
+- **Blender MCP**: Optional (`mcp-for-blender`, https://github.com/ahujasid/mcp-for-blender).
+  Only one MCP client should own a live Blender scene at a time; cross-agent
+  reproducibility always comes from saved builder scripts and CLI proof through
+  `tools/avatar/blender_queue.py`. Connecting MCP does not authorize paid generation credits.
 
-A later process audit found Claude Desktop's Blender MCP extension running; the
-earlier direct-config inspection missed that extension-based connection. This
-Codex session still exposes no callable Blender MCP tools. Addon loading is
-confirmed, but no end-to-end Claude client call was made here. Preserve existing
-client configuration rather than adding a duplicate server.
+## Reusable catalog fitting invariants
 
-For a new third-party MCP connection, current upstream is **mcp-for-blender**,
-formerly blender-mcp, with Claude and Codex support. That is an optional alternative
-to the installed extension, not an update that was installed here.
-[Upstream setup](https://github.com/ahujasid/mcp-for-blender).
-
-For a deliberate installation session, upstream currently documents:
-
-```bash
-claude mcp add blender uvx mcp-for-blender
-codex mcp add blender -- uvx mcp-for-blender
-```
-
-These are setup references, not commands run by this handoff. Pin a tested package
-version in client args once selected, match its addon and record both versions.
-GUI clients may need an absolute path to `uvx`. Only one MCP client should own the
-live Blender scene; cross-agent reproducibility still comes from saved code and
-CLI proof. Paid generation integrations need their own authorization; connecting
-MCP does not authorize spending credits.
-
-Existing glTF-Transform, Khronos validation, Playwright and native Blender checks
-already cover the key verification needs. Highest-value additions are a canonical
-face UV fixture and a small reusable Blender Asset Library of validated category
-parts/materials. A new generator service is lower priority than consistent
-references, category construction and fit checks. The subsequent user-authorized Blender update is recorded in the upgrade audit;
-MCP client configuration was preserved.
-
-## Historical wrap-up verification (2026-10-04)
-
-This section records the earlier code/assets. Its modular-workbench checks do
-not describe current UI; that workbench and pre-catalog male exports were retired
-on 2026-10-05. The retained catalog sources, references and fitting history are
-still available in the live gallery.
-
-Fresh checks on 2026-10-04: lint passed with zero errors and the known
-ContentContext warning; 96 unit tests passed; all pure verifiers passed after
-rerunning outside the sandbox because tsx IPC was denied there. Both skill
-entry points passed the skill-creator validator. Focused CLI tests cover literal
-paths/arguments, version selection and failure propagation; real Blender also
-returned exit 1 for an intentional Python exception.
-
-F03 opening regression at its 0.185m boundary accepted the safe source and
-rejected the unsafe fixture, with the master SHA unchanged. Desktop/phone
-catalog inspection and the existing modular workbench passed through the new
-npm command, including Walk/Run, pause/scrub, camera/zoom/reset and skeleton.
-Reports are under `artifacts/verification/avatar-catalog/wrap-up/` and
-`artifacts/verification/avatar-catalog/inspection-page/`. The fresh timestamped
-capture was smoke-checked separately. The subsequent fresh `verify:edit -- --force` selected and passed integration
-before the requested commit: lint, 96 unit tests, pure verifiers, audio inventory,
-integration browser checks, production build and bundle boundaries. Report:
-`artifacts/verification/2026-10-04T15-34-07-813Z-integration.json`. No release
-profile was run. These checks do not accept unfinished models or implement
-selfie generation; female references are a modeling input.
-
-## Historical model batch findings (2026-10-04)
-
-- Female foundation/H02: a separate study preserves the shared 24-bone rig,
-  body vertex order, bind pose and walk/run actions. Dense 163-pose gait and six
-  head gestures clear the hair; rejected envelopes remain alongside the final
-  continuous rear shape. Inspect front/back/side views after technical clearance:
-  collision-free hair can still read as separate hanging strips.
-- F02: remove exactly twelve inherited Left deltas from the Right corrective.
-  Canonical masters remain unchanged. Independent/outfit sweeps and export/runtime
-  pass, while 178 heel-tab/shell triangle pairs persist at run 12.25 on both old
-  and repaired sources. Distance-to-shell and own-shell contact are different gates.
-- A repaired helper does not repair saved masters. Audit the saved bilateral keys
-  before dense fitting; bound repairs by exact coordinate differences and compare
-  unchanged source fields. Reproduce new failures on the original source.
-- Bind browser proof to isolated source paths, completed model/gait GETs and changing
-  gait pixels. Use `--outfit-dir`, `--output-dir`, `--preview-url` and `--production`
-  on `verify_catalog_preview.mjs`; source/report symlinks must stay within their roots.
-  The ordinary runtime F02 captures crop shoes; complete framing acceptance remains
-  open even when the gallery inspector can show the full outfit.
-
-Run `node tools/avatar/verify_model_studies.mjs` for registered study playback on
-desktop/phone. Evidence and 320px reviews live under
-`artifacts/verification/avatar-catalog/model-studies/`. Final style remains pending
-until user feedback; no study is promoted to the published avatar by these checks.
-
-Fresh model-batch browser proof: eight desktop/phone gallery cases passed with
-model/gait HTTP byte hashes, parsed models and moving Run pixels. The female
-head/hair correctly disable gaits. Gallery framing includes the complete F02
-outfit; ordinary app runtime framing still crops footwear and remains open.
-The strengthened UV gate also rejects a corner swap that preserves the UV multiset.
-User reviewed the concrete 320px front/back views and chose: keep these
-proportions; fit the first female outfit next. This accepts that direction for
-the next study and leaves complete style/wardrobe acceptance open.
-
-Fresh final repository gate: `npm run verify:edit -- --force` selected integration
-and passed lint (zero errors, known ContentContext warning), 127 unit tests, all
-pure verifiers, audio inventory, 472 browser checks, production build and bundle
-boundaries. Report: `artifacts/verification/2026-10-04T20-43-49-878Z-integration.json`.
-Dedicated gallery desktop/phone and all eight model-study cases passed on current
-model bytes. No release profile or deployment was run.
-
-## First female outfit continuation
-
-The user chose to keep the reviewed female proportions and fit T02/B01/F01 next.
-The isolated source is `assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/`;
-inspect `?asset=female-outfit-T02-B01-F01-study`. This orange hoodie/navy trouser/
-one-strap sneaker capsule is a technical combination, not reference O02. Keep
-canonical masters and the frozen H02 foundation separate. Final status and exact
-proof pointers are in `catalog-progress.json` and the study retrospective.
-
-Input decision: preserve the reviewed female proportions and fixed H02. This
-T02/B01/F01 capsule uses approved category construction; it is not reference O02.
-
-The untouched garment probe exposed two real issues: T02 collided with H02 hair
-(up to 717 pairs in run 7.25), and incident-face-safe F01 masking exposed roughly
-194 opening-adjacent body pairs that the older vertex mask hid. Preserve the
-114mm face-safe cutoff below the 118mm opening; change the shell/closure instead
-of erasing visible ankle anatomy. B01 and initial garment layers were clear in
-the diagnostic poses, requiring fresh complete proof rather than a refit claim.
-
-Projecting the existing thick, folded hood onto the shirt reduced contacts but
-crumpled its topology. The projected closure also crossed its shoe shell. Fit
-sampled points on a new parameterized surface first, then add controlled
-thickness and transfer actual cloth weights. Keep sewn anchors distinct from
-intentional free portions. Role attributes make joined pocket/hood/tongue/strap
-checks reproducible without changing approved material colors.
-
-The fixed naked body/hair regression samples remained clear. The minimum
-bidirectional vertex-to-surface distance was 11.703mm at run 7.25; it is an upper
-bound on the true triangle minimum, not guaranteed clearance. Remaining contacts
-were exclusively in a narrow central hood region after the shirt-back relief.
-This supports testing a thinner controlled hood, without changing the chosen
-hair or body geometry/binding.
-
-Source preservation alone is insufficient proof: check independently saved piece
-masters against assembled counterparts; validate face UV/image transport in the
-runtime-consumed body.glb as well as outfit.glb; guard all removed-face openings;
-and bind the combined runtime error to a current passing deformation report.
-
-The first complete controlled-component sweep also exposed front-pocket own-shell
-contacts that a four-pose probe missed. Require complete detail sweeps before
-counting fit. The new runner overwrites previous success with running state,
-validates structured native proof and binds reuse to source/verifier hashes and
-exact sample inventories. A skipped runtime is not a pass.
-
-Blender LINEAR scalar quaternion curves normalize component interpolation;
-glTF LINEAR quaternion tracks use SLERP in Three.js. At intermediate samples the
-same saved keys differed by up to 191.39 micrometres at a bone position. This was
-an inherited animation-evaluation difference, not justification to change the
-30 micrometre transport tolerance. Preserve native-action fit and actual-runtime
-pose fit separately, and compare exported skinning under equivalent poses.
-
-For a new model browser proof, use
-`node tools/avatar/verify_model_studies.mjs --asset=<registered-id>`. It discovers
-registered studies instead of maintaining a hard-coded list, rejects duplicates
-and follows explicit repair/history metadata. Scope reports to the changed study
-and retain proof for unchanged source bytes.
-
-User feedback on 2026-10-05: **make the female T02 hood fuller and more
-recognizable in the next visual pass**. The current shallow hood remains a
-technical baseline, not accepted art. Keep the reviewed body/head/hair fixed;
-shape a fuller lower bowl/opening using the controlled surface helper and rerun
-all affected fit/detail/native/runtime gates. Do not restore the rejected folded
-projection or trade exposed anatomy for clearance.
-
-### First outfit technical result
-
-Fresh final model runner passed **15/15 gates**. Both the saved native actions
-and actual glTF pose profiles have 163 samples for each independent piece and
-the combined outfit, plus 164 samples for each detail role. Strict body/head/
-hair/layer/pocket/hood/closure contacts are zero; B01's intentional embedded seam
-is reported separately (940 native / 939 runtime pairs). Six head gestures,
-removed-face openings and both fictional-face UV/image exports pass. Sixteen
-equivalent source/export/Three.js poses have a combined 2.009 micrometre bound
-under the unchanged 30 micrometre threshold; all 12 GLBs/material checks pass.
-
-The final report captures 49 catalog Python helpers and 62 dependencies, checking
-unchanged helper bytes at completion. Reuse requires that exact current inventory.
-The final sweep was **fresh**, not a reused interim result. Reports:
-`assets/avatar/catalog-a/female/outfits/studies/T02-B01-F01/`; aggregate runner:
-`artifacts/verification/avatar-catalog/female-outfit-T02-B01-F01/runner-report.json`.
-
-Fresh `npm run verify:edit -- --force` selected integration and passed zero-error
-lint (known ContentContext warning), 161 unit tests, all pure verifiers, audio
-inventory, 472 browser tests, production build and bundle boundaries. Report:
-`artifacts/verification/2026-10-05T04-58-55-291Z-integration.json`. This is not a
-release profile or deployment; the technical study does not accept the shallow
-hood, implement a real selfie endpoint or promote canonical assets.
-
-Final browser refresh on the final candidate bytes passed two scoped study cases
-(desktop/phone), four production-candidate cases (rest/walk/run/phone run), and
-both live-gallery cases with 102 current assets. Candidate GET hashes match
-`outfit.glb` bfb4e2f83310b8aac574b89d59d50d047d280ef4890189db3d322e9c2c1f6002;
-the production fixture independently binds `body.glb` and `garments.glb` hashes.
-No unexpected console errors or failed requests were reported. Review copies
-were inspected at 320px width. Reports: `artifacts/verification/avatar-catalog/
-model-studies/female-outfit-T02-B01-F01-study/report.json`,
-`female-outfits/T02-B01-F01/browser/browser-report.json`, and
-`gallery/report.json` beneath the same avatar-catalog report root. The production
-fixture replaces the body and a combined garment slot for rendering proof;
-per-piece female production slot mapping remains open. The first refresh attempt
-found stopped local servers; both were restarted before these fresh passing runs.
-
-## Legacy cleanup verification — 2026-10-05
-
-The pre-catalog male assets and modular/customization/home UI are removed. The
-live gallery retains 95 current assets / 41 model previews; catalog construction
-sources, references and fitting history are preserved. See the completed
-[cleanup plan](superpowers/plans/2026-10-05-retire-legacy-avatar.md) for exact
-verification scope and report paths. Final lint, 162 unit tests and pure contracts
-pass; integration's 472 browser tests and production boundaries pass. The migrated
-inspector also passes behavioral and transport checks across 27 desktop/four phone
-models, and the isolated production fixture passes all four candidate cases.
-
-### Iteration safeguards established on 2026-10-07
-
-Classify actual contacting body polygons against the complete bent limb,
-including feet, before proposing a garment offset. B03's rear-hem contacts mostly
-come from a folded foot; its separate thigh/crotch families need separate
-construction evidence. Record control saturation as well as pose values: adding
-to an already saturated knee control cannot distinguish the changing ankle path.
-
-Derived measurement reports must validate complete ordered pose inventories
-before paired iteration. Missing endpoints or relabelled frames must fail even
-when the surviving numeric maxima are unchanged. F02's ankle payload proof has
-eight behavioral contracts for this boundary and retains its exact prior tool
-and report. Dense derivation remains distinct from a fresh native run.
-
-For browser captures, use a dedicated `DISABLE_HMR=true` local server as documented
-in `avatar-catalog-preview.md`. Vite can deliver a buffered full reload on the
-next browser connection, cancelling initial modules. Keep strict failure checks;
-catalog polling continues to exercise live discovery without hot reload.
+- **Female foundation/H02**: A separate study preserves the shared 24-bone rig,
+  body vertex order, bind pose and walk/run actions. Inspect front/back/side views
+  after technical clearance: collision-free hair can still read as separate hanging strips.
+- **Bilateral corrective isolation**: A repaired helper does not repair saved masters.
+  Audit saved bilateral keys before dense fitting; bound repairs by exact coordinate
+  differences and compare unchanged source fields. Distance-to-shell and own-shell
+  contact are independent gates.
+- **Incident-face-safe opening cutoffs**: Preserve face-safe cutoffs below garment
+  openings; change the shell/closure instead of erasing visible ankle/neck anatomy.
+- **Controlled hood/pocket surface fitting**: Projecting a thick folded detail onto a
+  shirt can crumple topology. Fit sampled points on a parameterized surface first, then
+  add controlled thickness and transfer actual cloth weights. Keep sewn anchors distinct
+  from intentional free portions, and use role attributes for reproducible detail sweeps.
+- **Quaternion interpolation tolerance**: Blender `LINEAR` scalar quaternion curves
+  normalize component interpolation, whereas glTF `LINEAR` quaternion tracks use SLERP
+  in Three.js (differing by up to ~191 µm at intermediate samples on human gaits).
+  Preserve native-action fit and actual-runtime pose fit separately, and compare
+  exported skinning under equivalent poses against the 30 µm transport tolerance.
+- **Classify contacting body polygons against the complete bent limb**: Before proposing
+  a garment offset, check whether contacts come from a folded foot vs. thigh/crotch
+  (`B03`), and record control saturation alongside pose values.
+- **Validate complete ordered pose inventories**: Derived measurement reports must
+  reject missing endpoints or relabelled frames even when surviving numeric maxima
+  are unchanged.
+- **Browser captures**: Use `node tools/avatar/verify_model_studies.mjs --asset=<registered-id>`
+  with a dedicated `DISABLE_HMR=true` local server as documented in
+  `avatar-catalog-preview.md` so buffered Vite reloads cannot cancel initial module loads.

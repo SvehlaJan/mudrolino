@@ -107,8 +107,9 @@ component consistency over preserving old one-off spacing, color, or radii.
 Variables are listed in `.env.example`. Never inline a secret through `define`
 in `vite.config.ts`; anything defined there ships in the public bundle. The avatar
 gallery is development-only; `VITE_AVATAR_POC_ENABLED` enables its tool-only
-candidate rendering fixture. Product avatar integration awaits accepted catalog
-assets. The feedback form needs `VITE_WEB3FORMS_KEY`. Error reports need
+candidate rendering fixture. The bear learning companion
+(`src/avatar/companions/bear-v1.json`) is live in production via Vercel Blob;
+customizable human catalog integration awaits accepted catalog assets. The feedback form needs `VITE_WEB3FORMS_KEY`. Error reports need
 `VITE_SENTRY_DSN` and run only in production builds; source maps upload when
 `SENTRY_AUTH_TOKEN` is set. Vercel Web Analytics loads only on the Vercel
 production deployment.
