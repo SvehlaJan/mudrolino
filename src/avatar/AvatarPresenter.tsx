@@ -1,6 +1,6 @@
 import { Suspense, lazy, type ReactNode } from 'react';
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
-import { loadAvatarSceneModule } from './avatarSceneLoader';
+import { getLoadedAvatarSceneModule, loadAvatarSceneModule } from './avatarSceneLoader';
 import type { AvatarPlaybackOptions, AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
 import { AssetStatus, useAvatarAssetsAvailability } from './useAvatarAssetAvailability';
@@ -151,11 +151,13 @@ function AvatarPresenterContent({
 }: AvatarPresenterContentProps) {
   if (assetStatus !== 'available') return null;
 
+  const SceneComponent = getLoadedAvatarSceneModule()?.AvatarScene ?? AvatarScene;
+
   return (
     <AvatarRuntimeBoundary fallback={fallback} onError={onError}>
       <div className={className} role="img" aria-label={label}>
         <Suspense fallback={null}>
-          <AvatarScene
+          <SceneComponent
             className="h-full w-full"
             modelUrl={modelUrl}
             animationUrl={animationUrl}

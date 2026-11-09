@@ -131,7 +131,7 @@ for (const id of ['ALPHABET', 'ASSEMBLY'] as const) {
   });
 }
 
-test('final exhausted failure after successes has no bear', async ({ page }) => {
+test('final exhausted failure after successes still shows the finale bear on session-complete', async ({ page }) => {
   await installCompanionFixture(page);
   await start(page);
   for (let round = 0; round < 4; round += 1) {
@@ -145,11 +145,12 @@ test('final exhausted failure after successes has no bear', async ({ page }) => 
     if (attempt < 2) await waitForGamePhase(page, 'awaiting-answer');
   }
   await waitForGamePhase(page, 'session-complete');
-  await expect(page.getByTestId('learning-companion')).toHaveCount(0);
+  await expect(page.getByTestId('learning-companion')).toBeVisible();
+  await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'finale');
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
 });
 
-test('held item then praise and original 1000ms progression are unchanged', async ({ page }) => {
+test('held item then praise and original 1000ms progression are unchanged while bear stays in idle pose', async ({ page }) => {
   await installCompanionFixture(page);
   await stubAudioPlayback(page, { holdPraise: true });
   await start(page);
@@ -161,7 +162,7 @@ test('held item then praise and original 1000ms progression are unchanged', asyn
   expect(events.slice(0, praise).some(e => e.startsWith('finish:sk/letters/'))).toBe(true);
   await page.clock.pauseAt(new Date(Date.now() + 100));
   await page.clock.runFor(1700);
-  await expect(page.getByTestId('learning-companion')).toHaveCount(0);
+  await expect(page.getByTestId('learning-companion')).toBeVisible();
   await expect(page.getByTestId('companion-feedback-slot')).toBeVisible();
   await waitForGamePhase(page, 'answered-correctly');
   await releasePraise(page);
@@ -436,7 +437,7 @@ async function expectCompanionControlsFit(page: Page, locale: 'sk' | 'cs') {
     const controls = page.getByRole('status').getByRole('button');
     for (const control of await controls.all()) await expectWithinViewport(page, control);
     await expectNoPairwiseOverlap(controls);
-    if (state !== 'companion-final-failure') await expect(page.getByTestId('learning-companion')).toBeVisible();
+    await expect(page.getByTestId('learning-companion')).toBeVisible();
   }
 }
 

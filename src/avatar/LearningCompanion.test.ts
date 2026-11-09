@@ -6,7 +6,7 @@ import type { CompanionConfig } from './companionConfig';
 import type { CompanionResource } from './companionResources';
 
 const config: CompanionConfig = { id: 'bear-v1', modelUrl: '/bear.glb', animationName: 'celebrate', durationMs: 1400 };
-const event = { eventKey: '0:1:1', roundsPlayed: 1, correctRounds: 1, startedAtMs: 100, expiresAtMs: 1700 };
+const event = { eventKey: '0:1:1', roundsPlayed: 1, correctRounds: 1, startedAtMs: 100 };
 const props = { event, config, resource: { status: 'ready', modelUrl: config.modelUrl } as CompanionResource,
   reducedMotion: false, stillUrl: '/bear.png' };
 const render = (overrides: Partial<Parameters<typeof LearningCompanion>[0]> = {}) =>
@@ -44,5 +44,11 @@ describe('decorative learning companion', () => {
     expect(html).toContain('alt=""');
     expect(html).not.toContain('<canvas');
     expect(html).not.toContain('role="img"');
+  });
+
+  it('does not render the 2D still image when 3D resources are ready', () => {
+    const html = render();
+    expect(html).toContain('data-testid="learning-companion"');
+    expect(html).not.toContain('src="/bear.png"');
   });
 });

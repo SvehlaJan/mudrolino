@@ -80,8 +80,12 @@ export function createGameSessionController<Timer>(
     timers.add(timer);
   };
   const continueAfterFeedback = () => {
-    if (disposed || state.paused || state.roundsPlayed >= state.maxRounds || state.feedback === null) return;
+    if (disposed || state.paused || state.phase === 'session-complete' || state.feedback === null) return;
     invalidate();
+    if (state.roundsPlayed >= state.maxRounds) {
+      dispatch({ type: 'SHOW_SESSION_COMPLETE' });
+      return;
+    }
     dispatch({ type: 'NEXT_ROUND' });
     options.onNextRound();
   };

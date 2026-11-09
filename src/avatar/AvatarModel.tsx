@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { GLTF } from 'three-stdlib';
@@ -272,6 +272,9 @@ function LoadedAvatarModel({
   const garmentCorrectives = useMemo(() => bindGarmentCorrectives([scene, ...garmentScenes]), [scene, garmentScenes]);
   const inspectionAction = useRef<AnimationAction | null>(null);
   const isInspection = Boolean(inspection);
+  const playbackMode = playback?.mode;
+  const playbackEventKey = playback?.eventKey;
+  const playbackStartedAtMs = playback?.startedAtMs;
   useFrame(() => {
     const action = inspectionAction.current;
     if (inspection && action) {
@@ -283,8 +286,9 @@ function LoadedAvatarModel({
     }
     if (action) {
       const dur = Math.max(1e-6, action.getClip().duration);
+      const finishedOnce = playbackMode === 'once' && (action.paused || action.time >= dur - 1e-6);
       const norm = ((action.time % dur) + dur) % dur / dur;
-      syncCompanionAccessories(scene, action.getClip().name, norm);
+      syncCompanionAccessories(scene, finishedOnce ? null : action.getClip().name, norm);
     } else {
       syncCompanionAccessories(scene, animationName, 0.5);
     }
@@ -297,20 +301,10 @@ function LoadedAvatarModel({
   });
 
   useEffect(() => {
-    groupRef.current?.updateMatrixWorld(true);
-    onModelReady?.();
-    onSceneReady?.(scene);
-    onSceneData?.(computeAvatarSceneData(scene, externalAssets));
-  }, [externalAssets, garmentScenes, onModelReady, onSceneData, onSceneReady, scene]);
-
-  useEffect(() => {
     onAnimationsChange?.(names);
   }, [names, onAnimationsChange]);
 
-  const playbackMode = playback?.mode;
-  const playbackEventKey = playback?.eventKey;
-  const playbackStartedAtMs = playback?.startedAtMs;
-  useEffect(() => {
+  useLayoutEffect(() => {
     const preferredName = animationName && names.includes(animationName) ? animationName : undefined;
     const fallbackName = names.find((name) => name.toLowerCase().includes('idle')) ?? names[0];
     const activeName = preferredName ?? fallbackName;
@@ -324,12 +318,37 @@ function LoadedAvatarModel({
     } else if (isInspection) action?.reset().setEffectiveWeight(1).play();
     else action?.reset().fadeIn(0.2).play();
 
+    if (action) {
+      const dur = Math.max(1e-6, action.getClip().duration);
+      const finishedOnce = playbackMode === 'once' && (action.paused || action.time >= dur - 1e-6);
+      const norm = ((action.time % dur) + dur) % dur / dur;
+      syncCompanionAccessories(scene, finishedOnce ? null : action.getClip().name, norm);
+    } else {
+      syncCompanionAccessories(scene, animationName, 0.5);
+    }
+    try {
+      garmentCorrectives.update();
+    } catch (error) {
+      if (!onError) throw error;
+      onError(error);
+    }
+    groupRef.current?.updateMatrixWorld(true);
+
     return () => {
       if (playbackMode || isInspection) action?.stop();
       else action?.fadeOut(0.2);
       inspectionAction.current = null;
     };
-  }, [actions, animationName, names, isInspection, playbackMode, playbackEventKey, playbackStartedAtMs]);
+  }, [actions, animationName, garmentCorrectives, names, isInspection, onError, playbackMode, playbackEventKey, playbackStartedAtMs, scene]);
+
+  useLayoutEffect(() => {
+    groupRef.current?.updateMatrixWorld(true);
+    onModelReady?.();
+    onSceneReady?.(scene);
+    if (onSceneData) {
+      onSceneData(computeAvatarSceneData(scene, externalAssets));
+    }
+  }, [externalAssets, garmentScenes, onModelReady, onSceneData, onSceneReady, scene]);
 
   return (
     <group ref={groupRef} position={rootPosition} rotation={[0, 0, 0]} scale={rootScale}>

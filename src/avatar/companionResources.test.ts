@@ -177,13 +177,13 @@ describe('shared optional companion preparation', () => {
     expect(store.getSnapshot('https://assets.example.test/other.glb').status).toBe('failed');
   });
 
-  it('cannot revive an expired celebration when resources become ready', async () => {
+  it('cannot revive a paused celebration when resources become ready', async () => {
     const observation = { phase: 'answered-correctly' as const, paused: false,
       feedback: 'success' as const, roundsPlayed: 1, correctRounds: 1 };
     const event = celebrationReducer(createCelebrationState(), { type: 'observe', observation, nowMs: 0 });
-    const expired = celebrationReducer(event, { type: 'expire', eventKey: event.active!.eventKey, nowMs: 1600 });
+    const paused = celebrationReducer(event, { type: 'observe', observation: { ...observation, paused: true }, nowMs: 100 });
     const store = createCompanionResources({ fetchModel: async () => glb(), loadScene: async () => ({}) });
     await store.prepare(url);
-    expect(celebrationReducer(expired, { type: 'observe', observation, nowMs: 2000 }).active).toBeNull();
+    expect(celebrationReducer(paused, { type: 'observe', observation, nowMs: 2000 }).active).toBeNull();
   });
 });

@@ -52,7 +52,7 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
       data-companion-representation={rendered ? 'rendered3D' : 'still'}
       data-companion-resource-status={resource.status}
     >
-      {!rendered && <img src={stillUrl} alt="" className="absolute inset-0 h-full w-full object-contain" />}
+      {!canRender && <img src={stillUrl} alt="" className="absolute inset-0 h-full w-full object-contain" />}
       {canRender && (
         <AvatarPresenter
           className="absolute inset-0 h-full w-full"

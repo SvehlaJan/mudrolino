@@ -34,7 +34,7 @@ interface AvatarSceneProps {
 function AvatarCameraRig({ view, bounds, cameraDistance }: { view?: AvatarInspectionControls['view']; bounds?: InspectionBounds; cameraDistance?: number }) {
   const { camera, size } = useThree();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const pose = inspectionCameraPose(view, size.width / size.height, bounds, cameraDistance);
     camera.position.set(...pose.position);
     camera.lookAt(...pose.target);
@@ -87,7 +87,7 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
     rootRef.current?.render(contentRef.current);
   }, [children, onError]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
     const container = canvas?.parentElement;
     if (!canvas || !container) return;
@@ -127,13 +127,16 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
         if (!width || !height || (lastSize?.width === width && lastSize.height === height)) return Promise.resolve();
         lastSize = { width, height };
         const { top, left } = container.getBoundingClientRect();
+        const initialPose = inspectionCameraPose(undefined, width / height, undefined, cameraDistance);
         return root!.configure({
           gl: renderer,
           flat: true,
-          camera: { position: inspectionCameraPose(undefined, 1, undefined, cameraDistance).position, fov: 34 },
+          camera: { position: initialPose.position, fov: 34 },
           dpr: [1, 1.5],
           size: { width, height, top, left },
           onCreated: state => {
+            state.camera.lookAt(...initialPose.target);
+            state.camera.updateProjectionMatrix();
             // R3F schedules root.render through a promise, which may settle after cleanup.
             if (!active) {
               state.setFrameloop('never');
@@ -182,17 +185,22 @@ export function AvatarScene(props: AvatarSceneProps) {
 
 function PreparedCompanionScene(props: AvatarSceneProps) {
   const { modelUrl, onError } = props;
-  const [prepared, setPrepared] = useState<{ url: string; model: GLTF } | null>(null);
+  const cachedModel = loadCompanionModel.getLoaded(modelUrl);
+  const [prepared, setPrepared] = useState<{ url: string; model: GLTF } | null>(() =>
+    cachedModel ? { url: modelUrl, model: cachedModel } : null,
+  );
+  const resolvedModel = cachedModel ?? (prepared?.url === modelUrl ? prepared.model : null);
   useEffect(() => {
+    if (resolvedModel) return;
     let active = true;
     void loadCompanionModel(modelUrl).then(
       model => { if (active) setPrepared({ url: modelUrl, model }); },
       error => { if (active) onError?.(error); },
     );
     return () => { active = false; };
-  }, [modelUrl, onError]);
-  if (prepared?.url !== modelUrl) return null;
-  return <ReadyAvatarScene {...props} preparedModel={prepared.model} />;
+  }, [modelUrl, onError, resolvedModel]);
+  if (!resolvedModel) return null;
+  return <ReadyAvatarScene {...props} preparedModel={resolvedModel} />;
 }
 
 function ReadyAvatarScene({
@@ -274,7 +282,7 @@ function ReadyAvatarScene({
           onError={onError ? reportError : undefined}
           onAnimationsChange={onAnimationsChange}
           onModelReady={onModelReady}
-          onSceneReady={setAvatarScene}
+          onSceneReady={isInspection || showSkeleton ? setAvatarScene : undefined}
           onSceneData={onSceneData}
         />
       </Suspense>

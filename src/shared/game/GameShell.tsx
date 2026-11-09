@@ -100,10 +100,12 @@ export function GameShell({
   // itself so it takes effect the instant the round resolves, not once that phase
   // lands.
   const isFinalRound = state.roundsPlayed >= state.maxRounds;
-  const transientFeedback = feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !isFinalRound;
+  const showCompletion = Boolean(completion && state.phase === 'session-complete');
+  const transientFeedback = Boolean(feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !showCompletion);
+  const showCompanionInOverlay = Boolean(companionConfig && (showCompletion || feedback?.kind === 'success'));
   const contentLocked =
     state.paused ||
-    Boolean(transientFeedback) ||
+    transientFeedback ||
     state.feedback !== null ||
     state.phase === 'recoverable-error' ||
     isFinalRound;
@@ -156,58 +158,53 @@ export function GameShell({
         />
       )}
 
-      {transientFeedback && feedback && (
+      {(transientFeedback || showCompletion) && (
         <OverlayFrame
           show
-          tone={feedback.kind === 'success' ? 'success' : 'failure'}
-          onBackdropClick={feedback.onContinue}
-          panelClassName={feedback.kind === 'success' ? companionPanelClass : 'bg-white shadow-block'}
+          tone={showCompletion || feedback?.kind === 'success' ? 'success' : 'failure'}
+          confetti={showCompletion}
+          focusOnShow={showCompletion}
+          onBackdropClick={transientFeedback ? feedback?.onContinue : undefined}
+          panelClassName={showCompanionInOverlay ? companionPanelClass : 'bg-white shadow-block'}
         >
-          <div className={companionConfig && feedback.kind === 'success' ? COMPANION_FEEDBACK_LAYOUT : undefined}>
-          {companionConfig && feedback.kind === 'success' ? companionSlot : <div className="text-5xl" aria-hidden="true">
-            {feedback.emoji ?? (feedback.kind === 'success' ? '🌟' : '🤗')}
-          </div>}
-          <div className="min-w-0">
-          <p className="mt-2 text-3xl font-black text-text-main">{feedback.title}</p>
-          {feedback.detail && <p className="mt-2 text-lg font-bold text-text-muted">{feedback.detail}</p>}
-          {feedback.onContinue && (
-            <div data-testid="game-critical-controls" className="mt-5">
-              <Button tone="primary" size="child" onClick={feedback.onContinue}>
-                {getUiCopy(locale, 'game.continue')}
-              </Button>
+          <div className={showCompanionInOverlay ? COMPANION_FEEDBACK_LAYOUT : undefined}>
+          {showCompanionInOverlay ? companionSlot : showCompletion && completion ? (
+            <div className="text-6xl" aria-hidden="true">{completion.praise.emoji}</div>
+          ) : (
+            <div className="text-5xl" aria-hidden="true">
+              {feedback?.emoji ?? (feedback?.kind === 'success' ? '🌟' : '🤗')}
             </div>
           )}
-          </div>
-          </div>
-        </OverlayFrame>
-      )}
-
-      {companionConfig && celebration && isFinalRound && state.phase === 'answered-correctly' && (
-        <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center" aria-hidden="true">
-          {companionSlot}
-        </div>
-      )}
-
-      {completion && state.phase === 'session-complete' && (
-        <OverlayFrame show tone="success" confetti panelClassName={state.feedback === 'success' ? companionPanelClass : 'bg-white shadow-block'} focusOnShow>
-          <div className={companionConfig && state.feedback === 'success' ? COMPANION_FEEDBACK_LAYOUT : undefined}>
-          {companionConfig && state.feedback === 'success' ? companionSlot : <div className="text-6xl" aria-hidden="true">{completion.praise.emoji}</div>}
-          <div className="min-w-0">
-          <p className="mt-2 text-3xl font-black text-text-main">{getUiCopy(locale, 'game.completionTitle')}</p>
-          <p className="mt-2 text-xl font-bold text-text-muted">{completion.praise.text}</p>
-          <p className="mt-4 text-2xl font-black text-text-main">
-            {completion.correctRounds} / {completion.maxRounds}
-          </p>
-          <p className="mt-1 text-sm font-bold text-text-muted">{completion.totalTaps} {getUiCopy(locale, 'game.taps')}</p>
-          <div data-testid="game-critical-controls" className="mt-5 flex flex-wrap justify-center gap-3">
-            <Button tone="primary" size="child" onClick={completion.onPlayAgain}>
-              {getUiCopy(locale, 'game.playAgain')}
-            </Button>
-            <Button tone="neutral" size="child" onClick={completion.onHome}>
-              {getUiCopy(locale, 'game.home')}
-            </Button>
-          </div>
-          </div>
+          {showCompletion && completion ? (
+            <div className="min-w-0">
+            <p className="mt-2 text-3xl font-black text-text-main">{getUiCopy(locale, 'game.completionTitle')}</p>
+            <p className="mt-2 text-xl font-bold text-text-muted">{completion.praise.text}</p>
+            <p className="mt-4 text-2xl font-black text-text-main">
+              {completion.correctRounds} / {completion.maxRounds}
+            </p>
+            <p className="mt-1 text-sm font-bold text-text-muted">{completion.totalTaps} {getUiCopy(locale, 'game.taps')}</p>
+            <div data-testid="game-critical-controls" className="mt-5 flex flex-wrap justify-center gap-3">
+              <Button tone="primary" size="child" onClick={completion.onPlayAgain}>
+                {getUiCopy(locale, 'game.playAgain')}
+              </Button>
+              <Button tone="neutral" size="child" onClick={completion.onHome}>
+                {getUiCopy(locale, 'game.home')}
+              </Button>
+            </div>
+            </div>
+          ) : feedback ? (
+            <div className="min-w-0">
+            <p className="mt-2 text-3xl font-black text-text-main">{feedback.title}</p>
+            {feedback.detail && <p className="mt-2 text-lg font-bold text-text-muted">{feedback.detail}</p>}
+            {feedback.onContinue && (
+              <div data-testid="game-critical-controls" className="mt-5">
+                <Button tone="primary" size="child" onClick={feedback.onContinue}>
+                  {getUiCopy(locale, 'game.continue')}
+                </Button>
+              </div>
+            )}
+            </div>
+          ) : null}
           </div>
         </OverlayFrame>
       )}

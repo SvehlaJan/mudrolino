@@ -201,6 +201,18 @@ describe('game session controller', () => {
     expect(onNextRound).not.toHaveBeenCalled();
   });
 
+  it.each(['correct', 'wrong'] as const)('manual continue during a terminal %s round verdict advances immediately to session-complete', async outcome => {
+    const { controller, pending, onNextRound } = setup({ maxRounds: 1, maxAttempts: 1 });
+    const result = controller.resolveAnswer({ ...correct, outcome });
+    await finishSelection(pending);
+    expect(controller.getSnapshot().state.phase).not.toBe('session-complete');
+    controller.continueAfterFeedback();
+    expect(controller.getSnapshot().state.phase).toBe('session-complete');
+    pending[1].resolve();
+    expect(await result).toBe('cancelled');
+    expect(onNextRound).not.toHaveBeenCalled();
+  });
+
   it('ignores stale prompts when an answer interrupts listening', async () => {
     const { controller, pending } = setup();
     const prompt = controller.replayPrompt(audio('prompt'));
