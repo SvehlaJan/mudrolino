@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Gamepad2, HelpCircle, Mic, Palette, Share2 } from 'lucide-react';
+import { ChevronRight, Gamepad2, HelpCircle, Mic, Palette, Printer, Share2 } from 'lucide-react';
 import { AppScreen, BackButton, PageHeader, TopBar, cn, uiTokens } from '../shared/ui';
 import { pwaBrand } from '../pwa/pwaConfig';
 import { useContentLocale } from '../shared/contexts/ContentContext';
@@ -34,6 +34,12 @@ const DESTINATIONS: DashboardDestination[] = [
     title: msg('Vlastný obsah'),
     description: msg('Nahrajte vlastný hlas pre písmená, slová a frázy.'),
     icon: <Mic size={24} className="sm:h-7 sm:w-7" />,
+  },
+  {
+    to: '/settings/worksheets',
+    title: msg('Pracovné listy'),
+    description: msg('Vytlačte úlohy z hier a hrajte aj bez obrazovky.'),
+    icon: <Printer size={24} className="sm:h-7 sm:w-7" />,
   },
   {
     to: '/settings/app',

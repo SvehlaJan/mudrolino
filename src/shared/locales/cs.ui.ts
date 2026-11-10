@@ -289,4 +289,38 @@ export const CS_TRANSLATIONS: Record<string, string> = {
 
   // Home and answers tray
   'Odpovede': 'Odpovědi',
+
+  // Printable worksheets
+  'Pracovné listy': 'Pracovní listy',
+  'Vytlačte úlohy z hier a hrajte aj bez obrazovky.': 'Vytiskněte úlohy z her a hrajte i bez obrazovky.',
+  'Vytlačte úlohy z hier na papier, aby sa dalo hrať aj bez obrazovky. Úlohy sa riadia nastaveniami hier.':
+    'Vytiskněte úlohy z her na papír, aby se dalo hrát i bez obrazovky. Úlohy se řídí nastavením her.',
+  'Hry': 'Hry',
+  'Ako dieťa odpovedá': 'Jak dítě odpovídá',
+  'Krúžkovanie zvládne aj dieťa, ktoré ešte nepíše. Pri písaní dopĺňa odpoveď do prázdneho políčka.':
+    'Kroužkování zvládne i dítě, které ještě nepíše. Při psaní doplňuje odpověď do prázdného políčka.',
+  'Krúžkuje': 'Kroužkuje',
+  'Píše': 'Píše',
+  'Strany z každej hry': 'Strany z každé hry',
+  'Vytlačiť': 'Vytisknout',
+  'Stiahnuť PDF': 'Stáhnout PDF',
+  'Pripravujem PDF…': 'Připravuji PDF…',
+  'PDF sa nepodarilo pripraviť. Skúste to znova alebo použite Vytlačiť a Uložiť ako PDF.':
+    'PDF se nepodařilo připravit. Zkuste to znovu nebo použijte Vytisknout a Uložit jako PDF.',
+  'Nové úlohy': 'Nové úlohy',
+  'Vyberte aspoň jednu hru.': 'Vyberte alespoň jednu hru.',
+  'Počet strán: {count}': 'Počet stran: {count}',
+  'Náhľad': 'Náhled',
+  'Meno:': 'Jméno:',
+  'Spočítaj obrázky a zakrúžkuj správne číslo.': 'Spočítej obrázky a zakroužkuj správné číslo.',
+  'Spočítaj obrázky a napíš, koľko ich je.': 'Spočítej obrázky a napiš, kolik jich je.',
+  'Zakrúžkuj stranu, kde je viac.': 'Zakroužkuj stranu, kde je víc.',
+  'Spočítaj a zakrúžkuj výsledok.': 'Spočítej a zakroužkuj výsledek.',
+  'Spočítaj a napíš výsledok.': 'Spočítej a napiš výsledek.',
+  'Pomenuj obrázok a zakrúžkuj jeho prvé písmeno.': 'Pojmenuj obrázek a zakroužkuj jeho první písmeno.',
+  'Pomenuj obrázok a napíš jeho prvé písmeno.': 'Pojmenuj obrázek a napiš jeho první písmeno.',
+  'Zakrúžkuj slabiku, ktorá chýba.': 'Zakroužkuj slabiku, která chybí.',
+  'Doplň slabiku, ktorá chýba.': 'Doplň slabiku, která chybí.',
+  'Zakrúžkuj písmená, ktoré chýbajú.': 'Zakroužkuj písmena, která chybí.',
+  'Doplň písmená, ktoré chýbajú.': 'Doplň písmena, která chybí.',
 };

@@ -10,14 +10,14 @@ import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { unlockParentGate } from './support/parentGate';
 
 test.describe('Parent dashboard and game settings', () => {
-  test('dashboard exposes the four parent destinations', async ({ page }) => {
+  test('dashboard exposes the five parent destinations', async ({ page }) => {
     const errors = trackConsoleErrors(page);
     const failedRequests = trackFailedRequests(page);
 
     await page.goto('/settings');
     await unlockParentGate(page);
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
-    for (const name of ['Nastavenia hier', 'Vlastný obsah', 'Aplikácia a vzhľad', 'Pomoc a spätná väzba']) {
+    for (const name of ['Nastavenia hier', 'Vlastný obsah', 'Pracovné listy', 'Aplikácia a vzhľad', 'Pomoc a spätná väzba']) {
       await expect(page.getByRole('link', { name: new RegExp(name) })).toBeVisible();
     }
 

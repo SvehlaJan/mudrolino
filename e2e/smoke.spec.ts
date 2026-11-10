@@ -7,6 +7,7 @@ import {
 } from './support/assertions';
 import { GAME_DEFINITIONS } from '../src/shared/gameCatalog';
 import { startGame } from './support/gameEntry';
+import { unlockParentGate } from './support/parentGate';
 
 test('home: loads without errors', async ({ page }) => {
   const errors = trackConsoleErrors(page);
@@ -27,3 +28,14 @@ for (const game of GAME_DEFINITIONS) {
     expectNoFailedRequests(failedRequests);
   });
 }
+
+test('worksheets: parent route loads and renders printable sheets', async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  const failedRequests = trackFailedRequests(page);
+  await page.goto('/settings/worksheets?seed=42');
+  await unlockParentGate(page);
+  await expect(page.getByRole('heading', { name: 'Pracovné listy' })).toBeVisible();
+  await expect(page.getByTestId('worksheet-preview').getByTestId('worksheet-sheet').first()).toBeVisible();
+  expectNoConsoleErrors(errors);
+  expectNoFailedRequests(failedRequests);
+});

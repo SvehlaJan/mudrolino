@@ -32,6 +32,9 @@ const UiKitScreen = import.meta.env.DEV || import.meta.env.MODE === 'test'
   ? React.lazy(() => import('./shared/ui/UiKitScreen').then(module => ({ default: module.UiKitScreen })))
   : null;
 
+// Worksheets are a print-only tool; keep their layout and CSS out of the main bundle.
+const WorksheetScreen = React.lazy(() => import('./worksheets/WorksheetScreen').then(module => ({ default: module.WorksheetScreen })));
+
 // Initialize font attribute immediately on boot
 applyFontFamily(loadAppSettings().fontFamily);
 
@@ -169,6 +172,16 @@ export default function App() {
                 element={<AppSettingsScreen appSettings={appSettings} onUpdate={setAppSettings} onDataRestored={handleDataRestored} />}
               />
               <Route path="/settings/help" element={<HelpFeedbackScreen />} />
+              <Route
+                path="/settings/worksheets"
+                element={
+                  <ErrorBoundary>
+                    <React.Suspense fallback={null}>
+                      <WorksheetScreen settings={settings} />
+                    </React.Suspense>
+                  </ErrorBoundary>
+                }
+              />
               <Route
                 path="/content"
                 element={

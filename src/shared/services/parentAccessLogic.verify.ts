@@ -6,6 +6,7 @@ const protectedPaths = [
   '/settings/games/ALPHABET',
   '/settings/app',
   '/settings/help',
+  '/settings/worksheets',
   '/content',
   '/recordings',
 ];

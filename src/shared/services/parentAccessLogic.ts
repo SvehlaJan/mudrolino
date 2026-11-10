@@ -4,6 +4,7 @@ export type ParentRouteKind =
   | 'game-detail'
   | 'app'
   | 'help'
+  | 'worksheets'
   | 'content'
   | 'recordings-legacy'
   | null;
@@ -19,6 +20,7 @@ export function getParentRouteKind(pathname: string): ParentRouteKind {
   if (/^\/settings\/games\/[^/]+$/.test(normalized)) return 'game-detail';
   if (normalized === '/settings/app') return 'app';
   if (normalized === '/settings/help') return 'help';
+  if (normalized === '/settings/worksheets') return 'worksheets';
   if (normalized === '/content') return 'content';
   if (normalized === '/recordings') return 'recordings-legacy';
   return null;

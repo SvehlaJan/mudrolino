@@ -1,0 +1,227 @@
+/*
+ * Printable A4 worksheets. Every size inside a sheet is in cqw (1% of the sheet width), so the
+ * on-screen preview, the printed page and the downloaded PDF share one layout: a sheet is 210mm
+ * wide, so 1cqw = 2.1mm on paper.
+ *
+ * Toner budget: no filled areas, hairline light-grey frames and guides, and mid-grey for
+ * secondary text. Only what the child reads (numbers, letters, the instruction) stays dark.
+ */
+
+.ws-sheet {
+  container-type: inline-size;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  aspect-ratio: 210 / 297;
+  overflow: hidden;
+  padding: 6cqw;
+  background: #fff;
+  color: #374151;
+  font-family: var(--font-app, 'Nunito', system-ui, sans-serif);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.ws-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 4cqw;
+  font-size: 2.6cqw;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+.ws-name {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5cqw;
+}
+
+.ws-name-line {
+  display: inline-block;
+  width: 32cqw;
+  border-bottom: 0.2cqw solid #9ca3af;
+}
+
+.ws-instruction {
+  margin: 3cqw 0 3.5cqw;
+  font-size: 4.4cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1f2937;
+}
+
+.ws-tasks {
+  flex: 1;
+  display: grid;
+  gap: 2.5cqw;
+  min-height: 0;
+}
+
+.ws-tasks--grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); }
+.ws-tasks--rows { grid-template-columns: 1fr; grid-template-rows: repeat(6, 1fr); }
+
+.ws-task {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5cqw;
+  min-height: 0;
+  padding: 2cqw 2.5cqw 2cqw 6cqw;
+  border: 0.2cqw solid #e5e7eb;
+  border-radius: 3cqw;
+}
+
+.ws-tasks--grid .ws-task { flex-direction: column; padding: 2cqw; }
+
+.ws-task-number {
+  position: absolute;
+  top: 1.2cqw;
+  left: 1.6cqw;
+  font-size: 2.4cqw;
+  font-weight: 700;
+  color: #9ca3af;
+}
+
+/*
+ * A fixed column count (set per set in --ws-cols) wraps pictures the same way in the preview,
+ * the print and the PDF capture, where glyph widths differ slightly. Ten objects take two rows.
+ */
+.ws-emoji-set {
+  display: grid;
+  grid-template-columns: repeat(var(--ws-cols, 5), 1em);
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  gap: 0.6cqw 1cqw;
+  line-height: 1;
+}
+
+.ws-emoji-set--counting { font-size: 6.8cqw; }
+.ws-emoji-set--compare { font-size: 5.6cqw; }
+.ws-emoji-set--addition { column-gap: 0.4cqw; font-size: 5cqw; }
+.ws-emoji-set--addition-dense { font-size: 4cqw; }
+
+.ws-task--addition { gap: 1.6cqw; }
+.ws-task--addition .ws-choice { min-width: 6cqw; height: 6cqw; font-size: 3.8cqw; }
+
+.ws-picture { font-size: 11cqw; line-height: 1; }
+.ws-picture--small { font-size: 9cqw; }
+
+.ws-numeral { font-size: 8cqw; font-weight: 700; line-height: 1; color: #1f2937; }
+.ws-operator { font-size: 6cqw; font-weight: 600; color: #6b7280; }
+
+.ws-compare-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+}
+
+/* Separates the two groups without boxing them, so the child circles the group itself. */
+.ws-compare-divider {
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 0.3cqw;
+  margin: 1cqw 0;
+  border-radius: 999px;
+  background: #d1d5db;
+}
+
+.ws-write-box {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 9cqw;
+  height: 9cqw;
+  border: 0.3cqw solid #6b7280;
+  border-radius: 1.6cqw;
+}
+
+.ws-choices { display: flex; flex-wrap: nowrap; justify-content: center; gap: 1.6cqw; }
+
+.ws-choice {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7.5cqw;
+  height: 7.5cqw;
+  padding: 0 1.2cqw;
+  /* Dashed, so the child's own pencil circle stands out from the printed outline. */
+  border: 0.25cqw dashed #9ca3af;
+  border-radius: 999px;
+  font-size: 4.4cqw;
+  font-weight: 700;
+  line-height: 1;
+  color: #1f2937;
+}
+
+.ws-word-task { display: flex; align-items: center; gap: 3cqw; width: 100%; }
+.ws-word-body { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 1.8cqw; min-width: 0; }
+
+.ws-slots { display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 0.8cqw; }
+
+.ws-slot {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 4.6cqw;
+  height: 7.5cqw;
+  padding: 0 0.4cqw 0.6cqw;
+  border-bottom: 0.25cqw solid #d1d5db;
+  font-size: 5.4cqw;
+  font-weight: 700;
+  line-height: 1;
+  color: #1f2937;
+}
+
+.ws-slot--syllable { min-width: 10cqw; padding: 0 1cqw 0.6cqw; }
+.ws-slot--blank { min-width: 6.5cqw; border: 0.3cqw solid #6b7280; border-radius: 1.4cqw; }
+.ws-slot--syllable.ws-slot--blank { min-width: 13cqw; }
+.ws-slots--dense .ws-slot { min-width: 4cqw; font-size: 4.6cqw; }
+.ws-slots--dense .ws-slot--blank { min-width: 5.6cqw; }
+
+.ws-foot {
+  margin-top: 2.5cqw;
+  font-size: 2.2cqw;
+  font-weight: 600;
+  color: #d1d5db;
+  text-align: center;
+}
+
+/* On screen the print root stays hidden; the preview renders its own copy of the sheets. */
+#worksheet-print-root { display: none; }
+
+/*
+ * The PDF export lays sheets out off screen at a fixed A4 pixel width; they must stay rendered
+ * (not display:none) for html-to-image to capture them.
+ */
+#worksheet-pdf-root {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  width: 794px;
+  pointer-events: none;
+}
+
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+
+  /* Only while the worksheet screen has mounted its print root, print nothing but the sheets. */
+  body:has(> #worksheet-print-root) > :not(#worksheet-print-root) { display: none !important; }
+  body:has(> #worksheet-print-root) { background: #fff !important; margin: 0; }
+
+  #worksheet-print-root { display: block; }
+  #worksheet-print-root .ws-sheet {
+    width: 210mm;
+    height: 296mm;
+    aspect-ratio: auto;
+    break-after: page;
+  }
+  #worksheet-print-root .ws-sheet:last-child { break-after: auto; }
+}
