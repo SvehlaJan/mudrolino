@@ -1,114 +1,126 @@
 # Mudrolíno
 
-Mudrolíno is a Slovak and Czech educational web app for preschoolers. It is built around short, touch-friendly mini-games with spoken prompts, encouraging feedback, and a parent-protected settings area.
+**Make a little screen time a moment of discovery.** Mudrolíno combines playful learning with a parent's familiar voice, inviting children to participate, explore, and learn.
 
-## Features
+An educational web app for preschoolers, with eleven touch-friendly games, spoken instructions, parent-recorded audio, and printable worksheets. Built with React and TypeScript; family content stays on the device.
 
-- Eleven mini-games: alphabet, syllables, numbers, counting, words, first-letter sounds, syllable assembly, missing-syllable completion, missing-letter completion, quantity comparison, and addition.
-- Slovak and Czech: content, audio paths and UI text per language, switchable in the parent zone and detected from the browser on first start.
-- Audio-first gameplay with recorded `.mp3` clips when present and TTS fallback in the active language when files are missing.
-- Shared success, failure, and session-complete overlays across the games.
-- Parent zone behind an arithmetic gate: game settings, language, custom content, backup, privacy note, feedback, and sharing the app link.
-- Parent-managed local content for custom words, praise, and recorded audio overrides, with backup export and merge-restore across devices.
-- Parent feedback form backed by Web3Forms; production error reports to Sentry and cookieless Vercel Web Analytics page views when configured.
-- Installable PWA support with generated icons, a mobile install prompt, and offline core games.
-- Development-only avatar asset gallery behind the avatar feature flag.
-- Mobile-first UI with oversized controls, safe-area spacing, and animated transitions.
+**[Try Mudrolíno](https://mudrolino.vercel.app)** · [Engineering decisions](docs/engineering-decisions.md) · [Run locally](#run-locally)
 
-## Games
+## Why I built it
 
-- `Abeceda`: hear a letter prompt and tap the correct letter card.
-- `Slabiky`: hear a syllable and identify it from a grid.
-- `Čísla`: hear a number and tap the correct numeral.
-- `Spočítaj`: count scattered emoji items, then choose the correct number.
-- `Slová`: read a syllabified word prompt and match it to the right emoji.
-- `Prvé písmenko`: hear a word, see its emoji, and choose the first Slovak letter.
-- `Skladaj`: arrange shuffled syllable tiles into the correct word.
-- `Doplň slabiku`: hear a word and choose the missing syllable from four tiles.
-- `Doplň písmeno`: hear a word and fill missing Slovak letter units in order.
+I built Mudrolíno for my son. He loves playing—and keeps learning faster than I can add new challenges. The app is also used by a small circle of close friends, and I'm preparing to share it more widely.
 
-## Tech Stack
+We try to limit our children's screen time. When a screen is part of the day, I want it to offer something they can take part in. Letting a parent record the instructions and encouragement began as my hypothesis about making that experience more personal.
 
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS v4
-- `motion/react`
-- `react-router-dom`
-- Lucide React
-- `vite-plugin-pwa`
-- React Three Fiber / Three.js for the development avatar asset gallery
+## A look inside
 
-## Architecture
+<img src="docs/images/home.png" alt="Mudrolíno home screen with eleven games grouped into literacy and numeracy, alongside the bear companion" width="900">
 
-- `src/App.tsx` owns the routed app shell, home screen, parents gate, and settings overlays.
-- `src/shared/types.ts` defines the domain models (`Letter`, `Syllable`, `Word`, `SlovakNumber`) and the generic `GameDescriptor<T>` contract.
-- `src/shared/components/FindItGame.tsx` implements the shared round loop for the alphabet, syllables, numbers, and words games.
-- `src/games/counting/CountingItemsGame.tsx` is a bespoke mechanic and does not use `FindItGame`.
-- `src/games/first-letter/FirstLetterGame.tsx` is a bespoke word-to-first-letter mechanic that shares the app's standard overlays and controls.
-- `src/games/assembly/AssemblyGame.tsx` is a bespoke tap-to-place syllable ordering game.
-- `src/games/complete-syllable/CompleteSyllableGame.tsx` is a bespoke missing-syllable mechanic that shares the app's standard overlays and controls.
-- `src/games/complete-letter/CompleteLetterGame.tsx` is a bespoke missing-letter mechanic with guided blanks and configurable difficulty.
-- `src/shared/contentRegistry.ts` is the locale-aware content registry for letters, derived syllables, numbers, shared phrase audio metadata, timing constants, and praise entries.
-- `src/shared/services/audioManager.ts` plays audio clip sequences and falls back per clip to Web Speech API (`sk-SK`) when files are missing.
-- `src/content/CustomContentScreen.tsx` is the parent-facing local content and recording surface.
-- `src/pwa/` owns the PWA manifest metadata, install/update prompt state, and home-screen PWA control.
-- `src/avatar/` owns the development asset gallery and catalog renderer. The old male companion/customization experiment is retired; accepted catalog assets will be integrated into the app later. The three.js renderer is lazy-loaded from `AvatarPresenter`, so it stays out of the main bundle.
-- `src/shared/gameCatalog.tsx` defines every game's id, route, home-screen card, and settings.
+| Build a word from syllables | Record familiar encouragement |
+| --- | --- |
+| <img src="docs/images/syllable-assembly.png" alt="Syllable assembly game with the first syllable of voda placed and the remaining tile ready to tap" width="300"> | <img src="docs/images/parent-recordings.png" alt="Parent content screen with praise phrases and playback and microphone controls" width="300"> |
 
-## UI Component Library
+Screenshots show the Slovak UI. [Capture provenance](docs/images/manifest.json) records the source revision, build mode, seed, and viewport for each image.
 
-Reusable UI primitives live in `src/shared/ui/`. They standardize the current app shell, top bars, buttons, cards, selectable tiles, form controls, overlays, and game counters.
+## What the app offers
 
-The hidden `/ui-kit` route shows the component inventory with real app labels and representative states for UX review. It is not linked from the child-facing home screen.
+- **Eleven games** covering letters, syllables, words, counting, quantity comparison, and addition. A game card starts play directly; instructions are spoken so children can participate before they can read.
+- **A parent's own voice:** record prompts and praise, add custom words, and adjust game settings behind an arithmetic parent gate. Custom recordings take priority over bundled audio and speech synthesis.
+- **Local-first family content:** words and settings use local storage; recordings use IndexedDB. Export and merge-restore backups to move them between devices, without accounts or automatic cloud sync.
+- **An installable PWA:** core games work offline after caching. The optional 3D bear has a bundled still for reduced motion, offline use, or unavailable rendering.
+- **Printable worksheets:** generate A4 activities from six games, using the same settings and content rules as on screen; print them or download a PDF.
+- **Slovak and Czech:** switch language in the parent area, with first-run browser detection. Czech copy/content review and bundled recordings remain in progress; missing clips fall back to speech synthesis in the active language.
 
-When changing shared UI, keep three things aligned:
+<details>
+<summary>All eleven games</summary>
 
-- the primitive implementation in `src/shared/ui/`
-- the matching example or state on `/ui-kit`
-- this README and agent instructions if the usage contract changes
+| Game | Activity |
+| --- | --- |
+| Čítaj písmenká | Hear a letter and find its card. |
+| Čítaj slabiky | Hear a syllable and identify it. |
+| Čítaj slová | Match a syllabified word to a picture. |
+| Prvé písmenko | Choose the first letter of a spoken word. |
+| Skladaj slabiky | Arrange syllable tiles to build a word. |
+| Doplň slabiku | Choose the missing syllable. |
+| Doplň písmeno | Fill the missing letters in order. |
+| Čítaj čísla | Hear a number and find its numeral. |
+| Spočítaj predmety | Count objects and choose the number. |
+| Viac alebo Menej | Compare two quantities. |
+| Sčítaj | Add two groups of objects. |
 
-## Content Pipeline
+</details>
 
-- Slovak default words live in `src/shared/locales/sk.ts`.
-- Parents can add local custom words and praise entries from `/content`; those are stored per locale in local storage.
-- Parents can record local audio overrides for bundled content and custom entries; custom audio is stored locally in IndexedDB and played before bundled MP3/TTS fallback.
-- Syllable items are derived from ready word items in `src/shared/contentRegistry.ts`.
-- Audio validation lives in `tools/audio/check_audio.ts` and can be run with `npm run test:audio`; recording sessions are planned with `npm run audio:sessions` (see `docs/ff-launch.md`).
+## How I build it
 
-## PWA and Deployment
+**Mudrolíno is developed entirely with coding agents.** I direct the product, define design and quality constraints, and evaluate the resulting experience through testing and use. Agents implement the code and supporting tooling.
 
-- PWA metadata and service worker options live in `src/pwa/pwaConfig.ts` and `vite.config.ts`.
-- Generated app icons live under `public/pwa/`; regenerate them with `npm run pwa:icons`.
-- The home screen shows a floating install/offline/update prompt when the browser exposes a relevant PWA state.
-- Core app routes and audio needed for the current games are cached for offline use. The avatar GLBs and the lazy-loaded avatar renderer chunk are deliberately left out of the precache, so the avatar simply hides when it is unavailable offline.
-- Audio and avatar preloading strategy as the content library grows remains a later performance task.
-- The deployed friends-first build has Web3Forms feedback submissions verified.
+As features accumulated, the controls and implementation became inconsistent. I pushed for shared components and a consistent design system, kept accounts in the backlog to make the initial scope achievable, and introduced automated quality checks to support continued development.
 
-## Development
+| Decision | What it means in this project |
+| --- | --- |
+| Reuse controls across games | Shared UI primitives, a common game shell, and a development component gallery keep styling, interaction, and accessibility behavior aligned. |
+| Keep the first version local-first | No account setup or application backend for family content; explicit backups cover transfers while automatic sync remains future work. |
+| Check behavior before accepting changes | Unit tests cover session/audio/data rules; browser profiles cover interaction, layout, accessibility, persistence, and offline behavior. |
+| Evaluate generated 3D assets in the app | Meshy supplied the accepted bear model and rig; unsuitable stock motion was replaced with Blender-authored animation. The renderer stays lazy and optional. |
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the dev server on port `3000`:
-   ```bash
-   npm run dev
-   ```
-3. Run the typecheck + ESLint combo:
-   ```bash
-   npm run lint
-   ```
-4. Build for production:
-   ```bash
-   npm run build
-   ```
+The [engineering case study](docs/engineering-decisions.md) explains the tradeoffs, rejected approaches, and links to implementation and tests.
 
-## Contributor Notes
+## Stack and code map
 
-- `npm run dev` binds to `0.0.0.0`, so the app is reachable on the local network.
-- `npm run lint` requires `node_modules` to exist because `typescript` and `eslint` are local dependencies.
-- If you edit default words, update `src/shared/locales/sk.ts` directly and run the app/audio checks.
-- If you add, remove, or rename audio files, run `npm run test:audio` to catch missing or orphaned assets.
-- `npm run test:e2e` normally uses Playwright's managed browser. In a sandbox that pre-installs one under `PLAYWRIGHT_BROWSERS_PATH` and blocks browser downloads, it falls back to that browser automatically; `PLAYWRIGHT_CHROMIUM_EXECUTABLE` forces a specific binary.
-- The app is currently Slovak-only.
+React 19 · TypeScript · Vite · Tailwind CSS v4 · Radix UI · Motion · React Router · Three.js / React Three Fiber · Vitest · Playwright / axe-core · vite-plugin-pwa
+
+| Area | Entry point |
+| --- | --- |
+| Routes and parent area | [`src/App.tsx`](src/App.tsx) |
+| Game registration and shared grid-game loop | [`gameCatalog.tsx`](src/shared/gameCatalog.tsx), [`FindItGame.tsx`](src/shared/components/FindItGame.tsx) |
+| Session lifecycle and timing | [`gameSessionController.ts`](src/shared/game/gameSessionController.ts) |
+| Shared controls and component gallery | [`src/shared/ui/`](src/shared/ui/), [`src/shared/game/`](src/shared/game/) |
+| Localized content and audio playback | [`contentRegistry.ts`](src/shared/contentRegistry.ts), [`audioManager.ts`](src/shared/services/audioManager.ts) |
+| Backup and merge rules | [`src/shared/services/userData/`](src/shared/services/userData/) |
+| Companion and lazy 3D renderer | [`src/avatar/`](src/avatar/) |
+| Worksheets and PWA configuration | [`src/worksheets/`](src/worksheets/), [`pwaConfig.ts`](src/pwa/pwaConfig.ts) |
+
+## Run locally
+
+Use Node.js **22 (22.12+)**, **24**, or **26+** and npm.
+
+```bash
+npm ci
+npm run dev
+```
+
+Open [localhost:3000](http://localhost:3000). The dev server binds to `0.0.0.0`, so it is also reachable on the local network. No credentials are needed to play the core games.
+
+Optional feedback and production monitoring settings are documented in [`.env.example`](.env.example). The published bear loads from Vercel Blob; editable 3D sources are stored separately in private R2 and are only needed for asset authoring. See the [avatar workflow](docs/avatar-workflow.md).
+
+For browser checks, install the matching browsers once after `npm ci` or a Playwright upgrade:
+
+```bash
+npm run setup:browsers
+```
+
+## Verification
+
+| Command | Scope |
+| --- | --- |
+| `npm run lint` | TypeScript checks and ESLint. |
+| `npm run test:unit` | Behavioral unit tests for sessions, audio, data, policies, and tooling. |
+| `npm run verify:edit` | Lint, unit, pure checks, and audio inventory; selects browser suites from changed files. |
+| `npm run verify:integration` | Functional browser contracts, representative geometry, development lifecycle, and production build/bundle checks. |
+| `npm run verify:release` | Integration plus the full viewport matrix, WebKit, real media, offline/production checks, and strict audio inventory. |
+| `npm run build` | Production output in `dist`; test builds use `dist-e2e`. |
+
+**Current release limitation:** bundled recordings are still pending. Development accepts only the declared omissions and uses TTS fallback; strict audio/release verification remains failing until every recording is present. Earlier releases have explicit, recorded exceptions. A passing development profile does not establish release readiness.
+
+Verification reports and traces stay under ignored artifact directories. Screenshot capture uses a seed and produces originals, review copies up to 320px wide, and a manifest:
+
+```bash
+# Against a running test-build preview:
+npm run shots -- --base=http://127.0.0.1:4173 --seed=42 --scene=assembly-placed --viewport=phonePortrait
+```
+
+## Next experiments
+
+The bear is a working proof of concept for learning the 3D model and animation pipeline. The longer-term hypothesis is a tutor with a parent's face and dress-up interactions. Parent avatars, wardrobe selection, rewards, and possible paid customization remain future work.
+
+See the [roadmap](ROADMAP.md) for current priorities and decision history, the [engineering case study](docs/engineering-decisions.md) for the reasoning behind the implementation, and [AGENTS.md](AGENTS.md) for contribution and verification conventions. When changing shared controls, update their `/ui-kit` examples too; that gallery is available in development and test builds.

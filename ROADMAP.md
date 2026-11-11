@@ -239,6 +239,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 
 > Open decisions: domain, landing page vs. app-at-root, and analytics. Installable PWA support is implemented for the current app.
 
+- [x] Refresh the repository presentation (2026-11-11): family motivation, live demo, three current app screenshots with capture provenance, accurate agent/human attribution, local setup and verification guidance, and a linked engineering case study covering shared controls, MVP scope, automated checks and the 3D experiment. Parent avatars, wardrobe interactions and possible paid customization remain future hypotheses.
 - [ ] Synthesize friend feedback into launch blockers vs. later improvements
 - [ ] Decide on domain and configure DNS (pulled into F&F P0, 1.0: the URL must not change after sharing)
 - [ ] Configure production static hosting if the friends-first deployment is not the final host
@@ -454,6 +455,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-11-11 | Present Mudrolíno through product ownership, shared-component discipline, MVP scope and verification, with explicit coding-agent implementation attribution. | The user approved the repository positioning after an interview. Personal family use motivates the product without claiming measured educational outcomes; the bear is a working 3D proof of concept, and parent-face avatars, dress-up interactions and monetization stay clearly separate from shipped features. |
 | 2026-11-11 | Release Bear Guide Phase A with the approved celebration-v7 asset and the existing TTS fallback despite 240 pending recordings. | The user explicitly approved v7 publication and a recording exception for this release only, after accepting focused verification for the development lifecycle fix. Strict audio remains failing and the general no-pending-recordings release rule remains in force for subsequent releases. |
 | 2026-11-11 | Initialize the companion WebGL root in a passive effect and keep a dedicated development-server browser check. | StrictMode can replay layout effects after a queued microtask has created a context; cleanup loses that context and the reused canvas then fails shader precision queries. Passive effect replay completes before the initialization microtask. Built bundles omit this development lifecycle, so their passing browser gates did not catch it. |
 | 2026-11-11 | Skip optional companion model and scene requests when the browser reports offline, and allow preparation to retry after reconnection. | The offline shell already precaches the bear still. Avoiding doomed optional requests preserves clean offline play; actual fetch, parse, and renderer failures remain terminal for the session. Unit coverage and the 8-case production/offline browser check prove the fallback. |

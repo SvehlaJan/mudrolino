@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "tool": "tools/screenshots/capture.mjs",
+  "note": "Original screenshots, captured in Chromium with reduced motion and reviewed using copies no wider than 320px. Test builds silence media and expose test-only interaction helpers. Home uses the production build and its reduced-motion bear still. No personal recordings or family data are included.",
+  "screenshots": [
+    {
+      "file": "home.png",
+      "sha256": "202f7574410e032a2e9ff426f634734de9dba98ee4111a8b1a437c2ef16625fa",
+      "bytes": 119210,
+      "width": 1280,
+      "height": 900,
+      "capturedAt": "2026-11-11T20:07:06.055Z",
+      "scene": "home",
+      "viewport": "desktop",
+      "seed": 42,
+      "reducedMotion": "reduce",
+      "commit": "0351e002d994a916e5db457899b555a2a6d1582d",
+      "fingerprint": "614ab7a8525e2835c5658eb2cfae4cc64c77d334f9aef78ecc8d8e2202707482",
+      "build": {
+        "mode": "production",
+        "commit": "0351e002d994a916e5db457899b555a2a6d1582d",
+        "fingerprint": "614ab7a8525e2835c5658eb2cfae4cc64c77d334f9aef78ecc8d8e2202707482"
+      },
+      "consoleErrors": [],
+      "failedSameOriginRequests": [],
+      "captureManifest": "artifacts/verification/readme-screenshots-2026-11-11-production-v1/manifest.json",
+      "captureCommand": "npm run shots -- --base=http://127.0.0.1:4183 --seed=42 --scene=home --viewport=desktop --output=<new-directory>"
+    },
+    {
+      "file": "syllable-assembly.png",
+      "sha256": "9a1fd58bb7a153b9ab986b7d49f92bd131f84d042d5a42b14ced6e1b50102da6",
+      "bytes": 35016,
+      "width": 390,
+      "height": 844,
+      "capturedAt": "2026-11-11T20:00:21.908Z",
+      "scene": "assembly-placed",
+      "viewport": "phonePortrait",
+      "seed": 42,
+      "reducedMotion": "reduce",
+      "commit": "0351e002d994a916e5db457899b555a2a6d1582d",
+      "fingerprint": "614ab7a8525e2835c5658eb2cfae4cc64c77d334f9aef78ecc8d8e2202707482",
+      "build": {
+        "mode": "test",
+        "commit": "0351e002d994a916e5db457899b555a2a6d1582d",
+        "fingerprint": "94f46ad81bbfb19625a92557d32758ac415f3f800d293879e3bdf5f80f5741ee"
+      },
+      "consoleErrors": [],
+      "failedSameOriginRequests": [],
+      "captureManifest": "artifacts/verification/readme-screenshots-2026-11-11-v1/manifest.json",
+      "captureCommand": "npm run shots -- --base=http://127.0.0.1:4173 --seed=42 --scene=assembly-placed --viewport=phonePortrait --output=<new-directory>"
+    },
+    {
+      "file": "parent-recordings.png",
+      "sha256": "08bbc7fd492efaa3527103d3538902e9f93473e2adc3547fec405d8a184f7038",
+      "bytes": 57538,
+      "width": 390,
+      "height": 844,
+      "capturedAt": "2026-11-11T20:00:21.908Z",
+      "scene": "content-praise",
+      "viewport": "phonePortrait",
+      "seed": 42,
+      "reducedMotion": "reduce",
+      "commit": "0351e002d994a916e5db457899b555a2a6d1582d",
+      "fingerprint": "614ab7a8525e2835c5658eb2cfae4cc64c77d334f9aef78ecc8d8e2202707482",
+      "build": {
+        "mode": "test",
+        "commit": "0351e002d994a916e5db457899b555a2a6d1582d",
+        "fingerprint": "94f46ad81bbfb19625a92557d32758ac415f3f800d293879e3bdf5f80f5741ee"
+      },
+      "consoleErrors": [],
+      "failedSameOriginRequests": [],
+      "captureManifest": "artifacts/verification/readme-screenshots-2026-11-11-v1/manifest.json",
+      "captureCommand": "npm run shots -- --base=http://127.0.0.1:4173 --seed=42 --scene=content-praise --viewport=phonePortrait --output=<new-directory>"
+    }
+  ]
+}
