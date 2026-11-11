@@ -23,6 +23,20 @@ describe('shared optional companion preparation', () => {
     expect(store.getModelBytes(url)).toBe(store.getModelBytes(url));
     expect(fetchModel).toHaveBeenCalledTimes(1);
   });
+
+  it('releases raw model bytes after parsing while preserving ready status', async () => {
+    const fetchModel = vi.fn(async () => glb());
+    const store = createCompanionResources({ fetchModel, loadScene: async () => ({}) });
+    await store.prepare(url);
+    expect(store.getModelBytes(url)).not.toBeNull();
+
+    store.releaseModelBytes(url);
+
+    expect(store.getModelBytes(url)).toBeNull();
+    expect(store.getSnapshot(url)).toEqual({ status: 'ready', modelUrl: url });
+    expect((await store.prepare(url)).status).toBe('ready');
+    expect(fetchModel).toHaveBeenCalledTimes(1);
+  });
   it('does no work for null and returns one stable disabled snapshot', async () => {
     const fetchModel = vi.fn(async () => glb());
     const loadScene = vi.fn(async () => ({}));

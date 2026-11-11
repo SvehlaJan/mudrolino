@@ -19,6 +19,7 @@ export interface CompanionResourceStore {
   fail(url: string): void;
   /** Validated bytes retained for the lazy parser; this never starts work. */
   getModelBytes(url: string): ArrayBuffer | null;
+  releaseModelBytes(url: string): void;
 }
 
 interface ResourceEntry {
@@ -51,6 +52,10 @@ export function createCompanionResources(dependencies: CompanionPreparationDepen
 
   return {
     getModelBytes: url => entries.get(url)?.bytes ?? null,
+    releaseModelBytes(url) {
+      const entry = entries.get(url);
+      if (entry) entry.bytes = null;
+    },
     getSnapshot: url => url === null ? disabled : entryFor(url).snapshot,
     subscribe(listener) {
       listeners.add(listener);

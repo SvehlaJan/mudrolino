@@ -11,7 +11,7 @@ import type { AvatarPlaybackOptions, AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
 import { inspectionCameraPose, type InspectionBounds } from './inspectionCamera';
 
-interface AvatarSceneProps {
+export interface AvatarSceneProps {
   className?: string;
   modelUrl: string;
   animationUrl?: string;
@@ -27,6 +27,7 @@ interface AvatarSceneProps {
   onError?: (error: unknown) => void;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
+  onPlaybackComplete?: () => void;
   onSceneData?: (data: AvatarSceneData) => void;
   onRegisterCameraReset?: (reset: () => void) => void;
 }
@@ -94,6 +95,7 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
     let active = true;
     let renderer: WebGLRenderer | undefined;
     let root: ReturnType<typeof createRoot> | undefined;
+    let store: ReturnType<ReturnType<typeof createRoot>['render']> | undefined;
     let observer: ResizeObserver | undefined;
     let resizeFrame: number | undefined;
     let lastSize: { width: number; height: number } | undefined;
@@ -120,17 +122,18 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
         try { render(scene, camera); } catch (error) { fail(error); }
       };
       root = createRoot(canvas);
-      const configure = () => {
+      const configure = (): Promise<boolean> => {
         // Fiber writes pixel styles onto its canvas. Observe the fixed wrapper instead,
         // using layout dimensions so ancestor entrance transforms cannot feed back.
         const { clientWidth: width, clientHeight: height } = container;
-        if (!width || !height || (lastSize?.width === width && lastSize.height === height)) return Promise.resolve();
+        if (!width || !height || (lastSize?.width === width && lastSize.height === height)) return Promise.resolve(false);
         lastSize = { width, height };
         const { top, left } = container.getBoundingClientRect();
         const initialPose = inspectionCameraPose(undefined, width / height, undefined, cameraDistance);
         return root!.configure({
           gl: renderer,
           flat: true,
+          frameloop: store?.getState().frameloop ?? 'always',
           camera: { position: initialPose.position, fov: 34 },
           dpr: [1, 1.5],
           size: { width, height, top, left },
@@ -143,18 +146,25 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
               void Promise.resolve().then(() => root?.unmount());
             }
           },
-        });
+        }).then(() => true);
       };
       await configure();
       if (!active) return;
       rootRef.current = root;
-      const store = root.render(contentRef.current);
-      stopRendering = () => { store.getState().setFrameloop('never'); };
+      store = root.render(contentRef.current);
+      stopRendering = () => { store?.getState().setFrameloop('never'); };
       observer = new ResizeObserver(() => {
         if (!active || resizeFrame !== undefined) return;
         resizeFrame = requestAnimationFrame(() => {
           resizeFrame = undefined;
-          if (active) void configure().catch(fail);
+          if (!active) return;
+          void configure().then(resized => {
+            if (!active || !resized || !store) return;
+            const state = store.getState();
+            if (state.frameloop === 'never') {
+              renderer?.render(state.scene, state.camera);
+            }
+          }).catch(fail);
         });
       });
       observer.observe(container);
@@ -220,6 +230,7 @@ function ReadyAvatarScene({
   onError,
   onAnimationsChange,
   onModelReady,
+  onPlaybackComplete,
   onSceneData,
   onRegisterCameraReset,
 }: AvatarSceneProps & { preparedModel?: GLTF }) {
@@ -282,6 +293,7 @@ function ReadyAvatarScene({
           onError={onError ? reportError : undefined}
           onAnimationsChange={onAnimationsChange}
           onModelReady={onModelReady}
+          onPlaybackComplete={onPlaybackComplete}
           onSceneReady={isInspection || showSkeleton ? setAvatarScene : undefined}
           onSceneData={onSceneData}
         />

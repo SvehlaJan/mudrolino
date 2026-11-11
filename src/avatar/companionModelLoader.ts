@@ -34,8 +34,12 @@ export function createCompanionModelLoader(load: (url: string) => Promise<GLTF>)
 export const loadCompanionModel = createCompanionModelLoader(url => {
   const bytes = companionResources.getModelBytes(url);
   if (!bytes) return Promise.reject(new Error('Companion model bytes are not prepared'));
-  const basePath = new URL('.', new URL(url, window.location.href)).href;
-  return new GLTFLoader().parseAsync(bytes, basePath);
+  const origin = typeof window === 'undefined' ? 'http://localhost/' : window.location.href;
+  const basePath = new URL('.', new URL(url, origin)).href;
+  return new GLTFLoader().parseAsync(bytes, basePath).then(gltf => {
+    companionResources.releaseModelBytes(url);
+    return gltf;
+  });
 });
 
 registerCompanionModelPrewarmer(url => {

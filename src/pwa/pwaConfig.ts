@@ -165,6 +165,7 @@ export const pwaPluginOptions: Partial<VitePWAOptions> = {
   workbox: {
     globPatterns: [
       '**/*.{js,css,html,webmanifest}',
+      'assets/bear-still-*.png',
       'audio/**/*.{mp3,ogg,wav}',
       'fonts/**/*.woff2',
       'pwa/**/*.svg',
