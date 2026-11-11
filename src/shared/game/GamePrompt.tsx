@@ -15,10 +15,11 @@ export interface GamePromptProps {
   instruction: string;
   visual?: React.ReactNode;
   replaying?: boolean;
+  nudgeReplay?: boolean;
   onReplay(): void;
 }
 
-export function GamePrompt({ instruction, visual, replaying = false, onReplay }: GamePromptProps) {
+export function GamePrompt({ instruction, visual, replaying = false, nudgeReplay = false, onReplay }: GamePromptProps) {
   const prefersReducedMotion = useReducedMotion();
   const locale = useContentLocale();
 
@@ -37,6 +38,10 @@ export function GamePrompt({ instruction, visual, replaying = false, onReplay }:
           tone="neutral"
           icon={<Volume2 aria-hidden="true" size={22} />}
           onClick={onReplay}
+          className={cn(
+            'group-data-[idle-nudge=true]:ring-4 group-data-[idle-nudge=true]:ring-amber-400/70 motion-safe:group-data-[idle-nudge=true]:animate-pulse',
+            nudgeReplay && 'ring-4 ring-amber-400/70 motion-safe:animate-pulse',
+          )}
         >
           {getUiCopy(locale, 'game.replayPrompt')}
         </Button>

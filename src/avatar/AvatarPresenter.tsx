@@ -34,6 +34,7 @@ interface AvatarPresenterProps {
   assetStatusOverride?: AssetStatus;
   onAnimationsChange?: (names: string[]) => void;
   onModelReady?: () => void;
+  onPlaybackComplete?: () => void;
   onSceneData?: (data: AvatarSceneData) => void;
   onRegisterCameraReset?: (reset: () => void) => void;
 }
@@ -58,6 +59,7 @@ export function AvatarPresenter({
   assetStatusOverride,
   onAnimationsChange,
   onModelReady,
+  onPlaybackComplete,
   onSceneData,
   onRegisterCameraReset,
 }: AvatarPresenterProps) {
@@ -83,6 +85,7 @@ export function AvatarPresenter({
       onError={onError}
         onAnimationsChange={onAnimationsChange}
         onModelReady={onModelReady}
+        onPlaybackComplete={onPlaybackComplete}
         onSceneData={onSceneData}
         onRegisterCameraReset={onRegisterCameraReset}
       />
@@ -109,6 +112,7 @@ export function AvatarPresenter({
       onError={onError}
       onAnimationsChange={onAnimationsChange}
       onModelReady={onModelReady}
+      onPlaybackComplete={onPlaybackComplete}
       onSceneData={onSceneData}
       onRegisterCameraReset={onRegisterCameraReset}
     />
@@ -146,6 +150,7 @@ function AvatarPresenterContent({
   onError,
   onAnimationsChange,
   onModelReady,
+  onPlaybackComplete,
   onSceneData,
   onRegisterCameraReset,
 }: AvatarPresenterContentProps) {
@@ -173,6 +178,7 @@ function AvatarPresenterContent({
             onError={onError}
             onAnimationsChange={onAnimationsChange}
             onModelReady={onModelReady}
+            onPlaybackComplete={onPlaybackComplete}
             onSceneData={onSceneData}
             onRegisterCameraReset={onRegisterCameraReset}
           />

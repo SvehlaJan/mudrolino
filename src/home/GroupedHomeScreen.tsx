@@ -15,6 +15,7 @@ import { translate } from '../shared/i18n';
 import { AppScreen } from '../shared/ui/AppScreen';
 import { IconButton } from '../shared/ui/IconButton';
 import { PwaHomeControl } from '../pwa/PwaHomeControl';
+import { HomeCompanion } from '../avatar/HomeCompanion';
 import { GameCard } from './GameCard';
 
 export interface GroupedHomeScreenProps {
@@ -69,15 +70,17 @@ export function GroupedHomeScreen({
       className="min-h-[100svh] p-3 pb-24 sm:p-6 sm:pb-32 lg:p-8"
     >
       {/* Header */}
-      <div className="flex justify-between items-start gap-4 mb-6 sm:mb-8 lg:mb-10 shrink-0">
+      <div className="flex justify-between items-start gap-3 sm:gap-4 [@media(max-width:380px)]:gap-2 mb-6 sm:mb-8 lg:mb-10 shrink-0">
         <div className="flex min-w-0 flex-1 flex-col gap-1 sm:gap-2">
-          <h1 className="text-[clamp(2.4rem,5.5vw,4.5rem)] font-black text-text-main tracking-tight leading-none">
+          <h1 className="text-[clamp(2.4rem,5.5vw,4.5rem)] [@media(max-width:380px)]:text-[1.75rem] font-black text-text-main tracking-tight leading-none">
             {getUiCopy(locale, 'home.title')}
           </h1>
           <p className="text-[clamp(1rem,2vw,1.4rem)] font-medium text-text-muted leading-tight">
             {getUiCopy(locale, 'home.subtitle')}
           </p>
         </div>
+
+        <HomeCompanion locale={locale} />
 
         <div className="flex shrink-0 flex-col items-end gap-2">
           <IconButton

@@ -6,6 +6,13 @@
 import React from 'react';
 import { useReducedMotion } from 'motion/react';
 import { getCompanionConfig } from '../../avatar/companionConfig';
+import {
+  CompanionNudge,
+  IDLE_NUDGE_DELAY_MS,
+  selectIdleNudgeClip,
+  shouldArmIdleNudge,
+  type CompanionNudgeEvent,
+} from '../../avatar/CompanionNudge';
 import { LearningCompanion } from '../../avatar/LearningCompanion';
 import { useCompanionCelebration } from '../../avatar/useCompanionCelebration';
 import { useCompanionResources } from '../../avatar/useCompanionResources';
@@ -102,13 +109,68 @@ export function GameShell({
   const isFinalRound = state.roundsPlayed >= state.maxRounds;
   const showCompletion = Boolean(completion && state.phase === 'session-complete');
   const transientFeedback = Boolean(feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !showCompletion);
-  const showCompanionInOverlay = Boolean(companionConfig && (showCompletion || feedback?.kind === 'success'));
+  const showCompanionInOverlay = Boolean(companionConfig && (showCompletion || feedback?.kind === 'success' || feedback?.kind === 'failure'));
   const contentLocked =
     state.paused ||
     transientFeedback ||
     state.feedback !== null ||
     state.phase === 'recoverable-error' ||
     isFinalRound;
+
+  const promptReplaying =
+    React.isValidElement<{ replaying?: boolean }>(prompt) && Boolean(prompt.props.replaying);
+  const canArmIdleNudge =
+    shouldArmIdleNudge(state, contentLocked, Boolean(companionConfig)) && !promptReplaying;
+  const idleNudgeScopeKey = `${state.roundsPlayed}:${state.wrongAttempts}:${promptReplaying ? 1 : 0}`;
+  const [idleNudge, setIdleNudge] = React.useState<{
+    scopeKey: string;
+    event: CompanionNudgeEvent;
+  } | null>(null);
+  const nudgeSeqRef = React.useRef(0);
+
+  React.useEffect(() => {
+    if (!canArmIdleNudge) {
+      const clearId = window.setTimeout(() => {
+        setIdleNudge(current => (current !== null ? null : current));
+      }, 0);
+      return () => window.clearTimeout(clearId);
+    }
+
+    let timeoutId: number | undefined;
+    const armTimer = () => {
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
+        const nudgeIndex = nudgeSeqRef.current;
+        nudgeSeqRef.current += 1;
+        setIdleNudge({
+          scopeKey: idleNudgeScopeKey,
+          event: {
+            eventKey: `nudge:${nudgeSeqRef.current}`,
+            animationName: selectIdleNudgeClip(state.roundsPlayed, nudgeIndex),
+            startedAtMs: performance.now(),
+          },
+        });
+      }, IDLE_NUDGE_DELAY_MS);
+    };
+
+    const handleUserActivity = () => {
+      setIdleNudge(current => (current !== null ? null : current));
+      armTimer();
+    };
+
+    armTimer();
+    window.addEventListener('pointerdown', handleUserActivity, { capture: true, passive: true });
+    window.addEventListener('keydown', handleUserActivity, { capture: true, passive: true });
+
+    return () => {
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+      window.removeEventListener('pointerdown', handleUserActivity, { capture: true });
+      window.removeEventListener('keydown', handleUserActivity, { capture: true });
+    };
+  }, [canArmIdleNudge, idleNudgeScopeKey, state.roundsPlayed]);
+
+  const activeIdleNudge =
+    canArmIdleNudge && idleNudge?.scopeKey === idleNudgeScopeKey ? idleNudge.event : null;
 
   // Preserve the polite announcement even when movement has already consumed the cooldown.
   const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly' || (state.phase === 'awaiting-answer' && state.wrongAttempts > 0)) && !isFinalRound && !transientFeedback;
@@ -136,6 +198,7 @@ export function GameShell({
 
       <div
         data-testid="game-interactive-content"
+        data-idle-nudge={activeIdleNudge ? 'true' : undefined}
         inert={contentLocked || undefined}
         aria-hidden={contentLocked || undefined}
         // The prompt/tray gap was the one spacing token in this column with no constrained-size
@@ -143,7 +206,7 @@ export function GameShell({
         // strip or a narrow phone was paying full price for it while the tray was starved —
         // reclaim it at the same two breakpoints the rest of the shell already uses.
         className={cn(
-          'flex min-h-0 flex-1 flex-col gap-3 sm:gap-4 [@media(max-width:380px)]:gap-1.5 [@media(max-height:480px)]:gap-1.5',
+          'group flex min-h-0 flex-1 flex-col gap-3 sm:gap-4 [@media(max-width:380px)]:gap-1.5 [@media(max-height:480px)]:gap-1.5',
           contentLocked && 'pointer-events-none',
         )}
       >
@@ -158,11 +221,19 @@ export function GameShell({
         />
       )}
 
+      <CompanionNudge
+        event={activeIdleNudge}
+        config={companionConfig}
+        resource={companionResource}
+        reducedMotion={reducedMotion}
+        stillUrl={bearStill}
+      />
+
       {(transientFeedback || showCompletion) && (
         <OverlayFrame
           show
           tone={showCompletion || feedback?.kind === 'success' ? 'success' : 'failure'}
-          confetti={showCompletion}
+          confetti={showCompletion && (completion?.correctRounds ?? state.correctRounds) > 0}
           focusOnShow={showCompletion}
           onBackdropClick={transientFeedback ? feedback?.onContinue : undefined}
           panelClassName={showCompanionInOverlay ? companionPanelClass : 'bg-white shadow-block'}

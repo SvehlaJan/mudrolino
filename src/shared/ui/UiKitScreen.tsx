@@ -218,7 +218,7 @@ function UiKitOverlayCompletionDemo() {
 
 const GAME_SHELL_DEMO_STATES = [
   'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration', 'answer-controls', 'geometry-stress',
-  'companion-success', 'companion-final-correct', 'companion-final-failure', 'companion-expired', 'companion-reduced-motion',
+  'companion-success', 'companion-failure', 'companion-final-correct', 'companion-final-failure', 'companion-zero-score', 'companion-expired', 'companion-reduced-motion',
 ] as const;
 
 type GameShellDemoState = typeof GAME_SHELL_DEMO_STATES[number];
@@ -243,7 +243,9 @@ function getGameShellDemoState(example: GameShellDemoState): GameState {
     case 'companion-reduced-motion': return { ...base, phase: 'answered-correctly', roundsPlayed: 1, correctRounds: 1, feedback: 'success' };
     case 'companion-final-correct': return { ...base, phase: 'session-complete', roundsPlayed: 5, correctRounds: 5, feedback: 'success' };
     case 'companion-final-failure': return { ...base, phase: 'session-complete', roundsPlayed: 5, correctRounds: 4, feedback: 'failure' };
-    case 'failure': return { ...base, phase: 'answered-incorrectly', roundsPlayed: 1, feedback: 'failure' };
+    case 'companion-zero-score': return { ...base, phase: 'session-complete', roundsPlayed: 5, correctRounds: 0, feedback: 'failure' };
+    case 'failure':
+    case 'companion-failure': return { ...base, phase: 'answered-incorrectly', roundsPlayed: 1, feedback: 'failure' };
     case 'paused': return { ...base, paused: true, resumePhase: 'awaiting-answer' };
     case 'error': return { ...base, phase: 'recoverable-error', errorMessage: 'Zvuk sa nepodarilo prehrať.' };
     case 'completion': return { ...base, phase: 'session-complete', roundsPlayed: 5, correctRounds: 5, totalTaps: 6 };
@@ -266,7 +268,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
     ? { kind: 'retry' as const, title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
     : ['success', 'companion-success', 'companion-expired', 'companion-reduced-motion'].includes(stateName)
     ? { kind: 'success' as const, title: getUiCopy(locale, 'game.successTitle'), onContinue: () => undefined }
-    : stateName === 'failure'
+    : ['failure', 'companion-failure'].includes(stateName)
     ? { kind: 'failure' as const, title: getUiCopy(locale, 'game.failureTitle'), detail: getUiCopy(locale, 'game.failure.detail'), onContinue: () => undefined }
     : undefined;
   const visual = stateName === 'visual' ? <span className="text-6xl" aria-label="Auto">🚗</span> : undefined;
@@ -285,7 +287,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
         feedback={feedback}
         completion={{
           praise: { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' },
-          correctRounds: 5, totalTaps: 6, maxRounds: 5, onPlayAgain: () => undefined, onHome: () => undefined,
+          correctRounds: state.phase === 'session-complete' ? state.correctRounds : 5, totalTaps: 6, maxRounds: 5, onPlayAgain: () => undefined, onHome: () => undefined,
         }}
         onRetryError={() => undefined}
       >
@@ -1204,8 +1206,10 @@ export function UiKitScreen() {
               ['success', 'Úspech'], ['failure', 'Neúspech'], ['paused', 'Pozastavené'], ['error', 'Chyba'],
               ['completion', 'Dokončenie'], ['reduced-motion', 'Obmedzený pohyb'], ['focus-restoration', 'Obnovenie fokusu'],
               ['companion-success', `🐻 ${getUiCopy(locale, 'game.successTitle')}`],
+              ['companion-failure', `🐻 ${getUiCopy(locale, 'game.failureTitle')}`],
               ['companion-final-correct', `🐻 ${getUiCopy(locale, 'game.completionTitle')} ✓`],
               ['companion-final-failure', `🐻 ${getUiCopy(locale, 'game.completionTitle')} ×`],
+              ['companion-zero-score', `🐻 ${getUiCopy(locale, 'game.completionTitle')} 0/5`],
               ['companion-expired', `🐻 ${getUiCopy(locale, 'game.successTitle')} ⏱`],
               ['companion-reduced-motion', `🐻 ${getUiCopy(locale, 'game.successTitle')} ▣`],
             ].map(([state, label]) => (

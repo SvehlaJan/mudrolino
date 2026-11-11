@@ -294,7 +294,7 @@ function LoadedAvatarModel({
       const dur = Math.max(1e-6, action.getClip().duration);
       const finishedOnce = playbackMode === 'once' && (action.paused || action.time >= dur - 1e-6);
       const norm = ((action.time % dur) + dur) % dur / dur;
-      syncCompanionAccessories(scene, finishedOnce ? null : action.getClip().name, norm);
+      syncCompanionAccessories(scene, finishedOnce ? null : action.getClip().name, norm, finishedOnce ? 0 : action.getMixer().time);
       if (!isInspection && (finishedOnce || playbackMode === 'still')) {
         action.paused = true;
         if (finishedOnce && !completionNotifiedRef.current) {

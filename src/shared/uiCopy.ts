@@ -10,6 +10,7 @@
 const SK_COPY = {
   'home.title': 'Mudrolíno',
   'home.subtitle': 'Vyber si hru a poďme na to!',
+  'home.companionGreet': 'Zamávaj medvedíkovi',
 
   'game.replayPrompt': 'Zopakovať zadanie',
   'game.promptSection': 'Zadanie',
@@ -115,6 +116,7 @@ export type UiCopyKey = keyof typeof SK_COPY;
 const CS_COPY: Record<UiCopyKey, string> = {
   'home.title': 'Mudrolíno',
   'home.subtitle': 'Vyber si hru a jdeme na to!',
+  'home.companionGreet': 'Zamávat medvídkovi',
 
   'game.replayPrompt': 'Zopakovat zadání',
   'game.promptSection': 'Zadání',
