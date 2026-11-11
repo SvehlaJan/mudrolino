@@ -70,6 +70,7 @@ if (selection.profile !== 'none') {
     if (selection.profile === 'release') run('release browser', local('playwright', 'test', '--config=e2e/playwright.release.config.ts', `--workers=${workers}`));
   } else gates.push({ name: 'browser', command: [], exitCode: 1, durationMs: 0, skipped: 'test build failed' });
   if (selection.profile === 'integration' || selection.profile === 'release') {
+    run('development browser', local('playwright', 'test', '--config=e2e/playwright.development.config.ts'));
     const productionBuilt = run('production build', npm('build'));
     if (productionBuilt) {
       run('production bundle', npm('verify:bundle'));

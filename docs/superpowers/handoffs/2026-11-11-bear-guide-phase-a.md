@@ -24,3 +24,11 @@ Strict release verification was not rerun; existing pending audio recordings rem
 The implementation plan explicitly requires user art approval of this exact v7 model before `publish_bear_companion.mjs --candidate=bear-v2`. Keep both verification summaries' `artReview.status` pending until that approval arrives. The public `src/avatar/companions/bear-v1.json` still selects `celebration-v6`. Blob publication and a production release are separate actions; no release branch update is part of this closeout.
 
 The pre-existing untracked B04, F02, and female catalog diagnostic files were preserved and excluded from the commit.
+
+## Development animation follow-up
+
+Live user review exposed a development-only failure after closeout: StrictMode replay cleaned up a WebGL context created from a layout-effect microtask, then initialization on the reused canvas received that lost context. Shader precision queries threw and the optional companion stayed on its fallback still. Moving initialization to a passive effect lets the replay finish before the creation microtask.
+
+The new `npm run test:e2e:dev` first failed on `still` instead of `rendered3D`. After the fix, both actual Vite-server checks pass: Home has changing canvas pixels through three tapped clips, and counting mounts a rendered celebration. These checks now run in integration/release profiles. The in-app browser was also confirmed to render 3D after reloading. The user-facing server on port 3000 now enables the existing local-v7 flag; publication is unchanged.
+
+Lint passes with its one known warning. A sandbox unit run passed 676 tests; the remaining catalog HTTP transport test was blocked by `listen EPERM` on loopback. Full integration has not rerun for this follow-up: automatic permission review timed out twice before the runner started. The user explicitly chose to keep the focused browser results instead of rerunning full verification; this follow-up is accepted with that limited verification scope. Focused proof and the animation video are under `artifacts/verification/bear-companion/live-animation-debug/`; development suite results are in `artifacts/verification/development-browser.json`.

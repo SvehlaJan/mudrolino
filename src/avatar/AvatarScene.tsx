@@ -88,7 +88,7 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
     rootRef.current?.render(contentRef.current);
   }, [children, onError]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const canvas = canvasRef.current;
     const container = canvas?.parentElement;
     if (!canvas || !container) return;
@@ -109,7 +109,9 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
       event.preventDefault();
       fail(new Error('Companion WebGL context lost'));
     };
-    // A cancelled mount (including StrictMode's first effect) creates no root or context.
+    // Passive effects finish StrictMode's setup/cleanup replay before this
+    // microtask. A layout effect can create a context before replay, lose it
+    // during cleanup, then receive that same lost context from the reused canvas.
     void Promise.resolve().then(async () => {
       if (!active) return;
       extend({ Group, HemisphereLight, DirectionalLight });

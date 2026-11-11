@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "build:e2e": "VITE_WEB3FORMS_KEY=e2e-placeholder vite build --mode test",
     "test:e2e": "npm run build:e2e && playwright test --config=e2e/playwright.config.ts",
+    "test:e2e:dev": "playwright test --config=e2e/playwright.development.config.ts",
     "test:e2e:production-guards": "npm run build && playwright test --config=e2e/playwright.production.config.ts e2e/production-guards.spec.ts",
     "verify:pure": "node tools/verification/pure.mjs",
     "test:e2e:release": "npm run build:e2e && playwright test --config=e2e/playwright.release.config.ts",
