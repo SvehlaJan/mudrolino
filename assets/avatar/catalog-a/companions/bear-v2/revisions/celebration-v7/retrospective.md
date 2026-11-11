@@ -1,6 +1,6 @@
 # Bear Guide Phase A — `celebration-v7` Rebuild & Payload Optimization (2026-11-11)
 
-Status: Technical gates passed (`runtime-report.json`, `native-runtime-parity.json`, `arm-clearance-audit.json`, `optimization-report.json`, `still-report.json`); wired to local companion fixture/server (`companionFixture.ts`, `localCompanionServer.ts`). Task 6 is complete: 581 integration browser cases, 8 production/offline cases, and 30 model views pass. Integration proof was reused after an identical-input/environment check on 2026-11-11; production/offline proof ran freshly. Explicit user art approval remains open before Vercel Blob publication. See `docs/superpowers/handoffs/2026-11-11-bear-guide-phase-a.md`.
+Status: Technical gates passed (`runtime-report.json`, `native-runtime-parity.json`, `arm-clearance-audit.json`, `optimization-report.json`, `still-report.json`); wired to local companion fixture/server (`companionFixture.ts`, `localCompanionServer.ts`). Task 6 is complete: 581 integration browser cases, 8 production/offline cases, and 30 model views pass. Integration proof was reused after an identical-input/environment check on 2026-11-11; production/offline proof ran freshly. The user approved the exact v7 model and publication on 2026-11-11; the immutable public Blob download matches the approved SHA-256. See `docs/superpowers/handoffs/2026-11-11-bear-guide-phase-a.md`.
 
 ## Summary of Changes
 

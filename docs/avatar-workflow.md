@@ -1,13 +1,13 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-11-10 (bear companion `celebration-v6` live on Vercel Blob; Bear Guide Phase A moment-based visual guide and `celebration-v7` optimization pipeline active; canonical human catalog rules below). This is the entry point for both Codex and Claude. Use
+Updated 2026-11-11 (user-approved `celebration-v7` published on Vercel Blob; Bear Guide Phase A release authorized; canonical human catalog rules below). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
 For the reusable reference-to-runtime process, read
 [3D authoring guidance](avatar-authoring.md). Current candidate history below
 does not replace its acceptance gates.
 
-## Bear learning companion — published `celebration-v6` & Phase A `celebration-v7` pipeline
+## Bear learning companion — published `celebration-v7` & Phase A pipeline
 
 The bear learning companion (`bear-v2` / runtime id `bear-v1`) is accepted, published on
 Vercel Blob (`mudrolino-public-assets`, `fra1`), and live in production across Home and all 11
@@ -21,14 +21,15 @@ mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`; Phase A desi
   (12-second in-game inactivity nudge). Once `'once'` or `'still'` playback finishes, the R3F
   frameloop pauses at `0 fps` (`setFrameloop('never')`) until a new clip, `eventKey`, or container
   resize wakes it.
-- **Currently published Blob GLB (`celebration-v6`)**:
-  `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb`,
-  SHA-256 `db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a`
-  (`3,552,892` bytes / `2,078,070` gzip bytes, under the `2,100,000` gzip budget), served from
-  `https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a.glb`
-  (native source `revisions/celebration-v6/celebration.blend`,
-  SHA-256 `20fb2aa84a168ef7560f0d6f20270067d392784fb695b3c4b3f74cf1339a2b20`, `17` clips,
-  `28.02 µm` 120Hz parity across `4,121` subframes).
+- **Currently published Blob GLB (`celebration-v7`)**:
+  `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb`,
+  SHA-256 `0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698`
+  (`1,190,036` bytes / `826,942` gzip bytes, under the `900,000` gzip target), served from
+  `https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698.glb`
+  (native source `revisions/celebration-v7/celebration.blend`,
+  SHA-256 `6e6059ab355653fae725aacf34d73a55d59641b6fc9de27500fe508d3e142b13`, `18` clips,
+  `27.799 µm` 120Hz parity across `4,722` subframes). Exact-model art and publication approved
+  by the user on 2026-11-11; public download bytes and hash verified by the publication tool.
 - **`celebration-v7` optimization & 18-clip suite (`<= 900 KB` gzip target)**:
   Built by `tools/blender/catalog/build_generated_bear_celebration.py` and post-processed by
   `tools/avatar/optimize_generated_bear.mjs` as a single skinned mesh (`Bear_fixed_outfit` on the
@@ -38,8 +39,8 @@ mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`; Phase A desi
   quantizing `WEIGHTS_0`), and deterministic static-track pruning (stripping constant `.scale`,
   non-`Hips` `.translation`, and constant identity `.quaternion` tracks on un-animated bones while
   retaining `<= 30 µm` 120Hz Blender ↔ Three.js parity and `0` new `arm-torso-leg` or `arm-head`
-  BVH contacts). Vercel Blob publication via `tools/avatar/publish_bear_companion.mjs` remains
-  gated on explicit user `<= 320 px` art review approval (`verification-summary.json`).
+  BVH contacts). Vercel Blob publication via `tools/avatar/publish_bear_companion.mjs` completed
+  after explicit user `<= 320 px` art review approval (`verification-summary.json`).
   - **18 character actions**: `celebrate` (`1.4s`), `wave`, `clap`, `jump`, `finale` (`2.8s`),
     `idle` (`2.8s` seamless harmonic breathing in `celebration-v7`; `1.4s` in `celebration-v6`),
     `idle_breathe` (`3.6s`, with runtime fallback to `idle` on `celebration-v6`), `search`,

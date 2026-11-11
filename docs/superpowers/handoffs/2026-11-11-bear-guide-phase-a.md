@@ -1,6 +1,6 @@
 # Bear Guide Phase A closeout — 2026-11-11
 
-Implementation and technical verification are complete on `feature/bear-guide-phase-a` in the primary checkout. Exact-model art approval and Vercel Blob publication remain pending.
+Implementation and technical verification are complete on `feature/bear-guide-phase-a` in the primary checkout. Exact-model art approval and Vercel Blob publication completed with explicit user approval on 2026-11-11.
 
 ## Delivered
 
@@ -19,9 +19,9 @@ Implementation and technical verification are complete on `feature/bear-guide-ph
 
 Strict release verification was not rerun; existing pending audio recordings remain. No Meshy credits were spent during closeout.
 
-## Remaining acceptance
+## Acceptance and publication
 
-The implementation plan explicitly requires user art approval of this exact v7 model before `publish_bear_companion.mjs --candidate=bear-v2`. Keep both verification summaries' `artReview.status` pending until that approval arrives. The public `src/avatar/companions/bear-v1.json` still selects `celebration-v6`. Blob publication and a production release are separate actions; no release branch update is part of this closeout.
+The user explicitly approved the exact v7 model and publication on 2026-11-11 after reviewing the local preview. Both verification summaries record approval for SHA-256 `0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698`. The publication tool uploaded immutable bytes, verified a credential-free public download, and updated `src/avatar/companions/bear-v1.json` to select v7. The user also authorized merging and deployment through `release`, with the existing TTS fallback despite 240 pending recordings for this release only. The strict audio gate remains red; full integration/release was not rerun, per the accepted focused-verification scope.
 
 The pre-existing untracked B04, F02, and female catalog diagnostic files were preserved and excluded from the commit.
 

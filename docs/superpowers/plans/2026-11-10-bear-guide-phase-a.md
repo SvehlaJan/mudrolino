@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Closeout (2026-11-11):** Tasks 1–6 implemented and committed on `feature/bear-guide-phase-a`. Existing integration proof was reused after the runner confirmed identical inputs/environment; the focused production/offline suite passed freshly (8/8). See `docs/superpowers/handoffs/2026-11-11-bear-guide-phase-a.md`. Exact-model art approval and Blob publication remain pending.
+**Closeout (2026-11-11):** Tasks 1–6 implemented and committed on `feature/bear-guide-phase-a`. Existing integration proof was reused after the runner confirmed identical inputs/environment; the focused production/offline suite passed freshly (8/8). See `docs/superpowers/handoffs/2026-11-11-bear-guide-phase-a.md`. Exact-model art approval and immutable Blob publication completed with explicit user approval on 2026-11-11.
 
 **Goal:** Turn the Mudrolíno 3D bear into a visual moment-based companion guide across Home, round celebrations, exhausted-attempt/zero-score overlays, and a 12-second inactivity nudge while shrinking `model.glb` below `900 KB` gzip, fixing prop clipping and loop/blink life, pausing idle WebGL at `0 fps`, precaching `bear-still.png` offline, and logging deferred phases in `ROADMAP.md`.
 
@@ -452,6 +452,6 @@ Expected: ALL gates PASS with zero console errors, zero failed requests, and off
 git add e2e/avatar-companion.spec.ts assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/verification-summary.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/verification-progress.json
 git commit -m "test: verify bear guide phase A touchpoints, 0fps lifecycle, offline still, and v7 studies"
 ```
-- [ ] **Step 5: Obtain exact-model art approval and publish**
+- [x] **Step 5: Obtain exact-model art approval and publish**
 
 Present the `<= 320 px` review renders to the user and ask whether to mark `artReview.status = "approved"` and publish `celebration-v7` to Vercel Blob (`node tools/avatar/publish_bear_companion.mjs --candidate=bear-v2`).
