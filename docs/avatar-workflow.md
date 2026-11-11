@@ -1,41 +1,67 @@
 # Avatar workflow and agent handoff
 
-Updated 2026-11-09 (bear companion `celebration-v6` published to Vercel Blob and live in production; canonical human catalog rules below). This is the entry point for both Codex and Claude. Use
+Updated 2026-11-10 (bear companion `celebration-v6` live on Vercel Blob; Bear Guide Phase A moment-based visual guide and `celebration-v7` optimization pipeline active; canonical human catalog rules below). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
 For the reusable reference-to-runtime process, read
 [3D authoring guidance](avatar-authoring.md). Current candidate history below
 does not replace its acceptance gates.
 
-## Published bear learning companion — `celebration-v6` (2026-11-09)
+## Bear learning companion — published `celebration-v6` & Phase A `celebration-v7` pipeline
 
 The bear learning companion (`bear-v2` / runtime id `bear-v1`) is accepted, published on
-Vercel Blob (`mudrolino-public-assets`, `fra1`), and live in production across all 11
-mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`).
+Vercel Blob (`mudrolino-public-assets`, `fra1`), and live in production across Home and all 11
+mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`; Phase A design in
+`docs/superpowers/specs/2026-11-10-bear-guide-phase-a-design.md`).
 
-- **Runtime GLB**: `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb`,
+- **Runtime component chain**: `AvatarPresenter.tsx` -> lazy `AvatarScene.tsx` -> `AvatarModel.tsx`
+  (isolating Three.js / R3F / drei in the lazy scene chunk), consumed by `LearningCompanion.tsx`
+  (round celebrations, empathetic exhausted-attempt reactions, and session-complete summaries),
+  `HomeCompanion.tsx` (Home header welcome & tap-interactive guide), and `CompanionNudge.tsx`
+  (12-second in-game inactivity nudge). Once `'once'` or `'still'` playback finishes, the R3F
+  frameloop pauses at `0 fps` (`setFrameloop('never')`) until a new clip, `eventKey`, or container
+  resize wakes it.
+- **Currently published Blob GLB (`celebration-v6`)**:
+  `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb`,
   SHA-256 `db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a`
-  (`3,552,892` bytes / `2,078,070` gzip bytes, under the `2,100,000` gzip budget).
-- **Public URL**: `https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a.glb`
-- **Native source**: `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/celebration.blend`,
-  SHA-256 `20fb2aa84a168ef7560f0d6f20270067d392784fb695b3c4b3f74cf1339a2b20`, built by
-  `tools/blender/catalog/build_generated_bear_celebration.py`.
-- **17 clips + 6 bone-parented 3D accessories in one GLB**:
-  - Clips: `celebrate`, `wave`, `clap`, `jump`, `finale` (`2.8s`), `idle` (`2.4s`),
-    `search`, `think`, `listen`, `encourage`, `shrug`, `flex`, `bow`, `march`,
-    `wiggle`, `peekaboo`, `stretch`.
-  - Accessories (`parent_type = 'BONE'` on `Head` or `Spine02`, shared 64×64
-    `AccessoryAtlas`, toggled via `userData.companionAccessoryId`):
-    `accessory_crown`, `accessory_cap`, `accessory_glasses`, `accessory_bowtie`,
-    `accessory_cape`, `accessory_medal`.
-- **Verification**: 120Hz native/runtime parity across all 17 clips (`4,121` subframes)
-  passed with `28.02 µm` max vertex error (`<= 30 µm` budget) and `0` new
-  `arm-torso-leg` or `arm-head` contacts (`verification-progress.json` and
-  `retrospective.md` under `assets/avatar/catalog-a/companions/bear-v2/`).
-- **Fallback still**: `still-v2/bear-still.png` and `src/avatar/companions/bear-still.png`,
-  rendered at `352×400` (`--camera-distance 5.6`, 2× the largest `176×200` CSS slot).
-- **Asset manifest**: `assets/avatar/asset-manifest.json` tracks all `782` 3D files (`npm run assets:verify`).
-  Historical `head35` (`bear-v1`) and procedural blockouts remain rejected comparison evidence.
+  (`3,552,892` bytes / `2,078,070` gzip bytes, under the `2,100,000` gzip budget), served from
+  `https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/db5ddc0dfe3d72ab7de2e80fc1a4ca853cd4bc1ae3cb1e665e3361ba50fe4d2a.glb`
+  (native source `revisions/celebration-v6/celebration.blend`,
+  SHA-256 `20fb2aa84a168ef7560f0d6f20270067d392784fb695b3c4b3f74cf1339a2b20`, `17` clips,
+  `28.02 µm` 120Hz parity across `4,121` subframes).
+- **`celebration-v7` optimization & 18-clip suite (`<= 900 KB` gzip target)**:
+  Built by `tools/blender/catalog/build_generated_bear_celebration.py` and post-processed by
+  `tools/avatar/optimize_generated_bear.mjs` as a single skinned mesh (`Bear_fixed_outfit` on the
+  24-bone `generatedBones` rig). Applies deterministic UV-seam/boundary-aware `DECIMATE`
+  (`COLLAPSE`) before animation floor-sampling (preserving normalized raw float32 skin weights
+  within `1e-5`), WebP texture resize + `NORMAL`/`TANGENT`/`TEXCOORD_*` quantization (never
+  quantizing `WEIGHTS_0`), and deterministic static-track pruning (stripping constant `.scale`,
+  non-`Hips` `.translation`, and constant identity `.quaternion` tracks on un-animated bones while
+  retaining `<= 30 µm` 120Hz Blender ↔ Three.js parity and `0` new `arm-torso-leg` or `arm-head`
+  BVH contacts). Vercel Blob publication via `tools/avatar/publish_bear_companion.mjs` remains
+  gated on explicit user `<= 320 px` art review approval (`verification-summary.json`).
+  - **18 character actions**: `celebrate` (`1.4s`), `wave`, `clap`, `jump`, `finale` (`2.8s`),
+    `idle` (`2.8s` seamless harmonic breathing in `celebration-v7`; `1.4s` in `celebration-v6`),
+    `idle_breathe` (`3.6s`, with runtime fallback to `idle` on `celebration-v6`), `search`,
+    `think`, `listen`, `encourage`, `shrug`, `flex`, `bow`, `march`, `wiggle`, `peekaboo`,
+    `stretch`.
+- **Procedural bone-parented 3D accessories & facial nodes** (kept outside `model.glb` bytes;
+  attached at runtime in `src/avatar/companionAccessories.ts` with shared GPU geometries/materials
+  and mirrored after `export_model()` for studio renders in `tools/blender/catalog/bear_accessories.py`,
+  guarded on scenes containing `Bear_fixed_outfit`):
+  - Clip-gated 3D props: `searchGlass` (`RightHand`), `thinkBulb` (`Head`), `flexMask` (`Head`),
+    `bowHat` (`RightHand`), `marchFlag` (`RightHand`), `wiggleLeftMaraca` (`LeftHand`),
+    `wiggleRightMaraca` (`RightHand`).
+  - `Head` facial nodes: `leftEyelid`, `rightEyelid`, `leftBrow`, `rightBrow` (procedural eye
+    blinking and per-clip brow micro-expressions, since `AvatarModel.tsx`'s
+    `sanitizeAnimationClips` retains only `.quaternion` and `Hips.position` tracks).
+- **Fallback still & offline precache**: `src/avatar/companions/bear-still.png` (and revision
+  `bear-still.png`), rendered at `352×400` (`--camera-distance 5.6`, 2× the largest `176×200` CSS
+  slot) and precached offline via `'assets/bear-still-*.png'` in `src/pwa/pwaConfig.ts` while
+  `assets/AvatarScene-*.js` and `avatar/**/*.glb` stay excluded from precache.
+- **Asset manifest**: `assets/avatar/asset-manifest.json` tracks all local `.blend`/`.glb` files
+  (`npm run assets:verify`). Historical `head35` (`bear-v1`) and procedural blockouts remain
+  rejected comparison evidence.
 
 ## Resume in the correct checkout
 

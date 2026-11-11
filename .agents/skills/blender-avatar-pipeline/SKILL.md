@@ -100,24 +100,42 @@ failure, then sweep the saved revision through native and actual runtime poses.
   `export_nla_strips=False`, `export_bake_animation=False`. Standalone generated
   motion GLBs need cleanup; use `tools/blender/export_clean_avatar_clip.py` and
   `docs/3d-avatar-knowledge-base.md` for that branch.
-- For multi-clip mascot authoring (`bear-v2` `celebration-v6` with 17 clips:
-  `celebrate`, `wave`, `clap`, `jump`, `finale`, `idle`, `search`, `think`,
+- For multi-clip mascot authoring (`bear-v2` `celebration-v7` with 18 character actions:
+  `celebrate`, `wave`, `clap`, `jump`, `finale`, `idle`, `idle_breathe`, `search`, `think`,
   `listen`, `encourage`, `shrug`, `flex`, `bow`, `march`, `wiggle`, `peekaboo`,
-  `stretch`, plus 6 accessories), pack all actions and accessories into **one single `.blend` and `.glb`**
+  `stretch`), pack all actions onto the single-mesh (`Bear_fixed_outfit`) `.blend` and `.glb`
   (set `action.use_fake_user = True`, stash each action on a muted NLA track, and
-  export with `export_animation_mode='ACTIONS'` and `export_extras=True`). Each extra
-  43–85 frame quaternion action adds only ~15–20 KB gzipped vs. ~2 MB for a separate GLB.
-- For rigid 3D mascot accessories (`crown`, `cap`, `glasses`, `bowtie`, `cape`, `medal`),
-  use **bone parenting (`parent_type = 'BONE'`)** to `Head` or `Spine02` rather than
-  skinning weights: set `obj.parent = armature`, `obj.parent_type = 'BONE'`,
-  `obj.parent_bone = bone_name`, and
-  `obj.matrix_parent_inverse = (armature.matrix_world @ arm_bone.matrix_local).inverted()`.
-  Share one tiny 64×64 palette texture (`AccessoryAtlas`) across all accessories and tag
-  each object with `obj["companionAccessoryId"] = acc_id` (`export_extras=True`) so
-  Three.js can toggle `child.visible = child.userData?.companionAccessoryId === accessory`
-  with zero extra network requests. In Three.js (`BearCompanionScene.tsx`), always call
-  `mixer.stopAllAction()` before starting a new clip so previous clip bone transforms
-  never bleed into newly switched clips.
+  export with `export_animation_mode='ACTIONS'`). In `celebration-v7`, apply deterministic
+  UV-seam/boundary-aware `DECIMATE` (`COLLAPSE`) on `Bear_fixed_outfit` before animation
+  floor-sampling (`build_generated_bear_celebration.py`, pruning sub-`1e-3` bone weights and
+  re-normalizing the 4 raw float32 weights per vertex within `1e-5`), then run
+  `tools/avatar/optimize_generated_bear.mjs` for WebP texture resize, `NORMAL`/`TANGENT`/`TEXCOORD_*`
+  quantization (never quantizing `WEIGHTS_0`), and deterministic static-track pruning (stripping
+  constant `.scale`, non-`Hips` `.translation`, and constant identity `.quaternion` tracks on
+  un-animated bones to land `<= 900 KB` gzip with `<= 30 µm` 120Hz parity). For periodic breathing
+  loops (`idle`, `idle_breathe`), author `2π`-periodic harmonic motion around the relaxed neutral
+  base so `pose(0) === pose(1)` with matching velocity (`endpointError <= 1e-5` without freezing at
+  the stiff A-pose on loop boundaries).
+- Keep mascot runtime GLBs pure single-mesh (`Bear_fixed_outfit`) assets and attach procedural
+  bone-parented 3D nodes in `src/avatar/companionAccessories.ts` (mirrored after `export_model()`
+  for studio review renders in `tools/blender/catalog/bear_accessories.py`, and guarded on scenes
+  containing `Bear_fixed_outfit` so human catalog models stay unaffected):
+  - Clip-gated props: `searchGlass` (`RightHand`), `thinkBulb` (`Head`), `flexMask` (`Head`),
+    `bowHat` (`RightHand`), `marchFlag` (`RightHand`), `wiggleLeftMaraca` (`LeftHand`),
+    `wiggleRightMaraca` (`RightHand`).
+  - `Head` facial nodes: `leftEyelid`, `rightEyelid`, `leftBrow`, `rightBrow` (procedural blinking
+    and per-clip brow micro-expressions, since `AvatarModel.tsx`'s `sanitizeAnimationClips`
+    retains only `.quaternion` and `Hips.position` tracks).
+  - In `bear_accessories.py`, Blender `parent_type = 'BONE'` places the child origin at the bone
+    tail `(0, bone.length, 0)` in bone-local cm; offset `obj.location = (0.0, -bone_len, 0.0)` so
+    `(0, 0, 0)` matches Three.js `bone.add()` at the bone head, and verify every prop stays inside
+    the `cameraDistance = 5.6` frustum (`NDC` within `[-0.95, +0.95]`).
+  - Runtime playback flows through `AvatarPresenter.tsx` -> lazy `AvatarScene.tsx` ->
+    `AvatarModel.tsx`, consumed by `LearningCompanion.tsx`, `HomeCompanion.tsx`, and
+    `CompanionNudge.tsx`. Stop prior mixer actions cleanly before starting a new clip so bone
+    transforms never bleed across clips, share accessory `BufferGeometry`/`MeshStandardMaterial`
+    singletons across mounts, and pause the R3F frameloop (`setFrameloop('never')`) once `'once'`
+    or `'still'` clips finish.
 - On wide-head, chubby-torso mascots (`bear-v2`, facing `-Y`, left arm `+X`, up `+Z`,
   `sign = +1` Left / `-1` Right):
   - **Audit both `{'arm', 'torso-leg'}` AND `{'arm', 'head'}`** in BVH triangle
