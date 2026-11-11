@@ -54,6 +54,8 @@ Screenshots show the Slovak UI. [Capture provenance](docs/images/manifest.json) 
 
 **Mudrolíno is developed entirely with coding agents.** I direct the product, define design and quality constraints, and evaluate the resulting experience through testing and use. Agents implement the code and supporting tooling.
 
+I enjoy using [Matt Pocock's skills and engineering workflow](https://github.com/mattpocock/skills) to structure my work with coding agents. Earlier in this project, I used [obra/superpowers](https://github.com/obra/superpowers) for planning, implementation, and review.
+
 As features accumulated, the controls and implementation became inconsistent. I pushed for shared components and a consistent design system, kept accounts in the backlog to make the initial scope achievable, and introduced automated quality checks to support continued development.
 
 | Decision | What it means in this project |

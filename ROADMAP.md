@@ -239,7 +239,7 @@ gates and 26 focused browser checks passed. See the development-efficiency hando
 
 > Open decisions: domain, landing page vs. app-at-root, and analytics. Installable PWA support is implemented for the current app.
 
-- [x] Refresh the repository presentation (2026-11-11): family motivation, live demo, three current app screenshots with capture provenance, accurate agent/human attribution, local setup and verification guidance, and a linked engineering case study covering shared controls, MVP scope, automated checks and the 3D experiment. Parent avatars, wardrobe interactions and possible paid customization remain future hypotheses.
+- [x] Refresh the repository presentation (2026-11-11): family motivation, live demo, three current app screenshots with capture provenance, accurate agent/human attribution, local setup and verification guidance, and a linked engineering case study covering shared controls, MVP scope, automated checks and the 3D experiment. Credit Matt Pocock's skills and engineering workflow and earlier use of obra/superpowers. Parent avatars, wardrobe interactions and possible paid customization remain future hypotheses.
 - [ ] Synthesize friend feedback into launch blockers vs. later improvements
 - [ ] Decide on domain and configure DNS (pulled into F&F P0, 1.0: the URL must not change after sharing)
 - [ ] Configure production static hosting if the friends-first deployment is not the final host

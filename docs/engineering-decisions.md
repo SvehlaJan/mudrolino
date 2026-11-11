@@ -4,6 +4,8 @@ Mudrolíno began as a learning app for my son and is now also used by a small ci
 
 The project is developed entirely with coding agents. My contribution is product direction, scope decisions, design constraints, and evaluation of the resulting experience. Agents implement the application, asset pipeline, and verification tooling. This case study explains decisions I directed and the implementation evidence behind them.
 
+I enjoy using [Matt Pocock's skills and engineering workflow](https://github.com/mattpocock/skills) to structure this work. Earlier development used [obra/superpowers](https://github.com/obra/superpowers) for planning, implementation, and review; the repository retains the [specifications, plans, and handoffs](superpowers/) from that work.
+
 ## 1. Bring growing games back to a shared design system
 
 ### Problem
