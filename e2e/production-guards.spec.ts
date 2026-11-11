@@ -7,6 +7,13 @@ import {
 } from './support/assertions';
 import { startGame } from './support/gameEntry';
 
+test.beforeEach(async ({ page }) => {
+  // Headless Chromium without SwiftShader uses the precached still under reduced motion
+  // to avoid software WebGL context creation and external blob fetch in production guards.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.route('**/*blob.vercel-storage.com/**', route => route.abort('failed'));
+});
+
 test('production does not expose the parent gate adapter', async ({ page }) => {
   const errors = trackConsoleErrors(page);
   const failedRequests = trackFailedRequests(page);
@@ -25,6 +32,9 @@ test('release hides the avatar experiment and its preview route', async ({ page 
   await page.goto('/');
   await expect(page.locator('canvas')).toHaveCount(0);
   await page.goto('/avatar-preview');
+  await expect(page).toHaveURL('/');
+  await expect(page.locator('canvas')).toHaveCount(0);
+  await page.goto('/avatar');
   await expect(page).toHaveURL('/');
   await expect(page.locator('canvas')).toHaveCount(0);
   expectNoConsoleErrors(errors);

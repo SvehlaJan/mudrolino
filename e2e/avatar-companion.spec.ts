@@ -126,7 +126,7 @@ for (const id of ['ALPHABET', 'ASSEMBLY'] as const) {
     await waitForGamePhase(page, 'awaiting-answer');
     await completeCurrentRound(page, id);
     await expect(page.getByTestId('learning-companion')).not.toHaveAttribute('data-celebration-key', key!);
-    await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'celebrate');
+    await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'flex');
     await expect.poll(async () => (await eventKeys(page)).length).toBe(6);
   });
 }
@@ -147,6 +147,49 @@ test('final exhausted failure after successes still shows the finale bear on ses
   await waitForGamePhase(page, 'session-complete');
   await expect(page.getByTestId('learning-companion')).toBeVisible();
   await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'finale');
+  await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
+});
+
+test('exhausted round failure and 0/5 session-complete show empathetic encourage companion', async ({ page }) => {
+  await installCompanionFixture(page);
+  await start(page);
+
+  // Round 1: exhaust 3 wrong attempts
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const state = await getE2EState(page);
+    const wrongId = (state.gridItemIds as string[]).find(id => id !== state.correctItemId)!;
+    await pressAnswerById(page, wrongId);
+    if (attempt < 2) await waitForGamePhase(page, 'awaiting-answer');
+  }
+  await waitForGamePhase(page, 'answered-incorrectly');
+  await expect(page.getByRole('status')).toBeVisible();
+  await expect(page.getByRole('status')).toContainText('Nevadí, poďme ďalej');
+  await expect(page.getByTestId('learning-companion')).toBeVisible();
+  await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'encourage');
+
+  // Continue to round 2
+  await page.getByRole('button', { name: 'Pokračovať' }).click();
+  await waitForGamePhase(page, 'awaiting-answer');
+
+  // Exhaust rounds 2, 3, 4, 5 to achieve 0 / 5 correct
+  for (let round = 1; round < 5; round += 1) {
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const state = await getE2EState(page);
+      const wrongId = (state.gridItemIds as string[]).find(id => id !== state.correctItemId)!;
+      await pressAnswerById(page, wrongId);
+      if (attempt < 2) await waitForGamePhase(page, 'awaiting-answer');
+    }
+    if (round < 4) {
+      await waitForGamePhase(page, 'answered-incorrectly');
+      await page.getByRole('button', { name: 'Pokračovať' }).click();
+      await waitForGamePhase(page, 'awaiting-answer');
+    }
+  }
+
+  // Round 5 exhausted failure advances directly to session-complete
+  await waitForGamePhase(page, 'session-complete');
+  await expect(page.getByTestId('learning-companion')).toBeVisible();
+  await expect(page.getByTestId('learning-companion')).toHaveAttribute('data-companion-animation', 'encourage');
   await expect(page.getByRole('button', { name: 'Hrať znova' })).toBeVisible();
 });
 
@@ -196,8 +239,11 @@ test('panel clicks do not dismiss; Continue, backdrop and route exit remove canv
   await waitForGamePhase(page, 'awaiting-answer');
   await expect(page.locator('canvas')).toHaveCount(0);
   await completeCurrentRound(page, 'ALPHABET');
-  await page.goto('/');
+  await page.goto('/content');
   await expect(page.locator('canvas')).toHaveCount(0);
+  await page.goto('/');
+  await expect(page.getByTestId('learning-companion')).toHaveCount(0);
+  await expect(page.getByTestId('home-companion')).toBeVisible();
 });
 
 test('repeated answer taps resolve one round and one celebration', async ({ page }) => {
@@ -426,11 +472,139 @@ for (const delayed of ['model', 'scene']) test(`late ${delayed} after Continue n
   await expect(page.getByTestId('learning-companion')).toHaveCount(0);
 });
 
+test('home screen welcome, tap cycling and reduced motion', async ({ page }) => {
+  await installCompanionFixture(page);
+  await page.goto('/');
+
+  const homeCompanion = page.getByTestId('home-companion');
+  await expect(homeCompanion).toBeVisible();
+  const box = await homeCompanion.boundingBox();
+  expect(box!.width).toBeGreaterThanOrEqual(48);
+  expect(box!.height).toBeGreaterThanOrEqual(48);
+  await expect(homeCompanion).toHaveAttribute('aria-label', 'Zamávaj medvedíkovi');
+  await expectNoHorizontalOverflow(page);
+
+  const settingsButton = page.getByRole('button', { name: 'Nastavenia' });
+  await expectNoPairwiseOverlap([homeCompanion, settingsButton]);
+  const firstCard = page.getByTestId('game-card').first();
+  await expectNoPairwiseOverlap([homeCompanion, firstCard]);
+
+  // Initial animation is wave
+  await expect(homeCompanion).toHaveAttribute('data-companion-animation', 'wave');
+
+  // Tapping cycles to peekaboo then stretch
+  await homeCompanion.click();
+  await expect(homeCompanion).toHaveAttribute('data-companion-animation', 'peekaboo');
+  await homeCompanion.click();
+  await expect(homeCompanion).toHaveAttribute('data-companion-animation', 'stretch');
+
+  // CS locale aria-label
+  await seedLocalStorage(page, { 'hrave-ucenie-app-settings': { locale: 'cs' } });
+  await page.goto('/');
+  await expect(page.getByTestId('home-companion')).toHaveAttribute('aria-label', 'Zamávat medvídkovi');
+
+  // Reduced motion uses still without GLB or scene requests
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const requested: string[] = [];
+  page.on('request', req => requested.push(req.url()));
+  await page.goto('/');
+  const stillCompanion = page.getByTestId('home-companion');
+  await expect(stillCompanion).toHaveAttribute('data-companion-representation', 'still');
+  await expect(stillCompanion.locator('img')).toBeVisible();
+  await expect(page.locator('canvas')).toHaveCount(0);
+  expect(requested.filter(url => url.includes(BEAR_FIXTURE_URL) || /AvatarScene.*\.js/.test(url))).toEqual([]);
+});
+
+test('12-second inactivity nudge in awaiting-answer appears with think animation and dismisses on user activity', async ({ page }) => {
+  await installCompanionFixture(page);
+  await start(page, '/alphabet');
+  await page.clock.install();
+  await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })));
+
+  const initialScrollHeight = await page.evaluate(() => document.scrollingElement?.scrollHeight);
+
+  // 11,900 ms: nudge has not appeared yet
+  await page.clock.runFor(11900);
+  await expect(page.getByTestId('companion-idle-nudge')).toHaveCount(0);
+
+  // +200 ms (12,100 ms): nudge appears with pointer-events: none and think animation
+  await page.clock.runFor(200);
+  const nudge = page.getByTestId('companion-idle-nudge');
+  await expect(nudge).toBeVisible();
+  await expect(nudge).toHaveAttribute('data-companion-animation', 'think');
+
+  const pointerEvents = await nudge.evaluate(el => getComputedStyle(el).pointerEvents);
+  expect(pointerEvents).toBe('none');
+
+  const afterScrollHeight = await page.evaluate(() => document.scrollingElement?.scrollHeight);
+  expect(afterScrollHeight).toBe(initialScrollHeight);
+
+  // Dispatching pointerdown dismisses it immediately
+  await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })));
+  await expect(page.getByTestId('companion-idle-nudge')).toHaveCount(0);
+});
+
+test('post-clip WebGL pause reaches 0 fps and resize updates canvas without resuming continuous drawing', async ({ page }) => {
+  await page.addInitScript(() => {
+    const observed = window as typeof window & { companionDrawCalls?: number };
+    observed.companionDrawCalls = 0;
+    for (const prototype of [WebGLRenderingContext.prototype, WebGL2RenderingContext.prototype]) {
+      for (const method of ['drawElements', 'drawArrays'] as const) {
+        const original = prototype[method];
+        Object.defineProperty(prototype, method, { value: function (this: WebGLRenderingContext, ...args: unknown[]) {
+          observed.companionDrawCalls! += 1;
+          return Reflect.apply(original, this, args);
+        } });
+      }
+    }
+  });
+  await installCompanionFixture(page);
+  await stubAudioPlayback(page, { holdPraise: true });
+  await start(page);
+  await completeCurrentRound(page, 'ALPHABET');
+  await expect3D(page);
+
+  // Past clip duration (~2.0 s), draw calls reach 0 fps (0 new calls over 10 RAF ticks)
+  await expect.poll(async () => {
+    const before = await page.evaluate(() => (window as typeof window & { companionDrawCalls?: number }).companionDrawCalls ?? 0);
+    await page.evaluate(() => new Promise<void>(resolve => {
+      let frames = 0;
+      const next = () => { if (++frames === 10) resolve(); else requestAnimationFrame(next); };
+      requestAnimationFrame(next);
+    }));
+    const after = await page.evaluate(() => (window as typeof window & { companionDrawCalls?: number }).companionDrawCalls ?? 0);
+    return after - before;
+  }, { timeout: 10000, intervals: [200] }).toBe(0);
+
+  // Resize viewport while paused: canvas dimensions update and remain non-empty
+  const canvas = page.getByTestId('learning-companion').locator('canvas');
+  const prevWidth = await canvas.evaluate((el: HTMLCanvasElement) => el.clientWidth);
+  await page.setViewportSize({ width: 568, height: 320 });
+  await expect.poll(async () => canvas.evaluate((el: HTMLCanvasElement) => el.clientWidth)).not.toBe(prevWidth);
+  const newWidth = await canvas.evaluate((el: HTMLCanvasElement) => el.clientWidth);
+  expect(newWidth).toBeGreaterThan(0);
+
+  // Verify it did not resume continuous 60 fps drawing
+  await page.evaluate(() => new Promise<void>(resolve => {
+    let frames = 0;
+    const next = () => { if (++frames === 10) resolve(); else requestAnimationFrame(next); };
+    requestAnimationFrame(next);
+  }));
+  const drawBefore = await page.evaluate(() => (window as typeof window & { companionDrawCalls?: number }).companionDrawCalls ?? 0);
+  await page.evaluate(() => new Promise<void>(resolve => {
+    let frames = 0;
+    const next = () => { if (++frames === 10) resolve(); else requestAnimationFrame(next); };
+    requestAnimationFrame(next);
+  }));
+  const drawAfter = await page.evaluate(() => (window as typeof window & { companionDrawCalls?: number }).companionDrawCalls ?? 0);
+  expect(drawAfter - drawBefore).toBe(0);
+});
+
 async function expectCompanionControlsFit(page: Page, locale: 'sk' | 'cs') {
   await installCompanionFixture(page);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await seedLocalStorage(page, { 'hrave-ucenie-app-settings': { locale } });
-  for (const state of ['companion-success', 'companion-final-correct', 'companion-final-failure']) {
+  for (const state of ['companion-success', 'companion-failure', 'companion-final-correct', 'companion-final-failure', 'companion-zero-score']) {
     await page.goto(`/ui-kit?example=game-shell&state=${state}`);
     await expect(page.getByRole('status')).toBeVisible();
     await expectNoHorizontalOverflow(page);

@@ -1,0 +1,1103 @@
+{
+  "status": "passed",
+  "context": {
+    "commit": "1a9e6f4d7aa5e4d3652f4f632238bdf7251920c3",
+    "build": "guarded Vite development source",
+    "seed": "fixed GLB and deterministic clip poses",
+    "browser": "148.0.7778.96",
+    "startedAt": "2026-11-11T15:17:58.294Z",
+    "sourceHashes": {
+      "src/avatar/AvatarScene.tsx": "6d2c4c30447dafcc7fc51697ea1ab49ba152fdc2156cb4fe071a6625809cdb7a",
+      "src/avatar/AvatarModel.tsx": "849f842797727103b4a5bb2437bbb2575b288d4a875d7ea47a6fd8416def7f1e",
+      "src/avatar/AvatarRuntimeFixture.tsx": "3118c32098b422db3454020ad929d88dafc6c45d6bd9a7b0f7330182dc771438",
+      "src/avatar/AvatarPresenter.tsx": "69875227b1680f4cf732a0aeee672f59ec435dbf0cdf425d56da332797c322cc"
+    }
+  },
+  "profile": "actual-renderer-fixed-candidate",
+  "glb": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb",
+  "glb_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+  "verifier_sha256": "02b5df2f36b9cc02718df19d188e5200122f19e161a2d2c4946e2d32bc215b31",
+  "moving": true,
+  "results": [
+    {
+      "label": "desktop-front-0",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0&view=front",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0,
+      "view": "front",
+      "render_sha256": "baf2695d2232b1ee513be402d3da28c1a286c35d468c20bae3ada5413443c4cf",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 383,
+        "top": 100,
+        "right": 768,
+        "bottom": 640,
+        "pixels": 119379
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-front-0.25",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.25&view=front",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.25,
+      "view": "front",
+      "render_sha256": "f7d372c389911e493a962b731fde21ae3c5a5e97acabe5ccd681e356aff6cd6a",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 335,
+        "top": 98,
+        "right": 818,
+        "bottom": 638,
+        "pixels": 125039
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-front-0.5",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.5&view=front",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.5,
+      "view": "front",
+      "render_sha256": "500d43e4aa26a45ba3d47fbd90dc8dd82e2af53aaf34db80b404bdcf18ffb72a",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 397,
+        "top": 106,
+        "right": 750,
+        "bottom": 639,
+        "pixels": 125731
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-front-0.75",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.75&view=front",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.75,
+      "view": "front",
+      "render_sha256": "722745dc61e770cb38a3e330c9477b7649030e9c5ea8a98e676716c56253f995",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 328,
+        "top": 97,
+        "right": 814,
+        "bottom": 640,
+        "pixels": 126356
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-front-1",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=1&view=front",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 1,
+      "view": "front",
+      "render_sha256": "1ef7aa5f281c36f6c2a061f246a118612ada9764959c425d5c9146a99b11aee6",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 383,
+        "top": 100,
+        "right": 768,
+        "bottom": 640,
+        "pixels": 119378
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-three-quarter-0",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0&view=three-quarter",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0,
+      "view": "three-quarter",
+      "render_sha256": "98e6929a0d870beb7dae159c9d06faf2aff08e554860db2ae4677ad12f388b29",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 435,
+        "top": 97,
+        "right": 730,
+        "bottom": 637,
+        "pixels": 100212
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-three-quarter-0.25",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.25&view=three-quarter",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.25,
+      "view": "three-quarter",
+      "render_sha256": "75035fa0af6ebd842a581fd42b6f8b26a207299f8664f64d784b5bb9117d745f",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 390,
+        "top": 119,
+        "right": 711,
+        "bottom": 617,
+        "pixels": 91397
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-three-quarter-0.5",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.5&view=three-quarter",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.5,
+      "view": "three-quarter",
+      "render_sha256": "e2b596f8cac547fcc3f81d987aec5c6896800dd7216c26fc66b9c1333c20b6c4",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 405,
+        "top": 104,
+        "right": 714,
+        "bottom": 632,
+        "pixels": 99591
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-three-quarter-0.75",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.75&view=three-quarter",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.75,
+      "view": "three-quarter",
+      "render_sha256": "83d2d77e306e834f32177383cbab85af78dd1bd31956f467aaac45366a334671",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 376,
+        "top": 99,
+        "right": 715,
+        "bottom": 632,
+        "pixels": 100676
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-three-quarter-1",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=1&view=three-quarter",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 1,
+      "view": "three-quarter",
+      "render_sha256": "72018dff0ca7af1399a271b3056a44bf2e3dd2e20f386bc7dde508fe4fdf1d0a",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 435,
+        "top": 97,
+        "right": 730,
+        "bottom": 637,
+        "pixels": 100212
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-side-0",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0&view=side",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0,
+      "view": "side",
+      "render_sha256": "d2abae969781391e5f2c71a0f0f81e79be38e8a26c064a305d7333a358630e1d",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 461,
+        "top": 79,
+        "right": 691,
+        "bottom": 641,
+        "pixels": 79888
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-side-0.25",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.25&view=side",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.25,
+      "view": "side",
+      "render_sha256": "47ac85b2f373516be14e000bce5b50f8d1cf6e922916cdf1b79d769b7d70e133",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 450,
+        "top": 96,
+        "right": 688,
+        "bottom": 626,
+        "pixels": 76497
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-side-0.5",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.5&view=side",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.5,
+      "view": "side",
+      "render_sha256": "f77e6a742c745d7ff5a8306467f83ad50f8c4f799d6bc9ed8637cd17c9e5c623",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 454,
+        "top": 88,
+        "right": 697,
+        "bottom": 633,
+        "pixels": 79641
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-side-0.75",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.75&view=side",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.75,
+      "view": "side",
+      "render_sha256": "dfbb77e6789546f0a9e84e549b3473ee6d02427b10ea9d3eb7b6c680327db77b",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 448,
+        "top": 85,
+        "right": 689,
+        "bottom": 633,
+        "pixels": 79892
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-side-1",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=1&view=side",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 1,
+      "view": "side",
+      "render_sha256": "a6bb8bcdbf160fe9ebb342d259145079001a53afef99599429315b20d93200da",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 464,
+        "top": 87,
+        "right": 688,
+        "bottom": 633,
+        "pixels": 75742
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-back-0",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0&view=back",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0,
+      "view": "back",
+      "render_sha256": "c8ee29e4b119fce60c00154fa473cc5f2e1e69185e6b63e2a286f5484c1093a0",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 385,
+        "top": 87,
+        "right": 767,
+        "bottom": 631,
+        "pixels": 122959
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-back-0.25",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.25&view=back",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.25,
+      "view": "back",
+      "render_sha256": "f5d887ba781db488a4339e5b86a5727f0ac245b38f9ab69594e741fcf2ab4e64",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 356,
+        "top": 83,
+        "right": 794,
+        "bottom": 631,
+        "pixels": 126509
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-back-0.5",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.5&view=back",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.5,
+      "view": "back",
+      "render_sha256": "e3de69a5e150d9dd8a36e2726bf3fb8e3bcae11b13bb481e9e9b2a25cf633f92",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 408,
+        "top": 85,
+        "right": 748,
+        "bottom": 631,
+        "pixels": 128422
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-back-0.75",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.75&view=back",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 0.75,
+      "view": "back",
+      "render_sha256": "18edfb1879bd742131f107264ca749c8f09ba880fb0ee716a63d4694f27d8dc9",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 360,
+        "top": 83,
+        "right": 799,
+        "bottom": 631,
+        "pixels": 126444
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "desktop-back-1",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=1&view=back",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "pose": 1,
+      "view": "back",
+      "render_sha256": "351b3ac2fe38e7d4ae7466bff3f12e1b06c306036bbc4ff77d1ed104a5b6bacf",
+      "canvas": {
+        "width": 1152,
+        "height": 720
+      },
+      "bounds": {
+        "left": 385,
+        "top": 87,
+        "right": 767,
+        "bottom": 631,
+        "pixels": 122960
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "phone-front-0",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0&view=front",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": 0,
+      "view": "front",
+      "render_sha256": "5963f23f0bfe4593ee9c93e9b99d95c808627471d8e51448207a44d424361ce8",
+      "canvas": {
+        "width": 358,
+        "height": 676
+      },
+      "bounds": {
+        "left": 80,
+        "top": 202,
+        "right": 277,
+        "bottom": 477,
+        "pixels": 31575
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "phone-front-0.25",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.25&view=front",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": 0.25,
+      "view": "front",
+      "render_sha256": "62835236e7e078cb6b81d35c2d219704d92fb8dd298020c2c378c56d6df34f14",
+      "canvas": {
+        "width": 358,
+        "height": 676
+      },
+      "bounds": {
+        "left": 57,
+        "top": 200,
+        "right": 301,
+        "bottom": 477,
+        "pixels": 33213
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "phone-front-0.5",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.5&view=front",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": 0.5,
+      "view": "front",
+      "render_sha256": "fe0f5dcf8b5ad7e1495fe2c0400787c7c80d10ec35a469aa612fadd3c3e2b464",
+      "canvas": {
+        "width": 358,
+        "height": 676
+      },
+      "bounds": {
+        "left": 66,
+        "top": 174,
+        "right": 289,
+        "bottom": 511,
+        "pixels": 50703
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "phone-front-0.75",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.75&view=front",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": 0.75,
+      "view": "front",
+      "render_sha256": "a24429a10927354149f9ed9b91d399bd2db709580b408af34ee019f8b7b30f29",
+      "canvas": {
+        "width": 358,
+        "height": 676
+      },
+      "bounds": {
+        "left": 44,
+        "top": 190,
+        "right": 308,
+        "bottom": 489,
+        "pixels": 38725
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "phone-front-1",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=1&view=front",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": 1,
+      "view": "front",
+      "render_sha256": "5ede76c5f4dbda84fc92344ad93643efbe3b27c67fce66c241db531f7682b50f",
+      "canvas": {
+        "width": 358,
+        "height": 676
+      },
+      "bounds": {
+        "left": 80,
+        "top": 202,
+        "right": 277,
+        "bottom": 477,
+        "pixels": 31575
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "short-front-0",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0&view=front",
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "pose": 0,
+      "view": "front",
+      "render_sha256": "18ed32cf11c6d18178e8b0675943a2634046cd3eb8ebdea08f3883ca4f8b83a1",
+      "canvas": {
+        "width": 635,
+        "height": 300
+      },
+      "bounds": {
+        "left": 237,
+        "top": 42,
+        "right": 397,
+        "bottom": 266,
+        "pixels": 20685
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "short-front-0.25",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.25&view=front",
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "pose": 0.25,
+      "view": "front",
+      "render_sha256": "51242cd698e454e0e4713ffb8a806602b126e6615b691527b9a0c2e79421910c",
+      "canvas": {
+        "width": 635,
+        "height": 300
+      },
+      "bounds": {
+        "left": 217,
+        "top": 41,
+        "right": 418,
+        "bottom": 265,
+        "pixels": 21655
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "short-front-0.5",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.5&view=front",
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "pose": 0.5,
+      "view": "front",
+      "render_sha256": "e99c6b8fd4f1cbdaafe960b860b0d124247d4312d22a7b79659b2d05cfe18266",
+      "canvas": {
+        "width": 635,
+        "height": 300
+      },
+      "bounds": {
+        "left": 243,
+        "top": 44,
+        "right": 389,
+        "bottom": 265,
+        "pixels": 21773
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "short-front-0.75",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=0.75&view=front",
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "pose": 0.75,
+      "view": "front",
+      "render_sha256": "2562ba115bc1b39f0b2e6339c2bf78b560c1f43a6d4c80b13d6a06240a81c153",
+      "canvas": {
+        "width": 635,
+        "height": 300
+      },
+      "bounds": {
+        "left": 214,
+        "top": 40,
+        "right": 416,
+        "bottom": 266,
+        "pixels": 21893
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    },
+    {
+      "label": "short-front-1",
+      "url": "http://127.0.0.1:3003/avatar-preview?agent=1&companion=bear&pose=1&view=front",
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "pose": 1,
+      "view": "front",
+      "render_sha256": "3b26644e25e20cd8aa3dc858be7f4fe902a91f457c90bc60bd2827f2627bf576",
+      "canvas": {
+        "width": 635,
+        "height": 300
+      },
+      "bounds": {
+        "left": 237,
+        "top": 42,
+        "right": 397,
+        "bottom": 266,
+        "pixels": 20685
+      },
+      "source_sha256": "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+      "errors": [],
+      "failed": [],
+      "completed_gets": [
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698",
+        "0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698"
+      ],
+      "framed": true
+    }
+  ]
+}

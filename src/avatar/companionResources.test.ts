@@ -200,4 +200,27 @@ describe('shared optional companion preparation', () => {
     await store.prepare(url);
     expect(celebrationReducer(paused, { type: 'observe', observation, nowMs: 2000 }).active).toBeNull();
   });
+
+  it('skips fetching when offline and recovers when back online', async () => {
+    const fetchModel = vi.fn(async () => glb());
+    const loadScene = vi.fn(async () => ({}));
+    const store = createCompanionResources({ fetchModel, loadScene });
+
+    // 1. Offline: skips fetch, returns failed snapshot, no promise cached
+    vi.stubGlobal('navigator', { onLine: false });
+    const offlineResult = await store.prepare(url);
+    expect(offlineResult).toEqual({ status: 'failed', modelUrl: url });
+    expect(store.getSnapshot(url)).toEqual({ status: 'failed', modelUrl: url });
+    expect(fetchModel).not.toHaveBeenCalled();
+    expect(loadScene).not.toHaveBeenCalled();
+
+    // 2. Reconnect online: prepare now fetches and resolves ready
+    vi.stubGlobal('navigator', { onLine: true });
+    const onlineResult = await store.prepare(url);
+    expect(onlineResult).toEqual({ status: 'ready', modelUrl: url });
+    expect(store.getSnapshot(url)).toEqual({ status: 'ready', modelUrl: url });
+    expect(fetchModel).toHaveBeenCalledTimes(1);
+    expect(loadScene).toHaveBeenCalledTimes(1);
+    vi.unstubAllGlobals();
+  });
 });

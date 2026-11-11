@@ -29,7 +29,7 @@ import {
 const ACCESSORY_GROUP_NAME = '__bear_companion_accessory__';
 const LOCAL_BEAR_GLB = path.resolve(
   process.cwd(),
-  'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb',
+  'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb',
 );
 
 function createRigScene({ includeBearMesh }: { includeBearMesh: boolean }): Group {

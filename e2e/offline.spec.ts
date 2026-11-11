@@ -3,6 +3,12 @@ import { expect, test } from '@playwright/test';
 import { RELEASE_GAME_CASES } from './support/releaseMatrix';
 import { LETTER_ITEMS } from '../src/shared/locales/sk';
 import { expectHomeScreen, startGame } from './support/gameEntry';
+import {
+  expectNoConsoleErrors,
+  expectNoFailedRequests,
+  trackConsoleErrors,
+  trackFailedRequests,
+} from './support/assertions';
 
 async function waitForOfflineControl(page: import('@playwright/test').Page) {
   await page.goto('/');
@@ -61,7 +67,7 @@ test('production manifest and icons are served for installation', async ({ page,
 });
 
 
-test('uncached optional companion cannot block an offline correct answer', async ({ page, context }) => {
+test('uncached optional companion cannot block an offline correct answer and renders precached still', async ({ page, context }) => {
   await page.addInitScript(() => {
     const heard: string[] = [];
     (window as typeof window & { offlineHeard?: string[] }).offlineHeard = heard;
@@ -73,6 +79,20 @@ test('uncached optional companion cannot block an offline correct answer', async
   });
   await waitForOfflineControl(page);
   await context.setOffline(true);
+
+  const errors = trackConsoleErrors(page);
+  const failedRequests = trackFailedRequests(page);
+
+  // Home screen companion renders precached still while offline
+  await page.goto('/');
+  const homeCompanion = page.getByTestId('home-companion');
+  await expect(homeCompanion).toBeVisible();
+  await expect(homeCompanion).toHaveAttribute('data-companion-representation', 'still');
+  const homeImg = homeCompanion.locator('img');
+  await expect(homeImg).toBeVisible();
+  const homeLoaded = await homeImg.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0);
+  expect(homeLoaded).toBe(true);
+
   await startGame(page, '/alphabet');
   // Observe the actual prompt media; production has no test answer adapter.
   await page.waitForFunction(() => (window as typeof window & { offlineHeard?: string[] }).offlineHeard?.some(url => url.includes('/letters/')));
@@ -81,7 +101,21 @@ test('uncached optional companion cannot block an offline correct answer', async
   expect(answer).toBeDefined();
   await page.locator(`[data-answer-id=${JSON.stringify(answer!.symbol)}]`).click();
   await expect(page.getByRole('button', { name: 'Pokračovať' })).toBeVisible();
+
+  // Post-round celebration overlay renders precached learning companion still while offline
+  const learningCompanion = page.getByTestId('learning-companion');
+  await expect(learningCompanion).toBeVisible();
+  await expect(learningCompanion).toHaveAttribute('data-companion-representation', 'still');
+  const learningImg = learningCompanion.locator('img');
+  await expect(learningImg).toBeVisible();
+  const learningLoaded = await learningImg.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0);
+  expect(learningLoaded).toBe(true);
+  await expect(page.locator('canvas')).toHaveCount(0);
+
   await page.getByRole('button', { name: 'Pokračovať' }).click();
   await expect(page.getByTestId('game-answer-region')).toBeVisible();
   await expect(page.locator('canvas')).toHaveCount(0);
+
+  expectNoConsoleErrors(errors);
+  expectNoFailedRequests(failedRequests);
 });

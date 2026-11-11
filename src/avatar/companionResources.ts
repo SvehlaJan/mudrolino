@@ -26,6 +26,7 @@ interface ResourceEntry {
   snapshot: CompanionResource;
   promise: Promise<CompanionResource> | null;
   bytes: ArrayBuffer | null;
+  failedPermanently?: boolean;
 }
 
 /** Ready only proves the scene chunk and model bytes were fetched, not rendered. */
@@ -45,7 +46,7 @@ export function createCompanionResources(dependencies: CompanionPreparationDepen
   }
 
   function update(entry: ResourceEntry, status: 'ready' | 'failed'): void {
-    if (entry.snapshot.status === status || entry.snapshot.status === 'failed') return;
+    if (entry.snapshot.status === status || (status !== 'failed' && entry.failedPermanently)) return;
     entry.snapshot = { ...entry.snapshot, status };
     listeners.forEach(listener => listener());
   }
@@ -63,7 +64,8 @@ export function createCompanionResources(dependencies: CompanionPreparationDepen
     },
     fail(url) {
       const entry = entryFor(url);
-      if (entry.snapshot.status === 'failed') return;
+      if (entry.failedPermanently) return;
+      entry.failedPermanently = true;
       update(entry, 'failed');
       entry.promise = Promise.resolve(entry.snapshot);
     },
@@ -71,6 +73,11 @@ export function createCompanionResources(dependencies: CompanionPreparationDepen
       if (url === null) return disabledPromise;
       const entry = entryFor(url);
       if (entry.promise) return entry.promise;
+
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+        update(entry, 'failed');
+        return Promise.resolve(entry.snapshot);
+      }
 
       // Async functions capture synchronous dependency errors while starting both operations now.
       const model = (async () => {
@@ -85,7 +92,7 @@ export function createCompanionResources(dependencies: CompanionPreparationDepen
       const scene = (async () => { await dependencies.loadScene(); })();
       entry.promise = Promise.all([model, scene]).then(
         () => { update(entry, 'ready'); return entry.snapshot; },
-        () => { update(entry, 'failed'); return entry.snapshot; },
+        () => { entry.failedPermanently = true; update(entry, 'failed'); return entry.snapshot; },
       );
       return entry.promise;
     },

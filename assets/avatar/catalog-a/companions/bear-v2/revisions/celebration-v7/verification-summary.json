@@ -123,10 +123,8 @@
         "sha256": "c5937ea4df8b1ea894ced4608783e6d89e6aefab1664b9b8652e178a03ec0fa6"
       },
       "browser": {
-        "status": "pending",
-        "path": null,
-        "sha256": null,
-        "note": "Populated by Task 6 browser verification."
+        "path": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/browser-report.json",
+        "sha256": "d1198a76b7801f43e691cc483eb41f50c303785dcb1ff91c3cc0cebeaaf85b5c"
       }
     }
   },

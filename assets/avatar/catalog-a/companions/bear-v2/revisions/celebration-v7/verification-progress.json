@@ -16,13 +16,13 @@
     "validator": "0 errors / 0 warnings (Khronos gltf-validator 2.0.0-dev.3.10)",
     "budget": "14363 triangles (down from 51311), 1190036 bytes (down from 3552892), 826942 gzip bytes (<= 900000 cap; -60.2% vs celebration-v6)",
     "accessoriesAndFacial": "All 6 3D props inside [-0.95, +0.95] NDC at cameraDistance=5.6 across 120Hz frames; 0 surface penetrations across flexMask, eyelids, brows, and thinkBulb (maxBulbNdcY=0.8959 <= 0.90)",
-    "browser": "Pending Task 6 multi-viewport browser integration proof",
+    "browser": "30 of 30 captures framed, moving: true, 0 console errors, 0 failed requests across desktop (1280x900), phone (390x844), and short (667x375) viewports",
     "still": "Fresh 352x400 source-bound still at camera 5.6 for 176x200 max CSS slot"
   },
   "integration": {
-    "status": "pending",
-    "profile": "unit + lint (Task 5); browser integration in Task 6",
-    "report": null,
+    "status": "passed",
+    "profile": "unit + lint + pure + audio + integration browser + offline",
+    "report": "assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/browser-report.json",
     "scope": "18-clip celebration-v7 local candidate wired to companionFixture.ts and localCompanionServer.ts; production bear-v1.json manifest remains untouched pending user approval."
   },
   "publication": {

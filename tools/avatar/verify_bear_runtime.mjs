@@ -60,7 +60,12 @@ try {
         // still fetching; settle those requests before the next pose navigation.
         await page.waitForLoadState('networkidle', { timeout: 60000 });
         await page.waitForFunction(({ pose, view }) => {
-          try { const state = JSON.parse(document.querySelector('[data-testid="avatar-debug-json"]')?.textContent ?? ''); return state.ready && state.animations.includes('celebrate') && state.progress === pose && state.view === view; } catch { return false; }
+          try {
+            const state = JSON.parse(document.querySelector('[data-testid="avatar-debug-json"]')?.textContent ?? '');
+            const canvas = document.querySelector('canvas');
+            const hasSize = Boolean(canvas && canvas.clientWidth > 0 && canvas.clientHeight > 0 && !(canvas.width === 300 && canvas.height === 150));
+            return state.ready && state.animations.includes('celebrate') && state.progress === pose && state.view === view && hasSize;
+          } catch { return false; }
         }, { pose, view }, { timeout: 60000 });
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         const canvas = page.locator('canvas');

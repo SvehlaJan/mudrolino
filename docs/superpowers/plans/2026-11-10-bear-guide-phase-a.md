@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+**Closeout (2026-11-11):** Tasks 1–6 implemented and committed on `feature/bear-guide-phase-a`. Existing integration proof was reused after the runner confirmed identical inputs/environment; the focused production/offline suite passed freshly (8/8). See `docs/superpowers/handoffs/2026-11-11-bear-guide-phase-a.md`. Exact-model art approval and Blob publication remain pending.
+
 **Goal:** Turn the Mudrolíno 3D bear into a visual moment-based companion guide across Home, round celebrations, exhausted-attempt/zero-score overlays, and a 12-second inactivity nudge while shrinking `model.glb` below `900 KB` gzip, fixing prop clipping and loop/blink life, pausing idle WebGL at `0 fps`, precaching `bear-still.png` offline, and logging deferred phases in `ROADMAP.md`.
 
 **Architecture:** Three independent foundations land first in parallel: documentation/roadmap alignment (Task 1), WebGL `0 fps` post-clip lifecycle + memory release + Workbox offline precache (Task 2), and shared-GPU 3D accessories + frustum fixes + `Head`-parented blinking eyelids/brows in TypeScript and Blender Python (Task 3). On top of those interfaces, two parallel streams deliver the React guide touchpoints + cross-session rotation (Task 4) and the serialized Blender `celebration-v7` asset rebuild + mesh decimation + dead-track pruning + 120 Hz parity/clearance proofs (Task 5), converging in E2E browser/offline proofs and `<= 320 px` visual review sign-off before any Vercel Blob publication (Task 6).
@@ -46,18 +48,18 @@
 - Consumes: Approved spec `docs/superpowers/specs/2026-11-10-bear-guide-phase-a-design.md`.
 - Produces: Reconciled workflow/skill docs matching current runtime symbols (`AvatarScene.tsx`, `LearningCompanion.tsx`, `HomeCompanion.tsx`, `CompanionNudge.tsx`, `companionAccessories.ts`) and `ROADMAP.md` entries for Phase A + 4 deferred backlog items + `2026-11-10` Decisions Log row.
 
-- [ ] **Step 1: Inspect stale symbol and revision references in `docs/avatar-workflow.md` and `.agents/skills/blender-avatar-pipeline/SKILL.md`**
+- [x] **Step 1: Inspect stale symbol and revision references in `docs/avatar-workflow.md` and `.agents/skills/blender-avatar-pipeline/SKILL.md`**
 
 Read `docs/avatar-workflow.md` and `.agents/skills/blender-avatar-pipeline/SKILL.md` and locate retired references (`CompanionPreview.tsx`, `magnifyingGlass`/`lightbulb`/`superheroMask`/`topHat`/`flag`/`maracas`, 16-clip counts, and outdated revision notes).
 
-- [ ] **Step 2: Update `docs/avatar-workflow.md` and `.agents/skills/blender-avatar-pipeline/SKILL.md`**
+- [x] **Step 2: Update `docs/avatar-workflow.md` and `.agents/skills/blender-avatar-pipeline/SKILL.md`**
 
 Update both files so they accurately name:
 - Runtime components: `AvatarPresenter.tsx` -> lazy `AvatarScene.tsx` -> `AvatarModel.tsx`, consumed by `LearningCompanion.tsx`, `HomeCompanion.tsx`, and `CompanionNudge.tsx`.
 - Procedural bone-parented nodes in `src/avatar/companionAccessories.ts` (mirrored in `tools/blender/catalog/bear_accessories.py` for scenes containing `Bear_fixed_outfit`): `searchGlass`, `thinkBulb`, `flexMask`, `bowHat`, `marchFlag`, `wiggleLeftMaraca`, `wiggleRightMaraca`, plus `Head` facial nodes `leftEyelid`, `rightEyelid`, `leftBrow`, `rightBrow`.
 - 18 character actions (`celebrate`, `wave`, `clap`, `jump`, `finale`, `idle`, `idle_breathe`, `search`, `think`, `listen`, `encourage`, `shrug`, `flex`, `bow`, `march`, `wiggle`, `peekaboo`, `stretch`) and the `celebration-v7` decimation + static-track pruning pipeline (`tools/avatar/optimize_generated_bear.mjs`).
 
-- [ ] **Step 3: Update `ROADMAP.md` (`## Phase 5 — Avatar Expansion` and `## Decisions Log`)**
+- [x] **Step 3: Update `ROADMAP.md` (`## Phase 5 — Avatar Expansion` and `## Decisions Log`)**
 
 In `ROADMAP.md`:
 1. Under `## Phase 5 — Avatar Expansion`, add the Phase A item (Moment-based visual guide: Home welcome/tap, cross-session celebration rotation, empathetic failure/`0/5` reactions, 12s inactivity nudge, `celebration-v7` `< 900 KB` gzip optimization, 3D blinking/brows, `0 fps` idle pause, offline `bear-still.png` precache) and four `[ ]` deferred backlog items:
@@ -67,12 +69,12 @@ In `ROADMAP.md`:
    - `Bear Mascot App Icon & Open Graph Branding` (cross-referenced with `1.0 P3` Mudrolíno icon task via `npm run pwa:icons`).
 2. Append a `2026-11-10` row to `## Decisions Log` recording the choice of Option A (visual moment-based guide first) and deferral of Option B and spoken bear voice clips.
 
-- [ ] **Step 4: Run lint to verify workspace cleanliness**
+- [x] **Step 4: Run lint to verify workspace cleanliness**
 
 Run: `npm run lint`
 Expected: `0` errors (only the known `ContentContext` `react-refresh` warning).
 
-- [ ] **Step 5: Commit docs, spec, plan, and roadmap**
+- [x] **Step 5: Commit docs, spec, plan, and roadmap**
 
 ```bash
 git add docs/avatar-workflow.md .agents/skills/blender-avatar-pipeline/SKILL.md ROADMAP.md docs/superpowers/specs/2026-11-10-bear-guide-phase-a-design.md docs/superpowers/plans/2026-11-10-bear-guide-phase-a.md
@@ -103,7 +105,7 @@ git commit -m "docs: record bear guide phase A spec, plan, and deferred roadmap"
   - `AvatarModelProps.onPlaybackComplete?: () => void` in `src/avatar/AvatarModel.tsx` and `AvatarSceneProps.onPlaybackComplete?: () => void` in `src/avatar/AvatarScene.tsx` (also forwarded through `src/avatar/AvatarPresenter.tsx` in Task 4 if needed, or exposed on `AvatarSceneProps` now).
   - `resolveCompanionClipName(requested: string | null | undefined, available: readonly string[]): string | undefined` in `src/avatar/avatarFrameloop.ts` (prefers exact match, falls back `'idle_breathe'` -> `'idle'`, then case-insensitive `'idle'`, then `available[0]`).
 
-- [ ] **Step 1: Write failing unit tests for Workbox precache, byte release, clip fallback, and frameloop pause policy**
+- [x] **Step 1: Write failing unit tests for Workbox precache, byte release, clip fallback, and frameloop pause policy**
 
 1. Create `src/pwa/pwaConfig.test.ts`:
 ```ts
@@ -125,18 +127,18 @@ describe('pwaConfig workbox precache rules', () => {
    - `shouldPauseAvatarFrameloop`: returns `false` in `'loop'` mode or when `isInspection` is `true`; returns `false` on the frame where `'once'` reaches `actionTime >= duration - 1e-6` (`settledFramesRendered === 0`, so the final pose with hidden accessories renders once) and `true` once `settledFramesRendered >= 1`; returns `false` for `'still'` when `settledFramesRendered === 0` and `true` when `settledFramesRendered >= 1`.
    - `resolveCompanionClipName`: returns `'idle_breathe'` when present in `available`; falls back cleanly to `'idle'` when `'idle_breathe'` is requested against `celebration-v6`'s 17-clip list (Review Focus #5).
 
-- [ ] **Step 2: Run Vitest on the new/updated tests to verify they fail**
+- [x] **Step 2: Run Vitest on the new/updated tests to verify they fail**
 
 Run: `npx vitest run src/pwa/pwaConfig.test.ts src/avatar/companionResources.test.ts src/avatar/companionModelLoader.test.ts src/avatar/avatarFrameloop.test.ts`
 Expected: FAIL (`assets/bear-still-*.png` missing, `releaseModelBytes` undefined, `./avatarFrameloop` missing).
 
-- [ ] **Step 3: Implement Workbox precache rule and raw byte release**
+- [x] **Step 3: Implement Workbox precache rule and raw byte release**
 
 1. In `src/pwa/pwaConfig.ts`, add `'assets/bear-still-*.png'` to `workbox.globPatterns` (keeping `globIgnores` unchanged).
 2. In `src/avatar/companionResources.ts`, add `releaseModelBytes(url: string): void` to `CompanionResourceStore` (`const entry = entries.get(url); if (entry) entry.bytes = null;`).
 3. In `src/avatar/companionModelLoader.ts`, inside `loadCompanionModel`, chain `.then(gltf => { companionResources.releaseModelBytes(url); return gltf; })` after `new GLTFLoader().parseAsync(bytes, basePath)`.
 
-- [ ] **Step 4: Implement `avatarFrameloop.ts` and wire `0 fps` post-clip pause + resize wake in `AvatarModel.tsx` and `AvatarScene.tsx`**
+- [x] **Step 4: Implement `avatarFrameloop.ts` and wire `0 fps` post-clip pause + resize wake in `AvatarModel.tsx` and `AvatarScene.tsx`**
 
 1. Create `src/avatar/avatarFrameloop.ts` implementing `shouldPauseAvatarFrameloop` and `resolveCompanionClipName`.
 2. In `src/avatar/AvatarModel.tsx`:
@@ -149,12 +151,12 @@ Expected: FAIL (`assets/bear-still-*.png` missing, `releaseModelBytes` undefined
    - Add `onPlaybackComplete?: () => void` to `AvatarSceneProps` and forward it to `AvatarModel`.
    - In `CompanionCanvas`'s `ResizeObserver` callback (`configure().then(...)`), after `configure()` updates `size` on a live root (`if (active && store)`), if `store.getState().frameloop === 'never'`, call `store.getState().invalidate()` (or `renderer?.render(store.getState().scene, store.getState().camera)`) so rotating/resizing a paused `0 fps` companion immediately redraws at the new aspect/resolution without staying blank or resuming `60 fps` (Review Focus #3).
 
-- [ ] **Step 5: Run unit tests and lint to verify Task 2 passes**
+- [x] **Step 5: Run unit tests and lint to verify Task 2 passes**
 
 Run: `npx vitest run src/pwa/pwaConfig.test.ts src/avatar/companionResources.test.ts src/avatar/companionModelLoader.test.ts src/avatar/avatarFrameloop.test.ts && npm run lint`
 Expected: PASS (`0` lint errors).
 
-- [ ] **Step 6: Commit Task 2**
+- [x] **Step 6: Commit Task 2**
 
 ```bash
 git add src/pwa/pwaConfig.ts src/pwa/pwaConfig.test.ts src/avatar/companionResources.ts src/avatar/companionResources.test.ts src/avatar/companionModelLoader.ts src/avatar/companionModelLoader.test.ts src/avatar/avatarFrameloop.ts src/avatar/avatarFrameloop.test.ts src/avatar/AvatarModel.tsx src/avatar/AvatarScene.tsx
@@ -177,7 +179,7 @@ git commit -m "perf: pause settled companion WebGL at 0fps, free raw GLB bytes, 
   - Exported pure helpers for testing: `computeBlinkAmount(activeClipName: string | null | undefined, normalizedProgress: number, elapsedSeconds: number): number` (`0` = open, `1` = closed) and `computeBrowPose(activeClipName: string | null | undefined): { liftY: number; leftTiltRad: number; rightTiltRad: number }`.
   - Matching Python accessory/facial geometry in `tools/blender/catalog/bear_accessories.py` (`attach_bear_accessories`, `sync_bear_accessories`).
 
-- [ ] **Step 1: Write failing unit tests in `src/avatar/companionAccessories.test.ts`**
+- [x] **Step 1: Write failing unit tests in `src/avatar/companionAccessories.test.ts`**
 
 Create `src/avatar/companionAccessories.test.ts` testing:
 1. **Non-bear rig safety (Review Focus #1):** Calling `syncCompanionAccessories(humanScene, 'idle', 0.5, 1.0)` on a scene with `Head`, `LeftHand`, `RightHand` but **without** an object named `'Bear_fixed_outfit'` attaches `0` `__bear_companion_accessory__` groups.
@@ -192,12 +194,12 @@ Create `src/avatar/companionAccessories.test.ts` testing:
    - `computeBlinkAmount` returns `0` at `t = 0` (`bear-still.png` / frame 0 stays eyes-open!), pulses smoothly up to `>= 0.9` during periodic `~3.4 s` `150 ms` blink windows (e.g., `elapsedSeconds = 1.75` on `'idle_breathe'`) and mid-gesture expressive blinks on `'wave'` / `'encourage'`, and forces eyelids hidden (`visible = false`) when `activeClipName === 'flex'` (mask covers eyes) or during `'peekaboo'` paw-cover window (`normalizedProgress` in `[0.22, 0.78]`).
    - `computeBrowPose` returns positive cheerful lift on `'celebrate'`, sympathetic inner-brow tilt on `'encourage'` / `'shrug'`, and asymmetric curious lift on `'think'` / `'search'` / `'listen'`, and neutral `0` on `null` / `'idle'`.
 
-- [ ] **Step 2: Run Vitest to confirm `companionAccessories.test.ts` fails**
+- [x] **Step 2: Run Vitest to confirm `companionAccessories.test.ts` fails**
 
 Run: `npx vitest run src/avatar/companionAccessories.test.ts`
 Expected: FAIL (`computeBlinkAmount` / `computeBrowPose` not exported, geometries not shared, non-bear scene attaches meshes).
 
-- [ ] **Step 3: Implement shared GPU resources, frustum-safe transforms, and 3D eyelids/brows in `src/avatar/companionAccessories.ts`**
+- [x] **Step 3: Implement shared GPU resources, frustum-safe transforms, and 3D eyelids/brows in `src/avatar/companionAccessories.ts`**
 
 Update `src/avatar/companionAccessories.ts`:
 1. Require `scene.getObjectByName('Bear_fixed_outfit')` inside `ensureAccessories(scene)` before attaching anything (Review Focus #1).
@@ -212,16 +214,16 @@ Update `src/avatar/companionAccessories.ts`:
    - Dark-brown expressive brow arcs (`TorusGeometry(5.6, 1.05, 8, 16, Math.PI * 0.68)`, material `#4a2811`, `roughness: 0.75`) placed slightly proud of the fur above the eyes (`[±13.8, 45.2, 43.2]`), hidden when `activeClipName === 'flex'` and subtly offset/tilted by `computeBrowPose(activeClipName)` when an expressive clip is active (`visible = activeClipName !== 'flex' && activeClipName !== null && (Math.abs(pose.liftY) > 0 || Math.abs(pose.leftTiltRad) > 0)` so `frame 0` / `'idle'` neutral still remains silhouette-identical while expressive clips gain warm brow motion, or subtle `±6°` lift on active clips).
    - Implement `computeBlinkAmount(activeClipName, normalizedProgress, elapsedSeconds)`: `0` when `elapsedSeconds <= 0.05` (preserving frame-0 still parity), smooth `sin(π * u)` `150 ms` blink pulse every `3.4 s` (`t = 1.68..1.83`, `5.08..5.23`, …) plus an expressive mid-clip blink window (`normalizedProgress` in `[0.46, 0.56]`) on `'wave'`, `'encourage'`, `'shrug'`, `'think'`, `'listen'`.
 
-- [ ] **Step 4: Mirror the exact prop coordinates and facial helpers in `tools/blender/catalog/bear_accessories.py`**
+- [x] **Step 4: Mirror the exact prop coordinates and facial helpers in `tools/blender/catalog/bear_accessories.py`**
 
 Update `tools/blender/catalog/bear_accessories.py` so `mask_point`, `bowHat`, `marchFlag`, `thinkBulb`, and optional `eyelid`/`brow` preview nodes match `src/avatar/companionAccessories.ts` 1:1 in Blender local bone coordinates.
 
-- [ ] **Step 5: Run Vitest, Python syntax check, and ESLint**
+- [x] **Step 5: Run Vitest, Python syntax check, and ESLint**
 
 Run: `npx vitest run src/avatar/companionAccessories.test.ts && python3 -m py_compile tools/blender/catalog/bear_accessories.py && npm run lint`
 Expected: PASS (`0` errors).
 
-- [ ] **Step 6: Commit Task 3**
+- [x] **Step 6: Commit Task 3**
 
 ```bash
 git add src/avatar/companionAccessories.ts src/avatar/companionAccessories.test.ts tools/blender/catalog/bear_accessories.py
@@ -264,7 +266,7 @@ git commit -m "feat: share companion GPU resources, fix prop framing, and add 3D
   - `CompanionNudge` (`data-testid="companion-idle-nudge"`, `IDLE_NUDGE_DELAY_MS = 12_000`) in `src/avatar/CompanionNudge.tsx`, rendered in `src/shared/game/GameShell.tsx`.
   - `'home.companionGreet'` in `src/shared/uiCopy.ts` (`SK_COPY`: `'Zamávaj medvedíkovi'`, `CS_COPY`: `'Zamávat medvídkovi'`).
 
-- [ ] **Step 1: Write failing unit tests in `companionCelebration.test.ts`, `HomeCompanion.test.ts`, and `CompanionNudge.test.ts`**
+- [x] **Step 1: Write failing unit tests in `companionCelebration.test.ts`, `HomeCompanion.test.ts`, and `CompanionNudge.test.ts`**
 
 1. Expand `src/avatar/companionCelebration.test.ts`:
    - **Run 0 vs Run 1 rotation (`PLAY_AGAIN`):** Run 0 rounds 1–4 select `['celebrate', 'wave', 'clap', 'jump']` and round 5 selects `'finale'`; after `PLAY_AGAIN` (`roundsPlayed` resets to `0`), Run 1 rounds 1–4 select `['flex', 'bow', 'march', 'wiggle']` and round 5 selects `'finale'`; Run 2 wraps cleanly back to `'celebrate'`.
@@ -282,12 +284,12 @@ git commit -m "feat: share companion GPU resources, fix prop framing, and add 3D
    - Tests pure `shouldArmIdleNudge(state, contentLocked, companionEnabled)` (`true` only when `phase === 'awaiting-answer' && !paused && !contentLocked && companionEnabled`) and `selectIdleNudgeClip` cycling `['think', 'search', 'listen']`.
    - Renders `data-testid="companion-idle-nudge"` with `aria-hidden="true"` and `pointer-events-none` when active, and `null` when inactive (Review Focus #4).
 
-- [ ] **Step 2: Run Vitest on the three test files to verify they fail**
+- [x] **Step 2: Run Vitest on the three test files to verify they fail**
 
 Run: `npx vitest run src/avatar/companionCelebration.test.ts src/avatar/HomeCompanion.test.ts src/avatar/CompanionNudge.test.ts`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `companionCelebration.ts`, `useCompanionCelebration.ts`, `AvatarPresenter.tsx`, and `uiCopy.ts`**
+- [x] **Step 3: Implement `companionCelebration.ts`, `useCompanionCelebration.ts`, `AvatarPresenter.tsx`, and `uiCopy.ts`**
 
 1. In `src/avatar/companionCelebration.ts`:
    - Add `'idle_breathe'` to `COMPANION_CLIP_NAMES`, export `HOME_TAP_CLIPS`, `IDLE_NUDGE_CLIPS`, `selectIdleNudgeClip`, `advanceCelebrationRotation`, and `resetCelebrationRotation`.
@@ -298,7 +300,7 @@ Expected: FAIL.
 3. In `src/avatar/AvatarPresenter.tsx`, forward `onPlaybackComplete?: () => void` to `AvatarScene`, and in `src/avatar/AvatarModel.tsx` pass monotonic `action.getMixer().time` as the 4th argument to `syncCompanionAccessories(scene, finishedOnce ? null : action.getClip().name, norm, action.getMixer().time)` so periodic blinks stay smooth across loop boundaries while frame `0` stays eyes-open (`0`).
 4. In `src/shared/uiCopy.ts`, add `'home.companionGreet': 'Zamávaj medvedíkovi'` to `SK_COPY` and `'home.companionGreet': 'Zamávat medvídkovi'` to `CS_COPY`.
 
-- [ ] **Step 4: Implement `HomeCompanion.tsx` and wire into `GroupedHomeScreen.tsx`**
+- [x] **Step 4: Implement `HomeCompanion.tsx` and wire into `GroupedHomeScreen.tsx`**
 
 1. Create `src/avatar/HomeCompanion.tsx`:
    - Reads `getCompanionConfig()`, `useReducedMotion()`, and `useCompanionResources(reducedMotion ? null : config?.modelUrl ?? null)`. Returns `null` when `!config`.
@@ -307,7 +309,7 @@ Expected: FAIL.
    - Initial mount plays `'wave'` -> `onPlaybackComplete` transitions once to `'idle_breathe'` -> `onPlaybackComplete` stays settled at `0 fps`; clicking dispatches `tap` to cycle `HOME_TAP_CLIPS` (`mode: 'once'`, settling directly at `0 fps` when done).
 2. In `src/home/GroupedHomeScreen.tsx`, render `<HomeCompanion locale={locale} />` inside the header row (`flex justify-between items-start gap-3 sm:gap-4`) between the title/subtitle column and the `Nastavenia` `IconButton` wrapper.
 
-- [ ] **Step 5: Implement `CompanionNudge.tsx` and wire empathetic failure + 12s inactivity nudge into `GameShell.tsx`, `GamePrompt.tsx`, and `UiKitScreen.tsx`**
+- [x] **Step 5: Implement `CompanionNudge.tsx` and wire empathetic failure + 12s inactivity nudge into `GameShell.tsx`, `GamePrompt.tsx`, and `UiKitScreen.tsx`**
 
 1. Create `src/avatar/CompanionNudge.tsx`:
    - Exports `IDLE_NUDGE_DELAY_MS = 12_000`, `shouldArmIdleNudge`, and `CompanionNudge` (`data-testid="companion-idle-nudge"`, `aria-hidden="true"`, `pointer-events-none fixed bottom-3 left-3 sm:bottom-5 sm:left-5 z-20 h-24 w-20 max-sm:h-20 max-sm:w-16 [@media(max-height:480px)]:h-16 [@media(max-height:480px)]:w-14`). Uses `{!canRender && <img ... />}` + `<AvatarPresenter ... playback={{ mode: 'once', eventKey, startedAtMs }} />` so it settles to `0 fps` once its `'think'`/`'search'`/`'listen'` gesture finishes.
@@ -321,12 +323,12 @@ Expected: FAIL.
 5. Regenerate the checked-in component gallery inventory:
    Run: `node --import tsx tools/ui-gallery/generate.ts`
 
-- [ ] **Step 6: Run unit tests, pure verifiers, and ESLint**
+- [x] **Step 6: Run unit tests, pure verifiers, and ESLint**
 
 Run: `npm run test:unit && npm run verify:pure && npm run lint`
 Expected: ALL unit tests (including `src/shared/i18n.test.ts` and `tools/ui-gallery/inventory.test.ts`), pure verifiers (`uiCopy.verify.ts`), and lint PASS with `0` errors.
 
-- [ ] **Step 7: Commit Task 4**
+- [x] **Step 7: Commit Task 4**
 
 ```bash
 git add src/avatar/companionCelebration.ts src/avatar/companionCelebration.test.ts src/avatar/useCompanionCelebration.ts src/avatar/AvatarModel.tsx src/avatar/AvatarPresenter.tsx src/shared/uiCopy.ts src/avatar/HomeCompanion.tsx src/avatar/HomeCompanion.test.ts src/avatar/CompanionNudge.tsx src/avatar/CompanionNudge.test.ts src/home/GroupedHomeScreen.tsx src/shared/game/GamePrompt.tsx src/shared/game/GameShell.tsx src/shared/ui/UiKitScreen.tsx src/shared/ui/gallery/componentInventory.generated.ts
@@ -351,7 +353,7 @@ git commit -m "feat: add moment-based bear guide on home, failure overlays, rota
 - Consumes: Updated `tools/blender/catalog/bear_accessories.py` from Task 3; `tools/avatar/sample_generated_bear_runtime.mjs`; `tools/blender/catalog/verify_generated_bear_motion.py`; `tools/blender/catalog/audit_generated_bear_clearance.py`.
 - Produces: Verified local `celebration-v7` candidate (`web-v1/model.glb` `<= 900 KB` gzip, 18 clips including `idle_breathe`, `still-v1/bear-still.png` `352×400`), indexed in `assets/avatar/asset-manifest.json` and wired into `e2e/support/companionFixture.ts` and `tools/avatar/localCompanionServer.ts`.
 
-- [ ] **Step 1: Add deterministic mesh decimation + weight re-normalization and animation fixes in Blender scripts**
+- [x] **Step 1: Add deterministic mesh decimation + weight re-normalization and animation fixes in Blender scripts**
 
 1. In `tools/blender/catalog/bear_companion_common.py` / `tools/blender/catalog/build_generated_bear_celebration.py`:
    - Before sampling actions in `build_generated_bear_celebration.py`, apply a deterministic `DECIMATE` modifier (`decimate_type='COLLAPSE'`, `ratio=0.28`, `use_collapse_triangulate=True`, `delimit={'UV'}`) on `Bear_fixed_outfit`, apply the modifier, prune vertex group weights `< 1e-3`, cap to top 4 bone weights per vertex, and normalize each vertex's weights in float32 so `|sum - 1| <= 1e-6` holds identically in `celebration.blend` and exported `model.glb`.
@@ -362,14 +364,14 @@ git commit -m "feat: add moment-based bear guide on home, failure overlays, rota
    - Keep raw float32 `WEIGHTS_0` unquantized (`|sum - 1| <= 1e-5`).
    - Add deterministic dead-track pruning across all `Animation` channels: dispose any channel targeting `'scale'`, any channel targeting `'translation'` where `targetNode.getName() !== 'Hips'`, and any `'rotation'` channel whose keyframe quaternions never deviate from rest/first keyframe by more than `1e-6`, followed by `prune()`.
 
-- [ ] **Step 2: Build `celebration-v7` and `still-v1/bear-still.png` sequentially via `blender_queue.py`**
+- [x] **Step 2: Build `celebration-v7` and `still-v1/bear-still.png` sequentially via `blender_queue.py`**
 
 Run sequentially through `blender_queue.py`:
 1. Build `celebration.blend` and raw GLB into `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/`.
 2. Run `node tools/avatar/optimize_generated_bear.mjs` to produce `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb` (`gzip <= 900,000` bytes).
 3. Render `still-v1/bear-still.png` (`352×400`, `cameraDistance = 5.6`) via `render_bear_still.py` and copy to `src/avatar/companions/bear-still.png` if updated.
 
-- [ ] **Step 3: Run 120 Hz runtime contract, Blender ↔ Three.js parity, and BVH arm-clearance gates**
+- [x] **Step 3: Run 120 Hz runtime contract, Blender ↔ Three.js parity, and BVH arm-clearance gates**
 
 1. Run: `node tools/avatar/sample_generated_bear_runtime.mjs --glb assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb --report assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/runtime-report.json --samples assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/runtime-samples/samples.json`
    Expected: `status: "passed"`, `gzipBytes <= 900000`, `maxWeightSumError <= 1e-5`, `maxEndpointError <= 1e-5`, `maxFloorPenetrationM <= 0.007`, `18` clips.
@@ -378,19 +380,19 @@ Run sequentially through `blender_queue.py`:
 3. Run via `blender_queue.py`: `audit_generated_bear_clearance.py` -> `arm-clearance-audit.json`
    Expected: `status: "passed"`, `0` new `arm-torso-leg` contacts and `0` new `arm-head` contacts across all 18 clips.
 
-- [ ] **Step 4: Render `<= 320 px` review studies for props & facial rig and write candidate verification files**
+- [x] **Step 4: Render `<= 320 px` review studies for props & facial rig and write candidate verification files**
 
 1. Render `<= 320 px` Cycles/workbench review studies (`flex-peak`, `bow-peak`, `march-peak`, `think-peak`, `idle_breathe`, `encourage`) via `blender_queue.py` and verify every prop stays comfortably inside the `cameraDistance = 5.6` frame (`NDC` within `[-0.95, +0.95]`) and `flexMask` aligns over the pupils.
 2. Run `npm run assets:manifest` so `assets/avatar/asset-manifest.json` records `celebration-v7` SHA-256 hashes.
 3. Update `assetPath` in `e2e/support/companionFixture.ts` and `tools/avatar/localCompanionServer.ts` from `celebration-v6` to `celebration-v7`.
 4. Write `verification-progress.json`, `verification-summary.json` (with exact SHA-256 hashes, `storage.private: "stored"`, `artReview.status: "pending"` awaiting user sign-off), and `retrospective.md` under `revisions/celebration-v7/`.
 
-- [ ] **Step 5: Verify unit tests and asset manifest integrity**
+- [x] **Step 5: Verify unit tests and asset manifest integrity**
 
 Run: `npm run test:unit && npm run lint`
 Expected: PASS.
 
-- [ ] **Step 6: Commit Task 5**
+- [x] **Step 6: Commit Task 5**
 
 ```bash
 git add tools/blender/catalog/bear_companion_common.py tools/blender/catalog/build_generated_bear_celebration.py tools/avatar/optimize_generated_bear.mjs e2e/support/companionFixture.ts tools/avatar/localCompanionServer.ts assets/avatar/asset-manifest.json src/avatar/companions/bear-still.png assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/runtime-report.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/native-runtime-parity.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/arm-clearance-audit.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/still-v1/still-report.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/verification-progress.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/verification-summary.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/retrospective.md
@@ -410,7 +412,7 @@ git commit -m "feat: build celebration-v7 bear model with decimated mesh, pruned
 - Consumes: All Wave 1 & Wave 2 deliverables (`HomeCompanion`, `CompanionNudge`, `companionCelebration` rotation + empathy, `0 fps` frameloop pause, `pwaConfig` precache, `celebration-v7` fixture).
 - Produces: Passing `verify:integration` + `test:e2e:offline` + 30-view browser study (`browser-verification.json`) + `<= 320 px` review copies ready for user `artReview` approval.
 
-- [ ] **Step 1: Update and expand `e2e/avatar-companion.spec.ts`**
+- [x] **Step 1: Update and expand `e2e/avatar-companion.spec.ts`**
 
 Update existing assertions affected by Phase A and add coverage for every new guide touchpoint and Review Focus edge case:
 1. **Second-run celebration rotation (`line 129`):** After clicking `'Hrať znova'`, assert round 1 of run 2 plays `data-companion-animation="flex"` (instead of repeating `'celebrate'`).
@@ -426,11 +428,11 @@ Update existing assertions affected by Phase A and add coverage for every new gu
 6. **Zero-FPS post-clip WebGL pause & resize wake (Review Focus #3):**
    - Hold the celebration overlay open past clip duration (`~2.0 s`), count WebGL `drawElements`/`drawArrays` over 10 `requestAnimationFrame` ticks -> assert `0` new draw calls (`0 fps`); resize viewport while paused -> assert canvas dimensions update and remain non-empty without resuming continuous `60 fps` drawing.
 
-- [ ] **Step 2: Run the 30-view browser verification study for `celebration-v7`**
+- [x] **Step 2: Run the 30-view browser verification study for `celebration-v7`**
 
 Run `tools/avatar/verify_model_studies.mjs` for `bear-v2` / `celebration-v7` and record the 30-view browser study metadata into `revisions/celebration-v7/verification-summary.json` (`browser.results.length === 30`, keeping `artReview.status: "pending"`).
 
-- [ ] **Step 3: Run full verification gates**
+- [x] **Step 3: Run full verification gates**
 
 Run:
 1. `npm run lint`
@@ -442,7 +444,7 @@ Run:
 
 Expected: ALL gates PASS with zero console errors, zero failed requests, and offline precached `bear-still-*.png` verified.
 
-- [ ] **Step 4: Inspect `<= 320 px` review copies and commit Task 6**
+- [x] **Step 4: Inspect `<= 320 px` review copies and commit Task 6**
 
 1. Copy `<= 320 px` review PNGs (`flex-peak`, `bow-peak`, `march-peak`, `think-peak`, Home companion, empathetic failure overlay, 12s nudge) to the conversation artifact directory and inspect ONLY those `<= 320 px` copies to confirm visual quality, pupil alignment, brow/blink warmth, and framing.
 2. Commit E2E spec and `celebration-v7` browser verification metadata:
@@ -450,4 +452,6 @@ Expected: ALL gates PASS with zero console errors, zero failed requests, and off
 git add e2e/avatar-companion.spec.ts assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/verification-summary.json assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/verification-progress.json
 git commit -m "test: verify bear guide phase A touchpoints, 0fps lifecycle, offline still, and v7 studies"
 ```
-3. Present the `<= 320 px` review renders to the user and ask whether to mark `artReview.status = "approved"` and publish `celebration-v7` to Vercel Blob (`node tools/avatar/publish_bear_companion.mjs --candidate=bear-v2`).
+- [ ] **Step 5: Obtain exact-model art approval and publish**
+
+Present the `<= 320 px` review renders to the user and ask whether to mark `artReview.status = "approved"` and publish `celebration-v7` to Vercel Blob (`node tools/avatar/publish_bear_companion.mjs --candidate=bear-v2`).
