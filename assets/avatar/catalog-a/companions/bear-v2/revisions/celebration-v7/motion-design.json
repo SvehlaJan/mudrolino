@@ -1,0 +1,130 @@
+{
+  "relaxedArmDegrees": 16,
+  "relaxedForearmDegrees": 6,
+  "decimateRatio": 0.28,
+  "armLiftDegrees": 54,
+  "forearmCurlDegrees": 0,
+  "headTiltDegrees": 4,
+  "direction": "18-clip stationary companion suite (celebrate, wave, clap, jump, finale, idle, idle_breathe, search, think, listen, encourage, shrug, flex, bow, march, wiggle, peekaboo, stretch) on UV-delimited decimated Bear_fixed_outfit (~14.4k tris) with seamless 2pi-periodic idle loops, parent-to-child Spine02 -> Spine01 -> Spine posing, world-axis arm clearance, and optional runtime/studio 3D props.",
+  "thighDegrees": 8,
+  "kneeDegrees": 10,
+  "hopMetres": 0.12,
+  "armAccentDegrees": 10,
+  "handDegrees": 14,
+  "handWaveDegrees": 10,
+  "torsoSwayDegrees": 7,
+  "headSwayDegrees": 6,
+  "headNodDegrees": 5,
+  "forearmCheerDegrees": 44,
+  "forearmWaveDegrees": 8,
+  "clips": {
+    "celebrate": {
+      "frames": 42,
+      "durationSeconds": 1.4,
+      "peakFrame": 21,
+      "description": "Standing high overhead V-cheer with paws raised to ear height, shoulder lift, and joyful head nod."
+    },
+    "wave": {
+      "frames": 66,
+      "durationSeconds": 2.2,
+      "peakFrame": 31,
+      "description": "Friendly right-paw wave held high across a 1.5s plateau with 5 full frontal-plane waves, elbow pitched forward, and palm rotated forward (-Y)."
+    },
+    "clap": {
+      "frames": 66,
+      "durationSeconds": 2.2,
+      "peakFrame": 33,
+      "description": "Five-beat forward chest clap held at constant chest height across the plateau so all 5 claps touch cleanly without vertical semi-raise phasing."
+    },
+    "jump": {
+      "frames": 42,
+      "durationSeconds": 1.4,
+      "peakFrame": 20,
+      "description": "Three-stage big jump: deep wind-up crouch with arms swept back, 21.5 cm mid-air star/tuck apex, and cushioned landing squat with arms lowering in a single continuous move."
+    },
+    "finale": {
+      "frames": 84,
+      "durationSeconds": 2.8,
+      "peakFrame": 26,
+      "description": "Four-cycle playful disco/boogie dance (2.8s) with hip-and-torso S-curve counter-groove, alternating high punch and low waist pump arms, and high-stepping legs."
+    },
+    "idle": {
+      "frames": 84,
+      "durationSeconds": 2.8,
+      "peakFrame": 28,
+      "description": "Seamless 2.8s (84-frame) 2pi-periodic caregiver sway, inhale, and warm double head-nod with continuous velocity across loop wrap-around."
+    },
+    "idle_breathe": {
+      "frames": 108,
+      "durationSeconds": 3.6,
+      "peakFrame": 36,
+      "description": "Seamless 3.6s (108-frame) 2pi-periodic calm breathing sway for low-distraction thinking and ambient idle."
+    },
+    "search": {
+      "frames": 66,
+      "durationSeconds": 2.2,
+      "peakFrame": 33,
+      "description": "Detective lookout scan with magnifying glass held up to the right eye and two left-to-right scanning sweeps."
+    },
+    "think": {
+      "frames": 66,
+      "durationSeconds": 2.2,
+      "peakFrame": 48,
+      "description": "Curious chin-tap gesture followed by an excited Aha! head perk and glowing pop-up lightbulb above the head."
+    },
+    "listen": {
+      "frames": 60,
+      "durationSeconds": 2.0,
+      "peakFrame": 27,
+      "description": "Cup-ear lean-in with right paw raised beside the right ear, head turned toward the child, and two attentive nods."
+    },
+    "encourage": {
+      "frames": 54,
+      "durationSeconds": 1.8,
+      "peakFrame": 27,
+      "description": "Encouraging double chest-pump with enthusiastic double head nod."
+    },
+    "shrug": {
+      "frames": 54,
+      "durationSeconds": 1.8,
+      "peakFrame": 18,
+      "description": "Playful open-palm shrug with lifted shoulders, palms supinated upward, and warm head tilt."
+    },
+    "flex": {
+      "frames": 60,
+      "durationSeconds": 2.0,
+      "peakFrame": 30,
+      "description": "Strong-bear superhero double-bicep pose with domino mask and two proud bicep pulses."
+    },
+    "bow": {
+      "frames": 60,
+      "durationSeconds": 2.0,
+      "peakFrame": 22,
+      "description": "Theatrical stage bow with left paw across the belly and right arm sweeping out holding a magician's top hat."
+    },
+    "march": {
+      "frames": 72,
+      "durationSeconds": 2.4,
+      "peakFrame": 18,
+      "description": "Six-step victory parade march with high alternating knees and right paw waving a pennant flag."
+    },
+    "wiggle": {
+      "frames": 60,
+      "durationSeconds": 2.0,
+      "peakFrame": 26,
+      "description": "Four-cycle fiesta hip shimmy shaking a pair of maracas in both hands."
+    },
+    "peekaboo": {
+      "frames": 66,
+      "durationSeconds": 2.2,
+      "peakFrame": 18,
+      "description": "Playful hide-and-peek covering the face with both paws before opening wide in surprise."
+    },
+    "stretch": {
+      "frames": 66,
+      "durationSeconds": 2.2,
+      "peakFrame": 27,
+      "description": "Big cozy overhead V-stretch with chest arch, gentle side sway, and relaxed return."
+    }
+  }
+}

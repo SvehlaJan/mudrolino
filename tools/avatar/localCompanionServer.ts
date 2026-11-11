@@ -4,7 +4,7 @@ import path from 'node:path';
 import type { Plugin } from 'vite';
 
 const modelUrl = '/__avatar_fixture/bear-v1.glb';
-const modelPath = 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v6/web-v1/model.glb';
+const modelPath = 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb';
 
 /**
  * Development only: serves the approved bear from this checkout, so VITE_AVATAR_LOCAL_COMPANION

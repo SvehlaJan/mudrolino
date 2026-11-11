@@ -1,0 +1,27 @@
+# Bear Guide Phase A — `celebration-v7` Rebuild & Payload Optimization (2026-11-11)
+
+Status: Technical gates passed (`runtime-report.json`, `native-runtime-parity.json`, `arm-clearance-audit.json`, `optimization-report.json`, `still-report.json`); wired to local companion fixture/server (`companionFixture.ts`, `localCompanionServer.ts`). Browser integration proof (Task 6) and explicit user art approval remain open before Vercel Blob publication.
+
+## Summary of Changes
+
+1. **Deterministic Seam-Welded Decimation & Float32 Skin Normalization (`bear_companion_common.py`)**
+   - `Bear_fixed_outfit` imported from `meshy-rig-v1/rigged.glb` had `51,311` triangles (`41,161` split vertices due to `15,487` UV-split boundary vertices). Applying `DECIMATE` directly on split boundaries creates crack gaps along UV islands; conversely, over-locking mixed-role vertices (`>= 0.02` + 2-ring = `7,857` vertices) starved smooth anatomy of triangle budget.
+   - `decimate_and_normalize_skin` welds coincident `1e-6` BMesh vertices while preserving loop UVs, protects only the `Head`-local eye/brow landmark patch (`|x| <= 24`, `30 <= y <= 46`, `z >= 28`; `935` verts) plus a 1-ring around `>= 0.25` mixed-role skinning seams (`2,403` verts = `3,338` total locked out of `25,674`), runs `DECIMATE(COLLAPSE, ratio=0.28, use_collapse_triangulate=True, delimit={'UV'})` **before** action floor-sampling and `.blend` save, prunes bone weights `< 1e-3`, caps to top `4` deforming bones, and normalizes weights in IEEE-754 float32 (`max_weight_sum_error = 2.98e-8`).
+   - Output mesh: **`14,363` triangles** (`7,202` Blender vertices / `11,400` glTF split vertices, `-72.0%` triangles vs `v6`).
+
+2. **Dead-Track Animation Pruning (`optimize_generated_bear.mjs`)**
+   - Across all 18 exported glTF animations (`1,296` raw channels), `pruneDeadAnimationTracks` disposes all `scale` channels, all `translation` channels where `targetNode.getName() !== 'Hips'`, and only those `rotation` channels whose every keyframe quaternion matches `targetNode.getRotation()` within `1e-6` (`1 - |dot(q_k, q_rest)| <= 1e-6` and component delta `<= 1e-6`), plus `1,030` orphaned `AnimationSampler`s (`266` active channels retained).
+   - `WEIGHTS_0` remains unquantized float32 (`maximum_weight_error = 2.98e-8 <= 1e-5`).
+   - Final `web-v1/model.glb` (`0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698`): **`1,190,036` raw bytes** (`-66.5%` vs `v6`'s `3,552,892`), **`826,942` gzip bytes** (`807.6 KiB <= 900,000` cap, **`-60.2%`** vs `v6`'s `2,078,070` gzip bytes), `0` `gltf-validator` errors and `0` warnings.
+
+3. **Seamless `pose_idle` (`2.8s`) & `pose_idle_breathe` (`3.6s`) + Parent-to-Child Spine Order (`build_generated_bear_celebration.py`)**
+   - Rebuilt `pose_idle` (`84` frames / `2.8s`) and added `pose_idle_breathe` (`108` frames / `3.6s`) using strict parent-to-child `rotate_world` order (`Hips -> Spine02 -> Spine01 -> Spine -> Shoulders/Arms/Head`) driven by `2π`-periodic harmonics (`sin(2π * phase)`, `1 - cos(2π * phase)`), giving exact neutral endpoint parity (`endpointError = 2.91e-7 m <= 1e-5 m`) matching `bear-still.png` at frame `0` AND continuous non-zero harmonic velocity across loop wrap-around, with `sway²` arm abduction relief preventing underarm grazing.
+   - Reordered `Spine02 -> Spine01 -> Spine` parent-before-child in `pose_bow` (with `4°` right-arm abduction trim for `bowHat` framing), `pose_march`, `pose_wiggle` (with slight inward forearm trim so both maracas stay inside `[-0.95, +0.95]` NDC), `pose_peekaboo` (conjugating horizontal world arm axes by `yaw_deg = 8.0 * hide_sway` so paws track the `Spine02` Z-twist cleanly clear of the snout), and `pose_stretch`.
+
+## Source-Bound Verification Proofs
+
+- **Three.js 120Hz CPU Skinning (`runtime-report.json`, SHA-256 `41b8a2b688050bd142be4fa1aa3d91bfd5404a7257a456df6f0be9728625d946`):** `status: "passed"`, `18` clips, `4,722` sampled poses (`169` primary `celebrate` poses), `14,363` triangles, `826,942` gzip bytes, `maximum_weight_error = 2.98023e-8`, `maximum_endpoint_error_m = 2.90501e-7`, `maximum_root_xy_drift_m = 0`, `maximum_floor_penetration_m = 0`.
+- **Blender ↔ Three.js 120Hz Parity (`native-runtime-parity.json`, SHA-256 `1686c4b15368925fa3d78215e204ce583e84fc67cb4aef36869a716266780c25`):** `status: "passed"`, `4,722` poses across `18` clips, `maximum_vertex_error_m = 27.798988 µm <= 30 µm`.
+- **Blender 120Hz BVH Arm Clearance (`arm-clearance-audit.json`, SHA-256 `23ec6c58895f04a25c34f7f839caa3611a3cdf46cb2d19c0cecd738a97ccd638`):** `status: "passed"`, `4,722` poses across `18` clips, `0` new `arm-torso-leg` pairs and `0` new `arm-head` pairs vs `19` intrinsic bind-pose contacts (`maximum_total_contacts = 243` during paw-to-paw `clap`).
+- **Fallback Still (`still-v1/still-report.json`, SHA-256 `c5937ea4df8b1ea894ced4608783e6d89e6aefab1664b9b8652e178a03ec0fa6`):** `352×400` at `camera.distance = 5.6`, SHA-256 `d5631bc20f3f90ca04528e8f7a5b0dbd48c8d969f34c47b5ed8939c01090fce6`, copied to `src/avatar/companions/bear-still.png`.
+- **3D Prop Frustum & Head-Local Raycast Proof:** All 6 bone-parented props stay within `[-0.9151, +0.9446]` X and `[-0.4489, +0.8968]` Y NDC at `cameraDistance = 5.6`; Head-local raycasts against decimated `Bear_fixed_outfit` record `0` penetrations on `flexMask`, open eyelids, expressive brows (`maxBrowFloat = 2.43 cm <= 2.50 cm`), and `thinkBulb` (`maxBulbNdcY = 0.8959 <= 0.90`), with `100%`/`99.4%` closed-eyelid pupil coverage.

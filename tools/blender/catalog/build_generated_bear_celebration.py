@@ -11,13 +11,12 @@ from mathutils import Matrix, Vector
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bear_accessories import create_studio_accessories, set_active_studio_accessory
 from bear_companion_common import (
-    add_world_rotation,
+    decimate_and_normalize_skin,
     digest,
     export_model,
     material,
     rotate_local,
     rotate_world,
-    world_rotation,
     write_json,
 )
 from build_catalog_t01 import setup_render, world_mesh
@@ -337,26 +336,80 @@ def pose_finale(arm, mesh, phase, design):
 
 def pose_idle(arm, mesh, phase, design):
     reset_pose(arm)
-    env = math.sin(math.pi * phase) ** 1.5
-    breath = math.sin(2 * math.pi * phase) * env
-    nod = (math.sin(4 * math.pi * phase) ** 2) * env
+    sway = math.sin(2.0 * math.pi * phase)
+    inhale = 0.5 * (1.0 - math.cos(2.0 * math.pi * phase))
+    nod = 0.5 * (1.0 - math.cos(4.0 * math.pi * phase))
     relaxed_arm = design.get('relaxedArmDegrees', 16)
     relaxed_forearm = design.get('relaxedForearmDegrees', 6)
 
-    for side, sign in [('Left', 1), ('Right', -1)]:
-        world_rotation(arm.pose.bones[f'{side}Arm'], (0, 1, 0), sign * (relaxed_arm - 5 * env))
-        add_world_rotation(arm.pose.bones[f'{side}Arm'], (0, 0, 1), -sign * 10 * env)
-        world_rotation(arm.pose.bones[f'{side}ForeArm'], (1, 0, 0), -relaxed_forearm)
-        add_world_rotation(arm.pose.bones[f'{side}ForeArm'], (0, 1, 0), -sign * 28 * env)
-        add_world_rotation(arm.pose.bones[f'{side}ForeArm'], (0, 0, 1), -sign * 14 * env)
-        world_rotation(arm.pose.bones[f'{side}Hand'], (0, 0, 1), sign * 10 * env)
-        world_rotation(arm.pose.bones[f'{side}UpLeg'], (1, 0, 0), sign * 3 * breath)
-        world_rotation(arm.pose.bones[f'{side}Leg'], (1, 0, 0), -4 * nod)
+    rotate_world(arm, 'Hips', (0, 1, 0), -1.8 * sway)
+    rotate_world(arm, 'Hips', (0, 0, 1), 2.0 * sway)
 
-    world_rotation(arm.pose.bones['Spine02'], (0, 1, 0), 4 * breath)
-    add_world_rotation(arm.pose.bones['Spine02'], (1, 0, 0), 3 * nod)
-    world_rotation(arm.pose.bones['Head'], (1, 0, 0), 9 * nod)
-    add_world_rotation(arm.pose.bones['Head'], (0, 1, 0), 6 * breath)
+    rotate_world(arm, 'Spine02', (0, 1, 0), 2.8 * sway)
+    rotate_world(arm, 'Spine02', (1, 0, 0), -2.2 * inhale)
+    rotate_world(arm, 'Spine01', (0, 1, 0), 1.8 * sway)
+    rotate_world(arm, 'Spine01', (1, 0, 0), -1.6 * inhale)
+    rotate_world(arm, 'Spine', (0, 1, 0), 1.2 * sway)
+    rotate_world(arm, 'Spine', (1, 0, 0), -1.4 * inhale)
+
+    rotate_world(arm, 'Head', (0, 1, 0), 4.5 * sway)
+    rotate_world(arm, 'Head', (0, 0, 1), -3.5 * sway)
+    rotate_world(arm, 'Head', (1, 0, 0), -2.0 * inhale + 3.2 * nod)
+
+    for side, sign in [('Left', 1), ('Right', -1)]:
+        rotate_world(arm, f'{side}Shoulder', (0, 1, 0), -sign * 2.5 * inhale)
+        rotate_world(arm, f'{side}Arm', (0, 1, 0), sign * (relaxed_arm - 6.0 * inhale - 3.5 * (sway ** 2)))
+        rotate_world(arm, f'{side}Arm', (0, 0, 1), -sign * 8.0 * inhale)
+        rotate_world(arm, f'{side}ForeArm', (1, 0, 0), -relaxed_forearm - 8.0 * inhale)
+        rotate_world(arm, f'{side}ForeArm', (0, 1, 0), -sign * 14.0 * inhale)
+        rotate_world(arm, f'{side}ForeArm', (0, 0, 1), -sign * 10.0 * inhale)
+        rotate_world(arm, f'{side}Hand', (0, 0, 1), sign * 6.0 * inhale)
+
+        rotate_world(arm, f'{side}UpLeg', (0, 1, 0), 1.5 * sway)
+        rotate_world(arm, f'{side}UpLeg', (0, 0, 1), -1.8 * sway)
+        rotate_world(arm, f'{side}UpLeg', (1, 0, 0), -2.0 * inhale)
+        rotate_world(arm, f'{side}Leg', (1, 0, 0), 3.0 * inhale)
+        rotate_world(arm, f'{side}Foot', (1, 0, 0), -1.0 * inhale)
+
+    return apply_floor_and_hop(arm, mesh, 0.0)
+
+
+def pose_idle_breathe(arm, mesh, phase, design):
+    reset_pose(arm)
+    sway = math.sin(2.0 * math.pi * phase)
+    inhale = 0.5 * (1.0 - math.cos(2.0 * math.pi * phase))
+    relaxed_arm = design.get('relaxedArmDegrees', 16)
+    relaxed_forearm = design.get('relaxedForearmDegrees', 6)
+
+    rotate_world(arm, 'Hips', (0, 1, 0), -1.0 * sway)
+    rotate_world(arm, 'Hips', (0, 0, 1), 1.2 * sway)
+
+    rotate_world(arm, 'Spine02', (0, 1, 0), 1.8 * sway)
+    rotate_world(arm, 'Spine02', (1, 0, 0), -2.0 * inhale)
+    rotate_world(arm, 'Spine01', (0, 1, 0), 1.2 * sway)
+    rotate_world(arm, 'Spine01', (1, 0, 0), -1.6 * inhale)
+    rotate_world(arm, 'Spine', (0, 1, 0), 0.8 * sway)
+    rotate_world(arm, 'Spine', (1, 0, 0), -1.4 * inhale)
+
+    rotate_world(arm, 'Head', (0, 1, 0), 2.8 * sway)
+    rotate_world(arm, 'Head', (0, 0, 1), -2.0 * sway)
+    rotate_world(arm, 'Head', (1, 0, 0), -2.2 * inhale)
+
+    for side, sign in [('Left', 1), ('Right', -1)]:
+        rotate_world(arm, f'{side}Shoulder', (0, 1, 0), -sign * 2.2 * inhale)
+        rotate_world(arm, f'{side}Arm', (0, 1, 0), sign * (relaxed_arm - 4.5 * inhale - 2.2 * (sway ** 2)))
+        rotate_world(arm, f'{side}Arm', (0, 0, 1), -sign * 5.0 * inhale)
+        rotate_world(arm, f'{side}ForeArm', (1, 0, 0), -relaxed_forearm - 5.0 * inhale)
+        rotate_world(arm, f'{side}ForeArm', (0, 1, 0), -sign * 8.0 * inhale)
+        rotate_world(arm, f'{side}ForeArm', (0, 0, 1), -sign * 6.0 * inhale)
+        rotate_world(arm, f'{side}Hand', (0, 0, 1), sign * 4.0 * inhale)
+
+        rotate_world(arm, f'{side}UpLeg', (0, 1, 0), 0.9 * sway)
+        rotate_world(arm, f'{side}UpLeg', (0, 0, 1), -1.1 * sway)
+        rotate_world(arm, f'{side}UpLeg', (1, 0, 0), -1.2 * inhale)
+        rotate_world(arm, f'{side}Leg', (1, 0, 0), 1.8 * inhale)
+        rotate_world(arm, f'{side}Foot', (1, 0, 0), -0.6 * inhale)
+
     return apply_floor_and_hop(arm, mesh, 0.0)
 
 
@@ -624,10 +677,10 @@ def pose_bow(arm, mesh, phase, design):
     relaxed_arm = design.get('relaxedArmDegrees', 16)
     relaxed_forearm = design.get('relaxedForearmDegrees', 6)
 
-    rotate_world(arm, 'Spine', (1, 0, 0), 14.0 * bow_env)
-    rotate_world(arm, 'Spine01', (1, 0, 0), 16.0 * bow_env)
     rotate_world(arm, 'Spine02', (1, 0, 0), 18.0 * bow_env)
     rotate_world(arm, 'Spine02', (0, 0, 1), -4.0 * bow_env - 3.0 * sweep)
+    rotate_world(arm, 'Spine01', (1, 0, 0), 16.0 * bow_env)
+    rotate_world(arm, 'Spine', (1, 0, 0), 14.0 * bow_env)
     rotate_world(arm, 'Head', (1, 0, 0), 16.0 * bow_env)
     rotate_world(arm, 'Head', (0, 1, 0), 3.0 * flourish)
 
@@ -639,7 +692,7 @@ def pose_bow(arm, mesh, phase, design):
     rotate_world(arm, 'RightShoulder', (1, 0, 0), 8.0 * bow_env)
     rotate_world(arm, 'RightShoulder', (0, 1, 0), (6.0 + 4.0 * sweep) * env)
     rotate_world(arm, 'RightShoulder', (0, 0, 1), (8.0 + 6.0 * sweep) * env)
-    rotate_world(arm, 'RightArm', (0, 1, 0), -relaxed_arm + (38.0 + 12.0 * sweep) * env)
+    rotate_world(arm, 'RightArm', (0, 1, 0), -relaxed_arm + (34.0 + 12.0 * sweep) * env)
     rotate_world(arm, 'RightArm', (0, 0, 1), (18.0 + 12.0 * sweep) * env)
     rotate_world(arm, 'RightArm', (1, 0, 0), (-14.0 - 8.0 * bow_env - 10.0 * sweep) * env)
     rotate_world(arm, 'RightForeArm', (1, 0, 0), -relaxed_forearm - (22.0 + 8.0 * sweep) * env)
@@ -674,10 +727,10 @@ def pose_march(arm, mesh, phase, design):
     relaxed_forearm = design.get('relaxedForearmDegrees', 6)
 
     rotate_world(arm, 'Hips', (0, 0, 1), -5.0 * m_wave)
-    rotate_world(arm, 'Spine', (0, 0, 1), 2.0 * m_wave)
-    rotate_world(arm, 'Spine01', (0, 0, 1), 3.0 * m_wave)
     rotate_world(arm, 'Spine02', (0, 0, 1), 4.0 * m_wave)
     rotate_world(arm, 'Spine02', (1, 0, 0), -2.5 * step_pulse)
+    rotate_world(arm, 'Spine01', (0, 0, 1), 3.0 * m_wave)
+    rotate_world(arm, 'Spine', (0, 0, 1), 2.0 * m_wave)
     rotate_world(arm, 'Head', (0, 1, 0), 5.0 * m_wave)
     rotate_world(arm, 'Head', (1, 0, 0), -4.0 * step_pulse + 2.0 * env)
 
@@ -724,13 +777,13 @@ def pose_wiggle(arm, mesh, phase, design):
     rotate_world(arm, 'Hips', (0, 1, 0), -14.0 * w)
     rotate_world(arm, 'Hips', (0, 0, 1), 16.0 * w)
 
-    rotate_world(arm, 'Spine', (0, 1, 0), 5.0 * w)
-    rotate_world(arm, 'Spine', (0, 0, 1), -6.0 * w)
-    rotate_world(arm, 'Spine01', (0, 1, 0), 5.0 * w)
-    rotate_world(arm, 'Spine01', (0, 0, 1), -6.0 * w)
     rotate_world(arm, 'Spine02', (0, 1, 0), 5.0 * w)
     rotate_world(arm, 'Spine02', (0, 0, 1), -6.0 * w)
     rotate_world(arm, 'Spine02', (1, 0, 0), -2.5 * pulse)
+    rotate_world(arm, 'Spine01', (0, 1, 0), 5.0 * w)
+    rotate_world(arm, 'Spine01', (0, 0, 1), -6.0 * w)
+    rotate_world(arm, 'Spine', (0, 1, 0), 5.0 * w)
+    rotate_world(arm, 'Spine', (0, 0, 1), -6.0 * w)
 
     rotate_world(arm, 'neck', (0, 1, 0), 3.0 * w)
     rotate_world(arm, 'Head', (0, 1, 0), 6.0 * w)
@@ -740,16 +793,16 @@ def pose_wiggle(arm, mesh, phase, design):
     for side, sign in [('Left', 1), ('Right', -1)]:
         shake = sign * w
         rotate_world(arm, f'{side}Shoulder', (0, 1, 0), -sign * 8.0 * env)
-        rotate_world(arm, f'{side}Arm', (0, 1, 0), sign * (relaxed_arm - 42.0 * env) + 6.0 * w)
-        rotate_world(arm, f'{side}Arm', (0, 0, 1), -sign * 22.0 * env)
+        rotate_world(arm, f'{side}Arm', (0, 1, 0), sign * (relaxed_arm - 38.0 * env) + 4.5 * w)
+        rotate_world(arm, f'{side}Arm', (0, 0, 1), -sign * 26.0 * env)
         rotate_world(arm, f'{side}Arm', (1, 0, 0), -22.0 * env + 6.0 * shake)
 
         rotate_world(arm, f'{side}ForeArm', (1, 0, 0), -relaxed_forearm - 42.0 * env + 8.0 * shake)
-        rotate_world(arm, f'{side}ForeArm', (0, 0, 1), -sign * 16.0 * env)
-        rotate_world(arm, f'{side}ForeArm', (0, 1, 0), -sign * 18.0 * env + 8.0 * w)
+        rotate_world(arm, f'{side}ForeArm', (0, 0, 1), -sign * 20.0 * env)
+        rotate_world(arm, f'{side}ForeArm', (0, 1, 0), -sign * 16.0 * env + 5.0 * w)
 
         rotate_world(arm, f'{side}Hand', (1, 0, 0), 10.0 * shake)
-        rotate_world(arm, f'{side}Hand', (0, 1, 0), 8.0 * w)
+        rotate_world(arm, f'{side}Hand', (0, 1, 0), 5.0 * w)
 
         rotate_world(arm, f'{side}UpLeg', (0, 1, 0), 9.0 * w)
         rotate_world(arm, f'{side}UpLeg', (0, 0, 1), -10.0 * w)
@@ -807,29 +860,33 @@ def pose_peekaboo(arm, mesh, phase, design):
         peek_nod = 0.0
         peek_tilt = 0.0
 
-    rotate_world(arm, 'Spine01', (1, 0, 0), -3.2 * w_hide + 2.0 * w_peek)
-    rotate_world(arm, 'Spine02', (1, 0, 0), -4.8 * w_hide + 4.0 * w_peek)
+    yaw_deg = 8.0 * hide_sway
+    yaw_rad = math.radians(yaw_deg)
+    ax_x = (math.cos(yaw_rad), math.sin(yaw_rad), 0.0)
+    ax_y = (-math.sin(yaw_rad), math.cos(yaw_rad), 0.0)
 
-    rotate_world(arm, 'Head', (1, 0, 0), 12.0 * w_hide - 6.0 * w_peek + 7.0 * peek_nod)
-    rotate_world(arm, 'Head', (0, 1, 0), 5.0 * peek_tilt)
+    if yaw_deg != 0.0:
+        rotate_world(arm, 'Spine02', (0, 0, 1), yaw_deg)
+    rotate_world(arm, 'Spine02', ax_x, -4.8 * w_hide + 4.0 * w_peek)
+    rotate_world(arm, 'Spine01', ax_x, -3.2 * w_hide + 2.0 * w_peek)
+
+    rotate_world(arm, 'Head', ax_x, 12.0 * w_hide - 6.0 * w_peek + 7.0 * peek_nod)
+    rotate_world(arm, 'Head', ax_y, 5.0 * peek_tilt)
 
     for side, sign in [('Left', 1), ('Right', -1)]:
-        rotate_world(arm, f'{side}Shoulder', (0, 1, 0), -sign * (-2.0 * w_hide + 4.0 * w_peek))
+        rotate_world(arm, f'{side}Shoulder', ax_y, -sign * (-2.0 * w_hide + 4.0 * w_peek))
         rotate_world(arm, f'{side}Shoulder', (0, 0, 1), -sign * (26.0 * w_hide - 4.0 * w_peek))
 
-        rotate_world(arm, f'{side}Arm', (0, 1, 0), sign * (relaxed_arm - 60.0 * w_hide - 66.0 * w_peek))
+        rotate_world(arm, f'{side}Arm', ax_y, sign * (relaxed_arm - 60.0 * w_hide - 66.0 * w_peek))
         rotate_world(arm, f'{side}Arm', (0, 0, 1), -sign * (46.0 * w_hide + 2.0 * w_peek))
-        rotate_world(arm, f'{side}Arm', (1, 0, 0), -30.0 * w_hide - 8.0 * w_peek)
+        rotate_world(arm, f'{side}Arm', ax_x, -30.0 * w_hide - 8.0 * w_peek)
 
         rotate_world(arm, f'{side}ForeArm', (0, 0, 1), -sign * (28.0 * w_hide - 6.0 * w_peek))
-        rotate_world(arm, f'{side}ForeArm', (0, 1, 0), -sign * (28.0 * w_hide + 6.0 * w_peek))
-        rotate_world(arm, f'{side}ForeArm', (1, 0, 0), -relaxed_forearm - 18.0 * w_hide - 14.0 * w_peek)
+        rotate_world(arm, f'{side}ForeArm', ax_y, -sign * (28.0 * w_hide + 6.0 * w_peek))
+        rotate_world(arm, f'{side}ForeArm', ax_x, -relaxed_forearm - 18.0 * w_hide - 14.0 * w_peek)
 
         rotate_world(arm, f'{side}Hand', (0, 0, 1), -sign * (18.0 * w_hide - 12.0 * w_peek))
-        rotate_world(arm, f'{side}Hand', (0, 1, 0), -sign * (10.0 * w_hide - 8.0 * w_peek))
-
-    if hide_sway != 0.0:
-        rotate_world(arm, 'Spine02', (0, 0, 1), 8.0 * hide_sway)
+        rotate_world(arm, f'{side}Hand', ax_y, -sign * (10.0 * w_hide - 8.0 * w_peek))
 
     return apply_floor_and_hop(arm, mesh, 0.0)
 
@@ -870,9 +927,13 @@ def pose_stretch(arm, mesh, phase, design):
     else:
         sigh_nod = 0.0
 
-    rotate_world(arm, 'Spine', (1, 0, 0), -4.0 * w_stretch + 2.0 * sigh_nod)
-    rotate_world(arm, 'Spine01', (1, 0, 0), -6.0 * w_stretch + 3.0 * sigh_nod)
     rotate_world(arm, 'Spine02', (1, 0, 0), -10.0 * w_stretch + 5.0 * sigh_nod)
+    if sway != 0.0:
+        rotate_world(arm, 'Spine02', (0, 1, 0), 1.7 * sway)
+    rotate_world(arm, 'Spine01', (1, 0, 0), -6.0 * w_stretch + 3.0 * sigh_nod)
+    if sway != 0.0:
+        rotate_world(arm, 'Spine01', (0, 1, 0), 0.8 * sway)
+    rotate_world(arm, 'Spine', (1, 0, 0), -4.0 * w_stretch + 2.0 * sigh_nod)
 
     rotate_world(arm, 'Head', (1, 0, 0), -14.0 * w_stretch + 8.0 * sigh_nod)
 
@@ -892,10 +953,6 @@ def pose_stretch(arm, mesh, phase, design):
         rotate_world(arm, f'{side}Hand', (0, 1, 0), -sign * (6.0 * w_stretch - 8.0 * w_release))
         rotate_world(arm, f'{side}Hand', (1, 0, 0), -8.0 * w_stretch - 4.0 * w_release)
 
-    if sway != 0.0:
-        rotate_world(arm, 'Spine01', (0, 1, 0), 0.8 * sway)
-        rotate_world(arm, 'Spine02', (0, 1, 0), 1.7 * sway)
-
     return apply_floor_and_hop(arm, mesh, 0.0)
 
 
@@ -905,7 +962,8 @@ CLIP_BUILDERS = [
     ('clap', 66, pose_clap),
     ('jump', 42, pose_jump),
     ('finale', 84, pose_finale),
-    ('idle', 42, pose_idle),
+    ('idle', 84, pose_idle),
+    ('idle_breathe', 108, pose_idle_breathe),
     ('search', 66, pose_search),
     ('think', 66, pose_think),
     ('listen', 60, pose_listen),
@@ -955,6 +1013,10 @@ def main():
     arm.animation_data_create()
     for action in list(bpy.data.actions):
         bpy.data.actions.remove(action, do_unlink=True)
+    reset_pose(arm)
+    decimate_stats = decimate_and_normalize_skin(
+        mesh, arm, ratio=float(design.get('decimateRatio', 0.28))
+    )
 
     scene = bpy.context.scene
     scene.render.fps = 30
@@ -1026,6 +1088,7 @@ def main():
     target = Vector((0, 0, 1.155))
     camera.data.ortho_scale = 2.60
     views = {}
+    end_frames = {name: end_frame for name, end_frame, _ in CLIP_BUILDERS}
     review_shots = [
         ('neutral', 'celebrate', 0, (-2, -5, .35)),
         ('front', 'celebrate', 0, (0, -5, .28)),
@@ -1038,7 +1101,8 @@ def main():
         ('clap-peak', 'clap', 33, (-2, -5, .35)),
         ('jump-peak', 'jump', 20, (-2, -5, .35)),
         ('finale-peak', 'finale', 26, (-2, -5, .35)),
-        ('idle-peak', 'idle', 21, (-2, -5, .35)),
+        ('idle-peak', 'idle', 28, (-2, -5, .35)),
+        ('idle_breathe-peak', 'idle_breathe', 36, (-2, -5, .35)),
         ('search-peak', 'search', 33, (-2, -5, .35)),
         ('think-peak', 'think', 48, (-2, -5, .35)),
         ('listen-peak', 'listen', 27, (-2, -5, .35)),
@@ -1052,7 +1116,11 @@ def main():
         ('stretch-peak', 'stretch', 27, (-2, -5, .35)),
     ]
     for label, clip_name, frame, offset in review_shots:
-        set_active_studio_accessory(studio_props, clip_name)
+        set_active_studio_accessory(
+            studio_props,
+            clip_name,
+            normalized_progress=frame / end_frames[clip_name],
+        )
         act = actions_by_name[clip_name]
         arm.animation_data.action = act
         if hasattr(arm.animation_data, 'action_slot') and act.slots:
@@ -1084,6 +1152,7 @@ def main():
         'glb_sha256': digest(glb),
         'bone_names': sorted(b.name for b in arm.data.bones),
         'mesh_names': [mesh.name],
+        'decimation': decimate_stats,
         'animation': 'celebrate',
         'duration_seconds': 1.4,
         'fps': 30,

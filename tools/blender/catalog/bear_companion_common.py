@@ -3,7 +3,9 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import struct
 
+import bmesh
 import bpy
 from mathutils import Matrix, Quaternion, Vector
 
@@ -125,6 +127,138 @@ def triangles(obj):
     count = sum(len(polygon.vertices) - 2 for polygon in mesh.polygons)
     evaluated.to_mesh_clear()
     return count
+
+
+def _skin_role(bone_name):
+    if any(part in bone_name for part in ('Arm', 'Hand', 'Shoulder')):
+        return 'arm'
+    if any(part in bone_name for part in ('Head', 'neck', 'head')):
+        return 'head'
+    if any(part in bone_name for part in ('Spine', 'Hips', 'Leg', 'Foot', 'Toe')):
+        return 'torso-leg'
+    return 'other'
+
+
+def decimate_and_normalize_skin(mesh, arm, ratio=0.28, min_weight=1e-3, max_influences=4):
+    """Weld split seam vertices, apply UV-delimited collapse decimation, and float32-normalize top-4 bone weights."""
+    mesh.data.calc_loop_triangles()
+    original_triangles = len(mesh.data.loop_triangles)
+    original_vertices = len(mesh.data.vertices)
+
+    # Weld coincident 3D seam vertices while keeping per-corner loop UVs intact on BMLoop.
+    bm = bmesh.new()
+    bm.from_mesh(mesh.data)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-6)
+    bm.to_mesh(mesh.data)
+    bm.free()
+    mesh.data.validate(clean_customdata=False)
+    mesh.data.update()
+
+    # Preserve eye-socket curvature in Head-local cm plus 1-ring mixed-role skinning seams
+    # (arm <-> torso-leg underarm folds and arm <-> head collar seams) while keeping ears/paws/shoes smooth.
+    preserve_group_name = '_bear_face_preserve'
+    to_head = (
+        (arm.matrix_world @ arm.data.bones['Head'].matrix_local).inverted() @ mesh.matrix_world
+        if 'Head' in arm.data.bones
+        else None
+    )
+    eye_preserve = set()
+    crease_seed = set()
+    for v in mesh.data.vertices:
+        if to_head is not None:
+            hp = to_head @ v.co
+            if abs(hp.x) <= 24.0 and 30.0 <= hp.y <= 46.0 and hp.z >= 28.0:
+                eye_preserve.add(v.index)
+                continue
+        role_weights = {'arm': 0.0, 'head': 0.0, 'torso-leg': 0.0, 'other': 0.0}
+        for g in v.groups:
+            if g.weight > 1e-3:
+                role_weights[_skin_role(mesh.vertex_groups[g.group].name)] += g.weight
+        if role_weights['arm'] >= 0.25 and (role_weights['torso-leg'] >= 0.25 or role_weights['head'] >= 0.25):
+            crease_seed.add(v.index)
+
+    adjacency = {i: set() for i in range(len(mesh.data.vertices))}
+    for poly in mesh.data.polygons:
+        verts = list(poly.vertices)
+        for vi in verts:
+            adjacency[vi].update(verts)
+    crease_expanded = set(crease_seed)
+    for vi in list(crease_seed):
+        crease_expanded.update(adjacency[vi])
+    face_verts = sorted(eye_preserve | crease_expanded)
+
+    if face_verts:
+        vg_face = mesh.vertex_groups.new(name=preserve_group_name)
+        vg_face.add(face_verts, 1.0, 'REPLACE')
+
+    bpy.ops.object.select_all(action='DESELECT')
+    mesh.select_set(True)
+    bpy.context.view_layer.objects.active = mesh
+    dec = mesh.modifiers.new(name='Bear_Decimate', type='DECIMATE')
+    dec.decimate_type = 'COLLAPSE'
+    dec.ratio = ratio
+    dec.use_collapse_triangulate = True
+    dec.delimit = {'UV'}
+    if face_verts:
+        dec.vertex_group = preserve_group_name
+        dec.invert_vertex_group = True
+    bpy.ops.object.modifier_move_to_index(modifier=dec.name, index=0)
+    bpy.ops.object.modifier_apply(modifier=dec.name)
+    if preserve_group_name in mesh.vertex_groups:
+        mesh.vertex_groups.remove(mesh.vertex_groups[preserve_group_name])
+    mesh.data.validate(clean_customdata=False)
+    mesh.data.update()
+    bpy.ops.outliner.orphans_purge(do_recursive=True)
+
+    bone_names = {b.name for b in arm.data.bones}
+    for vg in list(mesh.vertex_groups):
+        if vg.name not in bone_names:
+            mesh.vertex_groups.remove(vg)
+    fallback_group = next(vg.index for vg in mesh.vertex_groups if vg.name in bone_names)
+
+    assignments = []
+    max_weight_sum_error = 0.0
+    for v in mesh.data.vertices:
+        raw = [
+            (g.group, float(g.weight))
+            for g in v.groups
+            if mesh.vertex_groups[g.group].name in bone_names and g.weight >= min_weight
+        ]
+        if not raw:
+            raw = [
+                (g.group, float(g.weight))
+                for g in v.groups
+                if mesh.vertex_groups[g.group].name in bone_names and g.weight > 0.0
+            ]
+        if not raw:
+            raw = [(fallback_group, 1.0)]
+        raw.sort(key=lambda item: (-item[1], item[0]))
+        top = raw[:max_influences]
+        total = math.fsum(w for _, w in top)
+        f32 = [struct.unpack('f', struct.pack('f', w / total))[0] for _, w in top]
+        f32[0] = struct.unpack('f', struct.pack('f', 1.0 - math.fsum(f32[1:])))[0]
+        err = abs(math.fsum(f32) - 1.0)
+        if err > max_weight_sum_error:
+            max_weight_sum_error = err
+        assignments.append((v.index, [(top[i][0], f32[i]) for i in range(len(top))]))
+
+    all_indices = list(range(len(mesh.data.vertices)))
+    for vg in mesh.vertex_groups:
+        vg.remove(all_indices)
+    for v_idx, pairs in assignments:
+        for g_idx, w in pairs:
+            mesh.vertex_groups[g_idx].add([v_idx], w, 'REPLACE')
+    mesh.data.update()
+    mesh.data.calc_loop_triangles()
+
+    return {
+        'ratio': ratio,
+        'original_vertices': original_vertices,
+        'original_triangles': original_triangles,
+        'decimated_vertices': len(mesh.data.vertices),
+        'decimated_triangles': len(mesh.data.loop_triangles),
+        'max_weight_sum_error': max_weight_sum_error,
+    }
 
 
 def export_model(path, arm, meshes, animation=False, animation_mode='ACTIVE_ACTIONS'):
