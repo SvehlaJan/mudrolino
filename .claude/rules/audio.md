@@ -33,8 +33,8 @@ files and orphaned ones. The tooling lives in `tools/audio/` (never under
 ## Resolution order
 
 `audioManager.ts` plays clip sequences and resolves each clip independently:
-a parent's IndexedDB override first, then the bundled MP3, then `sk-SK` Web
-Speech TTS. A missing file is therefore never an error, which is why development
+a parent's IndexedDB override first, then the bundled MP3, then Web Speech TTS
+in the active locale (`sk-SK` or `cs-CZ`). A missing file is therefore never an error, which is why development
 works with no audio at all — and why a typo in an `audioKey` is silent. Trust
 `npm run test:audio` over listening.
 

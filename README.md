@@ -93,7 +93,7 @@ npm run dev
 
 Open [localhost:3000](http://localhost:3000). The dev server binds to `0.0.0.0`, so it is also reachable on the local network. No credentials are needed to play the core games.
 
-Optional feedback and production monitoring settings are documented in [`.env.example`](.env.example). The published bear loads from Vercel Blob; editable 3D sources are stored separately in private R2 and are only needed for asset authoring. See the [avatar workflow](docs/avatar-workflow.md).
+Optional feedback and production monitoring settings are documented in [`.env.example`](.env.example). The published bear loads from Vercel Blob. Authoring sources and evidence are retained only in the owner's [local MacBook archive](docs/local-archive.md); they are optional for app development. Existing R2 recovery covers 3D files only. See the [avatar workflow](docs/avatar-workflow.md).
 
 For browser checks, install the matching browsers once after `npm ci` or a Playwright upgrade:
 
@@ -112,6 +112,11 @@ npm run setup:browsers
 | `npm run verify:release` | Integration plus the full viewport matrix, WebKit, real media, offline/production checks, and strict audio inventory. |
 | `npm run build` | Production output in `dist`; test builds use `dist-e2e`. |
 
+Local authoring checks are separate: `npm run archive:verify` validates the
+preserved snapshot, `npm run archive:link` connects the ignored authoring paths,
+and `npm run archive:test` requires the private catalog/model evidence. Ordinary
+unit tests use portable fixtures and do not require that archive.
+
 **Current release limitation:** bundled recordings are still pending. Development accepts only the declared omissions and uses TTS fallback; strict audio/release verification remains failing until every recording is present. Earlier releases have explicit, recorded exceptions. A passing development profile does not establish release readiness.
 
 Verification reports and traces stay under ignored artifact directories. Screenshot capture uses a seed and produces originals, review copies up to 320px wide, and a manifest:
@@ -125,4 +130,4 @@ npm run shots -- --base=http://127.0.0.1:4173 --seed=42 --scene=assembly-placed 
 
 The bear is a working proof of concept for learning the 3D model and animation pipeline. The longer-term hypothesis is a tutor with a parent's face and dress-up interactions. Parent avatars, wardrobe selection, rewards, and possible paid customization remain future work.
 
-See the [roadmap](ROADMAP.md) for current priorities and decision history, the [engineering case study](docs/engineering-decisions.md) for the reasoning behind the implementation, and [AGENTS.md](AGENTS.md) for contribution and verification conventions. When changing shared controls, update their `/ui-kit` examples too; that gallery is available in development and test builds.
+See the [documentation map](docs/README.md) for current guidance and history, [domain glossary](CONTEXT.md) for app vocabulary, [roadmap](ROADMAP.md) for priorities, and [engineering case study](docs/engineering-decisions.md) for implementation decisions. [AGENTS.md](AGENTS.md) defines contribution and verification conventions. When changing shared controls, update their development/test `/ui-kit` examples too.

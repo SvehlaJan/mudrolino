@@ -23,11 +23,6 @@ export function detectLocale(languages: readonly string[]): SupportedLocale {
   return 'sk';
 }
 
-/** BCP 47 tag for `Intl`, `toLocaleUpperCase` and `<html lang>`. */
-export function localeTag(locale: string): string {
-  return locale === 'cs' ? 'cs-CZ' : 'sk-SK';
-}
-
 /**
  * Marks Slovak UI text defined outside components (settings labels, validation
  * messages) for translation without translating it. Translate it where it is

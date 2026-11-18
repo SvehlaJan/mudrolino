@@ -1,10 +1,11 @@
+import { toAxeParams, isSeriousAxeViolation, waitForOverlaySettled, AXE_TAGS } from './support/accessibility';
 import { expect, test, type Page } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import { expectMinimumTarget, expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewport } from './support/layoutAssertions';
 import { getE2EState } from './support/e2eHook';
 import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { CANONICAL_VIEWPORTS, INTEGRATION_VIEWPORTS } from './support/viewports';
-import { toAxeParams, isSeriousAxeViolation, LONG_LABEL_WORDS, seedSingleLiteracyWord, BespokeRoundState, BespokeGameCase, BESPOKE_GAMES, actedControl, waitForOverlaySettled, AXE_TAGS, expectNotClippedByAncestorOverflow, PLAY_SURFACE_CONTROLS, waitForPlaySurfaceSettled } from './support/literacyHarness';
+import { LONG_LABEL_WORDS, seedSingleLiteracyWord, BespokeRoundState, BespokeGameCase, BESPOKE_GAMES, actedControl, expectNotClippedByAncestorOverflow, PLAY_SURFACE_CONTROLS, waitForPlaySurfaceSettled } from './support/literacyHarness';
 import { startGame } from './support/gameEntry';
 
 test('UI kit exposes the literacy material vocabulary', async ({ page }) => {

@@ -1,1 +1,0 @@
-The 352×400 source still supports the 176×200 maximum CSS slot at 2×. Inspect only bear-still-review.png (320px wide); the source-bound still-report.json identifies the unchanged native source and product camera.

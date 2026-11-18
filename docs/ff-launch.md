@@ -1,145 +1,43 @@
-# Friends & family launch kit
+# Release and friends-and-family checklist
 
-Working notes for the Mudrolíno friends-and-family (F&F) launch. Task status
-lives in `ROADMAP.md` (Phase 1, section 1.0); this file holds what the user
-does by hand, the messages to send and the open decisions.
+Production is [mudrolino.vercel.app](https://mudrolino.vercel.app). Production deploys from `release`; `main` and feature branches create previews. Current work is tracked in the [roadmap](../ROADMAP.md). The [original launch notes](history/2026-10-14-friends-family-launch.md) retain the completed October domain and Git migration.
 
-## Before sharing the link (user actions)
+## Release a reviewed change
 
-### 1. Git and Vercel: deploy production from `release`
+1. Identify the reviewed `main` commit and its verification evidence. Run the repository's required checks for the changed scope; release verification includes strict recording inventory. Inspect the actual report and preserve any known failure explicitly.
+2. Confirm the Vercel production branch is `release`, production environment values are correct, and the deployment targets the reviewed commit. Keep `VITE_AVATAR_POC_ENABLED` unset in production. Environment changes apply to the next build.
+3. When the user asks to ship, fast-forward `release` to that reviewed `main` commit and push `release`. A diverged branch needs investigation before proceeding. The one-time rewritten-main migration is historical.
+4. Check the deployed version in the parent area, then smoke-test the production URL and installed app. Retain the deployed revision and results with the release evidence.
 
-Production deploys from the `release` branch; pushes to `main` and other
-branches only create preview deployments (decision 2026-10-14).
+Pending recordings still fail strict release verification. Previous exceptions were approved for specific releases only; they do not cover later releases.
 
-1. Vercel → project **mudrolino** → **Settings → Environments → Production →
-   Branch Tracking**: change `main` to `release` and **Save**. Do this first, so
-   the next push of `main` does not deploy production.
-2. Push the rewritten `main` (a project hook blocks agent pushes):
-   `git push --force-with-lease=main:b9bc0523163455c76504bdcae673b2cf9c02c864 origin main`
-3. Review `feat/ff-launch-prep` (pushing it gives a preview deployment:
-   `git push -u origin feat/ff-launch-prep`), then merge it into `main`.
-4. Ship: `git push origin main:release`. Every later release is the same
-   fast-forward of `release` to a reviewed `main` commit.
-5. Domains are done: `mudrolino.vercel.app` serves production and
-   `teo-learn.vercel.app` redirects to it.
-6. Environment variables (**Settings → Environment Variables**), all for the
-   **Production** environment only, set before step 4 because variables apply
-   to the next deployment:
-   - `VITE_WEB3FORMS_KEY` (already set)
-   - `VITE_SENTRY_DSN`, `SENTRY_AUTH_TOKEN` (mark **Sensitive**), `SENTRY_ORG`,
-     `SENTRY_PROJECT`, `SENTRY_URL` = `https://de.sentry.io/` (see Sentry below)
-   - Confirm `VITE_AVATAR_POC_ENABLED` is not set.
-7. **Analytics** tab → enable **Web Analytics**.
+## Pending manual checks
 
-### 2. Sentry (error reports)
+These items remain open until a person records their result; the presence of implementation code does not establish that service settings or physical-device behavior have been checked.
 
-The app reads the DSN at build time and reports only from production builds.
-Uploading source maps is optional but makes stack traces readable.
+- Review Czech draft content and UI before recording: [content](../src/shared/locales/cs.ts), [game/home copy](../src/shared/uiCopy.ts), and [Czech UI translations](../src/shared/locales/cs.ui.ts). Validate custom content and recordings across language switches.
+- On a real iPhone, test Safari and the installed app: one Game card tap must start the first prompt using the recording when available. Also test Android Chrome and a tablet, including Czech speech fallback, microphone permissions, backup/restore, sharing, feedback and offline play.
+- Confirm production feedback and error reporting configuration against [.env.example](../.env.example). Check the intended EU Sentry project/DSN, source-map upload settings and actual received error metadata; keep replay/tracing and personal-data collection off. Source-map upload is optional and failure only warns.
+- Confirm Vercel Web Analytics is enabled if still desired; implementation is production-only page views. Any future gameplay-event analytics needs a separate scope/privacy decision.
+- Collect and triage feedback from the existing small friend group before broader sharing/public-launch planning. Templates below can support additional invitations; sending them is a separate user action.
 
-1. **DSN** (done): project → **Settings → Client Keys (DSN)**. Put it into
-   Vercel as `VITE_SENTRY_DSN`. It is public by design; it only allows sending
-   events.
-2. **Organization slug** → `SENTRY_ORG`: **Settings → Organization → General
-   Settings → Organization Slug**. It is also the first part of your Sentry
-   address, `https://<org-slug>.sentry.io/`.
-3. **Project slug** → `SENTRY_PROJECT`: **Settings → Projects →** your project →
-   **General Settings → Name** (the short lowercase name, e.g. `mudrolino`). It
-   also appears in project URLs, `…/projects/<project-slug>/`.
-4. **Auth token** → `SENTRY_AUTH_TOKEN`: **Settings → Developer Settings →
-   Organization Tokens → Create New Token**, name it `vercel-sourcemaps`, copy
-   it immediately (it is shown only once) and store it in Vercel as
-   **Sensitive**. Organization tokens are limited to CI work such as uploading
-   source maps, which is all the build needs. (A personal token from **User
-   Settings → Personal Tokens** with *Project: Read & Write* and *Release: Admin*
-   also works, but is tied to your account.)
-5. **Region URL** → `SENTRY_URL` = `https://de.sentry.io/`: the organization
-   stores data in the EU, and the upload tool otherwise talks to the US server.
-6. **Turn off IP storage**: **Settings → Projects →** your project → **Security &
-   Privacy → Prevent Storing of IP Addresses** (on). The same toggle exists
-   organization-wide under **Settings → Organization → Security & Privacy** if
-   you prefer one switch for all projects. The app already sends no IP or
-   personal data; this makes Sentry discard the address it sees on the
-   connection too.
-7. Recommended: under **Security & Privacy** leave **Data Scrubber** and **Use
-   Default Scrubbers** on, and under the project's **General Settings → Client
-   Security → Allowed Domains** enter `mudrolino.vercel.app`, so the public DSN
-   only accepts browser events sent from the app.
-8. Check after the first production deploy: open `https://mudrolino.vercel.app`
-   and run `setTimeout(() => { throw new Error('Sentry test') })` in the browser
-   console. The issue appears in Sentry within a minute, with the release set to
-   the build's short commit (the version shown in Rodičovská zóna → Aplikácia a
-   vzhľad). A source-map upload problem shows up as a `[sentry] Source map upload
-   failed` warning in the Vercel build log; it never blocks the deploy.
+## Record remaining audio
 
-### 3. Czech review
+The source of truth is [pending-recordings.json](../tools/audio/pending-recordings.json), not a copied count. On 2026-11-11, 41 Slovak and 199 Czech clips remained.
 
-Review the Czech drafts (all marked DRAFT) before recording, because the clips
-must match the final words and phrases:
-- `src/shared/locales/cs.ts` — alphabet example words, word list and syllable
-  splits, phrases, praise.
-- `src/shared/uiCopy.ts` (`CS_COPY`) and `src/shared/locales/cs.ui.ts` — every
-  Czech UI text.
+1. Run `npm run audio:sessions` after reviewing content to generate short takes and scripts under `tools/audio/sessions/`.
+2. Record each block in order with roughly one-second pauses. Repeat a block after mistakes.
+3. Process a take with `python3 tools/audio/process_recording.py <take> --session <session.tsv>`. Review the split clips before approving writes to `public/audio/`; adjust silence options or rerecord if the piece count differs.
+4. Sync the pending inventory and run `npm run test:audio`; complete `npm run test:audio:strict` before the next normal release.
 
-### 4. Device test (about 10 minutes per device)
+## Device smoke check
 
-Before recording, so problems surface early; missing clips use the phone's own
-voice. On a real iPhone (Safari, then installed to the home screen), an Android
-phone and a tablet:
+1. Open the production URL, install it, and confirm its version.
+2. Start Čítaj písmenká and Sčítaj directly from their Game cards. Check first-prompt audio, item-then-retry/item-then-praise feedback, completion and play again.
+3. Enter the arithmetic Parent gate, switch language, save/play a custom recording, export a backup and merge it on another device.
+4. Verify the parent sharing and feedback controls, then reopen offline. The optional bear may use its still; games must remain playable.
 
-1. Open `https://mudrolino.vercel.app`; the link preview in a chat shows the
-   icon and "Písmenká, slabiky a čísla hrou."
-2. Install it to the home screen and open it from there; it should open full
-   screen.
-3. Play two rounds of Abeceda and one of Sčítaj: the prompt plays, a wrong
-   answer plays the item then "Skús to znova", a right answer plays the item
-   then praise.
-4. Open the parent zone (gear icon, solve the sum), switch to Čeština, and play
-   a round: Czech prompts and letters (Ř, Ů) appear; switch back.
-5. Vlastný obsah → Slová → Pridať slovo, record it with the microphone (allow
-   access), play it back, then find it in Slová / Skladaj.
-6. Aplikácia a vzhľad → Uložiť zálohu: the share sheet or a download appears.
-   On a second device, Obnoviť zo zálohy with that file: the word and its
-   recording appear.
-7. Odporučiť priateľom opens the share sheet with the link.
-8. Pomoc a spätná väzba: send a test message; it arrives at your Web3Forms
-   address.
-9. Turn on airplane mode and reopen the installed app: home and games still
-   work.
-
-Note anything odd in `docs/ff-launch.md` or send it through the feedback form.
-
-### 5. Recording (last)
-
-All pending clips are listed in `tools/audio/pending-recordings.json` (41
-Slovak, 199 Czech). Record in short takes, one category each, so a missed pause
-only affects one take.
-
-1. `npm run audio:sessions` plans the takes and writes a numbered script per
-   language to `tools/audio/sessions/<locale>-script.md` (open it on a tablet
-   or print it). Re-run it whenever words or phrases change.
-2. Record one take per block (phone voice memo is fine): read the items in
-   order with about a one-second pause; after a mistake, redo the whole block.
-3. For each take run, e.g.:
-   `python3 tools/audio/process_recording.py cs-06.m4a --session tools/audio/sessions/cs-06-words-1.tsv`
-   It splits at pauses, saves the pieces to `tools/audio/_new/` to listen to,
-   shows which clip goes where and asks before writing to `public/audio/`. It
-   writes nothing if the number of pieces does not match the block; then adjust
-   `--silence-dur` (0.8 for more pauses inside words, 0.5 for short pauses) or
-   record the block again.
-4. Writing a take updates the pending list (`npm run audio:sync-pending`) and
-   runs `npm run test:audio`. When everything is recorded,
-   `npm run test:audio:strict` must pass before shipping.
-
-### 6. Your family’s data on the old address
-
-`teo-learn.vercel.app` now redirects, so its stored words and recordings can no
-longer be opened there, and the old build had no backup feature anyway. An
-installed copy may still open from the home screen (from its offline cache),
-but it keeps running the old version and cannot update. If those recordings
-matter: after the first `release` deploy, temporarily remove the redirect, open
-`teo-learn.vercel.app` on that device, save a backup (Rodičovská zóna →
-Aplikácia a vzhľad → Uložiť zálohu), restore it on `mudrolino.vercel.app`, then
-re-enable the redirect. Either way, delete the old home-screen icon.
+Family content belongs to its browser and origin. Before changing devices or domains, export and restore a backup. Recovery of old-origin data, if still needed, requires a deliberate plan; the dated launch notes describe the original migration context.
 
 ## Message to send with the link
 
@@ -199,26 +97,6 @@ re-enable the redirect. Either way, delete the old home-screen icon.
 2. Ktoré hry ho bavili najviac a ktoré najmenej? / Které hry ho bavily nejvíc a které nejméně?
 3. Nefungovalo niečo (zvuk, zaseknutie, chyba)? Na akom zariadení? / Nefungovalo něco (zvuk, zaseknutí, chyba)? Na jakém zařízení?
 4. Nahrávali ste vlastný hlas? Ako sa to robilo? / Nahrávali jste vlastní hlas? Jak se to dělalo?
-5. **Používate Mudrolíno na viacerých zariadeniach (napr. nahrávate na telefóne, dieťa hrá na tablete)?** / **Používáte Mudrolíno na více zařízeních?** — this decides whether cross-device sync (ROADMAP 1.2) is built.
+5. **Používate Mudrolíno na viacerých zariadeniach (napr. nahrávate na telefóne, dieťa hrá na tablete)?** / **Používáte Mudrolíno na více zařízeních?** — this decides whether cross-device sync ([roadmap](../ROADMAP.md#phase-3--cloud-and-accounts)) is built.
 6. Čo by ste pridali alebo zmenili? / Co byste přidali nebo změnili?
 7. Odporučili by ste Mudrolíno iným rodičom (0–10)? / Doporučili byste Mudrolíno jiným rodičům (0–10)?
-
-## Decisions (user, 2026-10-14)
-
-1. Install and link-preview description: neutral and readable in both
-   languages — "Písmenká, slabiky a čísla hrou."
-2. Contact email in the app: `mudrolino@pm.me`.
-3. The install card stays on the child's home screen.
-4. `mudrolino.vercel.app` is the production domain; `teo-learn.vercel.app`
-   redirects to it.
-5. Production deploys from the `release` branch.
-
-## Notes for the reviewer
-
-- Parent-zone instructions now consistently address parents formally
-  (e.g. "Nahrajte vlastný hlas" instead of "Nahraj"); children's game text
-  stays informal.
-- The settings toggle "Písmená s dĺžňami a mäkčeňmi" reads "Písmena s čárkami
-  a háčky" in Czech, and the Czech alphabet includes Ě, Ř, Ů and W.
-- Fallback praise objects in the games ("Výborne!") remain Slovak; they only
-  apply if a locale had no praise at all, which the content repair prevents.

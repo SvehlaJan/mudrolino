@@ -36,10 +36,6 @@ function collectMetadata(screen: string, locale: string) {
   };
 }
 
-export function hasFeedbackKey(): boolean {
-  return Boolean(import.meta.env.VITE_WEB3FORMS_KEY);
-}
-
 export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
   const key = import.meta.env.VITE_WEB3FORMS_KEY;
   if (!key) {

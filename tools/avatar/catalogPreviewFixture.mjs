@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { existsSync, realpathSync } from 'node:fs';
+import { resolveAuthoringRoot } from './localArchive.mjs';
 
 export function resolveCatalogPreviewFixture(root, args) {
   const option = name => args.find(value => value.startsWith(`--${name}=`))?.slice(name.length + 3);
@@ -18,8 +19,10 @@ export function resolveCatalogPreviewFixture(root, args) {
   function inside(value, allowed) {
     const candidate = path.resolve(root, value);
     const relative = path.relative(path.resolve(root, allowed), candidate);
-    const approved = canonical(path.resolve(root, allowed));
-    if (escapes(relative) || escapes(path.relative(canonical(root), approved)) || escapes(path.relative(approved, canonical(candidate)))) throw new Error(`Path must stay under ${allowed}`);
+    const logicalRoot = ['assets/avatar/catalog-a','assets/avatar/catalog','assets/avatar/concepts'].find(value => candidate === path.resolve(root,value) || candidate.startsWith(path.resolve(root,value)+path.sep));
+    const archivedRoot = allowed === 'assets/avatar' && logicalRoot && existsSync(root) ? resolveAuthoringRoot(root,logicalRoot) : null;
+    const approved = archivedRoot ?? canonical(path.resolve(root, allowed));
+    if (escapes(relative) || (!archivedRoot && escapes(path.relative(canonical(root), approved))) || escapes(path.relative(approved, canonical(candidate)))) throw new Error(`Path must stay under ${allowed}`);
     return candidate;
   }
   const outfitDir = inside(option('outfit-dir') ?? `assets/avatar/catalog-a/outfits/${outfit}`, 'assets/avatar');

@@ -201,10 +201,6 @@ export const GAME_DEFINITIONS: GameDefinition[] = [
   },
 ];
 
-export const GAME_PATH: Record<GameId, string> = Object.fromEntries(
-  GAME_DEFINITIONS.map(game => [game.id, game.path])
-) as Record<GameId, string>;
-
 export const GAME_DEFINITIONS_BY_ID: Record<GameId, GameDefinition> = Object.fromEntries(
   GAME_DEFINITIONS.map(game => [game.id, game])
 ) as Record<GameId, GameDefinition>;

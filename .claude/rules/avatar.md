@@ -10,7 +10,9 @@ paths:
 # Avatar
 
 `/avatar-preview` is a development-only live asset gallery. Catalog models,
-references, native sources and fitting history live under `assets/avatar/`.
+references, native sources and fitting history are reached through ignored,
+validated links under `assets/avatar/`. Run `npm run archive:link` first; see
+`docs/local-archive.md` for the MacBook-only archive, verification and recovery.
 The old modular workbench, parent customization UI, home overlay and pre-catalog
 male exports are retired. The bear learning companion (`src/avatar/companions/bear-v1.json`)
 is live in production across all games via Vercel Blob; customizable human catalog

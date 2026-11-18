@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { FailureSpec, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
 import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
+import { pickPraise } from '../../shared/praise';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -33,16 +34,10 @@ import { playPopSound } from './countingSfx';
 
 const INSTRUCTION = msg('Spočítaj predmety.');
 const ANSWER_GROUP_LABEL = msg('Vyber počet');
-const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
-
 interface CountingRound {
   target: NumberItem | null;
   emoji: string;
   options: NumberItem[];
-}
-
-function pickPraise(entries: PraiseEntry[]): PraiseEntry {
-  return entries[Math.floor(Math.random() * entries.length)] ?? FALLBACK_PRAISE;
 }
 
 function getAnswerPieceState(state: GameState, answerId: string): TactilePieceState | undefined {

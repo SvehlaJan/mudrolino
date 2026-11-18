@@ -11,6 +11,7 @@ import { useReducedMotion } from 'motion/react';
 import { AudioSpec, PraiseEntry, SuccessSpec, Word } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
+import { pickPraise } from '../../shared/praise';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -52,12 +53,6 @@ const ANSWER_GROUP_LABEL = msg('Zásobník slabík');
 const MAX_ROUNDS = 5;
 const TILE_FLIGHT_DURATION_S = 0.62;
 const REDUCED_MOTION_FADE_MS = 220;
-
-const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
-
-function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
-  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
-}
 
 function getPromptAudio(locale: string, word: Word): AudioSpec {
   return {

@@ -1,5 +1,10 @@
 # Palette-A Blender catalog workflow
 
+Run `npm run archive:link` before using the authoring paths below. References,
+reports and source snapshots are retained only in the MacBook archive described
+in [local archive guidance](../../../docs/local-archive.md). Keep its immutable
+snapshot unchanged; new revisions belong in the linked writable tree.
+
 Start with `docs/avatar-workflow.md` for the shared Codex/Claude handoff and face
 texture contract. `npm run avatar:blender -- --version` checks the selected Blender;
 set `BLENDER_BIN` to test another installation. The Python gate runners use the

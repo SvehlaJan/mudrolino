@@ -34,10 +34,6 @@ export const CS_TRANSLATIONS: Record<string, string> = {
 
   // Shared controls and overlays
   'Zavrieť': 'Zavřít',
-  'Pauza': 'Pauza',
-  'Nevadí': 'Nevadí',
-  'Nevadí!': 'Nevadí!',
-  'Je to:': 'Je to:',
   '{current} z {total} {label}': '{current} z {total} {label}',
   'kolá': 'kol',
   'Vymazať': 'Vymazat',

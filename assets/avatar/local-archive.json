@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "archiveId": "repository-cleanup-2026-11-11",
+  "sourceCommit": "61211c3884fff259e28a70f75d5a03c1ba23b496",
+  "snapshotManifestSha256": "03a1c259171044e6d10294637e89ee03f5bc8d86e96f94b73f512601d3901e04",
+  "roots": [
+    "assets/avatar/catalog-a",
+    "assets/avatar/catalog",
+    "assets/avatar/concepts"
+  ]
+}

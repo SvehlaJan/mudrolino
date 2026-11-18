@@ -36,6 +36,14 @@ import subprocess
 import sys
 import tempfile
 
+from audio_split_core import (
+    MANUAL_PROFILE as SPLIT_PROFILE,
+    detect_silences as _detect_silences,
+    extract_segment as _extract_segment,
+    get_duration,
+    silences_to_segments as _silences_to_segments,
+)
+
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -43,96 +51,24 @@ OUTPUT_BASE = os.path.join(SCRIPT_DIR, "_new")
 
 # ── Audio split parameters ────────────────────────────────────────────────────
 
-MIN_SPEECH_DURATION = 0.10
-SILENCE_NOISE_DB = "-35dB"
-PADDING = 0.05
-DEFAULT_SILENCE_DUR = 0.5
+MIN_SPEECH_DURATION = SPLIT_PROFILE.min_speech_duration
+SILENCE_NOISE_DB = SPLIT_PROFILE.silence_noise_db
+PADDING = SPLIT_PROFILE.padding
+DEFAULT_SILENCE_DUR = SPLIT_PROFILE.default_silence_dur
 
 
 # ── Silence detection + splitting ─────────────────────────────────────────────
 
-def get_duration(path):
-    result = subprocess.run(
-        [
-            "ffprobe",
-            "-v",
-            "quiet",
-            "-show_entries",
-            "format=duration",
-            "-of",
-            "default=noprint_wrappers=1:nokey=1",
-            path,
-        ],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    return float(result.stdout.strip())
-
-
-def detect_silences(path, noise=SILENCE_NOISE_DB, min_dur=0.5):
-    result = subprocess.run(
-        [
-            "ffmpeg",
-            "-i",
-            path,
-            "-af",
-            f"silencedetect=noise={noise}:d={min_dur}",
-            "-f",
-            "null",
-            "-",
-        ],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", result.stderr)]
-    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", result.stderr)]
-    return list(zip(starts, ends))
+def detect_silences(path, noise=SILENCE_NOISE_DB, min_dur=DEFAULT_SILENCE_DUR):
+    return _detect_silences(path, noise=noise, min_dur=min_dur)
 
 
 def silences_to_segments(silences, total):
-    segments = []
-    if not silences:
-        return [(0.0, total)]
-
-    if silences[0][0] > MIN_SPEECH_DURATION:
-        segments.append((0.0, silences[0][0]))
-
-    for i in range(len(silences) - 1):
-        start = silences[i][1]
-        end = silences[i + 1][0]
-        if end - start > MIN_SPEECH_DURATION:
-            segments.append((start, end))
-
-    if total - silences[-1][1] > MIN_SPEECH_DURATION:
-        segments.append((silences[-1][1], total))
-
-    return segments
+    return _silences_to_segments(silences, total, min_speech_duration=MIN_SPEECH_DURATION)
 
 
 def extract_segment(src, start, end, dest, total):
-    export_start = max(0.0, start - PADDING)
-    export_end = min(total, end + PADDING)
-    subprocess.run(
-        [
-            "ffmpeg",
-            "-y",
-            "-i",
-            src,
-            "-ss",
-            str(export_start),
-            "-t",
-            str(export_end - export_start),
-            "-q:a",
-            "2",
-            "-codec:a",
-            "libmp3lame",
-            dest,
-        ],
-        capture_output=True,
-        check=True,
-    )
+    return _extract_segment(src, start, end, dest, total, profile=SPLIT_PROFILE)
 
 
 def split_to_temp(src, silence_dur):

@@ -1,3 +1,4 @@
+import { toAxeParams, isSeriousAxeViolation, waitForOverlaySettled, AXE_TAGS } from './support/accessibility';
 import { test, expect } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import { getE2EState } from './support/e2eHook';
@@ -23,14 +24,6 @@ import { expectHomeScreen, startGame } from './support/gameEntry';
 // One PraiseEntry is picked per success transition (see FindItGame.tsx), so the visible
 // success title is whichever entry's text was chosen, not always the generic default.
 const ANY_PRAISE_TEXT = new RegExp(PRAISE_ENTRIES.map((entry) => entry.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
-
-function toAxeParams(page: import('@playwright/test').Page): ConstructorParameters<typeof AxeBuilder>[0] {
-  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
-}
-
-function isSeriousAxeViolation(impact: string | null | undefined): boolean {
-  return ['critical', 'serious'].includes(impact ?? '');
-}
 
 interface FindItE2EState extends E2EGlobalState {
   gameId: 'ALPHABET' | 'SYLLABLES' | 'NUMBERS' | 'WORDS';
@@ -61,21 +54,6 @@ async function findWrongId(page: import('@playwright/test').Page): Promise<strin
   const wrongId = state.gridItemIds.find((id) => id !== state.correctItemId);
   expect(wrongId, 'expected at least one non-target grid item').toBeDefined();
   return wrongId!;
-}
-
-/**
- * OverlayFrame's enter transition fades opacity 0→1 over motionPreset.transition (180ms),
- * even under reduced motion (only translate/scale are dropped, not the fade itself).
- * Playwright's own `visible` check resolves the instant opacity leaves 0, so an axe scan
- * immediately after can catch a genuinely mid-fade frame and report a transient contrast
- * "violation" that never reflects the settled panel. Wait for the observable computed
- * opacity to actually reach 1 before scanning, rather than a blind sleep.
- */
-async function waitForOverlaySettled(page: import('@playwright/test').Page): Promise<void> {
-  await page.waitForFunction(() => {
-    const panel = document.querySelector('[role="status"][aria-live="polite"]');
-    return panel !== null && getComputedStyle(panel).opacity === '1';
-  });
 }
 
 /** Plays a fresh alphabet session to session-complete via pointer, answering every round correctly. */
@@ -597,7 +575,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     await startGame(page, '/alphabet');
 
     const roundAxe = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
     expect(roundAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
 
@@ -608,7 +586,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     await waitForOverlaySettled(page);
 
     const successAxe = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
     expect(successAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
@@ -644,7 +622,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     await waitForOverlaySettled(page);
 
     const failureAxe = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
     expect(failureAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
@@ -658,7 +636,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     await waitForOverlaySettled(page);
 
     const completionAxe = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
     expect(completionAxe.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
 
@@ -673,7 +651,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
       await startGame(page, game.path);
 
       const results = await new AxeBuilder(toAxeParams(page))
-        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+        .withTags(AXE_TAGS)
         .analyze();
       expect(results.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
     });
@@ -683,7 +661,7 @@ test.describe('Task 7: Accessibility, reduced motion, and zoom', () => {
     await completeAlphabetSession(page);
     await waitForOverlaySettled(page);
     const results = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
     expect(results.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });

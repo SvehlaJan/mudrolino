@@ -82,7 +82,7 @@ Bundled recordings remain a known unfinished area. Development allows only decla
 
 Evidence:
 
-- [Verification design](superpowers/specs/2026-10-02-development-efficiency-design.md), [historical audit and limits](superpowers/development-efficiency-audit.md), and [implementation handoff](superpowers/handoffs/2026-10-02-development-efficiency.md).
+- [Verification design](superpowers/specs/2026-10-02-development-efficiency-design.md), [historical audit and limits](audits/2026-09-30-development-efficiency.md), and [implementation handoff](superpowers/handoffs/2026-10-02-development-efficiency.md).
 - [Session controller tests](../src/shared/game/gameSessionController.test.ts), [audio cancellation/fallback tests](../src/shared/services/audioManager.test.ts), and [suite selection](../tools/verification/selection.ts).
 - [Offline tests](../e2e/offline.spec.ts), [real-media checks](../e2e/real-media.spec.ts), [production guards](../e2e/production-guards.spec.ts), and [release audio-order checks](../e2e/release-audio-order.spec.ts).
 
@@ -114,7 +114,7 @@ The workflow checks actual exported motion in Three.js, compares native and runt
 Evidence:
 
 - [Human-avatar audit](audits/2026-10-03-avatar-workflow.md), [bear product specification](superpowers/specs/2026-10-19-bear-companion-design.md), and [reference rebuild plan](superpowers/plans/2026-10-21-bear-reference-rebuild.md).
-- [Bear retrospective, including the rejected stock animations](../assets/avatar/catalog-a/companions/bear-v2/retrospective.md) and [independent reference/runtime review](audits/2026-10-22-generated-bear-final-review.md).
+- [Historical bear retrospective, including the rejected stock animations](https://github.com/SvehlaJan/mudrolino/blob/61211c3884fff259e28a70f75d5a03c1ba23b496/assets/avatar/catalog-a/companions/bear-v2/retrospective.md) and [independent reference/runtime review](audits/2026-10-22-generated-bear-final-review.md). The current authoring evidence is retained in the [local-only archive](local-archive.md).
 - [Lazy renderer entry](../src/avatar/AvatarPresenter.tsx), [companion browser checks](../e2e/avatar-companion.spec.ts), and [production bundle guard](../tools/release/verify-production-bundle.mjs).
 
 ## What this project demonstrates

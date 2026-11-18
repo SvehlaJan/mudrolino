@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Letter, PraiseEntry, SuccessSpec, FailureSpec } from '../../shared/types';
 import { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
+import { pickPraise } from '../../shared/praise';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { getItemAnnouncementAudio, getItemAudioClip, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -39,12 +40,6 @@ import {
 
 const INSTRUCTION = msg('Ktorým písmenom sa začína toto slovo?');
 const ANSWER_GROUP_LABEL = msg('Vyber prvé písmeno');
-
-const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
-
-function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
-  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
-}
 
 function getPromptAudio(locale: string, item: FirstLetterItem) {
   return {

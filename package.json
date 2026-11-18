@@ -41,7 +41,10 @@
     "assets:manifest": "node tools/avatar/asset_store.mjs manifest",
     "assets:verify": "node tools/avatar/asset_store.mjs verify",
     "assets:push": "node --env-file-if-exists=.env tools/avatar/asset_store.mjs push",
-    "assets:pull": "node --env-file-if-exists=.env tools/avatar/asset_store.mjs pull"
+    "assets:pull": "node --env-file-if-exists=.env tools/avatar/asset_store.mjs pull",
+    "archive:link": "node tools/avatar/localArchive.mjs link",
+    "archive:verify": "node tools/avatar/localArchive.mjs verify",
+    "archive:test": "vitest run --config=vitest.local-archive.config.ts"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.23",
@@ -79,7 +82,6 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vercel/blob": "^2.8.2",
-    "autoprefixer": "^10.4.21",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",

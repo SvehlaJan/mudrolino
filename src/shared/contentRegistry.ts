@@ -2,21 +2,17 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import { AudioClip, AudioSpec, Letter, Syllable, Word, LocaleContent, AudioPhraseKey } from './types';
+import { AudioClip, AudioSpec, Syllable, Word, LocaleContent, AudioPhraseKey } from './types';
 import * as sk from './locales/sk';
 import * as cs from './locales/cs';
 
 export type { AudioPhraseKey } from './types';
 
 export const COLORS = ['text-primary', 'text-success', 'text-accent-blue'];
-export const BG_COLORS = ['bg-primary', 'bg-success', 'bg-accent-blue'];
 
 export const TIMING = {
   AUDIO_DELAY_MS: 100,
   FEEDBACK_RESET_MS: 500,
-  SUCCESS_SHOW_DELAY_MS: 500,
-  SUCCESS_OVERLAY_DURATION_MS: 3000,
-  COUNTING_OPTIONS_DELAY_MS: 2000,
 };
 
 export const COUNTING_EMOJIS: string[] = [
@@ -113,17 +109,5 @@ export function getItemAnnouncementAudio(
   fallbackText: string,
 ): AudioSpec {
   return { clips: [getItemAudioClip(locale, category, audioKey, fallbackText)] };
-}
-
-export function getAlphabetItems(locale: string, includeAccentedLetters: boolean): Letter[] {
-  const letters = getLocaleContent(locale).letterItems;
-  if (includeAccentedLetters) return letters;
-  return letters.filter((l) => l.symbol.normalize('NFD') === l.symbol);
-}
-
-export function getNumberItemsInRange(locale: string, range: { start: number; end: number }) {
-  return getLocaleContent(locale).numberItems.filter(
-    (n) => n.value >= range.start && n.value <= range.end,
-  );
 }
 

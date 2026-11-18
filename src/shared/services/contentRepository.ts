@@ -1,11 +1,6 @@
 // src/shared/services/contentRepository.ts
 import type { UserWord, UserPraise } from '../types';
 
-export interface RestoreDefaultsResult {
-  restored: number;
-  skippedDuplicates: number;
-}
-
 export interface ContentRepository {
   readonly locale: string;
 

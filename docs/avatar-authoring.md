@@ -5,6 +5,10 @@ CLIs and the Blender queue; no chat history, MCP or particular agent tool is
 required. Read `docs/avatar-workflow.md` for active candidates and acceptance state.
 Catalog fitting also follows `tools/blender/catalog/README.md`.
 
+Resolve the [local authoring archive](local-archive.md) before using catalog paths.
+Its immutable snapshot preserves historical sources; all new output belongs in
+the writable linked tree with new revision/proof identities.
+
 ## Establish likeness before production work
 
 Preserve the approved reference, crop and provenance. Compare head/body ratio,

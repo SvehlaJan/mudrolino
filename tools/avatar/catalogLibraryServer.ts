@@ -1,23 +1,26 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from 'node:fs';
 import path from 'node:path';
+import { gunzipSync } from 'node:zlib';
 import type { CatalogBase, CatalogCategory, CatalogItem, CatalogLibraryAsset, CatalogLibraryManifest, CatalogReference, CatalogSource } from '../../src/avatar/catalogLibrary';
 import type { CatalogPreviewEntry } from '../../src/avatar/catalogPreview';
+import { resolveAuthoringRoot } from './localArchive.mjs';
 import { buildCatalogPreviewManifest } from './catalogPreviewServer';
 import { catalogIndexPath, catalogItemAssets, catalogItemReferences, hydrateCatalogIndex } from './catalogIndex';
 
 const prefix = '/__avatar_catalog/';
 const catalogRoot = 'assets/avatar/catalog-a';
 const imagePattern = /\.(png|jpe?g|webp)$/i;
-const sourcePattern = /\.(glb|blend|json|md|py|mjs|js|ts)$/i;
+const sourcePattern = /\.(glb|blend|json(?:\.gz)?|md|py|mjs|js|ts)$/i;
 function isSource(relative: string): boolean {
-  const name = path.posix.basename(relative);
+  const name = path.posix.basename(relative).replace(/\.json\.gz$/i, '.json');
   if (/secret|credential|password|token|api[-_]?key|private[-_]key/i.test(name)) return false;
   if (/\.json$/i.test(name)) return /report|proof|metadata|diagnos|summary|audit|fit|sweep|study|regression|guard|preserv|correct|readiness|coverage|deformation|budget|manifest|prompts|catalog-progress|^export-validation\.json$|^canonical-face-layout\.json$/i.test(name);
   if (/\.md$/i.test(name)) return /^(retrospective|gallery|readme)(?:[-_].*)?\.md$/i.test(name);
   if (/\.(py|mjs|js|ts)$/i.test(name)) return /^(build|prepare|assemble|verify|render|fit|diagnose|capture|summarize|catalog|repair)[_-]/i.test(name) && relative.startsWith('tools/');
   return /\.(glb|blend)$/i.test(name);
 }
+const authoringRoots = ['assets/avatar/catalog-a', 'assets/avatar/catalog', 'assets/avatar/concepts'];
 const roots = ['assets/avatar', 'public/avatar', 'tools/avatar', 'tools/blender', 'artifacts/verification'];
 const slash = (p: string) => p.split(path.sep).join('/');
 const fileUrl = (relative: string) => `${prefix}files/${relative.split('/').map(encodeURIComponent).join('/')}`;
@@ -29,29 +32,47 @@ function strings(value: unknown): string[] { return Array.isArray(value) ? value
 function inside(root: string, target: string) { return target.startsWith(root + path.sep); }
 function safeFile(root: string, relative: string): string | null {
   if (relative.split('/').some(part => !part || part === '.' || part === '..' || part.startsWith('.'))) return null;
-  const boundary = roots.find(r => relative.startsWith(`${r}/`));
+  const boundary = [...authoringRoots, ...roots].find(r => relative.startsWith(`${r}/`));
   if (!boundary) return null;
+  const authoring = authoringRoots.includes(boundary);
+  const approvedRoot = authoring ? resolveAuthoringRoot(root, boundary) : null;
   try {
-    const repo = realpathSync(root); const approved = realpathSync(path.join(root, boundary)); const real = realpathSync(path.join(root, relative));
-    return inside(repo, approved) && inside(approved, real) && statSync(real).isFile() ? real : null;
+    const repo = realpathSync(root); const approved = approvedRoot ?? realpathSync(path.join(root, boundary)); const real = realpathSync(path.join(root, relative));
+    return (authoring || inside(repo, approved)) && inside(approved, real) && statSync(real).isFile() ? real : null;
   } catch { return null; }
+}
+// A compressed counterpart changes transport, while the declared proof path stays intact.
+function sourceFile(root: string, relative: string): { relative: string; file: string } | null {
+  const direct = safeFile(root, relative);
+  if (direct) return { relative, file: direct };
+  if (!/\.json$/i.test(relative) || existsSync(path.join(root, relative))) return null;
+  const compressed = relative + '.gz'; const file = safeFile(root, compressed);
+  return file ? { relative: compressed, file } : null;
 }
 function scan(root: string, relative: string): string[] {
   const directory = path.join(root, relative);
   if (!existsSync(directory)) return [];
-  if (!inside(realpathSync(root), realpathSync(directory))) return [];
+  const boundary = authoringRoots.find(r => relative === r || relative.startsWith(`${r}/`));
+  const approved = boundary ? resolveAuthoringRoot(root, boundary) : realpathSync(root);
+  const actual = realpathSync(directory);
+  if (!approved || (actual !== approved && !inside(approved, actual))) return [];
   const found: string[] = [];
   for (const entry of readdirSync(directory, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
-    if (entry.name.startsWith('.') || entry.name === '__pycache__' || entry.isSymbolicLink()) continue;
+    if (entry.name.startsWith('.') || entry.name === '__pycache__') continue;
     const p = `${relative}/${entry.name}`;
+    if (entry.isSymbolicLink()) {
+      if (authoringRoots.includes(p) && resolveAuthoringRoot(root, p)) found.push(...scan(root, p));
+      continue;
+    }
     if (entry.isDirectory()) found.push(...scan(root, p)); else if (entry.isFile()) found.push(p);
   }
   return found;
 }
 function json(root: string, relative: string, required = false): Metadata {
-  const p = safeFile(root, relative); if (!p) return {};
+  const source = sourceFile(root, relative); if (!source) return {};
   try {
-    const data: unknown = JSON.parse(readFileSync(p, 'utf8'));
+    const bytes = readFileSync(source.file);
+    const data: unknown = JSON.parse((source.relative.endsWith('.gz') ? gunzipSync(bytes) : bytes).toString('utf8'));
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('expected an object');
     return data as Metadata;
   } catch (error) {
@@ -64,6 +85,7 @@ function baseFor(id: string): CatalogBase { return ['H02', 'H03', 'H05'].include
 function role(relative: string): CatalogSource['role'] { return relative.endsWith('.glb') ? 'model' : relative.endsWith('.blend') ? 'blend' : /\.(py|mjs|js|ts)$/.test(relative) ? 'script' : /progress|manifest|prompts/.test(relative) ? 'metadata' : 'report'; }
 
 export function buildCatalogLibraryManifest(root: string): CatalogLibraryManifest {
+  for (const relative of authoringRoots) resolveAuthoringRoot(root, relative);
   const files = [...scan(root, 'assets/avatar'), ...scan(root, 'public/avatar'), ...scan(root, 'tools/blender/catalog'), ...scan(root, 'tools/avatar')];
   const progressPath = `${catalogRoot}/catalog-progress.json`;
   if (existsSync(path.join(root, progressPath)) && !safeFile(root, progressPath)) throw new Error(`Unsafe avatar metadata ${progressPath}: file escapes the approved avatar root`);
@@ -73,19 +95,22 @@ export function buildCatalogLibraryManifest(root: string): CatalogLibraryManifes
   for (const key of ['accepted_ids', 'fit_verified_ids']) if (progress[key] !== undefined && (!Array.isArray(progress[key]) || strings(progress[key]).length !== (progress[key] as unknown[]).length)) throw new Error(`Invalid avatar metadata ${progressPath}: ${key} must be a string array`);
   const accepted = new Set(strings(progress.accepted_ids)); const fit = new Set(strings(progress.fit_verified_ids));
   const assets: CatalogLibraryAsset[] = [];
-  const sources = (paths: string[]): CatalogSource[] => [...new Set(paths)].filter(p => isSource(p) && safeFile(root, p)).sort().map(p => ({ path: p, label: path.basename(p), role: role(p), url: fileUrl(p) }));
+  const sources = (paths: string[]): CatalogSource[] => [...new Set(paths)].sort().flatMap(p => {
+    const source = isSource(p) ? sourceFile(root, p) : null;
+    return source ? [{ path: p, label: path.basename(p), role: role(p), url: fileUrl(source.relative) }] : [];
+  });
   const neighbors = (relative: string) => files.filter(p => path.posix.dirname(p) === path.posix.dirname(relative) && sourcePattern.test(p));
   const referencedPaths = (data: unknown): string[] => {
     if (typeof data === 'string') {
       const candidate = data.startsWith('artifacts/') ? data : slash(path.posix.normalize(`${catalogRoot}/${data}`));
-      return safeFile(root, candidate) && sourcePattern.test(candidate) ? [candidate] : [];
+      return sourcePattern.test(candidate) && sourceFile(root, candidate) ? [candidate] : [];
     }
     if (Array.isArray(data)) return data.flatMap(referencedPaths);
     return Object.values(object(data)).flatMap(referencedPaths);
   };
   const commonSources = [progressPath, ...files.filter(p => p.startsWith('tools/blender/catalog/') && /prepare_catalog_body|prepare_catalog_motion|assemble_catalog_outfit/.test(p))];
   const referenceMetadata = new Map<string, { label?: string; prompt?: string; ids: string[]; manifest: string }>();
-  for (const manifest of files.filter(p => p.startsWith('assets/avatar/concepts/') && p.endsWith('.json'))) {
+  for (const manifest of files.filter(p => p.startsWith('assets/avatar/concepts/') && /\.json(?:\.gz)?$/i.test(p))) {
     const data = json(root, manifest); const directory = path.posix.dirname(manifest);
     const rows: unknown[] = [...(Array.isArray(data.boards) ? data.boards : []), ...(Array.isArray(data.sheets) ? data.sheets : []), ...(Array.isArray(data.outputs) ? data.outputs : []), ...(Array.isArray(data.images) ? data.images : []), object(data.base)];
     for (const row of rows) {
@@ -180,7 +205,7 @@ export function buildCatalogLibraryManifest(root: string): CatalogLibraryManifes
   }
   const itemReferences = catalogItemReferences(items);
   const revisionAssets = catalogItemAssets(items);
-  const linkedFiles = new Set([...assets, ...revisionAssets].flatMap(a => [...a.sources.map(s => s.path), ...a.references.map(r => decodeURIComponent(r.url.slice(`${prefix}files/`.length))), ...(a.previewUrl ? [decodeURIComponent(a.previewUrl.slice(`${prefix}thumbs/`.length))] : [])]));
+  const linkedFiles = new Set([...assets, ...revisionAssets].flatMap(a => [...a.sources.map(s => decodeURIComponent(s.url.slice(`${prefix}files/`.length))), ...a.references.map(r => decodeURIComponent(r.url.slice(`${prefix}files/`.length))), ...(a.previewUrl ? [decodeURIComponent(a.previewUrl.slice(`${prefix}thumbs/`.length))] : [])]));
   for (const reference of itemReferences) { linkedFiles.add(decodeURIComponent(reference.url.slice(`${prefix}files/`.length))); if (reference.provenance) linkedFiles.add(reference.provenance.sourcePath); }
   if (items.length) linkedFiles.add(catalogIndexPath);
   for (const relative of currentModels) if (safeFile(root, relative)) linkedFiles.add(relative);

@@ -1,11 +1,11 @@
-import { mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, renameSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { buildManifest, collectAssets, compare, objectKey, planPull, planPush, signRequest } from './asset_store.mjs';
 
 let repo: string;
-afterEach(() => rmSync(repo, { recursive: true, force: true }));
+afterEach(() => { vi.unstubAllEnvs(); rmSync(repo, { recursive: true, force: true }); });
 
 function fixture() {
   repo = mkdtempSync(path.join(tmpdir(), 'asset-store-'));
@@ -70,4 +70,22 @@ describe('avatar asset store', () => {
     expect(result.changed).toEqual(['assets/avatar/catalog-a/T01/T01.glb']);
     expect(result.unlisted).toEqual(['assets/avatar/catalog-a/T01/new.glb']);
   });
+});
+
+
+it('includes approved archived subtrees and refuses a missing contracted root', () => {
+  const before=fixture();
+  const archive=mkdtempSync(path.join(tmpdir(),'asset-store-archive-'));
+  try {
+    const relative='assets/avatar/catalog-a';
+    mkdirSync(path.join(archive,'working/assets/avatar'),{recursive:true});
+    renameSync(path.join(repo,relative),path.join(archive,'working',relative));
+    symlinkSync(path.join(archive,'working',relative),path.join(repo,relative));
+    writeFileSync(path.join(repo,'assets/avatar/local-archive.json'),JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),roots:[relative]}));
+    writeFileSync(path.join(archive,'archive-manifest.json'),JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),verified:true}));
+    vi.stubEnv('MUDROLINO_ARCHIVE_ROOT',archive);
+    expect(collectAssets(repo)).toEqual(before);
+    rmSync(path.join(repo,relative));
+    expect(()=>collectAssets(repo)).toThrow(/archive|missing|link/i);
+  } finally { rmSync(archive,{recursive:true,force:true}); }
 });

@@ -1,14 +1,14 @@
 """Consolidate current fitting/export/browser evidence; reject stale hashes."""
 import argparse
-import hashlib
 import json
 from pathlib import Path
+from proof_io import read_proof_json, proof_digest
 
 def digest(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return proof_digest(path)
 
 def read(path):
-    return json.loads(path.read_text())
+    return read_proof_json(path)
 
 def require(condition,message):
     if not condition:

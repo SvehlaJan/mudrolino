@@ -1,29 +1,13 @@
+import { isSeriousAxeViolation, toAxeParams, AXE_TAGS } from './support/accessibility';
 import { test, expect } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import { unlockParentGate } from './support/parentGate';
-
-const SERIOUS_IMPACTS = ['critical', 'serious'];
-
-function isSeriousViolation(impact: string | null | undefined): boolean {
-  return SERIOUS_IMPACTS.includes(impact ?? '');
-}
-
-/**
- * `@axe-core/playwright` declares its `page` param against a `Page` it imports straight from
- * `playwright-core`, while `@playwright/test`'s own `page` fixture resolves through a separately
- * nested `playwright-core` (a version-skew that predates this task). Both are the same Playwright
- * page at runtime; only the two `.d.ts` copies disagree structurally, so the constructor's own
- * declared param type is the honest cast target here rather than `any`.
- */
-function toAxeParams(page: import('@playwright/test').Page): ConstructorParameters<typeof AxeBuilder>[0] {
-  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
-}
 
 test.describe('Accessibility foundation', () => {
   test('/ui-kit has no critical or serious axe violations', async ({ page }) => {
     await page.goto('/ui-kit');
     const results = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       // `Button`'s legacy `variant="secondary"` swatch intentionally renders the real,
       // shipped `bg-soft-watermelon` legacy color unchanged, to document what pre-Phase-2
       // call sites still look like until they migrate to `tone` — recoloring the swatch
@@ -35,7 +19,7 @@ test.describe('Accessibility foundation', () => {
       .exclude('[data-testid="ui-kit-legacy-recording-item"]')
       .analyze();
 
-    expect(results.violations.filter(v => isSeriousViolation(v.impact))).toEqual([]);
+    expect(results.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
 
   test('the parent gate dialog has no critical or serious axe violations', async ({ page }) => {
@@ -43,10 +27,10 @@ test.describe('Accessibility foundation', () => {
     await expect(page.getByRole('dialog', { name: 'Pre rodičov' })).toBeVisible();
 
     const results = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
 
-    expect(results.violations.filter(v => isSeriousViolation(v.impact))).toEqual([]);
+    expect(results.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
 
   test('the currently protected parent dashboard has no critical or serious axe violations', async ({ page }) => {
@@ -55,9 +39,9 @@ test.describe('Accessibility foundation', () => {
     await expect(page.getByRole('heading', { name: 'Rodičovská zóna' })).toBeVisible();
 
     const results = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
 
-    expect(results.violations.filter(v => isSeriousViolation(v.impact))).toEqual([]);
+    expect(results.violations.filter(v => isSeriousAxeViolation(v.impact))).toEqual([]);
   });
 });

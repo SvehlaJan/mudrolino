@@ -1,3 +1,4 @@
+import { toAxeParams, isSeriousAxeViolation, AXE_TAGS } from './support/accessibility';
 import { expect, test } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import {
@@ -18,20 +19,6 @@ import { expectNoHorizontalOverflow, expectNoPairwiseOverlap, expectWithinViewpo
 import { CANONICAL_VIEWPORTS } from './support/viewports';
 import { PRAISE_ENTRIES } from '../src/shared/locales/sk';
 import { startGame } from './support/gameEntry';
-
-/**
- * `@axe-core/playwright` declares its `page` param against a `Page` it imports straight from
- * `playwright-core`, while `@playwright/test`'s own `page` fixture resolves through a separately
- * nested `playwright-core`. Both are the same Playwright page at runtime; see
- * `e2e/accessibility-foundation.spec.ts` for the original note on this version-skew cast.
- */
-function toAxeParams(page: import('@playwright/test').Page): ConstructorParameters<typeof AxeBuilder>[0] {
-  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
-}
-
-function isSeriousAxeViolation(impact: string | null | undefined): boolean {
-  return ['critical', 'serious'].includes(impact ?? '');
-}
 
 test.describe('shared shell and answer group contract', () => {
   test('shared shell exposes the complete round contract', async ({ page }) => {
@@ -199,7 +186,7 @@ test.describe('Living Toybox materials', () => {
   test('/ui-kit?example=game-materials has no critical or serious axe violations', async ({ page }) => {
     await page.goto('/ui-kit?example=game-materials');
     const results = await new AxeBuilder(toAxeParams(page))
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(AXE_TAGS)
       .analyze();
     expect(results.violations.filter((v) => isSeriousAxeViolation(v.impact))).toEqual([]);
   });

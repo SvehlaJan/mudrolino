@@ -1,17 +1,18 @@
-import { realpathSync, mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync } from 'node:fs';
+import { realpathSync, mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync, renameSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { buildCatalogPreviewManifest, resolveCatalogPreviewFile } from './catalogPreviewServer';
 const roots: string[] = [];
 function fixture() {
   const root = realpathSync(mkdtempSync(join(tmpdir(), 'catalog-viewer-'))); roots.push(root);
-  function file(relative: string, content = 'fixture') { const path = join(root, 'assets/avatar/catalog-a', relative); mkdirSync(join(path, '..'), { recursive: true }); writeFileSync(path, content); }
+  function file(relative: string, content: string | Buffer = 'fixture') { const path = join(root, 'assets/avatar/catalog-a', relative); mkdirSync(join(path, '..'), { recursive: true }); writeFileSync(path, content); }
   file('catalog-progress.json', JSON.stringify({ pieces: [{ id: 'F04', stage: 'candidate' }, { id: 'F02', stage: 'repair required' }, { id: 'A02', stage: 'not started' }] }));
   for (const relative of ['foundation/catalog-body.glb', 'foundation/catalog-body-walk.glb', 'foundation/catalog-body-run.glb', 'F04/F04.glb', 'F04/body-F04.glb', 'F02/F02.glb', 'F02/body-F02.glb']) file(relative);
   return { root, file };
 }
-afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
+afterEach(() => { vi.unstubAllEnvs(); for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
 describe('development catalog inventory', () => {
   it('exposes a head revision and its outfit as studies without replacing the fitting foundation', () => {
     const { root, file } = fixture();
@@ -46,6 +47,9 @@ describe('catalog library HTTP transport', () => {
   it('serves inventory, allowed native sources, GLB probes and small image thumbnails', async () => {
     const { root, file } = fixture();
     file('F04/F04.blend', 'native-source');
+    const compressedProof=gzipSync('{"status":"failed"}\n');
+    file('F04/fit-report.json.gz',compressedProof);
+    file('F04/credentials-report.json.gz',gzipSync('{}'));
     const { default: sharp } = await import('sharp');
     const image = join(root, 'assets/avatar/concepts/new-reference.png'); mkdirSync(join(image, '..'), { recursive: true });
     await sharp({ create: { width: 900, height: 600, channels: 3, background: '#ff8800' } }).png().toFile(image);
@@ -73,6 +77,12 @@ describe('catalog library HTTP transport', () => {
       const original = await fetch(base + reference.url, { method: 'HEAD' }); expect(original.status).toBe(200); expect(original.headers.get('content-type')).toBe('image/png'); expect(await original.text()).toBe('');
       const blend = manifest.assets.find(a => a.id === 'F04')!.sources.find(s => s.role === 'blend')!;
       expect(await (await fetch(base + blend.url)).text()).toBe('native-source');
+      const proof=manifest.assets.find(a=>a.id==='F04')!.sources.find(source=>source.path.endsWith('fit-report.json.gz'))!;
+      expect(proof).toBeDefined();
+      const compressed=await fetch(base+proof.url); expect(compressed.headers.get('content-type')).toBe('application/gzip');
+      expect(compressed.headers.get('content-encoding')).toBeNull(); expect(Buffer.from(await compressed.arrayBuffer())).toEqual(compressedProof);
+      const compressedHead=await fetch(base+proof.url,{method:'HEAD'}); expect(compressedHead.headers.get('content-length')).toBe(String(compressedProof.length)); expect(await compressedHead.text()).toBe('');
+      expect((await fetch(base+'/__avatar_catalog/files/assets/avatar/catalog-a/F04/credentials-report.json.gz')).status).toBe(404);
       const model = manifest.assets.find(a => a.id === 'F04')!.model!.modelUrl;
       const probe = await fetch(base + model, { headers: { Range: 'bytes=0-0' } }); expect(probe.status).toBe(206); expect(probe.headers.get('content-range')).toBe('bytes 0-0/7'); expect(await probe.text()).toBe('f');
       expect((await fetch(base + model, { headers: { Range: 'bytes=30-40' } })).status).toBe(416);
@@ -88,4 +98,18 @@ describe('catalog library HTTP transport', () => {
       expect((await fetch(`${base}/__avatar_catalog/assets/F04/F04.blend`)).status).toBe(404);
     } finally { await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())); }
   });
+});
+
+
+it('serves inventoried models from the exact approved archived catalog root', () => {
+  const {root}=fixture(); const archive=realpathSync(mkdtempSync(join(tmpdir(),'preview-archive-'))); roots.push(archive);
+  mkdirSync(join(archive,'working/assets/avatar'),{recursive:true});
+  renameSync(join(root,'assets/avatar/catalog-a'),join(archive,'working/assets/avatar/catalog-a'));
+  symlinkSync(join(archive,'working/assets/avatar/catalog-a'),join(root,'assets/avatar/catalog-a'));
+  writeFileSync(join(root,'assets/avatar/local-archive.json'),JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),roots:['assets/avatar/catalog-a']}));
+  writeFileSync(join(archive,'archive-manifest.json'),JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),verified:true})); vi.stubEnv('MUDROLINO_ARCHIVE_ROOT',archive);
+  const manifest=buildCatalogPreviewManifest(root);
+  expect(resolveCatalogPreviewFile(root,manifest.entries[1].modelUrl)).toBe(join(archive,'working/assets/avatar/catalog-a/F04/body-F04.glb'));
+  rmSync(join(root,'assets/avatar/catalog-a'));
+  expect(()=>buildCatalogPreviewManifest(root)).toThrow(/archive|missing|link/i);
 });

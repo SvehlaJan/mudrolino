@@ -1,16 +1,16 @@
 """Explicitly derived payload/reconstruction proof plus fresh endpoint evidence."""
 import argparse
-import hashlib
 import json
 import math
 import sys
 from pathlib import Path
+from proof_io import read_proof_json, proof_digest
 from urllib.parse import urlparse, unquote
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'blender/catalog'))
 from f02_ankle_payload import payload_side, loop_time
 from f02_ankle_measurement import schedule
 
-def digest(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def digest(path): return proof_digest(path)
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
     out = args.folder/'payload-report.json'; assert not out.exists()
     old = args.folder.parent/'ankle-measurement'
     paths = [old/'native-and-equivalent.json', old/'actual-three.json', args.folder/'native-endpoints.json', args.folder/'actual-three-endpoints.json']
-    source, actual, ends, end_actual = [json.loads(p.read_text()) for p in paths]; validated = {}
+    source, actual, ends, end_actual = [read_proof_json(p) for p in paths]; validated = {}
     for report in [source, actual, ends, end_actual]:
         for path, sha in {**report['asset_hashes'], **report['tool_hashes']}.items():
             local = unquote(urlparse(path).path) if path.startswith('file:') else path
@@ -60,7 +60,7 @@ def main():
             matrix_error = max(matrix_error, max(abs(e['raw_gltf_world'][bone][i][j]-m[i][j]) for bone, m in t['world'].items() for i in range(4) for j in range(4)))
             checks.append({'scope': scope, 'motion': n['motion'], 'frame': n.get('frame'), 'time_seconds': n.get('time_seconds'), 'label': n.get('label'), 'sides': sides})
     assert max_reconstruction < 1e-5 and max(max_parity.values()) < 1e-5 and matrix_error < 2e-6
-    tools = [Path(__file__), Path('tools/blender/catalog/f02_ankle_payload.py')]
+    tools = [Path(__file__), Path('tools/avatar/proof_io.py'), Path('tools/blender/catalog/f02_ankle_payload.py'), Path('tools/blender/catalog/f02_ankle_measurement.py')]
     report = {'status': 'passed', 'qualification': 'Dense payloads explicitly derived from hash-validated native/raw/actual-Three pose inventories; 8 exact LoopRepeat boundary poses freshly measured in native equivalent and actual Three. No model/runtime changes or fitting acceptance.',
               'input_hashes': {str(p): digest(p) for p in paths}, 'validated_dependency_hashes': validated, 'tool_hashes': {str(p): digest(p) for p in tools}, 'max_reconstruction_rotation_error_rad': max_reconstruction,
               'max_raw_three_payload_differences': max_parity, 'max_raw_three_world_matrix_difference': matrix_error, 'pose_inventories_validated': {'dense_per_domain': len(expected_dense), 'loop_boundaries_per_domain': len(expected_endpoints)}, 'tolerances': {'angle_rad': 1e-5, 'knee_value': 1e-5, 'matrix_element': 2e-6}, 'checks': checks}

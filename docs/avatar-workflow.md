@@ -1,5 +1,11 @@
 # Avatar workflow and agent handoff
 
+Authoring references, reports and historical sources now live only in this
+MacBook's [local archive](local-archive.md). Run `npm run archive:link` before
+using the paths below. The links preserve logical paths into a writable working
+tree; its independent immutable snapshot retains historical bytes and hashes.
+The published app and bundled bear still do not depend on this local archive.
+
 Updated 2026-11-11 (user-approved `celebration-v7` published on Vercel Blob; Bear Guide Phase A release authorized; canonical human catalog rules below). This is the entry point for both Codex and Claude. Use
 `AGENTS.md` for repository rules, the shared Blender skill for execution, and
 `tools/blender/catalog/README.md` for the detailed fitting/acceptance loop.
@@ -184,14 +190,15 @@ focused browser verifier as well as the affected repository verification profile
 ## 3D files live outside git
 
 `.blend` sources and every `.glb` export are git-ignored (2026-10-13). Git keeps the
-code, reports, renders and `assets/avatar/asset-manifest.json`: each 3D file's path, size
-and SHA-256, plus relative symlinks. The bytes live in a private Cloudflare R2 bucket,
+code and `assets/avatar/asset-manifest.json`: each 3D file's path, size
+and SHA-256, plus relative symlinks. Reports, renders and historical source snapshots
+are now local-only in the archive described above. Existing 3D bytes also live in a private Cloudflare R2 bucket,
 content-addressed as `sha256/<hash>`, so renames and duplicates cost nothing and a pulled
 file is checked against its hash. Credentials go in `.env` (see `.env.example`).
 
 - `npm run assets:pull [-- --prefix=assets/avatar/catalog-a/T04]` restores missing or
   changed files (`--dry-run` previews).
-- After building or changing models: `npm run assets:manifest`, commit the manifest, then
+- After building or changing models: retain new reports/renders in the local working archive; `npm run assets:manifest`, commit the manifest and tooling, then
   `npm run assets:push`. `assets:verify` compares the disk with the manifest.
 
 The production app will need only accepted runtime exports (the phone LODs and the

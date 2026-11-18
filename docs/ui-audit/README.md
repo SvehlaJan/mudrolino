@@ -1,3 +1,5 @@
+> **Historical pre-redesign audit.** Findings below describe September 2026 code. The [redesign final review](redesign-final-review.md) records subsequent acceptance; use the [documentation map](../README.md) for current guidance.
+
 # Pre-launch UI audit — September 2026
 
 Audit of every app surface ahead of publishing, covering visual polish,

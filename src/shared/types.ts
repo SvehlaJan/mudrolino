@@ -70,19 +70,17 @@ export interface AudioSpec {
   // Extendable: add global fields here (volume, rate, etc.) without touching call sites
 }
 
-/** Describes what the SuccessOverlay shows. */
+/** Describes the correct answer shown in shared session feedback. */
 export interface SuccessSpec {
   echoLine: string; // e.g. "ja-ho-da 🍓" or "A ako Auto 🚗"
   /** Optional extra audio played after praise (e.g. the target word). */
   audioSpec?: AudioSpec;
-  /** Optional specific praise to use instead of a random praise clip. */
-  praiseEntry?: PraiseEntry;
 }
 
-/** Describes what the FailureOverlay shows when a child exhausts their attempts. */
+/** Describes the correct answer revealed when a child exhausts their attempts. */
 export interface FailureSpec {
   echoLine: string;   // e.g. "A ako Auto 🚗" — the correct answer announcement
-  audioSpec: AudioSpec; // audio to play in the overlay
+  audioSpec: AudioSpec; // correct-answer audio for exhausted attempts
 }
 
 // ---------------------------------------------------------------------------

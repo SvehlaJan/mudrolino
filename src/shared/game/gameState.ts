@@ -49,8 +49,6 @@ export interface CreateGameStateOptions {
   maxAttempts?: number | null;
 }
 
-export type GameStateOptions = CreateGameStateOptions;
-
 const DEFAULT_MAX_ROUNDS = 5;
 const DEFAULT_MAX_ATTEMPTS = 3;
 
@@ -227,5 +225,3 @@ export const gameStateReducer = (state: GameState, event: GameEvent): GameState 
     }
   }
 };
-
-export const gameReducer = gameStateReducer;

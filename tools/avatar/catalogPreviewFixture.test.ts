@@ -1,7 +1,7 @@
 import path from 'node:path';
-import { mkdtempSync, mkdirSync, symlinkSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, symlinkSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { resolveCatalogPreviewFixture, assertCatalogPreviewEvidence } from './catalogPreviewFixture.mjs';
 
 const root = path.resolve('/private/tmp/avatar-fixture-test-repo');
@@ -62,4 +62,18 @@ describe('candidate renderer evidence', () => {
       expect(()=>resolveCatalogPreviewFixture(repository,['--output-dir=artifacts/verification/escape/new-report'])).toThrow(/under/);
     }finally{rmSync(repository,{recursive:true,force:true});rmSync(outside,{recursive:true,force:true});}
   });
+});
+
+
+it('accepts approved archived fixture sources while keeping report outputs in the repository',()=>{
+  const repository=mkdtempSync(path.join(tmpdir(),'fixture-archive-repo-')); const archive=mkdtempSync(path.join(tmpdir(),'fixture-archive-'));
+  try {
+    mkdirSync(path.join(repository,'assets/avatar'),{recursive:true}); mkdirSync(path.join(archive,'working/assets/avatar/catalog-a/outfits/T01-B01-F01-A01'),{recursive:true});
+    symlinkSync(path.join(archive,'working/assets/avatar/catalog-a'),path.join(repository,'assets/avatar/catalog-a'));
+    writeFileSync(path.join(repository,'assets/avatar/local-archive.json'),JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),roots:['assets/avatar/catalog-a']}));
+    writeFileSync(path.join(archive,'archive-manifest.json'),JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),verified:true})); vi.stubEnv('MUDROLINO_ARCHIVE_ROOT',archive);
+    const result=resolveCatalogPreviewFixture(repository,[]);
+    expect(result.replacements['/__avatar_fixture/body.glb']).toBe(path.join(repository,'assets/avatar/catalog-a/outfits/T01-B01-F01-A01/body.glb'));
+    expect(result.outputDir).toBe(path.join(repository,'artifacts/verification/avatar-catalog/outfits/T01-B01-F01-A01'));
+  }finally{vi.unstubAllEnvs();rmSync(repository,{recursive:true,force:true});rmSync(archive,{recursive:true,force:true});}
 });

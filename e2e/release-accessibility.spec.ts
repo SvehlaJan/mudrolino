@@ -1,3 +1,4 @@
+import { toAxeParams, isSeriousAxeViolation, AXE_TAGS } from './support/accessibility';
 import { expect, test, type Locator, type Page } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
@@ -8,17 +9,12 @@ import { unlockParentGate } from './support/parentGate';
 import { RELEASE_GAME_CASES, type ReleaseGameCase } from './support/releaseMatrix';
 import { startGame } from './support/gameEntry';
 
-const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 const INTERACTION_FAMILIES = ['ALPHABET', 'ASSEMBLY', 'COUNTING_ITEMS', 'COMPARE_QUANTITIES', 'ADDITION'] as const;
-
-function toAxeParams(page: Page): ConstructorParameters<typeof AxeBuilder>[0] {
-  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
-}
 
 async function expectNoSeriousAxeViolations(page: Page): Promise<void> {
   const results = await new AxeBuilder(toAxeParams(page)).withTags(AXE_TAGS).analyze();
   const serious = results.violations
-    .filter(violation => ['critical', 'serious'].includes(violation.impact ?? ''))
+    .filter(violation => isSeriousAxeViolation(violation.impact))
     .map(violation => ({
       id: violation.id,
       count: violation.nodes.length,

@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { FailureSpec, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
 import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
+import { pickPraise } from '../../shared/praise';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -19,13 +20,8 @@ const MAX_ATTEMPTS = 3;
 const OPTION_COUNT = 4;
 const INSTRUCTION = msg('Koľko je spolu?');
 const ANSWER_GROUP_LABEL = msg('Vyber súčet');
-const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
 
 interface AdditionRound { a: NumberItem; b: NumberItem; sum: NumberItem; options: NumberItem[]; emoji: string; }
-
-function pickPraise(entries: PraiseEntry[]): PraiseEntry {
-  return entries[Math.floor(Math.random() * entries.length)] ?? FALLBACK_PRAISE;
-}
 
 function formatAddition(locale: string, a: number, b: number, sum: number): string {
   return locale === 'cs' ? `${a} a ${b} je dohromady ${sum}` : `${a} a ${b} je dokopy ${sum}`;

@@ -22,6 +22,7 @@ import {
   type GameState,
   type TactilePieceState,
 } from '../game';
+import { pickPraise } from '../praise';
 import { getSuccessOverlayAudioSpec } from './successOverlayAudio';
 
 interface FindItGameProps<T> {
@@ -34,12 +35,6 @@ interface FindItGameProps<T> {
 interface RoundState<T> {
   targetItem: T | null;
   gridItems: T[];
-}
-
-const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
-
-function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
-  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
 }
 
 /**

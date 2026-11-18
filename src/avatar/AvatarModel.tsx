@@ -79,7 +79,7 @@ function disableMeshFrustumCulling(scene: Object3D) {
 // Shoe GLBs follow viewer-left naming (negative X = viewer's left = character's anatomical
 // right), while bones use anatomical naming (LeftFoot = character's left = positive X).
 // Matching by X position instead of object name keeps both conventions working correctly
-// and stays consistent with the Blender render_avatar_runtime_slots.py debug script.
+// and preserves the anatomical side convention documented in the archived slot-fitting studies.
 function attachShoeSceneToFootBones(baseScene: Object3D, garmentScene: Object3D) {
   baseScene.updateMatrixWorld(true);
   garmentScene.updateMatrixWorld(true);

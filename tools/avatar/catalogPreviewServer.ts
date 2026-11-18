@@ -2,6 +2,7 @@ import { createReadStream, existsSync, readFileSync, readdirSync, realpathSync, 
 import path from 'node:path';
 import type { Plugin } from 'vite';
 import sharp from 'sharp';
+import { resolveAuthoringRoot } from './localArchive.mjs';
 import type { CatalogLibraryManifest } from '../../src/avatar/catalogLibrary';
 import { buildCatalogLibraryManifest, resolveCatalogLibraryFile, resolveCatalogLibraryThumbnail } from './catalogLibraryServer';
 import type { CatalogPreviewEntry, CatalogPreviewManifest } from '../../src/avatar/catalogPreview';
@@ -10,7 +11,7 @@ const prefix = '/__avatar_catalog/';
 const urlFor = (relative: string) => `${prefix}assets/${relative}`;
 const names: Record<string, string> = { T01: 'Blue crew tee', T02: 'Orange hoodie', T03: 'Raglan tee', T04: 'Navy zip hoodie', T05: 'Blue sweatshirt', T06: 'Ivory henley', B01: 'Navy trousers', B02: 'Blue joggers', B03: 'Navy shorts', B04: 'Ivory trousers', F01: 'Strap sneakers', F02: 'Slip-ons', F03: 'High-tops', F04: 'Orange ankle boots', A01: 'Orange cap', H01: 'Original head' };
 export function buildCatalogPreviewManifest(root: string): CatalogPreviewManifest {
-  const catalog = path.join(root, 'assets/avatar/catalog-a');
+  const catalog = resolveAuthoringRoot(root, 'assets/avatar/catalog-a') ?? path.join(root, 'assets/avatar/catalog-a');
   const progressPath = path.join(catalog, 'catalog-progress.json');
   const progress = existsSync(progressPath) ? JSON.parse(readFileSync(progressPath, 'utf8')) : { pieces: [] };
   const entries: CatalogPreviewEntry[] = [];
@@ -43,14 +44,14 @@ export function resolveCatalogPreviewFile(root: string, url: string): string | n
   const manifest = buildCatalogPreviewManifest(root);
   const allowed = [...manifest.entries.flatMap(e => [e.modelUrl, ...(e.garmentUrl ? [e.garmentUrl] : [])]), ...Object.values(manifest.animations)];
   if (!allowed.includes(url)) return null;
-  const catalog = path.join(root, 'assets/avatar/catalog-a');
+  const catalog = resolveAuthoringRoot(root, 'assets/avatar/catalog-a') ?? path.join(root, 'assets/avatar/catalog-a');
   const file = path.join(catalog, url.slice(`${prefix}assets/`.length));
   if (!existsSync(file)) return null;
   const resolved = realpathSync(file);
   return resolved.startsWith(realpathSync(catalog) + path.sep) && statSync(resolved).isFile() ? resolved : null;
 }
 
-const mimeTypes: Record<string, string> = { '.glb': 'model/gltf-binary', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.json': 'application/json', '.md': 'text/markdown; charset=utf-8', '.py': 'text/plain; charset=utf-8', '.ts': 'text/plain; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.blend': 'application/octet-stream' };
+const mimeTypes: Record<string, string> = { '.glb': 'model/gltf-binary', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.json': 'application/json', '.gz': 'application/gzip', '.md': 'text/markdown; charset=utf-8', '.py': 'text/plain; charset=utf-8', '.ts': 'text/plain; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.blend': 'application/octet-stream' };
 export function catalogPreviewPlugin(): Plugin {
   return { name: 'avatar-catalog-inspection', apply: 'serve', configureServer(server) {
     // Concurrent image requests share an inventory; the next five-second poll

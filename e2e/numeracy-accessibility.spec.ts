@@ -1,12 +1,10 @@
+import { toAxeParams, isSeriousAxeViolation, AXE_TAGS } from './support/accessibility';
 import { expect, test, type Locator, type Page } from './support/fixtures';
 import AxeBuilder from '@axe-core/playwright';
 import type { E2EGlobalState } from '../src/shared/services/e2eState';
 import { getE2EState } from './support/e2eHook';
 import { stubAudioPlayback, stubSpeechSynthesis, waitForGamePhase } from './support/gameHarness';
 import { startGame } from './support/gameEntry';
-
-const SERIOUS_IMPACTS = ['critical', 'serious'];
-const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 
 type NumeracyGameId = 'COUNTING_ITEMS' | 'COMPARE_QUANTITIES' | 'ADDITION';
 
@@ -25,15 +23,6 @@ interface NumeracyRoute {
   answerGroup: string;
   retryTitle: string;
   chooseWrongAnswer: (page: Page, state: NumeracyE2EState) => Locator;
-}
-
-function isSeriousViolation(impact: string | null | undefined): boolean {
-  return SERIOUS_IMPACTS.includes(impact ?? '');
-}
-
-// See e2e/accessibility-foundation.spec.ts for the package-version explanation.
-function toAxeParams(page: Page): ConstructorParameters<typeof AxeBuilder>[0] {
-  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
 }
 
 const NUMERACY_ROUTES: NumeracyRoute[] = [
@@ -104,7 +93,7 @@ for (const route of NUMERACY_ROUTES) {
     await expect(page.getByRole('group', { name: route.answerGroup })).toBeVisible();
 
     const results = await new AxeBuilder(toAxeParams(page)).withTags(AXE_TAGS).analyze();
-    expect(results.violations.filter(violation => isSeriousViolation(violation.impact))).toEqual([]);
+    expect(results.violations.filter(violation => isSeriousAxeViolation(violation.impact))).toEqual([]);
 
     const state = await getE2EState<NumeracyE2EState>(page);
     await route.chooseWrongAnswer(page, state).click();

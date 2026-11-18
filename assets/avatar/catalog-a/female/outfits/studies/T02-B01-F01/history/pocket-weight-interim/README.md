@@ -1,1 +1,0 @@
-Interim pocket-weight proof: native and equivalent glTF fit/export passed, aggregate failed dependency inventory mismatch and skipped Three.js. No geometry changed between this proof and the final fresh run; source hashes refer to the current saved candidate. Preserved for audit, not accepted or final proof.

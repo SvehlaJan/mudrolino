@@ -7,6 +7,9 @@ description: Use when authoring, fitting, inspecting or exporting teo-learn avat
 
 Read `docs/avatar-workflow.md` from the repository root first. It gives the shared
 Codex/Claude handoff, active sources, next work and selfie texture contract.
+Authoring evidence is local-only: follow `docs/local-archive.md` and run
+`npm run archive:link` before catalog work. Preserve the independent immutable
+snapshot; builders write only to the linked working tree.
 For catalog authoring or fitting, then read `tools/blender/catalog/README.md`
 and the affected piece's retrospective. Read `catalog-progress.json` for current
 status; historical passing reports can be invalidated by a later audit.

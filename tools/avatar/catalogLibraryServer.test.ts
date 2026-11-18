@@ -1,8 +1,9 @@
 import { createHash } from 'node:crypto';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, realpathSync, symlinkSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, realpathSync, symlinkSync, renameSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { buildCatalogLibraryManifest, resolveCatalogLibraryFile, resolveCatalogLibraryThumbnail } from './catalogLibraryServer';
 const roots: string[] = [];
 const originalPng = Buffer.alloc(24); Buffer.from('89504e470d0a1a0a', 'hex').copy(originalPng); originalPng.writeUInt32BE(32, 16); originalPng.writeUInt32BE(32, 20);
@@ -20,7 +21,7 @@ function fixture() {
   file('assets/avatar/catalog-a/T02/revisions/old.glb'); file('public/avatar/modular/male-base.glb'); file('tools/blender/catalog/build_catalog_t02.py');
   return { root, file };
 }
-afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
+afterEach(() => { vi.unstubAllEnvs(); for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
 describe('live avatar library', () => {
   it('keeps pending and separate fit/acceptance facts with repair precedence', () => {
     const { root } = fixture(); const assets = buildCatalogLibraryManifest(root).assets;
@@ -166,6 +167,18 @@ describe('curated design index', () => {
   function index() {
     return { schemaVersion: 1, items: [{ id: 'T02', label: 'Orange hoodie', collection: 'wardrobe', category: 'tops', description: 'Lowered hood and kangaroo pocket.', relatedIds: [], references: [{ id: 'hoodie-crop', label: 'Focused front/back', path: 'assets/avatar/catalog/references/T02/male.png', sourcePath: 'assets/avatar/concepts/catalog-a/hoodie.png', sourceSha256: checksum(originalPng), cropSha256: checksum('fixture'), prompt: 'T02 worn hoodie', crop: { left: 1, top: 2, width: 3, height: 4 } }], variants: [{ id: 'male', label: 'Male fit', base: 'male', references: [], currentRevisionId: 'current', revisions: [{ id: 'current', label: 'Current candidate', assetId: 'T02', visualReview: 'pending', technicalReview: 'recorded-pass', technicalNote: 'Source-bound historical fitting report; acceptance pending.' }, { id: 'earlier', label: 'Earlier export', assetId: 'file:assets/avatar/catalog-a/T02/revisions/old.glb', visualReview: 'changes-requested', technicalReview: 'not-verified' }] }] }] };
   }
+  it('keeps declared logical proof paths while serving their compressed-only counterparts', () => {
+    const {root,file}=fixture(); file('assets/avatar/catalog/references/T02/male.png');
+    const declared='assets/avatar/catalog-a/T02/revisions/history/gate-report.json';
+    file(declared+'.gz',gzipSync('{"status":"failed"}\n'));
+    const data=index(); Object.assign(data.items[0].variants[0].revisions[0],{sourcePaths:[declared]});
+    file('assets/avatar/catalog/catalog.json',JSON.stringify(data));
+    const manifest=buildCatalogLibraryManifest(root);
+    const source=manifest.items![0].variants[0].revisions[0].asset.sources.find(source=>source.path===declared)!;
+    expect(source).toBeDefined(); expect(source.url.split('?')[0]).toBe('/__avatar_catalog/files/'+declared+'.gz');
+    expect(resolveCatalogLibraryFile(root,source.url,manifest)).toBe(join(root,declared+'.gz'));
+    expect(resolveCatalogLibraryFile(root,'/__avatar_catalog/files/'+declared,manifest)).toBeNull();
+  });
   it('preserves legacy inventories without a curated index', () => {
     const { root } = fixture(); expect(buildCatalogLibraryManifest(root).items ?? []).toEqual([]);
   });
@@ -232,4 +245,47 @@ describe('curated design index', () => {
     expect(walk.model!.modelUrl).toContain('catalog-body.glb');
     expect(walk.sources.some(source => source.path.endsWith('/catalog-body-walk.glb'))).toBe(true);
   });
+});
+
+
+describe('locally archived catalog', () => {
+  it('retains logical inventory URLs and source hashes through approved authoring links', () => {
+    const { root, file } = fixture();
+    const archive = realpathSync(mkdtempSync(join(tmpdir(), 'catalog-archive-'))); roots.push(archive);
+    const linked = ['assets/avatar/catalog-a', 'assets/avatar/catalog', 'assets/avatar/concepts'];
+    file('assets/avatar/catalog/catalog-placeholder.md');
+    writeFileSync(join(archive, 'archive-manifest.json'), JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),verified:true}));
+    for (const relative of linked) {
+      mkdirSync(join(archive,'working',relative,'..'),{recursive:true});
+      renameSync(join(root,relative),join(archive,'working',relative));
+      symlinkSync(join(archive,'working',relative),join(root,relative));
+    }
+    file('assets/avatar/local-archive.json',JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),roots:linked}));
+    vi.stubEnv('MUDROLINO_ARCHIVE_ROOT',archive);
+    const manifest=buildCatalogLibraryManifest(root);
+    const top=manifest.assets.find(a=>a.id==='T02')!;
+    expect(top.references).toHaveLength(1);
+    expect(resolveCatalogLibraryFile(root,top.sources.find(source=>source.path.endsWith('/body-T02.glb'))!.url,manifest)).toBe(join(archive,'working/assets/avatar/catalog-a/T02/body-T02.glb'));
+    expect(resolveCatalogLibraryThumbnail(root,top.references[0].thumbnailUrl,manifest)).toBe(join(archive,'working/assets/avatar/concepts/catalog-a/hoodie.png'));
+    file('outside.png');
+    rmSync(join(root,'assets/avatar/concepts/catalog-a/hoodie.png'));
+    symlinkSync(join(root,'outside.png'),join(root,'assets/avatar/concepts/catalog-a/hoodie.png'));
+    expect(resolveCatalogLibraryFile(root,top.references[0].url,manifest)).toBeNull();
+  });
+});
+
+
+it('discovers compressed proof sources and reads compressed reference metadata',()=>{
+  const {root,file}=fixture();
+  file('assets/avatar/catalog-a/T02/fit-report.json.gz',gzipSync('{"status":"passed"}'));
+  file('assets/avatar/catalog-a/T02/credentials-report.json.gz',gzipSync('{}'));
+  const metadata='assets/avatar/concepts/catalog-a/prompts-and-manifest.json';
+  file(metadata+'.gz',gzipSync(JSON.stringify({boards:[{file:'hoodie.png',title:'Compressed hoodie',items:['T02'],prompt:'Compressed T02 prompt'}]})));
+  rmSync(join(root,metadata));
+  const manifest=buildCatalogLibraryManifest(root); const top=manifest.assets.find(asset=>asset.id==='T02')!;
+  expect(top.references[0].prompt).toBe('Compressed T02 prompt');
+  const proof=top.sources.find(source=>source.path.endsWith('fit-report.json.gz'))!;
+  expect(proof).toBeDefined(); expect(resolveCatalogLibraryFile(root,proof.url,manifest)).toBe(join(root,proof.path));
+  expect(top.sources.some(source=>source.path.includes('credentials'))).toBe(false);
+  expect(resolveCatalogLibraryFile(root,'/__avatar_catalog/files/assets/avatar/catalog-a/T02/credentials-report.json.gz',manifest)).toBeNull();
 });

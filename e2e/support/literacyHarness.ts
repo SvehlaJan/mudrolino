@@ -1,19 +1,10 @@
 import { expect, type Page } from './fixtures';
-import AxeBuilder from '@axe-core/playwright';
 import { getE2EState } from './e2eHook';
 import { pressAnswerById, waitForGamePhase } from './gameHarness';
 import { seedLocalStorage } from './persistenceFixtures';
 import type { E2EGlobalState } from '../../src/shared/services/e2eState';
 import type { GamePhase } from '../../src/shared/game/gameState';
 import { startGame } from './gameEntry';
-
-export function toAxeParams(page: Page): ConstructorParameters<typeof AxeBuilder>[0] {
-  return { page } as unknown as ConstructorParameters<typeof AxeBuilder>[0];
-}
-
-export function isSeriousAxeViolation(impact: string | null | undefined): boolean {
-  return ['critical', 'serious'].includes(impact ?? '');
-}
 
 export interface FirstLetterE2EState extends E2EGlobalState {
   gameId: 'FIRST_LETTER';
@@ -301,22 +292,6 @@ export const BESPOKE_GAMES: BespokeGameCase[] = [
 export function actedControl(page: Page, id: string) {
   return page.locator(`[data-answer-id="${id}"], [data-tile-id="${id}"]`);
 }
-
-/**
- * OverlayFrame's enter transition fades opacity 0→1 over motionPreset.transition (180ms), even
- * under reduced motion (only translate/scale are dropped, not the fade itself). Playwright's own
- * `visible` check resolves the instant opacity leaves 0, so an axe scan immediately after can
- * catch a genuinely mid-fade frame and report a transient contrast "violation" that never
- * reflects the settled panel — wait for the observable computed opacity to actually reach 1.
- */
-export async function waitForOverlaySettled(page: Page): Promise<void> {
-  await page.waitForFunction(() => {
-    const panel = document.querySelector('[role="status"][aria-live="polite"]');
-    return panel !== null && getComputedStyle(panel).opacity === '1';
-  });
-}
-
-export const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 
 /**
  * Confirms `locator` isn't silently clipped by an ancestor whose own overflow is restricting it

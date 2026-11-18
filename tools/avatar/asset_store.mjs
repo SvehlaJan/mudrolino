@@ -9,13 +9,15 @@
 //   npm run assets:pull       download missing or changed files (--prefix=path, --dry-run)
 //
 // Credentials come from the environment (.env): R2_ACCOUNT_ID, R2_ACCESS_KEY_ID,
-// R2_SECRET_ACCESS_KEY and R2_BUCKET. Reports in git already pin many of these hashes.
+// R2_SECRET_ACCESS_KEY and R2_BUCKET. Historical local-archive reports pin these hashes.
+// This 3D store does not upload the MacBook-only evidence archive; see docs/local-archive.md.
 // R2 speaks the S3 API; the three calls used here (list, put, get) are signed with
 // SigV4 by hand, so the tool adds no dependency (the F02 proof pins package-lock.json).
 import { createHash, createHmac } from 'node:crypto';
 import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, readlinkSync, renameSync, rmSync, statSync, symlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { resolveAuthoringRoot } from './localArchive.mjs';
 
 /** @typedef {{ sha256: string, size: number }} AssetEntry */
 /** @typedef {{ files: Record<string, AssetEntry>, links: Record<string, string> }} AssetState */
@@ -45,6 +47,8 @@ export function sha256File(file) {
  * @returns {AssetState}
  */
 export function collectAssets(repo, roots = ROOTS) {
+  const authoringRoots = ['assets/avatar/catalog-a', 'assets/avatar/catalog', 'assets/avatar/concepts'];
+  for (const relative of authoringRoots) resolveAuthoringRoot(repo, relative);
   /** @type {Record<string, AssetEntry>} */
   const files = {};
   /** @type {Record<string, string>} */
@@ -53,7 +57,9 @@ export function collectAssets(repo, roots = ROOTS) {
   const walk = relative => {
     for (const entry of readdirSync(path.join(repo, relative), { withFileTypes: true })) {
       const child = path.posix.join(relative, entry.name);
-      if (entry.isDirectory()) walk(child);
+      if (entry.isSymbolicLink() && authoringRoots.includes(child)) {
+        if (resolveAuthoringRoot(repo, child)) walk(child);
+      } else if (entry.isDirectory()) walk(child);
       else if (EXTENSIONS.includes(path.extname(entry.name).toLowerCase())) {
         const absolute = path.join(repo, child);
         if (lstatSync(absolute).isSymbolicLink()) links[child] = readlinkSync(absolute);

@@ -4,7 +4,6 @@
  */
 
 import { AudioSpec, AudioClip } from '../types';
-import { getLocaleContent } from '../contentRegistry';
 import { loadAppSettings } from './appSettingsStore';
 import { audioOverrideStore } from './audioOverrideStore';
 import { recordE2EAudioEvent } from './e2eState';
@@ -100,14 +99,6 @@ export class AudioManager {
   /** Play a sequence of AudioClips. Each clip falls back to its own TTS if the file fails. */
   play(spec: AudioSpec): Promise<void> {
     return this.playClipsAsync(spec.clips);
-  }
-
-  playPraise(): Promise<void> {
-    const entries = getLocaleContent(this.locale).praiseEntries;
-    const chosen = entries[Math.floor(Math.random() * entries.length)];
-    return this.playClipsAsync([
-      { path: `${this.locale}/praise/${chosen.audioKey}`, fallbackText: chosen.text },
-    ]);
   }
 
   private async playClipsAsync(clips: AudioClip[]): Promise<void> {

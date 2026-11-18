@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { AudioClip, NumberItem, PraiseEntry, SuccessSpec } from '../../shared/types';
 import type { GameRuntimeProps } from '../../shared/gameRuntime';
 import { useContent } from '../../shared/contexts/ContentContext';
+import { pickPraise } from '../../shared/praise';
 import { getSuccessOverlayAudioSpec } from '../../shared/components/successOverlayAudio';
 import { COUNTING_EMOJIS, getItemAnnouncementAudio, getPhraseClip, getWrongAnswerAudio } from '../../shared/contentRegistry';
 import { setE2EState } from '../../shared/services/e2eState';
@@ -34,14 +35,8 @@ import {
 
 const MAX_ROUNDS = 5;
 const RETRY_TITLE = msg('Skús druhú skupinu.');
-const FALLBACK_PRAISE: PraiseEntry = { emoji: '🌟', text: 'Výborne!', audioKey: 'vyborne' };
-
 interface RoundState extends ComparisonRound {
   emoji: string;
-}
-
-function pickPraise(praiseEntries: PraiseEntry[]): PraiseEntry {
-  return praiseEntries[Math.floor(Math.random() * praiseEntries.length)] ?? FALLBACK_PRAISE;
 }
 
 function getComparisonAudioClip(locale: string, larger: number, smaller: number): AudioClip {

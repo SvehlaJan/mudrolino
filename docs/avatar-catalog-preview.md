@@ -1,5 +1,9 @@
 # Curated avatar catalog and model inspection
 
+First restore and link the [MacBook-only authoring archive](local-archive.md)
+with `npm run archive:link`. The gallery uses exact approved local links;
+authoring evidence is not included in a fresh clone.
+
 Run `npm run dev` in the primary checkout and open `/avatar-preview`. The
 read-only development catalog contains **43 logical designs**: nine character/
 outfit entries, 20 wardrobe designs, 12 head/hair/expression targets and two motions.
