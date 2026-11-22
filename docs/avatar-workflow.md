@@ -20,13 +20,7 @@ Vercel Blob (`mudrolino-public-assets`, `fra1`), and live in production across H
 mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`; Phase A design in
 `docs/superpowers/specs/2026-11-10-bear-guide-phase-a-design.md`).
 
-- **Runtime component chain**: `AvatarPresenter.tsx` -> lazy `AvatarScene.tsx` -> `AvatarModel.tsx`
-  (isolating Three.js / R3F / drei in the lazy scene chunk), consumed by `LearningCompanion.tsx`
-  (round celebrations, empathetic exhausted-attempt reactions, and session-complete summaries),
-  `HomeCompanion.tsx` (Home header welcome & tap-interactive guide), and `CompanionNudge.tsx`
-  (12-second in-game inactivity nudge). Once `'once'` or `'still'` playback finishes, the R3F
-  frameloop pauses at `0 fps` (`setFrameloop('never')`) until a new clip, `eventKey`, or container
-  resize wakes it.
+- **Runtime component chain**: `CompanionStageContext.tsx` (zero-Three.js root slot registry & priority selector) -> lazy `AvatarScene.tsx` (`PersistentCompanionStage` + `AvatarModel.tsx`, isolating Three.js / R3F / drei in the single lazy scene chunk) — with standalone `AvatarPresenter.tsx` fallback when rendered outside the provider — consumed by `LearningCompanion.tsx` (priority `30`: round celebrations, empathetic exhausted-attempt reactions, and session-complete summaries), `PromptCompanion.tsx` (priority `20`: persistent in-round `GamePrompt` tap-to-replay, `listen` during prompt audio, `encourage`/`shrug` inline retries, and 12s inactivity nudges), and `HomeCompanion.tsx` (priority `10`: Home header welcome & tap-interactive guide). Once `'once'` or `'still'` playback finishes, the R3F frameloop pauses at `0 fps` (`setFrameloop('never')`) until a new clip, `eventKey`, or container resize wakes it; off-companion routes detach the canvas immediately and dispose WebGL after a 500 ms idle grace period.
 - **Currently published Blob GLB (`celebration-v7`)**:
   `assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb`,
   SHA-256 `0bd0aaf5e592d8ce22b58c622d0f64adb73c27d2bc5ff0715c0e3d105ce92698`
@@ -72,11 +66,10 @@ mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`; Phase A desi
 
 ## Resume in the correct checkout
 
-Continue from the primary checkout at `/Users/svehla/playground/teo-learn`.
-The user requested merging the avatar catalog into `main` and removing its
+Continue from the primary checkout. The user requested merging the avatar catalog into `main` and removing its
 worktree. Check `git log -1` and `git status` before resuming and preserve local
-changes. Follow the checkout authorization rule in `AGENTS.md`; launch Claude
-in the primary checkout.
+changes. Follow the checkout authorization rule in `AGENTS.md`; work in the primary checkout unless a worktree is explicitly authorized.
+On Linux hosts, `tools/avatar/blender_cli.py` also falls back to `~/.local/bin/blender` when `BLENDER_BIN` and `PATH` omit `blender`.
 
 Verification reports copied from the former avatar worktree retain their
 original commit, build identity and absolute-path provenance. They are historical

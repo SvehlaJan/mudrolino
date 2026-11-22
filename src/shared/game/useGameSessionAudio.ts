@@ -18,12 +18,13 @@ interface GameSessionAudioOptions {
 /** Shared delayed opening and completion audio; answer audio remains owned by the controller. */
 export function useGameSessionAudio({ session, roundKey, enabled = true, getPromptAudio, locale, completionPraise }: GameSessionAudioOptions) {
   const { startOpeningPrompt, state } = session;
+  const isReady = state.phase === 'ready';
   const openRound = useEffectEvent(() => { void startOpeningPrompt(getPromptAudio()); });
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || !isReady) return;
     const timer = setTimeout(() => openRound(), TIMING.AUDIO_DELAY_MS);
     return () => clearTimeout(timer);
-  }, [roundKey, enabled, locale]);
+  }, [roundKey, enabled, locale, isReady]);
 
   useEffect(() => {
     if (state.phase !== 'session-complete' || state.paused) return;

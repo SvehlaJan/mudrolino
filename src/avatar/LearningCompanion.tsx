@@ -1,6 +1,10 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { cn } from '../shared/ui/utils';
 import { AvatarPresenter } from './AvatarPresenter';
+import {
+  COMPANION_STAGE_PRIORITY,
+  useCompanionStageSlot,
+} from './companionStage';
 import { companionResources } from './companionResources';
 import type { CelebrationEvent } from './companionCelebration';
 import type { CompanionConfig } from './companionConfig';
@@ -17,7 +21,7 @@ interface LearningCompanionProps {
 }
 export function LearningCompanion(props: LearningCompanionProps) {
   if (!props.event || !props.config) return null;
-  return <ActiveCompanion key={`${props.event.eventKey}:${props.config.modelUrl}`} {...props} event={props.event} config={props.config} />;
+  return <ActiveCompanion key={props.config.modelUrl} {...props} event={props.event} config={props.config} />;
 }
 
 function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, className }: LearningCompanionProps & {
@@ -27,6 +31,7 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
   const [modelReady, setModelReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const failureReported = useRef(false);
+  const slotRef = useRef<HTMLDivElement>(null);
   const modelUrl = config.modelUrl;
   const onModelReady = useCallback(() => { setModelReady(true); }, []);
   const onError = useCallback(() => {
@@ -37,9 +42,26 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
   }, [modelUrl]);
   const canRender = !reducedMotion && !failed
     && resource.status === 'ready' && resource.modelUrl === modelUrl;
-  const rendered = canRender && modelReady;
-
   const activeAnimation = event.animationName ?? config.animationName;
+  const playback = useMemo(
+    () => ({ mode: 'once' as const, eventKey: event.eventKey, startedAtMs: event.startedAtMs }),
+    [event.eventKey, event.startedAtMs],
+  );
+
+  const stage = useCompanionStageSlot({
+    priority: COMPANION_STAGE_PRIORITY.overlay,
+    containerRef: slotRef,
+    canRender,
+    modelUrl,
+    animationName: activeAnimation,
+    cameraDistance: 5.6,
+    playback,
+    onModelReady,
+    onError,
+  });
+
+  const showStill = !canRender || (stage.hasProvider && stage.activeSlotId !== null && !stage.isOwner);
+  const rendered = canRender && (!stage.hasProvider || stage.isOwner) && modelReady;
 
   return (
     <div
@@ -52,8 +74,8 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
       data-companion-representation={rendered ? 'rendered3D' : 'still'}
       data-companion-resource-status={resource.status}
     >
-      {!canRender && <img src={stillUrl} alt="" className="absolute inset-0 h-full w-full object-contain" />}
-      {canRender && (
+      {showStill && <img src={stillUrl} alt="" className="absolute inset-0 h-full w-full object-contain" />}
+      {!stage.hasProvider && canRender && (
         <AvatarPresenter
           className="absolute inset-0 h-full w-full"
           modelUrl={modelUrl}
@@ -61,11 +83,14 @@ function ActiveCompanion({ event, config, resource, reducedMotion, stillUrl, cla
           preserveHipsPosition
           cameraDistance={5.6}
           interactive={false}
-          playback={{ mode: 'once', eventKey: event.eventKey, startedAtMs: event.startedAtMs }}
+          playback={playback}
           assetStatusOverride="available"
           onModelReady={onModelReady}
           onError={onError}
         />
+      )}
+      {stage.hasProvider && (
+        <div ref={slotRef} className="absolute inset-0 h-full w-full" />
       )}
     </div>
   );

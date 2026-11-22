@@ -277,6 +277,18 @@ function LoadedAvatarModel({
   const inspectionAction = useRef<AnimationAction | null>(null);
   const settledFramesRef = useRef(0);
   const completionNotifiedRef = useRef(false);
+  const onPlaybackCompleteRef = useRef(onPlaybackComplete);
+  const onModelReadyRef = useRef(onModelReady);
+  const onSceneReadyRef = useRef(onSceneReady);
+  const onSceneDataRef = useRef(onSceneData);
+  const onErrorRef = useRef(onError);
+  useLayoutEffect(() => {
+    onPlaybackCompleteRef.current = onPlaybackComplete;
+    onModelReadyRef.current = onModelReady;
+    onSceneReadyRef.current = onSceneReady;
+    onSceneDataRef.current = onSceneData;
+    onErrorRef.current = onError;
+  });
   const isInspection = Boolean(inspection);
   const playbackMode = playback?.mode;
   const playbackEventKey = playback?.eventKey;
@@ -299,7 +311,7 @@ function LoadedAvatarModel({
         action.paused = true;
         if (finishedOnce && !completionNotifiedRef.current) {
           completionNotifiedRef.current = true;
-          onPlaybackComplete?.();
+          onPlaybackCompleteRef.current?.();
         }
         const shouldPause = shouldPauseAvatarFrameloop({
           mode: playbackMode,
@@ -319,7 +331,7 @@ function LoadedAvatarModel({
       if (!isInspection && (playbackMode === 'still' || playbackMode === 'once')) {
         if (playbackMode === 'once' && !completionNotifiedRef.current) {
           completionNotifiedRef.current = true;
-          onPlaybackComplete?.();
+          onPlaybackCompleteRef.current?.();
         }
         const shouldPause = shouldPauseAvatarFrameloop({
           mode: playbackMode,
@@ -338,8 +350,8 @@ function LoadedAvatarModel({
     try {
       garmentCorrectives.update();
     } catch (error) {
-      if (!onError) throw error;
-      onError(error);
+      if (!onErrorRef.current) throw error;
+      onErrorRef.current(error);
     }
   });
 
@@ -376,8 +388,8 @@ function LoadedAvatarModel({
     try {
       garmentCorrectives.update();
     } catch (error) {
-      if (!onError) throw error;
-      onError(error);
+      if (!onErrorRef.current) throw error;
+      onErrorRef.current(error);
     }
     groupRef.current?.updateMatrixWorld(true);
 
@@ -386,16 +398,16 @@ function LoadedAvatarModel({
       else action?.fadeOut(0.2);
       inspectionAction.current = null;
     };
-  }, [actions, animationName, garmentCorrectives, names, isInspection, onError, playbackMode, playbackEventKey, playbackStartedAtMs, scene, setFrameloop]);
+  }, [actions, animationName, garmentCorrectives, names, isInspection, playbackMode, playbackEventKey, playbackStartedAtMs, scene, setFrameloop]);
 
   useLayoutEffect(() => {
     groupRef.current?.updateMatrixWorld(true);
-    onModelReady?.();
-    onSceneReady?.(scene);
-    if (onSceneData) {
-      onSceneData(computeAvatarSceneData(scene, externalAssets));
+    onModelReadyRef.current?.();
+    onSceneReadyRef.current?.(scene);
+    if (onSceneDataRef.current) {
+      onSceneDataRef.current(computeAvatarSceneData(scene, externalAssets));
     }
-  }, [externalAssets, garmentScenes, onModelReady, onSceneData, onSceneReady, scene]);
+  }, [externalAssets, garmentScenes, scene]);
 
   return (
     <group ref={groupRef} position={rootPosition} rotation={[0, 0, 0]} scale={rootScale}>

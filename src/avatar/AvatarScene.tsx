@@ -9,6 +9,7 @@ import { AvatarSkeletonOverlay } from './AvatarSkeletonOverlay';
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import type { AvatarPlaybackOptions, AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarSceneData } from './avatarTypes';
+import type { ActiveCompanionSlot } from './companionStage';
 import { inspectionCameraPose, type InspectionBounds } from './inspectionCamera';
 
 export interface AvatarSceneProps {
@@ -82,10 +83,13 @@ function CameraResetController({
 function CompanionCanvas({ children, onError, cameraDistance }: { children: ReactNode; onError: (error: unknown) => void; cameraDistance?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rootRef = useRef<ReturnType<typeof createRoot> | null>(null);
+  const configuredRef = useRef(false);
   const contentRef = useRef<ReactNode>(null);
   useLayoutEffect(() => {
     contentRef.current = <AvatarRuntimeBoundary onError={onError}>{children}</AvatarRuntimeBoundary>;
-    rootRef.current?.render(contentRef.current);
+    if (configuredRef.current) {
+      rootRef.current?.render(contentRef.current);
+    }
   }, [children, onError]);
 
   useEffect(() => {
@@ -93,6 +97,7 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
     const container = canvas?.parentElement;
     if (!canvas || !container) return;
     let active = true;
+    let configured = false;
     let renderer: WebGLRenderer | undefined;
     let root: ReturnType<typeof createRoot> | undefined;
     let store: ReturnType<ReturnType<typeof createRoot>['render']> | undefined;
@@ -148,20 +153,30 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
               void Promise.resolve().then(() => root?.unmount());
             }
           },
-        }).then(() => true);
+        }).then(() => {
+          configured = true;
+          configuredRef.current = true;
+          return true;
+        });
+      };
+      const mountRootIfConfigured = () => {
+        if (!active || !configured || store || !root) return;
+        rootRef.current = root;
+        store = root.render(contentRef.current);
+        stopRendering = () => { store?.getState().setFrameloop('never'); };
       };
       await configure();
       if (!active) return;
-      rootRef.current = root;
-      store = root.render(contentRef.current);
-      stopRendering = () => { store?.getState().setFrameloop('never'); };
+      mountRootIfConfigured();
       observer = new ResizeObserver(() => {
         if (!active || resizeFrame !== undefined) return;
         resizeFrame = requestAnimationFrame(() => {
           resizeFrame = undefined;
           if (!active) return;
           void configure().then(resized => {
-            if (!active || !resized || !store) return;
+            if (!active || !resized) return;
+            mountRootIfConfigured();
+            if (!store) return;
             const state = store.getState();
             if (state.frameloop === 'never') {
               renderer?.render(state.scene, state.camera);
@@ -174,6 +189,7 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
 
     return () => {
       active = false;
+      configuredRef.current = false;
       rootRef.current = null;
       stopRendering?.();
       observer?.disconnect();
@@ -186,6 +202,443 @@ function CompanionCanvas({ children, onError, cameraDistance }: { children: Reac
   }, [onError, cameraDistance]);
 
   return <canvas ref={canvasRef} tabIndex={-1} aria-hidden="true" style={{ display: 'block', width: '100%', height: '100%', pointerEvents: 'none' }} />;
+}
+
+const PERSISTENT_IDLE_DISPOSE_MS = 500;
+
+function PersistentCompanionContent({
+  model,
+  slot,
+  onModelReady,
+  onPlaybackComplete,
+  onError,
+}: {
+  model: GLTF;
+  slot: ActiveCompanionSlot;
+  onModelReady: () => void;
+  onPlaybackComplete: () => void;
+  onError: (error: unknown) => void;
+}) {
+  const playback = useMemo(
+    () => ({
+      ...slot.playback,
+      eventKey: `${slot.id}:${slot.playback.eventKey ?? ''}`,
+    }),
+    [slot.id, slot.playback],
+  );
+
+  return (
+    <>
+      <AvatarCameraRig cameraDistance={slot.cameraDistance} />
+      <hemisphereLight args={['#fffaf0', '#d6dde8', 1.3]} />
+      <directionalLight position={[2.5, 4, 4]} intensity={1.3} />
+      <directionalLight position={[-3, 2, 2]} intensity={0.6} />
+      <directionalLight position={[0, 0.2, 5]} intensity={1.1} />
+      <AvatarModel
+        url={slot.modelUrl}
+        preparedModel={model}
+        animationName={slot.animationName}
+        preserveHipsPosition
+        playback={playback}
+        interactive={false}
+        onError={onError}
+        onModelReady={onModelReady}
+        onPlaybackComplete={onPlaybackComplete}
+      />
+    </>
+  );
+}
+
+function PersistentRendererHost({
+  activeSlot,
+  slot,
+  model,
+  onPermanentError,
+}: {
+  activeSlot: ActiveCompanionSlot | null;
+  slot: ActiveCompanionSlot;
+  model: GLTF;
+  onPermanentError: (error: unknown) => void;
+}) {
+  const [hostDiv] = useState<HTMLDivElement | null>(() => {
+    if (typeof document === 'undefined') return null;
+    const div = document.createElement('div');
+    div.style.position = 'relative';
+    div.style.width = '100%';
+    div.style.height = '100%';
+    div.style.pointerEvents = 'none';
+    return div;
+  });
+
+  const activeSlotRef = useRef<ActiveCompanionSlot | null>(activeSlot);
+  const slotRef = useRef<ActiveCompanionSlot>(slot);
+  const modelReadyRef = useRef(false);
+  const configuredRef = useRef(false);
+  const rootRef = useRef<ReturnType<typeof createRoot> | null>(null);
+  const storeRef = useRef<ReturnType<ReturnType<typeof createRoot>['render']> | null>(null);
+  const rendererRef = useRef<WebGLRenderer | null>(null);
+  const observerRef = useRef<ResizeObserver | null>(null);
+  const observedContainerRef = useRef<HTMLElement | null>(null);
+  const resizeFrameRef = useRef<number | undefined>(undefined);
+  const lastConfigRef = useRef<{ container: HTMLElement; width: number; height: number; cameraDistance: number } | null>(null);
+  const configureRef = useRef<((target: HTMLElement, cameraDistance: number, preserveFrameloop?: boolean) => Promise<boolean>) | null>(null);
+  const mountRootRef = useRef<(() => void) | null>(null);
+  const failRef = useRef<((error: unknown) => void) | null>(null);
+  const contentRef = useRef<ReactNode>(null);
+  const prevAttachedRef = useRef<{ wasDetached: boolean; id: string | null; eventKey: string | undefined }>({
+    wasDetached: false,
+    id: null,
+    eventKey: undefined,
+  });
+
+  const handleModelReady = useCallback(() => {
+    modelReadyRef.current = true;
+    activeSlotRef.current?.onModelReady();
+  }, []);
+
+  const handlePlaybackComplete = useCallback(() => {
+    activeSlotRef.current?.onPlaybackComplete?.();
+  }, []);
+
+  const handleFatalError = useCallback((error: unknown) => {
+    failRef.current?.(error);
+  }, []);
+
+  useLayoutEffect(() => {
+    activeSlotRef.current = activeSlot;
+    slotRef.current = slot;
+    contentRef.current = (
+      <AvatarRuntimeBoundary onError={handleFatalError}>
+        <PersistentCompanionContent
+          model={model}
+          slot={slot}
+          onModelReady={handleModelReady}
+          onPlaybackComplete={handlePlaybackComplete}
+          onError={handleFatalError}
+        />
+      </AvatarRuntimeBoundary>
+    );
+    if (configuredRef.current) {
+      rootRef.current?.render(contentRef.current);
+    }
+  }, [activeSlot, handleFatalError, handleModelReady, handlePlaybackComplete, model, slot]);
+
+  useEffect(() => {
+    if (!hostDiv) return;
+    const canvas = document.createElement('canvas');
+    canvas.tabIndex = -1;
+    canvas.setAttribute('aria-hidden', 'true');
+    canvas.style.display = 'block';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    hostDiv.appendChild(canvas);
+
+    let active = true;
+    let renderer: WebGLRenderer | undefined;
+    let root: ReturnType<typeof createRoot> | undefined;
+    let store: ReturnType<ReturnType<typeof createRoot>['render']> | undefined;
+
+    const fail = (error: unknown) => {
+      if (!active) return;
+      active = false;
+      store?.getState().setFrameloop('never');
+      observerRef.current?.disconnect();
+      if (resizeFrameRef.current !== undefined) {
+        cancelAnimationFrame(resizeFrameRef.current);
+        resizeFrameRef.current = undefined;
+      }
+      hostDiv.remove();
+      onPermanentError(error);
+    };
+    failRef.current = fail;
+
+    const contextLost = (event: Event) => {
+      event.preventDefault();
+      fail(new Error('Companion WebGL context lost'));
+    };
+
+    const configure = (targetContainer: HTMLElement, cameraDistance: number, preserveFrameloop = true): Promise<boolean> => {
+      if (!active || !root || !renderer) return Promise.resolve(false);
+      const { clientWidth: width, clientHeight: height } = targetContainer;
+      const prev = lastConfigRef.current;
+      if (
+        !width ||
+        !height ||
+        (prev &&
+          prev.container === targetContainer &&
+          prev.width === width &&
+          prev.height === height &&
+          prev.cameraDistance === cameraDistance)
+      ) {
+        return Promise.resolve(false);
+      }
+      lastConfigRef.current = { container: targetContainer, width, height, cameraDistance };
+      const { top, left } = targetContainer.getBoundingClientRect();
+      const initialPose = inspectionCameraPose(undefined, width / height, undefined, cameraDistance);
+      return root
+        .configure({
+          gl: renderer,
+          flat: true,
+          frameloop: preserveFrameloop ? (store?.getState().frameloop ?? 'always') : 'always',
+          camera: { position: initialPose.position, fov: 34 },
+          dpr: [1, 1.5],
+          size: { width, height, top, left },
+          onCreated: (state) => {
+            state.camera.lookAt(...initialPose.target);
+            state.camera.updateProjectionMatrix();
+            if (!active) {
+              state.setFrameloop('never');
+              void Promise.resolve().then(() => root?.unmount());
+            }
+          },
+        })
+        .then(() => {
+          configuredRef.current = true;
+          return true;
+        });
+    };
+    configureRef.current = configure;
+
+    const mountRootIfConfigured = () => {
+      if (!active || !configuredRef.current || store || !root) return;
+      rootRef.current = root;
+      store = root.render(contentRef.current);
+      storeRef.current = store;
+    };
+    mountRootRef.current = mountRootIfConfigured;
+
+    void Promise.resolve()
+      .then(async () => {
+        if (!active) return;
+        extend({ Group, HemisphereLight, DirectionalLight });
+        renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.toneMapping = NoToneMapping;
+        rendererRef.current = renderer;
+        canvas.addEventListener('webglcontextlost', contextLost);
+        const render = renderer.render.bind(renderer);
+        renderer.render = (scene, camera) => {
+          if (!active) return;
+          try {
+            render(scene, camera);
+          } catch (error) {
+            fail(error);
+          }
+        };
+        root = createRoot(canvas);
+
+        const currentSlot = activeSlotRef.current;
+        if (currentSlot) {
+          if (hostDiv.parentElement !== currentSlot.containerEl) {
+            currentSlot.containerEl.appendChild(hostDiv);
+          }
+          await configure(currentSlot.containerEl, currentSlot.cameraDistance, false);
+          if (!active) return;
+          mountRootIfConfigured();
+          observerRef.current?.disconnect();
+          observedContainerRef.current = currentSlot.containerEl;
+          observerRef.current = new ResizeObserver(() => {
+            if (!active || resizeFrameRef.current !== undefined) return;
+            resizeFrameRef.current = requestAnimationFrame(() => {
+              resizeFrameRef.current = undefined;
+              const liveSlot = activeSlotRef.current;
+              if (!active || !liveSlot) return;
+              void configure(liveSlot.containerEl, liveSlot.cameraDistance, true)
+                .then((resized) => {
+                  if (!active || !resized) return;
+                  mountRootIfConfigured();
+                  if (!store) return;
+                  const state = store.getState();
+                  if (state.frameloop === 'never') {
+                    renderer?.render(state.scene, state.camera);
+                  }
+                })
+                .catch(fail);
+            });
+          });
+          observerRef.current.observe(currentSlot.containerEl);
+        }
+      })
+      .catch(fail);
+
+    return () => {
+      active = false;
+      modelReadyRef.current = false;
+      configuredRef.current = false;
+      configureRef.current = null;
+      mountRootRef.current = null;
+      failRef.current = null;
+      rootRef.current = null;
+      storeRef.current = null;
+      rendererRef.current = null;
+      lastConfigRef.current = null;
+      store?.getState().setFrameloop('never');
+      observerRef.current?.disconnect();
+      observerRef.current = null;
+      observedContainerRef.current = null;
+      if (resizeFrameRef.current !== undefined) {
+        cancelAnimationFrame(resizeFrameRef.current);
+        resizeFrameRef.current = undefined;
+      }
+      canvas.removeEventListener('webglcontextlost', contextLost);
+      hostDiv.remove();
+      canvas.remove();
+      root?.unmount();
+      renderer?.dispose();
+      renderer?.forceContextLoss();
+    };
+  }, [hostDiv, model, onPermanentError]);
+
+  useLayoutEffect(() => {
+    if (!hostDiv) return;
+    if (!activeSlot) {
+      hostDiv.remove();
+      storeRef.current?.getState().setFrameloop('never');
+      observerRef.current?.disconnect();
+      observerRef.current = null;
+      observedContainerRef.current = null;
+      if (resizeFrameRef.current !== undefined) {
+        cancelAnimationFrame(resizeFrameRef.current);
+        resizeFrameRef.current = undefined;
+      }
+      prevAttachedRef.current = {
+        wasDetached: true,
+        id: prevAttachedRef.current.id,
+        eventKey: prevAttachedRef.current.eventKey,
+      };
+      return;
+    }
+
+    if (hostDiv.parentElement !== activeSlot.containerEl) {
+      activeSlot.containerEl.appendChild(hostDiv);
+    }
+
+    const prev = prevAttachedRef.current;
+    const sameEventAfterDetach =
+      prev.wasDetached &&
+      prev.id === activeSlot.id &&
+      prev.eventKey === activeSlot.playback.eventKey;
+    prevAttachedRef.current = {
+      wasDetached: false,
+      id: activeSlot.id,
+      eventKey: activeSlot.playback.eventKey,
+    };
+
+    if (sameEventAfterDetach && storeRef.current) {
+      storeRef.current.getState().setFrameloop('always');
+    }
+
+    const renderer = rendererRef.current;
+    const configure = configureRef.current;
+    const mountRoot = mountRootRef.current;
+    if (renderer && configure) {
+      const containerChanged = observedContainerRef.current !== activeSlot.containerEl;
+      if (containerChanged) {
+        observerRef.current?.disconnect();
+        observedContainerRef.current = activeSlot.containerEl;
+        observerRef.current = new ResizeObserver(() => {
+          if (resizeFrameRef.current !== undefined) return;
+          resizeFrameRef.current = requestAnimationFrame(() => {
+            resizeFrameRef.current = undefined;
+            const liveSlot = activeSlotRef.current;
+            if (!liveSlot || !configureRef.current) return;
+            void configureRef.current(liveSlot.containerEl, liveSlot.cameraDistance, true)
+              .then((resized) => {
+                if (!resized) return;
+                mountRootRef.current?.();
+                const state = storeRef.current?.getState();
+                if (state && state.frameloop === 'never') {
+                  rendererRef.current?.render(state.scene, state.camera);
+                }
+              })
+              .catch((error) => failRef.current?.(error));
+          });
+        });
+        observerRef.current.observe(activeSlot.containerEl);
+      }
+
+      void configure(
+        activeSlot.containerEl,
+        activeSlot.cameraDistance,
+        !(sameEventAfterDetach || containerChanged),
+      )
+        .then((resized) => {
+          if (!resized || !activeSlotRef.current) return;
+          mountRoot?.();
+          const state = storeRef.current?.getState();
+          if (state && state.frameloop === 'never') {
+            rendererRef.current?.render(state.scene, state.camera);
+          }
+        })
+        .catch((error) => failRef.current?.(error));
+    }
+
+    if (modelReadyRef.current) {
+      activeSlot.onModelReady();
+    }
+  }, [activeSlot, hostDiv]);
+
+  return null;
+}
+
+export function PersistentCompanionStage({
+  activeSlot,
+  onPermanentError,
+}: {
+  activeSlot: ActiveCompanionSlot | null;
+  onPermanentError: (error: unknown) => void;
+}) {
+  const modelUrl = activeSlot?.modelUrl ?? null;
+  const cachedModel = modelUrl ? loadCompanionModel.getLoaded(modelUrl) : undefined;
+  const [prepared, setPrepared] = useState<{ url: string; model: GLTF } | null>(() =>
+    modelUrl && cachedModel ? { url: modelUrl, model: cachedModel } : null,
+  );
+  const resolvedModel =
+    modelUrl === null
+      ? prepared?.model ?? null
+      : cachedModel ?? (prepared?.url === modelUrl ? prepared.model : null);
+
+  useEffect(() => {
+    if (!modelUrl || resolvedModel) return;
+    let active = true;
+    void loadCompanionModel(modelUrl).then(
+      (model) => {
+        if (active) setPrepared({ url: modelUrl, model });
+      },
+      (error) => {
+        if (active) onPermanentError(error);
+      },
+    );
+    return () => {
+      active = false;
+    };
+  }, [modelUrl, onPermanentError, resolvedModel]);
+
+  const [retainedSlot, setRetainedSlot] = useState<ActiveCompanionSlot | null>(activeSlot);
+  if (activeSlot && activeSlot !== retainedSlot) {
+    setRetainedSlot(activeSlot);
+  }
+
+  useEffect(() => {
+    if (activeSlot || !retainedSlot) return;
+    const timer = window.setTimeout(() => {
+      setRetainedSlot(null);
+    }, PERSISTENT_IDLE_DISPOSE_MS);
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [activeSlot, retainedSlot]);
+
+  const effectiveSlot = activeSlot ?? retainedSlot;
+  if (!effectiveSlot || !resolvedModel) return null;
+  return (
+    <PersistentRendererHost
+      activeSlot={activeSlot}
+      slot={effectiveSlot}
+      model={resolvedModel}
+      onPermanentError={onPermanentError}
+    />
+  );
 }
 
 export function AvatarScene(props: AvatarSceneProps) {

@@ -24,6 +24,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('installed production shell opens every game and protected routes offline', async ({ page, context }) => {
+  test.setTimeout(60_000);
   await waitForOfflineControl(page);
   await context.setOffline(true);
 

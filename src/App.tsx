@@ -23,6 +23,7 @@ import { GAME_DEFINITIONS } from './shared/gameCatalog';
 import { GroupedHomeScreen } from './home/GroupedHomeScreen';
 import { AvatarPreviewScreen } from './avatar/AvatarPreviewScreen';
 import { AVATAR_POC_ENABLED } from './avatar/avatarConstants';
+import { CompanionStageProvider } from './avatar/CompanionStageContext';
 import { CustomContentScreen } from './content/CustomContentScreen';
 import { useAutosaveStatus, type AutosaveStatus } from './shared/hooks/useAutosaveStatus';
 import { useT } from './shared/hooks/useT';
@@ -136,6 +137,7 @@ export default function App() {
 
   return (
     <ContentProvider locale={locale}>
+    <CompanionStageProvider>
     <div className="min-h-screen bg-bg-light font-app text-text-main relative">
       <div className="w-full min-h-screen">
         <Routes location={location}>
@@ -218,6 +220,7 @@ export default function App() {
         {location.pathname.startsWith('/settings') && <AutosaveNotice status={autosaveStatus} />}
       </div>
     </div>
+    </CompanionStageProvider>
     </ContentProvider>
   );
 }

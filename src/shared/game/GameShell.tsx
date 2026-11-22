@@ -7,12 +7,12 @@ import React from 'react';
 import { useReducedMotion } from 'motion/react';
 import { getCompanionConfig } from '../../avatar/companionConfig';
 import {
-  CompanionNudge,
   IDLE_NUDGE_DELAY_MS,
+  PromptCompanion,
   selectIdleNudgeClip,
   shouldArmIdleNudge,
   type CompanionNudgeEvent,
-} from '../../avatar/CompanionNudge';
+} from '../../avatar/PromptCompanion';
 import { LearningCompanion } from '../../avatar/LearningCompanion';
 import { useCompanionCelebration } from '../../avatar/useCompanionCelebration';
 import { useCompanionResources } from '../../avatar/useCompanionResources';
@@ -172,6 +172,28 @@ export function GameShell({
   const activeIdleNudge =
     canArmIdleNudge && idleNudge?.scopeKey === idleNudgeScopeKey ? idleNudge.event : null;
 
+  const promptWithCompanion = React.isValidElement<{
+    onReplay?: () => void;
+    companion?: React.ReactNode;
+  }>(prompt)
+    ? React.cloneElement(prompt, {
+        companion: companionConfig ? (
+          <PromptCompanion
+            locale={locale}
+            config={companionConfig}
+            resource={companionResource}
+            reducedMotion={reducedMotion}
+            stillUrl={bearStill}
+            state={state}
+            promptReplaying={promptReplaying}
+            idleNudge={activeIdleNudge}
+            disabled={contentLocked}
+            onReplay={prompt.props.onReplay}
+          />
+        ) : undefined,
+      })
+    : prompt;
+
   // Preserve the polite announcement even when movement has already consumed the cooldown.
   const showRetry = (feedback?.kind === 'retry' || state.phase === 'answered-incorrectly' || (state.phase === 'awaiting-answer' && state.wrongAttempts > 0)) && !isFinalRound && !transientFeedback;
 
@@ -210,7 +232,7 @@ export function GameShell({
           contentLocked && 'pointer-events-none',
         )}
       >
-        {prompt}
+        {promptWithCompanion}
         <div className="flex min-h-0 flex-1 flex-col">{children}</div>
       </div>
 
@@ -220,14 +242,6 @@ export function GameShell({
           detail={feedback?.detail}
         />
       )}
-
-      <CompanionNudge
-        event={activeIdleNudge}
-        config={companionConfig}
-        resource={companionResource}
-        reducedMotion={reducedMotion}
-        stillUrl={bearStill}
-      />
 
       {(transientFeedback || showCompletion) && (
         <OverlayFrame

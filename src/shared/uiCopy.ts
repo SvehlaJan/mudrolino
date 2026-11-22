@@ -13,6 +13,7 @@ const SK_COPY = {
   'home.companionGreet': 'Zamávaj medvedíkovi',
 
   'game.replayPrompt': 'Zopakovať zadanie',
+  'game.companionReplay': 'Medvedík zopakuje zadanie',
   'game.promptSection': 'Zadanie',
   'game.replayingInstruction': 'Prehrávam zadanie…',
   'game.answerGroup': 'Možnosti odpovede',
@@ -119,6 +120,7 @@ const CS_COPY: Record<UiCopyKey, string> = {
   'home.companionGreet': 'Zamávat medvídkovi',
 
   'game.replayPrompt': 'Zopakovat zadání',
+  'game.companionReplay': 'Medvídek zopakuje zadání',
   'game.promptSection': 'Zadání',
   'game.replayingInstruction': 'Přehrávám zadání…',
   'game.answerGroup': 'Možnosti odpovědi',

@@ -1,8 +1,12 @@
-import { useCallback, useReducer, useRef, useState } from 'react';
+import { useCallback, useMemo, useReducer, useRef, useState } from 'react';
 import { useReducedMotion } from 'motion/react';
 import { getUiCopy } from '../shared/uiCopy';
 import { cn } from '../shared/ui/utils';
 import { AvatarPresenter } from './AvatarPresenter';
+import {
+  COMPANION_STAGE_PRIORITY,
+  useCompanionStageSlot,
+} from './companionStage';
 import {
   createHomeCompanionState,
   homeCompanionReducer,
@@ -78,6 +82,7 @@ function ActiveHomeCompanion({
   const [modelReady, setModelReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const failureReported = useRef(false);
+  const slotRef = useRef<HTMLSpanElement>(null);
   const modelUrl = config.modelUrl;
 
   const onModelReady = useCallback(() => {
@@ -101,7 +106,26 @@ function ActiveHomeCompanion({
 
   const canRender =
     !reducedMotion && !failed && resource.status === 'ready' && resource.modelUrl === modelUrl;
-  const rendered = canRender && modelReady;
+  const playback = useMemo(
+    () => ({ mode: 'once' as const, eventKey: state.eventKey, startedAtMs: state.startedAtMs }),
+    [state.eventKey, state.startedAtMs],
+  );
+
+  const stage = useCompanionStageSlot({
+    priority: COMPANION_STAGE_PRIORITY.home,
+    containerRef: slotRef,
+    canRender,
+    modelUrl,
+    animationName: state.activeClip,
+    cameraDistance: 5.6,
+    playback,
+    onModelReady,
+    onPlaybackComplete,
+    onError,
+  });
+
+  const showStill = !canRender || (stage.hasProvider && stage.activeSlotId !== null && !stage.isOwner);
+  const rendered = canRender && (!stage.hasProvider || stage.isOwner) && modelReady;
 
   return (
     <button
@@ -118,10 +142,10 @@ function ActiveHomeCompanion({
       )}
     >
       <span aria-hidden="true" className="pointer-events-none relative block h-full w-full">
-        {!canRender && (
+        {showStill && (
           <img src={stillUrl} alt="" className="absolute inset-0 h-full w-full object-contain" />
         )}
-        {canRender && (
+        {!stage.hasProvider && canRender && (
           <AvatarPresenter
             className="absolute inset-0 h-full w-full"
             modelUrl={modelUrl}
@@ -129,12 +153,15 @@ function ActiveHomeCompanion({
             preserveHipsPosition
             cameraDistance={5.6}
             interactive={false}
-            playback={{ mode: 'once', eventKey: state.eventKey, startedAtMs: state.startedAtMs }}
+            playback={playback}
             assetStatusOverride="available"
             onModelReady={onModelReady}
             onPlaybackComplete={onPlaybackComplete}
             onError={onError}
           />
+        )}
+        {stage.hasProvider && (
+          <span ref={slotRef} className="absolute inset-0 block h-full w-full" />
         )}
       </span>
     </button>

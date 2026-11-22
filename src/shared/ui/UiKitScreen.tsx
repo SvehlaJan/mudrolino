@@ -27,6 +27,7 @@ import { SwitchControl } from './Switch';
 import { Tabs, TabPanel } from './Tabs';
 import { cx } from './utils';
 import { RecordingListItem } from '../../recordings/RecordingListItem';
+import { CompanionStageProvider } from '../../avatar/CompanionStageContext';
 import { GameCard, GameIcon } from '../../home/GameCard';
 import { FindItGame } from '../components/FindItGame';
 import { GAME_DEFINITIONS } from '../gameCatalog';
@@ -218,7 +219,7 @@ function UiKitOverlayCompletionDemo() {
 
 const GAME_SHELL_DEMO_STATES = [
   'ready', 'listening', 'retry', 'success', 'failure', 'paused', 'error', 'completion', 'visual', 'reduced-motion', 'focus-restoration', 'answer-controls', 'geometry-stress',
-  'companion-success', 'companion-failure', 'companion-final-correct', 'companion-final-failure', 'companion-zero-score', 'companion-expired', 'companion-reduced-motion',
+  'companion-prompt', 'companion-retry', 'companion-success', 'companion-failure', 'companion-final-correct', 'companion-final-failure', 'companion-zero-score', 'companion-expired', 'companion-reduced-motion',
 ] as const;
 
 type GameShellDemoState = typeof GAME_SHELL_DEMO_STATES[number];
@@ -236,6 +237,7 @@ function getGameShellDemoState(example: GameShellDemoState): GameState {
 
   switch (example) {
     case 'listening': return { ...base, phase: 'listening' };
+    case 'companion-retry':
     case 'retry': return { ...base, phase: 'answered-incorrectly', wrongAttempts: 1 };
     case 'success':
     case 'companion-success':
@@ -264,7 +266,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
   const state = stateName === 'focus-restoration'
     ? { ...getGameShellDemoState('ready'), paused: focusDemoPaused, resumePhase: focusDemoPaused ? 'awaiting-answer' as const : null }
     : { ...demoState, paused: demoState.paused || focusDemoPaused };
-  const feedback = stateName === 'retry'
+  const feedback = stateName === 'retry' || stateName === 'companion-retry'
     ? { kind: 'retry' as const, title: getUiCopy(locale, 'game.retryPrompt'), detail: getUiCopy(locale, 'game.retry.detail') }
     : ['success', 'companion-success', 'companion-expired', 'companion-reduced-motion'].includes(stateName)
     ? { kind: 'success' as const, title: getUiCopy(locale, 'game.successTitle'), onContinue: () => undefined }
@@ -277,6 +279,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
     : ['A', 'B', 'C', ...(showD ? ['D'] : [])];
 
   return (
+    <CompanionStageProvider>
     <div data-demo-state={stateName} data-demo-viewports="320x568 390x844 568x320 667x375 1280x900" data-demo-motion={stateName === 'reduced-motion' ? 'system-reduced' : 'default'}>
       <GameShell
         gameId="ALPHABET"
@@ -330,6 +333,7 @@ function UiKitGameShellDemo({ stateName }: { stateName: GameShellDemoState }) {
         </div>
       )}
     </div>
+    </CompanionStageProvider>
   );
 }
 
@@ -1205,6 +1209,8 @@ export function UiKitScreen() {
               ['ready', 'Pripravené'], ['listening', 'Počúvanie'], ['visual', 'Obrazové zadanie'], ['retry', 'Opakovanie'],
               ['success', 'Úspech'], ['failure', 'Neúspech'], ['paused', 'Pozastavené'], ['error', 'Chyba'],
               ['completion', 'Dokončenie'], ['reduced-motion', 'Obmedzený pohyb'], ['focus-restoration', 'Obnovenie fokusu'],
+              ['companion-prompt', `🐻 ${getUiCopy(locale, 'game.promptSection')}`],
+              ['companion-retry', `🐻 ${getUiCopy(locale, 'game.retryPrompt')}`],
               ['companion-success', `🐻 ${getUiCopy(locale, 'game.successTitle')}`],
               ['companion-failure', `🐻 ${getUiCopy(locale, 'game.failureTitle')}`],
               ['companion-final-correct', `🐻 ${getUiCopy(locale, 'game.completionTitle')} ✓`],
