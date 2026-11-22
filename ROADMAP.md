@@ -20,7 +20,7 @@ Public launch follows friend feedback and privacy review. The existing productio
 - [ ] Synthesize feedback into launch blockers and later improvements; run a public production smoke test before broader announcement.
 - [ ] Publish a privacy policy covering children, local microphone/audio storage, feedback and optional production monitoring; assess consent requirements for any future analytics changes.
 - [ ] Decide whether a landing page or app-at-root is appropriate and improve public discoverability/SEO. Existing Open Graph/PWA metadata is implemented.
-- [ ] Design a proper Mudrolíno logo/app icon and regenerate icons/link previews with `npm run pwa:icons`; consider the accepted bear as a branding direction.
+- [x] Design a proper Mudrolíno logo/app icon and regenerate icons/link previews with `npm run pwa:icons`; consider the accepted bear as a branding direction. (2026-11-22: 3D rendered Bear portrait icon via `tools/pwa/render_bear_icon.py` -> `tools/pwa/bear-icon-render.png` and regenerated `public/pwa/` assets via `npm run pwa:icons`.)
 
 ## Phase 3 — Cloud and Accounts
 
@@ -42,7 +42,7 @@ Slovak/Czech UI switching, locale-aware content/audio and language-partitioned l
 
 Bear Guide Phase A is accepted and published; [current assets and proof](docs/avatar-workflow.md) and [closeout](docs/superpowers/handoffs/2026-11-11-bear-guide-phase-a.md) identify the delivered revision. Home welcome/taps, round celebrations, empathetic failure, session completion and inactivity nudges already use the bear. The older tasks to add those states/screens are superseded.
 
-- [ ] Bear Guide Phase B: persistent in-round prompt companion and one cross-route WebGL context, with prompt replay/listening/search and inline wrong-attempt reactions.
+- [x] Bear Guide Phase B: persistent in-round prompt companion (`PromptCompanion` in `GamePrompt`) and one cross-route WebGL stage (`CompanionStageContext` + `PersistentCompanionStage`), with tap-to-replay, live listening/retry reactions, and absorbed 12s inactivity nudges.
 - [ ] Optional Slovak/Czech caregiver voice pack and bespoke pedagogical clips (`talk_explain`, `point_down`, `gentle_try_again`, `count_one_two_three`, `sleepy_yawn`). Recordings require their own inventory and release scope.
 - [~] Complete human catalog acceptance against [construction targets](docs/avatar-construction-targets.md), per-piece retrospectives and source-bound animated-fit/export/runtime/style/budget proof. Use the [workflow](docs/avatar-workflow.md) for current candidate status rather than the superseded intermediate repair summaries in the old roadmap.
 - [ ] Finish pending body/head/hair choices, reference-based garments/footwear and separate female fitted variants. Keep both bases' acceptance independent; use reviewed recipes and proof before product integration.
@@ -74,6 +74,7 @@ Older decisions, exact candidates and superseded experiments remain in the [comp
 
 | Date | Decision | Reason |
 | --- | --- | --- |
+| 2026-11-21 | Deliver Bear Guide Phase B (single cross-route WebGL stage + in-round `PromptCompanion`) and adopt the Bear mascot for the Mudrolíno PWA app icon / OG preview. | Eliminates per-event WebGL context churn, removes the corner floating nudge in favor of a live prompt companion, and unifies app branding with the accepted bear. |
 | 2026-11-11 | Consolidate current guidance and archive superseded documents; retain original evidence and links. | The cleanup is authorized, while earlier plans, failed experiments and acceptance receipts remain useful provenance. |
 | 2026-11-11 | Keep historical avatar evidence only in the local MacBook archive during cleanup. | The user approved local-only storage; preserve exact bytes, manifests, replay and restoration rather than uploading this evidence elsewhere. |
 | 2026-11-11 | Present product ownership, agent implementation, shared UI, MVP scope and verification explicitly. | Describe delivered behavior and future hypotheses separately; [case study](docs/engineering-decisions.md). |
