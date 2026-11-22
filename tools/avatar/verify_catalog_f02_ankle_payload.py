@@ -10,6 +10,27 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'blender/catalog'))
 from f02_ankle_payload import payload_side, loop_time
 from f02_ankle_measurement import schedule
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+def resolve_recorded_path(raw_path: str) -> Path:
+    local = unquote(urlparse(raw_path).path) if raw_path.startswith('file:') else raw_path
+    candidate = Path(local)
+    if candidate.exists() or candidate.with_name(f'{candidate.name}.gz').exists():
+        return candidate
+    if candidate.is_absolute():
+        posix = candidate.as_posix()
+        for marker in ('/tools/', '/assets/'):
+            idx = posix.find(marker)
+            if idx != -1:
+                rel = Path(posix[idx + 1:])
+                if '..' not in rel.parts:
+                    return REPO_ROOT / rel
+        if candidate.name == 'package-lock.json':
+            return REPO_ROOT / 'package-lock.json'
+    return candidate
+
+
 def digest(path): return proof_digest(path)
 
 
@@ -21,8 +42,8 @@ def main():
     source, actual, ends, end_actual = [read_proof_json(p) for p in paths]; validated = {}
     for report in [source, actual, ends, end_actual]:
         for path, sha in {**report['asset_hashes'], **report['tool_hashes']}.items():
-            local = unquote(urlparse(path).path) if path.startswith('file:') else path
-            assert digest(Path(local)) == sha, local; validated[local] = sha
+            local = resolve_recorded_path(path)
+            assert digest(local) == sha, path; validated[str(local)] = sha
     assert end_actual['input_sha256'] == digest(paths[2])
     # Validate complete ordered inventories before zip: otherwise truncated inputs
     # can silently retain the same maxima and be reported as a full-cycle pass.

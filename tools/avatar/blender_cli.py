@@ -18,9 +18,12 @@ def executable():
     if MAC_BLENDER.is_file() and os.access(MAC_BLENDER, os.X_OK):
         return str(MAC_BLENDER)
     candidate = shutil.which('blender')
-    if not candidate:
-        raise RuntimeError('Blender not found; set BLENDER_BIN to its executable')
-    return candidate
+    if candidate:
+        return candidate
+    local_blender = Path.home() / '.local/bin/blender'
+    if local_blender.is_file() and os.access(local_blender, os.X_OK):
+        return str(local_blender)
+    raise RuntimeError('Blender not found; set BLENDER_BIN to its executable')
 
 
 def script_command(script, args=()):

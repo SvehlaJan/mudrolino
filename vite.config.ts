@@ -88,7 +88,17 @@ export default defineConfig(({mode}) => {
     server: {
       // Controlled avatar captures disable HMR so edits cannot cancel source/model requests.
       hmr: process.env.DISABLE_HMR !== 'true',
-      watch: { ignored: ['**/dist/**', '**/dist-e2e/**', '**/artifacts/**'] },
+      watch: {
+        // Ignore build/test outputs and linked avatar authoring archives, which contain
+        // relative staged-catalog symlinks (e.g. B04 -> ..) that otherwise loop Chokidar.
+        ignored: [
+          '**/dist/**',
+          '**/dist-e2e/**',
+          '**/artifacts/**',
+          '**/test-results/**',
+          '**/assets/avatar/**',
+        ],
+      },
     },
   };
 });

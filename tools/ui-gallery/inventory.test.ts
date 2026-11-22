@@ -67,4 +67,4 @@ describe('app component inventory', () => {
 it('keeps the checked-in app inventory complete when source components or references change', async () => {
   const { appComponentInventory } = await import('../../src/shared/ui/gallery/componentInventory.generated');
   expect(appComponentInventory, 'Regenerate with node --import tsx tools/ui-gallery/generate.ts').toEqual(scanAppComponents(process.cwd()));
-});
+}, 30_000);

@@ -332,7 +332,7 @@ def attach_bear_accessories(arm, include_facial=True):
     obj_bulb.data.materials.append(mat_dark)
     props['think'] = [obj_bulb]
 
-    # 3. Smooth Parametric Superhero Mask (Head) — lowered cy=37.8 so cutouts center cleanly over pupils
+    # 3. Smooth Parametric Superhero Mask (Head) — lowered cy=36.8 so cutouts center cleanly over pupils
     bm = bmesh.new()
     rings = 12
     segs = 56

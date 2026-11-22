@@ -45,14 +45,20 @@ describe('F02 payload proof pose inventory', () => {
       else if (name === 'three-endpoints') reports[3].checks!.pop();
       else reports[0].modes![name].pop();
     });
-    expect(result.status, result.stdout).not.toBe(0);
+    expect(result.status, result.stderr).not.toBe(0);
+    expect(result.stderr).not.toContain('FileNotFoundError');
+    expect(result.stderr).toContain('AssertionError');
   });
   it('rejects a relabelled equivalent frame even when matrices still match', () => {
     const result = verify(reports => { reports[0].modes!['raw-gltf-equivalent'][10].frame! += .1; });
-    expect(result.status, result.stdout).not.toBe(0);
+    expect(result.status, result.stderr).not.toBe(0);
+    expect(result.stderr).not.toContain('FileNotFoundError');
+    expect(result.stderr).toContain('AssertionError');
   });
   it('rejects a duplicated boundary label rather than counting it twice', () => {
     const result = verify(reports => { reports[2].checks![2].label = reports[2].checks![1].label; reports[3].checks![2].label = reports[3].checks![1].label; });
-    expect(result.status, result.stdout).not.toBe(0);
+    expect(result.status, result.stderr).not.toBe(0);
+    expect(result.stderr).not.toContain('FileNotFoundError');
+    expect(result.stderr).toContain('AssertionError');
   });
 });

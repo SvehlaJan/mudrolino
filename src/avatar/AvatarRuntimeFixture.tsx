@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { AvatarPresenter } from './AvatarPresenter';
 import { resolveCatalogPreview } from './catalogPreview';
+import { COMPANION_CLIP_NAMES } from './companionCelebration';
 import type { AvatarSceneData } from './avatarTypes';
 
 // Browser verifiers fulfill these fixed URLs from selected catalog source bytes.
@@ -16,25 +17,7 @@ export function AvatarRuntimeFixture() {
   return <CatalogRuntimeFixture />;
 }
 
-const BEAR_CLIPS = [
-  'celebrate',
-  'wave',
-  'clap',
-  'jump',
-  'finale',
-  'idle',
-  'search',
-  'think',
-  'listen',
-  'encourage',
-  'shrug',
-  'flex',
-  'bow',
-  'march',
-  'wiggle',
-  'peekaboo',
-  'stretch',
-] as const;
+const BEAR_CLIPS = COMPANION_CLIP_NAMES;
 const BEAR_VIEWS = ['front', 'three-quarter', 'side', 'back'] as const;
 
 function BearRuntimeFixture() {

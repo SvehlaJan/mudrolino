@@ -1,4 +1,4 @@
-import { chmodSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -37,5 +37,21 @@ describe('portable Blender CLI', () => {
     const { binary } = fixture();
     const result = spawnSync('python3', [runner, '--version'], { encoding: 'utf8', env: { ...process.env, BLENDER_BIN: binary } });
     expect(result.status).toBe(0); expect(JSON.parse(result.stdout)).toEqual(['--version']);
+  });
+  it('falls back to ~/.local/bin/blender when BLENDER_BIN and PATH omit blender', () => {
+    const home = mkdtempSync(join(tmpdir(), 'blender-home-')); roots.push(home);
+    const localBin = join(home, '.local', 'bin');
+    mkdirSync(localBin, { recursive: true });
+    const python3 = spawnSync('which', ['python3'], { encoding: 'utf8' }).stdout.trim() || '/usr/bin/python3';
+    const binary = join(localBin, 'blender');
+    writeFileSync(binary, `#!${python3}\nimport json,sys\nprint(json.dumps(sys.argv[1:]))\n`);
+    chmodSync(binary, 0o755);
+    const emptyPath = join(home, 'empty-path');
+    mkdirSync(emptyPath, { recursive: true });
+    const env: NodeJS.ProcessEnv = { ...process.env, HOME: home, PATH: emptyPath };
+    delete env.BLENDER_BIN;
+    const result = spawnSync(python3, [runner, '--version'], { encoding: 'utf8', env });
+    expect(result.status, result.stderr).toBe(0);
+    expect(JSON.parse(result.stdout)).toEqual(['--version']);
   });
 });
