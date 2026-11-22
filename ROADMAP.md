@@ -74,6 +74,7 @@ Older decisions, exact candidates and superseded experiments remain in the [comp
 
 | Date | Decision | Reason |
 | --- | --- | --- |
+| 2026-11-22 | Release Bear Guide Phase B and the 3D-rendered Bear PWA icon set with a release-specific TTS exception and accepted focused verification. | The user explicitly approved shipping with the 240 pre-existing pending SK/CZ recordings (0 new pending recordings) and the passed focused checks (lint, pure, 689 unit tests, bundle/dev/offline/production-guards, and 58 companion E2E cases); strict audio and full release verification remain required for future releases. |
 | 2026-11-21 | Deliver Bear Guide Phase B (single cross-route WebGL stage + in-round `PromptCompanion`) and adopt the Bear mascot for the Mudrolíno PWA app icon / OG preview. | Eliminates per-event WebGL context churn, removes the corner floating nudge in favor of a live prompt companion, and unifies app branding with the accepted bear. |
 | 2026-11-11 | Consolidate current guidance and archive superseded documents; retain original evidence and links. | The cleanup is authorized, while earlier plans, failed experiments and acceptance receipts remain useful provenance. |
 | 2026-11-11 | Keep historical avatar evidence only in the local MacBook archive during cleanup. | The user approved local-only storage; preserve exact bytes, manifests, replay and restoration rather than uploading this evidence elsewhere. |
