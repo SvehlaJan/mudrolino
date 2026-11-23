@@ -261,7 +261,7 @@ def decimate_and_normalize_skin(mesh, arm, ratio=0.28, min_weight=1e-3, max_infl
     }
 
 
-def export_model(path, arm, meshes, animation=False, animation_mode='ACTIVE_ACTIONS'):
+def export_model(path, arm, meshes, animation=False, animation_mode='ACTIVE_ACTIONS', force_sampling=True):
     """Explicit skinned roots, UVs and active/all actions; no cameras or old gaits."""
     # glTF export_apply=False deliberately preserves skinning, but ignores MASK.
     # Bake only the masks on a disposable body copy, with the armature disabled.
@@ -300,7 +300,7 @@ def export_model(path, arm, meshes, animation=False, animation_mode='ACTIVE_ACTI
             filepath=str(path), export_format='GLB', use_selection=True,
             export_apply=False, export_texcoords=True, export_image_format='AUTO',
             export_animations=animation, export_animation_mode=animation_mode,
-            export_force_sampling=True, export_frame_range=(animation_mode != 'ACTIONS'), export_frame_step=1,
+            export_force_sampling=force_sampling, export_frame_range=(animation_mode != 'ACTIONS'), export_frame_step=1,
             export_nla_strips=False, export_bake_animation=False,
             export_nla_strips_merged_animation_name='celebrate',
             export_optimize_animation_size=False, export_def_bones=False,

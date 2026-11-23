@@ -8,10 +8,13 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import type { CompanionMode } from '../shared/services/appSettingsStore';
 import { AvatarRuntimeBoundary } from './AvatarRuntimeBoundary';
 import { getLoadedAvatarSceneModule, loadAvatarSceneModule } from './avatarSceneLoader';
+import { companionResources } from './companionResources';
 import {
   CompanionStageContext,
+  reportCompanionStageError,
   sameActiveCompanionSlot,
   selectActiveCompanionSlot,
   type ActiveCompanionSlot,
@@ -24,15 +27,25 @@ const LazyPersistentCompanionStage = lazy(() =>
   loadAvatarSceneModule().then((module) => ({ default: module.PersistentCompanionStage })),
 );
 
-export function CompanionStageProvider({ children }: { children: ReactNode }) {
+export function CompanionStageProvider({
+  children,
+  companionMode = 'animated',
+}: {
+  children: ReactNode;
+  companionMode?: CompanionMode;
+}) {
   const slotsRef = useRef<Map<string, RegisteredCompanionSlot>>(new Map());
   const orderRef = useRef(0);
+  const lastModelUrlRef = useRef<string | null>(null);
   const [activeSlot, setActiveSlot] = useState<ActiveCompanionSlot | null>(null);
   const [stageActivated, setStageActivated] = useState(false);
   const [permanentError, setPermanentError] = useState(false);
 
   const syncActiveSlot = useCallback(() => {
     const next = selectActiveCompanionSlot(slotsRef.current.values());
+    if (next?.modelUrl) {
+      lastModelUrlRef.current = next.modelUrl;
+    }
     setActiveSlot((prev) => (sameActiveCompanionSlot(prev, next) ? prev : next));
     if (next !== null) {
       setStageActivated(true);
@@ -41,6 +54,9 @@ export function CompanionStageProvider({ children }: { children: ReactNode }) {
 
   const upsertSlot = useCallback(
     (slot: CompanionStageSlotRequest) => {
+      if (slot.modelUrl) {
+        lastModelUrlRef.current = slot.modelUrl;
+      }
       const existing = slotsRef.current.get(slot.id);
       const order = existing && existing.priority === slot.priority ? existing.order : ++orderRef.current;
       slotsRef.current.set(slot.id, { ...slot, order });
@@ -65,16 +81,25 @@ export function CompanionStageProvider({ children }: { children: ReactNode }) {
   const handleStageError = useCallback((error: unknown) => {
     setPermanentError(true);
     setStageActivated(false);
-    activeSlotRef.current?.onError(error);
+    reportCompanionStageError(
+      activeSlotRef.current,
+      lastModelUrlRef.current,
+      error,
+      companionResources.fail,
+    );
   }, []);
+
+  const effectiveActiveSlot = companionMode === 'animated' && !permanentError ? activeSlot : null;
 
   const value = useMemo<CompanionStageContextValue>(
     () => ({
-      activeSlotId: permanentError ? null : (activeSlot?.id ?? null),
+      activeSlotId: effectiveActiveSlot?.id ?? null,
+      stageFailed: permanentError,
+      companionMode,
       upsertSlot,
       removeSlot,
     }),
-    [activeSlot?.id, permanentError, removeSlot, upsertSlot],
+    [companionMode, effectiveActiveSlot?.id, permanentError, removeSlot, upsertSlot],
   );
 
   const StageComponent =
@@ -83,10 +108,10 @@ export function CompanionStageProvider({ children }: { children: ReactNode }) {
   return (
     <CompanionStageContext.Provider value={value}>
       {children}
-      {stageActivated && !permanentError && (
+      {stageActivated && !permanentError && companionMode === 'animated' && (
         <AvatarRuntimeBoundary onError={handleStageError}>
           <Suspense fallback={null}>
-            <StageComponent activeSlot={activeSlot} onPermanentError={handleStageError} />
+            <StageComponent activeSlot={effectiveActiveSlot} onPermanentError={handleStageError} />
           </Suspense>
         </AvatarRuntimeBoundary>
       )}

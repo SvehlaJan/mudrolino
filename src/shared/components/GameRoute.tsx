@@ -57,10 +57,8 @@ export function GameRoute({ gameId, settings }: GameRouteProps) {
 
   return (
     <ErrorBoundary>
-      <React.Suspense fallback={null}>
-        <Component settings={settings} onExit={onExit} />
-        <GameInputShield />
-      </React.Suspense>
+      <Component settings={settings} onExit={onExit} />
+      <GameInputShield />
     </ErrorBoundary>
   );
 }

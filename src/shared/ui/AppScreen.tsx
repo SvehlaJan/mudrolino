@@ -61,7 +61,11 @@ export function AppScreen({
   const resolvedHeight: AppScreenHeight = height ?? (fixedHeight ? 'viewport' : 'content');
   const resolvedScroll: AppScreenScroll = scroll ?? (scrollable ? 'vertical' : 'locked');
 
-  const [layout, setLayout] = useState<AppScreenLayout>('regular');
+  const [layout, setLayout] = useState<AppScreenLayout>(() =>
+    typeof window !== 'undefined' && window.innerHeight > 0 && window.innerHeight < SHORT_LAYOUT_MAX_HEIGHT
+      ? 'short'
+      : 'regular',
+  );
   const sizerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

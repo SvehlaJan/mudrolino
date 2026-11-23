@@ -12,7 +12,7 @@ function memoryStorage() {
 describe('settings change stamps', () => {
   it('leave the first save of defaults unstamped, so a fresh device never outranks a backup', () => {
     const storage = memoryStorage();
-    saveAppSettings({ locale: 'sk', fontFamily: 'nunito' }, storage);
+    saveAppSettings({ locale: 'sk', fontFamily: 'nunito', companionMode: 'animated' }, storage);
     saveSettings(createDefaultSettings(), storage);
     expect(readSettingsStamp('appSettings', storage)).toBe(0);
     expect(readSettingsStamp('gameSettings', storage)).toBe(0);
@@ -21,11 +21,11 @@ describe('settings change stamps', () => {
   it('stamp a real change and ignore saving the same value again', () => {
     const storage = memoryStorage();
     vi.spyOn(Date, 'now').mockReturnValue(1000);
-    saveAppSettings({ locale: 'sk', fontFamily: 'nunito' }, storage);
-    saveAppSettings({ locale: 'sk', fontFamily: 'shantell' }, storage);
+    saveAppSettings({ locale: 'sk', fontFamily: 'nunito', companionMode: 'animated' }, storage);
+    saveAppSettings({ locale: 'sk', fontFamily: 'shantell', companionMode: 'animated' }, storage);
     expect(readSettingsStamp('appSettings', storage)).toBe(1000);
     vi.spyOn(Date, 'now').mockReturnValue(2000);
-    saveAppSettings({ locale: 'sk', fontFamily: 'shantell' }, storage);
+    saveAppSettings({ locale: 'sk', fontFamily: 'shantell', companionMode: 'animated' }, storage);
     expect(readSettingsStamp('appSettings', storage)).toBe(1000);
     vi.restoreAllMocks();
   });

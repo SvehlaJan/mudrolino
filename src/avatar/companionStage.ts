@@ -5,6 +5,7 @@ import {
   useLayoutEffect,
   type RefObject,
 } from 'react';
+import type { CompanionMode } from '../shared/services/appSettingsStore';
 import type { AvatarPlaybackOptions } from './avatarTypes';
 
 export const COMPANION_STAGE_PRIORITY = {
@@ -46,11 +47,26 @@ export interface RegisteredCompanionSlot extends CompanionStageSlotRequest {
 
 export interface CompanionStageContextValue {
   activeSlotId: string | null;
+  stageFailed: boolean;
+  companionMode: CompanionMode;
   upsertSlot: (slot: CompanionStageSlotRequest) => void;
   removeSlot: (id: string) => void;
 }
 
 export const CompanionStageContext = createContext<CompanionStageContextValue | null>(null);
+
+export function reportCompanionStageError(
+  activeSlot: Pick<ActiveCompanionSlot, 'onError'> | null,
+  lastModelUrl: string | null,
+  error: unknown,
+  failResource: (url: string) => void,
+): void {
+  if (activeSlot) {
+    activeSlot.onError(error);
+  } else if (lastModelUrl) {
+    failResource(lastModelUrl);
+  }
+}
 
 export function selectActiveCompanionSlot(
   slots: Iterable<RegisteredCompanionSlot>,
@@ -97,6 +113,7 @@ export function sameActiveCompanionSlot(
     a.playback.mode === b.playback.mode &&
     a.playback.eventKey === b.playback.eventKey &&
     a.playback.startedAtMs === b.playback.startedAtMs &&
+    a.playback.idleAfterOnce === b.playback.idleAfterOnce &&
     a.onModelReady === b.onModelReady &&
     a.onPlaybackComplete === b.onPlaybackComplete &&
     a.onError === b.onError
@@ -120,11 +137,20 @@ export interface CompanionStageSlotState {
   hasProvider: boolean;
   isOwner: boolean;
   activeSlotId: string | null;
+  stageFailed: boolean;
   slotId: string;
 }
 
 export function useHasCompanionStage(): boolean {
   return useContext(CompanionStageContext) !== null;
+}
+
+export function useCompanionMode(): CompanionMode {
+  return useContext(CompanionStageContext)?.companionMode ?? 'animated';
+}
+
+export function useCompanionStageFailed(): boolean {
+  return useContext(CompanionStageContext)?.stageFailed ?? false;
 }
 
 export function useCompanionStageSlot(
@@ -144,6 +170,7 @@ export function useCompanionStageSlot(
   const playbackMode = options?.playback.mode;
   const playbackEventKey = options?.playback.eventKey;
   const playbackStartedAtMs = options?.playback.startedAtMs;
+  const playbackIdleAfterOnce = options?.playback.idleAfterOnce;
   const onModelReady = options?.onModelReady;
   const onPlaybackComplete = options?.onPlaybackComplete;
   const onError = options?.onError;
@@ -184,6 +211,7 @@ export function useCompanionStageSlot(
         mode: playbackMode,
         eventKey: playbackEventKey,
         startedAtMs: playbackStartedAtMs,
+        idleAfterOnce: playbackIdleAfterOnce,
       },
       onModelReady,
       onPlaybackComplete,
@@ -199,6 +227,7 @@ export function useCompanionStageSlot(
     onModelReady,
     onPlaybackComplete,
     playbackEventKey,
+    playbackIdleAfterOnce,
     playbackMode,
     playbackStartedAtMs,
     priority,
@@ -211,6 +240,7 @@ export function useCompanionStageSlot(
     hasProvider: ctx !== null,
     isOwner: ctx !== null && ctx.activeSlotId === slotId,
     activeSlotId: ctx?.activeSlotId ?? null,
+    stageFailed: ctx?.stageFailed ?? false,
     slotId,
   };
 }

@@ -41,7 +41,7 @@ def main():
     repo_root = Path(__file__).resolve().parents[2]
     default_blend = (
         repo_root
-        / 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/celebration.blend'
+        / 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v9/celebration.blend'
     )
     default_output = repo_root / 'tools/pwa/bear-icon-render.png'
 

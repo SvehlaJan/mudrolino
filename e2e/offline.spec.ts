@@ -95,6 +95,14 @@ test('uncached optional companion cannot block an offline correct answer and ren
   expect(homeLoaded).toBe(true);
 
   await startGame(page, '/alphabet');
+  const promptCompanion = page.getByTestId('prompt-companion');
+  await expect(promptCompanion).toBeVisible();
+  await expect(promptCompanion).toHaveAttribute('data-companion-representation', 'still');
+  const promptImg = promptCompanion.locator('img');
+  await expect(promptImg).toBeVisible();
+  const promptLoaded = await promptImg.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0);
+  expect(promptLoaded).toBe(true);
+
   // Observe the actual prompt media; production has no test answer adapter.
   await page.waitForFunction(() => (window as typeof window & { offlineHeard?: string[] }).offlineHeard?.some(url => url.includes('/letters/')));
   const clip = await page.evaluate(() => (window as typeof window & { offlineHeard?: string[] }).offlineHeard!.find(url => url.includes('/letters/'))!);

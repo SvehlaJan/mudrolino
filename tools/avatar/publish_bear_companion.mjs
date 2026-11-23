@@ -4,6 +4,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { readFile, realpath, rename, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveAuthoringRoot } from './localArchive.mjs';
 
 const candidateDir = 'assets/avatar/catalog-a/companions/bear-v1';
 const manifestPath = 'src/avatar/companions/bear-v1.json';
@@ -15,7 +16,9 @@ const reportPaths = {
   runtime: `${candidateDir}/runtime-report.json`,
   browser: `${candidateDir}/browser-report.json`,
 };
-const generatedCandidateDir = 'assets/avatar/catalog-a/companions/bear-v2';
+const generatedAuthoringRoot = 'assets/avatar/catalog-a';
+const generatedCandidateSubdir = 'companions/bear-v2';
+const generatedCandidateDir = `${generatedAuthoringRoot}/${generatedCandidateSubdir}`;
 const generatedReportPaths = Object.fromEntries(Object.entries({
   native: 'native-runtime-parity', clearance: 'arm-clearance-audit', optimization: 'optimization-report',
   runtime: 'runtime-report', browser: 'browser-report', still: 'still-report',
@@ -42,8 +45,11 @@ function generatedPath(file, extension) {
 function requireGeneratedContract(contract, modelHash) {
   requireProof(contract?.glbSha256 === modelHash && sameNames(contract.boneNames, generatedBones)
     && sameNames(contract.meshNames, ['Bear_fixed_outfit']) && contract.stationaryRootBone === 'Hips'
-    && contract.clipName === 'celebrate' && contract.durationSeconds === 1.4 && contract.maxTriangles === 95000
-    && contract.maxGzipBytes === 2100000 && contract.minMotionM === .02 && contract.maxFloorPenetrationM === .007,
+    && contract.clipName === 'celebrate' && contract.durationSeconds === 1.4
+    && positiveInteger(contract.maxTriangles) && contract.maxTriangles <= 95000
+    && positiveInteger(contract.maxGzipBytes) && contract.maxGzipBytes <= 2100000
+    && Number.isFinite(contract.minMotionM) && contract.minMotionM >= .02
+    && bounded(contract.maxFloorPenetrationM, .007),
   'Generated runtime contract differs from the production skeleton, mesh or motion policy');
 }
 
@@ -127,6 +133,9 @@ async function validateLocalProof(rootDir, candidateId) {
   const selectedSummary = generated ? `${generatedCandidateDir}/verification-summary.json` : summaryPath;
   const selectedReports = generated ? generatedReportPaths : reportPaths;
   const canonicalRoot = generated ? await realpath(rootDir) : null;
+  const canonicalCandidateDir = generated
+    ? path.join(resolveAuthoringRoot(rootDir, generatedAuthoringRoot, { required: true }), generatedCandidateSubdir)
+    : null;
   // Retain exact snapshots so edits during a network operation also invalidate publication.
   const snapshots = new Map();
   const read = async file => {
@@ -134,7 +143,7 @@ async function validateLocalProof(rootDir, candidateId) {
       const bundledStill = file === 'src/avatar/companions/bear-still.png';
       if (!bundledStill) generatedPath(file);
       const canonical = await realpath(path.join(rootDir, file));
-      const allowed = path.join(canonicalRoot, bundledStill ? file : generatedCandidateDir);
+      const allowed = bundledStill ? path.join(canonicalRoot, file) : canonicalCandidateDir;
       requireProof(bundledStill ? canonical === allowed : canonical.startsWith(`${allowed}${path.sep}`),
         'Generated candidate path escapes its allowed directory');
     }

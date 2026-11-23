@@ -8,6 +8,7 @@ import bpy
 from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from bear_accessories import create_studio_accessories, set_active_studio_accessory
 from bear_companion_common import digest, render_reviews, write_json
 from build_catalog_t01 import world_mesh
 
@@ -28,11 +29,14 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     bpy.ops.wm.open_mainfile(filepath=str(args.blend.resolve()))
     bpy.context.scene.frame_set(0)
+    points = [point for obj in bpy.data.objects if obj.type == 'MESH'
+              for point in world_mesh(obj)[0]]
+    arm = next(obj for obj in bpy.data.objects if obj.type == 'ARMATURE')
+    studio_props = create_studio_accessories(arm)
+    set_active_studio_accessory(studio_props, 'idle', normalized_progress=0.5, elapsed_seconds=0.6)
     reviews = render_reviews(args.output_dir, still=False)
     scene = bpy.context.scene
     camera = scene.camera
-    points = [point for obj in bpy.data.objects if obj.type == 'MESH'
-              for point in world_mesh(obj)[0]]
     minimum_z, maximum_z = min(point.z for point in points), max(point.z for point in points)
     scale = 2.7 / (maximum_z - minimum_z)
     center_x = (min(point.x for point in points) + max(point.x for point in points)) / 2

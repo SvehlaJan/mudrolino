@@ -3,7 +3,11 @@ import { tmpdir } from 'node:os';
 import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { buildCatalogPreviewManifest, resolveCatalogPreviewFile } from './catalogPreviewServer';
+import {
+  buildCatalogPreviewManifest,
+  isAllowedCatalogLibraryHost,
+  resolveCatalogPreviewFile,
+} from './catalogPreviewServer';
 const roots: string[] = [];
 function fixture() {
   const root = realpathSync(mkdtempSync(join(tmpdir(), 'catalog-viewer-'))); roots.push(root);
@@ -97,6 +101,46 @@ describe('catalog library HTTP transport', () => {
       expect(denied).toBe(403);
       expect((await fetch(`${base}/__avatar_catalog/assets/F04/F04.blend`)).status).toBe(404);
     } finally { await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())); }
+  });
+
+  it('allows configured __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS over loopback only while rejecting wildcards and LAN peers', async () => {
+    expect(isAllowedCatalogLibraryHost('oc-vps.taila50381.ts.net:8444', 'oc-vps.taila50381.ts.net')).toBe(true);
+    expect(isAllowedCatalogLibraryHost('oc-vps.taila50381.ts.net:8444', '')).toBe(false);
+    expect(isAllowedCatalogLibraryHost('untrusted.example', 'oc-vps.taila50381.ts.net')).toBe(false);
+    expect(isAllowedCatalogLibraryHost('foo.ts.net', '*.ts.net')).toBe(false);
+
+    vi.stubEnv('__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS', 'preview.tailnet.ts.net');
+    const { root } = fixture();
+    const { catalogPreviewPlugin } = await import('./catalogPreviewServer');
+    let middleware: import('node:http').RequestListener | undefined;
+    const plugin = catalogPreviewPlugin();
+    if (typeof plugin.configureServer !== 'function') throw new Error('Missing dev middleware');
+    plugin.configureServer.call(
+      {} as import('vite').MinimalPluginContextWithoutEnvironment,
+      { config: { root }, middlewares: { use: (handler: import('node:http').RequestListener) => { middleware = handler; } } } as unknown as import('vite').ViteDevServer,
+    );
+
+    const invoke = (host: string, remoteAddress: string) =>
+      new Promise<{ statusCode: number; body: string }>((resolve) => {
+        let statusCode = 200;
+        middleware!(
+          { url: '/__avatar_catalog/library.json', method: 'GET', headers: { host }, socket: { remoteAddress } } as unknown as import('node:http').IncomingMessage,
+          {
+            get statusCode() { return statusCode; },
+            set statusCode(value: number) { statusCode = value; },
+            headersSent: false,
+            setHeader() {},
+            end(chunk?: string | Buffer) { resolve({ statusCode, body: chunk ? String(chunk) : '' }); },
+            destroy() { resolve({ statusCode, body: '' }); },
+          } as unknown as import('node:http').ServerResponse,
+        );
+      });
+
+    expect((await invoke('preview.tailnet.ts.net:8444', '192.168.1.20')).statusCode).toBe(403);
+    expect((await invoke('untrusted.example', '127.0.0.1')).statusCode).toBe(403);
+    const allowed = await invoke('preview.tailnet.ts.net:8444', '127.0.0.1');
+    expect(allowed.statusCode).toBe(200);
+    expect(JSON.parse(allowed.body)).toHaveProperty('assets');
   });
 });
 

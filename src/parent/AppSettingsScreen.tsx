@@ -6,7 +6,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppScreen, BackButton, Card, PageHeader, RadioGroupControl, TopBar } from '../shared/ui';
-import { applyFontFamily, type AppFontFamily, type AppSettings } from '../shared/services/appSettingsStore';
+import { applyFontFamily, type AppFontFamily, type AppSettings, type CompanionMode } from '../shared/services/appSettingsStore';
 import { useContentLocale } from '../shared/contexts/ContentContext';
 import { getUiCopy, type UiCopyKey } from '../shared/uiCopy';
 import { useT } from '../shared/hooks/useT';
@@ -56,6 +56,11 @@ export function AppSettingsScreen({ appSettings, onUpdate, onDataRestored }: App
     { value: 'nunito', label: <span style={{ fontFamily: '"Nunito", sans-serif' }}>{t('Zaoblené (Nunito)')}</span> },
     { value: 'shantell', label: <span style={{ fontFamily: '"Shantell Sans", cursive, sans-serif' }}>{t('Hravé (Shantell)')}</span> },
   ];
+  const companionOptions: { value: CompanionMode; label: React.ReactNode }[] = [
+    { value: 'animated', label: t('Živý 3D') },
+    { value: 'static', label: t('Obrázok') },
+    { value: 'off', label: t('Vypnutý') },
+  ];
 
   return (
     <AppScreen mode="parent" height="content" scroll="vertical" maxWidth="narrow">
@@ -91,6 +96,22 @@ export function AppSettingsScreen({ appSettings, onUpdate, onDataRestored }: App
               onUpdate({ ...appSettings, fontFamily: value });
             }}
             options={fontOptions}
+          />
+        </div>
+      </Card>
+      <Card className="mt-5 sm:mt-6">
+        <h3 className="text-xl font-bold sm:text-2xl">{t('Medvedík sprievodca')}</h3>
+        <p className="mt-1 text-sm font-medium text-text-muted sm:text-base">
+          {t('Vyberte, ako sa má medvedík zobrazovať na domovskej obrazovke a v hrách.')}
+        </p>
+        <div className="mt-4">
+          <RadioGroupControl<CompanionMode>
+            ariaLabel={t('Medvedík sprievodca')}
+            tone="accent"
+            columns={3}
+            value={appSettings.companionMode}
+            onValueChange={(value) => onUpdate({ ...appSettings, companionMode: value })}
+            options={companionOptions}
           />
         </div>
       </Card>

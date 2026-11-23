@@ -60,6 +60,10 @@ mini-games (`src/avatar/companions/bear-v1.json`, `accepted: true`; Phase A desi
   `bear-still.png`), rendered at `352×400` (`--camera-distance 5.6`, 2× the largest `176×200` CSS
   slot) and precached offline via `'assets/bear-still-*.png'` in `src/pwa/pwaConfig.ts` while
   `assets/AvatarScene-*.js` and `avatar/**/*.glb` stay excluded from precache.
+- **Animation review tooling & `celebration-v9` local preview candidate**:
+  - `node tools/avatar/audit_bear_animation_quality.mjs --glb <path> [--output <json>]` audits kinematics, angular velocity/jerk, lower-body hip/leg activity, overlap lag, and loop seam velocity across every GLB clip (`v7` had 15 warnings across 18 clips; `celebration-v9` hits `0` warnings across 24 clips at `893,228` gzip bytes and `26.50 µm` 120 Hz parity).
+  - `npx tsx tools/avatar/render_bear_contact_sheets.mjs --base=http://127.0.0.1:3000 --model=<path> --output-dir=<dir> --clips=all --views=three-quarter` renders 6-frame `<= 320px` strips and a side-by-side HTML review board, and `/avatar-preview?agent=1&companion=bear` exposes interactive Play/Pause, `0.25×/0.5×/1×` slow-mo, Loop/Once, `0..1` scrubber, and Walk Demo controls.
+  - Production `src/avatar/companions/bear-v1.json` and fallback `src/avatar/companions/bear-still.png` now serve the user-approved 24-clip `celebration-v9` model (`1,328,332` bytes / `893,228` gzip bytes, SHA-256 `c242d6c98fc537291287df0b1199eb6764b6ad6b0f0949ff3eadc5234b2cc1b7`, Vercel Blob `https://en1sa7u9gqowved5.public.blob.vercel-storage.com/avatars/bear-v1/c242d6c98fc537291287df0b1199eb6764b6ad6b0f0949ff3eadc5234b2cc1b7.glb`), matching local dev preview (`VITE_AVATAR_LOCAL_COMPANION=true`) and E2E fixtures ([review & `v9` publication](audits/2026-11-22-bear-animation-review.md)).
 - **Asset manifest**: `assets/avatar/asset-manifest.json` tracks all local `.blend`/`.glb` files
   (`npm run assets:verify`). Historical `head35` (`bear-v1`) and procedural blockouts remain
   rejected comparison evidence.

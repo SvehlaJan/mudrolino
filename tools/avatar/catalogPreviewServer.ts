@@ -52,6 +52,26 @@ export function resolveCatalogPreviewFile(root: string, url: string): string | n
 }
 
 const mimeTypes: Record<string, string> = { '.glb': 'model/gltf-binary', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.json': 'application/json', '.gz': 'application/gzip', '.md': 'text/markdown; charset=utf-8', '.py': 'text/plain; charset=utf-8', '.ts': 'text/plain; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.blend': 'application/octet-stream' };
+
+/** Allow loopback hosts and explicit non-wildcard hosts configured for local reverse proxies. */
+export function isAllowedCatalogLibraryHost(
+  hostHeader: string | undefined,
+  extraHostsEnv = process.env.__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS,
+): boolean {
+  let hostname = '';
+  try {
+    hostname = new URL(`http://${hostHeader ?? ''}`).hostname.toLowerCase();
+  } catch {
+    return false;
+  }
+  if (['localhost', '127.0.0.1', '[::1]', '::1'].includes(hostname)) return true;
+  const allowedExtra = (extraHostsEnv ?? '')
+    .split(',')
+    .map((entry) => entry.trim().toLowerCase())
+    .filter((entry) => entry.length > 0 && !entry.includes('*'));
+  return allowedExtra.includes(hostname);
+}
+
 export function catalogPreviewPlugin(): Plugin {
   return { name: 'avatar-catalog-inspection', apply: 'serve', configureServer(server) {
     // Concurrent image requests share an inventory; the next five-second poll
@@ -87,8 +107,7 @@ export function catalogPreviewPlugin(): Plugin {
       // Native sources and tooling are a local workbench feature even when Vite
       // binds to 0.0.0.0. Do not expose these payloads to other network clients.
       const remote = req.socket.remoteAddress;
-      let localHost = false;
-      try { localHost = ['localhost', '127.0.0.1', '[::1]', '::1'].includes(new URL(`http://${req.headers.host ?? ''}`).hostname); } catch { /* Invalid Host is denied. */ }
+      const localHost = isAllowedCatalogLibraryHost(req.headers.host);
       if (libraryRoute && (!localHost || !['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(remote ?? ''))) { res.statusCode = 403; res.end('Avatar library is available on localhost only'); return; }
       if (!['GET', 'HEAD'].includes(req.method ?? '')) { res.statusCode = 405; res.setHeader('Allow', 'GET, HEAD'); res.end(); return; }
       res.setHeader('Cache-Control', 'no-store');

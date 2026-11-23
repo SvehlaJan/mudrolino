@@ -5,6 +5,8 @@ import { cn } from '../shared/ui/utils';
 import { AvatarPresenter } from './AvatarPresenter';
 import {
   COMPANION_STAGE_PRIORITY,
+  useCompanionMode,
+  useCompanionStageFailed,
   useCompanionStageSlot,
 } from './companionStage';
 import {
@@ -41,14 +43,15 @@ export function HomeCompanion({
 }: HomeCompanionProps) {
   const [defaultConfig] = useState(getCompanionConfig);
   const config = configProp === undefined ? defaultConfig : configProp;
+  const companionMode = useCompanionMode();
   const prefersReducedMotion = useReducedMotion();
-  const reducedMotion = reducedMotionProp ?? Boolean(prefersReducedMotion);
+  const reducedMotion = Boolean(reducedMotionProp ?? prefersReducedMotion) || companionMode === 'static';
   const fetchedResource = useCompanionResources(
-    reducedMotion || resourceProp !== undefined ? null : config?.modelUrl ?? null,
+    companionMode !== 'animated' || reducedMotion || resourceProp !== undefined ? null : config?.modelUrl ?? null,
   );
   const resource = resourceProp ?? fetchedResource;
 
-  if (!config) return null;
+  if (!config || companionMode === 'off') return null;
 
   return (
     <ActiveHomeCompanion
@@ -104,10 +107,16 @@ function ActiveHomeCompanion({
     dispatch({ type: 'tap', nowMs: performance.now() });
   }, []);
 
+  const stageFailed = useCompanionStageFailed();
   const canRender =
-    !reducedMotion && !failed && resource.status === 'ready' && resource.modelUrl === modelUrl;
+    !reducedMotion && !failed && !stageFailed && resource.status === 'ready' && resource.modelUrl === modelUrl;
   const playback = useMemo(
-    () => ({ mode: 'once' as const, eventKey: state.eventKey, startedAtMs: state.startedAtMs }),
+    () => ({
+      mode: 'once' as const,
+      eventKey: state.eventKey,
+      startedAtMs: state.startedAtMs,
+      idleAfterOnce: 'idle_breathe',
+    }),
     [state.eventKey, state.startedAtMs],
   );
 
@@ -124,8 +133,13 @@ function ActiveHomeCompanion({
     onError,
   });
 
-  const showStill = !canRender || (stage.hasProvider && stage.activeSlotId !== null && !stage.isOwner);
-  const rendered = canRender && (!stage.hasProvider || stage.isOwner) && modelReady;
+  const isSlotEligible = canRender && (!stage.hasProvider || stage.isOwner);
+  if (!isSlotEligible && modelReady) {
+    setModelReady(false);
+  }
+
+  const showStill = !canRender || stageFailed;
+  const rendered = isSlotEligible && modelReady;
 
   return (
     <button

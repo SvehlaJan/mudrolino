@@ -119,8 +119,10 @@ export function GameCard({
       state={{ fromHome: true }}
       data-testid="game-card"
       data-game-id={game.id}
-      // The lazy game chunk starts downloading as soon as a finger touches the card, so it is
-      // usually ready by the time the tap completes.
+      // The lazy game chunk starts downloading as soon as a pointer hovers/touches or focuses the card,
+      // so it is usually ready by the time the tap completes.
+      onPointerEnter={() => warmGameModule(game.id)}
+      onFocus={() => warmGameModule(game.id)}
       onPointerDown={() => warmGameModule(game.id)}
       onClick={(event) => {
         // Once the URL is a game's, a repeat tap on a card still on screen (the pushState-to-commit

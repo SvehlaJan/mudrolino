@@ -16,7 +16,7 @@ const baseObs: PromptCompanionObservation = {
 };
 
 describe('promptCompanionState', () => {
-  it('initializes with listen during opening prompt and idle_breathe when awaiting', () => {
+  it('stays idle_breathe during opening and post-overlay prompts unless explicitly replaying', () => {
     expect(createPromptCompanionState(baseObs)).toMatchObject({
       activeClip: 'idle_breathe',
       eventKey: 'idle:0',
@@ -25,9 +25,34 @@ describe('promptCompanionState', () => {
     expect(
       createPromptCompanionState({ ...baseObs, phase: 'listening' }),
     ).toMatchObject({
+      activeClip: 'idle_breathe',
+      eventKey: 'idle:0',
+      reason: 'idle',
+    });
+    expect(
+      createPromptCompanionState({ ...baseObs, phase: 'listening', promptReplaying: true }),
+    ).toMatchObject({
       activeClip: 'listen',
       eventKey: 'listen:0:1',
       reason: 'listen',
+    });
+
+    // Advancing past a success overlay into round 2 stays calm on idle_breathe even as the new prompt plays
+    let state = createPromptCompanionState(baseObs);
+    state = promptCompanionReducer(state, {
+      type: 'observe',
+      observation: { ...baseObs, phase: 'answered-correctly', roundsPlayed: 1, feedback: 'success' },
+      nowMs: 1000,
+    });
+    state = promptCompanionReducer(state, {
+      type: 'observe',
+      observation: { ...baseObs, phase: 'listening', roundsPlayed: 1, feedback: null, promptReplaying: false },
+      nowMs: 1500,
+    });
+    expect(state).toMatchObject({
+      activeClip: 'idle_breathe',
+      eventKey: 'idle:1',
+      reason: 'idle',
     });
   });
 
@@ -41,7 +66,7 @@ describe('promptCompanionState', () => {
     expect(same).toBe(initial);
   });
 
-  it('plays encourage on 1st wrong attempt and shrug on 2nd wrong attempt without replacing exhausted feedback', () => {
+  it('plays gentle_try_again -> encourage -> shrug across wrong attempts without replacing exhausted feedback', () => {
     let state = createPromptCompanionState(baseObs);
     state = promptCompanionReducer(state, {
       type: 'observe',
@@ -49,7 +74,7 @@ describe('promptCompanionState', () => {
       nowMs: 100,
     });
     expect(state).toMatchObject({
-      activeClip: 'encourage',
+      activeClip: 'gentle_try_again',
       eventKey: 'retry:0:1',
       reason: 'retry',
       startedAtMs: 100,
@@ -60,7 +85,7 @@ describe('promptCompanionState', () => {
       observation: { ...baseObs, phase: 'awaiting-answer', wrongAttempts: 1, feedback: null },
       nowMs: 200,
     });
-    expect(state.activeClip).toBe('encourage');
+    expect(state.activeClip).toBe('gentle_try_again');
 
     state = promptCompanionReducer(state, {
       type: 'observe',
@@ -68,20 +93,42 @@ describe('promptCompanionState', () => {
       nowMs: 300,
     });
     expect(state).toMatchObject({
-      activeClip: 'shrug',
+      activeClip: 'encourage',
       eventKey: 'retry:0:2',
       reason: 'retry',
       startedAtMs: 300,
     });
 
-    // 3rd wrong attempt sets feedback='failure' for LearningCompanion overlay; prompt companion stays on shrug
+    // 3rd wrong attempt sets feedback='failure' for LearningCompanion overlay; prompt companion stays on encourage
     state = promptCompanionReducer(state, {
       type: 'observe',
       observation: { ...baseObs, phase: 'answered-incorrectly', wrongAttempts: 3, feedback: 'failure' },
       nowMs: 400,
     });
-    expect(state.activeClip).toBe('shrug');
+    expect(state.activeClip).toBe('encourage');
     expect(state.eventKey).toBe('retry:0:2');
+
+    // Non-exhausted 3rd wrong attempt in a clean round picks shrug
+    let round1 = promptCompanionReducer(state, {
+      type: 'observe',
+      observation: { ...baseObs, roundsPlayed: 1, wrongAttempts: 0, feedback: null },
+      nowMs: 500,
+    });
+    round1 = promptCompanionReducer(round1, {
+      type: 'observe',
+      observation: { ...baseObs, roundsPlayed: 1, phase: 'answered-incorrectly', wrongAttempts: 3, feedback: null },
+      nowMs: 600,
+    });
+    expect(round1.activeClip).toBe('shrug');
+  });
+
+  it('selects count_one_two_three for numeracy games and talk_explain for literacy replays', () => {
+    expect(
+      createPromptCompanionState({ ...baseObs, gameId: 'COUNTING_ITEMS', phase: 'listening', promptReplaying: true }).activeClip,
+    ).toBe('count_one_two_three');
+    expect(
+      createPromptCompanionState({ ...baseObs, gameId: 'WORDS', phase: 'listening', promptReplaying: true }).activeClip,
+    ).toBe('talk_explain');
   });
 
   it('activates listen on prompt replay and avoids double-restarting when triggered via bear tap', () => {

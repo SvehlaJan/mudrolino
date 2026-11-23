@@ -86,6 +86,12 @@ For `/avatar-preview`, wait for app state before taking screenshots:
 
 One-shot headless Chrome screenshots may capture the empty shell before the GLBs finish loading (the base body and each garment are a few hundred KB each, and the renderer itself is a lazy chunk). Prefer Playwright waits over fixed `--virtual-time-budget` screenshots.
 
+### Continuous WebGL motion, accessible names, and Linux fonts
+
+- Under SwiftShader with an active continuous loop (`frameloop="always"`), Playwright's `locator.screenshot()` waits for compositor stability and can time out. Sample live motion via CDP `Page.startScreencast` and hash the cropped canvas bounds instead (see `e2e/avatar-companion.development.ts`).
+- Give interactive companion controls distinct accessible labels (e.g. `Medvedík zopakuje zadanie` vs prompt button `Zopakovať zadanie`) so Playwright strict-mode `getByRole('button', ...)` selectors in existing specs do not collide.
+- On Linux, `e2e/literacy-layout.spec.ts` (line 23, television emoji sizing) fails from `Noto Color Emoji` vs macOS `Apple Color Emoji` glyph metrics — treat as a platform font difference unless emoji sizing code changed.
+
 ## Visual Verification Pattern
 
 For UI redesign visual verification, run:

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useDeferredValue, useLayoutEffect, useRef } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { audioManager } from './shared/services/audioManager';
 import { loadSettings, saveSettings } from './shared/services/settingsService';
@@ -68,6 +68,7 @@ export default function App() {
   const [appSettings, setAppSettings] = useState<AppSettings>(loadAppSettings);
   const locale = appSettings.locale;
   const location = useLocation();
+  const renderedLocation = useDeferredValue(location);
   const rawNavigate = useNavigate();
   const homeScrollRef = useRef<number>(0);
 
@@ -93,10 +94,10 @@ export default function App() {
 
   // Restore scroll when returning to home
   useLayoutEffect(() => {
-    if (location.pathname === '/') {
+    if (renderedLocation.pathname === '/') {
       window.scrollTo(0, homeScrollRef.current);
     }
-  }, [location.pathname]);
+  }, [renderedLocation.pathname]);
 
   // Sync locale with AudioManager and the document, so screen readers and
   // hyphenation use the family's language.
@@ -137,10 +138,11 @@ export default function App() {
 
   return (
     <ContentProvider locale={locale}>
-    <CompanionStageProvider>
+    <CompanionStageProvider companionMode={appSettings.companionMode}>
     <div className="min-h-screen bg-bg-light font-app text-text-main relative">
       <div className="w-full min-h-screen">
-        <Routes location={location}>
+        <React.Suspense fallback={null}>
+        <Routes location={renderedLocation}>
           <Route
             path="/"
             element={
@@ -217,7 +219,8 @@ export default function App() {
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        {location.pathname.startsWith('/settings') && <AutosaveNotice status={autosaveStatus} />}
+        </React.Suspense>
+        {renderedLocation.pathname.startsWith('/settings') && <AutosaveNotice status={autosaveStatus} />}
       </div>
     </div>
     </CompanionStageProvider>

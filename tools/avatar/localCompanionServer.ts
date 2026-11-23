@@ -5,7 +5,7 @@ import type { Plugin } from 'vite';
 import { resolveAuthoringRoot } from './localArchive.mjs';
 
 const modelUrl = '/__avatar_fixture/bear-v1.glb';
-const modelPath = 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb';
+const modelPath = 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v9/web-v1/model.glb';
 
 /**
  * Development only: serves the approved bear from this checkout, so VITE_AVATAR_LOCAL_COMPANION

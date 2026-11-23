@@ -114,13 +114,19 @@ describe('HomeCompanion state machine', () => {
       settled: true,
     });
 
-    // Taps 6, 7, 8 finish the 7-clip cycle and wrap back to 'peekaboo'
+    // Taps 6..11 finish the 10-clip cycle and wrap back to 'peekaboo'
     const tap6 = homeCompanionReducer(settledAfterTap, { type: 'tap', nowMs: 3000 });
     expect(tap6.activeClip).toBe('search');
     const tap7 = homeCompanionReducer(tap6, { type: 'tap', nowMs: 3100 });
     expect(tap7.activeClip).toBe('listen');
     const tap8 = homeCompanionReducer(tap7, { type: 'tap', nowMs: 3200 });
-    expect(tap8.activeClip).toBe('peekaboo');
-    expect(tap8.eventKey).toBe('tap:8');
+    expect(tap8.activeClip).toBe('talk_explain');
+    const tap9 = homeCompanionReducer(tap8, { type: 'tap', nowMs: 3300 });
+    expect(tap9.activeClip).toBe('point_down');
+    const tap10 = homeCompanionReducer(tap9, { type: 'tap', nowMs: 3400 });
+    expect(tap10.activeClip).toBe('count_one_two_three');
+    const tap11 = homeCompanionReducer(tap10, { type: 'tap', nowMs: 3500 });
+    expect(tap11.activeClip).toBe('peekaboo');
+    expect(tap11.eventKey).toBe('tap:11');
   });
 });

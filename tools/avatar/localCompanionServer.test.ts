@@ -28,7 +28,7 @@ it('reports a missing required local archive instead of a generic missing model'
   expect(result.status).toBe(503); expect(result.body).toMatch(/archive/i);
 });
 it('serves the approved linked model and rejects a hash mismatch',async()=>{
-  const repo=folder(); const archive=folder(); const relative='assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb'; const bytes=Buffer.from('bear');
+  const repo=folder(); const archive=folder(); const relative='assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v9/web-v1/model.glb'; const bytes=Buffer.from('bear');
   mkdirSync(path.dirname(path.join(archive,'working',relative)),{recursive:true});writeFileSync(path.join(archive,'working',relative),bytes);
   mkdirSync(path.join(repo,'assets/avatar'),{recursive:true});symlinkSync(path.join(archive,'working/assets/avatar/catalog-a'),path.join(repo,'assets/avatar/catalog-a'));
   writeFileSync(path.join(repo,'assets/avatar/local-archive.json'),JSON.stringify({schemaVersion:1,archiveId:'fixture',sourceCommit:'a'.repeat(40),roots:['assets/avatar/catalog-a']}));
@@ -38,7 +38,7 @@ it('serves the approved linked model and rejects a hash mismatch',async()=>{
   writeFileSync(path.join(archive,'working',relative),'changed'); expect((await request(repo)).status).toBe(409);
 });
 it('refuses a nested model symlink outside the approved authoring root',async()=>{
-  const repo=folder(); const outside=folder(); const relative='assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb'; const bytes=Buffer.from('bear');
+  const repo=folder(); const outside=folder(); const relative='assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v9/web-v1/model.glb'; const bytes=Buffer.from('bear');
   mkdirSync(path.dirname(path.join(repo,relative)),{recursive:true});writeFileSync(path.join(outside,'model.glb'),bytes);symlinkSync(path.join(outside,'model.glb'),path.join(repo,relative));
   writeFileSync(path.join(repo,'assets/avatar/asset-manifest.json'),JSON.stringify({files:{[relative]:{sha256:createHash('sha256').update(bytes).digest('hex')}}}));
   expect((await request(repo)).status).toBe(404);

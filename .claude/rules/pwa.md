@@ -24,9 +24,14 @@ app moves to another address. Do not remove the favicon links: without them ever
 requests a nonexistent `/favicon.ico`, and that 404 fails the entire e2e suite
 through its console-error assertions.
 
-Icons under `public/pwa/`, including the 1200×630 `og-image.png`, are generated
-from `teo-icon-source.svg` by `npm run pwa:icons`. Edit the SVG and regenerate;
-never hand-edit the PNGs.
+Icons under `public/pwa/`, including the 1200×630 `og-image.png` and
+`teo-icon-source.svg`, are generated from `tools/pwa/bear-icon-render.png`
+(rendered read-only from the accepted bear `.blend` by
+`tools/pwa/render_bear_icon.py`) via `npm run pwa:icons`. `teo-icon-source.svg`
+embeds a compact `data:image/png;base64,...` cutout inside its rounded tile so
+modern browser tabs display the 3D render as the favicon rather than an inline
+vector stand-in. Edit `render_bear_icon.py` or `tools/pwa/generate-icons.mjs`
+and regenerate; never hand-edit the PNGs or `teo-icon-source.svg`.
 
 `vercel.json` owns hosting rules: response headers (noindex for the
 friends-and-family build, security headers, a microphone-only permissions

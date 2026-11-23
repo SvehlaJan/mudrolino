@@ -21,14 +21,18 @@ integration awaits accepted catalog assets.
 ## Bundle boundary
 
 Keep three.js, React Three Fiber and drei under `src/avatar/`. Route renderer
-work through lazy `AvatarPresenter` so these dependencies stay outside the main
-bundle. Never statically import `AvatarScene`, `AvatarModel`,
+work through `CompanionStageContext` (`PersistentCompanionStage`) or standalone
+lazy `AvatarPresenter` so these dependencies stay outside the main bundle. Never
+statically import `AvatarScene`, `AvatarModel`,
 `AvatarSkeletonOverlay` or `skinnedGarment` from outside this directory. Check
-`npm run build` after renderer changes: the dependencies belong in the lazy scene
+`npm run build && npm run verify:bundle` after renderer changes: the dependencies belong in the lazy scene
 chunk. `AvatarRuntimeBoundary` hides a failed renderer load.
 
 The scene chunk and avatar GLBs remain excluded from Workbox precache; preserve
 that boundary when integrating accepted models later.
+Keep `**/assets/avatar/**` and `**/test-results/**` in `vite.config.ts`
+`server.watch.ignored`: historical archive studies contain recursive parent
+symlinks (`B04 -> ..`) that otherwise loop Chokidar until Vite hits heap OOM.
 
 ## Current asset workflow
 

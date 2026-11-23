@@ -253,12 +253,12 @@ describe('companionAccessories', () => {
       expect(leftEyelid.rotation.y).toBeGreaterThanOrEqual(0.24);
       expect(rightEyelid.rotation.y).toBeLessThanOrEqual(-0.24);
 
-      // Brow center sits at temple X=±17.3 so +4.6 torus arch crest lands at Y≈42.8..43.8+liftY above the eye
+      // Brow center sits at tuned clean-forehead coordinates so torus arch crest sits cleanly above eyes
       expect(leftBrow.position.x).toBeCloseTo(17.3, 2);
       expect(rightBrow.position.x).toBeCloseTo(-17.3, 2);
-      expect(leftBrow.position.y).toBeGreaterThanOrEqual(38.0);
-      expect(leftBrow.position.y).toBeLessThanOrEqual(39.5);
-      expect(leftBrow.position.z).toBeGreaterThanOrEqual(36.0);
+      expect(leftBrow.position.y).toBeGreaterThanOrEqual(40.0);
+      expect(leftBrow.position.y).toBeLessThanOrEqual(42.0);
+      expect(leftBrow.position.z).toBeGreaterThanOrEqual(35.8);
       expect(leftBrow.position.z).toBeLessThanOrEqual(38.0);
 
       expect(leftEyelid.visible).toBe(false);
@@ -357,10 +357,16 @@ describe('companionAccessories', () => {
         'finale',
         'wave',
         'encourage',
+        'gentle_try_again',
         'shrug',
         'think',
         'search',
         'listen',
+        'point_down',
+        'talk_explain',
+        'count_one_two_three',
+        'sleepy_yawn',
+        'walk',
         'peekaboo',
         'wiggle',
         'bow',
@@ -371,6 +377,16 @@ describe('companionAccessories', () => {
         expect(head.getObjectByName('leftBrow')!.visible).toBe(true);
         expect(head.getObjectByName('rightBrow')!.visible).toBe(true);
       }
+
+      // v8 alwaysShowBrows keeps clean single brows visible during living idle and frame 0
+      const livingIdle = computeBrowPose('idle_breathe', { alwaysShowBrows: true });
+      expect(livingIdle.liftY).toBeGreaterThan(0);
+      syncCompanionAccessories(scene, 'idle_breathe', 0, 0, { alwaysShowBrows: true });
+      expect(head.getObjectByName('leftBrow')!.visible).toBe(true);
+      expect(head.getObjectByName('rightBrow')!.visible).toBe(true);
+
+      // sleepy_yawn triggers drowsy eyelids smoothly around midpoint
+      expect(computeBlinkAmount('sleepy_yawn', 0.49, 0)).toBeGreaterThan(0.65);
 
       syncCompanionAccessories(scene, 'flex', 0.5, 0.5);
       expect(head.getObjectByName('leftBrow')!.visible).toBe(false);

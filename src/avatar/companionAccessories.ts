@@ -26,8 +26,18 @@ const BROW_BASE_ROT_Z = (Math.PI - BROW_ARC_RAD) * 0.5;
 const BROW_REST_SLOPE_RAD = 0.14;
 const BROW_LEFT_YAW_RAD = 0.42;
 const BROW_RIGHT_YAW_RAD = -0.38;
+const BROW_LEFT_OFFSET: [number, number, number] = [17.3, 41.2, 36.2];
+const BROW_RIGHT_OFFSET: [number, number, number] = [-17.3, 40.4, 37.65];
 
-const EXPRESSIVE_BLINK_CLIPS = new Set(['wave', 'encourage', 'shrug', 'think', 'listen']);
+const EXPRESSIVE_BLINK_CLIPS = new Set([
+  'wave',
+  'encourage',
+  'shrug',
+  'think',
+  'listen',
+  'gentle_try_again',
+  'talk_explain',
+]);
 
 export interface BrowPose {
   liftY: number;
@@ -35,24 +45,39 @@ export interface BrowPose {
   rightTiltRad: number;
 }
 
+export interface CompanionAccessorySyncOptions {
+  alwaysShowBrows?: boolean;
+}
+
 const NEUTRAL_BROW_POSE: BrowPose = { liftY: 0, leftTiltRad: 0, rightTiltRad: 0 };
 
 const BROW_POSE_BY_CLIP: Record<string, BrowPose> = {
-  celebrate: { liftY: 1.6, leftTiltRad: 0.09, rightTiltRad: -0.09 },
-  jump: { liftY: 1.6, leftTiltRad: 0.09, rightTiltRad: -0.09 },
-  finale: { liftY: 1.6, leftTiltRad: 0.09, rightTiltRad: -0.09 },
-  peekaboo: { liftY: 1.5, leftTiltRad: 0.08, rightTiltRad: -0.08 },
-  clap: { liftY: 1.2, leftTiltRad: 0.06, rightTiltRad: -0.06 },
-  wave: { liftY: 1.2, leftTiltRad: 0.06, rightTiltRad: -0.06 },
-  wiggle: { liftY: 1.2, leftTiltRad: 0.06, rightTiltRad: -0.06 },
-  bow: { liftY: 1.2, leftTiltRad: 0.06, rightTiltRad: -0.06 },
-  march: { liftY: 1.2, leftTiltRad: 0.06, rightTiltRad: -0.06 },
-  stretch: { liftY: 1.1, leftTiltRad: 0.05, rightTiltRad: -0.05 },
-  encourage: { liftY: 0.9, leftTiltRad: -0.11, rightTiltRad: 0.11 },
-  shrug: { liftY: 0.9, leftTiltRad: -0.11, rightTiltRad: 0.11 },
-  think: { liftY: 1.1, leftTiltRad: -0.04, rightTiltRad: 0.11 },
-  search: { liftY: 1.1, leftTiltRad: -0.04, rightTiltRad: 0.11 },
-  listen: { liftY: 1.1, leftTiltRad: -0.04, rightTiltRad: 0.11 },
+  celebrate: { liftY: 1.5, leftTiltRad: 0.09, rightTiltRad: -0.09 },
+  jump: { liftY: 1.5, leftTiltRad: 0.09, rightTiltRad: -0.09 },
+  finale: { liftY: 1.5, leftTiltRad: 0.09, rightTiltRad: -0.09 },
+  peekaboo: { liftY: 1.4, leftTiltRad: 0.08, rightTiltRad: -0.08 },
+  clap: { liftY: 1.1, leftTiltRad: 0.06, rightTiltRad: -0.06 },
+  wave: { liftY: 1.1, leftTiltRad: 0.06, rightTiltRad: -0.06 },
+  wiggle: { liftY: 1.1, leftTiltRad: 0.06, rightTiltRad: -0.06 },
+  bow: { liftY: 1.0, leftTiltRad: 0.06, rightTiltRad: -0.06 },
+  march: { liftY: 1.0, leftTiltRad: 0.06, rightTiltRad: -0.06 },
+  walk: { liftY: 0.65, leftTiltRad: 0.04, rightTiltRad: -0.04 },
+  stretch: { liftY: 1.0, leftTiltRad: 0.05, rightTiltRad: -0.05 },
+  encourage: { liftY: 0.85, leftTiltRad: -0.1, rightTiltRad: 0.1 },
+  gentle_try_again: { liftY: 0.75, leftTiltRad: -0.09, rightTiltRad: 0.09 },
+  shrug: { liftY: 0.85, leftTiltRad: -0.1, rightTiltRad: 0.1 },
+  think: { liftY: 1.0, leftTiltRad: -0.04, rightTiltRad: 0.1 },
+  search: { liftY: 1.0, leftTiltRad: -0.04, rightTiltRad: 0.1 },
+  listen: { liftY: 1.0, leftTiltRad: -0.04, rightTiltRad: 0.1 },
+  point_down: { liftY: 0.85, leftTiltRad: -0.02, rightTiltRad: 0.09 },
+  talk_explain: { liftY: 0.95, leftTiltRad: 0.05, rightTiltRad: -0.05 },
+  count_one_two_three: { liftY: 1.15, leftTiltRad: 0.06, rightTiltRad: -0.06 },
+  sleepy_yawn: { liftY: -0.35, leftTiltRad: -0.08, rightTiltRad: 0.08 },
+};
+
+const LIVING_IDLE_BROW_POSE_BY_CLIP: Record<string, BrowPose> = {
+  idle: { liftY: 0.35, leftTiltRad: 0.03, rightTiltRad: -0.03 },
+  idle_breathe: { liftY: 0.3, leftTiltRad: 0.02, rightTiltRad: -0.02 },
 };
 
 interface SharedAccessoryResources {
@@ -131,7 +156,7 @@ function orientGroupYAlong(group: Group, origin: [number, number, number], yAxis
 
 function maskPoint(sideSign: number, theta: number, v: number): [number, number, number] {
   const cx = sideSign * (16.2 + 0.8 * v);
-  const cy = 36.8 + 0.8 * v;
+  const cy = 36.2 + 0.8 * v;
   const rx = 5.2 + v * 13.8;
   const ry = 4.6 + v * 4.4;
   const rawX = cx + rx * Math.cos(theta);
@@ -221,7 +246,7 @@ function getSharedAccessoryResources(): SharedAccessoryResources {
     bulbNeckGeo: new CylinderGeometry(6.2, 3.8, 4.6, 20),
     bulbScrewGeo: new CylinderGeometry(3.8, 3.4, 3.8, 20),
     bulbTipGeo: new SphereGeometry(2.2, 16, 12),
-    bulbRayGeo: new CylinderGeometry(0.85, 0.85, 3.6, 10),
+    bulbRayGeo: new CylinderGeometry(0.85, 0.85, 3.0, 10),
     bulbGlassMat: new MeshStandardMaterial({
       color: '#fde047',
       emissive: '#facc15',
@@ -334,7 +359,7 @@ function createLightbulb(res: SharedAccessoryResources): Group {
   for (let i = 0; i < 5; i++) {
     const angle = -Math.PI * 0.38 + (i / 4) * Math.PI * 0.76;
     const ray = new Mesh(res.bulbRayGeo, res.bulbGlassMat);
-    ray.position.set(Math.sin(angle) * 9.8, 4.8 + Math.cos(angle) * 9.8, 0);
+    ray.position.set(Math.sin(angle) * 9.5, 4.8 + Math.cos(angle) * 9.5, 0);
     ray.rotation.z = -angle;
     root.add(ray);
   }
@@ -441,7 +466,8 @@ function createBrow(res: SharedAccessoryResources, side: 'left' | 'right'): Mesh
   const sign = isLeft ? 1 : -1;
   const brow = new Mesh(res.browGeo, res.browMat);
   brow.name = isLeft ? 'leftBrow' : 'rightBrow';
-  brow.position.set(sign * 17.3, isLeft ? 39.2 : 38.2, isLeft ? 36.4 : 37.7);
+  const [bx, by, bz] = isLeft ? BROW_LEFT_OFFSET : BROW_RIGHT_OFFSET;
+  brow.position.set(bx, by, bz);
   brow.scale.set(1, 1, 0.58);
   brow.rotation.set(
     0,
@@ -459,16 +485,35 @@ export function computeBlinkAmount(
   elapsedSeconds: number,
 ): number {
   if (!activeClipName || activeClipName === 'flex') return 0;
+  let drowsyYawn = 0;
+  if (activeClipName === 'sleepy_yawn' && normalizedProgress >= 0.18 && normalizedProgress <= 0.80) {
+    const u = (normalizedProgress - 0.18) / 0.62;
+    drowsyYawn = 0.78 * Math.sin(Math.PI * u) ** 1.3;
+    if (!Number.isFinite(elapsedSeconds) || elapsedSeconds <= 0.05) {
+      return Math.max(0, Math.min(1, drowsyYawn));
+    }
+  }
   if (!Number.isFinite(elapsedSeconds) || elapsedSeconds <= 0.05) return 0;
   if (activeClipName === 'peekaboo' && normalizedProgress >= 0.22 && normalizedProgress <= 0.78) {
     return 0;
   }
 
   let periodicBlink = 0;
+  const cycleIndex = Math.floor(Math.max(0, elapsedSeconds) / BLINK_PERIOD_SECONDS);
+  const organicJitter = cycleIndex < 2 ? 0 : Math.sin(cycleIndex * 1.9) * 0.35;
+  const blinkStart = BLINK_START_SECONDS + organicJitter;
   const cycleTime = ((elapsedSeconds % BLINK_PERIOD_SECONDS) + BLINK_PERIOD_SECONDS) % BLINK_PERIOD_SECONDS;
-  if (cycleTime >= BLINK_START_SECONDS && cycleTime <= BLINK_START_SECONDS + BLINK_DURATION_SECONDS) {
-    const u = (cycleTime - BLINK_START_SECONDS) / BLINK_DURATION_SECONDS;
+  if (cycleTime >= blinkStart && cycleTime <= blinkStart + BLINK_DURATION_SECONDS) {
+    const u = (cycleTime - blinkStart) / BLINK_DURATION_SECONDS;
     periodicBlink = Math.sin(Math.PI * u);
+  } else if (
+    cycleIndex >= 2 &&
+    cycleIndex % 5 === 3 &&
+    cycleTime >= blinkStart + 0.26 &&
+    cycleTime <= blinkStart + 0.26 + BLINK_DURATION_SECONDS
+  ) {
+    const u = (cycleTime - (blinkStart + 0.26)) / BLINK_DURATION_SECONDS;
+    periodicBlink = 0.88 * Math.sin(Math.PI * u);
   }
 
   let midClipBlink = 0;
@@ -481,12 +526,19 @@ export function computeBlinkAmount(
     midClipBlink = Math.sin(Math.PI * u);
   }
 
-  return Math.max(0, Math.min(1, Math.max(periodicBlink, midClipBlink)));
+  return Math.max(0, Math.min(1, Math.max(periodicBlink, midClipBlink, drowsyYawn)));
 }
 
-export function computeBrowPose(activeClipName: string | null | undefined): BrowPose {
+export function computeBrowPose(
+  activeClipName: string | null | undefined,
+  options?: CompanionAccessorySyncOptions,
+): BrowPose {
   if (!activeClipName || activeClipName === 'flex') {
     return NEUTRAL_BROW_POSE;
+  }
+  if (options?.alwaysShowBrows) {
+    const livingPose = LIVING_IDLE_BROW_POSE_BY_CLIP[activeClipName];
+    if (livingPose) return livingPose;
   }
   return BROW_POSE_BY_CLIP[activeClipName] ?? NEUTRAL_BROW_POSE;
 }
@@ -569,6 +621,7 @@ export function syncCompanionAccessories(
   activeClipName: string | undefined | null,
   normalizedProgress = 0.5,
   elapsedSeconds = 0,
+  options?: CompanionAccessorySyncOptions,
 ) {
   const nodes = ensureAccessories(scene);
   if (!nodes) return;
@@ -613,18 +666,28 @@ export function syncCompanionAccessories(
   nodes.leftEyelid.rotation.set(eyelidRotX, EYELID_LEFT_YAW_RAD, 0);
   nodes.rightEyelid.rotation.set(eyelidRotX, EYELID_RIGHT_YAW_RAD, 0);
 
-  const browPose = computeBrowPose(activeClipName);
+  const alwaysShowBrows = Boolean(options?.alwaysShowBrows);
+  const browPose = computeBrowPose(activeClipName, options);
   const browsVisible =
     Boolean(activeClipName) &&
     activeClipName !== 'flex' &&
-    normalizedProgress > 0 &&
-    (browPose.liftY !== 0 || browPose.leftTiltRad !== 0 || browPose.rightTiltRad !== 0);
+    (alwaysShowBrows ||
+      (normalizedProgress > 0 &&
+        (browPose.liftY !== 0 || browPose.leftTiltRad !== 0 || browPose.rightTiltRad !== 0)));
 
   nodes.leftBrow.visible = browsVisible;
   nodes.rightBrow.visible = browsVisible;
   if (browsVisible) {
-    nodes.leftBrow.position.set(17.3, 39.2 + browPose.liftY, 36.4);
-    nodes.rightBrow.position.set(-17.3, 38.2 + browPose.liftY, 37.7);
+    nodes.leftBrow.position.set(
+      BROW_LEFT_OFFSET[0],
+      BROW_LEFT_OFFSET[1] + browPose.liftY,
+      BROW_LEFT_OFFSET[2],
+    );
+    nodes.rightBrow.position.set(
+      BROW_RIGHT_OFFSET[0],
+      BROW_RIGHT_OFFSET[1] + browPose.liftY,
+      BROW_RIGHT_OFFSET[2],
+    );
     nodes.leftBrow.rotation.set(0, BROW_LEFT_YAW_RAD, BROW_BASE_ROT_Z - BROW_REST_SLOPE_RAD + browPose.leftTiltRad);
     nodes.rightBrow.rotation.set(0, BROW_RIGHT_YAW_RAD, BROW_BASE_ROT_Z + BROW_REST_SLOPE_RAD + browPose.rightTiltRad);
   }

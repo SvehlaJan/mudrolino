@@ -22,6 +22,9 @@ imported units, raw weights, proof scopes and actual product playback.
 Run from the intended checkout. `npm run avatar:blender -- --version` identifies
 the chosen executable; set `BLENDER_BIN` for a side-by-side installation.
 Use the shared queue for headless work:
+`blender_cli.py` falls back to `~/.local/bin/blender` on Linux and **injects
+`--` automatically** before script arguments — never pass a duplicate `--` after
+`SCRIPT`:
 
 ```bash
 python3 tools/avatar/blender_queue.py -- python3 tools/avatar/blender_cli.py SCRIPT [script arguments]
@@ -133,9 +136,10 @@ failure, then sweep the saved revision through native and actual runtime poses.
     tail `(0, bone.length, 0)` in bone-local cm; offset `obj.location = (0.0, -bone_len, 0.0)` so
     `(0, 0, 0)` matches Three.js `bone.add()` at the bone head, and verify every prop stays inside
     the `cameraDistance = 5.6` frustum (`NDC` within `[-0.95, +0.95]`).
-  - Runtime playback flows through `AvatarPresenter.tsx` -> lazy `AvatarScene.tsx` ->
-    `AvatarModel.tsx`, consumed by `LearningCompanion.tsx`, `HomeCompanion.tsx`, and
-    `CompanionNudge.tsx`. Stop prior mixer actions cleanly before starting a new clip so bone
+  - Runtime playback flows through `CompanionStageContext.tsx` -> lazy `AvatarScene.tsx`
+    (`PersistentCompanionStage`) -> `AvatarModel.tsx` (with standalone `AvatarPresenter.tsx`
+    fallback), consumed by `LearningCompanion.tsx`, `PromptCompanion.tsx`, and
+    `HomeCompanion.tsx`. Stop prior mixer actions cleanly before starting a new clip so bone
     transforms never bleed across clips, share accessory `BufferGeometry`/`MeshStandardMaterial`
     singletons across mounts, and pause the R3F frameloop (`setFrameloop('never')`) once `'once'`
     or `'still'` clips finish.

@@ -20,6 +20,12 @@ export const CS_TRANSLATIONS: Record<string, string> = {
   'Štýl písma v celej aplikácii.': 'Styl písma v celé aplikaci.',
   'Zaoblené (Nunito)': 'Zaoblené (Nunito)',
   'Hravé (Shantell)': 'Hravé (Shantell)',
+  'Medvedík sprievodca': 'Medvídek průvodce',
+  'Vyberte, ako sa má medvedík zobrazovať na domovskej obrazovke a v hrách.':
+    'Vyberte, jak se má medvídek zobrazovat na domovské obrazovce a ve hrách.',
+  'Živý 3D': 'Živý 3D',
+  'Obrázok': 'Obrázek',
+  'Vypnutý': 'Vypnutý',
 
   // Parent gate
   'Pre rodičov': 'Pro rodiče',

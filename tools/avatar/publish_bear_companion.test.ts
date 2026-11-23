@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
-import { mkdtemp, mkdir, readFile, rm, symlink, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -77,7 +77,10 @@ async function fixture() {
   return { options, summary, saveSummary, saveReport, reports, put, head, loadBlobSdk, fetchImpl, model, sha, url, write, manifest, previous };
 }
 
-afterEach(async () => { await Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true }))); });
+afterEach(async () => {
+  vi.unstubAllEnvs();
+  await Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true })));
+});
 
 describe('bear publication', () => {
   it.each(['stale model hash', 'different byte count'] as const)('rejects glTF proof with %s even when its report hash is current', async reason => {
@@ -509,5 +512,41 @@ describe('generated fixed-outfit bear publication', () => {
     });
     await expect(publishBearCompanion(f.options)).rejects.toThrow(/changed during publication/);
     expect(await f.manifest()).toBe(f.previous);
+  });
+
+  it('accepts stricter generated runtime budgets within the production ceiling', async () => {
+    const f = await generatedFixture();
+    f.contract.maxTriangles = 20000;
+    f.contract.maxGzipBytes = 900000;
+    f.contract.maxFloorPenetrationM = 0.005;
+    f.reports.runtime.thresholds = structuredClone(f.contract);
+    const text = JSON.stringify(f.contract);
+    await f.write(f.reports.runtime.contract, text);
+    f.reports.runtime.contract_sha256 = hash(text);
+    await f.saveReports();
+    const result = await publishBearCompanion(f.options);
+    expect(result.modelUrl).toBe(f.url);
+    expect(JSON.parse(await f.manifest())).toEqual(result);
+  });
+
+  it('publishes an approved local-archive catalog-a symlink and rejects unapproved catalog-a symlinks', async () => {
+    const f = await generatedFixture();
+    const archiveRoot = await mkdtemp(path.join(os.tmpdir(), 'publish-bear-archive-'));
+    roots.push(archiveRoot);
+    const workingCatalogA = path.join(archiveRoot, 'working/assets/avatar/catalog-a');
+    await mkdir(path.dirname(workingCatalogA), { recursive: true });
+    await rename(path.join(f.options.rootDir, 'assets/avatar/catalog-a'), workingCatalogA);
+    await symlink(workingCatalogA, path.join(f.options.rootDir, 'assets/avatar/catalog-a'));
+    vi.stubEnv('MUDROLINO_ARCHIVE_ROOT', archiveRoot);
+
+    await expect(publishBearCompanion(f.options)).rejects.toThrow(/archive link/i);
+    expect(f.loadBlobSdk).not.toHaveBeenCalled();
+
+    const archiveMeta = { schemaVersion: 1, archiveId: 'fixture', sourceCommit: 'a'.repeat(40), roots: ['assets/avatar/catalog-a'] };
+    await f.write('assets/avatar/local-archive.json', JSON.stringify(archiveMeta));
+    await writeFile(path.join(archiveRoot, 'archive-manifest.json'), JSON.stringify({ ...archiveMeta, verified: true }));
+    const result = await publishBearCompanion(f.options);
+    expect(result.modelUrl).toBe(f.url);
+    expect(JSON.parse(await f.manifest())).toEqual(result);
   });
 });

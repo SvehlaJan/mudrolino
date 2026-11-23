@@ -40,7 +40,9 @@ const steps = [];
 let previous = input;
 for (const [name, command, options] of [
   ['resized.glb', 'resize', ['--width', '1024', '--height', '1024']],
-  ['webp.glb', 'webp', ['--quality', '75', '--effort', '80']],
+  ['resized-normal.glb', 'resize', ['--width', '256', '--height', '256', '--pattern', '*normal*']],
+  ['resized-mr.glb', 'resize', ['--width', '256', '--height', '256', '--pattern', '*metallic*']],
+  ['webp.glb', 'webp', ['--quality', '68', '--effort', '80']],
 ]) {
   const output = path.join(directory, name);
   execFileSync(process.execPath, [cli, command, previous, output, ...options], { stdio: 'inherit' });

@@ -10,11 +10,39 @@ export interface CompanionNudgeEvent {
 export interface PromptCompanionObservation {
   phase: GameState['phase'];
   paused: boolean;
+  gameId?: string;
   roundsPlayed: number;
   wrongAttempts: number;
   feedback: GameState['feedback'];
   promptReplaying: boolean;
   idleNudge: CompanionNudgeEvent | null;
+}
+
+const NUMERACY_GAME_IDS = new Set(['NUMBERS', 'COUNTING_ITEMS', 'COMPARE_QUANTITIES', 'ADDITION']);
+const LITERACY_EXPLAIN_GAME_IDS = new Set([
+  'SYLLABLES',
+  'WORDS',
+  'ASSEMBLY',
+  'COMPLETE_SYLLABLE',
+  'COMPLETE_LETTER',
+  'FIRST_LETTER',
+]);
+
+function selectRetryClip(wrongAttempts: number): CompanionClipName {
+  const step = ((wrongAttempts - 1) % 3 + 3) % 3;
+  if (step === 0) return 'gentle_try_again';
+  if (step === 1) return 'encourage';
+  return 'shrug';
+}
+
+function selectPromptListenClip(gameId: string | undefined, listenSeq: number): CompanionClipName {
+  if (gameId && NUMERACY_GAME_IDS.has(gameId) && listenSeq % 2 === 1) {
+    return 'count_one_two_three';
+  }
+  if (gameId && LITERACY_EXPLAIN_GAME_IDS.has(gameId) && listenSeq % 2 === 1) {
+    return 'talk_explain';
+  }
+  return 'listen';
 }
 
 export type PromptCompanionReason = 'idle' | 'listen' | 'retry' | 'nudge' | 'tap';
@@ -42,7 +70,7 @@ export function createPromptCompanionState(
 ): PromptCompanionState {
   const roundsPlayed = initial?.roundsPlayed ?? 0;
   const wrongAttempts = initial?.wrongAttempts ?? 0;
-  const isListening = initial?.phase === 'listening' || Boolean(initial?.promptReplaying);
+  const isReplaying = Boolean(initial?.promptReplaying);
 
   if (initial?.idleNudge) {
     return {
@@ -52,7 +80,7 @@ export function createPromptCompanionState(
       startedAtMs: initial.idleNudge.startedAtMs,
       roundsPlayed,
       wrongAttempts,
-      wasListening: isListening,
+      wasListening: isReplaying,
       pendingTapListen: false,
       lastNudgeKey: initial.idleNudge.eventKey,
       listenSeq: 0,
@@ -62,12 +90,12 @@ export function createPromptCompanionState(
 
   if (wrongAttempts > 0 && initial?.feedback === null) {
     return {
-      activeClip: wrongAttempts % 2 === 1 ? 'encourage' : 'shrug',
+      activeClip: selectRetryClip(wrongAttempts),
       eventKey: `retry:${roundsPlayed}:${wrongAttempts}`,
       reason: 'retry',
       roundsPlayed,
       wrongAttempts,
-      wasListening: isListening,
+      wasListening: isReplaying,
       pendingTapListen: false,
       lastNudgeKey: null,
       listenSeq: 0,
@@ -75,9 +103,9 @@ export function createPromptCompanionState(
     };
   }
 
-  if (isListening) {
+  if (isReplaying) {
     return {
-      activeClip: 'listen',
+      activeClip: selectPromptListenClip(initial?.gameId, 1),
       eventKey: `listen:${roundsPlayed}:1`,
       reason: 'listen',
       roundsPlayed,
@@ -122,7 +150,7 @@ export function promptCompanionReducer(
   }
 
   const obs = action.observation;
-  const isListening = obs.phase === 'listening' || obs.promptReplaying;
+  const isReplaying = Boolean(obs.promptReplaying);
   const nudgeKey = obs.idleNudge?.eventKey ?? null;
 
   if (obs.roundsPlayed !== state.roundsPlayed) {
@@ -135,17 +163,17 @@ export function promptCompanionReducer(
         startedAtMs: obs.idleNudge.startedAtMs,
         roundsPlayed: obs.roundsPlayed,
         wrongAttempts: obs.wrongAttempts,
-        wasListening: isListening,
+        wasListening: isReplaying,
         pendingTapListen: false,
         lastNudgeKey: nudgeKey,
       };
     }
 
-    if (isListening) {
+    if (isReplaying) {
       const listenSeq = state.listenSeq + 1;
       return {
         ...state,
-        activeClip: 'listen',
+        activeClip: selectPromptListenClip(obs.gameId, listenSeq),
         eventKey: `listen:${obs.roundsPlayed}:${listenSeq}`,
         reason: 'listen',
         startedAtMs: action.nowMs,
@@ -180,7 +208,7 @@ export function promptCompanionReducer(
       reason: 'nudge',
       startedAtMs: obs.idleNudge.startedAtMs,
       wrongAttempts: obs.wrongAttempts,
-      wasListening: isListening,
+      wasListening: isReplaying,
       pendingTapListen: false,
       lastNudgeKey: nudgeKey,
     };
@@ -189,18 +217,18 @@ export function promptCompanionReducer(
   if (obs.wrongAttempts > state.wrongAttempts && obs.feedback === null) {
     return {
       ...state,
-      activeClip: obs.wrongAttempts % 2 === 1 ? 'encourage' : 'shrug',
+      activeClip: selectRetryClip(obs.wrongAttempts),
       eventKey: `retry:${obs.roundsPlayed}:${obs.wrongAttempts}`,
       reason: 'retry',
       startedAtMs: action.nowMs,
       wrongAttempts: obs.wrongAttempts,
-      wasListening: isListening,
+      wasListening: isReplaying,
       pendingTapListen: false,
       lastNudgeKey: nudgeKey,
     };
   }
 
-  if (isListening && !state.wasListening) {
+  if (isReplaying && !state.wasListening) {
     if (state.pendingTapListen) {
       return {
         ...state,
@@ -213,7 +241,7 @@ export function promptCompanionReducer(
     const listenSeq = state.listenSeq + 1;
     return {
       ...state,
-      activeClip: 'listen',
+      activeClip: selectPromptListenClip(obs.gameId, listenSeq),
       eventKey: `listen:${obs.roundsPlayed}:${listenSeq}`,
       reason: 'listen',
       startedAtMs: action.nowMs,
@@ -227,7 +255,7 @@ export function promptCompanionReducer(
 
   if (
     obs.wrongAttempts === state.wrongAttempts &&
-    isListening === state.wasListening &&
+    isReplaying === state.wasListening &&
     nudgeKey === state.lastNudgeKey
   ) {
     return state;
@@ -236,8 +264,8 @@ export function promptCompanionReducer(
   return {
     ...state,
     wrongAttempts: obs.wrongAttempts,
-    wasListening: isListening,
-    pendingTapListen: isListening ? state.pendingTapListen : false,
+    wasListening: isReplaying,
+    pendingTapListen: isReplaying ? state.pendingTapListen : false,
     lastNudgeKey: nudgeKey,
   };
 }

@@ -1,4 +1,4 @@
-import { DEFAULT_APP_SETTINGS, loadAppSettings, saveAppSettings, type AppFontFamily, applyFontFamily } from './appSettingsStore';
+import { DEFAULT_APP_SETTINGS, loadAppSettings, saveAppSettings, type AppFontFamily, type CompanionMode, applyFontFamily } from './appSettingsStore';
 
 const store: Record<string, string> = {};
 
@@ -7,33 +7,43 @@ const initial = loadAppSettings({
   getItem: () => null,
   setItem: () => undefined,
 });
-if (initial.fontFamily !== 'nunito' || initial.fontFamily !== DEFAULT_APP_SETTINGS.fontFamily) {
-  throw new Error(`Expected default fontFamily to be 'nunito', got '${initial.fontFamily}'`);
+if (
+  initial.fontFamily !== 'nunito' ||
+  initial.fontFamily !== DEFAULT_APP_SETTINGS.fontFamily ||
+  initial.companionMode !== 'animated'
+) {
+  throw new Error(`Expected default fontFamily='nunito' and companionMode='animated', got '${JSON.stringify(initial)}'`);
 }
 
 // Test save & load preserves the existing key and schema.
 const targetFont: AppFontFamily = 'shantell';
+const targetCompanion: CompanionMode = 'static';
 const roundTripStorage = {
   getItem: (key: string) => store[key] ?? null,
   setItem: (key: string, value: string) => { store[key] = value; },
 };
-const saved = saveAppSettings({ locale: 'sk', fontFamily: targetFont }, roundTripStorage);
+const saved = saveAppSettings({ locale: 'sk', fontFamily: targetFont, companionMode: targetCompanion }, roundTripStorage);
 if (!saved.ok) {
   throw new Error('Expected injected storage save to succeed');
 }
-if (store['hrave-ucenie-app-settings'] !== JSON.stringify({ locale: 'sk', fontFamily: targetFont })) {
+if (store['hrave-ucenie-app-settings'] !== JSON.stringify({ locale: 'sk', fontFamily: targetFont, companionMode: targetCompanion })) {
   throw new Error('Expected save to preserve the app settings storage key and schema');
 }
 const updated = loadAppSettings(roundTripStorage);
-if (updated.fontFamily !== 'shantell') {
-  throw new Error(`Expected fontFamily 'shantell', got '${updated.fontFamily}'`);
+if (updated.fontFamily !== 'shantell' || updated.companionMode !== 'static') {
+  throw new Error(`Expected fontFamily='shantell' and companionMode='static', got '${JSON.stringify(updated)}'`);
 }
 
-// Test invalid fallback
-store['hrave-ucenie-app-settings'] = JSON.stringify({ locale: 'sk', fontFamily: 'comic-sans' });
+saveAppSettings({ locale: 'sk', fontFamily: 'nunito', companionMode: 'off' }, roundTripStorage);
+if (loadAppSettings(roundTripStorage).companionMode !== 'off') {
+  throw new Error('Expected companionMode off to round-trip');
+}
+
+// Test invalid fallback (including legacy settings without companionMode)
+store['hrave-ucenie-app-settings'] = JSON.stringify({ locale: 'sk', fontFamily: 'comic-sans', companionMode: 'broken' });
 const fallback = loadAppSettings(roundTripStorage);
-if (fallback.fontFamily !== 'nunito') {
-  throw new Error(`Expected fallback to 'nunito', got '${fallback.fontFamily}'`);
+if (fallback.fontFamily !== 'nunito' || fallback.companionMode !== 'animated') {
+  throw new Error(`Expected fallback to nunito/animated, got '${JSON.stringify(fallback)}'`);
 }
 
 // Storage failures must be visible to automatic-save UI instead of being swallowed.

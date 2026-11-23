@@ -22,32 +22,50 @@ BROW_REST_SLOPE_RAD = 0.14
 BROW_LEFT_YAW_RAD = 0.42
 BROW_RIGHT_YAW_RAD = -0.38
 
-EXPRESSIVE_BLINK_CLIPS = {'wave', 'encourage', 'shrug', 'think', 'listen'}
+BROW_LEFT_OFFSET = (17.3, 41.2, 36.2)
+BROW_RIGHT_OFFSET = (-17.3, 40.4, 37.65)
+
+EXPRESSIVE_BLINK_CLIPS = {'wave', 'encourage', 'shrug', 'think', 'listen', 'gentle_try_again', 'talk_explain'}
 
 NEUTRAL_BROW_POSE = {'liftY': 0.0, 'leftTiltRad': 0.0, 'rightTiltRad': 0.0}
 
 BROW_POSE_BY_CLIP = {
-    'celebrate': {'liftY': 1.6, 'leftTiltRad': 0.09, 'rightTiltRad': -0.09},
-    'jump': {'liftY': 1.6, 'leftTiltRad': 0.09, 'rightTiltRad': -0.09},
-    'finale': {'liftY': 1.6, 'leftTiltRad': 0.09, 'rightTiltRad': -0.09},
-    'peekaboo': {'liftY': 1.5, 'leftTiltRad': 0.08, 'rightTiltRad': -0.08},
-    'clap': {'liftY': 1.2, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
-    'wave': {'liftY': 1.2, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
-    'wiggle': {'liftY': 1.2, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
-    'bow': {'liftY': 1.2, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
-    'march': {'liftY': 1.2, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
-    'stretch': {'liftY': 1.1, 'leftTiltRad': 0.05, 'rightTiltRad': -0.05},
-    'encourage': {'liftY': 0.9, 'leftTiltRad': -0.11, 'rightTiltRad': 0.11},
-    'shrug': {'liftY': 0.9, 'leftTiltRad': -0.11, 'rightTiltRad': 0.11},
-    'think': {'liftY': 1.1, 'leftTiltRad': -0.04, 'rightTiltRad': 0.11},
-    'search': {'liftY': 1.1, 'leftTiltRad': -0.04, 'rightTiltRad': 0.11},
-    'listen': {'liftY': 1.1, 'leftTiltRad': -0.04, 'rightTiltRad': 0.11},
+    'celebrate': {'liftY': 1.5, 'leftTiltRad': 0.09, 'rightTiltRad': -0.09},
+    'jump': {'liftY': 1.5, 'leftTiltRad': 0.09, 'rightTiltRad': -0.09},
+    'finale': {'liftY': 1.5, 'leftTiltRad': 0.09, 'rightTiltRad': -0.09},
+    'peekaboo': {'liftY': 1.4, 'leftTiltRad': 0.08, 'rightTiltRad': -0.08},
+    'clap': {'liftY': 1.1, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
+    'wave': {'liftY': 1.1, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
+    'wiggle': {'liftY': 1.1, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
+    'bow': {'liftY': 1.0, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
+    'march': {'liftY': 1.0, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
+    'walk': {'liftY': 0.65, 'leftTiltRad': 0.04, 'rightTiltRad': -0.04},
+    'stretch': {'liftY': 1.0, 'leftTiltRad': 0.05, 'rightTiltRad': -0.05},
+    'encourage': {'liftY': 0.85, 'leftTiltRad': -0.10, 'rightTiltRad': 0.10},
+    'gentle_try_again': {'liftY': 0.75, 'leftTiltRad': -0.09, 'rightTiltRad': 0.09},
+    'shrug': {'liftY': 0.85, 'leftTiltRad': -0.10, 'rightTiltRad': 0.10},
+    'think': {'liftY': 1.0, 'leftTiltRad': -0.04, 'rightTiltRad': 0.10},
+    'search': {'liftY': 1.0, 'leftTiltRad': -0.04, 'rightTiltRad': 0.10},
+    'listen': {'liftY': 1.0, 'leftTiltRad': -0.04, 'rightTiltRad': 0.10},
+    'point_down': {'liftY': 0.85, 'leftTiltRad': -0.02, 'rightTiltRad': 0.09},
+    'talk_explain': {'liftY': 0.95, 'leftTiltRad': 0.05, 'rightTiltRad': -0.05},
+    'count_one_two_three': {'liftY': 1.15, 'leftTiltRad': 0.06, 'rightTiltRad': -0.06},
+    'sleepy_yawn': {'liftY': -0.35, 'leftTiltRad': -0.08, 'rightTiltRad': 0.08},
+    'idle': {'liftY': 0.35, 'leftTiltRad': 0.03, 'rightTiltRad': -0.03},
+    'idle_breathe': {'liftY': 0.30, 'leftTiltRad': 0.02, 'rightTiltRad': -0.02},
 }
 
 
 def compute_blink_amount(active_clip_name, normalized_progress=0.5, elapsed_seconds=0.0):
     if not active_clip_name or active_clip_name == 'flex':
         return 0.0
+    if active_clip_name == 'sleepy_yawn' and 0.18 <= normalized_progress <= 0.80:
+        u = (normalized_progress - 0.18) / 0.62
+        drowsy = 0.78 * (math.sin(math.pi * u) ** 1.3)
+        if not math.isfinite(elapsed_seconds) or elapsed_seconds <= 0.05:
+            return max(0.0, min(1.0, drowsy))
+    else:
+        drowsy = 0.0
     if not math.isfinite(elapsed_seconds) or elapsed_seconds <= 0.05:
         return 0.0
     if active_clip_name == 'peekaboo' and 0.22 <= normalized_progress <= 0.78:
@@ -64,7 +82,7 @@ def compute_blink_amount(active_clip_name, normalized_progress=0.5, elapsed_seco
         u = (normalized_progress - 0.46) / 0.10
         mid_clip_blink = math.sin(math.pi * u)
 
-    return max(0.0, min(1.0, max(periodic_blink, mid_clip_blink)))
+    return max(0.0, min(1.0, max(periodic_blink, mid_clip_blink, drowsy)))
 
 
 def compute_brow_pose(active_clip_name):
@@ -119,10 +137,10 @@ def _add_part(bm, geom_fn, matrix, mat_index=0):
 
 
 def mask_point(side_sign, theta, v):
-    # Inner eye rim at v=0 centered at (cx=±16.2, cy=36.8) over the temple pupils, smooth winged outer contour at v=1,
+    # Inner eye rim at v=0 centered at (cx=±16.2, cy=36.2) over the temple pupils, smooth winged outer contour at v=1,
     # hugging glabella (Z ≈ 43.5) above y=38 while bulging forward over the snout below y=38.
     cx = side_sign * (16.2 + 0.8 * v)
-    cy = 36.8 + 0.8 * v
+    cy = 36.2 + 0.8 * v
     rx = 5.2 + v * 13.8
     ry = 4.6 + v * 4.4
     raw_x = cx + rx * math.cos(theta)
@@ -313,13 +331,13 @@ def attach_bear_accessories(arm, include_facial=True):
     for i in range(5):
         angle = -math.pi * 0.38 + (i / 4.0) * math.pi * 0.76
         ray_mat = (
-            Matrix.Translation((math.sin(angle) * 9.8, 4.8 + math.cos(angle) * 9.8, 0.0))
+            Matrix.Translation((math.sin(angle) * 9.5, 4.8 + math.cos(angle) * 9.5, 0.0))
             @ Euler((0.0, 0.0, -angle)).to_matrix().to_4x4()
             @ cyl_y
         )
         _add_part(
             bm,
-            lambda t: bmesh.ops.create_cone(t, cap_ends=True, segments=10, radius1=0.85, radius2=0.85, depth=3.6),
+            lambda t: bmesh.ops.create_cone(t, cap_ends=True, segments=10, radius1=0.85, radius2=0.85, depth=3.0),
             ray_mat,
             0,
         )
@@ -474,8 +492,8 @@ def attach_bear_accessories(arm, include_facial=True):
         props['__eyelids__'] = [left_eyelid, right_eyelid]
 
         brow_mesh = _build_brow_mesh('Prop_Bear_Brow')
-        left_brow = _bone_child_mesh('leftBrow', brow_mesh, mat_brow, arm, 'Head', local_offset=(17.3, 39.2, 36.4))
-        right_brow = _bone_child_mesh('rightBrow', brow_mesh, mat_brow, arm, 'Head', local_offset=(-17.3, 38.2, 37.7))
+        left_brow = _bone_child_mesh('leftBrow', brow_mesh, mat_brow, arm, 'Head', local_offset=BROW_LEFT_OFFSET)
+        right_brow = _bone_child_mesh('rightBrow', brow_mesh, mat_brow, arm, 'Head', local_offset=BROW_RIGHT_OFFSET)
         for brow in (left_brow, right_brow):
             brow.scale = (1.0, 1.0, 0.58)
             brow.rotation_mode = 'ZYX'
@@ -547,19 +565,22 @@ def sync_bear_accessories(props, clip_name, normalized_progress=None, elapsed_se
             head_bone_len = left_brow.parent.data.bones['Head'].length
         bone_len = head_bone_len or 0.0
         pose = compute_brow_pose(clip_name)
-        brows_visible = bool(
-            clip_name
-            and clip_name != 'flex'
-            and progress > 0.0
-            and (pose['liftY'] != 0.0 or pose['leftTiltRad'] != 0.0 or pose['rightTiltRad'] != 0.0)
-        )
+        brows_visible = bool(clip_name and clip_name != 'flex')
         left_brow.hide_render = not brows_visible
         left_brow.hide_viewport = not brows_visible
         right_brow.hide_render = not brows_visible
         right_brow.hide_viewport = not brows_visible
         if brows_visible:
-            left_brow.location = (17.3, -bone_len + 39.2 + pose['liftY'], 36.4)
-            right_brow.location = (-17.3, -bone_len + 38.2 + pose['liftY'], 37.7)
+            left_brow.location = (
+                BROW_LEFT_OFFSET[0],
+                -bone_len + BROW_LEFT_OFFSET[1] + pose['liftY'],
+                BROW_LEFT_OFFSET[2],
+            )
+            right_brow.location = (
+                BROW_RIGHT_OFFSET[0],
+                -bone_len + BROW_RIGHT_OFFSET[1] + pose['liftY'],
+                BROW_RIGHT_OFFSET[2],
+            )
             left_brow.rotation_euler = Euler(
                 (0.0, BROW_LEFT_YAW_RAD, BROW_BASE_ROT_Z - BROW_REST_SLOPE_RAD + pose['leftTiltRad']),
                 'ZYX',

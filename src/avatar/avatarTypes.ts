@@ -39,6 +39,7 @@ export interface AvatarSceneData {
 export interface AvatarInspectionControls {
   paused: boolean;
   progress?: number;
+  timeScale?: number;
   view: 'front' | 'side' | 'back' | 'three-quarter';
 }
 
@@ -46,4 +47,6 @@ export interface AvatarPlaybackOptions {
   mode: 'loop' | 'once' | 'still';
   eventKey?: string;
   startedAtMs?: number;
+  idleAfterOnce?: string;
+  timeScale?: number;
 }

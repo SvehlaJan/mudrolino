@@ -1,12 +1,19 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, type RefObject } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import type { GLTF } from 'three-stdlib';
 import { AnimationClip, type AnimationAction } from 'three';
-import { Box3, Group, Object3D, Vector3 } from 'three';
+import { Box3, Euler, Group, Object3D, Quaternion, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
-import { resolveCompanionClipName, shouldPauseAvatarFrameloop } from './avatarFrameloop';
-import { applyAvatarPlayback } from './avatarPlayback';
+import {
+  computeCalmIdleIntervalMs,
+  resolveCompanionClipName,
+  shouldPauseAvatarFrameloop,
+} from './avatarFrameloop';
+import {
+  handoffToIdleAction,
+  transitionAvatarAction,
+} from './avatarPlayback';
 import type { AvatarPlaybackOptions, AvatarExternalAsset } from './avatarTypes';
 import { AvatarBodyShapeConfig, AvatarInspectionControls, AvatarGarmentFit, AvatarSceneData } from './avatarTypes';
 import { hasSkinnedMesh, rebindGarmentToBaseSkeleton } from './skinnedGarment';
@@ -23,6 +30,8 @@ export interface AvatarModelProps {
   preserveHipsPosition?: boolean;
   inspection?: AvatarInspectionControls;
   playback?: AvatarPlaybackOptions;
+  yawRef?: RefObject<number>;
+  pitchRef?: RefObject<number>;
   interactive?: boolean;
   onError?: (error: unknown) => void;
   onAnimationsChange?: (names: string[]) => void;
@@ -31,6 +40,9 @@ export interface AvatarModelProps {
   onSceneReady?: (scene: Object3D) => void;
   onSceneData?: (data: AvatarSceneData) => void;
 }
+
+const _curiosityEuler = new Euler();
+const _curiosityQuat = new Quaternion();
 
 const TARGET_MODEL_HEIGHT = 2.7;
 const NO_EXTERNAL_ASSETS: AvatarExternalAsset[] = [];
@@ -220,6 +232,8 @@ function LoadedAvatarModel({
   preserveHipsPosition,
   inspection,
   playback,
+  yawRef,
+  pitchRef,
   onError,
   onAnimationsChange,
   onModelReady,
@@ -274,7 +288,11 @@ function LoadedAvatarModel({
   const { actions, names } = useAnimations(animationClips, groupRef);
   const garmentCorrectives = useMemo(() => bindGarmentCorrectives([scene, ...garmentScenes]), [scene, garmentScenes]);
   const setFrameloop = useThree((s) => s.setFrameloop);
+  const invalidate = useThree((s) => s.invalidate);
   const inspectionAction = useRef<AnimationAction | null>(null);
+  const activeActionRef = useRef<AnimationAction | null>(null);
+  const idleHandoffActiveRef = useRef(false);
+  const documentHiddenRef = useRef(typeof document !== 'undefined' ? document.hidden : false);
   const settledFramesRef = useRef(0);
   const completionNotifiedRef = useRef(false);
   const onPlaybackCompleteRef = useRef(onPlaybackComplete);
@@ -282,6 +300,17 @@ function LoadedAvatarModel({
   const onSceneReadyRef = useRef(onSceneReady);
   const onSceneDataRef = useRef(onSceneData);
   const onErrorRef = useRef(onError);
+  const headBone = useMemo(() => scene.getObjectByName('Head') ?? null, [scene]);
+  const clipsWithHeadTrack = useMemo(
+    () =>
+      new Set(
+        animationClips
+          .filter((clip) => clip.tracks.some((track) => track.name.startsWith('Head.quaternion')))
+          .map((clip) => clip.name),
+      ),
+    [animationClips],
+  );
+  const accessoryOptions = useMemo(() => ({ alwaysShowBrows: names.includes('walk') }), [names]);
   useLayoutEffect(() => {
     onPlaybackCompleteRef.current = onPlaybackComplete;
     onModelReadyRef.current = onModelReady;
@@ -290,12 +319,105 @@ function LoadedAvatarModel({
     onErrorRef.current = onError;
   });
   const isInspection = Boolean(inspection);
+  const inspectionTimeScale = inspection?.timeScale ?? 1;
   const playbackMode = playback?.mode;
   const playbackEventKey = playback?.eventKey;
   const playbackStartedAtMs = playback?.startedAtMs;
+  const playbackIdleAfterOnce = playback?.idleAfterOnce;
+  const playbackTimeScale = playback?.timeScale;
+  const idleTimerRef = useRef<number | null>(null);
+  const unmountedRef = useRef(false);
+
+  const clearIdleTimer = useCallback(() => {
+    if (idleTimerRef.current !== null && typeof window !== 'undefined') {
+      window.clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = null;
+    }
+  }, []);
+
+  const scheduleCalmIdleFrame = useCallback(
+    (frameStartMs: number) => {
+      if (
+        typeof window === 'undefined' ||
+        unmountedRef.current ||
+        documentHiddenRef.current ||
+        !idleHandoffActiveRef.current
+      ) {
+        return;
+      }
+      clearIdleTimer();
+      // Yield 0ms so gl.render() finishes in this tick before timing frame cost.
+      idleTimerRef.current = window.setTimeout(() => {
+        idleTimerRef.current = null;
+        if (
+          unmountedRef.current ||
+          documentHiddenRef.current ||
+          !idleHandoffActiveRef.current
+        ) {
+          return;
+        }
+        const delayMs = computeCalmIdleIntervalMs(performance.now() - frameStartMs);
+        idleTimerRef.current = window.setTimeout(() => {
+          idleTimerRef.current = null;
+          if (
+            unmountedRef.current ||
+            documentHiddenRef.current ||
+            !idleHandoffActiveRef.current
+          ) {
+            return;
+          }
+          invalidate();
+        }, delayMs);
+      }, 0);
+    },
+    [clearIdleTimer, invalidate],
+  );
+
+  useEffect(() => {
+    unmountedRef.current = false;
+    return () => {
+      unmountedRef.current = true;
+      clearIdleTimer();
+      activeActionRef.current?.stop();
+      activeActionRef.current = null;
+    };
+  }, [clearIdleTimer]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+    const handleVisibilityChange = () => {
+      const hidden = document.hidden;
+      documentHiddenRef.current = hidden;
+      if (isInspection) return;
+      if (hidden) {
+        clearIdleTimer();
+        setFrameloop('never');
+      } else if (idleHandoffActiveRef.current) {
+        setFrameloop('demand');
+        invalidate();
+      } else if (
+        playbackMode !== 'still' &&
+        (playbackMode !== 'once' || Boolean(playbackIdleAfterOnce) || !completionNotifiedRef.current)
+      ) {
+        setFrameloop('always');
+        invalidate();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [clearIdleTimer, invalidate, isInspection, playbackIdleAfterOnce, playbackMode, setFrameloop]);
+
   useFrame(() => {
+    const frameStartMs = performance.now();
+    if (groupRef.current) {
+      groupRef.current.rotation.order = 'YXZ';
+      groupRef.current.rotation.y = yawRef?.current ?? 0;
+      groupRef.current.rotation.x = pitchRef?.current ?? 0;
+    }
+
     const action = inspectionAction.current;
     if (inspection && action) {
+      action.setEffectiveTimeScale(inspectionTimeScale);
       action.paused = inspection.paused;
       if (inspection.paused && inspection.progress !== undefined) {
         action.time = Math.max(0, Math.min(1, inspection.progress)) * Math.max(0, action.getClip().duration - 1e-6);
@@ -303,31 +425,84 @@ function LoadedAvatarModel({
       }
     }
     if (action) {
+      const clipName = action.getClip().name;
       const dur = Math.max(1e-6, action.getClip().duration);
-      const finishedOnce = playbackMode === 'once' && (action.paused || action.time >= dur - 1e-6);
+      const finishedOnce =
+        playbackMode === 'once' &&
+        !idleHandoffActiveRef.current &&
+        (action.paused || action.time >= dur - 1e-6);
       const norm = ((action.time % dur) + dur) % dur / dur;
-      syncCompanionAccessories(scene, finishedOnce ? null : action.getClip().name, norm, finishedOnce ? 0 : action.getMixer().time);
+      const elapsed = finishedOnce ? 0 : action.getMixer().time;
+      syncCompanionAccessories(
+        scene,
+        finishedOnce && !accessoryOptions.alwaysShowBrows ? null : clipName,
+        norm,
+        elapsed,
+        accessoryOptions,
+      );
+
+      if (
+        !isInspection &&
+        playbackMode !== 'still' &&
+        !documentHiddenRef.current &&
+        !action.paused &&
+        headBone &&
+        clipsWithHeadTrack.has(clipName) &&
+        (clipName === 'idle' || clipName === 'idle_breathe')
+      ) {
+        const yaw = 0.034 * Math.sin(elapsed * 0.62);
+        const pitch = 0.022 * Math.sin(elapsed * 0.43 + 0.7);
+        _curiosityEuler.set(pitch, yaw, 0, 'YXZ');
+        _curiosityQuat.setFromEuler(_curiosityEuler);
+        headBone.quaternion.multiply(_curiosityQuat);
+      }
+
       if (!isInspection && (finishedOnce || playbackMode === 'still')) {
-        action.paused = true;
         if (finishedOnce && !completionNotifiedRef.current) {
           completionNotifiedRef.current = true;
           onPlaybackCompleteRef.current?.();
         }
-        const shouldPause = shouldPauseAvatarFrameloop({
-          mode: playbackMode,
-          isInspection,
-          actionPaused: action.paused,
-          actionTime: action.time,
-          duration: dur,
-          settledFramesRendered: settledFramesRef.current,
-        });
-        settledFramesRef.current += 1;
-        if (shouldPause) {
-          setFrameloop('never');
+        const idleTarget = playbackIdleAfterOnce
+          ? resolveCompanionClipName(playbackIdleAfterOnce, names)
+          : undefined;
+        if (finishedOnce && idleTarget && actions[idleTarget]) {
+          const idleAction = actions[idleTarget]!;
+          idleHandoffActiveRef.current = true;
+          handoffToIdleAction(action, idleAction);
+          inspectionAction.current = idleAction;
+          activeActionRef.current = idleAction;
+          if (documentHiddenRef.current) {
+            clearIdleTimer();
+            setFrameloop('never');
+          } else {
+            setFrameloop('demand');
+            scheduleCalmIdleFrame(frameStartMs);
+          }
+        } else {
+          action.paused = true;
+          const shouldPause = shouldPauseAvatarFrameloop({
+            mode: playbackMode,
+            isInspection,
+            actionPaused: action.paused,
+            actionTime: action.time,
+            duration: dur,
+            settledFramesRendered: settledFramesRef.current,
+            documentHidden: documentHiddenRef.current,
+            hasIdleAfterOnce: Boolean(idleTarget),
+          });
+          settledFramesRef.current += 1;
+          if (shouldPause) {
+            setFrameloop('never');
+          }
         }
+      } else if (!isInspection && documentHiddenRef.current) {
+        clearIdleTimer();
+        setFrameloop('never');
+      } else if (!isInspection && idleHandoffActiveRef.current) {
+        scheduleCalmIdleFrame(frameStartMs);
       }
     } else {
-      syncCompanionAccessories(scene, animationName, 0.5);
+      syncCompanionAccessories(scene, animationName, 0.5, 0, accessoryOptions);
       if (!isInspection && (playbackMode === 'still' || playbackMode === 'once')) {
         if (playbackMode === 'once' && !completionNotifiedRef.current) {
           completionNotifiedRef.current = true;
@@ -340,6 +515,8 @@ function LoadedAvatarModel({
           actionTime: 0,
           duration: 0,
           settledFramesRendered: settledFramesRef.current,
+          documentHidden: documentHiddenRef.current,
+          hasIdleAfterOnce: false,
         });
         settledFramesRef.current += 1;
         if (shouldPause) {
@@ -362,28 +539,79 @@ function LoadedAvatarModel({
   useLayoutEffect(() => {
     settledFramesRef.current = 0;
     completionNotifiedRef.current = false;
-    if (!isInspection) {
-      setFrameloop('always');
-    }
 
     const activeName = resolveCompanionClipName(animationName, names);
+    const action = activeName ? (actions[activeName] ?? null) : null;
+    const prevAction = activeActionRef.current;
+    const continuingHandoff =
+      !isInspection &&
+      idleHandoffActiveRef.current &&
+      prevAction !== null &&
+      action === prevAction;
+    const enteringCalmIdle =
+      !isInspection &&
+      !continuingHandoff &&
+      activeName === 'idle_breathe' &&
+      playbackMode === 'once' &&
+      Boolean(playbackIdleAfterOnce);
+
+    if (!continuingHandoff) {
+      clearIdleTimer();
+    }
+    const useCalmIdle = continuingHandoff || enteringCalmIdle;
+    idleHandoffActiveRef.current = useCalmIdle;
+    if (!isInspection) {
+      if (documentHiddenRef.current) {
+        clearIdleTimer();
+        setFrameloop('never');
+      } else {
+        setFrameloop(useCalmIdle ? 'demand' : 'always');
+        invalidate();
+      }
+    }
+
     if (!activeName) return;
 
-    const action = actions[activeName];
-    inspectionAction.current = action ?? null;
-    if (action && playbackMode) {
-      const elapsedSeconds = playbackStartedAtMs === undefined ? 0 : (performance.now() - playbackStartedAtMs) / 1000;
-      applyAvatarPlayback(action, { mode: playbackMode }, elapsedSeconds);
-    } else if (isInspection) action?.reset().setEffectiveWeight(1).play();
-    else action?.reset().fadeIn(0.2).play();
+    inspectionAction.current = action;
+    activeActionRef.current = action;
+
+    if (!continuingHandoff) {
+      const instant = isInspection || playbackMode === 'still';
+      const elapsedSeconds =
+        enteringCalmIdle || playbackStartedAtMs === undefined
+          ? 0
+          : (performance.now() - playbackStartedAtMs) / 1000;
+      const targetOptions: AvatarPlaybackOptions = enteringCalmIdle
+        ? { mode: 'loop' }
+        : playbackMode
+          ? { mode: playbackMode }
+          : { mode: 'loop' };
+      transitionAvatarAction(
+        prevAction,
+        action,
+        targetOptions,
+        playbackMode && !enteringCalmIdle ? elapsedSeconds : 0,
+        isInspection ? inspectionTimeScale : (playbackTimeScale ?? 1),
+        instant,
+      );
+    }
 
     if (action) {
       const dur = Math.max(1e-6, action.getClip().duration);
-      const finishedOnce = playbackMode === 'once' && (action.paused || action.time >= dur - 1e-6);
+      const finishedOnce =
+        !idleHandoffActiveRef.current &&
+        playbackMode === 'once' &&
+        (action.paused || action.time >= dur - 1e-6);
       const norm = ((action.time % dur) + dur) % dur / dur;
-      syncCompanionAccessories(scene, finishedOnce ? null : action.getClip().name, norm);
+      syncCompanionAccessories(
+        scene,
+        finishedOnce && !accessoryOptions.alwaysShowBrows ? null : action.getClip().name,
+        norm,
+        finishedOnce ? 0 : action.getMixer().time,
+        accessoryOptions,
+      );
     } else {
-      syncCompanionAccessories(scene, animationName, 0.5);
+      syncCompanionAccessories(scene, animationName, 0.5, 0, accessoryOptions);
     }
     try {
       garmentCorrectives.update();
@@ -392,13 +620,24 @@ function LoadedAvatarModel({
       onErrorRef.current(error);
     }
     groupRef.current?.updateMatrixWorld(true);
-
-    return () => {
-      if (playbackMode || isInspection) action?.stop();
-      else action?.fadeOut(0.2);
-      inspectionAction.current = null;
-    };
-  }, [actions, animationName, garmentCorrectives, names, isInspection, playbackMode, playbackEventKey, playbackStartedAtMs, scene, setFrameloop]);
+  }, [
+    accessoryOptions,
+    actions,
+    animationName,
+    clearIdleTimer,
+    garmentCorrectives,
+    names,
+    isInspection,
+    inspectionTimeScale,
+    playbackIdleAfterOnce,
+    playbackMode,
+    playbackEventKey,
+    playbackStartedAtMs,
+    playbackTimeScale,
+    scene,
+    invalidate,
+    setFrameloop,
+  ]);
 
   useLayoutEffect(() => {
     groupRef.current?.updateMatrixWorld(true);

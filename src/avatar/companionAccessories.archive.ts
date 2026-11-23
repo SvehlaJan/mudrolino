@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { syncCompanionAccessories } from './companionAccessories';
 
 const ACCESSORY_GROUP_NAME = '__bear_companion_accessory__';
-const LOCAL_BEAR_GLB = path.resolve(process.cwd(), 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v7/web-v1/model.glb');
+const LOCAL_BEAR_GLB = path.resolve(process.cwd(), 'assets/avatar/catalog-a/companions/bear-v2/revisions/celebration-v9/web-v1/model.glb');
 beforeAll(() => {
   if (!fs.existsSync(LOCAL_BEAR_GLB)) throw new Error(`Local avatar archive model unavailable: ${LOCAL_BEAR_GLB}. Restore this MacBook's archive and run npm run archive:link before archive tests.`);
 });

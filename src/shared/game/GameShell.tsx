@@ -6,9 +6,11 @@
 import React from 'react';
 import { useReducedMotion } from 'motion/react';
 import { getCompanionConfig } from '../../avatar/companionConfig';
+import { useCompanionMode } from '../../avatar/companionStage';
 import {
   IDLE_NUDGE_DELAY_MS,
   PromptCompanion,
+  SECOND_IDLE_NUDGE_DELAY_MS,
   selectIdleNudgeClip,
   shouldArmIdleNudge,
   type CompanionNudgeEvent,
@@ -84,18 +86,20 @@ export function GameShell({
 }: GameShellProps) {
   const locale = useContentLocale();
   const [companionConfig] = React.useState(getCompanionConfig);
+  const companionMode = useCompanionMode();
+  const effectiveCompanionConfig = companionMode === 'off' ? null : companionConfig;
   const prefersReducedMotion = useReducedMotion();
-  const reducedMotion = companionMotion === 'still' || Boolean(prefersReducedMotion);
+  const reducedMotion = companionMotion === 'still' || companionMode === 'static' || Boolean(prefersReducedMotion);
   const celebration = useCompanionCelebration(state);
-  const companionResource = useCompanionResources(reducedMotion ? null : companionConfig?.modelUrl ?? null);
+  const companionResource = useCompanionResources(reducedMotion ? null : effectiveCompanionConfig?.modelUrl ?? null);
   const companionSlot = (
     <div data-testid="companion-feedback-slot" aria-hidden="true" className="mx-auto h-[200px] w-44 shrink-0 max-sm:h-[164px] max-sm:w-36 [@media(max-height:480px)]:h-[164px] [@media(max-height:480px)]:w-36 max-sm:[@media(max-height:480px)]:h-32 max-sm:[@media(max-height:480px)]:w-28">
-      <LearningCompanion event={celebration} config={companionConfig} resource={companionResource}
+      <LearningCompanion event={celebration} config={effectiveCompanionConfig} resource={companionResource}
         reducedMotion={reducedMotion} stillUrl={bearStill}
         className="h-full w-full" />
     </div>
   );
-  const companionPanelClass = companionConfig
+  const companionPanelClass = effectiveCompanionConfig
     ? 'bg-white shadow-block px-8 py-6 sm:px-12 sm:py-8 max-sm:px-6 max-sm:py-5 [@media(max-height:480px)]:px-6 [@media(max-height:480px)]:py-3 max-sm:[@media(max-height:480px)]:px-3'
     : 'bg-white shadow-block';
 
@@ -109,7 +113,7 @@ export function GameShell({
   const isFinalRound = state.roundsPlayed >= state.maxRounds;
   const showCompletion = Boolean(completion && state.phase === 'session-complete');
   const transientFeedback = Boolean(feedback && (feedback.kind === 'success' || feedback.kind === 'failure') && !showCompletion);
-  const showCompanionInOverlay = Boolean(companionConfig && (showCompletion || feedback?.kind === 'success' || feedback?.kind === 'failure'));
+  const showCompanionInOverlay = Boolean(effectiveCompanionConfig && (showCompletion || feedback?.kind === 'success' || feedback?.kind === 'failure'));
   const contentLocked =
     state.paused ||
     transientFeedback ||
@@ -120,7 +124,7 @@ export function GameShell({
   const promptReplaying =
     React.isValidElement<{ replaying?: boolean }>(prompt) && Boolean(prompt.props.replaying);
   const canArmIdleNudge =
-    shouldArmIdleNudge(state, contentLocked, Boolean(companionConfig)) && !promptReplaying;
+    shouldArmIdleNudge(state, contentLocked, Boolean(effectiveCompanionConfig)) && !promptReplaying;
   const idleNudgeScopeKey = `${state.roundsPlayed}:${state.wrongAttempts}:${promptReplaying ? 1 : 0}`;
   const [idleNudge, setIdleNudge] = React.useState<{
     scopeKey: string;
@@ -137,8 +141,10 @@ export function GameShell({
     }
 
     let timeoutId: number | undefined;
+    let sleepyTimeoutId: number | undefined;
     const armTimer = () => {
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+      if (sleepyTimeoutId !== undefined) window.clearTimeout(sleepyTimeoutId);
       timeoutId = window.setTimeout(() => {
         const nudgeIndex = nudgeSeqRef.current;
         nudgeSeqRef.current += 1;
@@ -151,6 +157,17 @@ export function GameShell({
           },
         });
       }, IDLE_NUDGE_DELAY_MS);
+      sleepyTimeoutId = window.setTimeout(() => {
+        nudgeSeqRef.current += 1;
+        setIdleNudge({
+          scopeKey: idleNudgeScopeKey,
+          event: {
+            eventKey: `nudge:sleepy:${nudgeSeqRef.current}`,
+            animationName: 'sleepy_yawn',
+            startedAtMs: performance.now(),
+          },
+        });
+      }, SECOND_IDLE_NUDGE_DELAY_MS);
     };
 
     const handleUserActivity = () => {
@@ -164,6 +181,7 @@ export function GameShell({
 
     return () => {
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+      if (sleepyTimeoutId !== undefined) window.clearTimeout(sleepyTimeoutId);
       window.removeEventListener('pointerdown', handleUserActivity, { capture: true });
       window.removeEventListener('keydown', handleUserActivity, { capture: true });
     };
@@ -177,10 +195,11 @@ export function GameShell({
     companion?: React.ReactNode;
   }>(prompt)
     ? React.cloneElement(prompt, {
-        companion: companionConfig ? (
+        companion: effectiveCompanionConfig ? (
           <PromptCompanion
             locale={locale}
-            config={companionConfig}
+            gameId={gameId}
+            config={effectiveCompanionConfig}
             resource={companionResource}
             reducedMotion={reducedMotion}
             stillUrl={bearStill}

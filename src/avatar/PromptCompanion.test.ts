@@ -63,12 +63,13 @@ describe('PromptCompanion gating and clip rotation', () => {
     }
   });
 
-  it('cycles IDLE_NUDGE_CLIPS across think, search, and listen', () => {
-    expect(IDLE_NUDGE_CLIPS).toEqual(['think', 'search', 'listen']);
+  it('cycles IDLE_NUDGE_CLIPS across think, search, listen, and point_down', () => {
+    expect(IDLE_NUDGE_CLIPS).toEqual(['think', 'search', 'listen', 'point_down']);
     expect(selectIdleNudgeClip(0, 0)).toBe('think');
     expect(selectIdleNudgeClip(0, 1)).toBe('search');
     expect(selectIdleNudgeClip(0, 2)).toBe('listen');
-    expect(selectIdleNudgeClip(0, 3)).toBe('think');
+    expect(selectIdleNudgeClip(0, 3)).toBe('point_down');
+    expect(selectIdleNudgeClip(0, 4)).toBe('think');
     expect(selectIdleNudgeClip(1, 0)).toBe('search');
     expect(selectIdleNudgeClip(2, 0)).toBe('listen');
   });
@@ -112,7 +113,7 @@ describe('PromptCompanion rendering', () => {
       state: { ...awaitingState, phase: 'answered-incorrectly', wrongAttempts: 1 },
       reducedMotion: true,
     });
-    expect(retryHtml).toContain('data-companion-animation="encourage"');
+    expect(retryHtml).toContain('data-companion-animation="gentle_try_again"');
     expect(retryHtml).toContain('data-companion-reason="retry"');
 
     const nudgeHtml = render({

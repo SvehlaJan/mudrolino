@@ -17,15 +17,18 @@ export interface AppSettingsStorage {
 }
 
 export type AppFontFamily = 'nunito' | 'shantell';
+export type CompanionMode = 'animated' | 'static' | 'off';
 
 export interface AppSettings {
   locale: string; // one of SUPPORTED_LOCALES in src/shared/i18n.ts
   fontFamily: AppFontFamily;
+  companionMode: CompanionMode;
 }
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   locale: 'sk',
   fontFamily: 'nunito',
+  companionMode: 'animated',
 };
 
 function getDefaultStorage(): AppSettingsStorage | null {
@@ -51,6 +54,10 @@ export function loadAppSettings(storage: AppSettingsStorage | null = getDefaultS
     return {
       locale: isSupportedLocale(stored.locale) ? stored.locale : DEFAULT_APP_SETTINGS.locale,
       fontFamily: stored.fontFamily === 'shantell' ? 'shantell' : DEFAULT_APP_SETTINGS.fontFamily,
+      companionMode:
+        stored.companionMode === 'static' || stored.companionMode === 'off'
+          ? stored.companionMode
+          : DEFAULT_APP_SETTINGS.companionMode,
     };
   } catch {
     return DEFAULT_APP_SETTINGS;

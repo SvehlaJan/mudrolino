@@ -5,10 +5,13 @@ import { cn } from '../shared/ui/utils';
 import { AvatarPresenter } from './AvatarPresenter';
 import {
   COMPANION_STAGE_PRIORITY,
+  useCompanionMode,
+  useCompanionStageFailed,
   useCompanionStageSlot,
 } from './companionStage';
 import {
   IDLE_NUDGE_DELAY_MS,
+  SECOND_IDLE_NUDGE_DELAY_MS,
   selectIdleNudgeClip,
   shouldArmIdleNudge,
 } from './companionCelebration';
@@ -22,11 +25,12 @@ import {
 } from './promptCompanionState';
 
 // eslint-disable-next-line react-refresh/only-export-components
-export { IDLE_NUDGE_DELAY_MS, selectIdleNudgeClip, shouldArmIdleNudge };
+export { IDLE_NUDGE_DELAY_MS, SECOND_IDLE_NUDGE_DELAY_MS, selectIdleNudgeClip, shouldArmIdleNudge };
 export type { CompanionNudgeEvent };
 
 export interface PromptCompanionProps {
   locale?: string;
+  gameId?: string;
   config: CompanionConfig | null;
   resource: CompanionResource;
   reducedMotion: boolean;
@@ -41,6 +45,7 @@ export interface PromptCompanionProps {
 
 export function PromptCompanion({
   locale = 'sk',
+  gameId,
   config,
   resource,
   reducedMotion,
@@ -52,15 +57,17 @@ export function PromptCompanion({
   onReplay,
   className,
 }: PromptCompanionProps) {
-  if (!config) return null;
+  const companionMode = useCompanionMode();
+  if (!config || companionMode === 'off') return null;
 
   return (
     <ActivePromptCompanion
       key={config.modelUrl}
       locale={locale}
+      gameId={gameId}
       config={config}
       resource={resource}
-      reducedMotion={reducedMotion}
+      reducedMotion={reducedMotion || companionMode === 'static'}
       stillUrl={stillUrl}
       state={state}
       promptReplaying={promptReplaying}
@@ -74,6 +81,7 @@ export function PromptCompanion({
 
 function ActivePromptCompanion({
   locale,
+  gameId,
   config,
   resource,
   reducedMotion,
@@ -86,6 +94,7 @@ function ActivePromptCompanion({
   className,
 }: {
   locale: string;
+  gameId?: string;
   config: CompanionConfig;
   resource: CompanionResource;
   reducedMotion: boolean;
@@ -102,6 +111,7 @@ function ActivePromptCompanion({
     {
       phase: state.phase,
       paused: state.paused,
+      gameId,
       roundsPlayed: state.roundsPlayed,
       wrongAttempts: state.wrongAttempts,
       feedback: state.feedback,
@@ -122,6 +132,7 @@ function ActivePromptCompanion({
       observation: {
         phase: state.phase,
         paused: state.paused,
+        gameId,
         roundsPlayed: state.roundsPlayed,
         wrongAttempts: state.wrongAttempts,
         feedback: state.feedback,
@@ -131,6 +142,7 @@ function ActivePromptCompanion({
       nowMs: performance.now(),
     });
   }, [
+    gameId,
     idleNudge,
     promptReplaying,
     state.feedback,
@@ -158,10 +170,12 @@ function ActivePromptCompanion({
     onReplay?.();
   }, [canTap, onReplay]);
 
+  const stageFailed = useCompanionStageFailed();
   const canRender =
     !state.paused &&
     !reducedMotion &&
     !failed &&
+    !stageFailed &&
     resource.status === 'ready' &&
     resource.modelUrl === modelUrl;
 
@@ -170,8 +184,9 @@ function ActivePromptCompanion({
       mode: 'once' as const,
       eventKey: guideState.eventKey,
       startedAtMs: guideState.startedAtMs,
+      idleAfterOnce: state.paused ? undefined : 'idle_breathe',
     }),
-    [guideState.eventKey, guideState.startedAtMs],
+    [guideState.eventKey, guideState.startedAtMs, state.paused],
   );
 
   const stage = useCompanionStageSlot({
@@ -186,8 +201,13 @@ function ActivePromptCompanion({
     onError,
   });
 
-  const showStill = !canRender || (stage.hasProvider && stage.activeSlotId !== null && !stage.isOwner);
-  const rendered = canRender && (!stage.hasProvider || stage.isOwner) && modelReady;
+  const isSlotEligible = canRender && (!stage.hasProvider || stage.isOwner);
+  if (!isSlotEligible && modelReady) {
+    setModelReady(false);
+  }
+
+  const showStill = !canRender || stageFailed;
+  const rendered = isSlotEligible && modelReady;
 
   return (
     <button

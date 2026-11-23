@@ -19,6 +19,12 @@ export const COMPANION_CLIP_NAMES = [
   'wiggle',
   'peekaboo',
   'stretch',
+  'walk',
+  'point_down',
+  'gentle_try_again',
+  'talk_explain',
+  'count_one_two_three',
+  'sleepy_yawn',
 ] as const;
 export type CompanionClipName = (typeof COMPANION_CLIP_NAMES)[number];
 export const CELEBRATION_CLIPS: readonly CompanionClipName[] = [
@@ -51,15 +57,20 @@ export const HOME_TAP_CLIPS = [
   'bow',
   'search',
   'listen',
+  'talk_explain',
+  'point_down',
+  'count_one_two_three',
 ] as const satisfies readonly CompanionClipName[];
 
 export const IDLE_NUDGE_CLIPS = [
   'think',
   'search',
   'listen',
+  'point_down',
 ] as const satisfies readonly CompanionClipName[];
 
 export const IDLE_NUDGE_DELAY_MS = 12_000;
+export const SECOND_IDLE_NUDGE_DELAY_MS = 24_000;
 
 export function selectIdleNudgeClip(roundsPlayed: number, nudgeIndex: number): CompanionClipName {
   const index = ((roundsPlayed + nudgeIndex) % IDLE_NUDGE_CLIPS.length + IDLE_NUDGE_CLIPS.length) % IDLE_NUDGE_CLIPS.length;

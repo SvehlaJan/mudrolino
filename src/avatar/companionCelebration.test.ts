@@ -32,11 +32,24 @@ beforeEach(() => {
 });
 
 describe('completed correct-answer, empathy and summary guide state', () => {
-  it('registers all 18 companion clips including idle_breathe and guide subsets', () => {
+  it('registers all 24 companion clips including idle_breathe, walk, and pedagogical subsets', () => {
     expect(COMPANION_CLIP_NAMES).toContain('idle_breathe');
-    expect(COMPANION_CLIP_NAMES).toHaveLength(18);
-    expect(HOME_TAP_CLIPS).toEqual(['peekaboo', 'stretch', 'clap', 'wiggle', 'bow', 'search', 'listen']);
-    expect(IDLE_NUDGE_CLIPS).toEqual(['think', 'search', 'listen']);
+    expect(COMPANION_CLIP_NAMES).toContain('walk');
+    expect(COMPANION_CLIP_NAMES).toContain('sleepy_yawn');
+    expect(COMPANION_CLIP_NAMES).toHaveLength(24);
+    expect(HOME_TAP_CLIPS).toEqual([
+      'peekaboo',
+      'stretch',
+      'clap',
+      'wiggle',
+      'bow',
+      'search',
+      'listen',
+      'talk_explain',
+      'point_down',
+      'count_one_two_three',
+    ]);
+    expect(IDLE_NUDGE_CLIPS).toEqual(['think', 'search', 'listen', 'point_down']);
   });
 
   it('creates one persistent event for the overlay without resetting startedAtMs on rerender', () => {
